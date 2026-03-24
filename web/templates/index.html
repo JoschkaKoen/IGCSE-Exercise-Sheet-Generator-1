@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+{% block title %}Generate — IGCSE Exercise Sheet Generator{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-2xl">
+
+  <!-- Hero -->
+  <div class="flex items-start gap-4">
+    <div class="hero-icon mt-1 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl
+                bg-gradient-to-br from-cyan-500/20 to-blue-600/20 ring-1 ring-cyan-500/25">
+      <svg class="h-7 w-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+      </svg>
+    </div>
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-400/75">Cambridge IGCSE</p>
+      <h1 class="font-display mt-1 text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
+        Exercise Sheet<br class="hidden sm:block"> Generator
+      </h1>
+    </div>
+  </div>
+
+  <p class="mt-6 max-w-lg text-[0.95rem] leading-relaxed text-slate-400">
+    Describe which questions you want from
+    <span class="subject-badge subject-badge-physics">Physics</span> or
+    <span class="subject-badge subject-badge-cs">Computer Science</span>
+    papers — the AI selects the right PDFs and assembles a single printable sheet.
+    Add "include mark scheme" to get an answers PDF too.
+  </p>
+
+  <!-- Form -->
+  <form id="gen-form" class="glass-panel form-glow mt-10 rounded-3xl p-6 sm:p-8">
+    <label for="prompt" class="block text-sm font-medium text-slate-300">Your request</label>
+    <textarea
+      id="prompt"
+      name="prompt"
+      rows="4"
+      required
+      class="mt-2.5 w-full resize-y rounded-2xl border border-white/10 bg-slate-950/70
+             px-4 py-3 text-[0.9rem] text-slate-100 placeholder:text-slate-500/80
+             shadow-inner shadow-black/25
+             focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20
+             transition-colors"
+      placeholder="e.g. Physics winter 2024 paper 21, questions 12–14, include mark scheme"
+    ></textarea>
+
+    <!-- Example prompts (fill textarea on click) -->
+    <div class="mt-3.5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+      <button type="button"
+              class="quick-fill rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-left text-xs text-slate-300 transition hover:border-violet-500/35 hover:bg-violet-500/10 hover:text-violet-200 sm:min-w-0 sm:flex-1"
+              title="Extract exercises 1, 3, 5, 6, 8 from w24 12 and exercises 2, 3, 5, 6, 8, 10 from w24 22. All are computer science exams."
+              data-prompt="Extract exercises 1, 3, 5, 6, 8 from w24 12 and exercises 2, 3, 5, 6, 8, 10 from w24 22. All are computer science exams.">
+        <span class="font-semibold text-slate-200">Computer science example</span>
+        <span class="mt-0.5 block text-[0.7rem] leading-snug text-slate-500">w24 papers 12 &amp; 22 — multi-paper</span>
+      </button>
+      <button type="button"
+              class="quick-fill rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-left text-xs text-slate-300 transition hover:border-cyan-500/35 hover:bg-cyan-500/10 hover:text-cyan-200 sm:min-w-0 sm:flex-1"
+              title="Extract exercises 1, 5, 9, 23, 29 from s23 22 and exercise 3, 4, 6, 8, 10 from s23 41 and exercise 2, 4 from s23 63. All are physics papers"
+              data-prompt="Extract exercises 1, 5, 9, 23, 29 from s23 22 and exercise 3, 4, 6, 8, 10 from s23 41 and exercise 2, 4 from s23 63. All are physics papers">
+        <span class="font-semibold text-slate-200">Physics example</span>
+        <span class="mt-0.5 block text-[0.7rem] leading-snug text-slate-500">s23 papers 22, 41 &amp; 63 — multi-paper</span>
+      </button>
+    </div>
+
+    <div class="mt-7 flex items-center gap-4">
+      <button type="submit" id="submit-btn"
+              class="btn-space-primary inline-flex items-center justify-center gap-2
+                     rounded-2xl px-7 py-3 text-sm font-semibold text-white
+                     focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400
+                     focus-visible:ring-offset-2 focus-visible:ring-offset-space-deep">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        Generate sheet
+      </button>
+    </div>
+
+    <!-- Progress strip (shown while running) -->
+    <div id="run-indicator"
+         class="progress-strip mt-5 hidden items-center gap-3 rounded-2xl px-4 py-3"
+         role="status" aria-live="polite">
+      <span class="h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-cyan-400/20 border-t-cyan-400"
+            aria-hidden="true"></span>
+      <span id="job-log-line" class="min-w-0 flex-1 truncate font-mono text-xs text-slate-400"></span>
+    </div>
+  </form>
+
+  <!-- Result panel -->
+  <div id="result-panel"
+       class="glass-panel result-panel-reveal pointer-events-none mt-6 hidden translate-y-6 rounded-3xl p-6 opacity-0 sm:p-8">
+    <div class="flex items-center gap-3">
+      <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/20 ring-1 ring-emerald-500/30">
+        <svg class="h-5 w-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <div>
+        <h2 class="font-display text-base font-semibold text-white">Ready</h2>
+        <p class="text-xs text-slate-500">Your PDFs are available below</p>
+      </div>
+    </div>
+    <div class="mt-5 flex flex-wrap gap-3">
+      <a id="dl-main" href="#"
+         class="download-btn inline-flex items-center gap-2 rounded-2xl border border-white/10
+                bg-white/[0.05] px-5 py-3 text-sm font-medium text-slate-100 backdrop-blur-sm
+                transition hover:border-cyan-500/30 hover:bg-cyan-500/10
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
+        <svg class="h-5 w-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        Exercise sheet
+      </a>
+      <a id="dl-answers" href="#"
+         class="download-btn hidden inline-flex items-center gap-2 rounded-2xl border border-white/10
+                bg-white/[0.05] px-5 py-3 text-sm font-medium text-slate-100 backdrop-blur-sm
+                transition hover:border-emerald-500/30 hover:bg-emerald-500/10
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60">
+        <svg class="h-5 w-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        Mark scheme
+      </a>
+    </div>
+  </div>
+
+  <!-- Error panel -->
+  <div id="error-panel"
+       class="mt-6 hidden rounded-2xl border border-red-500/25 bg-red-950/40 p-4
+              text-sm text-red-300 backdrop-blur-sm"
+       role="alert"></div>
+
+  <!-- Feature cards -->
+  <div class="mt-14 grid grid-cols-1 gap-3 sm:grid-cols-3">
+    <div class="feature-card rounded-2xl p-5">
+      <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-500/15 ring-1 ring-cyan-500/20">
+        <svg class="h-4 w-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+        </svg>
+      </div>
+      <h3 class="mt-3 text-sm font-semibold text-white">Natural language</h3>
+      <p class="mt-1 text-xs leading-relaxed text-slate-500">Describe what you need in plain English</p>
+    </div>
+    <div class="feature-card rounded-2xl p-5">
+      <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-500/15 ring-1 ring-violet-500/20">
+        <svg class="h-4 w-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+        </svg>
+      </div>
+      <h3 class="mt-3 text-sm font-semibold text-white">Multiple papers</h3>
+      <p class="mt-1 text-xs leading-relaxed text-slate-500">Combine questions from different exams</p>
+    </div>
+    <div class="feature-card rounded-2xl p-5">
+      <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/15 ring-1 ring-emerald-500/20">
+        <svg class="h-4 w-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+      </div>
+      <h3 class="mt-3 text-sm font-semibold text-white">Mark schemes</h3>
+      <p class="mt-1 text-xs leading-relaxed text-slate-500">Include answers for revision</p>
+    </div>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  const form        = document.getElementById('gen-form');
+  const promptEl    = document.getElementById('prompt');
+  const submitBtn   = document.getElementById('submit-btn');
+  const runIndicator= document.getElementById('run-indicator');
+  const resultPanel = document.getElementById('result-panel');
+  const errorPanel  = document.getElementById('error-panel');
+  const dlMain      = document.getElementById('dl-main');
+  const dlAnswers   = document.getElementById('dl-answers');
+  const jobLogLine  = document.getElementById('job-log-line');
+
+  document.querySelectorAll('.quick-fill').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      promptEl.value = btn.getAttribute('data-prompt');
+      promptEl.focus();
+    });
+  });
+
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+  function applyLogLine(data) {
+    if (!jobLogLine) return;
+    let line = (data.log_line != null && data.log_line !== '') ? String(data.log_line) : '';
+    if (!line) {
+      if      (data.status === 'pending') line = 'Queued for processing…';
+      else if (data.status === 'running') line = 'Starting…';
+      else                                line = 'Working…';
+    }
+    jobLogLine.textContent = line;
+    jobLogLine.title = line;
+  }
+
+  async function fetchJobStatus(id) {
+    const res = await fetch('/api/jobs/' + encodeURIComponent(id), {
+      cache: 'no-store',
+      headers: { 'Accept': 'application/json' },
+    });
+    if (!res.ok) throw new Error('Could not load job status.');
+    return res.json();
+  }
+
+  function showResultPanel() {
+    resultPanel.classList.remove('hidden');
+    resultPanel.getBoundingClientRect();
+    setTimeout(function () {
+      requestAnimationFrame(function () {
+        resultPanel.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
+      });
+    }, 280);
+  }
+
+  function hideResultPanel() {
+    resultPanel.classList.add('hidden', 'opacity-0', 'translate-y-6', 'pointer-events-none');
+  }
+
+  async function pollJob(id, onTick) {
+    while (true) {
+      const data = await fetchJobStatus(id);
+      if (onTick) onTick(data);
+      if (data.status === 'failed') throw new Error(data.error || 'Generation failed.');
+      if (data.status === 'done')   return data;
+      await sleep(400);
+    }
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const prompt = promptEl.value.trim();
+    if (!prompt) return;
+
+    errorPanel.classList.add('hidden');
+    hideResultPanel();
+    submitBtn.disabled = true;
+    runIndicator.classList.remove('hidden');
+    runIndicator.classList.add('flex');
+    applyLogLine({ status: 'pending', log_line: '' });
+
+    try {
+      const res = await fetch('/api/jobs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt }),
+      });
+      const body = await res.json().catch(function () { return {}; });
+      if (!res.ok) {
+        const d = body.detail;
+        const msg = typeof d === 'string' ? d
+          : Array.isArray(d) ? d.map(function (x) { return x.msg || JSON.stringify(x); }).join(' ')
+          : JSON.stringify(d || body);
+        throw new Error(msg || ('HTTP ' + res.status));
+      }
+      const id = body.id;
+      if (!id) throw new Error('No job id returned.');
+
+      applyLogLine(await fetchJobStatus(id));
+      const done = await pollJob(id, applyLogLine);
+
+      dlMain.href = done.download_url || '#';
+      if (done.answers_url) {
+        dlAnswers.href = done.answers_url;
+        dlAnswers.classList.remove('hidden');
+      } else {
+        dlAnswers.classList.add('hidden');
+      }
+      showResultPanel();
+    } catch (err) {
+      errorPanel.textContent = err.message || String(err);
+      errorPanel.classList.remove('hidden');
+    } finally {
+      submitBtn.disabled = false;
+      runIndicator.classList.add('hidden');
+      runIndicator.classList.remove('flex');
+    }
+  });
+})();
+</script>
+{% endblock %}

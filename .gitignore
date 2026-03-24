@@ -1,0 +1,31 @@
+# Virtual environment (also match symlinked `.venv`)
+.venv
+.venv/
+venv/
+env/
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+API-KEYS-AND-MODELS.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Generated output (optional: remove this line if you want to track sample PDFs)
+output/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+.claude/
