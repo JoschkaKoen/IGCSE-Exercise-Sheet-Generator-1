@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """Mark scheme detection, MCQ parsing, and answer-table regions."""
 
+from __future__ import annotations
+
 import re
 
 from .config import (
-    MS_FOOTER_TOP_PT,
-    MS_HEADER_BOTTOM_PT,
+    DEFAULT_SUBJECT_CONFIG,
     MS_LANDSCAPE_H_THRESHOLD_PT,
+    SubjectConfig,
 )
 
 
@@ -150,13 +152,14 @@ def parse_mcq_answers(doc):
     return answers
 
 
-def find_ms_answer_pages(doc):
+def find_ms_answer_pages(doc, cfg: SubjectConfig | None = None):
     """Find pages in the mark scheme that contain the actual answer tables."""
+    cfg = cfg or DEFAULT_SUBJECT_CONFIG
     answer_pages = []
     for pi in range(len(doc)):
         page = doc[pi]
         text = page.get_text()
-        if "Question" not in text or "Marks" not in text:
+        if "Question" not in text or cfg.ms_marks_column_keyword not in text:
             continue
         blocks = page.get_text("dict")["blocks"]
         for b in blocks:
@@ -231,6 +234,41 @@ def _cap_y_end_before_headers(y_start, y_end, header_rows_for_page, page=None):
     return y_end
 
 
+def _precise_y_start_from_drawings(page, y_start: float, h_top: float, h_bot: float,
+                                    first_entry_y: float) -> float:
+    """Refine y_start using drawing geometry so we begin at the first content-row border.
+
+    1.  Find the extent of the header band: the highest y1 of any wide drawing that
+        *starts* within 15 pt of h_top and *ends* after h_bot but before first_entry_y.
+    2.  Find the first wide drawing that starts *after* that header-band extent — that
+        drawing is the top border of the first content row.  Use its y0 as y_start.
+
+    Falls back gracefully when no drawings are found (returns the incoming y_start).
+    """
+    header_band_end = h_bot
+    for d in page.get_drawings():
+        r = d["rect"]
+        dr = _norm_bbox(page, (r.x0, r.y0, r.x1, r.y1))
+        if dr[2] - dr[0] < 50:
+            continue
+        if dr[0] >= h_top - 15 and dr[1] > h_bot and dr[1] < first_entry_y:
+            header_band_end = max(header_band_end, dr[1])
+
+    content_row_top = None
+    for d in page.get_drawings():
+        r = d["rect"]
+        dr = _norm_bbox(page, (r.x0, r.y0, r.x1, r.y1))
+        if dr[2] - dr[0] < 50:
+            continue
+        if dr[0] > header_band_end and dr[0] < first_entry_y:
+            if content_row_top is None or dr[0] < content_row_top:
+                content_row_top = dr[0]
+
+    if content_row_top is not None:
+        return max(y_start, content_row_top)
+    return max(y_start, header_band_end)
+
+
 def _floor_y_start_below_headers(first_line_y, candidate_y_start, header_rows_for_page,
                                   separator_below_header_pt=5.65):
     """Raise ``y_start`` so the strip begins *below* any table header row that sits
@@ -252,20 +290,26 @@ def _floor_y_start_below_headers(first_line_y, candidate_y_start, header_rows_fo
     return y
 
 
-def _tight_y_end(page, y_start, y_end_max, trailing_gap_pt: float = 20):
+def _tight_y_end(page, y_start, y_end_max, trailing_gap_pt: float,
+                 cfg: SubjectConfig | None = None) -> float:
     """Return the bottom of all visible content on *page* inside (y_start, y_end_max).
 
     Scans both text lines and drawn elements (table cell borders are drawn paths,
     not text).  Whichever is furthest down determines the cut point:
 
-    * If a drawing (width ≥ 50 pt) is the bottommost element, return drawing_y + 5
-      (the border itself is the last thing; no extra gap needed).
+    * If a drawing (width ≥ cfg.drawing_min_width_pt) is the bottommost element,
+      return drawing_y + cfg.drawing_bottom_pad_pt (the border itself is the last
+      thing; minimal padding ensures the border pixel is fully included without
+      pulling in the next row's top whitespace).
     * Otherwise return last_text_y + ``trailing_gap_pt`` so closing cell borders
       drawn ~20–30 pt below the last text row are still captured.
 
-    ``trailing_gap_pt`` should be 20 when a header-cap has already been applied
-    and 32 when no cap was active.
+    ``trailing_gap_pt`` should be cfg.trailing_gap_capped_pt when a header-cap has
+    already been applied and cfg.trailing_gap_uncapped_pt when no cap was active.
     """
+    cfg = cfg or DEFAULT_SUBJECT_CONFIG
+    min_draw_w = cfg.drawing_min_width_pt
+
     last_text_y = None
     for b in page.get_text("dict")["blocks"]:
         if b["type"] != 0:
@@ -285,7 +329,7 @@ def _tight_y_end(page, y_start, y_end_max, trailing_gap_pt: float = 20):
     for d in page.get_drawings():
         r = d["rect"]
         dr = _norm_bbox(page, (r.x0, r.y0, r.x1, r.y1))
-        if dr[2] - dr[0] < 50:          # skip narrow rules / dots
+        if dr[2] - dr[0] < min_draw_w:
             continue
         if dr[3] <= y_start or dr[3] >= y_end_max:
             continue
@@ -299,13 +343,16 @@ def _tight_y_end(page, y_start, y_end_max, trailing_gap_pt: float = 20):
     if last_drawing_y is not None and (
         last_text_y is None or last_drawing_y > last_text_y + 5
     ):
-        return last_drawing_y + 5   # drawing is the true bottom; tiny gap only
+        # The horizontal border line IS the true bottom edge.  Its bounding rect
+        # already encompasses the stroke width, so only minimal padding is needed.
+        return last_drawing_y + cfg.drawing_bottom_pad_pt
     return (last_text_y or 0) + trailing_gap_pt
 
 
-def find_ms_answer_regions(doc, requested_questions):
+def find_ms_answer_regions(doc, requested_questions, cfg: SubjectConfig | None = None):
     """Find answer regions in a structured mark scheme."""
-    answer_pages = find_ms_answer_pages(doc)
+    cfg = cfg or DEFAULT_SUBJECT_CONFIG
+    answer_pages = find_ms_answer_pages(doc, cfg)
 
     if not answer_pages:
         print("  Warning: No answer table pages found in mark scheme.")
@@ -376,21 +423,29 @@ def find_ms_answer_regions(doc, requested_questions):
         last_page = last_entry[1]
         is_landscape_page = doc[first_page].rect.height < MS_LANDSCAPE_H_THRESHOLD_PT
         _sep = 5.65 if is_landscape_page else 3.0
-        y_start = max(MS_HEADER_BOTTOM_PT, first_entry[2] - 10)
+        y_start = max(cfg.ms_header_bottom_pt, first_entry[2] - 10)
+        _first_page_hdrs = page_header_rows.get(first_page, [])
         y_start = _floor_y_start_below_headers(
             first_entry[2],
             y_start,
-            page_header_rows.get(first_page, []),
+            _first_page_hdrs,
             separator_below_header_pt=_sep,
         )
+        # Refine using drawing geometry: skips past the full header-band drawing and
+        # anchors y_start to the top border of the first content row.
+        if _first_page_hdrs:
+            h_top_fp, h_bot_fp = _first_page_hdrs[0]
+            y_start = _precise_y_start_from_drawings(
+                doc[first_page], y_start, h_top_fp, h_bot_fp, first_entry[2]
+            )
 
         def _y_end_cap(page):
-            return MS_FOOTER_TOP_PT if page.rect.height < MS_LANDSCAPE_H_THRESHOLD_PT else page.rect.height - 50
+            return cfg.ms_footer_top_pt if page.rect.height < MS_LANDSCAPE_H_THRESHOLD_PT else page.rect.height - 50
 
         def _mid_y_start(page):
             # Always skip at least the table header band; portrait mids used y=50 before
             # and re-included repeated column headers.
-            return MS_HEADER_BOTTOM_PT
+            return cfg.ms_header_bottom_pt
 
         y_end = min(y_end, _y_end_cap(doc[last_page]))
 
@@ -400,13 +455,8 @@ def find_ms_answer_regions(doc, requested_questions):
             y_end = _cap_y_end_before_headers(
                 y_start, y_end, page_header_rows.get(last_page, []), doc[last_page]
             )
-            # When a header cap fired the trimmed region is already close to the
-            # next header; use a small trailing gap so the header's own top border
-            # line is not pulled in.  When no cap fired the closing table border
-            # may sit up to ~32 pt below the last text row (empty answer rows have
-            # borders but no text), so use a larger gap to capture it.
-            _tight_gap = 20 if y_end < _y_end_raw else 32
-            y_end = min(y_end, _tight_y_end(doc[first_page], y_start, y_end, _tight_gap))
+            _tight_gap = cfg.trailing_gap_capped_pt if y_end < _y_end_raw else cfg.trailing_gap_uncapped_pt
+            y_end = min(y_end, _tight_y_end(doc[first_page], y_start, y_end, _tight_gap, cfg))
             regions.append((qnum, first_page, y_start, y_end))
         else:
             first_y_end = min(doc[first_page].rect.height - 30, _y_end_cap(doc[first_page]))
@@ -416,11 +466,8 @@ def find_ms_answer_regions(doc, requested_questions):
             first_y_end = _cap_y_end_before_headers(
                 y_start, first_y_end, page_header_rows.get(first_page, []), doc[first_page]
             )
-            # _tight_y_end is drawing-aware: it uses drawn table borders as the
-            # true bottom edge, so it correctly trims trailing whitespace while still
-            # including the table's closing border line.
-            _tight_gap_first = 20 if first_y_end < _first_y_end_raw else 32
-            first_y_end = min(first_y_end, _tight_y_end(doc[first_page], y_start, first_y_end, _tight_gap_first))
+            _tight_gap_first = cfg.trailing_gap_capped_pt if first_y_end < _first_y_end_raw else cfg.trailing_gap_uncapped_pt
+            first_y_end = min(first_y_end, _tight_y_end(doc[first_page], y_start, first_y_end, _tight_gap_first, cfg))
             regions.append((qnum, first_page, y_start, first_y_end))
             for mid_p in range(first_page + 1, last_page):
                 if mid_p in answer_pages:
@@ -444,18 +491,24 @@ def find_ms_answer_regions(doc, requested_questions):
             first_on_last = min(e[2] for e in on_last)
             last_ys = _mid_y_start(doc[last_page])
             _last_sep = 5.65 if doc[last_page].rect.height < MS_LANDSCAPE_H_THRESHOLD_PT else 3.0
+            _last_hdrs = page_header_rows.get(last_page, [])
             last_ys = _floor_y_start_below_headers(
                 first_on_last,
                 last_ys,
-                page_header_rows.get(last_page, []),
+                _last_hdrs,
                 separator_below_header_pt=_last_sep,
             )
+            if _last_hdrs:
+                lh_top, lh_bot = _last_hdrs[0]
+                last_ys = _precise_y_start_from_drawings(
+                    doc[last_page], last_ys, lh_top, lh_bot, first_on_last
+                )
             _y_end_raw_last = y_end
             y_end = _cap_y_end_before_headers(
                 last_ys, y_end, page_header_rows.get(last_page, []), doc[last_page]
             )
-            _tight_gap_last = 20 if y_end < _y_end_raw_last else 32
-            y_end = min(y_end, _tight_y_end(doc[last_page], last_ys, y_end, _tight_gap_last))
+            _tight_gap_last = cfg.trailing_gap_capped_pt if y_end < _y_end_raw_last else cfg.trailing_gap_uncapped_pt
+            y_end = min(y_end, _tight_y_end(doc[last_page], last_ys, y_end, _tight_gap_last, cfg))
             regions.append((qnum, last_page, last_ys, y_end))
 
     return regions

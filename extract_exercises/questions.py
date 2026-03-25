@@ -1,13 +1,117 @@
 # -*- coding: utf-8 -*-
 """Locate questions and vertical regions in question papers."""
 
+from __future__ import annotations
+
 import re
 
-from .config import MARGIN_BOTTOM, MARGIN_TOP, PADDING_ABOVE, QUESTION_X_MAX
+import fitz
+
+from .config import DEFAULT_SUBJECT_CONFIG, SubjectConfig
+
+# ---------------------------------------------------------------------------
+# Trailing-whitespace / disclaimer trimming
+# ---------------------------------------------------------------------------
+
+# Text patterns that identify the Cambridge copyright/permission footer.
+# Only ONE of these needs to match in a block for the entire block to be skipped.
+_DISCLAIMER_TRIGGERS = (
+    "permission to reproduce",
+    "third-party owned material",
+    "copyright acknowledgements booklet",
+)
+
+# Minimum gap (pt) between last real content and region end before we bother
+# trimming.  Prevents needlessly tightening same-page tight regions.
+_MIN_TRIM_GAP_PT = 25.0
+
+# Look this many pt above the disclaimer text for a full-width separator line.
+_FOOTER_MARGIN_PT = 15.0
+
+# A drawing must be at least this wide (pt) to be treated as a footer separator.
+_SEPARATOR_MIN_WIDTH_PT = 100.0
 
 
-def find_question_positions(doc):
+def _get_tight_y_end(page: fitz.Page, y_start: float, y_end: float) -> float:
+    """Return a tighter *y_end* by removing trailing blank space and disclaimers.
+
+    Scans the page content in ``[y_start, y_end]``:
+    1. Finds the Cambridge copyright disclaimer text and the full-width
+       separator line that often precedes it.  Everything from the separator
+       (or disclaimer, whichever is higher) onwards is treated as footer.
+    2. Finds the bottom of the last real content element (non-blank text
+       block or drawing wider than 10 pt) that lies above the footer.
+    3. Returns ``min(last_content_y + 8 pt, footer_start - 2 pt)`` if that
+       saves more than ``_MIN_TRIM_GAP_PT`` of vertical space; otherwise
+       returns *y_end* unchanged.
+    """
+    # ── Step 1: locate footer start (disclaimer text + optional separator) ─
+    disclaimer_y = y_end  # sentinel: no disclaimer found
+    for block in page.get_text("dict")["blocks"]:
+        if block["type"] != 0:
+            continue
+        by0 = block["bbox"][1]
+        if by0 < y_start or by0 > y_end:
+            continue
+        flat = " ".join(
+            span["text"] for line in block["lines"] for span in line["spans"]
+        ).lower()
+        if any(pat in flat for pat in _DISCLAIMER_TRIGGERS):
+            disclaimer_y = min(disclaimer_y, by0)
+
+    # Check for a wide horizontal separator line just above the disclaimer text.
+    footer_start_y = disclaimer_y
+    if disclaimer_y < y_end:
+        for drawing in page.get_drawings():
+            r = drawing["rect"]
+            if r.width < _SEPARATOR_MIN_WIDTH_PT:
+                continue
+            if disclaimer_y - _FOOTER_MARGIN_PT <= r.y0 < disclaimer_y:
+                footer_start_y = min(footer_start_y, r.y0)
+
+    effective_end = min(y_end, footer_start_y - 2.0)
+
+    # ── Step 2: last real content up to effective_end ──────────────────────
+    last_y = y_start
+
+    for block in page.get_text("dict")["blocks"]:
+        if block["type"] != 0:
+            continue
+        by0, by1 = block["bbox"][1], block["bbox"][3]
+        if by0 < y_start - 5 or by0 > effective_end:
+            continue
+        flat = " ".join(
+            span["text"] for line in block["lines"] for span in line["spans"]
+        )
+        if not flat.strip():
+            continue  # blank / whitespace-only block
+        last_y = max(last_y, min(by1, effective_end))
+
+    for drawing in page.get_drawings():
+        r = drawing["rect"]
+        if r.y0 < y_start - 5 or r.y0 > effective_end:
+            continue
+        if r.width < 10:  # skip narrow vertical borders / artefacts
+            continue
+        last_y = max(last_y, min(r.y1, effective_end))
+
+    # ── Step 3: decide whether to trim ─────────────────────────────────────
+    if last_y <= y_start:
+        # No content found; trim to footer boundary if that saves enough.
+        if footer_start_y < y_end - _MIN_TRIM_GAP_PT:
+            return max(y_start, effective_end)
+        return y_end
+
+    # Cap tight at effective_end so we never spill into the footer zone.
+    tight = min(last_y + 8.0, effective_end)
+    if tight < y_end - _MIN_TRIM_GAP_PT:
+        return tight
+    return y_end
+
+
+def find_question_positions(doc, cfg: SubjectConfig | None = None):
     """Scan every page for top-level question numbers in the question paper."""
+    cfg = cfg or DEFAULT_SUBJECT_CONFIG
     positions = []
     seen = set()
 
@@ -25,15 +129,15 @@ def find_question_positions(doc):
                 x0 = line["bbox"][0]
                 y0 = line["bbox"][1]
 
-                if y0 < MARGIN_TOP or y0 > MARGIN_BOTTOM:
+                if y0 < cfg.margin_top or y0 > cfg.margin_bottom:
                     continue
-                if x0 > QUESTION_X_MAX:
+                if x0 > cfg.question_x_max:
                     continue
 
                 text = first_span["text"].strip()
                 font_size = first_span["size"]
 
-                if font_size < 9 or font_size > 13:
+                if font_size < cfg.font_size_min or font_size > cfg.font_size_max:
                     continue
 
                 # Bare standalone number ("9") — accepted at any y position.
@@ -41,7 +145,7 @@ def find_question_positions(doc):
                 # accepted near the top of the page; mid-page inline numbers (e.g.
                 # "28 and 35 students…" inside a question body) are false positives.
                 bare = re.match(r"^\d{1,2}$", text)
-                inline = (not bare) and y0 <= MARGIN_TOP + 80 and re.match(r"^(\d{1,2})\s", text)
+                inline = (not bare) and y0 <= cfg.margin_top + 80 and re.match(r"^(\d{1,2})\s", text)
                 m = bare or inline
                 if m:
                     qnum = int(re.match(r"^(\d{1,2})", text).group(1))
@@ -53,10 +157,11 @@ def find_question_positions(doc):
     return positions
 
 
-def get_question_regions(doc, positions, requested_questions):
+def get_question_regions(doc, positions, requested_questions, cfg: SubjectConfig | None = None):
     """For each requested question, determine the crop region(s)."""
+    cfg = cfg or DEFAULT_SUBJECT_CONFIG
     regions = []
-    page_content_bottom = MARGIN_BOTTOM
+    page_content_bottom = cfg.margin_bottom
 
     for qnum in requested_questions:
         q_entries = [p for p in positions if p[0] == qnum]
@@ -80,23 +185,27 @@ def get_question_regions(doc, positions, requested_questions):
                     next_y = page_content_bottom
                     break
 
-        start_y = max(q_y - PADDING_ABOVE, MARGIN_TOP)
+        start_y = max(q_y - cfg.padding_above, cfg.margin_top)
 
         if q_page == next_page:
             end_y = min(next_y - 2, page_content_bottom)
+            end_y = _get_tight_y_end(doc[q_page], start_y, end_y)
             regions.append((qnum, q_page, start_y, end_y))
         else:
-            regions.append((qnum, q_page, start_y, page_content_bottom))
+            page_end = _get_tight_y_end(doc[q_page], start_y, page_content_bottom)
+            regions.append((qnum, q_page, start_y, page_end))
             for mid_page in range(q_page + 1, next_page):
                 page_text = doc[mid_page].get_text().strip()
                 if "BLANK PAGE" in page_text:
                     continue
-                regions.append((qnum, mid_page, MARGIN_TOP, page_content_bottom))
+                mid_end = _get_tight_y_end(doc[mid_page], cfg.margin_top, page_content_bottom)
+                regions.append((qnum, mid_page, cfg.margin_top, mid_end))
             if next_page > q_page:
                 page_text = doc[next_page].get_text().strip()
                 if "BLANK PAGE" not in page_text:
                     end_y = min(next_y - 2, page_content_bottom)
-                    if end_y > MARGIN_TOP + 20:
-                        regions.append((qnum, next_page, MARGIN_TOP, end_y))
+                    end_y = _get_tight_y_end(doc[next_page], cfg.margin_top, end_y)
+                    if end_y > cfg.margin_top + 20:
+                        regions.append((qnum, next_page, cfg.margin_top, end_y))
 
     return regions

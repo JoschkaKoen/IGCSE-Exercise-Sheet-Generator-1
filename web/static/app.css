@@ -224,6 +224,13 @@
   transition: all 0.2s ease;
 }
 
+.tab-active-emerald {
+  background: linear-gradient(135deg, rgba(52,211,153,0.22), rgba(16,185,129,0.28));
+  color: rgb(209 250 229);
+  box-shadow: 0 0 0 1px rgba(52,211,153,0.28) inset;
+  transition: all 0.2s ease;
+}
+
 .tab-inactive {
   color: rgb(148 163 184);
   transition: all 0.2s ease;
@@ -304,15 +311,14 @@
 
 /* ─── Subject badges ─────────────────────────────────────────────────────── */
 .subject-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
+  display: inline-block;
   padding: 0.2rem 0.55rem;
   border-radius: 9999px;
   font-size: 0.72rem;
   font-weight: 500;
-  vertical-align: baseline;
+  vertical-align: 0.1em;
   white-space: nowrap;
+  line-height: 1.35;
 }
 
 .subject-badge-physics {
@@ -325,6 +331,14 @@
   background: rgba(167,139,250,0.12);
   border: 1px solid rgba(167,139,250,0.25);
   color: rgb(221 214 254);
+}
+
+/* Mathematics (long class name avoids clashes with ``math`` in some CSS stacks) */
+.subject-badge-math,
+.subject-badge-mathematics {
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  color: rgb(167 243 208);
 }
 
 /* ─── Hero icon float ────────────────────────────────────────────────────── */

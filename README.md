@@ -5,7 +5,7 @@ Extract chosen questions from Cambridge-style IGCSE question papers (PDF) and la
 ## Requirements
 
 - **Python 3.10+** (3.12+ recommended)
-- **Exam PDFs** for natural-language mode: bundled under `exams/physics/` and `exams/computer_science/` (see `exams/README.md`). Override paths in `extract_exercises/config.py` if you keep papers elsewhere.
+- **Exam PDFs** for natural-language mode: bundled under `exams/physics/`, `exams/computer_science/`, and `exams/mathematics/` (see `exams/README.md`). Override paths in `extract_exercises/config.py` if you keep papers elsewhere.
 - **xAI API key** for natural-language mode only (legacy CLI does not need it).
 
 ## Setup
@@ -74,7 +74,7 @@ from extract_exercises import run_extraction_jobs
 run_extraction_jobs(
     [{"input_pdf": "...", "questions": [1, 2], "mark_scheme_pdf": "..."}],
     "sheet.pdf",
-    exam_key="physics",  # or None for legacy-style labelling
+    exam_key="physics",  # "computer_science", "mathematics", or None for legacy-style labelling
 )
 ```
 
@@ -88,9 +88,9 @@ run_extraction_jobs(
 | Path | Role |
 |------|------|
 | `extract_exercises.py` | Thin CLI entry point |
-| `extract_exercises/` | Package: config, question detection, raster layout, mark schemes, NL resolver, pipeline |
+| `extract_exercises/` | Package: config, question detection, vector PDF layout, mark schemes, NL resolver, pipeline |
 | `web/` | FastAPI app, templates, and static assets for the local web UI |
-| `exams/physics/`, `exams/computer_science/` | Bundled question paper & mark scheme PDFs for NL mode |
+| `exams/physics/`, `exams/computer_science/`, `exams/mathematics/` | Bundled question paper & mark scheme PDFs for NL mode |
 | `fonts/lmroman10-*.otf` | Latin Modern Roman (LaTeX `lmodern` text) for raster labels; see `fonts/README.md` |
 
 ## License

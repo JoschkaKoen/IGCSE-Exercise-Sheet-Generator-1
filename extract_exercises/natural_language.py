@@ -57,7 +57,7 @@ def resolve_natural_language(
 
     total_pdfs = sum(len(c["pdfs"]) for c in catalogs.values())
     if total_pdfs == 0:
-        lines = ["No PDFs found in either exam folder:"]
+        lines = ["No PDFs found in any exam folder:"]
         for key, c in catalogs.items():
             lines.append(f"  {key}: {c['root']}")
         raise NaturalLanguageError("\n".join(lines))
@@ -67,10 +67,10 @@ def resolve_natural_language(
 
     system = (
         "You map the user's request to extraction options for Cambridge-style exam PDFs. "
-        "Two subjects are available: physics and computer_science. "
+        "Three subjects are available: physics, computer_science, and mathematics. "
         "Respond with a single JSON object only, no markdown fences.\n"
         "Always include: "
-        '\"exam\": \"physics\" or \"computer_science\", '
+        '\"exam\": \"physics\", \"computer_science\", or \"mathematics\", '
         '\"output_pdf\": short descriptive name ending in .pdf, '
         "and EITHER a single-paper shape OR a multi-paper shape:\n"
         "  • Single paper: "
@@ -128,8 +128,9 @@ def resolve_natural_language(
 
     exam_key = data["exam"]
     if exam_key not in EXAM_ROOT_BY_KEY:
+        valid = ", ".join(f'"{k}"' for k in EXAM_ROOT_BY_KEY)
         raise NaturalLanguageError(
-            f'exam must be "physics" or "computer_science"; got: {exam_key!r}'
+            f"exam must be one of {valid}; got: {exam_key!r}"
         )
 
     exam_root = EXAM_ROOT_BY_KEY[exam_key]

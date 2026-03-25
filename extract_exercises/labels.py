@@ -24,15 +24,88 @@ _SESSION_TITLE = {
     "s": "June session",
 }
 
+# Descriptive IGCSE Mathematics filenames (e.g. ``0580 Mathematics June 2023 Question Paper  21.pdf``).
+_MONTH_TO_SESSION = {"march": "m", "june": "s", "november": "w"}
+_MATH_COMPONENT_ORDER = {"qp": 0, "ms": 1, "ci": 2, "gt": 3, "er": 4, "_": 9}
+_MATH_DESCRIPTIVE = re.compile(
+    r"mathematics\s+(march|june|november)\s+(\d{4})\s+(.+?)\s+(\d+)\s*$",
+    re.IGNORECASE | re.DOTALL,
+)
+# ``… June 2024 Grade Thresholds`` / ``… November 2023 Examiner Report`` (no paper number).
+_MATH_GT_ER = re.compile(
+    r"mathematics\s+(march|june|november)\s+(\d{4})\s+(grade thresholds|examiner report)\s*$",
+    re.IGNORECASE,
+)
+
+
+def _parse_math_descriptive_stem(stem: str) -> dict[str, str | int] | None:
+    """Parse ``0580 Mathematics … June 2023 Question Paper  21``-style stems."""
+    m = _MATH_DESCRIPTIVE.search(stem)
+    if m:
+        month_w, year_s, comp_raw, paper_s = m.group(1), m.group(2), m.group(3), m.group(4)
+        letter = _MONTH_TO_SESSION.get(month_w.lower())
+        if not letter:
+            return None
+        year = int(year_s, 10)
+        paper = int(paper_s, 10)
+        comp_norm = re.sub(r"\s+", " ", comp_raw.strip().lower())
+        if "question paper" in comp_norm:
+            kind = "qp"
+        elif "mark scheme" in comp_norm:
+            kind = "ms"
+        elif "grade threshold" in comp_norm:
+            kind = "gt"
+        elif "examiner report" in comp_norm:
+            kind = "er"
+        else:
+            kind = "_"
+        yy_s = year_s[-2:]
+        session_code = f"{letter}{yy_s}"
+        return {
+            "letter": letter,
+            "year": year,
+            "paper": paper,
+            "kind": kind,
+            "session_code": session_code,
+        }
+    m2 = _MATH_GT_ER.search(stem)
+    if not m2:
+        return None
+    month_w, year_s, tail = m2.group(1), m2.group(2), m2.group(3).lower()
+    letter = _MONTH_TO_SESSION.get(month_w.lower())
+    if not letter:
+        return None
+    year = int(year_s, 10)
+    kind = "gt" if "threshold" in tail else "er"
+    yy_s = year_s[-2:]
+    session_code = f"{letter}{yy_s}"
+    return {
+        "letter": letter,
+        "year": year,
+        "paper": 0,
+        "kind": kind,
+        "session_code": session_code,
+    }
+
 
 def library_pdf_group_meta(filename: str) -> dict[str, str]:
     """
     Fields for UI grouping: calendar year, session letter, component kind.
     Unknown filenames → ``group_year`` ``_other`` so they sort last.
     """
-    stem = Path(filename).stem.lower()
+    stem = Path(filename).stem
+    math = _parse_math_descriptive_stem(stem)
+    if math:
+        return {
+            "group_year": str(math["year"]),
+            "group_session": str(math["letter"]),
+            "paper_kind": str(math["kind"]),
+            "session_heading": _SESSION_LABEL[str(math["letter"])],
+            "session_title": _SESSION_TITLE[str(math["letter"])],
+        }
+    stem_lower = stem.lower()
     for rx, kind in _LIB_NAME_PATTERNS:
-        m = rx.search(stem)
+        m = rx.search(stem_lower)
         if m:
             letter, yy_s, _paper_s = m.group(1), m.group(2), m.group(3)
             yy = int(yy_s, 10)
@@ -64,7 +137,20 @@ def library_pdf_sort_key(filename: str) -> tuple:
 
     Names that do not match ``_*[smw]NN_(qp|ms|ci)_*`` sort last, A–Z.
     """
-    stem = Path(filename).stem.lower()
+    stem_raw = Path(filename).stem
+    stem = stem_raw.lower()
+    math = _parse_math_descriptive_stem(stem_raw)
+    if math:
+        sess = _SESSION_ORDER.get(str(math["letter"]), 99)
+        comp = _MATH_COMPONENT_ORDER.get(str(math["kind"]), 9)
+        return (
+            0,
+            -int(math["year"]),
+            sess,
+            int(math["paper"]),
+            comp,
+            stem,
+        )
     for rx, kind in _LIB_NAME_PATTERNS:
         m = rx.search(stem)
         if m:
@@ -86,7 +172,22 @@ def library_pdf_display_name(filename: str) -> str:
     Examples: ``0625_s23_qp_13.pdf`` → ``s23 Questions 13``;
     ``0478_w24_ms_21.pdf`` → ``w24 Answers 21``.
     """
-    stem = Path(filename).stem.lower()
+    stem_raw = Path(filename).stem
+    stem = stem_raw.lower()
+    math = _parse_math_descriptive_stem(stem_raw)
+    if math:
+        sc = str(math["session_code"])
+        k = str(math["kind"])
+        pn = str(math["paper"])
+        if k == "qp":
+            return f"{sc} Questions {pn}"
+        if k == "ms":
+            return f"{sc} Answers {pn}"
+        if k == "gt":
+            return f"{sc} Grade thresholds"
+        if k == "er":
+            return f"{sc} Examiner report"
+        return filename
     for rx, kind in _LIB_NAME_PATTERNS:
         m = rx.search(stem)
         if m:
@@ -103,7 +204,11 @@ def library_pdf_display_name(filename: str) -> str:
 
 def exam_label_from_filename(filename: str) -> str | None:
     """Return compact label like 'w24 21' from a PDF name, or None if pattern unknown."""
-    stem = Path(filename).stem.lower()
+    stem_raw = Path(filename).stem
+    stem = stem_raw.lower()
+    math = _parse_math_descriptive_stem(stem_raw)
+    if math and str(math["kind"]) == "qp":
+        return f"{math['session_code']} {math['paper']}"
     for pattern in (
         r"_([smw]\d{2})_qp_(\d+)",
         r"_([smw]\d{2})_ms_(\d+)",

@@ -10,6 +10,7 @@ import fitz
 from .config import (
     A4_HEIGHT_PT,
     A4_WIDTH_PT,
+    DEFAULT_SUBJECT_CONFIG,
     EXAM_LABEL_FONT_PT,
     HEADER_ZONE_MAX_Y_PT,
     MS_LANDSCAPE_H_THRESHOLD_PT,
@@ -23,6 +24,7 @@ from .config import (
     STRIP_CROP_LEFT_PT,
     STRIP_CROP_RIGHT_PT,
     STRIP_CROP_TOP_PT,
+    SubjectConfig,
 )
 from .mark_scheme import detect_landscape_ms_crop_x, detect_portrait_ms_crop_x
 
@@ -100,6 +102,68 @@ def collect_qr_image_rects(page: fitz.Page) -> list[fitz.Rect]:
     return rects
 
 
+def _display_to_mediabox(rect: fitz.Rect, page: fitz.Page) -> fitz.Rect:
+    """Convert a display-space rect to mediabox-space (pre-rotation coordinates)."""
+    rot = page.rotation % 360
+    if rot == 0:
+        return rect
+    x0, y0, x1, y1 = rect.x0, rect.y0, rect.x1, rect.y1
+    if rot == 90:
+        h = page.mediabox.height
+        return fitz.Rect(y0, h - x1, y1, h - x0)
+    if rot == 270:
+        w = page.mediabox.width
+        return fitz.Rect(w - y1, x0, w - y0, x1)
+    if rot == 180:
+        w, h = page.mediabox.width, page.mediabox.height
+        return fitz.Rect(w - x1, h - y1, w - x0, h - y0)
+    return rect
+
+
+# ---------------------------------------------------------------------------
+# Derotated page cache
+# ---------------------------------------------------------------------------
+# show_pdf_page silently drops some text when embedding rotated pages via the
+# XObject route.  The reliable workaround is insert_pdf (preserves all content),
+# then set_rotation(0) to strip the /Rotate flag, and finally clip from the
+# derotated copy using MediaBox coordinates + an explicit rotate parameter.
+
+_derotated_cache: dict[tuple[int, int], tuple[fitz.Document, int, int]] = {}
+"""(id(doc), page_idx) → (temp_doc, temp_page_idx, original_rotation)."""
+
+
+def _get_derotated(doc: fitz.Document, page_idx: int) -> tuple[fitz.Document, int, int]:
+    """Return a (temp_doc, temp_page_idx, original_rotation) for *page_idx*.
+
+    For rotation==0 pages, returns the original doc/page unchanged.
+    For rotated pages, copies the page via insert_pdf and sets rotation to 0.
+    """
+    page = doc[page_idx]
+    rot = page.rotation % 360
+    if rot == 0:
+        return doc, page_idx, 0
+
+    key = (id(doc), page_idx)
+    if key in _derotated_cache:
+        return _derotated_cache[key]
+
+    temp = fitz.open()
+    temp.insert_pdf(doc, from_page=page_idx, to_page=page_idx)
+    temp[0].set_rotation(0)
+    _derotated_cache[key] = (temp, 0, rot)
+    return temp, 0, rot
+
+
+def clear_derotated_cache() -> None:
+    """Close all temp documents in the cache (call after layout is done)."""
+    for temp_doc, _, _ in _derotated_cache.values():
+        try:
+            temp_doc.close()
+        except Exception:
+            pass
+    _derotated_cache.clear()
+
+
 def _map_source_to_output(
     src_rect: fitz.Rect,
     clip: fitz.Rect,
@@ -128,11 +192,14 @@ def collect_vector_strips(
     doc: fitz.Document,
     regions: list[tuple[int, int, float, float]],
     is_ms: bool = False,
+    cfg: SubjectConfig | None = None,
 ) -> list[Strip]:
     """Build a list of VectorStrip / GapStrip objects from (qnum, page_idx, y_start, y_end) tuples.
 
     All geometry is in PDF points; no rasterisation occurs here.
     """
+    cfg = cfg or DEFAULT_SUBJECT_CONFIG
+
     landscape_crop_x = MS_MARKS_START_PT
     portrait_crop_x = MS_PORTRAIT_MARKS_START_PT
     if is_ms:
@@ -179,13 +246,13 @@ def collect_vector_strips(
             x_offset = (A4_WIDTH_PT - clip_w) / 2
         else:
             # Portrait question-paper page
-            clip_x0 = STRIP_CROP_LEFT_PT
-            clip_x1 = page_w - STRIP_CROP_RIGHT_PT
+            clip_x0 = cfg.strip_crop_left_pt
+            clip_x1 = page_w - cfg.strip_crop_right_pt
             clip_y0 = y_start
             clip_y1 = y_end
             # Shave the header zone top (QR / boilerplate band)
-            if y_start <= HEADER_ZONE_MAX_Y_PT:
-                clip_y0 = y_start + STRIP_CROP_TOP_PT
+            if y_start <= cfg.header_zone_max_y_pt:
+                clip_y0 = y_start + cfg.strip_crop_top_pt
             display_w = _USABLE_W_PT
             x_offset = _MARGIN_PT
 
@@ -257,6 +324,39 @@ def _erase_header_band(out_page: fitz.Page) -> None:
     )
 
 
+_INLINE_LABEL_H = 18.0   # vertical space consumed by an inline paper divider
+
+
+def _draw_inline_paper_label(out_page: fitz.Page, label: str, y: float) -> None:
+    """Draw a compact inline paper-section divider: '─── label ───' centred on the page."""
+    fs = 8.5
+    text_w = fitz.get_text_length(label, fontname="helv", fontsize=fs)
+    x_text = (A4_WIDTH_PT - text_w) / 2
+    baseline_y = y + 12.0
+    out_page.insert_text(
+        fitz.Point(x_text, baseline_y),
+        label,
+        fontsize=fs,
+        fontname="helv",
+        color=(0.55, 0.55, 0.55),
+        render_mode=0,
+    )
+    line_y = baseline_y - fs * 0.35
+    pad = 8.0
+    line_col = (0.75, 0.75, 0.75)
+    if x_text > _MARGIN_PT + pad + 10:
+        out_page.draw_line(
+            fitz.Point(_MARGIN_PT + pad, line_y),
+            fitz.Point(x_text - pad, line_y),
+            color=line_col, width=0.5,
+        )
+        out_page.draw_line(
+            fitz.Point(x_text + text_w + pad, line_y),
+            fitz.Point(A4_WIDTH_PT - _MARGIN_PT - pad, line_y),
+            color=line_col, width=0.5,
+        )
+
+
 # ---------------------------------------------------------------------------
 # Layout engine
 # ---------------------------------------------------------------------------
@@ -265,11 +365,18 @@ def layout_vector_strips_to_pdf(
     strips: list[Strip],
     output_path: str,
     header_label: str | None = None,
+    *,
+    paper_always_newpage: bool = False,
 ) -> None:
     """Flow strips onto A4 pages and write a vector PDF.
 
     Strips are VectorStrip (show_pdf_page), McqStrip (insert_text),
     GapStrip (whitespace), or str (paper sub-label).
+
+    When *paper_always_newpage* is True every paper sub-label (``str`` strip)
+    starts a fresh page if any content has already been placed.  This ensures
+    each paper's section gets its own page with the correct ``subject: paper``
+    header — used for answer sheets where space is rarely a constraint.
     """
     hl = (header_label or "").strip() or None
 
@@ -287,16 +394,23 @@ def layout_vector_strips_to_pdf(
 
     out_doc = fitz.open()
 
+    # page_first_paper_label tracks the paper label of the FIRST content block on
+    # the current page.  The top-of-page header always shows "Subject: first_paper"
+    # even when content from multiple papers shares the page.
+    page_first_paper_label: str | None = current_paper_label
+
     def new_page() -> tuple[fitz.Page, float]:
+        nonlocal page_first_paper_label
+        page_first_paper_label = current_paper_label
         pg = out_doc.new_page(width=A4_WIDTH_PT, height=A4_HEIGHT_PT)
         if has_header:
-            _draw_header_line(pg, _header_text(hl or "", current_paper_label))
+            _draw_header_line(pg, _header_text(hl or "", page_first_paper_label))
         return pg, initial_y_pt
 
     def redraw_header(pg: fitz.Page) -> None:
         _erase_header_band(pg)
         if has_header:
-            _draw_header_line(pg, _header_text(hl or "", current_paper_label))
+            _draw_header_line(pg, _header_text(hl or "", page_first_paper_label))
 
     current_page, y_cursor = new_page()
 
@@ -306,11 +420,22 @@ def layout_vector_strips_to_pdf(
         if isinstance(item, str):
             current_paper_label = item
             if y_cursor == initial_y_pt:
-                # Still at top of page — just update the header in place
+                # Still at top of page — update the header and the first-paper tracker.
+                page_first_paper_label = current_paper_label
                 redraw_header(current_page)
-            else:
-                # Anti-orphan: start a new page so the header matches its content
+            elif paper_always_newpage:
                 current_page, y_cursor = new_page()
+            else:
+                remaining = A4_HEIGHT_PT - _MARGIN_PT - y_cursor
+                if remaining < _INLINE_LABEL_H + 40:
+                    # Not enough room for the divider + meaningful content.
+                    current_page, y_cursor = new_page()
+                else:
+                    # Draw "IGCSE Subject: paper_code" as an inline section header
+                    # and continue flowing content on the same page.
+                    inline_lbl = _header_text(hl or "", current_paper_label)
+                    _draw_inline_paper_label(current_page, inline_lbl, y_cursor)
+                    y_cursor += _INLINE_LABEL_H
             continue
 
         # --- gap ---
@@ -334,7 +459,7 @@ def layout_vector_strips_to_pdf(
                     text,
                     fontsize=fs,
                     color=(0.0, 0.0, 0.0),
-                    fontname="helv-b" if is_bold else "helv",
+                    fontname="hebo" if is_bold else "helv",
                 )
                 y_cursor += line_h if not is_bold else line_h + 2
             continue
@@ -342,7 +467,19 @@ def layout_vector_strips_to_pdf(
         # --- vector content strip ---
         if isinstance(item, VectorStrip):
             sh = item.display_h_pt
-            clip = item.clip_rect
+            clip = item.clip_rect               # display-space rect
+            src_page = item.src_doc[item.page_idx]
+
+            # For rotated pages, use the insert_pdf derotation workaround:
+            # show_pdf_page silently drops some text when embedding rotated
+            # pages directly.  _get_derotated gives us a rotation=0 copy.
+            derot_doc, derot_pi, orig_rot = _get_derotated(
+                item.src_doc, item.page_idx
+            )
+            mb_clip = _display_to_mediabox(clip, src_page)
+            # (360 - rot) % 360 in CW convention matches the original /Rotate
+            show_rot = (360 - orig_rot) % 360
+
             scale_x = item.display_w_pt / clip.width if clip.width > 0 else 1.0
 
             if y_cursor + sh > A4_HEIGHT_PT - _MARGIN_PT:
@@ -357,20 +494,22 @@ def layout_vector_strips_to_pdf(
                             available_pt = A4_HEIGHT_PT - _MARGIN_PT - y_cursor
 
                         src_chunk_h = min(src_remaining, available_pt / scale_x)
-                        chunk_clip = fitz.Rect(
+                        chunk_display = fitz.Rect(
                             clip.x0, src_y0,
                             clip.x1, src_y0 + src_chunk_h,
                         )
+                        chunk_mb = _display_to_mediabox(chunk_display, src_page)
                         out_h = src_chunk_h * scale_x
                         target = fitz.Rect(
                             item.x_offset_pt, y_cursor,
                             item.x_offset_pt + item.display_w_pt, y_cursor + out_h,
                         )
                         current_page.show_pdf_page(
-                            target, item.src_doc, item.page_idx, clip=chunk_clip
+                            target, derot_doc, derot_pi,
+                            clip=chunk_mb, rotate=show_rot,
                         )
                         for qr in item.qr_rects:
-                            mapped = _map_source_to_output(qr, chunk_clip, target)
+                            mapped = _map_source_to_output(qr, chunk_display, target)
                             if not mapped.is_empty:
                                 current_page.draw_rect(mapped, fill=(1,1,1), color=(1,1,1))
                         y_cursor += out_h
@@ -387,7 +526,8 @@ def layout_vector_strips_to_pdf(
                 item.x_offset_pt + item.display_w_pt, y_cursor + sh,
             )
             current_page.show_pdf_page(
-                target, item.src_doc, item.page_idx, clip=clip
+                target, derot_doc, derot_pi,
+                clip=mb_clip, rotate=show_rot,
             )
             for qr in item.qr_rects:
                 mapped = _map_source_to_output(qr, clip, target)
@@ -398,6 +538,7 @@ def layout_vector_strips_to_pdf(
     print(f"  Assembling {len(out_doc)} output page(s)...")
     out_doc.save(output_path, deflate=True, garbage=4)
     out_doc.close()
+    clear_derotated_cache()
     print(f"  Saved: {output_path}")
 
 

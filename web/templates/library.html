@@ -3,7 +3,7 @@
 
 {% macro library_subject(subject_key, grid_id, theme) %}
 {% set blocks = library[subject_key] %}
-<div id="{{ grid_id }}" class="lib-subject-root mt-8 flex flex-col gap-6 {% if subject_key == 'computer_science' %}hidden{% endif %}">
+<div id="{{ grid_id }}" class="lib-subject-root mt-8 flex flex-col gap-6 {% if subject_key != 'physics' %}hidden{% endif %}">
   {% if blocks|length == 0 %}
   <p class="rounded-2xl border border-dashed border-white/10 py-16 text-center text-sm text-slate-500">No PDFs in this folder.</p>
   {% else %}
@@ -30,12 +30,12 @@
         <article class="lib-card flex items-center gap-3 rounded-2xl border border-white/[0.08]
                         bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-3.5
                         shadow-black/20 backdrop-blur-sm
-                        {% if theme == 'cyan' %}hover:border-cyan-500/25{% else %}hover:border-violet-500/25{% endif %}"
+                        {% if theme == 'cyan' %}hover:border-cyan-500/25{% elif theme == 'violet' %}hover:border-violet-500/25{% else %}hover:border-emerald-500/25{% endif %}"
                  data-name="{{ row.name | e }}"
                  data-search="{{ (row.display_name ~ ' ' ~ row.name ~ ' ' ~ row.group_year ~ ' ' ~ row.group_session ~ ' ' ~ row.paper_kind) | lower | e }}">
           <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg
-                      {% if theme == 'cyan' %}bg-cyan-500/10{% else %}bg-violet-500/10{% endif %}">
-            <svg class="h-4 w-4 {% if theme == 'cyan' %}text-cyan-400{% else %}text-violet-400{% endif %}" fill="none" stroke="currentColor"
+                      {% if theme == 'cyan' %}bg-cyan-500/10{% elif theme == 'violet' %}bg-violet-500/10{% else %}bg-emerald-500/10{% endif %}">
+            <svg class="h-4 w-4 {% if theme == 'cyan' %}text-cyan-400{% elif theme == 'violet' %}text-violet-400{% else %}text-emerald-400{% endif %}" fill="none" stroke="currentColor"
                  viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -45,7 +45,7 @@
               title="{{ row.name | e }}">{{ row.display_name }}</h2>
           <a href="{{ row.download_url }}"
              class="shrink-0 rounded-xl p-2 transition
-                    {% if theme == 'cyan' %}text-cyan-400 hover:bg-cyan-500/15 hover:text-cyan-300 focus-visible:ring-cyan-400/50{% else %}text-violet-400 hover:bg-violet-500/15 hover:text-violet-300 focus-visible:ring-violet-400/50{% endif %}
+                    {% if theme == 'cyan' %}text-cyan-400 hover:bg-cyan-500/15 hover:text-cyan-300 focus-visible:ring-cyan-400/50{% elif theme == 'violet' %}text-violet-400 hover:bg-violet-500/15 hover:text-violet-300 focus-visible:ring-violet-400/50{% else %}text-emerald-400 hover:bg-emerald-500/15 hover:text-emerald-300 focus-visible:ring-emerald-400/50{% endif %}
                     focus:outline-none focus-visible:ring-2"
              aria-label="Download {{ row.display_name | e }} ({{ row.name | e }})">
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -85,7 +85,7 @@
   </div>
 
   <p class="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-slate-400">
-    Cambridge IGCSE question papers and mark schemes bundled with this project.
+    Cambridge IGCSE question papers and mark schemes for Physics, Computer Science, and Mathematics (bundled with this project).
     Newest years first; within each year, sessions M → W → S. Download or use the generator to extract questions.
   </p>
 
@@ -109,6 +109,14 @@
           Computer Science
         </span>
       </button>
+      <button type="button" id="tab-math"
+              class="tab-btn rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+              data-subject="mathematics">
+        <span class="flex items-center gap-2">
+          <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+          Mathematics
+        </span>
+      </button>
     </div>
     <label class="flex flex-1 items-center gap-3 rounded-2xl border border-white/[0.09]
                   bg-slate-950/50 px-4 py-2.5 sm:max-w-xs transition
@@ -127,23 +135,28 @@
 
   {{ library_subject('physics', 'grid-physics', 'cyan') }}
   {{ library_subject('computer_science', 'grid-cs', 'violet') }}
+  {{ library_subject('mathematics', 'grid-math', 'emerald') }}
 
 </section>
 
 <script>
 (function () {
-  var tabPhysics  = document.getElementById('tab-physics');
-  var tabCs       = document.getElementById('tab-cs');
-  var gridPhysics = document.getElementById('grid-physics');
-  var gridCs      = document.getElementById('grid-cs');
-  var search      = document.getElementById('lib-search');
+  var tabs = [
+    { id: 'tab-physics',  subject: 'physics',          gridId: 'grid-physics', activeClass: 'tab-active' },
+    { id: 'tab-cs',       subject: 'computer_science', gridId: 'grid-cs',      activeClass: 'tab-active-violet' },
+    { id: 'tab-math',     subject: 'mathematics',      gridId: 'grid-math',    activeClass: 'tab-active-emerald' },
+  ];
+  tabs.forEach(function (t) {
+    t.el   = document.getElementById(t.id);
+    t.grid = document.getElementById(t.gridId);
+  });
+  var search = document.getElementById('lib-search');
   var activeSubject = 'physics';
 
   function haystackMatches(hay, q) {
     if (!q.length) return true;
     var parts = q.split(/\s+/).filter(Boolean);
-    var i;
-    for (i = 0; i < parts.length; i++) {
+    for (var i = 0; i < parts.length; i++) {
       if (hay.indexOf(parts[i]) === -1) return false;
     }
     return true;
@@ -151,28 +164,28 @@
 
   function setTab(subject) {
     activeSubject = subject;
-    if (subject === 'physics') {
-      tabPhysics.classList.replace('tab-inactive', 'tab-active');
-      tabCs.classList.replace('tab-active', 'tab-inactive');
-      tabCs.classList.remove('tab-active-violet');
-      gridPhysics.classList.remove('hidden');
-      gridCs.classList.add('hidden');
-    } else {
-      tabCs.classList.replace('tab-inactive', 'tab-active-violet');
-      tabPhysics.classList.replace('tab-active', 'tab-inactive');
-      gridCs.classList.remove('hidden');
-      gridPhysics.classList.add('hidden');
-    }
+    tabs.forEach(function (t) {
+      var isActive = t.subject === subject;
+      if (isActive) {
+        t.el.classList.remove('tab-inactive');
+        t.el.classList.add(t.activeClass);
+        t.grid.classList.remove('hidden');
+      } else {
+        tabs.forEach(function (other) { t.el.classList.remove(other.activeClass); });
+        t.el.classList.add('tab-inactive');
+        t.grid.classList.add('hidden');
+      }
+    });
     filterCards();
   }
 
   function filterCards() {
     var raw = (search.value || '').toLowerCase().trim();
     var q = raw.replace(/\u00a0/g, ' ');
-    var grid = activeSubject === 'physics' ? gridPhysics : gridCs;
+    var activeTab = tabs.find(function (t) { return t.subject === activeSubject; });
+    var grid = activeTab ? activeTab.grid : tabs[0].grid;
     grid.querySelectorAll('article.lib-card').forEach(function (card) {
-      var hay = card.getAttribute('data-search') || card.getAttribute('data-name') || '';
-      hay = hay.toLowerCase();
+      var hay = (card.getAttribute('data-search') || card.getAttribute('data-name') || '').toLowerCase();
       card.classList.toggle('hidden', !haystackMatches(hay, q));
     });
     grid.querySelectorAll('.lib-session-group').forEach(function (seg) {
@@ -189,8 +202,9 @@
     });
   }
 
-  tabPhysics.addEventListener('click', function () { setTab('physics'); });
-  tabCs.addEventListener('click',      function () { setTab('computer_science'); });
+  tabs.forEach(function (t) {
+    t.el.addEventListener('click', function () { setTab(t.subject); });
+  });
   search.addEventListener('input', filterCards);
   search.addEventListener('search', filterCards);
 })();

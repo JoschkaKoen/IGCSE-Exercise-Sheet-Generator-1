@@ -5,7 +5,7 @@ from pathlib import Path
 
 import fitz
 
-from .config import PAGE_HEADER_BY_EXAM
+from .config import PAGE_HEADER_BY_EXAM, get_subject_config
 from .exceptions import ExtractionError
 from .labels import page_header_label, paper_label_from_qp_path
 from .mark_scheme import detect_ms_type, find_ms_answer_regions, parse_mcq_answers
@@ -39,6 +39,7 @@ def run_extraction_jobs(jobs: list[dict], output_pdf: str, exam_key: str | None 
     if not jobs:
         raise ExtractionError("No extraction jobs.")
 
+    cfg = get_subject_config(exam_key)
     page_header = page_header_label(jobs, exam_key)
     use_paper_sublabels = exam_key is not None and exam_key in PAGE_HEADER_BY_EXAM
 
@@ -58,15 +59,15 @@ def run_extraction_jobs(jobs: list[dict], output_pdf: str, exam_key: str | None 
             doc = fitz.open(ip)
             qp_docs.append(doc)
             print(f"  PDF has {len(doc)} pages")
-            positions = find_question_positions(doc)
+            positions = find_question_positions(doc, cfg)
             found_nums = sorted(set(p[0] for p in positions))
             print(f"  Found questions: {found_nums}")
-            regions = get_question_regions(doc, positions, qs)
+            regions = get_question_regions(doc, positions, qs, cfg)
             if not regions:
                 print("  Warning: No matching questions for this paper, skipping.")
                 continue
             print(f"  Extracting {len(regions)} region(s) for questions {sorted(set(r[0] for r in regions))}")
-            strips = collect_vector_strips(doc, regions)
+            strips = collect_vector_strips(doc, regions, cfg=cfg)
             if not strips:
                 continue
             if use_paper_sublabels:
@@ -104,7 +105,7 @@ def run_extraction_jobs(jobs: list[dict], output_pdf: str, exam_key: str | None 
                 print(f"  Found answers for: {found_ans}")
                 mstrips: list[Strip] = create_mcq_answer_strips(answers, qs)
             else:
-                ms_regions = find_ms_answer_regions(ms_doc, qs)
+                ms_regions = find_ms_answer_regions(ms_doc, qs, cfg)
                 if not ms_regions:
                     print("  No mark scheme regions found.")
                     continue
@@ -112,7 +113,7 @@ def run_extraction_jobs(jobs: list[dict], output_pdf: str, exam_key: str | None 
                     f"  Extracting mark scheme for questions {sorted(set(r[0] for r in ms_regions))} "
                     f"({len(ms_regions)} region(s))"
                 )
-                mstrips = collect_vector_strips(ms_doc, ms_regions, is_ms=True)
+                mstrips = collect_vector_strips(ms_doc, ms_regions, is_ms=True, cfg=cfg)
 
             if not mstrips:
                 continue
@@ -127,7 +128,9 @@ def run_extraction_jobs(jobs: list[dict], output_pdf: str, exam_key: str | None 
             all_ms_strips.extend(mstrips)
 
         if all_ms_strips:
-            layout_vector_strips_to_pdf(all_ms_strips, str(answers_path), page_header)
+            layout_vector_strips_to_pdf(
+                all_ms_strips, str(answers_path), page_header,
+            )
             print(f"\n  Saved: {answers_path}")
 
     finally:
