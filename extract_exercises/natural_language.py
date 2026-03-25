@@ -138,6 +138,18 @@ def resolve_natural_language(
     if not pdf_names:
         raise NaturalLanguageError(f"No PDFs available for subject {exam_key!r} under {exam_root}")
 
+    # Build a whitespace-normalised lookup so AI responses with collapsed spaces
+    # (e.g. "Question Paper 21.pdf" vs the real "Question Paper  21.pdf") still match.
+    import re as _re
+    _normalise = lambda s: _re.sub(r" {2,}", " ", s).strip()
+    _norm_map = {_normalise(n): n for n in pdf_names}
+
+    def _resolve_pdf(name: str) -> str | None:
+        """Return the canonical filename for *name*, tolerating collapsed whitespace."""
+        if name in pdf_names:
+            return name
+        return _norm_map.get(_normalise(name))
+
     def _one_extraction(ex: dict, idx: str) -> dict:
         """Validate and normalize a single extraction record.
 
@@ -151,15 +163,19 @@ def resolve_natural_language(
         for key in ("input_pdf", "questions"):
             if key not in ex:
                 raise NaturalLanguageError(f"JSON missing {key} in extractions[{idx}]")
-        if ex["input_pdf"] not in pdf_names:
+        resolved = _resolve_pdf(ex["input_pdf"])
+        if resolved is None:
             raise NaturalLanguageError(
                 f'input_pdf must be listed for {exam_key}; got: {ex["input_pdf"]!r} ({idx})'
             )
-        ms = ex.get("mark_scheme_pdf")
-        if ms is not None and ms not in pdf_names:
-            raise NaturalLanguageError(
-                f'mark_scheme_pdf must be from the list or null ({idx}); got: {ms!r}'
-            )
+        ms_raw = ex.get("mark_scheme_pdf")
+        ms = None
+        if ms_raw is not None:
+            ms = _resolve_pdf(ms_raw)
+            if ms is None:
+                raise NaturalLanguageError(
+                    f'mark_scheme_pdf must be from the list or null ({idx}); got: {ms_raw!r}'
+                )
         qs = ex["questions"]
         if not isinstance(qs, list) or not qs:
             raise NaturalLanguageError(f'"questions" must be a non-empty array ({idx}).')
@@ -167,7 +183,7 @@ def resolve_natural_language(
             qn = [int(x) for x in qs]
         except (TypeError, ValueError):
             raise NaturalLanguageError(f'"questions" must be integers ({idx}).')
-        return {"input_pdf": ex["input_pdf"], "questions": qn, "mark_scheme_pdf": ms}
+        return {"input_pdf": resolved, "questions": qn, "mark_scheme_pdf": ms}
 
     extractions = data.get("extractions")
     if extractions is not None:

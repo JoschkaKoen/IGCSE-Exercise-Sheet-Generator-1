@@ -72,10 +72,10 @@ def run_extraction_jobs(jobs: list[dict], output_pdf: str, exam_key: str | None 
                 continue
             if use_paper_sublabels:
                 if all_strips:
-                    all_strips.append(GapStrip(height_pt=8.0))
+                    all_strips.append(GapStrip(height_pt=4.0))
                 all_strips.append(paper_lbl)
             elif len(jobs) > 1 and all_strips:
-                all_strips.append(GapStrip(height_pt=8.0))
+                all_strips.append(GapStrip(height_pt=4.0))
             all_strips.extend(strips)
 
         if not all_strips:

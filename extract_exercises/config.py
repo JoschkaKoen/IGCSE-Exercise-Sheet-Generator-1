@@ -50,8 +50,9 @@ DPI = 1200
 A4_WIDTH_PT = 595.0
 A4_HEIGHT_PT = 842.0
 
-# Point size for the subject line (and related) drawn onto rasterized output pages.
-EXAM_LABEL_FONT_PT = 11
+# Font size (pt) for ALL paper labels drawn on exercise/answer sheets:
+# the top-of-page header band AND the inline "─── paper ───" section dividers.
+EXAM_LABEL_FONT_PT = 9
 
 # Centered **page header** string when ``exam_key`` is known (natural-language runs).
 PAGE_HEADER_BY_EXAM = {

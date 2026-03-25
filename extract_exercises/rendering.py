@@ -248,11 +248,10 @@ def collect_vector_strips(
             # Portrait question-paper page
             clip_x0 = cfg.strip_crop_left_pt
             clip_x1 = page_w - cfg.strip_crop_right_pt
-            clip_y0 = y_start
+            # Always remove the padding_above blank so every strip starts at
+            # the question number with no leading whitespace.
+            clip_y0 = y_start + cfg.strip_crop_top_pt
             clip_y1 = y_end
-            # Shave the header zone top (QR / boilerplate band)
-            if y_start <= cfg.header_zone_max_y_pt:
-                clip_y0 = y_start + cfg.strip_crop_top_pt
             display_w = _USABLE_W_PT
             x_offset = _MARGIN_PT
 
@@ -268,9 +267,9 @@ def collect_vector_strips(
         page_qrs = [r for r in qr_by_page.get(page_idx, [])
                     if not fitz.Rect(r).intersect(clip_rect).is_empty]
 
-        # Separator between different questions
+        # Uniform separator between different questions.
         if current_qnum is not None and qnum != current_qnum:
-            strips.append(GapStrip(height_pt=8.0))
+            strips.append(GapStrip(height_pt=6.0 if is_ms else 16.0))
 
         strips.append(VectorStrip(
             src_doc=doc,
@@ -290,9 +289,12 @@ def collect_vector_strips(
 # Header drawing
 # ---------------------------------------------------------------------------
 
-_HEADER_FS = float(EXAM_LABEL_FONT_PT)
-_HEADER_H = _HEADER_FS + 8.0   # top-pad(4) + font(11) + bottom-pad(4) = 19 pt
-_HEADER_BASELINE_Y = _HEADER_FS + 4.0  # baseline sits 4 pt below top of band
+_LABEL_FS = float(EXAM_LABEL_FONT_PT)
+_LABEL_H = _LABEL_FS + 8.0            # total band height: 4pt pad + font + 4pt pad
+_LABEL_BASELINE_OFF = _LABEL_FS + 4.0  # baseline offset from band top
+_LABEL_TOP_PT = 30.0                   # distance from page top to the label band
+_LABEL_GAP_PT = 5.0                    # gap after the top-of-page header band → first exercise
+_INLINE_LABEL_GAP_PT = 4.0             # gap after an inline mid-page label → following exercise
 
 
 def _header_text(subject_label: str, paper_label: str | None) -> str:
@@ -302,45 +304,41 @@ def _header_text(subject_label: str, paper_label: str | None) -> str:
     return subject_label
 
 
-def _draw_header_line(out_page: fitz.Page, text: str) -> None:
-    """Draw a single horizontally centred header line."""
-    text_w = fitz.get_text_length(text, fontname="helv", fontsize=_HEADER_FS)
-    x = (A4_WIDTH_PT - text_w) / 2
-    out_page.insert_text(
-        fitz.Point(x, _HEADER_BASELINE_Y),
-        text,
-        fontsize=_HEADER_FS,
-        fontname="helv",
-        color=(0.2, 0.2, 0.2),
-        render_mode=0,
-    )
+def _draw_label(out_page: fitz.Page, text: str, y: float) -> None:
+    """Draw a '─── label ───' style centred label with the band top at *y*.
 
+    The text is expected to be "Subject: paper" (produced by ``_header_text``).
+    The subject part is rendered in regular weight; the paper number is bold.
+    If no ": " separator is present the whole string is rendered regular.
 
-def _erase_header_band(out_page: fitz.Page) -> None:
-    """White-out the header band before redrawing with an updated label."""
-    out_page.draw_rect(
-        fitz.Rect(0, 0, A4_WIDTH_PT, _HEADER_H + 1),
-        fill=(1, 1, 1), color=(1, 1, 1),
-    )
+    Used for both the top-of-page header and inline paper-section dividers.
+    Font size is driven by ``EXAM_LABEL_FONT_PT`` in config.
+    """
+    fs = _LABEL_FS
+    col = (0.55, 0.55, 0.55)
+    baseline_y = y + _LABEL_BASELINE_OFF
 
+    if ": " in text:
+        sep = ": "
+        subject, paper = text.split(": ", 1)
+        prefix = subject + sep          # regular part  e.g. "IGCSE Physics: "
+        w_prefix = fitz.get_text_length(prefix, fontname="helv", fontsize=fs)
+        w_paper  = fitz.get_text_length(paper,  fontname="hebo", fontsize=fs)
+        text_w = w_prefix + w_paper
+        x_text = (A4_WIDTH_PT - text_w) / 2
+        out_page.insert_text(fitz.Point(x_text, baseline_y),
+                             prefix, fontsize=fs, fontname="helv",
+                             color=col, render_mode=0)
+        out_page.insert_text(fitz.Point(x_text + w_prefix, baseline_y),
+                             paper, fontsize=fs, fontname="hebo",
+                             color=col, render_mode=0)
+    else:
+        text_w = fitz.get_text_length(text, fontname="helv", fontsize=fs)
+        x_text = (A4_WIDTH_PT - text_w) / 2
+        out_page.insert_text(fitz.Point(x_text, baseline_y),
+                             text, fontsize=fs, fontname="helv",
+                             color=col, render_mode=0)
 
-_INLINE_LABEL_H = 18.0   # vertical space consumed by an inline paper divider
-
-
-def _draw_inline_paper_label(out_page: fitz.Page, label: str, y: float) -> None:
-    """Draw a compact inline paper-section divider: '─── label ───' centred on the page."""
-    fs = 8.5
-    text_w = fitz.get_text_length(label, fontname="helv", fontsize=fs)
-    x_text = (A4_WIDTH_PT - text_w) / 2
-    baseline_y = y + 12.0
-    out_page.insert_text(
-        fitz.Point(x_text, baseline_y),
-        label,
-        fontsize=fs,
-        fontname="helv",
-        color=(0.55, 0.55, 0.55),
-        render_mode=0,
-    )
     line_y = baseline_y - fs * 0.35
     pad = 8.0
     line_col = (0.75, 0.75, 0.75)
@@ -355,6 +353,27 @@ def _draw_inline_paper_label(out_page: fitz.Page, label: str, y: float) -> None:
             fitz.Point(A4_WIDTH_PT - _MARGIN_PT - pad, line_y),
             color=line_col, width=0.5,
         )
+
+
+def _draw_header_line(out_page: fitz.Page, text: str) -> None:
+    """Draw the top-of-page label band (band top = _LABEL_TOP_PT)."""
+    _draw_label(out_page, text, _LABEL_TOP_PT)
+
+
+def _erase_header_band(out_page: fitz.Page) -> None:
+    """White-out the header band before redrawing with an updated label."""
+    out_page.draw_rect(
+        fitz.Rect(0, 0, A4_WIDTH_PT, _LABEL_TOP_PT + _LABEL_H + 1),
+        fill=(1, 1, 1), color=(1, 1, 1),
+    )
+
+
+_INLINE_LABEL_H = _LABEL_H   # vertical space consumed by an inline paper divider
+
+
+def _draw_inline_paper_label(out_page: fitz.Page, label: str, y: float) -> None:
+    """Draw an inline paper-section divider (delegates to ``_draw_label``)."""
+    _draw_label(out_page, label, y)
 
 
 # ---------------------------------------------------------------------------
@@ -388,9 +407,8 @@ def layout_vector_strips_to_pdf(
             break
 
     has_header = bool(hl or current_paper_label)
-    header_h_pt = _HEADER_H if has_header else 0.0
-    usable_h_pt = A4_HEIGHT_PT - 2 * _MARGIN_PT - header_h_pt
-    initial_y_pt = _MARGIN_PT + header_h_pt
+    initial_y_pt = (_LABEL_TOP_PT + _LABEL_H + _LABEL_GAP_PT) if has_header else _MARGIN_PT
+    usable_h_pt = A4_HEIGHT_PT - _MARGIN_PT - initial_y_pt
 
     out_doc = fitz.open()
 
@@ -414,6 +432,16 @@ def layout_vector_strips_to_pdf(
 
     current_page, y_cursor = new_page()
 
+    def _next_content_h(idx: int) -> float:
+        """Height of the first VectorStrip/McqStrip after *idx* (skips gaps/labels)."""
+        for i in range(idx + 1, len(strips)):
+            s = strips[i]
+            if isinstance(s, (VectorStrip, McqStrip)):
+                return s.display_h_pt
+            if isinstance(s, (GapStrip, str)):
+                continue
+        return 0.0
+
     for strip_idx, item in enumerate(strips):
 
         # --- paper sub-label (str) ---
@@ -427,15 +455,19 @@ def layout_vector_strips_to_pdf(
                 current_page, y_cursor = new_page()
             else:
                 remaining = A4_HEIGHT_PT - _MARGIN_PT - y_cursor
-                if remaining < _INLINE_LABEL_H + 40:
-                    # Not enough room for the divider + meaningful content.
+                # Look ahead: would the first following exercise also fit after the label?
+                next_h = _next_content_h(strip_idx)
+                fits = (next_h == 0 or
+                        y_cursor + _INLINE_LABEL_H + next_h <= A4_HEIGHT_PT - _MARGIN_PT)
+                if remaining < _INLINE_LABEL_H + 40 or not fits:
+                    # Not enough room for the divider + the next exercise — new page.
                     current_page, y_cursor = new_page()
                 else:
                     # Draw "IGCSE Subject: paper_code" as an inline section header
                     # and continue flowing content on the same page.
                     inline_lbl = _header_text(hl or "", current_paper_label)
                     _draw_inline_paper_label(current_page, inline_lbl, y_cursor)
-                    y_cursor += _INLINE_LABEL_H
+                    y_cursor += _INLINE_LABEL_H + _INLINE_LABEL_GAP_PT
             continue
 
         # --- gap ---

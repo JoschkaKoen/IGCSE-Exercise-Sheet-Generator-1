@@ -22,8 +22,9 @@ _DISCLAIMER_TRIGGERS = (
 )
 
 # Minimum gap (pt) between last real content and region end before we bother
-# trimming.  Prevents needlessly tightening same-page tight regions.
-_MIN_TRIM_GAP_PT = 25.0
+# trimming.  Set equal to the strip bottom-padding so any blank beyond that
+# padding is always removed.
+_MIN_TRIM_GAP_PT = 4.0
 
 # Look this many pt above the disclaimer text for a full-width separator line.
 _FOOTER_MARGIN_PT = 15.0
@@ -77,15 +78,28 @@ def _get_tight_y_end(page: fitz.Page, y_start: float, y_end: float) -> float:
     for block in page.get_text("dict")["blocks"]:
         if block["type"] != 0:
             continue
-        by0, by1 = block["bbox"][1], block["bbox"][3]
+        by0 = block["bbox"][1]
         if by0 < y_start - 5 or by0 > effective_end:
             continue
-        flat = " ".join(
-            span["text"] for line in block["lines"] for span in line["spans"]
-        )
-        if not flat.strip():
-            continue  # blank / whitespace-only block
-        last_y = max(last_y, min(by1, effective_end))
+        # Use the last *non-blank line* bottom rather than the block bbox bottom.
+        # Trailing whitespace-only lines inside a block inflate the bbox without
+        # containing any visible glyphs, causing over-estimation of content height.
+        lines = block["lines"]
+        if not lines:
+            continue
+        # Walk lines in reverse; skip lines whose top edge is beyond
+        # effective_end (they belong to the next question's content in a
+        # shared block) and skip whitespace-only lines.
+        last_line_y1 = 0.0
+        for line in reversed(lines):
+            if line["bbox"][1] > effective_end:
+                continue  # line is outside the valid scan range
+            if any(s["text"].strip() for s in line["spans"]):
+                last_line_y1 = min(line["bbox"][3], effective_end)
+                break
+        if not last_line_y1:
+            continue  # no visible content within range
+        last_y = max(last_y, last_line_y1)
 
     for drawing in page.get_drawings():
         r = drawing["rect"]
@@ -103,7 +117,7 @@ def _get_tight_y_end(page: fitz.Page, y_start: float, y_end: float) -> float:
         return y_end
 
     # Cap tight at effective_end so we never spill into the footer zone.
-    tight = min(last_y + 8.0, effective_end)
+    tight = min(last_y + 4.0, effective_end)
     if tight < y_end - _MIN_TRIM_GAP_PT:
         return tight
     return y_end
