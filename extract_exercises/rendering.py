@@ -62,6 +62,13 @@ Strip = VectorStrip | McqStrip | GapStrip | str
 _MARGIN_PT = 15.0
 _USABLE_W_PT = A4_WIDTH_PT - 2 * _MARGIN_PT   # 565 pt
 
+# Extra space below the MCQ answer-sheet headline before Q1, Q2, … (PDF points).
+_MCQ_AFTER_TITLE_GAP_PT = 2.0
+# "Multiple Choice Answers" — slightly smaller than the Q-lines.
+_MCQ_TITLE_FONT_PT = 11.0
+# Vertical advance for the title row (PDF points).
+_MCQ_TITLE_LINE_PT = 16.0
+
 # ---------------------------------------------------------------------------
 # QR detection (image-rect only — no pixel heuristic)
 # ---------------------------------------------------------------------------
@@ -484,16 +491,27 @@ def layout_vector_strips_to_pdf(
             bold_fs = 14.0
             reg_fs = 11.0
             x_left = 50.0
-            for text, is_bold in item.lines:
-                fs = bold_fs if is_bold else reg_fs
-                current_page.insert_text(
-                    fitz.Point(x_left, y_cursor + fs),
-                    text,
-                    fontsize=fs,
-                    color=(0.0, 0.0, 0.0),
-                    fontname="hebo" if is_bold else "helv",
-                )
-                y_cursor += line_h if not is_bold else line_h + 2
+            for i, (text, is_bold) in enumerate(item.lines):
+                if i == 0 and is_bold:
+                    fs = _MCQ_TITLE_FONT_PT
+                    current_page.insert_text(
+                        fitz.Point(x_left, y_cursor + fs),
+                        text,
+                        fontsize=fs,
+                        color=(0.0, 0.0, 0.0),
+                        fontname="hebo",
+                    )
+                    y_cursor += _MCQ_TITLE_LINE_PT + _MCQ_AFTER_TITLE_GAP_PT
+                else:
+                    fs = bold_fs if is_bold else reg_fs
+                    current_page.insert_text(
+                        fitz.Point(x_left, y_cursor + fs),
+                        text,
+                        fontsize=fs,
+                        color=(0.0, 0.0, 0.0),
+                        fontname="hebo" if is_bold else "helv",
+                    )
+                    y_cursor += line_h if not is_bold else line_h + 2
             continue
 
         # --- vector content strip ---
@@ -582,10 +600,14 @@ def create_mcq_answer_strips(
     found = [(q, answers[q]) for q in requested_questions if q in answers]
     if not found:
         return []
-    # Estimate height: headline (~18pt) + each row (~16pt)
-    line_h_bold = 18.0
+    # Estimate height: title row + gap + each answer row (~16pt)
     line_h = 16.0
-    total_h = line_h_bold + len(found) * line_h + 8.0
+    total_h = (
+        _MCQ_TITLE_LINE_PT
+        + _MCQ_AFTER_TITLE_GAP_PT
+        + len(found) * line_h
+        + 8.0
+    )
     lines: list[tuple[str, bool]] = [("Multiple Choice Answers", True)]
     for qnum, letter in found:
         lines.append((f"Q{qnum}:  {letter}", False))

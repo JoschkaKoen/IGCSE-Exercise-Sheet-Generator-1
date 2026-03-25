@@ -83,10 +83,10 @@
   100% { opacity: 0.38; transform: translate3d( -3px, 2px, 0); }
 }
 
-/* ─── Z-stack ─────────────────────────────────────────────────────────────── */
+/* ─── Z-stack (above aurora/stars) ──────────────────────────────────────── */
 .z-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* Exam library: compact year / session rails */

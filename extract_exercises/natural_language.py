@@ -82,7 +82,10 @@ def resolve_natural_language(
         "Order extractions as the user asked. "
         "Do not use one extraction per output page; the user wants one continuous PDF with questions flowing across pages.\n"
         "If the user names several papers (e.g. s25 paper 21, 41, 62), you must use the extractions array. "
-        "Infer session/paper from filenames (e.g. w24, s25). Match qp/ms pairs when possible."
+        "Infer session/paper from filenames (e.g. w24, s25). Match qp/ms pairs when possible.\n"
+        "Always set mark_scheme_pdf to the matching mark scheme filename from the list for each question paper "
+        "(same session and paper variant as the qp). Use null only if no matching mark scheme exists in the list. "
+        "Do not require the user to ask for answers or mark schemes explicitly — include them by default when available."
     )
     blocks = []
     for key, c in catalogs.items():
