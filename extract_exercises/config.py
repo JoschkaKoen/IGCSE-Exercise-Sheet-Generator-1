@@ -54,6 +54,15 @@ A4_HEIGHT_PT = 842.0
 # the top-of-page header band AND the inline "─── paper ───" section dividers.
 EXAM_LABEL_FONT_PT = 9
 
+# Distance (pt) from the very top of each output page to the top edge of the
+# first label band.  Reduce to move the label (and all content) higher.
+EXAM_LABEL_TOP_PT = 14
+
+# Left/right margin (pt) of the output page.  Content and labels are inset by
+# this amount from both the left and right paper edges.  Reduce to use more of
+# the page width.
+OUTPUT_MARGIN_PT = 10
+
 # Centered **page header** string when ``exam_key`` is known (natural-language runs).
 PAGE_HEADER_BY_EXAM = {
     "physics": "IGCSE Physics",

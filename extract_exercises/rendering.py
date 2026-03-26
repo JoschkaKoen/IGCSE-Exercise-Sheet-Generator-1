@@ -12,6 +12,8 @@ from .config import (
     A4_WIDTH_PT,
     DEFAULT_SUBJECT_CONFIG,
     EXAM_LABEL_FONT_PT,
+    EXAM_LABEL_TOP_PT,
+    OUTPUT_MARGIN_PT,
     HEADER_ZONE_MAX_Y_PT,
     MS_LANDSCAPE_H_THRESHOLD_PT,
     MS_LANDSCAPE_MARGIN_PT,
@@ -59,8 +61,8 @@ class GapStrip:
 
 Strip = VectorStrip | McqStrip | GapStrip | str
 
-_MARGIN_PT = 15.0
-_USABLE_W_PT = A4_WIDTH_PT - 2 * _MARGIN_PT   # 565 pt
+_MARGIN_PT = float(OUTPUT_MARGIN_PT)
+_USABLE_W_PT = A4_WIDTH_PT - 2 * _MARGIN_PT
 
 # Extra space below the MCQ answer-sheet headline before Q1, Q2, … (PDF points).
 _MCQ_AFTER_TITLE_GAP_PT = 2.0
@@ -299,7 +301,7 @@ def collect_vector_strips(
 _LABEL_FS = float(EXAM_LABEL_FONT_PT)
 _LABEL_H = _LABEL_FS + 8.0            # total band height: 4pt pad + font + 4pt pad
 _LABEL_BASELINE_OFF = _LABEL_FS + 4.0  # baseline offset from band top
-_LABEL_TOP_PT = 30.0                   # distance from page top to the label band
+_LABEL_TOP_PT = float(EXAM_LABEL_TOP_PT)  # distance from page top to the label band
 _LABEL_GAP_PT = 5.0                    # gap after the top-of-page header band → first exercise
 _INLINE_LABEL_GAP_PT = 4.0             # gap after an inline mid-page label → following exercise
 

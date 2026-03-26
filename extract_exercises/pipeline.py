@@ -9,6 +9,7 @@ from .config import PAGE_HEADER_BY_EXAM, get_subject_config
 from .exceptions import ExtractionError
 from .labels import page_header_label, paper_label_from_qp_path
 from .mark_scheme import detect_ms_type, find_ms_answer_regions, parse_mcq_answers
+from .pdfjam_post import run_exercise_sheet_pdfjam_variants
 from .questions import find_question_positions, get_question_regions
 from .rendering import (
     GapStrip,
@@ -132,6 +133,9 @@ def run_extraction_jobs(jobs: list[dict], output_pdf: str, exam_key: str | None 
                 all_ms_strips, str(answers_path), page_header,
             )
             print(f"\n  Saved: {answers_path}")
+
+        print("\nExercise sheet n-up variants (pdfjam)…")
+        run_exercise_sheet_pdfjam_variants(out_path)
 
     finally:
         for d in qp_docs + ms_docs:
