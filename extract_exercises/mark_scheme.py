@@ -58,7 +58,7 @@ def detect_landscape_ms_crop_x(doc) -> float | None:
             continue
         crop_x = _rightmost_drawing_x1_before(page, marks_x)
         if crop_x is not None:
-            return crop_x + 0.5
+            return crop_x
     return None
 
 
@@ -80,7 +80,7 @@ def detect_portrait_ms_crop_x(doc) -> float | None:
             continue
         crop_x = _rightmost_drawing_x1_before(page, marks_x)
         if crop_x is not None:
-            return crop_x + 0.5
+            return crop_x
     return None
 
 
@@ -100,17 +100,93 @@ def _find_marks_header_x(page) -> float | None:
 
 
 def _rightmost_drawing_x1_before(page, marks_x: float) -> float | None:
-    """Return the largest drawing-rect x1 that is strictly less than *marks_x*,
-    considering only rects that are at least 30 pt wide in display space."""
+    """Return the largest drawing-rect x1 that is strictly less than *marks_x*.
+
+    First finds the rightmost edge of wide drawings (≥30 pt, cell fills /
+    horizontal borders).  Then extends to any narrow vertical border line whose
+    x0 is within 1 pt of that edge — this catches the right border stroke
+    without jumping across to the Marks column's left border.
+    """
     best = None
     for r in page.get_drawings():
         dr = _norm_bbox(page, (r["rect"].x0, r["rect"].y0, r["rect"].x1, r["rect"].y1))
-        if dr[2] - dr[0] < 30:  # skip narrow elements
+        if dr[2] - dr[0] < 30:
             continue
         if dr[2] < marks_x:
             if best is None or dr[2] > best:
                 best = dr[2]
+    if best is None:
+        return None
+    # Extend to adjacent narrow vertical border lines (within 1 pt of the wide edge).
+    for r in page.get_drawings():
+        dr = _norm_bbox(page, (r["rect"].x0, r["rect"].y0, r["rect"].x1, r["rect"].y1))
+        w = dr[2] - dr[0]
+        h = dr[3] - dr[1]
+        if w < 5 and h >= 3 and dr[2] < marks_x:
+            if dr[0] < best - 0.1 and dr[2] > best:
+                best = dr[2]
     return best
+
+
+def _leftmost_drawing_x0(page, marks_x: float) -> float | None:
+    """Return the smallest drawing-rect x0 to the left of *marks_x*.
+
+    Considers wide drawings (≥30 pt) AND tall narrow drawings (height ≥10 pt,
+    i.e. vertical border lines) so that table border strokes are included.
+    """
+    best = None
+    for r in page.get_drawings():
+        dr = _norm_bbox(page, (r["rect"].x0, r["rect"].y0, r["rect"].x1, r["rect"].y1))
+        w = dr[2] - dr[0]
+        h = dr[3] - dr[1]
+        if w < 30 and h < 3:
+            continue
+        if dr[2] < marks_x:
+            if best is None or dr[0] < best:
+                best = dr[0]
+    return best
+
+
+def detect_landscape_ms_table_left(doc) -> float | None:
+    """Auto-detect the leftmost x of table content on landscape MS pages.
+
+    Returns the x0 of the leftmost wide drawing that is part of the answer
+    table (to the left of the Marks column), minus a small padding.
+    """
+    from .config import MS_LANDSCAPE_H_THRESHOLD_PT
+    for pi in range(len(doc)):
+        page = doc[pi]
+        if page.rect.height >= MS_LANDSCAPE_H_THRESHOLD_PT:
+            continue
+        text = page.get_text()
+        if "Question" not in text or "Marks" not in text:
+            continue
+        marks_x = _find_marks_header_x(page)
+        if marks_x is None:
+            continue
+        left_x = _leftmost_drawing_x0(page, marks_x)
+        if left_x is not None:
+            return left_x
+    return None
+
+
+def detect_portrait_ms_table_left(doc) -> float | None:
+    """Auto-detect the leftmost x of table content on portrait MS pages."""
+    from .config import MS_LANDSCAPE_H_THRESHOLD_PT
+    for pi in range(len(doc)):
+        page = doc[pi]
+        if page.rect.height < MS_LANDSCAPE_H_THRESHOLD_PT:
+            continue
+        text = page.get_text()
+        if "Question" not in text or "Marks" not in text:
+            continue
+        marks_x = _find_marks_header_x(page)
+        if marks_x is None:
+            continue
+        left_x = _leftmost_drawing_x0(page, marks_x)
+        if left_x is not None:
+            return left_x
+    return None
 
 
 def detect_ms_type(doc):
@@ -325,11 +401,17 @@ def _tight_y_end(page, y_start, y_end_max, trailing_gap_pt: float,
                 last_text_y = ny1
 
     # Extend to the bottom of wide drawn elements (horizontal table borders).
+    # Only consider drawings whose left edge (x0) is in the Question/Answer
+    # column area (x0 < 300 pt).  Formula elements (fraction bars, etc.) in
+    # the Marks/Partial-Marks columns can be wider than min_draw_w and would
+    # otherwise push the crop lower than the actual table border.
     last_drawing_y = None
     for d in page.get_drawings():
         r = d["rect"]
         dr = _norm_bbox(page, (r.x0, r.y0, r.x1, r.y1))
         if dr[2] - dr[0] < min_draw_w:
+            continue
+        if dr[0] > 300:
             continue
         if dr[3] <= y_start or dr[3] >= y_end_max:
             continue
@@ -339,12 +421,14 @@ def _tight_y_end(page, y_start, y_end_max, trailing_gap_pt: float,
     if last_text_y is None and last_drawing_y is None:
         return y_end_max
 
-    # Use whichever is bottommost.
+    # Prefer the drawing (table border) whenever one exists at or below the
+    # last text row.  The old threshold (drawing > text + 5) missed borders that
+    # sit just 2–4 pt below the last text, falling through to the text path
+    # which added 20–32 pt of trailing space — causing irregular gaps and
+    # visible whitespace below the bottom border line.
     if last_drawing_y is not None and (
-        last_text_y is None or last_drawing_y > last_text_y + 5
+        last_text_y is None or last_drawing_y >= last_text_y - 2
     ):
-        # The horizontal border line IS the true bottom edge.  Its bounding rect
-        # already encompasses the stroke width, so only minimal padding is needed.
         return last_drawing_y + cfg.drawing_bottom_pad_pt
     return (last_text_y or 0) + trailing_gap_pt
 

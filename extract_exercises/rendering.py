@@ -14,6 +14,7 @@ from .config import (
     EXAM_LABEL_FONT_PT,
     EXAM_LABEL_TOP_PT,
     OUTPUT_MARGIN_PT,
+    OUTPUT_MARGIN_RIGHT_PT,
     HEADER_ZONE_MAX_Y_PT,
     MS_LANDSCAPE_H_THRESHOLD_PT,
     MS_LANDSCAPE_MARGIN_PT,
@@ -28,7 +29,12 @@ from .config import (
     STRIP_CROP_TOP_PT,
     SubjectConfig,
 )
-from .mark_scheme import detect_landscape_ms_crop_x, detect_portrait_ms_crop_x
+from .mark_scheme import (
+    detect_landscape_ms_crop_x,
+    detect_landscape_ms_table_left,
+    detect_portrait_ms_crop_x,
+    detect_portrait_ms_table_left,
+)
 
 # ---------------------------------------------------------------------------
 # Strip types
@@ -62,7 +68,8 @@ class GapStrip:
 Strip = VectorStrip | McqStrip | GapStrip | str
 
 _MARGIN_PT = float(OUTPUT_MARGIN_PT)
-_USABLE_W_PT = A4_WIDTH_PT - 2 * _MARGIN_PT
+_MARGIN_RIGHT_PT = float(OUTPUT_MARGIN_RIGHT_PT)
+_USABLE_W_PT = A4_WIDTH_PT - _MARGIN_PT - _MARGIN_RIGHT_PT
 
 # Extra space below the MCQ answer-sheet headline before Q1, Q2, … (PDF points).
 _MCQ_AFTER_TITLE_GAP_PT = 2.0
@@ -210,14 +217,22 @@ def collect_vector_strips(
     cfg = cfg or DEFAULT_SUBJECT_CONFIG
 
     landscape_crop_x = MS_MARKS_START_PT
+    landscape_table_left = MS_TABLE_LEFT_PT
     portrait_crop_x = MS_PORTRAIT_MARKS_START_PT
+    portrait_table_left = MS_PORTRAIT_TABLE_LEFT_PT
     if is_ms:
         detected_l = detect_landscape_ms_crop_x(doc)
         if detected_l is not None:
             landscape_crop_x = detected_l
+        detected_ll = detect_landscape_ms_table_left(doc)
+        if detected_ll is not None:
+            landscape_table_left = detected_ll
         detected_p = detect_portrait_ms_crop_x(doc)
         if detected_p is not None:
             portrait_crop_x = detected_p
+        detected_pl = detect_portrait_ms_table_left(doc)
+        if detected_pl is not None:
+            portrait_table_left = detected_pl
 
     # Pre-collect QR rects per needed page
     needed_pages = set(r[1] for r in regions)
@@ -237,22 +252,27 @@ def collect_vector_strips(
 
         if is_landscape:
             # Landscape mark-scheme page
-            clip_x0 = MS_TABLE_LEFT_PT
+            clip_x0 = landscape_table_left
             clip_x1 = landscape_crop_x
             clip_y0 = y_start
             clip_y1 = y_end
-            content_w = A4_WIDTH_PT - 2 * MS_LANDSCAPE_MARGIN_PT
-            display_w = content_w
-            x_offset = MS_LANDSCAPE_MARGIN_PT
+            _ms_margin = cfg.ms_answer_landscape_margin_pt if cfg.ms_answer_landscape_margin_pt is not None else MS_LANDSCAPE_MARGIN_PT
+            display_w = A4_WIDTH_PT - 2 * _ms_margin
+            x_offset = (A4_WIDTH_PT - display_w) / 2
         elif is_ms:
             # Portrait mark-scheme page
-            clip_x0 = MS_PORTRAIT_TABLE_LEFT_PT
+            clip_x0 = portrait_table_left
             clip_x1 = portrait_crop_x
             clip_y0 = y_start
             clip_y1 = y_end
             clip_w = clip_x1 - clip_x0
-            display_w = clip_w
-            x_offset = (A4_WIDTH_PT - clip_w) / 2
+            if cfg.ms_answer_portrait_margin_pt is not None:
+                # Scale table to fill the target width, centred.
+                display_w = A4_WIDTH_PT - 2 * cfg.ms_answer_portrait_margin_pt
+            else:
+                # Native (1:1) width — for slim tables (mathematics / CS paper-22).
+                display_w = clip_w
+            x_offset = (A4_WIDTH_PT - display_w) / 2
         else:
             # Portrait question-paper page
             clip_x0 = cfg.strip_crop_left_pt
@@ -279,6 +299,16 @@ def collect_vector_strips(
         # Uniform separator between different questions.
         if current_qnum is not None and qnum != current_qnum:
             strips.append(GapStrip(height_pt=6.0 if is_ms else 16.0))
+        elif current_qnum is not None and qnum == current_qnum and is_ms:
+            # Same question continuing on the next source page: overlap the
+            # continuation strip with the previous one so the duplicated
+            # border lines merge seamlessly.  The previous strip ends with
+            # drawing_bottom_pad_pt of whitespace below its last border;
+            # the continuation starts at its first border (0.48 pt thick).
+            # Overlap by pad + border thickness so the second border is
+            # drawn on top of the first one.
+            _overlap = cfg.drawing_bottom_pad_pt + 0.48
+            strips.append(GapStrip(height_pt=-_overlap))
 
         strips.append(VectorStrip(
             src_doc=doc,
@@ -359,7 +389,7 @@ def _draw_label(out_page: fitz.Page, text: str, y: float) -> None:
         )
         out_page.draw_line(
             fitz.Point(x_text + text_w + pad, line_y),
-            fitz.Point(A4_WIDTH_PT - _MARGIN_PT - pad, line_y),
+            fitz.Point(A4_WIDTH_PT - _MARGIN_RIGHT_PT - pad, line_y),
             color=line_col, width=0.5,
         )
 
@@ -467,7 +497,7 @@ def layout_vector_strips_to_pdf(
                 # Look ahead: would the first following exercise also fit after the label?
                 next_h = _next_content_h(strip_idx)
                 fits = (next_h == 0 or
-                        y_cursor + _INLINE_LABEL_H + next_h <= A4_HEIGHT_PT - _MARGIN_PT)
+                        y_cursor + _INLINE_LABEL_H + _INLINE_LABEL_GAP_PT + next_h <= A4_HEIGHT_PT - _MARGIN_PT)
                 if remaining < _INLINE_LABEL_H + 40 or not fits:
                     # Not enough room for the divider + the next exercise — new page.
                     current_page, y_cursor = new_page()

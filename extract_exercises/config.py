@@ -56,12 +56,16 @@ EXAM_LABEL_FONT_PT = 9
 
 # Distance (pt) from the very top of each output page to the top edge of the
 # first label band.  Reduce to move the label (and all content) higher.
-EXAM_LABEL_TOP_PT = 14
+EXAM_LABEL_TOP_PT = 12
 
-# Left/right margin (pt) of the output page.  Content and labels are inset by
-# this amount from both the left and right paper edges.  Reduce to use more of
-# the page width.
+# Left margin (pt) of the output page.  Content and labels are inset by this
+# amount from the left paper edge.  Reduce to use more of the page width.
 OUTPUT_MARGIN_PT = 10
+
+# Right margin (pt) of the output page.  Kept slightly smaller than the left
+# margin because exam content is inherently left-weighted (question numbers,
+# diagrams) and the extra space on the right is rarely needed.
+OUTPUT_MARGIN_RIGHT_PT = 6
 
 # Centered **page header** string when ``exam_key`` is known (natural-language runs).
 PAGE_HEADER_BY_EXAM = {
@@ -149,9 +153,21 @@ class SubjectConfig:
     # On landscape MS pages, do not extend answer regions below this y (avoids footer).
     ms_footer_top_pt: float = 540.0
 
+    # --- Mark scheme: answer-table display margin ---
+    # Horizontal margin (pt) on each side of the output page for **landscape** MS
+    # answer tables.  The table is scaled to fill ``A4_WIDTH - 2 * margin`` and
+    # centred.  Set to ``None`` to use the global ``MS_LANDSCAPE_MARGIN_PT`` default.
+    ms_answer_landscape_margin_pt: float | None = 25.0
+    # Horizontal margin (pt) for **portrait** MS answer tables.  Set to ``None``
+    # to keep tables at native (1:1) width, centred — useful for slim tables
+    # (mathematics) or tables that should not be scaled (CS paper-22 style).
+    ms_answer_portrait_margin_pt: float | None = None
+
     # --- Mark scheme: _tight_y_end cropping ---
     # Padding added to the bottom of the last wide drawing (table border line).
-    drawing_bottom_pad_pt: float = 1.0
+    # Keep very small (≈0.25 pt) so the border is fully included but no visible
+    # whitespace appears below it.
+    drawing_bottom_pad_pt: float = 0.25
     # Trailing gap when a header-cap has already been applied (content is pre-trimmed).
     trailing_gap_capped_pt: float = 20.0
     # Trailing gap when no cap was active (closing border may sit further below last text).
@@ -166,9 +182,9 @@ DEFAULT_SUBJECT_CONFIG = SubjectConfig()
 # Per-subject overrides.  Mathematics starts with the same defaults; override fields
 # here as bugs are diagnosed and constants are tuned.
 SUBJECT_CONFIG: dict[str, SubjectConfig] = {
-    "physics": DEFAULT_SUBJECT_CONFIG,
+    "physics": SubjectConfig(ms_answer_portrait_margin_pt=25.0),
     "computer_science": DEFAULT_SUBJECT_CONFIG,
-    "mathematics": SubjectConfig(),
+    "mathematics": DEFAULT_SUBJECT_CONFIG,
 }
 
 
