@@ -165,9 +165,10 @@ class SubjectConfig:
 
     # --- Mark scheme: _tight_y_end cropping ---
     # Padding added to the bottom of the last wide drawing (table border line).
-    # Keep very small (≈0.25 pt) so the border is fully included but no visible
-    # whitespace appears below it.
-    drawing_bottom_pad_pt: float = 0.25
+    # Zero is correct: the drawing rect's y1 already covers the full stroke,
+    # so clipping at exactly y1 includes the border without pulling in the
+    # next cell's top edge (~1 px overshoot at 300 DPI with the old 0.25 value).
+    drawing_bottom_pad_pt: float = 0.0
     # Trailing gap when a header-cap has already been applied (content is pre-trimmed).
     trailing_gap_capped_pt: float = 20.0
     # Trailing gap when no cap was active (closing border may sit further below last text).
