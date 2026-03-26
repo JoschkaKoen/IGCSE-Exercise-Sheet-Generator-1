@@ -1,5 +1,7 @@
 # IGCSE Exercise Sheet Generator
 
+![IGCSE Exercise Sheet Generator — web UI](screenshots/Screenshot%202026-03-26%20at%2015.59.55.png)
+
 Extract chosen questions from Cambridge-style IGCSE question papers (PDF) and lay them out into a single printable PDF. Optionally pull matching answers from a mark scheme PDF. Natural-language mode uses an LLM to pick papers and question numbers from your exam folders; legacy mode takes explicit paths.
 
 ## Requirements
