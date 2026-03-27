@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 """Orchestrate extraction jobs and merge mark scheme output."""
 
+from __future__ import annotations
+
 from pathlib import Path
+from typing import Any
 
 import fitz
 
@@ -20,6 +23,42 @@ from .rendering import (
 )
 
 
+def build_exercise_overview(anchors: list[dict[str, Any]]) -> dict[str, Any]:
+    """Group flat anchors into papers for the web UI; each exercise has page + y_pt."""
+    papers: list[dict[str, Any]] = []
+    for a in anchors:
+        label = (a.get("paper") or "") or ""
+        if not papers or papers[-1]["label"] != label:
+            papers.append({"label": label, "exercises": []})
+        papers[-1]["exercises"].append(
+            {
+                "q": int(a["q"]),
+                "page": int(a["page"]),
+                "y_pt": float(a["y_pt"]),
+            }
+        )
+    return {"papers": papers, "anchors": anchors}
+
+
+def merge_answer_anchors_into_overview(
+    overview: dict[str, Any], answer_anchors: list[dict[str, Any]]
+) -> None:
+    """Add ``answers_page`` / ``answers_y_pt`` to each exercise when MS layout has anchors."""
+    key_to_pos: dict[tuple[str, int], tuple[int, float]] = {}
+    for a in answer_anchors:
+        plab = a.get("paper")
+        paper_key = "" if plab is None else str(plab)
+        key_to_pos[(paper_key, int(a["q"]))] = (int(a["page"]), float(a["y_pt"]))
+    for paper in overview.get("papers") or []:
+        plab = paper.get("label")
+        pkey = "" if plab is None else str(plab)
+        for ex in paper.get("exercises") or []:
+            pos = key_to_pos.get((pkey, int(ex["q"])))
+            if pos:
+                ex["answers_page"] = pos[0]
+                ex["answers_y_pt"] = pos[1]
+
+
 def merge_pdf_files(part_paths: list[str], dest: str) -> None:
     """Concatenate multiple PDF files into a single output PDF."""
     merged = fitz.open()
@@ -31,14 +70,23 @@ def merge_pdf_files(part_paths: list[str], dest: str) -> None:
     merged.close()
 
 
-def run_extraction_jobs(jobs: list[dict], output_pdf: str, exam_key: str | None = None) -> None:
+def run_extraction_jobs(
+    jobs: list[dict], output_pdf: str, exam_key: str | None = None
+) -> dict[str, Any]:
     """
     Each job dict: ``input_pdf``, ``questions``, ``mark_scheme_pdf`` (optional path).
     All question strips are concatenated and laid out in one vector PDF flow.
     Source documents are kept open until layout is complete, then closed.
+
+    Returns an overview dict for the web UI (see ``build_exercise_overview``): exercise
+    ``page`` / ``y_pt`` per question, plus optional ``answers_page`` / ``answers_y_pt``
+    when a structured mark-scheme layout produced matching anchors.
     """
     if not jobs:
         raise ExtractionError("No extraction jobs.")
+
+    exercise_anchors: list[dict[str, Any]] = []
+    answer_anchors: list[dict[str, Any]] | None = None
 
     cfg = get_subject_config(exam_key)
     page_header = page_header_label(jobs, exam_key)
@@ -83,7 +131,7 @@ def run_extraction_jobs(jobs: list[dict], output_pdf: str, exam_key: str | None 
             raise ExtractionError("No matching questions found in any paper.")
 
         print(f"\nOutput: {output_pdf}")
-        layout_vector_strips_to_pdf(all_strips, output_pdf, page_header)
+        exercise_anchors = layout_vector_strips_to_pdf(all_strips, output_pdf, page_header)
 
         out_path = Path(output_pdf)
         answers_path = out_path.parent / f"{out_path.stem}_answers{out_path.suffix}"
@@ -129,7 +177,7 @@ def run_extraction_jobs(jobs: list[dict], output_pdf: str, exam_key: str | None 
             all_ms_strips.extend(mstrips)
 
         if all_ms_strips:
-            layout_vector_strips_to_pdf(
+            answer_anchors = layout_vector_strips_to_pdf(
                 all_ms_strips, str(answers_path), page_header,
             )
             print(f"\n  Saved: {answers_path}")
@@ -144,7 +192,11 @@ def run_extraction_jobs(jobs: list[dict], output_pdf: str, exam_key: str | None 
             except Exception:
                 pass
 
+    overview = build_exercise_overview(exercise_anchors)
+    if answer_anchors:
+        merge_answer_anchors_into_overview(overview, answer_anchors)
     print("\nDone!")
+    return overview
 
 
 def run_extraction(input_pdf: str, output_pdf: str, requested: list, ms_pdf: str | None):

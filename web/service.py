@@ -16,9 +16,11 @@ from extract_exercises.pipeline import run_extraction_jobs
 def run_nl_prompt(
     prompt: str,
     on_progress: Callable[[str], None] | None = None,
-) -> tuple[Path, Path | None]:
+) -> tuple[Path, Path | None, Path | None, Path | None, dict[str, Any]]:
     """
-    Resolve natural language, run extraction jobs, return main PDF path and optional answers PDF.
+    Resolve natural language, run extraction jobs, return main PDF, optional answers PDF,
+    optional pdfjam siblings (4-up / 2-up landscape) when those files exist, and an
+    ``overview`` dict for the web UI (papers + exercise anchors for in-PDF navigation).
 
     When ``on_progress`` is set (web UI), each user-visible line is pushed to the callback
     **and** printed — no reliance on stdout redirection in threads.
@@ -48,10 +50,14 @@ def run_nl_prompt(
         )
     emit("Preparing output and extracting PDFs…")
 
+    overview_holder: list[dict[str, Any]] = []
+
     def extract_phase() -> str:
         output_pdf = resolve_output_path_fresh(data["output_pdf"])
         output_str = str(output_pdf)
-        run_extraction_jobs(jobs, output_str, exam_key=data.get("exam"))
+        overview = run_extraction_jobs(jobs, output_str, exam_key=data.get("exam"))
+        overview_holder.clear()
+        overview_holder.append(overview)
         return output_str
 
     if on_progress:
@@ -63,15 +69,19 @@ def run_nl_prompt(
 
     out_path = Path(output_str)
     answers_path = out_path.parent / f"{out_path.stem}_answers{out_path.suffix}"
-    if answers_path.is_file():
-        return out_path, answers_path
-    return out_path, None
+    four_up = out_path.parent / f"{out_path.stem}_4up{out_path.suffix}"
+    two_up = out_path.parent / f"{out_path.stem}_2up{out_path.suffix}"
+    ans: Path | None = answers_path if answers_path.is_file() else None
+    u4: Path | None = four_up if four_up.is_file() else None
+    u2: Path | None = two_up if two_up.is_file() else None
+    overview = overview_holder[0] if overview_holder else {"papers": [], "anchors": []}
+    return out_path, ans, u4, u2, overview
 
 
 def run_nl_prompt_logged(
     prompt: str,
     on_line: Callable[[str], None],
-) -> tuple[Path, Path | None]:
+) -> tuple[Path, Path | None, Path | None, Path | None, dict[str, Any]]:
     """Web worker entry: same as ``run_nl_prompt`` with live progress lines."""
     return run_nl_prompt(prompt, on_progress=on_line)
 

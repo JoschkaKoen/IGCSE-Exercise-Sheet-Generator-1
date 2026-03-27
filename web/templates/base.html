@@ -36,35 +36,40 @@
   <div class="space-stars"   aria-hidden="true"></div>
   <div class="z-content flex min-h-full flex-col">
 
-    <header class="sticky top-0 z-20 border-b border-white/[0.06] bg-space-deep/75 backdrop-blur-2xl">
-      <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
-        <a href="/" class="font-display text-base font-semibold tracking-tight text-white sm:text-lg
+    <header class="site-header sticky top-0 z-20">
+      <div class="site-header-inner mx-auto flex w-full max-w-5xl items-center px-4 py-3.5 sm:px-6">
+        <a href="/" class="site-header-brand shrink-0 font-display text-base font-semibold tracking-tight text-white sm:text-lg
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/80
                            focus-visible:ring-offset-2 focus-visible:ring-offset-space-void rounded-md">
           <span class="bg-gradient-to-r from-cyan-300 via-blue-300 to-blue-400 bg-clip-text text-transparent">
             IGCSE Exercise Sheets
           </span>
         </a>
-        <nav class="flex items-center gap-0.5 rounded-full border border-white/[0.09] bg-white/[0.04] p-1 backdrop-blur-sm"
-             aria-label="Main">
-          {% set path = request.url.path %}
-          <a href="/"
-             class="rounded-full px-4 py-1.5 text-sm font-medium transition
-                    focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60
-                    {{ 'nav-link-active' if path == '/' else 'text-slate-400 hover:bg-white/10 hover:text-white' }}">
-            Generate
-          </a>
-          <a href="/library"
-             class="rounded-full px-4 py-1.5 text-sm font-medium transition
-                    focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60
-                    {{ 'nav-link-active' if path == '/library' else 'text-slate-400 hover:bg-white/10 hover:text-white' }}">
-            Library
-          </a>
-        </nav>
+        <div class="site-header-preview-col">
+          <div class="site-header-middle">
+            {% block pdf_preview_tabs %}{% endblock %}
+          </div>
+          <nav class="site-header-nav flex shrink-0 items-center gap-0.5 rounded-full border border-white/[0.09] bg-white/[0.06] p-1 backdrop-blur-md"
+               aria-label="Main">
+            {% set path = request.url.path %}
+            <a href="/"
+               class="rounded-full px-4 py-1.5 text-sm font-medium transition
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60
+                      {{ 'nav-link-active' if path == '/' else 'text-slate-400 hover:bg-white/10 hover:text-white' }}">
+              Generate
+            </a>
+            <a href="/library"
+               class="rounded-full px-4 py-1.5 text-sm font-medium transition
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60
+                      {{ 'nav-link-active' if path == '/library' else 'text-slate-400 hover:bg-white/10 hover:text-white' }}">
+              Library
+            </a>
+          </nav>
+        </div>
       </div>
     </header>
 
-    <main class="mx-auto w-full max-w-5xl flex-1 px-4 py-12 sm:px-6">
+    <main id="site-main" class="mx-auto w-full max-w-5xl flex-1 px-4 py-12 sm:px-6">
       {% block content %}{% endblock %}
     </main>
 

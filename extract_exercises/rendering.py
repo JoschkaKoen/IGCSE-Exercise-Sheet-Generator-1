@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import Any
 
 import fitz
 
@@ -50,6 +51,7 @@ class VectorStrip:
     display_w_pt: float         # rendered width on the output page
     x_offset_pt: float          # left edge on the output page
     qr_rects: list[fitz.Rect] = field(default_factory=list)  # source-space embedded-image rects to white-out
+    question_num: int | None = None  # source question number (exercise sheet nav anchors)
 
 
 @dataclass
@@ -318,6 +320,7 @@ def collect_vector_strips(
             display_w_pt=display_w,
             x_offset_pt=x_offset,
             qr_rects=page_qrs,
+            question_num=qnum,
         ))
         current_qnum = qnum
 
@@ -332,8 +335,8 @@ _LABEL_FS = float(EXAM_LABEL_FONT_PT)
 _LABEL_H = _LABEL_FS + 8.0            # total band height: 4pt pad + font + 4pt pad
 _LABEL_BASELINE_OFF = _LABEL_FS + 4.0  # baseline offset from band top
 _LABEL_TOP_PT = float(EXAM_LABEL_TOP_PT)  # distance from page top to the label band
-_LABEL_GAP_PT = 5.0                    # gap after the top-of-page header band → first exercise
-_INLINE_LABEL_GAP_PT = 4.0             # gap after an inline mid-page label → following exercise
+_LABEL_GAP_PT = 6.0                    # gap after the top-of-page header band → first exercise
+_INLINE_LABEL_GAP_PT = 6.0             # gap after an inline mid-page label → following exercise
 
 
 def _header_text(subject_label: str, paper_label: str | None) -> str:
@@ -425,7 +428,7 @@ def layout_vector_strips_to_pdf(
     header_label: str | None = None,
     *,
     paper_always_newpage: bool = False,
-) -> None:
+) -> list[dict[str, Any]]:
     """Flow strips onto A4 pages and write a vector PDF.
 
     Strips are VectorStrip (show_pdf_page), McqStrip (insert_text),
@@ -435,6 +438,10 @@ def layout_vector_strips_to_pdf(
     starts a fresh page if any content has already been placed.  This ensures
     each paper's section gets its own page with the correct ``subject: paper``
     header — used for answer sheets where space is rarely a constraint.
+
+    Returns navigation anchors for the exercise sheet: each dict has ``paper`` (str
+    or null), ``q`` (int), ``page`` (0-based output page index), ``y_pt`` (distance
+    from top of that page to the top of the question strip, in PDF points).
     """
     hl = (header_label or "").strip() or None
 
@@ -470,6 +477,26 @@ def layout_vector_strips_to_pdf(
             _draw_header_line(pg, _header_text(hl or "", page_first_paper_label))
 
     current_page, y_cursor = new_page()
+
+    anchors: list[dict[str, Any]] = []
+    anchor_seen: set[tuple[str | None, int]] = set()
+
+    def _record_exercise_anchor(vstrip: VectorStrip, page: fitz.Page, y_top: float) -> None:
+        qn = vstrip.question_num
+        if qn is None:
+            return
+        key = (current_paper_label, qn)
+        if key in anchor_seen:
+            return
+        anchor_seen.add(key)
+        anchors.append(
+            {
+                "paper": current_paper_label,
+                "q": int(qn),
+                "page": int(page.number),
+                "y_pt": float(y_top),
+            }
+        )
 
     def _next_content_h(idx: int) -> float:
         """Height of the first VectorStrip/McqStrip after *idx* (skips gaps/labels)."""
@@ -569,9 +596,14 @@ def layout_vector_strips_to_pdf(
                     # Tall strip: chunk across pages
                     src_y0 = clip.y0
                     src_remaining = clip.height
+                    chunk_first = True
                     while src_remaining > 0:
                         available_pt = A4_HEIGHT_PT - _MARGIN_PT - y_cursor
-                        if available_pt < 5.0:
+                        # Avoid orphan slivers: require at least 120 pt
+                        # (~4 cm) of space before starting a chunk at the
+                        # bottom of a page; otherwise push to a fresh page.
+                        _MIN_CHUNK_PT = 120.0
+                        if available_pt < _MIN_CHUNK_PT:
                             current_page, y_cursor = new_page()
                             available_pt = A4_HEIGHT_PT - _MARGIN_PT - y_cursor
 
@@ -582,6 +614,9 @@ def layout_vector_strips_to_pdf(
                         )
                         chunk_mb = _display_to_mediabox(chunk_display, src_page)
                         out_h = src_chunk_h * scale_x
+                        if chunk_first:
+                            _record_exercise_anchor(item, current_page, y_cursor)
+                            chunk_first = False
                         target = fitz.Rect(
                             item.x_offset_pt, y_cursor,
                             item.x_offset_pt + item.display_w_pt, y_cursor + out_h,
@@ -603,6 +638,7 @@ def layout_vector_strips_to_pdf(
                 else:
                     current_page, y_cursor = new_page()
 
+            _record_exercise_anchor(item, current_page, y_cursor)
             target = fitz.Rect(
                 item.x_offset_pt, y_cursor,
                 item.x_offset_pt + item.display_w_pt, y_cursor + sh,
@@ -622,6 +658,7 @@ def layout_vector_strips_to_pdf(
     out_doc.close()
     clear_derotated_cache()
     print(f"  Saved: {output_path}")
+    return anchors
 
 
 def create_mcq_answer_strips(

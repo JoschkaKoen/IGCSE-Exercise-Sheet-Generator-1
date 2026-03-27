@@ -7,6 +7,7 @@ import threading
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 
 @dataclass
@@ -18,7 +19,10 @@ class JobRecord:
     error: str | None = None
     output_pdf: Path | None = None
     answers_pdf: Path | None = None
+    exercise_4up_pdf: Path | None = None
+    exercise_2up_pdf: Path | None = None
     log_line: str = ""
+    overview: dict[str, Any] | None = None
 
 
 class JobStore:
@@ -63,6 +67,9 @@ class JobStore:
         job_id: str,
         output_pdf: Path,
         answers_pdf: Path | None,
+        exercise_4up_pdf: Path | None = None,
+        exercise_2up_pdf: Path | None = None,
+        overview: dict[str, Any] | None = None,
     ) -> None:
         with self._lock:
             j = self._jobs.get(job_id)
@@ -70,3 +77,6 @@ class JobStore:
                 j.status = "done"
                 j.output_pdf = output_pdf
                 j.answers_pdf = answers_pdf
+                j.exercise_4up_pdf = exercise_4up_pdf
+                j.exercise_2up_pdf = exercise_2up_pdf
+                j.overview = overview

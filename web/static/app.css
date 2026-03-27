@@ -5,6 +5,7 @@
   --space-deep: #080e1e;
   --glow-cyan:   rgba(34, 211, 238, 0.45);
   --glow-indigo: rgba(99, 102, 241, 0.35);
+  --preview-sticky-top: 4.5rem;
 }
 
 .space-bg {
@@ -351,6 +352,602 @@
   50%       { transform: translateY( -7px); }
 }
 
+/* ─── Site header (glass); PDF tabs share 2-col grid with main preview layout ─ */
+/* --header-glass-fill: 1 at PDF scroll top, lower while scrolling (set from index.html) */
+.site-header {
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: transparent;
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 14, 30, 0.42) 0%,
+    rgba(8, 14, 30, 0.28) 55%,
+    rgba(8, 14, 30, 0.22) 100%
+  );
+  opacity: var(--header-glass-fill, 1);
+  transition: opacity 0.35s ease;
+}
+
+.site-header-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Right cluster: PDF tabs (when shown) + Generate/Library — matches .generate-workspace grid below */
+.site-header-preview-col {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+  position: relative;
+  gap: 0.75rem;
+}
+
+.site-header-middle {
+  display: none;
+  flex: 1 1 auto;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-header-middle:has(#pdf-tab-bar-wrap:not([hidden])) {
+  display: flex;
+}
+
+@media (min-width: 1024px) {
+  /* Same columns + gap as .generate-workspace.preview-mode: 22.5rem | 1fr — tabs centered in PDF column; nav over right edge */
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) {
+    display: grid;
+    grid-template-columns: minmax(0, 22.5rem) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand {
+    grid-column: 1;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-preview-col {
+    grid-column: 2;
+    margin-left: 0;
+    flex: unset;
+    width: 100%;
+    min-width: 0;
+    min-height: 2.75rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* Equal 1fr sides center the tab pill in the PDF column; nav sits on the right edge */
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-middle {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-nav {
+    grid-column: 3;
+    justify-self: end;
+    align-self: center;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1023px) {
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 1rem;
+    align-items: center;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-preview-col {
+    display: contents;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-nav {
+    grid-column: 2;
+    grid-row: 1;
+    margin-left: 0;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-middle {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    flex: unset;
+    justify-content: center;
+  }
+}
+
+/* ─── Generate workspace + PDF preview (split layout) ─────────────────────── */
+.generate-workspace {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 0;
+  transition: max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gen-surface {
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 18px 40px -16px rgba(0, 0, 0, 0.5);
+}
+
+.gen-surface-head {
+  letter-spacing: 0.02em;
+}
+
+.generate-workspace.preview-mode {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  gap: 0.65rem 1rem;
+}
+
+.generate-workspace.preview-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@media (min-width: 1024px) {
+  .generate-workspace.preview-mode {
+    display: grid;
+    grid-template-columns: minmax(0, 22.5rem) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+/* PDF column: tabs centered above preview (see .pdf-preview-stack in index.html) */
+.pdf-preview-stack {
+  min-width: 0;
+}
+
+.pdf-tab-bar-wrap {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.pdf-tab-bar-wrap[hidden] {
+  display: none !important;
+}
+
+/* Tab bar lives in <header>; .preview-mode is only on #generate-workspace, so use body + #id */
+body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.preview-mode-active:not(:has(#generate-workspace.preview-mode--settled)) #pdf-tab-bar-wrap:not([hidden]) {
+  opacity: 0;
+  transform: translateY(-0.35rem);
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab-bar-wrap:not([hidden]) {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pdf-tab-slider {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pdf-tab-slider-btn {
+  border: none;
+  border-radius: 9999px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: transparent;
+  color: rgb(148 163 184);
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+}
+
+.pdf-tab-slider-btn:hover:not(:disabled) {
+  color: rgb(226 232 240);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.pdf-tab-slider-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pdf-tab-slider-btn:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.45);
+  outline-offset: 2px;
+}
+
+.pdf-tab-slider-btn[aria-selected="true"]:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+#tab-btn-answers[aria-selected="true"]:not(:disabled) {
+  background: rgba(52, 211, 153, 0.14);
+  color: rgb(209 250 229);
+}
+
+#tab-btn-two-up[aria-selected="true"]:not(:disabled) {
+  background: rgba(251, 191, 36, 0.12);
+  color: rgb(254 243 199);
+}
+
+#tab-btn-four-up[aria-selected="true"]:not(:disabled) {
+  background: rgba(167, 139, 250, 0.14);
+  color: rgb(221 214 254);
+}
+
+.gen-left-col {
+  width: 100%;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  transition:
+    width 0.45s ease,
+    max-width 0.45s ease,
+    margin 0.45s ease;
+}
+
+.preview-mode .gen-left-col {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (min-width: 1024px) {
+  .preview-mode .gen-left-col {
+    width: 22.5rem;
+    max-width: 22.5rem;
+    flex-shrink: 0;
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+.hero-collapse {
+  max-height: 40rem;
+  opacity: 1;
+  overflow: hidden;
+  transition:
+    max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s ease,
+    margin 0.45s ease;
+}
+
+.preview-mode.preview-mode--settled .hero-collapse {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  pointer-events: none;
+}
+
+.preview-mode #gen-form {
+  margin-top: 0;
+}
+
+.preview-mode #prompt {
+  min-height: 11rem;
+  max-height: min(42vh, 22rem);
+  resize: vertical;
+}
+
+#pdf-preview-pane {
+  display: none;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 60vh;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(148deg, rgba(15, 28, 52, 0.75) 0%, rgba(10, 18, 38, 0.5) 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 24px 48px -12px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .preview-mode .pdf-preview-stack {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    height: calc(100vh - var(--preview-sticky-top) - 1rem);
+    max-height: calc(100vh - var(--preview-sticky-top) - 1rem);
+  }
+}
+
+.preview-mode #pdf-preview-pane {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateX(1.25rem);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.preview-mode.preview-mode--settled #pdf-preview-pane {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 1023px) {
+  .generate-workspace.preview-mode {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(14rem, 1fr);
+  }
+
+  .preview-mode #gen-left-col {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .preview-mode .pdf-preview-stack {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    max-height: min(58vh, calc(100vh - var(--preview-sticky-top) - 1.25rem));
+    height: min(58vh, calc(100vh - var(--preview-sticky-top) - 1.25rem));
+  }
+}
+
+.pdf-tab-panels {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.pdf-tab-panel {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.pdf-tab-panel.is-active {
+  display: flex;
+}
+
+.pdf-viewport-scroll {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.28);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0.35rem 0.5rem 0.75rem;
+}
+
+.pdf-pages-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* ─── Overview (preview): papers + exercise jump links ─────────────────── */
+.overview-panel {
+  display: none;
+}
+
+.preview-mode.preview-mode--settled .overview-panel:not(.hidden) {
+  display: block;
+}
+
+.overview-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.overview-paper-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.overview-paper-btn {
+  width: 100%;
+  text-align: left;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  background: rgba(56, 189, 248, 0.08);
+  padding: 0.4rem 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgb(186 230 253);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.overview-paper-btn:hover {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.overview-q-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  padding-left: 0.15rem;
+}
+
+.overview-q-btn {
+  min-width: 1.85rem;
+  padding: 0.22rem 0.4rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: rgb(226 232 240);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.overview-q-btn:hover {
+  background: rgba(34, 211, 238, 0.12);
+  border-color: rgba(34, 211, 238, 0.28);
+  color: rgb(207 250 254);
+}
+
+.overview-q-btn:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.45);
+  outline-offset: 2px;
+}
+
+.pdf-viewport-scroll:focus {
+  outline: none;
+}
+
+.pdf-viewport-scroll:focus-visible {
+  box-shadow: inset 0 0 0 2px rgba(34, 211, 238, 0.35);
+}
+
+.pdf-canvas,
+.pdf-canvas-page {
+  display: block;
+  background: #1e293b;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+}
+
+.pdf-canvas-page {
+  flex-shrink: 0;
+}
+
+.pdf-loading-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 14, 30, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.pdf-loading-overlay.hidden {
+  display: none;
+}
+
+.pdf-empty-state {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: rgb(148 163 184);
+  font-size: 0.8rem;
+  background: rgba(8, 14, 30, 0.35);
+}
+
+.pdf-empty-state.hidden {
+  display: none;
+}
+
+body.preview-mode-active {
+  --preview-sticky-top: 5.25rem;
+}
+
+@media (max-width: 1023px) {
+  body.preview-mode-active:has(#pdf-tab-bar-wrap:not([hidden])) {
+    --preview-sticky-top: 6.75rem;
+  }
+}
+
+body.preview-mode-active #site-main {
+  max-width: none;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+body.preview-mode-active .site-header-inner.max-w-5xl {
+  max-width: none;
+}
+
 /* ─── Reduced-motion overrides ───────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .hero-icon,
@@ -363,5 +960,22 @@
   .result-panel-reveal {
     transition-duration: 0.01ms;
     transition-timing-function: step-end;
+  }
+
+  .generate-workspace,
+  .gen-left-col,
+  .hero-collapse {
+    transition-duration: 0.01ms;
+  }
+
+  .preview-mode #pdf-preview-pane,
+  body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
+    transition-duration: 0.01ms;
+    opacity: 1;
+    transform: none;
+  }
+
+  .site-header::before {
+    transition-duration: 0.01ms;
   }
 }

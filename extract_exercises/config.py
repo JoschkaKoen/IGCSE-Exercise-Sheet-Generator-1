@@ -56,7 +56,7 @@ EXAM_LABEL_FONT_PT = 9
 
 # Distance (pt) from the very top of each output page to the top edge of the
 # first label band.  Reduce to move the label (and all content) higher.
-EXAM_LABEL_TOP_PT = 12
+EXAM_LABEL_TOP_PT = 10
 
 # Left margin (pt) of the output page.  Content and labels are inset by this
 # amount from the left paper edge.  Reduce to use more of the page width.
@@ -65,7 +65,7 @@ OUTPUT_MARGIN_PT = 10
 # Right margin (pt) of the output page.  Kept slightly smaller than the left
 # margin because exam content is inherently left-weighted (question numbers,
 # diagrams) and the extra space on the right is rarely needed.
-OUTPUT_MARGIN_RIGHT_PT = 6
+OUTPUT_MARGIN_RIGHT_PT = 4
 
 # Centered **page header** string when ``exam_key`` is known (natural-language runs).
 PAGE_HEADER_BY_EXAM = {

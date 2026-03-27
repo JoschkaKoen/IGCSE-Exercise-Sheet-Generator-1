@@ -327,6 +327,10 @@ def _precise_y_start_from_drawings(page, y_start: float, h_top: float, h_bot: fl
         dr = _norm_bbox(page, (r.x0, r.y0, r.x1, r.y1))
         if dr[2] - dr[0] < 50:
             continue
+        # Only thick drawings (filled header background, ≥2 pt tall) count as
+        # header band; thin border lines (<1 pt) should not push the extent.
+        if dr[3] - dr[1] < 2.0:
+            continue
         if dr[0] >= h_top - 15 and dr[1] > h_bot and dr[1] < first_entry_y:
             header_band_end = max(header_band_end, dr[1])
 
@@ -340,9 +344,10 @@ def _precise_y_start_from_drawings(page, y_start: float, h_top: float, h_bot: fl
             if content_row_top is None or dr[0] < content_row_top:
                 content_row_top = dr[0]
 
+    # Include a tiny margin above the border so the top stroke is not clipped.
     if content_row_top is not None:
-        return max(y_start, content_row_top)
-    return max(y_start, header_band_end)
+        return max(y_start, content_row_top - 1.0)
+    return max(y_start, header_band_end - 1.0)
 
 
 def _floor_y_start_below_headers(first_line_y, candidate_y_start, header_rows_for_page,
