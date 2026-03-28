@@ -10,14 +10,14 @@
           <span class="pdf-tab-sheet-label">Exercise sheet</span>
           <div id="pdf-tab-layout-track" class="pdf-tab-layout-track pdf-tab-layout-track--embedded" role="presentation" data-layout="exercise">
             <span id="pdf-tab-layout-pill" class="pdf-tab-layout-pill" aria-hidden="true"></span>
-            <button type="button" id="tab-btn-exercise" class="pdf-tab-layout-btn" role="tab"
+            <button type="button" id="tab-btn-exercise" class="pdf-tab-layout-btn pdf-tab-layout-btn--sky" role="tab"
                     aria-selected="true" aria-controls="tab-panel-exercise" tabindex="0" title="Single page">
               <span class="pdf-tab-layout-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="6" y="4" width="12" height="16" rx="1.5"/></svg>
               </span>
               <span class="sr-only">Single page</span>
             </button>
-            <button type="button" id="tab-btn-two-up" class="pdf-tab-layout-btn" role="tab"
+            <button type="button" id="tab-btn-two-up" class="pdf-tab-layout-btn pdf-tab-layout-btn--amber" role="tab"
                     aria-selected="false" aria-controls="tab-panel-two-up" tabindex="-1" title="Two pages per sheet">
               <span class="pdf-tab-layout-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
@@ -26,7 +26,7 @@
               </span>
               <span class="sr-only">Two pages per sheet</span>
             </button>
-            <button type="button" id="tab-btn-four-up" class="pdf-tab-layout-btn" role="tab"
+            <button type="button" id="tab-btn-four-up" class="pdf-tab-layout-btn pdf-tab-layout-btn--violet" role="tab"
                     aria-selected="false" aria-controls="tab-panel-four-up" tabindex="-1" title="Four pages per sheet">
               <span class="pdf-tab-layout-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
@@ -85,18 +85,15 @@
 
   <!-- Form -->
   <form id="gen-form" class="gen-surface glass-panel form-glow mt-10 rounded-2xl p-5 sm:p-6">
-    <div class="gen-surface-head mb-3 flex items-center gap-2">
-      <span class="h-1 w-1 rounded-full bg-cyan-400/80 shadow-[0_0_8px_rgba(34,211,238,0.5)]" aria-hidden="true"></span>
-      <label for="prompt" class="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-slate-400">Your request</label>
-    </div>
     <textarea
       id="prompt"
       name="prompt"
       rows="4"
       maxlength="12000"
       required
+      aria-label="Describe which exam papers and exercises to include"
       class="w-full resize-y rounded-xl border border-white/[0.09] bg-slate-950/80
-             px-3.5 py-3 text-[0.88rem] leading-relaxed text-slate-100 placeholder:text-slate-500/75
+             px-3.5 py-3 text-[0.88rem] leading-relaxed text-slate-100 placeholder:text-slate-400/85
              shadow-inner shadow-black/30
              focus:border-cyan-500/35 focus:outline-none focus:ring-2 focus:ring-cyan-500/15
              transition-colors"
@@ -174,83 +171,52 @@
   <div id="result-panel"
        class="gen-surface glass-panel result-panel-reveal pointer-events-none mt-5 hidden translate-y-6 rounded-2xl p-5 opacity-0 sm:p-6"
        aria-label="Generated files">
-    <div class="flex flex-col gap-3">
-      <a id="dl-all" href="#"
-         class="download-btn relative inline-flex w-full items-center justify-center gap-2.5 rounded-2xl border-2 border-cyan-400/55
-                bg-gradient-to-br from-cyan-500/30 via-teal-500/20 to-emerald-500/25 px-4 py-3.5 text-sm font-semibold
-                text-white shadow-[0_0_28px_rgba(34,211,238,0.22)] backdrop-blur-sm
-                transition hover:border-cyan-300/75 hover:from-cyan-500/40 hover:via-teal-500/28 hover:to-emerald-500/35
-                hover:shadow-[0_0_36px_rgba(34,211,238,0.35)]
-                focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2
-                focus-visible:ring-offset-space-deep"
-         title="Saves each PDF separately (exercise sheet, mark scheme if any, n-up files if any). Your browser may ask to allow multiple downloads.">
-        <svg class="h-5 w-5 shrink-0 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <div class="flex flex-col gap-2.5">
+      <a id="dl-all" href="#" class="dl-hero download-btn"
+         title="Saves each PDF separately. Your browser may ask to allow multiple downloads.">
+        <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
         </svg>
         Download all
       </a>
-      <div class="result-dl-grid grid grid-cols-2 gap-2">
-        <div class="result-dl-exercise col-span-2 flex flex-col gap-2 rounded-xl border border-white/10 bg-white/[0.05] px-3 py-2.5 backdrop-blur-sm">
-          <span class="flex items-center justify-center gap-2 text-[0.7rem] font-medium text-slate-300">
-            <svg class="h-3.5 w-3.5 shrink-0 text-cyan-400/90" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+      <div class="dl-card dl-card--sheet">
+        <span class="dl-card-label">
+          <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          Exercise sheet
+        </span>
+        <div class="dl-card-actions">
+          <a id="dl-main" href="#" class="dl-icon-btn dl-icon-btn--sky download-btn" title="Download single-page exercise sheet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="6" y="4" width="12" height="16" rx="1.5"/></svg>
+            <span class="sr-only">Download single-page exercise sheet</span>
+          </a>
+          <a id="dl-two-up" href="#" class="dl-icon-btn dl-icon-btn--amber hidden download-btn" title="Download 2-up sheet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+              <rect x="3" y="4" width="8" height="16" rx="1.25"/><rect x="13" y="4" width="8" height="16" rx="1.25"/>
             </svg>
-            Exercise sheet
-          </span>
-          <div class="result-dl-layout-row flex items-stretch justify-center gap-2">
-            <a id="dl-main" href="#"
-               class="download-btn result-dl-layout-btn result-dl-layout-btn--single min-h-[2.75rem] min-w-[2.75rem] flex-1 max-w-[5.5rem] rounded-xl border border-white/12
-                      bg-white/[0.04] text-cyan-300 transition hover:border-cyan-400/45 hover:bg-cyan-500/12
-                      focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
-               title="Download single-page exercise sheet">
-              <span class="result-dl-layout-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="6" y="4" width="12" height="16" rx="1.5"/></svg>
-              </span>
-              <span class="sr-only">Download single-page exercise sheet</span>
-            </a>
-            <a id="dl-two-up" href="#"
-               class="download-btn result-dl-layout-btn result-dl-layout-btn--two-up hidden min-h-[2.75rem] min-w-[2.75rem] flex-1 max-w-[5.5rem] rounded-xl border border-white/12
-                      bg-white/[0.04] text-amber-300 transition hover:border-amber-400/45 hover:bg-amber-500/12
-                      focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60"
-               title="Download 2-up exercise sheet (landscape A4, requires pdfjam)">
-              <span class="result-dl-layout-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
-                  <rect x="3" y="4" width="8" height="16" rx="1.25"/><rect x="13" y="4" width="8" height="16" rx="1.25"/>
-                </svg>
-              </span>
-              <span class="sr-only">Download two pages per sheet</span>
-            </a>
-            <a id="dl-four-up" href="#"
-               class="download-btn result-dl-layout-btn result-dl-layout-btn--four-up hidden min-h-[2.75rem] min-w-[2.75rem] flex-1 max-w-[5.5rem] rounded-xl border border-white/12
-                      bg-white/[0.04] text-violet-300 transition hover:border-violet-400/45 hover:bg-violet-500/12
-                      focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400/60"
-               title="Download 4-up exercise sheet (2x2, requires pdfjam)">
-              <span class="result-dl-layout-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
-                  <rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/>
-                  <rect x="3" y="13" width="8" height="7" rx="1"/><rect x="13" y="13" width="8" height="7" rx="1"/>
-                </svg>
-              </span>
-              <span class="sr-only">Download four pages per sheet</span>
-            </a>
-          </div>
+            <span class="sr-only">Download two pages per sheet</span>
+          </a>
+          <a id="dl-four-up" href="#" class="dl-icon-btn dl-icon-btn--violet hidden download-btn" title="Download 4-up sheet">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+              <rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/>
+              <rect x="3" y="13" width="8" height="7" rx="1"/><rect x="13" y="13" width="8" height="7" rx="1"/>
+            </svg>
+            <span class="sr-only">Download four pages per sheet</span>
+          </a>
         </div>
-        <a id="dl-answers" href="#"
-           class="download-btn result-dl-ms col-span-2 hidden flex min-h-[3.1rem] w-full flex-col justify-center rounded-xl border border-white/10
-                  bg-white/[0.05] px-3 py-2.5 backdrop-blur-sm
-                  transition hover:border-emerald-500/40 hover:bg-emerald-500/[0.1]
-                  focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60">
-          <span class="flex items-center justify-center gap-2 text-[0.7rem] font-medium text-emerald-100/95">
-            <svg class="h-3.5 w-3.5 shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
-            </svg>
-            Mark scheme
-          </span>
-        </a>
       </div>
+      <a id="dl-answers" href="#" class="dl-card dl-card--emerald hidden download-btn">
+        <span class="dl-card-label">
+          <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Mark scheme
+        </span>
+      </a>
     </div>
   </div>
 
@@ -527,15 +493,26 @@
     return pdfTabState[id];
   }
 
-  function rerenderAllLoadedPdfTabs() {
-    var jobs = [];
-    TABS.forEach(function (tab) {
-      if (!tabEnabled(tab.id)) return;
-      var s = getPdfState(tab.id);
-      if (!s.doc) return;
-      jobs.push(renderPdfContinuous(tab.id));
+  /** Drop canvas + text layer DOM for one tab; keeps PDF.js document in memory for instant tab switch. */
+  function clearPdfSurfaces(id) {
+    var stack = pagesStackEl(id);
+    if (stack) stack.innerHTML = '';
+  }
+
+  /** Free GPU/RAM for all tabs except the active one (documents stay loaded). */
+  function clearInactivePdfSurfaces(activeId) {
+    TAB_ORDER.forEach(function (tid) {
+      if (tid === activeId) return;
+      if (getPdfState(tid).doc) clearPdfSurfaces(tid);
     });
-    return Promise.all(jobs);
+  }
+
+  /** Re-layout only the visible tab (avoids holding 4× full canvas sets in RAM). */
+  function rerenderActivePdfTab() {
+    var id = activePdfTabId();
+    if (!tabEnabled(id) || !getPdfState(id).doc) return Promise.resolve();
+    clearInactivePdfSurfaces(id);
+    return renderPdfContinuous(id);
   }
 
   function ensurePdfJs() {
@@ -657,6 +634,9 @@
           console.warn('PDF text layer failed', texErr);
         }
       }
+      try {
+        page.cleanup();
+      } catch (cleanErr) {}
     }
     updateHeaderGlassFromPdfScroll();
   }
@@ -672,7 +652,6 @@
     s.loadingTask = null;
     s.doc = doc;
     s.zoom = 1;
-    await renderPdfContinuous(id);
   }
 
   function activePdfTabId() {
@@ -730,6 +709,7 @@
 
   function selectTab(id) {
     if (!tabEnabled(id)) return Promise.resolve();
+    clearInactivePdfSurfaces(id);
     TAB_ORDER.forEach(function (tid) {
       var btn = tabBtn(tid);
       var pan = panelEl(tid);
@@ -948,7 +928,7 @@
       workspace.classList.add('preview-mode--settled');
       var delayMs = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 580;
       setTimeout(function () {
-        void rerenderAllLoadedPdfTabs().then(function () {
+        void rerenderActivePdfTab().then(function () {
           updateHeaderGlassFromPdfScroll();
         });
       }, delayMs);

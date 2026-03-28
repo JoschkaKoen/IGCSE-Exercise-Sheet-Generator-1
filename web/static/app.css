@@ -288,63 +288,243 @@
   transform: translateX(100%);
 }
 
-#dl-all.download-btn {
-  transition:
-    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.22s ease,
-    border-color 0.22s ease,
-    filter 0.22s ease;
-  box-shadow:
-    0 0 0 1px rgba(34, 211, 238, 0.22) inset,
-    0 4px 28px -6px rgba(34, 211, 238, 0.42),
-    0 0 56px -12px rgba(45, 212, 191, 0.28),
-    0 12px 40px -16px rgba(0, 0, 0, 0.45);
-  filter: saturate(1.06);
-}
-
-#dl-all.download-btn::after {
-  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.11) 50%, transparent 70%);
-}
-
-#dl-all.download-btn:hover {
-  transform: translateY(-2px);
-  filter: saturate(1.14) brightness(1.05);
-  box-shadow:
-    0 0 0 1px rgba(165, 243, 252, 0.32) inset,
-    0 8px 40px -6px rgba(34, 211, 238, 0.58),
-    0 0 72px -10px rgba(45, 212, 191, 0.38),
-    0 18px 48px -14px rgba(0, 0, 0, 0.5);
-}
-
-#dl-all.download-btn:active {
-  transform: translateY(0);
-  filter: saturate(1.08);
-}
-
-.result-dl-exercise,
-.result-dl-ms {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-.result-dl-layout-btn {
-  display: inline-flex;
+/* ─── Download hero (primary "Download all" action) ───────────────────── */
+.dl-hero {
+  display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.result-dl-layout-btn.hidden {
-  display: none !important;
-}
-
-.result-dl-layout-icon {
-  display: flex;
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.result-dl-layout-icon svg {
+  gap: 0.6rem;
   width: 100%;
-  height: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(34, 211, 238, 0.42);
+  background: linear-gradient(
+    145deg,
+    rgba(34, 211, 238, 0.22) 0%,
+    rgba(45, 212, 191, 0.14) 42%,
+    rgba(59, 130, 246, 0.12) 100%
+  );
+  color: rgb(240 249 255);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 0 1px rgba(34, 211, 238, 0.08) inset,
+    0 6px 28px -6px rgba(34, 211, 238, 0.35),
+    0 0 52px -10px rgba(45, 212, 191, 0.22);
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.22s ease;
+}
+
+.dl-hero svg {
+  color: rgb(165 243 252);
+  opacity: 0.95;
+  transition: opacity 0.18s ease, color 0.18s ease;
+}
+
+.dl-hero:hover {
+  transform: translateY(-1px);
+  border-color: rgba(103, 232, 249, 0.55);
+  background: linear-gradient(
+    145deg,
+    rgba(34, 211, 238, 0.32) 0%,
+    rgba(45, 212, 191, 0.22) 45%,
+    rgba(59, 130, 246, 0.18) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 1px rgba(165, 243, 252, 0.12) inset,
+    0 10px 40px -6px rgba(34, 211, 238, 0.48),
+    0 0 72px -8px rgba(45, 212, 191, 0.32);
+}
+
+.dl-hero:hover svg { color: rgb(236 254 255); opacity: 1; }
+.dl-hero:active { transform: translateY(0); }
+
+.dl-hero::after {
+  background: linear-gradient(105deg, transparent 22%, rgba(255, 255, 255, 0.14) 50%, transparent 78%);
+}
+
+/* ─── Download card (exercise sheet / mark scheme rows) ───────────────── */
+.dl-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(15, 28, 52, 0.55) 0%, rgba(8, 14, 30, 0.4) 100%);
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.25s ease;
+}
+
+.dl-card.hidden { display: none !important; }
+
+.dl-card--sheet {
+  border-color: rgba(56, 189, 248, 0.28);
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.12) 0%,
+    rgba(99, 102, 241, 0.06) 55%,
+    rgba(8, 14, 30, 0.45) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 24px -8px rgba(56, 189, 248, 0.18);
+}
+
+.dl-card--emerald {
+  border-color: rgba(52, 211, 153, 0.28);
+  background: linear-gradient(
+    135deg,
+    rgba(52, 211, 153, 0.12) 0%,
+    rgba(20, 184, 166, 0.06) 55%,
+    rgba(8, 14, 30, 0.45) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 24px -8px rgba(52, 211, 153, 0.16);
+}
+
+.dl-card--emerald:hover {
+  border-color: rgba(52, 211, 153, 0.45);
+  background: linear-gradient(
+    135deg,
+    rgba(52, 211, 153, 0.2) 0%,
+    rgba(20, 184, 166, 0.12) 55%,
+    rgba(8, 14, 30, 0.5) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 28px -6px rgba(52, 211, 153, 0.28);
+}
+
+.dl-card-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgb(148 163 184);
+  pointer-events: none;
+}
+
+.dl-card--sheet .dl-card-label {
+  color: rgb(186 230 253);
+}
+
+.dl-card--sheet .dl-card-label svg {
+  color: rgb(56 189 248);
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.35));
+}
+
+.dl-card--emerald .dl-card-label {
+  color: rgb(209 250 229);
+}
+
+.dl-card--emerald .dl-card-label svg {
+  color: rgb(52 211 153);
+  filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.35));
+}
+
+.dl-card-actions { display: flex; gap: 0.35rem; }
+
+/* ─── Download icon buttons (layout variants: 1-up, 2-up, 4-up) ──────── */
+.dl-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.25s ease,
+    transform 0.15s ease;
+}
+
+.dl-icon-btn.hidden { display: none !important; }
+.dl-icon-btn svg { width: 1.15rem; height: 1.15rem; }
+
+.dl-icon-btn--sky {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.2) 0%, rgba(56, 189, 248, 0.08) 100%);
+  color: rgb(125 211 252);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 12px -4px rgba(56, 189, 248, 0.25);
+}
+
+.dl-icon-btn--amber {
+  border-color: rgba(251, 191, 36, 0.38);
+  background: linear-gradient(180deg, rgba(251, 191, 36, 0.22) 0%, rgba(245, 158, 11, 0.1) 100%);
+  color: rgb(253 230 138);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 12px -4px rgba(251, 191, 36, 0.22);
+}
+
+.dl-icon-btn--violet {
+  border-color: rgba(167, 139, 250, 0.38);
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.22) 0%, rgba(139, 92, 246, 0.1) 100%);
+  color: rgb(216 180 254);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 12px -4px rgba(167, 139, 250, 0.22);
+}
+
+.dl-icon-btn:hover { transform: translateY(-1px); }
+.dl-icon-btn:active { transform: translateY(0); }
+
+.dl-icon-btn--sky:hover {
+  border-color: rgba(125, 211, 252, 0.55);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.32) 0%, rgba(56, 189, 248, 0.16) 100%);
+  color: rgb(224 242 254);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 20px -4px rgba(56, 189, 248, 0.4);
+}
+
+.dl-icon-btn--amber:hover {
+  border-color: rgba(252, 211, 77, 0.6);
+  background: linear-gradient(180deg, rgba(251, 191, 36, 0.36) 0%, rgba(245, 158, 11, 0.18) 100%);
+  color: rgb(254 249 195);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 20px -4px rgba(251, 191, 36, 0.38);
+}
+
+.dl-icon-btn--violet:hover {
+  border-color: rgba(196, 181, 253, 0.6);
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.34) 0%, rgba(139, 92, 246, 0.18) 100%);
+  color: rgb(237 233 254);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 20px -4px rgba(167, 139, 250, 0.38);
+}
+
+.dl-icon-btn:focus-visible {
+  outline: 2px solid rgba(56, 189, 248, 0.45);
+  outline-offset: 2px;
+}
+
+.dl-icon-btn--amber:focus-visible { outline-color: rgba(251, 191, 36, 0.55); }
+.dl-icon-btn--violet:focus-visible { outline-color: rgba(167, 139, 250, 0.55); }
+
+.dl-card--emerald:focus-visible {
+  outline: 2px solid rgba(52, 211, 153, 0.45);
+  outline-offset: 2px;
 }
 
 /* ─── Feature cards ──────────────────────────────────────────────────────── */
@@ -366,6 +546,146 @@
     rgba(10, 18, 38, 0.38) 100%
   );
   transform: translateY(-1px);
+}
+
+/* ─── Landing polish (generate view only — preview glow / gradient language) ─ */
+#generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child h1.font-display {
+  background: linear-gradient(118deg, rgb(248 250 252) 0%, rgb(165 243 253) 42%, rgb(186 230 253) 72%, rgb(147 197 253) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.2));
+}
+
+#generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child .flex.justify-center p.text-xs.uppercase {
+  text-shadow:
+    0 0 18px rgba(34, 211, 238, 0.45),
+    0 0 36px rgba(56, 189, 248, 0.2);
+}
+
+#generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child .hero-icon {
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.18),
+    0 0 44px -6px rgba(34, 211, 238, 0.38),
+    0 0 88px -24px rgba(59, 130, 246, 0.22);
+}
+
+#generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child > p.text-slate-400 {
+  text-shadow: 0 0 28px rgba(56, 189, 248, 0.12);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form.glass-panel {
+  border-color: rgba(56, 189, 248, 0.14);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 1px 0 rgba(255, 255, 255, 0.07) inset,
+    0 28px 56px -14px rgba(0, 0, 0, 0.5),
+    0 0 64px -18px rgba(34, 211, 238, 0.16),
+    0 0 100px -30px rgba(59, 130, 246, 0.1);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .form-glow::before {
+  opacity: 0.78;
+}
+
+#generate-workspace:not(.preview-mode) #prompt {
+  border-color: rgba(56, 189, 248, 0.16);
+  background: linear-gradient(168deg, rgba(8, 20, 42, 0.9) 0%, rgba(4, 12, 30, 0.94) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(56, 189, 248, 0.08),
+    0 0 40px -12px rgba(34, 211, 238, 0.12);
+  caret-color: rgb(34, 211, 238);
+}
+
+#generate-workspace:not(.preview-mode) #prompt::placeholder {
+  color: rgba(165, 230, 252, 0.48);
+}
+
+#generate-workspace:not(.preview-mode) #prompt:focus {
+  border-color: rgba(34, 211, 238, 0.32);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.22),
+    inset 0 1px 0 rgba(56, 189, 248, 0.1),
+    0 0 48px -8px rgba(34, 211, 238, 0.22);
+  outline: none;
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:hover {
+  transform: translateY(-2px);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(1):hover {
+  box-shadow: 0 12px 36px -8px rgba(167, 139, 250, 0.32);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(2):hover {
+  box-shadow: 0 12px 36px -8px rgba(34, 211, 238, 0.28);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3):hover {
+  box-shadow: 0 12px 36px -8px rgba(52, 211, 153, 0.28);
+}
+
+#generate-workspace:not(.preview-mode) #submit-btn.btn-space-primary {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14) inset,
+    0 4px 28px -4px rgba(34, 211, 238, 0.55),
+    0 16px 52px -12px rgba(59, 130, 246, 0.38);
+}
+
+#generate-workspace:not(.preview-mode) #submit-btn.btn-space-primary:hover:not(:disabled) {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.17) inset,
+    0 10px 40px -6px rgba(34, 211, 238, 0.62),
+    0 22px 56px -12px rgba(99, 102, 241, 0.42);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .progress-strip {
+  border-color: rgba(34, 211, 238, 0.2);
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.07) 0%, rgba(59, 130, 246, 0.05) 100%);
+  box-shadow: 0 0 36px -10px rgba(34, 211, 238, 0.2);
+}
+
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .feature-card {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 44px -14px rgba(56, 189, 248, 0.1);
+}
+
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .feature-card:hover {
+  transform: translateY(-2px);
+}
+
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .grid > .feature-card:nth-child(1):hover {
+  border-color: rgba(167, 139, 250, 0.24);
+  box-shadow: 0 14px 44px -12px rgba(167, 139, 250, 0.22);
+}
+
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .grid > .feature-card:nth-child(2):hover {
+  border-color: rgba(34, 211, 238, 0.22);
+  box-shadow: 0 14px 44px -12px rgba(34, 211, 238, 0.2);
+}
+
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .grid > .feature-card:nth-child(3):hover {
+  border-color: rgba(52, 211, 153, 0.22);
+  box-shadow: 0 14px 44px -12px rgba(52, 211, 153, 0.2);
+}
+
+#generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child .subject-badge {
+  box-shadow: 0 0 16px -4px rgba(56, 189, 248, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #generate-workspace:not(.preview-mode) #gen-form .quick-fill:hover {
+    transform: none;
+  }
+
+  #generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .feature-card:hover {
+    transform: translateY(-1px);
+  }
 }
 
 /* ─── Subject badges ─────────────────────────────────────────────────────── */
@@ -450,6 +770,80 @@ html.doc-background-paused .hero-icon {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+/* Header wordmark: single line by default; stacked eyebrow + title in PDF preview */
+.site-header-brand-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  line-height: 1.15;
+}
+
+.site-header-brand-eyebrow {
+  display: none;
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(125, 211, 252, 0.78);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+}
+
+.site-header-brand-titles {
+  display: block;
+}
+
+.site-header-brand-title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.site-header-brand-title--default {
+  display: inline-block;
+}
+
+.site-header-brand-title--preview {
+  display: none;
+  font-size: 1.0625rem;
+  filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.28));
+}
+
+@media (min-width: 640px) {
+  .site-header-brand-title--preview {
+    font-size: 1.1875rem;
+  }
+}
+
+body.preview-mode-active:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-eyebrow {
+  display: block;
+}
+
+body.preview-mode-active:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-title--default {
+  display: none;
+}
+
+body.preview-mode-active:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-title--preview {
+  display: inline-block;
+}
+
+/* Wordmark block centered over the left column; text left-aligned inside the block */
+body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-stack {
+  align-items: flex-start;
+  text-align: left;
+  width: max-content;
+  max-width: 100%;
 }
 
 .site-header-preview-col {
@@ -637,15 +1031,15 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
 
 /* Single-row preview control: [ Exercise sheet + 1/2/4-up ] | [ Mark scheme ] */
 .pdf-tab-primary-track {
-  --pdf-bar-edge: rgba(125, 211, 252, 0.12);
-  --pdf-bar-fill-top: rgba(17, 32, 56, 0.45);
-  --pdf-bar-fill-bot: rgba(6, 10, 22, 0.50);
-  --pdf-sheet-pill: linear-gradient(152deg, rgba(56, 189, 248, 0.28) 0%, rgba(99, 102, 241, 0.16) 52%, rgba(79, 70, 229, 0.1) 100%);
-  --pdf-sheet-pill-glow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 0 0 1px rgba(56, 189, 248, 0.12);
-  --pdf-answers-pill: linear-gradient(152deg, rgba(52, 211, 153, 0.32) 0%, rgba(45, 212, 191, 0.16) 55%, rgba(20, 184, 166, 0.1) 100%);
-  --pdf-answers-pill-glow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 0 0 1px rgba(52, 211, 153, 0.14);
-  --pdf-embed-border: rgba(56, 189, 248, 0.18);
-  --pdf-embed-bg: linear-gradient(180deg, rgba(4, 10, 24, 0.55) 0%, rgba(2, 6, 16, 0.62) 100%);
+  --pdf-bar-edge: rgba(56, 189, 248, 0.34);
+  --pdf-bar-fill-top: rgba(10, 48, 82, 0.72);
+  --pdf-bar-fill-bot: rgba(6, 22, 56, 0.78);
+  --pdf-sheet-pill: linear-gradient(152deg, rgba(56, 189, 248, 0.48) 0%, rgba(99, 102, 241, 0.32) 48%, rgba(79, 70, 229, 0.22) 100%);
+  --pdf-sheet-pill-glow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 0 0 1px rgba(56, 189, 248, 0.28), 0 0 32px -5px rgba(56, 189, 248, 0.28);
+  --pdf-answers-pill: linear-gradient(152deg, rgba(52, 211, 153, 0.52) 0%, rgba(45, 212, 191, 0.32) 52%, rgba(20, 184, 166, 0.2) 100%);
+  --pdf-answers-pill-glow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 0 1px rgba(52, 211, 153, 0.28), 0 0 32px -5px rgba(52, 211, 153, 0.24);
+  --pdf-embed-border: rgba(56, 189, 248, 0.38);
+  --pdf-embed-bg: linear-gradient(180deg, rgba(6, 36, 68, 0.82) 0%, rgba(4, 14, 40, 0.88) 100%);
   --pdf-embed-inset: inset 0 1px 2px rgba(0, 0, 0, 0.45);
 
   display: flex;
@@ -659,8 +1053,10 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
   border: 1px solid var(--pdf-bar-edge);
   background: linear-gradient(180deg, var(--pdf-bar-fill-top) 0%, var(--pdf-bar-fill-bot) 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 4px 14px -4px rgba(0, 0, 0, 0.55);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(56, 189, 248, 0.06),
+    0 6px 22px -6px rgba(0, 0, 0, 0.55),
+    0 0 40px -12px rgba(56, 189, 248, 0.12);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -767,9 +1163,8 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
 }
 
 .pdf-tab-primary-track[data-side="answers"] .pdf-tab-layout-track--embedded {
-  opacity: 0.55;
-  border-color: rgba(100, 116, 139, 0.22);
-  filter: saturate(0.65);
+  opacity: 0.78;
+  border-color: rgba(52, 211, 153, 0.32);
 }
 
 .pdf-tab-layout-pill {
@@ -789,26 +1184,29 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
 
 .pdf-tab-layout-track[data-layout="exercise"] .pdf-tab-layout-pill {
   transform: translateX(0);
-  background: linear-gradient(180deg, rgba(224, 242, 254, 0.28) 0%, rgba(56, 189, 248, 0.14) 100%);
+  background: linear-gradient(180deg, rgba(224, 242, 254, 0.42) 0%, rgba(56, 189, 248, 0.26) 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(125, 211, 252, 0.15);
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 0 0 1px rgba(125, 211, 252, 0.28),
+    0 0 18px -4px rgba(56, 189, 248, 0.35);
 }
 
 .pdf-tab-layout-track[data-layout="two-up"] .pdf-tab-layout-pill {
   transform: translateX(100%);
-  background: linear-gradient(180deg, rgba(254, 243, 199, 0.35) 0%, rgba(251, 191, 36, 0.2) 100%);
+  background: linear-gradient(180deg, rgba(254, 243, 199, 0.48) 0%, rgba(251, 191, 36, 0.32) 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 0 0 1px rgba(252, 211, 77, 0.2);
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 0 0 1px rgba(252, 211, 77, 0.32),
+    0 0 18px -4px rgba(251, 191, 36, 0.32);
 }
 
 .pdf-tab-layout-track[data-layout="four-up"] .pdf-tab-layout-pill {
   transform: translateX(200%);
-  background: linear-gradient(180deg, rgba(237, 233, 254, 0.32) 0%, rgba(167, 139, 250, 0.22) 100%);
+  background: linear-gradient(180deg, rgba(237, 233, 254, 0.44) 0%, rgba(167, 139, 250, 0.34) 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 0 0 1px rgba(196, 181, 253, 0.22);
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 0 1px rgba(196, 181, 253, 0.32),
+    0 0 18px -4px rgba(167, 139, 250, 0.32);
 }
 
 .pdf-tab-primary-facet {
@@ -819,10 +1217,10 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
   border-radius: 9999px;
   padding: 0.42rem 0.8rem;
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.01em;
   background: transparent;
-  color: rgb(148 163 184);
+  color: rgb(148 211 180);
   cursor: pointer;
   transition: color 0.18s ease, opacity 0.18s ease, text-shadow 0.18s ease;
 }
@@ -832,7 +1230,8 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
 }
 
 .pdf-tab-primary-facet:hover:not(:disabled) {
-  color: rgb(226 232 240);
+  color: rgb(209 250 229);
+  text-shadow: 0 0 12px rgba(52, 211, 153, 0.25);
 }
 
 .pdf-tab-primary-facet:disabled {
@@ -854,6 +1253,7 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
   text-shadow: 0 0 16px rgba(52, 211, 153, 0.25);
 }
 
+/* Layout toggles: icon colors match .dl-icon-btn--sky / --amber / --violet */
 .pdf-tab-layout-btn {
   position: relative;
   z-index: 1;
@@ -866,18 +1266,59 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
   border: none;
   border-radius: 9999px;
   background: transparent;
-  color: rgb(100 116 139);
   cursor: pointer;
-  transition: color 0.18s ease, opacity 0.18s ease, transform 0.15s ease;
+  transition: color 0.18s ease, opacity 0.18s ease, transform 0.15s ease, filter 0.18s ease;
 }
 
-.pdf-tab-layout-btn:hover:not(:disabled) {
-  color: rgb(203 213 225);
+.pdf-tab-layout-btn--sky {
+  color: rgb(125 211 252);
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.42));
+}
+
+.pdf-tab-layout-btn--amber {
+  color: rgb(253 230 138);
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.38));
+}
+
+.pdf-tab-layout-btn--violet {
+  color: rgb(216 180 254);
+  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.38));
+}
+
+.pdf-tab-layout-btn--sky:hover:not(:disabled) {
+  color: rgb(224 242 254);
+  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.55));
+}
+
+.pdf-tab-layout-btn--amber:hover:not(:disabled) {
+  color: rgb(254 249 195);
+  filter: drop-shadow(0 0 14px rgba(251, 191, 36, 0.52));
+}
+
+.pdf-tab-layout-btn--violet:hover:not(:disabled) {
+  color: rgb(237 233 254);
+  filter: drop-shadow(0 0 14px rgba(167, 139, 250, 0.52));
+}
+
+.pdf-tab-layout-btn--sky[aria-selected="true"]:not(:disabled) {
+  color: rgb(34 211 238);
+  filter: drop-shadow(0 0 16px rgba(34, 211, 238, 0.62));
+}
+
+.pdf-tab-layout-btn--amber[aria-selected="true"]:not(:disabled) {
+  color: rgb(251 191 36);
+  filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.55));
+}
+
+.pdf-tab-layout-btn--violet[aria-selected="true"]:not(:disabled) {
+  color: rgb(192 132 252);
+  filter: drop-shadow(0 0 16px rgba(192, 132, 252, 0.55));
 }
 
 .pdf-tab-layout-btn:disabled {
   opacity: 0.35;
   cursor: not-allowed;
+  filter: none;
 }
 
 .pdf-tab-layout-btn:focus-visible {
@@ -885,20 +1326,12 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
   outline-offset: 2px;
 }
 
-.pdf-tab-layout-btn[aria-selected="true"]:not(:disabled) {
-  color: rgb(248 250 252);
+.pdf-tab-layout-btn--amber:focus-visible {
+  outline-color: rgba(251, 191, 36, 0.55);
 }
 
-.pdf-tab-layout-track[data-layout="exercise"] .pdf-tab-layout-btn[aria-selected="true"]:not(:disabled) {
-  color: rgb(224 242 254);
-}
-
-.pdf-tab-layout-track[data-layout="two-up"] .pdf-tab-layout-btn[aria-selected="true"]:not(:disabled) {
-  color: rgb(254 249 195);
-}
-
-.pdf-tab-layout-track[data-layout="four-up"] .pdf-tab-layout-btn[aria-selected="true"]:not(:disabled) {
-  color: rgb(237 233 254);
+.pdf-tab-layout-btn--violet:focus-visible {
+  outline-color: rgba(167, 139, 250, 0.55);
 }
 
 .pdf-tab-layout-icon {
@@ -948,6 +1381,11 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
     margin 0.45s ease;
 }
 
+/* Landing: allow hover lifts + hero icon float without clipping top borders */
+#generate-workspace:not(.preview-mode) .hero-collapse {
+  overflow: visible;
+}
+
 .preview-mode.preview-mode--settled .hero-collapse {
   max-height: 0;
   opacity: 0;
@@ -960,14 +1398,128 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
   margin-top: 0;
 }
 
-.preview-mode #gen-form > .gen-surface-head:first-child {
-  display: none;
-}
-
 .preview-mode #prompt {
   min-height: 8rem;
   max-height: min(42vh, 22rem);
   resize: vertical;
+  border-color: rgba(56, 189, 248, 0.22) !important;
+  background: linear-gradient(
+    165deg,
+    rgba(6, 22, 42, 0.92) 0%,
+    rgba(4, 16, 36, 0.88) 45%,
+    rgba(8, 28, 52, 0.85) 100%
+  ) !important;
+  color: rgb(226 232 240) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(56, 189, 248, 0.06),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.25),
+    0 0 28px -10px rgba(56, 189, 248, 0.15);
+  caret-color: rgb(34 211 238);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.preview-mode #prompt::placeholder {
+  color: rgba(186, 240, 253, 0.52) !important;
+}
+
+.preview-mode #prompt:hover {
+  border-color: rgba(56, 189, 248, 0.32) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(56, 189, 248, 0.1),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.2),
+    0 0 32px -8px rgba(56, 189, 248, 0.22);
+}
+
+.preview-mode #prompt:focus {
+  border-color: rgba(34, 211, 238, 0.45) !important;
+  outline: none !important;
+  box-shadow:
+    inset 0 1px 0 rgba(56, 189, 248, 0.12),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.15),
+    0 0 0 2px rgba(34, 211, 238, 0.2),
+    0 0 40px -8px rgba(34, 211, 238, 0.25) !important;
+}
+
+/* Header nav pills (Generate / Library) — subtle glass + hint of cyan */
+body.preview-mode-active .site-header-nav {
+  border-color: rgba(56, 189, 248, 0.14) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 22, 42, 0.52) 0%,
+    rgba(8, 14, 32, 0.58) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(56, 189, 248, 0.035) inset,
+    0 3px 18px -8px rgba(0, 0, 0, 0.38),
+    0 0 28px -14px rgba(56, 189, 248, 0.07);
+  backdrop-filter: blur(12px) saturate(1.06);
+  -webkit-backdrop-filter: blur(12px) saturate(1.06);
+}
+
+body.preview-mode-active .site-header-nav a {
+  color: rgb(132 165 196) !important;
+  transition: color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+body.preview-mode-active .site-header-nav a:hover {
+  color: rgb(203 230 248) !important;
+  background: rgba(56, 189, 248, 0.07) !important;
+  box-shadow: 0 0 12px -4px rgba(56, 189, 248, 0.12);
+}
+
+body.preview-mode-active .site-header-nav a.nav-link-active {
+  color: rgb(226 246 255) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.16) 0%,
+    rgba(59, 130, 246, 0.12) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(34, 211, 238, 0.12) inset,
+    0 0 14px -4px rgba(34, 211, 238, 0.14);
+}
+
+/* Same nav treatment on landing & library */
+body:not(.preview-mode-active) .site-header-nav {
+  border-color: rgba(56, 189, 248, 0.12) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(12, 22, 42, 0.5) 0%,
+    rgba(8, 14, 32, 0.56) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(56, 189, 248, 0.03) inset,
+    0 3px 18px -8px rgba(0, 0, 0, 0.38),
+    0 0 28px -14px rgba(56, 189, 248, 0.06);
+  backdrop-filter: blur(12px) saturate(1.06);
+  -webkit-backdrop-filter: blur(12px) saturate(1.06);
+}
+
+body:not(.preview-mode-active) .site-header-nav a {
+  color: rgb(132 165 196) !important;
+  transition: color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+body:not(.preview-mode-active) .site-header-nav a:hover {
+  color: rgb(203 230 248) !important;
+  background: rgba(56, 189, 248, 0.07) !important;
+  box-shadow: 0 0 12px -4px rgba(56, 189, 248, 0.12);
+}
+
+body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
+  color: rgb(226 246 255) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.15) 0%,
+    rgba(59, 130, 246, 0.11) 100%
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 0 0 1px rgba(34, 211, 238, 0.11) inset,
+    0 0 14px -4px rgba(34, 211, 238, 0.12);
 }
 
 #pdf-preview-pane {
@@ -1033,13 +1585,21 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
 
 /* Tint the pane border to match the active tab */
 .preview-mode:has(#pdf-tab-primary-track[data-side="sheet"]) #pdf-preview-pane {
-  border-color: rgba(56, 189, 248, 0.14);
-  transition: border-color 0.3s ease;
+  border-color: rgba(56, 189, 248, 0.26);
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.08) inset,
+    0 24px 48px -12px rgba(0, 0, 0, 0.45),
+    0 0 56px -16px rgba(56, 189, 248, 0.14);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .preview-mode:has(#pdf-tab-primary-track[data-side="answers"]) #pdf-preview-pane {
-  border-color: rgba(52, 211, 153, 0.14);
-  transition: border-color 0.3s ease;
+  border-color: rgba(52, 211, 153, 0.26);
+  box-shadow:
+    0 0 0 1px rgba(52, 211, 153, 0.08) inset,
+    0 24px 48px -12px rgba(0, 0, 0, 0.45),
+    0 0 56px -16px rgba(52, 211, 153, 0.12);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 @media (max-width: 1023px) {
@@ -1097,6 +1657,10 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
   padding: 0.75rem 0.75rem 1.25rem;
 }
 
+.preview-mode .pdf-viewport-scroll {
+  background: linear-gradient(180deg, rgba(8, 30, 52, 0.52) 0%, rgba(2, 8, 20, 0.5) 100%);
+}
+
 .pdf-pages-stack {
   position: relative;
   display: flex;
@@ -1116,6 +1680,19 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
 
 .preview-mode.preview-mode--settled .overview-panel:not(.hidden) {
   display: block;
+  border-color: rgba(56, 189, 248, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.08) inset,
+    0 18px 40px -16px rgba(0, 0, 0, 0.5),
+    0 0 48px -14px rgba(56, 189, 248, 0.12);
+}
+
+.preview-mode #result-panel:not(.hidden) {
+  border-color: rgba(34, 211, 238, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.06) inset,
+    0 18px 40px -16px rgba(0, 0, 0, 0.5),
+    0 0 44px -12px rgba(34, 211, 238, 0.1);
 }
 
 .overview-body {
@@ -1135,18 +1712,25 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
   text-align: left;
   border-radius: 0.65rem;
   border: 1px solid rgba(56, 189, 248, 0.22);
-  background: rgba(56, 189, 248, 0.08);
-  padding: 0.4rem 0.55rem;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.14) 0%, rgba(99, 102, 241, 0.08) 50%, rgba(8, 14, 30, 0.35) 100%);
+  padding: 0.45rem 0.6rem;
   font-size: 0.72rem;
   font-weight: 600;
-  color: rgb(186 230 253);
+  color: rgb(224 242 254);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: all 0.18s ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 20px -8px rgba(56, 189, 248, 0.2);
 }
 
 .overview-paper-btn:hover {
-  background: rgba(56, 189, 248, 0.14);
-  border-color: rgba(56, 189, 248, 0.35);
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.24) 0%, rgba(99, 102, 241, 0.14) 50%, rgba(8, 14, 30, 0.4) 100%);
+  border-color: rgba(125, 211, 252, 0.38);
+  color: rgb(240 249 255);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 22px -6px rgba(56, 189, 248, 0.32);
 }
 
 .overview-q-row {
@@ -1157,49 +1741,56 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
 }
 
 .overview-q-btn {
-  min-width: 2rem;
-  padding: 0.25rem 0.45rem;
-  border-radius: 0.4rem;
-  border: 1px solid rgba(34, 211, 238, 0.5);
-  background: rgba(6, 182, 212, 0.22);
-  font-size: 0.7rem;
+  min-width: 1.9rem;
+  padding: 0.22rem 0.4rem;
+  border-radius: 0.45rem;
+  border: 1px solid rgba(34, 211, 238, 0.32);
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.18) 0%, rgba(56, 189, 248, 0.08) 100%);
+  font-size: 0.68rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   color: rgb(207 250 254);
-  box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.18);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  transition: all 0.18s ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 10px -3px rgba(34, 211, 238, 0.22);
 }
 
 .overview-q-btn:hover {
-  background: rgba(6, 182, 212, 0.36);
-  border-color: rgba(103, 232, 249, 0.72);
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.3) 0%, rgba(56, 189, 248, 0.16) 100%);
+  border-color: rgba(103, 232, 249, 0.48);
   color: rgb(236 254 255);
-  box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 16px -3px rgba(34, 211, 238, 0.38);
 }
 
 .overview-q-btn:focus-visible {
-  outline: 2px solid rgba(34, 211, 238, 0.75);
+  outline: 2px solid rgba(56, 189, 248, 0.55);
   outline-offset: 2px;
 }
 
 .overview-q-btn-mcq {
-  background: rgba(139, 92, 246, 0.28);
-  border: 1px solid rgba(196, 181, 253, 0.55);
-  color: rgb(245 240 255);
-  box-shadow: inset 0 0 0 1px rgba(167, 139, 250, 0.2);
+  border-color: rgba(167, 139, 250, 0.38);
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.22) 0%, rgba(167, 139, 250, 0.1) 100%);
+  color: rgb(237 233 254);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 10px -3px rgba(167, 139, 250, 0.25);
 }
 
 .overview-q-btn-mcq:hover {
-  background: rgba(139, 92, 246, 0.42);
-  border-color: rgba(216, 200, 254, 0.75);
-  color: rgb(255 252 255);
-  box-shadow: inset 0 0 0 1px rgba(196, 181, 253, 0.35);
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.34) 0%, rgba(167, 139, 250, 0.18) 100%);
+  border-color: rgba(196, 181, 253, 0.52);
+  color: rgb(245 243 255);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 16px -3px rgba(167, 139, 250, 0.38);
 }
 
 .overview-q-btn-mcq:focus-visible {
-  outline-color: rgba(167, 139, 250, 0.85);
-  outline-width: 2px;
+  outline-color: rgba(167, 139, 250, 0.65);
 }
 
 .pdf-viewport-scroll:focus {
@@ -1214,6 +1805,8 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
   position: relative;
   flex-shrink: 0;
   max-width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
 }
 
 .pdf-page-wrap .textLayer {
@@ -1262,7 +1855,7 @@ body.preview-mode-active:has(#generate-workspace.preview-mode--settled) #pdf-tab
   position: relative;
   z-index: 0;
   background: #ffffff;
-  border-radius: 4px;
+  border-radius: 1rem;
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.18),
     0 6px 20px rgba(0, 0, 0, 0.42),
@@ -1363,8 +1956,10 @@ body.preview-mode-active .site-header-inner.max-w-5xl {
     transition-duration: 0.01ms;
   }
 
-  #dl-all.download-btn:hover,
-  #dl-all.download-btn:active {
+  .dl-hero:hover,
+  .dl-hero:active,
+  .dl-icon-btn:hover,
+  .dl-icon-btn:active {
     transform: none;
   }
 }
