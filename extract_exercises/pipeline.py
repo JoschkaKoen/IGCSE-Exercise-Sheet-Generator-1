@@ -12,11 +12,19 @@ from .config import PAGE_HEADER_BY_EXAM, get_subject_config
 from .exceptions import ExtractionError
 from .labels import page_header_label, paper_label_from_qp_path
 from .mark_scheme import detect_ms_type, find_ms_answer_regions, parse_mcq_answers
+from .mcq_explanations import (
+    McqPaperData,
+    batch_generate_mcq_explanations,
+    finalize_mcq_explanation_strips,
+    generate_mcq_explanation_strips,
+    prepare_mcq_job_data,
+)
 from .pdfjam_post import run_exercise_sheet_pdfjam_variants
 from .questions import find_question_positions, get_question_regions
 from .rendering import (
     GapStrip,
     Strip,
+    VectorStrip,
     collect_vector_strips,
     create_mcq_answer_strips,
     layout_vector_strips_to_pdf,
@@ -95,6 +103,10 @@ def run_extraction_jobs(
     qp_docs: list[fitz.Document] = []
     ms_docs: list[fitz.Document] = []
 
+    # Regions per job (parallel to jobs list); always appended, even when empty,
+    # so qp_docs[i], job_regions[i], and jobs[i] are always in sync.
+    job_regions: list[list[tuple[int, int, float, float]]] = []
+
     all_strips: list[Strip] = []
     all_ms_strips: list[Strip] = []
 
@@ -112,6 +124,7 @@ def run_extraction_jobs(
             found_nums = sorted(set(p[0] for p in positions))
             print(f"  Found questions: {found_nums}")
             regions = get_question_regions(doc, positions, qs, cfg)
+            job_regions.append(regions)  # always append before any continue
             if not regions:
                 print("  Warning: No matching questions for this paper, skipping.")
                 continue
@@ -136,9 +149,15 @@ def run_extraction_jobs(
         out_path = Path(output_pdf)
         answers_path = out_path.parent / f"{out_path.stem}_answers{out_path.suffix}"
 
-        for job in jobs:
+        # ── Phase 1: open all mark-scheme docs, prepare MCQ data (no AI calls) ──
+        # ms_info[j_idx] is None when a job has no mark scheme, otherwise a dict.
+        ms_info: list[dict | None] = []
+        mcq_prepared: dict[int, McqPaperData] = {}
+
+        for j_idx, job in enumerate(jobs):
             ms = job.get("mark_scheme_pdf")
             if not ms:
+                ms_info.append(None)
                 continue
             print(f"\nMark scheme: {ms}")
             ms_doc = fitz.open(ms)
@@ -147,12 +166,68 @@ def run_extraction_jobs(
             print(f"  Type: {ms_type}, {len(ms_doc)} pages")
             qs = job["questions"]
             paper_lbl = paper_label_from_qp_path(job["input_pdf"])
+            info: dict = {"doc": ms_doc, "type": ms_type, "qs": qs, "label": paper_lbl}
 
             if ms_type == "mcq":
                 answers = parse_mcq_answers(ms_doc)
+                info["answers"] = answers
                 found_ans = [q for q in qs if q in answers]
                 print(f"  Found answers for: {found_ans}")
-                mstrips: list[Strip] = create_mcq_answer_strips(answers, qs)
+                expl_pdf_path = out_path.parent / f"{out_path.stem}_mcq_expl_{j_idx}.pdf"
+                prepared = prepare_mcq_job_data(
+                    qp_doc=qp_docs[j_idx],
+                    regions=job_regions[j_idx],
+                    answers=answers,
+                    qs=qs,
+                    cfg=cfg,
+                    exam_key=exam_key,
+                    paper_label=paper_lbl,
+                    expl_pdf_path=expl_pdf_path,
+                )
+                if prepared:
+                    mcq_prepared[j_idx] = prepared
+
+            ms_info.append(info)
+
+        # ── Phase 2: single batched AI call for all MCQ papers ─────────────────
+        mcq_explanations_map: dict[int, dict] = {}
+        if mcq_prepared:
+            sorted_indices = sorted(mcq_prepared.keys())
+            n_mcq = len(sorted_indices)
+            print(f"\nGenerating AI explanations ({n_mcq} MCQ paper(s), 1 API call)…")
+            paper_data_list = [mcq_prepared[i] for i in sorted_indices]
+            batch_results = batch_generate_mcq_explanations(paper_data_list)
+            for idx, expl in zip(sorted_indices, batch_results):
+                mcq_explanations_map[idx] = expl
+
+        # ── Phase 3: generate strips for all papers ────────────────────────────
+        for j_idx, job in enumerate(jobs):
+            info = ms_info[j_idx]
+            if info is None:
+                continue
+            ms_doc = info["doc"]
+            ms_type = info["type"]
+            qs = info["qs"]
+            paper_lbl = info["label"]
+
+            if ms_type == "mcq":
+                answers = info["answers"]
+                if j_idx in mcq_prepared:
+                    expl = mcq_explanations_map.get(j_idx, {})
+                    explanation_strips = finalize_mcq_explanation_strips(
+                        mcq_prepared[j_idx], expl
+                    )
+                else:
+                    explanation_strips = []
+
+                if explanation_strips:
+                    mstrips: list[Strip] = explanation_strips
+                    for s in explanation_strips:
+                        if isinstance(s, VectorStrip) and s.src_doc not in ms_docs:
+                            ms_docs.append(s.src_doc)
+                            break
+                else:
+                    mstrips = create_mcq_answer_strips(answers, qs)
             else:
                 ms_regions = find_ms_answer_regions(ms_doc, qs, cfg)
                 if not ms_regions:
