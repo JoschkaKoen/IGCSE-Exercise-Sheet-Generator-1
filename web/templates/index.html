@@ -3,15 +3,47 @@
 
 {% block pdf_preview_tabs %}
   <div id="pdf-tab-bar-wrap" class="pdf-tab-bar-wrap" hidden>
-    <div class="pdf-tab-slider" role="tablist" aria-label="PDF previews">
-      <button type="button" id="tab-btn-exercise" class="pdf-tab-slider-btn" role="tab"
-              aria-selected="true" aria-controls="tab-panel-exercise" tabindex="0">Exercise sheet</button>
-      <button type="button" id="tab-btn-answers" class="pdf-tab-slider-btn" role="tab"
-              aria-selected="false" aria-controls="tab-panel-answers" tabindex="-1">Mark scheme</button>
-      <button type="button" id="tab-btn-two-up" class="pdf-tab-slider-btn" role="tab"
-              aria-selected="false" aria-controls="tab-panel-two-up" tabindex="-1">2-up sheet</button>
-      <button type="button" id="tab-btn-four-up" class="pdf-tab-slider-btn" role="tab"
-              aria-selected="false" aria-controls="tab-panel-four-up" tabindex="-1">4-up sheet</button>
+    <div id="pdf-tab-primary-track" class="pdf-tab-primary-track" role="tablist" aria-label="Preview document" data-side="sheet">
+      <div class="pdf-tab-sheet-column" role="presentation">
+        <span class="pdf-tab-primary-pill pdf-tab-primary-pill--sheet" aria-hidden="true"></span>
+        <div class="pdf-tab-sheet-inner">
+          <span class="pdf-tab-sheet-label">Exercise sheet</span>
+          <div id="pdf-tab-layout-track" class="pdf-tab-layout-track pdf-tab-layout-track--embedded" role="presentation" data-layout="exercise">
+            <span id="pdf-tab-layout-pill" class="pdf-tab-layout-pill" aria-hidden="true"></span>
+            <button type="button" id="tab-btn-exercise" class="pdf-tab-layout-btn" role="tab"
+                    aria-selected="true" aria-controls="tab-panel-exercise" tabindex="0" title="Single page">
+              <span class="pdf-tab-layout-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="6" y="4" width="12" height="16" rx="1.5"/></svg>
+              </span>
+              <span class="sr-only">Single page</span>
+            </button>
+            <button type="button" id="tab-btn-two-up" class="pdf-tab-layout-btn" role="tab"
+                    aria-selected="false" aria-controls="tab-panel-two-up" tabindex="-1" title="Two pages per sheet">
+              <span class="pdf-tab-layout-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                  <rect x="3" y="4" width="8" height="16" rx="1.25"/><rect x="13" y="4" width="8" height="16" rx="1.25"/>
+                </svg>
+              </span>
+              <span class="sr-only">Two pages per sheet</span>
+            </button>
+            <button type="button" id="tab-btn-four-up" class="pdf-tab-layout-btn" role="tab"
+                    aria-selected="false" aria-controls="tab-panel-four-up" tabindex="-1" title="Four pages per sheet">
+              <span class="pdf-tab-layout-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                  <rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/>
+                  <rect x="3" y="13" width="8" height="7" rx="1"/><rect x="13" y="13" width="8" height="7" rx="1"/>
+                </svg>
+              </span>
+              <span class="sr-only">Four pages per sheet</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="pdf-tab-answers-column" role="presentation">
+        <span class="pdf-tab-primary-pill pdf-tab-primary-pill--answers" aria-hidden="true"></span>
+        <button type="button" id="tab-btn-answers" class="pdf-tab-primary-facet" role="tab"
+                aria-selected="false" aria-controls="tab-panel-answers" aria-label="Mark scheme" tabindex="-1">Mark scheme</button>
+      </div>
     </div>
   </div>
 {% endblock %}
@@ -131,35 +163,17 @@
     </div>
   </form>
 
-  <!-- Overview: papers + exercise jump (preview only) -->
+  <!-- Papers + exercise jump (preview only) -->
   <div id="overview-panel"
-       class="gen-surface glass-panel overview-panel mt-5 hidden rounded-2xl p-4 sm:p-5">
-    <div class="mb-3 flex flex-wrap items-baseline justify-between gap-2 border-b border-white/[0.06] pb-2.5">
-      <div class="flex items-center gap-2">
-        <span class="h-1 w-1 rounded-full bg-sky-400/80 shadow-[0_0_8px_rgba(56,189,248,0.45)]" aria-hidden="true"></span>
-        <h2 class="font-display text-sm font-semibold text-white">Overview</h2>
-      </div>
-      <p class="text-[0.65rem] text-slate-500">Jump to a paper or exercise in the sheet</p>
-    </div>
+       class="gen-surface glass-panel overview-panel mt-5 hidden rounded-2xl p-4 sm:p-5"
+       aria-label="Jump to paper or exercise">
     <div id="overview-body" class="overview-body"></div>
   </div>
 
   <!-- Result panel -->
   <div id="result-panel"
-       class="gen-surface glass-panel result-panel-reveal pointer-events-none mt-5 hidden translate-y-6 rounded-2xl p-5 opacity-0 sm:p-6">
-    <div class="gen-surface-head mb-4 flex items-center justify-between gap-2 border-b border-white/[0.06] pb-3">
-      <div class="flex items-center gap-2.5">
-        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/15 ring-1 ring-emerald-500/25">
-          <svg class="h-4 w-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-          </svg>
-        </div>
-        <div>
-          <h2 class="font-display text-sm font-semibold text-white">Downloads</h2>
-          <p class="text-[0.65rem] text-slate-500">All files or one at a time</p>
-        </div>
-      </div>
-    </div>
+       class="gen-surface glass-panel result-panel-reveal pointer-events-none mt-5 hidden translate-y-6 rounded-2xl p-5 opacity-0 sm:p-6"
+       aria-label="Generated files">
     <div class="flex flex-col gap-3">
       <a id="dl-all" href="#"
          class="download-btn relative inline-flex w-full items-center justify-center gap-2.5 rounded-2xl border-2 border-cyan-400/55
@@ -177,55 +191,64 @@
         Download all
       </a>
       <div class="result-dl-grid grid grid-cols-2 gap-2">
-        <a id="dl-main" href="#"
-           class="download-btn inline-flex min-h-[2.85rem] w-full flex-col items-center justify-center gap-1 rounded-xl border border-white/10
-                  bg-white/[0.05] px-2 py-2.5 text-center text-[0.7rem] font-medium leading-tight text-slate-100 backdrop-blur-sm
-                  sm:text-xs
-                  transition hover:border-cyan-500/30 hover:bg-cyan-500/10
-                  focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
-          <svg class="h-4 w-4 shrink-0 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
-          Exercise sheet
-        </a>
+        <div class="result-dl-exercise col-span-2 flex flex-col gap-2 rounded-xl border border-white/10 bg-white/[0.05] px-3 py-2.5 backdrop-blur-sm">
+          <span class="flex items-center justify-center gap-2 text-[0.7rem] font-medium text-slate-300">
+            <svg class="h-3.5 w-3.5 shrink-0 text-cyan-400/90" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+            </svg>
+            Exercise sheet
+          </span>
+          <div class="result-dl-layout-row flex items-stretch justify-center gap-2">
+            <a id="dl-main" href="#"
+               class="download-btn result-dl-layout-btn result-dl-layout-btn--single min-h-[2.75rem] min-w-[2.75rem] flex-1 max-w-[5.5rem] rounded-xl border border-white/12
+                      bg-white/[0.04] text-cyan-300 transition hover:border-cyan-400/45 hover:bg-cyan-500/12
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
+               title="Download single-page exercise sheet">
+              <span class="result-dl-layout-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="6" y="4" width="12" height="16" rx="1.5"/></svg>
+              </span>
+              <span class="sr-only">Download single-page exercise sheet</span>
+            </a>
+            <a id="dl-two-up" href="#"
+               class="download-btn result-dl-layout-btn result-dl-layout-btn--two-up hidden min-h-[2.75rem] min-w-[2.75rem] flex-1 max-w-[5.5rem] rounded-xl border border-white/12
+                      bg-white/[0.04] text-amber-300 transition hover:border-amber-400/45 hover:bg-amber-500/12
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60"
+               title="Download 2-up exercise sheet (landscape A4, requires pdfjam)">
+              <span class="result-dl-layout-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                  <rect x="3" y="4" width="8" height="16" rx="1.25"/><rect x="13" y="4" width="8" height="16" rx="1.25"/>
+                </svg>
+              </span>
+              <span class="sr-only">Download two pages per sheet</span>
+            </a>
+            <a id="dl-four-up" href="#"
+               class="download-btn result-dl-layout-btn result-dl-layout-btn--four-up hidden min-h-[2.75rem] min-w-[2.75rem] flex-1 max-w-[5.5rem] rounded-xl border border-white/12
+                      bg-white/[0.04] text-violet-300 transition hover:border-violet-400/45 hover:bg-violet-500/12
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400/60"
+               title="Download 4-up exercise sheet (2x2, requires pdfjam)">
+              <span class="result-dl-layout-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                  <rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/>
+                  <rect x="3" y="13" width="8" height="7" rx="1"/><rect x="13" y="13" width="8" height="7" rx="1"/>
+                </svg>
+              </span>
+              <span class="sr-only">Download four pages per sheet</span>
+            </a>
+          </div>
+        </div>
         <a id="dl-answers" href="#"
-           class="download-btn hidden inline-flex min-h-[2.85rem] w-full flex-col items-center justify-center gap-1 rounded-xl border border-white/10
-                  bg-white/[0.05] px-2 py-2.5 text-center text-[0.7rem] font-medium leading-tight text-slate-100 backdrop-blur-sm
-                  sm:text-xs
-                  transition hover:border-emerald-500/30 hover:bg-emerald-500/10
+           class="download-btn result-dl-ms col-span-2 hidden flex min-h-[3.1rem] w-full flex-col justify-center rounded-xl border border-white/10
+                  bg-white/[0.05] px-3 py-2.5 backdrop-blur-sm
+                  transition hover:border-emerald-500/40 hover:bg-emerald-500/[0.1]
                   focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/60">
-          <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          Mark scheme
-        </a>
-        <a id="dl-two-up" href="#"
-           class="download-btn hidden inline-flex min-h-[2.85rem] w-full flex-col items-center justify-center gap-1 rounded-xl border border-white/10
-                  bg-white/[0.05] px-2 py-2.5 text-center text-[0.7rem] font-medium leading-tight text-slate-100 backdrop-blur-sm
-                  sm:text-xs
-                  transition hover:border-amber-500/30 hover:bg-amber-500/10
-                  focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/60"
-           title="Two exercise pages per sheet (landscape A4, requires pdfjam)">
-          <svg class="h-4 w-4 shrink-0 text-amber-400" fill="none" viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="4" y="5" width="7" height="14" rx="1.25" stroke="currentColor" stroke-width="2" fill="none"/>
-            <rect x="13" y="5" width="7" height="14" rx="1.25" stroke="currentColor" stroke-width="2" fill="none"/>
-          </svg>
-          2-up sheet
-        </a>
-        <a id="dl-four-up" href="#"
-           class="download-btn hidden inline-flex min-h-[2.85rem] w-full flex-col items-center justify-center gap-1 rounded-xl border border-white/10
-                  bg-white/[0.05] px-2 py-2.5 text-center text-[0.7rem] font-medium leading-tight text-slate-100 backdrop-blur-sm
-                  sm:text-xs
-                  transition hover:border-violet-500/30 hover:bg-violet-500/10
-                  focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400/60"
-           title="Four exercise pages per sheet (2×2, requires pdfjam)">
-          <svg class="h-4 w-4 shrink-0 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/>
-          </svg>
-          4-up sheet
+          <span class="flex items-center justify-center gap-2 text-[0.7rem] font-medium text-emerald-100/95">
+            <svg class="h-3.5 w-3.5 shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+            </svg>
+            Mark scheme
+          </span>
         </a>
       </div>
     </div>
@@ -350,9 +373,11 @@
   const submitLabel  = document.getElementById('submit-label');
   const submitIconGen = document.getElementById('submit-icon-generate');
   const submitIconUpd = document.getElementById('submit-icon-update');
+  const pdfTabPrimaryTrack = document.getElementById('pdf-tab-primary-track');
+  const pdfTabLayoutTrack  = document.getElementById('pdf-tab-layout-track');
+  const pdfTabSheetColumn  = pdfTabPrimaryTrack ? pdfTabPrimaryTrack.querySelector('.pdf-tab-sheet-column') : null;
 
-  const TAB_ORDER = ['exercise', 'answers', 'two-up', 'four-up'];
-  /** Output PDF page height (pt); must match extract_exercises.config.A4_HEIGHT_PT for jump math. */
+  const TAB_ORDER = ['exercise', 'two-up', 'four-up', 'answers'];
   const PDF_OUTPUT_PAGE_H_PT = 842;
   const TABS = [
     { id: 'exercise', urlKey: 'download_url' },
@@ -361,8 +386,8 @@
     { id: 'four-up',  urlKey: 'four_up_url' },
   ];
 
-  /** Absolute URLs for the current job, in order: main, answers, 2-up, 4-up (omitted if missing). */
   var lastDownloadAllUrls = [];
+  var lastExerciseSheetTab = 'exercise';
 
   var pdfTabState = {};
   var pdfjsPromise = null;
@@ -370,8 +395,91 @@
   var pdfResizeDebounce = null;
   var pdfHeaderGlassRaf = null;
   var pdfScrollGlassListenersBound = false;
+  var pdfSmoothWheelBound = false;
+  var pdfLayoutStaleWhileHidden = false;
 
-  /** Fades header tint while scrolling the active PDF preview (see --header-glass-fill in app.css). */
+  function bindPdfSmoothWheelScroll() {
+    if (pdfSmoothWheelBound) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    pdfSmoothWheelBound = true;
+    var impulseMul = 0.19;
+    var friction = 0.935;
+    var velStop = 0.1;
+    document.querySelectorAll('.pdf-viewport-scroll').forEach(function (el) {
+      var raf = null;
+      var vel = 0;
+      var fromJs = false;
+      function maxScroll() {
+        return Math.max(0, el.scrollHeight - el.clientHeight);
+      }
+      function stopAnim() {
+        if (raf !== null) {
+          cancelAnimationFrame(raf);
+          raf = null;
+        }
+        vel = 0;
+      }
+      function maxVel() {
+        return Math.min(96, Math.max(48, el.clientHeight * 0.28));
+      }
+      function step() {
+        var maxS = maxScroll();
+        var prev = el.scrollTop;
+        var next = Math.min(maxS, Math.max(0, prev + vel));
+        fromJs = true;
+        el.scrollTop = next;
+        fromJs = false;
+        if (next === prev && Math.abs(vel) > velStop) {
+          vel *= 0.55;
+        } else {
+          vel *= friction;
+        }
+        updateHeaderGlassFromPdfScroll();
+        if (Math.abs(vel) < velStop) {
+          vel = 0;
+          raf = null;
+          updateHeaderGlassFromPdfScroll();
+          return;
+        }
+        raf = requestAnimationFrame(step);
+      }
+      el.addEventListener(
+        'scroll',
+        function () {
+          if (fromJs) {
+            scheduleHeaderGlassFromPdfScroll();
+            return;
+          }
+          stopAnim();
+          scheduleHeaderGlassFromPdfScroll();
+        },
+        { passive: true }
+      );
+      el.addEventListener(
+        'wheel',
+        function (e) {
+          if (!workspace.classList.contains('preview-mode')) return;
+          if (e.ctrlKey || e.metaKey) return;
+          var dy = e.deltaY;
+          if (e.deltaMode === 1) dy *= 16;
+          else if (e.deltaMode === 2) dy *= el.clientHeight;
+          if (dy === 0) return;
+          var maxS = maxScroll();
+          if (maxS <= 0) return;
+          if (el.scrollTop <= 0 && dy < 0) return;
+          if (el.scrollTop >= maxS - 0.5 && dy > 0) return;
+          e.preventDefault();
+          var cap = maxVel();
+          vel += dy * impulseMul;
+          if (vel > cap) vel = cap;
+          else if (vel < -cap) vel = -cap;
+          if (raf === null) raf = requestAnimationFrame(step);
+        },
+        { passive: false }
+      );
+    });
+  }
+
   function updateHeaderGlassFromPdfScroll() {
     var root = document.documentElement;
     var body = document.body;
@@ -417,6 +525,17 @@
   function getPdfState(id) {
     if (!pdfTabState[id]) pdfTabState[id] = { doc: null, zoom: 1, loadingTask: null };
     return pdfTabState[id];
+  }
+
+  function rerenderAllLoadedPdfTabs() {
+    var jobs = [];
+    TABS.forEach(function (tab) {
+      if (!tabEnabled(tab.id)) return;
+      var s = getPdfState(tab.id);
+      if (!s.doc) return;
+      jobs.push(renderPdfContinuous(tab.id));
+    });
+    return Promise.all(jobs);
   }
 
   function ensurePdfJs() {
@@ -472,7 +591,6 @@
     if (stack) stack.innerHTML = '';
   }
 
-  /** Renders all pages stacked vertically. Base scale fits page 1 fully inside the scroll viewport (width and height). */
   async function renderPdfContinuous(id) {
     var s = getPdfState(id);
     if (!s.doc) return;
@@ -480,14 +598,14 @@
     var stack = pagesStackEl(id);
     if (!scroll || !stack) return;
     stack.innerHTML = '';
+    var pdfjs = await ensurePdfJs();
     var pad = 8;
     var innerW = Math.floor(scroll.clientWidth - pad * 2);
     var innerH = Math.floor(scroll.clientHeight - pad * 2);
     var cw = innerW > 64 ? innerW : 400;
     var ch = innerH > 64 ? innerH : 520;
-    var dpr = window.devicePixelRatio || 1;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var n = s.doc.numPages;
-    var gap = 14;
     var page1 = await s.doc.getPage(1);
     var vp1 = page1.getViewport({ scale: 1 });
     var scaleW = cw / vp1.width;
@@ -496,24 +614,48 @@
     for (var p = 1; p <= n; p++) {
       var page = await s.doc.getPage(p);
       var userScale = baseFit * s.zoom;
+      var cssVp = page.getViewport({ scale: userScale });
       var scaledVp = page.getViewport({ scale: userScale * dpr });
+      var pageWrap = document.createElement('div');
+      pageWrap.className = 'pdf-page-wrap';
+      var dispW = Math.floor(scaledVp.width / dpr);
+      var dispH = Math.floor(scaledVp.height / dpr);
+      pageWrap.style.width = dispW + 'px';
+      pageWrap.style.height = dispH + 'px';
+      stack.appendChild(pageWrap);
       var canvas = document.createElement('canvas');
       canvas.className = 'pdf-canvas pdf-canvas-page';
       canvas.width = Math.floor(scaledVp.width);
       canvas.height = Math.floor(scaledVp.height);
-      canvas.style.width = Math.floor(scaledVp.width / dpr) + 'px';
-      canvas.style.height = Math.floor(scaledVp.height / dpr) + 'px';
-      if (p < n) canvas.style.marginBottom = gap + 'px';
-      stack.appendChild(canvas);
+      canvas.style.width = dispW + 'px';
+      canvas.style.height = dispH + 'px';
+      pageWrap.appendChild(canvas);
       var ctx = canvas.getContext('2d', { alpha: false });
       if (!ctx) continue;
-      ctx.fillStyle = '#1e293b';
+      ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       try {
         var task = page.render({ canvasContext: ctx, viewport: scaledVp });
         await task.promise;
       } catch (err) {
         console.error('PDF render failed', err);
+      }
+      if (pdfjs.TextLayer) {
+        try {
+          var textContent = await page.getTextContent();
+          var textLayerDiv = document.createElement('div');
+          textLayerDiv.className = 'textLayer';
+          textLayerDiv.style.setProperty('--scale-factor', String(userScale));
+          pageWrap.appendChild(textLayerDiv);
+          var tl = new pdfjs.TextLayer({
+            textContentSource: textContent,
+            container: textLayerDiv,
+            viewport: cssVp
+          });
+          await tl.render();
+        } catch (texErr) {
+          console.warn('PDF text layer failed', texErr);
+        }
       }
     }
     updateHeaderGlassFromPdfScroll();
@@ -568,6 +710,24 @@
     return b && !b.disabled;
   }
 
+  function firstEnabledExerciseLayoutTab() {
+    var layouts = ['exercise', 'two-up', 'four-up'];
+    for (var i = 0; i < layouts.length; i++) {
+      if (tabEnabled(layouts[i])) return layouts[i];
+    }
+    return 'exercise';
+  }
+
+  function syncPdfTabChrome(activeId) {
+    if (!pdfTabPrimaryTrack || !pdfTabLayoutTrack) return;
+    var isAnswers = activeId === 'answers';
+    pdfTabPrimaryTrack.setAttribute('data-side', isAnswers ? 'answers' : 'sheet');
+    if (!isAnswers) {
+      pdfTabLayoutTrack.setAttribute('data-layout', activeId);
+      lastExerciseSheetTab = activeId;
+    }
+  }
+
   function selectTab(id) {
     if (!tabEnabled(id)) return Promise.resolve();
     TAB_ORDER.forEach(function (tid) {
@@ -581,6 +741,7 @@
       if (on) pan.removeAttribute('hidden');
       else pan.setAttribute('hidden', '');
     });
+    syncPdfTabChrome(id);
     var sc = scrollEl(id);
     if (sc) sc.scrollTop = 0;
     updateHeaderGlassFromPdfScroll();
@@ -617,7 +778,7 @@
       paper.exercises.forEach(function (ex) {
         var qb = document.createElement('button');
         qb.type = 'button';
-        qb.className = 'overview-q-btn';
+        qb.className = 'overview-q-btn' + (ex.mcq ? ' overview-q-btn-mcq' : '');
         qb.textContent = String(ex.q);
         qb.setAttribute('aria-label', 'Go to exercise ' + ex.q);
         qb.addEventListener('click', function () {
@@ -636,22 +797,16 @@
     overviewPanel.classList.remove('hidden');
   }
 
-  /** Map overview exercise row to page index + y (pt) for the active tab. */
   function resolveNavPageYForTab(ex, tabId) {
     if (tabId === 'answers') {
       if (ex.answers_page != null && ex.answers_y_pt != null) {
-        return { page: ex.answers_page, yPt: ex.answers_y_pt };
+        return { page: ex.answers_page, yPt: ex.answers_y_view_pt != null ? ex.answers_y_view_pt : ex.answers_y_pt };
       }
       return { page: 0, yPt: 0 };
     }
-    return { page: ex.page, yPt: ex.y_pt };
+    return { page: ex.page, yPt: ex.y_view_pt != null ? ex.y_view_pt : ex.y_pt };
   }
 
-  /**
-   * Turn source exercise-sheet page (0-based) + y (pt from top) into y offset in CSS px
-   * from the top of the rendered canvas for that tab. 2-up / 4-up assume pdfjam row-major
-   * n-up (2×2 then 2×1 landscape) of the same A4 portrait source pages.
-   */
   function mapSrcPageYToOffsetInCanvas(tabId, srcPage, srcYPt, canvases) {
     var n = canvases.length;
     if (!n) return null;
@@ -723,6 +878,14 @@
   }
 
   function focusAdjacentTab(fromId, delta) {
+    if (fromId === 'answers') {
+      var back = lastExerciseSheetTab;
+      if (delta === -1 && tabEnabled(back)) {
+        selectTab(back);
+        tabBtn(back).focus();
+        return;
+      }
+    }
     var idx = TAB_ORDER.indexOf(fromId);
     if (idx < 0) return;
     for (var step = 1; step <= TAB_ORDER.length; step++) {
@@ -744,6 +907,15 @@
   }
 
   async function enterPreviewMode(doneData) {
+    workspace.classList.add('preview-mode');
+    document.body.classList.add('preview-mode-active');
+    if (pdfTabBarWrap) pdfTabBarWrap.removeAttribute('hidden');
+    pdfPane.removeAttribute('aria-hidden');
+    await new Promise(function (resolve) {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(resolve);
+      });
+    });
     var loadPromises = [];
     TABS.forEach(function (tab) {
       var url = doneData[tab.urlKey];
@@ -770,25 +942,28 @@
       }
     });
     await Promise.all(loadPromises);
-
-    workspace.classList.add('preview-mode');
-    document.body.classList.add('preview-mode-active');
-    if (pdfTabBarWrap) pdfTabBarWrap.removeAttribute('hidden');
-    pdfPane.removeAttribute('aria-hidden');
     await selectTab(firstEnabledTab());
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    function applySettledAndRerender() {
       workspace.classList.add('preview-mode--settled');
+      var delayMs = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 580;
+      setTimeout(function () {
+        void rerenderAllLoadedPdfTabs().then(function () {
+          updateHeaderGlassFromPdfScroll();
+        });
+      }, delayMs);
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      applySettledAndRerender();
     } else {
       requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          workspace.classList.add('preview-mode--settled');
-        });
+        requestAnimationFrame(applySettledAndRerender);
       });
     }
 
     setSubmitPreviewMode(true);
     ensurePdfScrollGlassListeners();
+    bindPdfSmoothWheelScroll();
     buildOverviewPanel(doneData.overview || { papers: [] });
     updateHeaderGlassFromPdfScroll();
   }
@@ -871,44 +1046,46 @@
     var el = e.target;
     if (el && el.closest && (el.closest('textarea') || el.closest('input') || el.closest('[contenteditable="true"]'))) return;
     if (!(e.ctrlKey || e.metaKey)) return;
-    if (e.key === '=' || e.key === '+') {
-      e.preventDefault();
-      void zoomActivePdf(1.12);
-      return;
-    }
-    if (e.key === '-' || e.key === '_') {
-      e.preventDefault();
-      void zoomActivePdf(1 / 1.12);
-      return;
-    }
-    if (e.key === '0') {
-      e.preventDefault();
-      void resetActivePdfZoom();
-      return;
-    }
-    if (e.code === 'NumpadAdd') {
-      e.preventDefault();
-      void zoomActivePdf(1.12);
-      return;
-    }
-    if (e.code === 'NumpadSubtract') {
-      e.preventDefault();
-      void zoomActivePdf(1 / 1.12);
-      return;
-    }
+    if (e.key === '=' || e.key === '+') { e.preventDefault(); void zoomActivePdf(1.12); return; }
+    if (e.key === '-' || e.key === '_') { e.preventDefault(); void zoomActivePdf(1 / 1.12); return; }
+    if (e.key === '0') { e.preventDefault(); void resetActivePdfZoom(); return; }
+    if (e.code === 'NumpadAdd') { e.preventDefault(); void zoomActivePdf(1.12); return; }
+    if (e.code === 'NumpadSubtract') { e.preventDefault(); void zoomActivePdf(1 / 1.12); return; }
   });
 
   if (window.ResizeObserver && pdfPane) {
     pdfResizeObserver = new ResizeObserver(function () {
       if (!workspace.classList.contains('preview-mode')) return;
+      if (document.visibilityState === 'hidden') {
+        pdfLayoutStaleWhileHidden = true;
+        return;
+      }
       if (pdfResizeDebounce) clearTimeout(pdfResizeDebounce);
       pdfResizeDebounce = setTimeout(function () {
         pdfResizeDebounce = null;
-        void renderPdfContinuous(activePdfTabId());
-      }, 120);
+        var id = activePdfTabId();
+        if (tabEnabled(id) && getPdfState(id).doc) {
+          void renderPdfContinuous(id).then(function () {
+            updateHeaderGlassFromPdfScroll();
+          });
+        }
+      }, 150);
     });
     pdfResizeObserver.observe(pdfPane);
   }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible') return;
+    if (!pdfLayoutStaleWhileHidden) return;
+    pdfLayoutStaleWhileHidden = false;
+    if (!workspace.classList.contains('preview-mode')) return;
+    var id = activePdfTabId();
+    if (tabEnabled(id) && getPdfState(id).doc) {
+      void renderPdfContinuous(id).then(function () {
+        updateHeaderGlassFromPdfScroll();
+      });
+    }
+  });
 
   TAB_ORDER.forEach(function (tid) {
     var b = tabBtn(tid);
@@ -939,6 +1116,17 @@
       }
     });
   });
+
+  if (pdfTabSheetColumn) {
+    pdfTabSheetColumn.addEventListener('click', function (e) {
+      if (e.target.closest('.pdf-tab-layout-btn')) return;
+      var target = lastExerciseSheetTab;
+      if (!tabEnabled(target)) target = firstEnabledExerciseLayoutTab();
+      void selectTab(target);
+      var nb = tabBtn(target);
+      if (nb) try { nb.focus(); } catch (e2) {}
+    });
+  }
 
   function resultPanelIsVisible() {
     return resultPanel && !resultPanel.classList.contains('hidden');
@@ -980,9 +1168,9 @@
     if (!jobLogLine) return;
     let line = (data.log_line != null && data.log_line !== '') ? String(data.log_line) : '';
     if (!line) {
-      if      (data.status === 'pending') line = 'Queued for processing…';
-      else if (data.status === 'running') line = 'Starting…';
-      else                                line = 'Working…';
+      if      (data.status === 'pending') line = 'Queued for processing\u2026';
+      else if (data.status === 'running') line = 'Starting\u2026';
+      else                                line = 'Working\u2026';
     }
     jobLogLine.textContent = line;
     jobLogLine.title = line;

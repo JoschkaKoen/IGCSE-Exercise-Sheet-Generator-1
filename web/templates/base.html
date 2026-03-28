@@ -32,6 +32,18 @@
   <link rel="stylesheet" href="/static/app.css" />
 </head>
 <body class="min-h-full font-sans text-slate-200 antialiased space-bg">
+  <script>
+    (function () {
+      function syncDocBackgroundPaused() {
+        document.documentElement.classList.toggle(
+          'doc-background-paused',
+          document.visibilityState === 'hidden'
+        );
+      }
+      document.addEventListener('visibilitychange', syncDocBackgroundPaused);
+      syncDocBackgroundPaused();
+    })();
+  </script>
   <div class="space-aurora"  aria-hidden="true"></div>
   <div class="space-stars"   aria-hidden="true"></div>
   <div class="z-content flex min-h-full flex-col">

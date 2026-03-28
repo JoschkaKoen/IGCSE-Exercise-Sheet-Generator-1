@@ -441,7 +441,9 @@ def layout_vector_strips_to_pdf(
 
     Returns navigation anchors for the exercise sheet: each dict has ``paper`` (str
     or null), ``q`` (int), ``page`` (0-based output page index), ``y_pt`` (distance
-    from top of that page to the top of the question strip, in PDF points).
+    from top of that page to the top of the question strip, in PDF points), and
+    ``y_view_pt`` (PDF y to align with the viewport top when scrolling — includes the
+    inline paper divider when one sits directly above the exercise).
     """
     hl = (header_label or "").strip() or None
 
@@ -463,8 +465,11 @@ def layout_vector_strips_to_pdf(
     # even when content from multiple papers shares the page.
     page_first_paper_label: str | None = current_paper_label
 
+    inline_label_above_exercise = False
+
     def new_page() -> tuple[fitz.Page, float]:
-        nonlocal page_first_paper_label
+        nonlocal page_first_paper_label, inline_label_above_exercise
+        inline_label_above_exercise = False
         page_first_paper_label = current_paper_label
         pg = out_doc.new_page(width=A4_WIDTH_PT, height=A4_HEIGHT_PT)
         if has_header:
@@ -482,21 +487,36 @@ def layout_vector_strips_to_pdf(
     anchor_seen: set[tuple[str | None, int]] = set()
 
     def _record_exercise_anchor(vstrip: VectorStrip, page: fitz.Page, y_top: float) -> None:
+        nonlocal inline_label_above_exercise
         qn = vstrip.question_num
         if qn is None:
             return
         key = (current_paper_label, qn)
         if key in anchor_seen:
+            inline_label_above_exercise = False
             return
         anchor_seen.add(key)
+        if inline_label_above_exercise:
+            # Mid-page paper divider directly above this strip.
+            y_view = max(
+                0.0,
+                y_top - _INLINE_LABEL_H - _INLINE_LABEL_GAP_PT,
+            )
+        elif has_header and abs(y_top - initial_y_pt) < 1.0:
+            # First exercise row under the top-of-page header — show the full label band.
+            y_view = float(_LABEL_TOP_PT)
+        else:
+            y_view = float(y_top)
         anchors.append(
             {
                 "paper": current_paper_label,
                 "q": int(qn),
                 "page": int(page.number),
                 "y_pt": float(y_top),
+                "y_view_pt": y_view,
             }
         )
+        inline_label_above_exercise = False
 
     def _next_content_h(idx: int) -> float:
         """Height of the first VectorStrip/McqStrip after *idx* (skips gaps/labels)."""
@@ -534,6 +554,7 @@ def layout_vector_strips_to_pdf(
                     inline_lbl = _header_text(hl or "", current_paper_label)
                     _draw_inline_paper_label(current_page, inline_lbl, y_cursor)
                     y_cursor += _INLINE_LABEL_H + _INLINE_LABEL_GAP_PT
+                    inline_label_above_exercise = True
             continue
 
         # --- gap ---
@@ -593,7 +614,12 @@ def layout_vector_strips_to_pdf(
 
             if y_cursor + sh > A4_HEIGHT_PT - _MARGIN_PT:
                 if sh > usable_h_pt:
-                    # Tall strip: chunk across pages
+                    # Tall strip: chunk across pages.
+                    # Always start on a fresh page so the first chunk gets
+                    # maximum space — avoids tiny orphan slivers (e.g. half
+                    # a figure) at the bottom of the previous page.
+                    if y_cursor > initial_y_pt + 1.0:
+                        current_page, y_cursor = new_page()
                     src_y0 = clip.y0
                     src_remaining = clip.height
                     chunk_first = True

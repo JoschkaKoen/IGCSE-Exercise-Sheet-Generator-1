@@ -38,25 +38,59 @@ def build_exercise_overview(anchors: list[dict[str, Any]]) -> dict[str, Any]:
         label = (a.get("paper") or "") or ""
         if not papers or papers[-1]["label"] != label:
             papers.append({"label": label, "exercises": []})
-        papers[-1]["exercises"].append(
-            {
-                "q": int(a["q"]),
-                "page": int(a["page"]),
-                "y_pt": float(a["y_pt"]),
-            }
-        )
+        ex_entry: dict[str, Any] = {
+            "q": int(a["q"]),
+            "page": int(a["page"]),
+            "y_pt": float(a["y_pt"]),
+        }
+        if "y_view_pt" in a:
+            ex_entry["y_view_pt"] = float(a["y_view_pt"])
+        papers[-1]["exercises"].append(ex_entry)
     return {"papers": papers, "anchors": anchors}
+
+
+def merge_mcq_flags_into_overview(
+    overview: dict[str, Any],
+    jobs: list[dict],
+    job_mcq_ms: list[bool],
+    *,
+    use_paper_sublabels: bool,
+) -> None:
+    """Set ``mcq: true`` on exercises whose job uses an MCQ-style mark scheme.
+
+    Keys must match how ``layout_vector_strips_to_pdf`` records ``paper`` on anchors:
+    with exam sublabels that is the short paper label; otherwise anchors use ``None``,
+    which ``build_exercise_overview`` turns into ``\"\"``.
+    """
+    mcq_pairs: set[tuple[str, int]] = set()
+    for j_idx, job in enumerate(jobs):
+        if j_idx >= len(job_mcq_ms) or not job_mcq_ms[j_idx]:
+            continue
+        plab = paper_label_from_qp_path(job["input_pdf"])
+        for q in job.get("questions") or []:
+            qn = int(q)
+            if use_paper_sublabels:
+                mcq_pairs.add((plab, qn))
+            else:
+                mcq_pairs.add(("", qn))
+    for paper in overview.get("papers") or []:
+        plab = paper.get("label")
+        pkey = "" if plab is None else str(plab)
+        for ex in paper.get("exercises") or []:
+            ex["mcq"] = (pkey, int(ex["q"])) in mcq_pairs
 
 
 def merge_answer_anchors_into_overview(
     overview: dict[str, Any], answer_anchors: list[dict[str, Any]]
 ) -> None:
     """Add ``answers_page`` / ``answers_y_pt`` to each exercise when MS layout has anchors."""
-    key_to_pos: dict[tuple[str, int], tuple[int, float]] = {}
+    key_to_pos: dict[tuple[str, int], tuple[int, float, float]] = {}
     for a in answer_anchors:
         plab = a.get("paper")
         paper_key = "" if plab is None else str(plab)
-        key_to_pos[(paper_key, int(a["q"]))] = (int(a["page"]), float(a["y_pt"]))
+        ypt = float(a["y_pt"])
+        yv = float(a.get("y_view_pt", ypt))
+        key_to_pos[(paper_key, int(a["q"]))] = (int(a["page"]), ypt, yv)
     for paper in overview.get("papers") or []:
         plab = paper.get("label")
         pkey = "" if plab is None else str(plab)
@@ -65,6 +99,7 @@ def merge_answer_anchors_into_overview(
             if pos:
                 ex["answers_page"] = pos[0]
                 ex["answers_y_pt"] = pos[1]
+                ex["answers_y_view_pt"] = pos[2]
 
 
 def merge_pdf_files(part_paths: list[str], dest: str) -> None:
@@ -109,6 +144,7 @@ def run_extraction_jobs(
 
     all_strips: list[Strip] = []
     all_ms_strips: list[Strip] = []
+    job_mcq_ms: list[bool] = [False] * len(jobs)
 
     try:
         for job in jobs:
@@ -163,6 +199,7 @@ def run_extraction_jobs(
             ms_doc = fitz.open(ms)
             ms_docs.append(ms_doc)
             ms_type = detect_ms_type(ms_doc)
+            job_mcq_ms[j_idx] = ms_type == "mcq"
             print(f"  Type: {ms_type}, {len(ms_doc)} pages")
             qs = job["questions"]
             paper_lbl = paper_label_from_qp_path(job["input_pdf"])
@@ -270,6 +307,9 @@ def run_extraction_jobs(
     overview = build_exercise_overview(exercise_anchors)
     if answer_anchors:
         merge_answer_anchors_into_overview(overview, answer_anchors)
+    merge_mcq_flags_into_overview(
+        overview, jobs, job_mcq_ms, use_paper_sublabels=use_paper_sublabels
+    )
     print("\nDone!")
     return overview
 
