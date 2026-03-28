@@ -8,6 +8,7 @@ env/
 .env
 .env.*
 !.env.example
+api-keys.env
 API-KEYS-AND-MODELS.md
 
 # Python

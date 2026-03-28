@@ -52,6 +52,7 @@ class VectorStrip:
     x_offset_pt: float          # left edge on the output page
     qr_rects: list[fitz.Rect] = field(default_factory=list)  # source-space embedded-image rects to white-out
     question_num: int | None = None  # source question number (exercise sheet nav anchors)
+    extra_question_nums: list[int] = field(default_factory=list)  # additional questions sharing this strip's anchor
 
 
 @dataclass
@@ -490,32 +491,34 @@ def layout_vector_strips_to_pdf(
         nonlocal inline_label_above_exercise
         qn = vstrip.question_num
         if qn is None:
-            return
-        key = (current_paper_label, qn)
-        if key in anchor_seen:
             inline_label_above_exercise = False
             return
-        anchor_seen.add(key)
-        if inline_label_above_exercise:
-            # Mid-page paper divider directly above this strip.
-            y_view = max(
-                0.0,
-                y_top - _INLINE_LABEL_H - _INLINE_LABEL_GAP_PT,
+        all_qnums = [qn] + list(vstrip.extra_question_nums)
+        first_new = True
+        for q in all_qnums:
+            key = (current_paper_label, q)
+            if key in anchor_seen:
+                continue
+            anchor_seen.add(key)
+            if first_new and inline_label_above_exercise:
+                y_view = max(
+                    0.0,
+                    y_top - _INLINE_LABEL_H - _INLINE_LABEL_GAP_PT,
+                )
+            elif first_new and has_header and abs(y_top - initial_y_pt) < 1.0:
+                y_view = float(_LABEL_TOP_PT)
+            else:
+                y_view = float(y_top)
+            anchors.append(
+                {
+                    "paper": current_paper_label,
+                    "q": int(q),
+                    "page": int(page.number),
+                    "y_pt": float(y_top),
+                    "y_view_pt": y_view,
+                }
             )
-        elif has_header and abs(y_top - initial_y_pt) < 1.0:
-            # First exercise row under the top-of-page header — show the full label band.
-            y_view = float(_LABEL_TOP_PT)
-        else:
-            y_view = float(y_top)
-        anchors.append(
-            {
-                "paper": current_paper_label,
-                "q": int(qn),
-                "page": int(page.number),
-                "y_pt": float(y_top),
-                "y_view_pt": y_view,
-            }
-        )
+            first_new = False
         inline_label_above_exercise = False
 
     def _next_content_h(idx: int) -> float:

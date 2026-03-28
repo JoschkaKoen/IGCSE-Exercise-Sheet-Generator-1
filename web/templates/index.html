@@ -135,7 +135,7 @@
 
     <div class="mt-5 flex items-center gap-4">
       <button type="submit" id="submit-btn"
-              class="btn-space-primary inline-flex items-center justify-center gap-2
+              class="btn-space-primary shrink-0 inline-flex items-center justify-center gap-2
                      rounded-xl px-6 py-2.5 text-sm font-semibold text-white
                      focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400
                      focus-visible:ring-offset-2 focus-visible:ring-offset-space-deep">
@@ -148,15 +148,15 @@
         </svg>
         <span id="submit-label">Generate sheet</span>
       </button>
-    </div>
-
-    <!-- Progress strip (shown while running) -->
-    <div id="run-indicator"
-         class="progress-strip mt-5 hidden items-center gap-3 rounded-2xl px-4 py-3"
-         role="status" aria-live="polite">
-      <span class="h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-cyan-400/20 border-t-cyan-400"
-            aria-hidden="true"></span>
-      <span id="job-log-line" class="min-w-0 flex-1 truncate font-mono text-xs text-slate-400"></span>
+      <!-- Inline status (shown while running, replaces button visually) -->
+      <div id="run-indicator" class="run-status-inline hidden" role="status" aria-live="polite">
+        <span class="gen-spinner shrink-0" aria-hidden="true">
+          <span class="gen-spinner-ring gen-spinner-ring--1"></span>
+          <span class="gen-spinner-ring gen-spinner-ring--2"></span>
+          <span class="gen-spinner-dot"></span>
+        </span>
+        <span id="job-log-line" class="min-w-0 flex-1 truncate font-mono text-xs text-slate-400"></span>
+      </div>
     </div>
   </form>
 
@@ -576,9 +576,13 @@
     if (!scroll || !stack) return;
     stack.innerHTML = '';
     var pdfjs = await ensurePdfJs();
-    var pad = 8;
-    var innerW = Math.floor(scroll.clientWidth - pad * 2);
-    var innerH = Math.floor(scroll.clientHeight - pad * 2);
+    var cs = getComputedStyle(scroll);
+    var padL = parseFloat(cs.paddingLeft) || 0;
+    var padR = parseFloat(cs.paddingRight) || 0;
+    var padT = parseFloat(cs.paddingTop) || 0;
+    var padB = parseFloat(cs.paddingBottom) || 0;
+    var innerW = Math.floor(scroll.clientWidth - padL - padR);
+    var innerH = Math.floor(scroll.clientHeight - padT - padB);
     var cw = innerW > 64 ? innerW : 400;
     var ch = innerH > 64 ? innerH : 520;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -587,7 +591,9 @@
     var vp1 = page1.getViewport({ scale: 1 });
     var scaleW = cw / vp1.width;
     var scaleH = ch / vp1.height;
-    var baseFit = Math.min(scaleW, scaleH);
+    /* Fit one full page in view; slight 2% margin so it doesn't
+       touch edges and the user can see it's a complete page. */
+    var baseFit = Math.min(scaleW, scaleH) * 1.02;
     for (var p = 1; p <= n; p++) {
       var page = await s.doc.getPage(p);
       var userScale = baseFit * s.zoom;
@@ -823,6 +829,11 @@
     return null;
   }
 
+  function stickyHeaderHeight() {
+    var hdr = document.querySelector('.site-header');
+    return hdr ? hdr.getBoundingClientRect().height : 0;
+  }
+
   function scrollPreviewToExercise(ex) {
     if (!workspace.classList.contains('preview-mode')) return;
     var tabId = activePdfTabId();
@@ -842,7 +853,8 @@
           var cRect = c.getBoundingClientRect();
           var topInScrollContent = cRect.top - scRect.top + sc.scrollTop;
           var targetY = topInScrollContent + mapped.yPx;
-          sc.scrollTop = Math.max(0, targetY - 8);
+          var headerH = stickyHeaderHeight();
+          sc.scrollTop = Math.max(0, targetY - headerH - 8);
           updateHeaderGlassFromPdfScroll();
           try { sc.focus({ preventScroll: true }); } catch (e2) { sc.focus(); }
         });
@@ -887,15 +899,21 @@
   }
 
   async function enterPreviewMode(doneData) {
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var fadeDuration = reducedMotion ? 0 : 350;
+
+    /* Phase 1: fade out the landing page */
+    workspace.style.transition = 'opacity ' + fadeDuration + 'ms ease';
+    workspace.style.opacity = '0';
+    await new Promise(function (r) { setTimeout(r, fadeDuration); });
+
+    /* Phase 2: switch layout while invisible */
     workspace.classList.add('preview-mode');
     document.body.classList.add('preview-mode-active');
     if (pdfTabBarWrap) pdfTabBarWrap.removeAttribute('hidden');
     pdfPane.removeAttribute('aria-hidden');
-    await new Promise(function (resolve) {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(resolve);
-      });
-    });
+
+    /* Start loading PDFs */
     var loadPromises = [];
     TABS.forEach(function (tab) {
       var url = doneData[tab.urlKey];
@@ -924,28 +942,37 @@
     await Promise.all(loadPromises);
     await selectTab(firstEnabledTab());
 
-    function applySettledAndRerender() {
-      workspace.classList.add('preview-mode--settled');
-      var delayMs = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 580;
-      setTimeout(function () {
+    setSubmitPreviewMode(true);
+    buildOverviewPanel(doneData.overview || { papers: [] });
+
+    /* Let the browser lay out the new grid before fading in */
+    await new Promise(function (resolve) {
+      requestAnimationFrame(function () { requestAnimationFrame(resolve); });
+    });
+
+    /* Phase 3: fade in the preview page */
+    workspace.classList.add('preview-mode--settled');
+    workspace.style.opacity = '1';
+
+    ensurePdfScrollGlassListeners();
+    bindPdfSmoothWheelScroll();
+
+    /* Re-render PDF at final container size once layout is stable.
+       We wait for the fade-in to complete AND verify the scroll
+       container has a non-trivial height before rendering. */
+    function rerenderWhenReady(attempts) {
+      if (attempts > 20) return; // give up after ~1s
+      var id = activePdfTabId();
+      var sc = scrollEl(id);
+      if (sc && sc.clientHeight > 100) {
         void rerenderActivePdfTab().then(function () {
           updateHeaderGlassFromPdfScroll();
         });
-      }, delayMs);
+      } else {
+        setTimeout(function () { rerenderWhenReady(attempts + 1); }, 50);
+      }
     }
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      applySettledAndRerender();
-    } else {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(applySettledAndRerender);
-      });
-    }
-
-    setSubmitPreviewMode(true);
-    ensurePdfScrollGlassListeners();
-    bindPdfSmoothWheelScroll();
-    buildOverviewPanel(doneData.overview || { papers: [] });
-    updateHeaderGlassFromPdfScroll();
+    setTimeout(function () { rerenderWhenReady(0); }, fadeDuration + 50);
   }
 
   async function refreshPreviewMode() {

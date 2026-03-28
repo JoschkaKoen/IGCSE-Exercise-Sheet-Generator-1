@@ -490,17 +490,26 @@ def _build_user_content(
     return parts
 
 
-def _fix_json_backslashes(s: str) -> str:
-    r"""Double backslashes that are not valid JSON escapes.
+def _escape_latex_in_json(s: str) -> str:
+    r"""Double every single backslash so ``json.loads`` treats them as literals.
 
-    AI-generated LaTeX inside JSON strings often contains raw ``\frac``,
-    ``\mathrm``, ``\,`` etc.  JSON only allows ``\"``, ``\\``, ``\/``,
-    ``\b``, ``\f``, ``\n``, ``\r``, ``\t``, and ``\uXXXX``.  This function
-    doubles every ``\`` that is not followed by one of those valid escape
-    characters, turning e.g. ``\frac`` into ``\\frac`` so ``json.loads``
-    accepts the string.
+    AI-generated LaTeX inside JSON strings produces ``\frac``, ``\mathrm``,
+    ``\text``, ``\,`` etc.  Many of these collide with *valid* JSON escapes
+    (``\f`` = form feed, ``\t`` = tab, ``\b`` = backspace, ``\n`` = newline),
+    so a selective regex like ``\\(?![bfnrtu...])`` is not enough — it leaves
+    ``\frac`` as form-feed + ``rac``, which then breaks LaTeX compilation.
+
+    This function doubles *every* lone ``\``, while preserving already-doubled
+    ``\\`` and the structural ``\"``.
     """
-    return re.sub(r'\\(?!["\\/bfnrtu])', r'\\\\', s)
+    _PH_BS = "\x00DBS\x00"
+    _PH_QT = "\x00DQT\x00"
+    s = s.replace("\\\\", _PH_BS)
+    s = s.replace('\\"', _PH_QT)
+    s = s.replace("\\", "\\\\")
+    s = s.replace(_PH_BS, "\\\\")
+    s = s.replace(_PH_QT, '\\"')
+    return s
 
 
 def _parse_explanations(raw: str, questions: list[int]) -> dict[int, list[str]] | None:
@@ -515,24 +524,20 @@ def _parse_explanations(raw: str, questions: list[int]) -> dict[int, list[str]] 
 
     def _try_loads(s: str) -> dict | None:
         """Try json.loads with progressively more aggressive fixups."""
-        for fixup_name, fixup in [
-            ("direct", lambda x: x),
-            ("backslash-fixed", _fix_json_backslashes),
-            ("strict=False", lambda x: x),
+        for label, text in [
+            ("direct", s),
+            ("latex-escaped", _escape_latex_in_json(s)),
         ]:
             try:
-                text = fixup(s)
-                if fixup_name == "strict=False":
-                    return json.loads(text, strict=False)
                 return json.loads(text)
             except json.JSONDecodeError:
+                pass
+            try:
+                return json.loads(text, strict=False)
+            except json.JSONDecodeError:
                 continue
-        # Last resort: backslash-fix + strict=False
-        try:
-            return json.loads(_fix_json_backslashes(s), strict=False)
-        except json.JSONDecodeError as e:
-            print(f"    All json.loads attempts failed. Last error: {e}")
-            return None
+        print(f"    All json.loads attempts failed for response of length {len(s)}.")
+        return None
 
     data = _try_loads(cleaned)
     if data is None:
@@ -1083,22 +1088,18 @@ def _pdf_to_vector_strips(
     strips are used by the layout engine.  The caller (pipeline) holds a reference
     via the returned strips list.
 
-    ``question_num`` is set to ``first_q_num`` on the first strip so the overview
-    anchor is recorded; subsequent pages get None.
+    ``question_num`` is set to ``first_q_num`` on the first strip.
+    ``extra_question_nums`` carries the remaining questions so the layout engine
+    records answer-navigation anchors for every MCQ question, not just the first.
     """
-    # Defer rendering import to avoid circular imports
     from .rendering import VectorStrip  # noqa: PLC0415
 
-    # Open from bytes so the file handle is not kept alive and the caller can
-    # delete the file on disk straight after this function returns.
     doc = fitz.open(stream=pdf_path.read_bytes(), filetype="pdf")
+    extra = [q for q in questions_in_order if q != first_q_num]
     strips: list[Any] = []
     for page_idx in range(len(doc)):
         page = doc[page_idx]
         pr = page.rect
-        # Tight-crop: only claim vertical space down to the last line of content.
-        # This lets the layout engine pack subsequent content (other MCQ papers,
-        # structured mark schemes) onto the same output page instead of leaving gaps.
         content_h = _content_bottom_pt(page)
 
         scale_w = _USABLE_W_PT / pr.width if pr.width > 0 else 1.0
@@ -1115,6 +1116,7 @@ def _pdf_to_vector_strips(
             x_offset_pt=(_USABLE_W_PT - display_w) / 2 + _MARGIN_PT,
             qr_rects=[],
             question_num=first_q_num if page_idx == 0 else None,
+            extra_question_nums=extra if page_idx == 0 else [],
         ))
     return strips
 
