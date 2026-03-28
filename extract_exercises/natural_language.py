@@ -300,12 +300,26 @@ def resolve_natural_language(
             raise NaturalLanguageError(f'"questions" must be integers ({idx}).')
         return {"input_pdf": resolved, "questions": qn, "mark_scheme_pdf": ms}
 
+    # Ensure output_pdf filename starts with the subject for consistent folder naming.
+    _SUBJECT_PREFIXES: dict[str, str] = {
+        "physics": "Physics",
+        "computer_science": "CS",
+        "mathematics": "Maths",
+    }
+    output_pdf = data["output_pdf"]
+    prefix = _SUBJECT_PREFIXES.get(exam_key, "")
+    if prefix:
+        stem = Path(output_pdf).stem
+        # Only prepend if the name doesn't already start with the subject (case-insensitive).
+        if not stem.lower().startswith(prefix.lower()):
+            output_pdf = f"{prefix}_{output_pdf}"
+
     extractions = data.get("extractions")
     if extractions is not None:
         if not isinstance(extractions, list) or not extractions:
             raise NaturalLanguageError('"extractions" must be a non-empty array when present.')
         normalized = [_one_extraction(ex, str(i)) for i, ex in enumerate(extractions)]
-        return exam_root, {"exam": exam_key, "output_pdf": data["output_pdf"], "extractions": normalized}
+        return exam_root, {"exam": exam_key, "output_pdf": output_pdf, "extractions": normalized}
 
     for key in ("input_pdf", "questions"):
         if key not in data:
@@ -319,4 +333,4 @@ def resolve_natural_language(
         },
         "0",
     )
-    return exam_root, {"exam": exam_key, "output_pdf": data["output_pdf"], "extractions": [single]}
+    return exam_root, {"exam": exam_key, "output_pdf": output_pdf, "extractions": [single]}

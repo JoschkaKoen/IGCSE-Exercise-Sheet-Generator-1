@@ -9,6 +9,7 @@ fall back to ``create_mcq_answer_strips``.
 
 from __future__ import annotations
 
+import base64
 import json
 import os
 import re
@@ -96,6 +97,260 @@ _DEFAULT_SUBJECT_HINT = (
 # ---------------------------------------------------------------------------
 
 
+def _is_substantial_drawing(r: fitz.Rect) -> bool:
+    """Return True if a drawing rect is large enough to be a diagram element.
+
+    Requires one dimension ≥20 pt and the other ≥12 pt.  This catches shapes
+    like bar magnets (56×17 pt) while filtering out thin rules and borders.
+    """
+    lo, hi = min(r.width, r.height), max(r.width, r.height)
+    return lo >= 12.0 and hi >= 20.0
+
+
+def mcq_questions_with_images(
+    doc: fitz.Document,
+    regions: list[tuple[int, int, float, float]],
+    questions: list[int],
+    cfg: SubjectConfig,
+) -> set[int]:
+    """Return question numbers whose clip region contains at least one image.
+
+    Checks embedded raster images and substantial vector drawings.
+    Multi-page questions: any page containing an image counts the question.
+    """
+    has_image: set[int] = set()
+    qs_set = set(questions)
+
+    for qnum, page_idx, y_start, y_end in regions:
+        if qnum not in qs_set or qnum in has_image:
+            continue
+        if page_idx >= len(doc):
+            continue
+        page = doc[page_idx]
+        page_w = page.rect.width
+        clip = fitz.Rect(
+            cfg.strip_crop_left_pt,
+            y_start + cfg.strip_crop_top_pt,
+            page_w - cfg.strip_crop_right_pt,
+            y_end,
+        )
+
+        # Check embedded raster images
+        for img_item in page.get_images():
+            xref = img_item[0]
+            try:
+                for rect in page.get_image_rects(xref):
+                    if not fitz.Rect(rect).intersect(clip).is_empty:
+                        has_image.add(qnum)
+                        break
+            except Exception:
+                continue
+            if qnum in has_image:
+                break
+
+        if qnum in has_image:
+            continue
+
+        # Check substantial vector drawings
+        for drawing in page.get_drawings():
+            r = drawing["rect"]
+            if not _is_substantial_drawing(r):
+                continue
+            if not fitz.Rect(r).intersect(clip).is_empty:
+                has_image.add(qnum)
+                break
+
+    return has_image
+
+
+_IMAGE_ZONE_PAD_V_PT = 5.0
+_IMAGE_ZONE_PAD_H_PT = 8.0
+_IMAGE_RASTER_DPI = 150
+
+# Regex for answer-option labels: a single letter A–D optionally followed by
+# a dot or parenthesis, possibly with surrounding whitespace.
+_OPTION_LABEL_RE = re.compile(r"^\s*[A-D]\s*[.):]?\s*$")
+
+
+def _image_zone_clip(
+    page: fitz.Page,
+    question_clip: fitz.Rect,
+) -> fitz.Rect:
+    """Compute a tight clip around all images/drawings in *question_clip*.
+
+    Strategy
+    --------
+    1. Find the union bbox of all raster images and substantial vector drawings.
+    2. Scan text blocks for answer-option labels (A / B / C / D) that sit near
+       the images (above or below) — these are included so the model knows
+       which diagram belongs to which option.
+    3. Add padding above and below.
+    4. Fall back to the full *question_clip* when the zone already covers >90 %
+       of the question height.
+
+    The zone is NOT extended to the bottom of the question — the AI already
+    receives the full question text separately, so the image only needs to
+    capture the visual content and its labels.
+    """
+    img_y0 = question_clip.y1  # sentinel: bottom
+    img_y1 = question_clip.y0  # sentinel: top
+    img_x0 = question_clip.x1  # sentinel: right
+    img_x1 = question_clip.x0  # sentinel: left
+
+    for img_item in page.get_images():
+        xref = img_item[0]
+        try:
+            for rect in page.get_image_rects(xref):
+                if not fitz.Rect(rect).intersect(question_clip).is_empty:
+                    img_y0 = min(img_y0, rect.y0)
+                    img_y1 = max(img_y1, rect.y1)
+                    img_x0 = min(img_x0, rect.x0)
+                    img_x1 = max(img_x1, rect.x1)
+        except Exception:
+            continue
+
+    # First pass: only substantial drawings set the vertical extent.
+    clip_drawings: list[tuple[fitz.Rect, float]] = []  # (rect, half_stroke)
+    for drawing in page.get_drawings():
+        r = drawing["rect"]
+        if fitz.Rect(r).intersect(question_clip).is_empty:
+            continue
+        half_w = (drawing.get("width") or 0) / 2
+        clip_drawings.append((r, half_w))
+        if _is_substantial_drawing(r):
+            img_y0 = min(img_y0, r.y0 - half_w)
+            img_y1 = max(img_y1, r.y1 + half_w)
+            img_x0 = min(img_x0, r.x0 - half_w)
+            img_x1 = max(img_x1, r.x1 + half_w)
+
+    if img_y0 >= img_y1:
+        return question_clip
+
+    # Second pass: include all drawings (even small ones like arrows and
+    # wires) that vertically overlap the zone established by substantial
+    # drawings — they are part of the same figure.
+    for r, half_w in clip_drawings:
+        if (r.y1 + half_w) < img_y0 or (r.y0 - half_w) > img_y1:
+            continue
+        img_x0 = min(img_x0, r.x0 - half_w)
+        img_x1 = max(img_x1, r.x1 + half_w)
+        img_y0 = min(img_y0, r.y0 - half_w)
+        img_y1 = max(img_y1, r.y1 + half_w)
+
+    # Two kinds of text need to be included:
+    #
+    # a) Diagram labels — text whose vertical centre falls inside the
+    #    drawing area (e.g. "3N", "X", "O").  These are part of the figure
+    #    and the AI needs them to interpret the diagram.
+    #
+    # b) Answer-option labels (A / B / C / D) that sit near the images
+    #    (up to 30 pt above or 25 pt below).  These tell the AI which
+    #    diagram belongs to which option.
+    _LABEL_LOOK_ABOVE_PT = 30.0
+    _LABEL_LOOK_BELOW_PT = 25.0
+    label_scan_top = max(question_clip.y0, img_y0 - _LABEL_LOOK_ABOVE_PT)
+    label_scan_bot = min(question_clip.y1, img_y1 + _LABEL_LOOK_BELOW_PT)
+
+    for block in page.get_text("dict")["blocks"]:
+        if block["type"] != 0:
+            continue
+        by0 = block["bbox"][1]
+        by1 = block["bbox"][3]
+        if block["bbox"][2] < question_clip.x0 or block["bbox"][0] > question_clip.x1:
+            continue
+        for line in block["lines"]:
+            # Skip blank / whitespace-only lines — they sit between content
+            # lines in the same block and would cascade the zone outward.
+            if not any(s["text"].strip() for s in line["spans"]):
+                continue
+            ly0, ly1 = line["bbox"][1], line["bbox"][3]
+            line_centre = (ly0 + ly1) / 2
+
+            lx0, lx1 = line["bbox"][0], line["bbox"][2]
+
+            # (a) Diagram label: line centre inside or within 15 pt of
+            #     the drawing area (labels like "X", "O" sit just outside
+            #     the drawing bbox at the corners of the figure).
+            _DIAGRAM_LABEL_MARGIN_PT = 15.0
+            if (img_y0 - _DIAGRAM_LABEL_MARGIN_PT) <= line_centre <= (img_y1 + _DIAGRAM_LABEL_MARGIN_PT):
+                img_y0 = min(img_y0, ly0)
+                img_y1 = max(img_y1, ly1)
+                img_x0 = min(img_x0, lx0)
+                img_x1 = max(img_x1, lx1)
+                continue
+
+            # (b) Option label (A–D) near the images
+            if ly1 >= label_scan_top and ly0 <= label_scan_bot:
+                line_text = "".join(s["text"] for s in line["spans"])
+                if _OPTION_LABEL_RE.match(line_text):
+                    img_y0 = min(img_y0, ly0)
+                    img_y1 = max(img_y1, ly1)
+                    img_x0 = min(img_x0, lx0)
+                    img_x1 = max(img_x1, lx1)
+
+    # Add small breathing room so images aren't cropped at the exact edge.
+    zone_y0 = max(question_clip.y0, img_y0 - _IMAGE_ZONE_PAD_V_PT)
+    zone_y1 = min(question_clip.y1, img_y1 + _IMAGE_ZONE_PAD_V_PT)
+    zone_x0 = max(question_clip.x0, img_x0 - _IMAGE_ZONE_PAD_H_PT)
+    zone_x1 = min(question_clip.x1, img_x1 + _IMAGE_ZONE_PAD_H_PT)
+
+    # If zone already covers >90 % of the question, just use the full clip.
+    q_h = question_clip.height
+    if q_h > 0 and (zone_y1 - zone_y0) / q_h > 0.9:
+        return question_clip
+
+    return fitz.Rect(zone_x0, zone_y0, zone_x1, zone_y1)
+
+
+def rasterize_mcq_images(
+    doc: fitz.Document,
+    regions: list[tuple[int, int, float, float]],
+    questions_with_images: set[int],
+    cfg: SubjectConfig,
+    debug_dir: Path | None = None,
+) -> dict[int, str]:
+    """Rasterize the image zone for each question with images.
+
+    Returns ``{qnum: base64_png}`` for every question in *questions_with_images*
+    that has a detectable image zone.  For multi-page questions, uses the first
+    region page that contains images.
+
+    When *debug_dir* is provided, each rasterized image is also saved as
+    ``<debug_dir>/Q<num>.png`` for visual inspection.
+    """
+    if debug_dir is not None:
+        debug_dir.mkdir(parents=True, exist_ok=True)
+
+    result: dict[int, str] = {}
+    mat = fitz.Matrix(_IMAGE_RASTER_DPI / 72, _IMAGE_RASTER_DPI / 72)
+
+    for qnum, page_idx, y_start, y_end in regions:
+        if qnum not in questions_with_images or qnum in result:
+            continue
+        if page_idx >= len(doc):
+            continue
+
+        page = doc[page_idx]
+        page_w = page.rect.width
+        question_clip = fitz.Rect(
+            cfg.strip_crop_left_pt,
+            y_start + cfg.strip_crop_top_pt,
+            page_w - cfg.strip_crop_right_pt,
+            y_end,
+        )
+
+        zone = _image_zone_clip(page, question_clip)
+        pix = page.get_pixmap(matrix=mat, clip=zone)
+        png_bytes = pix.tobytes("png")
+
+        if debug_dir is not None:
+            (debug_dir / f"Q{qnum}.png").write_bytes(png_bytes)
+
+        result[qnum] = base64.b64encode(png_bytes).decode("ascii")
+
+    return result
+
+
 def extract_mcq_question_texts(
     doc: fitz.Document,
     regions: list[tuple[int, int, float, float]],
@@ -144,9 +399,10 @@ For each question return exactly 3 concise bullet-point explanations.
 Rules:
 {subject_hint}
 {gemini_brevity}
-- Write in plain English, IGCSE level (age 14–16). Avoid unexplained jargon.
+- Write in clear, plain English suitable for non-native English speakers (IGCSE, age 14–16). Use simple, everyday vocabulary — avoid difficult or academic words like "substitute", "perpendicular", "negligible", "exerts", "inversely proportional" when a simpler phrase works (e.g. "plug in", "at right angles", "very small", "pushes/pulls", "as one goes up the other goes down"). Do not dumb the language down to a childish level — just keep it natural and accessible.
 - Each bullet is 1–2 sentences maximum.
 - Explain WHY the correct answer is right; briefly dismiss the most tempting distractor.
+- Some questions include an image of diagrams or figures extracted from the exam paper. Use the image to understand visual content (circuit diagrams, graphs, answer-option diagrams labelled A–D, etc.) that the plain text alone cannot convey.
 - Do NOT restate the question text. Do NOT say "the answer is X" — explain the reasoning.
 - Output ONLY a valid JSON object, no markdown, no code fences:
   {{"explanations": {{"1": ["bullet1", "bullet2", "bullet3"], "2": ["...", "...", "..."], ...}}}}
@@ -193,6 +449,63 @@ def _build_user_message(
     return "\n\n".join(parts)
 
 
+def _build_user_content(
+    q_texts: dict[int, str],
+    answers: dict[int, str],
+    questions: list[int],
+    q_images: dict[int, str],
+) -> str | list[dict]:
+    """Build user message content, using vision format when images are present.
+
+    Returns a plain string when *q_images* is empty (backward-compatible) or a
+    list of ``{"type": "text"/"image_url", ...}`` content parts for the
+    OpenAI-compatible vision API.
+    """
+    if not q_images:
+        return _build_user_message(q_texts, answers, questions)
+
+    # Build multimodal content: interleave text and images so the model sees
+    # each image right after the question it belongs to.
+    parts: list[dict] = []
+    text_buf: list[str] = ["Questions and correct answers:\n"]
+
+    for q in questions:
+        if q not in answers:
+            continue
+        ans = answers[q]
+        text = q_texts.get(q, "").strip() or "(question text unavailable)"
+        text_buf.append(f"Q{q} (Answer: {ans})\n{text}")
+
+        if q in q_images:
+            text_buf.append(f"(See attached image for Q{q} below.)")
+            # Flush accumulated text, then insert image.
+            parts.append({"type": "text", "text": "\n\n".join(text_buf)})
+            text_buf = []
+            parts.append({
+                "type": "image_url",
+                "image_url": {"url": f"data:image/png;base64,{q_images[q]}"},
+            })
+
+    # Flush any remaining text after the last question.
+    if text_buf:
+        parts.append({"type": "text", "text": "\n\n".join(text_buf)})
+
+    return parts
+
+
+def _fix_json_backslashes(s: str) -> str:
+    r"""Double backslashes that are not valid JSON escapes.
+
+    AI-generated LaTeX inside JSON strings often contains raw ``\frac``,
+    ``\mathrm``, ``\,`` etc.  JSON only allows ``\"``, ``\\``, ``\/``,
+    ``\b``, ``\f``, ``\n``, ``\r``, ``\t``, and ``\uXXXX``.  This function
+    doubles every ``\`` that is not followed by one of those valid escape
+    characters, turning e.g. ``\frac`` into ``\\frac`` so ``json.loads``
+    accepts the string.
+    """
+    return re.sub(r'\\(?!["\\/bfnrtu])', r'\\\\', s)
+
+
 def _parse_explanations(raw: str, questions: list[int]) -> dict[int, list[str]] | None:
     """Parse AI JSON; return dict or None on total failure.
 
@@ -201,12 +514,35 @@ def _parse_explanations(raw: str, questions: list[int]) -> dict[int, list[str]] 
     so the template can still render a "(Explanation not available.)" for them.
     """
     _unfence = strip_json_fences if strip_json_fences is not None else (lambda s: s)
-    try:
-        data = json.loads(_unfence(raw))
-    except json.JSONDecodeError:
+    cleaned = _unfence(raw)
+
+    def _try_loads(s: str) -> dict | None:
+        """Try json.loads with progressively more aggressive fixups."""
+        for fixup_name, fixup in [
+            ("direct", lambda x: x),
+            ("backslash-fixed", _fix_json_backslashes),
+            ("strict=False", lambda x: x),
+        ]:
+            try:
+                text = fixup(s)
+                if fixup_name == "strict=False":
+                    return json.loads(text, strict=False)
+                return json.loads(text)
+            except json.JSONDecodeError:
+                continue
+        # Last resort: backslash-fix + strict=False
+        try:
+            return json.loads(_fix_json_backslashes(s), strict=False)
+        except json.JSONDecodeError as e:
+            print(f"    All json.loads attempts failed. Last error: {e}")
+            return None
+
+    data = _try_loads(cleaned)
+    if data is None:
         return None
     expl = data.get("explanations")
     if not isinstance(expl, dict):
+        print(f"    Parsed JSON but missing 'explanations' dict. Keys: {list(data.keys()) if isinstance(data, dict) else type(data).__name__}")
         return None
     result: dict[int, list[str]] = {}
     for q in questions:
@@ -226,8 +562,12 @@ def generate_mcq_explanations(
     answers: dict[int, str],
     questions: list[int],
     exam_key: str | None,
+    q_images: dict[int, str] | None = None,
 ) -> dict[int, list[str]]:
     """Call the AI once for all questions; return ``{qnum: [bullet, bullet, bullet]}``.
+
+    When *q_images* is provided (``{qnum: base64_png}``), the user message is
+    sent in multimodal (vision) format so the model can see diagrams and figures.
 
     Returns an empty dict on any error so the caller can fall back gracefully.
     """
@@ -236,29 +576,37 @@ def generate_mcq_explanations(
         return {}
 
     system = _build_system_prompt(exam_key)
-    user = _build_user_message(q_texts, answers, questions_with_answers)
+    user_content: str | list[dict] = _build_user_content(
+        q_texts, answers, questions_with_answers, q_images or {},
+    )
 
     def _call(**kwargs: Any) -> str:
         completion = client.chat.completions.create(
             model=model,
             messages=[
                 {"role": "system", "content": system},
-                {"role": "user", "content": user},
+                {"role": "user", "content": user_content},
             ],
             **kwargs,
         )
         return (completion.choices[0].message.content or "").strip()
 
-    for attempt in range(2):
+    # Gemini's OpenAI-compatible endpoint is unreliable with
+    # response_format=json_object when multimodal content is present.
+    # Skip it for vision calls to avoid a wasted first attempt.
+    has_images = isinstance(user_content, list)
+
+    max_attempts = 3
+
+    for attempt in range(max_attempts):
         try:
-            if attempt == 0:
+            if attempt == 0 and not has_images:
                 raw = _call(response_format={"type": "json_object"})
             else:
-                # Some model/endpoint configs don't support json_object; retry without it
                 raw = _call()
         except Exception as exc:
             print(f"  MCQ explanations: API error on attempt {attempt + 1}: {exc}")
-            if attempt == 1:
+            if attempt == max_attempts - 1:
                 return {}
             continue
 
@@ -266,14 +614,21 @@ def generate_mcq_explanations(
         if result:
             return result
 
-        print(f"  MCQ explanations: bad JSON on attempt {attempt + 1}, retrying…")
-        # Nudge the model on retry
-        user = (
-            user
-            + '\n\nYou MUST output ONLY valid JSON in this exact shape: '
-            '{"explanations": {"1": ["...", "...", "..."], ...}}. '
-            'No markdown, no code fences, no extra keys.'
-        )
+        # Show enough of the raw response to diagnose the parse failure.
+        preview = raw[:500] if raw else "(empty)"
+        print(f"  MCQ explanations: bad JSON on attempt {attempt + 1}. Raw start: {preview}")
+        if attempt < max_attempts - 1:
+            print("  Retrying…")
+            # Nudge the model on retry — append to text only (images stay in place).
+            nudge = (
+                '\n\nYou MUST output ONLY valid JSON in this exact shape: '
+                '{"explanations": {"1": ["...", "...", "..."], ...}}. '
+                'No markdown, no code fences, no extra keys.'
+            )
+            if isinstance(user_content, str):
+                user_content = user_content + nudge
+            else:
+                user_content = user_content + [{"type": "text", "text": nudge}]
 
     return {}
 
@@ -291,6 +646,7 @@ class McqPaperData:
     answers: dict[int, str]
     answered: list[int]
     q_texts: dict[int, str]
+    q_images: dict[int, str]  # {qnum: base64_png} for questions with diagrams/figures
     exam_key: str | None
     paper_label: str
     expl_pdf_path: Path
@@ -317,11 +673,19 @@ def prepare_mcq_job_data(
     missing = [q for q in answered if q not in q_texts]
     if missing:
         print(f"  MCQ explanations: no text extracted for Q{missing} (will use placeholder).")
+    img_qs = mcq_questions_with_images(qp_doc, regions, answered, cfg)
+    q_images: dict[int, str] = {}
+    if img_qs:
+        print(f"  MCQ questions with images: Q{sorted(img_qs)} — rasterizing for vision…")
+        debug_dir = expl_pdf_path.parent / "mcq_images"
+        q_images = rasterize_mcq_images(qp_doc, regions, img_qs, cfg, debug_dir=debug_dir)
+        print(f"  Rasterized {len(q_images)} question image(s) → {debug_dir}")
     return McqPaperData(
         qs=qs,
         answers=answers,
         answered=answered,
         q_texts=q_texts,
+        q_images=q_images,
         exam_key=exam_key,
         paper_label=paper_label,
         expl_pdf_path=expl_pdf_path,
@@ -358,6 +722,7 @@ def batch_generate_mcq_explanations(
         return generate_mcq_explanations(
             client, model,
             paper.q_texts, paper.answers, paper.answered, paper.exam_key,
+            q_images=paper.q_images,
         )
 
     results: list[dict[int, list[str]]] = [{} for _ in papers]
