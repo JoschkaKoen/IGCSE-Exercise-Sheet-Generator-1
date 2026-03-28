@@ -37,10 +37,15 @@ if TYPE_CHECKING:
     from .rendering import VectorStrip
 
 try:
-    from .ai_client import make_ai_client
+    from .ai_client import get_provider_name, make_ai_client, strip_json_fences
     _AI_CLIENT_AVAILABLE = True
 except ImportError:
     make_ai_client = None  # type: ignore[assignment]
+    strip_json_fences = None  # type: ignore[assignment]
+
+    def get_provider_name() -> str:  # type: ignore[misc]
+        return ""
+
     _AI_CLIENT_AVAILABLE = False
 
 try:
@@ -138,6 +143,7 @@ For each question return exactly 3 concise bullet-point explanations.
 
 Rules:
 {subject_hint}
+{gemini_brevity}
 - Write in plain English, IGCSE level (age 14–16). Avoid unexplained jargon.
 - Each bullet is 1–2 sentences maximum.
 - Explain WHY the correct answer is right; briefly dismiss the most tempting distractor.
@@ -145,6 +151,14 @@ Rules:
 - Output ONLY a valid JSON object, no markdown, no code fences:
   {{"explanations": {{"1": ["bullet1", "bullet2", "bullet3"], "2": ["...", "...", "..."], ...}}}}
 - The keys are question numbers as strings. Every question number you receive must appear in the output.\
+"""
+
+# Extra constraints when AI_PROVIDER=gemini (that model tends to over-explain).
+_GEMINI_BREVITY_RULES = """\
+- SIMPLE ENGLISH: Everyday words and short clauses only. Avoid fancy or academic vocabulary where a plain word works (say "pulls" not "exerts an attractive force upon", "same" not "equivalent").
+- SHORT BULLETS ONLY: Each bullet is at most ONE short sentence, ideally under ~18 words. No warm-up phrases ("Firstly", "It is important to note", "This means that").
+- Students must grasp each point in a quick skim — telegraphic style is good: name the idea, link it to the correct option, stop.
+- Prefer one tight sentence per bullet over two looser ones (even if "1–2 sentences" appears elsewhere in these rules).
 """
 
 _SUBJECT_TITLES: dict[str, str] = {
@@ -158,7 +172,10 @@ def _build_system_prompt(exam_key: str | None) -> str:
     key = exam_key or ""
     title = _SUBJECT_TITLES.get(key, "Science")
     hint = _SUBJECT_HINTS.get(key, _DEFAULT_SUBJECT_HINT)
-    return _SYSTEM_TEMPLATE.format(subject_title=title, subject_hint=hint)
+    gemini_brevity = _GEMINI_BREVITY_RULES if get_provider_name() == "gemini" else ""
+    return _SYSTEM_TEMPLATE.format(
+        subject_title=title, subject_hint=hint, gemini_brevity=gemini_brevity
+    )
 
 
 def _build_user_message(
@@ -183,8 +200,9 @@ def _parse_explanations(raw: str, questions: list[int]) -> dict[int, list[str]] 
     than 3 bullets are padded with empty-string placeholders rather than dropped,
     so the template can still render a "(Explanation not available.)" for them.
     """
+    _unfence = strip_json_fences if strip_json_fences is not None else (lambda s: s)
     try:
-        data = json.loads(raw)
+        data = json.loads(_unfence(raw))
     except json.JSONDecodeError:
         return None
     expl = data.get("explanations")

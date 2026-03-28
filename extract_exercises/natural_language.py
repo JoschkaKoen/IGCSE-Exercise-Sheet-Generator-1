@@ -15,7 +15,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from .ai_client import get_api_key_env_name, get_provider_name, make_ai_client
+from .ai_client import get_api_key_env_name, get_provider_name, make_ai_client, strip_json_fences
 from .config import EXAM_ROOT_BY_KEY, PROJECT_ROOT
 from .exceptions import NaturalLanguageError
 
@@ -94,7 +94,7 @@ def _precheck_instruction(client, model: str, instruction: str) -> None:
 
     raw = (completion.choices[0].message.content or "").strip()
     try:
-        data = json.loads(raw)
+        data = json.loads(strip_json_fences(raw))
     except json.JSONDecodeError:
         raise NaturalLanguageError(
             "Could not validate your request (invalid precheck response). Please try again."
@@ -234,7 +234,7 @@ def resolve_natural_language(
 
     raw = (completion.choices[0].message.content or "").strip()
     try:
-        data = json.loads(raw)
+        data = json.loads(strip_json_fences(raw))
     except json.JSONDecodeError:
         raise NaturalLanguageError(f"Model did not return valid JSON:\n{raw[:2000]}")
 

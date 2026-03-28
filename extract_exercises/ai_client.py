@@ -108,6 +108,23 @@ def make_ai_client(
     return client, model
 
 
+def strip_json_fences(raw: str) -> str:
+    """Remove markdown code fences that some models add despite being told not to.
+
+    Handles ```json ... ```, ``` ... ```, and leading/trailing whitespace.
+    Falls back to extracting the outermost { ... } block when prose surrounds the JSON.
+    """
+    import re
+    s = raw.strip()
+    fence = re.match(r"^```(?:json)?\s*([\s\S]*?)```\s*$", s)
+    if fence:
+        return fence.group(1).strip()
+    m = re.search(r"\{[\s\S]*\}", s)
+    if m:
+        return m.group(0)
+    return s
+
+
 def get_api_key_env_name() -> str:
     """Return the env var name for the active provider's API key."""
     return _PROVIDERS[_resolve_provider()]["api_key_env"]
