@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Natural language → extraction options (xAI / Grok, OpenAI-compatible API).
+"""Natural language → extraction options (OpenAI-compatible API).
 
-Prompts are sanitized (length cap, control characters) then passed through an AI
-precheck (subject + paper/session) before the main mapping call. Set
-``NL_SKIP_PRECHECK=1`` to disable the precheck (e.g. tests). Optional
-``XAI_PRECHECK_MODEL`` overrides the model for precheck only (defaults to
-``XAI_MODEL``).
+Supported providers: ``gemini`` (default) and ``xai``. Set ``AI_PROVIDER`` in
+``.env`` to switch. Set ``NL_SKIP_PRECHECK=1`` to skip the precheck.
+Model overrides: ``AI_MODEL`` / ``AI_PRECHECK_MODEL`` (generic) or legacy
+``XAI_MODEL`` / ``XAI_PRECHECK_MODEL``.
 """
 
 import json
@@ -16,13 +15,9 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from .ai_client import get_api_key_env_name, get_provider_name, make_ai_client
 from .config import EXAM_ROOT_BY_KEY, PROJECT_ROOT
 from .exceptions import NaturalLanguageError
-
-try:
-    from openai import OpenAI
-except ImportError:
-    OpenAI = None
 
 # Hard cap on user prompt size (characters) to limit cost and abuse.
 MAX_NATURAL_LANGUAGE_INSTRUCTION_CHARS = 12_000
@@ -143,19 +138,24 @@ def resolve_natural_language(
         if on_progress:
             on_progress(msg)
 
-    if OpenAI is None:
-        raise NaturalLanguageError("Install dependencies: pip install -r requirements.txt")
-
     _load_env()
-    api_key = os.environ.get("XAI_API_KEY")
-    if not api_key:
-        raise NaturalLanguageError("Set XAI_API_KEY in .env (next to this script or cwd).")
 
     instruction = sanitize_natural_language_instruction(instruction)
 
-    model = os.environ.get("XAI_MODEL", "grok-4-1-fast-non-reasoning")
-    precheck_model = os.environ.get("XAI_PRECHECK_MODEL", model)
-    client = OpenAI(api_key=api_key, base_url="https://api.x.ai/v1")
+    result = make_ai_client(model_env="AI_MODEL", legacy_model_env="XAI_MODEL")
+    if result is None:
+        key_env = get_api_key_env_name()
+        provider = get_provider_name()
+        raise NaturalLanguageError(
+            f"Set {key_env} in .env to use the {provider} provider "
+            f"(AI_PROVIDER={provider}). Install dependencies: pip install -r requirements.txt"
+        )
+    client, model = result
+    precheck_model = (
+        os.environ.get("AI_PRECHECK_MODEL", "").strip()
+        or os.environ.get("XAI_PRECHECK_MODEL", "").strip()
+        or model
+    )
 
     skip_precheck = os.environ.get("NL_SKIP_PRECHECK", "").lower() in ("1", "true", "yes")
     if not skip_precheck:

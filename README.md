@@ -11,8 +11,27 @@ Extract chosen questions from Cambridge-style IGCSE question papers (PDF) and la
 ## Requirements
 
 - **Python 3.10+** (3.12+ recommended)
+- **Python packages:** `pip install -r requirements.txt` (see file header for what each line is for)
 - **Exam PDFs** for natural-language mode: bundled under `exams/physics/`, `exams/computer_science/`, and `exams/mathematics/` (see `exams/README.md`). Override paths in `extract_exercises/config.py` if you keep papers elsewhere.
-- **xAI API key** for natural-language mode only (legacy CLI does not need it).
+- **LLM API key** for natural-language mode (see [Configuration](#configuration)); the code uses the OpenAI Python client against **xAI’s** OpenAI-compatible endpoint by default.
+
+### System dependencies (optional features)
+
+These are **not** installed via pip. If they are missing, the pipeline still runs but some outputs are skipped or simplified.
+
+| Feature | Needs | Notes |
+|--------|--------|--------|
+| **MCQ explanations** (LaTeX PDF block) | `pdflatex` + TeX packages used in `extract_exercises/mcq_explanations.py` (`article`, `geometry`, `enumitem`, `booktabs`, `lmodern`, etc.) | Without TeX: explanations fall back to plain text. |
+| **2-up / 4-up exercise PDFs** | `pdfjam` on `PATH` | On **Debian/Ubuntu Docker** this comes from **`texlive-extra-utils`**. On bare Ubuntu, if `pdfjam` is missing from your mirror, add an official `universe` source or install `texlive-extra-utils`. |
+
+**Ubuntu (host, not Docker)** — typical install:
+
+```bash
+sudo apt update
+sudo apt install -y texlive-latex-extra texlive-fonts-extra texlive-extra-utils
+```
+
+The **Dockerfile** installs `texlive-extra-utils`, `texlive-latex-extra`, and `texlive-fonts-extra` so the container has `pdflatex` and `pdfjam` without extra host steps.
 
 ## Setup
 
@@ -25,14 +44,44 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Create a `.env` file next to the project (same folder as `requirements.txt`):
+Create a `.env` file next to the project (same folder as `requirements.txt`). Natural-language mode and the web app load `.env` from the project root (and optionally cwd).
+
+### LLM (natural language + MCQ explanations)
+
+Provider selection is controlled by `AI_PROVIDER`. The code uses the OpenAI Python client against the provider’s endpoint, so any OpenAI-compatible API works.
+
+| Provider | `AI_PROVIDER` value | API key env | Default model |
+|----------|---------------------|-------------|---------------|
+| **Google Gemini** (default) | `gemini` | `GOOGLE_API_KEY` | `gemini-2.5-flash` |
+| **xAI / Grok** | `xai` | `XAI_API_KEY` | `grok-4-1-fast-non-reasoning` |
+
+If `AI_PROVIDER` is unset and `XAI_API_KEY` is present but `GOOGLE_API_KEY` is not, the code automatically uses `xai` for backward compatibility.
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `XAI_API_KEY` | Yes for NL mode | API key for the OpenAI-compatible xAI endpoint |
-| `XAI_MODEL` | No | Defaults to a Grok fast model; override if needed |
+| `AI_PROVIDER` | No | `gemini` (default) or `xai`. |
+| `GOOGLE_API_KEY` | Yes when `AI_PROVIDER=gemini` | API key for Google Gemini. |
+| `XAI_API_KEY` | Yes when `AI_PROVIDER=xai` | API key for xAI / Grok. |
+| `AI_MODEL` | No | Override model for all calls (any provider). |
+| `AI_PRECHECK_MODEL` | No | Override model for the precheck call only. |
+| `AI_MCQ_MODEL` | No | Override model for MCQ explanation calls only. |
+| `XAI_MODEL` | No | Legacy alias for `AI_MODEL` (still supported). |
+| `XAI_PRECHECK_MODEL` | No | Legacy alias for `AI_PRECHECK_MODEL`. |
+| `XAI_MCQ_MODEL` | No | Legacy alias for `AI_MCQ_MODEL`. |
+| `NL_SKIP_PRECHECK` | No | Set to `1` / `true` / `yes` to skip the precheck (e.g. tests). |
 
-Natural-language mode also loads `.env` from the current working directory if present.
+**Hosting note:** Some cloud providers’ IPs are blocked by xAI/Cloudflare (“abusive traffic”). Switch to `AI_PROVIDER=gemini` — Google’s API rarely blocks datacenter IPs.
+
+### Web app (login gate)
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `DISABLE_LOGIN` | No | Default **on** (`true`): no login modal, APIs open. Set to `false` / `0` / `no` / `off` to require the access code. |
+| `ACCESS_CODE` | No | Access code when login is enabled; default `NBFLS` if unset. |
+| `APP_SECRET_KEY` | Recommended when login enabled | Secret used to sign the auth cookie; set a long random string in production. |
+| `ASK_LOGIN` | No | If `true`, session-style cookie behaviour for testing (see `web/auth_gate.py`). |
+
+Query overrides (same truthy/falsey strings): `?disable_login=0` forces the gate on for that request; `?ask_login=1` enables ask-login mode.
 
 ## Usage
 
@@ -84,10 +133,27 @@ run_extraction_jobs(
 )
 ```
 
+## Docker deployment
+
+The repo includes a **`Dockerfile`** and **`docker-compose.yml`**.
+
+- **Image:** `python:3.12-slim` plus TeX (`texlive-extra-utils`, `texlive-latex-extra`, `texlive-fonts-extra`) for `pdflatex` and `pdfjam`, then `pip install -r requirements.txt`.
+- **Runtime:** `uvicorn` on port **8000** inside the container; compose maps **host `80` → container `8000`**.
+- **Secrets:** put `XAI_API_KEY`, `APP_SECRET_KEY`, `DISABLE_LOGIN`, etc. in a **`.env`** next to `docker-compose.yml` (same folder as on the server). Do **not** commit `.env`.
+
+```bash
+docker compose up -d --build
+```
+
+Docker **caches** layers: the TeX `apt-get` step is **not** re-run on every build unless you change the Dockerfile above that line or use `--no-cache`.
+
+After **code** changes: `git pull` on the server, then `docker compose up -d --build` again.
+
 ## Output
 
 - Bare filenames (e.g. `sheet.pdf`) are written under `output/run_YYYYMMDD_HHMMSS/`.
 - A mark scheme run also produces `sheet_answers.pdf` beside the main output when applicable.
+- When `pdfjam` is available, sibling **`_2up`** and **`_4up`** PDFs may be created next to the main exercise sheet.
 
 ## Project layout
 
@@ -98,6 +164,8 @@ run_extraction_jobs(
 | `web/` | FastAPI app, templates, and static assets for the local web UI |
 | `exams/physics/`, `exams/computer_science/`, `exams/mathematics/` | Bundled question paper & mark scheme PDFs for NL mode |
 | `fonts/lmroman10-*.otf` | Latin Modern Roman (LaTeX `lmodern` text) for raster labels; see `fonts/README.md` |
+| `Dockerfile`, `docker-compose.yml` | Container build and run |
+| `.dockerignore` | Keeps `.git`, `.env`, caches out of the image build context |
 
 ## License
 

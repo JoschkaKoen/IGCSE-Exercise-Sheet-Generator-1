@@ -157,6 +157,7 @@ async def site_login(request: Request, body: SiteLoginBody) -> JSONResponse:
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request) -> HTMLResponse:
     return TEMPLATES.TemplateResponse(
+        request,
         "index.html",
         _template_ctx(request),
         headers=_HTML_NO_CACHE,
@@ -167,6 +168,7 @@ async def index(request: Request) -> HTMLResponse:
 async def library_page(request: Request) -> HTMLResponse:
     data = list_library_pdfs()
     return TEMPLATES.TemplateResponse(
+        request,
         "library.html",
         _template_ctx(request, library=data),
         headers=_HTML_NO_CACHE,

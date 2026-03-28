@@ -1,9 +1,11 @@
 # Install into a venv (see comments at top of extract_exercises.py).
+# PDF pipeline: PyMuPDF (fitz), PIL (header band). AI: OpenAI-compatible client (xAI, etc.).
+# System tools (pdflatex, pdfjam) are NOT pip packages — see README.md "System dependencies" and Dockerfile.
 pymupdf>=1.24.0
 Pillow>=10.0.0
-reportlab>=4.0.0
 python-dotenv>=1.0.0
 openai>=1.40.0
+# Web UI
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
 jinja2>=3.1.0

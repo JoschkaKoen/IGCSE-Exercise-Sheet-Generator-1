@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""AI-generated explanations for MCQ answers: text extraction → xAI → LaTeX → pdflatex → VectorStrips.
+"""AI-generated explanations for MCQ answers: text extraction → LLM → LaTeX → pdflatex → VectorStrips.
 
 The public entry point is ``generate_mcq_explanation_strips``. It returns a list of
 ``VectorStrip`` objects (one per LaTeX output page) that slot directly into the
@@ -37,9 +37,11 @@ if TYPE_CHECKING:
     from .rendering import VectorStrip
 
 try:
-    from openai import OpenAI
+    from .ai_client import make_ai_client
+    _AI_CLIENT_AVAILABLE = True
 except ImportError:
-    OpenAI = None  # type: ignore[assignment,misc]
+    make_ai_client = None  # type: ignore[assignment]
+    _AI_CLIENT_AVAILABLE = False
 
 try:
     from dotenv import load_dotenv
@@ -743,27 +745,23 @@ def _pdf_to_vector_strips(
 
 
 def _load_ai_client() -> tuple[Any, str] | None:
-    """Load xAI client from environment; return (client, model) or None."""
-    if OpenAI is None:
-        print("  MCQ explanations: openai package not installed.")
+    """Load LLM client from environment; return (client, model) or None."""
+    if not _AI_CLIENT_AVAILABLE or make_ai_client is None:
+        print("  MCQ explanations: ai_client module unavailable.")
         return None
 
     if load_dotenv is not None:
         load_dotenv(PROJECT_ROOT / ".env")
         load_dotenv(Path.cwd() / ".env")
 
-    api_key = os.environ.get("XAI_API_KEY")
-    if not api_key:
-        print("  MCQ explanations: XAI_API_KEY not set; skipping AI explanations.")
+    result = make_ai_client(model_env="AI_MCQ_MODEL", legacy_model_env="XAI_MCQ_MODEL")
+    if result is None:
+        # Try the generic AI_MODEL / XAI_MODEL fallback
+        result = make_ai_client(model_env="AI_MODEL", legacy_model_env="XAI_MODEL")
+    if result is None:
+        print("  MCQ explanations: no API key set for active provider; skipping AI explanations.")
         return None
-
-    model = os.environ.get("XAI_MCQ_MODEL") or os.environ.get("XAI_MODEL", "grok-4-1-fast-non-reasoning")
-    try:
-        client = OpenAI(api_key=api_key, base_url="https://api.x.ai/v1")
-    except Exception as exc:
-        print(f"  MCQ explanations: failed to create AI client: {exc}")
-        return None
-    return client, model
+    return result
 
 
 def generate_mcq_explanation_strips(
