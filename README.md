@@ -44,7 +44,13 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Create a `.env` file next to the project (same folder as `requirements.txt`). Natural-language mode and the web app load `.env` from the project root (and optionally cwd).
+Environment variables are loaded in this order (see `extract_exercises/env_load.py`):
+
+1. **`default.env`** (committed) — safe defaults such as `AI_PROVIDER` and `DISABLE_LOGIN`. Does not override variables already set in the process environment.
+2. **`.env`** at the project root (gitignored) — API keys and any overrides. Wins over `default.env` for keys it defines.
+3. **`.env`** in the current working directory (if different from the project root).
+
+Copy `.env.example` to `.env` and add your keys. You can remove lines from `.env` that duplicate `default.env` if you are happy with the committed defaults.
 
 ### LLM (natural language + MCQ explanations)
 
@@ -117,7 +123,7 @@ pip install -r requirements.txt
 uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
 ```
 
-Open [http://127.0.0.1:8001](http://127.0.0.1:8001) (use the same port as in the command). Set `XAI_API_KEY` in `.env` as for CLI natural-language mode. Jobs run in the background; the page polls until your sheet (and optional `*_answers.pdf`) is ready.
+Open [http://127.0.0.1:8001](http://127.0.0.1:8001) (use the same port as in the command). Put your LLM API key in `.env` (see `.env.example`) as for CLI natural-language mode. Jobs run in the background; the page polls until your sheet (and optional `*_answers.pdf`) is ready.
 
 **If the page does not load:** (1) Confirm the terminal shows `Uvicorn running on http://127.0.0.1:…`—if you see `Address already in use`, pick another port, e.g. `--port 8002`. (2) On many Macs, **port 8000 is already taken** (often by Docker), so use `8001` or higher instead of `8000`. (3) Use the exact URL printed by Uvicorn, including the port.
 
@@ -139,7 +145,7 @@ The repo includes a **`Dockerfile`** and **`docker-compose.yml`**.
 
 - **Image:** `python:3.12-slim` plus TeX (`texlive-extra-utils`, `texlive-latex-extra`, `texlive-fonts-extra`) for `pdflatex` and `pdfjam`, then `pip install -r requirements.txt`.
 - **Runtime:** `uvicorn` on port **8000** inside the container; compose maps **host `80` → container `8000`**.
-- **Secrets:** put `XAI_API_KEY`, `APP_SECRET_KEY`, `DISABLE_LOGIN`, etc. in a **`.env`** next to `docker-compose.yml` (same folder as on the server). Do **not** commit `.env`.
+- **Env files:** Compose loads **`default.env`** (from the repo) then **`.env`** on the host. Put **only secrets and overrides** in `.env` (`GOOGLE_API_KEY`, `XAI_API_KEY`, `APP_SECRET_KEY`, etc.). Do **not** commit `.env`.
 
 ```bash
 docker compose up -d --build
@@ -165,6 +171,8 @@ After **code** changes: `git pull` on the server, then `docker compose up -d --b
 | `exams/physics/`, `exams/computer_science/`, `exams/mathematics/` | Bundled question paper & mark scheme PDFs for NL mode |
 | `fonts/lmroman10-*.otf` | Latin Modern Roman (LaTeX `lmodern` text) for raster labels; see `fonts/README.md` |
 | `Dockerfile`, `docker-compose.yml` | Container build and run |
+| `default.env` | Committed non-secret defaults; merged before `.env` |
+| `.env.example` | Template for a gitignored `.env` (secrets only) |
 | `.dockerignore` | Keeps `.git`, `.env`, caches out of the image build context |
 
 ## License

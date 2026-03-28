@@ -13,9 +13,8 @@ import re
 from collections.abc import Callable
 from pathlib import Path
 
-from dotenv import load_dotenv
-
 from .ai_client import get_api_key_env_name, get_provider_name, make_ai_client, strip_json_fences
+from .env_load import load_project_env
 from .config import EXAM_ROOT_BY_KEY, PROJECT_ROOT
 from .exceptions import NaturalLanguageError
 
@@ -114,9 +113,8 @@ def _precheck_instruction(client, model: str, instruction: str) -> None:
 
 
 def _load_env():
-    """Load environment variables from .env files (project root then cwd)."""
-    load_dotenv(PROJECT_ROOT / ".env")
-    load_dotenv(Path.cwd() / ".env")
+    """Load ``default.env`` then ``.env`` (see ``env_load.load_project_env``)."""
+    load_project_env()
 
 
 def _list_pdf_names(exam_root: Path):

@@ -4,6 +4,7 @@
 import argparse
 import sys
 
+from .env_load import load_project_env
 from .exceptions import ExtractionUserError
 from .natural_language import resolve_natural_language
 from .output_paths import resolve_output_path
@@ -27,6 +28,7 @@ def _parse_question_tokens(tokens: list[str]) -> list[int]:
 
 
 def main():
+    load_project_env()
     parser = argparse.ArgumentParser(
         description=(
             "Pass one plain-English sentence: the script chooses subject, PDFs, and questions. "

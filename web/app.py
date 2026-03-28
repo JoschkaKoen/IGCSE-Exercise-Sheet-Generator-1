@@ -3,6 +3,10 @@
 
 from __future__ import annotations
 
+from extract_exercises.env_load import load_project_env
+
+load_project_env()
+
 import asyncio
 import io
 import zipfile

@@ -49,10 +49,7 @@ except ImportError:
 
     _AI_CLIENT_AVAILABLE = False
 
-try:
-    from dotenv import load_dotenv
-except ImportError:
-    load_dotenv = None  # type: ignore[assignment]
+from .env_load import load_project_env
 
 _MARGIN_PT = float(OUTPUT_MARGIN_PT)
 _MARGIN_RIGHT_PT = float(OUTPUT_MARGIN_RIGHT_PT)
@@ -1133,9 +1130,7 @@ def _load_ai_client() -> tuple[Any, str] | None:
         print("  MCQ explanations: ai_client module unavailable.")
         return None
 
-    if load_dotenv is not None:
-        load_dotenv(PROJECT_ROOT / ".env")
-        load_dotenv(Path.cwd() / ".env")
+    load_project_env()
 
     result = make_ai_client(model_env="AI_MCQ_MODEL", legacy_model_env="XAI_MCQ_MODEL")
     if result is None:
