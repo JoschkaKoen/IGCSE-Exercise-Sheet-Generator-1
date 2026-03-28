@@ -50,7 +50,7 @@ Environment variables are loaded in this order (see `extract_exercises/env_load.
 2. **`.env`** at the project root (gitignored) — API keys and any overrides. Wins over `default.env` for keys it defines.
 3. **`.env`** in the current working directory (if different from the project root).
 
-Copy `.env.example` to `.env` and add your keys. You can remove lines from `.env` that duplicate `default.env` if you are happy with the committed defaults.
+Copy `.env.example` to `.env` and add **only API keys and other secrets**. Behaviour flags (`AI_PROVIDER`, `DISABLE_LOGIN`, optional model overrides, etc.) belong in **`default.env`** so the whole team shares them; change `default.env` and commit when you want to update those defaults. Use `.env` only for values that must never be committed.
 
 ### LLM (natural language + MCQ explanations)
 
@@ -82,7 +82,7 @@ If `AI_PROVIDER` is unset and `XAI_API_KEY` is present but `GOOGLE_API_KEY` is n
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `DISABLE_LOGIN` | No | Default **on** (`true`): no login modal, APIs open. Set to `false` / `0` / `no` / `off` to require the access code. |
+| `DISABLE_LOGIN` | No | In **`default.env`**: `true` = no login modal; `false` = require access code. If unset anywhere, the app falls back to `true` (see `web/auth_gate.py`). |
 | `ACCESS_CODE` | No | Access code when login is enabled; default `NBFLS` if unset. |
 | `APP_SECRET_KEY` | Recommended when login enabled | Secret used to sign the auth cookie; set a long random string in production. |
 | `ASK_LOGIN` | No | If `true`, session-style cookie behaviour for testing (see `web/auth_gate.py`). |
