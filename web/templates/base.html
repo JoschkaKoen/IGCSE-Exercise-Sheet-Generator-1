@@ -31,7 +31,7 @@
   </script>
   <link rel="stylesheet" href="/static/app.css" />
 </head>
-<body class="min-h-full font-sans text-slate-200 antialiased space-bg">
+<body class="min-h-full font-sans text-slate-200 antialiased space-bg{% if needs_site_login | default(false) %} site-auth-locked{% endif %}">
   <script>
     (function () {
       function syncDocBackgroundPaused() {
@@ -46,7 +46,7 @@
   </script>
   <div class="space-aurora"  aria-hidden="true"></div>
   <div class="space-stars"   aria-hidden="true"></div>
-  <div class="z-content flex min-h-full flex-col">
+  <div class="z-content flex min-h-full flex-col"{% if needs_site_login | default(false) %} inert="" aria-hidden="true"{% endif %}>
 
     <header class="site-header sticky top-0 z-20">
       <div class="site-header-inner mx-auto flex w-full max-w-5xl items-center px-4 py-3.5 sm:px-6">
@@ -101,5 +101,96 @@
     </footer>
 
   </div>
+
+  {% if needs_site_login | default(false) %}
+  <div class="site-auth-overlay" id="site-auth-overlay" role="dialog" aria-modal="true" aria-labelledby="site-auth-title">
+    <div class="site-auth-panel gen-surface glass-panel form-glow rounded-2xl p-6 sm:p-7 shadow-2xl">
+      <h2 id="site-auth-title" class="font-display text-lg font-semibold tracking-tight text-white sm:text-xl">
+        Sign in
+      </h2>
+      <p class="mt-2 text-sm leading-relaxed text-slate-400">
+        Enter the access code to use this site.
+      </p>
+      {% if ask_login_mode | default(false) %}
+      <p class="mt-2 rounded-lg border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-xs text-amber-200/90">
+        Session login is on (<code class="rounded bg-black/30 px-1 py-0.5 font-mono text-[0.65rem]">ASK_LOGIN</code> or <code class="rounded bg-black/30 px-1 py-0.5 font-mono text-[0.65rem]">?ask_login=1</code>). The browser will not remember you after the session ends.
+      </p>
+      {% endif %}
+      <form id="site-auth-form" class="mt-5 flex flex-col gap-3" action="#" method="post" autocomplete="off">
+        <label for="site-auth-code" class="sr-only">Access code</label>
+        <input id="site-auth-code" name="code" type="text" inputmode="text" maxlength="64" required
+               spellcheck="false" autocapitalize="characters" autocomplete="off"
+               class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 text-sm tracking-wide text-slate-100 placeholder:text-slate-500
+                      shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20" />
+        <p id="site-auth-err" class="hidden text-sm text-red-300" role="alert"></p>
+        <button type="submit" class="btn-space-primary inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white
+                                       focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-space-deep">
+          Continue
+        </button>
+      </form>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var form = document.getElementById('site-auth-form');
+      var input = document.getElementById('site-auth-code');
+      var err = document.getElementById('site-auth-err');
+      if (!form || !input) return;
+      function showErr(msg) {
+        if (!err) return;
+        err.textContent = msg;
+        err.classList.remove('hidden');
+      }
+      function clearErr() {
+        if (!err) return;
+        err.textContent = '';
+        err.classList.add('hidden');
+      }
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        clearErr();
+        var code = String(input.value || '').trim();
+        if (!code) {
+          showErr('Enter the code.');
+          return;
+        }
+        if (code.length > 64) {
+          showErr('Code is too long.');
+          return;
+        }
+        fetch('/api/auth/login', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ code: code }),
+        })
+          .then(function (res) {
+            return res.json().then(function (body) {
+              return { ok: res.ok, status: res.status, body: body };
+            });
+          })
+          .then(function (r) {
+            if (r.ok) {
+              window.location.reload();
+              return;
+            }
+            if (r.status === 429) {
+              showErr('Too many attempts. Wait a minute and try again.');
+              return;
+            }
+            showErr('That code is not valid.');
+          })
+          .catch(function () {
+            showErr('Could not reach the server. Try again.');
+          });
+      });
+      setTimeout(function () {
+        try {
+          input.focus();
+        } catch (e) { /* ignore */ }
+      }, 0);
+    })();
+  </script>
+  {% endif %}
 </body>
 </html>

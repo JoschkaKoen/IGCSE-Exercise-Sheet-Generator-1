@@ -1158,6 +1158,7 @@
 
   async function fetchJobStatus(id) {
     const res = await fetch('/api/jobs/' + encodeURIComponent(id), {
+      credentials: 'same-origin',
       cache: 'no-store',
       headers: { 'Accept': 'application/json' },
     });
@@ -1208,7 +1209,8 @@
     try {
       const res = await fetch('/api/jobs', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ prompt }),
       });
       const body = await res.json().catch(function () { return {}; });

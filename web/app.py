@@ -18,6 +18,16 @@ from extract_exercises.config import EXAM_ROOT_BY_KEY
 from extract_exercises.exceptions import ExtractionUserError
 from extract_exercises.natural_language import MAX_NATURAL_LANGUAGE_INSTRUCTION_CHARS
 
+from .auth_gate import (
+    EXPECTED_CODE,
+    apply_auth_cookie,
+    codes_equal,
+    enforce_login_rate_limit,
+    normalize_submitted_code,
+    parse_ask_login_mode,
+    parse_login_disabled,
+    request_is_authenticated,
+)
 from .jobs import JobStore
 from .service import list_library_pdfs, run_nl_prompt_logged
 
@@ -31,6 +41,33 @@ store = JobStore()
 if STATIC_DIR.is_dir():
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
+
+@app.middleware("http")
+async def site_access_gate(request: Request, call_next):
+    """When login is enabled: signed cookie; /api/* (except login) returns 401 if missing."""
+    if request.url.path.startswith("/static/"):
+        return await call_next(request)
+
+    login_disabled = parse_login_disabled(request)
+    request.state.login_disabled = login_disabled
+    if login_disabled:
+        request.state.site_auth_ok = True
+        request.state.ask_login_mode = False
+    else:
+        request.state.site_auth_ok = request_is_authenticated(request)
+        request.state.ask_login_mode = parse_ask_login_mode(request)
+
+    path = request.url.path
+    if path.startswith("/api/") and path != "/api/auth/login":
+        if not login_disabled and not request.state.site_auth_ok:
+            return JSONResponse(
+                status_code=401,
+                content={"detail": "Login required"},
+                headers={"Cache-Control": "no-store, no-cache", "Pragma": "no-cache"},
+            )
+
+    return await call_next(request)
+
 ALLOWED_SUBJECTS = frozenset(EXAM_ROOT_BY_KEY.keys())
 
 
@@ -40,6 +77,10 @@ class CreateJobBody(BaseModel):
         min_length=1,
         max_length=MAX_NATURAL_LANGUAGE_INSTRUCTION_CHARS,
     )
+
+
+class SiteLoginBody(BaseModel):
+    code: str = Field(..., min_length=1, max_length=64)
 
 
 def _validate_library_path(subject: str, filename: str) -> Path:
@@ -83,11 +124,41 @@ async def _run_job(job_id: str, prompt: str) -> None:
 _HTML_NO_CACHE = {"Cache-Control": "no-cache, must-revalidate"}
 
 
+def _template_ctx(request: Request, **extra: object) -> dict[str, object]:
+    login_disabled = getattr(request.state, "login_disabled", True)
+    auth_ok = getattr(request.state, "site_auth_ok", False)
+    ctx: dict[str, object] = {
+        "request": request,
+        "login_disabled": login_disabled,
+        "needs_site_login": (not login_disabled) and (not auth_ok),
+        "ask_login_mode": getattr(request.state, "ask_login_mode", False),
+    }
+    ctx.update(extra)
+    return ctx
+
+
+@app.post("/api/auth/login")
+async def site_login(request: Request, body: SiteLoginBody) -> JSONResponse:
+    """Set signed HttpOnly cookie after valid code. Session-style cookie when ASK_LOGIN or ?ask_login=."""
+    if parse_login_disabled(request):
+        raise HTTPException(status_code=403, detail="Login is disabled for this server")
+    await enforce_login_rate_limit(request.client.host if request.client else "")
+    normalized = normalize_submitted_code(body.code)
+    if normalized is None or not codes_equal(normalized, EXPECTED_CODE):
+        raise HTTPException(status_code=401, detail="Invalid code")
+    response = JSONResponse(
+        {"ok": True},
+        headers={"Cache-Control": "no-store, no-cache", "Pragma": "no-cache"},
+    )
+    apply_auth_cookie(response, request, session_style=parse_ask_login_mode(request))
+    return response
+
+
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request) -> HTMLResponse:
     return TEMPLATES.TemplateResponse(
         "index.html",
-        {"request": request},
+        _template_ctx(request),
         headers=_HTML_NO_CACHE,
     )
 
@@ -97,7 +168,7 @@ async def library_page(request: Request) -> HTMLResponse:
     data = list_library_pdfs()
     return TEMPLATES.TemplateResponse(
         "library.html",
-        {"request": request, "library": data},
+        _template_ctx(request, library=data),
         headers=_HTML_NO_CACHE,
     )
 
