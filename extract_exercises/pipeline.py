@@ -296,6 +296,8 @@ def run_extraction_jobs(
 
         print("\nExercise sheet n-up variants (pdfjam)…")
         run_exercise_sheet_pdfjam_variants(out_path)
+        if all_ms_strips:
+            run_exercise_sheet_pdfjam_variants(answers_path)
 
     finally:
         for d in qp_docs + ms_docs:

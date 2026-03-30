@@ -10,7 +10,6 @@ fall back to ``create_mcq_answer_strips``.
 from __future__ import annotations
 
 import base64
-import json
 import os
 import re
 import shutil
@@ -38,11 +37,10 @@ if TYPE_CHECKING:
     from .rendering import VectorStrip
 
 try:
-    from .ai_client import get_provider_name, make_ai_client, strip_json_fences
+    from .ai_client import get_provider_name, make_ai_client
     _AI_CLIENT_AVAILABLE = True
 except ImportError:
     make_ai_client = None  # type: ignore[assignment]
-    strip_json_fences = None  # type: ignore[assignment]
 
     def get_provider_name() -> str:  # type: ignore[misc]
         return ""
@@ -401,9 +399,25 @@ Rules:
 - Explain WHY the correct answer is right; briefly dismiss the most tempting distractor.
 - Some questions include an image of diagrams or figures extracted from the exam paper. Use the image to understand visual content (circuit diagrams, graphs, answer-option diagrams labelled A–D, etc.) that the plain text alone cannot convey.
 - Do NOT restate the question text. Do NOT say "the answer is X" — explain the reasoning.
-- Output ONLY a valid JSON object, no markdown, no code fences:
-  {{"explanations": {{"1": ["bullet1", "bullet2", "bullet3"], "2": ["...", "...", "..."], ...}}}}
-- The keys are question numbers as strings. Every question number you receive must appear in the output.\
+- Output using this EXACT plain-text delimiter format (NOT JSON, NOT markdown):
+
+===Q1===
+First bullet point
+---
+Second bullet point
+---
+Third bullet point
+===Q2===
+First bullet point
+---
+Second bullet point
+---
+Third bullet point
+
+- Use ===Q<number>=== to start each question (e.g. ===Q38===).
+- Separate the 3 bullets with --- on its own line.
+- Every question number you receive must appear in the output.
+- Do NOT wrap in JSON, code fences, or any other format.\
 """
 
 # Extra constraints when AI_PROVIDER=gemini (that model tends to over-explain).
@@ -490,70 +504,50 @@ def _build_user_content(
     return parts
 
 
-def _escape_latex_in_json(s: str) -> str:
-    r"""Double every single backslash so ``json.loads`` treats them as literals.
-
-    AI-generated LaTeX inside JSON strings produces ``\frac``, ``\mathrm``,
-    ``\text``, ``\,`` etc.  Many of these collide with *valid* JSON escapes
-    (``\f`` = form feed, ``\t`` = tab, ``\b`` = backspace, ``\n`` = newline),
-    so a selective regex like ``\\(?![bfnrtu...])`` is not enough — it leaves
-    ``\frac`` as form-feed + ``rac``, which then breaks LaTeX compilation.
-
-    This function doubles *every* lone ``\``, while preserving already-doubled
-    ``\\`` and the structural ``\"``.
-    """
-    _PH_BS = "\x00DBS\x00"
-    _PH_QT = "\x00DQT\x00"
-    s = s.replace("\\\\", _PH_BS)
-    s = s.replace('\\"', _PH_QT)
-    s = s.replace("\\", "\\\\")
-    s = s.replace(_PH_BS, "\\\\")
-    s = s.replace(_PH_QT, '\\"')
-    return s
-
-
 def _parse_explanations(raw: str, questions: list[int]) -> dict[int, list[str]] | None:
-    """Parse AI JSON; return dict or None on total failure.
+    """Parse delimiter-based AI response; return dict or None on total failure.
+
+    Expected format::
+
+        ===Q38===
+        Bullet 1
+        ---
+        Bullet 2
+        ---
+        Bullet 3
+        ===Q39===
+        ...
 
     Accepts partial responses: questions missing from the response or with fewer
     than 3 bullets are padded with empty-string placeholders rather than dropped,
     so the template can still render a "(Explanation not available.)" for them.
     """
-    _unfence = strip_json_fences if strip_json_fences is not None else (lambda s: s)
-    cleaned = _unfence(raw)
-
-    def _try_loads(s: str) -> dict | None:
-        """Try json.loads with progressively more aggressive fixups."""
-        for label, text in [
-            ("direct", s),
-            ("latex-escaped", _escape_latex_in_json(s)),
-        ]:
-            try:
-                return json.loads(text)
-            except json.JSONDecodeError:
-                pass
-            try:
-                return json.loads(text, strict=False)
-            except json.JSONDecodeError:
-                continue
-        print(f"    All json.loads attempts failed for response of length {len(s)}.")
+    # Split on ===Q<num>=== headers
+    parts = re.split(r'===Q(\d+)===', raw)
+    # parts[0] is preamble (before first header), then alternating: qnum_str, content
+    if len(parts) < 3:
+        print(f"    No ===Q<num>=== delimiters found in response of length {len(raw)}.")
         return None
 
-    data = _try_loads(cleaned)
-    if data is None:
-        return None
-    expl = data.get("explanations")
-    if not isinstance(expl, dict):
-        print(f"    Parsed JSON but missing 'explanations' dict. Keys: {list(data.keys()) if isinstance(data, dict) else type(data).__name__}")
-        return None
+    parsed: dict[int, list[str]] = {}
+    for i in range(1, len(parts), 2):
+        qnum = int(parts[i])
+        if i + 1 < len(parts):
+            body = parts[i + 1].strip()
+            bullets = [b.strip() for b in body.split('\n---\n')]
+            # Filter empty bullets, keep up to 3
+            bullets = [b for b in bullets if b.strip()][:3]
+        else:
+            bullets = []
+        parsed[qnum] = bullets
+
+    # Build result for requested questions, padding to 3 bullets
     result: dict[int, list[str]] = {}
     for q in questions:
-        v = expl.get(str(q))
-        if isinstance(v, list) and len(v) >= 1 and all(isinstance(s, str) for s in v):
-            bullets = [s.strip() for s in v[:3]]
-            while len(bullets) < 3:
-                bullets.append("")
-            result[q] = bullets
+        bullets = parsed.get(q, [])
+        while len(bullets) < 3:
+            bullets.append("")
+        result[q] = bullets
     return result if result else None
 
 
@@ -582,35 +576,34 @@ def generate_mcq_explanations(
         q_texts, answers, questions_with_answers, q_images or {},
     )
 
-    def _call(**kwargs: Any) -> str:
+    def _call(**kwargs: Any) -> tuple[str, str | None]:
+        """Return (content, finish_reason)."""
         completion = client.chat.completions.create(
             model=model,
+            max_tokens=16384,
             messages=[
                 {"role": "system", "content": system},
                 {"role": "user", "content": user_content},
             ],
             **kwargs,
         )
-        return (completion.choices[0].message.content or "").strip()
-
-    # Gemini's OpenAI-compatible endpoint is unreliable with
-    # response_format=json_object when multimodal content is present.
-    # Skip it for vision calls to avoid a wasted first attempt.
-    has_images = isinstance(user_content, list)
+        choice = completion.choices[0]
+        text = (choice.message.content or "").strip()
+        return text, getattr(choice, "finish_reason", None)
 
     max_attempts = 3
 
     for attempt in range(max_attempts):
         try:
-            if attempt == 0 and not has_images:
-                raw = _call(response_format={"type": "json_object"})
-            else:
-                raw = _call()
+            raw, finish = _call()
         except Exception as exc:
             print(f"  MCQ explanations: API error on attempt {attempt + 1}: {exc}")
             if attempt == max_attempts - 1:
                 return {}
             continue
+
+        if finish and finish != "stop":
+            print(f"  MCQ explanations: response truncated (finish_reason={finish}, {len(raw)} chars)")
 
         result = _parse_explanations(raw, questions_with_answers)
         if result:
@@ -618,14 +611,15 @@ def generate_mcq_explanations(
 
         # Show enough of the raw response to diagnose the parse failure.
         preview = raw[:500] if raw else "(empty)"
-        print(f"  MCQ explanations: bad JSON on attempt {attempt + 1}. Raw start: {preview}")
+        tail = raw[-200:] if len(raw) > 500 else ""
+        print(f"  MCQ explanations: parse failed on attempt {attempt + 1} ({len(raw)} chars, finish={finish}). Raw start: {preview}")
+        if tail:
+            print(f"  Raw tail: …{tail}")
         if attempt < max_attempts - 1:
             print("  Retrying…")
-            # Nudge the model on retry — append to text only (images stay in place).
             nudge = (
-                '\n\nYou MUST output ONLY valid JSON in this exact shape: '
-                '{"explanations": {"1": ["...", "...", "..."], ...}}. '
-                'No markdown, no code fences, no extra keys.'
+                '\n\nYou MUST use the ===Q<number>=== delimiter format. '
+                'Do NOT use JSON. Separate bullets with --- on its own line.'
             )
             if isinstance(user_content, str):
                 user_content = user_content + nudge
@@ -957,10 +951,10 @@ def build_explanation_latex(
 
     body = "\n\n".join(sections)
 
-    return rf"""\documentclass[11pt]{{article}}
+    return rf"""\documentclass[12pt]{{article}}
 \usepackage[utf8]{{inputenc}}
 \usepackage[T1]{{fontenc}}
-\usepackage[a4paper, top=0.5cm, bottom=1.6cm, left=2cm, right=2cm]{{geometry}}
+\usepackage[a4paper, top=0cm, bottom=1.1cm, left=1.2cm, right=1.5cm]{{geometry}}
 \usepackage{{amsmath, amssymb}}
 \usepackage{{array}}
 \usepackage{{booktabs}}

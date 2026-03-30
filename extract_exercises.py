@@ -9,6 +9,9 @@ Environment (recommended):
     .venv/bin/pip install -r requirements.txt
     source .venv/bin/activate
 
+    Start the server: 
+    uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
+    
 Usage:
     python extract_exercises.py "Winter 2024 Physics paper 21, questions 12–14, include mark scheme"
     python extract_exercises.py <input_pdf> <output_pdf> <question_numbers...> [--ms <mark_scheme.pdf>]

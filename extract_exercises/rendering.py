@@ -358,7 +358,7 @@ def _draw_label(out_page: fitz.Page, text: str, y: float) -> None:
     Font size is driven by ``EXAM_LABEL_FONT_PT`` in config.
     """
     fs = _LABEL_FS
-    col = (0.55, 0.55, 0.55)
+    col = (0, 0, 0)
     baseline_y = y + _LABEL_BASELINE_OFF
 
     if ": " in text:
@@ -384,7 +384,7 @@ def _draw_label(out_page: fitz.Page, text: str, y: float) -> None:
 
     line_y = baseline_y - fs * 0.35
     pad = 8.0
-    line_col = (0.75, 0.75, 0.75)
+    line_col = (0, 0, 0)
     if x_text > _MARGIN_PT + pad + 10:
         out_page.draw_line(
             fitz.Point(_MARGIN_PT + pad, line_y),

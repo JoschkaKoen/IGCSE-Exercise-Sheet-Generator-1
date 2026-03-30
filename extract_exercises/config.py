@@ -56,7 +56,7 @@ EXAM_LABEL_FONT_PT = 9
 
 # Distance (pt) from the very top of each output page to the top edge of the
 # first label band.  Reduce to move the label (and all content) higher.
-EXAM_LABEL_TOP_PT = 10
+EXAM_LABEL_TOP_PT = 15
 
 # Left margin (pt) of the output page.  Content and labels are inset by this
 # amount from the left paper edge.  Reduce to use more of the page width.
@@ -157,7 +157,7 @@ class SubjectConfig:
     # Horizontal margin (pt) on each side of the output page for **landscape** MS
     # answer tables.  The table is scaled to fill ``A4_WIDTH - 2 * margin`` and
     # centred.  Set to ``None`` to use the global ``MS_LANDSCAPE_MARGIN_PT`` default.
-    ms_answer_landscape_margin_pt: float | None = 25.0
+    ms_answer_landscape_margin_pt: float | None = 15.0
     # Horizontal margin (pt) for **portrait** MS answer tables.  Set to ``None``
     # to keep tables at native (1:1) width, centred — useful for slim tables
     # (mathematics) or tables that should not be scaled (CS paper-22 style).
