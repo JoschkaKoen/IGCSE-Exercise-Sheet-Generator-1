@@ -8,8 +8,15 @@ import subprocess
 from pathlib import Path
 
 
-def run_exercise_sheet_pdfjam_variants(exercise_pdf: Path | str) -> None:
+def run_exercise_sheet_pdfjam_variants(
+    exercise_pdf: Path | str,
+    *,
+    frame_2up: bool = True,
+) -> None:
     """Create 4-up (2×2) and 2-up landscape (2×1) siblings next to the exercise PDF.
+
+    *frame_2up* controls whether the 2-up variant is built with ``--frame true``.
+    Set to ``False`` to omit the separator line between the two pages.
 
     Requires ``pdfjam`` on ``PATH`` (TeX Live / MacTeX).  Failures are logged; extraction
     still succeeds without these files.
@@ -70,7 +77,7 @@ def run_exercise_sheet_pdfjam_variants(exercise_pdf: Path | str) -> None:
             "--paper",
             "a4paper",
             "--frame",
-            "true",
+            "true" if frame_2up else "false",
             "--scale",
             "1.0",
             "--outfile",

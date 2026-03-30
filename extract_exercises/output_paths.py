@@ -1,29 +1,50 @@
 # -*- coding: utf-8 -*-
 """Run output directory and bare-filename resolution."""
 
-import datetime
 from pathlib import Path
 
 from .config import OUTPUT_DIR
 
 _CURRENT_RUN_DIR: Path | None = None
+_RUN_COMMAND: str | None = None
+
+
+def set_run_command(command: str) -> None:
+    """Store the command/prompt that initiated this run (written into the output dir)."""
+    global _RUN_COMMAND
+    _RUN_COMMAND = command
+
+
+def _write_command_txt(run_dir: Path) -> None:
+    """Write command.txt into *run_dir* if a command has been stored."""
+    if _RUN_COMMAND:
+        (run_dir / "command.txt").write_text(_RUN_COMMAND, encoding="utf-8")
 
 
 def _create_run_dir(label: str | None = None) -> Path:
     """Create a new run directory under output/.
 
-    Folder name: ``<label>_<YYYY-MM-DD>_<HH-MM-SS>`` when *label* is given
-    (e.g. ``physics_s25_q38-40_2026-03-26_14-30-22``), otherwise the plain
-    date-time string ``<YYYY-MM-DD>_<HH-MM-SS>``.
+    Folder name: *label* when given, otherwise ``run``.
+    If the folder already exists, append `` 2``, `` 3``, etc.
     """
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    now = datetime.datetime.now()
-    stamp = now.strftime("%Y-%m-%d_%H-%M-%S")
-    folder_name = f"{label}_{stamp}" if label else stamp
-    run_dir = OUTPUT_DIR / folder_name
-    run_dir.mkdir(parents=True, exist_ok=True)
-    print(f"Output directory: {run_dir}")
-    return run_dir
+    base = label if label else "run"
+    run_dir = OUTPUT_DIR / base
+    if not run_dir.exists():
+        run_dir.mkdir(parents=True, exist_ok=True)
+        print(f"Output directory: {run_dir}")
+        _write_command_txt(run_dir)
+        return run_dir
+    # Find next available suffix.
+    n = 2
+    while True:
+        candidate = OUTPUT_DIR / f"{base} {n}"
+        if not candidate.exists():
+            candidate.mkdir(parents=True, exist_ok=True)
+            print(f"Output directory: {candidate}")
+            _write_command_txt(candidate)
+            return candidate
+        n += 1
 
 
 def ensure_run_output_dir(label: str | None = None) -> Path:
@@ -44,7 +65,7 @@ def fresh_run_output_dir(label: str | None = None) -> Path:
 
 
 def resolve_output_path(output_pdf: str) -> Path:
-    """Bare filenames → ``output/<stem>_<timestamp>/``; absolute or nested relative paths unchanged."""
+    """Bare filenames → ``output/<stem>/``; absolute or nested relative paths unchanged."""
     p = Path(output_pdf)
     if p.is_absolute() or p.parent != Path("."):
         return p
@@ -52,7 +73,7 @@ def resolve_output_path(output_pdf: str) -> Path:
 
 
 def resolve_output_path_fresh(output_pdf: str) -> Path:
-    """Bare filenames → new ``output/<stem>_<timestamp>/`` for each call (web UI); absolute paths unchanged."""
+    """Bare filenames → new ``output/<stem>/`` for each call (web UI); absolute paths unchanged."""
     p = Path(output_pdf)
     if p.is_absolute() or p.parent != Path("."):
         return p

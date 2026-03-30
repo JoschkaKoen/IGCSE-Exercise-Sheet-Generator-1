@@ -176,6 +176,12 @@ class SubjectConfig:
     # Minimum drawing width (pt) to be considered a table border.
     drawing_min_width_pt: float = 50.0
 
+    # --- Mark scheme n-up pdfjam options ---
+    # When False, the 2-up answer-sheet variant is built without --frame, which
+    # removes the separator line between the two pages (useful for CS where the
+    # table already carries its own borders).
+    ms_answers_2up_frame: bool = True
+
 
 # Default config — physics and CS use this unchanged.
 DEFAULT_SUBJECT_CONFIG = SubjectConfig()
@@ -184,7 +190,10 @@ DEFAULT_SUBJECT_CONFIG = SubjectConfig()
 # here as bugs are diagnosed and constants are tuned.
 SUBJECT_CONFIG: dict[str, SubjectConfig] = {
     "physics": SubjectConfig(ms_answer_portrait_margin_pt=25.0),
-    "computer_science": DEFAULT_SUBJECT_CONFIG,
+    "computer_science": SubjectConfig(
+        ms_answer_landscape_margin_pt=0.0,
+        ms_answers_2up_frame=True,
+    ),
     "mathematics": DEFAULT_SUBJECT_CONFIG,
 }
 

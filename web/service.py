@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from extract_exercises.natural_language import resolve_natural_language
-from extract_exercises.output_paths import resolve_output_path_fresh
+from extract_exercises.output_paths import resolve_output_path_fresh, set_run_command
 from extract_exercises.pipeline import run_extraction_jobs
 
 
@@ -33,6 +33,7 @@ def run_nl_prompt(
         if on_progress:
             on_progress(msg)
 
+    set_run_command(prompt)
     emit("Resolving natural-language request…")
     exam_root, data = resolve_natural_language(prompt, on_progress=on_progress)
     emit(f"Exam folder: {exam_root} ({data.get('exam', '')})")

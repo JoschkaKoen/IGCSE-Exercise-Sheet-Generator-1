@@ -298,37 +298,27 @@ def resolve_natural_language(
             raise NaturalLanguageError(f'"questions" must be integers ({idx}).')
         return {"input_pdf": resolved, "questions": qn, "mark_scheme_pdf": ms}
 
-    # Ensure output_pdf filename starts with the subject for consistent folder naming.
-    _SUBJECT_PREFIXES: dict[str, str] = {
-        "physics": "Physics",
-        "computer_science": "CS",
-        "mathematics": "Maths",
-    }
-    output_pdf = data["output_pdf"]
-    prefix = _SUBJECT_PREFIXES.get(exam_key, "")
-    if prefix:
-        stem = Path(output_pdf).stem
-        # Only prepend if the name doesn't already start with the subject (case-insensitive).
-        if not stem.lower().startswith(prefix.lower()):
-            output_pdf = f"{prefix}_{output_pdf}"
-
     extractions = data.get("extractions")
     if extractions is not None:
         if not isinstance(extractions, list) or not extractions:
             raise NaturalLanguageError('"extractions" must be a non-empty array when present.')
         normalized = [_one_extraction(ex, str(i)) for i, ex in enumerate(extractions)]
-        return exam_root, {"exam": exam_key, "output_pdf": output_pdf, "extractions": normalized}
+    else:
+        for key in ("input_pdf", "questions"):
+            if key not in data:
+                raise NaturalLanguageError(f"JSON missing key: {key}")
+        single = _one_extraction(
+            {
+                "input_pdf": data["input_pdf"],
+                "questions": data["questions"],
+                "mark_scheme_pdf": data.get("mark_scheme_pdf"),
+            },
+            "0",
+        )
+        normalized = [single]
 
-    for key in ("input_pdf", "questions"):
-        if key not in data:
-            raise NaturalLanguageError(f"JSON missing key: {key}")
+    # Build deterministic filename from subject + extraction metadata.
+    from .labels import build_output_filename
 
-    single = _one_extraction(
-        {
-            "input_pdf": data["input_pdf"],
-            "questions": data["questions"],
-            "mark_scheme_pdf": data.get("mark_scheme_pdf"),
-        },
-        "0",
-    )
-    return exam_root, {"exam": exam_key, "output_pdf": output_pdf, "extractions": [single]}
+    output_pdf = build_output_filename(exam_key, normalized)
+    return exam_root, {"exam": exam_key, "output_pdf": output_pdf, "extractions": normalized}

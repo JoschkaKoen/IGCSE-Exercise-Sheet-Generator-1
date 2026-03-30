@@ -7,7 +7,7 @@ import sys
 from .env_load import load_project_env
 from .exceptions import ExtractionUserError
 from .natural_language import resolve_natural_language
-from .output_paths import resolve_output_path
+from .output_paths import resolve_output_path, set_run_command
 from .pipeline import run_extraction, run_extraction_jobs
 
 
@@ -52,6 +52,7 @@ def main():
 
     args = parser.parse_args()
     parts = args.parts
+    set_run_command(" ".join(sys.argv))
 
     try:
         if len(parts) == 1:

@@ -254,6 +254,48 @@ def paper_label_from_qp_path(qp_path: str) -> str:
     return "Extracted exercises"
 
 
+_SUBJECT_PREFIXES: dict[str, str] = {
+    "physics": "Physics",
+    "computer_science": "CS",
+    "mathematics": "Maths",
+}
+
+
+def _format_question_ranges(questions: list[int]) -> str:
+    """Format sorted question numbers into compact ranges: [2,3,4] → '2-4', [2,4,6] → '2, 4, 6'."""
+    if not questions:
+        return ""
+    nums = sorted(set(questions))
+    ranges: list[str] = []
+    start = end = nums[0]
+    for n in nums[1:]:
+        if n == end + 1:
+            end = n
+        else:
+            ranges.append(f"{start}-{end}" if end > start else str(start))
+            start = end = n
+    ranges.append(f"{start}-{end}" if end > start else str(start))
+    return ", ".join(ranges)
+
+
+def build_output_filename(exam_key: str, extractions: list[dict]) -> str:
+    """Build a descriptive output filename from subject and extractions.
+
+    Format: ``Maths s24 21 Ex. 2-3, w24 42 Ex. 4.pdf``
+    """
+    prefix = _SUBJECT_PREFIXES.get(exam_key, "")
+    parts: list[str] = []
+    for ex in extractions:
+        label = exam_label_from_filename(Path(ex["input_pdf"]).name)
+        if not label:
+            label = Path(ex["input_pdf"]).stem
+        qs = _format_question_ranges(ex["questions"])
+        parts.append(f"{label} Ex. {qs}")
+    body = ", ".join(parts)
+    name = f"{prefix} {body}.pdf" if prefix else f"{body}.pdf"
+    return name
+
+
 def page_header_label(jobs: list[dict], exam_key: str | None) -> str:
     """
     Single line repeated at the top of every output page.
