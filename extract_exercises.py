@@ -11,6 +11,7 @@ Environment (recommended):
 
     Start the server: 
     uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
+    source .venv/bin/activate && uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
     
 Usage:
     python extract_exercises.py "Winter 2024 Physics paper 21, questions 12–14, include mark scheme"
