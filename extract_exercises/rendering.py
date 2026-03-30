@@ -637,6 +637,14 @@ def layout_vector_strips_to_pdf(
                             available_pt = A4_HEIGHT_PT - _MARGIN_PT - y_cursor
 
                         src_chunk_h = min(src_remaining, available_pt / scale_x)
+                        # If the leftover after this chunk would be tiny
+                        # (< 40 pt in source space ≈ 1 empty answer line),
+                        # absorb it into the current chunk rather than
+                        # pushing a near-empty sliver onto a new page.
+                        _MIN_LEFTOVER_SRC_PT = 40.0
+                        leftover = src_remaining - src_chunk_h
+                        if 0 < leftover < _MIN_LEFTOVER_SRC_PT:
+                            src_chunk_h = src_remaining
                         chunk_display = fitz.Rect(
                             clip.x0, src_y0,
                             clip.x1, src_y0 + src_chunk_h,

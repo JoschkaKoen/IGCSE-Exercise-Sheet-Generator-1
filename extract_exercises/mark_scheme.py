@@ -344,10 +344,13 @@ def _precise_y_start_from_drawings(page, y_start: float, h_top: float, h_bot: fl
             if content_row_top is None or dr[0] < content_row_top:
                 content_row_top = dr[0]
 
-    # Include a tiny margin above the border so the top stroke is not clipped.
+    # Include a margin above the border so the top stroke is not clipped.
+    # Use 2 pt to ensure the full border line (typically 0.48 pt thick)
+    # plus any anti-aliasing is captured.  Clamp so we never go above
+    # header_band_end (avoids capturing header-band artefacts on portrait pages).
     if content_row_top is not None:
-        return max(y_start, content_row_top - 1.0)
-    return max(y_start, header_band_end - 1.0)
+        return max(y_start, header_band_end, content_row_top - 2.0)
+    return max(y_start, header_band_end)
 
 
 def _floor_y_start_below_headers(first_line_y, candidate_y_start, header_rows_for_page,
