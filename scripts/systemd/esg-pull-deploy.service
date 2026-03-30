@@ -1,0 +1,14 @@
+[Unit]
+Description=IGCSE Exercise Sheet Generator — git pull and docker compose rebuild
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# Adjust User= if your repo is not owned by root
+WorkingDirectory=/root/esg
+ExecStart=/root/esg/scripts/pull-and-deploy.sh
+# Log to journal: journalctl -u esg-pull-deploy.service
+
+[Install]
+WantedBy=multi-user.target
