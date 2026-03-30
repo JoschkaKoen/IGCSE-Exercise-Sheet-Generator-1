@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
-# Pull latest from GitHub and rebuild/restart the stack.
-# Run from cron, systemd timer, or manually:
-#   */15 * * * * /path/to/esg/scripts/pull-and-deploy.sh >> /var/log/esg-deploy.log 2>&1
+# Fetch origin/main, fast-forward if there are new commits, then rebuild the stack.
+# Docker is only run when the merge actually advances HEAD (no rebuild on no-op).
+#
+# Intended triggers:
+#   - GitHub Actions on push to main (SSH runs this script).
+#   - Manual: ssh server && /root/esg/scripts/pull-and-deploy.sh
+#
+# Do not use a cron job or systemd timer to poll GitHub; deploy when the repo changes
+# (push → Actions), not on a fixed schedule.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

@@ -1,14 +1,23 @@
+# Optional: run the deploy script manually on the server, e.g. after a one-off fix:
+#   sudo systemctl start esg-pull-deploy.service
+#
+# Automatic deploys when GitHub changes should use GitHub Actions (push to main),
+# which SSHs in and runs scripts/pull-and-deploy.sh — not a systemd timer.
+#
+# Install (once):
+#   sudo cp scripts/systemd/esg-pull-deploy.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+# Do NOT enable this on a schedule; there is no timer unit.
+
 [Unit]
-Description=IGCSE Exercise Sheet Generator — git pull and docker compose rebuild
+Description=ESG — one-shot pull from GitHub and docker compose rebuild (manual or ad-hoc)
 After=docker.service network-online.target
 Wants=network-online.target
 
 [Service]
 Type=oneshot
-# Adjust User= if your repo is not owned by root
 WorkingDirectory=/root/esg
 ExecStart=/root/esg/scripts/pull-and-deploy.sh
-# Log to journal: journalctl -u esg-pull-deploy.service
 
-[Install]
-WantedBy=multi-user.target
+# No [Install] section — do not `enable` this unit. Use `systemctl start …` only when
+# you need a one-off deploy; routine deploys use GitHub Actions on push.
