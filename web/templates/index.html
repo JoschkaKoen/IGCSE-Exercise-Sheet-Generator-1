@@ -1035,7 +1035,7 @@
 
   async function enterPreviewMode(doneData) {
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var fadeDuration = reducedMotion ? 0 : 350;
+    var fadeDuration = reducedMotion ? 0 : 20;
 
     /* Phase 1: fade out the landing page */
     workspace.style.transition = 'opacity ' + fadeDuration + 'ms ease';
@@ -1234,7 +1234,7 @@
         stack.style.transform = '';
         stack.style.transformOrigin = '';
         renderPdfContinuous(id);
-      }, 350);
+      }, 20);
     }, { passive: false });
   }
 
@@ -1267,7 +1267,7 @@
             updateHeaderGlassFromPdfScroll();
           });
         }
-      }, 150);
+      }, 100);
     });
     pdfResizeObserver.observe(pdfPane);
   }
@@ -1437,7 +1437,7 @@
       if (onTick) onTick(data);
       if (data.status === 'failed') throw new Error(data.error || 'Generation failed.');
       if (data.status === 'done')   return data;
-      await sleep(400);
+      await sleep(50);
     }
   }
 
