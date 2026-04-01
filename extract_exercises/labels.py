@@ -289,7 +289,7 @@ def build_output_filename(exam_key: str, extractions: list[dict]) -> str:
         label = exam_label_from_filename(Path(ex["input_pdf"]).name)
         if not label:
             label = Path(ex["input_pdf"]).stem
-        qs = _format_question_ranges(ex["questions"])
+        qs = "all" if ex["questions"] == "all" else _format_question_ranges(ex["questions"])
         parts.append(f"{label} Ex. {qs}")
     body = ", ".join(parts)
     name = f"{prefix} {body}.pdf" if prefix else f"{body}.pdf"

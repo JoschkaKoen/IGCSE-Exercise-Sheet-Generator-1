@@ -184,10 +184,10 @@ def resolve_natural_language(
         '\"output_pdf\": short descriptive name ending in .pdf, '
         "and EITHER a single-paper shape OR a multi-paper shape:\n"
         "  • Single paper: "
-        '\"input_pdf\", \"questions\" (array of integers), \"mark_scheme_pdf\" (string or null).\n'
+        '\"input_pdf\", \"questions\" (array of integers, or the string \"all\" to include every question), \"mark_scheme_pdf\" (string or null).\n'
         "  • Multiple papers (different qp files in one run): use "
         '\"extractions\": array of objects, each with '
-        '\"input_pdf\", \"questions\", \"mark_scheme_pdf\" (or null). '
+        '\"input_pdf\", \"questions\" (array of ints or \"all\"), \"mark_scheme_pdf\" (or null). '
         "All items must use the same subject and filenames from that subject's list only. "
         "Order extractions as the user asked. "
         "Do not use one extraction per output page; the user wants one continuous PDF with questions flowing across pages.\n"
@@ -290,8 +290,10 @@ def resolve_natural_language(
                     f'mark_scheme_pdf must be from the list or null ({idx}); got: {ms_raw!r}'
                 )
         qs = ex["questions"]
+        if qs == "all":
+            return {"input_pdf": resolved, "questions": "all", "mark_scheme_pdf": ms}
         if not isinstance(qs, list) or not qs:
-            raise NaturalLanguageError(f'"questions" must be a non-empty array ({idx}).')
+            raise NaturalLanguageError(f'"questions" must be a non-empty array or "all" ({idx}).')
         try:
             qn = [int(x) for x in qs]
         except (TypeError, ValueError):

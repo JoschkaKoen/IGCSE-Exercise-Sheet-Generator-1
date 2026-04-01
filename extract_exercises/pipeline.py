@@ -152,13 +152,16 @@ def run_extraction_jobs(
             qs = job["questions"]
             paper_lbl = paper_label_from_qp_path(ip)
             print(f"\nQuestion paper: {ip}")
-            print(f"  Questions: {qs}")
             doc = fitz.open(ip)
             qp_docs.append(doc)
             print(f"  PDF has {len(doc)} pages")
             positions = find_question_positions(doc, cfg)
             found_nums = sorted(set(p[0] for p in positions))
             print(f"  Found questions: {found_nums}")
+            if qs == "all":
+                qs = found_nums
+                job["questions"] = qs
+            print(f"  Questions: {qs}")
             regions = get_question_regions(doc, positions, qs, cfg)
             job_regions.append(regions)  # always append before any continue
             if not regions:
