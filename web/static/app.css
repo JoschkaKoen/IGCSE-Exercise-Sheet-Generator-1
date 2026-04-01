@@ -588,6 +588,15 @@ body.site-auth-locked {
     0 0 12px -4px rgba(167, 139, 250, 0.22);
 }
 
+.dl-icon-btn--emerald {
+  border-color: rgba(52, 211, 153, 0.35);
+  background: linear-gradient(180deg, rgba(52, 211, 153, 0.2) 0%, rgba(52, 211, 153, 0.08) 100%);
+  color: rgb(110 231 183);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 12px -4px rgba(52, 211, 153, 0.25);
+}
+
 .dl-icon-btn:hover { transform: translateY(-1px); }
 .dl-icon-btn:active { transform: translateY(0); }
 
@@ -618,6 +627,15 @@ body.site-auth-locked {
     0 0 20px -4px rgba(167, 139, 250, 0.38);
 }
 
+.dl-icon-btn--emerald:hover {
+  border-color: rgba(110, 231, 183, 0.55);
+  background: linear-gradient(180deg, rgba(52, 211, 153, 0.32) 0%, rgba(52, 211, 153, 0.16) 100%);
+  color: rgb(209 250 229);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 20px -4px rgba(52, 211, 153, 0.4);
+}
+
 .dl-icon-btn:focus-visible {
   outline: 2px solid rgba(56, 189, 248, 0.45);
   outline-offset: 2px;
@@ -625,6 +643,7 @@ body.site-auth-locked {
 
 .dl-icon-btn--amber:focus-visible { outline-color: rgba(251, 191, 36, 0.55); }
 .dl-icon-btn--violet:focus-visible { outline-color: rgba(167, 139, 250, 0.55); }
+.dl-icon-btn--emerald:focus-visible { outline-color: rgba(52, 211, 153, 0.55); }
 
 .dl-card--emerald:focus-visible {
   outline: 2px solid rgba(52, 211, 153, 0.45);
@@ -1165,7 +1184,8 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
 }
 
 .pdf-tab-sheet-column,
-.pdf-tab-answers-column {
+.pdf-tab-answers-column,
+.pdf-tab-layout-column {
   position: relative;
   display: flex;
   align-items: stretch;
@@ -1173,7 +1193,17 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
 }
 
 .pdf-tab-sheet-column {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
+  align-items: center;
+  padding-left: 0.55rem;
+  cursor: pointer;
+}
+
+.pdf-tab-layout-column {
+  flex: 0 0 auto;
+  align-items: center;
+  padding: 0.15rem 0.1rem;
+  z-index: 1;
 }
 
 .pdf-tab-answers-column {
@@ -1181,49 +1211,35 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
   padding-right: 0.25rem;
 }
 
-.pdf-tab-primary-pill--sheet,
-.pdf-tab-primary-pill--answers {
+/* Single pill that slides between sheet and answers sides.
+   Positioned by JS (syncSidePill) to cover the active label + layout track. */
+.pdf-tab-side-pill {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
   border-radius: 9999px;
   pointer-events: none;
   z-index: 0;
-  opacity: 0;
   transition:
-    opacity 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    left 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.26s ease,
     box-shadow 0.26s ease;
 }
 
-.pdf-tab-primary-pill--sheet {
+.pdf-tab-primary-track[data-side="sheet"] .pdf-tab-side-pill {
   background: var(--pdf-sheet-pill);
   box-shadow: var(--pdf-sheet-pill-glow);
 }
 
-.pdf-tab-primary-pill--answers {
+.pdf-tab-primary-track[data-side="answers"] .pdf-tab-side-pill {
   background: var(--pdf-answers-pill);
   box-shadow: var(--pdf-answers-pill-glow);
 }
 
-.pdf-tab-primary-track[data-side="sheet"] .pdf-tab-sheet-column .pdf-tab-primary-pill--sheet {
-  opacity: 1;
-}
-
-.pdf-tab-primary-track[data-side="answers"] .pdf-tab-answers-column .pdf-tab-primary-pill--answers {
-  opacity: 1;
-}
-
-.pdf-tab-sheet-inner {
+.pdf-tab-sheet-label {
   position: relative;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-width: 0;
-  width: 100%;
-  padding: 0.15rem 0.35rem 0.15rem 0.55rem;
-}
-
-.pdf-tab-sheet-label {
   flex-shrink: 0;
   font-size: 0.8rem;
   font-weight: 600;
@@ -1231,7 +1247,8 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
   color: rgb(100 116 139);
   transition: color 0.2s ease, text-shadow 0.2s ease;
   user-select: none;
-  cursor: default;
+  cursor: pointer;
+  padding: 0.42rem 0 0.42rem 0;
 }
 
 .pdf-tab-primary-track[data-side="sheet"] .pdf-tab-sheet-label {
@@ -1274,7 +1291,7 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
 }
 
 .pdf-tab-primary-track[data-side="answers"] .pdf-tab-layout-track--embedded {
-  opacity: 0.7;
+  opacity: 1;
   border-color: rgba(52, 211, 153, 0.22);
 }
 
@@ -1336,62 +1353,15 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
   transition: color 0.2s ease, opacity 0.2s ease, text-shadow 0.2s ease;
 }
 
-.pdf-tab-primary-track[data-side="answers"] .pdf-tab-sheet-column {
-  cursor: pointer;
-}
-
-/* Hover glow when sheet column is clickable (answers mode) */
+/* Hover glow when sheet label is clickable (answers mode) */
 .pdf-tab-primary-track[data-side="answers"] .pdf-tab-sheet-column:hover .pdf-tab-sheet-label {
   color: rgb(224 242 254);
   text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
 }
 
-.pdf-tab-primary-track[data-side="answers"] .pdf-tab-sheet-column:hover .pdf-tab-primary-pill--sheet {
-  opacity: 0.5;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 0 0 1px rgba(56, 189, 248, 0.3),
-    0 0 32px -5px rgba(56, 189, 248, 0.35);
-}
-
 .pdf-tab-primary-facet:hover:not(:disabled) {
   color: rgb(110 235 183);
   text-shadow: 0 0 20px rgba(52, 211, 153, 0.55);
-}
-
-/* Show a pill preview on hover when mark scheme is not active */
-.pdf-tab-primary-track[data-side="sheet"] .pdf-tab-answers-column:hover .pdf-tab-primary-pill--answers {
-  opacity: 0.45;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 0 0 1px rgba(52, 211, 153, 0.28),
-    0 0 32px -5px rgba(52, 211, 153, 0.3);
-}
-
-/* Sheet column hover in sheet mode — subtle glow feedback */
-.pdf-tab-primary-track[data-side="sheet"] .pdf-tab-sheet-column:hover .pdf-tab-primary-pill--sheet {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    0 0 0 1px rgba(56, 189, 248, 0.32),
-    0 0 36px -5px rgba(56, 189, 248, 0.4);
-}
-
-.pdf-tab-primary-track[data-side="sheet"] .pdf-tab-sheet-column:hover .pdf-tab-sheet-label {
-  color: rgb(240 249 255);
-  text-shadow: 0 0 22px rgba(56, 189, 248, 0.45);
-}
-
-/* Answers button hover when active — boost glow */
-.pdf-tab-primary-track[data-side="answers"] .pdf-tab-answers-column:hover .pdf-tab-primary-pill--answers {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.24),
-    0 0 0 1px rgba(52, 211, 153, 0.32),
-    0 0 36px -5px rgba(52, 211, 153, 0.4);
-}
-
-.pdf-tab-primary-track[data-side="answers"] .pdf-tab-answers-column:hover .pdf-tab-primary-facet#tab-btn-answers:not(:disabled) {
-  color: rgb(110 235 183);
-  text-shadow: 0 0 22px rgba(52, 211, 153, 0.5);
 }
 
 .pdf-tab-primary-facet:disabled {

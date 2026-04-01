@@ -115,10 +115,10 @@ async def _run_job(job_id: str, prompt: str) -> None:
         store.set_log_line(job_id, line)
 
     try:
-        main_pdf, ans_pdf, up4, up2, overview = await asyncio.to_thread(
+        main_pdf, ans_pdf, up4, up2, a4, a2, overview = await asyncio.to_thread(
             run_nl_prompt_logged, prompt, on_line
         )
-        store.complete(job_id, main_pdf, ans_pdf, up4, up2, overview=overview)
+        store.complete(job_id, main_pdf, ans_pdf, up4, up2, a4, a2, overview=overview)
     except ExtractionUserError as e:
         store.fail(job_id, str(e))
     except Exception as e:  # noqa: BLE001 — last-resort message for the UI
@@ -209,6 +209,10 @@ async def job_status(request: Request, job_id: str) -> dict:
             out["four_up_url"] = f"{base}/api/jobs/{job_id}/four-up"
         if rec.exercise_2up_pdf is not None:
             out["two_up_url"] = f"{base}/api/jobs/{job_id}/two-up"
+        if rec.answers_4up_pdf is not None:
+            out["answers_four_up_url"] = f"{base}/api/jobs/{job_id}/answers-four-up"
+        if rec.answers_2up_pdf is not None:
+            out["answers_two_up_url"] = f"{base}/api/jobs/{job_id}/answers-two-up"
         out["download_all_url"] = f"{base}/api/jobs/{job_id}/download-all"
         if rec.overview is not None:
             out["overview"] = rec.overview
@@ -278,6 +282,36 @@ async def download_job_two_up(job_id: str, inline: bool = Query(False)) -> FileR
     )
 
 
+@app.get("/api/jobs/{job_id}/answers-four-up")
+async def download_job_answers_four_up(job_id: str, inline: bool = Query(False)) -> FileResponse:
+    rec = store.get(job_id)
+    if rec is None or rec.status != "done" or rec.answers_4up_pdf is None:
+        raise HTTPException(status_code=404, detail="Not available")
+    path = rec.answers_4up_pdf
+    disp = "inline" if inline else "attachment"
+    return FileResponse(
+        path,
+        filename=path.name,
+        media_type="application/pdf",
+        content_disposition_type=disp,
+    )
+
+
+@app.get("/api/jobs/{job_id}/answers-two-up")
+async def download_job_answers_two_up(job_id: str, inline: bool = Query(False)) -> FileResponse:
+    rec = store.get(job_id)
+    if rec is None or rec.status != "done" or rec.answers_2up_pdf is None:
+        raise HTTPException(status_code=404, detail="Not available")
+    path = rec.answers_2up_pdf
+    disp = "inline" if inline else "attachment"
+    return FileResponse(
+        path,
+        filename=path.name,
+        media_type="application/pdf",
+        content_disposition_type=disp,
+    )
+
+
 @app.get("/api/jobs/{job_id}/download-all")
 async def download_job_all_zip(job_id: str) -> Response:
     """ZIP of exercise sheet plus mark scheme and n-up PDFs when present."""
@@ -293,6 +327,10 @@ async def download_job_all_zip(job_id: str) -> Response:
             zf.write(rec.exercise_4up_pdf, arcname=rec.exercise_4up_pdf.name)
         if rec.exercise_2up_pdf is not None:
             zf.write(rec.exercise_2up_pdf, arcname=rec.exercise_2up_pdf.name)
+        if rec.answers_4up_pdf is not None:
+            zf.write(rec.answers_4up_pdf, arcname=rec.answers_4up_pdf.name)
+        if rec.answers_2up_pdf is not None:
+            zf.write(rec.answers_2up_pdf, arcname=rec.answers_2up_pdf.name)
     zip_name = f"{rec.output_pdf.stem}_all.zip"
     return Response(
         content=buf.getvalue(),
