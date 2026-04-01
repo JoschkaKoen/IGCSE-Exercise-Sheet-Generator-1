@@ -434,85 +434,19 @@
   var pdfScrollGlassListenersBound = false;
   var pdfSmoothWheelBound = false;
   var pdfLayoutStaleWhileHidden = false;
+  var _zBaseZoom = 1;  // zoom level the canvases are currently rendered at
 
   function bindPdfSmoothWheelScroll() {
+    /* Native macOS trackpad scrolling is already smooth with inertia.
+       We only attach a passive scroll listener for the header glass effect;
+       no wheel event interception, so the browser handles momentum natively. */
     if (pdfSmoothWheelBound) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     pdfSmoothWheelBound = true;
-    var impulseMul = 0.19;
-    var friction = 0.935;
-    var velStop = 0.1;
     document.querySelectorAll('.pdf-viewport-scroll').forEach(function (el) {
-      var raf = null;
-      var vel = 0;
-      var fromJs = false;
-      function maxScroll() {
-        return Math.max(0, el.scrollHeight - el.clientHeight);
-      }
-      function stopAnim() {
-        if (raf !== null) {
-          cancelAnimationFrame(raf);
-          raf = null;
-        }
-        vel = 0;
-      }
-      function maxVel() {
-        return Math.min(96, Math.max(48, el.clientHeight * 0.28));
-      }
-      function step() {
-        var maxS = maxScroll();
-        var prev = el.scrollTop;
-        var next = Math.min(maxS, Math.max(0, prev + vel));
-        fromJs = true;
-        el.scrollTop = next;
-        fromJs = false;
-        if (next === prev && Math.abs(vel) > velStop) {
-          vel *= 0.55;
-        } else {
-          vel *= friction;
-        }
-        updateHeaderGlassFromPdfScroll();
-        if (Math.abs(vel) < velStop) {
-          vel = 0;
-          raf = null;
-          updateHeaderGlassFromPdfScroll();
-          return;
-        }
-        raf = requestAnimationFrame(step);
-      }
       el.addEventListener(
         'scroll',
-        function () {
-          if (fromJs) {
-            scheduleHeaderGlassFromPdfScroll();
-            return;
-          }
-          stopAnim();
-          scheduleHeaderGlassFromPdfScroll();
-        },
+        function () { scheduleHeaderGlassFromPdfScroll(); },
         { passive: true }
-      );
-      el.addEventListener(
-        'wheel',
-        function (e) {
-          if (!workspace.classList.contains('preview-mode')) return;
-          if (e.ctrlKey || e.metaKey) return;
-          var dy = e.deltaY;
-          if (e.deltaMode === 1) dy *= 16;
-          else if (e.deltaMode === 2) dy *= el.clientHeight;
-          if (dy === 0) return;
-          var maxS = maxScroll();
-          if (maxS <= 0) return;
-          if (el.scrollTop <= 0 && dy < 0) return;
-          if (el.scrollTop >= maxS - 0.5 && dy > 0) return;
-          e.preventDefault();
-          var cap = maxVel();
-          vel += dy * impulseMul;
-          if (vel > cap) vel = cap;
-          else if (vel < -cap) vel = -cap;
-          if (raf === null) raf = requestAnimationFrame(step);
-        },
-        { passive: false }
       );
     });
   }
@@ -560,7 +494,10 @@
   }
 
   function getPdfState(id) {
-    if (!pdfTabState[id]) pdfTabState[id] = { doc: null, zoom: 1, loadingTask: null };
+    if (!pdfTabState[id]) pdfTabState[id] = {
+      doc: null, zoom: 1, loadingTask: null,
+      baseFit: 1, dpr: 1, pages: []   // pages: [{wrap, canvas, pageNum}]
+    };
     return pdfTabState[id];
   }
 
@@ -568,6 +505,7 @@
   function clearPdfSurfaces(id) {
     var stack = pagesStackEl(id);
     if (stack) stack.innerHTML = '';
+    getPdfState(id).pages = [];
   }
 
   /** Free GPU/RAM for all tabs except the active one (documents stay loaded). */
@@ -635,18 +573,15 @@
       s.doc = null;
     }
     s.zoom = 1;
+    s.baseFit = 1;
+    s.pages = [];
     var stack = pagesStackEl(id);
     if (stack) stack.innerHTML = '';
   }
 
-  async function renderPdfContinuous(id) {
-    var s = getPdfState(id);
-    if (!s.doc) return;
+  function _computeBaseFit(s, id) {
     var scroll = scrollEl(id);
-    var stack = pagesStackEl(id);
-    if (!scroll || !stack) return;
-    stack.innerHTML = '';
-    var pdfjs = await ensurePdfJs();
+    if (!scroll) return s.baseFit || 1;
     var cs = getComputedStyle(scroll);
     var padL = parseFloat(cs.paddingLeft) || 0;
     var padR = parseFloat(cs.paddingRight) || 0;
@@ -656,15 +591,28 @@
     var innerH = Math.floor(scroll.clientHeight - padT - padB);
     var cw = innerW > 64 ? innerW : 400;
     var ch = innerH > 64 ? innerH : 520;
+    return { cw: cw, ch: ch };
+  }
+
+  async function renderPdfContinuous(id) {
+    var s = getPdfState(id);
+    if (!s.doc) return;
+    var scroll = scrollEl(id);
+    var stack = pagesStackEl(id);
+    if (!scroll || !stack) return;
+    stack.innerHTML = '';
+    s.pages = [];
+    var pdfjs = await ensurePdfJs();
+    var fit = _computeBaseFit(s, id);
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    s.dpr = dpr;
     var n = s.doc.numPages;
     var page1 = await s.doc.getPage(1);
     var vp1 = page1.getViewport({ scale: 1 });
-    var scaleW = cw / vp1.width;
-    var scaleH = ch / vp1.height;
-    /* Fit one full page in view; slight 2% margin so it doesn't
-       touch edges and the user can see it's a complete page. */
+    var scaleW = fit.cw / vp1.width;
+    var scaleH = fit.ch / vp1.height;
     var baseFit = Math.min(scaleW, scaleH) * 1.02;
+    s.baseFit = baseFit;
     for (var p = 1; p <= n; p++) {
       var page = await s.doc.getPage(p);
       var userScale = baseFit * s.zoom;
@@ -684,6 +632,7 @@
       canvas.style.width = dispW + 'px';
       canvas.style.height = dispH + 'px';
       pageWrap.appendChild(canvas);
+      s.pages.push({ wrap: pageWrap, canvas: canvas, pageNum: p });
       var ctx = canvas.getContext('2d', { alpha: false });
       if (!ctx) continue;
       ctx.fillStyle = '#ffffff';
@@ -715,7 +664,82 @@
         page.cleanup();
       } catch (cleanErr) {}
     }
+    _zBaseZoom = s.zoom;
+    stack.style.transform = '';
+    stack.style.transformOrigin = '';
     updateHeaderGlassFromPdfScroll();
+  }
+
+  /** Double-buffered zoom render: renders visible pages to OFFSCREEN canvases,
+      then swaps them into the DOM atomically (no flicker).  Also resizes all
+      page wraps to the target zoom.  Returns the zoom level it rendered at. */
+  async function rerenderPdfZoomBuffered(id) {
+    var s = getPdfState(id);
+    if (!s.doc || !s.pages.length) return s.zoom;
+    var scroll = scrollEl(id);
+    if (!scroll) return s.zoom;
+    var targetZoom = s.zoom;
+    var userScale = s.baseFit * targetZoom;
+
+    // Compute new dimensions for every page (cheap – just viewport math)
+    var dims = [];
+    for (var i = 0; i < s.pages.length; i++) {
+      var page = await s.doc.getPage(s.pages[i].pageNum);
+      var vp = page.getViewport({ scale: userScale });
+      dims.push({ w: Math.floor(vp.width), h: Math.floor(vp.height) });
+    }
+
+    // Render visible pages to offscreen canvases (parallel, DPR=1 for speed)
+    var scrollTop = scroll.scrollTop;
+    var scrollBot = scrollTop + scroll.clientHeight;
+    var swaps = [];  // [{idx, canvas}]
+    var renderPromises = [];
+    for (var i = 0; i < s.pages.length; i++) {
+      var pg = s.pages[i];
+      var top = pg.wrap.offsetTop;
+      var bot = top + pg.wrap.offsetHeight;
+      if (bot < scrollTop - 200 || top > scrollBot + 200) continue;
+      (function (idx, pg, dim) {
+        renderPromises.push(
+          s.doc.getPage(pg.pageNum).then(function (page) {
+            var vp = page.getViewport({ scale: userScale });
+            var offCanvas = document.createElement('canvas');
+            offCanvas.className = 'pdf-canvas pdf-canvas-page';
+            offCanvas.width = dim.w;
+            offCanvas.height = dim.h;
+            offCanvas.style.width = dim.w + 'px';
+            offCanvas.style.height = dim.h + 'px';
+            var ctx = offCanvas.getContext('2d', { alpha: false });
+            if (!ctx) return;
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, dim.w, dim.h);
+            return page.render({ canvasContext: ctx, viewport: vp }).promise.then(function () {
+              swaps.push({ idx: idx, canvas: offCanvas });
+            });
+          })
+        );
+      })(i, pg, dims[i]);
+    }
+    await Promise.all(renderPromises);
+
+    // Atomic DOM update: resize all wraps + swap rendered canvases in one frame
+    return new Promise(function (resolve) {
+      requestAnimationFrame(function () {
+        for (var i = 0; i < s.pages.length; i++) {
+          s.pages[i].wrap.style.width = dims[i].w + 'px';
+          s.pages[i].wrap.style.height = dims[i].h + 'px';
+          s.pages[i].canvas.style.width = dims[i].w + 'px';
+          s.pages[i].canvas.style.height = dims[i].h + 'px';
+        }
+        for (var j = 0; j < swaps.length; j++) {
+          var sw = swaps[j];
+          var pg = s.pages[sw.idx];
+          pg.wrap.replaceChild(sw.canvas, pg.canvas);
+          pg.canvas = sw.canvas;
+        }
+        resolve(targetZoom);
+      });
+    });
   }
 
   async function loadPdf(id, url) {
@@ -1161,11 +1185,56 @@
   }
 
   if (pdfPane) {
+    /* Smooth pinch-to-zoom: CSS transform gives instant, flicker-free visual
+       feedback.  Periodically an offscreen double-buffered render swaps in
+       crisp canvases at the current zoom without any visible flash.  When the
+       gesture settles, a final full-quality render with text layers runs. */
+    var _zBgTimer = null;         // background quality refresh schedule
+    var _zBgRendering = false;    // true while an offscreen render is in flight
+    var _zSettleTimer = null;     // debounce for final full render
     pdfPane.addEventListener('wheel', function (e) {
       if (!e.ctrlKey && !e.metaKey) return;
       e.preventDefault();
-      var factor = e.deltaY < 0 ? 1.09 : 1 / 1.09;
-      void zoomActivePdf(factor);
+      var id = activePdfTabId();
+      var s = getPdfState(id);
+      if (!s.doc || !s.pages.length) return;
+      var stack = pagesStackEl(id);
+      if (!stack) return;
+      var dy = e.deltaY;
+      if (e.deltaMode === 1) dy *= 16;
+      // Update logical zoom proportionally
+      s.zoom = clampZoom(s.zoom * Math.pow(2, -dy / 100));
+      // Instant CSS-transform feedback (GPU-composited, zero flicker)
+      var cssScale = s.zoom / _zBaseZoom;
+      stack.style.transformOrigin = 'top center';
+      stack.style.transform = 'scale(' + cssScale + ')';
+      // Schedule a background double-buffered render to swap in crisp canvases
+      if (!_zBgTimer && !_zBgRendering) {
+        _zBgTimer = setTimeout(function () {
+          _zBgTimer = null;
+          _zBgRendering = true;
+          rerenderPdfZoomBuffered(id).then(function (renderedAt) {
+            _zBgRendering = false;
+            _zBaseZoom = renderedAt;
+            // Adjust CSS transform for any zoom change during the render
+            var remaining = s.zoom / _zBaseZoom;
+            if (Math.abs(remaining - 1) < 0.003) {
+              stack.style.transform = '';
+            } else {
+              stack.style.transform = 'scale(' + remaining + ')';
+            }
+          }).catch(function () { _zBgRendering = false; });
+        }, 120);
+      }
+      // Debounce full hi-dpi + text layer render for when gesture ends
+      if (_zSettleTimer) clearTimeout(_zSettleTimer);
+      _zSettleTimer = setTimeout(function () {
+        _zSettleTimer = null;
+        _zBaseZoom = s.zoom;
+        stack.style.transform = '';
+        stack.style.transformOrigin = '';
+        renderPdfContinuous(id);
+      }, 350);
     }, { passive: false });
   }
 

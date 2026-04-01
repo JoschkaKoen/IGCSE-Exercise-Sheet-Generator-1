@@ -922,8 +922,10 @@ def build_explanation_latex(
             items = r"\textit{(Explanation not available.)}"
 
         sections.append(
+            f"\\needspace{{4\\baselineskip}}\n"
             f"\\vspace{{6pt}}\n"
-            f"{{\\bfseries Question {q}\\enspace{{\\normalfont\\small (Answer: \\textbf{{{ans}}})}}}}\n\n"
+            f"{{\\bfseries Question {q}\\enspace{{\\normalfont\\small (Answer: \\textbf{{{ans}}})}}}}\n"
+            f"\\nopagebreak\n\n"
             f"{items}"
         )
 
@@ -962,6 +964,7 @@ def build_explanation_latex(
 \usepackage{{parskip}}
 \usepackage{{lmodern}}
 \usepackage{{microtype}}
+\usepackage{{needspace}}
 \usepackage{{xcolor}}
 
 \setlength{{\parindent}}{{0pt}}

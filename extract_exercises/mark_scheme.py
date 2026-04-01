@@ -353,6 +353,38 @@ def _precise_y_start_from_drawings(page, y_start: float, h_top: float, h_bot: fl
     return max(y_start, header_band_end)
 
 
+def _snap_y_start_to_cell_border(page, y_start: float, first_entry_y: float) -> float:
+    """Snap y_start to the top border of the cell containing first_entry_y.
+
+    Scans for wide horizontal drawings (table cell borders) in the zone between
+    y_start and first_entry_y.  The closest border *above* first_entry_y is
+    the top edge of this question's row.  We start exactly at its y0 so the
+    border stroke is included but nothing from the cell/header above leaks in.
+
+    Falls back to the incoming y_start when no suitable border is found.
+    """
+    best_border_y0 = None
+    for d in page.get_drawings():
+        r = d["rect"]
+        dr = _norm_bbox(page, (r.x0, r.y0, r.x1, r.y1))
+        draw_w = dr[2] - dr[0]
+        draw_h = dr[3] - dr[1]
+        if draw_w < 50:
+            continue
+        # We want thin horizontal lines (cell borders, typically <2 pt tall)
+        # whose vertical midpoint sits between y_start and first_entry_y.
+        mid_y = (dr[1] + dr[3]) / 2
+        if mid_y < y_start or mid_y > first_entry_y:
+            continue
+        if draw_h > 5:
+            continue  # skip thick fills / header bands
+        if best_border_y0 is None or dr[1] > best_border_y0:
+            best_border_y0 = dr[1]
+    if best_border_y0 is not None:
+        return best_border_y0
+    return y_start
+
+
 def _floor_y_start_below_headers(first_line_y, candidate_y_start, header_rows_for_page,
                                   separator_below_header_pt=5.65):
     """Raise ``y_start`` so the strip begins *below* any table header row that sits
@@ -530,6 +562,9 @@ def find_ms_answer_regions(doc, requested_questions, cfg: SubjectConfig | None =
             y_start = _precise_y_start_from_drawings(
                 doc[first_page], y_start, h_top_fp, h_bot_fp, first_entry[2]
             )
+        # Snap to the nearest cell border above the question text so we never
+        # include content from the cell above.
+        y_start = _snap_y_start_to_cell_border(doc[first_page], y_start, first_entry[2])
 
         def _y_end_cap(page):
             return cfg.ms_footer_top_pt if page.rect.height < MS_LANDSCAPE_H_THRESHOLD_PT else page.rect.height - 50
@@ -574,6 +609,8 @@ def find_ms_answer_regions(doc, requested_questions, cfg: SubjectConfig | None =
                             page_header_rows.get(mid_p, []),
                             separator_below_header_pt=_mid_sep,
                         )
+                    if on_mid:
+                        mid_ys = _snap_y_start_to_cell_border(doc[mid_p], mid_ys, first_y_mid)
                     mid_ye = min(doc[mid_p].rect.height - 30, _y_end_cap(doc[mid_p]))
                     mid_ye = _cap_y_end_before_headers(
                         mid_ys, mid_ye, page_header_rows.get(mid_p, []), doc[mid_p]
@@ -595,6 +632,7 @@ def find_ms_answer_regions(doc, requested_questions, cfg: SubjectConfig | None =
                 last_ys = _precise_y_start_from_drawings(
                     doc[last_page], last_ys, lh_top, lh_bot, first_on_last
                 )
+            last_ys = _snap_y_start_to_cell_border(doc[last_page], last_ys, first_on_last)
             _y_end_raw_last = y_end
             y_end = _cap_y_end_before_headers(
                 last_ys, y_end, page_header_rows.get(last_page, []), doc[last_page]
