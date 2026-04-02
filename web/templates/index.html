@@ -796,23 +796,31 @@
     return 'exercise';
   }
 
-  /** Position the side pill to cover the active side's label + layout track. */
+  /** Position the side pill via left + right.
+   *  The expanding edge (→ 0) animates faster than the contracting edge
+   *  so the pill briefly stretches wider before settling — works both ways. */
   function syncSidePill() {
     if (!pdfTabSidePill || !pdfTabPrimaryTrack || !pdfTabSheetColumn || !pdfTabLayoutColumn || !pdfTabAnswersColumn) return;
     var trackRect = pdfTabPrimaryTrack.getBoundingClientRect();
-    var sheetRect = pdfTabSheetColumn.getBoundingClientRect();
     var layoutRect = pdfTabLayoutColumn.getBoundingClientRect();
-    var answersRect = pdfTabAnswersColumn.getBoundingClientRect();
-    var left, width;
+    var bw = 1;
+    var padL = trackRect.left + bw;
+    var padR = trackRect.right - bw;
+    var ease = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    var fast = '0.26s ' + ease;
+    var slow = '0.42s ' + ease;
+    var color = 'background 0.32s ease, box-shadow 0.32s ease';
+
     if (currentSide === 'sheet') {
-      left = sheetRect.left - trackRect.left;
-      width = (layoutRect.right) - sheetRect.left;
+      pdfTabSidePill.style.transition = 'left ' + fast + ', right ' + slow + ', ' + color;
+      pdfTabSidePill.style.left = '0';
+      pdfTabSidePill.style.right = Math.max(0, padR - layoutRect.right) + 'px';
     } else {
-      left = layoutRect.left - trackRect.left;
-      width = (answersRect.right) - layoutRect.left;
+      pdfTabSidePill.style.transition = 'left ' + slow + ', right ' + fast + ', ' + color;
+      pdfTabSidePill.style.left = Math.max(0, layoutRect.left - padL) + 'px';
+      pdfTabSidePill.style.right = '0';
     }
-    pdfTabSidePill.style.left = left + 'px';
-    pdfTabSidePill.style.width = width + 'px';
+    pdfTabSidePill.style.width = '';
   }
 
   function syncPdfTabChrome(activeId) {
