@@ -1,0 +1,221 @@
+/* ─── Feature cards ──────────────────────────────────────────────────────── */
+.feature-card {
+  border: 1px solid rgba(255,255,255,0.05);
+  background: linear-gradient(148deg,
+    rgba(15, 28, 52, 0.45) 0%,
+    rgba(10, 18, 38, 0.22) 100%
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.18s ease;
+}
+
+.feature-card:hover {
+  border-color: rgba(34,211,238,0.18);
+  background: linear-gradient(148deg,
+    rgba(15, 28, 52, 0.62) 0%,
+    rgba(10, 18, 38, 0.38) 100%
+  );
+  transform: translateY(-1px);
+}
+
+/* ─── Landing polish (generate view only — preview glow / gradient language) ─ */
+#generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child h1.font-display {
+  background: linear-gradient(118deg, rgb(248 250 252) 0%, rgb(165 243 253) 42%, rgb(186 230 253) 72%, rgb(147 197 253) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.2));
+}
+
+#generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child .flex.justify-center p.text-xs.uppercase {
+  text-shadow:
+    0 0 18px rgba(34, 211, 238, 0.45),
+    0 0 36px rgba(56, 189, 248, 0.2);
+}
+
+#generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child .hero-icon {
+  box-shadow:
+    0 0 3px 1px rgba(56, 189, 248, 0.14),
+    0 0 44px -6px rgba(34, 211, 238, 0.38),
+    0 0 88px -24px rgba(59, 130, 246, 0.22);
+}
+
+#generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child > p.text-slate-400 {
+  text-shadow: 0 0 28px rgba(56, 189, 248, 0.12);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form.glass-panel {
+  border-color: rgba(56, 189, 248, 0.14);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 1px 0 rgba(255, 255, 255, 0.07) inset,
+    0 28px 56px -14px rgba(0, 0, 0, 0.5),
+    0 0 64px -18px rgba(34, 211, 238, 0.16),
+    0 0 100px -30px rgba(59, 130, 246, 0.1);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .form-glow::before {
+  opacity: 0.78;
+}
+
+#generate-workspace:not(.preview-mode) #prompt {
+  border-color: rgba(56, 189, 248, 0.16);
+  background: linear-gradient(168deg, rgba(8, 20, 42, 0.9) 0%, rgba(4, 12, 30, 0.94) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(56, 189, 248, 0.08),
+    0 0 40px -12px rgba(34, 211, 238, 0.12);
+  caret-color: rgb(34, 211, 238);
+}
+
+#generate-workspace:not(.preview-mode) #prompt::placeholder {
+  color: rgba(165, 230, 252, 0.48);
+}
+
+#generate-workspace:not(.preview-mode) #prompt:focus {
+  border-color: rgba(34, 211, 238, 0.32);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.22),
+    inset 0 1px 0 rgba(56, 189, 248, 0.1),
+    0 0 48px -8px rgba(34, 211, 238, 0.22);
+  outline: none;
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:hover {
+  transform: translateY(-2px);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(1):hover {
+  box-shadow: 0 12px 36px -8px rgba(167, 139, 250, 0.32);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(2):hover {
+  box-shadow: 0 12px 36px -8px rgba(34, 211, 238, 0.28);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3):hover {
+  box-shadow: 0 12px 36px -8px rgba(52, 211, 153, 0.28);
+}
+
+#generate-workspace:not(.preview-mode) #submit-btn.btn-space-primary {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14) inset,
+    0 4px 28px -4px rgba(34, 211, 238, 0.55),
+    0 16px 52px -12px rgba(59, 130, 246, 0.38);
+}
+
+#generate-workspace:not(.preview-mode) #submit-btn.btn-space-primary:hover:not(:disabled) {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.17) inset,
+    0 10px 40px -6px rgba(34, 211, 238, 0.62),
+    0 22px 56px -12px rgba(99, 102, 241, 0.42);
+}
+
+#generate-workspace:not(.preview-mode) #gen-form .progress-strip {
+  border-color: rgba(34, 211, 238, 0.2);
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.07) 0%, rgba(59, 130, 246, 0.05) 100%);
+  box-shadow: 0 0 36px -10px rgba(34, 211, 238, 0.2);
+}
+
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .feature-card {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 44px -14px rgba(56, 189, 248, 0.1);
+}
+
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .feature-card:hover {
+  transform: translateY(-2px);
+}
+
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .grid > .feature-card:nth-child(1):hover {
+  border-color: rgba(167, 139, 250, 0.24);
+  box-shadow: 0 14px 44px -12px rgba(167, 139, 250, 0.22);
+}
+
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .grid > .feature-card:nth-child(2):hover {
+  border-color: rgba(34, 211, 238, 0.22);
+  box-shadow: 0 14px 44px -12px rgba(34, 211, 238, 0.2);
+}
+
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .grid > .feature-card:nth-child(3):hover {
+  border-color: rgba(52, 211, 153, 0.22);
+  box-shadow: 0 14px 44px -12px rgba(52, 211, 153, 0.2);
+}
+
+/* Soften the hard Tailwind ring-1 outlines on feature-card icon boxes into a diffuse glow */
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .grid > .feature-card:nth-child(1) > div:first-child {
+  box-shadow: 0 0 0 0.5px rgba(167, 139, 250, 0.12), 0 0 10px -1px rgba(167, 139, 250, 0.28);
+}
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .grid > .feature-card:nth-child(2) > div:first-child {
+  box-shadow: 0 0 0 0.5px rgba(34, 211, 238, 0.12), 0 0 10px -1px rgba(34, 211, 238, 0.25);
+}
+#generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .grid > .feature-card:nth-child(3) > div:first-child {
+  box-shadow: 0 0 0 0.5px rgba(52, 211, 153, 0.12), 0 0 10px -1px rgba(52, 211, 153, 0.25);
+}
+
+#generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child .subject-badge {
+  box-shadow: 0 0 16px -4px rgba(56, 189, 248, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #generate-workspace:not(.preview-mode) #gen-form .quick-fill:hover {
+    transform: none;
+  }
+
+  #generate-workspace:not(.preview-mode) .hero-collapse.mt-14 .feature-card:hover {
+    transform: translateY(-1px);
+  }
+}
+
+/* ─── Subject badges ─────────────────────────────────────────────────────── */
+.subject-badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  vertical-align: 0.1em;
+  white-space: nowrap;
+  line-height: 1.35;
+}
+
+.subject-badge-physics {
+  background: rgba(34,211,238,0.12);
+  border: 1px solid rgba(34,211,238,0.25);
+  color: rgb(165 243 253);
+}
+
+.subject-badge-cs {
+  background: rgba(167,139,250,0.12);
+  border: 1px solid rgba(167,139,250,0.25);
+  color: rgb(221 214 254);
+}
+
+.subject-badge-math,
+.subject-badge-mathematics {
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  color: rgb(167 243 208);
+}
+
+/* ─── Hero icon float ────────────────────────────────────────────────────── */
+.hero-icon {
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(  0px); }
+  50%       { transform: translateY( -7px); }
+}
+
+/* Pause decorative animations in background tabs */
+html.doc-background-paused .space-aurora,
+html.doc-background-paused .space-stars::after,
+html.doc-background-paused .form-glow::before,
+html.doc-background-paused .hero-icon {
+  animation-play-state: paused;
+}
+

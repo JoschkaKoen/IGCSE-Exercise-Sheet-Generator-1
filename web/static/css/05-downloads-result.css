@@ -1,0 +1,334 @@
+/* ─── Result / ready panel ───────────────────────────────────────────────── */
+.result-panel-reveal {
+  transition:
+    opacity   1.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Keeps download controls from stretching full panel width (esp. after leaving preview) */
+.result-download-inner {
+  max-width: 17rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Cap the result panel box in column layout so it doesn't feel oversized */
+#result-panel {
+  max-width: 20rem;
+}
+
+/* ─── Landing page: result panel floats to the right of the centred form ── */
+/* The form stays perfectly centered; result-panel is pulled out of flow via
+   absolute positioning so it never disturbs the form's horizontal centering. */
+
+/* form-result-row is the positioning anchor.
+   Spacing below hero lives on the row (not on #gen-form) so margin-collapse
+   does not shift the row's top away from the form's top border — the floating
+   result panel can use top: 0 to align with the prompt card. */
+#generate-workspace:not(.preview-mode) .form-result-row {
+  position: relative;
+  overflow: visible;
+  margin-top: 2.5rem; /* was Tailwind mt-10 on the form */
+}
+
+#generate-workspace:not(.preview-mode) #gen-form {
+  margin-top: 0;
+}
+
+#generate-workspace:not(.preview-mode):has(#result-panel:not(.hidden)) #result-panel {
+  position: absolute;
+  left: calc(100% + 1.25rem);
+  top: 0;
+  width: 18rem;
+  max-width: 18rem;
+  margin-top: 0;
+}
+
+/* On screens where the floating panel would fall off-screen, drop it below */
+@media (max-width: 860px) {
+  #generate-workspace:not(.preview-mode):has(#result-panel:not(.hidden)) #result-panel {
+    position: static;
+    width: auto;
+    max-width: 20rem;
+    margin-top: 1rem;
+  }
+}
+
+/* ─── Download button shimmer ────────────────────────────────────────────── */
+.download-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.download-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+}
+
+.download-btn:hover::after {
+  transform: translateX(100%);
+}
+
+/* ─── Download hero (primary "Download all" action) ───────────────────── */
+.dl-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(34, 211, 238, 0.42);
+  background: linear-gradient(
+    145deg,
+    rgba(34, 211, 238, 0.22) 0%,
+    rgba(45, 212, 191, 0.14) 42%,
+    rgba(59, 130, 246, 0.12) 100%
+  );
+  color: rgb(240 249 255);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 0 1px rgba(34, 211, 238, 0.08) inset,
+    0 6px 28px -6px rgba(34, 211, 238, 0.35),
+    0 0 52px -10px rgba(45, 212, 191, 0.22);
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.22s ease;
+}
+
+.dl-hero svg {
+  color: rgb(165 243 252);
+  opacity: 0.95;
+  transition: opacity 0.18s ease, color 0.18s ease;
+}
+
+.dl-hero:hover {
+  transform: translateY(-1px);
+  border-color: rgba(103, 232, 249, 0.55);
+  background: linear-gradient(
+    145deg,
+    rgba(34, 211, 238, 0.32) 0%,
+    rgba(45, 212, 191, 0.22) 45%,
+    rgba(59, 130, 246, 0.18) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 1px rgba(165, 243, 252, 0.12) inset,
+    0 10px 40px -6px rgba(34, 211, 238, 0.48),
+    0 0 72px -8px rgba(45, 212, 191, 0.32);
+}
+
+.dl-hero:hover svg { color: rgb(236 254 255); opacity: 1; }
+.dl-hero:active { transform: translateY(0); }
+
+.dl-hero::after {
+  background: linear-gradient(105deg, transparent 22%, rgba(255, 255, 255, 0.14) 50%, transparent 78%);
+}
+
+/* ─── Download card (exercise sheet / mark scheme rows) ───────────────── */
+.dl-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(15, 28, 52, 0.55) 0%, rgba(8, 14, 30, 0.4) 100%);
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.25s ease;
+}
+
+.dl-card.hidden { display: none !important; }
+
+.dl-card--sheet {
+  border-color: rgba(56, 189, 248, 0.28);
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.12) 0%,
+    rgba(99, 102, 241, 0.06) 55%,
+    rgba(8, 14, 30, 0.45) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 24px -8px rgba(56, 189, 248, 0.18);
+}
+
+.dl-card--emerald {
+  border-color: rgba(52, 211, 153, 0.28);
+  background: linear-gradient(
+    135deg,
+    rgba(52, 211, 153, 0.12) 0%,
+    rgba(20, 184, 166, 0.06) 55%,
+    rgba(8, 14, 30, 0.45) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 24px -8px rgba(52, 211, 153, 0.16);
+}
+
+.dl-card--emerald:hover {
+  border-color: rgba(52, 211, 153, 0.45);
+  background: linear-gradient(
+    135deg,
+    rgba(52, 211, 153, 0.2) 0%,
+    rgba(20, 184, 166, 0.12) 55%,
+    rgba(8, 14, 30, 0.5) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 28px -6px rgba(52, 211, 153, 0.28);
+}
+
+.dl-card-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgb(148 163 184);
+  pointer-events: none;
+}
+
+.dl-card--sheet .dl-card-label {
+  color: rgb(186 230 253);
+}
+
+.dl-card--sheet .dl-card-label svg {
+  color: rgb(56 189 248);
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.35));
+}
+
+.dl-card--emerald .dl-card-label {
+  color: rgb(209 250 229);
+}
+
+.dl-card--emerald .dl-card-label svg {
+  color: rgb(52 211 153);
+  filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.35));
+}
+
+.dl-card-actions { display: flex; gap: 0.35rem; }
+
+/* ─── Download icon buttons (layout variants: 1-up, 2-up, 4-up) ──────── */
+.dl-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.25s ease,
+    transform 0.15s ease;
+}
+
+.dl-icon-btn.hidden { display: none !important; }
+.dl-icon-btn svg { width: 1.15rem; height: 1.15rem; }
+
+.dl-icon-btn--sky {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.2) 0%, rgba(56, 189, 248, 0.08) 100%);
+  color: rgb(125 211 252);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 12px -4px rgba(56, 189, 248, 0.25);
+}
+
+.dl-icon-btn--amber {
+  border-color: rgba(251, 191, 36, 0.38);
+  background: linear-gradient(180deg, rgba(251, 191, 36, 0.22) 0%, rgba(245, 158, 11, 0.1) 100%);
+  color: rgb(253 230 138);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 12px -4px rgba(251, 191, 36, 0.22);
+}
+
+.dl-icon-btn--violet {
+  border-color: rgba(167, 139, 250, 0.38);
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.22) 0%, rgba(139, 92, 246, 0.1) 100%);
+  color: rgb(216 180 254);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 12px -4px rgba(167, 139, 250, 0.22);
+}
+
+.dl-icon-btn--emerald {
+  border-color: rgba(52, 211, 153, 0.35);
+  background: linear-gradient(180deg, rgba(52, 211, 153, 0.2) 0%, rgba(52, 211, 153, 0.08) 100%);
+  color: rgb(110 231 183);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 12px -4px rgba(52, 211, 153, 0.25);
+}
+
+.dl-icon-btn:hover { transform: translateY(-1px); }
+.dl-icon-btn:active { transform: translateY(0); }
+
+.dl-icon-btn--sky:hover {
+  border-color: rgba(125, 211, 252, 0.55);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.32) 0%, rgba(56, 189, 248, 0.16) 100%);
+  color: rgb(224 242 254);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 20px -4px rgba(56, 189, 248, 0.4);
+}
+
+.dl-icon-btn--amber:hover {
+  border-color: rgba(252, 211, 77, 0.6);
+  background: linear-gradient(180deg, rgba(251, 191, 36, 0.36) 0%, rgba(245, 158, 11, 0.18) 100%);
+  color: rgb(254 249 195);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 20px -4px rgba(251, 191, 36, 0.38);
+}
+
+.dl-icon-btn--violet:hover {
+  border-color: rgba(196, 181, 253, 0.6);
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.34) 0%, rgba(139, 92, 246, 0.18) 100%);
+  color: rgb(237 233 254);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 20px -4px rgba(167, 139, 250, 0.38);
+}
+
+.dl-icon-btn--emerald:hover {
+  border-color: rgba(110, 231, 183, 0.55);
+  background: linear-gradient(180deg, rgba(52, 211, 153, 0.32) 0%, rgba(52, 211, 153, 0.16) 100%);
+  color: rgb(209 250 229);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 20px -4px rgba(52, 211, 153, 0.4);
+}
+
+.dl-icon-btn:focus-visible {
+  outline: 2px solid rgba(56, 189, 248, 0.45);
+  outline-offset: 2px;
+}
+
+.dl-icon-btn--amber:focus-visible { outline-color: rgba(251, 191, 36, 0.55); }
+.dl-icon-btn--violet:focus-visible { outline-color: rgba(167, 139, 250, 0.55); }
+.dl-icon-btn--emerald:focus-visible { outline-color: rgba(52, 211, 153, 0.55); }
+
+.dl-card--emerald:focus-visible {
+  outline: 2px solid rgba(52, 211, 153, 0.45);
+  outline-offset: 2px;
+}
+

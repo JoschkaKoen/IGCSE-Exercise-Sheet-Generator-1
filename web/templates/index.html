@@ -3,6 +3,12 @@
 
 {% block pdf_preview_tabs %}
   <div id="pdf-tab-bar-wrap" class="pdf-tab-bar-wrap" hidden>
+    <button type="button" id="pdf-tab-back-btn" class="pdf-tab-back-btn" aria-label="Back to generator" title="Back to generator">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M10 3L5 8L10 13"/>
+      </svg>
+    </button>
+    <div class="pdf-tab-primary-clip">
     <div id="pdf-tab-primary-track" class="pdf-tab-primary-track" role="tablist" aria-label="Preview document" data-side="sheet">
       <span id="pdf-tab-side-pill" class="pdf-tab-side-pill" aria-hidden="true"></span>
       <div class="pdf-tab-sheet-column" role="presentation">
@@ -44,6 +50,7 @@
                 aria-selected="false" aria-controls="tab-panel-answers" aria-label="Mark scheme" tabindex="-1">Mark scheme</button>
       </div>
     </div>
+    </div>
   </div>
 {% endblock %}
 
@@ -82,8 +89,10 @@
   </p>
   </div>
 
+  <!-- Form + result panel (side-by-side on landing page when result is ready) -->
+  <div class="form-result-row">
   <!-- Form -->
-  <form id="gen-form" class="gen-surface glass-panel form-glow mt-10 rounded-2xl p-5 sm:p-6">
+  <form id="gen-form" class="gen-surface glass-panel form-glow rounded-2xl p-5 sm:p-6">
     <textarea
       id="prompt"
       name="prompt"
@@ -170,7 +179,8 @@
   <div id="result-panel"
        class="gen-surface glass-panel result-panel-reveal pointer-events-none mt-5 hidden translate-y-6 rounded-2xl p-5 opacity-0 sm:p-6"
        aria-label="Generated files">
-    <div class="flex flex-col gap-2.5">
+
+    <div class="flex flex-col gap-2.5 result-download-inner">
       <a id="dl-all" href="#" class="dl-hero download-btn"
          title="Saves each PDF separately. Your browser may ask to allow multiple downloads.">
         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -237,6 +247,7 @@
       </div>
     </div>
   </div>
+  </div><!-- /form-result-row -->
 
   <!-- Error panel -->
   <div id="error-panel"
@@ -388,6 +399,7 @@
   const pdfTabLayoutColumn = pdfTabPrimaryTrack ? pdfTabPrimaryTrack.querySelector('.pdf-tab-layout-column') : null;
   const pdfTabAnswersColumn = pdfTabPrimaryTrack ? pdfTabPrimaryTrack.querySelector('.pdf-tab-answers-column') : null;
   const pdfTabSidePill     = document.getElementById('pdf-tab-side-pill');
+  const pdfTabBackBtn      = document.getElementById('pdf-tab-back-btn');
 
   const TAB_ORDER = ['exercise', 'two-up', 'four-up', 'answers', 'answers-two-up', 'answers-four-up'];
   const PDF_OUTPUT_PAGE_H_PT = 842;
@@ -797,15 +809,17 @@
   }
 
   /** Position the side pill via left + right.
-   *  The expanding edge (→ 0) animates faster than the contracting edge
-   *  so the pill briefly stretches wider before settling — works both ways. */
+   *  Anchored off the inner layout track so the bridge width is exact and
+   *  not affected by flex gap or column padding.
+   *  The expanding edge (→ 0) animates faster so the pill stretches both ways. */
   function syncSidePill() {
-    if (!pdfTabSidePill || !pdfTabPrimaryTrack || !pdfTabSheetColumn || !pdfTabLayoutColumn || !pdfTabAnswersColumn) return;
-    var trackRect = pdfTabPrimaryTrack.getBoundingClientRect();
-    var layoutRect = pdfTabLayoutColumn.getBoundingClientRect();
-    var bw = 1;
-    var padL = trackRect.left + bw;
-    var padR = trackRect.right - bw;
+    if (!pdfTabSidePill || !pdfTabPrimaryTrack || !pdfTabLayoutTrack) return;
+    var outerRect = pdfTabPrimaryTrack.getBoundingClientRect();
+    var innerRect = pdfTabLayoutTrack.getBoundingClientRect();
+    var bw = 1;                /* track border-width */
+    var bridge = 3;           /* px of coloured pill visible on each side of the inner track */
+    var padL = outerRect.left + bw;
+    var padR = outerRect.right - bw;
     var ease = 'cubic-bezier(0.16, 1, 0.3, 1)';
     var fast = '0.26s ' + ease;
     var slow = '0.42s ' + ease;
@@ -814,10 +828,10 @@
     if (currentSide === 'sheet') {
       pdfTabSidePill.style.transition = 'left ' + fast + ', right ' + slow + ', ' + color;
       pdfTabSidePill.style.left = '0';
-      pdfTabSidePill.style.right = Math.max(0, padR - layoutRect.right) + 'px';
+      pdfTabSidePill.style.right = Math.max(0, padR - (innerRect.right + bridge)) + 'px';
     } else {
       pdfTabSidePill.style.transition = 'left ' + slow + ', right ' + fast + ', ' + color;
-      pdfTabSidePill.style.left = Math.max(0, layoutRect.left - padL) + 'px';
+      pdfTabSidePill.style.left = Math.max(0, (innerRect.left - bridge) - padL) + 'px';
       pdfTabSidePill.style.right = '0';
     }
     pdfTabSidePill.style.width = '';
@@ -1041,9 +1055,51 @@
     if (submitIconUpd) submitIconUpd.classList.toggle('hidden', !on);
   }
 
-  async function enterPreviewMode(doneData) {
+  function applyDoneData(done) {
+    dlMain.href = done.download_url || '#';
+    lastDownloadAllUrls = [
+      done.download_url, done.answers_url, done.two_up_url,
+      done.four_up_url, done.answers_two_up_url, done.answers_four_up_url,
+    ].filter(Boolean);
+    if (dlAll) dlAll.href = '#';
+    if (done.answers_url) {
+      dlAnswersMain.href = done.answers_url;
+      dlAnswers.classList.remove('hidden');
+    } else { dlAnswers.classList.add('hidden'); }
+    if (done.answers_two_up_url) {
+      dlAnswersTwoUp.href = done.answers_two_up_url;
+      dlAnswersTwoUp.classList.remove('hidden');
+    } else { dlAnswersTwoUp.classList.add('hidden'); }
+    if (done.answers_four_up_url) {
+      dlAnswersFourUp.href = done.answers_four_up_url;
+      dlAnswersFourUp.classList.remove('hidden');
+    } else { dlAnswersFourUp.classList.add('hidden'); }
+    if (done.four_up_url) {
+      dlFourUp.href = done.four_up_url;
+      dlFourUp.classList.remove('hidden');
+    } else { dlFourUp.classList.add('hidden'); }
+    if (done.two_up_url) {
+      dlTwoUp.href = done.two_up_url;
+      dlTwoUp.classList.remove('hidden');
+    } else { dlTwoUp.classList.add('hidden'); }
+  }
+
+  function exitPreviewMode() {
+    sessionStorage.removeItem('previewState');
+    workspace.classList.remove('preview-mode', 'preview-mode--settled');
+    document.body.classList.remove('preview-mode-active');
+    if (pdfTabBarWrap) pdfTabBarWrap.setAttribute('hidden', '');
+    pdfPane.setAttribute('aria-hidden', 'true');
+    setSubmitPreviewMode(false);
+    document.documentElement.style.removeProperty('--header-glass-fill');
+    document.body.style.removeProperty('--header-glass-fill');
+    workspace.style.removeProperty('opacity');
+    workspace.style.removeProperty('transition');
+  }
+
+  async function enterPreviewMode(doneData, instant) {
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var fadeDuration = reducedMotion ? 0 : 20;
+    var fadeDuration = (instant || reducedMotion) ? 0 : 20;
 
     /* Phase 1: fade out the landing page */
     workspace.style.transition = 'opacity ' + fadeDuration + 'ms ease';
@@ -1401,6 +1457,51 @@
     });
   });
 
+  function isTextEntryElement(el) {
+    if (!el || el.nodeType !== 1) return false;
+    var tag = el.tagName;
+    if (tag === 'TEXTAREA') return true;
+    if (tag === 'SELECT') return true;
+    if (tag === 'INPUT') {
+      var type = (el.type || '').toLowerCase();
+      if (type === 'button' || type === 'submit' || type === 'reset' || type === 'checkbox' ||
+          type === 'radio' || type === 'file' || type === 'range' || type === 'color' || type === 'hidden') {
+        return false;
+      }
+      return true;
+    }
+    if (el.isContentEditable) return true;
+    if (el.getAttribute('role') === 'textbox') return true;
+    return false;
+  }
+
+  if (pdfTabBackBtn) {
+    pdfTabBackBtn.addEventListener('click', function () {
+      exitPreviewMode();
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Backspace') return;
+    if (!document.body.classList.contains('preview-mode-active')) return;
+    if (isTextEntryElement(e.target)) return;
+    e.preventDefault();
+    exitPreviewMode();
+  });
+
+  /* Restore preview state after a page reload */
+  (function () {
+    var savedStr = sessionStorage.getItem('previewState');
+    if (!savedStr) return;
+    var saved;
+    try { saved = JSON.parse(savedStr); } catch (e) { sessionStorage.removeItem('previewState'); return; }
+    if (!saved || !saved.doneData || !saved.prompt) { sessionStorage.removeItem('previewState'); return; }
+    promptEl.value = saved.prompt;
+    applyDoneData(saved.doneData);
+    showResultPanel();
+    enterPreviewMode(saved.doneData, true).catch(function () {});
+  })();
+
   function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
   function applyLogLine(data) {
@@ -1486,46 +1587,10 @@
       applyLogLine(await fetchJobStatus(id));
       const done = await pollJob(id, applyLogLine);
 
-      dlMain.href = done.download_url || '#';
-      lastDownloadAllUrls = [
-        done.download_url,
-        done.answers_url,
-        done.two_up_url,
-        done.four_up_url,
-        done.answers_two_up_url,
-        done.answers_four_up_url,
-      ].filter(Boolean);
-      if (dlAll) dlAll.href = '#';
-      if (done.answers_url) {
-        dlAnswersMain.href = done.answers_url;
-        dlAnswers.classList.remove('hidden');
-      } else {
-        dlAnswers.classList.add('hidden');
-      }
-      if (done.answers_two_up_url) {
-        dlAnswersTwoUp.href = done.answers_two_up_url;
-        dlAnswersTwoUp.classList.remove('hidden');
-      } else {
-        dlAnswersTwoUp.classList.add('hidden');
-      }
-      if (done.answers_four_up_url) {
-        dlAnswersFourUp.href = done.answers_four_up_url;
-        dlAnswersFourUp.classList.remove('hidden');
-      } else {
-        dlAnswersFourUp.classList.add('hidden');
-      }
-      if (done.four_up_url) {
-        dlFourUp.href = done.four_up_url;
-        dlFourUp.classList.remove('hidden');
-      } else {
-        dlFourUp.classList.add('hidden');
-      }
-      if (done.two_up_url) {
-        dlTwoUp.href = done.two_up_url;
-        dlTwoUp.classList.remove('hidden');
-      } else {
-        dlTwoUp.classList.add('hidden');
-      }
+      applyDoneData(done);
+      try {
+        sessionStorage.setItem('previewState', JSON.stringify({ doneData: done, prompt: prompt }));
+      } catch (e) {}
       showResultPanel();
       await enterPreviewMode(done);
     } catch (err) {

@@ -1,0 +1,38 @@
+/* ─── Reduced-motion overrides ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-icon,
+  .form-glow::before,
+  .space-aurora,
+  .space-stars::after {
+    animation: none;
+  }
+
+  .result-panel-reveal {
+    transition-duration: 0.01ms;
+    transition-timing-function: step-end;
+  }
+
+  .generate-workspace,
+  .gen-left-col,
+  .hero-collapse {
+    transition-duration: 0.01ms;
+  }
+
+  .preview-mode #pdf-preview-pane,
+  body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
+    transition-duration: 0.01ms;
+    opacity: 1;
+    transform: none;
+  }
+
+  .site-header::before {
+    transition-duration: 0.01ms;
+  }
+
+  .dl-hero:hover,
+  .dl-hero:active,
+  .dl-icon-btn:hover,
+  .dl-icon-btn:active {
+    transform: none;
+  }
+}

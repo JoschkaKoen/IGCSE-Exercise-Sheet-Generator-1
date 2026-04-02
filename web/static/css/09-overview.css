@@ -1,0 +1,252 @@
+/* ─── Navigation panel (preview): papers + exercise jump links ─────────── */
+.overview-panel {
+  display: none;
+}
+
+.preview-mode.preview-mode--settled .overview-panel:not(.hidden) {
+  display: block;
+  border-color: rgba(56, 189, 248, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.08) inset,
+    0 18px 40px -16px rgba(0, 0, 0, 0.5),
+    0 0 48px -14px rgba(56, 189, 248, 0.12);
+}
+
+.preview-mode #result-panel:not(.hidden) {
+  border-color: rgba(34, 211, 238, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.06) inset,
+    0 18px 40px -16px rgba(0, 0, 0, 0.5),
+    0 0 44px -12px rgba(34, 211, 238, 0.1);
+}
+
+.overview-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.overview-paper-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.overview-paper-btn {
+  width: 100%;
+  text-align: left;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.14) 0%, rgba(99, 102, 241, 0.08) 50%, rgba(8, 14, 30, 0.35) 100%);
+  padding: 0.45rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgb(224 242 254);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 20px -8px rgba(56, 189, 248, 0.2);
+}
+
+.overview-paper-btn:hover {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.24) 0%, rgba(99, 102, 241, 0.14) 50%, rgba(8, 14, 30, 0.4) 100%);
+  border-color: rgba(125, 211, 252, 0.38);
+  color: rgb(240 249 255);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 22px -6px rgba(56, 189, 248, 0.32);
+}
+
+.overview-q-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  padding-left: 0.15rem;
+}
+
+.overview-q-btn {
+  min-width: 1.9rem;
+  padding: 0.22rem 0.4rem;
+  border-radius: 0.45rem;
+  border: 1px solid rgba(34, 211, 238, 0.32);
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.18) 0%, rgba(56, 189, 248, 0.08) 100%);
+  font-size: 0.68rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: rgb(207 250 254);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 10px -3px rgba(34, 211, 238, 0.22);
+}
+
+.overview-q-btn:hover {
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.3) 0%, rgba(56, 189, 248, 0.16) 100%);
+  border-color: rgba(103, 232, 249, 0.48);
+  color: rgb(236 254 255);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 16px -3px rgba(34, 211, 238, 0.38);
+}
+
+.overview-q-btn:focus-visible {
+  outline: 2px solid rgba(56, 189, 248, 0.55);
+  outline-offset: 2px;
+}
+
+.overview-q-btn-mcq {
+  border-color: rgba(167, 139, 250, 0.38);
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.22) 0%, rgba(167, 139, 250, 0.1) 100%);
+  color: rgb(237 233 254);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 10px -3px rgba(167, 139, 250, 0.25);
+}
+
+.overview-q-btn-mcq:hover {
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.34) 0%, rgba(167, 139, 250, 0.18) 100%);
+  border-color: rgba(196, 181, 253, 0.52);
+  color: rgb(245 243 255);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 16px -3px rgba(167, 139, 250, 0.38);
+}
+
+.overview-q-btn-mcq:focus-visible {
+  outline-color: rgba(167, 139, 250, 0.65);
+}
+
+.pdf-viewport-scroll:focus {
+  outline: none;
+}
+
+.pdf-viewport-scroll:focus-visible {
+  box-shadow: inset 0 0 0 2px rgba(34, 211, 238, 0.35);
+}
+
+.pdf-page-wrap {
+  position: relative;
+  flex-shrink: 0;
+  max-width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.pdf-page-wrap .textLayer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  opacity: 1;
+  line-height: 1;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.pdf-page-wrap .textLayer span {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0 0;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.pdf-page-wrap .textLayer br {
+  color: transparent;
+  position: absolute;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pdf-page-wrap .textLayer ::selection {
+  background: rgba(56, 189, 248, 0.38);
+  color: transparent;
+}
+
+.pdf-page-wrap .textLayer ::-moz-selection {
+  background: rgba(56, 189, 248, 0.38);
+  color: transparent;
+}
+
+.pdf-canvas,
+.pdf-canvas-page {
+  display: block;
+  position: relative;
+  z-index: 0;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.18),
+    0 6px 20px rgba(0, 0, 0, 0.42),
+    0 0 0 0.5px rgba(255, 255, 255, 0.05);
+}
+
+.pdf-canvas-page {
+  flex-shrink: 0;
+}
+
+.pdf-loading-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(8, 14, 30, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.pdf-loading-overlay.hidden {
+  display: none;
+}
+
+.pdf-empty-state {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: rgb(148 163 184);
+  font-size: 0.8rem;
+  background: rgba(8, 14, 30, 0.35);
+}
+
+.pdf-empty-state.hidden {
+  display: none;
+}
+
+body.preview-mode-active {
+  --preview-sticky-top: 5.25rem;
+}
+
+@media (max-width: 1023px) {
+  body.preview-mode-active:has(#pdf-tab-bar-wrap:not([hidden])) {
+    --preview-sticky-top: 6.75rem;
+  }
+}
+
+body.preview-mode-active #site-main {
+  max-width: none;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+body.preview-mode-active .site-header-inner.max-w-5xl {
+  max-width: none;
+}
+

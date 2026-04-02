@@ -1,0 +1,66 @@
+/* ─── Site access gate (login modal) ─────────────────────────────────────── */
+body.site-auth-locked {
+  overflow: hidden;
+}
+
+.site-auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(1, 4, 14, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.site-auth-panel {
+  width: 100%;
+  max-width: 22rem;
+  border-color: rgba(56, 189, 248, 0.18) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 28px 64px -12px rgba(0, 0, 0, 0.55),
+    0 0 48px -10px rgba(34, 211, 238, 0.14) !important;
+}
+
+/* Exam library: compact year / session rails */
+.lib-year-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lib-session-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lib-session-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .lib-session-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .lib-session-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .lib-session-cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+

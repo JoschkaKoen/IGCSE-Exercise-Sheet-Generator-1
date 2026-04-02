@@ -1,0 +1,210 @@
+/* ─── Site header (glass); PDF tabs share 2-col grid with main preview layout ─ */
+/* --header-glass-fill: 1 at PDF scroll top, lower while scrolling (set from index.html) */
+.site-header {
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: transparent;
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 14, 30, 0.58) 0%,
+    rgba(8, 14, 30, 0.42) 55%,
+    rgba(8, 14, 30, 0.35) 100%
+  );
+  opacity: var(--header-glass-fill, 1);
+  transition: opacity 0.35s ease;
+}
+
+.site-header-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Header wordmark: single line by default; stacked eyebrow + title in PDF preview */
+.site-header-brand-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  line-height: 1.15;
+}
+
+.site-header-brand-eyebrow {
+  display: none;
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(125, 211, 252, 0.78);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+}
+
+.site-header-brand-titles {
+  display: block;
+}
+
+.site-header-brand-title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.site-header-brand-title--default {
+  display: inline-block;
+}
+
+.site-header-brand-title--preview {
+  display: none;
+  font-size: 1.0625rem;
+  filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.28));
+}
+
+@media (min-width: 640px) {
+  .site-header-brand-title--preview {
+    font-size: 1.1875rem;
+  }
+}
+
+body.preview-mode-active:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-eyebrow {
+  display: block;
+}
+
+body.preview-mode-active:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-title--default {
+  display: none;
+}
+
+body.preview-mode-active:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-title--preview {
+  display: inline-block;
+}
+
+/* Wordmark block centered over the left column; text left-aligned inside the block */
+body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand-stack {
+  align-items: flex-start;
+  text-align: left;
+  width: max-content;
+  max-width: 100%;
+}
+
+.site-header-preview-col {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+  position: relative;
+  gap: 0.75rem;
+}
+
+.site-header-middle {
+  display: none;
+  flex: 1 1 auto;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-header-middle:has(#pdf-tab-bar-wrap:not([hidden])) {
+  display: flex;
+}
+
+@media (min-width: 1024px) {
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) {
+    display: grid;
+    grid-template-columns: minmax(0, 19rem) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand {
+    grid-column: 1;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-preview-col {
+    grid-column: 2;
+    position: relative;   /* anchor for absolutely-positioned nav */
+    margin-left: 0;
+    flex: unset;
+    width: 100%;
+    min-width: 0;
+    min-height: 2.75rem;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Middle stretches across the full preview column so the tab track centres
+     over the PDF pane, not just the space left after the nav. */
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-middle {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    width: 100%;
+  }
+
+  /* Nav floats at the right edge; doesn't consume layout space. */
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-nav {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1023px) {
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 1rem;
+    align-items: center;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-preview-col {
+    display: contents;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-nav {
+    grid-column: 2;
+    grid-row: 1;
+    margin-left: 0;
+  }
+
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-middle {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    flex: unset;
+    justify-content: stretch;
+    width: 100%;
+    min-width: 0;
+  }
+}
+
