@@ -429,6 +429,7 @@ def layout_vector_strips_to_pdf(
     header_label: str | None = None,
     *,
     paper_always_newpage: bool = False,
+    page_number_circle: bool = True,
 ) -> list[dict[str, Any]]:
     """Flow strips onto A4 pages and write a vector PDF.
 
@@ -445,6 +446,10 @@ def layout_vector_strips_to_pdf(
     from top of that page to the top of the question strip, in PDF points), and
     ``y_view_pt`` (PDF y to align with the viewport top when scrolling — includes the
     inline paper divider when one sits directly above the exercise).
+
+    *page_number_circle* (default ``True``) draws a thin circle around the bold
+    centred page number at the bottom of each page.  Set to ``False`` to show the
+    number without any enclosing shape.
     """
     hl = (header_label or "").strip() or None
 
@@ -692,11 +697,25 @@ def layout_vector_strips_to_pdf(
 
     # Add bold centred page numbers at the bottom of every page.
     _pagenum_fs = _LABEL_FS
+    _pagenum_pad_x = 4.0   # horizontal clearance between text and circle edge
+    _pagenum_pad_y = 2.5   # vertical clearance above baseline / below cap-height
     for pg in out_doc:
         label = str(pg.number + 1)
         w = fitz.get_text_length(label, fontname="hebo", fontsize=_pagenum_fs)
         x = (A4_WIDTH_PT - w) / 2
         baseline_y = A4_HEIGHT_PT - _MARGIN_PT
+        # Draw the thin circle *before* the text so the text sits on top.
+        if page_number_circle:
+            cap_h = _pagenum_fs * 0.7   # approximate cap-height
+            cx = A4_WIDTH_PT / 2
+            cy = baseline_y - cap_h / 2
+            rx = w / 2 + _pagenum_pad_x
+            ry = cap_h / 2 + _pagenum_pad_y
+            r = max(rx, ry)             # use a circle (equal radii)
+            pg.draw_circle(
+                fitz.Point(cx, cy), r,
+                color=(0, 0, 0), fill=None, width=0.5,
+            )
         pg.insert_text(
             fitz.Point(x, baseline_y),
             label,
