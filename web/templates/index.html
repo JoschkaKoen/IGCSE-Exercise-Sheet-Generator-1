@@ -625,6 +625,7 @@
     var scaleH = fit.ch / vp1.height;
     var baseFit = Math.min(scaleW, scaleH) * 1.02;
     s.baseFit = baseFit;
+    var maxDispW = 0;
     for (var p = 1; p <= n; p++) {
       var page = await s.doc.getPage(p);
       var userScale = baseFit * s.zoom;
@@ -634,6 +635,7 @@
       pageWrap.className = 'pdf-page-wrap';
       var dispW = Math.floor(scaledVp.width / dpr);
       var dispH = Math.floor(scaledVp.height / dpr);
+      if (dispW > maxDispW) maxDispW = dispW;
       pageWrap.style.width = dispW + 'px';
       pageWrap.style.height = dispH + 'px';
       stack.appendChild(pageWrap);
@@ -675,6 +677,15 @@
       try {
         page.cleanup();
       } catch (cleanErr) {}
+    }
+    // Set stack width to max(contentWidth, maxDispW).
+    // - At normal zoom: maxDispW ≈ contentWidth → stack fills container → align-items:center centres pages ✓
+    // - At high zoom:   maxDispW > contentWidth → stack overflows block container → scrollWidth > clientWidth ✓
+    // CSS min-content is not reliable for this in Safari/WebKit.
+    if (maxDispW > 0) {
+      var cs0 = getComputedStyle(scroll);
+      var contentW = scroll.clientWidth - (parseFloat(cs0.paddingLeft) || 0) - (parseFloat(cs0.paddingRight) || 0);
+      stack.style.width = Math.max(contentW, maxDispW) + 'px';
     }
     _zBaseZoom = s.zoom;
     stack.style.transform = '';
@@ -735,13 +746,21 @@
     await Promise.all(renderPromises);
 
     // Atomic DOM update: resize all wraps + swap rendered canvases in one frame
+    var reStack = pagesStackEl(id);
     return new Promise(function (resolve) {
       requestAnimationFrame(function () {
+        var maxDimW = 0;
         for (var i = 0; i < s.pages.length; i++) {
           s.pages[i].wrap.style.width = dims[i].w + 'px';
           s.pages[i].wrap.style.height = dims[i].h + 'px';
           s.pages[i].canvas.style.width = dims[i].w + 'px';
           s.pages[i].canvas.style.height = dims[i].h + 'px';
+          if (dims[i].w > maxDimW) maxDimW = dims[i].w;
+        }
+        if (maxDimW > 0 && reStack) {
+          var csR = getComputedStyle(scroll);
+          var cW = scroll.clientWidth - (parseFloat(csR.paddingLeft) || 0) - (parseFloat(csR.paddingRight) || 0);
+          reStack.style.width = Math.max(cW, maxDimW) + 'px';
         }
         for (var j = 0; j < swaps.length; j++) {
           var sw = swaps[j];
@@ -1306,7 +1325,13 @@
     if (!workspace.classList.contains('preview-mode')) return;
     var el = e.target;
     if (el && el.closest && (el.closest('textarea') || el.closest('input') || el.closest('[contenteditable="true"]'))) return;
-    if (!(e.ctrlKey || e.metaKey)) return;
+    if (!e.ctrlKey && !e.metaKey) {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        var sc = scrollEl(activePdfTabId());
+        if (sc) { e.preventDefault(); sc.scrollLeft += e.key === 'ArrowLeft' ? -40 : 40; }
+      }
+      return;
+    }
     if (e.key === '=' || e.key === '+') { e.preventDefault(); void zoomActivePdf(1.12); return; }
     if (e.key === '-' || e.key === '_') { e.preventDefault(); void zoomActivePdf(1 / 1.12); return; }
     if (e.key === '0') { e.preventDefault(); void resetActivePdfZoom(); return; }

@@ -339,6 +339,17 @@ _LABEL_TOP_PT = float(EXAM_LABEL_TOP_PT)  # distance from page top to the label 
 _LABEL_GAP_PT = 6.0                    # gap after the top-of-page header band → first exercise
 _INLINE_LABEL_GAP_PT = 6.0             # gap after an inline mid-page label → following exercise
 
+# Name field (left side of header band)
+_NAME_BOX_PAD_X  = 5.0   # left padding (start of "Name: " label)
+_NAME_BOX_SHIFT_X = 1.0  # extra offset to the right for write-in box only (gap after label)
+_NAME_BOX_W      = 90.0  # writeable box width in points
+_NAME_BOX_CORNER = 2.5   # desired corner radius in points (converted to relative inside draw)
+_NAME_BOX_PAD_Y  = 1.0   # vertical padding above/below text within the box
+
+# Actual Helvetica ascender / descender (in EM units, from fitz)
+_HELV_ASC = fitz.Font("helv").ascender        # ≈ 1.075
+_HELV_DSC = abs(fitz.Font("helv").descender)  # ≈ 0.299
+
 
 def _header_text(subject_label: str, paper_label: str | None) -> str:
     """Combine subject + paper into a single centred label."""
@@ -419,6 +430,62 @@ def _draw_inline_paper_label(out_page: fitz.Page, label: str, y: float) -> None:
     _draw_label(out_page, label, y)
 
 
+def _draw_name_box(out_page: fitz.Page) -> None:
+    """Draw 'Name: [___]' in the left portion of the top-of-page header band.
+
+    The text centre and the box centre are both placed exactly on the IGCSE
+    decorative line (the same y as the lines flanking the centred label).
+    Font metrics are taken from fitz so the positioning is exact regardless of
+    the chosen font size.
+    """
+    fs  = _LABEL_FS
+    x0  = _MARGIN_PT + _NAME_BOX_PAD_X   # ≈ 15 pt from left edge
+
+    # IGCSE decorative line sits at this y (same formula as _draw_label)
+    line_y = _LABEL_TOP_PT + _LABEL_BASELINE_OFF - _LABEL_FS * 0.35
+
+    # Actual ascender / descender for Helvetica at this font size
+    asc = _HELV_ASC * fs   # ≈ 9.68 pt  (above baseline)
+    dsc = _HELV_DSC * fs   # ≈ 2.69 pt  (below baseline)
+
+    # Baseline that places the optical midpoint of "Name:" on line_y.
+    # Full metric centering is (asc-dsc)/2, but "Name:" has no real
+    # descenders and the ascender metric includes diacritic headroom,
+    # so the text looks low — lift by 0.5 pt for optical balance.
+    baseline_y = line_y + (asc - dsc) / 2 - 0.5
+
+    # Box spans the full line-height + equal padding on each side
+    half_box = (asc + dsc) / 2 + _NAME_BOX_PAD_Y
+    box_y0   = line_y - half_box
+    box_y1   = line_y + half_box
+
+    label  = "Name: "
+    w_label = fitz.get_text_length(label, fontname="helv", fontsize=fs)
+    box_x0  = x0 + w_label + _NAME_BOX_SHIFT_X
+
+    # radius in draw_rect is relative [0, 1]: 1 = half the shorter side
+    half_h = (box_y1 - box_y0) / 2
+    rel_r  = min(_NAME_BOX_CORNER / half_h, 0.99)
+
+    # Erase the decorative line across the full label+box area
+    out_page.draw_rect(
+        fitz.Rect(_MARGIN_PT, box_y0, box_x0 + _NAME_BOX_W, box_y1),
+        color=(1, 1, 1), fill=(1, 1, 1), width=0,
+    )
+    # Draw the rounded write-in box
+    out_page.draw_rect(
+        fitz.Rect(box_x0, box_y0, box_x0 + _NAME_BOX_W, box_y1),
+        color=(0, 0, 0), fill=None, width=0.5,
+        radius=rel_r,
+    )
+    # "Name: " label — baseline derived so text is centred on line_y
+    out_page.insert_text(
+        fitz.Point(x0, baseline_y),
+        label,
+        fontsize=fs, fontname="helv", color=(0, 0, 0), render_mode=0,
+    )
+
+
 # ---------------------------------------------------------------------------
 # Layout engine
 # ---------------------------------------------------------------------------
@@ -430,6 +497,7 @@ def layout_vector_strips_to_pdf(
     *,
     paper_always_newpage: bool = False,
     page_number_circle: bool = True,
+    name_field: bool = False,
 ) -> list[dict[str, Any]]:
     """Flow strips onto A4 pages and write a vector PDF.
 
@@ -450,6 +518,10 @@ def layout_vector_strips_to_pdf(
     *page_number_circle* (default ``True``) draws a thin circle around the bold
     centred page number at the bottom of each page.  Set to ``False`` to show the
     number without any enclosing shape.
+
+    *name_field* (default ``False``) draws a ``Name: [___]`` label and rounded
+    write-in box in the top-left of every page's header band.  Enable for
+    exercise sheets; leave off for mark schemes.
     """
     hl = (header_label or "").strip() or None
 
@@ -480,12 +552,16 @@ def layout_vector_strips_to_pdf(
         pg = out_doc.new_page(width=A4_WIDTH_PT, height=A4_HEIGHT_PT)
         if has_header:
             _draw_header_line(pg, _header_text(hl or "", page_first_paper_label))
+            if name_field:
+                _draw_name_box(pg)
         return pg, initial_y_pt
 
     def redraw_header(pg: fitz.Page) -> None:
         _erase_header_band(pg)
         if has_header:
             _draw_header_line(pg, _header_text(hl or "", page_first_paper_label))
+            if name_field:
+                _draw_name_box(pg)
 
     current_page, y_cursor = new_page()
 

@@ -183,7 +183,7 @@ def run_extraction_jobs(
             raise ExtractionError("No matching questions found in any paper.")
 
         print(f"\nOutput: {output_pdf}")
-        exercise_anchors = layout_vector_strips_to_pdf(all_strips, output_pdf, page_header)
+        exercise_anchors = layout_vector_strips_to_pdf(all_strips, output_pdf, page_header, name_field=True)
 
         out_path = Path(output_pdf)
         answers_path = out_path.parent / f"{out_path.stem}_answers{out_path.suffix}"
