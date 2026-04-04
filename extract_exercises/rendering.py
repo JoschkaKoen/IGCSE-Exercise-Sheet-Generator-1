@@ -690,6 +690,22 @@ def layout_vector_strips_to_pdf(
                     current_page.draw_rect(mapped, fill=(1,1,1), color=(1,1,1))
             y_cursor += sh
 
+    # Add bold centred page numbers at the bottom of every page.
+    _pagenum_fs = _LABEL_FS
+    for pg in out_doc:
+        label = str(pg.number + 1)
+        w = fitz.get_text_length(label, fontname="hebo", fontsize=_pagenum_fs)
+        x = (A4_WIDTH_PT - w) / 2
+        baseline_y = A4_HEIGHT_PT - _MARGIN_PT
+        pg.insert_text(
+            fitz.Point(x, baseline_y),
+            label,
+            fontsize=_pagenum_fs,
+            fontname="hebo",
+            color=(0, 0, 0),
+            render_mode=0,
+        )
+
     print(f"  Assembling {len(out_doc)} output page(s)...")
     out_doc.save(output_path, deflate=True, garbage=4)
     out_doc.close()
