@@ -11,6 +11,12 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  /* One inset + radius for “Download all” (.dl-hero) and row cards (.dl-card) */
+  --dl-row-pad-block: 0.75rem;
+  --dl-row-pad-inline: 1rem;
+  --dl-row-radius: 0.8125rem;
+  /* Space between label column and icon buttons (not drawn from padding-inline). */
+  --dl-card-column-gap: 0.75rem;
 }
 
 /* Cap the result panel box in column layout so it doesn't feel oversized */
@@ -74,6 +80,15 @@
   transform: translateX(100%);
 }
 
+/* Shared box model: hero + row cards (padding matches on all four sides). */
+.result-download-inner > .dl-hero,
+.result-download-inner > .dl-card {
+  box-sizing: border-box;
+  padding-block: var(--dl-row-pad-block);
+  padding-inline: var(--dl-row-pad-inline);
+  border-radius: var(--dl-row-radius);
+}
+
 /* ─── Download hero (primary "Download all" action) ───────────────────── */
 .dl-hero {
   display: flex;
@@ -81,8 +96,6 @@
   justify-content: center;
   gap: 0.6rem;
   width: 100%;
-  padding: 0.85rem 1rem;
-  border-radius: 0.85rem;
   border: 1px solid rgba(34, 211, 238, 0.42);
   background: linear-gradient(
     145deg,
@@ -139,11 +152,13 @@
 
 /* ─── Download card (exercise sheet / mark scheme rows) ───────────────── */
 .dl-card {
-  display: flex;
+  /* Grid keeps label | actions aligned so inset to the outer border is uniform
+     (flex + space-between can shift perceived gaps on the icon side). */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.6rem 0.75rem;
-  border-radius: 0.75rem;
+  column-gap: var(--dl-card-column-gap);
+  width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: linear-gradient(180deg, rgba(15, 28, 52, 0.55) 0%, rgba(8, 14, 30, 0.4) 100%);
   transition:
@@ -197,8 +212,10 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
+  min-width: 0;
   font-size: 0.7rem;
   font-weight: 600;
+  line-height: 1.25;
   color: rgb(148 163 184);
   pointer-events: none;
 }
@@ -221,7 +238,14 @@
   filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.35));
 }
 
-.dl-card-actions { display: flex; gap: 0.35rem; }
+.dl-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+}
 
 /* ─── Download icon buttons (layout variants: 1-up, 2-up, 4-up) ──────── */
 .dl-icon-btn {

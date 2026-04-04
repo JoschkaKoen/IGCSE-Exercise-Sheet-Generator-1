@@ -213,6 +213,7 @@
 
 /* Pause decorative animations in background tabs */
 html.doc-background-paused .space-aurora,
+html.doc-background-paused .space-stars,
 html.doc-background-paused .space-stars::after,
 html.doc-background-paused .form-glow::before,
 html.doc-background-paused .hero-icon {
