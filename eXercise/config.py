@@ -16,7 +16,7 @@ from pathlib import Path
 # Paths (filesystem)
 # ---------------------------------------------------------------------------
 
-# Directory that contains this repo (the "Exercise Sheet Generator" folder).
+# Directory that contains this repo (the project root, e.g. the ``eXercise`` folder).
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # Default folder for generated PDFs; natural-language mode also uses timestamped

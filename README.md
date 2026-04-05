@@ -1,4 +1,4 @@
-# IGCSE Exercise Sheet Generator
+# eXercise
 
 ## Screenshots
 
@@ -36,7 +36,7 @@ The **Dockerfile** installs `texlive-extra-utils`, `texlive-latex-extra`, and `t
 ## Setup
 
 ```bash
-cd "/path/to/Exercise Sheet Generator"
+cd "/path/to/eXercise"
 python3 -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
@@ -117,7 +117,7 @@ The site is **not** started automatically—you must keep a terminal open with U
 Run a local browser UI (same natural-language flow as the one-argument CLI: prompt → generated PDFs, plus an exam library page for bundled PDFs):
 
 ```bash
-cd "/path/to/Exercise Sheet Generator"
+cd "/path/to/eXercise"
 source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn web.app:app --reload --host 127.0.0.1 --port 8001

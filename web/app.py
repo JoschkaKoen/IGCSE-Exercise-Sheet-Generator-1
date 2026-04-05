@@ -39,7 +39,7 @@ PACKAGE_DIR = Path(__file__).resolve().parent
 TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
 STATIC_DIR = PACKAGE_DIR / "static"
 
-app = FastAPI(title="Exercise Sheet Generator")
+app = FastAPI(title="eXercise")
 store = JobStore()
 
 if STATIC_DIR.is_dir():

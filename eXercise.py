@@ -4,7 +4,7 @@
 Entry point for the exercise extractor (implementation lives in the ``eXercise`` package).
 
 Environment (recommended):
-    cd "/path/to/Exercise Sheet Generator"
+    cd "/path/to/eXercise"
     python3 -m venv .venv
     .venv/bin/pip install -r requirements.txt
     source .venv/bin/activate
