@@ -8,9 +8,9 @@ from itertools import groupby
 from pathlib import Path
 from typing import Any
 
-from extract_exercises.natural_language import resolve_natural_language
-from extract_exercises.output_paths import resolve_output_path_fresh, set_run_command
-from extract_exercises.pipeline import run_extraction_jobs
+from eXercise.natural_language import resolve_natural_language
+from eXercise.output_paths import resolve_output_path_fresh, set_run_command
+from eXercise.pipeline import run_extraction_jobs
 
 
 def run_nl_prompt(
@@ -99,7 +99,7 @@ def _library_grouped_blocks(subject_key: str, names: list[str]) -> list[dict[str
     """
     from urllib.parse import quote
 
-    from extract_exercises.labels import (
+    from eXercise.labels import (
         library_pdf_display_name,
         library_pdf_group_meta,
     )
@@ -135,8 +135,8 @@ def _library_grouped_blocks(subject_key: str, names: list[str]) -> list[dict[str
 
 def list_library_pdfs() -> dict[str, list[dict[str, Any]]]:
     """Scan bundled exam dirs; nested year → session → file rows for the library page."""
-    from extract_exercises.config import EXAM_ROOT_BY_KEY
-    from extract_exercises.labels import library_pdf_sort_key
+    from eXercise.config import EXAM_ROOT_BY_KEY
+    from eXercise.labels import library_pdf_sort_key
 
     out: dict[str, list[dict[str, Any]]] = {}
     for key, root in EXAM_ROOT_BY_KEY.items():

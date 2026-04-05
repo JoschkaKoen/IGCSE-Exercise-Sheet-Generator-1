@@ -2,7 +2,7 @@
 """
 IGCSE question-paper extraction: raster regions, layout to PDF, optional mark schemes.
 
-Use the CLI via ``python extract_exercises.py`` or ``python -m extract_exercises``.
+Use the CLI via ``python eXercise.py`` or ``python -m eXercise``.
 """
 
 from .labels import (

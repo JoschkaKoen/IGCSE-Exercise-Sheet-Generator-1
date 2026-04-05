@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from extract_exercises.env_load import load_project_env
+from eXercise.env_load import load_project_env
 
 load_project_env()
 
@@ -18,9 +18,9 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
-from extract_exercises.config import EXAM_ROOT_BY_KEY
-from extract_exercises.exceptions import ExtractionUserError
-from extract_exercises.natural_language import MAX_NATURAL_LANGUAGE_INSTRUCTION_CHARS
+from eXercise.config import EXAM_ROOT_BY_KEY
+from eXercise.exceptions import ExtractionUserError
+from eXercise.natural_language import MAX_NATURAL_LANGUAGE_INSTRUCTION_CHARS
 
 from .auth_gate import (
     EXPECTED_CODE,

@@ -12,7 +12,7 @@ Extract chosen questions from Cambridge-style IGCSE question papers (PDF) and la
 
 - **Python 3.10+** (3.12+ recommended)
 - **Python packages:** `pip install -r requirements.txt` (see file header for what each line is for)
-- **Exam PDFs** for natural-language mode: bundled under `exams/physics/`, `exams/computer_science/`, and `exams/mathematics/` (see `exams/README.md`). Override paths in `extract_exercises/config.py` if you keep papers elsewhere.
+- **Exam PDFs** for natural-language mode: bundled under `exams/physics/`, `exams/computer_science/`, and `exams/mathematics/` (see `exams/README.md`). Override paths in `eXercise/config.py` if you keep papers elsewhere.
 - **LLM API key** for natural-language mode (see [Configuration](#configuration)); the code uses the OpenAI Python client against **xAI’s** OpenAI-compatible endpoint by default.
 
 ### System dependencies (optional features)
@@ -21,7 +21,7 @@ These are **not** installed via pip. If they are missing, the pipeline still run
 
 | Feature | Needs | Notes |
 |--------|--------|--------|
-| **MCQ explanations** (LaTeX PDF block) | `pdflatex` + TeX packages used in `extract_exercises/mcq_explanations.py` (`article`, `geometry`, `enumitem`, `booktabs`, `lmodern`, etc.) | Without TeX: explanations fall back to plain text. |
+| **MCQ explanations** (LaTeX PDF block) | `pdflatex` + TeX packages used in `eXercise/mcq_explanations.py` (`article`, `geometry`, `enumitem`, `booktabs`, `lmodern`, etc.) | Without TeX: explanations fall back to plain text. |
 | **2-up / 4-up exercise PDFs** | `pdfjam` on `PATH` | On **Debian/Ubuntu Docker** this comes from **`texlive-extra-utils`**. On bare Ubuntu, if `pdfjam` is missing from your mirror, add an official `universe` source or install `texlive-extra-utils`. |
 
 **Ubuntu (host, not Docker)** — typical install:
@@ -44,7 +44,7 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Environment variables are loaded in this order (see `extract_exercises/env_load.py`):
+Environment variables are loaded in this order (see `eXercise/env_load.py`):
 
 1. **`default.env`** (committed) — safe defaults such as `AI_PROVIDER` and `DISABLE_LOGIN`. Does not override variables already set in the process environment.
 2. **`.env`** at the project root (gitignored) — API keys and any overrides. Wins over `default.env` for keys it defines.
@@ -94,20 +94,20 @@ Query overrides (same truthy/falsey strings): `?disable_login=0` forces the gate
 **Natural language** (one quoted sentence):
 
 ```bash
-python extract_exercises.py "Winter 2024 Physics paper 21, questions 12–14, include mark scheme"
+python eXercise.py "Winter 2024 Physics paper 21, questions 12–14, include mark scheme"
 ```
 
 **Legacy** (explicit PDFs and question numbers):
 
 ```bash
-python extract_exercises.py /path/to/qp.pdf output.pdf 12 13 14
-python extract_exercises.py /path/to/qp.pdf output.pdf 12-14 --ms /path/to/ms.pdf
+python eXercise.py /path/to/qp.pdf output.pdf 12 13 14
+python eXercise.py /path/to/qp.pdf output.pdf 12-14 --ms /path/to/ms.pdf
 ```
 
 **Module invocation**:
 
 ```bash
-python -m extract_exercises --help
+python -m eXercise --help
 ```
 
 ## Web UI
@@ -130,7 +130,7 @@ Open [http://127.0.0.1:8001](http://127.0.0.1:8001) (use the same port as in the
 **Programmatic**:
 
 ```python
-from extract_exercises import run_extraction_jobs
+from eXercise import run_extraction_jobs
 
 run_extraction_jobs(
     [{"input_pdf": "...", "questions": [1, 2], "mark_scheme_pdf": "..."}],
@@ -165,8 +165,8 @@ After **code** changes: `git pull` on the server, then `docker compose up -d --b
 
 | Path | Role |
 |------|------|
-| `extract_exercises.py` | Thin CLI entry point |
-| `extract_exercises/` | Package: config, question detection, vector PDF layout, mark schemes, NL resolver, pipeline |
+| `eXercise.py` | Thin CLI entry point |
+| `eXercise/` | Package: config, question detection, vector PDF layout, mark schemes, NL resolver, pipeline |
 | `web/` | FastAPI app, templates, and static assets for the local web UI |
 | `exams/physics/`, `exams/computer_science/`, `exams/mathematics/` | Bundled question paper & mark scheme PDFs for NL mode |
 | `fonts/lmroman10-*.otf` | Latin Modern Roman (LaTeX `lmodern` text) for raster labels; see `fonts/README.md` |

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Allow ``python -m extract_exercises``."""
+"""Allow ``python -m eXercise``."""
 
 from .cli import main
 

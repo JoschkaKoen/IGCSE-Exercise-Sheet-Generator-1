@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Entry point for the exercise extractor (implementation lives in the ``extract_exercises`` package).
+Entry point for the exercise extractor (implementation lives in the ``eXercise`` package).
 
 Environment (recommended):
     cd "/path/to/Exercise Sheet Generator"
@@ -14,8 +14,8 @@ Environment (recommended):
     source .venv/bin/activate && uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
     
 Usage:
-    python extract_exercises.py "Winter 2024 Physics paper 21, questions 12–14, include mark scheme"
-    python extract_exercises.py <input_pdf> <output_pdf> <question_numbers...> [--ms <mark_scheme.pdf>]
+    python eXercise.py "Winter 2024 Physics paper 21, questions 12–14, include mark scheme"
+    python eXercise.py <input_pdf> <output_pdf> <question_numbers...> [--ms <mark_scheme.pdf>]
 
 Web UI (local browser; keep the terminal open while using it):
     source .venv/bin/activate
@@ -25,10 +25,10 @@ Web UI (local browser; keep the terminal open while using it):
     # If binding fails with "Address already in use", try another port (e.g. 8002);
     # port 8000 is often taken by Docker on macOS.
 
-See ``extract_exercises/__init__.py`` and module docstrings for behaviour details.
+See ``eXercise/__init__.py`` and module docstrings for behaviour details.
 """
 
-from extract_exercises.cli import main
+from eXercise.cli import main
 
 if __name__ == "__main__":
     main()

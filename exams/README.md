@@ -8,6 +8,6 @@ These directories hold Cambridge-style IGCSE PDFs used by **natural-language** m
 | `computer_science/` | IGCSE Computer Science (0478) question papers and mark schemes |
 | `mathematics/` | IGCSE Mathematics (0580) question papers and mark schemes |
 
-Paths are configured in `extract_exercises/config.py` as `EXAM_ROOT_BY_KEY` (`physics`, `computer_science`, `mathematics`).
+Paths are configured in `eXercise/config.py` as `EXAM_ROOT_BY_KEY` (`physics`, `computer_science`, `mathematics`).
 
 **Licensing:** Past papers are © Cambridge University Press & Assessment. Use only in line with their terms; this repo stores them for personal/educational tooling convenience.
