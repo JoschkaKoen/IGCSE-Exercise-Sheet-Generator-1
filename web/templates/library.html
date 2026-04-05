@@ -89,34 +89,39 @@
     Newest years first; within each year, sessions M → W → S. Download or use the generator to extract questions.
   </p>
 
-  <!-- Controls -->
+  <!-- Controls: tab row scrolls horizontally on narrow screens; buttons must not shrink (mobile tap targets). -->
   <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-    <div class="flex rounded-2xl border border-white/[0.09] bg-white/[0.04] p-1 backdrop-blur-sm"
-         role="tablist" aria-label="Subject">
-      <button type="button" id="tab-physics"
-              class="tab-btn rounded-xl px-5 py-2.5 text-sm font-medium tab-active"
-              data-subject="physics">
-        <span class="flex items-center gap-2">
-          <span class="h-2 w-2 rounded-full bg-cyan-400"></span>
-          Physics
-        </span>
-      </button>
-      <button type="button" id="tab-cs"
-              class="tab-btn rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-              data-subject="computer_science">
-        <span class="flex items-center gap-2">
-          <span class="h-2 w-2 rounded-full bg-violet-400"></span>
-          Computer Science
-        </span>
-      </button>
-      <button type="button" id="tab-math"
-              class="tab-btn rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-              data-subject="mathematics">
-        <span class="flex items-center gap-2">
-          <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-          Mathematics
-        </span>
-      </button>
+    <div class="min-w-0 w-full sm:w-auto lib-subject-tab-scroll">
+      <div class="flex w-max max-w-none rounded-2xl border border-white/[0.09] bg-white/[0.04] p-1 backdrop-blur-sm"
+           role="tablist" aria-label="Subject">
+        <button type="button" id="tab-physics"
+                class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-active"
+                data-subject="physics"
+                role="tab" aria-selected="true" aria-controls="grid-physics">
+          <span class="flex items-center gap-2 whitespace-nowrap">
+            <span class="h-2 w-2 shrink-0 rounded-full bg-cyan-400"></span>
+            Physics
+          </span>
+        </button>
+        <button type="button" id="tab-cs"
+                class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                data-subject="computer_science"
+                role="tab" aria-selected="false" aria-controls="grid-cs">
+          <span class="flex items-center gap-2 whitespace-nowrap">
+            <span class="h-2 w-2 shrink-0 rounded-full bg-violet-400"></span>
+            Computer Science
+          </span>
+        </button>
+        <button type="button" id="tab-math"
+                class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                data-subject="mathematics"
+                role="tab" aria-selected="false" aria-controls="grid-math">
+          <span class="flex items-center gap-2 whitespace-nowrap">
+            <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
+            Mathematics
+          </span>
+        </button>
+      </div>
     </div>
     <label class="flex flex-1 items-center gap-3 rounded-2xl border border-white/[0.09]
                   bg-slate-950/50 px-4 py-2.5 sm:max-w-xs transition
@@ -166,6 +171,7 @@
     activeSubject = subject;
     tabs.forEach(function (t) {
       var isActive = t.subject === subject;
+      t.el.setAttribute('aria-selected', isActive ? 'true' : 'false');
       if (isActive) {
         t.el.classList.remove('tab-inactive');
         t.el.classList.add(t.activeClass);
@@ -203,7 +209,13 @@
   }
 
   tabs.forEach(function (t) {
-    t.el.addEventListener('click', function () { setTab(t.subject); });
+    var go = function () { setTab(t.subject); };
+    t.el.addEventListener('click', go);
+    /* Touch / pen: pointerup is more reliable than click on some mobile browsers when layout is tight. */
+    t.el.addEventListener('pointerup', function (e) {
+      if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
+      go();
+    });
   });
   search.addEventListener('input', filterCards);
   search.addEventListener('search', filterCards);

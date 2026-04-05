@@ -103,6 +103,11 @@
   transition: all 0.2s ease;
 }
 
+.tab-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(34, 211, 238, 0.15);
+}
+
 .tab-inactive {
   color: rgb(148 163 184);
   transition: all 0.2s ease;
