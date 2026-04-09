@@ -606,7 +606,11 @@
     return { cw: cw, ch: ch };
   }
 
-  async function renderPdfContinuous(id) {
+  // reuseBaseFit: when true, keep s.baseFit as-is instead of re-measuring from
+  // the scroll container.  Pass true for zoom-triggered re-renders so that
+  // scrollbar appearance/disappearance at low zoom levels cannot change the
+  // measured container width and produce a visible page-size jump.
+  async function renderPdfContinuous(id, reuseBaseFit) {
     var s = getPdfState(id);
     if (!s.doc) return;
     var scroll = scrollEl(id);
@@ -622,16 +626,21 @@
     var frag = document.createDocumentFragment();
     var newPages = [];
     var pdfjs = await ensurePdfJs();
-    var fit = _computeBaseFit(s, id);
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     s.dpr = dpr;
     var n = s.doc.numPages;
-    var page1 = await s.doc.getPage(1);
-    var vp1 = page1.getViewport({ scale: 1 });
-    var scaleW = fit.cw / vp1.width;
-    var scaleH = fit.ch / vp1.height;
-    var baseFit = Math.min(scaleW, scaleH) * 1.02;
-    s.baseFit = baseFit;
+    var baseFit;
+    if (reuseBaseFit && s.baseFit && s.baseFit !== 1) {
+      baseFit = s.baseFit;
+    } else {
+      var fit = _computeBaseFit(s, id);
+      var page1 = await s.doc.getPage(1);
+      var vp1 = page1.getViewport({ scale: 1 });
+      var scaleW = fit.cw / vp1.width;
+      var scaleH = fit.ch / vp1.height;
+      baseFit = Math.min(scaleW, scaleH) * 1.02;
+      s.baseFit = baseFit;
+    }
     var maxDispW = 0;
     for (var p = 1; p <= n; p++) {
       var page = await s.doc.getPage(p);
@@ -718,16 +727,21 @@
     var scroll = scrollEl(id);
     if (!scroll) return s.zoom;
     var targetZoom = s.zoom;
-    var userScale = s.baseFit * targetZoom;
+    var dpr = s.dpr || Math.min(window.devicePixelRatio || 1, 2);
+    // Render at full DPR so bg-render quality matches the settle full render —
+    // no second visible sharpening step when the settle fires.
+    var renderScale = s.baseFit * targetZoom * dpr;
+    var cssScale   = s.baseFit * targetZoom;        // layout / CSS size (no DPR)
 
-    // Compute dims instantly from stored base viewport sizes — no async getPage loop
+    // Compute pixel dims instantly from stored native viewport sizes.
     var dims = [];
     for (var i = 0; i < s.pages.length; i++) {
       var pg = s.pages[i];
-      dims.push({ w: Math.floor(pg.vpW * s.baseFit * targetZoom), h: Math.floor(pg.vpH * s.baseFit * targetZoom) });
+      dims.push({ w: Math.floor(pg.vpW * renderScale), h: Math.floor(pg.vpH * renderScale),
+                  cssW: pg.wrap.style.width, cssH: pg.wrap.style.height });
     }
 
-    // Render visible pages to offscreen canvases (parallel, DPR=1 for speed)
+    // Render visible pages to offscreen canvases in parallel.
     var scrollTop = scroll.scrollTop;
     var scrollBot = scrollTop + scroll.clientHeight;
     var swaps = [];  // [{idx, canvas}]
@@ -740,11 +754,14 @@
       (function (idx, dim) {
         renderPromises.push(
           s.doc.getPage(s.pages[idx].pageNum).then(function (page) {
-            var vp = page.getViewport({ scale: userScale });
+            var vp = page.getViewport({ scale: renderScale });
             var offCanvas = document.createElement('canvas');
             offCanvas.className = 'pdf-canvas pdf-canvas-page';
             offCanvas.width = dim.w;
             offCanvas.height = dim.h;
+            // CSS size matches wrap exactly — no layout shift on swap.
+            offCanvas.style.width  = dim.cssW;
+            offCanvas.style.height = dim.cssH;
             var ctx = offCanvas.getContext('2d', { alpha: false });
             if (!ctx) return;
             ctx.fillStyle = '#ffffff';
@@ -758,16 +775,12 @@
     }
     await Promise.all(renderPromises);
 
-    // Atomic swap: always apply, even if zoom drifted slightly during render.
-    // Set each canvas's CSS size to the current wrap size so there's no layout mismatch.
+    // Atomic swap: CSS sizes are already set to match the wraps exactly.
     return new Promise(function (resolve) {
       requestAnimationFrame(function () {
         for (var j = 0; j < swaps.length; j++) {
           var sw = swaps[j];
           var pg = s.pages[sw.idx];
-          // CSS display size = current wrap size (zoom may have drifted slightly during render)
-          sw.canvas.style.width  = Math.floor(s.pages[sw.idx].vpW * s.baseFit * s.zoom) + 'px';
-          sw.canvas.style.height = Math.floor(s.pages[sw.idx].vpH * s.baseFit * s.zoom) + 'px';
           pg.wrap.replaceChild(sw.canvas, pg.canvas);
           pg.canvas = sw.canvas;
         }
@@ -1359,7 +1372,7 @@
       _zSettleTimer = setTimeout(function () {
         _zSettleTimer = null;
         _zBaseZoom = s.zoom;
-        renderPdfContinuous(id);
+        renderPdfContinuous(id, true);  // reuseBaseFit: keep page sizes stable
       }, 150);
     }, { passive: false });
   }
