@@ -1277,7 +1277,22 @@
        gesture settles a final full-quality render with text layers runs. */
     var _zBgTimer = null;         // background quality refresh schedule
     var _zBgRendering = false;    // true while an offscreen render is in flight
+    var _zBgPending = false;      // zoom changed while a render was in flight
     var _zSettleTimer = null;     // debounce for final full render
+    function _scheduleBgRender(id) {
+      if (_zBgRendering) { _zBgPending = true; return; }
+      if (_zBgTimer) clearTimeout(_zBgTimer);
+      _zBgTimer = setTimeout(function () {
+        _zBgTimer = null;
+        _zBgRendering = true;
+        _zBgPending = false;
+        rerenderPdfZoomBuffered(id).then(function (renderedAt) {
+          _zBgRendering = false;
+          _zBaseZoom = renderedAt;
+          if (_zBgPending) { _zBgPending = false; _scheduleBgRender(id); }
+        }).catch(function () { _zBgRendering = false; });
+      }, 16);
+    }
     pdfPane.addEventListener('wheel', function (e) {
       if (!e.ctrlKey && !e.metaKey) return;
       e.preventDefault();
@@ -1337,24 +1352,15 @@
       // Restore scroll: map focal point through new centering gap
       scroll.scrollLeft = focalX * ratio + newGap - cursorVpX;
       scroll.scrollTop  = focalY * ratio - cursorVpY;
-      // Schedule a background double-buffered render to swap in crisp canvases
-      if (!_zBgTimer && !_zBgRendering) {
-        _zBgTimer = setTimeout(function () {
-          _zBgTimer = null;
-          _zBgRendering = true;
-          rerenderPdfZoomBuffered(id).then(function (renderedAt) {
-            _zBgRendering = false;
-            _zBaseZoom = renderedAt;
-          }).catch(function () { _zBgRendering = false; });
-        }, 120);
-      }
-      // Debounce full hi-dpi + text layer render for when gesture ends
+      // Fire a background double-buffered render every ~16 ms during the gesture.
+      _scheduleBgRender(id);
+      // Debounce full hi-dpi + text layer render for when gesture ends.
       if (_zSettleTimer) clearTimeout(_zSettleTimer);
       _zSettleTimer = setTimeout(function () {
         _zSettleTimer = null;
         _zBaseZoom = s.zoom;
         renderPdfContinuous(id);
-      }, 500);
+      }, 150);
     }, { passive: false });
   }
 
