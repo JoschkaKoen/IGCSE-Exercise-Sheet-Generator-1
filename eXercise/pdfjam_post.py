@@ -21,15 +21,20 @@ _NF_LINE_Y  = 24.85   # y of the horizontal decoration line
 _NF_LINE_X0 = 18.0    # left start (= OUTPUT_MARGIN_PT + line pad = 10 + 8)
 _NF_LINE_W  = 0.5     # stroke width in 1-up (scaled with the sub-page below)
 
+# Width (pt) of the separator lines drawn between sub-pages.
+_SEP_LINE_W = 1.0
+
 
 def _fix_nup_name_fields(pdf_path: Path, cols: int, rows: int) -> None:
-    """Remove the name field from sub-pages 2, 3, 4, … and restore the IGCSE line.
+    """Remove duplicate name fields, restore the IGCSE line, and draw sub-page separators.
 
     In the 1-up source every page carries the name field.  After pdfjam tiles
     those pages the name field appears in every sub-page.  This function:
       • covers the name-field area with white in sub-pages 2+ (erases name box)
       • redraws the IGCSE decorative line through that same band so only the
         name box disappears — the line itself is seamlessly restored.
+      • draws separator lines between sub-pages (vertical column boundaries and
+        horizontal row boundaries) so no outer border is needed from pdfjam.
     Sub-page 1 (top-left, col=0 row=0) is left untouched.
     """
     try:
@@ -39,24 +44,30 @@ def _fix_nup_name_fields(pdf_path: Path, cols: int, rows: int) -> None:
 
     doc = fitz.open(str(pdf_path))
     for pg in doc:
-        slot_w = pg.rect.width  / cols
-        slot_h = pg.rect.height / rows
+        pw = pg.rect.width
+        ph = pg.rect.height
+        slot_w = pw / cols
+        slot_h = ph / rows
         sx = slot_w / _SRC_W
         sy = slot_h / _SRC_H
         lw = _NF_LINE_W * min(sx, sy)   # scale line width with the sub-page
+
+        # Erase duplicate name fields and restore IGCSE lines first, then draw
+        # separators last so they are always painted on top.
         for row in range(rows):
             for col in range(cols):
                 if row == 0 and col == 0:
                     continue  # keep sub-page 1 intact
                 ox = col * slot_w
                 oy = row * slot_h
-                # 1. Erase the name-field area with white
+                # 1. Erase the name-field area with white (no stroke so the border
+                #    doesn't bleed onto the separator line)
                 pg.draw_rect(
                     fitz.Rect(
                         ox + _NF_X0 * sx, oy + _NF_Y0 * sy,
                         ox + _NF_X1 * sx, oy + _NF_Y1 * sy,
                     ),
-                    fill=(1, 1, 1), color=(1, 1, 1), width=0,
+                    fill=(1, 1, 1), color=None, width=0,
                 )
                 # 2. Restore the IGCSE decorative line across the erased band
                 ly  = oy + _NF_LINE_Y  * sy
@@ -66,19 +77,31 @@ def _fix_nup_name_fields(pdf_path: Path, cols: int, rows: int) -> None:
                     fitz.Point(lx0, ly), fitz.Point(lx1, ly),
                     color=(0, 0, 0), width=lw,
                 )
+
+        # Draw separator lines between sub-pages as filled rectangles (crisp,
+        # no anti-aliasing artefacts from stroked paths) painted last so they
+        # are never partially covered by page content.
+        half = _SEP_LINE_W / 2
+        for c in range(1, cols):
+            x = c * slot_w
+            pg.draw_rect(fitz.Rect(x - half, 0, x + half, ph),
+                         fill=(0, 0, 0), color=None, width=0)
+        for r in range(1, rows):
+            y = r * slot_h
+            pg.draw_rect(fitz.Rect(0, y - half, pw, y + half),
+                         fill=(0, 0, 0), color=None, width=0)
+
     doc.save(str(pdf_path), incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
     doc.close()
 
 
 def run_exercise_sheet_pdfjam_variants(
     exercise_pdf: Path | str,
-    *,
-    frame_2up: bool = True,
 ) -> None:
     """Create 4-up (2×2) and 2-up landscape (2×1) siblings next to the exercise PDF.
 
-    *frame_2up* controls whether the 2-up variant is built with ``--frame true``.
-    Set to ``False`` to omit the separator line between the two pages.
+    Both variants are built with ``--frame false``; separator lines between
+    sub-pages are drawn in post-processing by ``_fix_nup_name_fields``.
 
     Requires ``pdfjam`` on ``PATH`` (TeX Live / MacTeX).  Failures are logged; extraction
     still succeeds without these files.
@@ -120,7 +143,7 @@ def run_exercise_sheet_pdfjam_variants(
             "--nup",
             "2x2",
             "--frame",
-            "true",
+            "false",
             "--scale",
             "1.0",
             "--outfile",
@@ -142,7 +165,7 @@ def run_exercise_sheet_pdfjam_variants(
             "--paper",
             "a4paper",
             "--frame",
-            "true" if frame_2up else "false",
+            "false",
             "--scale",
             "1.0",
             "--outfile",

@@ -612,8 +612,15 @@
     var scroll = scrollEl(id);
     var stack = pagesStackEl(id);
     if (!scroll || !stack) return;
-    stack.innerHTML = '';
-    s.pages = [];
+    // Save scroll position so we can restore it proportionally after re-render.
+    var _savedScrollTop  = scroll.scrollTop;
+    var _savedScrollLeft = scroll.scrollLeft;
+    var _oldScrollH = scroll.scrollHeight;
+    var _oldScrollW = scroll.scrollWidth;
+    // Build all new pages OFFSCREEN in a DocumentFragment so the visible
+    // stack is never empty — avoids the flash/jump to top-left.
+    var frag = document.createDocumentFragment();
+    var newPages = [];
     var pdfjs = await ensurePdfJs();
     var fit = _computeBaseFit(s, id);
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -638,7 +645,7 @@
       if (dispW > maxDispW) maxDispW = dispW;
       pageWrap.style.width = dispW + 'px';
       pageWrap.style.height = dispH + 'px';
-      stack.appendChild(pageWrap);
+      frag.appendChild(pageWrap);
       var canvas = document.createElement('canvas');
       canvas.className = 'pdf-canvas pdf-canvas-page';
       canvas.width = Math.floor(scaledVp.width);
@@ -646,7 +653,7 @@
       canvas.style.width = dispW + 'px';
       canvas.style.height = dispH + 'px';
       pageWrap.appendChild(canvas);
-      s.pages.push({ wrap: pageWrap, canvas: canvas, pageNum: p });
+      newPages.push({ wrap: pageWrap, canvas: canvas, pageNum: p, vpW: cssVp.width / userScale, vpH: cssVp.height / userScale });
       var ctx = canvas.getContext('2d', { alpha: false });
       if (!ctx) continue;
       ctx.fillStyle = '#ffffff';
@@ -678,14 +685,23 @@
         page.cleanup();
       } catch (cleanErr) {}
     }
+    // Atomic DOM swap: clear old content and append new in one frame
+    stack.innerHTML = '';
+    stack.appendChild(frag);
+    s.pages = newPages;
     // Set stack width to max(contentWidth, maxDispW).
-    // - At normal zoom: maxDispW ≈ contentWidth → stack fills container → align-items:center centres pages ✓
-    // - At high zoom:   maxDispW > contentWidth → stack overflows block container → scrollWidth > clientWidth ✓
-    // CSS min-content is not reliable for this in Safari/WebKit.
     if (maxDispW > 0) {
       var cs0 = getComputedStyle(scroll);
       var contentW = scroll.clientWidth - (parseFloat(cs0.paddingLeft) || 0) - (parseFloat(cs0.paddingRight) || 0);
       stack.style.width = Math.max(contentW, maxDispW) + 'px';
+    }
+    // Restore scroll position scaled to the new content size, so the same
+    // part of the document stays in view after a zoom re-render.
+    if (_oldScrollH > scroll.clientHeight && scroll.scrollHeight > scroll.clientHeight) {
+      scroll.scrollTop  = _savedScrollTop  * (scroll.scrollHeight / _oldScrollH);
+    }
+    if (_oldScrollW > scroll.clientWidth  && scroll.scrollWidth  > scroll.clientWidth) {
+      scroll.scrollLeft = _savedScrollLeft * (scroll.scrollWidth  / _oldScrollW);
     }
     _zBaseZoom = s.zoom;
     stack.style.transform = '';
@@ -694,22 +710,21 @@
   }
 
   /** Double-buffered zoom render: renders visible pages to OFFSCREEN canvases,
-      then swaps them into the DOM atomically (no flicker).  Also resizes all
-      page wraps to the target zoom.  Returns the zoom level it rendered at. */
+      then swaps them into the DOM atomically (no flicker).
+      Returns the zoom level it rendered at. */
   async function rerenderPdfZoomBuffered(id) {
     var s = getPdfState(id);
-    if (!s.doc || !s.pages.length) return s.zoom;
+    if (!s.doc || !s.pages.length || !s.pages[0].vpW) return s.zoom;
     var scroll = scrollEl(id);
     if (!scroll) return s.zoom;
     var targetZoom = s.zoom;
     var userScale = s.baseFit * targetZoom;
 
-    // Compute new dimensions for every page (cheap – just viewport math)
+    // Compute dims instantly from stored base viewport sizes — no async getPage loop
     var dims = [];
     for (var i = 0; i < s.pages.length; i++) {
-      var page = await s.doc.getPage(s.pages[i].pageNum);
-      var vp = page.getViewport({ scale: userScale });
-      dims.push({ w: Math.floor(vp.width), h: Math.floor(vp.height) });
+      var pg = s.pages[i];
+      dims.push({ w: Math.floor(pg.vpW * s.baseFit * targetZoom), h: Math.floor(pg.vpH * s.baseFit * targetZoom) });
     }
 
     // Render visible pages to offscreen canvases (parallel, DPR=1 for speed)
@@ -722,16 +737,14 @@
       var top = pg.wrap.offsetTop;
       var bot = top + pg.wrap.offsetHeight;
       if (bot < scrollTop - 200 || top > scrollBot + 200) continue;
-      (function (idx, pg, dim) {
+      (function (idx, dim) {
         renderPromises.push(
-          s.doc.getPage(pg.pageNum).then(function (page) {
+          s.doc.getPage(s.pages[idx].pageNum).then(function (page) {
             var vp = page.getViewport({ scale: userScale });
             var offCanvas = document.createElement('canvas');
             offCanvas.className = 'pdf-canvas pdf-canvas-page';
             offCanvas.width = dim.w;
             offCanvas.height = dim.h;
-            offCanvas.style.width = dim.w + 'px';
-            offCanvas.style.height = dim.h + 'px';
             var ctx = offCanvas.getContext('2d', { alpha: false });
             if (!ctx) return;
             ctx.fillStyle = '#ffffff';
@@ -741,30 +754,20 @@
             });
           })
         );
-      })(i, pg, dims[i]);
+      })(i, dims[i]);
     }
     await Promise.all(renderPromises);
 
-    // Atomic DOM update: resize all wraps + swap rendered canvases in one frame
-    var reStack = pagesStackEl(id);
+    // Atomic swap: always apply, even if zoom drifted slightly during render.
+    // Set each canvas's CSS size to the current wrap size so there's no layout mismatch.
     return new Promise(function (resolve) {
       requestAnimationFrame(function () {
-        var maxDimW = 0;
-        for (var i = 0; i < s.pages.length; i++) {
-          s.pages[i].wrap.style.width = dims[i].w + 'px';
-          s.pages[i].wrap.style.height = dims[i].h + 'px';
-          s.pages[i].canvas.style.width = dims[i].w + 'px';
-          s.pages[i].canvas.style.height = dims[i].h + 'px';
-          if (dims[i].w > maxDimW) maxDimW = dims[i].w;
-        }
-        if (maxDimW > 0 && reStack) {
-          var csR = getComputedStyle(scroll);
-          var cW = scroll.clientWidth - (parseFloat(csR.paddingLeft) || 0) - (parseFloat(csR.paddingRight) || 0);
-          reStack.style.width = Math.max(cW, maxDimW) + 'px';
-        }
         for (var j = 0; j < swaps.length; j++) {
           var sw = swaps[j];
           var pg = s.pages[sw.idx];
+          // CSS display size = current wrap size (zoom may have drifted slightly during render)
+          sw.canvas.style.width  = Math.floor(s.pages[sw.idx].vpW * s.baseFit * s.zoom) + 'px';
+          sw.canvas.style.height = Math.floor(s.pages[sw.idx].vpH * s.baseFit * s.zoom) + 'px';
           pg.wrap.replaceChild(sw.canvas, pg.canvas);
           pg.canvas = sw.canvas;
         }
@@ -1268,10 +1271,10 @@
   }
 
   if (pdfPane) {
-    /* Smooth pinch-to-zoom: CSS transform gives instant, flicker-free visual
-       feedback.  Periodically an offscreen double-buffered render swaps in
-       crisp canvases at the current zoom without any visible flash.  When the
-       gesture settles, a final full-quality render with text layers runs. */
+    /* Smooth pinch-to-zoom: instantly resizes page wraps and stretches canvases
+       to give immediate layout-correct feedback (scroll positions stay natural).
+       A background double-buffered render swaps in crisp canvases, and when the
+       gesture settles a final full-quality render with text layers runs. */
     var _zBgTimer = null;         // background quality refresh schedule
     var _zBgRendering = false;    // true while an offscreen render is in flight
     var _zSettleTimer = null;     // debounce for final full render
@@ -1280,17 +1283,60 @@
       e.preventDefault();
       var id = activePdfTabId();
       var s = getPdfState(id);
-      if (!s.doc || !s.pages.length) return;
+      if (!s.doc || !s.pages.length || !s.pages[0].vpW) return;
+      var scroll = scrollEl(id);
       var stack = pagesStackEl(id);
-      if (!stack) return;
+      if (!scroll || !stack) return;
       var dy = e.deltaY;
       if (e.deltaMode === 1) dy *= 16;
-      // Update logical zoom proportionally
+      var oldZoom = s.zoom;
       s.zoom = clampZoom(s.zoom * Math.pow(2, -dy / 100));
-      // Instant CSS-transform feedback (GPU-composited, zero flicker)
-      var cssScale = s.zoom / _zBaseZoom;
-      stack.style.transformOrigin = 'top center';
-      stack.style.transform = 'scale(' + cssScale + ')';
+      var ratio = s.zoom / oldZoom;
+      if (Math.abs(ratio - 1) < 1e-6) return;
+
+      // --- Read phase (single reflow) ---
+      var rect = scroll.getBoundingClientRect();
+      var cursorVpX = e.clientX - rect.left;
+      var cursorVpY = e.clientY - rect.top;
+      var oldScrollL = scroll.scrollLeft;
+      var oldScrollT = scroll.scrollTop;
+      var cs = getComputedStyle(scroll);
+      var contentW = scroll.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+
+      // --- Compute phase (no DOM access) ---
+      var bf = s.baseFit;
+      var oldMaxW = 0, newMaxW = 0;
+      var newDims = [];
+      for (var i = 0; i < s.pages.length; i++) {
+        var pg = s.pages[i];
+        var ow = Math.floor(pg.vpW * bf * oldZoom);
+        if (ow > oldMaxW) oldMaxW = ow;
+        var nw = Math.floor(pg.vpW * bf * s.zoom);
+        var nh = Math.floor(pg.vpH * bf * s.zoom);
+        newDims.push({ w: nw, h: nh });
+        if (nw > newMaxW) newMaxW = nw;
+      }
+      var oldStackW = Math.max(contentW, oldMaxW);
+      var newStackW = Math.max(contentW, newMaxW);
+      // Centering gap: pages are centered in stack via align-items:center
+      var oldGap = Math.max(0, (oldStackW - oldMaxW) / 2);
+      var newGap = Math.max(0, (newStackW - newMaxW) / 2);
+      // Focal point in page-content coords (strip centering offset)
+      var focalX = oldScrollL + cursorVpX - oldGap;
+      var focalY = oldScrollT + cursorVpY;
+
+      // --- Write phase (no layout reads, batch all writes) ---
+      for (var i = 0; i < s.pages.length; i++) {
+        var pg = s.pages[i], d = newDims[i];
+        pg.wrap.style.width = d.w + 'px';
+        pg.wrap.style.height = d.h + 'px';
+        pg.canvas.style.width = d.w + 'px';
+        pg.canvas.style.height = d.h + 'px';
+      }
+      stack.style.width = newStackW + 'px';
+      // Restore scroll: map focal point through new centering gap
+      scroll.scrollLeft = focalX * ratio + newGap - cursorVpX;
+      scroll.scrollTop  = focalY * ratio - cursorVpY;
       // Schedule a background double-buffered render to swap in crisp canvases
       if (!_zBgTimer && !_zBgRendering) {
         _zBgTimer = setTimeout(function () {
@@ -1299,13 +1345,6 @@
           rerenderPdfZoomBuffered(id).then(function (renderedAt) {
             _zBgRendering = false;
             _zBaseZoom = renderedAt;
-            // Adjust CSS transform for any zoom change during the render
-            var remaining = s.zoom / _zBaseZoom;
-            if (Math.abs(remaining - 1) < 0.003) {
-              stack.style.transform = '';
-            } else {
-              stack.style.transform = 'scale(' + remaining + ')';
-            }
           }).catch(function () { _zBgRendering = false; });
         }, 120);
       }
@@ -1314,10 +1353,8 @@
       _zSettleTimer = setTimeout(function () {
         _zSettleTimer = null;
         _zBaseZoom = s.zoom;
-        stack.style.transform = '';
-        stack.style.transformOrigin = '';
         renderPdfContinuous(id);
-      }, 20);
+      }, 500);
     }, { passive: false });
   }
 
