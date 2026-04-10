@@ -394,8 +394,10 @@ For each question return exactly 3 concise bullet-point explanations.
 Rules:
 {subject_hint}
 {gemini_brevity}
-- Write in clear, plain English suitable for non-native English speakers (IGCSE, age 14–16). Use simple, everyday vocabulary — avoid difficult or academic words like "substitute", "perpendicular", "negligible", "exerts", "inversely proportional" when a simpler phrase works (e.g. "plug in", "at right angles", "very small", "pushes/pulls", "as one goes up the other goes down"). Do not dumb the language down to a childish level — just keep it natural and accessible.
-- Each bullet is 1–2 sentences maximum.
+- Write in clear, plain English suitable for non-native English speakers (IGCSE, age 14–16). Use simple, everyday vocabulary — avoid difficult or academic words  when a simpler phrase works. Avoid academic and difficult words for non native grade 10 students. 
+- Each bullet is short and concise (and clear).
+- The goal is to explain to the students the correct answer so they can understand the correct answer as well and as easy as possible. 
+- The explanation should be easy to read and understand. 
 - Explain WHY the correct answer is right; briefly dismiss the most tempting distractor.
 - Some questions include an image of diagrams or figures extracted from the exam paper. Use the image to understand visual content (circuit diagrams, graphs, answer-option diagrams labelled A–D, etc.) that the plain text alone cannot convey.
 - Do NOT restate the question text. Do NOT say "the answer is X" — explain the reasoning.
@@ -749,6 +751,9 @@ def finalize_mcq_explanation_strips(
     print(f"  Received explanations for {n_expl}/{len(job_data.answered)} question(s).")
 
     tex = build_explanation_latex(job_data.qs, job_data.answers, explanations, job_data.paper_label)
+
+    tex_file_path = job_data.expl_pdf_path.with_suffix(".tex")
+    tex_file_path.write_text(tex, encoding="utf-8")
 
     print("  Compiling LaTeX…")
     success = compile_latex(tex, job_data.expl_pdf_path)
