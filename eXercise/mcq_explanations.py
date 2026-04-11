@@ -93,6 +93,17 @@ _SUBJECT_HINTS: dict[str, str] = {
         "Use LaTeX $...$ only for mathematical sub-expressions. "
         "Explain logic and algorithms in plain English, not code."
     ),
+    "biology": (
+        "Use precise biological terminology. "
+        "Use LaTeX $...$ only for mathematical sub-expressions (e.g. magnification calculations). "
+        "Explain processes and mechanisms in clear, concise biological terms — no unnecessary jargon."
+    ),
+    "chemistry": (
+        "Use correct chemical notation: write formulae in \\ce{...} using the mhchem package "
+        "(e.g. \\ce{H2O}, \\ce{CO2}, \\ce{NaCl}). "
+        "Use LaTeX $...$ for numerical expressions and equations (e.g. $M_r$, $\\Delta H$). "
+        "Name compounds and state symbols where relevant."
+    ),
 }
 
 _DEFAULT_SUBJECT_HINT = (
@@ -446,6 +457,8 @@ _SUBJECT_TITLES: dict[str, str] = {
     "physics": "Physics",
     "mathematics": "Mathematics",
     "computer_science": "Computer Science",
+    "biology": "Biology",
+    "chemistry": "Chemistry",
 }
 
 
@@ -998,6 +1011,7 @@ def build_explanation_latex(
 \usepackage[T1]{{fontenc}}
 \usepackage[a4paper, top=0cm, bottom=1.1cm, left=1.2cm, right=1.5cm]{{geometry}}
 \usepackage{{amsmath, amssymb}}
+\usepackage[version=4]{{mhchem}}
 \usepackage{{array}}
 \usepackage{{booktabs}}
 \usepackage[shortlabels]{{enumitem}}
