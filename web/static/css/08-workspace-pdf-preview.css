@@ -78,51 +78,52 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
   justify-self: center;
 }
 
-/* ─── Ranking button ────────────────────────────────────────────────────── */
+/* ─── Ranking button — styled like the back button ────────────────────── */
 /* Absolutely positioned: halfway between back button and center sliders. */
 .pdf-tab-ranking-btn {
   position: absolute;
   left: calc(2rem + 10%);
   top: 50%;
   transform: translateY(-50%);
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.25rem;
-  padding: 0.18rem 0.44rem 0.18rem 0.34rem;
+  padding: 0.3rem 0.5rem;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  background: rgba(255, 255, 255, 0.04);
-  color: rgb(100 116 139);
-  font-size: 0.74rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgb(148 163 184);
+  font-size: 0.70rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: transparent;
-  outline: none !important;
-  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease, box-shadow 0.22s ease;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
 }
 
 .pdf-tab-ranking-btn svg {
   display: block;
-  width: 1.04rem;
-  height: 1.04rem;
+  width: 1.12rem;
+  height: 1.12rem;
   flex-shrink: 0;
 }
 
 .pdf-tab-ranking-btn:hover:not(:disabled) {
-  border-color: rgba(251, 146, 60, 0.38);
-  background: rgba(251, 146, 60, 0.07);
-  color: rgb(253 186 116);
-  box-shadow: 0 0 12px -4px rgba(251, 146, 60, 0.25);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.09);
+  color: rgb(226 232 240);
+}
+
+.pdf-tab-ranking-btn:active:not(:disabled) {
+  background: rgba(255, 255, 255, 0.13);
 }
 
 .pdf-tab-ranking-btn[aria-selected="true"] {
-  border-color: rgba(251, 146, 60, 0.22);
-  background: rgba(251, 146, 60, 0.06);
-  color: rgb(100 116 139);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.09);
+  color: rgb(226 232 240);
 }
 
 .pdf-tab-ranking-btn:disabled {
@@ -130,16 +131,8 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
   cursor: not-allowed;
 }
 
-/* Kill ALL browser focus/active decoration */
-.pdf-tab-ranking-btn:focus,
-.pdf-tab-ranking-btn:active,
-.pdf-tab-ranking-btn:-moz-focusring {
-  outline: none !important;
-  box-shadow: none;
-}
-
 .pdf-tab-ranking-btn:focus-visible {
-  outline: 2px solid rgba(251, 146, 60, 0.5);
+  outline: 2px solid rgba(34, 211, 238, 0.45);
   outline-offset: 2px;
 }
 
