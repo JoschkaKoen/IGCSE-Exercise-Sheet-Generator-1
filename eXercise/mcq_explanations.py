@@ -38,16 +38,16 @@ if TYPE_CHECKING:
 
 try:
     from .ai_client import (
+        build_thinking_kwargs,
         collect_streamed_response,
-        is_thinking_provider,
         make_ai_client,
     )
     _AI_CLIENT_AVAILABLE = True
 except ImportError:
     make_ai_client = None  # type: ignore[assignment]
 
-    def is_thinking_provider(provider: str) -> bool:  # type: ignore[misc]
-        return False
+    def build_thinking_kwargs(provider: str, effort: str | None) -> tuple[bool, dict]:  # type: ignore[misc]
+        return False, {}
 
     def collect_streamed_response(stream: Any) -> str:  # type: ignore[misc]
         return ""
@@ -569,6 +569,7 @@ def generate_mcq_explanations(
     exam_key: str | None,
     q_images: dict[int, str] | None = None,
     provider: str = "",
+    effort: str | None = None,
 ) -> dict[int, list[str]]:
     """Call the AI once for all questions; return ``{qnum: [bullet, bullet, bullet]}``.
 
@@ -586,19 +587,21 @@ def generate_mcq_explanations(
         q_texts, answers, questions_with_answers, q_images or {},
     )
 
+    use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
+
     def _call(**kwargs: Any) -> tuple[str, str | None]:
         """Return (content, finish_reason)."""
         msgs = [
             {"role": "system", "content": system},
             {"role": "user", "content": user_content},
         ]
-        if is_thinking_provider(provider):
+        if use_stream:
             stream = client.chat.completions.create(
                 model=model,
                 max_tokens=16384,
                 messages=msgs,
                 stream=True,
-                extra_body={"enable_thinking": True},
+                **thinking_kw,
                 **kwargs,
             )
             text = collect_streamed_response(stream)
@@ -607,6 +610,7 @@ def generate_mcq_explanations(
             model=model,
             max_tokens=16384,
             messages=msgs,
+            **thinking_kw,
             **kwargs,
         )
         choice = completion.choices[0]
@@ -728,7 +732,7 @@ def batch_generate_mcq_explanations(
     client_model = _load_ai_client()
     if client_model is None:
         return [{} for _ in papers]
-    client, model, provider = client_model
+    client, model, provider, effort = client_model
 
     total_qs = sum(len(p.answered) for p in papers)
     print(
@@ -742,6 +746,7 @@ def batch_generate_mcq_explanations(
             paper.q_texts, paper.answers, paper.answered, paper.exam_key,
             q_images=paper.q_images,
             provider=provider,
+            effort=effort,
         )
 
     results: list[dict[int, list[str]]] = [{} for _ in papers]
@@ -1149,8 +1154,8 @@ def _pdf_to_vector_strips(
 # ---------------------------------------------------------------------------
 
 
-def _load_ai_client() -> tuple[Any, str, str] | None:
-    """Load LLM client from environment; return (client, model, provider) or None."""
+def _load_ai_client() -> tuple[Any, str, str, str | None] | None:
+    """Load LLM client from environment; return (client, model, provider, effort) or None."""
     if not _AI_CLIENT_AVAILABLE or make_ai_client is None:
         print("  MCQ explanations: ai_client module unavailable.")
         return None
@@ -1158,7 +1163,7 @@ def _load_ai_client() -> tuple[Any, str, str] | None:
     load_project_env()
 
     # Resolution order: MCQ_MODEL → AI_MCQ_MODEL → AI_DEFAULT_MODEL → default.
-    # Provider is inferred automatically from the resolved model name.
+    # Provider and thinking effort are inferred from the resolved model string.
     result = make_ai_client(model_env="MCQ_MODEL", legacy_model_env="AI_MCQ_MODEL")
     if result is None:
         # API key missing for that model's provider; try the global AI_DEFAULT_MODEL.

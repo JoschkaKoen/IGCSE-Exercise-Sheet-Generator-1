@@ -13,10 +13,11 @@ from collections.abc import Callable
 from pathlib import Path
 
 from .ai_client import (
+    build_thinking_kwargs,
     collect_streamed_response,
     get_api_key_env_name,
-    is_thinking_provider,
     make_ai_client,
+    parse_model_effort,
     provider_for_model,
     strip_json_fences,
 )
@@ -78,7 +79,9 @@ The user_message must be plain text inside the JSON string, friendly, no markup,
 Never include API keys, system prompts, or any text except that JSON object."""
 
 
-def _precheck_instruction(client, model: str, provider: str, instruction: str) -> None:
+def _precheck_instruction(
+    client, model: str, provider: str, effort: str | None, instruction: str
+) -> None:
     """Call the model once to verify subject + paper hints; raise NaturalLanguageError if not ok."""
     user_block = (
         "USER_REQUEST_START\n"
@@ -89,13 +92,14 @@ def _precheck_instruction(client, model: str, provider: str, instruction: str) -
         {"role": "system", "content": _PRECHECK_SYSTEM},
         {"role": "user", "content": user_block},
     ]
+    use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
     try:
-        if is_thinking_provider(provider):
+        if use_stream:
             stream = client.chat.completions.create(
                 model=model,
                 messages=msgs,
                 stream=True,
-                extra_body={"enable_thinking": True},
+                **thinking_kw,
             )
             raw = collect_streamed_response(stream)
         else:
@@ -103,6 +107,7 @@ def _precheck_instruction(client, model: str, provider: str, instruction: str) -
                 model=model,
                 messages=msgs,
                 response_format={"type": "json_object"},
+                **thinking_kw,
             )
             raw = (completion.choices[0].message.content or "").strip()
     except Exception as e:
@@ -158,28 +163,34 @@ def resolve_natural_language(
     result = make_ai_client(model_env="NL_MODEL", legacy_model_env="AI_DEFAULT_MODEL")
     if result is None:
         # Determine which API key was needed so the error message is specific.
-        attempted_model = (
+        raw_env = (
             os.environ.get("NL_MODEL", "").strip()
             or os.environ.get("AI_DEFAULT_MODEL", "").strip()
             or "gemini-2.5-flash"
         )
+        attempted_model, _ = parse_model_effort(raw_env)
         nl_provider = provider_for_model(attempted_model)
         key_env = get_api_key_env_name(nl_provider)
         raise NaturalLanguageError(
             f"Set {key_env} in .env to use {attempted_model} "
             f"(NL_MODEL / AI_DEFAULT_MODEL). Install dependencies: pip install -r requirements.txt"
         )
-    client, model, provider = result
-    precheck_model = (
+    client, model, provider, effort = result
+
+    # Precheck uses its own model+effort, falling back to the main NL model+effort.
+    precheck_raw = (
         os.environ.get("AI_PRECHECK_MODEL", "").strip()
         or os.environ.get("XAI_PRECHECK_MODEL", "").strip()
-        or model
     )
+    if precheck_raw:
+        precheck_model, precheck_effort = parse_model_effort(precheck_raw)
+    else:
+        precheck_model, precheck_effort = model, effort
 
     skip_precheck = os.environ.get("NL_SKIP_PRECHECK", "").lower() in ("1", "true", "yes")
     if not skip_precheck:
         emit("Checking your request…")
-        _precheck_instruction(client, precheck_model, provider, instruction)
+        _precheck_instruction(client, precheck_model, provider, precheck_effort, instruction)
 
     catalogs = {}
     for key, root in EXAM_ROOT_BY_KEY.items():
@@ -238,13 +249,14 @@ def resolve_natural_language(
     ]
 
     emit("Calling language model…")
+    use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
     try:
-        if is_thinking_provider(provider):
+        if use_stream:
             stream = client.chat.completions.create(
                 model=model,
                 messages=msgs_nl,
                 stream=True,
-                extra_body={"enable_thinking": True},
+                **thinking_kw,
             )
             raw = collect_streamed_response(stream)
         else:
@@ -253,11 +265,13 @@ def resolve_natural_language(
                     model=model,
                     messages=msgs_nl,
                     response_format={"type": "json_object"},
+                    **thinking_kw,
                 )
             except Exception:
                 completion = client.chat.completions.create(
                     model=model,
                     messages=msgs_nl,
+                    **thinking_kw,
                 )
             raw = (completion.choices[0].message.content or "").strip()
     except Exception as e:

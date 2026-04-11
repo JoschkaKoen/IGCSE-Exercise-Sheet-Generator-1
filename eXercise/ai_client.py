@@ -16,20 +16,25 @@ xai  (model names starting with ``grok``)
     api_key  : XAI_API_KEY
     example  : grok-4-1-fast-non-reasoning, grok-3
 
-qwen  (model names starting with ``qwen``)
+    qwen  (model names starting with ``qwen``)
     base_url : https://dashscope.aliyuncs.com/compatible-mode/v1
     api_key  : DASHSCOPE_API_KEY
     example  : qwen3.6-plus, qwen3-32b
-    note     : Uses streaming with enable_thinking=True; call sites must use
-               collect_streamed_response() instead of reading message.content.
+    note     : Thinking on → streaming required; thinking off → non-streaming.
 
 Per-call-type model overrides
 ------------------------------
-Set a model name and the provider is picked automatically:
+Each env var accepts an optional thinking-effort suffix after a comma:
 
-    AI_DEFAULT_MODEL   fallback model when no per-call model is set (default: gemini-2.5-flash)
-    NL_MODEL           prompt interpretation  (overrides AI_DEFAULT_MODEL for this call)
-    MCQ_MODEL          AI explanation generation (overrides AI_DEFAULT_MODEL for this call)
+    AI_DEFAULT_MODEL=gemini-2.5-flash          # model only (provider default thinking)
+    NL_MODEL=gemini-2.5-flash, low             # model + effort
+    AI_PRECHECK_MODEL=gemini-2.5-flash-lite, off
+
+Accepted effort values:  off | low | high  (omit = provider default)
+
+    AI_DEFAULT_MODEL   fallback model (and effort) for all calls
+    NL_MODEL           prompt interpretation  (overrides AI_DEFAULT_MODEL)
+    MCQ_MODEL          AI explanation generation (overrides AI_DEFAULT_MODEL)
 
 Environment variables (API keys)
 ---------------------------------
@@ -65,10 +70,6 @@ _MODEL_PREFIXES: list[tuple[str, str]] = [
     ("qwen",   "qwen"),
 ]
 
-# Providers that use streaming with a reasoning/thinking phase.  Call sites
-# must use collect_streamed_response() instead of reading message.content.
-_THINKING_PROVIDERS: frozenset[str] = frozenset({"qwen"})
-
 # Fallback model when no model env var is set anywhere.
 _DEFAULT_MODEL = "gemini-2.5-flash"
 
@@ -85,30 +86,77 @@ def provider_for_model(model: str) -> str:
     return "gemini"
 
 
+def parse_model_effort(value: str) -> tuple[str, str | None]:
+    """Split ``"model-name, effort"`` into ``(model, effort)``.
+
+    If no comma is present, effort is ``None`` (provider default).
+    Accepted effort values: ``"off"``, ``"low"``, ``"high"``.
+    """
+    if "," in value:
+        model_part, effort_part = value.split(",", 1)
+        effort = effort_part.strip().lower() or None
+        if effort not in ("off", "low", "high"):
+            effort = None
+        return model_part.strip(), effort
+    return value.strip(), None
+
+
+def build_thinking_kwargs(provider: str, effort: str | None) -> tuple[bool, dict]:
+    """Return ``(use_stream, extra_kwargs)`` for ``client.chat.completions.create()``.
+
+    The caller should pass ``**extra_kwargs`` to ``create()`` and, when
+    ``use_stream`` is True, consume the response with
+    ``collect_streamed_response()`` instead of reading ``message.content``.
+
+    Effort mapping
+    --------------
+    Gemini  — ``reasoning_effort="none/low/high"`` top-level param.
+              ``off`` maps to ``"none"``.  ``None`` = provider default (no param).
+    Qwen    — ``extra_body={"enable_thinking": True/False}`` + streaming when on.
+              ``off`` disables thinking and switches to non-streaming mode.
+    Grok    — effort is silently ignored; always non-streaming.
+    """
+    if provider == "gemini":
+        if effort == "off":
+            return False, {"reasoning_effort": "none"}
+        if effort in ("low", "high"):
+            return False, {"reasoning_effort": effort}
+        return False, {}
+
+    if provider == "qwen":
+        if effort == "off":
+            return False, {"extra_body": {"enable_thinking": False}}
+        return True, {"extra_body": {"enable_thinking": True}}
+
+    # grok or unknown — no thinking params
+    return False, {}
+
+
 def make_ai_client(
     *,
     model_env: str = "AI_DEFAULT_MODEL",
     legacy_model_env: str = "XAI_MODEL",
     default_model: str | None = None,
-) -> tuple[Any, str, str] | None:
-    """Return ``(client, model_name, provider)`` or ``None`` if the API key is missing.
+) -> tuple[Any, str, str, str | None] | None:
+    """Return ``(client, model_name, provider, effort)`` or ``None`` if the API key is missing.
 
     Parameters
     ----------
     model_env:
-        Primary env var for model override (e.g. ``"NL_MODEL"``).
+        Primary env var for the model (e.g. ``"NL_MODEL"``).  May contain a
+        thinking-effort suffix: ``"gemini-2.5-flash, low"``.
     legacy_model_env:
         Fallback env var if *model_env* is unset (e.g. ``"AI_DEFAULT_MODEL"``).
     default_model:
-        Model to use when neither env var is set.  Defaults to
-        ``AI_DEFAULT_MODEL`` → ``_DEFAULT_MODEL``.
+        Model string (optionally with effort suffix) when neither env var is set.
+        Defaults to ``AI_DEFAULT_MODEL`` → ``_DEFAULT_MODEL``.
     """
     try:
         from openai import OpenAI
     except ImportError:
         return None
 
-    model = (
+    raw = (
         os.environ.get(model_env, "").strip()
         or os.environ.get(legacy_model_env, "").strip()
         or default_model
@@ -116,6 +164,7 @@ def make_ai_client(
         or _DEFAULT_MODEL
     )
 
+    model, effort = parse_model_effort(raw)
     provider = provider_for_model(model)
     cfg = _PROVIDERS[provider]
 
@@ -128,7 +177,7 @@ def make_ai_client(
     except Exception:
         return None
 
-    return client, model, provider
+    return client, model, provider, effort
 
 
 def strip_json_fences(raw: str) -> str:
@@ -157,15 +206,6 @@ def get_api_key_env_name(provider: str | None = None) -> str:
         os.environ.get("AI_DEFAULT_MODEL", "").strip() or _DEFAULT_MODEL
     )
     return _PROVIDERS[p]["api_key_env"]
-
-
-def is_thinking_provider(provider: str) -> bool:
-    """Return True when *provider* requires streaming + enable_thinking.
-
-    Call sites should use ``collect_streamed_response()`` instead of reading
-    ``completion.choices[0].message.content`` when this returns True.
-    """
-    return provider in _THINKING_PROVIDERS
 
 
 def collect_streamed_response(stream: Any) -> str:
