@@ -285,11 +285,17 @@ def _find_pdflatex() -> str | None:
     return shutil.which("pdflatex")
 
 
-def _compile_ranking_latex(tex_source: str, out_pdf: Path) -> bool:
+def _compile_ranking_latex(
+    tex_source: str, out_pdf: Path, save_tex: Path | None = None
+) -> bool:
     pdflatex = _find_pdflatex()
     if not pdflatex:
         print("  Skipping ranking PDF: pdflatex not found.")
         return False
+
+    if save_tex is not None:
+        save_tex.write_text(tex_source, encoding="utf-8")
+        print(f"  Saved TeX: {save_tex}")
 
     with tempfile.TemporaryDirectory(prefix="ranking_") as tmp:
         tmp_path = Path(tmp)
@@ -377,10 +383,15 @@ def generate_difficulty_ranking(
 
     tex = _generate_ranking_latex(ranking, name)
     dest = out_path / f"{name}_ranking.pdf"
+    save_tex = (
+        out_path / f"{name}_ranking.tex"
+        if os.environ.get("RANKING_SAVE_TEX", "").lower() in ("true", "1", "yes")
+        else None
+    )
 
     print("  Compiling ranking PDF…", flush=True)
     try:
-        ok = _compile_ranking_latex(tex, dest)
+        ok = _compile_ranking_latex(tex, dest, save_tex=save_tex)
     except Exception as exc:
         print(f"  Ranking: LaTeX compilation error: {exc}")
         return None
