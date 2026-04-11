@@ -130,18 +130,13 @@ Rules:
 - If a question has sub-parts (a, b, c) or sub-sub-parts (a(i), a(ii)), rank each
   part individually. If a question has no sub-parts, rank the whole question.
 - Always prefix the question number with "Q", e.g. "Q3b", "Q12a(i)", "Q7".
-- For multi-paper sheets, also prefix with the paper label before "Q":
+- Also prefix with the paper label before "Q":
   e.g. "w24/22 Q3b", "w24/12 Q5b(ii)".
-  For single-paper sheets, use just the "Q" identifier, e.g. "Q7a", "Q3".
 - Output ONLY a plain numbered list, one identifier per line. No prose, no headings.
-- Example output (multi-paper):
+- Example output:
   1. w24/22 Q10
   2. w24/12 Q5b(ii)
   3. w24/22 Q3b
-- Example output (single-paper):
-  1. Q12a(i)
-  2. Q7b
-  3. Q3\
 """
 
 
