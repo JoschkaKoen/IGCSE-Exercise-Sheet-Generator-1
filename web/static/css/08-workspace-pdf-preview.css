@@ -795,5 +795,6 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
    (09-overview.css caps .pdf-page-wrap at 100% which prevents overflow-x). */
 .pdf-viewport-scroll .pdf-page-wrap {
   max-width: none;
+  contain: layout style;
 }
 

@@ -508,16 +508,19 @@
   function getPdfState(id) {
     if (!pdfTabState[id]) pdfTabState[id] = {
       doc: null, zoom: 1, loadingTask: null,
-      baseFit: 1, dpr: 1, pages: []   // pages: [{wrap, canvas, pageNum}]
+      baseFit: 1, dpr: 1, pages: [],   // pages: [{wrap, canvas, pageNum, vpW, vpH, rendered, rendering}]
+      observer: null
     };
     return pdfTabState[id];
   }
 
   /** Drop canvas + text layer DOM for one tab; keeps PDF.js document in memory for instant tab switch. */
   function clearPdfSurfaces(id) {
+    var s = getPdfState(id);
+    if (s.observer) { s.observer.disconnect(); s.observer = null; }
     var stack = pagesStackEl(id);
     if (stack) stack.innerHTML = '';
-    getPdfState(id).pages = [];
+    s.pages = [];
   }
 
   /** Free GPU/RAM for all tabs except the active one (documents stay loaded). */
@@ -577,6 +580,7 @@
 
   async function destroyPdfTab(id) {
     var s = getPdfState(id);
+    if (s.observer) { s.observer.disconnect(); s.observer = null; }
     if (s.loadingTask) {
       try { s.loadingTask.destroy(); } catch (err) {}
       s.loadingTask = null;
@@ -611,6 +615,93 @@
   // the scroll container.  Pass true for zoom-triggered re-renders so that
   // scrollbar appearance/disappearance at low zoom levels cannot change the
   // measured container width and produce a visible page-size jump.
+  async function _renderSinglePage(id, pageIdx) {
+    var s = getPdfState(id);
+    var pg = s.pages[pageIdx];
+    if (!pg || pg.rendered || pg.rendering) return;
+    pg.rendering = true;
+    var pdfjs = await ensurePdfJs();
+    try {
+      var page = await s.doc.getPage(pg.pageNum);
+      var userScale = s.baseFit * s.zoom;
+      var cssVp = page.getViewport({ scale: userScale });
+      var scaledVp = page.getViewport({ scale: userScale * s.dpr });
+      if (!pg.canvasRendered) {
+        var ctx = pg.canvas.getContext('2d', { alpha: false });
+        if (ctx) {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, pg.canvas.width, pg.canvas.height);
+          var task = page.render({ canvasContext: ctx, viewport: scaledVp });
+          await task.promise;
+        }
+      }
+      if (pdfjs.TextLayer) {
+        try {
+          var textContent = await page.getTextContent();
+          var existingTl = pg.wrap.querySelector('.textLayer');
+          if (existingTl) existingTl.remove();
+          var textLayerDiv = document.createElement('div');
+          textLayerDiv.className = 'textLayer';
+          textLayerDiv.style.setProperty('--scale-factor', String(userScale));
+          pg.wrap.appendChild(textLayerDiv);
+          var tl = new pdfjs.TextLayer({
+            textContentSource: textContent,
+            container: textLayerDiv,
+            viewport: cssVp
+          });
+          await tl.render();
+        } catch (texErr) {
+          console.warn('PDF text layer failed', texErr);
+        }
+      }
+      try { page.cleanup(); } catch (cleanErr) {}
+      // Guard: only mark rendered if s.pages hasn't been replaced by a concurrent re-render
+      if (s.pages[pageIdx] === pg) pg.rendered = true;
+    } catch (err) {
+      console.error('PDF render failed', err);
+    } finally {
+      pg.rendering = false;
+    }
+  }
+
+  function _clearPageCanvas(id, pageIdx) {
+    var s = getPdfState(id);
+    var pg = s.pages[pageIdx];
+    if (!pg || !pg.rendered || pg.rendering) return;
+    var ctx = pg.canvas.getContext('2d', { alpha: false });
+    if (ctx) { ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, pg.canvas.width, pg.canvas.height); }
+    var tl = pg.wrap.querySelector('.textLayer');
+    if (tl) tl.remove();
+    pg.rendered = false;
+  }
+
+  function _setupPageObserver(id) {
+    var s = getPdfState(id);
+    if (s.observer) { s.observer.disconnect(); s.observer = null; }
+    var scroll = scrollEl(id);
+    if (!scroll || !s.pages.length) return;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var pageIdx = parseInt(entry.target.dataset.pageIdx, 10);
+        if (isNaN(pageIdx)) return;
+        var pg = s.pages[pageIdx];
+        if (!pg) return;
+        if (entry.isIntersecting && !pg.rendered && !pg.rendering) {
+          _renderSinglePage(id, pageIdx);
+        }
+      });
+    }, {
+      root: scroll,
+      rootMargin: '1500px 0px 1500px 0px',
+      threshold: 0
+    });
+    s.observer = obs;
+    s.pages.forEach(function (pg, idx) {
+      pg.wrap.dataset.pageIdx = String(idx);
+      obs.observe(pg.wrap);
+    });
+  }
+
   async function renderPdfContinuous(id, reuseBaseFit) {
     var s = getPdfState(id);
     if (!s.doc) return;
@@ -643,6 +734,7 @@
       s.baseFit = baseFit;
     }
     var maxDispW = 0;
+    var _canvasRenderPromises = [];
     for (var p = 1; p <= n; p++) {
       var page = await s.doc.getPage(p);
       var userScale = baseFit * s.zoom;
@@ -663,42 +755,26 @@
       canvas.style.width = dispW + 'px';
       canvas.style.height = dispH + 'px';
       pageWrap.appendChild(canvas);
-      newPages.push({ wrap: pageWrap, canvas: canvas, pageNum: p, vpW: cssVp.width / userScale, vpH: cssVp.height / userScale });
       var ctx = canvas.getContext('2d', { alpha: false });
-      if (!ctx) continue;
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      try {
-        var task = page.render({ canvasContext: ctx, viewport: scaledVp });
-        await task.promise;
-      } catch (err) {
-        console.error('PDF render failed', err);
+      if (ctx) {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Start all canvas renders immediately (pdf.js worker queues them).
+        // We await the full batch below before DOM swap so no page is ever white.
+        _canvasRenderPromises.push(page.render({ canvasContext: ctx, viewport: scaledVp }).promise);
       }
-      if (pdfjs.TextLayer) {
-        try {
-          var textContent = await page.getTextContent();
-          var textLayerDiv = document.createElement('div');
-          textLayerDiv.className = 'textLayer';
-          textLayerDiv.style.setProperty('--scale-factor', String(userScale));
-          pageWrap.appendChild(textLayerDiv);
-          var tl = new pdfjs.TextLayer({
-            textContentSource: textContent,
-            container: textLayerDiv,
-            viewport: cssVp
-          });
-          await tl.render();
-        } catch (texErr) {
-          console.warn('PDF text layer failed', texErr);
-        }
-      }
-      try {
-        page.cleanup();
-      } catch (cleanErr) {}
+      newPages.push({ wrap: pageWrap, canvas: canvas, pageNum: p,
+                      vpW: cssVp.width / userScale, vpH: cssVp.height / userScale,
+                      rendered: false, rendering: false, canvasRendered: false });
     }
-    // Atomic DOM swap: clear old content and append new in one frame
+    // Wait for every canvas to finish rendering before swapping into the DOM —
+    // guarantees the user never sees a white placeholder regardless of scroll speed.
+    if (_canvasRenderPromises.length) await Promise.all(_canvasRenderPromises);
+    for (var _ci = 0; _ci < newPages.length; _ci++) newPages[_ci].canvasRendered = true;
+    s.pages = newPages;
+    // Atomic DOM swap — all canvases fully rendered.
     stack.innerHTML = '';
     stack.appendChild(frag);
-    s.pages = newPages;
     // Set stack width to max(contentWidth, maxDispW).
     if (maxDispW > 0) {
       var cs0 = getComputedStyle(scroll);
@@ -716,6 +792,7 @@
     _zBaseZoom = s.zoom;
     stack.style.transform = '';
     stack.style.transformOrigin = '';
+    _setupPageObserver(id);
     updateHeaderGlassFromPdfScroll();
   }
 
@@ -1381,7 +1458,7 @@
         _zSettleTimer = null;
         _zBaseZoom = s.zoom;
         renderPdfContinuous(id, true);  // reuseBaseFit: keep page sizes stable
-      }, 150);
+      }, 50);
     }, { passive: false });
   }
 
