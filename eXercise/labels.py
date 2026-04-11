@@ -24,16 +24,18 @@ _SESSION_TITLE = {
     "s": "June session",
 }
 
-# Descriptive IGCSE Mathematics filenames (e.g. ``0580 Mathematics June 2023 Question Paper  21.pdf``).
+# Descriptive IGCSE filenames (e.g. ``0580 Mathematics June 2023 Question Paper  21.pdf``).
+# Also handles Biology (0610) and Chemistry (0620) which share the same naming scheme.
 _MONTH_TO_SESSION = {"march": "m", "june": "s", "november": "w"}
 _MATH_COMPONENT_ORDER = {"qp": 0, "ms": 1, "ci": 2, "gt": 3, "er": 4, "_": 9}
+_DESCRIPTIVE_SUBJECTS = r"(?:mathematics|biology|chemistry)"
 _MATH_DESCRIPTIVE = re.compile(
-    r"mathematics\s+(march|june|november)\s+(\d{4})\s+(.+?)\s+(\d+)\s*$",
+    rf"{_DESCRIPTIVE_SUBJECTS}\s+(march|june|november)\s+(\d{{4}})\s+(.+?)\s+(\d+)\s*$",
     re.IGNORECASE | re.DOTALL,
 )
 # ``… June 2024 Grade Thresholds`` / ``… November 2023 Examiner Report`` (no paper number).
 _MATH_GT_ER = re.compile(
-    r"mathematics\s+(march|june|november)\s+(\d{4})\s+(grade thresholds|examiner report)\s*$",
+    rf"{_DESCRIPTIVE_SUBJECTS}\s+(march|june|november)\s+(\d{{4}})\s+(grade thresholds|examiner report)\s*$",
     re.IGNORECASE,
 )
 
@@ -258,6 +260,8 @@ _SUBJECT_PREFIXES: dict[str, str] = {
     "physics": "Physics",
     "computer_science": "CS",
     "mathematics": "Maths",
+    "biology": "Biology",
+    "chemistry": "Chemistry",
 }
 
 
