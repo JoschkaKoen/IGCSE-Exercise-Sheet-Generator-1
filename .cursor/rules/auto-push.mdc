@@ -1,0 +1,10 @@
+---
+description: After making more than a few lines of changes, automatically stage, commit, and push to GitHub
+alwaysApply: true
+---
+
+# Auto-push after changes
+
+After completing any edit that spans more than a few lines, stage all modified files, commit with a concise message, and push to `origin main` — without waiting for the user to ask.
+
+Use `git add -u` to stage all tracked changes — this includes any modifications made earlier in the session that haven't been committed yet, not just the current edit. Do not stage untracked files unless the user explicitly asked for them.

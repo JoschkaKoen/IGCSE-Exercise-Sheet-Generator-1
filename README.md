@@ -1,39 +1,56 @@
 # eXercise
 
+Build printable exercise sheets from Cambridge-style IGCSE question papers (PDF). You describe what you want in plain English, or pass explicit file paths. The app can pull questions from bundled exam PDFs, optionally attach mark-scheme answers, and optionally generate short MCQ explanations with an LLM.
+
+---
+
+## What you get
+
+- **Natural language** — one sentence picks subject, session, paper, and question numbers; an LLM maps it to PDFs in your `exams/` folders.
+- **Legacy CLI** — point at any QP PDF, list question numbers, optional mark scheme path.
+- **Web UI** — same flows in the browser with a PDF preview (local dev server).
+- **Outputs** — a single exercise PDF per run; optional answers PDF; optional 2-up / 4-up variants when `pdfjam` is installed.
+
+---
+
 ## Screenshots
 
-Local web UI (**Generate** page at `http://127.0.0.1:8001`):
+Local web UI (**Generate** at `http://127.0.0.1:8001`):
 
 ![Generate page — natural language prompt and example buttons](screenshots/web-ui.png)
 
-Extract chosen questions from Cambridge-style IGCSE question papers (PDF) and lay them out into a single printable PDF. Optionally pull matching answers from a mark scheme PDF. Natural-language mode uses an LLM to pick papers and question numbers from your exam folders; legacy mode takes explicit paths.
+---
 
 ## Requirements
 
-- **Python 3.10+** (3.12+ recommended)
-- **Python packages:** `pip install -r requirements.txt` (see file header for what each line is for)
-- **Exam PDFs** for natural-language mode: bundled under `exams/physics/`, `exams/computer_science/`, and `exams/mathematics/` (see `exams/README.md`). Override paths in `eXercise/config.py` if you keep papers elsewhere.
-- **LLM API key** for natural-language mode (see [Configuration](#configuration)); the code uses the OpenAI Python client against **xAI’s** OpenAI-compatible endpoint by default.
+| | |
+|---|---|
+| **Python** | 3.10+ (3.12+ recommended) |
+| **Python deps** | `pip install -r requirements.txt` |
+| **Exam PDFs** | Under `exams/physics/`, `exams/computer_science/`, `exams/mathematics/` (see [`exams/README.md`](exams/README.md)). Paths are configurable in `eXercise/config.py`. |
+| **LLM** | For natural-language mode and MCQ explanations: an API key for at least one provider below (see [Configuration](#configuration)). |
 
-### System dependencies (optional features)
+### Optional system tools
 
-These are **not** installed via pip. If they are missing, the pipeline still runs but some outputs are skipped or simplified.
+If missing, the app still runs; some features are skipped or simplified.
 
-| Feature | Needs | Notes |
-|--------|--------|--------|
-| **MCQ explanations** (LaTeX PDF block) | `pdflatex` + TeX packages used in `eXercise/mcq_explanations.py` (`article`, `geometry`, `enumitem`, `booktabs`, `lmodern`, etc.) | Without TeX: explanations fall back to plain text. |
-| **2-up / 4-up exercise PDFs** | `pdfjam` on `PATH` | On **Debian/Ubuntu Docker** this comes from **`texlive-extra-utils`**. On bare Ubuntu, if `pdfjam` is missing from your mirror, add an official `universe` source or install `texlive-extra-utils`. |
+| Feature | Needs |
+|--------|--------|
+| **MCQ explanations** (nice PDF blocks) | `pdflatex` + TeX packages used in `eXercise/mcq_explanations.py` |
+| **2-up / 4-up sheets** | `pdfjam` on `PATH` (e.g. Debian/Ubuntu: `texlive-extra-utils`) |
 
-**Ubuntu (host, not Docker)** — typical install:
+**Ubuntu example:**
 
 ```bash
 sudo apt update
 sudo apt install -y texlive-latex-extra texlive-fonts-extra texlive-extra-utils
 ```
 
-The **Dockerfile** installs `texlive-extra-utils`, `texlive-latex-extra`, and `texlive-fonts-extra` so the container has `pdflatex` and `pdfjam` without extra host steps.
+The **Dockerfile** installs TeX packages so containers get `pdflatex` and `pdfjam` without extra host setup.
 
-## Setup
+---
+
+## Quick setup
 
 ```bash
 cd "/path/to/eXercise"
@@ -42,92 +59,112 @@ source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+Copy `.env.example` to `.env` and add your API keys (see below). Non-secret defaults live in **`default.env`** (committed).
+
+---
+
 ## Configuration
 
-Environment variables are loaded in this order (see `eXercise/env_load.py`):
+### Where settings live
 
-1. **`default.env`** (committed) — safe defaults such as `AI_PROVIDER` and `DISABLE_LOGIN`. Does not override variables already set in the process environment.
-2. **`.env`** at the project root (gitignored) — API keys and any overrides. Wins over `default.env` for keys it defines.
-3. **`.env`** in the current working directory (if different from the project root).
+1. **`default.env`** — safe defaults (models, login flags). Does not override variables already set in the process environment.
+2. **`.env`** at the project root (gitignored) — **secrets** (API keys) and machine-specific overrides. Wins over `default.env` for keys it defines.
 
-Copy `.env.example` to `.env` and add **only API keys and other secrets**. Behaviour flags (`AI_PROVIDER`, `DISABLE_LOGIN`, optional model overrides, etc.) belong in **`default.env`** so the whole team shares them; change `default.env` and commit when you want to update those defaults. Use `.env` only for values that must never be committed.
+**Rule of thumb:** put keys only in `.env`; put shared behaviour defaults in `default.env` and commit them.
 
-### LLM (natural language + MCQ explanations)
+### API keys (secrets → `.env`)
 
-Provider selection is controlled by `AI_PROVIDER`. The code uses the OpenAI Python client against the provider’s endpoint, so any OpenAI-compatible API works.
+The app uses the OpenAI Python client against each vendor’s **OpenAI-compatible** endpoint. **You choose models by name**; the **provider is inferred from the model name** (no separate “provider” switch).
 
-| Provider | `AI_PROVIDER` value | API key env | Default model |
-|----------|---------------------|-------------|---------------|
-| **Google Gemini** (default) | `gemini` | `GOOGLE_API_KEY` | `gemini-2.5-flash` |
-| **xAI / Grok** | `xai` | `XAI_API_KEY` | `grok-4-1-fast-non-reasoning` |
+| Model name starts with | API key variable | Notes |
+|------------------------|------------------|--------|
+| `gemini` | `GOOGLE_API_KEY` | Google Gemini |
+| `grok` | `XAI_API_KEY` | xAI Grok |
+| `qwen` | `DASHSCOPE_API_KEY` | Alibaba Qwen (DashScope) |
 
-If `AI_PROVIDER` is unset and `XAI_API_KEY` is present but `GOOGLE_API_KEY` is not, the code automatically uses `xai` for backward compatibility.
+Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `AI_PROVIDER` | No | `gemini` (default) or `xai`. |
-| `GOOGLE_API_KEY` | Yes when `AI_PROVIDER=gemini` | API key for Google Gemini. |
-| `XAI_API_KEY` | Yes when `AI_PROVIDER=xai` | API key for xAI / Grok. |
-| `AI_MODEL` | No | Override model for all calls (any provider). |
-| `AI_PRECHECK_MODEL` | No | Override model for the precheck call only. |
-| `AI_MCQ_MODEL` | No | Override model for MCQ explanation calls only. |
-| `XAI_MODEL` | No | Legacy alias for `AI_MODEL` (still supported). |
-| `XAI_PRECHECK_MODEL` | No | Legacy alias for `AI_PRECHECK_MODEL`. |
-| `XAI_MCQ_MODEL` | No | Legacy alias for `AI_MCQ_MODEL`. |
-| `NL_SKIP_PRECHECK` | No | Set to `1` / `true` / `yes` to skip the precheck (e.g. tests). |
+### Models and “thinking” (non-secrets → `default.env`)
 
-**Hosting note:** Some cloud providers’ IPs are blocked by xAI/Cloudflare (“abusive traffic”). Switch to `AI_PROVIDER=gemini` — Google’s API rarely blocks datacenter IPs.
+- **`AI_DEFAULT_MODEL`** — fallback model (and optional thinking suffix) when a per-task variable is unset.
+- **Per task** — each can override the default:
 
-### Web app (login gate)
+| Variable | Role |
+|----------|------|
+| `AI_PRECHECK_MODEL` | Fast validation before the main NL call |
+| `NL_MODEL` | Prompt interpretation (subject, papers, questions) |
+| `MCQ_MODEL` | MCQ explanation generation |
+| `RANKING_MODEL` | Reserved (not implemented yet) |
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `DISABLE_LOGIN` | No | In **`default.env`**: `true` = no login modal; `false` = require access code. If unset anywhere, the app falls back to `true` (see `web/auth_gate.py`). |
-| `ACCESS_CODE` | No | Access code when login is enabled; default `NBFLS` if unset. |
-| `APP_SECRET_KEY` | Recommended when login enabled | Secret used to sign the auth cookie; set a long random string in production. |
-| `ASK_LOGIN` | No | If `true`, session-style cookie behaviour for testing (see `web/auth_gate.py`). |
+**Optional thinking suffix:** add `, off`, `, low`, or `, high` after the model name:
 
-Query overrides (same truthy/falsey strings): `?disable_login=0` forces the gate on for that request; `?ask_login=1` enables ask-login mode.
+```env
+NL_MODEL=gemini-2.5-flash, low
+AI_PRECHECK_MODEL=gemini-2.5-flash-lite, off
+```
+
+Omit the suffix to use the provider’s default reasoning behaviour. **Gemini** maps `off` / `low` / `high` to API `reasoning_effort`. **Qwen** uses `off` vs on. **Grok** ignores the suffix.
+
+Full model lists and notes (e.g. which Gemini tiers always use thinking) are in [`default.env`](default.env).
+
+### Other LLM-related flags
+
+| Variable | Meaning |
+|----------|---------|
+| `NL_SKIP_PRECHECK` | `true` / `1` / `yes` — skip the pre-validation step (e.g. tests). |
+
+Legacy fallbacks still supported in code: `AI_MCQ_MODEL` (alias for `MCQ_MODEL` resolution), `XAI_MODEL` (fallback model env), `XAI_PRECHECK_MODEL`.
+
+### Web app (login)
+
+| Variable | Meaning |
+|----------|---------|
+| `DISABLE_LOGIN` | `true` — open access; `false` — require `ACCESS_CODE`. |
+| `ACCESS_CODE` | Used when login is required. |
+| `APP_SECRET_KEY` | Optional; fixes session signing across restarts (set a long random value in production). |
+| `ASK_LOGIN` | Optional; session-style cookie behaviour for testing (see `web/auth_gate.py`). |
+
+Query hints: `?disable_login=0` forces the gate on for that request; `?ask_login=1` enables ask-login mode.
+
+### Hosting tip
+
+Some cloud IPs are blocked by xAI. **Gemini** often behaves better on shared/datacenter IPs than Grok.
+
+---
 
 ## Usage
 
-**Natural language** (one quoted sentence):
+### Natural language (CLI)
 
 ```bash
 python eXercise.py "Winter 2024 Physics paper 21, questions 12–14, include mark scheme"
 ```
 
-**Legacy** (explicit PDFs and question numbers):
+### Legacy (explicit paths)
 
 ```bash
 python eXercise.py /path/to/qp.pdf output.pdf 12 13 14
 python eXercise.py /path/to/qp.pdf output.pdf 12-14 --ms /path/to/ms.pdf
 ```
 
-**Module invocation**:
+### Module / help
 
 ```bash
 python -m eXercise --help
 ```
 
-## Web UI
+### Web UI
 
-The site is **not** started automatically—you must keep a terminal open with Uvicorn running while you use the browser.
-
-Run a local browser UI (same natural-language flow as the one-argument CLI: prompt → generated PDFs, plus an exam library page for bundled PDFs):
+Start the server and keep the terminal open:
 
 ```bash
-cd "/path/to/eXercise"
 source .venv/bin/activate
-pip install -r requirements.txt
 uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
 ```
 
-Open [http://127.0.0.1:8001](http://127.0.0.1:8001) (use the same port as in the command). Put your LLM API key in `.env` (see `.env.example`) as for CLI natural-language mode. Jobs run in the background; the page polls until your sheet (and optional `*_answers.pdf`) is ready.
+Open [http://127.0.0.1:8001](http://127.0.0.1:8001) (match the port you chose). If the port is busy, try `8002` — on many Macs **8000** is already taken (often by Docker).
 
-**If the page does not load:** (1) Confirm the terminal shows `Uvicorn running on http://127.0.0.1:…`—if you see `Address already in use`, pick another port, e.g. `--port 8002`. (2) On many Macs, **port 8000 is already taken** (often by Docker), so use `8001` or higher instead of `8000`. (3) Use the exact URL printed by Uvicorn, including the port.
-
-**Programmatic**:
+### Programmatic
 
 ```python
 from eXercise import run_extraction_jobs
@@ -135,46 +172,50 @@ from eXercise import run_extraction_jobs
 run_extraction_jobs(
     [{"input_pdf": "...", "questions": [1, 2], "mark_scheme_pdf": "..."}],
     "sheet.pdf",
-    exam_key="physics",  # "computer_science", "mathematics", or None for legacy-style labelling
+    exam_key="physics",  # or "computer_science", "mathematics", or None
 )
 ```
 
-## Docker deployment
+---
 
-The repo includes a **`Dockerfile`** and **`docker-compose.yml`**.
+## Docker
 
-- **Image:** `python:3.12-slim` plus TeX (`texlive-extra-utils`, `texlive-latex-extra`, `texlive-fonts-extra`) for `pdflatex` and `pdfjam`, then `pip install -r requirements.txt`.
-- **Runtime:** `uvicorn` on port **8000** inside the container; compose maps **host `80` → container `8000`**.
-- **Env files:** Compose loads **`default.env`** (from the repo) then **`.env`** on the host. Put **only secrets and overrides** in `.env` (`GOOGLE_API_KEY`, `XAI_API_KEY`, `APP_SECRET_KEY`, etc.). Do **not** commit `.env`.
+See **`Dockerfile`** and **`docker-compose.yml`**.
+
+- Image: Python 3.12 + TeX for `pdflatex` / `pdfjam`, then `pip install -r requirements.txt`.
+- Compose maps host **80** → container **8000** by default.
+- Load **`default.env`** then **`.env`** on the host; keep secrets only in `.env`.
 
 ```bash
 docker compose up -d --build
 ```
 
-Docker **caches** layers: the TeX `apt-get` step is **not** re-run on every build unless you change the Dockerfile above that line or use `--no-cache`.
+After code changes: `git pull`, then `docker compose up -d --build` again.
 
-After **code** changes: `git pull` on the server, then `docker compose up -d --build` again.
+---
 
 ## Output
 
-- Bare filenames (e.g. `sheet.pdf`) are written under `output/run_YYYYMMDD_HHMMSS/`.
-- A mark scheme run also produces `sheet_answers.pdf` beside the main output when applicable.
-- When `pdfjam` is available, sibling **`_2up`** and **`_4up`** PDFs may be created next to the main exercise sheet.
+- Relative output names go under `output/run_YYYYMMDD_HHMMSS/`.
+- Mark scheme runs can produce `*_answers.pdf` beside the main sheet.
+- With `pdfjam`, **`_2up`** and **`_4up`** variants may appear next to the main PDF.
+
+---
 
 ## Project layout
 
 | Path | Role |
 |------|------|
-| `eXercise.py` | Thin CLI entry point |
-| `eXercise/` | Package: config, question detection, vector PDF layout, mark schemes, NL resolver, pipeline |
-| `web/` | FastAPI app, templates, and static assets for the local web UI |
-| `exams/physics/`, `exams/computer_science/`, `exams/mathematics/` | Bundled question paper & mark scheme PDFs for NL mode |
-| `fonts/lmroman10-*.otf` | Latin Modern Roman (LaTeX `lmodern` text) for raster labels; see `fonts/README.md` |
-| `Dockerfile`, `docker-compose.yml` | Container build and run |
-| `default.env` | Committed non-secret defaults; merged before `.env` |
-| `.env.example` | Template for a gitignored `.env` (secrets only) |
-| `.dockerignore` | Keeps `.git`, `.env`, caches out of the image build context |
+| `eXercise.py` | CLI entry |
+| `eXercise/` | Config, pipeline, NL resolver, MCQ explanations, PDF layout |
+| `web/` | FastAPI app, templates, static assets |
+| `exams/` | Bundled QP/MS PDFs for NL mode |
+| `fonts/` | Latin Modern for labels (see `fonts/README.md`) |
+| `default.env` | Committed defaults |
+| `.env.example` | Template for secrets |
+
+---
 
 ## License
 
-Add a `LICENSE` file if you want to specify terms; the repository currently has no default license.
+No default license is included; add a `LICENSE` file if you want to specify terms.
