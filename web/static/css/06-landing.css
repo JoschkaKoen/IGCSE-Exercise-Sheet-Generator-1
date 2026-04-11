@@ -196,21 +196,21 @@
 
 .subject-badge-math,
 .subject-badge-mathematics {
-  background: rgba(52, 211, 153, 0.12);
-  border: 1px solid rgba(52, 211, 153, 0.25);
-  color: rgb(167 243 208);
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  color: rgb(147 197 253);
 }
 
 .subject-badge-biology {
-  background: rgba(45, 212, 191, 0.12);
-  border: 1px solid rgba(45, 212, 191, 0.25);
-  color: rgb(153 246 228);
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  color: rgb(134 239 172);
 }
 
 .subject-badge-chemistry {
-  background: rgba(249, 115, 22, 0.12);
-  border: 1px solid rgba(249, 115, 22, 0.25);
-  color: rgb(254 215 170);
+  background: rgba(100, 116, 139, 0.12);
+  border: 1px solid rgba(100, 116, 139, 0.25);
+  color: rgb(203 213 225);
 }
 
 /* ─── Hero icon float ────────────────────────────────────────────────────── */
