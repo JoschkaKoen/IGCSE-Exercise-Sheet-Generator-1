@@ -240,7 +240,7 @@ def _parse_ranking(response: str) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def _generate_ranking_latex(ranking: list[str], title: str) -> str:
-    items = "\n".join(f"  \\item {_latex_escape(r)}" for r in ranking)
+    items = "\n".join(f"  \\item Ex.~{_latex_escape(r)}" for r in ranking)
     escaped_title = _latex_escape(title)
     return rf"""\documentclass[12pt]{{article}}
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{{geometry}}
