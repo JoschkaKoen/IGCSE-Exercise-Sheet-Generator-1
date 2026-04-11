@@ -3,6 +3,7 @@
 
 import argparse
 import sys
+import time
 
 from .env_load import load_project_env
 from .exceptions import ExtractionUserError
@@ -54,6 +55,7 @@ def main():
     parts = args.parts
     set_run_command(" ".join(sys.argv))
 
+    _t0 = time.monotonic()
     try:
         if len(parts) == 1:
             if args.mark_scheme:
@@ -91,3 +93,5 @@ def main():
     except ExtractionUserError as e:
         print(str(e), file=sys.stderr)
         sys.exit(1)
+    finally:
+        print(f"\nTotal: {time.monotonic() - _t0:.1f}s")

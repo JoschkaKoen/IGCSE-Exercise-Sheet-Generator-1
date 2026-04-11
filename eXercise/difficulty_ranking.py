@@ -21,6 +21,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
@@ -222,11 +223,15 @@ def _rank_exercises_ai(
 
     # First attempt: vision
     try:
+        _t0 = time.monotonic()
         raw = _call(_build_vision_messages())
+        print(f"  Ranking AI call: {time.monotonic() - _t0:.1f}s")
     except Exception as exc:
         print(f"  Ranking: vision call failed ({exc}); retrying with text.")
         try:
+            _t0 = time.monotonic()
             raw = _call(_build_text_messages())
+            print(f"  Ranking AI call (text fallback): {time.monotonic() - _t0:.1f}s")
         except Exception as exc2:
             print(f"  Ranking: text fallback also failed: {exc2}")
             return []

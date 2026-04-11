@@ -9,6 +9,7 @@ provider is inferred automatically from the model name.  Set
 import json
 import os
 import re
+import time
 from collections.abc import Callable
 from pathlib import Path
 
@@ -93,6 +94,7 @@ def _precheck_instruction(
         {"role": "user", "content": user_block},
     ]
     use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
+    _t0 = time.monotonic()
     try:
         if use_stream:
             stream = client.chat.completions.create(
@@ -112,6 +114,7 @@ def _precheck_instruction(
             raw = (completion.choices[0].message.content or "").strip()
     except Exception as e:
         raise NaturalLanguageError(f"Precheck API error ({model}): {e}") from e
+    print(f"  Precheck: {time.monotonic() - _t0:.1f}s")
     try:
         data = json.loads(strip_json_fences(raw))
     except json.JSONDecodeError:
@@ -250,6 +253,7 @@ def resolve_natural_language(
 
     emit("Calling language model…")
     use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
+    _t0 = time.monotonic()
     try:
         if use_stream:
             stream = client.chat.completions.create(
@@ -276,6 +280,7 @@ def resolve_natural_language(
             raw = (completion.choices[0].message.content or "").strip()
     except Exception as e:
         raise NaturalLanguageError(f"API error ({model}): {e}") from e
+    print(f"  NL model: {time.monotonic() - _t0:.1f}s")
     try:
         data = json.loads(strip_json_fences(raw))
     except json.JSONDecodeError:

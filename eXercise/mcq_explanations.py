@@ -15,6 +15,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
@@ -621,7 +622,9 @@ def generate_mcq_explanations(
 
     for attempt in range(max_attempts):
         try:
+            _t0 = time.monotonic()
             raw, finish = _call()
+            print(f"  MCQ explanations: {time.monotonic() - _t0:.1f}s")
         except Exception as exc:
             print(f"  MCQ explanations: API error on attempt {attempt + 1}: {exc}")
             if attempt == max_attempts - 1:
