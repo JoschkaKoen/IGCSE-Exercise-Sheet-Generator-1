@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Natural language → extraction options (OpenAI-compatible API).
 
-Set ``NL_MODEL`` (or the global ``AI_MODEL``) to choose the model; the provider
-is inferred automatically from the model name.  Set ``NL_SKIP_PRECHECK=1`` to
-skip the validation precheck.
+Set ``NL_MODEL`` (or the global ``AI_DEFAULT_MODEL``) to choose the model; the
+provider is inferred automatically from the model name.  Set
+``NL_SKIP_PRECHECK=true`` to skip the validation precheck.
 """
 
 import json
@@ -155,19 +155,19 @@ def resolve_natural_language(
 
     instruction = sanitize_natural_language_instruction(instruction)
 
-    result = make_ai_client(model_env="NL_MODEL", legacy_model_env="AI_MODEL")
+    result = make_ai_client(model_env="NL_MODEL", legacy_model_env="AI_DEFAULT_MODEL")
     if result is None:
         # Determine which API key was needed so the error message is specific.
         attempted_model = (
             os.environ.get("NL_MODEL", "").strip()
-            or os.environ.get("AI_MODEL", "").strip()
+            or os.environ.get("AI_DEFAULT_MODEL", "").strip()
             or "gemini-2.5-flash"
         )
         nl_provider = provider_for_model(attempted_model)
         key_env = get_api_key_env_name(nl_provider)
         raise NaturalLanguageError(
             f"Set {key_env} in .env to use {attempted_model} "
-            f"(NL_MODEL / AI_MODEL). Install dependencies: pip install -r requirements.txt"
+            f"(NL_MODEL / AI_DEFAULT_MODEL). Install dependencies: pip install -r requirements.txt"
         )
     client, model, provider = result
     precheck_model = (

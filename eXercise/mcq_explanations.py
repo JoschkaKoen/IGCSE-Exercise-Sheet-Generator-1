@@ -1157,12 +1157,12 @@ def _load_ai_client() -> tuple[Any, str, str] | None:
 
     load_project_env()
 
-    # Resolution order: MCQ_MODEL → AI_MCQ_MODEL → AI_MODEL → default.
+    # Resolution order: MCQ_MODEL → AI_MCQ_MODEL → AI_DEFAULT_MODEL → default.
     # Provider is inferred automatically from the resolved model name.
     result = make_ai_client(model_env="MCQ_MODEL", legacy_model_env="AI_MCQ_MODEL")
     if result is None:
-        # API key missing for that model's provider; try the global AI_MODEL.
-        result = make_ai_client(model_env="AI_MODEL", legacy_model_env="XAI_MODEL")
+        # API key missing for that model's provider; try the global AI_DEFAULT_MODEL.
+        result = make_ai_client(model_env="AI_DEFAULT_MODEL", legacy_model_env="XAI_MODEL")
     if result is None:
         print("  MCQ explanations: no API key set for active model; skipping AI explanations.")
         return None

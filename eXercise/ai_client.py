@@ -27,9 +27,9 @@ Per-call-type model overrides
 ------------------------------
 Set a model name and the provider is picked automatically:
 
-    AI_MODEL     global default model for all calls (default: gemini-2.5-flash)
-    NL_MODEL     prompt interpretation  (overrides AI_MODEL for this call)
-    MCQ_MODEL    AI explanation generation (overrides AI_MODEL for this call)
+    AI_DEFAULT_MODEL   fallback model when no per-call model is set (default: gemini-2.5-flash)
+    NL_MODEL           prompt interpretation  (overrides AI_DEFAULT_MODEL for this call)
+    MCQ_MODEL          AI explanation generation (overrides AI_DEFAULT_MODEL for this call)
 
 Environment variables (API keys)
 ---------------------------------
@@ -87,7 +87,7 @@ def provider_for_model(model: str) -> str:
 
 def make_ai_client(
     *,
-    model_env: str = "AI_MODEL",
+    model_env: str = "AI_DEFAULT_MODEL",
     legacy_model_env: str = "XAI_MODEL",
     default_model: str | None = None,
 ) -> tuple[Any, str, str] | None:
@@ -98,10 +98,10 @@ def make_ai_client(
     model_env:
         Primary env var for model override (e.g. ``"NL_MODEL"``).
     legacy_model_env:
-        Fallback env var if *model_env* is unset (e.g. ``"AI_MODEL"``).
+        Fallback env var if *model_env* is unset (e.g. ``"AI_DEFAULT_MODEL"``).
     default_model:
         Model to use when neither env var is set.  Defaults to
-        ``AI_MODEL`` → ``XAI_MODEL`` → ``_DEFAULT_MODEL``.
+        ``AI_DEFAULT_MODEL`` → ``_DEFAULT_MODEL``.
     """
     try:
         from openai import OpenAI
@@ -112,7 +112,7 @@ def make_ai_client(
         os.environ.get(model_env, "").strip()
         or os.environ.get(legacy_model_env, "").strip()
         or default_model
-        or os.environ.get("AI_MODEL", "").strip()
+        or os.environ.get("AI_DEFAULT_MODEL", "").strip()
         or _DEFAULT_MODEL
     )
 
@@ -154,7 +154,7 @@ def get_api_key_env_name(provider: str | None = None) -> str:
     If *provider* is None, returns the key env for the default model's provider.
     """
     p = provider if provider else provider_for_model(
-        os.environ.get("AI_MODEL", "").strip() or _DEFAULT_MODEL
+        os.environ.get("AI_DEFAULT_MODEL", "").strip() or _DEFAULT_MODEL
     )
     return _PROVIDERS[p]["api_key_env"]
 
