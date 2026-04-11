@@ -135,9 +135,20 @@ Rules:
 """
 
 
+def _save_images(images: list[str], save_dir: Path, prefix: str) -> None:
+    """Decode base64 data-URLs and write them as PNG files."""
+    for i, data_url in enumerate(images, start=1):
+        header, b64 = data_url.split(",", 1)
+        ext = "jpg" if "jpeg" in header else "png"
+        dest = save_dir / f"{prefix}_page_{i}.{ext}"
+        dest.write_bytes(base64.b64decode(b64))
+        print(f"    Saved image: {dest.name}")
+
+
 def _rank_exercises_ai(
     exercise_pdf: Path,
     answer_pdf: Path | None,
+    save_dir: Path | None = None,
 ) -> list[str]:
     """Call the LLM and return the ranked list of question identifiers."""
     if not _AI_OK:
@@ -174,12 +185,16 @@ def _rank_exercises_ai(
             ans_images = fut_ans.result() if fut_ans else []
 
         print(f"    Exercise sheet: {len(ex_images)} page(s)")
+        if save_dir and ex_images:
+            _save_images(ex_images, save_dir, "ranking_ex")
         content: list[dict] = []
         content.append({"type": "text", "text": "=== EXERCISE SHEET ==="})
         for img in ex_images:
             content.append({"type": "image_url", "image_url": {"url": img}})
         if ans_images:
             print(f"    Answer sheet: {len(ans_images)} page(s)")
+            if save_dir:
+                _save_images(ans_images, save_dir, "ranking_ans")
             content.append({"type": "text", "text": "=== ANSWER SHEET ==="})
             for img in ans_images:
                 content.append({"type": "image_url", "image_url": {"url": img}})
@@ -370,9 +385,12 @@ def generate_difficulty_ranking(
         print(f"  Ranking: exercise PDF not found: {exercise_pdf}")
         return None
 
+    save_debug = os.environ.get("SAVE_TEX", "").lower() in ("true", "1", "yes")
+    save_dir = out_path if save_debug else None
+
     print(f"  Calling AI for difficulty ranking ({name})…")
     try:
-        ranking = _rank_exercises_ai(exercise_pdf, answer_pdf)
+        ranking = _rank_exercises_ai(exercise_pdf, answer_pdf, save_dir=save_dir)
     except Exception as exc:
         print(f"  Ranking: unexpected error during AI call: {exc}")
         return None
@@ -383,11 +401,7 @@ def generate_difficulty_ranking(
 
     tex = _generate_ranking_latex(ranking, name)
     dest = out_path / f"{name}_ranking.pdf"
-    save_tex = (
-        out_path / f"{name}_ranking.tex"
-        if os.environ.get("SAVE_TEX", "").lower() in ("true", "1", "yes")
-        else None
-    )
+    save_tex = out_path / f"{name}_ranking.tex" if save_debug else None
 
     print("  Compiling ranking PDF…", flush=True)
     try:
