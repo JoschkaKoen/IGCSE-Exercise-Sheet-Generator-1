@@ -712,7 +712,9 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
   min-height: 60vh;
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(148deg, rgba(15, 28, 52, 0.75) 0%, rgba(10, 18, 38, 0.5) 100%);
+  background:
+    linear-gradient(148deg, rgba(15, 28, 52, 0.75) 0%, rgba(10, 18, 38, 0.5) 100%),
+    rgb(2, 6, 16); /* opaque base so page bg never bleeds through */
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.04) inset,
     0 24px 48px -12px rgba(0, 0, 0, 0.45);
@@ -812,6 +814,7 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
   position: relative;
   flex: 1 1 0;
   min-height: 0;
+  background: rgb(4, 12, 28); /* opaque — no flash during tab switch */
 }
 
 .pdf-tab-panel {
@@ -820,6 +823,7 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
   display: none;
   flex-direction: column;
   min-height: 0;
+  background: rgb(4, 12, 28); /* opaque fallback — prevents flash of page bg */
 }
 
 .pdf-tab-panel.is-active {
