@@ -21,6 +21,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 
@@ -76,8 +77,8 @@ def _latex_escape(text: str) -> str:
 # PDF → images / text
 # ---------------------------------------------------------------------------
 
-def _pdf_to_b64_images(pdf_path: Path, dpi: int = 100) -> list[str]:
-    """Render each page to a PNG base64 data-URL.  Capped at MAX_PAGES."""
+def _pdf_to_b64_images(pdf_path: Path, dpi: int = 72) -> list[str]:
+    """Render each page to a JPEG base64 data-URL.  Capped at MAX_PAGES."""
     if not _FITZ_OK:
         return []
     images: list[str] = []
@@ -87,9 +88,9 @@ def _pdf_to_b64_images(pdf_path: Path, dpi: int = 100) -> list[str]:
             if len(images) >= MAX_PAGES:
                 break
             pix = page.get_pixmap(dpi=dpi)
-            png_bytes = pix.tobytes("png")
-            b64 = base64.b64encode(png_bytes).decode()
-            images.append(f"data:image/png;base64,{b64}")
+            jpeg_bytes = pix.tobytes("jpeg")
+            b64 = base64.b64encode(jpeg_bytes).decode()
+            images.append(f"data:image/jpeg;base64,{b64}")
         doc.close()
     except Exception as exc:
         print(f"  Ranking: could not render {pdf_path.name} as images: {exc}")
@@ -158,20 +159,29 @@ def _rank_exercises_ai(
     print(f"  Model: {model}{effort_label}")
 
     def _build_vision_messages() -> list[dict]:
-        print(f"  Rendering {exercise_pdf.name} as images…", flush=True)
-        ex_images = _pdf_to_b64_images(exercise_pdf)
+        has_answers = bool(answer_pdf and answer_pdf.exists())
+        print(
+            f"  Rendering PDFs as images (exercise"
+            + (f" + answers" if has_answers else "")
+            + ", in parallel)…",
+            flush=True,
+        )
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            fut_ex = pool.submit(_pdf_to_b64_images, exercise_pdf)
+            fut_ans = pool.submit(_pdf_to_b64_images, answer_pdf) if has_answers else None
+            ex_images = fut_ex.result()
+            ans_images = fut_ans.result() if fut_ans else []
+
         print(f"    Exercise sheet: {len(ex_images)} page(s)")
         content: list[dict] = []
         content.append({"type": "text", "text": "=== EXERCISE SHEET ==="})
         for img in ex_images:
             content.append({"type": "image_url", "image_url": {"url": img}})
-        if answer_pdf and answer_pdf.exists():
-            ans_images = _pdf_to_b64_images(answer_pdf)
-            if ans_images:
-                print(f"    Answer sheet: {len(ans_images)} page(s)")
-                content.append({"type": "text", "text": "=== ANSWER SHEET ==="})
-                for img in ans_images:
-                    content.append({"type": "image_url", "image_url": {"url": img}})
+        if ans_images:
+            print(f"    Answer sheet: {len(ans_images)} page(s)")
+            content.append({"type": "text", "text": "=== ANSWER SHEET ==="})
+            for img in ans_images:
+                content.append({"type": "image_url", "image_url": {"url": img}})
         else:
             print("    Answer sheet: not included")
         return [
