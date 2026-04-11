@@ -17,6 +17,7 @@
   const dlFourUp     = document.getElementById('dl-four-up');
   const dlTwoUp      = document.getElementById('dl-two-up');
   const dlAll        = document.getElementById('dl-all');
+  const dlRanking    = document.getElementById('dl-ranking');
   const jobLogLine   = document.getElementById('job-log-line');
   const pdfTabBarWrap = document.getElementById('pdf-tab-bar-wrap');
   const submitLabel  = document.getElementById('submit-label');
@@ -836,6 +837,7 @@
     lastDownloadAllUrls = [
       done.download_url, done.answers_url, done.two_up_url,
       done.four_up_url, done.answers_two_up_url, done.answers_four_up_url,
+      done.ranking_url,
     ].filter(Boolean);
     if (dlAll) dlAll.href = '#';
     if (done.answers_url) {
@@ -858,6 +860,12 @@
       dlTwoUp.href = done.two_up_url;
       dlTwoUp.classList.remove('hidden');
     } else { dlTwoUp.classList.add('hidden'); }
+    if (dlRanking) {
+      if (done.ranking_url) {
+        dlRanking.href = done.ranking_url;
+        dlRanking.classList.remove('hidden');
+      } else { dlRanking.classList.add('hidden'); }
+    }
   }
 
   function exitPreviewMode() {
