@@ -135,6 +135,101 @@ Rules:
 """
 
 
+def _rank_exercises_ai_gemini(
+    exercise_pdf: Path,
+    answer_pdf: Path | None,
+    model: str,
+    effort: str | None,
+) -> list[str]:
+    """Rank exercises by uploading PDFs natively to the Gemini Files API.
+
+    Uses ``google-genai`` (the new SDK) instead of the OpenAI-compat endpoint,
+    so PDFs are sent as documents — no image rendering or page cap.
+    """
+    try:
+        from google import genai as gai
+        from google.genai import types as gai_types
+    except ImportError:
+        raise RuntimeError("google-genai not installed; run: pip install google-genai")
+
+    api_key = os.environ.get("GOOGLE_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError("GOOGLE_API_KEY not set")
+
+    client = gai.Client(api_key=api_key)
+
+    # Upload both PDFs in parallel
+    pdfs_to_upload: list[tuple[str, Path]] = [("exercise", exercise_pdf)]
+    if answer_pdf and answer_pdf.exists():
+        pdfs_to_upload.append(("answers", answer_pdf))
+
+    print(f"  Uploading {len(pdfs_to_upload)} PDF(s) to Gemini Files API…", flush=True)
+
+    def _upload(item: tuple[str, Path]):
+        label, path = item
+        return label, client.files.upload(file=path)
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        uploaded: list[tuple[str, object]] = list(pool.map(_upload, pdfs_to_upload))
+
+    # Poll each file until ACTIVE
+    ready: dict[str, object] = {}
+    for label, f in uploaded:
+        while getattr(f.state, "name", str(f.state)) == "PROCESSING":
+            print(f"    Waiting for {label} PDF…", flush=True)
+            time.sleep(3)
+            f = client.files.get(name=f.name)
+        state = getattr(f.state, "name", str(f.state))
+        if state == "FAILED":
+            raise RuntimeError(f"Gemini file processing failed ({label}): {f.name}")
+        print(f"    {label.capitalize()} PDF ready ({f.name}).")
+        ready[label] = f
+
+    # Build thinking config
+    thinking_cfg = None
+    if effort == "off":
+        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=0)
+    elif effort == "low":
+        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=1024)
+    elif effort == "high":
+        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=8192)
+
+    gen_config = gai_types.GenerateContentConfig(
+        system_instruction=_SYSTEM_PROMPT,
+        thinking_config=thinking_cfg,
+    )
+
+    # Build content parts — file parts interleaved with text labels
+    parts: list = [
+        gai_types.Part.from_uri(file_uri=ready["exercise"].uri, mime_type="application/pdf"),
+    ]
+    if "answers" in ready:
+        parts = (
+            [gai_types.Part.from_text(text="=== EXERCISE SHEET ===")]
+            + parts
+            + [
+                gai_types.Part.from_text(text="=== ANSWER SHEET ==="),
+                gai_types.Part.from_uri(file_uri=ready["answers"].uri, mime_type="application/pdf"),
+            ]
+        )
+
+    print("  Waiting for AI response…", flush=True)
+    response = client.models.generate_content(
+        model=model,
+        contents=parts,
+        config=gen_config,
+    )
+
+    # Delete uploaded files (auto-expire after 48h anyway)
+    for label, f in ready.items():
+        try:
+            client.files.delete(name=f.name)
+        except Exception:
+            pass
+
+    return _parse_ranking(response.text or "")
+
+
 def _save_images(images: list[str], save_dir: Path, prefix: str) -> None:
     """Decode base64 data-URLs and write them as PNG files."""
     for i, data_url in enumerate(images, start=1):
@@ -169,6 +264,17 @@ def _rank_exercises_ai(
     client, model, provider, effort = result
     effort_label = f", thinking={effort}" if effort else ""
     print(f"  Model: {model}{effort_label}")
+
+    # Native Gemini path: upload PDFs directly — no image rendering needed
+    if provider == "gemini":
+        try:
+            _t0 = time.monotonic()
+            ranking = _rank_exercises_ai_gemini(exercise_pdf, answer_pdf, model, effort)
+            print(f"  Ranking AI call (native PDF): {time.monotonic() - _t0:.1f}s")
+            print(f"  Ranked {len(ranking)} question part(s).")
+            return ranking
+        except Exception as exc:
+            print(f"  Ranking: native Gemini path failed ({exc}); falling back to image path.")
 
     def _build_vision_messages() -> list[dict]:
         has_answers = bool(answer_pdf and answer_pdf.exists())
