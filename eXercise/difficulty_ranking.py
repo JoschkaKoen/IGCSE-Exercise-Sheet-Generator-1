@@ -154,9 +154,13 @@ def _rank_exercises_ai(
         return []
 
     client, model, provider, effort = result
+    effort_label = f", thinking={effort}" if effort else ""
+    print(f"  Model: {model}{effort_label}")
 
     def _build_vision_messages() -> list[dict]:
+        print(f"  Rendering {exercise_pdf.name} as images…", flush=True)
         ex_images = _pdf_to_b64_images(exercise_pdf)
+        print(f"    Exercise sheet: {len(ex_images)} page(s)")
         content: list[dict] = []
         content.append({"type": "text", "text": "=== EXERCISE SHEET ==="})
         for img in ex_images:
@@ -164,15 +168,19 @@ def _rank_exercises_ai(
         if answer_pdf and answer_pdf.exists():
             ans_images = _pdf_to_b64_images(answer_pdf)
             if ans_images:
+                print(f"    Answer sheet: {len(ans_images)} page(s)")
                 content.append({"type": "text", "text": "=== ANSWER SHEET ==="})
                 for img in ans_images:
                     content.append({"type": "image_url", "image_url": {"url": img}})
+        else:
+            print("    Answer sheet: not included")
         return [
             {"role": "system", "content": _SYSTEM_PROMPT},
             {"role": "user", "content": content},
         ]
 
     def _build_text_messages() -> list[dict]:
+        print("  Extracting text from PDFs (vision unavailable)…", flush=True)
         ex_text = _extract_pdf_text(exercise_pdf)
         parts = ["=== EXERCISE SHEET ===\n" + ex_text]
         if answer_pdf and answer_pdf.exists():
@@ -186,6 +194,7 @@ def _rank_exercises_ai(
 
     def _call(messages: list[dict]) -> str:
         use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
+        print("  Waiting for AI response…", flush=True)
         if use_stream:
             stream = client.chat.completions.create(
                 model=model,
@@ -212,7 +221,9 @@ def _rank_exercises_ai(
             print(f"  Ranking: text fallback also failed: {exc2}")
             return []
 
-    return _parse_ranking(raw)
+    ranking = _parse_ranking(raw)
+    print(f"  Ranked {len(ranking)} question part(s).")
+    return ranking
 
 
 def _parse_ranking(response: str) -> list[str]:
@@ -331,6 +342,7 @@ def generate_difficulty_ranking(
     Returns the path to the saved PDF, or ``None`` if skipped/failed.
     """
     if os.environ.get("RANKING_SKIP", "").lower() in ("true", "1", "yes"):
+        print("  Ranking skipped (RANKING_SKIP=true).")
         return None
 
     if not exercise_pdf.exists():
@@ -351,6 +363,7 @@ def generate_difficulty_ranking(
     tex = _generate_ranking_latex(ranking, name)
     dest = out_path / f"{name}_ranking.pdf"
 
+    print("  Compiling ranking PDF…", flush=True)
     try:
         ok = _compile_ranking_latex(tex, dest)
     except Exception as exc:
