@@ -30,13 +30,26 @@
         <article class="lib-card flex items-center gap-3 rounded-2xl border border-white/[0.08]
                         bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-3.5
                         shadow-black/20 backdrop-blur-sm
-                        {% if theme == 'cyan' %}hover:border-cyan-500/25{% elif theme == 'violet' %}hover:border-violet-500/25{% else %}hover:border-emerald-500/25{% endif %}"
+                        {% if theme == 'cyan' %}hover:border-cyan-500/25
+                        {% elif theme == 'violet' %}hover:border-violet-500/25
+                        {% elif theme == 'teal' %}hover:border-teal-500/25
+                        {% elif theme == 'amber' %}hover:border-amber-500/25
+                        {% else %}hover:border-emerald-500/25{% endif %}"
                  data-name="{{ row.name | e }}"
                  data-search="{{ (row.display_name ~ ' ' ~ row.name ~ ' ' ~ row.group_year ~ ' ' ~ row.group_session ~ ' ' ~ row.paper_kind) | lower | e }}">
           <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg
-                      {% if theme == 'cyan' %}bg-cyan-500/10{% elif theme == 'violet' %}bg-violet-500/10{% else %}bg-emerald-500/10{% endif %}">
-            <svg class="h-4 w-4 {% if theme == 'cyan' %}text-cyan-400{% elif theme == 'violet' %}text-violet-400{% else %}text-emerald-400{% endif %}" fill="none" stroke="currentColor"
-                 viewBox="0 0 24 24" aria-hidden="true">
+                      {% if theme == 'cyan' %}bg-cyan-500/10
+                      {% elif theme == 'violet' %}bg-violet-500/10
+                      {% elif theme == 'teal' %}bg-teal-500/10
+                      {% elif theme == 'amber' %}bg-amber-500/10
+                      {% else %}bg-emerald-500/10{% endif %}">
+            <svg class="h-4 w-4
+                        {% if theme == 'cyan' %}text-cyan-400
+                        {% elif theme == 'violet' %}text-violet-400
+                        {% elif theme == 'teal' %}text-teal-400
+                        {% elif theme == 'amber' %}text-amber-400
+                        {% else %}text-emerald-400{% endif %}"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
@@ -45,7 +58,11 @@
               title="{{ row.name | e }}">{{ row.display_name }}</h2>
           <a href="{{ row.download_url }}"
              class="shrink-0 rounded-xl p-2 transition
-                    {% if theme == 'cyan' %}text-cyan-400 hover:bg-cyan-500/15 hover:text-cyan-300 focus-visible:ring-cyan-400/50{% elif theme == 'violet' %}text-violet-400 hover:bg-violet-500/15 hover:text-violet-300 focus-visible:ring-violet-400/50{% else %}text-emerald-400 hover:bg-emerald-500/15 hover:text-emerald-300 focus-visible:ring-emerald-400/50{% endif %}
+                    {% if theme == 'cyan' %}text-cyan-400 hover:bg-cyan-500/15 hover:text-cyan-300 focus-visible:ring-cyan-400/50
+                    {% elif theme == 'violet' %}text-violet-400 hover:bg-violet-500/15 hover:text-violet-300 focus-visible:ring-violet-400/50
+                    {% elif theme == 'teal' %}text-teal-400 hover:bg-teal-500/15 hover:text-teal-300 focus-visible:ring-teal-400/50
+                    {% elif theme == 'amber' %}text-amber-400 hover:bg-amber-500/15 hover:text-amber-300 focus-visible:ring-amber-400/50
+                    {% else %}text-emerald-400 hover:bg-emerald-500/15 hover:text-emerald-300 focus-visible:ring-emerald-400/50{% endif %}
                     focus:outline-none focus-visible:ring-2"
              aria-label="Download {{ row.display_name | e }} ({{ row.name | e }})">
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -85,7 +102,7 @@
   </div>
 
   <p class="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-slate-400">
-    Cambridge IGCSE question papers and mark schemes for Physics, Computer Science, and Mathematics (bundled with this project).
+    Cambridge IGCSE question papers and mark schemes for Physics, Computer Science, Mathematics, Biology, and Chemistry (bundled with this project).
     Newest years first; within each year, sessions M → W → S. Download or use the generator to extract questions.
   </p>
 
@@ -121,6 +138,24 @@
             Mathematics
           </span>
         </button>
+        <button type="button" id="tab-biology"
+                class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                data-subject="biology"
+                role="tab" aria-selected="false" aria-controls="grid-biology">
+          <span class="flex items-center gap-2 whitespace-nowrap">
+            <span class="h-2 w-2 shrink-0 rounded-full bg-teal-400"></span>
+            Biology
+          </span>
+        </button>
+        <button type="button" id="tab-chemistry"
+                class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                data-subject="chemistry"
+                role="tab" aria-selected="false" aria-controls="grid-chemistry">
+          <span class="flex items-center gap-2 whitespace-nowrap">
+            <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
+            Chemistry
+          </span>
+        </button>
       </div>
     </div>
     <label class="flex flex-1 items-center gap-3 rounded-2xl border border-white/[0.09]
@@ -141,15 +176,19 @@
   {{ library_subject('physics', 'grid-physics', 'cyan') }}
   {{ library_subject('computer_science', 'grid-cs', 'violet') }}
   {{ library_subject('mathematics', 'grid-math', 'emerald') }}
+  {{ library_subject('biology', 'grid-biology', 'teal') }}
+  {{ library_subject('chemistry', 'grid-chemistry', 'amber') }}
 
 </section>
 
 <script>
 (function () {
   var tabs = [
-    { id: 'tab-physics',  subject: 'physics',          gridId: 'grid-physics', activeClass: 'tab-active' },
-    { id: 'tab-cs',       subject: 'computer_science', gridId: 'grid-cs',      activeClass: 'tab-active-violet' },
-    { id: 'tab-math',     subject: 'mathematics',      gridId: 'grid-math',    activeClass: 'tab-active-emerald' },
+    { id: 'tab-physics',   subject: 'physics',          gridId: 'grid-physics',   activeClass: 'tab-active' },
+    { id: 'tab-cs',        subject: 'computer_science', gridId: 'grid-cs',        activeClass: 'tab-active-violet' },
+    { id: 'tab-math',      subject: 'mathematics',      gridId: 'grid-math',      activeClass: 'tab-active-emerald' },
+    { id: 'tab-biology',   subject: 'biology',          gridId: 'grid-biology',   activeClass: 'tab-active-teal' },
+    { id: 'tab-chemistry', subject: 'chemistry',        gridId: 'grid-chemistry', activeClass: 'tab-active-amber' },
   ];
   tabs.forEach(function (t) {
     t.el   = document.getElementById(t.id);

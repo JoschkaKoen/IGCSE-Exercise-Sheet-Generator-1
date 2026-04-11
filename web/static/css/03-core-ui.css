@@ -103,6 +103,20 @@
   transition: all 0.2s ease;
 }
 
+.tab-active-teal {
+  background: linear-gradient(135deg, rgba(45,212,191,0.22), rgba(13,148,136,0.28));
+  color: rgb(204 251 241);
+  box-shadow: 0 0 0 1px rgba(45,212,191,0.28) inset;
+  transition: all 0.2s ease;
+}
+
+.tab-active-amber {
+  background: linear-gradient(135deg, rgba(251,191,36,0.22), rgba(245,158,11,0.28));
+  color: rgb(254 243 199);
+  box-shadow: 0 0 0 1px rgba(251,191,36,0.28) inset;
+  transition: all 0.2s ease;
+}
+
 
 .tab-btn {
   touch-action: manipulation;
