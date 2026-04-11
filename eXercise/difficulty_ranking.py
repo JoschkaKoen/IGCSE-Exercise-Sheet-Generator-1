@@ -78,8 +78,8 @@ def _latex_escape(text: str) -> str:
 # PDF → images / text
 # ---------------------------------------------------------------------------
 
-def _pdf_to_b64_images(pdf_path: Path, dpi: int = 72) -> list[str]:
-    """Render each page to a JPEG base64 data-URL.  Capped at MAX_PAGES."""
+def _pdf_to_b64_images(pdf_path: Path, dpi: int = 100) -> list[str]:
+    """Render each page to a PNG base64 data-URL.  Capped at MAX_PAGES."""
     if not _FITZ_OK:
         return []
     images: list[str] = []
@@ -89,9 +89,9 @@ def _pdf_to_b64_images(pdf_path: Path, dpi: int = 72) -> list[str]:
             if len(images) >= MAX_PAGES:
                 break
             pix = page.get_pixmap(dpi=dpi)
-            jpeg_bytes = pix.tobytes("jpeg")
-            b64 = base64.b64encode(jpeg_bytes).decode()
-            images.append(f"data:image/jpeg;base64,{b64}")
+            png_bytes = pix.tobytes("png")
+            b64 = base64.b64encode(png_bytes).decode()
+            images.append(f"data:image/png;base64,{b64}")
         doc.close()
     except Exception as exc:
         print(f"  Ranking: could not render {pdf_path.name} as images: {exc}")
