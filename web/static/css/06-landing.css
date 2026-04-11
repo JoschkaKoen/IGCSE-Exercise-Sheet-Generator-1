@@ -201,6 +201,18 @@
   color: rgb(167 243 208);
 }
 
+.subject-badge-biology {
+  background: rgba(45, 212, 191, 0.12);
+  border: 1px solid rgba(45, 212, 191, 0.25);
+  color: rgb(153 246 228);
+}
+
+.subject-badge-chemistry {
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  color: rgb(253 230 138);
+}
+
 /* ─── Hero icon float ────────────────────────────────────────────────────── */
 .hero-icon {
   animation: float 7s ease-in-out infinite;
