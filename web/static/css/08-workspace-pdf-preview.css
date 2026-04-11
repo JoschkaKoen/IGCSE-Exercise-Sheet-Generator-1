@@ -61,9 +61,15 @@
   display: none !important;
 }
 
+/* The grid has 3 columns: [left 1fr] [tab cluster auto] [right 1fr].
+   Both the back button and the ranking button are explicit children of col 1 / row 1,
+   so they share the same cell without stacking.
+   Back button aligns to the left edge; ranking button centres itself, landing
+   halfway between the back button and the tab cluster. */
 body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: auto;
   align-items: center;
   width: 100%;
   max-width: 100%;
@@ -71,22 +77,23 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
   opacity: 1;
 }
 
-/* Left group: back button + ranking button share the left 1fr column.
-   Back button sits at the far left; ranking slot is centred in the remaining space,
-   which places the ranking button roughly halfway between the back button and the tab cluster. */
-.pdf-tab-bar-left {
-  display: flex;
-  flex-direction: row !important;
-  flex-wrap: nowrap;
-  align-items: center;
-  min-width: 0;
-  overflow: hidden;
+body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) .pdf-tab-back-btn {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  align-self: center;
 }
 
-/* Ranking button: centred in remaining space between back button and tab cluster */
-.pdf-tab-bar-left > .pdf-tab-ranking-btn {
-  margin-left: auto;
-  margin-right: auto;
+body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) .pdf-tab-ranking-btn {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
+}
+
+body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) .pdf-tab-primary-clip {
+  grid-column: 2;
+  grid-row: 1;
 }
 
 /* ─── Ranking button ────────────────────────────────────────────────────── */
