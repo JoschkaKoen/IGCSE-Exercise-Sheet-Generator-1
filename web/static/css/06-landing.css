@@ -98,7 +98,7 @@
 }
 
 #generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3):hover {
-  box-shadow: 0 12px 36px -8px rgba(244, 63, 94, 0.28);
+  box-shadow: 0 12px 36px -8px rgba(203, 213, 225, 0.22);
 }
 
 #generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(4):hover {
@@ -216,9 +216,9 @@
 }
 
 .subject-badge-chemistry {
-  background: rgba(244, 63, 94, 0.12);
-  border: 1px solid rgba(244, 63, 94, 0.25);
-  color: rgb(253 164 175);
+  background: rgba(148, 163, 184, 0.10);
+  border: 1px solid rgba(203, 213, 225, 0.22);
+  color: rgb(226 232 240);
 }
 
 /* ─── Hero icon float ────────────────────────────────────────────────────── */
