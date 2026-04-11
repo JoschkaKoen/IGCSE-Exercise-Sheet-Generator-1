@@ -19,6 +19,7 @@ from .ai_client import (
     get_api_key_env_name,
     make_ai_client,
     parse_model_effort,
+    print_streamed_response,
     provider_for_model,
     strip_json_fences,
 )
@@ -103,7 +104,7 @@ def _precheck_instruction(
                 stream=True,
                 **thinking_kw,
             )
-            raw = collect_streamed_response(stream)
+            raw = print_streamed_response(stream, print_thinking=True, print_content=False)
         else:
             completion = client.chat.completions.create(
                 model=model,
@@ -262,7 +263,7 @@ def resolve_natural_language(
                 stream=True,
                 **thinking_kw,
             )
-            raw = collect_streamed_response(stream)
+            raw = print_streamed_response(stream, print_thinking=True, print_content=False)
         else:
             try:
                 completion = client.chat.completions.create(

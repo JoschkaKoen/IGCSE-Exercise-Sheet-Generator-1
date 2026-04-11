@@ -42,6 +42,7 @@ try:
         build_thinking_kwargs,
         collect_streamed_response,
         make_ai_client,
+        print_streamed_response,
     )
     _AI_CLIENT_AVAILABLE = True
 except ImportError:
@@ -51,6 +52,9 @@ except ImportError:
         return False, {}
 
     def collect_streamed_response(stream: Any) -> str:  # type: ignore[misc]
+        return ""
+
+    def print_streamed_response(stream: Any, **kwargs: Any) -> str:  # type: ignore[misc]
         return ""
 
     _AI_CLIENT_AVAILABLE = False
@@ -605,7 +609,7 @@ def generate_mcq_explanations(
                 **thinking_kw,
                 **kwargs,
             )
-            text = collect_streamed_response(stream)
+            text = print_streamed_response(stream, print_thinking=True, print_content=True)
             return text, "stop" if text else "length"
         completion = client.chat.completions.create(
             model=model,

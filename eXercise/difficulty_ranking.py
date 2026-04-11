@@ -123,7 +123,6 @@ You will be shown an exercise sheet and (optionally) its answer sheet.
 Your task: rank every individual question part from most difficult to easiest.
 
 CRITICAL: Only rank the questions that are EXPLICITLY VISIBLE in the provided documents.
-Do NOT add, invent, or recall any questions from memory or prior knowledge of the exam paper.
 If the sheet contains 3 questions, your output must contain exactly 3 entries.
 
 Rules:

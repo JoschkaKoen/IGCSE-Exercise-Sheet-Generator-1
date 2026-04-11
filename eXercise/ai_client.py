@@ -112,6 +112,7 @@ def build_thinking_kwargs(provider: str, effort: str | None) -> tuple[bool, dict
     --------------
     Gemini  — ``reasoning_effort="none/low/high"`` top-level param.
               ``off`` maps to ``"none"``.  ``None`` = provider default (no param).
+              Streams when thinking is active so output is visible live.
     Qwen    — ``extra_body={"enable_thinking": True/False}`` + streaming when on.
               ``off`` disables thinking and switches to non-streaming mode.
     Grok    — effort is silently ignored; always non-streaming.
@@ -120,8 +121,10 @@ def build_thinking_kwargs(provider: str, effort: str | None) -> tuple[bool, dict
         if effort == "off":
             return False, {"reasoning_effort": "none"}
         if effort in ("low", "high"):
-            return False, {"reasoning_effort": effort}
-        return False, {}
+            # Stream so thinking + content are visible live in the terminal
+            return True, {"reasoning_effort": effort}
+        # effort is None (provider default) — stream to show live output
+        return True, {}
 
     if provider == "qwen":
         if effort == "off":
@@ -224,3 +227,47 @@ def collect_streamed_response(stream: Any) -> str:
         if delta.content:
             parts.append(delta.content)
     return "".join(parts).strip()
+
+
+def print_streamed_response(
+    stream: Any,
+    *,
+    print_thinking: bool = True,
+    print_content: bool = True,
+    indent: str = "  ",
+) -> str:
+    """Consume a streaming chat completion, print thinking + content live, return content.
+
+    Thinking (``delta.reasoning_content``) is wrapped in ``[thinking]`` /
+    ``[/thinking]`` blocks.  Content (``delta.content``) is printed as-is.
+    Only ``delta.content`` is accumulated and returned.
+    """
+    content_parts: list[str] = []
+    in_thinking = False
+    for chunk in stream:
+        if not chunk.choices:
+            continue
+        delta = chunk.choices[0].delta
+
+        thinking_text = getattr(delta, "reasoning_content", None) or ""
+        content_text = delta.content or ""
+
+        if thinking_text and print_thinking:
+            if not in_thinking:
+                print(f"\n{indent}[thinking]", flush=True)
+                in_thinking = True
+            print(thinking_text, end="", flush=True)
+
+        if content_text:
+            if in_thinking:
+                print(f"\n{indent}[/thinking]", flush=True)
+                in_thinking = False
+            if print_content:
+                print(content_text, end="", flush=True)
+            content_parts.append(content_text)
+
+    if in_thinking:
+        print(f"\n{indent}[/thinking]", flush=True)
+    if print_content and content_parts:
+        print()  # trailing newline after content
+    return "".join(content_parts).strip()
