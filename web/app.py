@@ -42,17 +42,24 @@ STATIC_DIR = PACKAGE_DIR / "static"
 app = FastAPI(title="eXercise")
 store = JobStore()
 
+class NoCacheStaticFiles(StaticFiles):
+    """StaticFiles subclass that disables browser caching (dev only)."""
+
+    async def __call__(self, scope, receive, send):
+        async def send_with_no_cache(message):
+            if message["type"] == "http.response.start":
+                headers = list(message.get("headers", []))
+                # Remove any existing cache headers
+                headers = [(k, v) for k, v in headers if k.lower() not in (b"cache-control", b"etag", b"last-modified")]
+                headers.append((b"cache-control", b"no-store, no-cache, must-revalidate, max-age=0"))
+                message["headers"] = headers
+            await send(message)
+
+        await super().__call__(scope, receive, send_with_no_cache)
+
+
 if STATIC_DIR.is_dir():
-    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
-
-
-@app.middleware("http")
-async def no_cache_static(request: Request, call_next):
-    """Disable browser caching for static assets during development."""
-    response = await call_next(request)
-    if request.url.path.startswith("/static/"):
-        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
-    return response
+    app.mount("/static", NoCacheStaticFiles(directory=str(STATIC_DIR)), name="static")
 
 _favicon_svg = STATIC_DIR / "favicon.svg"
 
