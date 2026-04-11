@@ -215,15 +215,32 @@ def _rank_exercises_ai_gemini(
 
     print("  Ranking (streaming):", flush=True)
     chunks: list[str] = []
+    in_thinking = False
     for chunk in client.models.generate_content_stream(
         model=model,
         contents=parts,
         config=gen_config,
     ):
-        text = chunk.text or ""
-        if text:
-            print(text, end="", flush=True)
-            chunks.append(text)
+        for part in (chunk.candidates or [{}])[0].content.parts if (
+            chunk.candidates and chunk.candidates[0].content and chunk.candidates[0].content.parts
+        ) else []:
+            is_thought = getattr(part, "thought", False)
+            text = part.text or ""
+            if not text:
+                continue
+            if is_thought:
+                if not in_thinking:
+                    print("  [thinking]", flush=True)
+                    in_thinking = True
+                print(text, end="", flush=True)
+            else:
+                if in_thinking:
+                    print("\n  [/thinking]", flush=True)
+                    in_thinking = False
+                print(text, end="", flush=True)
+                chunks.append(text)
+    if in_thinking:
+        print()
     print()  # newline after streamed output
 
     # Delete uploaded files (auto-expire after 48h anyway)
