@@ -19,6 +19,7 @@ from .mcq_explanations import (
     generate_mcq_explanation_strips,
     prepare_mcq_job_data,
 )
+from .difficulty_ranking import generate_difficulty_ranking
 from .pdfjam_post import run_exercise_sheet_pdfjam_variants
 from .questions import find_question_positions, get_question_regions
 from .rendering import (
@@ -301,6 +302,14 @@ def run_extraction_jobs(
         run_exercise_sheet_pdfjam_variants(out_path)
         if all_ms_strips:
             run_exercise_sheet_pdfjam_variants(answers_path)
+
+        print("\nGenerating difficulty ranking…")
+        generate_difficulty_ranking(
+            exercise_pdf=out_path,
+            answer_pdf=answers_path if (all_ms_strips and answers_path.exists()) else None,
+            out_path=out_path.parent,
+            name=out_path.stem,
+        )
 
     finally:
         for d in qp_docs + ms_docs:
