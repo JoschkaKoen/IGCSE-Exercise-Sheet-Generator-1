@@ -213,12 +213,18 @@ def _rank_exercises_ai_gemini(
             ]
         )
 
-    print("  Waiting for AI response…", flush=True)
-    response = client.models.generate_content(
+    print("  Ranking (streaming):", flush=True)
+    chunks: list[str] = []
+    for chunk in client.models.generate_content_stream(
         model=model,
         contents=parts,
         config=gen_config,
-    )
+    ):
+        text = chunk.text or ""
+        if text:
+            print(text, end="", flush=True)
+            chunks.append(text)
+    print()  # newline after streamed output
 
     # Delete uploaded files (auto-expire after 48h anyway)
     for label, f in ready.items():
@@ -227,7 +233,7 @@ def _rank_exercises_ai_gemini(
         except Exception:
             pass
 
-    return _parse_ranking(response.text or "")
+    return _parse_ranking("".join(chunks))
 
 
 def _save_images(images: list[str], save_dir: Path, prefix: str) -> None:
