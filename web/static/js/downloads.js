@@ -1,0 +1,106 @@
+/**
+ * downloads.js — download card management and "download all" logic.
+ * Imports: state.js only.
+ * Wires the "Download all" button event at module load time.
+ */
+
+import { state, sleep } from './state.js';
+
+// ─── DOM refs private to this module ─────────────────────────────────────────
+
+const dlMain        = document.getElementById('dl-main');
+const dlAnswers     = document.getElementById('dl-answers');
+const dlAnswersMain = document.getElementById('dl-answers-main');
+const dlAnswersTwoUp   = document.getElementById('dl-answers-two-up');
+const dlAnswersFourUp  = document.getElementById('dl-answers-four-up');
+const dlFourUp      = document.getElementById('dl-four-up');
+const dlTwoUp       = document.getElementById('dl-two-up');
+const dlAll         = document.getElementById('dl-all');
+const dlRanking     = document.getElementById('dl-ranking');
+
+// ─── Download card population ─────────────────────────────────────────────────
+
+export function applyDoneData(done) {
+  dlMain.href = done.download_url || '#';
+  state.lastDownloadAllUrls = [
+    done.download_url, done.answers_url, done.two_up_url,
+    done.four_up_url, done.answers_two_up_url, done.answers_four_up_url,
+    done.ranking_url,
+  ].filter(Boolean);
+  if (dlAll) dlAll.href = '#';
+  if (done.answers_url) {
+    dlAnswersMain.href = done.answers_url;
+    dlAnswers.classList.remove('hidden');
+  } else { dlAnswers.classList.add('hidden'); }
+  if (done.answers_two_up_url) {
+    dlAnswersTwoUp.href = done.answers_two_up_url;
+    dlAnswersTwoUp.classList.remove('hidden');
+  } else { dlAnswersTwoUp.classList.add('hidden'); }
+  if (done.answers_four_up_url) {
+    dlAnswersFourUp.href = done.answers_four_up_url;
+    dlAnswersFourUp.classList.remove('hidden');
+  } else { dlAnswersFourUp.classList.add('hidden'); }
+  if (done.four_up_url) {
+    dlFourUp.href = done.four_up_url;
+    dlFourUp.classList.remove('hidden');
+  } else { dlFourUp.classList.add('hidden'); }
+  if (done.two_up_url) {
+    dlTwoUp.href = done.two_up_url;
+    dlTwoUp.classList.remove('hidden');
+  } else { dlTwoUp.classList.add('hidden'); }
+  if (dlRanking) {
+    if (done.ranking_url) {
+      dlRanking.href = done.ranking_url;
+      dlRanking.classList.remove('hidden');
+    } else { dlRanking.classList.add('hidden'); }
+  }
+}
+
+// ─── Download all ─────────────────────────────────────────────────────────────
+
+function parseFilenameFromContentDisposition(header) {
+  if (!header) return 'download.pdf';
+  const m = header.match(/filename\*=UTF-8''([^;]+)|filename="([^"]*)"|filename=([^;\s]+)/i);
+  if (!m) return 'download.pdf';
+  const raw = (m[1] || m[2] || m[3] || '').trim();
+  try {
+    return decodeURIComponent(raw.replace(/\+/g, ' '));
+  } catch (e) {
+    return raw || 'download.pdf';
+  }
+}
+
+export async function triggerDownloadAllPdfs() {
+  const urls = state.lastDownloadAllUrls;
+  if (!urls.length) return;
+  for (let i = 0; i < urls.length; i++) {
+    const res = await fetch(urls[i], { credentials: 'same-origin', cache: 'no-store' });
+    if (!res.ok) throw new Error('Could not download file (' + res.status + ').');
+    const blob = await res.blob();
+    const name = parseFilenameFromContentDisposition(res.headers.get('Content-Disposition'));
+    const u = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = u;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(u);
+    if (i < urls.length - 1) await sleep(250);
+  }
+}
+
+// ─── Event wiring ─────────────────────────────────────────────────────────────
+
+if (dlAll) {
+  dlAll.addEventListener('click', function (e) {
+    e.preventDefault();
+    const errorPanel = document.getElementById('error-panel');
+    triggerDownloadAllPdfs().catch(function (err) {
+      if (errorPanel) {
+        errorPanel.textContent = err.message || String(err);
+        errorPanel.classList.remove('hidden');
+      }
+    });
+  });
+}

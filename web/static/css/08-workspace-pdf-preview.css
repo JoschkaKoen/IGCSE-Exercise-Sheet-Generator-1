@@ -38,7 +38,7 @@
 @media (min-width: 1024px) {
   .generate-workspace.preview-mode {
     display: grid;
-    grid-template-columns: minmax(0, 19rem) minmax(0, 1fr);
+    grid-template-columns: minmax(0, var(--left-col-width)) minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
     align-items: start;
   }
@@ -266,8 +266,10 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
 }
 
 /* Single pill that slides between sheet and answers sides.
-   Positioned by JS (syncSidePill) via left + right.
-   Transition is set dynamically so the expanding edge is faster. */
+   JS (syncSidePill) measures getBoundingClientRect() and writes
+   --pill-right-inset / --pill-left-inset on the pill element.
+   CSS owns left, right, and the asymmetric transition so the
+   expanding (leading) edge is faster than the trailing edge. */
 .pdf-tab-side-pill {
   position: absolute;
   top: 0;
@@ -281,11 +283,25 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
 .pdf-tab-primary-track[data-side="sheet"] .pdf-tab-side-pill {
   background: var(--pdf-sheet-pill);
   box-shadow: var(--pdf-sheet-pill-glow);
+  left: 0;
+  right: var(--pill-right-inset, 0px);
+  transition:
+    left  0.26s cubic-bezier(0.16, 1, 0.3, 1),
+    right 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.32s ease,
+    box-shadow 0.32s ease;
 }
 
 .pdf-tab-primary-track[data-side="answers"] .pdf-tab-side-pill {
   background: var(--pdf-answers-pill);
   box-shadow: var(--pdf-answers-pill-glow);
+  left: var(--pill-left-inset, 0px);
+  right: 0;
+  transition:
+    left  0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    right 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.32s ease,
+    box-shadow 0.32s ease;
 }
 
 .pdf-tab-sheet-label {
@@ -318,7 +334,7 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
   align-items: stretch;
   flex: 0 0 auto;
   min-width: 0;
-  padding: 0.14rem;
+  padding: var(--pill-pad);
   gap: 0;
   border-radius: 9999px;
   border: 1px solid var(--pdf-embed-border);
@@ -349,10 +365,10 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
 
 .pdf-tab-layout-pill {
   position: absolute;
-  top: 0.14rem;
-  bottom: 0.14rem;
-  left: 0.14rem;
-  width: calc((100% - 0.28rem) / 3);
+  top: var(--pill-pad);
+  bottom: var(--pill-pad);
+  left: var(--pill-pad);
+  width: calc((100% - var(--pill-gap)) / 3);
   border-radius: 9999px;
   will-change: left;
   transition:
@@ -364,7 +380,7 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
 }
 
 .pdf-tab-layout-track[data-layout="exercise"] .pdf-tab-layout-pill {
-  left: 0.14rem;
+  left: var(--pill-pad);
   background: linear-gradient(180deg, rgba(56, 189, 248, 0.42) 0%, rgba(56, 189, 248, 0.2) 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.24),
@@ -373,7 +389,7 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
 }
 
 .pdf-tab-layout-track[data-layout="two-up"] .pdf-tab-layout-pill {
-  left: calc(0.14rem + (100% - 0.28rem) / 3);
+  left: calc(var(--pill-pad) + (100% - var(--pill-gap)) / 3);
   background: linear-gradient(180deg, rgba(251, 191, 36, 0.44) 0%, rgba(245, 158, 11, 0.22) 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.22),
@@ -382,7 +398,7 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
 }
 
 .pdf-tab-layout-track[data-layout="four-up"] .pdf-tab-layout-pill {
-  left: calc(0.14rem + (100% - 0.28rem) * 2 / 3);
+  left: calc(var(--pill-pad) + (100% - var(--pill-gap)) * 2 / 3);
   background: linear-gradient(180deg, rgba(167, 139, 250, 0.44) 0%, rgba(139, 92, 246, 0.22) 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
@@ -550,8 +566,8 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
 
 @media (min-width: 1024px) {
   .preview-mode .gen-left-col {
-    width: 19rem;
-    max-width: 19rem;
+    width: var(--left-col-width);
+    max-width: var(--left-col-width);
     flex-shrink: 0;
     grid-column: 1;
     grid-row: 1;
@@ -581,18 +597,19 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
   margin-top: 0;
 }
 
-.preview-mode #prompt {
+/* Specificity: form#gen-form (1,0,1) beats Tailwind's [type="text"] (0,1,1) — no !important needed. */
+.preview-mode form#gen-form #prompt {
   min-height: 8rem;
   max-height: min(42vh, 22rem);
   resize: vertical;
-  border-color: rgba(56, 189, 248, 0.22) !important;
+  border-color: rgba(56, 189, 248, 0.22);
   background: linear-gradient(
     165deg,
     rgba(6, 22, 42, 0.92) 0%,
     rgba(4, 16, 36, 0.88) 45%,
     rgba(8, 28, 52, 0.85) 100%
-  ) !important;
-  color: rgb(226 232 240) !important;
+  );
+  color: rgb(226 232 240);
   box-shadow:
     inset 0 1px 0 rgba(56, 189, 248, 0.06),
     inset 0 0 0 1px rgba(0, 0, 0, 0.25),
@@ -601,26 +618,26 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.preview-mode #prompt::placeholder {
-  color: rgba(186, 240, 253, 0.52) !important;
+.preview-mode form#gen-form #prompt::placeholder {
+  color: rgba(186, 240, 253, 0.52);
 }
 
-.preview-mode #prompt:hover {
-  border-color: rgba(56, 189, 248, 0.32) !important;
+.preview-mode form#gen-form #prompt:hover {
+  border-color: rgba(56, 189, 248, 0.32);
   box-shadow:
     inset 0 1px 0 rgba(56, 189, 248, 0.1),
     inset 0 0 0 1px rgba(0, 0, 0, 0.2),
     0 0 32px -8px rgba(56, 189, 248, 0.22);
 }
 
-.preview-mode #prompt:focus {
-  border-color: rgba(34, 211, 238, 0.45) !important;
-  outline: none !important;
+.preview-mode form#gen-form #prompt:focus {
+  border-color: rgba(34, 211, 238, 0.45);
+  outline: none;
   box-shadow:
     inset 0 1px 0 rgba(56, 189, 248, 0.12),
     inset 0 0 0 1px rgba(0, 0, 0, 0.15),
     0 0 0 2px rgba(34, 211, 238, 0.2),
-    0 0 40px -8px rgba(34, 211, 238, 0.25) !important;
+    0 0 40px -8px rgba(34, 211, 238, 0.25);
 }
 
 /* Header nav pills (Generate / Library) — subtle glass + hint of cyan */
@@ -814,7 +831,7 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
   position: relative;
   flex: 1 1 0;
   min-height: 0;
-  background: rgb(4, 12, 28); /* opaque — no flash during tab switch */
+  background: var(--pane-bg); /* opaque — no flash during tab switch */
 }
 
 .pdf-tab-panel {
@@ -823,7 +840,7 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
   display: none;
   flex-direction: column;
   min-height: 0;
-  background: rgb(4, 12, 28); /* opaque fallback — prevents flash of page bg */
+  background: var(--pane-bg); /* opaque fallback — prevents flash of page bg */
 }
 
 .pdf-tab-panel.is-active {

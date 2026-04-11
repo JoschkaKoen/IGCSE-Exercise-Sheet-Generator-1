@@ -1,5 +1,33 @@
+<!--
+  Adding a new PDF tab requires:
+    1. state.js                    — add entry to TABS array and TAB_ORDER
+    2. pdf_tab_bar.html            — add <button id="tab-btn-{id}">
+    3. workspace_pdf_panels.html   — clone panel from #pdf-panel-template (see below)
+    4. workspace_left.html         — add download card if the tab has a download
+    5. 08-workspace-pdf-preview.css — add :has() tint rule if the tab needs a border colour
+    6. applyDoneData() in downloads.js — wire the download link
+-->
   <div class="pdf-preview-stack">
   <div id="pdf-preview-pane" class="pdf-preview-root" aria-hidden="true">
+    <!--
+      Template for adding future PDF panels.
+      JS usage: const clone = document.getElementById('pdf-panel-template').content.cloneNode(true);
+      Then fill in: panel.id, aria-labelledby, loading.id, scroll.id/data-pdf-scroll/aria-label,
+      pages.id, and optionally swap the spinner colour classes.
+    -->
+    <template id="pdf-panel-template">
+      <div class="pdf-tab-panel" role="tabpanel" hidden>
+        <div class="pdf-loading-overlay hidden" aria-hidden="true">
+          <span class="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-cyan-400/25 border-t-cyan-400" aria-hidden="true"></span>
+        </div>
+        <div class="pdf-empty-state hidden" role="status">
+          <p>Not generated for this run.</p>
+        </div>
+        <div class="pdf-viewport-scroll hidden" tabindex="0">
+          <div class="pdf-pages-stack"></div>
+        </div>
+      </div>
+    </template>
     <div class="pdf-tab-panels">
       <div id="tab-panel-exercise" class="pdf-tab-panel is-active" role="tabpanel" aria-labelledby="tab-btn-exercise">
         <div id="pdf-loading-exercise" class="pdf-loading-overlay hidden" aria-hidden="true">

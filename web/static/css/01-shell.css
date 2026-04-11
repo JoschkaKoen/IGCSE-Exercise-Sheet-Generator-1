@@ -6,6 +6,22 @@
   --glow-cyan:   rgba(34, 211, 238, 0.45);
   --glow-indigo: rgba(99, 102, 241, 0.35);
   --preview-sticky-top: 4.5rem;
+
+  /* ─── Layout tokens ─────────────────────────────────────────────────────── */
+  /* Left column width in the preview grid (desktop). */
+  --left-col-width: 19rem;
+
+  /* Pill layout-track padding and gap (0.14rem pad × 2 = 0.28rem total gap). */
+  --pill-pad: 0.14rem;
+  --pill-gap: 0.28rem;  /* = --pill-pad * 2 */
+
+  /* Opaque background shared by .pdf-tab-panels and .pdf-tab-panel
+     so the page background never bleeds through during tab switches. */
+  --pane-bg: rgb(4, 12, 28);
+
+  /* Result/download panel widths. */
+  --dl-panel-width: 20rem;        /* #result-panel max-width */
+  --dl-panel-inner-width: 17rem;  /* .result-download-inner max-width */
 }
 
 .space-bg {
