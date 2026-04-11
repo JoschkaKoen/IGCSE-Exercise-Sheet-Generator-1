@@ -13,6 +13,32 @@ Build printable exercise sheets from Cambridge-style IGCSE question papers (PDF)
 
 ---
 
+## How it works (step by step)
+
+### Natural language mode (one sentence)
+
+1. **You describe the run** — subject, which paper(s), which question numbers, and whether you want mark-scheme material. This is the same idea in the CLI (one quoted argument) or in the web **Generate** page.
+
+2. **Optional precheck** — a small LLM call checks that your text mentions a supported subject and enough detail to identify a paper (unless you turn precheck off in config).
+
+3. **Main interpretation** — the LLM sees the list of real PDF filenames in your exam folders and returns structured data: which question paper(s) to open, which question numbers, output filename, and matching mark scheme files when they exist.
+
+4. **Cut questions from the PDFs** — for each paper, the program opens the question paper, finds where each question sits on the page, and extracts those regions as vector graphics (not screenshots), preserving crisp text and diagrams.
+
+5. **Build the exercise PDF** — all extracted strips are combined into **one continuous PDF** (your exercise sheet), with layout and headers appropriate to the subject.
+
+6. **Answers PDF (if a mark scheme is available)** — the matching mark scheme is opened. For typical structured MS layouts, answer regions are extracted the same way. For **MCQ** mark schemes, the tool can optionally call the LLM once per batch to add short explanation blocks, then compile them; if TeX is missing, it falls back to simpler answer lines.
+
+7. **Optional n-up copies** — if `pdfjam` is installed, **2-up** and **4-up** versions of the exercise (and answers) may be generated for printing.
+
+### Legacy mode (explicit paths)
+
+1. You pass **question paper path**, **output path**, and **question numbers** (and optionally `--ms` with a mark scheme path).
+
+2. Steps **4–7** above run the same way — there is **no** LLM step; the program goes straight to finding questions and building PDFs.
+
+---
+
 ## Screenshots
 
 Local web UI (**Generate** at `http://127.0.0.1:8001`):
