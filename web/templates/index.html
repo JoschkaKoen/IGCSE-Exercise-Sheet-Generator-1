@@ -532,8 +532,9 @@
   function rerenderActivePdfTab() {
     var id = activePdfTabId();
     if (!tabEnabled(id) || !getPdfState(id).doc) return Promise.resolve();
-    clearInactivePdfSurfaces(id);
-    return renderPdfContinuous(id);
+    return renderPdfContinuous(id).then(function () {
+      clearInactivePdfSurfaces(id);
+    });
   }
 
   function ensurePdfJs() {
@@ -884,7 +885,8 @@
 
   function selectTab(id) {
     if (!tabEnabled(id)) return Promise.resolve();
-    clearInactivePdfSurfaces(id);
+    // Do NOT clear inactive surfaces yet — keep their canvases alive in the DOM
+    // so the outgoing tab remains visible until the incoming tab's render completes.
     var sl = tabIdToSideLayout(id);
 
     // Update all tab panels (show only the active one)
@@ -920,7 +922,13 @@
     if (sc && workspace.classList.contains('preview-mode')) {
       try { sc.focus({ preventScroll: true }); } catch (e) { sc.focus(); }
     }
-    return renderPdfContinuous(id).catch(function () {});
+    // Render first, then free RAM from tabs that are no longer visible.
+    // This eliminates the dark-background flash: the incoming tab's old canvases
+    // (if any) remain visible during the render; the atomic DocumentFragment swap
+    // in renderPdfContinuous replaces them without any empty frame in between.
+    return renderPdfContinuous(id).then(function () {
+      clearInactivePdfSurfaces(id);
+    }).catch(function () {});
   }
 
   function buildOverviewPanel(overview) {
