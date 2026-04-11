@@ -23,6 +23,7 @@ class JobRecord:
     exercise_2up_pdf: Path | None = None
     answers_4up_pdf: Path | None = None
     answers_2up_pdf: Path | None = None
+    ranking_pdf: Path | None = None
     log_line: str = ""
     overview: dict[str, Any] | None = None
 
@@ -73,6 +74,7 @@ class JobStore:
         exercise_2up_pdf: Path | None = None,
         answers_4up_pdf: Path | None = None,
         answers_2up_pdf: Path | None = None,
+        ranking_pdf: Path | None = None,
         overview: dict[str, Any] | None = None,
     ) -> None:
         with self._lock:
@@ -85,4 +87,5 @@ class JobStore:
                 j.exercise_2up_pdf = exercise_2up_pdf
                 j.answers_4up_pdf = answers_4up_pdf
                 j.answers_2up_pdf = answers_2up_pdf
+                j.ranking_pdf = ranking_pdf
                 j.overview = overview

@@ -67,6 +67,17 @@
           <div id="pdf-pages-answers-four-up" class="pdf-pages-stack"></div>
         </div>
       </div>
+      <div id="tab-panel-ranking" class="pdf-tab-panel" role="tabpanel" aria-labelledby="tab-btn-ranking" hidden>
+        <div id="pdf-loading-ranking" class="pdf-loading-overlay hidden" aria-hidden="true">
+          <span class="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-orange-400/25 border-t-orange-400" aria-hidden="true"></span>
+        </div>
+        <div id="pdf-empty-ranking" class="pdf-empty-state hidden" role="status">
+          <p>Ranking not generated for this run.</p>
+        </div>
+        <div id="pdf-scroll-ranking" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="ranking" aria-label="Difficulty ranking preview">
+          <div id="pdf-pages-ranking" class="pdf-pages-stack"></div>
+        </div>
+      </div>
     </div>
   </div>
   </div><!-- /pdf-preview-stack -->

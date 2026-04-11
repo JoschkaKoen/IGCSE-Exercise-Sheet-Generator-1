@@ -30,7 +30,7 @@
   const pdfTabSidePill     = document.getElementById('pdf-tab-side-pill');
   const pdfTabBackBtn      = document.getElementById('pdf-tab-back-btn');
 
-  const TAB_ORDER = ['exercise', 'two-up', 'four-up', 'answers', 'answers-two-up', 'answers-four-up'];
+  const TAB_ORDER = ['exercise', 'two-up', 'four-up', 'answers', 'answers-two-up', 'answers-four-up', 'ranking'];
   const PDF_OUTPUT_PAGE_H_PT = 842;
   const TABS = [
     { id: 'exercise',        urlKey: 'download_url' },
@@ -39,11 +39,13 @@
     { id: 'four-up',         urlKey: 'four_up_url' },
     { id: 'answers-two-up',  urlKey: 'answers_two_up_url' },
     { id: 'answers-four-up', urlKey: 'answers_four_up_url' },
+    { id: 'ranking',         urlKey: 'ranking_url' },
   ];
 
   /* Two-axis state: which side (sheet/answers) × which layout (1up/2up/4up). */
   var currentSide = 'sheet';    // 'sheet' | 'answers'
   var currentLayout = 'exercise'; // 'exercise' | 'two-up' | 'four-up'
+  var rankingActive = false;    // true when the ranking tab is in the foreground
 
   /** Map (side, layout) → tab id. */
   function resolveTabId(side, layout) {
@@ -510,7 +512,7 @@
   }
 
   function activePdfTabId() {
-    // Derive from the two-axis state
+    if (rankingActive) return 'ranking';
     return resolveTabId(currentSide, currentLayout);
   }
 
@@ -593,7 +595,6 @@
     if (!tabEnabled(id)) return Promise.resolve();
     // Do NOT clear inactive surfaces yet — keep their canvases alive in the DOM
     // so the outgoing tab remains visible until the incoming tab's render completes.
-    var sl = tabIdToSideLayout(id);
 
     // Update all tab panels (show only the active one)
     TAB_ORDER.forEach(function (tid) {
@@ -605,23 +606,49 @@
       else pan.setAttribute('hidden', '');
     });
 
-    // Update button states: layout buttons reflect the layout axis,
-    // answers button reflects the side axis.
-    ['exercise', 'two-up', 'four-up'].forEach(function (lid) {
-      var btn = tabBtn(lid);
-      if (!btn) return;
-      var on = lid === sl.layout;
-      btn.setAttribute('aria-selected', on ? 'true' : 'false');
-      btn.tabIndex = on ? 0 : -1;
-    });
-    var ansBtn = tabBtn('answers');
-    if (ansBtn) {
-      var ansOn = sl.side === 'answers';
-      ansBtn.setAttribute('aria-selected', ansOn ? 'true' : 'false');
-      ansBtn.tabIndex = ansOn ? 0 : -1;
+    var rankingBtn = document.getElementById('tab-btn-ranking');
+
+    if (id === 'ranking') {
+      rankingActive = true;
+      if (rankingBtn) {
+        rankingBtn.setAttribute('aria-selected', 'true');
+        rankingBtn.tabIndex = 0;
+      }
+      // Deselect all two-axis buttons while ranking is active
+      ['exercise', 'two-up', 'four-up'].forEach(function (lid) {
+        var btn = tabBtn(lid);
+        if (!btn) return;
+        btn.setAttribute('aria-selected', 'false');
+        btn.tabIndex = -1;
+      });
+      var ansBtn2 = tabBtn('answers');
+      if (ansBtn2) { ansBtn2.setAttribute('aria-selected', 'false'); ansBtn2.tabIndex = -1; }
+    } else {
+      rankingActive = false;
+      if (rankingBtn) {
+        rankingBtn.setAttribute('aria-selected', 'false');
+        rankingBtn.tabIndex = -1;
+      }
+
+      var sl = tabIdToSideLayout(id);
+      // Update button states: layout buttons reflect the layout axis,
+      // answers button reflects the side axis.
+      ['exercise', 'two-up', 'four-up'].forEach(function (lid) {
+        var btn = tabBtn(lid);
+        if (!btn) return;
+        var on = lid === sl.layout;
+        btn.setAttribute('aria-selected', on ? 'true' : 'false');
+        btn.tabIndex = on ? 0 : -1;
+      });
+      var ansBtn = tabBtn('answers');
+      if (ansBtn) {
+        var ansOn = sl.side === 'answers';
+        ansBtn.setAttribute('aria-selected', ansOn ? 'true' : 'false');
+        ansBtn.tabIndex = ansOn ? 0 : -1;
+      }
+      syncPdfTabChrome(id);
     }
 
-    syncPdfTabChrome(id);
     var sc = scrollEl(id);
     if (sc) sc.scrollTop = 0;
     updateHeaderGlassFromPdfScroll();
@@ -834,6 +861,7 @@
   }
 
   function exitPreviewMode() {
+    rankingActive = false;
     sessionStorage.removeItem('previewState');
     workspace.classList.remove('preview-mode', 'preview-mode--settled');
     document.body.classList.remove('preview-mode-active');
@@ -931,6 +959,7 @@
   }
 
   async function refreshPreviewMode() {
+    rankingActive = false;
     if (overviewPanel) {
       overviewPanel.classList.add('hidden');
       if (overviewBody) overviewBody.innerHTML = '';
@@ -1203,6 +1232,16 @@
         var sl = tabIdToSideLayout(first);
         tabBtn(sl.side === 'answers' ? 'answers' : sl.layout).focus();
       }
+    });
+  })();
+
+  /* Ranking button: standalone tab, outside the two-axis system */
+  (function () {
+    var b = document.getElementById('tab-btn-ranking');
+    if (!b) return;
+    b.addEventListener('click', function () {
+      if (b.disabled) return;
+      selectTab('ranking');
     });
   })();
 

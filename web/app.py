@@ -130,10 +130,10 @@ async def _run_job(job_id: str, prompt: str) -> None:
         store.set_log_line(job_id, line)
 
     try:
-        main_pdf, ans_pdf, up4, up2, a4, a2, overview = await asyncio.to_thread(
+        main_pdf, ans_pdf, up4, up2, a4, a2, ranking_pdf, overview = await asyncio.to_thread(
             run_nl_prompt_logged, prompt, on_line
         )
-        store.complete(job_id, main_pdf, ans_pdf, up4, up2, a4, a2, overview=overview)
+        store.complete(job_id, main_pdf, ans_pdf, up4, up2, a4, a2, ranking_pdf=ranking_pdf, overview=overview)
     except ExtractionUserError as e:
         store.fail(job_id, str(e))
     except Exception as e:  # noqa: BLE001 — last-resort message for the UI
@@ -228,6 +228,8 @@ async def job_status(request: Request, job_id: str) -> dict:
             out["answers_four_up_url"] = f"{base}/api/jobs/{job_id}/answers-four-up"
         if rec.answers_2up_pdf is not None:
             out["answers_two_up_url"] = f"{base}/api/jobs/{job_id}/answers-two-up"
+        if rec.ranking_pdf is not None:
+            out["ranking_url"] = f"{base}/api/jobs/{job_id}/ranking"
         out["download_all_url"] = f"{base}/api/jobs/{job_id}/download-all"
         if rec.overview is not None:
             out["overview"] = rec.overview
@@ -318,6 +320,21 @@ async def download_job_answers_two_up(job_id: str, inline: bool = Query(False)) 
     if rec is None or rec.status != "done" or rec.answers_2up_pdf is None:
         raise HTTPException(status_code=404, detail="Not available")
     path = rec.answers_2up_pdf
+    disp = "inline" if inline else "attachment"
+    return FileResponse(
+        path,
+        filename=path.name,
+        media_type="application/pdf",
+        content_disposition_type=disp,
+    )
+
+
+@app.get("/api/jobs/{job_id}/ranking")
+async def download_job_ranking(job_id: str, inline: bool = Query(False)) -> FileResponse:
+    rec = store.get(job_id)
+    if rec is None or rec.status != "done" or rec.ranking_pdf is None:
+        raise HTTPException(status_code=404, detail="Not available")
+    path = rec.ranking_pdf
     disp = "inline" if inline else "attachment"
     return FileResponse(
         path,

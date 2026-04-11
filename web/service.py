@@ -16,7 +16,7 @@ from eXercise.pipeline import run_extraction_jobs
 def run_nl_prompt(
     prompt: str,
     on_progress: Callable[[str], None] | None = None,
-) -> tuple[Path, Path | None, Path | None, Path | None, Path | None, Path | None, dict[str, Any]]:
+) -> tuple[Path, Path | None, Path | None, Path | None, Path | None, Path | None, Path | None, dict[str, Any]]:
     """
     Resolve natural language, run extraction jobs, return main PDF, optional answers PDF,
     optional pdfjam siblings (4-up / 2-up landscape) when those files exist, and an
@@ -74,19 +74,21 @@ def run_nl_prompt(
     two_up = out_path.parent / f"{out_path.stem}_2up{out_path.suffix}"
     ans_four_up = out_path.parent / f"{out_path.stem}_answers_4up{out_path.suffix}"
     ans_two_up = out_path.parent / f"{out_path.stem}_answers_2up{out_path.suffix}"
+    ranking_path = out_path.parent / f"{out_path.stem}_ranking{out_path.suffix}"
     ans: Path | None = answers_path if answers_path.is_file() else None
     u4: Path | None = four_up if four_up.is_file() else None
     u2: Path | None = two_up if two_up.is_file() else None
     a4: Path | None = ans_four_up if ans_four_up.is_file() else None
     a2: Path | None = ans_two_up if ans_two_up.is_file() else None
+    ranking: Path | None = ranking_path if ranking_path.is_file() else None
     overview = overview_holder[0] if overview_holder else {"papers": [], "anchors": []}
-    return out_path, ans, u4, u2, a4, a2, overview
+    return out_path, ans, u4, u2, a4, a2, ranking, overview
 
 
 def run_nl_prompt_logged(
     prompt: str,
     on_line: Callable[[str], None],
-) -> tuple[Path, Path | None, Path | None, Path | None, Path | None, Path | None, dict[str, Any]]:
+) -> tuple[Path, Path | None, Path | None, Path | None, Path | None, Path | None, Path | None, dict[str, Any]]:
     """Web worker entry: same as ``run_nl_prompt`` with live progress lines."""
     return run_nl_prompt(prompt, on_progress=on_line)
 
