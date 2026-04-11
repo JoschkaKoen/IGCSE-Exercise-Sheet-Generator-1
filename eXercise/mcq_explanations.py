@@ -37,12 +37,19 @@ if TYPE_CHECKING:
     from .rendering import VectorStrip
 
 try:
-    from .ai_client import get_provider_name, make_ai_client
+    from .ai_client import (
+        collect_streamed_response,
+        is_thinking_provider,
+        make_ai_client,
+    )
     _AI_CLIENT_AVAILABLE = True
 except ImportError:
     make_ai_client = None  # type: ignore[assignment]
 
-    def get_provider_name() -> str:  # type: ignore[misc]
+    def is_thinking_provider(provider: str) -> bool:  # type: ignore[misc]
+        return False
+
+    def collect_streamed_response(stream: Any) -> str:  # type: ignore[misc]
         return ""
 
     _AI_CLIENT_AVAILABLE = False
@@ -422,7 +429,7 @@ Third bullet point
 - Do NOT wrap in JSON, code fences, or any other format.\
 """
 
-# Extra constraints when AI_PROVIDER=gemini (that model tends to over-explain).
+# Extra constraints for Gemini models (they tend to over-explain).
 _GEMINI_BREVITY_RULES = """\
 - SIMPLE ENGLISH: Everyday words and short clauses only. Avoid fancy or academic vocabulary where a plain word works (say "pulls" not "exerts an attractive force upon", "same" not "equivalent").
 - SHORT BULLETS ONLY: Each bullet is at most ONE short sentence, ideally under ~18 words. No warm-up phrases ("Firstly", "It is important to note", "This means that").
@@ -437,11 +444,11 @@ _SUBJECT_TITLES: dict[str, str] = {
 }
 
 
-def _build_system_prompt(exam_key: str | None) -> str:
+def _build_system_prompt(exam_key: str | None, provider: str = "") -> str:
     key = exam_key or ""
     title = _SUBJECT_TITLES.get(key, "Science")
     hint = _SUBJECT_HINTS.get(key, _DEFAULT_SUBJECT_HINT)
-    gemini_brevity = _GEMINI_BREVITY_RULES if get_provider_name() == "gemini" else ""
+    gemini_brevity = _GEMINI_BREVITY_RULES if provider == "gemini" else ""
     return _SYSTEM_TEMPLATE.format(
         subject_title=title, subject_hint=hint, gemini_brevity=gemini_brevity
     )
@@ -561,6 +568,7 @@ def generate_mcq_explanations(
     questions: list[int],
     exam_key: str | None,
     q_images: dict[int, str] | None = None,
+    provider: str = "",
 ) -> dict[int, list[str]]:
     """Call the AI once for all questions; return ``{qnum: [bullet, bullet, bullet]}``.
 
@@ -573,20 +581,32 @@ def generate_mcq_explanations(
     if not questions_with_answers:
         return {}
 
-    system = _build_system_prompt(exam_key)
+    system = _build_system_prompt(exam_key, provider)
     user_content: str | list[dict] = _build_user_content(
         q_texts, answers, questions_with_answers, q_images or {},
     )
 
     def _call(**kwargs: Any) -> tuple[str, str | None]:
         """Return (content, finish_reason)."""
+        msgs = [
+            {"role": "system", "content": system},
+            {"role": "user", "content": user_content},
+        ]
+        if is_thinking_provider(provider):
+            stream = client.chat.completions.create(
+                model=model,
+                max_tokens=16384,
+                messages=msgs,
+                stream=True,
+                extra_body={"enable_thinking": True},
+                **kwargs,
+            )
+            text = collect_streamed_response(stream)
+            return text, "stop" if text else "length"
         completion = client.chat.completions.create(
             model=model,
             max_tokens=16384,
-            messages=[
-                {"role": "system", "content": system},
-                {"role": "user", "content": user_content},
-            ],
+            messages=msgs,
             **kwargs,
         )
         choice = completion.choices[0]
@@ -708,7 +728,7 @@ def batch_generate_mcq_explanations(
     client_model = _load_ai_client()
     if client_model is None:
         return [{} for _ in papers]
-    client, model = client_model
+    client, model, provider = client_model
 
     total_qs = sum(len(p.answered) for p in papers)
     print(
@@ -721,6 +741,7 @@ def batch_generate_mcq_explanations(
             client, model,
             paper.q_texts, paper.answers, paper.answered, paper.exam_key,
             q_images=paper.q_images,
+            provider=provider,
         )
 
     results: list[dict[int, list[str]]] = [{} for _ in papers]
@@ -1128,20 +1149,22 @@ def _pdf_to_vector_strips(
 # ---------------------------------------------------------------------------
 
 
-def _load_ai_client() -> tuple[Any, str] | None:
-    """Load LLM client from environment; return (client, model) or None."""
+def _load_ai_client() -> tuple[Any, str, str] | None:
+    """Load LLM client from environment; return (client, model, provider) or None."""
     if not _AI_CLIENT_AVAILABLE or make_ai_client is None:
         print("  MCQ explanations: ai_client module unavailable.")
         return None
 
     load_project_env()
 
-    result = make_ai_client(model_env="AI_MCQ_MODEL", legacy_model_env="XAI_MCQ_MODEL")
+    # Resolution order: MCQ_MODEL → AI_MCQ_MODEL → AI_MODEL → default.
+    # Provider is inferred automatically from the resolved model name.
+    result = make_ai_client(model_env="MCQ_MODEL", legacy_model_env="AI_MCQ_MODEL")
     if result is None:
-        # Try the generic AI_MODEL / XAI_MODEL fallback
+        # API key missing for that model's provider; try the global AI_MODEL.
         result = make_ai_client(model_env="AI_MODEL", legacy_model_env="XAI_MODEL")
     if result is None:
-        print("  MCQ explanations: no API key set for active provider; skipping AI explanations.")
+        print("  MCQ explanations: no API key set for active model; skipping AI explanations.")
         return None
     return result
 

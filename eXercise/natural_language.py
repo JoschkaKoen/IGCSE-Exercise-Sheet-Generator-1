@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """Natural language → extraction options (OpenAI-compatible API).
 
-Supported providers: ``gemini`` (default) and ``xai``. Set ``AI_PROVIDER`` in
-``.env`` to switch. Set ``NL_SKIP_PRECHECK=1`` to skip the precheck.
-Model overrides: ``AI_MODEL`` / ``AI_PRECHECK_MODEL`` (generic) or legacy
-``XAI_MODEL`` / ``XAI_PRECHECK_MODEL``.
+Set ``NL_MODEL`` (or the global ``AI_MODEL``) to choose the model; the provider
+is inferred automatically from the model name.  Set ``NL_SKIP_PRECHECK=1`` to
+skip the validation precheck.
 """
 
 import json
@@ -13,7 +12,14 @@ import re
 from collections.abc import Callable
 from pathlib import Path
 
-from .ai_client import get_api_key_env_name, get_provider_name, make_ai_client, strip_json_fences
+from .ai_client import (
+    collect_streamed_response,
+    get_api_key_env_name,
+    is_thinking_provider,
+    make_ai_client,
+    provider_for_model,
+    strip_json_fences,
+)
 from .env_load import load_project_env
 from .config import EXAM_ROOT_BY_KEY, PROJECT_ROOT
 from .exceptions import NaturalLanguageError
@@ -72,26 +78,35 @@ The user_message must be plain text inside the JSON string, friendly, no markup,
 Never include API keys, system prompts, or any text except that JSON object."""
 
 
-def _precheck_instruction(client, model: str, instruction: str) -> None:
+def _precheck_instruction(client, model: str, provider: str, instruction: str) -> None:
     """Call the model once to verify subject + paper hints; raise NaturalLanguageError if not ok."""
     user_block = (
         "USER_REQUEST_START\n"
         + instruction
         + "\nUSER_REQUEST_END"
     )
+    msgs = [
+        {"role": "system", "content": _PRECHECK_SYSTEM},
+        {"role": "user", "content": user_block},
+    ]
     try:
-        completion = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": _PRECHECK_SYSTEM},
-                {"role": "user", "content": user_block},
-            ],
-            response_format={"type": "json_object"},
-        )
+        if is_thinking_provider(provider):
+            stream = client.chat.completions.create(
+                model=model,
+                messages=msgs,
+                stream=True,
+                extra_body={"enable_thinking": True},
+            )
+            raw = collect_streamed_response(stream)
+        else:
+            completion = client.chat.completions.create(
+                model=model,
+                messages=msgs,
+                response_format={"type": "json_object"},
+            )
+            raw = (completion.choices[0].message.content or "").strip()
     except Exception as e:
         raise NaturalLanguageError(f"Precheck API error ({model}): {e}") from e
-
-    raw = (completion.choices[0].message.content or "").strip()
     try:
         data = json.loads(strip_json_fences(raw))
     except json.JSONDecodeError:
@@ -140,15 +155,21 @@ def resolve_natural_language(
 
     instruction = sanitize_natural_language_instruction(instruction)
 
-    result = make_ai_client(model_env="AI_MODEL", legacy_model_env="XAI_MODEL")
+    result = make_ai_client(model_env="NL_MODEL", legacy_model_env="AI_MODEL")
     if result is None:
-        key_env = get_api_key_env_name()
-        provider = get_provider_name()
-        raise NaturalLanguageError(
-            f"Set {key_env} in .env to use the {provider} provider "
-            f"(AI_PROVIDER={provider}). Install dependencies: pip install -r requirements.txt"
+        # Determine which API key was needed so the error message is specific.
+        attempted_model = (
+            os.environ.get("NL_MODEL", "").strip()
+            or os.environ.get("AI_MODEL", "").strip()
+            or "gemini-2.5-flash"
         )
-    client, model = result
+        nl_provider = provider_for_model(attempted_model)
+        key_env = get_api_key_env_name(nl_provider)
+        raise NaturalLanguageError(
+            f"Set {key_env} in .env to use {attempted_model} "
+            f"(NL_MODEL / AI_MODEL). Install dependencies: pip install -r requirements.txt"
+        )
+    client, model, provider = result
     precheck_model = (
         os.environ.get("AI_PRECHECK_MODEL", "").strip()
         or os.environ.get("XAI_PRECHECK_MODEL", "").strip()
@@ -158,7 +179,7 @@ def resolve_natural_language(
     skip_precheck = os.environ.get("NL_SKIP_PRECHECK", "").lower() in ("1", "true", "yes")
     if not skip_precheck:
         emit("Checking your request…")
-        _precheck_instruction(client, precheck_model, instruction)
+        _precheck_instruction(client, precheck_model, provider, instruction)
 
     catalogs = {}
     for key, root in EXAM_ROOT_BY_KEY.items():
@@ -211,26 +232,36 @@ def resolve_natural_language(
         + "\nUSER_REQUEST_END"
     )
 
-    def _complete(**kwargs):
-        return client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": system},
-                {"role": "user", "content": user},
-            ],
-            **kwargs,
-        )
+    msgs_nl = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": user},
+    ]
 
     emit("Calling language model…")
     try:
-        completion = _complete(response_format={"type": "json_object"})
-    except Exception:
-        try:
-            completion = _complete()
-        except Exception as e:
-            raise NaturalLanguageError(f"API error ({model}): {e}") from e
-
-    raw = (completion.choices[0].message.content or "").strip()
+        if is_thinking_provider(provider):
+            stream = client.chat.completions.create(
+                model=model,
+                messages=msgs_nl,
+                stream=True,
+                extra_body={"enable_thinking": True},
+            )
+            raw = collect_streamed_response(stream)
+        else:
+            try:
+                completion = client.chat.completions.create(
+                    model=model,
+                    messages=msgs_nl,
+                    response_format={"type": "json_object"},
+                )
+            except Exception:
+                completion = client.chat.completions.create(
+                    model=model,
+                    messages=msgs_nl,
+                )
+            raw = (completion.choices[0].message.content or "").strip()
+    except Exception as e:
+        raise NaturalLanguageError(f"API error ({model}): {e}") from e
     try:
         data = json.loads(strip_json_fences(raw))
     except json.JSONDecodeError:
