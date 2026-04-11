@@ -45,6 +45,15 @@ store = JobStore()
 if STATIC_DIR.is_dir():
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
+
+@app.middleware("http")
+async def no_cache_static(request: Request, call_next):
+    """Disable browser caching for static assets during development."""
+    response = await call_next(request)
+    if request.url.path.startswith("/static/"):
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    return response
+
 _favicon_svg = STATIC_DIR / "favicon.svg"
 
 
