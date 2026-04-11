@@ -45,6 +45,21 @@ store = JobStore()
 if STATIC_DIR.is_dir():
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
+_favicon_svg = STATIC_DIR / "favicon.svg"
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon_ico() -> FileResponse:
+    """Browsers request /favicon.ico by default; serve the SVG with an .ico URL."""
+    return FileResponse(_favicon_svg, media_type="image/svg+xml")
+
+
+@app.get("/apple-touch-icon.png", include_in_schema=False)
+@app.get("/apple-touch-icon-precomposed.png", include_in_schema=False)
+async def apple_touch_icon() -> FileResponse:
+    """Silence 404s from Safari / iOS home-screen bookmark probes."""
+    return FileResponse(_favicon_svg, media_type="image/svg+xml")
+
 
 @app.middleware("http")
 async def site_access_gate(request: Request, call_next):
