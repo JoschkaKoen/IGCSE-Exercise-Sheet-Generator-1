@@ -76,24 +76,22 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
    which places the ranking button roughly halfway between the back button and the tab cluster. */
 .pdf-tab-bar-left {
   display: flex;
-  flex-direction: row;
+  flex-direction: row !important;
   flex-wrap: nowrap;
   align-items: center;
   min-width: 0;
+  overflow: hidden;
 }
 
-/* Ranking slot: centred in whatever space remains to the right of the back button */
-.pdf-tab-ranking-slot {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
+/* Ranking button: centred in remaining space between back button and tab cluster */
+.pdf-tab-bar-left > .pdf-tab-ranking-btn {
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* ─── Ranking button (intentionally small and unobtrusive) ───────────────── */
+/* ─── Ranking button ────────────────────────────────────────────────────── */
 .pdf-tab-ranking-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.28rem;
   flex-shrink: 0;
@@ -105,7 +103,12 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
   cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none !important;
   transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease, box-shadow 0.22s ease;
 }
 
@@ -138,9 +141,27 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
   cursor: not-allowed;
 }
 
+/* Kill ALL browser focus decoration — mouse and keyboard */
+.pdf-tab-ranking-btn:focus,
+.pdf-tab-ranking-btn:active,
+.pdf-tab-ranking-btn:-moz-focusring {
+  outline: none !important;
+  box-shadow: none;
+}
+
+/* … but restore a visible ring for keyboard-only focus */
 .pdf-tab-ranking-btn:focus-visible {
   outline: 2px solid rgba(251, 146, 60, 0.5);
   outline-offset: 2px;
+}
+
+/* Re-apply selected glow even when focused (higher specificity) */
+.pdf-tab-ranking-btn[aria-selected="true"]:focus,
+.pdf-tab-ranking-btn[aria-selected="true"]:active {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 1px rgba(251, 146, 60, 0.18),
+    0 0 18px -5px rgba(251, 146, 60, 0.35);
 }
 
 /* Tab track sits in the auto centre column, truly centred over the PDF pane */

@@ -363,6 +363,8 @@ async def download_job_all_zip(job_id: str) -> Response:
             zf.write(rec.answers_4up_pdf, arcname=rec.answers_4up_pdf.name)
         if rec.answers_2up_pdf is not None:
             zf.write(rec.answers_2up_pdf, arcname=rec.answers_2up_pdf.name)
+        if rec.ranking_pdf is not None:
+            zf.write(rec.ranking_pdf, arcname=rec.ranking_pdf.name)
     zip_name = f"{rec.output_pdf.stem}_all.zip"
     return Response(
         content=buf.getvalue(),

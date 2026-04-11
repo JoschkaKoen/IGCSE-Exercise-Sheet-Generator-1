@@ -1242,6 +1242,7 @@
     b.addEventListener('click', function () {
       if (b.disabled) return;
       selectTab('ranking');
+      b.blur();
     });
   })();
 
