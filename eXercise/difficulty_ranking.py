@@ -385,7 +385,7 @@ def generate_difficulty_ranking(
     dest = out_path / f"{name}_ranking.pdf"
     save_tex = (
         out_path / f"{name}_ranking.tex"
-        if os.environ.get("RANKING_SAVE_TEX", "").lower() in ("true", "1", "yes")
+        if os.environ.get("SAVE_TEX", "").lower() in ("true", "1", "yes")
         else None
     )
 

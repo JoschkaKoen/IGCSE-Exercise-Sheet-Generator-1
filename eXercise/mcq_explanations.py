@@ -781,8 +781,10 @@ def finalize_mcq_explanation_strips(
 
     tex = build_explanation_latex(job_data.qs, job_data.answers, explanations, job_data.paper_label)
 
-    tex_file_path = job_data.expl_pdf_path.with_suffix(".tex")
-    tex_file_path.write_text(tex, encoding="utf-8")
+    if os.environ.get("SAVE_TEX", "").lower() in ("true", "1", "yes"):
+        tex_file_path = job_data.expl_pdf_path.with_suffix(".tex")
+        tex_file_path.write_text(tex, encoding="utf-8")
+        print(f"  Saved TeX: {tex_file_path}")
 
     print("  Compiling LaTeX…")
     success = compile_latex(tex, job_data.expl_pdf_path)
