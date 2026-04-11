@@ -76,6 +76,8 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) {
    which places the ranking button roughly halfway between the back button and the tab cluster. */
 .pdf-tab-bar-left {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   min-width: 0;
 }
