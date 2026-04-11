@@ -185,14 +185,16 @@ def _rank_exercises_ai_gemini(
         print(f"    {label.capitalize()} PDF ready ({f.name}).")
         ready[label] = f
 
-    # Build thinking config
-    thinking_cfg = None
+    # Build thinking config — include_thoughts=True makes thought summaries visible
     if effort == "off":
-        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=0)
+        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=0, include_thoughts=False)
     elif effort == "low":
-        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=1024)
+        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=1024, include_thoughts=True)
     elif effort == "high":
-        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=8192)
+        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=8192, include_thoughts=True)
+    else:
+        # Default: enable thoughts so they are visible in console
+        thinking_cfg = gai_types.ThinkingConfig(include_thoughts=True)
 
     gen_config = gai_types.GenerateContentConfig(
         system_instruction=_SYSTEM_PROMPT,
