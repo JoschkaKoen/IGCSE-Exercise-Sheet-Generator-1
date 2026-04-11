@@ -118,17 +118,13 @@ def build_thinking_kwargs(provider: str, effort: str | None) -> tuple[bool, dict
     Grok    — effort is silently ignored; always non-streaming.
     """
     if provider == "gemini":
-        # include_thoughts must be passed via extra_body to get thought summaries
-        # in the response through the OpenAI-compat endpoint.
-        include_thoughts_body = {
-            "extra_body": {"google": {"thinking_config": {"include_thoughts": True}}}
-        }
         if effort == "off":
             return False, {"reasoning_effort": "none"}
         if effort in ("low", "high"):
-            return True, {"reasoning_effort": effort, **include_thoughts_body}
-        # effort is None (provider default) — stream with thoughts visible
-        return True, include_thoughts_body
+            # Stream so thinking + content are visible live in the terminal
+            return True, {"reasoning_effort": effort}
+        # effort is None (provider default) — stream to show live output
+        return True, {}
 
     if provider == "qwen":
         if effort == "off":
