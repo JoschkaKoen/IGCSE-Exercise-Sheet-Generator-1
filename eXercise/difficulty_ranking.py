@@ -123,18 +123,25 @@ You will be shown an exercise sheet and (optionally) its answer sheet.
 Your task: rank every individual question part from most difficult to easiest.
 
 CRITICAL: Only rank the questions that are EXPLICITLY VISIBLE in the provided documents.
+Do NOT add, invent, or recall any questions from memory or prior knowledge of the exam paper.
 If the sheet contains 3 questions, your output must contain exactly 3 entries.
 
 Rules:
 - If a question has sub-parts (a, b, c) or sub-sub-parts (a(i), a(ii)), rank each
   part individually. If a question has no sub-parts, rank the whole question.
-- For multi-paper sheets, prefix each ID with the paper label, e.g. "w24/21 Q7a".
-  For single-paper sheets, use just the identifier, e.g. "7a".
+- Always prefix the question number with "Q", e.g. "Q3b", "Q12a(i)", "Q7".
+- For multi-paper sheets, also prefix with the paper label before "Q":
+  e.g. "w24/22 Q3b", "w24/12 Q5b(ii)".
+  For single-paper sheets, use just the "Q" identifier, e.g. "Q7a", "Q3".
 - Output ONLY a plain numbered list, one identifier per line. No prose, no headings.
-- Example output:
-  1. 12a(i)
-  2. 7b
-  3. 3\
+- Example output (multi-paper):
+  1. w24/22 Q10
+  2. w24/12 Q5b(ii)
+  3. w24/22 Q3b
+- Example output (single-paper):
+  1. Q12a(i)
+  2. Q7b
+  3. Q3\
 """
 
 
@@ -404,7 +411,7 @@ def _parse_ranking(response: str) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def _generate_ranking_latex(ranking: list[str], title: str) -> str:
-    items = "\n".join(f"  \\item Ex.~{_latex_escape(r)}" for r in ranking)
+    items = "\n".join(f"  \\item {_latex_escape(r)}" for r in ranking)
     escaped_title = _latex_escape(title)
     return rf"""\documentclass[12pt]{{article}}
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{{geometry}}
