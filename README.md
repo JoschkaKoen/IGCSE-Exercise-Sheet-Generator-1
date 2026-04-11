@@ -15,6 +15,36 @@ Build printable exercise sheets from Cambridge-style IGCSE question papers (PDF)
 
 ## How it works (step by step)
 
+Overview (rendered on GitHub as a diagram):
+
+```mermaid
+flowchart TD
+    subgraph nlPath [Natural language]
+        direction TB
+        n1[Describe subject papers and questions]
+        n2[Optional precheck LLM]
+        n3[Main LLM maps prompt to PDFs and question list]
+        n1 --> n2 --> n3
+    end
+
+    subgraph legPath [Legacy CLI]
+        direction TB
+        l1[Explicit paths and question numbers]
+    end
+
+    join[Extract question regions as vector graphics]
+    ex[Build one continuous exercise PDF]
+    ms{Mark scheme available?}
+    ans[Build answers PDF optional MCQ explanations via LLM]
+    nup[Optional 2-up / 4-up via pdfjam]
+
+    n3 --> join
+    l1 --> join
+    join --> ex --> ms
+    ms -->|Yes| ans --> nup
+    ms -->|No| nup
+```
+
 ### Natural language mode (one sentence)
 
 1. **You describe the run** — subject, which paper(s), which question numbers, and whether you want mark-scheme material. This is the same idea in the CLI (one quoted argument) or in the web **Generate** page.
