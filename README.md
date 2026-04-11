@@ -19,24 +19,24 @@ Overview (rendered on GitHub as a diagram):
 
 ```mermaid
 flowchart TD
-    subgraph nlPath [Natural language]
+    subgraph nlPath [Natural language mode]
         direction TB
-        n1[Describe subject papers and questions]
-        n2[Optional precheck LLM]
-        n3[Main LLM maps prompt to PDFs and question list]
+        n1["You: describe subject, paper, questions"]
+        n2[Quick sanity-check LLM call]
+        n3[LLM selects matching PDFs and question numbers]
         n1 --> n2 --> n3
     end
 
-    subgraph legPath [Legacy CLI]
+    subgraph legPath [Legacy mode]
         direction TB
-        l1[Explicit paths and question numbers]
+        l1[You: provide PDF paths and question numbers directly]
     end
 
-    join[Extract question regions as vector graphics]
-    ex[Build one continuous exercise PDF]
-    ms{Mark scheme available?}
-    ans[Build answers PDF optional MCQ explanations via LLM]
-    nup[Optional 2-up / 4-up via pdfjam]
+    join[Locate and cut each question from the PDF as vector graphics]
+    ex[Assemble into one continuous exercise PDF]
+    ms{Mark scheme provided?}
+    ans["Build answers PDF\n(MCQ: add LLM explanations if available)"]
+    nup[Generate 2-up and 4-up print versions]
 
     n3 --> join
     l1 --> join
