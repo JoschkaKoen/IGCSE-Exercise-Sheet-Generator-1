@@ -280,9 +280,15 @@ def collect_vector_strips(
             # Portrait question-paper page
             clip_x0 = cfg.strip_crop_left_pt
             clip_x1 = page_w - cfg.strip_crop_right_pt
-            # Always remove the padding_above blank so every strip starts at
-            # the question number with no leading whitespace.
-            clip_y0 = y_start + cfg.strip_crop_top_pt
+            # Remove the padding_above blank so every strip starts at the
+            # question number with no leading whitespace.  Cap the crop to
+            # however far y_start actually sits above margin_top: when the
+            # strip is clamped to margin_top (question near page top) or is
+            # a multi-page continuation (y_start == margin_top exactly),
+            # there is no blank to remove and a full strip_crop_top_pt crop
+            # would slice into real content, cutting off the first text line.
+            _available = max(0.0, y_start - cfg.margin_top)
+            clip_y0 = y_start + min(cfg.strip_crop_top_pt, _available)
             clip_y1 = y_end
             display_w = _USABLE_W_PT
             x_offset = _MARGIN_PT

@@ -204,6 +204,7 @@ def _rank_exercises_ai_gemini(
     gen_config = gai_types.GenerateContentConfig(
         system_instruction=_SYSTEM_PROMPT,
         thinking_config=thinking_cfg,
+        max_output_tokens=2048,
     )
 
     # Build content parts — file parts interleaved with text labels
@@ -394,9 +395,11 @@ def _rank_exercises_ai(
 
 def _parse_ranking(response: str) -> list[str]:
     ranking: list[str] = []
+    seen: set[str] = set()
     for line in response.strip().splitlines():
         cleaned = re.sub(r"^\s*\d+[\.\)]\s*", "", line).strip()
-        if cleaned:
+        if cleaned and cleaned not in seen:
+            seen.add(cleaned)
             ranking.append(cleaned)
     return ranking
 

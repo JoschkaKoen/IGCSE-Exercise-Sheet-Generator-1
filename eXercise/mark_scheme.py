@@ -243,11 +243,11 @@ def find_ms_answer_pages(doc, cfg: SubjectConfig | None = None):
                 continue
             for line in b["lines"]:
                 line_text = "".join(s["text"] for s in line["spans"]).strip()
+                nx0, ny0, _, _ = _norm_bbox(page, line["bbox"])
                 if re.match(r"^\d{1,2}\(", line_text) or (
-                    re.match(r"^\d{1,2}$", line_text) and line["bbox"][0] < 110 and line["bbox"][1] > 60
+                    re.match(r"^\d{1,2}$", line_text) and nx0 < 110 and ny0 > 60
                 ):
-                    x0 = line["bbox"][0]
-                    if x0 < 110:
+                    if nx0 < 110:
                         if pi not in answer_pages:
                             answer_pages.append(pi)
                         break
