@@ -98,15 +98,15 @@
 }
 
 #generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3):hover {
-  box-shadow: 0 12px 36px -8px rgba(148, 163, 184, 0.28);
+  box-shadow: 0 12px 36px -8px rgba(244, 63, 94, 0.28);
 }
 
 #generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(4):hover {
-  box-shadow: 0 12px 36px -8px rgba(59, 130, 246, 0.28);
+  box-shadow: 0 12px 36px -8px rgba(99, 102, 241, 0.28);
 }
 
 #generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(5):hover {
-  box-shadow: 0 12px 36px -8px rgba(34, 197, 94, 0.28);
+  box-shadow: 0 12px 36px -8px rgba(16, 185, 129, 0.28);
 }
 
 #generate-workspace:not(.preview-mode) #submit-btn.btn-space-primary {
@@ -204,21 +204,21 @@
 
 .subject-badge-math,
 .subject-badge-mathematics {
-  background: rgba(59, 130, 246, 0.12);
-  border: 1px solid rgba(59, 130, 246, 0.25);
-  color: rgb(147 197 253);
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: rgb(199 210 254);
 }
 
 .subject-badge-biology {
-  background: rgba(34, 197, 94, 0.12);
-  border: 1px solid rgba(34, 197, 94, 0.25);
-  color: rgb(134 239 172);
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: rgb(110 231 183);
 }
 
 .subject-badge-chemistry {
-  background: rgba(148, 163, 184, 0.186);
-  border: 1px solid rgba(148, 163, 184, 0.734);
-  color: rgb(226 232 240);
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  color: rgb(253 164 175);
 }
 
 /* ─── Hero icon float ────────────────────────────────────────────────────── */
