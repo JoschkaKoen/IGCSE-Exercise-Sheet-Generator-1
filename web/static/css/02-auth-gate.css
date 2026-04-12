@@ -67,16 +67,22 @@ body.site-auth-locked {
 /* Subject tabs: scroll horizontally on phones; avoid clipped or shrunk tap targets */
 .lib-subject-tab-scroll {
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;            /* explicit; avoids spec-forced overflow-y: auto */
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
-  scrollbar-gutter: stable;
+  scrollbar-width: none;         /* hide scrollbar — touch users swipe to scroll */
+}
+.lib-subject-tab-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 @media (min-width: 640px) {
   .lib-subject-tab-scroll {
     overflow: visible;
-    scrollbar-gutter: auto;
+    scrollbar-width: auto;
+  }
+  .lib-subject-tab-scroll::-webkit-scrollbar {
+    display: unset;
   }
 }
 

@@ -902,3 +902,17 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
   contain: layout style;
 }
 
+/* ─── Portrait phones: scrollable tab track; hide ranking button ─────── */
+@media (max-width: 479px) {
+  .ranking-tab-area {
+    display: none;
+  }
+  body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    justify-self: stretch;
+    justify-content: flex-start;
+  }
+}
+

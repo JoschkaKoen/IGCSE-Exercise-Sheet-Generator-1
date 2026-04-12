@@ -135,6 +135,8 @@
 
 /* ─── Library cards ──────────────────────────────────────────────────────── */
 .lib-card {
+  cursor: pointer;
+  touch-action: manipulation;   /* eliminates 300 ms tap delay on iOS/Android */
   transition: transform 0.18s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 

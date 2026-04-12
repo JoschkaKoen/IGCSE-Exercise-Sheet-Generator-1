@@ -193,6 +193,16 @@
   background: linear-gradient(180deg, rgba(8, 30, 52, 0.52) 0%, rgba(2, 8, 20, 0.5) 100%);
 }
 
+/* ─── Portrait phones: fix PDF-preview row height in auto-height grid ───── */
+/* grid-template-rows: 12rem minmax(0,1fr) collapses the 1fr row to 0 when   */
+/* height: auto — override with explicit size matching #lib-detail-preview.   */
+@media (max-width: 767px) {
+  #lib-detail-view {
+    grid-template-rows: 12rem min(70vh, 600px);
+    min-height: unset;
+  }
+}
+
 /* ─── Landscape phones: side-by-side detail layout ─────────────────────── */
 /* Tablets in landscape are ≥ 768 px tall, so max-height: 500px excludes them. */
 @media (orientation: landscape) and (max-height: 500px) {

@@ -227,3 +227,23 @@ body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden]))
   }
 }
 
+/* ─── Preview mode header on portrait phones: brand hidden, nav row 1, tabs row 2 ─── */
+@media (max-width: 479px) {
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) {
+    grid-template-columns: 1fr;
+  }
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-brand {
+    display: none;
+  }
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-nav {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    margin-left: 0;
+  }
+  body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden])) .site-header-middle {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
