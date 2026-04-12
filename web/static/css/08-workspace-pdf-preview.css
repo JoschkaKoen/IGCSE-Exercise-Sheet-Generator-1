@@ -112,7 +112,7 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
   transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
 }
 
-.pdf-tab-ranking-btn svg {
+.pdf-tab-ranking-btn svg:not(.hidden) {
   display: block;
   width: 1.12rem;
   height: 1.12rem;

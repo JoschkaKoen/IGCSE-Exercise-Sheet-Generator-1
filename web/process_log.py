@@ -14,7 +14,7 @@ def run_with_last_log_line(
     fn: Callable[[], T],
     on_line: Callable[[str], None],
     *,
-    max_line_len: int = 600,
+    max_line_len: int = 700,
 ) -> T:
     """
     Run ``fn`` with stdout and stderr redirected; invoke ``on_line`` with the

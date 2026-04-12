@@ -62,6 +62,8 @@ export function applyDoneData(done) {
       dlRanking.classList.remove('dl-card--ranking-generating');
       if (rankingIconChart) rankingIconChart.classList.remove('hidden');
       if (rankingGenSpinner) rankingGenSpinner.classList.add('hidden');
+      if (rankingTabIconChart)  rankingTabIconChart.classList.remove('hidden');
+      if (rankingTabGenSpinner) rankingTabGenSpinner.classList.add('hidden');
       if (rankingLog) rankingLog.classList.add('hidden');
     } else {
       // ranking_url absent: either deferred (pollRankingReady will handle it) or skipped
@@ -100,6 +102,11 @@ export function applyRankingUrl(url) {
   if (rankingLog) rankingLog.classList.add('hidden');
   if (!state.lastDownloadAllUrls.includes(url))
     state.lastDownloadAllUrls.push(url);
+  // Persist ranking_url into sessionStorage so page reload keeps the button enabled.
+  try {
+    const saved = JSON.parse(sessionStorage.getItem('previewState') || '{}');
+    if (saved.doneData) { saved.doneData.ranking_url = url; sessionStorage.setItem('previewState', JSON.stringify(saved)); }
+  } catch (_) {}
   // Load the ranking PDF into its tab panel so clicking the button works.
   state.enabledTabs.add('ranking');
   hideEmpty('ranking'); // reveals pdf-scroll-ranking, hides the "not generated" state
