@@ -23,9 +23,11 @@ def run_with_last_log_line(
     """
     remainder: str = ""
 
-    def trunc(t: str) -> str:
+    def trunc(t: str, *, tail: bool = False) -> str:
         t = t.strip()
         if len(t) > max_line_len:
+            if tail:
+                return "…" + t[-(max_line_len - 1):]
             return t[: max_line_len - 1] + "…"
         return t
 
@@ -41,7 +43,10 @@ def run_with_last_log_line(
             if line.strip():
                 on_line(trunc(line))
         if remainder.strip():
-            on_line(trunc(remainder))
+            # Show the latest text (tail) for the in-progress line so that
+            # long streaming output (e.g. AI thinking tokens without newlines)
+            # keeps updating instead of freezing at the first 600 chars.
+            on_line(trunc(remainder, tail=True))
 
     class _StdCapture:
         encoding = "utf-8"

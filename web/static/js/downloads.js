@@ -5,7 +5,7 @@
  */
 
 import { state, sleep } from './state.js';
-import { loadPdf } from './pdf-render.js';
+import { loadPdf, hideEmpty } from './pdf-render.js';
 
 // ─── DOM refs private to this module ─────────────────────────────────────────
 
@@ -102,6 +102,7 @@ export function applyRankingUrl(url) {
     state.lastDownloadAllUrls.push(url);
   // Load the ranking PDF into its tab panel so clicking the button works.
   state.enabledTabs.add('ranking');
+  hideEmpty('ranking'); // reveals pdf-scroll-ranking, hides the "not generated" state
   loadPdf('ranking', url).catch(function () {});
 }
 
