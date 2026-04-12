@@ -230,6 +230,16 @@ async def index(request: Request) -> HTMLResponse:
     )
 
 
+@app.get("/grade", response_class=HTMLResponse)
+async def grade_page(request: Request) -> HTMLResponse:
+    return TEMPLATES.TemplateResponse(
+        request,
+        "grade.html",
+        _template_ctx(request),
+        headers=_HTML_NO_CACHE,
+    )
+
+
 @app.get("/library", response_class=HTMLResponse)
 async def library_page(request: Request) -> HTMLResponse:
     data = list_library_pdfs()

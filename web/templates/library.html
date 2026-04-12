@@ -35,6 +35,7 @@
                         {% elif theme == 'teal' %}hover:border-teal-500/25
                         {% elif theme == 'amber' %}hover:border-amber-500/25
                         {% else %}hover:border-emerald-500/25{% endif %}"
+                 data-url="{{ row.download_url | e }}"
                  data-name="{{ row.name | e }}"
                  data-search="{{ (row.display_name ~ ' ' ~ row.name ~ ' ' ~ row.group_year ~ ' ' ~ row.group_session ~ ' ' ~ row.paper_kind) | lower | e }}">
           <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg
@@ -84,180 +85,320 @@
 {% block content %}
 <section>
 
-  <!-- Hero -->
-  <div id="lib-hero" class="flex items-start gap-4">
-    <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl
-                bg-gradient-to-br from-violet-500/20 to-purple-600/20 ring-1 ring-violet-500/25">
-      <svg class="h-7 w-7 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-      </svg>
-    </div>
-    <div>
-      <p class="text-xs font-semibold uppercase tracking-[0.22em] text-violet-400/75">Browse</p>
-      <h1 class="font-display mt-1 text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
-        Exam library
-      </h1>
-    </div>
-  </div>
+  <!-- Grid view (default) -->
+  <div id="lib-grid-view">
 
-  <p id="lib-desc" class="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-slate-400">
-    Cambridge IGCSE question papers and mark schemes for Physics, Computer Science, Mathematics, Biology, and Chemistry (bundled with this project).
-    Newest years first; within each year, sessions M → W → S. Download or use the generator to extract questions.
-  </p>
-
-  <!-- Controls: tab row scrolls horizontally on narrow screens; buttons must not shrink (mobile tap targets). -->
-  <div id="lib-controls" class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-    <div class="min-w-0 w-full sm:w-auto lib-subject-tab-scroll">
-      <div class="flex w-max max-w-none rounded-2xl border border-white/[0.09] bg-white/[0.04] p-1 backdrop-blur-sm"
-           role="tablist" aria-label="Subject">
-        <button type="button" id="tab-physics"
-                class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-active"
-                data-subject="physics"
-                role="tab" aria-selected="true" aria-controls="grid-physics">
-          <span class="flex items-center gap-2 whitespace-nowrap">
-            <span class="h-2 w-2 shrink-0 rounded-full bg-cyan-400"></span>
-            Physics
-          </span>
-        </button>
-        <button type="button" id="tab-cs"
-                class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                data-subject="computer_science"
-                role="tab" aria-selected="false" aria-controls="grid-cs">
-          <span class="flex items-center gap-2 whitespace-nowrap">
-            <span class="h-2 w-2 shrink-0 rounded-full bg-violet-400"></span>
-            Computer Science
-          </span>
-        </button>
-        <button type="button" id="tab-math"
-                class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                data-subject="mathematics"
-                role="tab" aria-selected="false" aria-controls="grid-math">
-          <span class="flex items-center gap-2 whitespace-nowrap">
-            <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
-            Mathematics
-          </span>
-        </button>
-        <button type="button" id="tab-biology"
-                class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                data-subject="biology"
-                role="tab" aria-selected="false" aria-controls="grid-biology">
-          <span class="flex items-center gap-2 whitespace-nowrap">
-            <span class="h-2 w-2 shrink-0 rounded-full bg-teal-400"></span>
-            Biology
-          </span>
-        </button>
-        <button type="button" id="tab-chemistry"
-                class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                data-subject="chemistry"
-                role="tab" aria-selected="false" aria-controls="grid-chemistry">
-          <span class="flex items-center gap-2 whitespace-nowrap">
-            <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
-            Chemistry
-          </span>
-        </button>
+    <!-- Hero -->
+    <div id="lib-hero" class="flex items-start gap-4">
+      <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl
+                  bg-gradient-to-br from-violet-500/20 to-purple-600/20 ring-1 ring-violet-500/25">
+        <svg class="h-7 w-7 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+        </svg>
+      </div>
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-violet-400/75">Browse</p>
+        <h1 class="font-display mt-1 text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          Exam library
+        </h1>
       </div>
     </div>
-    <label class="flex flex-1 items-center gap-3 rounded-2xl border border-white/[0.09]
-                  bg-slate-950/50 px-4 py-2.5 sm:max-w-xs transition
-                  focus-within:border-cyan-500/30 focus-within:ring-1 focus-within:ring-cyan-500/20">
-      <span class="sr-only">Search files</span>
-      <svg class="h-4 w-4 shrink-0 text-slate-500" fill="none" stroke="currentColor"
-           viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-      </svg>
-      <input type="search" id="lib-search" placeholder="Filter papers…"
-             class="w-full bg-transparent text-sm text-slate-100 placeholder:text-slate-500/80 focus:outline-none"
-             autocomplete="off" />
-    </label>
-  </div>
 
-  {{ library_subject('physics', 'grid-physics', 'cyan') }}
-  {{ library_subject('computer_science', 'grid-cs', 'violet') }}
-  {{ library_subject('mathematics', 'grid-math', 'emerald') }}
-  {{ library_subject('biology', 'grid-biology', 'teal') }}
-  {{ library_subject('chemistry', 'grid-chemistry', 'amber') }}
+    <p id="lib-desc" class="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-slate-400">
+      Cambridge IGCSE question papers and mark schemes for Physics, Computer Science, Mathematics, Biology, and Chemistry (bundled with this project).
+      Newest years first; within each year, sessions M → W → S. Download or use the generator to extract questions.
+    </p>
+
+    <!-- Controls: tab row scrolls horizontally on narrow screens; buttons must not shrink (mobile tap targets). -->
+    <div id="lib-controls" class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="min-w-0 w-full sm:w-auto lib-subject-tab-scroll">
+        <div class="flex w-max max-w-none rounded-2xl border border-white/[0.09] bg-white/[0.04] p-1 backdrop-blur-sm"
+             role="tablist" aria-label="Subject">
+          <button type="button" id="tab-physics"
+                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-active"
+                  data-subject="physics"
+                  role="tab" aria-selected="true" aria-controls="grid-physics">
+            <span class="flex items-center gap-2 whitespace-nowrap">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-cyan-400"></span>
+              Physics
+            </span>
+          </button>
+          <button type="button" id="tab-cs"
+                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                  data-subject="computer_science"
+                  role="tab" aria-selected="false" aria-controls="grid-cs">
+            <span class="flex items-center gap-2 whitespace-nowrap">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-violet-400"></span>
+              Computer Science
+            </span>
+          </button>
+          <button type="button" id="tab-math"
+                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                  data-subject="mathematics"
+                  role="tab" aria-selected="false" aria-controls="grid-math">
+            <span class="flex items-center gap-2 whitespace-nowrap">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
+              Mathematics
+            </span>
+          </button>
+          <button type="button" id="tab-biology"
+                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                  data-subject="biology"
+                  role="tab" aria-selected="false" aria-controls="grid-biology">
+            <span class="flex items-center gap-2 whitespace-nowrap">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-teal-400"></span>
+              Biology
+            </span>
+          </button>
+          <button type="button" id="tab-chemistry"
+                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                  data-subject="chemistry"
+                  role="tab" aria-selected="false" aria-controls="grid-chemistry">
+            <span class="flex items-center gap-2 whitespace-nowrap">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
+              Chemistry
+            </span>
+          </button>
+        </div>
+      </div>
+      <label class="flex flex-1 items-center gap-3 rounded-2xl border border-white/[0.09]
+                    bg-slate-950/50 px-4 py-2.5 sm:max-w-xs transition
+                    focus-within:border-cyan-500/30 focus-within:ring-1 focus-within:ring-cyan-500/20">
+        <span class="sr-only">Search files</span>
+        <svg class="h-4 w-4 shrink-0 text-slate-500" fill="none" stroke="currentColor"
+             viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <input type="search" id="lib-search" placeholder="Filter papers…"
+               class="w-full bg-transparent text-sm text-slate-100 placeholder:text-slate-500/80 focus:outline-none"
+               autocomplete="off" />
+      </label>
+    </div>
+
+    {{ library_subject('physics', 'grid-physics', 'cyan') }}
+    {{ library_subject('computer_science', 'grid-cs', 'violet') }}
+    {{ library_subject('mathematics', 'grid-math', 'emerald') }}
+    {{ library_subject('biology', 'grid-biology', 'teal') }}
+    {{ library_subject('chemistry', 'grid-chemistry', 'amber') }}
+
+  </div><!-- /#lib-grid-view -->
+
+  <!-- Detail view (shown when a card is clicked) -->
+  <div id="lib-detail-view" class="hidden">
+
+    <aside id="lib-sidebar">
+      <button id="lib-back-btn" type="button">
+        <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back
+      </button>
+      <div id="lib-sidebar-list"></div>
+    </aside>
+
+    <div id="lib-detail-preview">
+      <div id="pdf-loading-lib" class="pdf-loading-overlay hidden" aria-hidden="true">
+        <span class="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-cyan-400/25 border-t-cyan-400" aria-hidden="true"></span>
+      </div>
+      <div id="pdf-empty-lib" class="pdf-empty-state hidden" role="status">
+        <p>Could not load preview.</p>
+      </div>
+      <div id="pdf-scroll-lib" class="pdf-viewport-scroll hidden" tabindex="0"
+           data-pdf-scroll="lib" aria-label="Exam paper preview">
+        <div id="pdf-pages-lib" class="pdf-pages-stack"></div>
+      </div>
+    </div>
+
+  </div><!-- /#lib-detail-view -->
 
 </section>
 
-<script>
-(function () {
-  var tabs = [
-    { id: 'tab-physics',   subject: 'physics',          gridId: 'grid-physics',   activeClass: 'tab-active' },
-    { id: 'tab-cs',        subject: 'computer_science', gridId: 'grid-cs',        activeClass: 'tab-active-violet' },
-    { id: 'tab-math',      subject: 'mathematics',      gridId: 'grid-math',      activeClass: 'tab-active-emerald' },
-    { id: 'tab-biology',   subject: 'biology',          gridId: 'grid-biology',   activeClass: 'tab-active-teal' },
-    { id: 'tab-chemistry', subject: 'chemistry',        gridId: 'grid-chemistry', activeClass: 'tab-active-amber' },
-  ];
-  tabs.forEach(function (t) {
-    t.el   = document.getElementById(t.id);
-    t.grid = document.getElementById(t.gridId);
-  });
-  var search = document.getElementById('lib-search');
-  var activeSubject = 'physics';
+<script type="module">
+import {
+  loadPdf, renderPdfContinuous, rerenderPdfZoomBuffered,
+  showSpinner, hideSpinner, hideEmpty, showEmpty,
+} from '/static/js/pdf-render.js';
+import { getPdfState } from '/static/js/state.js';
 
-  function haystackMatches(hay, q) {
-    if (!q.length) return true;
-    var parts = q.split(/\s+/).filter(Boolean);
-    for (var i = 0; i < parts.length; i++) {
-      if (hay.indexOf(parts[i]) === -1) return false;
+// ── Subject tab definitions ────────────────────────────────────────────────
+var tabs = [
+  { id: 'tab-physics',   subject: 'physics',          gridId: 'grid-physics',   activeClass: 'tab-active',         theme: 'cyan'    },
+  { id: 'tab-cs',        subject: 'computer_science', gridId: 'grid-cs',        activeClass: 'tab-active-violet',  theme: 'violet'  },
+  { id: 'tab-math',      subject: 'mathematics',      gridId: 'grid-math',      activeClass: 'tab-active-emerald', theme: 'emerald' },
+  { id: 'tab-biology',   subject: 'biology',          gridId: 'grid-biology',   activeClass: 'tab-active-teal',    theme: 'teal'    },
+  { id: 'tab-chemistry', subject: 'chemistry',        gridId: 'grid-chemistry', activeClass: 'tab-active-amber',   theme: 'amber'   },
+];
+tabs.forEach(function (t) {
+  t.el   = document.getElementById(t.id);
+  t.grid = document.getElementById(t.gridId);
+});
+var search = document.getElementById('lib-search');
+var activeSubject = 'physics';
+
+function haystackMatches(hay, q) {
+  if (!q.length) return true;
+  var parts = q.split(/\s+/).filter(Boolean);
+  for (var i = 0; i < parts.length; i++) {
+    if (hay.indexOf(parts[i]) === -1) return false;
+  }
+  return true;
+}
+
+function setTab(subject) {
+  activeSubject = subject;
+  tabs.forEach(function (t) {
+    var isActive = t.subject === subject;
+    t.el.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    if (isActive) {
+      t.el.classList.remove('tab-inactive');
+      t.el.classList.add(t.activeClass);
+      t.grid.classList.remove('hidden');
+    } else {
+      tabs.forEach(function (other) { t.el.classList.remove(other.activeClass); });
+      t.el.classList.add('tab-inactive');
+      t.grid.classList.add('hidden');
     }
-    return true;
-  }
+  });
+  filterCards();
+}
 
-  function setTab(subject) {
-    activeSubject = subject;
-    tabs.forEach(function (t) {
-      var isActive = t.subject === subject;
-      t.el.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      if (isActive) {
-        t.el.classList.remove('tab-inactive');
-        t.el.classList.add(t.activeClass);
-        t.grid.classList.remove('hidden');
-      } else {
-        tabs.forEach(function (other) { t.el.classList.remove(other.activeClass); });
-        t.el.classList.add('tab-inactive');
-        t.grid.classList.add('hidden');
+function filterCards() {
+  var raw = (search.value || '').toLowerCase().trim();
+  var q = raw.replace(/\u00a0/g, ' ');
+  var activeTab = tabs.find(function (t) { return t.subject === activeSubject; });
+  var grid = activeTab ? activeTab.grid : tabs[0].grid;
+  grid.querySelectorAll('article.lib-card').forEach(function (card) {
+    var hay = (card.getAttribute('data-search') || card.getAttribute('data-name') || '').toLowerCase();
+    card.classList.toggle('hidden', !haystackMatches(hay, q));
+  });
+  grid.querySelectorAll('.lib-session-group').forEach(function (seg) {
+    var any = Array.prototype.some.call(seg.querySelectorAll('article.lib-card'), function (c) {
+      return !c.classList.contains('hidden');
+    });
+    seg.classList.toggle('hidden', !any);
+  });
+  grid.querySelectorAll('.lib-year-group').forEach(function (yg) {
+    var any = Array.prototype.some.call(yg.querySelectorAll('.lib-session-group'), function (s) {
+      return !s.classList.contains('hidden');
+    });
+    yg.classList.toggle('hidden', !any);
+  });
+}
+
+tabs.forEach(function (t) {
+  var go = function () { setTab(t.subject); };
+  t.el.addEventListener('click', go);
+  t.el.addEventListener('pointerup', function (e) {
+    if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
+    go();
+  });
+});
+search.addEventListener('input', filterCards);
+search.addEventListener('search', filterCards);
+
+// ── Detail view ────────────────────────────────────────────────────────────
+
+var gridView    = document.getElementById('lib-grid-view');
+var detailView  = document.getElementById('lib-detail-view');
+var sidebarList = document.getElementById('lib-sidebar-list');
+
+function buildSidebar(activeTab) {
+  sidebarList.innerHTML = '';
+  activeTab.grid.querySelectorAll('.lib-year-group').forEach(function (yg) {
+    // Year label — first span child of the header row
+    var rawLabel = yg.querySelector('.flex.items-center span:first-child');
+    if (rawLabel) {
+      var d = document.createElement('div');
+      d.className = 'lib-sidebar-year-label';
+      d.textContent = rawLabel.textContent.trim();
+      sidebarList.appendChild(d);
+    }
+    yg.querySelectorAll('.lib-session-group').forEach(function (sg) {
+      // Session badge (M/W/S pill)
+      var badge = sg.querySelector('[class*="rounded"][class*="border"][class*="tabular-nums"]');
+      if (badge && badge.textContent.trim()) {
+        var d = document.createElement('div');
+        d.className = 'lib-sidebar-session-label';
+        d.textContent = badge.textContent.trim();
+        sidebarList.appendChild(d);
       }
-    });
-    filterCards();
-  }
-
-  function filterCards() {
-    var raw = (search.value || '').toLowerCase().trim();
-    var q = raw.replace(/\u00a0/g, ' ');
-    var activeTab = tabs.find(function (t) { return t.subject === activeSubject; });
-    var grid = activeTab ? activeTab.grid : tabs[0].grid;
-    grid.querySelectorAll('article.lib-card').forEach(function (card) {
-      var hay = (card.getAttribute('data-search') || card.getAttribute('data-name') || '').toLowerCase();
-      card.classList.toggle('hidden', !haystackMatches(hay, q));
-    });
-    grid.querySelectorAll('.lib-session-group').forEach(function (seg) {
-      var any = Array.prototype.some.call(seg.querySelectorAll('article.lib-card'), function (c) {
-        return !c.classList.contains('hidden');
+      sg.querySelectorAll('article.lib-card').forEach(function (card) {
+        var url  = card.dataset.url;
+        var name = card.querySelector('h2').textContent.trim();
+        var btn  = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'lib-sidebar-item lib-sidebar-item--' + activeTab.theme;
+        btn.dataset.url = url;
+        btn.textContent = name;
+        btn.title = name;
+        btn.addEventListener('click', function () { loadLibPdf(url, btn); });
+        sidebarList.appendChild(btn);
       });
-      seg.classList.toggle('hidden', !any);
-    });
-    grid.querySelectorAll('.lib-year-group').forEach(function (yg) {
-      var any = Array.prototype.some.call(yg.querySelectorAll('.lib-session-group'), function (s) {
-        return !s.classList.contains('hidden');
-      });
-      yg.classList.toggle('hidden', !any);
-    });
-  }
-
-  tabs.forEach(function (t) {
-    var go = function () { setTab(t.subject); };
-    t.el.addEventListener('click', go);
-    /* Touch / pen: pointerup is more reliable than click on some mobile browsers when layout is tight. */
-    t.el.addEventListener('pointerup', function (e) {
-      if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
-      go();
     });
   });
-  search.addEventListener('input', filterCards);
-  search.addEventListener('search', filterCards);
-})();
+}
+
+function setActiveSidebarItem(activeBtn) {
+  sidebarList.querySelectorAll('.lib-sidebar-item').forEach(function (b) {
+    b.classList.remove('is-active');
+  });
+  if (activeBtn) activeBtn.classList.add('is-active');
+}
+
+async function loadLibPdf(url, sidebarBtn) {
+  setActiveSidebarItem(sidebarBtn);
+  showSpinner('lib');
+  document.getElementById('pdf-scroll-lib').classList.add('hidden');
+  try {
+    await loadPdf('lib', url);
+    hideSpinner('lib');
+    hideEmpty('lib');   // removes hidden from pdf-scroll-lib
+    await renderPdfContinuous('lib');
+  } catch (err) {
+    hideSpinner('lib');
+    showEmpty('lib');
+  }
+}
+
+function enterDetailView(card) {
+  var url = card.dataset.url;
+  var activeTab = tabs.find(function (t) { return t.subject === activeSubject; });
+  buildSidebar(activeTab);
+  var sidebarBtn = Array.from(sidebarList.querySelectorAll('.lib-sidebar-item'))
+    .find(function (b) { return b.dataset.url === url; }) || null;
+  gridView.classList.add('hidden');
+  detailView.classList.remove('hidden');
+  // Scroll active sidebar item into view once layout is ready
+  if (sidebarBtn) requestAnimationFrame(function () { sidebarBtn.scrollIntoView({ block: 'nearest' }); });
+  loadLibPdf(url, sidebarBtn);
+}
+
+function exitDetailView() {
+  detailView.classList.add('hidden');
+  gridView.classList.remove('hidden');
+}
+
+// Click on card body (not download icon) → enter detail view
+document.querySelectorAll('article.lib-card').forEach(function (card) {
+  card.style.cursor = 'pointer';
+  card.addEventListener('click', function (e) {
+    if (e.target.closest('a')) return;
+    enterDetailView(card);
+  });
+});
+
+document.getElementById('lib-back-btn').addEventListener('click', exitDetailView);
+
+// Ctrl/Cmd + wheel zoom
+document.getElementById('pdf-scroll-lib').addEventListener('wheel', function (e) {
+  if (!e.ctrlKey && !e.metaKey) return;
+  e.preventDefault();
+  var s = getPdfState('lib');
+  if (!s.doc) return;
+  s.zoom = Math.min(6, Math.max(0.2, s.zoom * (e.deltaY < 0 ? 1.15 : 1 / 1.15)));
+  rerenderPdfZoomBuffered('lib').catch(function () {});
+}, { passive: false });
 </script>
 {% endblock %}

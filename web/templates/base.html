@@ -45,6 +45,7 @@
   <link rel="stylesheet" href="/static/css/08-workspace-pdf-preview.css" />
   <link rel="stylesheet" href="/static/css/09-overview.css" />
   <link rel="stylesheet" href="/static/css/10-accessibility-motion.css" />
+  <link rel="stylesheet" href="/static/css/11-library-detail.css" />
 </head>
 <body class="min-h-full font-sans text-slate-200 antialiased space-bg{% if needs_site_login | default(false) %} site-auth-locked{% endif %}">
   <script>
@@ -155,6 +156,12 @@
                       focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60
                       {{ 'nav-link-active' if path == '/library' else 'text-slate-400 hover:bg-white/10 hover:text-white' }}">
               Library
+            </a>
+            <a href="/grade"
+               class="rounded-full px-4 py-1.5 text-sm font-medium transition
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60
+                      {{ 'nav-link-active' if path == '/grade' else 'text-slate-400 hover:bg-white/10 hover:text-white' }}">
+              Grade
             </a>
           </nav>
         </div>
