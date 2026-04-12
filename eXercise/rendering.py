@@ -121,6 +121,51 @@ def collect_qr_image_rects(page: fitz.Page) -> list[fitz.Rect]:
     return rects
 
 
+def collect_barcode_text_rects(page: fitz.Page) -> list[fitz.Rect]:
+    """Return padded bounding rects of text spans rendered with barcode fonts.
+
+    Cambridge papers (2024+) encode page barcodes as text using special
+    fonts (e.g. AllAndNone2) rather than embedded images.  These must be
+    blanked just like image-based QR codes.
+
+    Barcode glyphs render well beyond the reported text bbox (~6 pt above,
+    ~7 pt below).  The rect is padded generously; the layout code clamps
+    each blank rect to the strip's target area so it can never overwrite
+    the header band or adjacent content.  Horizontal pad is kept small
+    because the question number (x ≈ 50) sits just left of the barcode
+    (x ≈ 66).  Only spans near a page edge (within ``QR_MARGIN_ZONE_PT``)
+    are considered, mirroring the safety filter on image-based QR detection.
+    """
+    _BARCODE_FONT_MARKERS = ("AllAndNone2",)
+    _PAD_X = 2.0
+    _PAD_Y = 8.0  # clamped to target in layout — safe to be generous
+    pw, ph = page.rect.width, page.rect.height
+    rects: list[fitz.Rect] = []
+    try:
+        for block in page.get_text("dict")["blocks"]:
+            if block["type"] != 0:
+                continue
+            for line in block["lines"]:
+                for span in line["spans"]:
+                    if not any(m in span["font"] for m in _BARCODE_FONT_MARKERS):
+                        continue
+                    x0, y0, x1, y1 = span["bbox"]
+                    in_margin = (
+                        x0 < QR_MARGIN_ZONE_PT
+                        or x1 > pw - QR_MARGIN_ZONE_PT
+                        or y0 < QR_MARGIN_ZONE_PT
+                        or y1 > ph - QR_MARGIN_ZONE_PT
+                    )
+                    if in_margin:
+                        rects.append(fitz.Rect(
+                            x0 - _PAD_X, y0 - _PAD_Y,
+                            x1 + _PAD_X, y1 + _PAD_Y,
+                        ))
+    except Exception:
+        pass
+    return rects
+
+
 def _display_to_mediabox(rect: fitz.Rect, page: fitz.Page) -> fitz.Rect:
     """Convert a display-space rect to mediabox-space (pre-rotation coordinates)."""
     rot = page.rotation % 360
@@ -237,10 +282,11 @@ def collect_vector_strips(
         if detected_pl is not None:
             portrait_table_left = detected_pl
 
-    # Pre-collect QR rects per needed page
+    # Pre-collect QR / barcode rects per needed page
     needed_pages = set(r[1] for r in regions)
     qr_by_page: dict[int, list[fitz.Rect]] = {
-        pi: collect_qr_image_rects(doc[pi]) for pi in needed_pages
+        pi: collect_qr_image_rects(doc[pi]) + collect_barcode_text_rects(doc[pi])
+        for pi in needed_pages
     }
 
     strips: list[Strip] = []
@@ -751,6 +797,7 @@ def layout_vector_strips_to_pdf(
                         )
                         for qr in item.qr_rects:
                             mapped = _map_source_to_output(qr, chunk_display, target)
+                            mapped &= target  # clamp to strip area
                             if not mapped.is_empty:
                                 current_page.draw_rect(mapped, fill=(1,1,1), color=(1,1,1))
                         y_cursor += out_h
@@ -773,6 +820,7 @@ def layout_vector_strips_to_pdf(
             )
             for qr in item.qr_rects:
                 mapped = _map_source_to_output(qr, clip, target)
+                mapped &= target  # clamp to strip area
                 if not mapped.is_empty:
                     current_page.draw_rect(mapped, fill=(1,1,1), color=(1,1,1))
             y_cursor += sh

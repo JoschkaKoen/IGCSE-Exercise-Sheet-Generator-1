@@ -306,10 +306,10 @@ async function refreshPreviewMode() {
 async function pollRankingReady(jobId) {
   showRankingGenerating();
   while (true) {
-    await sleep(2500);
+    await sleep(200);
     let data;
     try { data = await fetchJobStatus(jobId); } catch (e) { break; }
-    if (data.log_line) updateRankingLog(data.log_line);
+    if (data.ranking_log_line) updateRankingLog(data.ranking_log_line);
     if (data.ranking_url) { applyRankingUrl(data.ranking_url); break; }
     if (data.ranking_status === 'done' || data.ranking_status === 'failed' || data.ranking_status === 'skipped') break;
   }

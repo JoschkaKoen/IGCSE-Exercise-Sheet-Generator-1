@@ -361,9 +361,6 @@
 }
 
 .dl-card--orange {
-  /* ranking card is wrapped in #ranking-row, not a direct child of
-     .result-download-inner, so the shared border-radius rule doesn't reach it */
-  border-radius: var(--dl-row-radius);
   border-color: rgba(251, 146, 60, 0.28);
   background: linear-gradient(
     135deg,
@@ -403,15 +400,8 @@
   outline-offset: 2px;
 }
 
-/* Ranking spinner animation */
-@keyframes ranking-spin {
-  to { transform: rotate(360deg); }
-}
-
-.ranking-spinner {
-  animation: ranking-spin 0.9s linear infinite;
-  transform-origin: center;
-}
+/* Scales down the gen-spinner to match small card icons (h-3.5 = 0.875rem) */
+.gen-spinner--sm { width: 0.875rem; height: 0.875rem; }
 
 /* Ranking card generating state: not yet clickable */
 .dl-card--ranking-generating {

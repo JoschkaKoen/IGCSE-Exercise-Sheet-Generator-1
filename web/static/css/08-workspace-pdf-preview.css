@@ -78,13 +78,22 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
   justify-self: center;
 }
 
-/* ─── Ranking button — styled like the back button ────────────────────── */
-/* Absolutely positioned: halfway between back button and center sliders. */
-.pdf-tab-ranking-btn {
+/* ─── Ranking area — wrapper carries the absolute position ────────────── */
+.ranking-tab-area {
   position: absolute;
   left: calc(2rem + 10%);
   top: 50%;
   transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  max-width: 40%;
+}
+
+/* ─── Ranking button — styled like the back button ────────────────────── */
+.pdf-tab-ranking-btn {
+  position: static;
   display: flex;
   align-items: center;
   justify-content: center;

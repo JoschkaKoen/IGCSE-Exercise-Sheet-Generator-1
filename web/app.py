@@ -35,6 +35,7 @@ from .auth_gate import (
     request_is_authenticated,
 )
 from .jobs import JobStore
+from .process_log import run_with_last_log_line
 from .service import list_library_pdfs, run_nl_prompt_logged
 
 PACKAGE_DIR = Path(__file__).resolve().parent
@@ -157,13 +158,19 @@ async def _run_job(job_id: str, prompt: str) -> None:
         def _run_ranking() -> None:
             try:
                 store.set_ranking_status(job_id, "running")
-                store.set_log_line(job_id, "Generating difficulty ranking…")
                 ranking_path = main_pdf.parent / f"{main_pdf.stem}_ranking{main_pdf.suffix}"
-                generate_difficulty_ranking(
-                    exercise_pdf=main_pdf,
-                    answer_pdf=ans_pdf if (ans_pdf and ans_pdf.exists()) else None,
-                    out_path=main_pdf.parent,
-                    name=main_pdf.stem,
+
+                def on_ranking_line(line: str) -> None:
+                    store.set_ranking_log_line(job_id, line)
+
+                run_with_last_log_line(
+                    lambda: generate_difficulty_ranking(
+                        exercise_pdf=main_pdf,
+                        answer_pdf=ans_pdf if (ans_pdf and ans_pdf.exists()) else None,
+                        out_path=main_pdf.parent,
+                        name=main_pdf.stem,
+                    ),
+                    on_ranking_line,
                 )
                 if ranking_path.exists():
                     store.set_ranking_result(job_id, ranking_path)
@@ -271,6 +278,7 @@ async def job_status(request: Request, job_id: str) -> dict:
         if rec.ranking_pdf is not None:
             out["ranking_url"] = f"{base}/api/jobs/{job_id}/ranking"
         out["ranking_status"] = rec.ranking_status
+        out["ranking_log_line"] = rec.ranking_log_line
         out["download_all_url"] = f"{base}/api/jobs/{job_id}/download-all"
         if rec.overview is not None:
             out["overview"] = rec.overview

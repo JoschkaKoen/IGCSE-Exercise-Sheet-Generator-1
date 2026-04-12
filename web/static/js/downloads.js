@@ -18,8 +18,10 @@ const dlTwoUp       = document.getElementById('dl-two-up');
 const dlAll         = document.getElementById('dl-all');
 const dlRanking          = document.getElementById('dl-ranking');
 const rankingIconChart   = document.getElementById('ranking-icon-chart');
-const rankingIconSpinner = document.getElementById('ranking-icon-spinner');
+const rankingGenSpinner  = document.getElementById('ranking-gen-spinner');
 const rankingLog         = document.getElementById('ranking-log');
+const rankingTabIconChart  = document.getElementById('ranking-tab-icon-chart');
+const rankingTabGenSpinner = document.getElementById('ranking-tab-gen-spinner');
 
 // ─── Download card population ─────────────────────────────────────────────────
 
@@ -57,7 +59,7 @@ export function applyDoneData(done) {
       dlRanking.classList.remove('hidden');
       dlRanking.classList.remove('dl-card--ranking-generating');
       if (rankingIconChart) rankingIconChart.classList.remove('hidden');
-      if (rankingIconSpinner) rankingIconSpinner.classList.add('hidden');
+      if (rankingGenSpinner) rankingGenSpinner.classList.add('hidden');
       if (rankingLog) rankingLog.classList.add('hidden');
     } else {
       // ranking_url absent: either deferred (pollRankingReady will handle it) or skipped
@@ -73,7 +75,9 @@ export function showRankingGenerating() {
   dlRanking.classList.remove('hidden');
   dlRanking.classList.add('dl-card--ranking-generating');
   if (rankingIconChart) rankingIconChart.classList.add('hidden');
-  if (rankingIconSpinner) rankingIconSpinner.classList.remove('hidden');
+  if (rankingGenSpinner) rankingGenSpinner.classList.remove('hidden');
+  if (rankingTabIconChart)  rankingTabIconChart.classList.add('hidden');
+  if (rankingTabGenSpinner) rankingTabGenSpinner.classList.remove('hidden');
   if (rankingLog) rankingLog.classList.remove('hidden');
 }
 
@@ -82,7 +86,9 @@ export function applyRankingUrl(url) {
   dlRanking.href = url;
   dlRanking.classList.remove('dl-card--ranking-generating');
   if (rankingIconChart) rankingIconChart.classList.remove('hidden');
-  if (rankingIconSpinner) rankingIconSpinner.classList.add('hidden');
+  if (rankingGenSpinner) rankingGenSpinner.classList.add('hidden');
+  if (rankingTabIconChart)  rankingTabIconChart.classList.remove('hidden');
+  if (rankingTabGenSpinner) rankingTabGenSpinner.classList.add('hidden');
   if (rankingLog) rankingLog.classList.add('hidden');
   if (!state.lastDownloadAllUrls.includes(url))
     state.lastDownloadAllUrls.push(url);
