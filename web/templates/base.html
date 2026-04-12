@@ -258,5 +258,21 @@
     })();
   </script>
   {% endif %}
+  <script>
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var NAV_HREFS = ['/', '/library'];
+      document.querySelectorAll('a').forEach(function (a) {
+        var href = a.getAttribute('href');
+        if (!NAV_HREFS.includes(href) || href === window.location.pathname) return;
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          var dest = href;
+          document.documentElement.classList.add('page-exiting');
+          setTimeout(function () { window.location.href = dest; }, 230);
+        });
+      });
+    }());
+  </script>
 </body>
 </html>
