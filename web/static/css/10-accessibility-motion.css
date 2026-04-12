@@ -3,8 +3,7 @@
   .hero-icon,
   .form-glow::before,
   .space-aurora,
-  .space-stars,
-  .space-stars::after {
+  .star {
     animation: none;
   }
 
