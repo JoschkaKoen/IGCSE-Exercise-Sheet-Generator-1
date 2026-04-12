@@ -37,6 +37,7 @@ try:
         build_thinking_kwargs,
         collect_streamed_response,
         make_ai_client,
+        print_streamed_response,
     )
     _AI_OK = True
 except ImportError:
@@ -365,7 +366,7 @@ def _rank_exercises_ai(
                 stream=True,
                 **thinking_kw,
             )
-            return collect_streamed_response(stream)
+            return print_streamed_response(stream)
         completion = client.chat.completions.create(
             model=model,
             messages=messages,

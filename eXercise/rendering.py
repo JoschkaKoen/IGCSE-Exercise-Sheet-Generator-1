@@ -128,17 +128,20 @@ def collect_barcode_text_rects(page: fitz.Page) -> list[fitz.Rect]:
     fonts (e.g. AllAndNone2) rather than embedded images.  These must be
     blanked just like image-based QR codes.
 
-    Barcode glyphs render well beyond the reported text bbox (~6 pt above,
-    ~7 pt below).  The rect is padded generously; the layout code clamps
-    each blank rect to the strip's target area so it can never overwrite
-    the header band or adjacent content.  Horizontal pad is kept small
-    because the question number (x ≈ 50) sits just left of the barcode
-    (x ≈ 66).  Only spans near a page edge (within ``QR_MARGIN_ZONE_PT``)
-    are considered, mirroring the safety filter on image-based QR detection.
+    Barcode glyphs render well beyond the reported text bbox (~6 pt above
+    the top edge).  Padding is asymmetric: generous above (where bars
+    extend beyond the bbox), minimal below (question text starts only
+    ~4.7 pt below the barcode bbox bottom).  The layout code clamps each
+    blank rect to the strip's target area so it can never overwrite the
+    header band.  Horizontal pad is kept small because the question
+    number (x ≈ 50) sits just left of the barcode (x ≈ 66).  Only spans
+    near a page edge (within ``QR_MARGIN_ZONE_PT``) are considered,
+    mirroring the safety filter on image-based QR detection.
     """
     _BARCODE_FONT_MARKERS = ("AllAndNone2",)
     _PAD_X = 2.0
-    _PAD_Y = 8.0  # clamped to target in layout — safe to be generous
+    _PAD_TOP = 8.0   # barcode bars extend well above text bbox
+    _PAD_BOTTOM = 2.0  # question text is only ~4.7 pt below bbox bottom
     pw, ph = page.rect.width, page.rect.height
     rects: list[fitz.Rect] = []
     try:
@@ -158,8 +161,8 @@ def collect_barcode_text_rects(page: fitz.Page) -> list[fitz.Rect]:
                     )
                     if in_margin:
                         rects.append(fitz.Rect(
-                            x0 - _PAD_X, y0 - _PAD_Y,
-                            x1 + _PAD_X, y1 + _PAD_Y,
+                            x0 - _PAD_X, y0 - _PAD_TOP,
+                            x1 + _PAD_X, y1 + _PAD_BOTTOM,
                         ))
     except Exception:
         pass

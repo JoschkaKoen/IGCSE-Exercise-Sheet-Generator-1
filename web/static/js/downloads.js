@@ -5,6 +5,7 @@
  */
 
 import { state, sleep } from './state.js';
+import { loadPdf } from './pdf-render.js';
 
 // ─── DOM refs private to this module ─────────────────────────────────────────
 
@@ -22,6 +23,7 @@ const rankingGenSpinner  = document.getElementById('ranking-gen-spinner');
 const rankingLog         = document.getElementById('ranking-log');
 const rankingTabIconChart  = document.getElementById('ranking-tab-icon-chart');
 const rankingTabGenSpinner = document.getElementById('ranking-tab-gen-spinner');
+const tabBtnRanking        = document.getElementById('tab-btn-ranking');
 
 // ─── Download card population ─────────────────────────────────────────────────
 
@@ -78,6 +80,7 @@ export function showRankingGenerating() {
   if (rankingGenSpinner) rankingGenSpinner.classList.remove('hidden');
   if (rankingTabIconChart)  rankingTabIconChart.classList.add('hidden');
   if (rankingTabGenSpinner) rankingTabGenSpinner.classList.remove('hidden');
+  if (tabBtnRanking)        tabBtnRanking.classList.add('pdf-tab-ranking-btn--generating');
   if (rankingLog) rankingLog.classList.remove('hidden');
 }
 
@@ -89,9 +92,17 @@ export function applyRankingUrl(url) {
   if (rankingGenSpinner) rankingGenSpinner.classList.add('hidden');
   if (rankingTabIconChart)  rankingTabIconChart.classList.remove('hidden');
   if (rankingTabGenSpinner) rankingTabGenSpinner.classList.add('hidden');
+  if (tabBtnRanking) {
+    tabBtnRanking.classList.remove('pdf-tab-ranking-btn--generating');
+    tabBtnRanking.disabled = false;
+    tabBtnRanking.removeAttribute('aria-disabled');
+  }
   if (rankingLog) rankingLog.classList.add('hidden');
   if (!state.lastDownloadAllUrls.includes(url))
     state.lastDownloadAllUrls.push(url);
+  // Load the ranking PDF into its tab panel so clicking the button works.
+  state.enabledTabs.add('ranking');
+  loadPdf('ranking', url).catch(function () {});
 }
 
 export function updateRankingLog(text) {

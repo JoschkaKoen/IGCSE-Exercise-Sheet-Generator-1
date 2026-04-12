@@ -306,7 +306,7 @@ async function refreshPreviewMode() {
 async function pollRankingReady(jobId) {
   showRankingGenerating();
   while (true) {
-    await sleep(200);
+    await sleep(20);
     let data;
     try { data = await fetchJobStatus(jobId); } catch (e) { break; }
     if (data.ranking_log_line) updateRankingLog(data.ranking_log_line);
@@ -548,7 +548,7 @@ function isTextEntryElement(el) {
 if (promptEl && form) {
   promptEl.addEventListener('keydown', function (e) {
     if (e.key !== 'Enter') return;
-    if (!e.metaKey && !e.ctrlKey) return;
+    if (e.shiftKey) return;   // Shift+Enter → newline
     e.preventDefault();
     if (submitBtn && submitBtn.disabled) return;
     if (resultPanelIsVisible() && state.lastDownloadAllUrls.length) {

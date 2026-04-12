@@ -140,6 +140,11 @@ body.preview-mode-active #pdf-tab-bar-wrap:not([hidden]) > .pdf-tab-primary-clip
   cursor: not-allowed;
 }
 
+.pdf-tab-ranking-btn--generating {
+  opacity: 1;
+  cursor: default;
+}
+
 .pdf-tab-ranking-btn:focus-visible {
   outline: 2px solid rgba(34, 211, 238, 0.45);
   outline-offset: 2px;
