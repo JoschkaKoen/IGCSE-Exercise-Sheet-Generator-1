@@ -35,6 +35,7 @@
   #lib-sidebar { height: 12rem; }
 }
 
+/* Back button */
 #lib-back-btn {
   display: flex;
   align-items: center;
@@ -54,6 +55,34 @@
 #lib-back-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.04); }
 #lib-back-btn:focus-visible { outline: 2px solid rgba(34, 211, 238, 0.7); outline-offset: -2px; }
 
+/* Subject header strip — sits between back btn and scroll list, stays visible */
+.lib-sidebar-subject-hdr {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.875rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+.lib-sidebar-subject-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+.lib-sidebar-subject-dot--cyan    { background: rgb(34 211 238);  box-shadow: 0 0 5px rgba(34, 211, 238, 0.55);  }
+.lib-sidebar-subject-dot--violet  { background: rgb(167 139 250); box-shadow: 0 0 5px rgba(167, 139, 250, 0.55); }
+.lib-sidebar-subject-dot--emerald { background: rgb(52 211 153);  box-shadow: 0 0 5px rgba(52, 211, 153, 0.55);  }
+.lib-sidebar-subject-dot--teal    { background: rgb(45 212 191);  box-shadow: 0 0 5px rgba(45, 212, 191, 0.55);  }
+.lib-sidebar-subject-dot--amber   { background: rgb(251 191 36);  box-shadow: 0 0 5px rgba(251, 191, 36, 0.55);  }
+.lib-sidebar-subject-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgb(148 163 184);
+}
+
+/* Scrollable file list */
 #lib-sidebar-list {
   flex: 1 1 0;
   min-height: 0;
@@ -62,24 +91,53 @@
   scrollbar-gutter: stable;
 }
 
+/* Year row with gradient divider line */
+.lib-sidebar-year-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.5rem 0.2rem;
+  margin-top: 0.375rem;
+}
+#lib-sidebar-list > .lib-sidebar-year-row:first-child { margin-top: 0; }
+
 .lib-sidebar-year-label {
-  padding: 0.5rem 0.5rem 0.2rem;
+  padding: 0;
+  flex-shrink: 0;
   font-size: 0.6875rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: rgb(100 116 139);
 }
-
-.lib-sidebar-session-label {
-  padding: 0.15rem 0.5rem 0.1rem;
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: rgb(71 85 105);
-  text-transform: uppercase;
+.lib-sidebar-year-divider {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.13), transparent);
 }
 
+/* Session badge row */
+.lib-sidebar-session-row {
+  padding: 0.1rem 0.5rem 0.1rem;
+}
+.lib-sidebar-session-badge {
+  display: inline-flex;
+  height: 1.15rem;
+  min-width: 1.15rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0 0.25rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: rgb(100 116 139);
+  letter-spacing: 0.05em;
+  cursor: default;
+}
+
+/* File buttons */
 .lib-sidebar-item {
   display: block;
   width: 100%;
@@ -89,22 +147,27 @@
   color: rgb(148 163 184);
   text-align: left;
   cursor: pointer;
-  transition: background 0.12s, color 0.12s;
+  transition: background 0.12s, color 0.12s, box-shadow 0.12s;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.35;
+  box-shadow: inset 2px 0 0 transparent;
 }
-.lib-sidebar-item:hover { background: rgba(255, 255, 255, 0.06); color: #e2e8f0; }
+.lib-sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+  box-shadow: inset 2px 0 0 rgba(255, 255, 255, 0.10);
+}
 .lib-sidebar-item:focus-visible { outline: 2px solid rgba(34, 211, 238, 0.6); outline-offset: -2px; }
 
-/* Active highlight per subject theme */
+/* Active highlight per subject theme — background + color + left accent */
 .lib-sidebar-item.is-active,
-.lib-sidebar-item--cyan.is-active                 { background: rgba(34, 211, 238, 0.12);  color: rgb(103 232 249); }
-.lib-sidebar-item--violet.is-active               { background: rgba(167, 139, 250, 0.12); color: rgb(196 181 253); }
-.lib-sidebar-item--emerald.is-active              { background: rgba(52, 211, 153, 0.12);  color: rgb(110 231 183); }
-.lib-sidebar-item--teal.is-active                 { background: rgba(45, 212, 191, 0.12);  color: rgb(94 234 212);  }
-.lib-sidebar-item--amber.is-active                { background: rgba(251, 191, 36, 0.12);  color: rgb(252 211 77);  }
+.lib-sidebar-item--cyan.is-active    { background: rgba(34, 211, 238, 0.12);  color: rgb(103 232 249); box-shadow: inset 2px 0 0 rgba(34, 211, 238, 0.65);  }
+.lib-sidebar-item--violet.is-active  { background: rgba(167, 139, 250, 0.12); color: rgb(196 181 253); box-shadow: inset 2px 0 0 rgba(167, 139, 250, 0.65); }
+.lib-sidebar-item--emerald.is-active { background: rgba(52, 211, 153, 0.12);  color: rgb(110 231 183); box-shadow: inset 2px 0 0 rgba(52, 211, 153, 0.65);  }
+.lib-sidebar-item--teal.is-active    { background: rgba(45, 212, 191, 0.12);  color: rgb(94 234 212);  box-shadow: inset 2px 0 0 rgba(45, 212, 191, 0.65);  }
+.lib-sidebar-item--amber.is-active   { background: rgba(251, 191, 36, 0.12);  color: rgb(252 211 77);  box-shadow: inset 2px 0 0 rgba(251, 191, 36, 0.65);  }
 
 /* ── PDF preview pane ────────────────────────────────────────────────────── */
 
@@ -128,4 +191,20 @@
 /* Apply the same gradient background as workspace preview mode */
 #lib-detail-preview .pdf-viewport-scroll {
   background: linear-gradient(180deg, rgba(8, 30, 52, 0.52) 0%, rgba(2, 8, 20, 0.5) 100%);
+}
+
+/* ─── Landscape phones: side-by-side detail layout ─────────────────────── */
+/* Tablets in landscape are ≥ 768 px tall, so max-height: 500px excludes them. */
+@media (orientation: landscape) and (max-height: 500px) {
+  #lib-detail-view {
+    grid-template-columns: 11rem minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    height: calc(100vh - var(--preview-sticky-top) - 2rem);
+  }
+  #lib-sidebar {
+    height: calc(100vh - var(--preview-sticky-top) - 2rem);
+  }
+  #lib-detail-preview {
+    height: calc(100vh - var(--preview-sticky-top) - 2rem);
+  }
 }

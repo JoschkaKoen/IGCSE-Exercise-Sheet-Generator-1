@@ -208,3 +208,22 @@ body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden]))
   }
 }
 
+/* ─── Mobile header: 2-row layout on phones narrower than 480 px ─── */
+/* Scoped to non-preview so the preview-mode grid layout is unaffected   */
+@media (max-width: 479px) {
+  body:not(.preview-mode-active) .site-header-inner {
+    flex-wrap: wrap;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    row-gap: 0.375rem;
+  }
+  body:not(.preview-mode-active) .site-header-inner .site-header-brand {
+    flex: 0 0 100%;
+  }
+  body:not(.preview-mode-active) .site-header-inner .site-header-preview-col {
+    flex: 0 0 100%;
+    margin-left: 0;
+    justify-content: center;
+  }
+}
+

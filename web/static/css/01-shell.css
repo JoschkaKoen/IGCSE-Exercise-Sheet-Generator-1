@@ -119,3 +119,12 @@
   .z-content { animation: none; }
 }
 
+/* ─── Landscape phones: reduce vertical padding (viewport ≤ 500 px tall) ─── */
+/* Tablets in landscape are ≥ 768 px tall so this rule never fires for them.   */
+@media (orientation: landscape) and (max-height: 500px) {
+  #site-main {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+}
+

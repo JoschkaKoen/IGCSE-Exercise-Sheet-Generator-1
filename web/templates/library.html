@@ -105,13 +105,13 @@
       </div>
     </div>
 
-    <p id="lib-desc" class="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-slate-400">
+    <p id="lib-desc" class="mt-3 sm:mt-5 max-w-xl text-[0.95rem] leading-relaxed text-slate-400">
       Cambridge IGCSE question papers and mark schemes for Physics, Computer Science, Mathematics, Biology, and Chemistry (bundled with this project).
       Newest years first; within each year, sessions M → W → S. Download or use the generator to extract questions.
     </p>
 
     <!-- Controls: tab row scrolls horizontally on narrow screens; buttons must not shrink (mobile tap targets). -->
-    <div id="lib-controls" class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div id="lib-controls" class="mt-6 sm:mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div class="min-w-0 w-full sm:w-auto lib-subject-tab-scroll">
         <div class="flex w-max max-w-none rounded-2xl border border-white/[0.09] bg-white/[0.04] p-1 backdrop-blur-sm"
              role="tablist" aria-label="Subject">
@@ -195,6 +195,7 @@
         </svg>
         Back
       </button>
+      <div id="lib-sidebar-subject-hdr" class="lib-sidebar-subject-hdr hidden"></div>
       <div id="lib-sidebar-list"></div>
     </aside>
 
@@ -224,11 +225,11 @@ import { getPdfState } from '/static/js/state.js';
 
 // ── Subject tab definitions ────────────────────────────────────────────────
 var tabs = [
-  { id: 'tab-physics',   subject: 'physics',          gridId: 'grid-physics',   activeClass: 'tab-active',         theme: 'cyan'    },
-  { id: 'tab-cs',        subject: 'computer_science', gridId: 'grid-cs',        activeClass: 'tab-active-violet',  theme: 'violet'  },
-  { id: 'tab-math',      subject: 'mathematics',      gridId: 'grid-math',      activeClass: 'tab-active-emerald', theme: 'emerald' },
-  { id: 'tab-biology',   subject: 'biology',          gridId: 'grid-biology',   activeClass: 'tab-active-teal',    theme: 'teal'    },
-  { id: 'tab-chemistry', subject: 'chemistry',        gridId: 'grid-chemistry', activeClass: 'tab-active-amber',   theme: 'amber'   },
+  { id: 'tab-physics',   subject: 'physics',          gridId: 'grid-physics',   activeClass: 'tab-active',         theme: 'cyan',    label: 'Physics'          },
+  { id: 'tab-cs',        subject: 'computer_science', gridId: 'grid-cs',        activeClass: 'tab-active-violet',  theme: 'violet',  label: 'Computer Science' },
+  { id: 'tab-math',      subject: 'mathematics',      gridId: 'grid-math',      activeClass: 'tab-active-emerald', theme: 'emerald', label: 'Mathematics'      },
+  { id: 'tab-biology',   subject: 'biology',          gridId: 'grid-biology',   activeClass: 'tab-active-teal',    theme: 'teal',    label: 'Biology'          },
+  { id: 'tab-chemistry', subject: 'chemistry',        gridId: 'grid-chemistry', activeClass: 'tab-active-amber',   theme: 'amber',   label: 'Chemistry'        },
 ];
 tabs.forEach(function (t) {
   t.el   = document.getElementById(t.id);
@@ -303,26 +304,43 @@ search.addEventListener('search', filterCards);
 var gridView    = document.getElementById('lib-grid-view');
 var detailView  = document.getElementById('lib-detail-view');
 var sidebarList = document.getElementById('lib-sidebar-list');
+var subjectHdr  = document.getElementById('lib-sidebar-subject-hdr');
 
 function buildSidebar(activeTab) {
+  // Subject header strip (persistent, above scroll area)
+  subjectHdr.innerHTML =
+    '<span class="lib-sidebar-subject-dot lib-sidebar-subject-dot--' + activeTab.theme + '"></span>' +
+    '<span class="lib-sidebar-subject-name">' + activeTab.label + '</span>';
+  subjectHdr.classList.remove('hidden');
+
   sidebarList.innerHTML = '';
   activeTab.grid.querySelectorAll('.lib-year-group').forEach(function (yg) {
-    // Year label — first span child of the header row
+    // Year row with gradient divider line
     var rawLabel = yg.querySelector('.flex.items-center span:first-child');
     if (rawLabel) {
-      var d = document.createElement('div');
-      d.className = 'lib-sidebar-year-label';
-      d.textContent = rawLabel.textContent.trim();
-      sidebarList.appendChild(d);
+      var row = document.createElement('div');
+      row.className = 'lib-sidebar-year-row';
+      var lbl = document.createElement('span');
+      lbl.className = 'lib-sidebar-year-label';
+      lbl.textContent = rawLabel.textContent.trim();
+      var line = document.createElement('span');
+      line.className = 'lib-sidebar-year-divider';
+      row.appendChild(lbl);
+      row.appendChild(line);
+      sidebarList.appendChild(row);
     }
     yg.querySelectorAll('.lib-session-group').forEach(function (sg) {
-      // Session badge (M/W/S pill)
+      // Session badge row (M/W/S pill)
       var badge = sg.querySelector('[class*="rounded"][class*="border"][class*="tabular-nums"]');
       if (badge && badge.textContent.trim()) {
-        var d = document.createElement('div');
-        d.className = 'lib-sidebar-session-label';
-        d.textContent = badge.textContent.trim();
-        sidebarList.appendChild(d);
+        var row = document.createElement('div');
+        row.className = 'lib-sidebar-session-row';
+        var pill = document.createElement('span');
+        pill.className = 'lib-sidebar-session-badge';
+        pill.textContent = badge.textContent.trim();
+        if (badge.title) pill.title = badge.title;
+        row.appendChild(pill);
+        sidebarList.appendChild(row);
       }
       sg.querySelectorAll('article.lib-card').forEach(function (card) {
         var url  = card.dataset.url;
@@ -378,6 +396,7 @@ function enterDetailView(card) {
 function exitDetailView() {
   detailView.classList.add('hidden');
   gridView.classList.remove('hidden');
+  subjectHdr.classList.add('hidden');
 }
 
 // Click on card body (not download icon) → enter detail view

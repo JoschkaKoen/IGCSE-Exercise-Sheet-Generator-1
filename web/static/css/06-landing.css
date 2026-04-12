@@ -312,3 +312,10 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 .subject-badge-chemistry:hover { filter: brightness(1.15) drop-shadow(0 0 5px rgba(203, 213, 225, 0.35)); }
 .subject-badge-mathematics:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(99, 102, 241, 0.45)); }
 .subject-badge-biology:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(16, 185, 129, 0.45)); }
+
+/* ─── Quick-fill 2-col grid on mobile: last button spans full width if alone ── */
+@media (max-width: 639px) {
+  .quick-fill:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
