@@ -62,6 +62,24 @@
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       var c = document.querySelector('.space-stars');
       if (!c) return;
+
+      function starColor() {
+        var r = Math.random();
+        if (r < 0.68) return { color: 'white', glow: 'rgba(210,235,255,0.8)' };
+        if (r < 0.84) {
+          // warm white to pale yellow
+          var l = (88 + Math.random() * 10).toFixed(0);
+          var s = (35 + Math.random() * 35).toFixed(0);
+          return { color: 'hsl(45,' + s + '%,' + l + '%)', glow: 'rgba(255,240,180,0.75)' };
+        }
+        // yellow to orange
+        var hue = (20 + Math.random() * 35).toFixed(0);
+        var sat = (70 + Math.random() * 30).toFixed(0);
+        var lig = (68 + Math.random() * 20).toFixed(0);
+        var gr  = hue > 40 ? 'rgba(255,230,100,0.75)' : 'rgba(255,160,60,0.70)';
+        return { color: 'hsl(' + hue + ',' + sat + '%,' + lig + '%)', glow: gr };
+      }
+
       var frag = document.createDocumentFragment();
       var N = 75;
       for (var i = 0; i < N; i++) {
@@ -73,17 +91,20 @@
         var dur    = (2.2 + Math.random() * 7).toFixed(2);
         var delay  = -(Math.random() * 14).toFixed(2);
         var glow   = bright ? (1.5 + Math.random() * 2).toFixed(1) + 'px' : '0.8px';
+        var col    = starColor();
         s.className = 'star';
         s.style.cssText =
           'left:'   + (Math.random() * 100).toFixed(2) + '%;' +
           'top:'    + (Math.random() * 100).toFixed(2) + '%;' +
           'width:'  + size.toFixed(2) + 'px;' +
           'height:' + size.toFixed(2) + 'px;' +
-          '--star-dur:'    + dur    + 's;' +
-          '--star-delay:'  + delay  + 's;' +
-          '--star-dim:'    + dim.toFixed(3)  + ';' +
-          '--star-bright:' + peak.toFixed(3) + ';' +
-          '--star-glow:'   + glow  + ';';
+          '--star-dur:'        + dur   + 's;' +
+          '--star-delay:'      + delay + 's;' +
+          '--star-dim:'        + dim.toFixed(3)  + ';' +
+          '--star-bright:'     + peak.toFixed(3) + ';' +
+          '--star-glow:'       + glow  + ';' +
+          '--star-color:'      + col.color + ';' +
+          '--star-glow-color:' + col.glow  + ';';
         frag.appendChild(s);
       }
       c.appendChild(frag);

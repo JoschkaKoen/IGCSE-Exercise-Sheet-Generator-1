@@ -83,7 +83,7 @@
 .star {
   position: absolute;
   border-radius: 50%;
-  background: white;
+  background: var(--star-color, white);
   will-change: opacity, filter;
   animation: star-twinkle var(--star-dur, 4s) ease-in-out infinite var(--star-delay, 0s);
 }
@@ -95,7 +95,7 @@
   }
   50% {
     opacity: var(--star-bright, 0.85);
-    filter: brightness(1.7) drop-shadow(0 0 var(--star-glow, 1px) rgba(210, 235, 255, 0.8));
+    filter: brightness(1.7) drop-shadow(0 0 var(--star-glow, 1px) var(--star-glow-color, rgba(210, 235, 255, 0.8)));
   }
 }
 
