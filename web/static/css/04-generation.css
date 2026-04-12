@@ -1,3 +1,196 @@
+/* ─── Grade page glow polish ─────────────────────────────────────────────── */
+
+/* Title shimmer */
+#grade-page h1.font-display {
+  background: linear-gradient(118deg, rgb(248 250 252) 0%, rgb(165 243 253) 42%, rgb(186 230 253) 72%, rgb(147 197 253) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.20));
+  background-size: 200% 200%;
+  animation: title-shimmer 8s ease-in-out infinite alternate;
+}
+
+html.doc-background-paused #grade-page h1.font-display {
+  animation-play-state: paused;
+}
+
+/* Eyebrow label glow */
+#grade-page p.text-xs.uppercase {
+  text-shadow:
+    0 0 18px rgba(34, 211, 238, 0.45),
+    0 0 36px rgba(56, 189, 248, 0.20);
+}
+
+/* Hero icon — stronger ambient glow */
+#grade-page .hero-icon {
+  box-shadow:
+    0 0 3px 1px rgba(56, 189, 248, 0.14),
+    0 0 44px -6px rgba(34, 211, 238, 0.38),
+    0 0 88px -24px rgba(59, 130, 246, 0.22);
+}
+
+/* Glass panel — ambient cyan/blue light */
+#grade-page #grade-form.glass-panel {
+  border-color: rgba(56, 189, 248, 0.14);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 1px 0 rgba(255, 255, 255, 0.07) inset,
+    0 28px 56px -14px rgba(0, 0, 0, 0.5),
+    0 0 64px -18px rgba(34, 211, 238, 0.16),
+    0 0 100px -30px rgba(59, 130, 246, 0.10);
+}
+
+/* form-glow::before — higher opacity */
+#grade-page #grade-form.form-glow::before {
+  opacity: 0.78;
+}
+
+/* Textarea — cyan tint */
+#grade-page #grade-prompt {
+  border-color: rgba(56, 189, 248, 0.16);
+  background: linear-gradient(168deg, rgba(8, 20, 42, 0.9) 0%, rgba(4, 12, 30, 0.94) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(56, 189, 248, 0.08),
+    0 0 40px -12px rgba(34, 211, 238, 0.12);
+  caret-color: rgb(34, 211, 238);
+}
+
+#grade-page #grade-prompt::placeholder {
+  color: rgba(165, 230, 252, 0.48);
+}
+
+#grade-page #grade-prompt:focus {
+  border-color: rgba(34, 211, 238, 0.32);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.22),
+    inset 0 1px 0 rgba(56, 189, 248, 0.10),
+    0 0 48px -8px rgba(34, 211, 238, 0.22);
+  outline: none;
+}
+
+/* Grade button */
+#grade-page #grade-btn {
+  background: linear-gradient(135deg, rgba(16,185,129,0.9), rgba(5,150,105,0.9));
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14) inset,
+    0 4px 28px -4px rgba(16, 185, 129, 0.55),
+    0 16px 52px -12px rgba(52, 211, 153, 0.35);
+}
+
+#grade-page #grade-btn:hover:not(:disabled) {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.17) inset,
+    0 10px 40px -6px rgba(16, 185, 129, 0.62),
+    0 22px 56px -12px rgba(52, 211, 153, 0.42);
+}
+
+/* Drop zone card — ambient glow at rest */
+#grade-page .drop-zone[data-accent="emerald"] {
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.10) inset, 0 0 32px -8px rgba(16, 185, 129, 0.18);
+}
+#grade-page .drop-zone[data-accent="cyan"] {
+  box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.10) inset, 0 0 32px -8px rgba(6, 182, 212, 0.18);
+}
+#grade-page .drop-zone[data-accent="amber"] {
+  box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.10) inset, 0 0 32px -8px rgba(245, 158, 11, 0.14);
+}
+#grade-page .drop-zone[data-accent="violet"] {
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.10) inset, 0 0 32px -8px rgba(139, 92, 246, 0.18);
+}
+
+/* Drop zone icon boxes — ambient glow at rest */
+#grade-page .drop-zone[data-accent="emerald"] .drop-zone-icon {
+  box-shadow: 0 0 0 0.5px rgba(16, 185, 129, 0.15), 0 0 18px -2px rgba(16, 185, 129, 0.40);
+}
+#grade-page .drop-zone[data-accent="cyan"] .drop-zone-icon {
+  box-shadow: 0 0 0 0.5px rgba(6, 182, 212, 0.15), 0 0 18px -2px rgba(6, 182, 212, 0.38);
+}
+#grade-page .drop-zone[data-accent="amber"] .drop-zone-icon {
+  box-shadow: 0 0 0 0.5px rgba(245, 158, 11, 0.15), 0 0 18px -2px rgba(245, 158, 11, 0.32);
+}
+#grade-page .drop-zone[data-accent="violet"] .drop-zone-icon {
+  box-shadow: 0 0 0 0.5px rgba(139, 92, 246, 0.15), 0 0 18px -2px rgba(139, 92, 246, 0.38);
+}
+
+/* Feature cards — base glow + per-card hover */
+#grade-page .feature-card {
+  box-shadow: 0 0 44px -14px rgba(16, 185, 129, 0.08);
+}
+
+#grade-page .feature-card:hover {
+  transform: translateY(-2px);
+}
+
+#grade-page .grid > .feature-card:nth-child(1):hover {
+  border-color: rgba(16, 185, 129, 0.24);
+  box-shadow: 0 14px 44px -12px rgba(16, 185, 129, 0.22);
+}
+#grade-page .grid > .feature-card:nth-child(2):hover {
+  border-color: rgba(34, 211, 238, 0.22);
+  box-shadow: 0 14px 44px -12px rgba(34, 211, 238, 0.20);
+}
+#grade-page .grid > .feature-card:nth-child(3):hover {
+  border-color: rgba(139, 92, 246, 0.22);
+  box-shadow: 0 14px 44px -12px rgba(139, 92, 246, 0.20);
+}
+
+/* Feature card icon box glows */
+#grade-page .grid > .feature-card:nth-child(1) > div:first-child {
+  box-shadow: 0 0 0 0.5px rgba(16, 185, 129, 0.12), 0 0 10px -1px rgba(16, 185, 129, 0.28);
+}
+#grade-page .grid > .feature-card:nth-child(2) > div:first-child {
+  box-shadow: 0 0 0 0.5px rgba(34, 211, 238, 0.12), 0 0 10px -1px rgba(34, 211, 238, 0.25);
+}
+#grade-page .grid > .feature-card:nth-child(3) > div:first-child {
+  box-shadow: 0 0 0 0.5px rgba(139, 92, 246, 0.12), 0 0 10px -1px rgba(139, 92, 246, 0.25);
+}
+
+/* Entrance animations */
+body:not(.page-entered) #grade-page .flex.justify-center             { animation: hero-in 0.28s ease   0ms both; }
+body:not(.page-entered) #grade-page > p.text-center                  { animation: hero-in 0.28s ease  80ms both; }
+body:not(.page-entered) #grade-page #grade-form                      { animation: hero-in 0.28s ease 180ms both; }
+body:not(.page-entered) #grade-page .mt-10 .feature-card:nth-child(1){ animation: hero-in 0.28s ease 340ms both; }
+body:not(.page-entered) #grade-page .mt-10 .feature-card:nth-child(2){ animation: hero-in 0.28s ease 400ms both; }
+body:not(.page-entered) #grade-page .mt-10 .feature-card:nth-child(3){ animation: hero-in 0.28s ease 460ms both; }
+
+/* ─── Drop zones ─────────────────────────────────────────────────────────── */
+.drop-zone {
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+}
+
+.drop-zone.drag-over {
+  transform: scale(1.02);
+}
+.drop-zone[data-accent="emerald"].drag-over {
+  border-color: rgba(16,185,129,0.65) !important;
+  background-color: rgba(16,185,129,0.10) !important;
+}
+.drop-zone[data-accent="cyan"].drag-over {
+  border-color: rgba(6,182,212,0.65) !important;
+  background-color: rgba(6,182,212,0.10) !important;
+}
+.drop-zone[data-accent="amber"].drag-over {
+  border-color: rgba(245,158,11,0.65) !important;
+  background-color: rgba(245,158,11,0.08) !important;
+}
+.drop-zone[data-accent="violet"].drag-over {
+  border-color: rgba(139,92,246,0.65) !important;
+  background-color: rgba(139,92,246,0.10) !important;
+}
+
+.drop-zone.has-file {
+  border-style: solid;
+}
+.drop-zone[data-accent="emerald"].has-file { border-color: rgba(16,185,129,0.40); }
+.drop-zone[data-accent="cyan"].has-file    { border-color: rgba(6,182,212,0.40);  }
+.drop-zone[data-accent="amber"].has-file   { border-color: rgba(245,158,11,0.40); }
+.drop-zone[data-accent="violet"].has-file  { border-color: rgba(139,92,246,0.40); }
+
+.drop-zone.has-file .drop-zone-icon {
+  scale: 0.9;
+}
+
 /* ─── Running / progress strip ───────────────────────────────────────────── */
 .progress-strip {
   border: 1px solid rgba(34,211,238,0.12);

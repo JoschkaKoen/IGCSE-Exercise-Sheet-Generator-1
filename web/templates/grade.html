@@ -2,7 +2,7 @@
 {% block title %}Grade — eXercise{% endblock %}
 
 {% block content %}
-<section class="mx-auto max-w-6xl">
+<section id="grade-page" class="mx-auto max-w-6xl">
 
   <!-- Hero -->
   <div class="flex justify-center">
@@ -30,61 +30,63 @@
   <!-- Form -->
   <form id="grade-form" class="gen-surface glass-panel form-glow mt-6 sm:mt-10 rounded-2xl p-5 sm:p-6">
     <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-      <label class="group relative flex min-h-[11rem] cursor-pointer flex-col rounded-2xl border border-dashed border-white/12 bg-slate-950/55 p-4 transition duration-200 hover:border-emerald-400/45 hover:bg-slate-950/75">
+
+      <!-- Student List -->
+      <label class="drop-zone group relative flex min-h-[13rem] cursor-pointer flex-col items-center justify-center rounded-2xl border border-white/[0.13] bg-slate-950/55 px-4 py-6 text-center transition-all duration-200 hover:border-emerald-400/50 hover:bg-emerald-950/20" data-accent="emerald">
         <input type="file" name="student_list" class="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0" />
-        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-500/12 text-emerald-300 ring-1 ring-emerald-500/20 transition group-hover:scale-[1.03] group-hover:bg-emerald-500/18">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-2xl bg-gradient-to-r from-transparent via-emerald-400/45 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100"></div>
+        <div class="drop-zone-icon flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-300 ring-1 ring-emerald-500/20 transition-all duration-200 group-hover:scale-[1.10] group-hover:bg-emerald-500/20 group-hover:ring-emerald-400/40 group-hover:shadow-[0_0_22px_-4px_rgba(16,185,129,0.45)]">
+          <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 16V7m0 0-3.5 3.5M12 7l3.5 3.5M5 17.25A2.75 2.75 0 017.75 14.5h8.5A2.75 2.75 0 0119 17.25v.5A2.25 2.25 0 0116.75 20h-9.5A2.25 2.25 0 015 17.75v-.5z"/>
           </svg>
         </div>
-        <div class="mt-6">
-          <p class="text-sm font-semibold tracking-tight text-white">Student List</p>
-          <p class="mt-2 text-sm leading-relaxed text-slate-400">Drop a CSV, spreadsheet, or PDF roster here, or click to browse.</p>
-        </div>
-        <p class="mt-auto pt-6 text-xs uppercase tracking-[0.18em] text-slate-500">Required for names</p>
+        <p class="mt-3.5 text-sm font-semibold tracking-tight text-white">Student List</p>
+        <p class="drop-zone-desc mt-1.5 px-1 text-xs leading-relaxed text-slate-400/90">CSV, spreadsheet, or PDF roster</p>
+        <span class="drop-zone-pill mt-4 inline-flex items-center rounded-lg bg-white/[0.06] px-3 py-1 text-[0.7rem] font-medium text-slate-400 ring-1 ring-white/[0.08] transition-all duration-200 group-hover:bg-emerald-500/12 group-hover:text-emerald-300 group-hover:ring-emerald-500/25">Browse files</span>
       </label>
 
-      <label class="group relative flex min-h-[11rem] cursor-pointer flex-col rounded-2xl border border-dashed border-white/12 bg-slate-950/55 p-4 transition duration-200 hover:border-cyan-400/45 hover:bg-slate-950/75">
+      <!-- Exam Scans -->
+      <label class="drop-zone group relative flex min-h-[13rem] cursor-pointer flex-col items-center justify-center rounded-2xl border border-white/[0.13] bg-slate-950/55 px-4 py-6 text-center transition-all duration-200 hover:border-cyan-400/50 hover:bg-cyan-950/20" data-accent="cyan">
         <input type="file" name="exam_scans" multiple class="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0" />
-        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-500/12 text-cyan-300 ring-1 ring-cyan-500/20 transition group-hover:scale-[1.03] group-hover:bg-cyan-500/18">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-2xl bg-gradient-to-r from-transparent via-cyan-400/45 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100"></div>
+        <div class="drop-zone-icon flex h-16 w-16 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-300 ring-1 ring-cyan-500/20 transition-all duration-200 group-hover:scale-[1.10] group-hover:bg-cyan-500/20 group-hover:ring-cyan-400/40 group-hover:shadow-[0_0_22px_-4px_rgba(6,182,212,0.45)]">
+          <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M7 16V6.75A1.75 1.75 0 018.75 5h9.5A1.75 1.75 0 0120 6.75v9.5A1.75 1.75 0 0118.25 18H9m-2 0H5.75A1.75 1.75 0 014 16.25v-7.5A1.75 1.75 0 015.75 7H7m3 4h4m-4 3h6"/>
           </svg>
         </div>
-        <div class="mt-6">
-          <p class="text-sm font-semibold tracking-tight text-white">Exam Scans</p>
-          <p class="mt-2 text-sm leading-relaxed text-slate-400">Drop one or more scanned student papers, or click to choose files.</p>
-        </div>
-        <p class="mt-auto pt-6 text-xs uppercase tracking-[0.18em] text-slate-500">Multiple files</p>
+        <p class="mt-3.5 text-sm font-semibold tracking-tight text-white">Exam Scans</p>
+        <p class="drop-zone-desc mt-1.5 px-1 text-xs leading-relaxed text-slate-400/90">Scanned student papers</p>
+        <span class="drop-zone-pill mt-4 inline-flex items-center rounded-lg bg-white/[0.06] px-3 py-1 text-[0.7rem] font-medium text-slate-400 ring-1 ring-white/[0.08] transition-all duration-200 group-hover:bg-cyan-500/12 group-hover:text-cyan-300 group-hover:ring-cyan-500/25">Browse files</span>
       </label>
 
-      <label class="group relative flex min-h-[11rem] cursor-pointer flex-col rounded-2xl border border-dashed border-white/12 bg-slate-950/55 p-4 transition duration-200 hover:border-amber-400/45 hover:bg-slate-950/75">
+      <!-- Empty Exam -->
+      <label class="drop-zone group relative flex min-h-[13rem] cursor-pointer flex-col items-center justify-center rounded-2xl border border-white/[0.13] bg-slate-950/55 px-4 py-6 text-center transition-all duration-200 hover:border-amber-400/50 hover:bg-amber-950/20" data-accent="amber">
         <input type="file" name="empty_exam" class="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0" />
-        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-500/12 text-amber-200 ring-1 ring-amber-500/20 transition group-hover:scale-[1.03] group-hover:bg-amber-500/18">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-2xl bg-gradient-to-r from-transparent via-amber-400/45 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100"></div>
+        <div class="drop-zone-icon flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-200 ring-1 ring-amber-500/20 transition-all duration-200 group-hover:scale-[1.10] group-hover:bg-amber-500/20 group-hover:ring-amber-400/40 group-hover:shadow-[0_0_22px_-4px_rgba(245,158,11,0.4)]">
+          <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 3.75h4.19a2 2 0 011.41.59l4.06 4.06a2 2 0 01.59 1.41v8.44A2.75 2.75 0 0116.5 21h-9A2.75 2.75 0 014.75 18.25v-11.5A2.75 2.75 0 017.5 4h1.5m1 0v5h5"/>
           </svg>
         </div>
-        <div class="mt-6">
-          <p class="text-sm font-semibold tracking-tight text-white">Empty Exam</p>
-          <p class="mt-2 text-sm leading-relaxed text-slate-400">Use the original blank paper so the grader can map structure and pages.</p>
-        </div>
-        <p class="mt-auto pt-6 text-xs uppercase tracking-[0.18em] text-slate-500">Reference PDF</p>
+        <p class="mt-3.5 text-sm font-semibold tracking-tight text-white">Empty Exam</p>
+        <p class="drop-zone-desc mt-1.5 px-1 text-xs leading-relaxed text-slate-400/90">Original blank paper for reference</p>
+        <span class="drop-zone-pill mt-4 inline-flex items-center rounded-lg bg-white/[0.06] px-3 py-1 text-[0.7rem] font-medium text-slate-400 ring-1 ring-white/[0.08] transition-all duration-200 group-hover:bg-amber-500/12 group-hover:text-amber-300 group-hover:ring-amber-500/25">Browse files</span>
       </label>
 
-      <label class="group relative flex min-h-[11rem] cursor-pointer flex-col rounded-2xl border border-dashed border-white/12 bg-slate-950/55 p-4 transition duration-200 hover:border-violet-400/45 hover:bg-slate-950/75">
+      <!-- Answer Sheet -->
+      <label class="drop-zone group relative flex min-h-[13rem] cursor-pointer flex-col items-center justify-center rounded-2xl border border-white/[0.13] bg-slate-950/55 px-4 py-6 text-center transition-all duration-200 hover:border-violet-400/50 hover:bg-violet-950/20" data-accent="violet">
         <input type="file" name="answer_sheet" class="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0" />
-        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-violet-500/12 text-violet-300 ring-1 ring-violet-500/20 transition group-hover:scale-[1.03] group-hover:bg-violet-500/18">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-2xl bg-gradient-to-r from-transparent via-violet-400/45 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100"></div>
+        <div class="drop-zone-icon flex h-16 w-16 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-300 ring-1 ring-violet-500/20 transition-all duration-200 group-hover:scale-[1.10] group-hover:bg-violet-500/20 group-hover:ring-violet-400/40 group-hover:shadow-[0_0_22px_-4px_rgba(139,92,246,0.45)]">
+          <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M8.25 7.5h7.5m-7.5 4.5h7.5m-7.5 4.5h4.5M6.75 3.75h10.5A2.25 2.25 0 0119.5 6v12A2.25 2.25 0 0117.25 20.25H6.75A2.25 2.25 0 014.5 18V6a2.25 2.25 0 012.25-2.25z"/>
           </svg>
         </div>
-        <div class="mt-6">
-          <p class="text-sm font-semibold tracking-tight text-white">Answer Sheet</p>
-          <p class="mt-2 text-sm leading-relaxed text-slate-400">Drop the official answers or mark scheme here, or click to upload it.</p>
-        </div>
-        <p class="mt-auto pt-6 text-xs uppercase tracking-[0.18em] text-slate-500">Marking guide</p>
+        <p class="mt-3.5 text-sm font-semibold tracking-tight text-white">Answer Sheet</p>
+        <p class="drop-zone-desc mt-1.5 px-1 text-xs leading-relaxed text-slate-400/90">Official answers or mark scheme</p>
+        <span class="drop-zone-pill mt-4 inline-flex items-center rounded-lg bg-white/[0.06] px-3 py-1 text-[0.7rem] font-medium text-slate-400 ring-1 ring-white/[0.08] transition-all duration-200 group-hover:bg-violet-500/12 group-hover:text-violet-300 group-hover:ring-violet-500/25">Browse files</span>
       </label>
+
     </div>
 
     <textarea
@@ -108,7 +110,7 @@
                      rounded-xl px-6 py-2.5 text-sm font-semibold text-white
                      focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400
                      focus-visible:ring-offset-2 focus-visible:ring-offset-space-deep"
-              style="background: linear-gradient(135deg, rgba(16,185,129,0.9), rgba(5,150,105,0.9)); box-shadow: 0 0 0 1px rgba(16,185,129,0.4), 0 4px 16px -4px rgba(16,185,129,0.5);">
+>
         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75">
           <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
         </svg>
@@ -152,4 +154,44 @@
   </div>
 
 </section>
+
+<script>
+(function () {
+  document.querySelectorAll('.drop-zone').forEach(function (zone) {
+    var input = zone.querySelector('input[type="file"]');
+    var pill  = zone.querySelector('.drop-zone-pill');
+    var desc  = zone.querySelector('.drop-zone-desc');
+    var counter = 0;
+
+    zone.addEventListener('dragenter', function (e) {
+      e.preventDefault();
+      counter++;
+      zone.classList.add('drag-over');
+    });
+    zone.addEventListener('dragleave', function () {
+      if (--counter <= 0) { counter = 0; zone.classList.remove('drag-over'); }
+    });
+    zone.addEventListener('dragover', function (e) { e.preventDefault(); });
+    zone.addEventListener('drop', function () {
+      counter = 0;
+      zone.classList.remove('drag-over');
+    });
+
+    if (!input || !pill || !desc) return;
+    input.addEventListener('change', function () {
+      var files = input.files;
+      if (!files || files.length === 0) {
+        zone.classList.remove('has-file');
+        pill.textContent = 'Browse files';
+        return;
+      }
+      zone.classList.add('has-file');
+      desc.textContent = files.length === 1
+        ? files[0].name
+        : files.length + ' files selected';
+      pill.textContent = 'Change file';
+    });
+  });
+}());
+</script>
 {% endblock %}
