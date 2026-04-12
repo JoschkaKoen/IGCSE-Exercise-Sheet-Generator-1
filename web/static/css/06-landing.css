@@ -26,6 +26,8 @@
   background-clip: text;
   color: transparent;
   filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.2));
+  background-size: 200% 200%;
+  animation: title-shimmer 8s ease-in-out infinite alternate;
 }
 
 #generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child .flex.justify-center p.text-xs.uppercase {
@@ -236,7 +238,77 @@ html.doc-background-paused .space-aurora,
 html.doc-background-paused .space-stars,
 html.doc-background-paused .space-stars::after,
 html.doc-background-paused .form-glow::before,
-html.doc-background-paused .hero-icon {
+html.doc-background-paused .hero-icon,
+html.doc-background-paused #gen-left-col > .hero-collapse:first-child h1.font-display {
   animation-play-state: paused;
 }
 
+/* ─── Title shimmer keyframe ─────────────────────────────────────────────── */
+@keyframes title-shimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* ─── Page-load entrance animations ─────────────────────────────────────── */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-in-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+body:not(.page-entered) #generate-workspace:not(.preview-mode)
+  #gen-left-col > .hero-collapse:first-child p.uppercase {
+  animation: hero-in 0.28s ease 0ms both;
+}
+body:not(.page-entered) #generate-workspace:not(.preview-mode)
+  #gen-left-col > .hero-collapse:first-child h1 {
+  animation: hero-in 0.28s ease 80ms both;
+}
+body:not(.page-entered) #generate-workspace:not(.preview-mode)
+  #gen-left-col > .hero-collapse:first-child > p.text-slate-400 {
+  animation: hero-in 0.28s ease 160ms both;
+}
+body:not(.page-entered) #generate-workspace:not(.preview-mode) #gen-form.glass-panel {
+  animation: hero-in 0.28s ease 260ms both;
+}
+body:not(.page-entered) #generate-workspace:not(.preview-mode)
+  .hero-collapse.mt-14 .feature-card:nth-child(1) {
+  animation: hero-in 0.28s ease 380ms both;
+}
+body:not(.page-entered) #generate-workspace:not(.preview-mode)
+  .hero-collapse.mt-14 .feature-card:nth-child(2) {
+  animation: hero-in 0.28s ease 440ms both;
+}
+body:not(.page-entered) #generate-workspace:not(.preview-mode)
+  .hero-collapse.mt-14 .feature-card:nth-child(3) {
+  animation: hero-in 0.28s ease 500ms both;
+}
+
+/* ─── Keyboard shortcut hint ─────────────────────────────────────────────── */
+.kbd-hint {
+  font-size: 0.7rem;
+  color: rgba(148, 163, 184, 0.5);
+  letter-spacing: 0.02em;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+@media (hover: none) {
+  .kbd-hint { display: none; }
+}
+
+/* ─── Subject badge hover glow ───────────────────────────────────────────── */
+.subject-badge {
+  transition: filter 0.15s ease;
+  cursor: default;
+}
+
+.subject-badge-cs:hover        { filter: brightness(1.18) drop-shadow(0 0 6px rgba(167, 139, 250, 0.45)); }
+.subject-badge-physics:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(34, 211, 238, 0.45)); }
+.subject-badge-chemistry:hover { filter: brightness(1.15) drop-shadow(0 0 5px rgba(203, 213, 225, 0.35)); }
+.subject-badge-mathematics:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(99, 102, 241, 0.45)); }
+.subject-badge-biology:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(16, 185, 129, 0.45)); }

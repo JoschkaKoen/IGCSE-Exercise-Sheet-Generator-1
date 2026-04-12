@@ -114,6 +114,9 @@
       c.appendChild(frag);
     }());
   </script>
+  <script>
+    setTimeout(function () { document.body.classList.add('page-entered'); }, 850);
+  </script>
   <div class="z-content flex min-h-full flex-col"{% if needs_site_login | default(false) %} inert="" aria-hidden="true"{% endif %}>
 
     <header class="site-header sticky top-0 z-20">

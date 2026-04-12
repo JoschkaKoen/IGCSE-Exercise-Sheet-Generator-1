@@ -536,7 +536,7 @@ function isTextEntryElement(el) {
 if (promptEl && form) {
   promptEl.addEventListener('keydown', function (e) {
     if (e.key !== 'Enter') return;
-    if (e.shiftKey) return;
+    if (!e.metaKey && !e.ctrlKey) return;
     e.preventDefault();
     if (submitBtn && submitBtn.disabled) return;
     if (resultPanelIsVisible() && state.lastDownloadAllUrls.length) {

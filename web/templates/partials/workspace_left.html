@@ -48,7 +48,7 @@
              shadow-inner shadow-black/30
              focus:border-cyan-500/35 focus:outline-none focus:ring-2 focus:ring-cyan-500/15
              transition-colors"
-      placeholder="Example: Physics: All exercises from exam w24 22, Ex. 5-7 from s24 21"
+      placeholder="e.g. Physics: Ex. 1–9 from w24 22 and Ex. 5–7 from s24 21"
     ></textarea>
 
     <div class="hero-collapse mt-3.5">
@@ -129,8 +129,15 @@
         </span>
         <span id="job-log-line" class="min-w-0 flex-1 truncate font-mono text-xs text-slate-400"></span>
       </div>
+      <span class="kbd-hint" aria-hidden="true"></span>
     </div>
   </form>
+  <script>
+    (function () {
+      var hint = document.querySelector('.kbd-hint');
+      if (hint) hint.textContent = /Mac/.test(navigator.platform) ? '' : 'Ctrl↵';
+    })();
+  </script>
 
   <!-- Papers + exercise jump (preview only) -->
   <div id="overview-panel"
@@ -260,7 +267,7 @@
         </svg>
       </div>
       <h3 class="mt-3 text-sm font-semibold text-white">Mark schemes</h3>
-      <p class="mt-1 text-xs leading-relaxed text-slate-500">Answers included</p>
+      <p class="mt-1 text-xs leading-relaxed text-slate-500">Answers included as a separate PDF</p>
     </div>
   </div>
   </div>

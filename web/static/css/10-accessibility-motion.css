@@ -35,4 +35,26 @@
   .dl-icon-btn:active {
     transform: none;
   }
+
+  /* Page-load entrance: fade only, no translate */
+  body:not(.page-entered) #generate-workspace:not(.preview-mode)
+    #gen-left-col > .hero-collapse:first-child p.uppercase,
+  body:not(.page-entered) #generate-workspace:not(.preview-mode)
+    #gen-left-col > .hero-collapse:first-child h1,
+  body:not(.page-entered) #generate-workspace:not(.preview-mode)
+    #gen-left-col > .hero-collapse:first-child > p.text-slate-400,
+  body:not(.page-entered) #generate-workspace:not(.preview-mode) #gen-form.glass-panel,
+  body:not(.page-entered) #generate-workspace:not(.preview-mode)
+    .hero-collapse.mt-14 .feature-card:nth-child(1),
+  body:not(.page-entered) #generate-workspace:not(.preview-mode)
+    .hero-collapse.mt-14 .feature-card:nth-child(2),
+  body:not(.page-entered) #generate-workspace:not(.preview-mode)
+    .hero-collapse.mt-14 .feature-card:nth-child(3) {
+    animation-name: hero-in-fade;
+  }
+
+  /* Title shimmer: disable */
+  #generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child h1.font-display {
+    animation: none;
+  }
 }
