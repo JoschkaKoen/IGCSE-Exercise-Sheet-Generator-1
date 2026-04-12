@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block extra_head %}
+  <link rel="stylesheet" href="/static/css/11-library-detail.css" />
+{% endblock %}
 {% block title %}Exam library — eXercise{% endblock %}
 
 {% macro library_subject(subject_key, grid_id, theme) %}
@@ -178,10 +181,14 @@
     </div>
 
     {{ library_subject('physics', 'grid-physics', 'cyan') }}
-    {{ library_subject('computer_science', 'grid-cs', 'violet') }}
-    {{ library_subject('mathematics', 'grid-math', 'emerald') }}
-    {{ library_subject('biology', 'grid-biology', 'teal') }}
-    {{ library_subject('chemistry', 'grid-chemistry', 'amber') }}
+
+    <!-- Stub containers for deferred subjects — JS populates on first tab click -->
+    <div id="grid-cs"        class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+    <div id="grid-math"      class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+    <div id="grid-biology"   class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+    <div id="grid-chemistry" class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+
+    <script type="application/json" id="lib-raw-data">{{ library_json | tojson }}</script>
 
   </div><!-- /#lib-grid-view -->
 
@@ -253,6 +260,7 @@ function setTab(subject) {
     var isActive = t.subject === subject;
     t.el.setAttribute('aria-selected', isActive ? 'true' : 'false');
     if (isActive) {
+      buildSubjectGrid(t);
       t.el.classList.remove('tab-inactive');
       t.el.classList.add(t.activeClass);
       t.grid.classList.remove('hidden');
@@ -285,6 +293,90 @@ function filterCards() {
       return !s.classList.contains('hidden');
     });
     yg.classList.toggle('hidden', !any);
+  });
+}
+
+// ── Deferred subject grid builder ─────────────────────────────────────────
+var _rawData = JSON.parse(document.getElementById('lib-raw-data').textContent);
+var _builtSubjects = new Set(['physics']);
+
+function _esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function buildSubjectGrid(tab) {
+  if (_builtSubjects.has(tab.subject)) return;
+  _builtSubjects.add(tab.subject);
+  var blocks = _rawData[tab.subject] || [];
+  var th = tab.theme;
+  var frag = document.createDocumentFragment();
+  blocks.forEach(function (yearBlock) {
+    var yg = document.createElement('div');
+    yg.className = 'lib-year-group';
+    var isOther = yearBlock.year === '_other';
+    yg.innerHTML =
+      '<div class="flex items-center gap-2 py-0.5">' +
+        '<span class="' + (isOther
+          ? 'text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500'
+          : 'text-xs font-semibold tabular-nums text-slate-200') + '">' +
+          _esc(isOther ? 'Other' : yearBlock.year) +
+        '</span>' +
+        '<span class="h-px flex-1 bg-gradient-to-r from-white/18 to-transparent"></span>' +
+      '</div>';
+    yearBlock.sessions.forEach(function (sess) {
+      var sg = document.createElement('div');
+      sg.className = 'lib-session-group';
+      var badgeHtml = '';
+      if (sess.session && sess.session !== '_') {
+        badgeHtml =
+          '<div class="flex items-center gap-2 pl-0.5">' +
+            '<span class="inline-flex h-5 min-w-[1.15rem] items-center justify-center rounded border border-white/10 bg-white/[0.04] px-1 text-[10px] font-bold tabular-nums text-slate-400"' +
+            ' title="' + _esc(sess.session_title) + '">' + _esc(sess.session_heading) + '</span>' +
+          '</div>';
+      }
+      var cardsHtml = '<div class="lib-session-cards">' +
+        sess.rows.map(function (row) {
+          var search = (_esc(row.display_name) + ' ' + _esc(row.name) + ' ' +
+            _esc(row.group_year || '') + ' ' + _esc(row.group_session || '') + ' ' +
+            _esc(row.paper_kind || '')).toLowerCase();
+          return '<article class="lib-card flex items-center gap-3 rounded-2xl border border-white/[0.08]' +
+            ' bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-3.5 shadow-black/20 backdrop-blur-sm' +
+            ' hover:border-' + th + '-500/25"' +
+            ' data-url="' + _esc(row.download_url) + '"' +
+            ' data-name="' + _esc(row.name) + '"' +
+            ' data-search="' + search + '">' +
+            '<div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-' + th + '-500/10">' +
+              '<svg class="h-4 w-4 text-' + th + '-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">' +
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+                ' d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>' +
+              '</svg>' +
+            '</div>' +
+            '<h2 class="min-w-0 flex-1 truncate text-sm font-medium leading-snug text-slate-100"' +
+            ' title="' + _esc(row.name) + '">' + _esc(row.display_name) + '</h2>' +
+            '<a href="' + _esc(row.download_url) + '"' +
+            ' class="shrink-0 rounded-xl p-2 transition text-' + th + '-400 hover:bg-' + th + '-500/15 hover:text-' + th + '-300' +
+            ' focus:outline-none focus-visible:ring-2 focus-visible:ring-' + th + '-400/50"' +
+            ' aria-label="Download ' + _esc(row.display_name) + '">' +
+              '<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">' +
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+                ' d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>' +
+              '</svg>' +
+            '</a>' +
+          '</article>';
+        }).join('') +
+      '</div>';
+      sg.innerHTML = badgeHtml + cardsHtml;
+      yg.appendChild(sg);
+    });
+    frag.appendChild(yg);
+  });
+  tab.grid.appendChild(frag);
+  // Attach click listeners to newly built cards (mirrors the physics server-rendered listener)
+  tab.grid.querySelectorAll('article.lib-card').forEach(function (card) {
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('a')) return;
+      enterDetailView(card);
+    });
   });
 }
 

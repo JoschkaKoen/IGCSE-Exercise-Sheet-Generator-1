@@ -12,6 +12,7 @@ from eXercise.natural_language import resolve_natural_language
 from eXercise.output_paths import resolve_output_path_fresh, set_run_command
 from eXercise.pipeline import run_extraction_jobs
 
+_LIBRARY_CACHE: dict | None = None
 
 def run_nl_prompt(
     prompt: str,
@@ -137,6 +138,10 @@ def _library_grouped_blocks(subject_key: str, names: list[str]) -> list[dict[str
 
 def list_library_pdfs() -> dict[str, list[dict[str, Any]]]:
     """Scan bundled exam dirs; nested year → session → file rows for the library page."""
+    global _LIBRARY_CACHE
+    if _LIBRARY_CACHE is not None:
+        return _LIBRARY_CACHE
+
     from eXercise.config import EXAM_ROOT_BY_KEY
     from eXercise.labels import library_pdf_sort_key
 
@@ -147,4 +152,5 @@ def list_library_pdfs() -> dict[str, list[dict[str, Any]]]:
             continue
         names = sorted((p.name for p in root.glob("*.pdf")), key=library_pdf_sort_key)
         out[key] = _library_grouped_blocks(key, names)
+    _LIBRARY_CACHE = out
     return out

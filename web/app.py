@@ -8,6 +8,7 @@ from eXercise.env_load import load_project_env
 load_project_env()
 
 import asyncio
+from contextlib import asynccontextmanager
 import io
 import threading
 import uuid
@@ -44,7 +45,14 @@ PACKAGE_DIR = Path(__file__).resolve().parent
 TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
 STATIC_DIR = PACKAGE_DIR / "static"
 
-app = FastAPI(title="eXercise")
+
+@asynccontextmanager
+async def _lifespan(app: FastAPI):
+    list_library_pdfs()  # pre-warm PDF index cache so the first page load is instant
+    yield
+
+
+app = FastAPI(title="eXercise", lifespan=_lifespan)
 store = JobStore()
 
 class NoCacheStaticFiles(StaticFiles):
@@ -245,10 +253,11 @@ async def grade_page(request: Request) -> HTMLResponse:
 @app.get("/library", response_class=HTMLResponse)
 async def library_page(request: Request) -> HTMLResponse:
     data = list_library_pdfs()
+    library_json = {k: v for k, v in data.items() if k != "physics"}
     return TEMPLATES.TemplateResponse(
         request,
         "library.html",
-        _template_ctx(request, library=data),
+        _template_ctx(request, library=data, library_json=library_json),
         headers=_HTML_NO_CACHE,
     )
 

@@ -38,14 +38,9 @@
   <link rel="stylesheet" href="/static/css/01-shell.css" />
   <link rel="stylesheet" href="/static/css/02-auth-gate.css" />
   <link rel="stylesheet" href="/static/css/03-core-ui.css" />
-  <link rel="stylesheet" href="/static/css/04-generation.css" />
-  <link rel="stylesheet" href="/static/css/05-downloads-result.css" />
-  <link rel="stylesheet" href="/static/css/06-landing.css" />
   <link rel="stylesheet" href="/static/css/07-header-preview-chrome.css" />
-  <link rel="stylesheet" href="/static/css/08-workspace-pdf-preview.css" />
-  <link rel="stylesheet" href="/static/css/09-overview.css" />
   <link rel="stylesheet" href="/static/css/10-accessibility-motion.css" />
-  <link rel="stylesheet" href="/static/css/11-library-detail.css" />
+  {% block extra_head %}{% endblock %}
 </head>
 <body class="min-h-full font-sans text-slate-200 antialiased space-bg{% if needs_site_login | default(false) %} site-auth-locked{% endif %}">
   <script>
