@@ -25,6 +25,9 @@ build/
 # Generated output (optional: remove this line if you want to track sample PDFs)
 output/
 
+# Local test assets (scans, rosters)
+Space Physics Unit Test/
+
 # OS / editor
 .DS_Store
 .idea/
