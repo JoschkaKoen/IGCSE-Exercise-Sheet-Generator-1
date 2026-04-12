@@ -120,12 +120,11 @@ def _extract_pdf_text(pdf_path: Path) -> str:
 
 _SYSTEM_PROMPT = """\
 You are an expert Cambridge IGCSE examiner.
-You will be shown an exercise sheet and (optionally) its answer sheet.
+You will be shown one or more exercise sheets and (optionally) their answer sheets.
 Your task: rank every individual question part from most difficult to easiest.
 
 CRITICAL: Only rank the questions that are EXPLICITLY VISIBLE in the provided documents.
 Do NOT add, invent, or recall any questions from memory or prior knowledge of the exam paper.
-If the sheet contains 3 questions, your output must contain exactly 3 entries.
 
 Rules:
 - If a question has sub-parts (a, b, c) or sub-sub-parts (a(i), a(ii)), rank each
@@ -133,8 +132,13 @@ Rules:
 - Always prefix the question number with "Q", e.g. "Q3b", "Q12a(i)", "Q7".
 - Also prefix with the paper label before "Q":
   e.g. "w24/22 Q3b", "w24/12 Q5b(ii)".
-- Output ONLY a plain numbered list, one identifier per line. No prose, no headings.
-- Example output:
+- Output ONLY a plain numbered list, one identifier per line.
+  NO prose, NO headings, NO explanations, NO categories, NO tier names, NO plan steps.
+- WRONG (never do this):
+  1. Here's my plan:
+  2. Hard tier: w24/22 Q10, w24/12 Q5b(ii)
+  Mid Tier: ...
+- CORRECT:
   1. w24/22 Q10
   2. w24/12 Q5b(ii)
   3. w24/22 Q3b
@@ -205,7 +209,7 @@ def _rank_exercises_ai_gemini(
     gen_config = gai_types.GenerateContentConfig(
         system_instruction=_SYSTEM_PROMPT,
         thinking_config=thinking_cfg,
-        max_output_tokens=2048,
+        max_output_tokens=8192,
     )
 
     # Build content parts — file parts interleaved with text labels
@@ -364,12 +368,14 @@ def _rank_exercises_ai(
                 model=model,
                 messages=messages,
                 stream=True,
+                max_tokens=8192,
                 **thinking_kw,
             )
             return print_streamed_response(stream)
         completion = client.chat.completions.create(
             model=model,
             messages=messages,
+            max_tokens=8192,
             **thinking_kw,
         )
         return (completion.choices[0].message.content or "").strip()
@@ -390,8 +396,17 @@ def _rank_exercises_ai(
             return []
 
     ranking = _parse_ranking(raw)
+    if not ranking and raw.strip():
+        print("  Ranking: response had no valid question identifiers after filtering.")
+        print(f"  Response preview: {raw[:300]!r}")
     print(f"  Ranked {len(ranking)} question part(s).")
     return ranking
+
+
+# Matches: "w23/23 Q3b", "s23/41 Q1a(i)", "w24/12 Q5b(ii)", bare "Q12"
+_QUESTION_ID_RE = re.compile(
+    r"^[wsm]\d{2}/\d{2,3}\s+Q\d+|^Q\d+", re.IGNORECASE
+)
 
 
 def _parse_ranking(response: str) -> list[str]:
@@ -399,7 +414,7 @@ def _parse_ranking(response: str) -> list[str]:
     seen: set[str] = set()
     for line in response.strip().splitlines():
         cleaned = re.sub(r"^\s*\d+[\.\)]\s*", "", line).strip()
-        if cleaned and cleaned not in seen:
+        if cleaned and cleaned not in seen and _QUESTION_ID_RE.match(cleaned):
             seen.add(cleaned)
             ranking.append(cleaned)
     return ranking
