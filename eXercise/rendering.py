@@ -808,7 +808,7 @@ def layout_vector_strips_to_pdf(
         )
 
     print(f"  Assembling {len(out_doc)} output page(s)...")
-    out_doc.save(output_path, deflate=True, garbage=4)
+    out_doc.save(output_path, deflate=True, garbage=2)
     out_doc.close()
     clear_derotated_cache()
     print(f"  Saved: {output_path}")

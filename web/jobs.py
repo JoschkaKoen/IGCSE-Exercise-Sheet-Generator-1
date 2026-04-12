@@ -24,6 +24,7 @@ class JobRecord:
     answers_4up_pdf: Path | None = None
     answers_2up_pdf: Path | None = None
     ranking_pdf: Path | None = None
+    ranking_status: str = "pending"  # pending | running | done | failed | skipped
     log_line: str = ""
     overview: dict[str, Any] | None = None
 
@@ -57,6 +58,19 @@ class JobStore:
             j = self._jobs.get(job_id)
             if j:
                 j.log_line = line[:800] if line else ""
+
+    def set_ranking_status(self, job_id: str, status: str) -> None:
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j:
+                j.ranking_status = status
+
+    def set_ranking_result(self, job_id: str, ranking_pdf: Path) -> None:
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j:
+                j.ranking_pdf = ranking_pdf
+                j.ranking_status = "done"
 
     def fail(self, job_id: str, message: str) -> None:
         with self._lock:

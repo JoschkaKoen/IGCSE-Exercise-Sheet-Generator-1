@@ -25,7 +25,7 @@ import {
 } from './pdf-render.js';
 
 import { selectTab, syncSidePill, syncPdfTabChrome } from './pdf-tabs.js';
-import { applyDoneData, triggerDownloadAllPdfs } from './downloads.js';
+import { applyDoneData, triggerDownloadAllPdfs, showRankingGenerating, applyRankingUrl, updateRankingLog } from './downloads.js';
 
 // ─── DOM refs ─────────────────────────────────────────────────────────────────
 
@@ -302,6 +302,18 @@ async function refreshPreviewMode() {
 }
 
 // ─── Job polling ──────────────────────────────────────────────────────────────
+
+async function pollRankingReady(jobId) {
+  showRankingGenerating();
+  while (true) {
+    await sleep(2500);
+    let data;
+    try { data = await fetchJobStatus(jobId); } catch (e) { break; }
+    if (data.log_line) updateRankingLog(data.log_line);
+    if (data.ranking_url) { applyRankingUrl(data.ranking_url); break; }
+    if (data.ranking_status === 'done' || data.ranking_status === 'failed' || data.ranking_status === 'skipped') break;
+  }
+}
 
 function applyLogLine(data) {
   if (!jobLogLine) return;
@@ -622,6 +634,7 @@ form.addEventListener('submit', async function (e) {
     } catch (e) {}
     showResultPanel();
     await enterPreviewMode(done);
+    if (!done.ranking_url) pollRankingReady(id); // fire-and-forget; ranking still running
   } catch (err) {
     errorPanel.textContent = err.message || String(err);
     errorPanel.classList.remove('hidden');

@@ -56,7 +56,7 @@ def run_nl_prompt(
     def extract_phase() -> str:
         output_pdf = resolve_output_path_fresh(data["output_pdf"])
         output_str = str(output_pdf)
-        overview = run_extraction_jobs(jobs, output_str, exam_key=data.get("exam"))
+        overview = run_extraction_jobs(jobs, output_str, exam_key=data.get("exam"), run_ranking=False)
         overview_holder.clear()
         overview_holder.append(overview)
         return output_str

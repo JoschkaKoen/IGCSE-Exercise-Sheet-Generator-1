@@ -9,6 +9,7 @@ load_project_env()
 
 import asyncio
 import io
+import threading
 import zipfile
 from pathlib import Path
 
@@ -19,6 +20,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from eXercise.config import EXAM_ROOT_BY_KEY
+from eXercise.difficulty_ranking import generate_difficulty_ranking
 from eXercise.exceptions import ExtractionUserError
 from eXercise.natural_language import MAX_NATURAL_LANGUAGE_INSTRUCTION_CHARS
 
@@ -146,10 +148,32 @@ async def _run_job(job_id: str, prompt: str) -> None:
         store.set_log_line(job_id, line)
 
     try:
-        main_pdf, ans_pdf, up4, up2, a4, a2, ranking_pdf, overview = await asyncio.to_thread(
+        main_pdf, ans_pdf, up4, up2, a4, a2, _ranking_pdf, overview = await asyncio.to_thread(
             run_nl_prompt_logged, prompt, on_line
         )
-        store.complete(job_id, main_pdf, ans_pdf, up4, up2, a4, a2, ranking_pdf=ranking_pdf, overview=overview)
+        # ranking_pdf from service is always None (run_ranking=False); ranking runs below
+        store.complete(job_id, main_pdf, ans_pdf, up4, up2, a4, a2, ranking_pdf=None, overview=overview)
+
+        def _run_ranking() -> None:
+            try:
+                store.set_ranking_status(job_id, "running")
+                store.set_log_line(job_id, "Generating difficulty ranking…")
+                ranking_path = main_pdf.parent / f"{main_pdf.stem}_ranking{main_pdf.suffix}"
+                generate_difficulty_ranking(
+                    exercise_pdf=main_pdf,
+                    answer_pdf=ans_pdf if (ans_pdf and ans_pdf.exists()) else None,
+                    out_path=main_pdf.parent,
+                    name=main_pdf.stem,
+                )
+                if ranking_path.exists():
+                    store.set_ranking_result(job_id, ranking_path)
+                else:
+                    store.set_ranking_status(job_id, "skipped")
+            except Exception:  # noqa: BLE001
+                store.set_ranking_status(job_id, "failed")
+
+        threading.Thread(target=_run_ranking, daemon=True).start()
+
     except ExtractionUserError as e:
         store.fail(job_id, str(e))
     except Exception as e:  # noqa: BLE001 — last-resort message for the UI
@@ -246,6 +270,7 @@ async def job_status(request: Request, job_id: str) -> dict:
             out["answers_two_up_url"] = f"{base}/api/jobs/{job_id}/answers-two-up"
         if rec.ranking_pdf is not None:
             out["ranking_url"] = f"{base}/api/jobs/{job_id}/ranking"
+        out["ranking_status"] = rec.ranking_status
         out["download_all_url"] = f"{base}/api/jobs/{job_id}/download-all"
         if rec.overview is not None:
             out["overview"] = rec.overview

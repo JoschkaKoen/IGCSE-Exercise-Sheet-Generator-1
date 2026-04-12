@@ -216,16 +216,23 @@
           </a>
         </div>
       </div>
-      <a id="dl-ranking" href="#" class="dl-card dl-card--orange hidden download-btn" title="Download difficulty ranking">
-        <span class="dl-card-label">
-          <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="3" y="14" width="4" height="7" rx="0.8" stroke-width="2"/>
-            <rect x="10" y="9" width="4" height="12" rx="0.8" stroke-width="2"/>
-            <rect x="17" y="3" width="4" height="18" rx="0.8" stroke-width="2"/>
-          </svg>
-          Ranking
-        </span>
-      </a>
+      <div id="ranking-row" class="flex items-center gap-3 min-w-0">
+        <a id="dl-ranking" href="#" class="dl-card dl-card--orange hidden download-btn" title="Download difficulty ranking">
+          <span class="dl-card-label">
+            <svg id="ranking-icon-chart" class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="14" width="4" height="7" rx="0.8" stroke-width="2"/>
+              <rect x="10" y="9" width="4" height="12" rx="0.8" stroke-width="2"/>
+              <rect x="17" y="3" width="4" height="18" rx="0.8" stroke-width="2"/>
+            </svg>
+            <svg id="ranking-icon-spinner" class="h-3.5 w-3.5 hidden ranking-spinner" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 3a9 9 0 1 0 9 9"/>
+            </svg>
+            Ranking
+          </span>
+        </a>
+        <span id="ranking-log" class="hidden min-w-0 flex-1 truncate font-mono text-xs text-slate-400"></span>
+      </div>
     </div>
   </div>
   </div><!-- /form-result-row -->

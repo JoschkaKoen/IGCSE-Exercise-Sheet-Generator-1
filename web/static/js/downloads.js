@@ -16,7 +16,10 @@ const dlAnswersFourUp  = document.getElementById('dl-answers-four-up');
 const dlFourUp      = document.getElementById('dl-four-up');
 const dlTwoUp       = document.getElementById('dl-two-up');
 const dlAll         = document.getElementById('dl-all');
-const dlRanking     = document.getElementById('dl-ranking');
+const dlRanking          = document.getElementById('dl-ranking');
+const rankingIconChart   = document.getElementById('ranking-icon-chart');
+const rankingIconSpinner = document.getElementById('ranking-icon-spinner');
+const rankingLog         = document.getElementById('ranking-log');
 
 // ─── Download card population ─────────────────────────────────────────────────
 
@@ -52,8 +55,41 @@ export function applyDoneData(done) {
     if (done.ranking_url) {
       dlRanking.href = done.ranking_url;
       dlRanking.classList.remove('hidden');
-    } else { dlRanking.classList.add('hidden'); }
+      dlRanking.classList.remove('dl-card--ranking-generating');
+      if (rankingIconChart) rankingIconChart.classList.remove('hidden');
+      if (rankingIconSpinner) rankingIconSpinner.classList.add('hidden');
+      if (rankingLog) rankingLog.classList.add('hidden');
+    } else {
+      // ranking_url absent: either deferred (pollRankingReady will handle it) or skipped
+      dlRanking.classList.add('hidden');
+    }
   }
+}
+
+// ─── Deferred ranking UI helpers ─────────────────────────────────────────────
+
+export function showRankingGenerating() {
+  if (!dlRanking) return;
+  dlRanking.classList.remove('hidden');
+  dlRanking.classList.add('dl-card--ranking-generating');
+  if (rankingIconChart) rankingIconChart.classList.add('hidden');
+  if (rankingIconSpinner) rankingIconSpinner.classList.remove('hidden');
+  if (rankingLog) rankingLog.classList.remove('hidden');
+}
+
+export function applyRankingUrl(url) {
+  if (!dlRanking) return;
+  dlRanking.href = url;
+  dlRanking.classList.remove('dl-card--ranking-generating');
+  if (rankingIconChart) rankingIconChart.classList.remove('hidden');
+  if (rankingIconSpinner) rankingIconSpinner.classList.add('hidden');
+  if (rankingLog) rankingLog.classList.add('hidden');
+  if (!state.lastDownloadAllUrls.includes(url))
+    state.lastDownloadAllUrls.push(url);
+}
+
+export function updateRankingLog(text) {
+  if (rankingLog) rankingLog.textContent = text;
 }
 
 // ─── Download all ─────────────────────────────────────────────────────────────

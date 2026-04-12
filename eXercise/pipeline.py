@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 
@@ -110,12 +111,12 @@ def merge_pdf_files(part_paths: list[str], dest: str) -> None:
         src = fitz.open(p)
         merged.insert_pdf(src)
         src.close()
-    merged.save(dest, deflate=True, garbage=4)
+    merged.save(dest, deflate=True, garbage=2)
     merged.close()
 
 
 def run_extraction_jobs(
-    jobs: list[dict], output_pdf: str, exam_key: str | None = None
+    jobs: list[dict], output_pdf: str, exam_key: str | None = None, *, run_ranking: bool = True
 ) -> dict[str, Any]:
     """
     Each job dict: ``input_pdf``, ``questions``, ``mark_scheme_pdf`` (optional path).
@@ -147,29 +148,37 @@ def run_extraction_jobs(
     all_ms_strips: list[Strip] = []
     job_mcq_ms: list[bool] = [False] * len(jobs)
 
-    try:
-        for job in jobs:
-            ip = job["input_pdf"]
-            qs = job["questions"]
-            paper_lbl = paper_label_from_qp_path(ip)
-            print(f"\nQuestion paper: {ip}")
-            doc = fitz.open(ip)
-            qp_docs.append(doc)
-            print(f"  PDF has {len(doc)} pages")
-            positions = find_question_positions(doc, cfg)
-            found_nums = sorted(set(p[0] for p in positions))
-            print(f"  Found questions: {found_nums}")
-            if qs == "all":
-                qs = found_nums
-                job["questions"] = qs
-            print(f"  Questions: {qs}")
-            regions = get_question_regions(doc, positions, qs, cfg)
-            job_regions.append(regions)  # always append before any continue
-            if not regions:
-                print("  Warning: No matching questions for this paper, skipping.")
-                continue
+    def _extract_qp(args: tuple[int, dict]) -> tuple:
+        j_idx, job = args
+        ip = job["input_pdf"]
+        paper_lbl = paper_label_from_qp_path(ip)
+        print(f"\nQuestion paper: {ip}")
+        doc = fitz.open(ip)
+        print(f"  PDF has {len(doc)} pages")
+        positions = find_question_positions(doc, cfg)
+        found_nums = sorted(set(p[0] for p in positions))
+        print(f"  Found questions: {found_nums}")
+        qs = job["questions"]
+        if qs == "all":
+            qs = found_nums
+            job["questions"] = qs  # safe: each worker only writes its own job entry
+        print(f"  Questions: {qs}")
+        regions = get_question_regions(doc, positions, qs, cfg)
+        if not regions:
+            print("  Warning: No matching questions for this paper, skipping.")
+            strips: list[Strip] = []
+        else:
             print(f"  Extracting {len(regions)} region(s) for questions {sorted(set(r[0] for r in regions))}")
             strips = collect_vector_strips(doc, regions, cfg=cfg)
+        return j_idx, doc, regions, strips, paper_lbl
+
+    try:
+        with ThreadPoolExecutor(max_workers=max(1, len(jobs))) as ex:
+            qp_results = sorted(ex.map(_extract_qp, enumerate(jobs)), key=lambda r: r[0])
+
+        for j_idx, doc, regions, strips, paper_lbl in qp_results:
+            qp_docs.append(doc)
+            job_regions.append(regions)
             if not strips:
                 continue
             if use_paper_sublabels:
@@ -194,27 +203,26 @@ def run_extraction_jobs(
         ms_info: list[dict | None] = []
         mcq_prepared: dict[int, McqPaperData] = {}
 
-        for j_idx, job in enumerate(jobs):
+        def _prepare_ms(args: tuple[int, dict]) -> tuple:
+            j_idx, job = args
             ms = job.get("mark_scheme_pdf")
             if not ms:
-                ms_info.append(None)
-                continue
+                return j_idx, None, None, None
             print(f"\nMark scheme: {ms}")
             ms_doc = fitz.open(ms)
-            ms_docs.append(ms_doc)
             ms_type = detect_ms_type(ms_doc)
-            job_mcq_ms[j_idx] = ms_type == "mcq"
             print(f"  Type: {ms_type}, {len(ms_doc)} pages")
             qs = job["questions"]
             paper_lbl = paper_label_from_qp_path(job["input_pdf"])
             info: dict = {"doc": ms_doc, "type": ms_type, "qs": qs, "label": paper_lbl}
-
+            prepared = None
             if ms_type == "mcq":
                 answers = parse_mcq_answers(ms_doc)
                 info["answers"] = answers
                 found_ans = [q for q in qs if q in answers]
                 print(f"  Found answers for: {found_ans}")
                 expl_pdf_path = out_path.parent / f"{out_path.stem}_mcq_expl_{j_idx}.pdf"
+                # qp_docs[j_idx] is its own Document object — safe to read from this worker
                 prepared = prepare_mcq_job_data(
                     qp_doc=qp_docs[j_idx],
                     regions=job_regions[j_idx],
@@ -225,10 +233,20 @@ def run_extraction_jobs(
                     paper_label=paper_lbl,
                     expl_pdf_path=expl_pdf_path,
                 )
-                if prepared:
-                    mcq_prepared[j_idx] = prepared
+            return j_idx, ms_doc, info, prepared
 
+        with ThreadPoolExecutor(max_workers=max(1, len(jobs))) as ex:
+            ms_results = sorted(ex.map(_prepare_ms, enumerate(jobs)), key=lambda r: r[0])
+
+        for j_idx, ms_doc, info, prepared in ms_results:
+            if ms_doc is None:
+                ms_info.append(None)
+                continue
+            ms_docs.append(ms_doc)
+            job_mcq_ms[j_idx] = info["type"] == "mcq"
             ms_info.append(info)
+            if prepared:
+                mcq_prepared[j_idx] = prepared
 
         # ── Phase 2: single batched AI call for all MCQ papers ─────────────────
         mcq_explanations_map: dict[int, dict] = {}
@@ -299,17 +317,18 @@ def run_extraction_jobs(
             print(f"\n  Saved: {answers_path}")
 
         print("\nExercise sheet n-up variants (pdfjam)…")
-        run_exercise_sheet_pdfjam_variants(out_path)
-        if all_ms_strips:
-            run_exercise_sheet_pdfjam_variants(answers_path)
+        pdfjam_targets = [out_path] + ([answers_path] if all_ms_strips else [])
+        with ThreadPoolExecutor(max_workers=len(pdfjam_targets)) as ex:
+            list(ex.map(run_exercise_sheet_pdfjam_variants, pdfjam_targets))
 
-        print("\nGenerating difficulty ranking…")
-        generate_difficulty_ranking(
-            exercise_pdf=out_path,
-            answer_pdf=answers_path if (all_ms_strips and answers_path.exists()) else None,
-            out_path=out_path.parent,
-            name=out_path.stem,
-        )
+        if run_ranking:
+            print("\nGenerating difficulty ranking…")
+            generate_difficulty_ranking(
+                exercise_pdf=out_path,
+                answer_pdf=answers_path if (all_ms_strips and answers_path.exists()) else None,
+                out_path=out_path.parent,
+                name=out_path.stem,
+            )
 
     finally:
         for d in qp_docs + ms_docs:

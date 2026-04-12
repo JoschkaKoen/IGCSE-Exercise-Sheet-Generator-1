@@ -106,6 +106,8 @@ def run_exercise_sheet_pdfjam_variants(
     Requires ``pdfjam`` on ``PATH`` (TeX Live / MacTeX).  Failures are logged; extraction
     still succeeds without these files.
     """
+    import concurrent.futures
+
     path = Path(exercise_pdf).resolve()
     if not path.is_file():
         return
@@ -137,43 +139,27 @@ def run_exercise_sheet_pdfjam_variants(
             err = (e.stderr or e.stdout or str(e))[:500]
             print(f"  Warning: {label} failed ({e.returncode}): {err.strip()}")
 
-    _run(
-        [
-            pdfjam,
-            "--nup",
-            "2x2",
-            "--frame",
-            "false",
-            "--scale",
-            "1.0",
-            "--outfile",
-            str(out_4up),
-            inp,
-        ],
-        out_4up,
-        "pdfjam 4-up",
-    )
-    if out_4up.is_file():
-        _fix_nup_name_fields(out_4up, cols=2, rows=2)
+    def _run_4up() -> None:
+        _run(
+            [pdfjam, "--nup", "2x2", "--frame", "false", "--scale", "1.0",
+             "--outfile", str(out_4up), inp],
+            out_4up, "pdfjam 4-up",
+        )
+        if out_4up.is_file():
+            _fix_nup_name_fields(out_4up, cols=2, rows=2)
 
-    _run(
-        [
-            pdfjam,
-            "--nup",
-            "2x1",
-            "--landscape",
-            "--paper",
-            "a4paper",
-            "--frame",
-            "false",
-            "--scale",
-            "1.0",
-            "--outfile",
-            str(out_2up),
-            inp,
-        ],
-        out_2up,
-        "pdfjam 2-up landscape",
-    )
-    if out_2up.is_file():
-        _fix_nup_name_fields(out_2up, cols=2, rows=1)
+    def _run_2up() -> None:
+        _run(
+            [pdfjam, "--nup", "2x1", "--landscape", "--paper", "a4paper",
+             "--frame", "false", "--scale", "1.0", "--outfile", str(out_2up), inp],
+            out_2up, "pdfjam 2-up landscape",
+        )
+        if out_2up.is_file():
+            _fix_nup_name_fields(out_2up, cols=2, rows=1)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
+        fut_4up = ex.submit(_run_4up)
+        fut_2up = ex.submit(_run_2up)
+        # Re-raise any exceptions from workers
+        fut_4up.result()
+        fut_2up.result()
