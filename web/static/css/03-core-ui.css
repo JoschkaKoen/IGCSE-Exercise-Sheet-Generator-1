@@ -146,3 +146,24 @@
     0  0px 40px -10px rgba(34,211,238,0.09);
 }
 
+/* ─── Library page entrance animations ──────────────────────────────────── */
+body:not(.page-entered) #lib-hero > div:first-child { animation: hero-in 0.1s ease   0ms both; }
+body:not(.page-entered) #lib-hero > div:last-child  { animation: hero-in 0.1s ease  40ms both; }
+body:not(.page-entered) #lib-desc                   { animation: hero-in 0.1s ease 80ms both; }
+body:not(.page-entered) #lib-controls               { animation: hero-in 0.1s ease 100ms both; }
+body:not(.page-entered) #grid-physics               { animation: hero-in 0.1s ease 120ms both; }
+
+/* ─── Library h1 violet shimmer ─────────────────────────────────────────── */
+#lib-hero h1.font-display {
+  background: linear-gradient(118deg, rgb(248 250 252) 0%, rgb(221 214 254) 40%, rgb(196 181 253) 72%, rgb(167 139 250) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 200%;
+  animation: title-shimmer 8s ease-in-out infinite alternate;
+}
+
+/* Pause shimmer in background tabs */
+html.doc-background-paused #lib-hero h1.font-display {
+  animation-play-state: paused;
+}

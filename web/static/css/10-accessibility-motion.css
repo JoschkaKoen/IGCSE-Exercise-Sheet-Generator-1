@@ -57,4 +57,16 @@
   #generate-workspace:not(.preview-mode) #gen-left-col > .hero-collapse:first-child h1.font-display {
     animation: none;
   }
+
+  /* Library entrance: fade only, no translate */
+  body:not(.page-entered) #lib-hero > div:first-child,
+  body:not(.page-entered) #lib-hero > div:last-child,
+  body:not(.page-entered) #lib-desc,
+  body:not(.page-entered) #lib-controls,
+  body:not(.page-entered) #grid-physics {
+    animation-name: hero-in-fade;
+  }
+
+  /* Library h1 shimmer: disable */
+  #lib-hero h1.font-display { animation: none; }
 }
