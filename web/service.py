@@ -23,38 +23,41 @@ def run_nl_prompt(
     optional pdfjam siblings (4-up / 2-up landscape) when those files exist, and an
     ``overview`` dict for the web UI (papers + exercise anchors for in-PDF navigation).
 
-    When ``on_progress`` is set (web UI), each user-visible line is pushed to the callback
-    **and** printed — no reliance on stdout redirection in threads.
+    When ``on_progress`` is set, stdout/stderr are redirected for the *entire* pipeline
+    (including the NL model call) so that streaming thinking tokens reach the web UI live.
 
     Answers PDF is returned only when that file exists on disk (mark scheme path produced output).
     """
 
     def emit(msg: str) -> None:
+        # print() goes through the stdout capture when run_with_last_log_line is active;
+        # the direct on_progress call is a fast path for callers without capture.
         print(msg, flush=True)
         if on_progress:
             on_progress(msg)
 
     set_run_command(prompt)
-    emit("Resolving natural-language request…")
-    exam_root, data = resolve_natural_language(prompt, on_progress=on_progress)
-    emit(f"Exam folder: {exam_root} ({data.get('exam', '')})")
-    emit(f"Papers in this run: {len(data['extractions'])}")
-    jobs = []
-    for ex in data["extractions"]:
-        jobs.append(
-            {
-                "input_pdf": str(exam_root / ex["input_pdf"]),
-                "questions": ex["questions"],
-                "mark_scheme_pdf": str(exam_root / ex["mark_scheme_pdf"])
-                if ex.get("mark_scheme_pdf")
-                else None,
-            }
-        )
-    emit("Preparing output and extracting PDFs…")
 
     overview_holder: list[dict[str, Any]] = []
 
-    def extract_phase() -> str:
+    def full_pipeline() -> str:
+        """NL resolution + PDF extraction — all under stdout capture when web UI is active."""
+        emit("Resolving natural-language request…")
+        exam_root, data = resolve_natural_language(prompt, on_progress=on_progress)
+        emit(f"Exam folder: {exam_root} ({data.get('exam', '')})")
+        emit(f"Papers in this run: {len(data['extractions'])}")
+        jobs = []
+        for ex in data["extractions"]:
+            jobs.append(
+                {
+                    "input_pdf": str(exam_root / ex["input_pdf"]),
+                    "questions": ex["questions"],
+                    "mark_scheme_pdf": str(exam_root / ex["mark_scheme_pdf"])
+                    if ex.get("mark_scheme_pdf")
+                    else None,
+                }
+            )
+        emit("Preparing output and extracting PDFs…")
         output_pdf = resolve_output_path_fresh(data["output_pdf"])
         output_str = str(output_pdf)
         overview = run_extraction_jobs(jobs, output_str, exam_key=data.get("exam"), run_ranking=False)
@@ -65,9 +68,9 @@ def run_nl_prompt(
     if on_progress:
         from .process_log import run_with_last_log_line
 
-        output_str = run_with_last_log_line(extract_phase, on_progress)
+        output_str = run_with_last_log_line(full_pipeline, on_progress)
     else:
-        output_str = extract_phase()
+        output_str = full_pipeline()
 
     out_path = Path(output_str)
     answers_path = out_path.parent / f"{out_path.stem}_answers{out_path.suffix}"
