@@ -194,4 +194,136 @@
   });
 }());
 </script>
+
+<script>
+(function () {
+  var form    = document.getElementById('grade-form');
+  var btn     = document.getElementById('grade-btn');
+  var btnSpan = btn ? btn.querySelector('span') : null;
+
+  // Status area — injected below the form on first submit
+  var statusBox = null;
+
+  function getOrCreateStatusBox() {
+    if (!statusBox) {
+      statusBox = document.createElement('div');
+      statusBox.id = 'grade-status';
+      statusBox.className = 'mt-5 rounded-xl border border-white/[0.09] bg-slate-950/80 px-4 py-3';
+      form.parentNode.insertBefore(statusBox, form.nextSibling);
+    }
+    return statusBox;
+  }
+
+  function setStatus(html, extraClass) {
+    var box = getOrCreateStatusBox();
+    box.className = 'mt-5 rounded-xl border border-white/[0.09] bg-slate-950/80 px-4 py-3' + (extraClass ? ' ' + extraClass : '');
+    box.innerHTML = html;
+  }
+
+  function setRunning(logLine) {
+    var safe = logLine ? logLine.replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+    setStatus(
+      '<p class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-400/75 mb-2">Running</p>' +
+      '<p id="grade-log-line" class="text-[0.82rem] leading-relaxed text-slate-300 font-mono break-all">' + safe + '</p>'
+    );
+  }
+
+  function updateLogLine(line) {
+    var el = document.getElementById('grade-log-line');
+    if (el) el.textContent = line;
+  }
+
+  function setDone(downloadUrl) {
+    setStatus(
+      '<p class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-400/75 mb-2">Complete</p>' +
+      '<a href="' + downloadUrl + '" download ' +
+        'class="inline-flex items-center gap-2 rounded-lg bg-emerald-500/15 px-4 py-2 text-sm font-semibold text-emerald-300 ring-1 ring-emerald-500/25 hover:bg-emerald-500/25 transition-colors">' +
+        '<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">' +
+          '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 4v11"/>' +
+        '</svg>' +
+        'Download cleaned scan' +
+      '</a>',
+      'border-emerald-500/20'
+    );
+  }
+
+  function setError(msg) {
+    var safe = (msg || 'Unknown error').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    setStatus(
+      '<p class="text-xs font-semibold uppercase tracking-[0.18em] text-red-400/80 mb-2">Failed</p>' +
+      '<p class="text-[0.82rem] leading-relaxed text-red-300/90 break-all">' + safe + '</p>',
+      'border-red-500/20'
+    );
+  }
+
+  var pollTimer = null;
+
+  function startPolling(jobId) {
+    function poll() {
+      fetch('/api/jobs/' + jobId, { headers: { 'Cache-Control': 'no-cache' } })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.status === 'done') {
+            clearInterval(pollTimer);
+            pollTimer = null;
+            btn.disabled = false;
+            if (btnSpan) btnSpan.textContent = 'Grade';
+            setDone(data.download_url);
+          } else if (data.status === 'failed') {
+            clearInterval(pollTimer);
+            pollTimer = null;
+            btn.disabled = false;
+            if (btnSpan) btnSpan.textContent = 'Grade';
+            setError(data.error);
+          } else {
+            if (data.log_line) updateLogLine(data.log_line);
+          }
+        })
+        .catch(function (err) {
+          updateLogLine('Polling error: ' + err);
+        });
+    }
+    pollTimer = setInterval(poll, 1500);
+    poll();
+  }
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var scanInput = form.querySelector('input[name="exam_scans"]');
+      var rosterInput = form.querySelector('input[name="student_list"]');
+      if (!scanInput || !scanInput.files || scanInput.files.length === 0) {
+        setError('Please select an exam scan file before submitting.');
+        return;
+      }
+      if (!rosterInput || !rosterInput.files || rosterInput.files.length === 0) {
+        setError('Please select a student list file before submitting.');
+        return;
+      }
+
+      btn.disabled = true;
+      if (btnSpan) btnSpan.textContent = 'Running…';
+      setRunning('Uploading files…');
+
+      var fd = new FormData(form);
+
+      fetch('/api/grade/jobs', { method: 'POST', body: fd })
+        .then(function (r) {
+          if (!r.ok) return r.json().then(function (d) { throw new Error(d.detail || r.statusText); });
+          return r.json();
+        })
+        .then(function (data) {
+          setRunning('Job started…');
+          startPolling(data.id);
+        })
+        .catch(function (err) {
+          btn.disabled = false;
+          if (btnSpan) btnSpan.textContent = 'Grade';
+          setError('Could not start job: ' + err.message);
+        });
+    });
+  }
+}());
+</script>
 {% endblock %}

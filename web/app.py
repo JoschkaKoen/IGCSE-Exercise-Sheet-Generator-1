@@ -10,10 +10,11 @@ load_project_env()
 import asyncio
 import io
 import threading
+import uuid
 import zipfile
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Query, Request
+from fastapi import FastAPI, File, Form, HTTPException, Query, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -34,6 +35,7 @@ from .auth_gate import (
     parse_login_disabled,
     request_is_authenticated,
 )
+from .grade_service import run_scan_pipeline_logged
 from .jobs import JobStore
 from .process_log import run_with_last_log_line
 from .service import list_library_pdfs, run_nl_prompt_logged
@@ -436,3 +438,62 @@ async def download_job_all_zip(job_id: str) -> Response:
 async def library_file(subject: str, filename: str) -> FileResponse:
     path = _validate_library_path(subject, filename)
     return FileResponse(path, filename=path.name, media_type="application/pdf")
+
+
+# ---------------------------------------------------------------------------
+# Grade jobs — scan pipeline (steps 1, 3, 5–7)
+# ---------------------------------------------------------------------------
+
+_GRADE_UPLOADS_ROOT = Path("output") / "grade_uploads"
+
+
+async def _run_grade_job(
+    job_id: str,
+    folder: Path,
+    prompt: str | None,
+) -> None:
+    store.set_status(job_id, "running")
+    store.set_log_line(job_id, "Starting scan pipeline…")
+
+    def on_line(line: str) -> None:
+        store.set_log_line(job_id, line)
+
+    try:
+        cleaned_pdf = await asyncio.to_thread(
+            run_scan_pipeline_logged, folder, prompt, on_line
+        )
+        store.complete(job_id, output_pdf=cleaned_pdf, answers_pdf=None)
+    except Exception as e:  # noqa: BLE001
+        store.fail(job_id, f"Scan pipeline error: {e}")
+
+
+@app.post("/api/grade/jobs")
+async def create_grade_job(
+    exam_scans: UploadFile = File(...),
+    student_list: UploadFile = File(...),
+    empty_exam: UploadFile | None = File(None),
+    answer_sheet: UploadFile | None = File(None),
+    prompt: str | None = Form(None),
+) -> dict[str, str]:
+    """Accept uploaded exam files, save them, and launch an xScore pipeline job."""
+    upload_id = str(uuid.uuid4())
+    folder = _GRADE_UPLOADS_ROOT / upload_id
+    folder.mkdir(parents=True, exist_ok=True)
+
+    # Save required files
+    scan_path = folder / "scan.pdf"
+    scan_path.write_bytes(await exam_scans.read())
+
+    sl_suffix = Path(student_list.filename or "StudentList.xlsx").suffix or ".xlsx"
+    sl_path = folder / f"StudentList{sl_suffix}"
+    sl_path.write_bytes(await student_list.read())
+
+    # Save optional files
+    if empty_exam is not None and empty_exam.filename:
+        (folder / "empty_exam.pdf").write_bytes(await empty_exam.read())
+    if answer_sheet is not None and answer_sheet.filename:
+        (folder / "answer_sheet.pdf").write_bytes(await answer_sheet.read())
+
+    job = store.create()
+    asyncio.create_task(_run_grade_job(job.id, folder, prompt or None))
+    return {"id": job.id}
