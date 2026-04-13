@@ -411,33 +411,44 @@ if (pdfPane) {
     const oldScrollL = scroll.scrollLeft;
     const oldScrollT = scroll.scrollTop;
     const cs = getComputedStyle(scroll);
-    const paddingL = parseFloat(cs.paddingLeft)  || 0;
-    const paddingT = parseFloat(cs.paddingTop)   || 0;
-    const contentW = scroll.clientWidth - paddingL - (parseFloat(cs.paddingRight) || 0);
+    const contentW = scroll.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
 
     // --- Compute phase (no DOM access) ---
     const bf = s.baseFit;
-    let newMaxW = 0;
+    let oldMaxW = 0, newMaxW = 0;
+    const newDims = [];
     for (let i = 0; i < s.pages.length; i++) {
-      const nw = Math.floor(s.pages[i].vpW * bf * s.zoom);
+      const pg = s.pages[i];
+      const ow = Math.floor(pg.vpW * bf * oldZoom);
+      if (ow > oldMaxW) oldMaxW = ow;
+      const nw = Math.floor(pg.vpW * bf * s.zoom);
+      const nh = Math.floor(pg.vpH * bf * s.zoom);
+      newDims.push({ w: nw, h: nh });
       if (nw > newMaxW) newMaxW = nw;
     }
+    const oldStackW = Math.max(contentW, oldMaxW);
     const newStackW = Math.max(contentW, newMaxW);
-    // Cumulative transform scale vs. the zoom at which canvases are currently rendered.
-    const cumScale = s.zoom / state._zBaseZoom;
+    const oldGap = Math.max(0, (oldStackW - oldMaxW) / 2);
+    const newGap = Math.max(0, (newStackW - newMaxW) / 2);
+    const focalX = oldScrollL + cursorVpX - oldGap;
+    const focalY = oldScrollT + cursorVpY;
 
-    // --- Write phase: one transform instead of N per-page layout writes ---
+    // --- Write phase (no layout reads, batch all writes) ---
+    for (let i = 0; i < s.pages.length; i++) {
+      const pg = s.pages[i], d = newDims[i];
+      pg.wrap.style.width = d.w + 'px';
+      pg.wrap.style.height = d.h + 'px';
+      pg.canvas.style.width = d.w + 'px';
+      pg.canvas.style.height = d.h + 'px';
+    }
     stack.style.width = newStackW + 'px';
-    stack.style.transform = 'scale(' + cumScale + ')';
-    stack.style.transformOrigin = '0 0';
-    // Focal-point scroll: keep the content under the cursor fixed.
-    // Derived from visible-range invariant with transform-origin at (0,0).
-    scroll.scrollLeft = ratio * (oldScrollL + cursorVpX - paddingL) - cursorVpX + paddingL;
-    scroll.scrollTop  = ratio * (oldScrollT + cursorVpY - paddingT) - cursorVpY + paddingT;
+    scroll.scrollLeft = focalX * ratio + newGap - cursorVpX;
+    scroll.scrollTop  = focalY * ratio - cursorVpY;
     _scheduleBgRender(id);
     if (_zSettleTimer) clearTimeout(_zSettleTimer);
     _zSettleTimer = setTimeout(function () {
       _zSettleTimer = null;
+      state._zBaseZoom = s.zoom;
       renderPdfContinuous(id, true);
     }, 50);
   }, { passive: false });

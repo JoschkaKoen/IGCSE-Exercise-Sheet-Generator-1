@@ -850,7 +850,6 @@ body.preview-mode-active .site-header-nav a.nav-link-active {
   min-width: 0;
   flex-shrink: 0;
   box-sizing: border-box;
-  will-change: transform;
 }
 
 /* Stack width is managed by JS (renderPdfContinuous / rerenderPdfZoomBuffered):
