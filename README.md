@@ -86,24 +86,34 @@ flowchart TD
         direction TB
         u1[exam scan PDF]
         u2[student roster — optional]
-        u3[empty exam PDF]
-        u4[answer sheet]
+        u3[empty exam PDF — optional]
+        u4[answer sheet — optional]
     end
 
     s1["Step 1 — Parse grading instructions\n(LLM extracts DPI and task options)"]
     s2["Step 2 — Locate exam folder\n(terminal route only — fuzzy folder match)"]
     s3["Step 3 — Load student roster"]
-    s4["Step 4 — Build exam scaffold\n(optional — requires empty exam PDF;\nparses Cambridge-style question regions)"]
+
+    subgraph s4block [Step 4 — Build exam scaffold — optional]
+        direction LR
+        s4a["Gemini call 1\n(exam PDF → question hierarchy)"]
+        s4b["Gemini call 2\n(answer sheet → correct answers + criteria)"]
+        s4a -.->|"if answer sheet present"| s4b
+    end
+
     s5["Step 5 — Detect and remove blank pages"]
     s6["Step 6 — Auto-rotate pages to correct orientation"]
     s7["Step 7 — Deskew pages"]
+    cache["scaffold.json\n+ scaffold.md"]
     out[cleaned_scan.pdf — ready for marking]
 
     u1 & u2 & u3 & u4 --> s1
     s1 --> s2
     s2 -->|terminal| s3
     s1 -->|web| s3
-    s3 --> s4 --> s5 --> s6 --> s7 --> out
+    s3 --> s4block
+    s4block --> cache
+    s4block --> s5 --> s6 --> s7 --> out
 ```
 
 | Step | Description |
@@ -111,7 +121,7 @@ flowchart TD
 | **1** | An LLM (Kimi) parses any free-text grading prompt to extract DPI, task type, and student filter options. |
 | **2** | **Terminal route only.** A fuzzy folder search locates the exam folder on disk from the hint in the prompt or `--folder` flag. The web route skips this step because the folder is determined by the upload. |
 | **3** | The student roster is read from `StudentList.*` in the exam folder. Supports `.xlsx`, `.xls`, `.csv`, and `.pdf` formats via Gemini. |
-| **4** | **Optional.** If an empty vector exam PDF is present (`empty_exam.pdf` on web, or any non-scan PDF on terminal), the scaffold builder parses Cambridge-style left-margin question numbers, extracts each question's bounding box, page number, marks, and type, then caches the result as `scaffold.json`. This powers per-question grading and mark extraction in later steps. |
+| **4** | **Optional.** If an exam PDF is present (`empty_exam.pdf` on web, or any non-scan PDF on terminal), two Gemini calls extract the full question hierarchy: call 1 reads the exam paper and returns every question and sub-question with its number, type, marks, page, and answer options; call 2 reads the answer sheet (if provided) and returns correct answers and marking criteria. Results are merged and cached as `scaffold.json` + `scaffold.md`. Requires `GOOGLE_API_KEY`. Configure the model with `SCAFFOLD_MODEL` in `default.env`. |
 | **5–7** | Blank pages are stripped, all pages are rotated upright, and small-angle skew is corrected. The result is `3_cleaned_scan.pdf` — ready for manual or automated marking. |
 
 The cleaned PDF has blank pages stripped, all pages upright, and skew corrected — ready for manual or automated marking.
@@ -148,12 +158,13 @@ The **Dockerfile** installs TeX packages so containers get `pdflatex` and `pdfja
 
 ### Grade page (optional)
 
-The **Grade** page depends on the `xscore` package (not in `requirements.txt`) and a Kimi API key:
+The **Grade** page depends on the `xscore` package (not in `requirements.txt`) and two API keys:
 
 | | |
 |---|---|
 | `xscore` | Install separately if you want the scan-cleaning pipeline |
-| `KIMI_API_KEY` | Add to `.env`; used for prompt parsing and orientation detection |
+| `KIMI_API_KEY` | Add to `.env`; used for step 1 (prompt parsing) and step 6 (orientation detection) |
+| `GOOGLE_API_KEY` | Add to `.env`; used for step 3 (student roster parsing) and step 4 (AI exam scaffold) |
 
 If `xscore` is not installed, the rest of the app runs normally — only `/grade` will return errors.
 
@@ -205,6 +216,7 @@ Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 | `MCQ_MODEL` | MCQ explanation generation |
 | `RANKING_MODEL` | Difficulty ranking job (questions ranked hardest to easiest) |
 | `STUDENT_LIST_MODEL` | Gemini model used to parse student roster files (PDF, Excel, CSV) |
+| `SCAFFOLD_MODEL` | Gemini model used for step 4 — AI exam scaffold (question extraction from PDF) |
 
 **Optional thinking suffix:** add `, off`, `, low`, or `, high` after the model name:
 
