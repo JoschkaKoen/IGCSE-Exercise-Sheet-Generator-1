@@ -14,6 +14,12 @@ from eXercise.pipeline import run_extraction_jobs
 
 _LIBRARY_CACHE: dict | None = None
 
+
+def invalidate_library_cache() -> None:
+    """Discard the cached library index; the next call to list_library_pdfs() rebuilds it."""
+    global _LIBRARY_CACHE
+    _LIBRARY_CACHE = None
+
 def run_nl_prompt(
     prompt: str,
     on_progress: Callable[[str], None] | None = None,

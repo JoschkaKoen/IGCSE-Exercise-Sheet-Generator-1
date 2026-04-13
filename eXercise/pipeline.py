@@ -32,6 +32,9 @@ from .rendering import (
     layout_vector_strips_to_pdf,
 )
 
+_QP_INTER_PAPER_GAP_PT = 4.0   # vertical gap between QP strips from different papers
+_MS_INTER_PAPER_GAP_PT = 8.0   # vertical gap between MS strips from different papers
+
 
 def build_exercise_overview(anchors: list[dict[str, Any]]) -> dict[str, Any]:
     """Group flat anchors into papers for the web UI; each exercise has page + y_pt."""
@@ -115,6 +118,200 @@ def merge_pdf_files(part_paths: list[str], dest: str) -> None:
     merged.close()
 
 
+def _run_qp_extraction_phase(
+    jobs: list[dict],
+    cfg: Any,
+    use_paper_sublabels: bool,
+) -> tuple[list[fitz.Document], list[list], list[Strip]]:
+    """Open and extract strips from all question papers in parallel.
+
+    Returns ``(qp_docs, job_regions, all_strips)``.  ``qp_docs[i]`` and
+    ``job_regions[i]`` are always parallel to ``jobs[i]`` even when a paper
+    has no matching questions (empty regions list, no strips added).
+    """
+    def _extract_one(args: tuple[int, dict]) -> tuple:
+        j_idx, job = args
+        ip = job["input_pdf"]
+        paper_lbl = paper_label_from_qp_path(ip)
+        print(f"\nQuestion paper: {ip}")
+        doc = fitz.open(ip)
+        print(f"  PDF has {len(doc)} pages")
+        positions = find_question_positions(doc, cfg)
+        found_nums = sorted(set(p[0] for p in positions))
+        print(f"  Found questions: {found_nums}")
+        qs = job["questions"]
+        if qs == "all":
+            qs = found_nums
+            job["questions"] = qs  # safe: each worker only writes its own job entry
+        print(f"  Questions: {qs}")
+        regions = get_question_regions(doc, positions, qs, cfg)
+        if not regions:
+            print("  Warning: No matching questions for this paper, skipping.")
+            strips: list[Strip] = []
+        else:
+            print(f"  Extracting {len(regions)} region(s) for questions {sorted(set(r[0] for r in regions))}")
+            strips = collect_vector_strips(doc, regions, cfg=cfg)
+        return j_idx, doc, regions, strips, paper_lbl
+
+    with ThreadPoolExecutor(max_workers=max(1, len(jobs))) as ex:
+        results = sorted(ex.map(_extract_one, enumerate(jobs)), key=lambda r: r[0])
+
+    qp_docs: list[fitz.Document] = []
+    job_regions: list[list] = []
+    all_strips: list[Strip] = []
+
+    for j_idx, doc, regions, strips, paper_lbl in results:
+        qp_docs.append(doc)
+        job_regions.append(regions)
+        if not strips:
+            continue
+        if use_paper_sublabels:
+            if all_strips:
+                all_strips.append(GapStrip(height_pt=_QP_INTER_PAPER_GAP_PT))
+            all_strips.append(paper_lbl)
+        elif len(jobs) > 1 and all_strips:
+            all_strips.append(GapStrip(height_pt=_QP_INTER_PAPER_GAP_PT))
+        all_strips.extend(strips)
+
+    return qp_docs, job_regions, all_strips
+
+
+def _run_ms_prep_phase(
+    jobs: list[dict],
+    qp_docs: list[fitz.Document],
+    job_regions: list[list],
+    cfg: Any,
+    exam_key: str | None,
+    out_path: Path,
+) -> tuple[list[dict | None], dict[int, McqPaperData], list[bool]]:
+    """Open mark-scheme docs and prepare MCQ data (no AI calls).
+
+    Returns ``(ms_info, mcq_prepared, job_mcq_ms)``.
+    ``ms_info[j_idx]`` is ``None`` when a job has no mark scheme.
+    """
+    def _prepare_one(args: tuple[int, dict]) -> tuple:
+        j_idx, job = args
+        ms = job.get("mark_scheme_pdf")
+        if not ms:
+            return j_idx, None, None, None
+        print(f"\nMark scheme: {ms}")
+        ms_doc = fitz.open(ms)
+        ms_type = detect_ms_type(ms_doc)
+        print(f"  Type: {ms_type}, {len(ms_doc)} pages")
+        qs = job["questions"]
+        paper_lbl = paper_label_from_qp_path(job["input_pdf"])
+        info: dict = {"doc": ms_doc, "type": ms_type, "qs": qs, "label": paper_lbl}
+        prepared = None
+        if ms_type == "mcq":
+            answers = parse_mcq_answers(ms_doc)
+            info["answers"] = answers
+            found_ans = [q for q in qs if q in answers]
+            print(f"  Found answers for: {found_ans}")
+            expl_pdf_path = out_path.parent / f"{out_path.stem}_mcq_expl_{j_idx}.pdf"
+            # qp_docs[j_idx] is its own Document object — safe to read from this worker
+            prepared = prepare_mcq_job_data(
+                qp_doc=qp_docs[j_idx],
+                regions=job_regions[j_idx],
+                answers=answers,
+                qs=qs,
+                cfg=cfg,
+                exam_key=exam_key,
+                paper_label=paper_lbl,
+                expl_pdf_path=expl_pdf_path,
+            )
+        return j_idx, ms_doc, info, prepared
+
+    with ThreadPoolExecutor(max_workers=max(1, len(jobs))) as ex:
+        results = sorted(ex.map(_prepare_one, enumerate(jobs)), key=lambda r: r[0])
+
+    ms_info: list[dict | None] = []
+    mcq_prepared: dict[int, McqPaperData] = {}
+    job_mcq_ms: list[bool] = [False] * len(jobs)
+    ms_docs_out: list[fitz.Document] = []  # returned indirectly via ms_info["doc"]
+
+    for j_idx, ms_doc, info, prepared in results:
+        if ms_doc is None:
+            ms_info.append(None)
+            continue
+        job_mcq_ms[j_idx] = info["type"] == "mcq"
+        ms_info.append(info)
+        if prepared:
+            mcq_prepared[j_idx] = prepared
+
+    return ms_info, mcq_prepared, job_mcq_ms
+
+
+def _run_ms_strip_phase(
+    jobs: list[dict],
+    ms_info: list[dict | None],
+    mcq_prepared: dict[int, McqPaperData],
+    mcq_explanations_map: dict[int, dict],
+    use_paper_sublabels: bool,
+    ms_docs: list[fitz.Document],
+    cfg: Any,
+) -> list[Strip]:
+    """Build mark-scheme strips for all papers.
+
+    ``ms_docs`` is mutated to append any extra fitz.Document objects held by
+    MCQ explanation VectorStrips, so the caller's finally block can close them.
+
+    Returns ``all_ms_strips``.
+    """
+    all_ms_strips: list[Strip] = []
+
+    for j_idx, job in enumerate(jobs):
+        info = ms_info[j_idx]
+        if info is None:
+            continue
+        ms_doc = info["doc"]
+        ms_type = info["type"]
+        qs = info["qs"]
+        paper_lbl = info["label"]
+
+        if ms_type == "mcq":
+            answers = info["answers"]
+            if j_idx in mcq_prepared:
+                expl = mcq_explanations_map.get(j_idx, {})
+                explanation_strips = finalize_mcq_explanation_strips(
+                    mcq_prepared[j_idx], expl
+                )
+            else:
+                explanation_strips = []
+
+            if explanation_strips:
+                mstrips: list[Strip] = explanation_strips
+                for s in explanation_strips:
+                    if isinstance(s, VectorStrip) and s.src_doc not in ms_docs:
+                        ms_docs.append(s.src_doc)
+                        break
+            else:
+                mstrips = create_mcq_answer_strips(answers, qs)
+        else:
+            ms_regions = find_ms_answer_regions(ms_doc, qs, cfg)
+            if not ms_regions:
+                print("  No mark scheme regions found.")
+                continue
+            print(
+                f"  Extracting mark scheme for questions {sorted(set(r[0] for r in ms_regions))} "
+                f"({len(ms_regions)} region(s))"
+            )
+            mstrips = collect_vector_strips(ms_doc, ms_regions, is_ms=True, cfg=cfg)
+
+        if not mstrips:
+            continue
+
+        if use_paper_sublabels:
+            if all_ms_strips:
+                all_ms_strips.append(GapStrip(height_pt=_MS_INTER_PAPER_GAP_PT))
+            all_ms_strips.append(paper_lbl)
+        elif len(jobs) > 1 and all_ms_strips:
+            all_ms_strips.append(GapStrip(height_pt=_MS_INTER_PAPER_GAP_PT))
+
+        all_ms_strips.extend(mstrips)
+
+    return all_ms_strips
+
+
 def run_extraction_jobs(
     jobs: list[dict], output_pdf: str, exam_key: str | None = None, *, run_ranking: bool = True
 ) -> dict[str, Any]:
@@ -140,54 +337,10 @@ def run_extraction_jobs(
     qp_docs: list[fitz.Document] = []
     ms_docs: list[fitz.Document] = []
 
-    # Regions per job (parallel to jobs list); always appended, even when empty,
-    # so qp_docs[i], job_regions[i], and jobs[i] are always in sync.
-    job_regions: list[list[tuple[int, int, float, float]]] = []
-
-    all_strips: list[Strip] = []
-    all_ms_strips: list[Strip] = []
-    job_mcq_ms: list[bool] = [False] * len(jobs)
-
-    def _extract_qp(args: tuple[int, dict]) -> tuple:
-        j_idx, job = args
-        ip = job["input_pdf"]
-        paper_lbl = paper_label_from_qp_path(ip)
-        print(f"\nQuestion paper: {ip}")
-        doc = fitz.open(ip)
-        print(f"  PDF has {len(doc)} pages")
-        positions = find_question_positions(doc, cfg)
-        found_nums = sorted(set(p[0] for p in positions))
-        print(f"  Found questions: {found_nums}")
-        qs = job["questions"]
-        if qs == "all":
-            qs = found_nums
-            job["questions"] = qs  # safe: each worker only writes its own job entry
-        print(f"  Questions: {qs}")
-        regions = get_question_regions(doc, positions, qs, cfg)
-        if not regions:
-            print("  Warning: No matching questions for this paper, skipping.")
-            strips: list[Strip] = []
-        else:
-            print(f"  Extracting {len(regions)} region(s) for questions {sorted(set(r[0] for r in regions))}")
-            strips = collect_vector_strips(doc, regions, cfg=cfg)
-        return j_idx, doc, regions, strips, paper_lbl
-
     try:
-        with ThreadPoolExecutor(max_workers=max(1, len(jobs))) as ex:
-            qp_results = sorted(ex.map(_extract_qp, enumerate(jobs)), key=lambda r: r[0])
-
-        for j_idx, doc, regions, strips, paper_lbl in qp_results:
-            qp_docs.append(doc)
-            job_regions.append(regions)
-            if not strips:
-                continue
-            if use_paper_sublabels:
-                if all_strips:
-                    all_strips.append(GapStrip(height_pt=4.0))
-                all_strips.append(paper_lbl)
-            elif len(jobs) > 1 and all_strips:
-                all_strips.append(GapStrip(height_pt=4.0))
-            all_strips.extend(strips)
+        qp_docs, job_regions, all_strips = _run_qp_extraction_phase(
+            jobs, cfg, use_paper_sublabels
+        )
 
         if not all_strips:
             raise ExtractionError("No matching questions found in any paper.")
@@ -198,55 +351,13 @@ def run_extraction_jobs(
         out_path = Path(output_pdf)
         answers_path = out_path.parent / f"{out_path.stem}_answers{out_path.suffix}"
 
-        # ── Phase 1: open all mark-scheme docs, prepare MCQ data (no AI calls) ──
-        # ms_info[j_idx] is None when a job has no mark scheme, otherwise a dict.
-        ms_info: list[dict | None] = []
-        mcq_prepared: dict[int, McqPaperData] = {}
-
-        def _prepare_ms(args: tuple[int, dict]) -> tuple:
-            j_idx, job = args
-            ms = job.get("mark_scheme_pdf")
-            if not ms:
-                return j_idx, None, None, None
-            print(f"\nMark scheme: {ms}")
-            ms_doc = fitz.open(ms)
-            ms_type = detect_ms_type(ms_doc)
-            print(f"  Type: {ms_type}, {len(ms_doc)} pages")
-            qs = job["questions"]
-            paper_lbl = paper_label_from_qp_path(job["input_pdf"])
-            info: dict = {"doc": ms_doc, "type": ms_type, "qs": qs, "label": paper_lbl}
-            prepared = None
-            if ms_type == "mcq":
-                answers = parse_mcq_answers(ms_doc)
-                info["answers"] = answers
-                found_ans = [q for q in qs if q in answers]
-                print(f"  Found answers for: {found_ans}")
-                expl_pdf_path = out_path.parent / f"{out_path.stem}_mcq_expl_{j_idx}.pdf"
-                # qp_docs[j_idx] is its own Document object — safe to read from this worker
-                prepared = prepare_mcq_job_data(
-                    qp_doc=qp_docs[j_idx],
-                    regions=job_regions[j_idx],
-                    answers=answers,
-                    qs=qs,
-                    cfg=cfg,
-                    exam_key=exam_key,
-                    paper_label=paper_lbl,
-                    expl_pdf_path=expl_pdf_path,
-                )
-            return j_idx, ms_doc, info, prepared
-
-        with ThreadPoolExecutor(max_workers=max(1, len(jobs))) as ex:
-            ms_results = sorted(ex.map(_prepare_ms, enumerate(jobs)), key=lambda r: r[0])
-
-        for j_idx, ms_doc, info, prepared in ms_results:
-            if ms_doc is None:
-                ms_info.append(None)
-                continue
-            ms_docs.append(ms_doc)
-            job_mcq_ms[j_idx] = info["type"] == "mcq"
-            ms_info.append(info)
-            if prepared:
-                mcq_prepared[j_idx] = prepared
+        ms_info, mcq_prepared, job_mcq_ms = _run_ms_prep_phase(
+            jobs, qp_docs, job_regions, cfg, exam_key, out_path
+        )
+        # Collect ms_docs from ms_info for cleanup in finally block
+        for info in ms_info:
+            if info is not None:
+                ms_docs.append(info["doc"])
 
         # ── Phase 2: single batched AI call for all MCQ papers ─────────────────
         mcq_explanations_map: dict[int, dict] = {}
@@ -259,56 +370,10 @@ def run_extraction_jobs(
             for idx, expl in zip(sorted_indices, batch_results):
                 mcq_explanations_map[idx] = expl
 
-        # ── Phase 3: generate strips for all papers ────────────────────────────
-        for j_idx, job in enumerate(jobs):
-            info = ms_info[j_idx]
-            if info is None:
-                continue
-            ms_doc = info["doc"]
-            ms_type = info["type"]
-            qs = info["qs"]
-            paper_lbl = info["label"]
-
-            if ms_type == "mcq":
-                answers = info["answers"]
-                if j_idx in mcq_prepared:
-                    expl = mcq_explanations_map.get(j_idx, {})
-                    explanation_strips = finalize_mcq_explanation_strips(
-                        mcq_prepared[j_idx], expl
-                    )
-                else:
-                    explanation_strips = []
-
-                if explanation_strips:
-                    mstrips: list[Strip] = explanation_strips
-                    for s in explanation_strips:
-                        if isinstance(s, VectorStrip) and s.src_doc not in ms_docs:
-                            ms_docs.append(s.src_doc)
-                            break
-                else:
-                    mstrips = create_mcq_answer_strips(answers, qs)
-            else:
-                ms_regions = find_ms_answer_regions(ms_doc, qs, cfg)
-                if not ms_regions:
-                    print("  No mark scheme regions found.")
-                    continue
-                print(
-                    f"  Extracting mark scheme for questions {sorted(set(r[0] for r in ms_regions))} "
-                    f"({len(ms_regions)} region(s))"
-                )
-                mstrips = collect_vector_strips(ms_doc, ms_regions, is_ms=True, cfg=cfg)
-
-            if not mstrips:
-                continue
-
-            if use_paper_sublabels:
-                if all_ms_strips:
-                    all_ms_strips.append(GapStrip(height_pt=8.0))
-                all_ms_strips.append(paper_lbl)
-            elif len(jobs) > 1 and all_ms_strips:
-                all_ms_strips.append(GapStrip(height_pt=8.0))
-
-            all_ms_strips.extend(mstrips)
+        all_ms_strips = _run_ms_strip_phase(
+            jobs, ms_info, mcq_prepared, mcq_explanations_map,
+            use_paper_sublabels, ms_docs, cfg,
+        )
 
         if all_ms_strips:
             answer_anchors = layout_vector_strips_to_pdf(

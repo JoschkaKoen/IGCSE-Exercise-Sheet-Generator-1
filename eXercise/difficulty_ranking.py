@@ -57,22 +57,7 @@ MAX_PAGES = 12  # cap to avoid token overflow
 # LaTeX helpers
 # ---------------------------------------------------------------------------
 
-_LATEX_SPECIAL = str.maketrans({
-    "\\": r"\textbackslash{}",
-    "{": r"\{",
-    "}": r"\}",
-    "$": r"\$",
-    "#": r"\#",
-    "%": r"\%",
-    "&": r"\&",
-    "_": r"\_",
-    "~": r"\textasciitilde{}",
-    "^": r"\textasciicircum{}",
-})
-
-
-def _latex_escape(text: str) -> str:
-    return text.translate(_LATEX_SPECIAL)
+from .latex_utils import latex_escape as _latex_escape
 
 
 # ---------------------------------------------------------------------------

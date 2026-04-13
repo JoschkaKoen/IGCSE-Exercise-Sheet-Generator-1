@@ -16,7 +16,6 @@ from .config import (
     EXAM_LABEL_TOP_PT,
     OUTPUT_MARGIN_PT,
     OUTPUT_MARGIN_RIGHT_PT,
-    HEADER_ZONE_MAX_Y_PT,
     MS_LANDSCAPE_H_THRESHOLD_PT,
     MS_LANDSCAPE_MARGIN_PT,
     MS_MARKS_START_PT,
@@ -25,9 +24,6 @@ from .config import (
     MS_TABLE_LEFT_PT,
     QR_MARGIN_ZONE_PT,
     QR_MAX_SIZE_PT,
-    STRIP_CROP_LEFT_PT,
-    STRIP_CROP_RIGHT_PT,
-    STRIP_CROP_TOP_PT,
     SubjectConfig,
 )
 from .mark_scheme import (

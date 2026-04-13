@@ -27,6 +27,16 @@ import {
 import { selectTab, syncSidePill, syncPdfTabChrome } from './pdf-tabs.js';
 import { applyDoneData, triggerDownloadAllPdfs, showRankingGenerating, applyRankingUrl, updateRankingLog } from './downloads.js';
 
+// ─── Module-level constants ───────────────────────────────────────────────────
+
+const CONFIG = {
+  RERENDER_MAX_ATTEMPTS: 20,   // max retries waiting for the scroll element to have height
+  RERENDER_RETRY_MS:     50,   // ms between rerenderWhenReady retries
+  POLL_INTERVAL_MS:      200,  // job status polling interval
+  RESIZE_DEBOUNCE_MS:    100,  // ResizeObserver debounce delay
+  ZOOM_SETTLE_MS:        50,   // delay before re-render after pinch-zoom settles
+};
+
 // ─── DOM refs ─────────────────────────────────────────────────────────────────
 
 const form         = document.getElementById('gen-form');
@@ -204,6 +214,17 @@ function exitPreviewMode() {
   workspace.style.removeProperty('transition');
 }
 
+function setTabAvailable(tabId, available) {
+  const btn = document.getElementById('tab-btn-' + tabId);
+  if (btn) {
+    btn.disabled = !available;
+    btn.setAttribute('aria-disabled', available ? 'false' : 'true');
+    btn.title = available ? '' : 'Not generated for this run';
+  }
+  if (available) { hideSpinner(tabId); hideEmpty(tabId); }
+  else           { hideSpinner(tabId); showEmpty(tabId); }
+}
+
 async function enterPreviewMode(doneData, instant) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fadeDuration = (instant || reducedMotion) ? 0 : 20;
@@ -221,16 +242,9 @@ async function enterPreviewMode(doneData, instant) {
   const loadPromises = [];
   TABS.forEach(function (tab) {
     const url = doneData[tab.urlKey];
-    const btn = document.getElementById('tab-btn-' + tab.id);
-    hideSpinner(tab.id);
     if (url) {
       state.enabledTabs.add(tab.id);
-      if (btn) {
-        btn.disabled = false;
-        btn.removeAttribute('aria-disabled');
-        btn.title = '';
-      }
-      hideEmpty(tab.id);
+      setTabAvailable(tab.id, true);
       loadPromises.push(
         loadPdf(tab.id, url).catch(function (err) {
           console.error(err);
@@ -239,13 +253,7 @@ async function enterPreviewMode(doneData, instant) {
         })
       );
     } else {
-      if (btn) {
-        btn.disabled = true;
-        btn.setAttribute('aria-disabled', 'true');
-        btn.title = 'Not generated for this run';
-      }
-      hideSpinner(tab.id);
-      showEmpty(tab.id);
+      setTabAvailable(tab.id, false);
     }
   });
   await Promise.all(loadPromises);
@@ -265,7 +273,7 @@ async function enterPreviewMode(doneData, instant) {
   bindPdfSmoothWheelScroll();
 
   function rerenderWhenReady(attempts) {
-    if (attempts > 20) return;
+    if (attempts > CONFIG.RERENDER_MAX_ATTEMPTS) return;
     const id = activePdfTabId();
     const sc = scrollEl(id);
     if (sc && sc.clientHeight > 100) {
@@ -273,10 +281,10 @@ async function enterPreviewMode(doneData, instant) {
         updateHeaderGlassFromPdfScroll();
       });
     } else {
-      setTimeout(function () { rerenderWhenReady(attempts + 1); }, 50);
+      setTimeout(function () { rerenderWhenReady(attempts + 1); }, CONFIG.RERENDER_RETRY_MS);
     }
   }
-  setTimeout(function () { rerenderWhenReady(0); }, fadeDuration + 50);
+  setTimeout(function () { rerenderWhenReady(0); }, fadeDuration + CONFIG.RERENDER_RETRY_MS);
 }
 
 async function refreshPreviewMode() {
@@ -306,7 +314,7 @@ async function refreshPreviewMode() {
 async function pollRankingReady(jobId) {
   showRankingGenerating();
   while (true) {
-    await sleep(200);
+    await sleep(CONFIG.POLL_INTERVAL_MS);
     let data;
     try { data = await fetchJobStatus(jobId); } catch (e) { break; }
     if (data.ranking_log_line) updateRankingLog(data.ranking_log_line);
@@ -361,7 +369,7 @@ async function pollJob(id, onTick) {
     if (onTick) onTick(data);
     if (data.status === 'failed') throw new Error(data.error || 'Generation failed.');
     if (data.status === 'done')   return data;
-    await sleep(200);
+    await sleep(CONFIG.POLL_INTERVAL_MS);
   }
 }
 
@@ -450,7 +458,7 @@ if (pdfPane) {
       _zSettleTimer = null;
       state._zBaseZoom = s.zoom;
       renderPdfContinuous(id, true);
-    }, 50);
+    }, CONFIG.ZOOM_SETTLE_MS);
   }, { passive: false });
 }
 
@@ -493,7 +501,7 @@ if (window.ResizeObserver && pdfPane) {
           updateHeaderGlassFromPdfScroll();
         });
       }
-    }, 100);
+    }, CONFIG.RESIZE_DEBOUNCE_MS);
   });
   pdfResizeObserver.observe(pdfPane);
 }

@@ -46,28 +46,39 @@ DASHSCOPE_API_KEY Required for qwen models
 from __future__ import annotations
 
 import os
+from dataclasses import dataclass
 from typing import Any
 
-_PROVIDERS: dict[str, dict[str, str]] = {
-    "gemini": {
-        "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
-        "api_key_env": "GOOGLE_API_KEY",
-    },
-    "xai": {
-        "base_url": "https://api.x.ai/v1",
-        "api_key_env": "XAI_API_KEY",
-    },
-    "qwen": {
-        "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-        "api_key_env": "DASHSCOPE_API_KEY",
-    },
-}
 
-# Model name prefix → provider.  Checked in order; first match wins.
-_MODEL_PREFIXES: list[tuple[str, str]] = [
-    ("gemini", "gemini"),
-    ("grok",   "xai"),
-    ("qwen",   "qwen"),
+@dataclass(frozen=True)
+class _ProviderDef:
+    """Immutable descriptor for a single LLM provider."""
+    name: str
+    base_url: str
+    api_key_env: str
+    model_prefixes: tuple[str, ...]  # first match against model name prefix wins
+
+
+# Registry of known providers. To add a new provider, append one entry here.
+_PROVIDER_REGISTRY: list[_ProviderDef] = [
+    _ProviderDef(
+        name="gemini",
+        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+        api_key_env="GOOGLE_API_KEY",
+        model_prefixes=("gemini",),
+    ),
+    _ProviderDef(
+        name="xai",
+        base_url="https://api.x.ai/v1",
+        api_key_env="XAI_API_KEY",
+        model_prefixes=("grok",),
+    ),
+    _ProviderDef(
+        name="qwen",
+        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+        api_key_env="DASHSCOPE_API_KEY",
+        model_prefixes=("qwen",),
+    ),
 ]
 
 # Fallback model when no model env var is set anywhere.
@@ -80,9 +91,9 @@ def provider_for_model(model: str) -> str:
     Falls back to ``gemini`` for unknown model names.
     """
     m = model.lower()
-    for prefix, provider in _MODEL_PREFIXES:
-        if m.startswith(prefix):
-            return provider
+    for pdef in _PROVIDER_REGISTRY:
+        if any(m.startswith(pfx) for pfx in pdef.model_prefixes):
+            return pdef.name
     return "gemini"
 
 
@@ -169,14 +180,14 @@ def make_ai_client(
 
     model, effort = parse_model_effort(raw)
     provider = provider_for_model(model)
-    cfg = _PROVIDERS[provider]
+    pdef = next((p for p in _PROVIDER_REGISTRY if p.name == provider), _PROVIDER_REGISTRY[0])
 
-    api_key = os.environ.get(cfg["api_key_env"], "").strip()
+    api_key = os.environ.get(pdef.api_key_env, "").strip()
     if not api_key:
         return None
 
     try:
-        client = OpenAI(api_key=api_key, base_url=cfg["base_url"])
+        client = OpenAI(api_key=api_key, base_url=pdef.base_url)
     except Exception:
         return None
 
@@ -208,7 +219,8 @@ def get_api_key_env_name(provider: str | None = None) -> str:
     p = provider if provider else provider_for_model(
         os.environ.get("AI_DEFAULT_MODEL", "").strip() or _DEFAULT_MODEL
     )
-    return _PROVIDERS[p]["api_key_env"]
+    pdef = next((pd for pd in _PROVIDER_REGISTRY if pd.name == p), _PROVIDER_REGISTRY[0])
+    return pdef.api_key_env
 
 
 def collect_streamed_response(stream: Any) -> str:

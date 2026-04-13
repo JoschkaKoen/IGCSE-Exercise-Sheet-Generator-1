@@ -205,25 +205,3 @@ def get_subject_config(exam_key: str | None) -> SubjectConfig:
     if exam_key and exam_key in SUBJECT_CONFIG:
         return SUBJECT_CONFIG[exam_key]
     return DEFAULT_SUBJECT_CONFIG
-
-
-# ---------------------------------------------------------------------------
-# Module-level constant aliases (backward compatibility for direct imports)
-#
-# These delegate to DEFAULT_SUBJECT_CONFIG so there is a single source of truth.
-# Code that still imports e.g. ``from .config import MARGIN_BOTTOM`` continues to
-# work without changes; per-subject overrides are accessed via SubjectConfig only.
-# ---------------------------------------------------------------------------
-
-HEADER_ZONE_MAX_Y_PT   = DEFAULT_SUBJECT_CONFIG.header_zone_max_y_pt
-STRIP_CROP_LEFT_PT     = DEFAULT_SUBJECT_CONFIG.strip_crop_left_pt
-STRIP_CROP_RIGHT_PT    = DEFAULT_SUBJECT_CONFIG.strip_crop_right_pt
-STRIP_CROP_TOP_PT      = DEFAULT_SUBJECT_CONFIG.strip_crop_top_pt
-
-MS_FOOTER_TOP_PT       = DEFAULT_SUBJECT_CONFIG.ms_footer_top_pt
-MS_HEADER_BOTTOM_PT    = DEFAULT_SUBJECT_CONFIG.ms_header_bottom_pt
-
-MARGIN_TOP             = DEFAULT_SUBJECT_CONFIG.margin_top
-MARGIN_BOTTOM          = DEFAULT_SUBJECT_CONFIG.margin_bottom
-QUESTION_X_MAX         = DEFAULT_SUBJECT_CONFIG.question_x_max
-PADDING_ABOVE          = DEFAULT_SUBJECT_CONFIG.padding_above

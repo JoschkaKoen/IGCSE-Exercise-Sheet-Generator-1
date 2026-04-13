@@ -6,8 +6,18 @@ from __future__ import annotations
 import threading
 import uuid
 from dataclasses import dataclass
+from enum import StrEnum
 from pathlib import Path
 from typing import Any
+
+
+class JobStatus(StrEnum):
+    """Valid values for JobRecord.status and JobRecord.ranking_status."""
+    PENDING = "pending"
+    RUNNING = "running"
+    DONE    = "done"
+    FAILED  = "failed"
+    SKIPPED = "skipped"
 
 
 @dataclass
@@ -15,7 +25,7 @@ class JobRecord:
     """Single extraction job (poll until status is done or failed)."""
 
     id: str
-    status: str  # pending | running | done | failed
+    status: JobStatus
     error: str | None = None
     output_pdf: Path | None = None
     answers_pdf: Path | None = None
@@ -24,7 +34,7 @@ class JobRecord:
     answers_4up_pdf: Path | None = None
     answers_2up_pdf: Path | None = None
     ranking_pdf: Path | None = None
-    ranking_status: str = "pending"  # pending | running | done | failed | skipped
+    ranking_status: JobStatus = JobStatus.PENDING
     ranking_log_line: str = ""
     log_line: str = ""
     overview: dict[str, Any] | None = None
@@ -39,7 +49,7 @@ class JobStore:
 
     def create(self) -> JobRecord:
         jid = str(uuid.uuid4())
-        rec = JobRecord(id=jid, status="pending")
+        rec = JobRecord(id=jid, status=JobStatus.PENDING)
         with self._lock:
             self._jobs[jid] = rec
         return rec
@@ -77,13 +87,13 @@ class JobStore:
             j = self._jobs.get(job_id)
             if j:
                 j.ranking_pdf = ranking_pdf
-                j.ranking_status = "done"
+                j.ranking_status = JobStatus.DONE
 
     def fail(self, job_id: str, message: str) -> None:
         with self._lock:
             j = self._jobs.get(job_id)
             if j:
-                j.status = "failed"
+                j.status = JobStatus.FAILED
                 j.error = message
 
     def complete(
@@ -101,7 +111,7 @@ class JobStore:
         with self._lock:
             j = self._jobs.get(job_id)
             if j:
-                j.status = "done"
+                j.status = JobStatus.DONE
                 j.output_pdf = output_pdf
                 j.answers_pdf = answers_pdf
                 j.exercise_4up_pdf = exercise_4up_pdf

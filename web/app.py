@@ -38,9 +38,9 @@ from .auth_gate import (
     request_is_authenticated,
 )
 from .grade_service import run_scan_pipeline_logged
-from .jobs import JobStore
+from .jobs import JobRecord, JobStatus, JobStore
 from .process_log import run_with_last_log_line
-from .service import list_library_pdfs, run_nl_prompt_logged
+from .service import invalidate_library_cache, list_library_pdfs, run_nl_prompt_logged
 
 PACKAGE_DIR = Path(__file__).resolve().parent
 TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
@@ -152,7 +152,7 @@ def _validate_library_path(subject: str, filename: str) -> Path:
 
 
 async def _run_job(job_id: str, prompt: str) -> None:
-    store.set_status(job_id, "running")
+    store.set_status(job_id, JobStatus.RUNNING)
     # Set before the worker thread starts so the first poll always sees real text (not empty).
     store.set_log_line(job_id, "Resolving natural-language request…")
 
@@ -168,7 +168,7 @@ async def _run_job(job_id: str, prompt: str) -> None:
 
         def _run_ranking() -> None:
             try:
-                store.set_ranking_status(job_id, "running")
+                store.set_ranking_status(job_id, JobStatus.RUNNING)
                 ranking_path = main_pdf.parent / f"{main_pdf.stem}_ranking{main_pdf.suffix}"
 
                 def on_ranking_line(line: str) -> None:
@@ -186,9 +186,9 @@ async def _run_job(job_id: str, prompt: str) -> None:
                 if ranking_path.exists():
                     store.set_ranking_result(job_id, ranking_path)
                 else:
-                    store.set_ranking_status(job_id, "skipped")
+                    store.set_ranking_status(job_id, JobStatus.SKIPPED)
             except Exception:  # noqa: BLE001
-                store.set_ranking_status(job_id, "failed")
+                store.set_ranking_status(job_id, JobStatus.FAILED)
 
         threading.Thread(target=_run_ranking, daemon=True).start()
 
@@ -285,7 +285,7 @@ async def job_status(request: Request, job_id: str) -> dict:
         "error": rec.error,
         "log_line": rec.log_line or "",
     }
-    if rec.status == "done" and rec.output_pdf is not None:
+    if rec.status == JobStatus.DONE and rec.output_pdf is not None:
         out["download_url"] = f"{base}/api/jobs/{job_id}/file"
         if rec.answers_pdf is not None:
             out["answers_url"] = f"{base}/api/jobs/{job_id}/answers"
@@ -310,116 +310,61 @@ async def job_status(request: Request, job_id: str) -> dict:
     )
 
 
-@app.get("/api/jobs/{job_id}/file")
-async def download_job_file(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    rec = store.get(job_id)
-    if rec is None or rec.status != "done" or rec.output_pdf is None:
+def _pdf_file_response(rec: JobRecord | None, field: str, inline: bool) -> FileResponse:
+    """Return a FileResponse for a PDF field on a completed JobRecord, or raise 404."""
+    if rec is None or rec.status != JobStatus.DONE:
         raise HTTPException(status_code=404, detail="Not available")
-    path = rec.output_pdf
-    disp = "inline" if inline else "attachment"
+    path: Path | None = getattr(rec, field, None)
+    if path is None:
+        raise HTTPException(status_code=404, detail="Not available")
     return FileResponse(
         path,
         filename=path.name,
         media_type="application/pdf",
-        content_disposition_type=disp,
+        content_disposition_type="inline" if inline else "attachment",
     )
+
+
+@app.get("/api/jobs/{job_id}/file")
+async def download_job_file(job_id: str, inline: bool = Query(False)) -> FileResponse:
+    return _pdf_file_response(store.get(job_id), "output_pdf", inline)
 
 
 @app.get("/api/jobs/{job_id}/answers")
 async def download_job_answers(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    rec = store.get(job_id)
-    if rec is None or rec.status != "done" or rec.answers_pdf is None:
-        raise HTTPException(status_code=404, detail="Not available")
-    path = rec.answers_pdf
-    disp = "inline" if inline else "attachment"
-    return FileResponse(
-        path,
-        filename=path.name,
-        media_type="application/pdf",
-        content_disposition_type=disp,
-    )
+    return _pdf_file_response(store.get(job_id), "answers_pdf", inline)
 
 
 @app.get("/api/jobs/{job_id}/four-up")
 async def download_job_four_up(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    rec = store.get(job_id)
-    if rec is None or rec.status != "done" or rec.exercise_4up_pdf is None:
-        raise HTTPException(status_code=404, detail="Not available")
-    path = rec.exercise_4up_pdf
-    disp = "inline" if inline else "attachment"
-    return FileResponse(
-        path,
-        filename=path.name,
-        media_type="application/pdf",
-        content_disposition_type=disp,
-    )
+    return _pdf_file_response(store.get(job_id), "exercise_4up_pdf", inline)
 
 
 @app.get("/api/jobs/{job_id}/two-up")
 async def download_job_two_up(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    rec = store.get(job_id)
-    if rec is None or rec.status != "done" or rec.exercise_2up_pdf is None:
-        raise HTTPException(status_code=404, detail="Not available")
-    path = rec.exercise_2up_pdf
-    disp = "inline" if inline else "attachment"
-    return FileResponse(
-        path,
-        filename=path.name,
-        media_type="application/pdf",
-        content_disposition_type=disp,
-    )
+    return _pdf_file_response(store.get(job_id), "exercise_2up_pdf", inline)
 
 
 @app.get("/api/jobs/{job_id}/answers-four-up")
 async def download_job_answers_four_up(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    rec = store.get(job_id)
-    if rec is None or rec.status != "done" or rec.answers_4up_pdf is None:
-        raise HTTPException(status_code=404, detail="Not available")
-    path = rec.answers_4up_pdf
-    disp = "inline" if inline else "attachment"
-    return FileResponse(
-        path,
-        filename=path.name,
-        media_type="application/pdf",
-        content_disposition_type=disp,
-    )
+    return _pdf_file_response(store.get(job_id), "answers_4up_pdf", inline)
 
 
 @app.get("/api/jobs/{job_id}/answers-two-up")
 async def download_job_answers_two_up(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    rec = store.get(job_id)
-    if rec is None or rec.status != "done" or rec.answers_2up_pdf is None:
-        raise HTTPException(status_code=404, detail="Not available")
-    path = rec.answers_2up_pdf
-    disp = "inline" if inline else "attachment"
-    return FileResponse(
-        path,
-        filename=path.name,
-        media_type="application/pdf",
-        content_disposition_type=disp,
-    )
+    return _pdf_file_response(store.get(job_id), "answers_2up_pdf", inline)
 
 
 @app.get("/api/jobs/{job_id}/ranking")
 async def download_job_ranking(job_id: str, inline: bool = Query(False)) -> FileResponse:
-    rec = store.get(job_id)
-    if rec is None or rec.status != "done" or rec.ranking_pdf is None:
-        raise HTTPException(status_code=404, detail="Not available")
-    path = rec.ranking_pdf
-    disp = "inline" if inline else "attachment"
-    return FileResponse(
-        path,
-        filename=path.name,
-        media_type="application/pdf",
-        content_disposition_type=disp,
-    )
+    return _pdf_file_response(store.get(job_id), "ranking_pdf", inline)
 
 
 @app.get("/api/jobs/{job_id}/download-all")
 async def download_job_all_zip(job_id: str) -> Response:
     """ZIP of exercise sheet plus mark scheme and n-up PDFs when present."""
     rec = store.get(job_id)
-    if rec is None or rec.status != "done" or rec.output_pdf is None:
+    if rec is None or rec.status != JobStatus.DONE or rec.output_pdf is None:
         raise HTTPException(status_code=404, detail="Not available")
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", compression=zipfile.ZIP_DEFLATED) as zf:
@@ -444,6 +389,13 @@ async def download_job_all_zip(job_id: str) -> Response:
     )
 
 
+@app.post("/api/admin/library/refresh")
+async def refresh_library_cache() -> dict[str, str]:
+    """Invalidate the library PDF index cache so the next page load rescans the disk."""
+    invalidate_library_cache()
+    return {"status": "ok"}
+
+
 @app.get("/api/library/{subject}/{filename}")
 async def library_file(subject: str, filename: str) -> FileResponse:
     path = _validate_library_path(subject, filename)
@@ -462,7 +414,7 @@ async def _run_grade_job(
     folder: Path,
     prompt: str | None,
 ) -> None:
-    store.set_status(job_id, "running")
+    store.set_status(job_id, JobStatus.RUNNING)
     store.set_log_line(job_id, "Starting scan pipeline…")
 
     def on_line(line: str) -> None:
