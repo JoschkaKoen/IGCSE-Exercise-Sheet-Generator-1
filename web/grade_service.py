@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Run the xScore scan pipeline (steps 1, 3, 5–7) for the web grade worker thread.
+"""Run the xScore scan pipeline (steps 1, 3–7) for the web grade worker thread.
 
-Steps 1 (parse prompt) and 3 (load roster) are quick; steps 5–7 (blank
+Steps 1 (parse prompt) and 3 (load roster) are quick; step 4 (scaffold) is
+optional and runs if an ``empty_exam.pdf`` was uploaded; steps 5–7 (blank
 detection, autorotate, deskew) do the heavy scan processing.
 
 Step 2 (find folder) is bypassed because the folder is already known from the
-uploaded files. Step 4 (scaffold) is outside scope of this pipeline.
+uploaded files.
 """
 
 from __future__ import annotations
@@ -92,6 +93,24 @@ def run_scan_pipeline(
         suffix += 1
         artifact_dir = folder / f"{timestamp}_{suffix}"
     artifact_dir.mkdir(parents=True, exist_ok=True)
+
+    # ------------------------------------------------------------------ step 4
+    empty_exam_path = folder / "empty_exam.pdf"
+    if empty_exam_path.is_file():
+        emit("Step 4/7 — Building exam scaffold…")
+        try:
+            from xscore.scaffold.generate_scaffold import build_scaffold
+            scaffold = build_scaffold(
+                folder, artifact_dir=artifact_dir, exam_pdf_override=empty_exam_path
+            )
+            emit(
+                f"Step 4/7 — {len(scaffold.gradable_questions)} parts"
+                f"  ·  {scaffold.total_marks} marks."
+            )
+        except Exception as exc:  # noqa: BLE001
+            emit(f"Step 4/7 — Scaffold skipped: {exc}")
+    else:
+        emit("Step 4/7 — No empty exam uploaded; scaffold skipped.")
 
     # ------------------------------------------------------------------ steps 5–7
     cleaned_path = artifact_dir / CLEANED_SCAN_PDF

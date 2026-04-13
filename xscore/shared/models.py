@@ -81,6 +81,7 @@ class Question:
     text: str                   # stem only for MC (options in answer_options); full text otherwise
     marks: int
     bbox: BBox                  # primary region (first segment of multi-page questions)
+    page: int = 0               # 1-based page in exam PDF; auto-set from bbox.page if not provided
     images: list[ExamImage] = field(default_factory=list)
     equation_blank_bboxes: list[BBox] = field(default_factory=list)  # one per "label = …… [n]" line
     writing_areas: list[WritingArea] = field(default_factory=list)
@@ -89,6 +90,10 @@ class Question:
     marking_criteria: str | None = None
     answer_images: list[ExamImage] = field(default_factory=list)
     answer_options: list[McAnswerOption] = field(default_factory=list)  # MC only
+
+    def __post_init__(self) -> None:
+        if self.page == 0 and self.bbox.page:
+            self.page = self.bbox.page
 
     @property
     def content_summary(self) -> str:

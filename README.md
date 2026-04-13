@@ -82,23 +82,36 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    subgraph uploads [Uploads]
+    subgraph uploads [Uploads — web route]
         direction TB
         u1[exam scan PDF]
-        u2[student roster CSV — optional]
-        u3[grading notes — optional]
+        u2[student roster — optional]
+        u3[empty exam PDF — optional]
     end
 
     s1["Step 1 — Parse grading instructions\n(LLM extracts DPI and task options)"]
+    s2["Step 2 — Locate exam folder\n(terminal route only — fuzzy folder match)"]
     s3["Step 3 — Load student roster"]
+    s4["Step 4 — Build exam scaffold\n(optional — requires empty exam PDF;\nparses Cambridge-style question regions)"]
     s5["Step 5 — Detect and remove blank pages"]
     s6["Step 6 — Auto-rotate pages to correct orientation"]
     s7["Step 7 — Deskew pages"]
     out[cleaned_scan.pdf — ready for marking]
 
     u1 & u2 & u3 --> s1
-    s1 --> s3 --> s5 --> s6 --> s7 --> out
+    s1 --> s2
+    s2 -->|terminal| s3
+    s1 -->|web| s3
+    s3 --> s4 --> s5 --> s6 --> s7 --> out
 ```
+
+| Step | Description |
+|------|-------------|
+| **1** | An LLM (Kimi) parses any free-text grading prompt to extract DPI, task type, and student filter options. |
+| **2** | **Terminal route only.** A fuzzy folder search locates the exam folder on disk from the hint in the prompt or `--folder` flag. The web route skips this step because the folder is determined by the upload. |
+| **3** | The student roster is read from `StudentList.*` in the exam folder. Supports `.xlsx`, `.xls`, `.csv`, and `.pdf` formats via Gemini. |
+| **4** | **Optional.** If an empty vector exam PDF is present (`empty_exam.pdf` on web, or any non-scan PDF on terminal), the scaffold builder parses Cambridge-style left-margin question numbers, extracts each question's bounding box, page number, marks, and type, then caches the result as `scaffold.json`. This powers per-question grading and mark extraction in later steps. |
+| **5–7** | Blank pages are stripped, all pages are rotated upright, and small-angle skew is corrected. The result is `3_cleaned_scan.pdf` — ready for manual or automated marking. |
 
 The cleaned PDF has blank pages stripped, all pages upright, and skew corrected — ready for manual or automated marking.
 
@@ -190,6 +203,7 @@ Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 | `NL_MODEL` | Prompt interpretation (subject, papers, questions) |
 | `MCQ_MODEL` | MCQ explanation generation |
 | `RANKING_MODEL` | Difficulty ranking job (questions ranked hardest to easiest) |
+| `STUDENT_LIST_MODEL` | Gemini model used to parse student roster files (PDF, Excel, CSV) |
 
 **Optional thinking suffix:** add `, off`, `, low`, or `, high` after the model name:
 

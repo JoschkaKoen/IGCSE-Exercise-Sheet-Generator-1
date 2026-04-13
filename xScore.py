@@ -2,12 +2,13 @@
 """
 xScore.py
 ---------
-Exam scan preparation pipeline (steps 1–3 and 5–7) — run from the eXercise project root.
+Exam scan preparation pipeline (steps 1–7) — run from the eXercise project root.
 
 Steps:
   1. Parse the natural language prompt (via Kimi).
   2. Locate the exam folder.
   3. Read the student roster from StudentList.xlsx.
+  4. Build exam scaffold (optional; requires vector exam PDF).
   5. Detect blank scan pages.
   6. Autorotate (remove blanks, apply /Rotate metadata).
   7. Deskew (small-angle per-half correction) → 3_cleaned_scan.pdf.
@@ -35,8 +36,7 @@ from dotenv import load_dotenv
 
 __version__ = "0.1"
 
-# Step 4 (scaffold) is intentionally omitted in this pipeline.
-_VALID_THROUGH_STEPS = [1, 2, 3, 5, 6, 7]
+_VALID_THROUGH_STEPS = [1, 2, 3, 4, 5, 6, 7]
 
 
 class _Tee:
@@ -135,6 +135,7 @@ class _Ctx:
     folder: Path | None = None
     artifact_dir: Path | None = None
     students: list[str] | None = None
+    scaffold: Any = None
     cleaned_pdf: Path | None = None
     partial_stop_step: int | None = None
     pipeline_completed_ok: bool = False
@@ -167,6 +168,7 @@ def _load_imports() -> SimpleNamespace:
         detect_blank_pages_phase,
         find_source_scan_match,
     )
+    from xscore.scaffold.generate_scaffold import build_scaffold
     from xscore.shared.load_student_list import read_student_list
     from xscore.shared.terminal_ui import (
         err_line,
@@ -182,6 +184,7 @@ def _load_imports() -> SimpleNamespace:
         KimiProvider=KimiProvider,
         find_folder=find_folder,
         parse_prompt=parse_prompt,
+        build_scaffold=build_scaffold,
         CLEANED_SCAN_PDF=CLEANED_SCAN_PDF,
         autorotate_phase=autorotate_phase,
         deskew_phase=deskew_phase,
@@ -294,6 +297,20 @@ def _step03_students(ctx: _Ctx, gi: SimpleNamespace) -> None:
         raise SystemExit(0)
 
 
+def _step04_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    assert ctx.folder is not None and ctx.artifact_dir is not None
+    gi.pipeline_step(4, "Build exam scaffold")
+    try:
+        ctx.scaffold = gi.build_scaffold(ctx.folder, artifact_dir=ctx.artifact_dir)
+        qs = ctx.scaffold.gradable_questions
+        gi.ok_line(f"{len(qs)} gradable parts  ·  {ctx.scaffold.total_marks} marks total")
+    except FileNotFoundError as exc:
+        gi.warn_line(f"No exam PDF found — scaffold skipped ({exc})")
+    if ctx.through_step == 4:
+        ctx.partial_stop_step = 4
+        raise SystemExit(0)
+
+
 def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     """Steps 5–7: blank detection → autorotate → deskew."""
     assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
@@ -367,6 +384,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         _step01_parse(ctx, gi)
         _step02_folder(ctx, gi)
         _step03_students(ctx, gi)
+        _step04_scaffold(ctx, gi)
         _scan_phases(ctx, gi)
         gi.ok_line("Pipeline complete.")
         ctx.pipeline_completed_ok = True
