@@ -833,6 +833,7 @@ body.preview-mode-active .site-header-nav a.nav-link-active {
   flex-direction: column;
   align-items: stretch;
   padding: 0.75rem 0.75rem 1.25rem;
+  will-change: scroll-position;
 }
 
 .preview-mode .pdf-viewport-scroll {

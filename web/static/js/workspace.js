@@ -20,7 +20,7 @@ import {
   showSpinner, hideSpinner, showEmpty, hideEmpty,
   zoomActivePdf, resetActivePdfZoom,
   updateHeaderGlassFromPdfScroll,
-  ensurePdfScrollGlassListeners, bindPdfSmoothWheelScroll,
+  ensurePdfScrollGlassListeners,
   hideAllPdfSpinners,
 } from './pdf-render.js';
 
@@ -270,7 +270,6 @@ async function enterPreviewMode(doneData, instant) {
   workspace.style.opacity = '1';
 
   ensurePdfScrollGlassListeners();
-  bindPdfSmoothWheelScroll();
 
   function rerenderWhenReady(attempts) {
     if (attempts > CONFIG.RERENDER_MAX_ATTEMPTS) return;

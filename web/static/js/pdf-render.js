@@ -14,7 +14,6 @@ import {
 let pdfjsPromise = null;
 let pdfHeaderGlassRaf = null;
 let pdfScrollGlassListenersBound = false;
-let pdfSmoothWheelBound = false;
 
 // ─── PDF.js bootstrap ────────────────────────────────────────────────────────
 
@@ -175,32 +174,50 @@ async function _renderSinglePage(id, pageIdx) {
         await task.promise;
       }
     }
-    if (pdfjs.TextLayer) {
-      try {
-        const textContent = await page.getTextContent();
-        const existingTl = pg.wrap.querySelector('.textLayer');
-        if (existingTl) existingTl.remove();
-        const textLayerDiv = document.createElement('div');
-        textLayerDiv.className = 'textLayer';
-        textLayerDiv.style.setProperty('--scale-factor', String(userScale));
-        pg.wrap.appendChild(textLayerDiv);
-        const tl = new pdfjs.TextLayer({
-          textContentSource: textContent,
-          container: textLayerDiv,
-          viewport: cssVp,
-        });
-        await tl.render();
-      } catch (texErr) {
-        console.warn('PDF text layer failed', texErr);
-      }
-    }
-    try { page.cleanup(); } catch (cleanErr) {}
     if (s.pages[pageIdx] === pg) pg.rendered = true;
+    // Defer text layer creation so it never runs during scroll momentum.
+    if (pdfjs.TextLayer) {
+      _scheduleTextLayer(id, pageIdx, page, cssVp, userScale);
+    } else {
+      try { page.cleanup(); } catch (cleanErr) {}
+    }
   } catch (err) {
     console.error('PDF render failed', err);
   } finally {
     pg.rendering = false;
   }
+}
+
+/** Schedule text layer creation during idle time, keeping scroll jank-free. */
+function _scheduleTextLayer(id, pageIdx, page, cssVp, userScale) {
+  var schedule = window.requestIdleCallback || function (cb) { setTimeout(cb, 150); };
+  schedule(async function () {
+    var s = getPdfState(id);
+    var pg = s.pages && s.pages[pageIdx];
+    if (!pg || !pg.rendered) {
+      try { page.cleanup(); } catch (e) {}
+      return;
+    }
+    try {
+      var textContent = await page.getTextContent();
+      var existingTl = pg.wrap.querySelector('.textLayer');
+      if (existingTl) existingTl.remove();
+      var textLayerDiv = document.createElement('div');
+      textLayerDiv.className = 'textLayer';
+      textLayerDiv.style.setProperty('--scale-factor', String(userScale));
+      pg.wrap.appendChild(textLayerDiv);
+      var pdfjs = await ensurePdfJs();
+      var tl = new pdfjs.TextLayer({
+        textContentSource: textContent,
+        container: textLayerDiv,
+        viewport: cssVp,
+      });
+      await tl.render();
+    } catch (texErr) {
+      console.warn('PDF text layer failed', texErr);
+    }
+    try { page.cleanup(); } catch (e) {}
+  }, { timeout: 2000 });
 }
 
 function _clearPageCanvas(id, pageIdx) {
@@ -412,17 +429,14 @@ export async function rerenderPdfZoomBuffered(id) {
 
 export function updateHeaderGlassFromPdfScroll() {
   const root = document.documentElement;
-  const body = document.body;
-  if (!body.classList.contains('preview-mode-active')) {
+  if (!document.body.classList.contains('preview-mode-active')) {
     root.style.removeProperty('--header-glass-fill');
-    body.style.removeProperty('--header-glass-fill');
     return;
   }
   const id = activePdfTabId();
   const sc = scrollEl(id);
   if (!sc || sc.classList.contains('hidden')) {
     root.style.setProperty('--header-glass-fill', '1');
-    body.style.setProperty('--header-glass-fill', '1');
     return;
   }
   const maxScroll = sc.scrollHeight - sc.clientHeight;
@@ -430,10 +444,7 @@ export function updateHeaderGlassFromPdfScroll() {
   if (maxScroll > 2) {
     t = Math.min(1, sc.scrollTop / Math.min(maxScroll, 300));
   }
-  const fill = 1 - 0.68 * t;
-  const fs = String(fill);
-  root.style.setProperty('--header-glass-fill', fs);
-  body.style.setProperty('--header-glass-fill', fs);
+  root.style.setProperty('--header-glass-fill', String(1 - 0.68 * t));
 }
 
 export function scheduleHeaderGlassFromPdfScroll() {
@@ -452,13 +463,4 @@ export function ensurePdfScrollGlassListeners() {
   });
 }
 
-export function bindPdfSmoothWheelScroll() {
-  /* Native macOS trackpad scrolling is already smooth with inertia.
-     We only attach a passive scroll listener for the header glass effect;
-     no wheel event interception, so the browser handles momentum natively. */
-  if (pdfSmoothWheelBound) return;
-  pdfSmoothWheelBound = true;
-  document.querySelectorAll('.pdf-viewport-scroll').forEach(function (el) {
-    el.addEventListener('scroll', function () { scheduleHeaderGlassFromPdfScroll(); }, { passive: true });
-  });
-}
+
