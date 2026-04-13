@@ -1,54 +1,126 @@
-"""Read the student roster from an Excel file (.xlsx) in the exam folder."""
+"""Parse the student roster from any supported file format via Gemini."""
 
 from __future__ import annotations
 
+import csv
+import io
+import json
+import os
+import time
 from pathlib import Path
+
+_PROMPT = (
+    "Extract all student names from this data. "
+    "Return a JSON array of name strings only — no numbers, headers, or extra text."
+)
+
+
+def _read_model_config() -> tuple[str, str | None]:
+    raw = os.getenv("STUDENT_LIST_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.0-flash"))
+    if "," in raw:
+        model, effort = raw.split(",", 1)
+        return model.strip(), effort.strip() or None
+    return raw.strip(), None
+
+
+def _spreadsheet_to_csv(path: Path) -> str:
+    """Convert Excel or CSV to a plain CSV string."""
+    ext = path.suffix.lower()
+    if ext in (".xlsx", ".xls"):
+        try:
+            import openpyxl
+        except ImportError:
+            raise ImportError("openpyxl is required: pip install openpyxl>=3.1.0")
+        wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+        ws = wb.active
+        buf = io.StringIO()
+        writer = csv.writer(buf)
+        for row in ws.iter_rows(values_only=True):
+            writer.writerow([str(v) if v is not None else "" for v in row])
+        wb.close()
+        return buf.getvalue()
+    elif ext == ".csv":
+        return path.read_text(errors="replace")
+    raise ValueError(f"Unsupported spreadsheet format: {path.suffix}")
 
 
 def read_student_list(folder: Path) -> list[str]:
-    """Return a list of student names from the first .xlsx found in *folder*.
+    """Return student names from any student list file in *folder*.
 
-    Search preference:
-    1. Any .xlsx whose name contains "student" (case-insensitive).
-    2. The first .xlsx file found otherwise.
+    Supports .xlsx, .xls, .csv (converted to CSV text) and .pdf (File API).
+    Uses STUDENT_LIST_MODEL (or AI_DEFAULT_MODEL) to extract names via Gemini.
+    JSON mode enforces structured output.
 
-    Names are read from the first column that contains string data,
-    skipping blank cells and obvious header rows ("Name", "Student", etc.).
-
-    Raises ``FileNotFoundError`` if no .xlsx file is present.
-    Raises ``ImportError`` if openpyxl is not installed.
+    Raises FileNotFoundError if no student list file is found.
     """
-    try:
-        import openpyxl
-    except ImportError as exc:
-        raise ImportError("openpyxl is required: pip install openpyxl>=3.1.0") from exc
-
-    xlsx_files = list(folder.glob("*.xlsx"))
-    if not xlsx_files:
-        raise FileNotFoundError(f"No .xlsx file found in {folder}")
-
-    preferred = [f for f in xlsx_files if "student" in f.name.lower()]
-    target = preferred[0] if preferred else xlsx_files[0]
-
-    wb = openpyxl.load_workbook(target, read_only=True, data_only=True)
-    ws = wb.active
-
-    header_keywords = {"name", "student", "students", "names", "no", "number", "#"}
-    names: list[str] = []
-
-    for row in ws.iter_rows(values_only=True):
-        # Find first cell with a string value
-        for cell in row:
-            if cell is None:
-                continue
-            val = str(cell).strip()
-            if not val:
-                continue
-            # Skip header rows
-            if val.lower() in header_keywords:
+    candidates = list(folder.glob("StudentList.*"))
+    if not candidates:
+        for pat in ("*[Ss]tudent*", "*[Rr]oster*"):
+            candidates = list(folder.glob(pat))
+            if candidates:
                 break
-            names.append(val)
-            break  # only take first non-empty string cell per row
+    if not candidates:
+        raise FileNotFoundError(f"No student list file found in {folder}")
 
-    wb.close()
-    return names
+    preferred = [f for f in candidates if "student" in f.name.lower()]
+    target = preferred[0] if preferred else candidates[0]
+    ext = target.suffix.lower()
+
+    model_name, effort = _read_model_config()
+
+    try:
+        from google import genai as gai
+        from google.genai import types as gai_types
+    except ImportError:
+        raise RuntimeError("google-genai not installed; run: pip install google-genai")
+
+    api_key = os.environ.get("GOOGLE_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError("GOOGLE_API_KEY not set")
+
+    client = gai.Client(api_key=api_key)
+
+    thinking_map = {"off": 0, "low": 1024, "high": 8192}
+    thinking_cfg = None
+    if effort in thinking_map:
+        thinking_cfg = gai_types.ThinkingConfig(
+            thinking_budget=thinking_map[effort],
+            include_thoughts=False,
+        )
+
+    gen_config_kwargs: dict = {
+        "max_output_tokens": 2048,
+        "response_mime_type": "application/json",
+        "response_schema": list[str],
+    }
+    if thinking_cfg:
+        gen_config_kwargs["thinking_config"] = thinking_cfg
+    gen_config = gai_types.GenerateContentConfig(**gen_config_kwargs)
+
+    if ext in (".xlsx", ".xls", ".csv"):
+        csv_text = _spreadsheet_to_csv(target)
+        contents = [_PROMPT + "\n\n" + csv_text]
+    elif ext == ".pdf":
+        uploaded = client.files.upload(file=target)
+        while getattr(uploaded.state, "name", str(uploaded.state)) == "PROCESSING":
+            time.sleep(2)
+            uploaded = client.files.get(name=uploaded.name)
+        if getattr(uploaded.state, "name", str(uploaded.state)) == "FAILED":
+            raise RuntimeError(f"Gemini file processing failed: {uploaded.name}")
+        contents = [
+            gai_types.Part.from_uri(file_uri=uploaded.uri, mime_type="application/pdf"),
+            gai_types.Part.from_text(text=_PROMPT),
+        ]
+    else:
+        raise ValueError(
+            f"Unsupported student list format: {ext}. "
+            "Supported: .xlsx, .xls, .csv, .pdf"
+        )
+
+    response = client.models.generate_content(
+        model=model_name,
+        contents=contents,
+        config=gen_config,
+    )
+    # JSON mode guarantees valid JSON; direct parse is safe
+    return json.loads(response.text)
