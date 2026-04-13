@@ -9,9 +9,10 @@ load_project_env()
 
 import asyncio
 from contextlib import asynccontextmanager
+import datetime
 import io
+import os
 import threading
-import uuid
 import zipfile
 from pathlib import Path
 
@@ -485,7 +486,8 @@ async def create_grade_job(
     prompt: str | None = Form(None),
 ) -> dict[str, str]:
     """Accept uploaded exam files, save them, and launch an xScore pipeline job."""
-    upload_id = str(uuid.uuid4())
+    ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    upload_id = f"{ts}_{os.urandom(2).hex()}"
     folder = _GRADE_UPLOADS_ROOT / upload_id
     folder.mkdir(parents=True, exist_ok=True)
 
