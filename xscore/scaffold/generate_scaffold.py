@@ -339,6 +339,40 @@ def _save_cache(artifact_dir: Path, scaffold: ExamScaffold) -> None:
             pass
 
 
+def _build_heuristic_scaffold(
+    exam_pdf: Path,
+    folder: Path,
+    ans: Path | None,
+    artifact_dir: Path,
+) -> list[Question]:
+    """Build question list using PyMuPDF layout heuristics (preserved for future use).
+
+    This was the default scaffold extraction path before the AI route was added.
+    To re-enable it, replace the ``build_ai_scaffold`` call in ``build_scaffold()``
+    with: ``questions = _build_heuristic_scaffold(exam_pdf, folder, _find_answer_pdf(folder), ad)``
+    """
+    questions = parse_exam_pdf(exam_pdf, folder, artifact_dir=artifact_dir)
+    if not questions:
+        raise RuntimeError(
+            "No questions detected in exam PDF. Check that the file is a vector paper "
+            "with Cambridge-style left-margin question numbers."
+        )
+    if ans is not None:
+        amap, table_answers, printed_mc = parse_answer_key_pdf(ans, folder)
+        merge_answers_into_scaffold(
+            questions,
+            amap,
+            table_model_answers=table_answers,
+            printed_mc_letters=printed_mc,
+        )
+    else:
+        from xscore.shared.terminal_ui import tool_line as _tool_line
+        _tool_line("scaffold", "No answer key PDF found — correct_answer left empty.")
+    for q in questions:
+        normalize_multiple_choice_tree(q)
+    return questions
+
+
 def build_scaffold(
     folder: Path,
     client: Any | None = None,
@@ -386,27 +420,17 @@ def build_scaffold(
     exam_pdf = exam_pdf_override or _find_exam_pdf(folder)
     prepare_scaffold_image_dirs(ad)
 
-    questions = parse_exam_pdf(exam_pdf, folder, artifact_dir=ad)
+    # AI-based extraction (default route) — uses Gemini to parse structure.
+    # To revert to the PyMuPDF heuristic parser, replace the two lines below with:
+    #   questions = _build_heuristic_scaffold(exam_pdf, folder, _find_answer_pdf(folder), ad)
+    from xscore.scaffold.ai_scaffold import build_ai_scaffold
+    ans = _find_answer_pdf(folder)
+    questions = build_ai_scaffold(exam_pdf, ans)
     if not questions:
         raise RuntimeError(
-            "No questions detected in exam PDF. Check that the file is a vector paper "
-            "with Cambridge-style left-margin question numbers."
+            "No questions extracted from exam PDF. "
+            "Check GOOGLE_API_KEY and that the PDF is readable."
         )
-
-    ans = _find_answer_pdf(folder)
-    if ans is not None:
-        amap, table_answers, printed_mc = parse_answer_key_pdf(ans, folder)
-        merge_answers_into_scaffold(
-            questions,
-            amap,
-            table_model_answers=table_answers,
-            printed_mc_letters=printed_mc,
-        )
-    else:
-        tool_line("scaffold", "No answer key PDF found — correct_answer left empty.")
-
-    for q in questions:
-        normalize_multiple_choice_tree(q)
 
     import fitz
 
