@@ -86,7 +86,8 @@ flowchart TD
         direction TB
         u1[exam scan PDF]
         u2[student roster — optional]
-        u3[empty exam PDF — optional]
+        u3[empty exam PDF]
+        u4[answer sheet]
     end
 
     s1["Step 1 — Parse grading instructions\n(LLM extracts DPI and task options)"]
@@ -98,7 +99,7 @@ flowchart TD
     s7["Step 7 — Deskew pages"]
     out[cleaned_scan.pdf — ready for marking]
 
-    u1 & u2 & u3 --> s1
+    u1 & u2 & u3 & u4 --> s1
     s1 --> s2
     s2 -->|terminal| s3
     s1 -->|web| s3
