@@ -2,7 +2,7 @@
 
 ![Generate page — natural language prompt and example buttons](screenshots/web-ui.png)
 
-Build printable exercise sheets from Cambridge-style IGCSE question papers (PDF). You describe what you want in plain English, or pass explicit file paths. The app can pull questions from bundled exam PDFs, optionally attach mark-scheme answers, and optionally generate short MCQ explanations with an LLM.
+Build printable exercise sheets from Cambridge-style IGCSE question papers (PDF). You describe what you want in plain English or pass explicit file paths. The app extracts questions from bundled exam PDFs, optionally attaches mark-scheme answers, generates short MCQ explanations with an LLM, ranks questions by difficulty, and includes a browser for the bundled paper library. A separate **Grade** page accepts student exam scans and returns a cleaned, deskewed PDF ready for review.
 
 ---
 
@@ -10,8 +10,11 @@ Build printable exercise sheets from Cambridge-style IGCSE question papers (PDF)
 
 - **Natural language** — one sentence picks subject, session, paper, and question numbers; an LLM maps it to PDFs in your `exams/` folders.
 - **Legacy CLI** — point at any QP PDF, list question numbers, optional mark scheme path.
-- **Web UI** — same flows in the browser with a PDF preview (local dev server).
-- **Outputs** — a single exercise PDF per run; optional answers PDF; optional 2-up / 4-up variants when `pdfjam` is installed.
+- **Web UI** — three pages: **Generate** (exercise builder with PDF preview and zoom), **Grade** (scan cleaner), and **Library** (browse/download bundled papers).
+- **PDF preview** — continuous-scroll in-browser render with Ctrl-wheel zoom; tabs for exercise, answers, 2-up, 4-up, and ranking variants; jump-to-question overview panel.
+- **Outputs** — exercise PDF, optional answers PDF, optional 2-up/4-up print variants (`pdfjam`), and an LLM-generated difficulty ranking PDF.
+- **Grading** — upload student scan(s) + optional roster; the pipeline auto-rotates, deskews, and removes blank pages, returning a clean PDF.
+- **Library** — browse and download the bundled IGCSE papers by subject, year, and session directly from the web UI.
 
 ---
 
@@ -23,28 +26,30 @@ Overview (rendered on GitHub as a diagram):
 flowchart TD
     subgraph nlPath [Natural language mode]
         direction TB
-        n1["You: describe subject, paper, questions"]
-        n2[Quick sanity-check LLM call]
-        n3[LLM selects matching PDFs and question numbers]
+        n1["Describe: subject, paper, questions"]
+        n2[Optional precheck LLM call]
+        n3[LLM maps text → PDFs and question numbers]
         n1 --> n2 --> n3
     end
 
-    subgraph legPath [Legacy mode]
+    subgraph legPath [Legacy / explicit mode]
         direction TB
-        l1[You: provide PDF paths and question numbers directly]
+        l1[Provide PDF paths and question numbers directly]
     end
 
-    join[Locate and cut each question from the PDF as vector graphics]
-    ex[Assemble into one continuous exercise PDF]
-    ms{Mark scheme provided?}
-    ans["Build answers PDF\n(MCQ: add LLM explanations if available)"]
-    nup[Generate 2-up and 4-up print versions]
+    cut[Locate and cut each question from PDF as vector graphics]
+    ex[exercise.pdf — one continuous exercise sheet]
+    ms{Mark scheme\nprovided?}
+    ans["answers.pdf\n(MCQ: optional LLM explanations)"]
+    nup["_2up / _4up variants\n(if pdfjam installed)"]
+    rank["ranking.pdf — questions ranked by difficulty\n(background LLM job)"]
 
-    n3 --> join
-    l1 --> join
-    join --> ex --> ms
+    n3 --> cut
+    l1 --> cut
+    cut --> ex --> ms
     ms -->|Yes| ans --> nup
     ms -->|No| nup
+    ex -.->|background| rank
 ```
 
 ### Natural language mode (one sentence)
@@ -63,11 +68,39 @@ flowchart TD
 
 7. **Optional n-up copies** — if `pdfjam` is installed, **2-up** and **4-up** versions of the exercise (and answers) may be generated for printing.
 
+8. **Difficulty ranking (background)** — while the exercise is ready, a second LLM job reads the assembled exercise (as images or extracted text) and returns a ranked list of every question part from hardest to easiest. This is compiled into `*_ranking.pdf` and appears as an extra tab in the web UI once ready. Requires `pdflatex`; set `RANKING_SKIP=true` or omit `pdflatex` to skip silently.
+
 ### Legacy mode (explicit paths)
 
 1. You pass **question paper path**, **output path**, and **question numbers** (and optionally `--ms` with a mark scheme path).
 
-2. Steps **4–7** above run the same way — there is **no** LLM step; the program goes straight to finding questions and building PDFs.
+2. Steps **4–8** above run the same way — there is **no** LLM step; the program goes straight to finding questions and building PDFs.
+
+---
+
+## How grading works
+
+```mermaid
+flowchart TD
+    subgraph uploads [Uploads]
+        direction TB
+        u1[exam scan PDF]
+        u2[student roster CSV — optional]
+        u3[grading notes — optional]
+    end
+
+    s1["Step 1 — Parse grading instructions\n(LLM extracts DPI and task options)"]
+    s3["Step 3 — Load student roster"]
+    s5["Step 5 — Detect and remove blank pages"]
+    s6["Step 6 — Auto-rotate pages to correct orientation"]
+    s7["Step 7 — Deskew pages"]
+    out[cleaned_scan.pdf — ready for marking]
+
+    u1 & u2 & u3 --> s1
+    s1 --> s3 --> s5 --> s6 --> s7 --> out
+```
+
+The cleaned PDF has blank pages stripped, all pages upright, and skew corrected — ready for manual or automated marking.
 
 ---
 
@@ -88,6 +121,7 @@ If missing, the app still runs; some features are skipped or simplified.
 |--------|--------|
 | **MCQ explanations** (nice PDF blocks) | `pdflatex` + TeX packages used in `eXercise/mcq_explanations.py` |
 | **2-up / 4-up sheets** | `pdfjam` on `PATH` (e.g. Debian/Ubuntu: `texlive-extra-utils`) |
+| **Difficulty ranking** | `pdflatex` (same as above); set `RANKING_SKIP=true` to disable |
 
 **Ubuntu example:**
 
@@ -97,6 +131,17 @@ sudo apt install -y texlive-latex-extra texlive-fonts-extra texlive-extra-utils
 ```
 
 The **Dockerfile** installs TeX packages so containers get `pdflatex` and `pdfjam` without extra host setup.
+
+### Grade page (optional)
+
+The **Grade** page depends on the `xscore` package (not in `requirements.txt`) and a Kimi API key:
+
+| | |
+|---|---|
+| `xscore` | Install separately if you want the scan-cleaning pipeline |
+| `KIMI_API_KEY` | Add to `.env`; used for prompt parsing and orientation detection |
+
+If `xscore` is not installed, the rest of the app runs normally — only `/grade` will return errors.
 
 ---
 
@@ -124,7 +169,7 @@ Copy `.env.example` to `.env` and add your API keys (see below). Non-secret defa
 
 ### API keys (secrets → `.env`)
 
-The app uses the OpenAI Python client against each vendor’s **OpenAI-compatible** endpoint. **You choose models by name**; the **provider is inferred from the model name** (no separate “provider” switch).
+The app uses the OpenAI Python client against each vendor's **OpenAI-compatible** endpoint. **You choose models by name**; the **provider is inferred from the model name** (no separate "provider" switch).
 
 | Model name starts with | API key variable | Notes |
 |------------------------|------------------|--------|
@@ -134,7 +179,7 @@ The app uses the OpenAI Python client against each vendor’s **OpenAI-compatibl
 
 Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 
-### Models and “thinking” (non-secrets → `default.env`)
+### Models and "thinking" (non-secrets → `default.env`)
 
 - **`AI_DEFAULT_MODEL`** — fallback model (and optional thinking suffix) when a per-task variable is unset.
 - **Per task** — each can override the default:
@@ -144,7 +189,7 @@ Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 | `AI_PRECHECK_MODEL` | Fast validation before the main NL call |
 | `NL_MODEL` | Prompt interpretation (subject, papers, questions) |
 | `MCQ_MODEL` | MCQ explanation generation |
-| `RANKING_MODEL` | Reserved (not implemented yet) |
+| `RANKING_MODEL` | Difficulty ranking job (questions ranked hardest to easiest) |
 
 **Optional thinking suffix:** add `, off`, `, low`, or `, high` after the model name:
 
@@ -153,7 +198,7 @@ NL_MODEL=gemini-2.5-flash, low
 AI_PRECHECK_MODEL=gemini-2.5-flash-lite, off
 ```
 
-Omit the suffix to use the provider’s default reasoning behaviour. **Gemini** maps `off` / `low` / `high` to API `reasoning_effort`. **Qwen** uses `off` vs on. **Grok** ignores the suffix.
+Omit the suffix to use the provider's default reasoning behaviour. **Gemini** maps `off` / `low` / `high` to API `reasoning_effort`. **Qwen** uses `off` vs on. **Grok** ignores the suffix.
 
 Full model lists and notes (e.g. which Gemini tiers always use thinking) are in [`default.env`](default.env).
 
@@ -162,6 +207,7 @@ Full model lists and notes (e.g. which Gemini tiers always use thinking) are in 
 | Variable | Meaning |
 |----------|---------|
 | `NL_SKIP_PRECHECK` | `true` / `1` / `yes` — skip the pre-validation step (e.g. tests). |
+| `RANKING_SKIP` | `true` / `1` / `yes` — skip difficulty ranking entirely. |
 
 Legacy fallbacks still supported in code: `AI_MCQ_MODEL` (alias for `MCQ_MODEL` resolution), `XAI_MODEL` (fallback model env), `XAI_PRECHECK_MODEL`.
 
@@ -214,6 +260,14 @@ uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
 
 Open [http://127.0.0.1:8001](http://127.0.0.1:8001) (match the port you chose). If the port is busy, try `8002` — on many Macs **8000** is already taken (often by Docker).
 
+Three pages are available:
+
+| Page | Path | Purpose |
+|------|------|---------|
+| **Generate** | `/` | Build exercise sheets (natural language or legacy); PDF preview with tabs (exercise, answers, 2-up, 4-up, ranking), Ctrl-wheel zoom, and jump-to-question overview. |
+| **Grade** | `/grade` | Upload student scan PDF (+ optional roster CSV); returns cleaned, deskewed, blank-page-free PDF. Requires `xscore` + `KIMI_API_KEY`. |
+| **Library** | `/library` | Browse and download the bundled Cambridge IGCSE papers by subject, year, and session. |
+
 ### Programmatic
 
 ```python
@@ -249,6 +303,7 @@ After code changes: `git pull`, then `docker compose up -d --build` again.
 - Relative output names go under `output/run_YYYYMMDD_HHMMSS/`.
 - Mark scheme runs can produce `*_answers.pdf` beside the main sheet.
 - With `pdfjam`, **`_2up`** and **`_4up`** variants may appear next to the main PDF.
+- If `pdflatex` is installed and `RANKING_SKIP` is not set, a **`*_ranking.pdf`** is generated in the background.
 
 ---
 
@@ -257,8 +312,11 @@ After code changes: `git pull`, then `docker compose up -d --build` again.
 | Path | Role |
 |------|------|
 | `eXercise.py` | CLI entry |
-| `eXercise/` | Config, pipeline, NL resolver, MCQ explanations, PDF layout |
-| `web/` | FastAPI app, templates, static assets |
+| `eXercise/` | Config, pipeline, NL resolver, MCQ explanations, difficulty ranking, PDF layout |
+| `web/app.py` | FastAPI routes and job store |
+| `web/grade_service.py` | Scan cleaning pipeline (rotate, deskew, blank detection) |
+| `web/templates/` | Jinja2 HTML pages (Generate, Grade, Library) |
+| `web/static/` | CSS + JS (PDF preview, zoom, tabs, download-all) |
 | `exams/` | Bundled QP/MS PDFs for NL mode |
 | `fonts/` | Latin Modern for labels (see `fonts/README.md`) |
 | `default.env` | Committed defaults |
