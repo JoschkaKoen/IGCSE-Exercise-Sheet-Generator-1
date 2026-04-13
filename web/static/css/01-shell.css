@@ -54,6 +54,7 @@
   position: fixed;
   inset: 0;
   z-index: 0;
+  will-change: transform;
   background:
     radial-gradient(ellipse 80% 40% at 20%  15%, rgba(34, 211, 238, 0.055), transparent 55%),
     radial-gradient(ellipse 65% 35% at 80%  70%, rgba(99, 102, 241, 0.06),  transparent 50%),

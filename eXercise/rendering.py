@@ -837,14 +837,18 @@ def layout_vector_strips_to_pdf(
         w = fitz.get_text_length(label, fontname="hebo", fontsize=_pagenum_fs)
         x = (A4_WIDTH_PT - w) / 2
         baseline_y = A4_HEIGHT_PT - _MARGIN_PT
+        cap_h = _pagenum_fs * 0.7   # approximate cap-height
+        cx = A4_WIDTH_PT / 2
+        cy = baseline_y - cap_h / 2
+        rx = w / 2 + _pagenum_pad_x
+        ry = cap_h / 2 + _pagenum_pad_y
+        r = max(rx, ry)             # use a circle (equal radii)
+        # Shift circle and text 60% of the circle diameter upward.
+        offset = 1.2 * r
+        cy -= offset
+        baseline_y -= offset
         # Draw the thin circle *before* the text so the text sits on top.
         if page_number_circle:
-            cap_h = _pagenum_fs * 0.7   # approximate cap-height
-            cx = A4_WIDTH_PT / 2
-            cy = baseline_y - cap_h / 2
-            rx = w / 2 + _pagenum_pad_x
-            ry = cap_h / 2 + _pagenum_pad_y
-            r = max(rx, ry)             # use a circle (equal radii)
             pg.draw_circle(
                 fitz.Point(cx, cy), r,
                 color=(0, 0, 0), fill=None, width=0.5,

@@ -306,7 +306,7 @@ async function refreshPreviewMode() {
 async function pollRankingReady(jobId) {
   showRankingGenerating();
   while (true) {
-    await sleep(20);
+    await sleep(200);
     let data;
     try { data = await fetchJobStatus(jobId); } catch (e) { break; }
     if (data.ranking_log_line) updateRankingLog(data.ranking_log_line);
@@ -361,7 +361,7 @@ async function pollJob(id, onTick) {
     if (onTick) onTick(data);
     if (data.status === 'failed') throw new Error(data.error || 'Generation failed.');
     if (data.status === 'done')   return data;
-    await sleep(50);
+    await sleep(200);
   }
 }
 

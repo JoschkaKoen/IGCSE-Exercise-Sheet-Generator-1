@@ -403,9 +403,10 @@ def _rank_exercises_ai(
     return ranking
 
 
-# Matches: "w23/23 Q3b", "s23/41 Q1a(i)", "w24/12 Q5b(ii)", bare "Q12"
+# Matches: "w23/23 Q3b", "s23/41 Q1a(i)", "w24/12 Q5b(ii)",
+#          "s23 22 Q5a" (space separator, as printed in the exercise PDF), bare "Q12"
 _QUESTION_ID_RE = re.compile(
-    r"^[wsm]\d{2}/\d{2,3}\s+Q\d+|^Q\d+", re.IGNORECASE
+    r"^[wsm]\d{2}[/ ]\d{2,3}\s+Q\d+|^Q\d+", re.IGNORECASE
 )
 
 

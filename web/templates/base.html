@@ -48,10 +48,12 @@
       function syncDocBackgroundPaused() {
         document.documentElement.classList.toggle(
           'doc-background-paused',
-          document.visibilityState === 'hidden'
+          document.visibilityState === 'hidden' || !document.hasFocus()
         );
       }
       document.addEventListener('visibilitychange', syncDocBackgroundPaused);
+      window.addEventListener('blur',  syncDocBackgroundPaused);
+      window.addEventListener('focus', syncDocBackgroundPaused);
       syncDocBackgroundPaused();
     })();
   </script>
