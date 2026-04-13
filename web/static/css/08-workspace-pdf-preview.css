@@ -850,6 +850,7 @@ body.preview-mode-active .site-header-nav a.nav-link-active {
   min-width: 0;
   flex-shrink: 0;
   box-sizing: border-box;
+  will-change: transform;
 }
 
 /* Stack width is managed by JS (renderPdfContinuous / rerenderPdfZoomBuffered):
@@ -860,7 +861,6 @@ body.preview-mode-active .site-header-nav a.nav-link-active {
    (09-overview.css caps .pdf-page-wrap at 100% which prevents overflow-x). */
 .pdf-viewport-scroll .pdf-page-wrap {
   max-width: none;
-  contain: layout style;
 }
 
 /* ─── Portrait phones: scrollable tab track; hide ranking button ─────── */

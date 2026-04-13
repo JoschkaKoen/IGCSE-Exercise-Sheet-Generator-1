@@ -244,6 +244,24 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
   const stack = pagesStackEl(id);
   if (!scroll || !stack) return;
 
+  // Clear any active zoom transform BEFORE saving scroll, so the saved position
+  // is in layout-space (not transform-space). If settle fires while a bg render
+  // is still in-flight, the transform may still be active — convert and clear it.
+  if (stack.style.transform) {
+    const _tMatch = stack.style.transform.match(/scale\(([^)]+)\)/);
+    const _R = _tMatch ? (parseFloat(_tMatch[1]) || 1) : 1;
+    if (_R !== 1) {
+      const _cs0 = getComputedStyle(scroll);
+      const _pL = parseFloat(_cs0.paddingLeft)  || 0;
+      const _pT = parseFloat(_cs0.paddingTop)   || 0;
+      // Approximate conversion to layout-space (settle proportionally restores anyway)
+      scroll.scrollLeft = _pL + (scroll.scrollLeft - _pL) / _R;
+      scroll.scrollTop  = _pT + (scroll.scrollTop  - _pT) / _R;
+    }
+    stack.style.transform = '';
+    stack.style.transformOrigin = '';
+  }
+
   const _savedScrollTop  = scroll.scrollTop;
   const _savedScrollLeft = scroll.scrollLeft;
   const _oldScrollH = scroll.scrollHeight;
@@ -337,45 +355,70 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
 }
 
 /** Double-buffered zoom render: renders visible pages to OFFSCREEN canvases,
-    then swaps them into the DOM atomically (no flicker).
+    then swaps them into the DOM atomically together with clearing the CSS
+    transform and correcting the scroll position (no flicker).
     Returns the zoom level it rendered at. */
 export async function rerenderPdfZoomBuffered(id) {
   const s = getPdfState(id);
   if (!s.doc || !s.pages.length || !s.pages[0].vpW) return s.zoom;
   const scroll = scrollEl(id);
-  if (!scroll) return s.zoom;
-  const targetZoom = s.zoom;
-  const dpr = s.dpr || Math.min(window.devicePixelRatio || 1, 2);
+  const stack  = pagesStackEl(id);
+  if (!scroll || !stack) return s.zoom;
+
+  // Capture invariants BEFORE any async work — wheel events may fire during rendering.
+  const targetZoom       = s.zoom;
+  const _zBaseZoomBefore = state._zBaseZoom;
+  const pagesSnapshot    = s.pages.slice();          // stale-after-settle guard
+  const oldStackW        = parseFloat(stack.style.width) || 0;
+
+  // Max page layout width in the CURRENT base state (pages not yet resized).
+  let baseMaxW = 0;
+  for (let i = 0; i < pagesSnapshot.length; i++) {
+    const w = parseFloat(pagesSnapshot[i].wrap.style.width);
+    if (w > baseMaxW) baseMaxW = w;
+  }
+
+  const dpr         = s.dpr || Math.min(window.devicePixelRatio || 1, 2);
   const renderScale = s.baseFit * targetZoom * dpr;
   const cssScale    = s.baseFit * targetZoom;
 
+  // Compute pixel and CSS dimensions from targetZoom (not from current wrap sizes,
+  // which may be stale base-zoom layout dimensions when the transform approach is used).
   const dims = [];
-  for (let i = 0; i < s.pages.length; i++) {
-    const pg = s.pages[i];
+  for (let i = 0; i < pagesSnapshot.length; i++) {
+    const pg = pagesSnapshot[i];
     dims.push({
-      w: Math.floor(pg.vpW * renderScale),
-      h: Math.floor(pg.vpH * renderScale),
-      cssW: pg.wrap.style.width,
-      cssH: pg.wrap.style.height,
+      w:    Math.floor(pg.vpW * renderScale),
+      h:    Math.floor(pg.vpH * renderScale),
+      cssW: Math.floor(pg.vpW * cssScale) + 'px',
+      cssH: Math.floor(pg.vpH * cssScale) + 'px',
     });
   }
 
-  const scrollTop = scroll.scrollTop;
-  const scrollBot = scrollTop + scroll.clientHeight;
+  // Determine visible pages using the transform-aware visible range.
+  // With transform scale(R) from 0,0: visible stack-y range = [(ST-pT)/R, (ST+cH-pT)/R].
+  const cs0     = getComputedStyle(scroll);
+  const pT      = parseFloat(cs0.paddingTop) || 0;
+  const R_cur   = _zBaseZoomBefore > 0 ? targetZoom / _zBaseZoomBefore : 1;
+  const scrollT = scroll.scrollTop;
+  const scrollB = scrollT + scroll.clientHeight;
+  const visTop  = (scrollT - pT) / R_cur;
+  const visBot  = (scrollB - pT) / R_cur;
+
   const swaps = [];
   const renderPromises = [];
-  for (let i = 0; i < s.pages.length; i++) {
-    const pg = s.pages[i];
+  for (let i = 0; i < pagesSnapshot.length; i++) {
+    const pg  = pagesSnapshot[i];
     const top = pg.wrap.offsetTop;
     const bot = top + pg.wrap.offsetHeight;
-    if (bot < scrollTop - 200 || top > scrollBot + 200) continue;
+    if (bot < visTop - 200 || top > visBot + 200) continue;
     (function (idx, dim) {
       renderPromises.push(
-        s.doc.getPage(s.pages[idx].pageNum).then(function (page) {
+        s.doc.getPage(pagesSnapshot[idx].pageNum).then(function (page) {
           const vp = page.getViewport({ scale: renderScale });
           const offCanvas = document.createElement('canvas');
           offCanvas.className = 'pdf-canvas pdf-canvas-page';
-          offCanvas.width = dim.w;
+          offCanvas.width  = dim.w;
           offCanvas.height = dim.h;
           offCanvas.style.width  = dim.cssW;
           offCanvas.style.height = dim.cssH;
@@ -394,12 +437,49 @@ export async function rerenderPdfZoomBuffered(id) {
 
   return new Promise(function (resolve) {
     requestAnimationFrame(function () {
+      // 1. Swap canvases with stale-after-settle guard and correct CSS sizes.
       for (let j = 0; j < swaps.length; j++) {
         const sw = swaps[j];
-        const pg = s.pages[sw.idx];
+        // Skip if pages were rebuilt by a settle re-render since this render started.
+        if (s.pages[sw.idx] !== pagesSnapshot[sw.idx]) continue;
+        const pg = pagesSnapshot[sw.idx];
+        pg.wrap.style.width   = dims[sw.idx].cssW;
+        pg.wrap.style.height  = dims[sw.idx].cssH;
+        sw.canvas.style.width  = dims[sw.idx].cssW;
+        sw.canvas.style.height = dims[sw.idx].cssH;
         pg.wrap.replaceChild(sw.canvas, pg.canvas);
         pg.canvas = sw.canvas;
       }
+
+      // 2. Compute new stack width.
+      const cs2 = getComputedStyle(scroll);
+      const cW2 = scroll.clientWidth
+        - (parseFloat(cs2.paddingLeft)  || 0)
+        - (parseFloat(cs2.paddingRight) || 0);
+      let newMaxW = 0;
+      for (let k = 0; k < s.pages.length; k++) {
+        const w = parseFloat(s.pages[k].wrap.style.width);
+        if (w > newMaxW) newMaxW = w;
+      }
+      const newStackW = Math.max(cW2, newMaxW);
+
+      // 3. Correct scroll position before clearing the transform.
+      //    Derived invariant: newSL = SL + newGap - R * oldGap
+      //    (keeps the same page content at the left edge of the viewport).
+      const R       = targetZoom / _zBaseZoomBefore;
+      const oldGap  = Math.max(0, (oldStackW - baseMaxW) / 2);
+      const newGap  = Math.max(0, (newStackW - newMaxW) / 2);
+      scroll.scrollLeft = scroll.scrollLeft + newGap - R * oldGap;
+      // scrollTop: no vertical centering gap, no correction needed.
+
+      // 4. Atomically clear transform and apply new stack width.
+      stack.style.transform      = '';
+      stack.style.transformOrigin = '';
+      stack.style.width = newStackW + 'px';
+
+      // 5. Record that canvases are now rendered at targetZoom.
+      state._zBaseZoom = targetZoom;
+
       resolve(targetZoom);
     });
   });
