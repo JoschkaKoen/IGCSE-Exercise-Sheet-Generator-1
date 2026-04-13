@@ -429,21 +429,25 @@ def _generate_ranking_latex(ranking: list[str], title: str) -> str:
     items = "\n".join(f"  \\item {_latex_escape(r)}" for r in ranking)
     escaped_title = _latex_escape(title)
     return rf"""\documentclass[12pt]{{article}}
-\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{{geometry}}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2cm]{{geometry}}
 \usepackage[T1]{{fontenc}}
 \usepackage[utf8]{{inputenc}}
 \usepackage{{parskip}}
 \usepackage{{enumitem}}
+\usepackage{{multicol}}
 \begin{{document}}
+\setlength{{\columnseprule}}{{0.4pt}}
 \begin{{center}}
   {{\LARGE\bfseries Difficulty Ranking}}\\[0.5em]
   {{\large {escaped_title}}}\\[0.2em]
   {{\small most difficult $\rightarrow$ easiest}}
 \end{{center}}
 \vspace{{1.5em}}
+\begin{{multicols}}{{2}}
 \begin{{enumerate}}[leftmargin=2em]
 {items}
 \end{{enumerate}}
+\end{{multicols}}
 \end{{document}}
 """
 
