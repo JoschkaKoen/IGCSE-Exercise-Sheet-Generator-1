@@ -456,15 +456,5 @@ def build_scaffold(
     )
     _save_cache(ad, scaffold)
     _clear_legacy_scaffold_outputs(folder)
-    boxes_out = artifact_scaffold_boxes_path(ad)
-    _legacy_boxes_pdf = ad / "scaffold_boxes.pdf"
-    if _legacy_boxes_pdf.is_file():
-        try:
-            _legacy_boxes_pdf.unlink()
-        except OSError:
-            pass
-    out_pdf, n_rects, n_pages = write_scaffold_boxes_pdf(
-        exam_pdf, questions, output_path=boxes_out
-    )
     ok_line(f"{len(leaves)} questions  ·  {total_marks} marks total")
     return scaffold

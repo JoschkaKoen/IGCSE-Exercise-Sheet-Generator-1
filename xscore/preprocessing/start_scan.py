@@ -182,7 +182,6 @@ def deskew_phase(
         input_pdf=inp,
         output_pdf=tmp_deskew,
         dpi=dpi,
-        reflines_sidecar=out.with_name(f"{out.stem}_anchors.json"),
         saved_as=out.name,
     )
     shutil.move(str(tmp_deskew), str(out))
