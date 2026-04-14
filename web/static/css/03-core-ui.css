@@ -157,6 +157,13 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
   transition: all 0.2s ease;
 }
 
+.tab-active-orange {
+  background: linear-gradient(135deg, rgba(251,146,60,0.22), rgba(249,115,22,0.28));
+  color: rgb(254 215 170);
+  box-shadow: 0 0 0 1px rgba(251,146,60,0.28) inset;
+  transition: all 0.2s ease;
+}
+
 
 .tab-btn {
   touch-action: manipulation;

@@ -241,3 +241,10 @@ def tool_line(tool: str, message: str) -> None:
     c = get_console()
     c.print(f"[dim]  {icon('info')}  {message}[/]")
     sys.stdout.flush()
+
+
+def api_latency_line(seconds: float, *, label: str | None = None) -> None:
+    """Print a dim timing line after an AI API call completes."""
+    dur = format_duration(seconds)
+    suffix = f"  [{label}]" if label else ""
+    get_console().print(f"[dim]  {icon('info')}  {dur}{suffix}[/]")

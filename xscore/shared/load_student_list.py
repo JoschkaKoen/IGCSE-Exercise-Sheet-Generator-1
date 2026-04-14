@@ -117,10 +117,14 @@ def read_student_list(folder: Path) -> list[str]:
             "Supported: .xlsx, .xls, .csv, .pdf"
         )
 
+    import time as _time
+    from xscore.shared.terminal_ui import api_latency_line
+    _t0 = _time.perf_counter()
     response = client.models.generate_content(
         model=model_name,
         contents=contents,
         config=gen_config,
     )
+    api_latency_line(_time.perf_counter() - _t0)
     # JSON mode guarantees valid JSON; direct parse is safe
     return json.loads(response.text)

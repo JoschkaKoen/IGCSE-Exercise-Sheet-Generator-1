@@ -82,6 +82,7 @@ class GeminiProvider:
 
         for attempt in range(1, MAX_RETRIES + 1):
             try:
+                _t0 = time.perf_counter()
                 response = client.models.generate_content(
                     model=AI_MODEL,
                     contents=[
@@ -90,6 +91,8 @@ class GeminiProvider:
                     ],
                     config=gen_config,
                 )
+                from xscore.shared.terminal_ui import api_latency_line
+                api_latency_line(time.perf_counter() - _t0)
                 try:
                     finish_reason = response.candidates[0].finish_reason
                 except (IndexError, AttributeError):

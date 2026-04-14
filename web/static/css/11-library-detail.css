@@ -75,6 +75,7 @@
 .lib-sidebar-subject-dot--emerald { background: rgb(52 211 153);  box-shadow: 0 0 5px rgba(52, 211, 153, 0.55);  }
 .lib-sidebar-subject-dot--teal    { background: rgb(45 212 191);  box-shadow: 0 0 5px rgba(45, 212, 191, 0.55);  }
 .lib-sidebar-subject-dot--amber   { background: rgb(251 191 36);  box-shadow: 0 0 5px rgba(251, 191, 36, 0.55);  }
+.lib-sidebar-subject-dot--orange  { background: rgb(249 115 22);  box-shadow: 0 0 5px rgba(249, 115, 22, 0.55);  }
 .lib-sidebar-subject-name {
   font-size: 0.75rem;
   font-weight: 600;
@@ -168,6 +169,7 @@
 .lib-sidebar-item--emerald.is-active { background: rgba(52, 211, 153, 0.12);  color: rgb(110 231 183); box-shadow: inset 2px 0 0 rgba(52, 211, 153, 0.65);  }
 .lib-sidebar-item--teal.is-active    { background: rgba(45, 212, 191, 0.12);  color: rgb(94 234 212);  box-shadow: inset 2px 0 0 rgba(45, 212, 191, 0.65);  }
 .lib-sidebar-item--amber.is-active   { background: rgba(251, 191, 36, 0.12);  color: rgb(252 211 77);  box-shadow: inset 2px 0 0 rgba(251, 191, 36, 0.65);  }
+.lib-sidebar-item--orange.is-active  { background: rgba(249, 115, 22, 0.12);  color: rgb(253 186 116); box-shadow: inset 2px 0 0 rgba(249, 115, 22, 0.65);  }
 
 /* ── PDF preview pane ────────────────────────────────────────────────────── */
 

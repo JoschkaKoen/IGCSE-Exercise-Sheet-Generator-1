@@ -20,7 +20,7 @@ from xscore.config import (
     apply_kimi_k2_extra,
 )
 from xscore.extraction.images import normalize_extracted_record
-from xscore.shared.terminal_ui import log_ai_response_debug
+from xscore.shared.terminal_ui import api_latency_line, log_ai_response_debug
 
 
 try:
@@ -186,8 +186,9 @@ class KimiProvider:
                     response_format={"type": "json_object"},
                 )
                 apply_kimi_k2_extra(AI_MODEL, kwargs, thinking=KIMI_THINKING)
+                _t0 = time.perf_counter()
                 response = client.chat.completions.create(**kwargs)
-
+                api_latency_line(time.perf_counter() - _t0)
                 raw = response.choices[0].message.content or ""
                 log_ai_response_debug("kimi_extract", AI_MODEL, raw)
                 try:

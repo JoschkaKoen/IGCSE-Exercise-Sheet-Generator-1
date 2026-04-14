@@ -9,7 +9,7 @@ from typing import Any, Protocol, runtime_checkable
 
 from xscore.config import apply_kimi_k2_extra, resolve_pipeline_ai_model_id
 from xscore.extraction.images import to_jpeg_bytes
-from xscore.shared.terminal_ui import log_ai_response_debug, warn_line
+from xscore.shared.terminal_ui import api_latency_line, log_ai_response_debug, warn_line
 
 # Default: JSON object mode. Pass ``response_format=None`` to omit (non-JSON prompts).
 _USE_DEFAULT_JSON_OBJECT = object()
@@ -66,7 +66,9 @@ def kimi_image_call(
 
     for attempt in range(1, 4):
         try:
+            _t0 = time.perf_counter()
             resp = client.chat.completions.create(**create_kwargs)
+            api_latency_line(time.perf_counter() - _t0)
             raw = resp.choices[0].message.content or ""
             log_ai_response_debug("kimi_image", model, raw)
             return raw
@@ -103,7 +105,9 @@ def kimi_text_call(
 
     for attempt in range(1, 4):
         try:
+            _t0 = time.perf_counter()
             response = client.chat.completions.create(**kwargs)
+            api_latency_line(time.perf_counter() - _t0)
             raw = response.choices[0].message.content or ""
             log_ai_response_debug("kimi_text", model, raw)
             return raw

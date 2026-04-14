@@ -109,7 +109,7 @@
     </div>
 
     <p id="lib-desc" class="mt-3 sm:mt-5 max-w-xl text-[0.95rem] leading-relaxed text-slate-400">
-      Cambridge IGCSE question papers and mark schemes for Physics, Computer Science, Mathematics, Biology, and Chemistry (bundled with this project).
+      Cambridge question papers and mark schemes for Physics, Computer Science, Mathematics, Biology, Chemistry, and A-Level Computer Science (bundled with this project).
       Newest years first; within each year, sessions M → W → S. Download or use the generator to extract questions.
     </p>
 
@@ -163,6 +163,15 @@
               Chemistry
             </span>
           </button>
+          <button type="button" id="tab-a-level-cs"
+                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                  data-subject="a_level_computer_science"
+                  role="tab" aria-selected="false" aria-controls="grid-a-level-cs">
+            <span class="flex items-center gap-2 whitespace-nowrap">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-orange-400"></span>
+              A-Level CS
+            </span>
+          </button>
         </div>
       </div>
       <label class="flex flex-1 items-center gap-3 rounded-2xl border border-white/[0.09]
@@ -186,7 +195,8 @@
     <div id="grid-cs"        class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
     <div id="grid-math"      class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
     <div id="grid-biology"   class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
-    <div id="grid-chemistry" class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+    <div id="grid-chemistry"   class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+    <div id="grid-a-level-cs" class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
 
     <script type="application/json" id="lib-raw-data">{{ library_json | tojson }}</script>
 
@@ -236,7 +246,8 @@ var tabs = [
   { id: 'tab-cs',        subject: 'computer_science', gridId: 'grid-cs',        activeClass: 'tab-active-violet',  theme: 'violet',  label: 'Computer Science' },
   { id: 'tab-math',      subject: 'mathematics',      gridId: 'grid-math',      activeClass: 'tab-active-emerald', theme: 'emerald', label: 'Mathematics'      },
   { id: 'tab-biology',   subject: 'biology',          gridId: 'grid-biology',   activeClass: 'tab-active-teal',    theme: 'teal',    label: 'Biology'          },
-  { id: 'tab-chemistry', subject: 'chemistry',        gridId: 'grid-chemistry', activeClass: 'tab-active-amber',   theme: 'amber',   label: 'Chemistry'        },
+  { id: 'tab-chemistry',   subject: 'chemistry',                gridId: 'grid-chemistry',   activeClass: 'tab-active-amber',  theme: 'amber',  label: 'Chemistry'          },
+  { id: 'tab-a-level-cs', subject: 'a_level_computer_science', gridId: 'grid-a-level-cs', activeClass: 'tab-active-orange', theme: 'orange', label: 'A-Level CS'         },
 ];
 tabs.forEach(function (t) {
   t.el   = document.getElementById(t.id);
