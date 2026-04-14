@@ -83,11 +83,11 @@ Prefer folder_path when both apply.
 skip_clean_scan: true=reuse cleaned scan ("skip cleaning", "don't reprocess").
 force_clean_scan: true=ignore cache, re-clean ("re-clean", "force deskew"). Never both true.
 rescaffold: true=rebuild scaffold ("rebuild scaffold", "reparse", "refresh questions").
-through_step: 1-18 or null. 1=parse, 2=folder, 3=roster, 4=scaffold, 5=blank pages, 6=autorotate,
-  7=deskew, 8=detect page anchors, 9=calculate transformation, 10=remove vertical lines,
-  11=project bounding boxes, 12=refine bounding boxes, 13=detect student names,
-  14=detect questions attempted, 15=mark answers, 16=compile results,
-  17=check accuracy, 18=compile report.
+through_step: 1-18 or null. 1=parse, 2=folder, 3=roster, 4=exam PDF, 5=mark scheme,
+  6=merge scaffold, 7=blank pages, 8=autorotate, 9=deskew, 10=detect page anchors,
+  11=calculate transformation, 12=remove vertical lines, 13=project bounding boxes,
+  14=refine bounding boxes, 15=detect student names, 16=detect questions attempted,
+  17=mark answers, 18=compile results.
 no_report: true=skip PDF ("terminal only", "no report").
 """
 

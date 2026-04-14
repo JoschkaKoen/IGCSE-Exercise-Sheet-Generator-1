@@ -88,7 +88,7 @@ def run_scan_pipeline(
         artifact_dir = folder / f"{timestamp}_{suffix}"
     artifact_dir.mkdir(parents=True, exist_ok=True)
 
-    # ------------------------------------------------------------------ steps 4–5
+    # ------------------------------------------------------------------ steps 4–6
     empty_exam_path = folder / "empty_exam.pdf"
     if empty_exam_path.is_file():
         emit("Step 4 — AI API call: Parse exam PDF…")
@@ -99,14 +99,19 @@ def run_scan_pipeline(
                 emit(f"Step 4 — {len(raw_questions)} top-level questions extracted.")
                 emit("Step 5 — AI API call: Parse mark scheme…")
 
+            def _on_scheme_done(scheme_questions: list) -> None:
+                emit(f"Step 5 — {len(scheme_questions)} answers in mark scheme.")
+                emit("Step 6 — Merge scaffold…")
+
             scaffold = build_scaffold(
                 folder,
                 artifact_dir=artifact_dir,
                 exam_pdf_override=empty_exam_path,
                 on_exam_complete=_on_exam_done,
+                on_scheme_complete=_on_scheme_done,
             )
             emit(
-                f"Step 5 — {len(scaffold.gradable_questions)} gradable parts"
+                f"Step 6 — {len(scaffold.gradable_questions)} gradable parts"
                 f"  ·  {scaffold.total_marks} marks."
             )
         except Exception as exc:  # noqa: BLE001
@@ -114,13 +119,13 @@ def run_scan_pipeline(
     else:
         emit("Step 4 — No empty exam uploaded; scaffold skipped.")
 
-    # ------------------------------------------------------------------ steps 6–8
+    # ------------------------------------------------------------------ steps 7–9
     cleaned_path = artifact_dir / CLEANED_SCAN_PDF
 
-    emit("Step 6 — Locating scan PDF…")
+    emit("Step 7 — Locating scan PDF…")
     source_scan = find_source_scan_match(folder, artifact_dir, effective_dpi)
 
-    emit("Step 6 — Detecting blank pages…")
+    emit("Step 7 — Detecting blank pages…")
     run_with_last_log_line(
         lambda: detect_blank_pages_phase(
             source_scan,
@@ -131,10 +136,10 @@ def run_scan_pipeline(
         on_line,
     )
 
-    emit("Step 7 — Autorotating…")
+    emit("Step 8 — Autorotating…")
     run_with_last_log_line(lambda: autorotate_phase(artifact_dir), on_line)
 
-    emit("Step 8 — Deskewing…")
+    emit("Step 9 — Deskewing…")
     run_with_last_log_line(
         lambda: deskew_phase(folder, artifact_dir, effective_dpi),
         on_line,

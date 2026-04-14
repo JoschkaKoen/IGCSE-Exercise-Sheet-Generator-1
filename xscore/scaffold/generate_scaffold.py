@@ -318,6 +318,12 @@ def _save_cache(artifact_dir: Path, scaffold: ExamScaffold) -> None:
     with open(out, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
     write_scaffold_markdown(artifact_dir, payload)
+    for old_name in (artifact_dir / "5_scaffold.json", artifact_dir / "1_scaffold.json"):
+        if old_name.is_file() and old_name != out:
+            try:
+                old_name.unlink()
+            except OSError:
+                pass
     flat_old = legacy_flat_artifact_scaffold_cache_path(artifact_dir)
     if flat_old.is_file() and flat_old != out:
         try:
@@ -382,6 +388,7 @@ def build_scaffold(
     quiet: bool = False,
     exam_pdf_override: Path | None = None,
     on_exam_complete: "Any | None" = None,
+    on_scheme_complete: "Any | None" = None,
 ) -> ExamScaffold:
     """Build (or load from cache) the ExamScaffold for the exam in *folder*.
 
@@ -427,6 +434,7 @@ def build_scaffold(
     questions = build_ai_scaffold(
         exam_pdf, ans,
         on_exam_complete=on_exam_complete,
+        on_scheme_complete=on_scheme_complete,
         artifact_dir=ad,
     )
     if not questions:

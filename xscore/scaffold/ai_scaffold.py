@@ -182,6 +182,7 @@ def build_ai_scaffold(
     marking_scheme_pdf: Path | None,
     *,
     on_exam_complete: "Callable[[list[dict]], None] | None" = None,
+    on_scheme_complete: "Callable[[list[dict]], None] | None" = None,
     artifact_dir: Path | None = None,
 ) -> list[Question]:
     """Extract exam structure via Gemini and return a list[Question].
@@ -192,6 +193,10 @@ def build_ai_scaffold(
         on_exam_complete: Optional callback invoked with the raw question dicts
             after the first API call (exam extraction) completes successfully.
             Use this to advance the pipeline step counter between the two calls.
+        on_scheme_complete: Optional callback invoked with the raw scheme question
+            dicts after the second API call completes, but *before* the scheme is
+            merged into the question tree.  Use this to advance the step counter
+            to the merge step.  May raise SystemExit(0) to stop before merging.
         artifact_dir: If set, write intermediate JSON + Markdown snapshots:
             ``4_exam_questions.*`` after call 1, ``5_mark_scheme.*`` after call 2.
             Saves are best-effort; OSError is silently ignored.
@@ -311,6 +316,10 @@ def build_ai_scaffold(
                         _save_mark_scheme(artifact_dir, scheme_data["questions"])
                     except OSError:
                         pass
+                # Notify caller that scheme parse is done, before merging.
+                # The callback may raise SystemExit(0) for --through 5.
+                if on_scheme_complete is not None:
+                    on_scheme_complete(scheme_data["questions"])
                 scheme_map = {
                     _norm(q.get("number", "")): q
                     for q in scheme_data["questions"]
