@@ -133,9 +133,9 @@
   box-shadow: 0 0 0 0.5px rgba(16, 185, 129, 0.22), 0 12px 36px -6px rgba(16, 185, 129, 0.42);
 }
 
-/* orange — A-Level Computer Science */
+/* indigo — A-Level Computer Science */
 #generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(6) {
-  box-shadow: 0 0 0 0.5px rgba(249, 115, 22, 0.12), 0 4px 18px -6px rgba(249, 115, 22, 0.25);
+  box-shadow: 0 0 0 0.5px rgba(99, 102, 241, 0.12), 0 4px 18px -6px rgba(99, 102, 241, 0.25);
 }
 #generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(6):hover {
   box-shadow: 0 0 0 0.5px rgba(249, 115, 22, 0.22), 0 12px 36px -6px rgba(249, 115, 22, 0.42);
@@ -254,9 +254,9 @@
 }
 
 .subject-badge-a-level-cs {
-  background: rgba(249, 115, 22, 0.12);
-  border: 1px solid rgba(249, 115, 22, 0.25);
-  color: rgb(254 215 170);
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: rgb(199 210 254);
 }
 
 /* ─── Hero icon float ────────────────────────────────────────────────────── */
@@ -349,7 +349,7 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 .subject-badge-chemistry:hover { filter: brightness(1.15) drop-shadow(0 0 5px rgba(203, 213, 225, 0.35)); }
 .subject-badge-mathematics:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(14, 165, 233, 0.45)); }
 .subject-badge-biology:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(16, 185, 129, 0.45)); }
-.subject-badge-a-level-cs:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(249, 115, 22, 0.45)); }
+.subject-badge-a-level-cs:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(99, 102, 241, 0.45)); }
 
 /* ─── Quick-fill 2-col grid on mobile: last button spans full width if alone ── */
 @media (max-width: 639px) {

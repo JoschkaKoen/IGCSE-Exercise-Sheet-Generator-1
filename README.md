@@ -92,37 +92,39 @@ flowchart TD
 
     s1["Step 1 — Parse grading instructions\n(LLM extracts DPI and task options)"]
     s2["Step 2 — Locate exam folder\n(terminal route only — fuzzy folder match)"]
-    s3["Step 3 — Load student roster"]
+    s3["Step 3 — Load student roster\nwrites: 3_students.json + 3_students.md"]
 
-    subgraph s4block [Step 4 — Build exam scaffold — optional]
+    subgraph s45block ["Steps 4–5 — Build exam scaffold (optional — requires exam PDF)"]
         direction LR
-        s4a["Gemini call 1\n(exam PDF → question hierarchy)"]
-        s4b["Gemini call 2\n(answer sheet → correct answers + criteria)"]
-        s4a -.->|"if answer sheet present"| s4b
+        s4["Step 4 — Gemini call 1\nexam PDF → question hierarchy\nwrites: 4_exam_questions.json + 4_exam_questions.md"]
+        s5["Step 5 — Gemini call 2\nanswer sheet → answers + criteria\nwrites: 5_mark_scheme.json + 5_mark_scheme.md"]
+        s4 -.->|"if answer sheet present"| s5
     end
 
-    s5["Step 5 — Detect and remove blank pages"]
-    s6["Step 6 — Auto-rotate pages to correct orientation"]
-    s7["Step 7 — Deskew pages"]
-    cache["scaffold.json\n+ scaffold.md"]
-    out[cleaned_scan.pdf — ready for marking]
+    cache["1_scaffold.json + 5_scaffold.md\n(merged scaffold — written after step 5)"]
+    s6["Step 6 — Detect and remove blank pages"]
+    s7["Step 7 — Auto-rotate pages to correct orientation"]
+    s8["Step 8 — Deskew pages"]
+    out[3_cleaned_scan.pdf — ready for marking]
 
     u1 & u2 & u3 & u4 --> s1
     s1 --> s2
     s2 -->|terminal| s3
     s1 -->|web| s3
-    s3 --> s4block
-    s4block --> cache
-    s4block --> s5 --> s6 --> s7 --> out
+    s3 --> s45block
+    s45block --> cache
+    s45block --> s6
+    s6 --> s7 --> s8 --> out
 ```
 
 | Step | Description |
 |------|-------------|
 | **1** | An LLM (Kimi) parses any free-text grading prompt to extract DPI, task type, and student filter options. |
 | **2** | **Terminal route only.** A fuzzy folder search locates the exam folder on disk from the hint in the prompt or `--folder` flag. The web route skips this step because the folder is determined by the upload. |
-| **3** | The student roster is read from `StudentList.*` in the exam folder. Supports `.xlsx`, `.xls`, `.csv`, and `.pdf` formats via Gemini. |
-| **4** | **Optional.** If an exam PDF is present (`empty_exam.pdf` on web, or any non-scan PDF on terminal), two Gemini calls extract the full question hierarchy: call 1 reads the exam paper and returns every question and sub-question with its number, type, marks, page, and answer options; call 2 reads the answer sheet (if provided) and returns correct answers and marking criteria. Results are merged and cached as `scaffold.json` + `scaffold.md`. Requires `GOOGLE_API_KEY`. Configure the model with `SCAFFOLD_MODEL` in `default.env`. |
-| **5–7** | Blank pages are stripped, all pages are rotated upright, and small-angle skew is corrected. The result is `3_cleaned_scan.pdf` — ready for manual or automated marking. |
+| **3** | The student roster is read from `StudentList.*` in the exam folder. Supports `.xlsx`, `.xls`, `.csv`, and `.pdf` formats via Gemini. Writes `3_students.json` (plain name array) and `3_students.md` (numbered list). |
+| **4** | **Optional — requires exam PDF.** Gemini call 1 reads the exam paper and returns every question and sub-question with its number, type, marks, page, and answer options. Writes `4_exam_questions.json` + `4_exam_questions.md`. Requires `GOOGLE_API_KEY`. Configure with `READ_EXAM_PDF_MODEL` in `default.env`. |
+| **5** | **Optional — requires answer sheet.** Gemini call 2 reads the answer sheet and returns correct answers and marking criteria. Writes `5_mark_scheme.json` + `5_mark_scheme.md` (raw scheme, before merge), then merges with step 4 results and writes the final `1_scaffold.json` + `5_scaffold.md`. Configure with `READ_MARK_SCHEME_MODEL` in `default.env`. |
+| **6–8** | Blank pages are stripped, all pages are rotated upright, and small-angle skew is corrected. The result is `3_cleaned_scan.pdf` — ready for manual or automated marking. |
 
 The cleaned PDF has blank pages stripped, all pages upright, and skew corrected — ready for manual or automated marking.
 
@@ -164,7 +166,7 @@ The **Grade** page depends on the `xscore` package (not in `requirements.txt`) a
 |---|---|
 | `xscore` | Install separately if you want the scan-cleaning pipeline |
 | `KIMI_API_KEY` | Add to `.env`; used for step 1 (prompt parsing) and step 6 (orientation detection) |
-| `GOOGLE_API_KEY` | Add to `.env`; used for step 3 (student roster parsing) and step 4 (AI exam scaffold) |
+| `GOOGLE_API_KEY` | Add to `.env`; used for step 3 (student roster parsing) and steps 4–5 (AI exam scaffold) |
 
 If `xscore` is not installed, the rest of the app runs normally — only `/grade` will return errors.
 
@@ -215,8 +217,9 @@ Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 | `NL_MODEL` | Prompt interpretation (subject, papers, questions) |
 | `MCQ_MODEL` | MCQ explanation generation |
 | `RANKING_MODEL` | Difficulty ranking job (questions ranked hardest to easiest) |
-| `STUDENT_LIST_MODEL` | Gemini model used to parse student roster files (PDF, Excel, CSV) |
-| `SCAFFOLD_MODEL` | Gemini model used for step 4 — AI exam scaffold (question extraction from PDF) |
+| `STUDENT_LIST_MODEL` | Gemini model used for step 3 — parse student roster files (PDF, Excel, CSV) |
+| `READ_EXAM_PDF_MODEL` | Gemini model used for step 4 — extract question hierarchy from exam PDF |
+| `READ_MARK_SCHEME_MODEL` | Gemini model used for step 5 — extract answers and criteria from answer sheet |
 
 **Optional thinking suffix:** add `, off`, `, low`, or `, high` after the model name:
 

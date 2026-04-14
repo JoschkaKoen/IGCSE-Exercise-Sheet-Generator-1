@@ -27,7 +27,7 @@ def artifact_scaffold_json_path(artifact_dir: Path) -> Path:
 
 def artifact_scaffold_markdown_path(artifact_dir: Path) -> Path:
     """Human-readable scaffold view beside :func:`artifact_scaffold_json_path`."""
-    return artifact_dir / "scaffold.md"
+    return artifact_dir / "5_scaffold.md"
 
 
 def legacy_flat_artifact_scaffold_cache_path(artifact_dir: Path) -> Path:
