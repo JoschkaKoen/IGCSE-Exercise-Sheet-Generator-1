@@ -13,15 +13,16 @@ _LIB_NAME_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"_([smw])(\d{2})_ms_(\d+)"), "ms"),
     (re.compile(r"_([smw])(\d{2})_ci_(\d+)"), "ci"),
 )
-_SESSION_ORDER = {"m": 0, "w": 1, "s": 2}
+_SESSION_ORDER = {"m": 0, "w": 1, "s": 2, "sp": 3}
 _COMPONENT_ORDER = {"qp": 0, "ms": 1, "ci": 2}
 
 # Short labels for session letter (library section headers).
-_SESSION_LABEL = {"m": "M", "w": "W", "s": "S"}
+_SESSION_LABEL = {"m": "M", "w": "W", "s": "S", "sp": "Sp."}
 _SESSION_TITLE = {
     "m": "March session",
     "w": "October / November session",
     "s": "June session",
+    "sp": "Specimen",
 }
 
 # Descriptive IGCSE filenames (e.g. ``0580 Mathematics June 2023 Question Paper  21.pdf``).
@@ -37,6 +38,25 @@ _MATH_DESCRIPTIVE = re.compile(
 _MATH_GT_ER = re.compile(
     rf"{_DESCRIPTIVE_SUBJECTS}\s+(march|june|november)\s+(\d{{4}})\s+(grade thresholds|examiner report)\s*$",
     re.IGNORECASE,
+)
+
+# A-Level CS (9618) descriptive filenames, e.g.:
+#   ``9618 Computer Science June 2021 Question paper 11``
+#   ``9618 Computer Science June 2021 Mark Scheme 11``
+#   ``9618 Computer Science June 2021 Insert 21``
+#   ``9618 Computer Science June 2021 Grade Thresholds``
+#   ``9618 Computer Science 2021 Specimen Question Paper 1``
+_ALEVEL_CS_SESSION = re.compile(
+    r"Computer Science\s+(march|june|november)\s+(\d{4})\s+(.+?)\s+(\d+)\s*$",
+    re.IGNORECASE | re.DOTALL,
+)
+_ALEVEL_CS_SESSION_GT_ER = re.compile(
+    r"Computer Science\s+(march|june|november)\s+(\d{4})\s+(grade thresholds|examiner report)\s*$",
+    re.IGNORECASE,
+)
+_ALEVEL_CS_SPECIMEN = re.compile(
+    r"Computer Science\s+(\d{4})\s+Specimen\s+(.+?)\s+(\d+)\s*$",
+    re.IGNORECASE | re.DOTALL,
 )
 
 
@@ -90,6 +110,55 @@ def _parse_math_descriptive_stem(stem: str) -> dict[str, str | int] | None:
     }
 
 
+def _parse_alevel_cs_stem(stem: str) -> dict[str, str | int] | None:
+    """Parse A-Level CS (9618) descriptive filename stems."""
+    # Session paper with paper number (QP / MS / Insert)
+    m = _ALEVEL_CS_SESSION.search(stem)
+    if m:
+        month_w, year_s, comp_raw, paper_s = m.group(1), m.group(2), m.group(3), m.group(4)
+        letter = _MONTH_TO_SESSION.get(month_w.lower())
+        if not letter:
+            return None
+        year = int(year_s, 10)
+        paper = int(paper_s, 10)
+        comp_norm = re.sub(r"\s+", " ", comp_raw.strip().lower())
+        if "question paper" in comp_norm:
+            kind = "qp"
+        elif "mark scheme" in comp_norm:
+            kind = "ms"
+        elif "insert" in comp_norm:
+            kind = "ci"
+        else:
+            kind = "_"
+        session_code = f"{letter}{year_s[-2:]}"
+        return {"letter": letter, "year": year, "paper": paper, "kind": kind, "session_code": session_code}
+    # Session paper without number (Grade Thresholds / Examiner Report)
+    m2 = _ALEVEL_CS_SESSION_GT_ER.search(stem)
+    if m2:
+        month_w, year_s, tail = m2.group(1), m2.group(2), m2.group(3).lower()
+        letter = _MONTH_TO_SESSION.get(month_w.lower())
+        if not letter:
+            return None
+        kind = "gt" if "threshold" in tail else "er"
+        session_code = f"{letter}{year_s[-2:]}"
+        return {"letter": letter, "year": int(year_s, 10), "paper": 0, "kind": kind, "session_code": session_code}
+    # Specimen paper
+    m3 = _ALEVEL_CS_SPECIMEN.search(stem)
+    if m3:
+        year_s, comp_raw, paper_s = m3.group(1), m3.group(2), m3.group(3)
+        comp_norm = re.sub(r"\s+", " ", comp_raw.strip().lower())
+        if "question paper" in comp_norm:
+            kind = "qp"
+        elif "mark scheme" in comp_norm:
+            kind = "ms"
+        elif "insert" in comp_norm:
+            kind = "ci"
+        else:
+            kind = "_"
+        return {"letter": "sp", "year": int(year_s, 10), "paper": int(paper_s, 10), "kind": kind, "session_code": "Specimen"}
+    return None
+
+
 def library_pdf_group_meta(filename: str) -> dict[str, str]:
     """
     Fields for UI grouping: calendar year, session letter, component kind.
@@ -104,6 +173,16 @@ def library_pdf_group_meta(filename: str) -> dict[str, str]:
             "paper_kind": str(math["kind"]),
             "session_heading": _SESSION_LABEL[str(math["letter"])],
             "session_title": _SESSION_TITLE[str(math["letter"])],
+        }
+    alevel = _parse_alevel_cs_stem(stem)
+    if alevel:
+        letter = str(alevel["letter"])
+        return {
+            "group_year": str(alevel["year"]),
+            "group_session": letter,
+            "paper_kind": str(alevel["kind"]),
+            "session_heading": _SESSION_LABEL.get(letter, ""),
+            "session_title": _SESSION_TITLE.get(letter, ""),
         }
     stem_lower = stem.lower()
     for rx, kind in _LIB_NAME_PATTERNS:
@@ -153,6 +232,11 @@ def library_pdf_sort_key(filename: str) -> tuple:
             comp,
             stem,
         )
+    alevel = _parse_alevel_cs_stem(stem_raw)
+    if alevel:
+        sess = _SESSION_ORDER.get(str(alevel["letter"]), 99)
+        comp = _MATH_COMPONENT_ORDER.get(str(alevel["kind"]), 9)
+        return (0, -int(alevel["year"]), sess, int(alevel["paper"]), comp, stem)
     for rx, kind in _LIB_NAME_PATTERNS:
         m = rx.search(stem)
         if m:
@@ -185,6 +269,22 @@ def library_pdf_display_name(filename: str) -> str:
             return f"{sc} Questions {pn}"
         if k == "ms":
             return f"{sc} Answers {pn}"
+        if k == "gt":
+            return f"{sc} Grade thresholds"
+        if k == "er":
+            return f"{sc} Examiner report"
+        return filename
+    alevel = _parse_alevel_cs_stem(stem_raw)
+    if alevel:
+        sc = str(alevel["session_code"])
+        k = str(alevel["kind"])
+        pn = str(alevel["paper"])
+        if k == "qp":
+            return f"{sc} Questions {pn}"
+        if k == "ms":
+            return f"{sc} Answers {pn}"
+        if k == "ci":
+            return f"{sc} Insert {pn}"
         if k == "gt":
             return f"{sc} Grade thresholds"
         if k == "er":
@@ -262,6 +362,7 @@ _SUBJECT_PREFIXES: dict[str, str] = {
     "mathematics": "Maths",
     "biology": "Biology",
     "chemistry": "Chemistry",
+    "a_level_computer_science": "A-Level CS",
 }
 
 
