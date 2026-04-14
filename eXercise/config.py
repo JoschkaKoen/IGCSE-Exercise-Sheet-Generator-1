@@ -29,6 +29,7 @@ COMPUTER_SCIENCE_EXAM_DIR = PROJECT_ROOT / "exams" / "computer_science"
 MATHEMATICS_EXAM_DIR = PROJECT_ROOT / "exams" / "mathematics"
 BIOLOGY_EXAM_DIR = PROJECT_ROOT / "exams" / "biology"
 CHEMISTRY_EXAM_DIR = PROJECT_ROOT / "exams" / "chemistry"
+A_LEVEL_COMPUTER_SCIENCE_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level_computer_science"
 
 # Maps NL/JSON subject keys to the folders above.
 EXAM_ROOT_BY_KEY = {
@@ -37,6 +38,7 @@ EXAM_ROOT_BY_KEY = {
     "mathematics": MATHEMATICS_EXAM_DIR,
     "biology": BIOLOGY_EXAM_DIR,
     "chemistry": CHEMISTRY_EXAM_DIR,
+    "a_level_computer_science": A_LEVEL_COMPUTER_SCIENCE_EXAM_DIR,
 }
 
 # ---------------------------------------------------------------------------
@@ -78,6 +80,7 @@ PAGE_HEADER_BY_EXAM = {
     "mathematics": "IGCSE Mathematics",
     "biology": "IGCSE Biology",
     "chemistry": "IGCSE Chemistry",
+    "a_level_computer_science": "A-Level Computer Science",
 }
 
 # ---------------------------------------------------------------------------
@@ -197,6 +200,7 @@ SUBJECT_CONFIG: dict[str, SubjectConfig] = {
     "mathematics": DEFAULT_SUBJECT_CONFIG,
     "biology": DEFAULT_SUBJECT_CONFIG,
     "chemistry": DEFAULT_SUBJECT_CONFIG,
+    "a_level_computer_science": DEFAULT_SUBJECT_CONFIG,
 }
 
 

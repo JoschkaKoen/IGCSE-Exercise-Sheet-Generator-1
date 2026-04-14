@@ -1,6 +1,6 @@
 # Install into a venv (see comments at top of eXercise.py).
 # PDF pipeline: PyMuPDF (fitz), PIL (header band). AI: OpenAI-compatible client (xAI, etc.).
-# System tools (pdflatex, pdfjam) are NOT pip packages — see README.md "System dependencies" and Dockerfile.
+# System tools (pdflatex, pdfjam, poppler/pdftoppm, tesseract) are NOT pip packages — see README.md.
 pymupdf>=1.24.0
 Pillow>=10.0.0
 python-dotenv>=1.0.0
@@ -8,6 +8,12 @@ openai>=1.40.0
 google-genai>=1.0.0
 openpyxl>=3.1.0
 rich>=13.0.0
+# xScore scan pipeline
+numpy>=1.26.0
+opencv-python>=4.9.0
+pdf2image>=1.17.0
+pikepdf>=8.0.0
+pytesseract>=0.3.10
 # Web UI
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
