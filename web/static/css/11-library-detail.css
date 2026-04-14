@@ -169,7 +169,7 @@
 .lib-sidebar-item--emerald.is-active { background: rgba(52, 211, 153, 0.12);  color: rgb(110 231 183); box-shadow: inset 2px 0 0 rgba(52, 211, 153, 0.65);  }
 .lib-sidebar-item--teal.is-active    { background: rgba(45, 212, 191, 0.12);  color: rgb(94 234 212);  box-shadow: inset 2px 0 0 rgba(45, 212, 191, 0.65);  }
 .lib-sidebar-item--amber.is-active   { background: rgba(251, 191, 36, 0.12);  color: rgb(252 211 77);  box-shadow: inset 2px 0 0 rgba(251, 191, 36, 0.65);  }
-.lib-sidebar-item--orange.is-active  { background: rgba(249, 115, 22, 0.12);  color: rgb(253 186 116); box-shadow: inset 2px 0 0 rgba(249, 115, 22, 0.65);  }
+.lib-sidebar-item--indigo.is-active  { background: rgba(99, 102, 241, 0.12);  color: rgb(199 210 254); box-shadow: inset 2px 0 0 rgba(99, 102, 241, 0.65);  }
 
 /* ── PDF preview pane ────────────────────────────────────────────────────── */
 

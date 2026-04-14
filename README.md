@@ -83,38 +83,43 @@ flowchart TD
 ```mermaid
 flowchart TD
     subgraph uploads [Uploads — web route]
-        direction TB
+        direction LR
         u1[exam scan PDF]
         u2[student roster — optional]
-        u3[empty exam PDF — optional]
+        u3[exam PDF — optional]
         u4[answer sheet — optional]
     end
 
-    s1["Step 1 — Parse grading instructions\n(LLM extracts DPI and task options)"]
-    s2["Step 2 — Locate exam folder\n(terminal route only — fuzzy folder match)"]
-    s3["Step 3 — Load student roster\nwrites: 3_students.json + 3_students.md"]
+    s1[Step 1 — Parse grading instructions]
+    s2["Step 2 — Locate exam folder\n(terminal route only)"]
+    s3[Step 3 — Read student roster]
 
-    subgraph s45block ["Steps 4–5 — Build exam scaffold (optional — requires exam PDF)"]
-        direction LR
-        s4["Step 4 — Gemini call 1\nexam PDF → question hierarchy\nwrites: 4_exam_questions.json + 4_exam_questions.md"]
-        s5["Step 5 — Gemini call 2\nanswer sheet → answers + criteria\nwrites: 5_mark_scheme.json + 5_mark_scheme.md"]
+    subgraph scaffold ["Steps 4–5 — Exam scaffold  (skipped if no exam PDF)"]
+        s4["Step 4 — Gemini call 1\nParse exam PDF"]
+        s5["Step 5 — Gemini call 2\nParse answer sheet"]
         s4 -.->|"if answer sheet present"| s5
     end
 
-    cache["1_scaffold.json + 5_scaffold.md\n(merged scaffold — written after step 5)"]
-    s6["Step 6 — Detect and remove blank pages"]
-    s7["Step 7 — Auto-rotate pages to correct orientation"]
-    s8["Step 8 — Deskew pages"]
-    out[3_cleaned_scan.pdf — ready for marking]
+    s6[Step 6 — Detect blank pages]
+    s7[Step 7 — Auto-rotate pages]
+    s8[Step 8 — Deskew pages]
 
-    u1 & u2 & u3 & u4 --> s1
+    f3[/"3_students.json\n3_students.md"/]
+    f4[/"4_exam_questions.json\n4_exam_questions.md"/]
+    f5[/"5_mark_scheme.json\n5_mark_scheme.md"/]
+    fmerge[/"1_scaffold.json\n5_scaffold.md"/]
+    out([3_cleaned_scan.pdf])
+
+    uploads --> s1
     s1 --> s2
     s2 -->|terminal| s3
     s1 -->|web| s3
-    s3 --> s45block
-    s45block --> cache
-    s45block --> s6
-    s6 --> s7 --> s8 --> out
+    s3 --> scaffold --> s6 --> s7 --> s8 --> out
+
+    s3 -.-> f3
+    s4 -.-> f4
+    s5 -.-> f5
+    scaffold -.-> fmerge
 ```
 
 | Step | Description |
@@ -125,8 +130,6 @@ flowchart TD
 | **4** | **Optional — requires exam PDF.** Gemini call 1 reads the exam paper and returns every question and sub-question with its number, type, marks, page, and answer options. Writes `4_exam_questions.json` + `4_exam_questions.md`. Requires `GOOGLE_API_KEY`. Configure with `READ_EXAM_PDF_MODEL` in `default.env`. |
 | **5** | **Optional — requires answer sheet.** Gemini call 2 reads the answer sheet and returns correct answers and marking criteria. Writes `5_mark_scheme.json` + `5_mark_scheme.md` (raw scheme, before merge), then merges with step 4 results and writes the final `1_scaffold.json` + `5_scaffold.md`. Configure with `READ_MARK_SCHEME_MODEL` in `default.env`. |
 | **6–8** | Blank pages are stripped, all pages are rotated upright, and small-angle skew is corrected. The result is `3_cleaned_scan.pdf` — ready for manual or automated marking. |
-
-The cleaned PDF has blank pages stripped, all pages upright, and skew corrected — ready for manual or automated marking.
 
 ---
 
