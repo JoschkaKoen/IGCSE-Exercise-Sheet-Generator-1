@@ -39,7 +39,6 @@ def run_scan_pipeline(
     """
     from .process_log import run_with_last_log_line
 
-    from xscore.extraction.providers.kimi import KimiProvider
     from xscore.marking.parse_instruction import parse_prompt
     from xscore.preprocessing.start_scan import (
         CLEANED_SCAN_PDF,
@@ -55,19 +54,12 @@ def run_scan_pipeline(
         on_line(msg)
 
     # ------------------------------------------------------------------ step 1
-    emit("Step 1 — Creating Kimi client…")
-    client = KimiProvider.create_client()
-    if client is None:
-        raise RuntimeError(
-            "Could not create Kimi API client — set KIMI_API_KEY in your environment."
-        )
-
     effective_dpi = dpi or 400
     if prompt and prompt.strip():
-        emit("Step 1 — Parsing grading instructions…")
+        emit("Step 1 — AI API call: Parse grading instructions…")
         try:
             instruction = run_with_last_log_line(
-                lambda: parse_prompt(prompt, client=client, dpi_override=dpi),
+                lambda: parse_prompt(prompt, dpi_override=dpi),
                 on_line,
             )
             if dpi is None:

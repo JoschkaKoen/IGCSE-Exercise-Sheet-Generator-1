@@ -25,12 +25,19 @@ from xscore.shared.models import BBox, McAnswerOption, Question
 # Model config — same pattern as load_student_list.py
 # ---------------------------------------------------------------------------
 
-def _read_model_config() -> tuple[str, str | None]:
-    raw = os.getenv("SCAFFOLD_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash"))
+def _parse_model(raw: str) -> tuple[str, str | None]:
     if "," in raw:
         model, effort = raw.split(",", 1)
         return model.strip(), effort.strip() or None
     return raw.strip(), None
+
+
+def _exam_pdf_model_config() -> tuple[str, str | None]:
+    return _parse_model(os.getenv("READ_EXAM_PDF_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash")))
+
+
+def _mark_scheme_model_config() -> tuple[str, str | None]:
+    return _parse_model(os.getenv("READ_MARK_SCHEME_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash")))
 
 
 # ---------------------------------------------------------------------------
@@ -169,28 +176,24 @@ def build_ai_scaffold(
     except ImportError:
         raise RuntimeError("google-genai not installed; run: pip install google-genai")
 
-    api_key = os.environ.get("GOOGLE_API_KEY", "").strip()
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
     if not api_key:
-        raise RuntimeError("GOOGLE_API_KEY not set")
+        raise RuntimeError("GEMINI_API_KEY not set")
 
-    model_name, effort = _read_model_config()
+    exam_model, exam_effort = _exam_pdf_model_config()
+    scheme_model, scheme_effort = _mark_scheme_model_config()
     client = gai.Client(api_key=api_key)
 
-    # Thinking config
     thinking_map = {"off": 0, "low": 1024, "high": 8192}
-    thinking_cfg = None
-    if effort in thinking_map:
-        thinking_cfg = gai_types.ThinkingConfig(
-            thinking_budget=thinking_map[effort],
-            include_thoughts=False,
-        )
 
-    gen_config_kwargs: dict = {
-        "max_output_tokens": 16384,
-        "response_mime_type": "application/json",
-    }
-    if thinking_cfg is not None:
-        gen_config_kwargs["thinking_config"] = thinking_cfg
+    def _make_gen_config(effort: str | None, system: str) -> "gai_types.GenerateContentConfig":
+        cfg: dict = {"max_output_tokens": 16384, "response_mime_type": "application/json"}
+        if effort in thinking_map:
+            cfg["thinking_config"] = gai_types.ThinkingConfig(
+                thinking_budget=thinking_map[effort],
+                include_thoughts=False,
+            )
+        return gai_types.GenerateContentConfig(system_instruction=system, **cfg)
 
     # ---- Upload PDFs in parallel ----------------------------------------
     pdfs_to_upload: list[tuple[str, Path]] = [("exam", exam_pdf)]
@@ -211,20 +214,16 @@ def build_ai_scaffold(
 
         # ---- Call 1: exam extraction ------------------------------------
         exam_file = uploaded_files["exam"]
-        exam_gen_config = gai_types.GenerateContentConfig(
-            system_instruction=_SYSTEM_EXAM,
-            **gen_config_kwargs,
-        )
         _t0 = time.perf_counter()
         exam_response = client.models.generate_content(
-            model=model_name,
+            model=exam_model,
             contents=[
                 gai_types.Part.from_uri(
                     file_uri=exam_file.uri, mime_type="application/pdf"
                 ),
                 gai_types.Part.from_text(text=_USER_EXAM),
             ],
-            config=exam_gen_config,
+            config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
         )
         api_latency_line(time.perf_counter() - _t0, label="exam")
         try:
@@ -247,20 +246,16 @@ def build_ai_scaffold(
         # ---- Call 2: mark-scheme extraction (optional) ------------------
         if "scheme" in uploaded_files:
             scheme_file = uploaded_files["scheme"]
-            scheme_gen_config = gai_types.GenerateContentConfig(
-                system_instruction=_SYSTEM_SCHEME,
-                **gen_config_kwargs,
-            )
             _t0 = time.perf_counter()
             scheme_response = client.models.generate_content(
-                model=model_name,
+                model=scheme_model,
                 contents=[
                     gai_types.Part.from_uri(
                         file_uri=scheme_file.uri, mime_type="application/pdf"
                     ),
                     gai_types.Part.from_text(text=_USER_SCHEME),
                 ],
-                config=scheme_gen_config,
+                config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
             )
             api_latency_line(time.perf_counter() - _t0, label="mark scheme")
             try:

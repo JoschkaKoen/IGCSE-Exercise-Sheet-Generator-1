@@ -190,16 +190,16 @@
   }
 }
 
-/* Library PDF scroll pane: absolute-fill inside #lib-detail-preview so the
-   browser always sees a DEFINITE height before renderPdfContinuous runs.
-   align-items:center centres the pages stack (JS sets an explicit px width). */
+/* Centre the pages stack when JS sets an explicit px width narrower than container */
+#lib-detail-preview .pdf-pages-stack {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Match the workspace preview-mode override: display:block allows the pages
+   stack to centre via margin:auto (flex align-items:stretch would left-align it). */
 #lib-detail-preview .pdf-viewport-scroll {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  align-items: center;
+  display: block;
   background: linear-gradient(180deg, rgba(8, 30, 52, 0.52) 0%, rgba(2, 8, 20, 0.5) 100%);
 }
 

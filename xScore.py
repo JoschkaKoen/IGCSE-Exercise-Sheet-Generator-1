@@ -127,7 +127,6 @@ def parse_args() -> argparse.Namespace:
 class _Ctx:
     args: argparse.Namespace
     timestamp: str
-    client: Any = None
     instruction: Any = None          # TaskInstruction
     parse_elapsed: float = 0.0
     skip_clean_scan: bool = False
@@ -159,7 +158,6 @@ def _print_footer(ctx: _Ctx, gi: SimpleNamespace, elapsed: float) -> None:
 # ---------------------------------------------------------------------------
 
 def _load_imports() -> SimpleNamespace:
-    from xscore.extraction.providers.kimi import KimiProvider
     from xscore.marking.find_exam_folder import find_folder
     from xscore.marking.parse_instruction import parse_prompt
     from xscore.preprocessing.start_scan import (
@@ -182,7 +180,6 @@ def _load_imports() -> SimpleNamespace:
     )
 
     return SimpleNamespace(
-        KimiProvider=KimiProvider,
         find_folder=find_folder,
         parse_prompt=parse_prompt,
         build_scaffold=build_scaffold,
@@ -206,20 +203,10 @@ def _load_imports() -> SimpleNamespace:
 # Pipeline steps
 # ---------------------------------------------------------------------------
 
-def _create_client(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    ctx.client = gi.KimiProvider.create_client()
-    if ctx.client is None:
-        gi.err_line("Could not create Kimi API client.")
-        gi.err_line("Set KIMI_API_KEY in your .env file or environment.")
-        raise SystemExit(1)
-
-
 def _step01_parse(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    from xscore.config import pipeline_ai_model_display_name
-    gi.pipeline_step(1, "Analyzing your request")
-    gi.info_line(f"Parsing prompt with {pipeline_ai_model_display_name()} …")
+    gi.pipeline_step(1, "AI API call — Parse grading instructions")
     t0 = time.perf_counter()
-    ctx.instruction = gi.parse_prompt(ctx.args.prompt, client=ctx.client, dpi_override=ctx.args.dpi)
+    ctx.instruction = gi.parse_prompt(ctx.args.prompt, dpi_override=ctx.args.dpi)
     ctx.parse_elapsed = time.perf_counter() - t0
     assert ctx.instruction is not None
     inst = ctx.instruction
@@ -398,7 +385,6 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
     ctx = _Ctx(args=args, timestamp=timestamp)
     t0 = time.perf_counter()
     try:
-        _create_client(ctx, gi)
         _step01_parse(ctx, gi)
         _step02_folder(ctx, gi)
         _step03_students(ctx, gi)

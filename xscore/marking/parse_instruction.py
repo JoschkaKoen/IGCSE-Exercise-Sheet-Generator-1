@@ -1,17 +1,62 @@
 """Translate a natural-language grading prompt into a structured TaskInstruction.
 
-Uses a text-only Kimi call (no image) so this step is fast and cheap.
+Uses a text-only Gemini call (PARSE_PROMPT_MODEL) so this step is fast and cheap.
 """
 
 from __future__ import annotations
 
+import json
+import os
 import re
+import time
 
-from xscore.config import KIMI_THINKING, PARSE_PROMPT_MAX_TOKENS
-
-from .kimi_helpers import KimiChatClient, kimi_text_call, parse_json_safe
+from .kimi_helpers import parse_json_safe
 from xscore.shared.models import StudentFilter, TaskInstruction
-from xscore.shared.terminal_ui import info_line, warn_line
+from xscore.shared.terminal_ui import api_latency_line, warn_line
+
+
+def _read_model_config() -> tuple[str, str | None]:
+    raw = os.getenv("INTERPRET_PROMPT_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash"))
+    if "," in raw:
+        model, effort = raw.split(",", 1)
+        return model.strip(), effort.strip() or None
+    return raw.strip(), None
+
+
+def _call_gemini_text(user_message: str) -> str:
+    """Make a text-only Gemini call and return the raw response string."""
+    try:
+        from google import genai as gai
+        from google.genai import types as gai_types
+    except ImportError:
+        raise RuntimeError("google-genai not installed; run: pip install google-genai")
+
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError("GEMINI_API_KEY not set")
+
+    model_name, effort = _read_model_config()
+    client = gai.Client(api_key=api_key)
+
+    thinking_map = {"off": 0, "low": 1024, "high": 8192}
+    gen_config_kwargs: dict = {"response_mime_type": "application/json"}
+    if effort in thinking_map:
+        gen_config_kwargs["thinking_config"] = gai_types.ThinkingConfig(
+            thinking_budget=thinking_map[effort],
+            include_thoughts=False,
+        )
+
+    _t0 = time.perf_counter()
+    response = client.models.generate_content(
+        model=model_name,
+        contents=user_message,
+        config=gai_types.GenerateContentConfig(
+            system_instruction=_SYSTEM_PROMPT,
+            **gen_config_kwargs,
+        ),
+    )
+    api_latency_line(time.perf_counter() - _t0)
+    return response.text or ""
 
 
 _SYSTEM_PROMPT = """\
@@ -47,47 +92,25 @@ no_report: true=skip PDF ("terminal only", "no report").
 """
 
 
-def _call_kimi_text(client: KimiChatClient, user_message: str) -> str:
-    """Make a text-only Kimi chat call and return the raw response string."""
-    messages = [
-        {"role": "system", "content": _SYSTEM_PROMPT},
-        {"role": "user", "content": user_message},
-    ]
-    return kimi_text_call(
-        client,
-        messages,
-        max_tokens=PARSE_PROMPT_MAX_TOKENS,
-        thinking=KIMI_THINKING,
-        warn_prefix="Parse prompt API error",
-    )
-
-
 def parse_prompt(
     prompt: str,
-    client: KimiChatClient | None = None,
+    client: object | None = None,  # ignored — kept for backward compatibility
     dpi_override: int | None = None,
 ) -> TaskInstruction:
-    """Parse *prompt* into a ``TaskInstruction``.
+    """Parse *prompt* into a ``TaskInstruction`` via a Gemini text call.
 
-    If *client* is None it is created automatically using ``KIMI_API_KEY``.
+    Uses PARSE_PROMPT_MODEL (default: gemini-2.5-flash, low).
     *dpi_override* (CLI ``--dpi``) takes precedence over DPI from the prompt.
-    Other CLI flags OR with the same fields from the parsed JSON (CLI wins for
-    ``--through-step`` when provided). ``--folder`` overrides ``folder_path`` /
-    ``folder_hint`` from the prompt.
-
-    Falls back to a simple keyword heuristic if the Kimi call fails.
+    Falls back to a simple keyword heuristic if the Gemini call fails.
     """
-    if client is None:
-        from xscore.extraction.providers.kimi import KimiProvider
-        client = KimiProvider.create_client()
-
     instruction = _heuristic_fallback(prompt, dpi_override)
 
-    if client is None:
-        warn_line("No Kimi client — using heuristic parse only.")
+    try:
+        raw = _call_gemini_text(prompt)
+    except Exception as exc:  # noqa: BLE001
+        warn_line(f"Prompt parse API error ({exc}) — using heuristic parse.")
         return instruction
 
-    raw = _call_kimi_text(client, prompt)
     if not raw.strip():
         warn_line("Empty AI response — using heuristic parse.")
         return instruction

@@ -16,7 +16,7 @@ _PROMPT = (
 
 
 def _read_model_config() -> tuple[str, str | None]:
-    raw = os.getenv("STUDENT_LIST_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash"))
+    raw = os.getenv("READ_STUDENT_LIST_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash"))
     if "," in raw:
         model, effort = raw.split(",", 1)
         return model.strip(), effort.strip() or None
