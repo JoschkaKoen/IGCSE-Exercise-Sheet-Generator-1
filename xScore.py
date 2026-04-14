@@ -301,9 +301,14 @@ def _step04_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None
     gi.pipeline_step(4, "Build exam scaffold")
     try:
+        t0 = time.perf_counter()
         ctx.scaffold = gi.build_scaffold(ctx.folder, artifact_dir=ctx.artifact_dir)
+        elapsed = time.perf_counter() - t0
         qs = ctx.scaffold.gradable_questions
-        gi.ok_line(f"{len(qs)} gradable parts  ·  {ctx.scaffold.total_marks} marks total")
+        gi.ok_line(
+            f"{len(qs)} gradable parts  ·  {ctx.scaffold.total_marks} marks total"
+            f"  ·  {gi.format_duration(elapsed)}"
+        )
     except FileNotFoundError as exc:
         gi.warn_line(f"No exam PDF found — scaffold skipped ({exc})")
     if ctx.through_step == 4:
@@ -359,7 +364,9 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
         raise SystemExit(0)
 
     gi.pipeline_step(6, "Autorotate")
+    t0_rot = time.perf_counter()
     gi.autorotate_phase(ad)
+    gi.info_line(gi.format_duration(time.perf_counter() - t0_rot))
     if ctx.through_step == 6:
         ctx.partial_stop_step = 6
         raise SystemExit(0)
