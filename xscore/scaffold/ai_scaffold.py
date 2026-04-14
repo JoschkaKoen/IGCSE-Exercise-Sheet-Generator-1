@@ -201,12 +201,15 @@ def build_ai_scaffold(
             uploaded_files[label] = f
 
     try:
+        from xscore.shared.terminal_ui import api_latency_line
+
         # ---- Call 1: exam extraction ------------------------------------
         exam_file = uploaded_files["exam"]
         exam_gen_config = gai_types.GenerateContentConfig(
             system_instruction=_SYSTEM_EXAM,
             **gen_config_kwargs,
         )
+        _t0 = time.perf_counter()
         exam_response = client.models.generate_content(
             model=model_name,
             contents=[
@@ -217,6 +220,7 @@ def build_ai_scaffold(
             ],
             config=exam_gen_config,
         )
+        api_latency_line(time.perf_counter() - _t0, label="exam")
         try:
             exam_data = json.loads(exam_response.text)
         except json.JSONDecodeError:
@@ -238,6 +242,7 @@ def build_ai_scaffold(
                 system_instruction=_SYSTEM_SCHEME,
                 **gen_config_kwargs,
             )
+            _t0 = time.perf_counter()
             scheme_response = client.models.generate_content(
                 model=model_name,
                 contents=[
@@ -248,6 +253,7 @@ def build_ai_scaffold(
                 ],
                 config=scheme_gen_config,
             )
+            api_latency_line(time.perf_counter() - _t0, label="mark scheme")
             try:
                 scheme_data = json.loads(scheme_response.text)
             except json.JSONDecodeError:
