@@ -26,6 +26,7 @@
 
 .space-bg {
   background-color: var(--space-void);
+  background-attachment: fixed;
   background-image:
     radial-gradient(ellipse 110% 60% at 50%  -20%, rgba(30, 90, 200, 0.18), transparent 55%),
     radial-gradient(ellipse  70% 50% at 105%  20%, rgba(79, 70, 229, 0.10), transparent 50%),

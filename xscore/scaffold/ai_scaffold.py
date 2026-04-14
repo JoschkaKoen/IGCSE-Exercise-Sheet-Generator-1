@@ -18,6 +18,10 @@ from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+from xscore.shared.exam_paths import (
+    artifact_exam_questions_json_path,
+    artifact_mark_scheme_json_path,
+)
 from xscore.shared.models import BBox, McAnswerOption, Question
 
 
@@ -146,6 +150,30 @@ def _upload_and_poll(client, path: Path, label: str):
 
 
 # ---------------------------------------------------------------------------
+# Artifact helpers
+# ---------------------------------------------------------------------------
+
+def _save_exam_questions(artifact_dir: Path, raw_questions: list[dict]) -> None:
+    """Write step-4 artifacts: ``4_exam_questions.json`` + ``4_exam_questions.md``."""
+    from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
+    json_path = artifact_exam_questions_json_path(artifact_dir)
+    json_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(raw_questions, f, indent=2, ensure_ascii=False)
+    write_raw_exam_markdown(artifact_dir, raw_questions)
+
+
+def _save_mark_scheme(artifact_dir: Path, scheme_questions: list[dict]) -> None:
+    """Write step-5 artifacts: ``5_mark_scheme.json`` + ``5_mark_scheme.md``."""
+    from xscore.scaffold.scaffold_markdown import write_mark_scheme_markdown
+    json_path = artifact_mark_scheme_json_path(artifact_dir)
+    json_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(scheme_questions, f, indent=2, ensure_ascii=False)
+    write_mark_scheme_markdown(artifact_dir, scheme_questions)
+
+
+# ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
@@ -154,6 +182,7 @@ def build_ai_scaffold(
     marking_scheme_pdf: Path | None,
     *,
     on_exam_complete: "Callable[[list[dict]], None] | None" = None,
+    artifact_dir: Path | None = None,
 ) -> list[Question]:
     """Extract exam structure via Gemini and return a list[Question].
 
@@ -163,6 +192,9 @@ def build_ai_scaffold(
         on_exam_complete: Optional callback invoked with the raw question dicts
             after the first API call (exam extraction) completes successfully.
             Use this to advance the pipeline step counter between the two calls.
+        artifact_dir: If set, write intermediate JSON + Markdown snapshots:
+            ``4_exam_questions.*`` after call 1, ``5_mark_scheme.*`` after call 2.
+            Saves are best-effort; OSError is silently ignored.
 
     Returns:
         list[Question] with spatial BBox coordinates zeroed (page number preserved).
@@ -240,6 +272,14 @@ def build_ai_scaffold(
             )
         raw_questions: list[dict] = exam_data["questions"]
 
+        # Save step-4 artifacts BEFORE on_exam_complete — the callback may raise
+        # SystemExit(0) when --through 4 is used, so anything after it won't run.
+        if artifact_dir is not None:
+            try:
+                _save_exam_questions(artifact_dir, raw_questions)
+            except OSError:
+                pass
+
         if on_exam_complete is not None:
             on_exam_complete(raw_questions)
 
@@ -265,6 +305,12 @@ def build_ai_scaffold(
                 scheme_data = {"questions": []}
 
             if isinstance(scheme_data.get("questions"), list):
+                # Save step-5 artifacts before merging — preserves the raw scheme output.
+                if artifact_dir is not None:
+                    try:
+                        _save_mark_scheme(artifact_dir, scheme_data["questions"])
+                    except OSError:
+                        pass
                 scheme_map = {
                     _norm(q.get("number", "")): q
                     for q in scheme_data["questions"]

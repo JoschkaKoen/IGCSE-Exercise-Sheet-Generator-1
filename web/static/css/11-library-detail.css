@@ -1,6 +1,6 @@
 /* ─── Library detail view (sidebar + PDF preview) ───────────────────────── */
 
-#lib-detail-view {
+#lib-detail-view:not(.hidden) {
   display: grid;
   grid-template-columns: 17rem minmax(0, 1fr);
   gap: 1rem;
@@ -200,6 +200,7 @@
    stack to centre via margin:auto (flex align-items:stretch would left-align it). */
 #lib-detail-preview .pdf-viewport-scroll {
   display: block;
+  overscroll-behavior: contain;
   background: linear-gradient(180deg, rgba(8, 30, 52, 0.52) 0%, rgba(2, 8, 20, 0.5) 100%);
 }
 

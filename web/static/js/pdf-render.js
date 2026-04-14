@@ -287,6 +287,7 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
     s.baseFit = baseFit;
   }
   let maxDispW = 0;
+  let _singlePageDispH = 0;
   const _canvasRenderPromises = [];
   for (let p = 1; p <= n; p++) {
     const page = await s.doc.getPage(p);
@@ -297,6 +298,7 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
     pageWrap.className = 'pdf-page-wrap';
     const dispW = Math.floor(scaledVp.width / dpr);
     const dispH = Math.floor(scaledVp.height / dpr);
+    if (p === 1) _singlePageDispH = dispH;
     if (dispW > maxDispW) maxDispW = dispW;
     pageWrap.style.width = dispW + 'px';
     pageWrap.style.height = dispH + 'px';
@@ -312,9 +314,11 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
     if (ctx) {
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      // Start all canvas renders immediately (pdf.js worker queues them).
-      // We await the full batch below before DOM swap so no page is ever white.
+      // Start all renders in the PDF.js worker immediately.
+      // We only AWAIT the first visible batch; the rest resolve in background.
       _canvasRenderPromises.push(page.render({ canvasContext: ctx, viewport: scaledVp }).promise);
+    } else {
+      _canvasRenderPromises.push(Promise.resolve());
     }
     newPages.push({
       wrap: pageWrap, canvas: canvas, pageNum: p,
@@ -322,10 +326,28 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
       rendered: false, rendering: false, canvasRendered: false,
     });
   }
-  // Wait for every canvas to finish rendering before swapping into the DOM —
-  // guarantees the user never sees a white placeholder regardless of scroll speed.
-  if (_canvasRenderPromises.length) await Promise.all(_canvasRenderPromises);
-  for (let _ci = 0; _ci < newPages.length; _ci++) newPages[_ci].canvasRendered = true;
+  // Eagerly await only the pages that fit in the initial viewport so the viewer
+  // appears immediately. Remaining renders run in the PDF.js worker and complete
+  // in the background; _setupPageObserver delivers them as the user scrolls.
+  const _viewportH = scroll.clientHeight || 520;
+  const _eagerCount = _singlePageDispH > 0
+    ? Math.max(1, Math.ceil(_viewportH / (_singlePageDispH + 8)) + 1)
+    : _canvasRenderPromises.length;
+  const _eagerPromises = _canvasRenderPromises.slice(0, _eagerCount);
+  if (_eagerPromises.length) await Promise.all(_eagerPromises);
+  for (let _ci = 0; _ci < _eagerCount && _ci < newPages.length; _ci++) {
+    newPages[_ci].canvasRendered = true;
+  }
+  // When background (lazy) renders finish, mark them so _renderSinglePage won't
+  // restart them unnecessarily when the IntersectionObserver fires.
+  for (let _li = _eagerCount; _li < _canvasRenderPromises.length; _li++) {
+    (function (_idx) {
+      _canvasRenderPromises[_idx].then(function () {
+        const pg = newPages[_idx];
+        if (pg) { pg.canvasRendered = true; pg.rendered = true; }
+      }).catch(function () {});
+    })(_li);
+  }
   s.pages = newPages;
 
   // Atomic DOM swap — all canvases fully rendered.

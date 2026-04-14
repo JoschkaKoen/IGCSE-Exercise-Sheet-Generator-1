@@ -498,7 +498,7 @@ async function loadLibPdf(url, sidebarBtn) {
     clearTimeout(_resizeTimer);
     _resizeTimer = setTimeout(function () {
       renderPdfContinuous('lib').catch(function () {});
-    }, 150);
+    }, 100);
   }).observe(document.getElementById('pdf-scroll-lib'));
 }());
 

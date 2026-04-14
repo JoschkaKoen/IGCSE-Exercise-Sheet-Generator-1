@@ -35,6 +35,8 @@ from typing import Any
 
 from dotenv import load_dotenv
 
+from xscore.shared.student_artifacts import write_student_artifacts
+
 __version__ = "0.1"
 
 _VALID_THROUGH_STEPS = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -276,10 +278,11 @@ def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
 
 
 def _step03_students(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    assert ctx.folder is not None
+    assert ctx.folder is not None and ctx.artifact_dir is not None
     gi.pipeline_step(3, "Read student list")
     ctx.students = gi.read_student_list(ctx.folder)
     gi.ok_line(f"{len(ctx.students)} students on the roster")
+    write_student_artifacts(ctx.artifact_dir, ctx.students)
     if ctx.through_step == 3:
         ctx.partial_stop_step = 3
         raise SystemExit(0)

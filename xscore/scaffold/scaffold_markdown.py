@@ -6,7 +6,11 @@ import re
 from pathlib import Path
 from typing import Any
 
-from xscore.shared.exam_paths import artifact_scaffold_markdown_path
+from xscore.shared.exam_paths import (
+    artifact_exam_questions_markdown_path,
+    artifact_mark_scheme_markdown_path,
+    artifact_scaffold_markdown_path,
+)
 
 
 def _heading_prefix(depth: int) -> str:
@@ -139,3 +143,79 @@ def write_scaffold_markdown(artifact_dir: Path, payload: dict[str, Any]) -> None
     path.parent.mkdir(parents=True, exist_ok=True)
     body = "\n".join(lines).rstrip() + "\n"
     path.write_text(body, encoding="utf-8")
+
+
+def write_raw_exam_markdown(artifact_dir: Path, raw_questions: list[Any]) -> None:
+    """Write ``4_exam_questions.md`` — exam questions without mark-scheme annotations.
+
+    Reuses :func:`_render_question`; since ``correct_answer`` / ``marking_criteria``
+    are absent at this stage the renderer omits those sections automatically.
+    """
+    marks_sum = sum(int(q.get("marks", 0)) for q in raw_questions if isinstance(q, dict))
+    n = len(raw_questions)
+    lines: list[str] = [
+        "# Exam Questions (raw parse)",
+        "",
+        f"**Questions:** {n} top-level · **Marks (sum):** {marks_sum}",
+        "",
+        "## Questions",
+        "",
+    ]
+    first = True
+    for q in raw_questions:
+        if not isinstance(q, dict):
+            continue
+        if not first:
+            lines.append("---")
+            lines.append("")
+        first = False
+        _render_question(q, 0, lines)
+
+    path = artifact_exam_questions_markdown_path(artifact_dir)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+
+
+def write_mark_scheme_markdown(artifact_dir: Path, scheme_questions: list[Any]) -> None:
+    """Write ``5_mark_scheme.md`` — per-question sections from the raw Gemini scheme output.
+
+    *scheme_questions* is the ``scheme_data["questions"]`` list returned by Gemini before
+    merging into the question tree.  Each entry may contain:
+    - ``number``: question identifier
+    - ``correct_answer``: short answer string (e.g. "C" for multiple choice)
+    - ``mark_scheme``: list of ``{"mark": "M1", "criterion": "..."}`` dicts
+    """
+    lines: list[str] = ["# Mark Scheme", ""]
+    first = True
+    for q in scheme_questions:
+        if not isinstance(q, dict):
+            continue
+        num = q.get("number", "")
+        marks = q.get("marks")
+        marks_str = f" · {_marks_word(int(marks))}" if marks else ""
+        if not first:
+            lines.append("---")
+            lines.append("")
+        first = False
+        lines.append(f"### Q{num}{marks_str}")
+        lines.append("")
+
+        ca = q.get("correct_answer")
+        if isinstance(ca, str) and ca.strip():
+            lines.extend(_format_prose_block("Answer", ca.strip()))
+            lines.append("")
+
+        raw_criteria = q.get("mark_scheme") or []
+        if isinstance(raw_criteria, list) and raw_criteria:
+            criteria_lines = [
+                f"[{m.get('mark', '')}] {m.get('criterion', '')}".strip()
+                for m in raw_criteria
+                if isinstance(m, dict) and m.get("criterion")
+            ]
+            if criteria_lines:
+                lines.extend(_format_prose_block("Marking criteria", "\n".join(criteria_lines)))
+                lines.append("")
+
+    path = artifact_mark_scheme_markdown_path(artifact_dir)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")

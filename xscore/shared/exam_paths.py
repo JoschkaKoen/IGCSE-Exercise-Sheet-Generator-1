@@ -45,6 +45,36 @@ def artifact_scaffold_boxes_path(artifact_dir: Path) -> Path:
     return artifact_dir / "1_exam_bboxes.pdf"
 
 
+def artifact_students_json_path(artifact_dir: Path) -> Path:
+    """Step 3: student roster as a JSON array of name strings."""
+    return artifact_dir / "3_students.json"
+
+
+def artifact_students_markdown_path(artifact_dir: Path) -> Path:
+    """Step 3: human-readable numbered student list."""
+    return artifact_dir / "3_students.md"
+
+
+def artifact_exam_questions_json_path(artifact_dir: Path) -> Path:
+    """Step 4: raw Gemini exam-parse output (no answers/criteria yet)."""
+    return artifact_dir / "4_exam_questions.json"
+
+
+def artifact_exam_questions_markdown_path(artifact_dir: Path) -> Path:
+    """Step 4: human-readable exam questions without mark-scheme annotations."""
+    return artifact_dir / "4_exam_questions.md"
+
+
+def artifact_mark_scheme_json_path(artifact_dir: Path) -> Path:
+    """Step 5: raw Gemini mark-scheme output before merge into question tree."""
+    return artifact_dir / "5_mark_scheme.json"
+
+
+def artifact_mark_scheme_markdown_path(artifact_dir: Path) -> Path:
+    """Step 5: human-readable mark scheme (per-question sections with criteria)."""
+    return artifact_dir / "5_mark_scheme.md"
+
+
 def extract_answers_output_dir(
     pdf_stem: str, output_base: str | Path = "output"
 ) -> Path:

@@ -424,7 +424,11 @@ def build_scaffold(
     #   questions = _build_heuristic_scaffold(exam_pdf, folder, _find_answer_pdf(folder), ad)
     from xscore.scaffold.ai_scaffold import build_ai_scaffold
     ans = _find_answer_pdf(folder)
-    questions = build_ai_scaffold(exam_pdf, ans, on_exam_complete=on_exam_complete)
+    questions = build_ai_scaffold(
+        exam_pdf, ans,
+        on_exam_complete=on_exam_complete,
+        artifact_dir=ad,
+    )
     if not questions:
         raise RuntimeError(
             "No questions extracted from exam PDF. "
