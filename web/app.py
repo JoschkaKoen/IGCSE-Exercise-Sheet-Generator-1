@@ -425,7 +425,7 @@ async def library_file(subject: str, filename: str) -> FileResponse:
 # Grade jobs — scan pipeline (steps 1, 3, 5–7)
 # ---------------------------------------------------------------------------
 
-_GRADE_UPLOADS_ROOT = Path("output") / "grade_uploads"
+_GRADE_UPLOADS_ROOT = Path("output") / "xscore" / "grade_uploads"
 
 
 async def _run_grade_job(

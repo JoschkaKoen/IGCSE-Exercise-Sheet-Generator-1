@@ -249,33 +249,70 @@ def build_ai_scaffold(
     try:
         from xscore.shared.terminal_ui import api_latency_line
 
-        # ---- Call 1: exam extraction ------------------------------------
-        exam_file = uploaded_files["exam"]
-        _t0 = time.perf_counter()
-        exam_response = client.models.generate_content(
-            model=exam_model,
-            contents=[
-                gai_types.Part.from_uri(
-                    file_uri=exam_file.uri, mime_type="application/pdf"
-                ),
-                gai_types.Part.from_text(text=_USER_EXAM),
-            ],
-            config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
-        )
-        api_latency_line(time.perf_counter() - _t0, label="exam")
-        try:
-            exam_data = json.loads(exam_response.text)
-        except json.JSONDecodeError:
-            raise RuntimeError(
-                f"Gemini returned non-JSON for exam extraction: "
-                f"{exam_response.text[:300]!r}"
+        # ---- Inference closures (called from threads or inline) -----------
+
+        def _do_exam_call() -> list[dict]:
+            _t0 = time.perf_counter()
+            resp = client.models.generate_content(
+                model=exam_model,
+                contents=[
+                    gai_types.Part.from_uri(
+                        file_uri=uploaded_files["exam"].uri, mime_type="application/pdf"
+                    ),
+                    gai_types.Part.from_text(text=_USER_EXAM),
+                ],
+                config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
             )
-        if not isinstance(exam_data.get("questions"), list):
-            raise RuntimeError(
-                f"Gemini exam response missing 'questions' list: "
-                f"{exam_response.text[:300]!r}"
+            api_latency_line(time.perf_counter() - _t0, label="exam")
+            try:
+                data = json.loads(resp.text)
+            except json.JSONDecodeError:
+                raise RuntimeError(
+                    f"Gemini returned non-JSON for exam extraction: {resp.text[:300]!r}"
+                )
+            if not isinstance(data.get("questions"), list):
+                raise RuntimeError(
+                    f"Gemini exam response missing 'questions' list: {resp.text[:300]!r}"
+                )
+            return data["questions"]
+
+        def _do_scheme_call() -> dict:
+            _t0 = time.perf_counter()
+            resp = client.models.generate_content(
+                model=scheme_model,
+                contents=[
+                    gai_types.Part.from_uri(
+                        file_uri=uploaded_files["scheme"].uri, mime_type="application/pdf"
+                    ),
+                    gai_types.Part.from_text(text=_USER_SCHEME),
+                ],
+                config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
             )
-        raw_questions: list[dict] = exam_data["questions"]
+            api_latency_line(time.perf_counter() - _t0, label="mark scheme")
+            try:
+                return json.loads(resp.text)
+            except json.JSONDecodeError:
+                return {"questions": []}   # non-fatal
+
+        # ---- Dispatch: parallel when scheme is present -------------------
+        # Both PDFs are already uploaded; running the two Gemini inference
+        # calls concurrently saves ~10–20 s (the duration of the shorter call).
+        # rich.Console.print() holds an internal lock so api_latency_line is
+        # safe to call from worker threads.
+        if "scheme" in uploaded_files:
+            with ThreadPoolExecutor(max_workers=2) as _ex:
+                _exam_fut = _ex.submit(_do_exam_call)
+                _scheme_fut = _ex.submit(_do_scheme_call)
+            raw_questions: list[dict] = _exam_fut.result()   # propagates RuntimeError on failure
+            try:
+                scheme_data: dict = _scheme_fut.result()
+            except Exception:
+                scheme_data = {"questions": []}   # match non-fatal sequential behavior
+        else:
+            raw_questions = _do_exam_call()
+            scheme_data = {"questions": []}
+
+        # ---- Artifacts + callbacks (main thread, same order as before) ---
 
         # Save step-4 artifacts BEFORE on_exam_complete — the callback may raise
         # SystemExit(0) when --through 4 is used, so anything after it won't run.
@@ -288,44 +325,23 @@ def build_ai_scaffold(
         if on_exam_complete is not None:
             on_exam_complete(raw_questions)
 
-        # ---- Call 2: mark-scheme extraction (optional) ------------------
-        if "scheme" in uploaded_files:
-            scheme_file = uploaded_files["scheme"]
-            _t0 = time.perf_counter()
-            scheme_response = client.models.generate_content(
-                model=scheme_model,
-                contents=[
-                    gai_types.Part.from_uri(
-                        file_uri=scheme_file.uri, mime_type="application/pdf"
-                    ),
-                    gai_types.Part.from_text(text=_USER_SCHEME),
-                ],
-                config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
-            )
-            api_latency_line(time.perf_counter() - _t0, label="mark scheme")
-            try:
-                scheme_data = json.loads(scheme_response.text)
-            except json.JSONDecodeError:
-                # Non-fatal: continue without mark-scheme annotations
-                scheme_data = {"questions": []}
-
-            if isinstance(scheme_data.get("questions"), list):
-                # Save step-5 artifacts before merging — preserves the raw scheme output.
-                if artifact_dir is not None:
-                    try:
-                        _save_mark_scheme(artifact_dir, scheme_data["questions"])
-                    except OSError:
-                        pass
-                # Notify caller that scheme parse is done, before merging.
-                # The callback may raise SystemExit(0) for --through 5.
-                if on_scheme_complete is not None:
-                    on_scheme_complete(scheme_data["questions"])
-                scheme_map = {
-                    _norm(q.get("number", "")): q
-                    for q in scheme_data["questions"]
-                    if isinstance(q, dict) and q.get("number")
-                }
-                _merge_scheme(raw_questions, scheme_map)
+        if isinstance(scheme_data.get("questions"), list):
+            # Save step-5 artifacts before merging — preserves the raw scheme output.
+            if artifact_dir is not None:
+                try:
+                    _save_mark_scheme(artifact_dir, scheme_data["questions"])
+                except OSError:
+                    pass
+            # Notify caller that scheme parse is done, before merging.
+            # The callback may raise SystemExit(0) for --through 5.
+            if on_scheme_complete is not None:
+                on_scheme_complete(scheme_data["questions"])
+            scheme_map = {
+                _norm(q.get("number", "")): q
+                for q in scheme_data["questions"]
+                if isinstance(q, dict) and q.get("number")
+            }
+            _merge_scheme(raw_questions, scheme_map)
 
     finally:
         # Delete uploaded files (auto-expire after 48 h anyway)

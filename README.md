@@ -337,7 +337,15 @@ After code changes: `git pull`, then `docker compose up -d --build` again.
 
 ## Output
 
-- Relative output names go under `output/run_YYYYMMDD_HHMMSS/`.
+The two pipelines write to separate sub-folders under `output/`:
+
+| Pipeline | Location |
+|----------|----------|
+| **eXercise** (exercise sheets) | `output/exercise/<stem>/` |
+| **xScore** (exam scans, terminal) | `output/xscore/<exam_stem>/<timestamp>/` |
+| **xScore** (web grade uploads) | `output/xscore/grade_uploads/<id>/` |
+
+- `<stem>` is derived from the output PDF filename (e.g. `physics_exercise.pdf` → `output/exercise/physics_exercise/`).
 - Mark scheme runs can produce `*_answers.pdf` beside the main sheet.
 - With `pdfjam`, **`_2up`** and **`_4up`** variants may appear next to the main PDF.
 - If `pdflatex` is installed and `RANKING_SKIP` is not set, a **`*_ranking.pdf`** is generated in the background.

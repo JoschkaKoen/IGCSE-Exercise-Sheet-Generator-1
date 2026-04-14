@@ -264,7 +264,7 @@ def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
     )
     assert ctx.folder is not None
     stem = ctx.folder.name.replace(" ", "_")
-    exam_output_root = Path("output") / stem
+    exam_output_root = Path("output") / "xscore" / stem
     exam_output_root.mkdir(parents=True, exist_ok=True)
     ctx.artifact_dir = exam_output_root / ctx.timestamp
     suffix = 1

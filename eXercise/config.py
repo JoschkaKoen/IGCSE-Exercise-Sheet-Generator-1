@@ -21,7 +21,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # Default folder for generated PDFs; natural-language mode also uses timestamped
 # subfolders like ``output/run_YYYYMMDD_HHMMSS/`` for bare output filenames.
-OUTPUT_DIR = PROJECT_ROOT / "output"
+OUTPUT_DIR = PROJECT_ROOT / "output" / "exercise"
 
 # Bundled question papers (Cambridge-style PDFs) shipped with this repo under ``exams/``.
 PHYSICS_EXAM_DIR = PROJECT_ROOT / "exams" / "physics"

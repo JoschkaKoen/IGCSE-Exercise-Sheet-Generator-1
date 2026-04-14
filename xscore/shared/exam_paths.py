@@ -10,11 +10,12 @@ def safe_path_stem(stem: str) -> str:
     return stem.replace(" ", "_").replace("/", "_")
 
 
-def exam_artifact_dir(exam_folder: Path, output_base: str | Path = "output") -> Path:
+def exam_artifact_dir(exam_folder: Path, output_base: str | Path = "output/xscore") -> Path:
     """Directory for cleaned scans, scaffold cache, images, and debug PDFs.
 
     *exam_folder* is the exam input directory (raw PDFs, roster). *stem* is the
-    folder name with spaces replaced by underscores.
+    folder name with spaces replaced by underscores. Artifacts live under
+    ``output/xscore/<stem>/`` by default.
     """
     stem = exam_folder.name.replace(" ", "_")
     return Path(output_base) / stem
@@ -87,32 +88,33 @@ CLEANED_SCAN_PDF = "3_cleaned_scan.pdf"
 
 def find_latest_cleaned_scan(
     exam_folder: Path,
-    output_base: str | Path = "output",
+    output_base: str | Path = "output/xscore",
 ) -> Path | None:
     """Return the newest ``3_cleaned_scan.pdf`` among known layouts, or ``None``.
 
-    Searches (all must exist as files to be candidates):
+    Searches (candidates from newest to oldest by mtime):
 
-    - ``<output_base>/<safe_stem>/CLEANED_SCAN_PDF`` (flat under exam output stem)
-    - ``<output_base>/<safe_stem>/*/CLEANED_SCAN_PDF`` (per-run folders from xscore)
+    - ``<output_base>/<safe_stem>/CLEANED_SCAN_PDF`` (flat)
+    - ``<output_base>/<safe_stem>/*/CLEANED_SCAN_PDF`` (per-run folders)
+    - Same two patterns under ``output/<safe_stem>/`` (legacy pre-split location)
     - ``<exam_folder>/CLEANED_SCAN_PDF`` (legacy next to exam inputs)
 
     *safe_stem* is ``exam_folder.name`` with spaces replaced by underscores.
     The winner is the path with the largest ``st_mtime``.
     """
     stem = exam_folder.name.replace(" ", "_")
-    base = Path(output_base) / stem
     name = CLEANED_SCAN_PDF
     candidates: list[Path] = []
 
-    flat = base / name
-    if flat.is_file():
-        candidates.append(flat)
-
-    if base.is_dir():
-        for p in base.glob(f"*/{name}"):
-            if p.is_file():
-                candidates.append(p)
+    for base in (Path(output_base), Path("output")):   # new location, then legacy
+        b = base / stem
+        flat = b / name
+        if flat.is_file():
+            candidates.append(flat)
+        if b.is_dir():
+            for p in b.glob(f"*/{name}"):
+                if p.is_file():
+                    candidates.append(p)
 
     legacy = exam_folder / name
     if legacy.is_file():
@@ -125,17 +127,26 @@ def find_latest_cleaned_scan(
 
 
 def find_scaffold_cache_file(
-    exam_folder: Path, output_base: str | Path = "output"
+    exam_folder: Path, output_base: str | Path = "output/xscore"
 ) -> Path | None:
-    """First existing scaffold cache: artifact dir, then legacy locations under *exam_folder*."""
-    ad = exam_artifact_dir(exam_folder, output_base)
+    """First existing scaffold cache: artifact dir, then legacy locations under *exam_folder*.
+
+    Checks ``output_base/<stem>/`` first, then the legacy ``output/<stem>/`` tree so
+    runs created before the output-folder split are still found.
+    """
+    for base in (output_base, "output"):   # new location first, then legacy
+        ad = exam_artifact_dir(exam_folder, base)
+        for p in (
+            artifact_scaffold_json_path(ad),          # 6_report.json    (current)
+            ad / "6_scaffold.json",                   # renamed this session
+            ad / "5_scaffold.json",                   # renamed two sessions ago
+            ad / "1_scaffold.json",                   # older legacy name
+            legacy_flat_artifact_scaffold_cache_path(ad),
+            legacy_artifact_scaffold_cache_path(ad),
+        ):
+            if p.is_file():
+                return p
     for p in (
-        artifact_scaffold_json_path(ad),          # 6_report.json    (current)
-        ad / "6_scaffold.json",                   # renamed this session
-        ad / "5_scaffold.json",                   # renamed one session ago
-        ad / "1_scaffold.json",                   # older legacy name
-        legacy_flat_artifact_scaffold_cache_path(ad),
-        legacy_artifact_scaffold_cache_path(ad),
         exam_folder / "scaffolds" / "scaffold_cache.json",
         exam_folder / "scaffold_cache.json",
     ):
