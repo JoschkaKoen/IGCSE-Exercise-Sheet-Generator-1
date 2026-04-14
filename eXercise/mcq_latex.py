@@ -87,6 +87,7 @@ def build_explanation_latex(
     answers: dict[int, str],
     explanations: dict[int, list[str]],
     paper_label: str,
+    exam_key: str | None = None,
 ) -> str:
     """Assemble the complete LaTeX source for the MCQ explanation document."""
     table = _build_answer_table(questions, answers)
@@ -139,12 +140,14 @@ def build_explanation_latex(
 
     body = "\n\n".join(sections)
 
+    mhchem_line = r"\usepackage[version=4]{mhchem}" if exam_key == "chemistry" else ""
+
     return rf"""\documentclass[12pt]{{article}}
 \usepackage[utf8]{{inputenc}}
 \usepackage[T1]{{fontenc}}
 \usepackage[a4paper, top=0cm, bottom=1.1cm, left=1.2cm, right=1.5cm]{{geometry}}
 \usepackage{{amsmath, amssymb}}
-\usepackage[version=4]{{mhchem}}
+{mhchem_line}
 \usepackage{{array}}
 \usepackage{{booktabs}}
 \usepackage[shortlabels]{{enumitem}}

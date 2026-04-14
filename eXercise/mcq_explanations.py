@@ -183,7 +183,7 @@ def finalize_mcq_explanation_strips(
     n_expl = len(explanations)
     print(f"  Received explanations for {n_expl}/{len(job_data.answered)} question(s).")
 
-    tex = build_explanation_latex(job_data.qs, job_data.answers, explanations, job_data.paper_label)
+    tex = build_explanation_latex(job_data.qs, job_data.answers, explanations, job_data.paper_label, job_data.exam_key)
 
     if os.environ.get("SAVE_TEX", "").lower() in ("true", "1", "yes"):
         tex_file_path = job_data.expl_pdf_path.with_suffix(".tex")
