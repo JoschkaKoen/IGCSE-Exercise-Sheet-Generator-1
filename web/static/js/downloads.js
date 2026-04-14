@@ -117,6 +117,56 @@ export function updateRankingLog(text) {
   if (rankingLog) rankingLog.textContent = text;
 }
 
+/** Enable the ranking button in idle state (ranking not yet started for this run). */
+export function setRankingIdle() {
+  if (tabBtnRanking) {
+    tabBtnRanking.disabled = false;
+    tabBtnRanking.removeAttribute('aria-disabled');
+    tabBtnRanking.title = '';
+    tabBtnRanking.classList.remove('pdf-tab-ranking-btn--generating');
+  }
+  if (rankingTabIconChart)  rankingTabIconChart.classList.remove('hidden');
+  if (rankingTabGenSpinner) rankingTabGenSpinner.classList.add('hidden');
+  if (rankingLog) rankingLog.classList.add('hidden');
+  // Hide the "not generated" empty state so it doesn't show if the panel is navigated to.
+  hideEmpty('ranking');
+}
+
+/** POST to start ranking on the backend, then poll until done or failed. */
+export async function startAndPollRanking(jobId) {
+  if (!jobId) return;
+  try {
+    const res = await fetch('/api/jobs/' + encodeURIComponent(jobId) + '/ranking/start', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Accept': 'application/json' },
+    });
+    if (!res.ok) return;
+  } catch (_) { return; }
+
+  showRankingGenerating();
+  while (true) {
+    await sleep(200);
+    let data;
+    try {
+      const r = await fetch('/api/jobs/' + encodeURIComponent(jobId), {
+        credentials: 'same-origin',
+        cache: 'no-store',
+        headers: { 'Accept': 'application/json' },
+      });
+      if (!r.ok) break;
+      data = await r.json();
+    } catch (_) { break; }
+    if (data.ranking_log_line) updateRankingLog(data.ranking_log_line);
+    if (data.ranking_url) { applyRankingUrl(data.ranking_url); break; }
+    if (data.ranking_status === 'done' || data.ranking_status === 'failed' || data.ranking_status === 'skipped') {
+      // Finished without a URL (skipped / failed) — revert to idle so spinner doesn't get stuck.
+      setRankingIdle();
+      break;
+    }
+  }
+}
+
 // ─── Download all ─────────────────────────────────────────────────────────────
 
 function parseFilenameFromContentDisposition(header) {

@@ -311,6 +311,9 @@ def exam_label_from_filename(filename: str) -> str | None:
     math = _parse_math_descriptive_stem(stem_raw)
     if math and str(math["kind"]) == "qp":
         return f"{math['session_code']} {math['paper']}"
+    alevel = _parse_alevel_cs_stem(stem_raw)
+    if alevel and str(alevel["kind"]) in ("qp", "ms", "ci"):
+        return f"{alevel['session_code']} {alevel['paper']}"
     for pattern in (
         r"_([smw]\d{2})_qp_(\d+)",
         r"_([smw]\d{2})_ms_(\d+)",

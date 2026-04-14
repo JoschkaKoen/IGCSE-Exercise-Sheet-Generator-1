@@ -151,6 +151,35 @@ def _validate_library_path(subject: str, filename: str) -> Path:
     return path
 
 
+def _start_ranking_thread(job_id: str, main_pdf: Path, ans_pdf: Path | None) -> None:
+    """Spawn the ranking background thread. Safe to call only when ranking_status == PENDING."""
+    def _run() -> None:
+        try:
+            store.set_ranking_status(job_id, JobStatus.RUNNING)
+            ranking_path = main_pdf.parent / f"{main_pdf.stem}_ranking{main_pdf.suffix}"
+
+            def on_ranking_line(line: str) -> None:
+                store.set_ranking_log_line(job_id, line)
+
+            run_with_last_log_line(
+                lambda: generate_difficulty_ranking(
+                    exercise_pdf=main_pdf,
+                    answer_pdf=ans_pdf if (ans_pdf and ans_pdf.exists()) else None,
+                    out_path=main_pdf.parent,
+                    name=main_pdf.stem,
+                ),
+                on_ranking_line,
+            )
+            if ranking_path.exists():
+                store.set_ranking_result(job_id, ranking_path)
+            else:
+                store.set_ranking_status(job_id, JobStatus.SKIPPED)
+        except Exception:  # noqa: BLE001
+            store.set_ranking_status(job_id, JobStatus.FAILED)
+
+    threading.Thread(target=_run, daemon=True).start()
+
+
 async def _run_job(job_id: str, prompt: str) -> None:
     store.set_status(job_id, JobStatus.RUNNING)
     # Set before the worker thread starts so the first poll always sees real text (not empty).
@@ -163,34 +192,8 @@ async def _run_job(job_id: str, prompt: str) -> None:
         main_pdf, ans_pdf, up4, up2, a4, a2, _ranking_pdf, overview = await asyncio.to_thread(
             run_nl_prompt_logged, prompt, on_line
         )
-        # ranking_pdf from service is always None (run_ranking=False); ranking runs below
         store.complete(job_id, main_pdf, ans_pdf, up4, up2, a4, a2, ranking_pdf=None, overview=overview)
-
-        def _run_ranking() -> None:
-            try:
-                store.set_ranking_status(job_id, JobStatus.RUNNING)
-                ranking_path = main_pdf.parent / f"{main_pdf.stem}_ranking{main_pdf.suffix}"
-
-                def on_ranking_line(line: str) -> None:
-                    store.set_ranking_log_line(job_id, line)
-
-                run_with_last_log_line(
-                    lambda: generate_difficulty_ranking(
-                        exercise_pdf=main_pdf,
-                        answer_pdf=ans_pdf if (ans_pdf and ans_pdf.exists()) else None,
-                        out_path=main_pdf.parent,
-                        name=main_pdf.stem,
-                    ),
-                    on_ranking_line,
-                )
-                if ranking_path.exists():
-                    store.set_ranking_result(job_id, ranking_path)
-                else:
-                    store.set_ranking_status(job_id, JobStatus.SKIPPED)
-            except Exception:  # noqa: BLE001
-                store.set_ranking_status(job_id, JobStatus.FAILED)
-
-        threading.Thread(target=_run_ranking, daemon=True).start()
+        # Ranking is now on-demand: started only when the user clicks the ranking button.
 
     except ExtractionUserError as e:
         store.fail(job_id, str(e))
@@ -353,6 +356,22 @@ async def download_job_answers_four_up(job_id: str, inline: bool = Query(False))
 @app.get("/api/jobs/{job_id}/answers-two-up")
 async def download_job_answers_two_up(job_id: str, inline: bool = Query(False)) -> FileResponse:
     return _pdf_file_response(store.get(job_id), "answers_2up_pdf", inline)
+
+
+@app.post("/api/jobs/{job_id}/ranking/start")
+async def start_job_ranking(job_id: str) -> JSONResponse:
+    """Start the ranking background thread on demand (idempotent if already started)."""
+    job = store.get(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    if job.status != JobStatus.DONE:
+        raise HTTPException(status_code=400, detail="Job not complete")
+    if job.ranking_status != JobStatus.PENDING:
+        return JSONResponse({"ok": True})  # already started or done
+    if not job.output_pdf:
+        raise HTTPException(status_code=400, detail="No output PDF")
+    _start_ranking_thread(job_id, job.output_pdf, job.answers_pdf)
+    return JSONResponse({"ok": True})
 
 
 @app.get("/api/jobs/{job_id}/ranking")

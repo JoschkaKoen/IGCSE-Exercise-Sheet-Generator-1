@@ -25,7 +25,7 @@ import {
 } from './pdf-render.js';
 
 import { selectTab, syncSidePill, syncPdfTabChrome } from './pdf-tabs.js';
-import { applyDoneData, triggerDownloadAllPdfs, showRankingGenerating, applyRankingUrl, updateRankingLog } from './downloads.js';
+import { applyDoneData, triggerDownloadAllPdfs, applyRankingUrl, updateRankingLog, setRankingIdle } from './downloads.js';
 
 // ─── Module-level constants ───────────────────────────────────────────────────
 
@@ -310,18 +310,6 @@ async function refreshPreviewMode() {
 
 // ─── Job polling ──────────────────────────────────────────────────────────────
 
-async function pollRankingReady(jobId) {
-  showRankingGenerating();
-  while (true) {
-    await sleep(CONFIG.POLL_INTERVAL_MS);
-    let data;
-    try { data = await fetchJobStatus(jobId); } catch (e) { break; }
-    if (data.ranking_log_line) updateRankingLog(data.ranking_log_line);
-    if (data.ranking_url) { applyRankingUrl(data.ranking_url); break; }
-    if (data.ranking_status === 'done' || data.ranking_status === 'failed' || data.ranking_status === 'skipped') break;
-  }
-}
-
 function applyLogLine(data) {
   if (!jobLogLine) return;
   let line = (data.log_line != null && data.log_line !== '') ? String(data.log_line) : '';
@@ -591,9 +579,12 @@ document.querySelectorAll('.quick-fill').forEach(function (btn) {
   try { saved = JSON.parse(savedStr); } catch (e) { sessionStorage.removeItem('previewState'); return; }
   if (!saved || !saved.doneData || !saved.prompt) { sessionStorage.removeItem('previewState'); return; }
   promptEl.value = saved.prompt;
+  if (saved.jobId) state.currentJobId = saved.jobId;
   applyDoneData(saved.doneData);
   showResultPanel();
-  enterPreviewMode(saved.doneData, true).catch(function () {});
+  enterPreviewMode(saved.doneData, true)
+    .then(function () { if (!saved.doneData.ranking_url) setRankingIdle(); })
+    .catch(function () {});
 })();
 
 // ─── Form submit ──────────────────────────────────────────────────────────────
@@ -631,17 +622,18 @@ form.addEventListener('submit', async function (e) {
     }
     const id = body.id;
     if (!id) throw new Error('No job id returned.');
+    state.currentJobId = id;
 
     applyLogLine(await fetchJobStatus(id));
     const done = await pollJob(id, applyLogLine);
 
     applyDoneData(done);
     try {
-      sessionStorage.setItem('previewState', JSON.stringify({ doneData: done, prompt: prompt }));
+      sessionStorage.setItem('previewState', JSON.stringify({ doneData: done, prompt: prompt, jobId: id }));
     } catch (e) {}
     showResultPanel();
     await enterPreviewMode(done);
-    if (!done.ranking_url) pollRankingReady(id); // fire-and-forget; ranking still running
+    if (!done.ranking_url) setRankingIdle();
   } catch (err) {
     errorPanel.textContent = err.message || String(err);
     errorPanel.classList.remove('hidden');

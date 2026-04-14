@@ -44,6 +44,8 @@ export const state = {
   pdfTabState: {},
   /** URLs last passed to "download all". */
   lastDownloadAllUrls: [],
+  /** Job ID of the most recent run, used for on-demand ranking start. */
+  currentJobId: null,
   /** Zoom level at which canvases are currently rendered (used by pinch-zoom). */
   _zBaseZoom: 1,
 };

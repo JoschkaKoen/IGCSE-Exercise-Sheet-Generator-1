@@ -17,6 +17,8 @@ import {
   updateHeaderGlassFromPdfScroll,
 } from './pdf-render.js';
 
+import { startAndPollRanking } from './downloads.js';
+
 // ─── DOM refs private to this module ─────────────────────────────────────────
 
 const pdfTabPrimaryTrack = document.getElementById('pdf-tab-primary-track');
@@ -215,7 +217,14 @@ export function focusAdjacentTab(fromLayoutId, delta) {
   if (!b) return;
   b.addEventListener('click', function () {
     if (b.disabled) return;
-    selectTab('ranking');
+    if (tabEnabled('ranking')) {
+      // Ranking PDF is ready — switch to tab.
+      selectTab('ranking');
+    } else if (!b.classList.contains('pdf-tab-ranking-btn--generating')) {
+      // Idle — start ranking on demand.
+      startAndPollRanking(state.currentJobId);
+    }
+    // If generating, ignore the click (spinner shows progress).
     b.blur();
   });
 })();
