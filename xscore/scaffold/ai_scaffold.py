@@ -14,6 +14,7 @@ import json
 import os
 import re
 import time
+from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -144,12 +145,17 @@ def _upload_and_poll(client, path: Path, label: str):
 def build_ai_scaffold(
     exam_pdf: Path,
     marking_scheme_pdf: Path | None,
+    *,
+    on_exam_complete: "Callable[[list[dict]], None] | None" = None,
 ) -> list[Question]:
     """Extract exam structure via Gemini and return a list[Question].
 
     Args:
         exam_pdf: Path to the exam question-paper PDF.
         marking_scheme_pdf: Optional mark-scheme PDF; skipped when None.
+        on_exam_complete: Optional callback invoked with the raw question dicts
+            after the first API call (exam extraction) completes successfully.
+            Use this to advance the pipeline step counter between the two calls.
 
     Returns:
         list[Question] with spatial BBox coordinates zeroed (page number preserved).
@@ -234,6 +240,9 @@ def build_ai_scaffold(
                 f"{exam_response.text[:300]!r}"
             )
         raw_questions: list[dict] = exam_data["questions"]
+
+        if on_exam_complete is not None:
+            on_exam_complete(raw_questions)
 
         # ---- Call 2: mark-scheme extraction (optional) ------------------
         if "scheme" in uploaded_files:

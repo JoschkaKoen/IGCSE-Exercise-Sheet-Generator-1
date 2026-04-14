@@ -39,7 +39,6 @@ from xscore.scaffold.pdf_parser import (
     merge_answers_into_scaffold,
     parse_answer_key_pdf,
     parse_exam_pdf,
-    prepare_scaffold_image_dirs,
 )
 from xscore.scaffold.pdf_parser.content import normalize_multiple_choice_tree
 from xscore.scaffold.draw_boxes_on_empty_exam import write_scaffold_boxes_pdf
@@ -382,6 +381,7 @@ def build_scaffold(
     output_base: str | Path = "output",
     quiet: bool = False,
     exam_pdf_override: Path | None = None,
+    on_exam_complete: "Any | None" = None,
 ) -> ExamScaffold:
     """Build (or load from cache) the ExamScaffold for the exam in *folder*.
 
@@ -418,14 +418,13 @@ def build_scaffold(
             tool_line("scaffold", "Cache incompatible or corrupt — rebuilding …")
 
     exam_pdf = exam_pdf_override or _find_exam_pdf(folder)
-    prepare_scaffold_image_dirs(ad)
 
     # AI-based extraction (default route) — uses Gemini to parse structure.
     # To revert to the PyMuPDF heuristic parser, replace the two lines below with:
     #   questions = _build_heuristic_scaffold(exam_pdf, folder, _find_answer_pdf(folder), ad)
     from xscore.scaffold.ai_scaffold import build_ai_scaffold
     ans = _find_answer_pdf(folder)
-    questions = build_ai_scaffold(exam_pdf, ans)
+    questions = build_ai_scaffold(exam_pdf, ans, on_exam_complete=on_exam_complete)
     if not questions:
         raise RuntimeError(
             "No questions extracted from exam PDF. "

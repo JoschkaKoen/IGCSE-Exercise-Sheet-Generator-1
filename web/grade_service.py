@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Run the xScore scan pipeline (steps 1, 3–7) for the web grade worker thread.
+"""Run the xScore scan pipeline (steps 1, 3–8) for the web grade worker thread.
 
-Steps 1 (parse prompt) and 3 (load roster) are quick; step 4 (scaffold) is
-optional and runs if an ``empty_exam.pdf`` was uploaded; steps 5–7 (blank
+Steps 1 (parse prompt) and 3 (load roster) are quick; steps 4–5 (scaffold) are
+optional and run if an ``empty_exam.pdf`` was uploaded; steps 6–8 (blank
 detection, autorotate, deskew) do the heavy scan processing.
 
 Step 2 (find folder) is bypassed because the folder is already known from the
@@ -96,17 +96,25 @@ def run_scan_pipeline(
         artifact_dir = folder / f"{timestamp}_{suffix}"
     artifact_dir.mkdir(parents=True, exist_ok=True)
 
-    # ------------------------------------------------------------------ step 4
+    # ------------------------------------------------------------------ steps 4–5
     empty_exam_path = folder / "empty_exam.pdf"
     if empty_exam_path.is_file():
-        emit("Step 4 — Building exam scaffold…")
+        emit("Step 4 — AI API call: Parse exam PDF…")
         try:
             from xscore.scaffold.generate_scaffold import build_scaffold
+
+            def _on_exam_done(raw_questions: list) -> None:
+                emit(f"Step 4 — {len(raw_questions)} top-level questions extracted.")
+                emit("Step 5 — AI API call: Parse mark scheme…")
+
             scaffold = build_scaffold(
-                folder, artifact_dir=artifact_dir, exam_pdf_override=empty_exam_path
+                folder,
+                artifact_dir=artifact_dir,
+                exam_pdf_override=empty_exam_path,
+                on_exam_complete=_on_exam_done,
             )
             emit(
-                f"Step 4 — {len(scaffold.gradable_questions)} parts"
+                f"Step 5 — {len(scaffold.gradable_questions)} gradable parts"
                 f"  ·  {scaffold.total_marks} marks."
             )
         except Exception as exc:  # noqa: BLE001
@@ -114,13 +122,13 @@ def run_scan_pipeline(
     else:
         emit("Step 4 — No empty exam uploaded; scaffold skipped.")
 
-    # ------------------------------------------------------------------ steps 5–7
+    # ------------------------------------------------------------------ steps 6–8
     cleaned_path = artifact_dir / CLEANED_SCAN_PDF
 
-    emit("Step 5 — Locating scan PDF…")
+    emit("Step 6 — Locating scan PDF…")
     source_scan = find_source_scan_match(folder, artifact_dir, effective_dpi)
 
-    emit("Step 5 — Detecting blank pages…")
+    emit("Step 6 — Detecting blank pages…")
     run_with_last_log_line(
         lambda: detect_blank_pages_phase(
             source_scan,
@@ -131,10 +139,10 @@ def run_scan_pipeline(
         on_line,
     )
 
-    emit("Step 6 — Autorotating…")
+    emit("Step 7 — Autorotating…")
     run_with_last_log_line(lambda: autorotate_phase(artifact_dir), on_line)
 
-    emit("Step 7 — Deskewing…")
+    emit("Step 8 — Deskewing…")
     run_with_last_log_line(
         lambda: deskew_phase(folder, artifact_dir, effective_dpi),
         on_line,

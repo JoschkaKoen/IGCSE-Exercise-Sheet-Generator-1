@@ -2,16 +2,17 @@
 """
 xScore.py
 ---------
-Exam scan preparation pipeline (steps 1–7) — run from the eXercise project root.
+Exam scan preparation pipeline (steps 1–8) — run from the eXercise project root.
 
 Steps:
   1. Parse the natural language prompt (via Kimi).
   2. Locate the exam folder.
   3. Read the student roster from StudentList.xlsx.
-  4. Build exam scaffold (optional; requires vector exam PDF).
-  5. Detect blank scan pages.
-  6. Autorotate (remove blanks, apply /Rotate metadata).
-  7. Deskew (small-angle per-half correction) → 3_cleaned_scan.pdf.
+  4. AI: parse exam PDF → question hierarchy.
+  5. AI: parse mark scheme → correct answers + criteria → 1_scaffold.json + scaffold.md.
+  6. Detect blank scan pages.
+  7. Autorotate (remove blanks, apply /Rotate metadata).
+  8. Deskew (small-angle per-half correction) → 3_cleaned_scan.pdf.
 
 Usage:
     python xScore.py "grade Space Physics Unit Test"
@@ -36,7 +37,7 @@ from dotenv import load_dotenv
 
 __version__ = "0.1"
 
-_VALID_THROUGH_STEPS = [1, 2, 3, 4, 5, 6, 7]
+_VALID_THROUGH_STEPS = [1, 2, 3, 4, 5, 6, 7, 8]
 
 
 class _Tee:
@@ -72,7 +73,7 @@ class _Tee:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="xScore.py",
-        description="Prepare an exam scan (steps 1–3 and 5–7).",
+        description="Prepare an exam scan (steps 1–8).",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument(
@@ -96,7 +97,7 @@ def parse_args() -> argparse.Namespace:
         "--skip-clean-scan",
         action="store_true",
         default=False,
-        help="Reuse existing 3_cleaned_scan.pdf (skip steps 5–7)",
+        help="Reuse existing 3_cleaned_scan.pdf (skip steps 6–8)",
     )
     parser.add_argument(
         "--force-clean-scan",
@@ -297,34 +298,44 @@ def _step03_students(ctx: _Ctx, gi: SimpleNamespace) -> None:
         raise SystemExit(0)
 
 
-def _step04_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
+def _step04_05_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Steps 4 (parse exam PDF) and 5 (parse mark scheme + write scaffold)."""
     assert ctx.folder is not None and ctx.artifact_dir is not None
-    gi.pipeline_step(4, "Build exam scaffold")
+    gi.pipeline_step(4, "AI API call — Parse exam PDF")
+
+    def _on_exam_done(raw_questions: list) -> None:
+        gi.ok_line(f"{len(raw_questions)} top-level questions extracted")
+        if ctx.through_step == 4:
+            ctx.partial_stop_step = 4
+            raise SystemExit(0)
+        gi.pipeline_step(5, "AI API call — Parse mark scheme")
+
     try:
-        t0 = time.perf_counter()
-        ctx.scaffold = gi.build_scaffold(ctx.folder, artifact_dir=ctx.artifact_dir)
-        elapsed = time.perf_counter() - t0
+        ctx.scaffold = gi.build_scaffold(
+            ctx.folder,
+            artifact_dir=ctx.artifact_dir,
+            on_exam_complete=_on_exam_done,
+        )
         qs = ctx.scaffold.gradable_questions
         gi.ok_line(
             f"{len(qs)} gradable parts  ·  {ctx.scaffold.total_marks} marks total"
-            f"  ·  {gi.format_duration(elapsed)}"
         )
     except FileNotFoundError as exc:
         gi.warn_line(f"No exam PDF found — scaffold skipped ({exc})")
-    if ctx.through_step == 4:
-        ctx.partial_stop_step = 4
+    if ctx.through_step == 5:
+        ctx.partial_stop_step = 5
         raise SystemExit(0)
 
 
 def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Steps 5–7: blank detection → autorotate → deskew."""
+    """Steps 6–8: blank detection → autorotate → deskew."""
     assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
     ad = ctx.artifact_dir
     dpi = ctx.instruction.dpi
     cleaned_path = ad / gi.CLEANED_SCAN_PDF
 
     if ctx.skip_clean_scan:
-        gi.pipeline_step(5, "Detect blank pages")
+        gi.pipeline_step(6, "Detect blank pages")
         legacy_cleaned = ctx.folder / gi.CLEANED_SCAN_PDF
         if cleaned_path.exists():
             ctx.cleaned_pdf = cleaned_path
@@ -344,7 +355,7 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     match = gi.find_source_scan_match(ctx.folder, ad, dpi)
 
     # Use cache when doing a full run (not stopping mid-scan)
-    partial_scan = ctx.through_step is not None and 5 <= ctx.through_step <= 7
+    partial_scan = ctx.through_step is not None and 6 <= ctx.through_step <= 8
     cache_ok = (
         not partial_scan
         and not ctx.force_clean_scan
@@ -352,29 +363,29 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
         and cleaned_path.stat().st_mtime >= match.stat().st_mtime
     )
     if cache_ok:
-        gi.pipeline_step(5, "Detect blank pages")
-        gi.info_line("Using cached cleaned scan (steps 5–7 skipped).")
+        gi.pipeline_step(6, "Detect blank pages")
+        gi.info_line("Using cached cleaned scan (steps 6–8 skipped).")
         ctx.cleaned_pdf = cleaned_path
         return
 
-    gi.pipeline_step(5, "Detect blank pages")
+    gi.pipeline_step(6, "Detect blank pages")
     gi.detect_blank_pages_phase(match, ad, analysis_dpi=dpi, force_clean_scan=ctx.force_clean_scan)
-    if ctx.through_step == 5:
-        ctx.partial_stop_step = 5
-        raise SystemExit(0)
-
-    gi.pipeline_step(6, "Autorotate")
-    t0_rot = time.perf_counter()
-    gi.autorotate_phase(ad)
-    gi.info_line(gi.format_duration(time.perf_counter() - t0_rot))
     if ctx.through_step == 6:
         ctx.partial_stop_step = 6
         raise SystemExit(0)
 
-    gi.pipeline_step(7, "Small angle correction")
-    ctx.cleaned_pdf = gi.deskew_phase(ctx.folder, ad, dpi)
+    gi.pipeline_step(7, "Autorotate")
+    t0_rot = time.perf_counter()
+    gi.autorotate_phase(ad)
+    gi.info_line(gi.format_duration(time.perf_counter() - t0_rot))
     if ctx.through_step == 7:
         ctx.partial_stop_step = 7
+        raise SystemExit(0)
+
+    gi.pipeline_step(8, "Deskew")
+    ctx.cleaned_pdf = gi.deskew_phase(ctx.folder, ad, dpi)
+    if ctx.through_step == 8:
+        ctx.partial_stop_step = 8
         raise SystemExit(0)
 
 
@@ -391,7 +402,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         _step01_parse(ctx, gi)
         _step02_folder(ctx, gi)
         _step03_students(ctx, gi)
-        _step04_scaffold(ctx, gi)
+        _step04_05_scaffold(ctx, gi)
         _scan_phases(ctx, gi)
         gi.ok_line("Pipeline complete.")
         ctx.pipeline_completed_ok = True

@@ -661,29 +661,25 @@ def deskew_pdf_raster(
             results[page_idx] = (fixed_pil, top_angle, bot_angle, top_lines, bot_lines)
     ok_line(f"Correcting angles · {format_duration(time.perf_counter() - t_angle)}")
 
-    # Build sidecar JSON (ordered by page index). IGCSE anchors filled in step 8.
-    null_anchors = {
-        "top_left": None,
-        "top_right": None,
-        "bot_left": None,
-        "bot_right": None,
-    }
-    reflines_data: list[dict] = []
-    for i in range(n):
-        _, _, _, top_lines, bot_lines = results[i]
-        reflines_data.append({
-            "page": i + 1,
-            "top": [asdict(ln) for ln in top_lines],
-            "bot": [asdict(ln) for ln in bot_lines],
-            "anchors": dict(null_anchors),
-        })
-
-    sidecar_path = (
-        Path(reflines_sidecar).resolve()
-        if reflines_sidecar is not None
-        else anchors_sidecar_path(output_pdf).resolve()
-    )
-    sidecar_path.write_text(json.dumps(reflines_data, indent=2))
+    # Build sidecar JSON only when an explicit path is requested.
+    # (Step 8 anchor detection is not part of the current pipeline.)
+    if reflines_sidecar is not None:
+        null_anchors = {
+            "top_left": None,
+            "top_right": None,
+            "bot_left": None,
+            "bot_right": None,
+        }
+        reflines_data: list[dict] = []
+        for i in range(n):
+            _, _, _, top_lines, bot_lines = results[i]
+            reflines_data.append({
+                "page": i + 1,
+                "top": [asdict(ln) for ln in top_lines],
+                "bot": [asdict(ln) for ln in bot_lines],
+                "anchors": dict(null_anchors),
+            })
+        Path(reflines_sidecar).resolve().write_text(json.dumps(reflines_data, indent=2))
 
     t_write = time.perf_counter()
 
