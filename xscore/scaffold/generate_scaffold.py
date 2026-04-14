@@ -456,5 +456,4 @@ def build_scaffold(
     )
     _save_cache(ad, scaffold)
     _clear_legacy_scaffold_outputs(folder)
-    ok_line(f"{len(leaves)} questions  ·  {total_marks} marks total")
     return scaffold
