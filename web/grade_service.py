@@ -55,7 +55,7 @@ def run_scan_pipeline(
         on_line(msg)
 
     # ------------------------------------------------------------------ step 1
-    emit("Step 1/7 — Creating Kimi client…")
+    emit("Step 1 — Creating Kimi client…")
     client = KimiProvider.create_client()
     if client is None:
         raise RuntimeError(
@@ -64,7 +64,7 @@ def run_scan_pipeline(
 
     effective_dpi = dpi or 400
     if prompt and prompt.strip():
-        emit("Step 1/7 — Parsing grading instructions…")
+        emit("Step 1 — Parsing grading instructions…")
         try:
             instruction = run_with_last_log_line(
                 lambda: parse_prompt(prompt, client=client, dpi_override=dpi),
@@ -73,17 +73,19 @@ def run_scan_pipeline(
             if dpi is None:
                 effective_dpi = instruction.dpi
         except Exception as exc:  # noqa: BLE001
-            emit(f"Step 1/7 — Prompt parse failed ({exc}); using defaults.")
+            emit(f"Step 1 — Prompt parse failed ({exc}); using defaults.")
     else:
-        emit("Step 1/7 — No prompt provided; using default settings.")
+        emit("Step 1 — No prompt provided; using default settings.")
+
+    # step 2 skipped on web route — folder is already known from the upload
 
     # ------------------------------------------------------------------ step 3
-    emit("Step 3/7 — Loading student roster…")
+    emit("Step 3 — Loading student roster…")
     try:
         students = read_student_list(folder)
-        emit(f"Step 3/7 — {len(students)} students on the roster.")
+        emit(f"Step 3 — {len(students)} students on the roster.")
     except FileNotFoundError:
-        emit("Step 3/7 — No student list found (continuing without roster).")
+        emit("Step 3 — No student list found (continuing without roster).")
 
     # ------------------------------------------------------------------ artifact dir
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -97,29 +99,28 @@ def run_scan_pipeline(
     # ------------------------------------------------------------------ step 4
     empty_exam_path = folder / "empty_exam.pdf"
     if empty_exam_path.is_file():
-        emit("Step 4/7 — Building exam scaffold…")
+        emit("Step 4 — Building exam scaffold…")
         try:
             from xscore.scaffold.generate_scaffold import build_scaffold
             scaffold = build_scaffold(
                 folder, artifact_dir=artifact_dir, exam_pdf_override=empty_exam_path
             )
             emit(
-                f"Step 4/7 — {len(scaffold.gradable_questions)} parts"
+                f"Step 4 — {len(scaffold.gradable_questions)} parts"
                 f"  ·  {scaffold.total_marks} marks."
             )
         except Exception as exc:  # noqa: BLE001
-            emit(f"Step 4/7 — Scaffold skipped: {exc}")
+            emit(f"Step 4 — Scaffold skipped: {exc}")
     else:
-        emit("Step 4/7 — No empty exam uploaded; scaffold skipped.")
+        emit("Step 4 — No empty exam uploaded; scaffold skipped.")
 
     # ------------------------------------------------------------------ steps 5–7
     cleaned_path = artifact_dir / CLEANED_SCAN_PDF
 
-    # Locate the scan PDF in the folder
-    emit("Step 5/7 — Locating scan PDF…")
+    emit("Step 5 — Locating scan PDF…")
     source_scan = find_source_scan_match(folder, artifact_dir, effective_dpi)
 
-    emit("Step 5/7 — Detecting blank pages…")
+    emit("Step 5 — Detecting blank pages…")
     run_with_last_log_line(
         lambda: detect_blank_pages_phase(
             source_scan,
@@ -130,10 +131,10 @@ def run_scan_pipeline(
         on_line,
     )
 
-    emit("Step 6/7 — Autorotating…")
+    emit("Step 6 — Autorotating…")
     run_with_last_log_line(lambda: autorotate_phase(artifact_dir), on_line)
 
-    emit("Step 7/7 — Deskewing…")
+    emit("Step 7 — Deskewing…")
     run_with_last_log_line(
         lambda: deskew_phase(folder, artifact_dir, effective_dpi),
         on_line,

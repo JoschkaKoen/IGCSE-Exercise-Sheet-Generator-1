@@ -190,8 +190,13 @@
   }
 }
 
-/* Apply the same gradient background as workspace preview mode */
+/* Match the workspace preview-mode PDF scroll behaviour:
+   display:block lets overflow:auto scroll correctly and allows the
+   pages stack to center via margin:auto / align-items:center.
+   Without this, the default display:flex on .pdf-viewport-scroll
+   left-aligns the pages stack when JS sets an explicit stack width. */
 #lib-detail-preview .pdf-viewport-scroll {
+  display: block;
   background: linear-gradient(180deg, rgba(8, 30, 52, 0.52) 0%, rgba(2, 8, 20, 0.5) 100%);
 }
 
