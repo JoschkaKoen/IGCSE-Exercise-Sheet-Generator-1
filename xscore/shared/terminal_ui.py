@@ -245,8 +245,7 @@ def tool_line(tool: str, message: str) -> None:
 
 def api_latency_line(seconds: float, *, label: str | None = None) -> None:
     """Print a dim timing line after an AI API call completes."""
-    dur = format_duration(seconds)
-    # Use escape() so label brackets are not interpreted as Rich markup tags.
     from rich.markup import escape as _escape
-    suffix = f"  [{_escape(label)}]" if label else ""
+    dur = format_duration(seconds)
+    suffix = f"  ({_escape(label)})" if label else ""
     get_console().print(f"[dim]  {icon('info')}  {dur}{suffix}[/]")
