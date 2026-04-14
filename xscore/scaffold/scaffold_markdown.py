@@ -108,10 +108,21 @@ def _render_question(q: dict[str, Any], depth: int, lines: list[str]) -> None:
 
 
 def write_scaffold_markdown(artifact_dir: Path, payload: dict[str, Any]) -> None:
-    """Write ``scaffold.md`` next to ``scaffold.json`` (same folder as *artifact_dir*)."""
+    """Write ``6_report.md`` next to ``6_report.json`` (same folder as *artifact_dir*)."""
     lines: list[str] = []
-    lines.append("# Exam Scaffold")
+    lines.append("# Exam Report")
     lines.append("")
+
+    students = payload.get("students")
+    if isinstance(students, list) and students:
+        lines.append("## Students")
+        lines.append("")
+        lines.append(f"**{len(students)} students on the roster**")
+        lines.append("")
+        for i, name in enumerate(students, 1):
+            lines.append(f"{i}. {name}")
+        lines.append("")
+
     sv = payload.get("schema_version", "")
     tm = payload.get("total_marks", "")
     pc = payload.get("page_count", "")

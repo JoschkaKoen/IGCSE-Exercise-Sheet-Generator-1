@@ -301,9 +301,10 @@ def _load_cache(folder: Path, artifact_dir: Path) -> ExamScaffold:
     )
 
 
-def _scaffold_to_payload(scaffold: ExamScaffold) -> dict[str, Any]:
+def _scaffold_to_payload(scaffold: ExamScaffold, students: list[str] | None = None) -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,
+        "students": students or [],
         "questions": [question_to_dict(q) for q in scaffold.questions],
         "total_marks": scaffold.total_marks,
         "page_count": scaffold.page_count,
@@ -311,14 +312,14 @@ def _scaffold_to_payload(scaffold: ExamScaffold) -> dict[str, Any]:
     }
 
 
-def _save_cache(artifact_dir: Path, scaffold: ExamScaffold) -> None:
-    payload = _scaffold_to_payload(scaffold)
+def _save_cache(artifact_dir: Path, scaffold: ExamScaffold, students: list[str] | None = None) -> None:
+    payload = _scaffold_to_payload(scaffold, students)
     out = artifact_scaffold_json_path(artifact_dir)
     out.parent.mkdir(parents=True, exist_ok=True)
     with open(out, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
     write_scaffold_markdown(artifact_dir, payload)
-    for old_name in (artifact_dir / "5_scaffold.json", artifact_dir / "1_scaffold.json"):
+    for old_name in (artifact_dir / "6_scaffold.json", artifact_dir / "5_scaffold.json", artifact_dir / "1_scaffold.json"):
         if old_name.is_file() and old_name != out:
             try:
                 old_name.unlink()
@@ -389,6 +390,7 @@ def build_scaffold(
     exam_pdf_override: Path | None = None,
     on_exam_complete: "Any | None" = None,
     on_scheme_complete: "Any | None" = None,
+    students: "list[str] | None" = None,
 ) -> ExamScaffold:
     """Build (or load from cache) the ExamScaffold for the exam in *folder*.
 
@@ -419,7 +421,13 @@ def build_scaffold(
                     )
                 _migrate_scaffold_cache_to_artifact(folder, ad, scaffold)
             elif not artifact_scaffold_markdown_path(ad).is_file():
-                write_scaffold_markdown(ad, _scaffold_to_payload(scaffold))
+                _cached_students: list[str] = []
+                try:
+                    with open(artifact_scaffold_json_path(ad), encoding="utf-8") as _f:
+                        _cached_students = json.load(_f).get("students") or []
+                except (OSError, json.JSONDecodeError):
+                    pass
+                write_scaffold_markdown(ad, _scaffold_to_payload(scaffold, _cached_students))
             return scaffold
         except (ValueError, KeyError, TypeError, json.JSONDecodeError):
             tool_line("scaffold", "Cache incompatible or corrupt — rebuilding …")
@@ -465,6 +473,6 @@ def build_scaffold(
         page_count=page_count,
         raw_description=raw_description,
     )
-    _save_cache(ad, scaffold)
+    _save_cache(ad, scaffold, students)
     _clear_legacy_scaffold_outputs(folder)
     return scaffold

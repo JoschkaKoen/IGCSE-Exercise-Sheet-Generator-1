@@ -306,7 +306,7 @@ def _step04_05_06_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
         if ctx.through_step == 5:
             ctx.partial_stop_step = 5
             raise SystemExit(0)
-        gi.pipeline_step(6, "Merge scaffold")
+        gi.pipeline_step(6, "Create report")
 
     try:
         ctx.scaffold = gi.build_scaffold(
@@ -314,6 +314,7 @@ def _step04_05_06_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
             artifact_dir=ctx.artifact_dir,
             on_exam_complete=_on_exam_done,
             on_scheme_complete=_on_scheme_done,
+            students=ctx.students,
         )
         qs = ctx.scaffold.gradable_questions
         gi.ok_line(

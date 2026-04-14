@@ -21,13 +21,13 @@ def exam_artifact_dir(exam_folder: Path, output_base: str | Path = "output") -> 
 
 
 def artifact_scaffold_json_path(artifact_dir: Path) -> Path:
-    """Canonical scaffold cache JSON in the run folder."""
-    return artifact_dir / "6_scaffold.json"
+    """Canonical report JSON in the run folder."""
+    return artifact_dir / "6_report.json"
 
 
 def artifact_scaffold_markdown_path(artifact_dir: Path) -> Path:
-    """Human-readable scaffold view beside :func:`artifact_scaffold_json_path`."""
-    return artifact_dir / "6_scaffold.md"
+    """Human-readable report beside :func:`artifact_scaffold_json_path`."""
+    return artifact_dir / "6_report.md"
 
 
 def legacy_flat_artifact_scaffold_cache_path(artifact_dir: Path) -> Path:
@@ -130,7 +130,8 @@ def find_scaffold_cache_file(
     """First existing scaffold cache: artifact dir, then legacy locations under *exam_folder*."""
     ad = exam_artifact_dir(exam_folder, output_base)
     for p in (
-        artifact_scaffold_json_path(ad),          # 6_scaffold.json  (current)
+        artifact_scaffold_json_path(ad),          # 6_report.json    (current)
+        ad / "6_scaffold.json",                   # renamed this session
         ad / "5_scaffold.json",                   # renamed one session ago
         ad / "1_scaffold.json",                   # older legacy name
         legacy_flat_artifact_scaffold_cache_path(ad),

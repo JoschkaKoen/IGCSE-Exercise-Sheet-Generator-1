@@ -73,6 +73,7 @@ def run_scan_pipeline(
 
     # ------------------------------------------------------------------ step 3
     emit("Step 3 — Loading student roster…")
+    students: list[str] = []
     try:
         students = read_student_list(folder)
         emit(f"Step 3 — {len(students)} students on the roster.")
@@ -101,7 +102,7 @@ def run_scan_pipeline(
 
             def _on_scheme_done(scheme_questions: list) -> None:
                 emit(f"Step 5 — {len(scheme_questions)} answers in mark scheme.")
-                emit("Step 6 — Merge scaffold…")
+                emit("Step 6 — Create report…")
 
             scaffold = build_scaffold(
                 folder,
@@ -109,9 +110,10 @@ def run_scan_pipeline(
                 exam_pdf_override=empty_exam_path,
                 on_exam_complete=_on_exam_done,
                 on_scheme_complete=_on_scheme_done,
+                students=students,
             )
             emit(
-                f"Step 6 — {len(scaffold.gradable_questions)} gradable parts"
+                f"Step 6 — Report: {len(scaffold.gradable_questions)} gradable parts"
                 f"  ·  {scaffold.total_marks} marks."
             )
         except Exception as exc:  # noqa: BLE001
