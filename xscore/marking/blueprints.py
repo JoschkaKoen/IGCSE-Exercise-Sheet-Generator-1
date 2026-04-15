@@ -1,0 +1,56 @@
+"""Step 11 — AI marking blueprints: one JSON per exam page, leaf questions only."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any
+
+
+def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
+    """For each exam page create a blueprint JSON with only the leaf questions.
+
+    Each question entry has: number, question_type, max_marks, student_answer (empty),
+    assigned_marks (null), reasoning (empty).  Only leaf questions (gradable_questions)
+    whose .page field matches the page number are included.
+
+    Returns a list of blueprint dicts, one per exam page (1-indexed).
+    """
+    from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_blueprint_md_path
+
+    blueprints: list[dict] = []
+    for page_num in range(1, scaffold.page_count + 1):
+        page_qs = [
+            {
+                "number": q.number,
+                "question_type": q.question_type,
+                "max_marks": q.marks,
+                "student_answer": "",
+                "assigned_marks": None,
+                "reasoning": "",
+            }
+            for q in scaffold.gradable_questions
+            if q.page == page_num
+        ]
+        bp = {"page": page_num, "questions": page_qs}
+        blueprints.append(bp)
+
+        json_path = artifact_blueprint_json_path(artifact_dir, page_num)
+        json_path.write_text(json.dumps(bp, indent=2, ensure_ascii=False), encoding="utf-8")
+
+        md_path = artifact_blueprint_md_path(artifact_dir, page_num)
+        md_path.write_text(_blueprint_to_md(bp), encoding="utf-8")
+
+    return blueprints
+
+
+def _blueprint_to_md(bp: dict) -> str:
+    lines = [f"# AI Marking Blueprint — Page {bp['page']}\n"]
+    if not bp["questions"]:
+        lines.append("_No questions assigned to this page._\n")
+        return "\n".join(lines)
+    lines.append("| # | Type | Max marks |")
+    lines.append("|---|------|-----------|")
+    for q in bp["questions"]:
+        lines.append(f"| {q['number']} | {q['question_type']} | {q['max_marks']} |")
+    return "\n".join(lines) + "\n"

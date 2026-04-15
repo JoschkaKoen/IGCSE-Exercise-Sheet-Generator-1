@@ -136,6 +136,83 @@ def find_latest_cleaned_scan(
     return max(candidates, key=lambda p: p.stat().st_mtime)
 
 
+# ---------------------------------------------------------------------------
+# Steps 10–14: AI marking pipeline artifacts
+# ---------------------------------------------------------------------------
+
+def artifact_geometry_json_path(artifact_dir: Path) -> Path:
+    """Step 10: exam geometry (page counts, student count)."""
+    return artifact_dir / "10_exam_geometry.json"
+
+
+def artifact_geometry_md_path(artifact_dir: Path) -> Path:
+    """Step 10: human-readable exam geometry table."""
+    return artifact_dir / "10_exam_geometry.md"
+
+
+def artifact_blueprint_json_path(artifact_dir: Path, page: int) -> Path:
+    """Step 11: empty AI marking blueprint for one exam page."""
+    return artifact_dir / f"11_ai_marking_blueprint_{page}.json"
+
+
+def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
+    """Step 11: human-readable blueprint summary for one exam page."""
+    return artifact_dir / f"11_ai_marking_blueprint_{page}.md"
+
+
+def artifact_marked_json_path(artifact_dir: Path, student: str, page: int) -> Path:
+    """Step 12: AI-filled marking blueprint for one student's scan page."""
+    import re
+    safe = re.sub(r"[^\w]", "_", student)
+    return artifact_dir / f"12_marked_{safe}_{page}.json"
+
+
+def artifact_student_report_json_path(artifact_dir: Path, student: str) -> Path:
+    """Step 13: merged student report JSON."""
+    import re
+    safe = re.sub(r"[^\w]", "_", student)
+    return artifact_dir / f"13_student_report_{safe}.json"
+
+
+def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
+    """Step 13: human-readable student report."""
+    import re
+    safe = re.sub(r"[^\w]", "_", student)
+    return artifact_dir / f"13_student_report_{safe}.md"
+
+
+def artifact_student_report_tex_path(artifact_dir: Path, student: str) -> Path:
+    """Step 13: LaTeX source for student report PDF."""
+    import re
+    safe = re.sub(r"[^\w]", "_", student)
+    return artifact_dir / f"13_student_report_{safe}.tex"
+
+
+def artifact_class_report_json_path(artifact_dir: Path) -> Path:
+    """Step 13: class-wide summary JSON."""
+    return artifact_dir / "13_class_report.json"
+
+
+def artifact_class_report_md_path(artifact_dir: Path) -> Path:
+    """Step 13: human-readable class report."""
+    return artifact_dir / "13_class_report.md"
+
+
+def artifact_class_report_tex_path(artifact_dir: Path) -> Path:
+    """Step 13: LaTeX source for class report PDF."""
+    return artifact_dir / "13_class_report.tex"
+
+
+def artifact_timing_json_path(artifact_dir: Path) -> Path:
+    """Step 14: marking pipeline timing data."""
+    return artifact_dir / "14_timing.json"
+
+
+def artifact_timing_md_path(artifact_dir: Path) -> Path:
+    """Step 14: human-readable timing table."""
+    return artifact_dir / "14_timing.md"
+
+
 def find_scaffold_cache_file(
     exam_folder: Path, output_base: str | Path = "output/xscore"
 ) -> Path | None:

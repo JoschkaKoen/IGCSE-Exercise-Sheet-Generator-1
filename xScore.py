@@ -40,7 +40,7 @@ from xscore.shared.student_artifacts import write_student_artifacts
 
 __version__ = "0.1"
 
-_VALID_THROUGH_STEPS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+_VALID_THROUGH_STEPS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
 
 class _Tee:
@@ -142,6 +142,17 @@ class _Ctx:
     cleaned_pdf: Path | None = None
     partial_stop_step: int | None = None
     pipeline_completed_ok: bool = False
+    # Steps 10–14: AI marking pipeline
+    num_students: int = 0
+    pages_per_student: int = 0
+    step_timings_marking: dict = None        # populated in steps 10–14
+    marking_api_calls: list = None           # populated in step 12
+
+    def __post_init__(self) -> None:
+        if self.step_timings_marking is None:
+            self.step_timings_marking = {}
+        if self.marking_api_calls is None:
+            self.marking_api_calls = []
 
 
 def _print_footer(ctx: _Ctx, gi: SimpleNamespace, elapsed: float) -> None:
@@ -161,8 +172,13 @@ def _print_footer(ctx: _Ctx, gi: SimpleNamespace, elapsed: float) -> None:
 # ---------------------------------------------------------------------------
 
 def _load_imports() -> SimpleNamespace:
+    from xscore.marking.ai_mark import run_ai_marking
+    from xscore.marking.blueprints import build_blueprints
     from xscore.marking.find_exam_folder import find_folder
+    from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
+    from xscore.marking.merge_reports import compile_reports
     from xscore.marking.parse_instruction import parse_prompt
+    from xscore.marking.timing_report import write_timing_report
     from xscore.preprocessing.start_scan import (
         CLEANED_SCAN_PDF,
         autorotate_phase,
@@ -173,6 +189,7 @@ def _load_imports() -> SimpleNamespace:
     from xscore.scaffold.generate_scaffold import build_scaffold
     from xscore.shared.load_student_list import read_student_list
     from xscore.shared.terminal_ui import (
+        api_latency_line,
         err_line,
         format_duration,
         get_console,
@@ -192,6 +209,15 @@ def _load_imports() -> SimpleNamespace:
         detect_blank_pages_phase=detect_blank_pages_phase,
         find_source_scan_match=find_source_scan_match,
         read_student_list=read_student_list,
+        # Steps 10–14
+        compute_geometry=compute_geometry,
+        write_geometry_artifacts=write_geometry_artifacts,
+        build_blueprints=build_blueprints,
+        run_ai_marking=run_ai_marking,
+        compile_reports=compile_reports,
+        write_timing_report=write_timing_report,
+        # Terminal UI
+        api_latency_line=api_latency_line,
         err_line=err_line,
         format_duration=format_duration,
         get_console=get_console,
@@ -390,6 +416,91 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Marking pipeline steps (10–14)
+# ---------------------------------------------------------------------------
+
+def _step10_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 10 — Count scan/exam pages, derive student count."""
+    assert ctx.cleaned_pdf is not None and ctx.scaffold is not None and ctx.artifact_dir is not None
+    gi.pipeline_step(10, "Exam geometry")
+    t0 = time.perf_counter()
+    geo = gi.compute_geometry(ctx.cleaned_pdf, ctx.scaffold.page_count, ctx.students or [])
+    gi.write_geometry_artifacts(ctx.artifact_dir, geo)
+    ctx.num_students = geo["num_students"]
+    ctx.pages_per_student = geo["pages_per_student"]
+    if geo["roster_mismatch"]:
+        gi.warn_line(
+            f"Roster has {geo['num_students_roster']} students "
+            f"but scan implies {geo['num_students']}"
+        )
+    gi.ok_line(
+        f"{ctx.num_students} students  ·  {ctx.pages_per_student} pages each  "
+        f"·  {geo['scan_pages']} scan pages total"
+    )
+    ctx.step_timings_marking["step_10_s"] = time.perf_counter() - t0
+    if ctx.through_step == 10:
+        ctx.partial_stop_step = 10
+        raise SystemExit(0)
+
+
+def _step11_blueprints(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 11 — Build per-page AI marking blueprints (no AI calls)."""
+    assert ctx.scaffold is not None and ctx.artifact_dir is not None
+    gi.pipeline_step(11, "AI marking blueprints")
+    t0 = time.perf_counter()
+    blueprints = gi.build_blueprints(ctx.scaffold, ctx.artifact_dir)
+    gi.ok_line(f"{len(blueprints)} page blueprint(s) written")
+    ctx.step_timings_marking["step_11_s"] = time.perf_counter() - t0
+    if ctx.through_step == 11:
+        ctx.partial_stop_step = 11
+        raise SystemExit(0)
+
+
+def _step12_mark(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 12 — AI marking: vision calls to fill blueprints for each student page."""
+    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    gi.pipeline_step(12, "AI marking")
+    t0 = time.perf_counter()
+    ctx.marking_api_calls = gi.run_ai_marking(ctx)
+    gi.ok_line(
+        f"{len(ctx.marking_api_calls)} API calls  ·  "
+        f"{ctx.num_students * ctx.pages_per_student} pages marked"
+    )
+    ctx.step_timings_marking["step_12_s"] = time.perf_counter() - t0
+    if ctx.through_step == 12:
+        ctx.partial_stop_step = 12
+        raise SystemExit(0)
+
+
+def _step13_reports(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 13 — Merge per-page results into student + class reports; compile PDFs."""
+    assert ctx.scaffold is not None and ctx.artifact_dir is not None
+    gi.pipeline_step(13, "Compile reports")
+    t0 = time.perf_counter()
+    summaries = gi.compile_reports(ctx)
+    gi.ok_line(
+        f"{len(summaries)} student report(s)  ·  "
+        f"class avg {summaries[0]['percentage'] if len(summaries) == 1 else round(sum(s['percentage'] for s in summaries) / len(summaries), 1) if summaries else 0}%"
+    )
+    ctx.step_timings_marking["step_13_s"] = time.perf_counter() - t0
+    if ctx.through_step == 13:
+        ctx.partial_stop_step = 13
+        raise SystemExit(0)
+
+
+def _step14_timing(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 14 — Write timing summary (14_timing.json / .md)."""
+    assert ctx.artifact_dir is not None
+    gi.pipeline_step(14, "Timing summary")
+    t0 = time.perf_counter()
+    ctx.step_timings_marking["step_14_s"] = 0.0  # will be updated below
+    gi.write_timing_report(ctx.artifact_dir, ctx.step_timings_marking, ctx.marking_api_calls)
+    ctx.step_timings_marking["step_14_s"] = round(time.perf_counter() - t0, 3)
+    # Rewrite with accurate step 14 duration
+    gi.write_timing_report(ctx.artifact_dir, ctx.step_timings_marking, ctx.marking_api_calls)
+
+
+# ---------------------------------------------------------------------------
 # Main runner
 # ---------------------------------------------------------------------------
 
@@ -403,6 +514,12 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         _step03_students(ctx, gi)
         _step04_05_06_scaffold(ctx, gi)
         _scan_phases(ctx, gi)
+        if ctx.cleaned_pdf and ctx.scaffold:
+            _step10_geometry(ctx, gi)
+            _step11_blueprints(ctx, gi)
+            _step12_mark(ctx, gi)
+            _step13_reports(ctx, gi)
+            _step14_timing(ctx, gi)
         gi.ok_line("Pipeline complete.")
         ctx.pipeline_completed_ok = True
         if ctx.cleaned_pdf:
