@@ -20,8 +20,10 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import time
+import traceback as _traceback
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
@@ -53,6 +55,18 @@ from .env_load import load_project_env
 
 MAX_PAGES = 12  # cap to avoid token overflow
 
+
+def _eprint(msg: str) -> None:
+    """Print an error message — red in a TTY terminal, plain text otherwise.
+
+    Uses ANSI red only when stdout is a real terminal so that the web-UI
+    capture (which sets isatty()=False) receives clean plain text.
+    """
+    if sys.stdout.isatty():
+        print(f"\033[31m{msg}\033[0m", flush=True)
+    else:
+        print(msg, flush=True)
+
 # ---------------------------------------------------------------------------
 # LaTeX helpers
 # ---------------------------------------------------------------------------
@@ -80,7 +94,7 @@ def _pdf_to_b64_images(pdf_path: Path, dpi: int = 100) -> list[str]:
             images.append(f"data:image/png;base64,{b64}")
         doc.close()
     except Exception as exc:
-        print(f"  Ranking: could not render {pdf_path.name} as images: {exc}")
+        _eprint(f"  Ranking: could not render {pdf_path.name} as images: {exc}")
     return images
 
 
@@ -95,7 +109,7 @@ def _extract_pdf_text(pdf_path: Path) -> str:
             parts.append(page.get_text("text"))
         doc.close()
     except Exception as exc:
-        print(f"  Ranking: could not extract text from {pdf_path.name}: {exc}")
+        _eprint(f"  Ranking: could not extract text from {pdf_path.name}: {exc}")
     return "\n".join(parts)
 
 
@@ -147,9 +161,9 @@ def _rank_exercises_ai_gemini(
     except ImportError:
         raise RuntimeError("google-genai not installed; run: pip install google-genai")
 
-    api_key = os.environ.get("GOOGLE_API_KEY", "").strip()
+    api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
     if not api_key:
-        raise RuntimeError("GOOGLE_API_KEY not set")
+        raise RuntimeError("GEMINI_API_KEY not set")
 
     client = gai.Client(api_key=api_key)
 
@@ -268,7 +282,7 @@ def _rank_exercises_ai(
 ) -> list[str]:
     """Call the LLM and return the ranked list of question identifiers."""
     if not _AI_OK:
-        print("  Ranking: ai_client not available.")
+        _eprint("  Ranking: ai_client not available.")
         return []
 
     load_project_env()
@@ -279,7 +293,7 @@ def _rank_exercises_ai(
         default_model="qwen3.6-plus, high",
     )
     if result is None:
-        print("  Ranking: no API key set for ranking model; skipping.")
+        _eprint("  Ranking: no API key set for ranking model; skipping.")
         return []
 
     client, model, provider, effort = result
@@ -295,7 +309,7 @@ def _rank_exercises_ai(
             print(f"  Ranked {len(ranking)} question part(s).")
             return ranking
         except Exception as exc:
-            print(f"  Ranking: native Gemini path failed ({exc}); falling back to image path.")
+            _eprint(f"  Ranking: native Gemini path failed ({type(exc).__name__}: {exc}); falling back to image path.")
 
     def _build_vision_messages() -> list[dict]:
         has_answers = bool(answer_pdf and answer_pdf.exists())
@@ -371,19 +385,19 @@ def _rank_exercises_ai(
         raw = _call(_build_vision_messages())
         print(f"  Ranking AI call: {time.monotonic() - _t0:.1f}s")
     except Exception as exc:
-        print(f"  Ranking: vision call failed ({exc}); retrying with text.")
+        _eprint(f"  Ranking: vision call failed ({type(exc).__name__}: {exc}); retrying with text.")
         try:
             _t0 = time.monotonic()
             raw = _call(_build_text_messages())
             print(f"  Ranking AI call (text fallback): {time.monotonic() - _t0:.1f}s")
         except Exception as exc2:
-            print(f"  Ranking: text fallback also failed: {exc2}")
+            _eprint(f"  Ranking: text fallback also failed ({type(exc2).__name__}: {exc2})")
             return []
 
     ranking = _parse_ranking(raw)
     if not ranking and raw.strip():
-        print("  Ranking: response had no valid question identifiers after filtering.")
-        print(f"  Response preview: {raw[:300]!r}")
+        _eprint("  Ranking: response had no valid question identifiers after filtering.")
+        _eprint(f"  Response preview: {raw[:300]!r}")
     print(f"  Ranked {len(ranking)} question part(s).")
     return ranking
 
@@ -450,7 +464,7 @@ def _compile_ranking_latex(
 ) -> bool:
     pdflatex = _find_pdflatex()
     if not pdflatex:
-        print("  Skipping ranking PDF: pdflatex not found.")
+        _eprint("  Skipping ranking PDF: pdflatex not found.")
         return False
 
     if save_tex is not None:
@@ -479,18 +493,18 @@ def _compile_ranking_latex(
                 )
                 if result.returncode != 0 and run == 1:
                     log = (result.stdout or "")[-1500:]
-                    print(f"  Ranking: pdflatex failed:\n{log}")
+                    _eprint(f"  Ranking: pdflatex failed:\n{log}")
                     return False
             except subprocess.TimeoutExpired:
-                print("  Ranking: pdflatex timed out.")
+                _eprint("  Ranking: pdflatex timed out.")
                 return False
             except OSError as exc:
-                print(f"  Ranking: pdflatex error: {exc}")
+                _eprint(f"  Ranking: pdflatex error: {exc}")
                 return False
 
         compiled = tmp_path / "ranking.pdf"
         if not compiled.is_file():
-            print("  Ranking: pdflatex ran but produced no PDF.")
+            _eprint("  Ranking: pdflatex ran but produced no PDF.")
             return False
 
         shutil.copy2(str(compiled), str(out_pdf))
@@ -527,21 +541,23 @@ def generate_difficulty_ranking(
         return None
 
     if not exercise_pdf.exists():
-        print(f"  Ranking: exercise PDF not found: {exercise_pdf}")
+        _eprint(f"  Ranking: exercise PDF not found: {exercise_pdf}")
         return None
 
     save_debug = os.environ.get("SAVE_TEX", "").lower() in ("true", "1", "yes")
-    save_dir = out_path if save_debug else None
+    # Images (rendered PDF pages for the fallback path) are always saved for debugging.
+    # SAVE_TEX only controls whether the .tex source file is kept.
 
     print(f"  Calling AI for difficulty ranking ({name})…")
     try:
-        ranking = _rank_exercises_ai(exercise_pdf, answer_pdf, save_dir=save_dir)
+        ranking = _rank_exercises_ai(exercise_pdf, answer_pdf, save_dir=out_path)
     except Exception as exc:
-        print(f"  Ranking: unexpected error during AI call: {exc}")
+        _eprint(f"  Ranking: unexpected error during AI call: {exc}")
+        _eprint(_traceback.format_exc())
         return None
 
     if not ranking:
-        print("  Ranking: no ranking returned; skipping PDF generation.")
+        _eprint("  Ranking: no ranking returned; skipping PDF generation.")
         return None
 
     tex = _generate_ranking_latex(ranking, name)
@@ -552,7 +568,7 @@ def generate_difficulty_ranking(
     try:
         ok = _compile_ranking_latex(tex, dest, save_tex=save_tex)
     except Exception as exc:
-        print(f"  Ranking: LaTeX compilation error: {exc}")
+        _eprint(f"  Ranking: LaTeX compilation error: {exc}")
         return None
 
     if ok:

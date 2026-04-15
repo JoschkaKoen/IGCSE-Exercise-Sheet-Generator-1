@@ -64,7 +64,7 @@ _PROVIDER_REGISTRY: list[_ProviderDef] = [
     _ProviderDef(
         name="gemini",
         base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
-        api_key_env="GOOGLE_API_KEY",
+        api_key_env="GEMINI_API_KEY",
         model_prefixes=("gemini",),
     ),
     _ProviderDef(
