@@ -31,6 +31,16 @@ def artifact_scaffold_markdown_path(artifact_dir: Path) -> Path:
     return artifact_dir / "6_report.md"
 
 
+def artifact_short_scaffold_json_path(artifact_dir: Path) -> Path:
+    """Short report JSON — same as 6_report.json but without the student list."""
+    return artifact_dir / "6_short_report.json"
+
+
+def artifact_short_scaffold_markdown_path(artifact_dir: Path) -> Path:
+    """Short report markdown — same as 6_report.md but without the student list."""
+    return artifact_dir / "6_short_report.md"
+
+
 def legacy_flat_artifact_scaffold_cache_path(artifact_dir: Path) -> Path:
     """Deprecated: older runs stored the cache as ``scaffold_cache.json`` in the run folder."""
     return artifact_dir / "scaffold_cache.json"

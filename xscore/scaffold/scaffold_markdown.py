@@ -10,6 +10,7 @@ from xscore.shared.exam_paths import (
     artifact_exam_questions_markdown_path,
     artifact_mark_scheme_markdown_path,
     artifact_scaffold_markdown_path,
+    artifact_short_scaffold_markdown_path,
 )
 
 
@@ -107,8 +108,8 @@ def _render_question(q: dict[str, Any], depth: int, lines: list[str]) -> None:
                 _render_question(s, depth + 1, lines)
 
 
-def write_scaffold_markdown(artifact_dir: Path, payload: dict[str, Any]) -> None:
-    """Write ``6_report.md`` next to ``6_report.json`` (same folder as *artifact_dir*)."""
+def _write_scaffold_markdown(path: Path, payload: dict[str, Any]) -> None:
+    """Render scaffold markdown from *payload* and write it to *path*."""
     lines: list[str] = []
     lines.append("# Exam Report")
     lines.append("")
@@ -150,10 +151,19 @@ def write_scaffold_markdown(artifact_dir: Path, payload: dict[str, Any]) -> None
             first = False
             _render_question(q, 0, lines)
 
-    path = artifact_scaffold_markdown_path(artifact_dir)
     path.parent.mkdir(parents=True, exist_ok=True)
-    body = "\n".join(lines).rstrip() + "\n"
-    path.write_text(body, encoding="utf-8")
+    path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+
+
+def write_scaffold_markdown(artifact_dir: Path, payload: dict[str, Any]) -> None:
+    """Write ``6_report.md`` next to ``6_report.json`` (same folder as *artifact_dir*)."""
+    _write_scaffold_markdown(artifact_scaffold_markdown_path(artifact_dir), payload)
+
+
+def write_short_scaffold_markdown(artifact_dir: Path, payload: dict[str, Any]) -> None:
+    """Write ``6_short_report.md`` — same as ``6_report.md`` but without the students section."""
+    short_payload = {k: v for k, v in payload.items() if k != "students"}
+    _write_scaffold_markdown(artifact_short_scaffold_markdown_path(artifact_dir), short_payload)
 
 
 def write_raw_exam_markdown(artifact_dir: Path, raw_questions: list[Any]) -> None:

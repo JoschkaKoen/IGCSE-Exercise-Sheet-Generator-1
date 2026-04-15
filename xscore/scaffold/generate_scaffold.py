@@ -30,11 +30,12 @@ from xscore.shared.exam_paths import (
     artifact_scaffold_boxes_path,
     artifact_scaffold_json_path,
     artifact_scaffold_markdown_path,
+    artifact_short_scaffold_json_path,
     exam_artifact_dir,
     legacy_artifact_scaffold_cache_path,
     legacy_flat_artifact_scaffold_cache_path,
 )
-from xscore.scaffold.scaffold_markdown import write_scaffold_markdown
+from xscore.scaffold.scaffold_markdown import write_scaffold_markdown, write_short_scaffold_markdown
 from xscore.scaffold.pdf_parser import (
     merge_answers_into_scaffold,
     parse_answer_key_pdf,
@@ -324,6 +325,11 @@ def _save_cache(artifact_dir: Path, scaffold: ExamScaffold, students: list[str] 
     with open(out, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
     write_scaffold_markdown(artifact_dir, payload)
+    short_payload = {k: v for k, v in payload.items() if k != "students"}
+    short_out = artifact_short_scaffold_json_path(artifact_dir)
+    with open(short_out, "w", encoding="utf-8") as f:
+        json.dump(short_payload, f, indent=2, ensure_ascii=False)
+    write_short_scaffold_markdown(artifact_dir, payload)
     for old_name in (artifact_dir / "6_scaffold.json", artifact_dir / "5_scaffold.json", artifact_dir / "1_scaffold.json"):
         if old_name.is_file() and old_name != out:
             try:
