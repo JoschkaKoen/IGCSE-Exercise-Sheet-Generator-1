@@ -153,6 +153,20 @@ def detect_blank_pages_phase(
     )
     paths["blanks_json"].parent.mkdir(parents=True, exist_ok=True)
     paths["blanks_json"].write_text(body, encoding="utf-8")
+    paths["blanks_json"].with_suffix(".md").write_text(
+        _scan_blanks_to_md(
+            source_pdf=source_pdf,
+            total_pages=total_pages,
+            content_page_nums=content_page_nums,
+            blank_page_nums=blank_page_nums,
+            page_render_sizes=page_render_sizes,
+            blank_mean=bm,
+            blank_std=bs,
+            use_tesseract_rotation=SCAN_USE_TESSERACT_ROTATION,
+            analysis_dpi=analysis_dpi,
+        ),
+        encoding="utf-8",
+    )
     ok_line(
         f"{len(content_page_nums)} content pages · {len(blank_page_nums)} blank"
     )

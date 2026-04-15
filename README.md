@@ -90,58 +90,84 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    subgraph uploads [Uploads — web route]
+    subgraph uploads ["Inputs"]
         direction LR
         u1[exam scan PDF]
-        u2[student roster — optional]
-        u3[exam PDF — optional]
-        u4[answer sheet — optional]
+        u2["student roster · optional"]
+        u3["exam PDF · optional"]
+        u4["mark scheme · optional"]
     end
 
-    s1[Step 1 — Parse grading instructions]
-    s2["Step 2 — Locate exam folder\n(terminal route only)"]
-    s3[Step 3 — Read student roster]
+    s1["Step 1 — Parse grading prompt\n(Gemini · INTERPRET_PROMPT_MODEL)"]
+    s2["Step 2 — Locate exam folder\n(terminal only — fuzzy search)"]
+    s3["Step 3 — Read student roster\n(Gemini · READ_STUDENT_LIST_MODEL)"]
 
-    subgraph scaffold ["Steps 4–6 — Exam scaffold + report  (skipped if no exam PDF)"]
-        s4["Step 4 — Gemini call 1\nParse exam PDF"]
-        s5["Step 5 — Gemini call 2\nParse answer sheet"]
-        s6[Step 6 — Create report]
-        s4 -.->|"if answer sheet present"| s5
+    subgraph scaffold ["Steps 4–6 — Exam scaffold  (skipped if no exam PDF)"]
+        direction TB
+        s4["Step 4 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)"]
+        s5["Step 5 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL)"]
+        s6["Step 6 — Merge report"]
+        s4 -.->|"if mark scheme present"| s5
         s5 --> s6
         s4 --> s6
     end
 
-    s7[Step 7 — Detect blank pages]
-    s8[Step 8 — Auto-rotate pages]
-    s9[Step 9 — Deskew pages]
+    subgraph cleaning ["Steps 7–9 — Scan cleaning"]
+        direction TB
+        s7["Step 7 — Blank page detection\n(parallel · ≤ 4 CPU workers)"]
+        s8["Step 8 — Auto-rotate pages"]
+        s9["Step 9 — Deskew\n(IGCSE anchor detection · parallel)"]
+        s7 --> s8 --> s9
+    end
 
-    f3[/"3_students.json\n3_students.md"/]
-    f4[/"4_exam_questions.json\n4_exam_questions.md"/]
-    f5[/"5_mark_scheme.json\n5_mark_scheme.md"/]
-    fmerge[/"6_report.json\n6_report.md"/]
-    out([3_cleaned_scan.pdf])
+    cleaned(["3_cleaned_scan.pdf"])
+
+    subgraph marking ["Steps 10–14 — AI marking  (requires exam scaffold)"]
+        direction TB
+        s10["Step 10 — Exam geometry\npage count ÷ exam pages = students"]
+        s11["Step 11 — Marking blueprints\nper-page JSON templates from scaffold"]
+        s12["Step 12 — AI marking\n(Qwen vision · MARKING_MODEL)\nstudents in parallel · MARKING_WORKERS"]
+        s13["Step 13 — Compile reports\nper-student PDF + class PDF\nxelatex · parallel · MARKING_WORKERS"]
+        s14["Step 14 — Timing summary"]
+        s10 --> s11 --> s12 --> s13 --> s14
+    end
+
+    f3[/"3_students.json · md"/]
+    f6[/"6_short_report.json · md"/]
+    f12[/"12_marked_name_page.json\n(one per student × page)"/]
+    f13[/"13_student_report_name.pdf\n13_class_report.pdf"/]
+    f14[/"14_timing.json · md"/]
 
     uploads --> s1
     s1 --> s2
     s2 -->|terminal| s3
     s1 -->|web| s3
-    s3 --> scaffold --> s7 --> s8 --> s9 --> out
+    s3 --> scaffold --> cleaning --> cleaned
+    cleaned -->|"if scaffold present"| s10
 
     s3 -.-> f3
-    s4 -.-> f4
-    s5 -.-> f5
-    s6 -.-> fmerge
+    s6 -.-> f6
+    s12 -.-> f12
+    s13 -.-> f13
+    s14 -.-> f14
 ```
 
 | Step | Description |
 |------|-------------|
-| **1** | An LLM (Kimi) parses any free-text grading prompt to extract DPI, task type, and student filter options. |
-| **2** | **Terminal route only.** A fuzzy folder search locates the exam folder on disk from the hint in the prompt or `--folder` flag. The web route skips this step because the folder is determined by the upload. |
-| **3** | The student roster is read from `StudentList.*` in the exam folder. Supports `.xlsx`, `.xls`, `.csv`, and `.pdf` formats via Gemini. Writes `3_students.json` (plain name array) and `3_students.md` (numbered list). |
-| **4** | **Optional — requires exam PDF.** Gemini call 1 reads the exam paper and returns every question and sub-question with its number, type, marks, page, and answer options. Writes `4_exam_questions.json` + `4_exam_questions.md`. Requires `GOOGLE_API_KEY`. Configure with `READ_EXAM_PDF_MODEL` in `default.env`. |
-| **5** | **Optional — requires answer sheet.** Gemini call 2 reads the answer sheet and returns correct answers and marking criteria. Writes `5_mark_scheme.json` + `5_mark_scheme.md`. Configure with `READ_MARK_SCHEME_MODEL` in `default.env`. |
-| **6** | Merges the exam question tree with the mark scheme annotations and writes the final report: `6_report.json` + `6_report.md`. The report includes the student roster at the top, followed by the full question/answer structure. Runs even without an answer sheet (exam-only report). |
-| **7–9** | Blank pages are stripped, all pages are rotated upright, and small-angle skew is corrected. The result is `3_cleaned_scan.pdf` — ready for manual or automated marking. |
+| **1** | Gemini parses any free-text grading prompt and returns structured config (DPI, task type, student filter). Configure with `INTERPRET_PROMPT_MODEL` in `default.env`. |
+| **2** | **Terminal route only.** A fuzzy folder search locates the exam folder on disk from the hint in the prompt or `--folder` flag. Skipped on the web route because the folder is determined by the upload. |
+| **3** | The student roster is read from `StudentList.*` in the exam folder. Supports `.xlsx`, `.xls`, `.csv`, and `.pdf` formats via Gemini. Writes `3_students.json` (name array) and `3_students.md` (numbered list). Configure with `READ_STUDENT_LIST_MODEL`. |
+| **4** | **Optional — requires exam PDF.** Gemini reads the exam paper and returns every question and sub-question with its number, type, marks, page, and answer options. Writes `4_exam_questions.json` + `.md`. Configure with `READ_EXAM_PDF_MODEL`. |
+| **5** | **Optional — requires mark scheme.** Gemini reads the mark scheme and returns correct answers and marking criteria. Writes `5_mark_scheme.json` + `.md`. Configure with `READ_MARK_SCHEME_MODEL`. |
+| **6** | Merges the exam question tree with mark scheme annotations into a single `6_short_report.json` + `.md`. Runs even without a mark scheme (exam-only report). This report drives steps 11–12. |
+| **7** | Low-resolution raster pass (72 DPI) to classify each page as blank or content. Blank pages are dropped. Runs in parallel using up to `min(4, cpu_count)` threads. |
+| **8** | Each content page's PDF `/Rotate` metadata is applied so scanners that encode rotation in metadata come out portrait. Optional Tesseract OSD pass for extra correction. |
+| **9** | IGCSE header anchors are detected on each page (parallel). Anchor positions drive the fine deskew transform; corrected pages are written to `3_cleaned_scan.pdf`. |
+| **10** | `scan_pages ÷ exam_pages` gives `num_students`. Cross-checked against the roster; a count mismatch is a warning, not an error. Writes `10_exam_geometry.json`. |
+| **11** | For each exam page, leaf questions from the scaffold whose `.page` field matches are extracted into a per-page JSON blueprint (`11_ai_marking_blueprint_N.json`). These become the fill-in templates for step 12. |
+| **12** | Each student's pages are rendered as JPEG and sent to the Qwen vision model (one API call per page). The model fills in `student_answer`, `assigned_marks`, and `reasoning` for every question. Page 1 of each student also gets a name-ID call (fuzzy-matched against the roster). Students are processed in parallel (`MARKING_WORKERS` threads); results written as `12_marked_name_N.json`. Requires `DASHSCOPE_API_KEY`. |
+| **13** | Per-student results are merged (cross-page questions: take max marks). Each student gets `13_student_report_name.json`, `.md`, and a compiled `.pdf`. A class summary PDF with per-question averages is written as `13_class_report.pdf`. PDF compilation runs in parallel (`MARKING_WORKERS` xelatex processes). Requires `xelatex`. |
+| **14** | Writes a `14_timing.json` and `.md` with wall-clock durations for each pipeline phase, API call counts, and per-student mark summaries. |
 
 ---
 
@@ -175,13 +201,13 @@ The **Dockerfile** installs TeX packages so containers get `pdflatex` and `pdfja
 
 ### Grade page (optional)
 
-The **Grade** page depends on the `xscore` package (not in `requirements.txt`) and two API keys:
+The **Grade** page depends on the `xscore` package (not in `requirements.txt`) and API keys for the models it uses:
 
 | | |
 |---|---|
-| `xscore` | Install separately if you want the scan-cleaning pipeline |
-| `KIMI_API_KEY` | Add to `.env`; used for step 1 (prompt parsing) and step 6 (orientation detection) |
-| `GOOGLE_API_KEY` | Add to `.env`; used for step 3 (student roster parsing) and steps 4–5 (AI exam scaffold) |
+| `xscore` | Install separately if you want the scan-cleaning and AI-marking pipeline |
+| `GEMINI_API_KEY` | Steps 1, 3, 4, 5 — prompt parsing, roster reading, exam and mark-scheme scaffold (`GOOGLE_API_KEY` accepted as fallback) |
+| `DASHSCOPE_API_KEY` | Step 12 — AI marking via Qwen vision model |
 
 If `xscore` is not installed, the rest of the app runs normally — only `/grade` will return errors.
 
@@ -232,9 +258,12 @@ Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 | `NL_MODEL` | Prompt interpretation (subject, papers, questions) |
 | `MCQ_MODEL` | MCQ explanation generation |
 | `RANKING_MODEL` | Difficulty ranking job (questions ranked hardest to easiest) |
-| `STUDENT_LIST_MODEL` | Gemini model used for step 3 — parse student roster files (PDF, Excel, CSV) |
-| `READ_EXAM_PDF_MODEL` | Gemini model used for step 4 — extract question hierarchy from exam PDF |
-| `READ_MARK_SCHEME_MODEL` | Gemini model used for step 5 — extract answers and criteria from answer sheet |
+| `INTERPRET_PROMPT_MODEL` | xScore step 1 — parse grading prompt |
+| `READ_STUDENT_LIST_MODEL` | xScore step 3 — parse student roster files (PDF, Excel, CSV) |
+| `READ_EXAM_PDF_MODEL` | xScore step 4 — extract question hierarchy from exam PDF |
+| `READ_MARK_SCHEME_MODEL` | xScore step 5 — extract answers and criteria from mark scheme |
+| `MARKING_MODEL` | xScore step 12 — Qwen vision model for AI marking; requires `DASHSCOPE_API_KEY`; use `, off` to disable thinking (required for non-streaming JSON output) |
+| `MARKING_WORKERS` | Parallel workers for step 12 (AI marking) and step 13 (xelatex compiles); default `4` |
 
 **Optional thinking suffix:** add `, off`, `, low`, or `, high` after the model name:
 
@@ -310,7 +339,7 @@ Three pages are available:
 | Page | Path | Purpose |
 |------|------|---------|
 | **Generate** | `/` | Build exercise sheets (natural language or legacy); PDF preview with tabs (exercise, answers, 2-up, 4-up, ranking), Ctrl-wheel zoom, and jump-to-question overview. |
-| **Grade** | `/grade` | Upload student scan PDF (+ optional roster CSV); returns cleaned, deskewed, blank-page-free PDF. Requires `xscore` + `KIMI_API_KEY`. |
+| **Grade** | `/grade` | Upload student scan PDF, exam PDF, mark scheme, and optional roster; runs the full 14-step pipeline and returns a cleaned PDF plus per-student and class mark reports. Requires `xscore`, `GEMINI_API_KEY`, and `DASHSCOPE_API_KEY`. |
 | **Library** | `/library` | Browse and download the bundled Cambridge IGCSE papers by subject, year, and session. |
 
 ### Programmatic
@@ -366,8 +395,12 @@ The two pipelines write to separate sub-folders under `output/`:
 |------|------|
 | `eXercise.py` | CLI entry |
 | `eXercise/` | Config, pipeline, NL resolver, MCQ explanations, difficulty ranking, PDF layout |
+| `xScore.py` | xScore pipeline entry (steps 1–14) |
+| `xscore/marking/` | Steps 1, 3–6, 10–14 — prompt parsing, scaffold, blueprints, AI marking, report compilation |
+| `xscore/preprocessing/` | Steps 7–9 — blank detection, rotation, deskew |
+| `xscore/shared/` | Terminal UI, exam path helpers, config |
 | `web/app.py` | FastAPI routes and job store |
-| `web/grade_service.py` | Scan cleaning pipeline (rotate, deskew, blank detection) |
+| `web/grade_service.py` | Web-facing wrapper for the xScore pipeline |
 | `web/templates/` | Jinja2 HTML pages (Generate, Grade, Library) |
 | `web/static/` | CSS + JS (PDF preview, zoom, tabs, download-all) |
 | `exams/` | Bundled QP/MS PDFs for NL mode |
