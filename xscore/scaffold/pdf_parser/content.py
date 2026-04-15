@@ -311,6 +311,16 @@ def rollup_question_marks(q: Question) -> int:
     return s
 
 
+def default_mcq_leaf_marks(q: Question) -> None:
+    """Set marks=1 for any leaf MCQ with marks==0; recurse into subquestions."""
+    if not q.subquestions:
+        if q.question_type == "multiple_choice" and q.marks == 0:
+            q.marks = 1
+        return
+    for sq in q.subquestions:
+        default_mcq_leaf_marks(sq)
+
+
 def _mc_options_block_start_index(lines: list[str]) -> int | None:
     """Index of line with ``A`` (alone) when ``B`` and ``C`` appear as letter lines below."""
     for i, ln in enumerate(lines):

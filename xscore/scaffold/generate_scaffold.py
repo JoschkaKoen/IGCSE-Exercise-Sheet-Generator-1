@@ -40,11 +40,15 @@ from xscore.scaffold.pdf_parser import (
     parse_answer_key_pdf,
     parse_exam_pdf,
 )
-from xscore.scaffold.pdf_parser.content import normalize_multiple_choice_tree
+from xscore.scaffold.pdf_parser.content import (
+    normalize_multiple_choice_tree,
+    rollup_question_marks,
+    default_mcq_leaf_marks,
+)
 from xscore.scaffold.draw_boxes_on_empty_exam import write_scaffold_boxes_pdf
 
 
-SCHEMA_VERSION = 15
+SCHEMA_VERSION = 16
 
 
 def _find_exam_pdf(folder: Path) -> Path:
@@ -121,9 +125,10 @@ def question_to_dict(q: Question) -> dict[str, Any]:
         "question_type": q.question_type,
         "text": q.text,
         "marks": q.marks,
-        "bbox": _bbox_to_dict(q.bbox),
         "page": q.page,
     }
+    if q.bbox.x0 or q.bbox.y0 or q.bbox.x1 or q.bbox.y1:
+        d["bbox"] = _bbox_to_dict(q.bbox)
     if opts_dicts:
         d["answer_options"] = opts_dicts
     if q.equation_blank_bboxes:
@@ -136,7 +141,7 @@ def question_to_dict(q: Question) -> dict[str, Any]:
         d["subquestions"] = [question_to_dict(s) for s in q.subquestions]
     if q.correct_answer is not None and str(q.correct_answer).strip():
         d["correct_answer"] = q.correct_answer
-    if q.marking_criteria is not None and str(q.marking_criteria).strip():
+    if q.question_type != "multiple_choice" and q.marking_criteria is not None and str(q.marking_criteria).strip():
         d["marking_criteria"] = q.marking_criteria
     if q.answer_images:
         d["answer_images"] = [_img_to_dict(i) for i in q.answer_images]
@@ -450,6 +455,10 @@ def build_scaffold(
             "No questions extracted from exam PDF. "
             "Check GOOGLE_API_KEY and that the PDF is readable."
         )
+
+    for q in questions:
+        default_mcq_leaf_marks(q)  # MCQ leaves: marks 0 → 1
+        rollup_question_marks(q)   # parents: marks = sum of children
 
     import fitz
 

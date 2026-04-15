@@ -307,7 +307,7 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
     const vp1 = page1.getViewport({ scale: 1 });
     const scaleW = fit.cw / vp1.width;
     const scaleH = fit.ch / vp1.height;
-    baseFit = Math.min(scaleW, scaleH) * 1.02;
+    baseFit = (vp1.width > vp1.height ? scaleH : Math.min(scaleW, scaleH)) * 1.02;
     s.baseFit = baseFit;
   }
   let maxDispW = 0;
