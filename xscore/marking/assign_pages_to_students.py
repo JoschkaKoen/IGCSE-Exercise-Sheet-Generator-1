@@ -114,3 +114,34 @@ def assign_pages(
         for name, pages_list in assignments.items()
     ]
     return result
+
+
+def page_assignments_to_json(assignments: list[PageAssignment]) -> str:
+    """Serialise a PageAssignment list to a JSON string."""
+    import json
+
+    return json.dumps(
+        [
+            {
+                "student_name": a.student_name,
+                "page_numbers": a.page_numbers,
+                "confidence": a.confidence,
+            }
+            for a in assignments
+        ],
+        indent=2,
+        ensure_ascii=False,
+    )
+
+
+def page_assignments_to_md(assignments: list[PageAssignment]) -> str:
+    """Return a markdown table of student → scan pages."""
+    lines = [
+        "# Exam Student List (scan-detected)\n",
+        "| # | Student | Pages | Confidence |",
+        "|---|---------|-------|------------|",
+    ]
+    for i, a in enumerate(assignments, 1):
+        pages = ", ".join(str(p) for p in a.page_numbers)
+        lines.append(f"| {i} | {a.student_name} | {pages} | {a.confidence} |")
+    return "\n".join(lines) + "\n"

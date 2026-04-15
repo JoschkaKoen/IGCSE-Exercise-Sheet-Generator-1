@@ -150,6 +150,16 @@ def artifact_geometry_md_path(artifact_dir: Path) -> Path:
     return artifact_dir / "10_exam_geometry.md"
 
 
+def artifact_exam_student_list_json_path(artifact_dir: Path) -> Path:
+    """Step 10: scan-detected student list with page assignments."""
+    return artifact_dir / "10_exam_student_list.json"
+
+
+def artifact_exam_student_list_md_path(artifact_dir: Path) -> Path:
+    """Step 10: human-readable student-to-page assignment table."""
+    return artifact_dir / "10_exam_student_list.md"
+
+
 def artifact_blueprint_json_path(artifact_dir: Path, page: int) -> Path:
     """Step 11: empty AI marking blueprint for one exam page."""
     return artifact_dir / f"11_ai_marking_blueprint_{page}.json"

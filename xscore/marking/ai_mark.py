@@ -10,7 +10,6 @@ Each worker opens its own fitz document handle (fitz is not thread-safe).
 from __future__ import annotations
 
 import base64
-import difflib
 import json
 import os
 import threading
@@ -43,70 +42,6 @@ def _render_page_b64(doc: Any, page_idx: int, dpi: int = 150) -> str:
     )
     return base64.b64encode(to_jpeg_bytes(img, quality=90)).decode()
 
-
-def _identify_student(
-    client: Any,
-    model_id: str,
-    b64: str,
-    roster: list[str],
-    fallback_idx: int,
-    extra_body: dict,
-) -> str:
-    """Vision call to read the student name from the top of the first exam page.
-
-    Retries up to 3 times with 2 s / 4 s backoff (same pattern as kimi_helpers).
-    Fuzzy-matches the result against the roster; falls back to ``Unknown_<idx>``.
-    """
-    roster_json = json.dumps(roster, ensure_ascii=False)
-    kwargs: dict[str, Any] = dict(
-        model=model_id,
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "You are identifying which student's exam this is. "
-                    "Return ONLY valid JSON: {\"student_name\": \"<name from the list>\"}."
-                ),
-            },
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": (
-                            f"Student roster (choose exactly one name):\n{roster_json}\n\n"
-                            "Look at the top third of this exam page to find the student's "
-                            "handwritten name. Return the roster name that best matches."
-                        ),
-                    },
-                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
-                ],
-            },
-        ],
-        response_format={"type": "json_object"},
-        extra_body=extra_body,
-    )
-
-    for attempt in range(1, 4):
-        try:
-            t0 = time.perf_counter()
-            resp = client.chat.completions.create(**kwargs)
-            api_latency_line(time.perf_counter() - t0, label="name id")
-            raw = resp.choices[0].message.content or ""
-            data = parse_json_safe(raw)
-            raw_name = str(data.get("student_name", "")).strip()
-            if raw_name:
-                matches = difflib.get_close_matches(raw_name, roster, n=1, cutoff=0.6)
-                if matches:
-                    return matches[0]
-                warn_line(f"Name '{raw_name}' not in roster — using as-is")
-                return raw_name
-            return f"Unknown_{fallback_idx}"
-        except Exception as exc:  # noqa: BLE001
-            warn_line(f"Student ID API error (attempt {attempt}/3): {exc}")
-            if attempt < 3:
-                time.sleep(2**attempt)
-    return f"Unknown_{fallback_idx}"
 
 
 def _mark_page(
@@ -203,12 +138,15 @@ def _flatten_leaf_questions(questions: list[dict]) -> list[dict]:
 def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
+    Reads page assignments from ``10_exam_student_list.json`` (written by step 10)
+    so each student's scan pages are determined by name detection, not position.
     Students are processed in parallel (MARKING_WORKERS env var, default 4).
     Returns a list of API call timing records for step 14.
     """
     import fitz
 
     from eXercise.ai_client import make_ai_client
+    from xscore.shared.exam_paths import artifact_exam_student_list_json_path
 
     result = make_ai_client(model_env="MARKING_MODEL", default_model="qwen3.6-plus, off")
     if result is None:
@@ -217,6 +155,11 @@ def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
         )
     client, model_id, _provider, _effort = result
     extra_body = {"enable_thinking": False}
+
+    # Load page assignments produced by step 10 name detection.
+    list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
+    raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
+    # Each entry: {"student_name": str, "page_numbers": [int, ...], "confidence": str}
 
     # Load short report once; build page → leaf-questions lookup (read-only, shared)
     short_report_path = artifact_short_scaffold_json_path(ctx.artifact_dir)
@@ -231,63 +174,58 @@ def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
 
-    def _mark_student(i: int) -> list[dict]:
-        """Mark one student's pages. Opens its own fitz handle (fitz is not thread-safe)."""
+    def _mark_student(assignment: dict) -> list[dict]:
+        """Mark one student's pages using scan-detected page assignments.
+
+        Opens its own fitz handle (fitz is not thread-safe).
+        """
+        student_name: str = assignment["student_name"]
+        page_numbers: list[int] = assignment["page_numbers"]  # 1-based scan pages
         local_timings: list[dict] = []
         doc = fitz.open(str(ctx.cleaned_pdf))
         try:
-            student_name: str | None = None
-            for p in range(1, ctx.pages_per_student + 1):
-                scan_idx = i * ctx.pages_per_student + (p - 1)
+            for p_label, scan_page in enumerate(page_numbers, 1):
+                scan_idx = scan_page - 1  # fitz is 0-based
                 info_line(
-                    f"Student {i + 1}/{ctx.num_students} · page {p}/{ctx.pages_per_student}"
+                    f"Student '{student_name}' · page {p_label}/{len(page_numbers)}"
                 )
 
                 b64 = _render_page_b64(doc, scan_idx, dpi=dpi)
                 blueprint = json.loads(
-                    artifact_blueprint_json_path(ctx.artifact_dir, p).read_text(encoding="utf-8")
-                )
-
-                if p == 1:
-                    t0 = time.perf_counter()
-                    student_name = _identify_student(
-                        client, model_id, b64, ctx.students or [], i, extra_body
+                    artifact_blueprint_json_path(ctx.artifact_dir, p_label).read_text(
+                        encoding="utf-8"
                     )
-                    name_dur = round(time.perf_counter() - t0, 2)
-                    local_timings.append({
-                        "phase": "name_id",
-                        "student_idx": i,
-                        "student": student_name,
-                        "page": p,
-                        "duration_s": name_dur,
-                    })
+                )
 
                 t0 = time.perf_counter()
                 filled = _mark_page(
-                    client, model_id, b64, blueprint, page_questions.get(p, []), extra_body
+                    client, model_id, b64, blueprint,
+                    page_questions.get(p_label, []), extra_body,
                 )
                 mark_dur = round(time.perf_counter() - t0, 2)
                 local_timings.append({
                     "phase": "marking",
                     "student": student_name,
-                    "page": p,
+                    "page": p_label,
                     "duration_s": mark_dur,
                 })
 
                 filled["student_name"] = student_name
-                safe_name = student_name or f"Unknown_{i}"
-                out_path = artifact_marked_json_path(ctx.artifact_dir, safe_name, p)
-                out_path.write_text(
+                safe_name = student_name or f"Unknown_{scan_page}"
+                artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label).write_text(
                     json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8"
                 )
-                md_path = artifact_marked_md_path(ctx.artifact_dir, safe_name, p)
-                md_path.write_text(marked_to_md(filled), encoding="utf-8")
+                artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
+                    marked_to_md(filled), encoding="utf-8"
+                )
         finally:
             doc.close()
         return local_timings
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        futures = {ex.submit(_mark_student, i): i for i in range(ctx.num_students)}
+        futures = {
+            ex.submit(_mark_student, a): a["student_name"] for a in raw_assignments
+        }
         for fut in as_completed(futures):
             with timings_lock:
                 api_call_timings.extend(fut.result())

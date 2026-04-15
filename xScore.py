@@ -147,6 +147,7 @@ class _Ctx:
     pages_per_student: int = 0
     step_timings_marking: dict = None        # populated in steps 10–14
     marking_api_calls: list = None           # populated in step 12
+    page_assignments: list | None = None     # list[PageAssignment] set by step 10
 
     def __post_init__(self) -> None:
         if self.step_timings_marking is None:
@@ -173,6 +174,11 @@ def _print_footer(ctx: _Ctx, gi: SimpleNamespace, elapsed: float) -> None:
 
 def _load_imports() -> SimpleNamespace:
     from xscore.marking.ai_mark import run_ai_marking
+    from xscore.marking.assign_pages_to_students import (
+        assign_pages,
+        page_assignments_to_json,
+        page_assignments_to_md,
+    )
     from xscore.marking.blueprints import build_blueprints
     from xscore.marking.find_exam_folder import find_folder
     from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
@@ -187,6 +193,10 @@ def _load_imports() -> SimpleNamespace:
         find_source_scan_match,
     )
     from xscore.scaffold.generate_scaffold import build_scaffold
+    from xscore.shared.exam_paths import (
+        artifact_exam_student_list_json_path,
+        artifact_exam_student_list_md_path,
+    )
     from xscore.shared.load_student_list import read_student_list
     from xscore.shared.terminal_ui import (
         api_latency_line,
@@ -212,6 +222,11 @@ def _load_imports() -> SimpleNamespace:
         # Steps 10–14
         compute_geometry=compute_geometry,
         write_geometry_artifacts=write_geometry_artifacts,
+        assign_pages=assign_pages,
+        page_assignments_to_json=page_assignments_to_json,
+        page_assignments_to_md=page_assignments_to_md,
+        artifact_exam_student_list_json_path=artifact_exam_student_list_json_path,
+        artifact_exam_student_list_md_path=artifact_exam_student_list_md_path,
         build_blueprints=build_blueprints,
         run_ai_marking=run_ai_marking,
         compile_reports=compile_reports,
@@ -437,6 +452,33 @@ def _step10_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
         f"{ctx.num_students} students  ·  {ctx.pages_per_student} pages each  "
         f"·  {geo['scan_pages']} scan pages total"
     )
+
+    # --- Name detection sub-step ---
+    gi.info_line("Detecting student names from scan pages …")
+    t1 = time.perf_counter()
+    ctx.page_assignments = gi.assign_pages(
+        ctx.cleaned_pdf,
+        ctx.students or [],
+    )
+    json_path = gi.artifact_exam_student_list_json_path(ctx.artifact_dir)
+    json_path.write_text(
+        gi.page_assignments_to_json(ctx.page_assignments), encoding="utf-8"
+    )
+    md_path = gi.artifact_exam_student_list_md_path(ctx.artifact_dir)
+    md_path.write_text(
+        gi.page_assignments_to_md(ctx.page_assignments), encoding="utf-8"
+    )
+    detected = len(ctx.page_assignments)
+    gi.ok_line(
+        f"{detected} students detected from scan  ·  "
+        f"{gi.format_duration(time.perf_counter() - t1)}"
+    )
+    if detected != ctx.num_students:
+        gi.warn_line(
+            f"Name detection found {detected} students; geometry expected {ctx.num_students}. "
+            "Step 12 will use the scan-detected list."
+        )
+
     ctx.step_timings_marking["step_10_s"] = time.perf_counter() - t0
     if ctx.through_step == 10:
         ctx.partial_stop_step = 10
