@@ -201,6 +201,22 @@ def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = 
         kwargs["extra_body"] = {"thinking": {"type": "enabled" if thinking else "disabled"}}
 
 
+def apply_model_extras(model: str, kwargs: dict[str, Any], *, thinking: bool = False) -> None:
+    """Set model-specific extras for the non-streaming kimi_helpers calls.
+
+    - Kimi-k2: sets thinking enabled/disabled via ``extra_body.thinking``.
+    - Qwen:    always sets ``enable_thinking=False``.  These helpers are
+      non-streaming and cannot consume Qwen's streaming thinking output,
+      so thinking is disabled unconditionally.  The *thinking* argument is
+      accepted but ignored for Qwen.
+    - Other models (Gemini, Grok, …): no-op.
+    """
+    if model.startswith("kimi-k2"):
+        kwargs["extra_body"] = {"thinking": {"type": "enabled" if thinking else "disabled"}}
+    elif model.startswith("qwen"):
+        kwargs["extra_body"] = {"enable_thinking": False}
+
+
 def resolve_pipeline_ai_model_id() -> str:
     """Return the pipeline model id (``PIPELINE_AI_MODEL`` env overrides the default)."""
     v = os.getenv("PIPELINE_AI_MODEL")

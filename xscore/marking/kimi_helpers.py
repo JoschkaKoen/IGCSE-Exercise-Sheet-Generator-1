@@ -7,7 +7,7 @@ import json
 import time
 from typing import Any, Protocol, runtime_checkable
 
-from xscore.config import apply_kimi_k2_extra, resolve_pipeline_ai_model_id
+from xscore.config import apply_model_extras, resolve_pipeline_ai_model_id
 from xscore.extraction.images import to_jpeg_bytes
 from xscore.shared.terminal_ui import api_latency_line, log_ai_response_debug, warn_line
 
@@ -62,7 +62,7 @@ def kimi_image_call(
         ],
         max_tokens=max_tokens,
     )
-    apply_kimi_k2_extra(model, create_kwargs, thinking=False)
+    apply_model_extras(model, create_kwargs, thinking=False)
     if response_format is _USE_DEFAULT_JSON_OBJECT:
         create_kwargs["response_format"] = {"type": "json_object"}
     elif response_format is not None:
@@ -99,7 +99,7 @@ def kimi_text_call(
         messages=messages,
         max_tokens=max_tokens,
     )
-    apply_kimi_k2_extra(model, kwargs, thinking=thinking)
+    apply_model_extras(model, kwargs, thinking=thinking)
     if response_format is _USE_DEFAULT_JSON_OBJECT:
         kwargs["response_format"] = {"type": "json_object"}
     elif response_format is not None:
