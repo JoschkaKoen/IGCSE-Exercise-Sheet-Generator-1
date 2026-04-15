@@ -65,9 +65,52 @@ class McqPaperData:
     answered: list[int]
     q_texts: dict[int, str]
     q_images: dict[int, str]  # {qnum: base64_png} for questions with diagrams/figures
+    q_pdf_bytes: bytes | None  # PDF of question strips for Gemini native upload; None for non-Gemini
     exam_key: str | None
     paper_label: str
     expl_pdf_path: Path
+
+
+def _build_mcq_questions_pdf(
+    qp_doc: fitz.Document,
+    regions: list[tuple[int, int, float, float]],
+    answered: list[int],
+    cfg: SubjectConfig,
+    paper_label: str,
+) -> bytes:
+    """Build a PDF of the MCQ question strips using the existing layout pipeline.
+
+    Reuses ``collect_vector_strips`` + ``layout_vector_strips_to_pdf`` — the same
+    path that renders questions into the exercise sheet — so the output is
+    guaranteed to look correct. Includes the paper-number header; no name field.
+    Returns the PDF as bytes (a temp file is created and deleted internally).
+    """
+    import os as _os
+    import tempfile as _tempfile  # noqa: PLC0415
+    from .rendering import collect_vector_strips, layout_vector_strips_to_pdf  # noqa: PLC0415
+
+    answered_set = set(answered)
+    answered_regions = [r for r in regions if r[0] in answered_set]
+    strips = collect_vector_strips(qp_doc, answered_regions, is_ms=False, cfg=cfg)
+
+    with _tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
+        tmp_path = f.name
+
+    try:
+        layout_vector_strips_to_pdf(
+            strips,
+            tmp_path,
+            header_label=paper_label,
+            name_field=False,
+            page_number_circle=False,
+        )
+        with open(tmp_path, "rb") as f:
+            return f.read()
+    finally:
+        try:
+            _os.unlink(tmp_path)
+        except OSError:
+            pass
 
 
 def prepare_mcq_job_data(
@@ -93,23 +136,49 @@ def prepare_mcq_job_data(
     answered = [q for q in qs if q in answers]
     if not answered:
         return None
+
+    # Detect provider to choose between Gemini PDF-upload path and OpenAI-compat path.
+    from .ai_client import parse_model_effort, provider_for_model  # noqa: PLC0415
+    _raw_model = (
+        os.environ.get("MCQ_MODEL", "").strip()
+        or os.environ.get("AI_MCQ_MODEL", "").strip()
+        or os.environ.get("AI_DEFAULT_MODEL", "").strip()
+        or "gemini-2.5-flash"
+    )
+    _model_name, _ = parse_model_effort(_raw_model)
+    _provider = provider_for_model(_model_name)
+
     q_texts = extract_mcq_question_texts(qp_doc, regions, qs, cfg)
     missing = [q for q in answered if q not in q_texts]
     if missing:
         print(f"  MCQ explanations: no text extracted for Q{missing} (will use placeholder).")
-    img_qs = mcq_questions_with_images(qp_doc, regions, answered, cfg)
+
+    # Image rasterization — only needed for the non-Gemini (OpenAI-compat) path.
     q_images: dict[int, str] = {}
-    if img_qs:
-        print(f"  MCQ questions with images: Q{sorted(img_qs)} — rasterizing for vision…")
-        debug_dir = expl_pdf_path.parent / "mcq_images"
-        q_images = rasterize_mcq_images(qp_doc, regions, img_qs, cfg, debug_dir=debug_dir)
-        print(f"  Rasterized {len(q_images)} question image(s) → {debug_dir}")
+    if _provider != "gemini":
+        img_qs = mcq_questions_with_images(qp_doc, regions, answered, cfg)
+        if img_qs:
+            print(f"  MCQ questions with images: Q{sorted(img_qs)} — rasterizing for vision…")
+            debug_dir = expl_pdf_path.parent / "mcq_images"
+            q_images = rasterize_mcq_images(qp_doc, regions, img_qs, cfg, debug_dir=debug_dir)
+            print(f"  Rasterized {len(q_images)} question image(s) → {debug_dir}")
+
+    # Build questions PDF for the Gemini native-upload path.
+    q_pdf_bytes: bytes | None = None
+    if _provider == "gemini":
+        print(f"  Building MCQ questions PDF for Gemini upload ({len(answered)} questions)…")
+        q_pdf_bytes = _build_mcq_questions_pdf(qp_doc, regions, answered, cfg, paper_label)
+        mcq_q_pdf_path = expl_pdf_path.parent / "mcq_questions.pdf"
+        mcq_q_pdf_path.write_bytes(q_pdf_bytes)
+        print(f"  MCQ questions PDF: {len(q_pdf_bytes):,} bytes → {mcq_q_pdf_path}")
+
     return McqPaperData(
         qs=qs,
         answers=answers,
         answered=answered,
         q_texts=q_texts,
         q_images=q_images,
+        q_pdf_bytes=q_pdf_bytes,
         exam_key=exam_key,
         paper_label=paper_label,
         expl_pdf_path=expl_pdf_path,
@@ -151,6 +220,8 @@ def batch_generate_mcq_explanations(
             q_images=paper.q_images,
             provider=provider,
             effort=effort,
+            save_dir=paper.expl_pdf_path.parent,
+            q_pdf_bytes=paper.q_pdf_bytes,
         )
 
     results: list[dict[int, list[str]]] = [{} for _ in papers]

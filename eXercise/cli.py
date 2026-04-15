@@ -77,7 +77,7 @@ def main():
                     }
                 )
             output_pdf = str(resolve_output_path(data["output_pdf"]))
-            run_extraction_jobs(jobs, output_pdf, exam_key=data.get("exam"))
+            run_extraction_jobs(jobs, output_pdf, exam_key=data.get("exam"), run_ranking=data.get("ranking", True))
             return
 
         if len(parts) < 3:

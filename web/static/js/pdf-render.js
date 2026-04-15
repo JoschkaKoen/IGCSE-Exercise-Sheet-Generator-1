@@ -15,6 +15,15 @@ let pdfjsPromise = null;
 let pdfHeaderGlassRaf = null;
 let pdfScrollGlassListenersBound = false;
 
+// Scroll-phase tracking: suppress expensive work (text layers) during momentum.
+let _scrolling = false;
+let _scrollSettleTimer = null;
+function _markScrollActive() {
+  _scrolling = true;
+  clearTimeout(_scrollSettleTimer);
+  _scrollSettleTimer = setTimeout(function () { _scrolling = false; }, 150);
+}
+
 // ─── PDF.js bootstrap ────────────────────────────────────────────────────────
 
 export function ensurePdfJs() {
@@ -192,6 +201,12 @@ async function _renderSinglePage(id, pageIdx) {
 function _scheduleTextLayer(id, pageIdx, page, cssVp, userScale) {
   var schedule = window.requestIdleCallback || function (cb) { setTimeout(cb, 150); };
   schedule(async function () {
+    // Defer further if the user is still scrolling — text layer DOM work competes
+    // with compositor momentum on MacBook trackpads.
+    if (_scrolling) {
+      setTimeout(function () { _scheduleTextLayer(id, pageIdx, page, cssVp, userScale); }, 200);
+      return;
+    }
     var s = getPdfState(id);
     var pg = s.pages && s.pages[pageIdx];
     if (!pg || !pg.rendered) {
@@ -242,11 +257,20 @@ function _setupPageObserver(id) {
       if (isNaN(pageIdx)) return;
       const pg = s.pages[pageIdx];
       if (!pg) return;
-      if (entry.isIntersecting && !pg.rendered && !pg.rendering) {
-        _renderSinglePage(id, pageIdx);
+      if (entry.isIntersecting) {
+        if (!pg.rendered && !pg.rendering) _renderSinglePage(id, pageIdx);
+      } else {
+        // Evict pages that have scrolled far away to keep GPU memory bounded.
+        // The observer re-renders them automatically when they come back into view.
+        const rect = entry.boundingClientRect;
+        const distancePx = Math.min(
+          Math.abs(rect.top - scroll.clientHeight),
+          Math.abs(rect.bottom)
+        );
+        if (distancePx > 2400) _clearPageCanvas(id, pageIdx);
       }
     });
-  }, { root: scroll, rootMargin: '1500px 0px 1500px 0px', threshold: 0 });
+  }, { root: scroll, rootMargin: '600px 0px 600px 0px', threshold: 0 });
   s.observer = obs;
   s.pages.forEach(function (pg, idx) {
     pg.wrap.dataset.pageIdx = String(idx);
@@ -287,8 +311,6 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
     s.baseFit = baseFit;
   }
   let maxDispW = 0;
-  let _singlePageDispH = 0;
-  const _canvasRenderPromises = [];
   for (let p = 1; p <= n; p++) {
     const page = await s.doc.getPage(p);
     const userScale = baseFit * s.zoom;
@@ -298,7 +320,6 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
     pageWrap.className = 'pdf-page-wrap';
     const dispW = Math.floor(scaledVp.width / dpr);
     const dispH = Math.floor(scaledVp.height / dpr);
-    if (p === 1) _singlePageDispH = dispH;
     if (dispW > maxDispW) maxDispW = dispW;
     pageWrap.style.width = dispW + 'px';
     pageWrap.style.height = dispH + 'px';
@@ -310,15 +331,12 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
     canvas.style.width = dispW + 'px';
     canvas.style.height = dispH + 'px';
     pageWrap.appendChild(canvas);
+    // Paint a white placeholder — actual rasterization is deferred entirely to
+    // the IntersectionObserver so the PDF.js worker stays idle during scrolling.
     const ctx = canvas.getContext('2d', { alpha: false });
     if (ctx) {
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      // Start all renders in the PDF.js worker immediately.
-      // We only AWAIT the first visible batch; the rest resolve in background.
-      _canvasRenderPromises.push(page.render({ canvasContext: ctx, viewport: scaledVp }).promise);
-    } else {
-      _canvasRenderPromises.push(Promise.resolve());
     }
     newPages.push({
       wrap: pageWrap, canvas: canvas, pageNum: p,
@@ -326,33 +344,13 @@ export async function renderPdfContinuous(id, reuseBaseFit) {
       rendered: false, rendering: false, canvasRendered: false,
     });
   }
-  // Eagerly await only the pages that fit in the initial viewport so the viewer
-  // appears immediately. Remaining renders run in the PDF.js worker and complete
-  // in the background; _setupPageObserver delivers them as the user scrolls.
-  const _viewportH = scroll.clientHeight || 520;
-  const _eagerCount = _singlePageDispH > 0
-    ? Math.max(1, Math.ceil(_viewportH / (_singlePageDispH + 8)) + 1)
-    : _canvasRenderPromises.length;
-  const _eagerPromises = _canvasRenderPromises.slice(0, _eagerCount);
-  if (_eagerPromises.length) await Promise.all(_eagerPromises);
-  for (let _ci = 0; _ci < _eagerCount && _ci < newPages.length; _ci++) {
-    newPages[_ci].canvasRendered = true;
-  }
-  // When background (lazy) renders finish, mark them so _renderSinglePage won't
-  // restart them unnecessarily when the IntersectionObserver fires.
-  for (let _li = _eagerCount; _li < _canvasRenderPromises.length; _li++) {
-    (function (_idx) {
-      _canvasRenderPromises[_idx].then(function () {
-        const pg = newPages[_idx];
-        if (pg) { pg.canvasRendered = true; pg.rendered = true; }
-      }).catch(function () {});
-    })(_li);
-  }
   s.pages = newPages;
 
-  // Atomic DOM swap — all canvases fully rendered.
+  // Atomic DOM swap — page shells in place, observer will drive rasterization.
   stack.innerHTML = '';
   stack.appendChild(frag);
+  // Render the first page immediately so the viewer is never blank on load.
+  _renderSinglePage(id, 0);
 
   // Set stack width to max(contentWidth, maxDispW).
   if (maxDispW > 0) {
@@ -482,6 +480,7 @@ export function ensurePdfScrollGlassListeners() {
   pdfScrollGlassListenersBound = true;
   document.querySelectorAll('.pdf-viewport-scroll').forEach(function (el) {
     el.addEventListener('scroll', scheduleHeaderGlassFromPdfScroll, { passive: true });
+    el.addEventListener('scroll', _markScrollActive, { passive: true });
   });
 }
 

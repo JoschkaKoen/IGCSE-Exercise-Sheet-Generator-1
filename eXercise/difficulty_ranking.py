@@ -131,6 +131,12 @@ Rules:
 - Always prefix the question number with "Q", e.g. "Q3b", "Q12a(i)", "Q7".
 - Also prefix with the paper label before "Q":
   e.g. "w24/22 Q3b", "w24/12 Q5b(ii)".
+- COMPLETE LIST REQUIRED: Your response MUST include EVERY question part visible
+  in the documents, from most difficult down to easiest. Do NOT stop early.
+  Do NOT omit questions because they seem easy or because the list is long.
+- Start your response immediately with "1." — no prose, no preamble, no code fences.
+  Do NOT say "Okay", "Here is", "Final check", or anything before the first list item.
+- Do NOT wrap the list in code fences (``` or similar). Plain text only.
 - Output ONLY a plain numbered list, one identifier per line.
   NO prose, NO headings, NO explanations, NO categories, NO tier names, NO plan steps.
 - WRONG (never do this):
@@ -149,6 +155,7 @@ def _rank_exercises_ai_gemini(
     answer_pdf: Path | None,
     model: str,
     effort: str | None,
+    save_dir: Path | None = None,
 ) -> list[str]:
     """Rank exercises by uploading PDFs natively to the Gemini Files API.
 
@@ -208,7 +215,7 @@ def _rank_exercises_ai_gemini(
     gen_config = gai_types.GenerateContentConfig(
         system_instruction=_SYSTEM_PROMPT,
         thinking_config=thinking_cfg,
-        max_output_tokens=8192,
+        max_output_tokens=32768,
     )
 
     # Build content parts — file parts interleaved with text labels
@@ -262,7 +269,11 @@ def _rank_exercises_ai_gemini(
         except Exception:
             pass
 
-    return _parse_ranking("".join(chunks))
+    raw = "".join(chunks)
+    if save_dir:
+        (save_dir / "ranking_response.txt").write_text(raw, encoding="utf-8")
+        print(f"  Saved raw response: ranking_response.txt")
+    return _parse_ranking(raw)
 
 
 def _save_images(images: list[str], save_dir: Path, prefix: str) -> None:
@@ -304,7 +315,7 @@ def _rank_exercises_ai(
     if provider == "gemini":
         try:
             _t0 = time.monotonic()
-            ranking = _rank_exercises_ai_gemini(exercise_pdf, answer_pdf, model, effort)
+            ranking = _rank_exercises_ai_gemini(exercise_pdf, answer_pdf, model, effort, save_dir=save_dir)
             print(f"  Ranking AI call (native PDF): {time.monotonic() - _t0:.1f}s")
             print(f"  Ranked {len(ranking)} question part(s).")
             return ranking
@@ -394,27 +405,28 @@ def _rank_exercises_ai(
             _eprint(f"  Ranking: text fallback also failed ({type(exc2).__name__}: {exc2})")
             return []
 
+    if save_dir:
+        (save_dir / "ranking_response.txt").write_text(raw, encoding="utf-8")
+        print(f"  Saved raw response: ranking_response.txt", flush=True)
     ranking = _parse_ranking(raw)
     if not ranking and raw.strip():
-        _eprint("  Ranking: response had no valid question identifiers after filtering.")
-        _eprint(f"  Response preview: {raw[:300]!r}")
+        _eprint("  Ranking: response was non-empty but produced no lines after parsing.")
     print(f"  Ranked {len(ranking)} question part(s).")
     return ranking
 
 
-# Matches: "w23/23 Q3b", "s23/41 Q1a(i)", "w24/12 Q5b(ii)",
-#          "s23 22 Q5a" (space separator, as printed in the exercise PDF), bare "Q12"
-_QUESTION_ID_RE = re.compile(
-    r"^[wsm]\d{2}[/ ]\d{2,3}\s+Q\d+|^Q\d+", re.IGNORECASE
-)
+# Matches any line that contains a question identifier: Q followed by at least one digit.
+# This admits "s23/21 Q4", "Q3b", "w24/22 Q12a(ii)" while rejecting prose, code fences, headings.
+_QUESTION_LINE_RE = re.compile(r'Q\d', re.IGNORECASE)
 
 
 def _parse_ranking(response: str) -> list[str]:
+    """Strip numbered-list prefixes; keep only lines containing a question identifier (Q + digit)."""
     ranking: list[str] = []
     seen: set[str] = set()
     for line in response.strip().splitlines():
         cleaned = re.sub(r"^\s*\d+[\.\)]\s*", "", line).strip()
-        if cleaned and cleaned not in seen and _QUESTION_ID_RE.match(cleaned):
+        if cleaned and cleaned not in seen and _QUESTION_LINE_RE.search(cleaned):
             seen.add(cleaned)
             ranking.append(cleaned)
     return ranking

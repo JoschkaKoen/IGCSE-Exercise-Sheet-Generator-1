@@ -232,7 +232,11 @@ def resolve_natural_language(
         "Infer session/paper from filenames (e.g. w24, s25). Match qp/ms pairs when possible.\n"
         "Always set mark_scheme_pdf to the matching mark scheme filename from the list for each question paper "
         "(same session and paper variant as the qp). Use null only if no matching mark scheme exists in the list. "
-        "Do not require the user to ask for answers or mark schemes explicitly — include them by default when available."
+        "Do not require the user to ask for answers or mark schemes explicitly — include them by default when available.\n"
+        "Also include: "
+        '\"ranking\": true or false — whether to generate a difficulty ranking. '
+        "Default true. Set to false only if the user explicitly says they do not want a ranking "
+        "(e.g. 'no ranking', 'skip ranking', 'without ranking')."
     )
     blocks = []
     for key, c in catalogs.items():
@@ -375,4 +379,5 @@ def resolve_natural_language(
     from .labels import build_output_filename
 
     output_pdf = build_output_filename(exam_key, normalized)
-    return exam_root, {"exam": exam_key, "output_pdf": output_pdf, "extractions": normalized}
+    ranking = bool(data.get("ranking", True))
+    return exam_root, {"exam": exam_key, "output_pdf": output_pdf, "extractions": normalized, "ranking": ranking}

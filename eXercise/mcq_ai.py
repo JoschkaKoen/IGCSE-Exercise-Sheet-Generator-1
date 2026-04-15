@@ -223,6 +223,233 @@ def _parse_explanations(raw: str, questions: list[int]) -> dict[int, list[str]] 
     return result if result else None
 
 
+def _save_mcq_prompt(
+    save_dir: Any,
+    system: str,
+    user_content: str | list[dict],
+    exam_key: str | None,
+    q_texts: dict[int, str] | None = None,
+) -> None:
+    """Write the full prompt and extracted question texts to the output dir."""
+    from pathlib import Path  # noqa: PLC0415
+    Path(save_dir).mkdir(parents=True, exist_ok=True)
+
+    # Full prompt
+    lines: list[str] = ["=== SYSTEM PROMPT ===", system, "", "=== USER CONTENT ==="]
+    if isinstance(user_content, str):
+        lines.append(user_content)
+    else:
+        for part in user_content:
+            if part.get("type") == "text":
+                lines.append(part["text"])
+            elif part.get("type") == "image_url":
+                url: str = part.get("image_url", {}).get("url", "")
+                lines.append(f"[IMAGE: base64 PNG, {len(url)} chars]")
+    (Path(save_dir) / "mcq_expl_prompt.txt").write_text("\n".join(lines), encoding="utf-8")
+    print(f"  Saved MCQ prompt: mcq_expl_prompt.txt")
+
+    # Raw extracted question texts
+    if q_texts:
+        text_lines: list[str] = []
+        for qnum in sorted(q_texts):
+            text_lines.append(f"Q{qnum}:\n{q_texts[qnum]}")
+        (Path(save_dir) / "mcq_expl_texts.txt").write_text("\n\n".join(text_lines), encoding="utf-8")
+        print(f"  Saved MCQ extracted texts: mcq_expl_texts.txt")
+
+
+def generate_mcq_explanations_gemini_pdf(
+    q_pdf_bytes: bytes,
+    answers: dict[int, str],
+    questions: list[int],
+    exam_key: str | None,
+    model: str,
+    effort: str | None = None,
+    save_dir: Any | None = None,
+) -> dict[int, list[str]]:
+    """Generate MCQ explanations by uploading a questions PDF to the Gemini Files API.
+
+    Uses the native ``google-genai`` SDK (same as difficulty_ranking) rather than
+    the OpenAI-compat endpoint, so the full PDF is sent as a document — no text
+    parsing or image rasterization required.
+
+    Returns ``{qnum: [bullet, bullet, bullet]}`` or ``{}`` on any error.
+    """
+    import os as _os
+    import tempfile
+    import time as _time
+    from pathlib import Path as _Path
+
+    try:
+        from google import genai as gai
+        from google.genai import types as gai_types
+    except ImportError:
+        print("  MCQ explanations (PDF): google-genai not installed; falling back.")
+        return {}
+
+    api_key = (
+        _os.environ.get("GEMINI_API_KEY", "") or _os.environ.get("GOOGLE_API_KEY", "")
+    ).strip()
+    if not api_key:
+        print("  MCQ explanations (PDF): GEMINI_API_KEY not set; falling back.")
+        return {}
+
+    client = gai.Client(api_key=api_key)
+
+    # Write PDF bytes to a temp file for upload, then delete it immediately.
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
+        tmp_path = f.name
+        f.write(q_pdf_bytes)
+
+    file_obj = None
+    try:
+        print("  Uploading MCQ questions PDF to Gemini Files API…", flush=True)
+        file_obj = client.files.upload(file=_Path(tmp_path))
+    finally:
+        try:
+            _os.unlink(tmp_path)
+        except OSError:
+            pass
+
+    try:
+        # Poll until the file is ready.
+        while getattr(file_obj.state, "name", str(file_obj.state)) == "PROCESSING":
+            print("    Waiting for PDF to be processed…", flush=True)
+            _time.sleep(2)
+            file_obj = client.files.get(name=file_obj.name)
+        state = getattr(file_obj.state, "name", str(file_obj.state))
+        if state == "FAILED":
+            print("  MCQ explanations (PDF): Gemini file processing failed; falling back.")
+            return {}
+        print(f"    PDF ready ({file_obj.name}).")
+
+        system_prompt = _build_system_prompt(exam_key, provider="gemini")
+
+        def _build_pdf_user_text(nudge: str = "") -> str:
+            lines = [
+                "The attached PDF contains the MCQ questions for this paper.",
+                "Generate explanations for each question listed below.\n",
+            ]
+            for q in questions:
+                if q in answers:
+                    lines.append(f"Q{q} (Answer: {answers[q]})")
+            if nudge:
+                lines.append(nudge)
+            return "\n".join(lines)
+
+        user_text = _build_pdf_user_text()
+
+        if save_dir is not None:
+            from pathlib import Path as _P  # noqa: PLC0415
+            _P(save_dir).mkdir(parents=True, exist_ok=True)
+            debug_lines = [
+                "=== SYSTEM PROMPT ===", system_prompt, "",
+                "=== USER TEXT ===", user_text, "",
+                f"=== PDF: {len(q_pdf_bytes):,} bytes uploaded as {file_obj.name} ===",
+            ]
+            (_P(save_dir) / "mcq_expl_prompt_pdf.txt").write_text(
+                "\n".join(debug_lines), encoding="utf-8"
+            )
+            print("  Saved MCQ prompt (PDF path): mcq_expl_prompt_pdf.txt")
+
+        # Thinking config — mirror difficulty_ranking.py exactly.
+        if effort == "off":
+            thinking_cfg = gai_types.ThinkingConfig(thinking_budget=0, include_thoughts=False)
+        elif effort == "low":
+            thinking_cfg = gai_types.ThinkingConfig(thinking_budget=1024, include_thoughts=True)
+        elif effort == "high":
+            thinking_cfg = gai_types.ThinkingConfig(thinking_budget=8192, include_thoughts=True)
+        else:
+            thinking_cfg = gai_types.ThinkingConfig(include_thoughts=True)
+
+        gen_config = gai_types.GenerateContentConfig(
+            system_instruction=system_prompt,
+            thinking_config=thinking_cfg,
+            max_output_tokens=16384,
+        )
+
+        _NUDGE = (
+            "\n\nYou MUST use the ===Q<number>=== delimiter format. "
+            "Do NOT use JSON. Separate bullets with --- on its own line."
+        )
+
+        max_attempts = 3
+        for attempt in range(max_attempts):
+            cur_user_text = _build_pdf_user_text(_NUDGE if attempt > 0 else "")
+            contents = [
+                gai_types.Part.from_uri(file_uri=file_obj.uri, mime_type="application/pdf"),
+                gai_types.Part.from_text(text=cur_user_text),
+            ]
+
+            try:
+                t0 = _time.monotonic()
+                chunks: list[str] = []
+                in_thinking = False
+                for chunk in client.models.generate_content_stream(
+                    model=model,
+                    contents=contents,
+                    config=gen_config,
+                ):
+                    for part in (
+                        chunk.candidates[0].content.parts
+                        if (
+                            chunk.candidates
+                            and chunk.candidates[0].content
+                            and chunk.candidates[0].content.parts
+                        )
+                        else []
+                    ):
+                        is_thought = getattr(part, "thought", False)
+                        text = part.text or ""
+                        if not text:
+                            continue
+                        if is_thought:
+                            if not in_thinking:
+                                print("  [thinking]", flush=True)
+                                in_thinking = True
+                            print(text, end="", flush=True)
+                        else:
+                            if in_thinking:
+                                print("\n  [/thinking]", flush=True)
+                                in_thinking = False
+                            print(text, end="", flush=True)
+                            chunks.append(text)
+                if in_thinking:
+                    print()
+                print()
+                print(f"  MCQ explanations (PDF): {_time.monotonic() - t0:.1f}s")
+            except Exception as exc:
+                print(f"  MCQ explanations (PDF): API error on attempt {attempt + 1}: {exc}")
+                if attempt == max_attempts - 1:
+                    return {}
+                continue
+
+            raw = "".join(chunks)
+            if save_dir is not None:
+                from pathlib import Path as _P  # noqa: PLC0415
+                (_P(save_dir) / "mcq_expl_response.txt").write_text(raw, encoding="utf-8")
+                print("  Saved MCQ response: mcq_expl_response.txt")
+            result = _parse_explanations(raw, questions)
+            if result:
+                return result
+
+            preview = raw[:500] if raw else "(empty)"
+            print(
+                f"  MCQ explanations (PDF): parse failed on attempt {attempt + 1} "
+                f"({len(raw)} chars). Raw start: {preview}"
+            )
+            if attempt < max_attempts - 1:
+                print("  Retrying…")
+
+        return {}
+
+    finally:
+        if file_obj is not None:
+            try:
+                client.files.delete(name=file_obj.name)
+            except Exception:
+                pass
+
+
 def generate_mcq_explanations(
     client: Any,
     model: str,
@@ -233,6 +460,8 @@ def generate_mcq_explanations(
     q_images: dict[int, str] | None = None,
     provider: str = "",
     effort: str | None = None,
+    save_dir: Any | None = None,  # Path | None — avoid import at module level
+    q_pdf_bytes: bytes | None = None,
 ) -> dict[int, list[str]]:
     """Call the AI once for all questions; return ``{qnum: [bullet, bullet, bullet]}``.
 
@@ -247,10 +476,25 @@ def generate_mcq_explanations(
     if not questions_with_answers:
         return {}
 
+    # Gemini PDF path: upload the questions PDF natively instead of using text + images.
+    if q_pdf_bytes is not None and provider == "gemini":
+        return generate_mcq_explanations_gemini_pdf(
+            q_pdf_bytes=q_pdf_bytes,
+            answers=answers,
+            questions=questions_with_answers,
+            exam_key=exam_key,
+            model=model,
+            effort=effort,
+            save_dir=save_dir,
+        )
+
     system = _build_system_prompt(exam_key, provider)
     user_content: str | list[dict] = _build_user_content(
         q_texts, answers, questions_with_answers, q_images or {},
     )
+
+    if save_dir is not None:
+        _save_mcq_prompt(save_dir, system, user_content, exam_key, q_texts=q_texts)
 
     use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
 
@@ -289,6 +533,10 @@ def generate_mcq_explanations(
             _t0 = time.monotonic()
             raw, finish = _call()
             print(f"  MCQ explanations: {time.monotonic() - _t0:.1f}s")
+            if save_dir is not None:
+                from pathlib import Path as _P  # noqa: PLC0415
+                (_P(save_dir) / "mcq_expl_response.txt").write_text(raw, encoding="utf-8")
+                print("  Saved MCQ response: mcq_expl_response.txt")
         except Exception as exc:
             print(f"  MCQ explanations: API error on attempt {attempt + 1}: {exc}")
             if attempt == max_attempts - 1:

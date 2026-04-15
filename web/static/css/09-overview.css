@@ -132,9 +132,6 @@
   max-width: 100%;
   border-radius: 1rem;
   overflow: hidden;
-  contain: layout style paint;
-  content-visibility: auto;
-  contain-intrinsic-size: auto 595px 842px;
 }
 
 .pdf-page-wrap .textLayer {
@@ -184,11 +181,7 @@
   z-index: 0;
   background: #ffffff;
   border-radius: 1rem;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.18),
-    0 6px 20px rgba(0, 0, 0, 0.42),
-    0 0 0 0.5px rgba(255, 255, 255, 0.05);
-  will-change: transform;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.38);
 }
 
 .pdf-canvas-page {
