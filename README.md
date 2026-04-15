@@ -52,12 +52,14 @@ flowchart TD
         ms -->|No| nup
     end
 
+    rankCond{"Skip ranking?\nranking=false or\nRANKING_SKIP=true"}
     rank["ranking.pdf\nquestions ranked hardest → easiest\n(background · optional)"]
 
     n3 --> cut
     l1 --> cut
     cut --> ex
-    ex -.->|"background; skipped if ranking=false\nor RANKING_SKIP=true"| rank
+    ex -.-> rankCond
+    rankCond -->|No| rank
 ```
 
 ### Natural language mode (one sentence)
@@ -102,14 +104,18 @@ flowchart TD
     s2["Step 2 — Locate exam folder\n(terminal only — fuzzy search)"]
     s3["Step 3 — Read student roster\n(Gemini · READ_STUDENT_LIST_MODEL)"]
 
-    subgraph scaffold ["Steps 4–6 — Exam scaffold  (skipped if no exam PDF)"]
+    routeCond{"Terminal or\nweb route?"}
+    examCond{"Exam PDF\nprovided?"}
+
+    subgraph scaffold ["Steps 4–6 — Exam scaffold"]
         direction TB
         s4["Step 4 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)"]
+        msCond{"Mark scheme\nprovided?"}
         s5["Step 5 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL)"]
         s6["Step 6 — Merge report"]
-        s4 -.->|"if mark scheme present"| s5
-        s5 --> s6
-        s4 --> s6
+        s4 --> msCond
+        msCond -->|Yes| s5 --> s6
+        msCond -->|No| s6
     end
 
     subgraph cleaning ["Steps 7–9 — Scan cleaning"]
@@ -122,7 +128,9 @@ flowchart TD
 
     cleaned(["3_cleaned_scan.pdf"])
 
-    subgraph marking ["Steps 10–14 — AI marking  (requires exam scaffold)"]
+    scaffoldCond{"Scaffold\navailable?"}
+
+    subgraph marking ["Steps 10–14 — AI marking"]
         direction TB
         s10["Step 10 — Exam geometry\npage count ÷ exam pages = students"]
         s11["Step 11 — Marking blueprints\nper-page JSON templates from scaffold"]
@@ -139,11 +147,14 @@ flowchart TD
     f14[/"14_timing.json · md"/]
 
     uploads --> s1
-    s1 --> s2
-    s2 -->|terminal| s3
-    s1 -->|web| s3
-    s3 --> scaffold --> cleaning --> cleaned
-    cleaned -->|"if scaffold present"| s10
+    s1 --> routeCond
+    routeCond -->|terminal| s2 --> s3
+    routeCond -->|web| s3
+    s3 --> examCond
+    examCond -->|Yes| scaffold --> cleaning --> cleaned
+    examCond -->|No| cleaning
+    cleaned --> scaffoldCond
+    scaffoldCond -->|Yes| s10
 
     s3 -.-> f3
     s6 -.-> f6
