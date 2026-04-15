@@ -578,7 +578,8 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
 
 
 def main() -> None:
-    load_dotenv()
+    load_dotenv("default.env")  # defaults (lower priority)
+    load_dotenv()               # .env overrides (higher priority, secrets)
     args = parse_args()
 
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")

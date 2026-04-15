@@ -73,7 +73,7 @@ def assign_pages(
     from pdf2image import convert_from_path
     from eXercise.ai_client import make_ai_client
 
-    ai_result = make_ai_client(model_env="NAME_DETECTION_MODEL", default_model="kimi-k2.5")
+    ai_result = make_ai_client(model_env="NAME_DETECTION_MODEL", default_model="gemini-2.5-flash")
     if ai_result is None:
         raise RuntimeError(
             "NAME_DETECTION_MODEL client could not be created — check API key in .env"
