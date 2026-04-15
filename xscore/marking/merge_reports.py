@@ -57,7 +57,7 @@ def _merge_student_pages(
     merged_questions: dict[str, dict] = {}
 
     for p in range(1, pages_per_student + 1):
-        path = artifact_dir / f"12_marked_{_safe_name(student_name)}_{p}.json"
+        path = artifact_marked_json_path(artifact_dir, student_name, p)
         if not path.is_file():
             continue
         data = json.loads(path.read_text(encoding="utf-8"))
@@ -305,6 +305,7 @@ def compile_reports(ctx: Any) -> list[dict]:
         artifact_class_report_json_path,
         artifact_class_report_md_path,
         artifact_class_report_tex_path,
+        artifact_marked_json_path,
         artifact_student_report_json_path,
         artifact_student_report_md_path,
         artifact_student_report_tex_path,

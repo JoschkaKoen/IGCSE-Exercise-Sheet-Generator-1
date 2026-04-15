@@ -8,7 +8,7 @@ Supported providers (auto-detected by model name prefix)
 ---------------------------------------------------------
 gemini  (model names starting with ``gemini``)
     base_url : https://generativelanguage.googleapis.com/v1beta/openai/
-    api_key  : GOOGLE_API_KEY
+    api_key  : GEMINI_API_KEY  (GOOGLE_API_KEY accepted as fallback)
     example  : gemini-2.5-flash, gemini-2.0-flash
 
 xai  (model names starting with ``grok``)
@@ -38,7 +38,7 @@ Accepted effort values:  off | low | high  (omit = provider default)
 
 Environment variables (API keys)
 ---------------------------------
-GOOGLE_API_KEY    Required for gemini models
+GEMINI_API_KEY    Required for gemini models  (GOOGLE_API_KEY accepted as fallback)
 XAI_API_KEY       Required for grok models
 DASHSCOPE_API_KEY Required for qwen models
 """
@@ -183,6 +183,8 @@ def make_ai_client(
     pdef = next((p for p in _PROVIDER_REGISTRY if p.name == provider), _PROVIDER_REGISTRY[0])
 
     api_key = os.environ.get(pdef.api_key_env, "").strip()
+    if not api_key and pdef.name == "gemini":
+        api_key = os.environ.get("GOOGLE_API_KEY", "").strip()
     if not api_key:
         return None
 

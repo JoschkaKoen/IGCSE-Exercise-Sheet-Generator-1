@@ -213,9 +213,9 @@ def build_ai_scaffold(
     except ImportError:
         raise RuntimeError("google-genai not installed; run: pip install google-genai")
 
-    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
     if not api_key:
-        raise RuntimeError("GEMINI_API_KEY not set")
+        raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
 
     exam_model, exam_effort = _exam_pdf_model_config()
     scheme_model, scheme_effort = _mark_scheme_model_config()

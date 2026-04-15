@@ -21,7 +21,7 @@ from typing import Any
 
 from xscore.marking.blueprints import marked_to_md
 from xscore.marking.kimi_helpers import parse_json_safe
-from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_json_path, artifact_marked_md_path
+from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_json_path, artifact_marked_md_path, artifact_short_scaffold_json_path
 from xscore.shared.terminal_ui import api_latency_line, info_line, warn_line
 
 
@@ -219,7 +219,7 @@ def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
     extra_body = {"enable_thinking": False}
 
     # Load short report once; build page → leaf-questions lookup (read-only, shared)
-    short_report_path = ctx.artifact_dir / "6_short_report.json"
+    short_report_path = artifact_short_scaffold_json_path(ctx.artifact_dir)
     short_report = json.loads(short_report_path.read_text(encoding="utf-8"))
     all_leaf_qs = _flatten_leaf_questions(short_report.get("questions", []))
     page_questions: dict[int, list[dict]] = {}

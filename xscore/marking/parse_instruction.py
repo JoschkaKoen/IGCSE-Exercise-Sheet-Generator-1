@@ -12,7 +12,7 @@ import time
 
 from .kimi_helpers import parse_json_safe
 from xscore.shared.models import StudentFilter, TaskInstruction
-from xscore.shared.terminal_ui import api_latency_line, warn_line
+from xscore.shared.terminal_ui import api_latency_line, info_line, warn_line
 
 
 def _read_model_config() -> tuple[str, str | None]:
@@ -31,9 +31,9 @@ def _call_gemini_text(user_message: str) -> str:
     except ImportError:
         raise RuntimeError("google-genai not installed; run: pip install google-genai")
 
-    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
     if not api_key:
-        raise RuntimeError("GEMINI_API_KEY not set")
+        raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
 
     model_name, effort = _read_model_config()
     client = gai.Client(api_key=api_key)
