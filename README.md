@@ -24,32 +24,38 @@ Overview (rendered on GitHub as a diagram):
 
 ```mermaid
 flowchart TD
-    subgraph nlPath [Natural language mode]
+    subgraph nlPath ["🧠  Natural language mode"]
         direction TB
-        n1["Describe: subject, paper, questions"]
-        n2[Optional precheck LLM call]
-        n3[LLM maps text → PDFs and question numbers]
+        n1["Step 1 — Describe your exercise\n(subject · paper · questions)"]
+        n2["Step 2 — Precheck  ·  LLM sanity check\n(skippable)"]
+        n3["Step 3 — Interpret  ·  LLM maps request → PDF paths\nand question numbers"]
         n1 --> n2 --> n3
     end
 
-    subgraph legPath [Legacy / explicit mode]
+    subgraph legPath ["📂  Legacy / explicit mode"]
         direction TB
-        l1[Provide PDF paths and question numbers directly]
+        l1["Provide PDF paths and question numbers directly\n(no LLM step)"]
     end
 
-    cut[Locate and cut each question from PDF as vector graphics]
-    ex[exercise.pdf — one continuous exercise sheet]
-    ms{Mark scheme\nprovided?}
-    ans["answers.pdf\n(MCQ: optional LLM explanations)"]
-    nup["_2up / _4up variants\n(if pdfjam installed)"]
-    rank["ranking.pdf — questions ranked by difficulty\n(background LLM job)"]
+    cut["Step 4 — Extract questions from PDF\nas vector graphics"]
+
+    subgraph outputs ["📄  Outputs"]
+        direction TB
+        ex["exercise.pdf\none continuous exercise sheet"]
+        ms{"Mark scheme\nprovided?"}
+        ans["answers.pdf\n(MCQ: optional LLM explanations)"]
+        nup["_2up / _4up print variants\n(requires pdfjam)"]
+        ex --> ms
+        ms -->|Yes| ans --> nup
+        ms -->|No| nup
+    end
+
+    rank["ranking.pdf\nquestions ranked by difficulty\n(background LLM job)"]
 
     n3 --> cut
     l1 --> cut
-    cut --> ex --> ms
-    ms -->|Yes| ans --> nup
-    ms -->|No| nup
-    ex -.->|background| rank
+    cut --> ex
+    ex -.->|"background"| rank
 ```
 
 ### Natural language mode (one sentence)
