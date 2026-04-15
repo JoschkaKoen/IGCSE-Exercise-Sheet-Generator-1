@@ -109,13 +109,15 @@ def parse_mark_scheme_table_answers(doc: fitz.Document) -> dict[str, str]:
 def parse_exam_pdf(
     pdf_path: Path,
     exam_folder: Path,
-    cfg: ParserConfig = DEFAULT_PARSER_CONFIG,
+    cfg: ParserConfig | None = None,
     *,
     artifact_dir: Path | None = None,
 ) -> list[Question]:
     """Parse blank exam vector PDF; write images under artifact_dir/scaffold_images/."""
     from xscore.shared.exam_paths import exam_artifact_dir
 
+    if cfg is None:
+        cfg = DEFAULT_PARSER_CONFIG
     root = artifact_dir or exam_artifact_dir(exam_folder)
     doc = fitz.open(pdf_path)
     try:
@@ -131,7 +133,7 @@ def parse_exam_pdf(
 def parse_answer_key_pdf(
     pdf_path: Path,
     exam_folder: Path,
-    cfg: ParserConfig = DEFAULT_PARSER_CONFIG,
+    cfg: ParserConfig | None = None,
 ) -> tuple[dict[str, dict[str, Any]], dict[str, str], list[str]]:
     """Parse answer key PDF.
 
@@ -139,6 +141,8 @@ def parse_answer_key_pdf(
     *table_model_answers* maps scaffold ids (e.g. ``11a``) to model text from ``11(a)`` rows.
     *printed_mc_letters* lists ``Question N (Answer: X)`` letters in document order.
     """
+    if cfg is None:
+        cfg = DEFAULT_PARSER_CONFIG
     doc = fitz.open(pdf_path)
     result: dict[str, dict[str, Any]] = {}
     try:

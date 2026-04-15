@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import threading
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -94,7 +95,9 @@ def collect_qr_image_rects(page: fitz.Page) -> list[fitz.Rect]:
             xref = img_item[0]
             try:
                 img_rects = page.get_image_rects(xref)
-            except Exception:
+            except Exception as exc:  # noqa: BLE001
+                import logging
+                logging.debug("get_image_rects xref=%s: %s", xref, exc)
                 continue
             for rect in img_rects:
                 iw, ih = rect.width, rect.height
@@ -112,8 +115,9 @@ def collect_qr_image_rects(page: fitz.Page) -> list[fitz.Rect]:
                 )
                 if in_margin:
                     rects.append(fitz.Rect(rect))
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001
+        import logging
+        logging.debug("collect_qr_image_rects failed: %s", exc)
     return rects
 
 
@@ -160,8 +164,9 @@ def collect_barcode_text_rects(page: fitz.Page) -> list[fitz.Rect]:
                             x0 - _PAD_X, y0 - _PAD_TOP,
                             x1 + _PAD_X, y1 + _PAD_BOTTOM,
                         ))
-    except Exception:
-        pass
+    except Exception as exc:  # noqa: BLE001
+        import logging
+        logging.debug("collect_barcode_text_rects failed: %s", exc)
     return rects
 
 
@@ -193,6 +198,7 @@ def _display_to_mediabox(rect: fitz.Rect, page: fitz.Page) -> fitz.Rect:
 
 _derotated_cache: dict[tuple[int, int], tuple[fitz.Document, int, int]] = {}
 """(id(doc), page_idx) → (temp_doc, temp_page_idx, original_rotation)."""
+_derotated_cache_lock = threading.Lock()
 
 
 def _get_derotated(doc: fitz.Document, page_idx: int) -> tuple[fitz.Document, int, int]:
@@ -207,24 +213,26 @@ def _get_derotated(doc: fitz.Document, page_idx: int) -> tuple[fitz.Document, in
         return doc, page_idx, 0
 
     key = (id(doc), page_idx)
-    if key in _derotated_cache:
-        return _derotated_cache[key]
+    with _derotated_cache_lock:
+        if key in _derotated_cache:
+            return _derotated_cache[key]
 
-    temp = fitz.open()
-    temp.insert_pdf(doc, from_page=page_idx, to_page=page_idx)
-    temp[0].set_rotation(0)
-    _derotated_cache[key] = (temp, 0, rot)
-    return temp, 0, rot
+        temp = fitz.open()
+        temp.insert_pdf(doc, from_page=page_idx, to_page=page_idx)
+        temp[0].set_rotation(0)
+        _derotated_cache[key] = (temp, 0, rot)
+        return temp, 0, rot
 
 
 def clear_derotated_cache() -> None:
     """Close all temp documents in the cache (call after layout is done)."""
-    for temp_doc, _, _ in _derotated_cache.values():
-        try:
-            temp_doc.close()
-        except Exception:
-            pass
-    _derotated_cache.clear()
+    with _derotated_cache_lock:
+        for temp_doc, _, _ in _derotated_cache.values():
+            try:
+                temp_doc.close()
+            except Exception:
+                pass
+        _derotated_cache.clear()
 
 
 def _map_source_to_output(
@@ -397,9 +405,14 @@ _NAME_BOX_W      = 90.0  # writeable box width in points
 _NAME_BOX_CORNER = 2.5   # desired corner radius in points (converted to relative inside draw)
 _NAME_BOX_PAD_Y  = 1.0   # vertical padding above/below text within the box
 
-# Actual Helvetica ascender / descender (in EM units, from fitz)
-_HELV_ASC = fitz.Font("helv").ascender        # ≈ 1.075
-_HELV_DSC = abs(fitz.Font("helv").descender)  # ≈ 0.299
+import functools as _functools
+
+
+@_functools.cache
+def _helv_metrics() -> tuple[float, float]:
+    """Return (ascender, abs(descender)) for the built-in Helvetica font (lazy, cached)."""
+    f = fitz.Font("helv")
+    return f.ascender, abs(f.descender)
 
 
 def _header_text(subject_label: str, paper_label: str | None) -> str:
@@ -496,8 +509,9 @@ def _draw_name_box(out_page: fitz.Page) -> None:
     line_y = _LABEL_TOP_PT + _LABEL_BASELINE_OFF - _LABEL_FS * 0.35
 
     # Actual ascender / descender for Helvetica at this font size
-    asc = _HELV_ASC * fs   # ≈ 9.68 pt  (above baseline)
-    dsc = _HELV_DSC * fs   # ≈ 2.69 pt  (below baseline)
+    _helv_asc, _helv_dsc = _helv_metrics()
+    asc = _helv_asc * fs   # ≈ 9.68 pt  (above baseline)
+    dsc = _helv_dsc * fs   # ≈ 2.69 pt  (below baseline)
 
     # Baseline that places the optical midpoint of "Name:" on line_y.
     # Full metric centering is (asc-dsc)/2, but "Name:" has no real

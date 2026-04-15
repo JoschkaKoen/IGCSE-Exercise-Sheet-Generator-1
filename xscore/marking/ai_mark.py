@@ -154,10 +154,14 @@ def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
             "MARKING_MODEL client could not be created — check DASHSCOPE_API_KEY in .env"
         )
     client, model_id, _provider, _effort = result
-    extra_body = {"enable_thinking": False}
+    extra_body = {"enable_thinking": False} if _provider in ("qwen", "openai", "xai") else {}
 
     # Load page assignments produced by step 10 name detection.
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
+    if not list_path.exists():
+        raise FileNotFoundError(
+            f"10_exam_student_list.json not found at {list_path} — run step 10 first"
+        )
     raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
     # Each entry: {"student_name": str, "page_numbers": [int, ...], "confidence": str}
 

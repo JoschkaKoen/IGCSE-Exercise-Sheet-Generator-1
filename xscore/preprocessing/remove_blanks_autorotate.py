@@ -207,11 +207,13 @@ def write_rotated_pdf_after_blanks(
             "Input and output paths are the same — refusing to overwrite the source PDF. "
             "Choose a different output path."
         )
-        sys.exit(1)
+        raise RuntimeError(
+            "Input and output paths are the same — refusing to overwrite the source PDF."
+        )
 
     if not content_page_nums:
         warn_line("All pages were removed (all blank?). Nothing to save.")
-        sys.exit(1)
+        raise RuntimeError("All pages were detected as blank; nothing to save.")
 
     c = get_console()
     _tc = os.cpu_count() or 4
@@ -379,11 +381,13 @@ def process_pdf(
             "Input and output paths are the same — refusing to overwrite the source PDF. "
             "Choose a different output path."
         )
-        sys.exit(1)
+        raise RuntimeError(
+            "Input and output paths are the same — refusing to overwrite the source PDF."
+        )
 
     if not input_path.exists():
         err_line(f"Input file not found: {input_path}")
-        sys.exit(1)
+        raise FileNotFoundError(f"Input file not found: {input_path}")
 
     total_pages, content_page_nums, blank_page_nums, page_render_sizes = (
         detect_blank_page_lists(

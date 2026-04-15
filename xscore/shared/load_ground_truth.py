@@ -28,7 +28,6 @@ Example (marked exam):
 
 from __future__ import annotations
 
-import re
 from pathlib import Path
 
 from xscore.shared.models import ExamScaffold, StudentResult

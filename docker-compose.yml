@@ -1,3 +1,4 @@
+# Requires Docker Compose v2.24+ for the `path` / `required` env_file syntax.
 services:
   web:
     build: .
@@ -10,3 +11,11 @@ services:
         required: true
       - path: .env
         required: false
+    volumes:
+      # Persist generated output and logs across container restarts / rebuilds.
+      - output_data:/app/output
+      - log_data:/app/logs
+
+volumes:
+  output_data:
+  log_data:

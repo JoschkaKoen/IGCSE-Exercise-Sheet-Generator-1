@@ -4,7 +4,7 @@
 venv/
 env/
 
-# Secrets and local config
+# Secrets and local config — NEVER commit API-KEYS-AND-MODELS.md (it contains real keys)
 .env
 .env.*
 !.env.example
@@ -27,6 +27,9 @@ output/
 
 # Local test assets (scans, rosters)
 Space Physics Unit Test/
+
+# Runtime logs
+logs/
 
 # OS / editor
 .DS_Store

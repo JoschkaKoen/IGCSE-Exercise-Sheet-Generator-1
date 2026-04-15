@@ -274,12 +274,10 @@ def finalize_mcq_explanation_strips(
         return []
 
     first_q = job_data.answered[0] if job_data.answered else None
-    strips = _pdf_to_vector_strips(job_data.expl_pdf_path, job_data.answered, first_q)
-
     try:
-        job_data.expl_pdf_path.unlink()
-    except OSError:
-        pass
+        strips = _pdf_to_vector_strips(job_data.expl_pdf_path, job_data.answered, first_q)
+    finally:
+        job_data.expl_pdf_path.unlink(missing_ok=True)
 
     print(f"  MCQ explanation: {len(strips)} page(s) of explanations added.")
     return strips

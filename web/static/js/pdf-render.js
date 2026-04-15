@@ -181,6 +181,7 @@ async function _renderSinglePage(id, pageIdx) {
         ctx.fillRect(0, 0, pg.canvas.width, pg.canvas.height);
         const task = page.render({ canvasContext: ctx, viewport: scaledVp });
         await task.promise;
+        pg.canvasRendered = true;
       }
     }
     if (s.pages[pageIdx] === pg) pg.rendered = true;

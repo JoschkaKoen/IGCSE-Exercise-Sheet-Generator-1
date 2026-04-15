@@ -57,15 +57,11 @@ MAX_PAGES = 12  # cap to avoid token overflow
 
 
 def _eprint(msg: str) -> None:
-    """Print an error message — red in a TTY terminal, plain text otherwise.
-
-    Uses ANSI red only when stdout is a real terminal so that the web-UI
-    capture (which sets isatty()=False) receives clean plain text.
-    """
-    if sys.stdout.isatty():
-        print(f"\033[31m{msg}\033[0m", flush=True)
+    """Print an error message to stderr — red in a TTY terminal, plain text otherwise."""
+    if sys.stderr.isatty():
+        print(f"\033[31m{msg}\033[0m", file=sys.stderr, flush=True)
     else:
-        print(msg, flush=True)
+        print(msg, file=sys.stderr, flush=True)
 
 # ---------------------------------------------------------------------------
 # LaTeX helpers
@@ -237,40 +233,40 @@ def _rank_exercises_ai_gemini(
     chunks: list[str] = []
     thinking_chunks: list[str] = []
     in_thinking = False
-    for chunk in client.models.generate_content_stream(
-        model=model,
-        contents=parts,
-        config=gen_config,
-    ):
-        for part in (chunk.candidates or [{}])[0].content.parts if (
-            chunk.candidates and chunk.candidates[0].content and chunk.candidates[0].content.parts
-        ) else []:
-            is_thought = getattr(part, "thought", False)
-            text = part.text or ""
-            if not text:
-                continue
-            if is_thought:
-                thinking_chunks.append(text)
-                if not in_thinking:
-                    print("  [thinking]", flush=True)
-                    in_thinking = True
-                if stream_thinking:
-                    print(text, end="", flush=True)
-            else:
-                if in_thinking:
-                    print("\n  [/thinking]", flush=True)
-                    in_thinking = False
-                chunks.append(text)
-    if in_thinking:
-        print()
-
-
-    # Delete uploaded files (auto-expire after 48h anyway)
-    for label, f in ready.items():
-        try:
-            client.files.delete(name=f.name)
-        except Exception:
-            pass
+    try:
+        for chunk in client.models.generate_content_stream(
+            model=model,
+            contents=parts,
+            config=gen_config,
+        ):
+            for part in (chunk.candidates or [{}])[0].content.parts if (
+                chunk.candidates and chunk.candidates[0].content and chunk.candidates[0].content.parts
+            ) else []:
+                is_thought = getattr(part, "thought", False)
+                text = part.text or ""
+                if not text:
+                    continue
+                if is_thought:
+                    thinking_chunks.append(text)
+                    if not in_thinking:
+                        print("  [thinking]", flush=True)
+                        in_thinking = True
+                    if stream_thinking:
+                        print(text, end="", flush=True)
+                else:
+                    if in_thinking:
+                        print("\n  [/thinking]", flush=True)
+                        in_thinking = False
+                    chunks.append(text)
+        if in_thinking:
+            print()
+    finally:
+        # Delete uploaded files (auto-expire after 48h anyway)
+        for label, f in ready.items():
+            try:
+                client.files.delete(name=f.name)
+            except Exception:
+                pass
 
     raw = "".join(chunks)
     if save_dir:

@@ -200,16 +200,38 @@ def strip_json_fences(raw: str) -> str:
     """Remove markdown code fences that some models add despite being told not to.
 
     Handles ```json ... ```, ``` ... ```, and leading/trailing whitespace.
-    Falls back to extracting the outermost { ... } block when prose surrounds the JSON.
+    Falls back to extracting the first balanced { ... } block when prose surrounds the JSON.
     """
     import re
     s = raw.strip()
     fence = re.match(r"^```(?:json)?\s*([\s\S]*?)```\s*$", s)
     if fence:
         return fence.group(1).strip()
-    m = re.search(r"\{[\s\S]*\}", s)
-    if m:
-        return m.group(0)
+    # Stack-walk to find the first balanced { … } so we don't greedily span
+    # across multiple top-level JSON objects in the same response.
+    start = s.find("{")
+    if start != -1:
+        depth = 0
+        in_string = False
+        escape = False
+        for i, ch in enumerate(s[start:], start):
+            if escape:
+                escape = False
+                continue
+            if ch == "\\" and in_string:
+                escape = True
+                continue
+            if ch == '"':
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    return s[start : i + 1]
     return s
 
 

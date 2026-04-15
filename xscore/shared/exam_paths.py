@@ -6,8 +6,13 @@ from pathlib import Path
 
 
 def safe_path_stem(stem: str) -> str:
-    """Stable directory / filename fragment from a PDF stem (no spaces or slashes)."""
-    return stem.replace(" ", "_").replace("/", "_")
+    """Stable directory / filename fragment from a PDF stem (no spaces, slashes, or traversal)."""
+    # Remove null bytes and replace path-unsafe characters.
+    stem = stem.replace("\x00", "").replace(" ", "_").replace("/", "_").replace("\\", "_")
+    # Prevent directory traversal by replacing ".." components.
+    parts = stem.split("_")
+    parts = [p if p != ".." else "__" for p in parts]
+    return "_".join(parts) or "_"
 
 
 def exam_artifact_dir(exam_folder: Path, output_base: str | Path = "output/xscore") -> Path:

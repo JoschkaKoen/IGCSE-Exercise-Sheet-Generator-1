@@ -189,31 +189,29 @@ def extract_raw_igcse_anchors(raw_4up_pdf: Path) -> dict[str, tuple[float, float
         ValueError: If fewer than 4 distinct IGCSE anchor positions are found.
     """
     raw_4up_pdf = Path(raw_4up_pdf)
-    doc = fitz.open(str(raw_4up_pdf))
-    page = doc[0]
-    pw, ph = page.rect.width, page.rect.height
-    mid_x = pw / 2
-    mid_y = ph / 2
-
-    # Collect all IGCSE line centers, deduplicated to 1-pt grid
     igcse_centers: list[tuple[float, float, str]] = []  # (cx, cy, text)
-    seen: set[tuple[int, int]] = set()
-    for block in page.get_text("dict")["blocks"]:
-        if block["type"] != 0:
-            continue
-        for line in block["lines"]:
-            text = "".join(s["text"] for s in line["spans"]).strip()
-            if "IGCSE" not in text:
-                continue
-            bb = line["bbox"]
-            cx = (bb[0] + bb[2]) / 2
-            cy = (bb[1] + bb[3]) / 2
-            key = (round(cx), round(cy))
-            if key not in seen:
-                seen.add(key)
-                igcse_centers.append((cx, cy, text))
+    with fitz.open(str(raw_4up_pdf)) as doc:
+        page = doc[0]
+        pw, ph = page.rect.width, page.rect.height
+        mid_x = pw / 2
+        mid_y = ph / 2
 
-    doc.close()
+        # Collect all IGCSE line centers, deduplicated to 1-pt grid
+        seen: set[tuple[int, int]] = set()
+        for block in page.get_text("dict")["blocks"]:
+            if block["type"] != 0:
+                continue
+            for line in block["lines"]:
+                text = "".join(s["text"] for s in line["spans"]).strip()
+                if "IGCSE" not in text:
+                    continue
+                bb = line["bbox"]
+                cx = (bb[0] + bb[2]) / 2
+                cy = (bb[1] + bb[3]) / 2
+                key = (round(cx), round(cy))
+                if key not in seen:
+                    seen.add(key)
+                    igcse_centers.append((cx, cy, text))
 
     # For each quadrant keep only the topmost (smallest cy) label
     best: dict[str, tuple[float, float] | None] = {

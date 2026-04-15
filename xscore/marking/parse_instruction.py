@@ -182,8 +182,14 @@ def parse_prompt(
         skip_clean_scan = False
         force_clean_scan = False
 
+    _VALID_TASK_TYPES = {"count_marks", "check_mc", "check_answers"}
+    raw_task = data.get("task_type", instruction.task_type)
+    if raw_task not in _VALID_TASK_TYPES:
+        info_line(f"AI returned unknown task_type {raw_task!r} — keeping {instruction.task_type!r}")
+        raw_task = instruction.task_type
+
     return TaskInstruction(
-        task_type=data.get("task_type", instruction.task_type),
+        task_type=raw_task,
         student_filter=student_filter,
         dpi=dpi,
         folder_hint=folder_hint,

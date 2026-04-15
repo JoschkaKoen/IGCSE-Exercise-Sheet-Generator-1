@@ -19,9 +19,8 @@ def compute_geometry(cleaned_pdf: Path, exam_pages: int, roster: list[str]) -> d
     except ImportError:
         raise RuntimeError("PyMuPDF not installed; run: pip install pymupdf")
 
-    doc = fitz.open(str(cleaned_pdf))
-    scan_pages = doc.page_count
-    doc.close()
+    with fitz.open(str(cleaned_pdf)) as doc:
+        scan_pages = doc.page_count
 
     if exam_pages == 0:
         raise ValueError("scaffold.page_count is 0 — re-run steps 4–6 to rebuild the scaffold")

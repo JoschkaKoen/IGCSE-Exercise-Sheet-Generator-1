@@ -284,7 +284,6 @@ def _run_ms_strip_phase(
                 for s in explanation_strips:
                     if isinstance(s, VectorStrip) and s.src_doc not in ms_docs:
                         ms_docs.append(s.src_doc)
-                        break
             else:
                 mstrips = create_mcq_answer_strips(answers, qs)
         else:
@@ -445,8 +444,8 @@ def run_extraction(
     requested: list,
     ms_pdf: str | None,
     step_timings: list | None = None,
-):
-    run_extraction_jobs(
+) -> dict:
+    return run_extraction_jobs(
         [{"input_pdf": input_pdf, "questions": requested, "mark_scheme_pdf": ms_pdf}],
         output_pdf,
         exam_key=None,

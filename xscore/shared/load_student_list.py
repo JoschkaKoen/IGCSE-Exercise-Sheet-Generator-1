@@ -102,9 +102,15 @@ def read_student_list(folder: Path) -> list[str]:
         contents = [_PROMPT + "\n\n" + csv_text]
     elif ext == ".pdf":
         uploaded = client.files.upload(file=target)
-        while getattr(uploaded.state, "name", str(uploaded.state)) == "PROCESSING":
+        for _ in range(180):  # up to 6 minutes at 2 s intervals
+            if getattr(uploaded.state, "name", str(uploaded.state)) != "PROCESSING":
+                break
             time.sleep(2)
             uploaded = client.files.get(name=uploaded.name)
+        else:
+            raise TimeoutError(
+                f"Gemini file upload timed out after 6 min: {uploaded.name}"
+            )
         if getattr(uploaded.state, "name", str(uploaded.state)) == "FAILED":
             raise RuntimeError(f"Gemini file processing failed: {uploaded.name}")
         contents = [
@@ -117,9 +123,8 @@ def read_student_list(folder: Path) -> list[str]:
             "Supported: .xlsx, .xls, .csv, .pdf"
         )
 
-    import time as _time
     from xscore.shared.terminal_ui import api_latency_line
-    _t0 = _time.perf_counter()
+    _t0 = time.perf_counter()
     response = client.models.generate_content(
         model=model_name,
         contents=contents,

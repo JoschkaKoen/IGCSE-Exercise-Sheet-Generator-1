@@ -181,20 +181,33 @@ def resolve_natural_language(
         )
     client, model, provider, effort = result
 
-    # Precheck uses its own model+effort, falling back to the main NL model+effort.
+    # Precheck uses its own model+effort and its own client (may be a different provider).
     precheck_raw = (
         os.environ.get("AI_PRECHECK_MODEL", "").strip()
         or os.environ.get("XAI_PRECHECK_MODEL", "").strip()
     )
     if precheck_raw:
-        precheck_model, precheck_effort = parse_model_effort(precheck_raw)
+        precheck_result = make_ai_client(
+            model_env="AI_PRECHECK_MODEL",
+            legacy_model_env="XAI_PRECHECK_MODEL",
+        )
+        if precheck_result is not None:
+            precheck_client, precheck_model, precheck_provider, precheck_effort = precheck_result
+        else:
+            precheck_client, precheck_model, precheck_provider, precheck_effort = (
+                client, model, provider, effort
+            )
     else:
-        precheck_model, precheck_effort = model, effort
+        precheck_client, precheck_model, precheck_provider, precheck_effort = (
+            client, model, provider, effort
+        )
 
     skip_precheck = os.environ.get("NL_SKIP_PRECHECK", "").lower() in ("1", "true", "yes")
     if not skip_precheck:
         emit("Checking your request…")
-        _precheck_instruction(client, precheck_model, provider, precheck_effort, instruction)
+        _precheck_instruction(
+            precheck_client, precheck_model, precheck_provider, precheck_effort, instruction
+        )
 
     catalogs = {}
     for key, root in EXAM_ROOT_BY_KEY.items():
@@ -277,7 +290,10 @@ def resolve_natural_language(
                     response_format={"type": "json_object"},
                     **thinking_kw,
                 )
-            except Exception:
+            except Exception as _rf_err:  # noqa: BLE001
+                # Some providers return HTTP 400 for response_format; retry without it.
+                import logging
+                logging.debug("response_format rejected by %s: %s — retrying without", model, _rf_err)
                 completion = client.chat.completions.create(
                     model=model,
                     messages=msgs_nl,

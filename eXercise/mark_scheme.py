@@ -45,7 +45,7 @@ def detect_landscape_ms_crop_x(doc) -> float | None:
     column-header text.  Returns that x + 2 pt (to fully include the border line),
     or None if detection fails.
     """
-    from .config import MS_LANDSCAPE_H_THRESHOLD_PT
+
     for pi in range(len(doc)):
         page = doc[pi]
         if page.rect.height >= MS_LANDSCAPE_H_THRESHOLD_PT:
@@ -67,7 +67,7 @@ def detect_portrait_ms_crop_x(doc) -> float | None:
 
     Same logic as ``detect_landscape_ms_crop_x`` but searches portrait pages.
     """
-    from .config import MS_LANDSCAPE_H_THRESHOLD_PT
+
     for pi in range(len(doc)):
         page = doc[pi]
         if page.rect.height < MS_LANDSCAPE_H_THRESHOLD_PT:
@@ -153,7 +153,7 @@ def detect_landscape_ms_table_left(doc) -> float | None:
     Returns the x0 of the leftmost wide drawing that is part of the answer
     table (to the left of the Marks column), minus a small padding.
     """
-    from .config import MS_LANDSCAPE_H_THRESHOLD_PT
+
     for pi in range(len(doc)):
         page = doc[pi]
         if page.rect.height >= MS_LANDSCAPE_H_THRESHOLD_PT:
@@ -172,7 +172,7 @@ def detect_landscape_ms_table_left(doc) -> float | None:
 
 def detect_portrait_ms_table_left(doc) -> float | None:
     """Auto-detect the leftmost x of table content on portrait MS pages."""
-    from .config import MS_LANDSCAPE_H_THRESHOLD_PT
+
     for pi in range(len(doc)):
         page = doc[pi]
         if page.rect.height < MS_LANDSCAPE_H_THRESHOLD_PT:
@@ -331,7 +331,7 @@ def _precise_y_start_from_drawings(page, y_start: float, h_top: float, h_bot: fl
         # header band; thin border lines (<1 pt) should not push the extent.
         if dr[3] - dr[1] < 2.0:
             continue
-        if dr[0] >= h_top - 15 and dr[1] > h_bot and dr[1] < first_entry_y:
+        if dr[1] >= h_top - 15 and dr[1] > h_bot and dr[1] < first_entry_y:
             header_band_end = max(header_band_end, dr[1])
 
     content_row_top = None
@@ -340,9 +340,9 @@ def _precise_y_start_from_drawings(page, y_start: float, h_top: float, h_bot: fl
         dr = _norm_bbox(page, (r.x0, r.y0, r.x1, r.y1))
         if dr[2] - dr[0] < 50:
             continue
-        if dr[0] > header_band_end and dr[0] < first_entry_y:
-            if content_row_top is None or dr[0] < content_row_top:
-                content_row_top = dr[0]
+        if dr[1] > header_band_end and dr[1] < first_entry_y:
+            if content_row_top is None or dr[1] < content_row_top:
+                content_row_top = dr[1]
 
     # Include a margin above the border so the top stroke is not clipped.
     # Use 2 pt to ensure the full border line (typically 0.48 pt thick)

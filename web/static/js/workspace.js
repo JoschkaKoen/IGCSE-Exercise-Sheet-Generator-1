@@ -351,13 +351,15 @@ function resultPanelIsVisible() {
 }
 
 async function pollJob(id, onTick) {
-  while (true) {
+  const MAX_POLLS = Math.ceil(20 * 60 * 1000 / CONFIG.POLL_INTERVAL_MS);  // 20-min ceiling
+  for (let polls = 0; polls < MAX_POLLS; polls++) {
     const data = await fetchJobStatus(id);
     if (onTick) onTick(data);
     if (data.status === 'failed') throw new Error(data.error || 'Generation failed.');
     if (data.status === 'done')   return data;
     await sleep(CONFIG.POLL_INTERVAL_MS);
   }
+  throw new Error('Timed out waiting for job to complete (20 min limit).');
 }
 
 // ─── Pinch-to-zoom (wheel on pdfPane) ────────────────────────────────────────

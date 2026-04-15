@@ -156,6 +156,7 @@ def detect_handwriting_in_rects(
     doc.close()
 
     img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(pix.height, pix.width, 3)
+    pix = None  # release pixmap memory
     img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
     px_to_pt = 72.0 / dpi
@@ -196,6 +197,13 @@ def detect_handwriting_in_rects(
 
         hw_flags = _run_paddle_worker(crop_paths) if crop_paths else []
 
+    if len(hw_flags) != len(valid_indices):
+        import logging
+        logging.warning(
+            "detect_handwriting: hw_flags length %d != valid_indices length %d; "
+            "truncating to shorter",
+            len(hw_flags), len(valid_indices),
+        )
     results: list[HWResult] = [HWResult(rect, has_handwriting=False) for rect in rects]
     for flag, idx in zip(hw_flags, valid_indices):
         results[idx] = HWResult(rects[idx], has_handwriting=flag)
@@ -234,6 +242,7 @@ def remove_vertical_lines_pdf(
             img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(
                 pix.height, pix.width, 3
             )
+            pix = None  # release pixmap memory
             img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
             img_bgr = _erase_vertical_lines_from_crop(img_bgr)
             img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
@@ -304,6 +313,7 @@ def write_vlines_removed_pdf(
             img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(
                 pix.height, pix.width, 3
             )
+            pix = None  # release pixmap memory
             img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
             for entry in pd.get("yellow", []):
@@ -472,6 +482,7 @@ def write_adjusted_exercise_pdf(
             img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(
                 pix.height, pix.width, 3
             )
+            pix = None  # release pixmap memory
             img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
             # Erase vertical lines inside every original yellow strip

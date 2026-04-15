@@ -114,6 +114,7 @@ def assign_pages(
 
     # Restore page order for the block-grouping step below.
     matched: list[str | None] = [page_results[i] for i in range(1, n_pages + 1)]
+    del pages  # free PIL image list
 
     # Group into fixed blocks of pages_per_student (guaranteed by geometry).
     # Undetected first pages become Unknown_N — no cross-student inheritance.

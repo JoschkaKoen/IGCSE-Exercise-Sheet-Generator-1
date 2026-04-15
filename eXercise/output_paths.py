@@ -29,22 +29,17 @@ def _create_run_dir(label: str | None = None) -> Path:
     """
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     base = label if label else "run"
-    run_dir = OUTPUT_DIR / base
-    if not run_dir.exists():
-        run_dir.mkdir(parents=True, exist_ok=True)
-        print(f"Output directory: {run_dir}")
-        _write_command_txt(run_dir)
-        return run_dir
-    # Find next available suffix.
-    n = 2
-    while True:
-        candidate = OUTPUT_DIR / f"{base} {n}"
-        if not candidate.exists():
-            candidate.mkdir(parents=True, exist_ok=True)
+    # Try base name first, then suffixed candidates — use mkdir(exist_ok=False)
+    # so concurrent processes can't both succeed on the same name.
+    for candidate in [OUTPUT_DIR / base] + [OUTPUT_DIR / f"{base} {n}" for n in range(2, 10000)]:
+        try:
+            candidate.mkdir(parents=True, exist_ok=False)
             print(f"Output directory: {candidate}")
             _write_command_txt(candidate)
             return candidate
-        n += 1
+        except FileExistsError:
+            continue
+    raise RuntimeError(f"Could not create a unique output directory for label={base!r}")
 
 
 def ensure_run_output_dir(label: str | None = None) -> Path:

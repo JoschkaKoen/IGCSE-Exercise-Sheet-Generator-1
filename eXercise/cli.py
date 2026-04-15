@@ -2,6 +2,7 @@
 """Command-line entry point."""
 
 import argparse
+import shlex
 import sys
 import time
 
@@ -69,7 +70,7 @@ def main():
 
     args = parser.parse_args()
     parts = args.parts
-    set_run_command(" ".join(sys.argv))
+    set_run_command(shlex.join(sys.argv))
 
     _step_timings: list[tuple[str, float]] = []
     _t0 = time.monotonic()

@@ -5,6 +5,11 @@ config.py
 Configuration for xScore. Edit values here or set the noted environment
 variables. See README.md for full detail.
 
+AI provider usage by step:
+  Steps 1 / 3 / 4 / 5 : Gemini (GOOGLE_API_KEY or GEMINI_API_KEY)
+  Step 10              : Kimi — name OCR (KIMI_API_KEY)
+  Step 12              : Kimi — answer grading (KIMI_API_KEY)
+
 How to run (from repo root, with venv activated and dependencies installed):
 
   Setup once:
@@ -55,7 +60,7 @@ EXAM_PROFILE = "igcse_physics"
 
 # API keys are read from environment variables:
 #   - GOOGLE_API_KEY or GEMINI_API_KEY : For Gemini models
-#   - MOONSHOT_API_KEY                  : For Kimi models
+#   - KIMI_API_KEY                      : For Kimi models (via Moonshot API)
 
 # Delay between API calls (seconds). Set to 0 for no delay.
 API_CALL_DELAY_S = 0
@@ -204,16 +209,17 @@ def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = 
 def apply_model_extras(model: str, kwargs: dict[str, Any], *, thinking: bool = False) -> None:
     """Set model-specific extras for the non-streaming kimi_helpers calls.
 
-    - Kimi-k2: sets thinking enabled/disabled via ``extra_body.thinking``.
-    - Qwen:    always sets ``enable_thinking=False``.  These helpers are
-      non-streaming and cannot consume Qwen's streaming thinking output,
-      so thinking is disabled unconditionally.  The *thinking* argument is
-      accepted but ignored for Qwen.
-    - Other models (Gemini, Grok, …): no-op.
+    Delegates Kimi-k2 thinking to :func:`apply_kimi_k2_extra` so behaviour stays
+    identical to the historical pipeline; then applies Qwen-only extras.
+
+    - Kimi-k2: ``extra_body.thinking`` via :func:`apply_kimi_k2_extra`.
+    - Qwen: ``extra_body.enable_thinking=False`` (non-streaming helpers cannot
+      consume streaming thinking).  The *thinking* argument is ignored for Qwen.
+    - Other models (Gemini, Grok, …): no-op from Kimi; Qwen branch only if id
+      starts with ``qwen``.
     """
-    if model.startswith("kimi-k2"):
-        kwargs["extra_body"] = {"thinking": {"type": "enabled" if thinking else "disabled"}}
-    elif model.startswith("qwen"):
+    apply_kimi_k2_extra(model, kwargs, thinking=thinking)
+    if model.startswith("qwen"):
         kwargs["extra_body"] = {"enable_thinking": False}
 
 

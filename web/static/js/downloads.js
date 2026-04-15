@@ -145,7 +145,8 @@ export async function startAndPollRanking(jobId) {
   } catch (_) { return; }
 
   showRankingGenerating();
-  while (true) {
+  const MAX_RANKING_POLLS = 1800;  // 1800 × 200 ms = 6 min
+  for (let polls = 0; polls < MAX_RANKING_POLLS; polls++) {
     await sleep(200);
     let data;
     try {
@@ -165,6 +166,8 @@ export async function startAndPollRanking(jobId) {
       break;
     }
   }
+  // If we exhausted the poll limit, revert to idle rather than leaving spinner forever.
+  setRankingIdle();
 }
 
 // ─── Download all ─────────────────────────────────────────────────────────────

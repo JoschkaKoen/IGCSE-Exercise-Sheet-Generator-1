@@ -158,11 +158,11 @@ def find_question_positions(doc, cfg: SubjectConfig | None = None):
                 # Number leading the first line of a question ("10 A shop …") — only
                 # accepted near the top of the page; mid-page inline numbers (e.g.
                 # "28 and 35 students…" inside a question body) are false positives.
-                bare = re.match(r"^\d{1,2}$", text)
+                bare = re.match(r"^(\d{1,2})$", text)
                 inline = (not bare) and y0 <= cfg.margin_top + 80 and re.match(r"^(\d{1,2})\s", text)
                 m = bare or inline
                 if m:
-                    qnum = int(re.match(r"^(\d{1,2})", text).group(1))
+                    qnum = int(m.group(1))
                     if 1 <= qnum <= 40 and qnum not in seen:
                         seen.add(qnum)
                         positions.append((qnum, page_idx, y0))

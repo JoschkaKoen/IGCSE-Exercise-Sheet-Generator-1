@@ -12,6 +12,7 @@ uploaded files.
 from __future__ import annotations
 
 import datetime
+import logging
 import time
 from collections.abc import Callable
 from pathlib import Path
@@ -65,6 +66,7 @@ def run_scan_pipeline(
             if dpi is None:
                 effective_dpi = instruction.dpi
         except Exception as exc:  # noqa: BLE001
+            logging.exception("Step 1 prompt parse failed")
             emit(f"Step 1 — Prompt parse failed ({exc}); using defaults.")
     else:
         emit("Step 1 — No prompt provided; using default settings.")
@@ -81,13 +83,11 @@ def run_scan_pipeline(
         emit("Step 3 — No student list found (continuing without roster).")
 
     # ------------------------------------------------------------------ artifact dir
+    import uuid
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    artifact_dir = folder / timestamp
-    suffix = 1
-    while artifact_dir.exists():
-        suffix += 1
-        artifact_dir = folder / f"{timestamp}_{suffix}"
-    artifact_dir.mkdir(parents=True, exist_ok=True)
+    # Append a short UUID fragment so concurrent jobs never collide.
+    artifact_dir = folder / f"{timestamp}_{uuid.uuid4().hex[:8]}"
+    artifact_dir.mkdir(parents=True, exist_ok=False)
 
     # ------------------------------------------------------------------ steps 4–6
     empty_exam_path = folder / "empty_exam.pdf"
@@ -117,6 +117,7 @@ def run_scan_pipeline(
                 f"  ·  {scaffold.total_marks} marks."
             )
         except Exception as exc:  # noqa: BLE001
+            logging.exception("Step 4 scaffold failed")
             emit(f"Step 4 — Scaffold skipped: {exc}")
     else:
         emit("Step 4 — No empty exam uploaded; scaffold skipped.")

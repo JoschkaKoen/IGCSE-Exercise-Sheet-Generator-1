@@ -32,10 +32,6 @@ except ImportError:
     _OpenAIClient = None  # type: ignore[assignment,misc]
 
 
-def _kimi_k2_5_model() -> bool:
-    """Return True for kimi-k2.5 family, which has fixed temperature and thinking mode."""
-    return AI_MODEL.startswith("kimi-k2")
-
 
 def _filter_schema_fields(data: dict, schema: type[BaseModel]) -> dict:
     """Remove extra fields not defined in the schema.
@@ -197,8 +193,10 @@ class KimiProvider:
                     data = _filter_schema_fields(data, schema)
                     try:
                         schema.model_validate(data)
-                    except ValidationError:
-                        pass
+                    except ValidationError as val_err:
+                        raise RuntimeError(
+                            f"Kimi response failed schema validation for page {page_num}: {val_err}"
+                        ) from val_err
                     return normalize_extracted_record(data, answer_fields)
                 except json.JSONDecodeError as parse_err:
                     # Try to extract partial JSON
@@ -208,8 +206,10 @@ class KimiProvider:
                         partial_data = _filter_schema_fields(partial_data, schema)
                         try:
                             schema.model_validate(partial_data)
-                        except ValidationError:
-                            pass
+                        except ValidationError as val_err:
+                            raise RuntimeError(
+                                f"Kimi partial response failed schema validation for page {page_num}: {val_err}"
+                            ) from val_err
                         return normalize_extracted_record(partial_data, answer_fields)
 
                     raise RuntimeError(f"Unparseable Kimi response for page {page_num}") from parse_err

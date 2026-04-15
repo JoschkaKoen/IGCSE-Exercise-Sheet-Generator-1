@@ -375,7 +375,7 @@ def project_bounding_boxes_phase(
             quiet=True,
         )
         roots = scaffold.questions
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         from xscore.shared.terminal_ui import warn_line
 
         warn_line(f"Could not load scaffold for projected overlay: {e}")

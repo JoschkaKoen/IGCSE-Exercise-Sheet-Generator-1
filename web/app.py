@@ -11,6 +11,7 @@ import asyncio
 from contextlib import asynccontextmanager
 import datetime
 import io
+import logging
 import os
 import threading
 import zipfile
@@ -79,15 +80,19 @@ _favicon_svg = STATIC_DIR / "favicon.svg"
 
 
 @app.get("/favicon.ico", include_in_schema=False)
-async def favicon_ico() -> FileResponse:
+async def favicon_ico() -> Response:
     """Browsers request /favicon.ico by default; serve the SVG with an .ico URL."""
+    if not Path(_favicon_svg).exists():
+        return Response(status_code=404)
     return FileResponse(_favicon_svg, media_type="image/svg+xml")
 
 
 @app.get("/apple-touch-icon.png", include_in_schema=False)
 @app.get("/apple-touch-icon-precomposed.png", include_in_schema=False)
-async def apple_touch_icon() -> FileResponse:
+async def apple_touch_icon() -> Response:
     """Silence 404s from Safari / iOS home-screen bookmark probes."""
+    if not Path(_favicon_svg).exists():
+        return Response(status_code=404)
     return FileResponse(_favicon_svg, media_type="image/svg+xml")
 
 
@@ -152,10 +157,9 @@ def _validate_library_path(subject: str, filename: str) -> Path:
 
 
 def _start_ranking_thread(job_id: str, main_pdf: Path, ans_pdf: Path | None) -> None:
-    """Spawn the ranking background thread. Safe to call only when ranking_status == PENDING."""
+    """Spawn the ranking background thread. Transition to RUNNING is done by the caller."""
     def _run() -> None:
         try:
-            store.set_ranking_status(job_id, JobStatus.RUNNING)
             ranking_path = main_pdf.parent / f"{main_pdf.stem}_ranking{main_pdf.suffix}"
 
             def on_ranking_line(line: str) -> None:
@@ -203,6 +207,16 @@ async def _run_job(job_id: str, prompt: str) -> None:
 
 _HTML_NO_CACHE = {"Cache-Control": "no-cache, must-revalidate"}
 
+# Keep strong references to background tasks so they aren't GC'd mid-flight.
+_BACKGROUND_TASKS: set[asyncio.Task] = set()
+
+
+def _create_background_task(coro) -> asyncio.Task:
+    t = asyncio.create_task(coro)
+    _BACKGROUND_TASKS.add(t)
+    t.add_done_callback(_BACKGROUND_TASKS.discard)
+    return t
+
 
 def _template_ctx(request: Request, **extra: object) -> dict[str, object]:
     login_disabled = getattr(request.state, "login_disabled", True)
@@ -222,7 +236,10 @@ async def site_login(request: Request, body: SiteLoginBody) -> JSONResponse:
     """Set signed HttpOnly cookie after valid code. Session-style cookie when ASK_LOGIN or ?ask_login=."""
     if parse_login_disabled(request):
         raise HTTPException(status_code=403, detail="Login is disabled for this server")
-    await enforce_login_rate_limit(request.client.host if request.client else "")
+    # X-Forwarded-For (set by nginx/traefik) gives the real client IP behind a proxy.
+    xff = request.headers.get("x-forwarded-for", "")
+    client_ip = xff.split(",")[0].strip() if xff else (request.client.host if request.client else "")
+    await enforce_login_rate_limit(client_ip)
     normalized = normalize_submitted_code(body.code)
     if normalized is None or not codes_equal(normalized, EXPECTED_CODE):
         raise HTTPException(status_code=401, detail="Invalid code")
@@ -257,6 +274,9 @@ async def grade_page(request: Request) -> HTMLResponse:
 @app.get("/library", response_class=HTMLResponse)
 async def library_page(request: Request) -> HTMLResponse:
     data = list_library_pdfs()
+    # "physics" is excluded from library_json because it uses a different
+    # folder layout (per-topic sub-folders) that the library template cannot
+    # render yet.  data (the full dict) is still passed for server-side use.
     library_json = {k: v for k, v in data.items() if k != "physics"}
     return TEMPLATES.TemplateResponse(
         request,
@@ -272,12 +292,12 @@ async def create_job(body: CreateJobBody) -> dict[str, str]:
     if not prompt:
         raise HTTPException(status_code=422, detail="prompt is required")
     job = store.create()
-    asyncio.create_task(_run_job(job.id, prompt))
+    _create_background_task(_run_job(job.id, prompt))
     return {"id": job.id}
 
 
 @app.get("/api/jobs/{job_id}")
-async def job_status(request: Request, job_id: str) -> dict:
+async def job_status(request: Request, job_id: str) -> JSONResponse:
     """Job status for polling; ``log_line`` is updated live (avoid caching in the browser)."""
     rec = store.get(job_id)
     if rec is None:
@@ -366,11 +386,14 @@ async def start_job_ranking(job_id: str) -> JSONResponse:
         raise HTTPException(status_code=404, detail="Job not found")
     if job.status != JobStatus.DONE:
         raise HTTPException(status_code=400, detail="Job not complete")
-    if job.ranking_status != JobStatus.PENDING:
-        return JSONResponse({"ok": True})  # already started or done
     if not job.output_pdf:
         raise HTTPException(status_code=400, detail="No output PDF")
-    _start_ranking_thread(job_id, job.output_pdf, job.answers_pdf)
+    output_pdf = job.output_pdf
+    answers_pdf = job.answers_pdf
+    # Atomically check+transition PENDING → RUNNING to prevent duplicate threads.
+    if not store.try_start_ranking(job_id):
+        return JSONResponse({"ok": True})  # already started or done
+    _start_ranking_thread(job_id, output_pdf, answers_pdf)
     return JSONResponse({"ok": True})
 
 
@@ -425,7 +448,7 @@ async def library_file(subject: str, filename: str) -> FileResponse:
 # Grade jobs — scan pipeline (steps 1, 3, 5–7)
 # ---------------------------------------------------------------------------
 
-_GRADE_UPLOADS_ROOT = Path("output") / "xscore" / "grade_uploads"
+_GRADE_UPLOADS_ROOT = Path(__file__).parent.parent / "output" / "xscore" / "grade_uploads"
 
 
 async def _run_grade_job(
@@ -445,6 +468,7 @@ async def _run_grade_job(
         )
         store.complete(job_id, output_pdf=cleaned_pdf, answers_pdf=None)
     except Exception as e:  # noqa: BLE001
+        logging.exception("Scan pipeline failed for job %s", job_id)
         store.fail(job_id, f"Scan pipeline error: {e}")
 
 
@@ -458,17 +482,34 @@ async def create_grade_job(
 ) -> dict[str, str]:
     """Accept uploaded exam files, save them, and launch an xScore pipeline job."""
     ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    upload_id = f"{ts}_{os.urandom(2).hex()}"
-    folder = _GRADE_UPLOADS_ROOT / upload_id
-    folder.mkdir(parents=True, exist_ok=True)
+    # 8 random bytes = 2^64 space; retry on collision (astronomically rare)
+    for _ in range(5):
+        upload_id = f"{ts}_{os.urandom(8).hex()}"
+        folder = _GRADE_UPLOADS_ROOT / upload_id
+        if not folder.exists():
+            folder.mkdir(parents=True, exist_ok=False)
+            break
+    else:
+        raise RuntimeError("Could not create a unique upload directory")
+
+    _MAX_UPLOAD_BYTES = 500 * 1024 * 1024  # 500 MB
+
+    async def _read_limited(upload: UploadFile, name: str) -> bytes:
+        data = await upload.read()
+        if len(data) > _MAX_UPLOAD_BYTES:
+            raise HTTPException(
+                status_code=413,
+                detail=f"{name} exceeds the {_MAX_UPLOAD_BYTES // (1024*1024)} MB upload limit",
+            )
+        return data
 
     # Save required files
     scan_path = folder / "scan.pdf"
-    scan_path.write_bytes(await exam_scans.read())
+    scan_path.write_bytes(await _read_limited(exam_scans, "exam_scans"))
 
     sl_suffix = Path(student_list.filename or "StudentList.xlsx").suffix or ".xlsx"
     sl_path = folder / f"StudentList{sl_suffix}"
-    sl_path.write_bytes(await student_list.read())
+    sl_path.write_bytes(await _read_limited(student_list, "student_list"))
 
     # Save optional files
     if empty_exam is not None and empty_exam.filename:
@@ -477,5 +518,5 @@ async def create_grade_job(
         (folder / "answer_sheet.pdf").write_bytes(await answer_sheet.read())
 
     job = store.create()
-    asyncio.create_task(_run_grade_job(job.id, folder, prompt or None))
+    _create_background_task(_run_grade_job(job.id, folder, prompt or None))
     return {"id": job.id}

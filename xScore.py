@@ -2,7 +2,7 @@
 """
 xScore.py
 ---------
-Exam scan preparation pipeline (steps 1–9) — run from the eXercise project root.
+Exam scan grading pipeline (steps 1–14) — run from the eXercise project root.
 
 Steps:
   1. Parse the natural language prompt (via Kimi).
@@ -14,6 +14,11 @@ Steps:
   7. Detect blank scan pages.
   8. Autorotate (remove blanks, apply /Rotate metadata).
   9. Deskew (small-angle per-half correction) → 3_cleaned_scan.pdf.
+ 10. Assign scan pages to students (name OCR via Kimi) → 10_exam_student_list.json.
+ 11. Project scaffold boxes onto scanned pages → 11_page_data.json.
+ 12. AI: grade each student page (Kimi) → 12_marked_*.json.
+ 13. Merge per-page results into student and class reports → 13_student_report_*.json + PDF.
+ 14. Produce final graded summary.
 
 Usage:
     python xScore.py "grade Space Physics Unit Test"

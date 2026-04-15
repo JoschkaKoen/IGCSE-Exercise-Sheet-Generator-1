@@ -140,9 +140,13 @@ def _json_to_question(node: dict) -> Question:
 def _upload_and_poll(client, path: Path, label: str):
     """Upload *path* to the Gemini Files API, poll until ACTIVE, return the file object."""
     f = client.files.upload(file=path)
-    while getattr(f.state, "name", str(f.state)) == "PROCESSING":
+    for _ in range(120):  # up to 6 minutes at 3 s intervals
+        if getattr(f.state, "name", str(f.state)) != "PROCESSING":
+            break
         time.sleep(3)
         f = client.files.get(name=f.name)
+    else:
+        raise TimeoutError(f"Gemini file upload timed out after 6 min ({label}): {f.name}")
     state = getattr(f.state, "name", str(f.state))
     if state == "FAILED":
         raise RuntimeError(f"Gemini file processing failed ({label}): {f.name}")
@@ -351,4 +355,11 @@ def build_ai_scaffold(
             except Exception:
                 pass
 
-    return [_json_to_question(node) for node in raw_questions]
+    import logging as _logging
+    valid_nodes = []
+    for node in raw_questions:
+        if not isinstance(node, dict) or "number" not in node:
+            _logging.warning("ai_scaffold: skipping question node missing 'number' key: %r", node)
+            continue
+        valid_nodes.append(node)
+    return [_json_to_question(node) for node in valid_nodes]

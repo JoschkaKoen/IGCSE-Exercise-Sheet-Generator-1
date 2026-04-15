@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import threading
 from collections.abc import Callable
 from itertools import groupby
 from pathlib import Path
@@ -13,12 +14,14 @@ from eXercise.output_paths import resolve_output_path_fresh, set_run_command
 from eXercise.pipeline import run_extraction_jobs
 
 _LIBRARY_CACHE: dict | None = None
+_LIBRARY_CACHE_LOCK = threading.Lock()
 
 
 def invalidate_library_cache() -> None:
     """Discard the cached library index; the next call to list_library_pdfs() rebuilds it."""
     global _LIBRARY_CACHE
-    _LIBRARY_CACHE = None
+    with _LIBRARY_CACHE_LOCK:
+        _LIBRARY_CACHE = None
 
 def run_nl_prompt(
     prompt: str,
@@ -148,18 +151,19 @@ def _library_grouped_blocks(subject_key: str, names: list[str]) -> list[dict[str
 def list_library_pdfs() -> dict[str, list[dict[str, Any]]]:
     """Scan bundled exam dirs; nested year → session → file rows for the library page."""
     global _LIBRARY_CACHE
-    if _LIBRARY_CACHE is not None:
-        return _LIBRARY_CACHE
+    with _LIBRARY_CACHE_LOCK:
+        if _LIBRARY_CACHE is not None:
+            return _LIBRARY_CACHE
 
-    from eXercise.config import EXAM_ROOT_BY_KEY
-    from eXercise.labels import library_pdf_sort_key
+        from eXercise.config import EXAM_ROOT_BY_KEY
+        from eXercise.labels import library_pdf_sort_key
 
-    out: dict[str, list[dict[str, Any]]] = {}
-    for key, root in EXAM_ROOT_BY_KEY.items():
-        if not root.is_dir():
-            out[key] = []
-            continue
-        names = sorted((p.name for p in root.glob("*.pdf")), key=library_pdf_sort_key)
-        out[key] = _library_grouped_blocks(key, names)
-    _LIBRARY_CACHE = out
-    return out
+        out: dict[str, list[dict[str, Any]]] = {}
+        for key, root in EXAM_ROOT_BY_KEY.items():
+            if not root.is_dir():
+                out[key] = []
+                continue
+            names = sorted((p.name for p in root.glob("*.pdf")), key=library_pdf_sort_key)
+            out[key] = _library_grouped_blocks(key, names)
+        _LIBRARY_CACHE = out
+        return out

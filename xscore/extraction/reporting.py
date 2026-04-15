@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 from pathlib import Path
 
@@ -39,23 +40,24 @@ def save_results(results: list[dict], output_json: Path) -> None:
         json.dump(sorted_results, f, indent=2, ensure_ascii=False)
 
 
+_TEX_MAP = {
+    "\\": r"\textbackslash{}",
+    "&": r"\&",
+    "%": r"\%",
+    "$": r"\$",
+    "#": r"\#",
+    "_": r"\_",
+    "{": r"\{",
+    "}": r"\}",
+    "~": r"\textasciitilde{}",
+    "^": r"\textasciicircum{}",
+}
+_TEX_RE = re.compile("|".join(re.escape(k) for k in _TEX_MAP))
+
+
 def _tex_escape(text: str) -> str:
-    """Escape special LaTeX characters."""
-    replacements = [
-        ("\\", r"\textbackslash{}"),
-        ("&", r"\&"),
-        ("%", r"\%"),
-        ("$", r"\$"),
-        ("#", r"\#"),
-        ("_", r"\_"),
-        ("{", r"\{"),
-        ("}", r"\}"),
-        ("~", r"\textasciitilde{}"),
-        ("^", r"\textasciicircum{}"),
-    ]
-    for old, new in replacements:
-        text = text.replace(old, new)
-    return text
+    """Escape special LaTeX characters (single-pass to avoid double-escaping)."""
+    return _TEX_RE.sub(lambda m: _TEX_MAP[m.group()], text)
 
 
 def generate_report_pdf(results: list[dict], output_tex: Path, output_report: Path) -> None:

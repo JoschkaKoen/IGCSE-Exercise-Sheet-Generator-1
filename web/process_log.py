@@ -31,6 +31,8 @@ def run_with_last_log_line(
             return t[: max_line_len - 1] + "…"
         return t
 
+    _REMAINDER_CAP = 4 * 1024 * 1024  # 4 MB — prevents OOM on no-newline output
+
     def feed(s: str) -> None:
         nonlocal remainder
         if not s:
@@ -38,6 +40,8 @@ def run_with_last_log_line(
         if not isinstance(s, str):
             s = str(s)
         remainder += s
+        if len(remainder) > _REMAINDER_CAP:
+            remainder = remainder[-_REMAINDER_CAP:]
         while "\n" in remainder:
             line, remainder = remainder.split("\n", 1)
             if line.strip():

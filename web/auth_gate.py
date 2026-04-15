@@ -156,7 +156,9 @@ def apply_auth_cookie(response: Response, request: Request, *, session_style: bo
         exp = time.time() + _LONG_LIVED_SECS
         max_age = _LONG_LIVED_SECS
     token = sign_access_token(exp)
-    secure = request.url.scheme == "https"
+    # Respect X-Forwarded-Proto so the Secure flag is set correctly behind a TLS proxy.
+    proto = request.headers.get("x-forwarded-proto", request.url.scheme)
+    secure = proto.lower() == "https"
     kwargs: dict = {
         "key": ACCESS_COOKIE_NAME,
         "value": token,

@@ -51,6 +51,8 @@ def _grade_mc(
         data = parse_json_safe(raw)
         answer = str(data.get("answer", "?")).upper().strip()
         if answer not in ("", "?"):
+            if question.marks is None:
+                return "?", 0.0
             marks = float(question.marks) if answer == correct else 0.0
             return answer, marks
         time.sleep(GRADE_QUESTION_DELAY_S)
@@ -84,7 +86,7 @@ def _grade_written(
         data = parse_json_safe(raw)
         answer = str(data.get("answer", "")).strip() or "?"
         try:
-            marks = min(float(data.get("marks", 0)), float(question.marks))
+            marks = max(0.0, min(float(data.get("marks", 0)), float(question.marks)))
         except (TypeError, ValueError):
             marks = 0.0
         if answer not in ("", "?"):
@@ -231,4 +233,5 @@ def grade_students(
             max_marks=max_marks,
         ))
 
+    del all_pages  # free PIL image list
     return results

@@ -260,12 +260,25 @@
   }
 
   var pollTimer = null;
+  var MAX_POLLS = 480;  /* 480 × 1.5 s ≈ 12 min */
 
   function startPolling(jobId) {
+    var pollCount = 0;
+    var networkErrors = 0;
     function poll() {
+      pollCount++;
+      if (pollCount > MAX_POLLS) {
+        clearInterval(pollTimer);
+        pollTimer = null;
+        btn.disabled = false;
+        if (btnSpan) btnSpan.textContent = 'Grade';
+        setError('Timed out waiting for result after 12 minutes.');
+        return;
+      }
       fetch('/api/jobs/' + jobId, { headers: { 'Cache-Control': 'no-cache' } })
         .then(function (r) { return r.json(); })
         .then(function (data) {
+          networkErrors = 0;
           if (data.status === 'done') {
             clearInterval(pollTimer);
             pollTimer = null;
@@ -283,7 +296,15 @@
           }
         })
         .catch(function (err) {
+          networkErrors++;
           updateLogLine('Polling error: ' + err);
+          if (networkErrors >= 5) {
+            clearInterval(pollTimer);
+            pollTimer = null;
+            btn.disabled = false;
+            if (btnSpan) btnSpan.textContent = 'Grade';
+            setError('Lost connection to server. Please refresh and try again.');
+          }
         });
     }
     pollTimer = setInterval(poll, 1500);
