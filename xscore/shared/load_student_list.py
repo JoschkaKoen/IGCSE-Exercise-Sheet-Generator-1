@@ -74,9 +74,9 @@ def read_student_list(folder: Path) -> list[str]:
     except ImportError:
         raise RuntimeError("google-genai not installed; run: pip install google-genai")
 
-    api_key = os.environ.get("GOOGLE_API_KEY", "").strip()
+    api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
     if not api_key:
-        raise RuntimeError("GOOGLE_API_KEY not set")
+        raise RuntimeError("GEMINI_API_KEY not set")
 
     client = gai.Client(api_key=api_key)
 
