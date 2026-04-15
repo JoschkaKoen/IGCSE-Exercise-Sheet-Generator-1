@@ -416,7 +416,6 @@ def generate_mcq_explanations_gemini_pdf(
                 if in_thinking:
                     print()
                 print()
-                print(f"  MCQ explanations (PDF): {_time.monotonic() - t0:.1f}s")
             except Exception as exc:
                 print(f"  MCQ explanations (PDF): API error on attempt {attempt + 1}: {exc}")
                 if attempt == max_attempts - 1:
@@ -530,9 +529,7 @@ def generate_mcq_explanations(
 
     for attempt in range(max_attempts):
         try:
-            _t0 = time.monotonic()
             raw, finish = _call()
-            print(f"  MCQ explanations: {time.monotonic() - _t0:.1f}s")
             if save_dir is not None:
                 from pathlib import Path as _P  # noqa: PLC0415
                 (_P(save_dir) / "mcq_expl_response.txt").write_text(raw, encoding="utf-8")

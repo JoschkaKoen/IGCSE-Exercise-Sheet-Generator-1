@@ -6,6 +6,7 @@ from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
+import time
 
 import fitz
 
@@ -313,7 +314,12 @@ def _run_ms_strip_phase(
 
 
 def run_extraction_jobs(
-    jobs: list[dict], output_pdf: str, exam_key: str | None = None, *, run_ranking: bool = True
+    jobs: list[dict],
+    output_pdf: str,
+    exam_key: str | None = None,
+    *,
+    run_ranking: bool = True,
+    step_timings: list | None = None,
 ) -> dict[str, Any]:
     """
     Each job dict: ``input_pdf``, ``questions``, ``mark_scheme_pdf`` (optional path).
@@ -337,23 +343,33 @@ def run_extraction_jobs(
     qp_docs: list[fitz.Document] = []
     ms_docs: list[fitz.Document] = []
 
+    def _rec(label: str, t: float) -> None:
+        if step_timings is not None:
+            step_timings.append((label, time.monotonic() - t))
+
     try:
+        _t = time.monotonic()
         qp_docs, job_regions, all_strips = _run_qp_extraction_phase(
             jobs, cfg, use_paper_sublabels
         )
+        _rec("QP extraction", _t)
 
         if not all_strips:
             raise ExtractionError("No matching questions found in any paper.")
 
         print(f"\nOutput: {output_pdf}")
+        _t = time.monotonic()
         exercise_anchors = layout_vector_strips_to_pdf(all_strips, output_pdf, page_header, name_field=True)
+        _rec("QP layout", _t)
 
         out_path = Path(output_pdf)
         answers_path = out_path.parent / f"{out_path.stem}_answers{out_path.suffix}"
 
+        _t = time.monotonic()
         ms_info, mcq_prepared, job_mcq_ms = _run_ms_prep_phase(
             jobs, qp_docs, job_regions, cfg, exam_key, out_path
         )
+        _rec("MS prep", _t)
         # Collect ms_docs from ms_info for cleanup in finally block
         for info in ms_info:
             if info is not None:
@@ -366,34 +382,44 @@ def run_extraction_jobs(
             n_mcq = len(sorted_indices)
             print(f"\nGenerating AI explanations ({n_mcq} MCQ paper(s), 1 API call)…")
             paper_data_list = [mcq_prepared[i] for i in sorted_indices]
+            _t = time.monotonic()
             batch_results = batch_generate_mcq_explanations(paper_data_list)
+            _rec("AI explanations", _t)
             for idx, expl in zip(sorted_indices, batch_results):
                 mcq_explanations_map[idx] = expl
 
+        _t = time.monotonic()
         all_ms_strips = _run_ms_strip_phase(
             jobs, ms_info, mcq_prepared, mcq_explanations_map,
             use_paper_sublabels, ms_docs, cfg,
         )
+        _rec("MS strips", _t)
 
         if all_ms_strips:
+            _t = time.monotonic()
             answer_anchors = layout_vector_strips_to_pdf(
                 all_ms_strips, str(answers_path), page_header,
             )
+            _rec("MS layout", _t)
             print(f"\n  Saved: {answers_path}")
 
         print("\nExercise sheet n-up variants (pdfjam)…")
         pdfjam_targets = [out_path] + ([answers_path] if all_ms_strips else [])
+        _t = time.monotonic()
         with ThreadPoolExecutor(max_workers=len(pdfjam_targets)) as ex:
             list(ex.map(run_exercise_sheet_pdfjam_variants, pdfjam_targets))
+        _rec("pdfjam", _t)
 
         if run_ranking:
             print("\nGenerating difficulty ranking…")
+            _t = time.monotonic()
             generate_difficulty_ranking(
                 exercise_pdf=out_path,
                 answer_pdf=answers_path if (all_ms_strips and answers_path.exists()) else None,
                 out_path=out_path.parent,
                 name=out_path.stem,
             )
+            _rec("Difficulty ranking", _t)
 
     finally:
         for d in qp_docs + ms_docs:
@@ -412,9 +438,16 @@ def run_extraction_jobs(
     return overview
 
 
-def run_extraction(input_pdf: str, output_pdf: str, requested: list, ms_pdf: str | None):
+def run_extraction(
+    input_pdf: str,
+    output_pdf: str,
+    requested: list,
+    ms_pdf: str | None,
+    step_timings: list | None = None,
+):
     run_extraction_jobs(
         [{"input_pdf": input_pdf, "questions": requested, "mark_scheme_pdf": ms_pdf}],
         output_pdf,
         exam_key=None,
+        step_timings=step_timings,
     )

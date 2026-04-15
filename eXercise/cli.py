@@ -28,6 +28,22 @@ def _parse_question_tokens(tokens: list[str]) -> list[int]:
     return requested
 
 
+def _print_timing_summary(steps: list[tuple[str, float]], total: float) -> None:
+    """Print a per-step timing table followed by the total."""
+    if not steps:
+        print(f"\n  Total  {total:.1f}s")
+        return
+    name_w = max(len(s[0]) for s in steps)
+    name_w = max(name_w, 5)  # at least width of "Total"
+    col = name_w + 8          # padding between name and time
+    sep = "  " + "─" * (col + 4)
+    print()
+    for name, elapsed in steps:
+        print(f"  {name:<{name_w}}  {elapsed:>5.1f}s")
+    print(sep)
+    print(f"  {'Total':<{name_w}}  {total:>5.1f}s")
+
+
 def main():
     load_project_env()
     parser = argparse.ArgumentParser(
@@ -55,13 +71,16 @@ def main():
     parts = args.parts
     set_run_command(" ".join(sys.argv))
 
+    _step_timings: list[tuple[str, float]] = []
     _t0 = time.monotonic()
     try:
         if len(parts) == 1:
             if args.mark_scheme:
                 parser.error("--ms applies only to legacy mode (three or more arguments).")
             instruction = parts[0]
+            _t = time.monotonic()
             exam_root, data = resolve_natural_language(instruction)
+            _step_timings.append(("Resolve instruction", time.monotonic() - _t))
             print(f"Exam folder: {exam_root} ({data.get('exam', '')})")
             print(f"Papers in this run: {len(data['extractions'])}")
 
@@ -77,7 +96,12 @@ def main():
                     }
                 )
             output_pdf = str(resolve_output_path(data["output_pdf"]))
-            run_extraction_jobs(jobs, output_pdf, exam_key=data.get("exam"), run_ranking=data.get("ranking", True))
+            run_extraction_jobs(
+                jobs, output_pdf,
+                exam_key=data.get("exam"),
+                run_ranking=data.get("ranking", True),
+                step_timings=_step_timings,
+            )
             return
 
         if len(parts) < 3:
@@ -89,9 +113,9 @@ def main():
         input_pdf = parts[0]
         output_pdf = str(resolve_output_path(parts[1]))
         requested = _parse_question_tokens(parts[2:])
-        run_extraction(input_pdf, output_pdf, requested, args.mark_scheme)
+        run_extraction(input_pdf, output_pdf, requested, args.mark_scheme, step_timings=_step_timings)
     except ExtractionUserError as e:
         print(str(e), file=sys.stderr)
         sys.exit(1)
     finally:
-        print(f"\nTotal: {time.monotonic() - _t0:.1f}s")
+        _print_timing_summary(_step_timings, time.monotonic() - _t0)

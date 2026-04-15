@@ -314,9 +314,7 @@ def _rank_exercises_ai(
     # Native Gemini path: upload PDFs directly — no image rendering needed
     if provider == "gemini":
         try:
-            _t0 = time.monotonic()
             ranking = _rank_exercises_ai_gemini(exercise_pdf, answer_pdf, model, effort, save_dir=save_dir)
-            print(f"  Ranking AI call (native PDF): {time.monotonic() - _t0:.1f}s")
             print(f"  Ranked {len(ranking)} question part(s).")
             return ranking
         except Exception as exc:
@@ -392,15 +390,11 @@ def _rank_exercises_ai(
 
     # First attempt: vision
     try:
-        _t0 = time.monotonic()
         raw = _call(_build_vision_messages())
-        print(f"  Ranking AI call: {time.monotonic() - _t0:.1f}s")
     except Exception as exc:
         _eprint(f"  Ranking: vision call failed ({type(exc).__name__}: {exc}); retrying with text.")
         try:
-            _t0 = time.monotonic()
             raw = _call(_build_text_messages())
-            print(f"  Ranking AI call (text fallback): {time.monotonic() - _t0:.1f}s")
         except Exception as exc2:
             _eprint(f"  Ranking: text fallback also failed ({type(exc2).__name__}: {exc2})")
             return []
