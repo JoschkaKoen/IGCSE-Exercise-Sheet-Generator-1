@@ -245,6 +245,7 @@ def print_streamed_response(
     stream: Any,
     *,
     print_thinking: bool = True,
+    stream_thinking: bool = True,
     print_content: bool = True,
     indent: str = "  ",
     thinking_out: list | None = None,
@@ -255,8 +256,10 @@ def print_streamed_response(
     ``[/thinking]`` blocks.  Content (``delta.content``) is printed as-is.
     Only ``delta.content`` is accumulated and returned.
 
-    If *thinking_out* is a list, thinking text is appended to it (useful for
-    saving to file regardless of whether *print_thinking* is True).
+    *print_thinking* controls whether the ``[thinking]`` markers are shown.
+    *stream_thinking* controls whether the actual thinking token text is streamed;
+    when False the markers still appear but the content is silent.
+    If *thinking_out* is a list, thinking text is appended to it regardless.
     """
     content_parts: list[str] = []
     in_thinking = False
@@ -275,7 +278,8 @@ def print_streamed_response(
                 if not in_thinking:
                     print(f"\n{indent}[thinking]", flush=True)
                     in_thinking = True
-                print(thinking_text, end="", flush=True)
+                if stream_thinking:
+                    print(thinking_text, end="", flush=True)
 
         if content_text:
             if in_thinking:

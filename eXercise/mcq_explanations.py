@@ -168,7 +168,9 @@ def prepare_mcq_job_data(
     if _provider == "gemini":
         print(f"  Building MCQ questions PDF for Gemini upload ({len(answered)} questions)…")
         q_pdf_bytes = _build_mcq_questions_pdf(qp_doc, regions, answered, cfg, paper_label)
-        mcq_q_pdf_path = expl_pdf_path.parent / "mcq_questions.pdf"
+        # Derive a unique per-paper filename from expl_pdf_path (which already
+        # contains the paper index) to avoid overwriting when papers run in parallel.
+        mcq_q_pdf_path = expl_pdf_path.with_name(expl_pdf_path.stem + "_questions.pdf")
         mcq_q_pdf_path.write_bytes(q_pdf_bytes)
         print(f"  MCQ questions PDF: {len(q_pdf_bytes):,} bytes → {mcq_q_pdf_path}")
 
@@ -187,6 +189,7 @@ def prepare_mcq_job_data(
 
 def batch_generate_mcq_explanations(
     papers: list[McqPaperData],
+    stream_thinking: bool = True,
 ) -> list[dict[int, list[str]]]:
     """Fire one focused AI call **per paper** in parallel threads.
 
@@ -214,14 +217,18 @@ def batch_generate_mcq_explanations(
     )
 
     def _call_one(paper: McqPaperData) -> dict[int, list[str]]:
+        # Use a per-paper debug subdirectory so parallel calls don't overwrite
+        # each other's debug files (prompt, response, thinking).
+        _debug_dir = paper.expl_pdf_path.parent / paper.expl_pdf_path.stem
         return generate_mcq_explanations(
             client, model,
             paper.q_texts, paper.answers, paper.answered, paper.exam_key,
             q_images=paper.q_images,
             provider=provider,
             effort=effort,
-            save_dir=paper.expl_pdf_path.parent,
+            save_dir=_debug_dir,
             q_pdf_bytes=paper.q_pdf_bytes,
+            stream_thinking=stream_thinking,
         )
 
     results: list[dict[int, list[str]]] = [{} for _ in papers]

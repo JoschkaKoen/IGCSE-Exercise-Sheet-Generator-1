@@ -265,6 +265,7 @@ def generate_mcq_explanations_gemini_pdf(
     model: str,
     effort: str | None = None,
     save_dir: Any | None = None,
+    stream_thinking: bool = True,
 ) -> dict[int, list[str]]:
     """Generate MCQ explanations by uploading a questions PDF to the Gemini Files API.
 
@@ -407,14 +408,16 @@ def generate_mcq_explanations_gemini_pdf(
                             if not in_thinking:
                                 print("  [thinking]", flush=True)
                                 in_thinking = True
-                            print(text, end="", flush=True)
+                            if stream_thinking:
+                                print(text, end="", flush=True)
                         else:
                             if in_thinking:
                                 print("\n  [/thinking]", flush=True)
                                 in_thinking = False
-                            chunks.append(text)  # collect but don't print
+                            chunks.append(text)
                 if in_thinking:
                     print()
+
             except Exception as exc:
                 print(f"  MCQ explanations (PDF): API error on attempt {attempt + 1}: {exc}")
                 if attempt == max_attempts - 1:
@@ -464,6 +467,7 @@ def generate_mcq_explanations(
     effort: str | None = None,
     save_dir: Any | None = None,  # Path | None — avoid import at module level
     q_pdf_bytes: bytes | None = None,
+    stream_thinking: bool = True,
 ) -> dict[int, list[str]]:
     """Call the AI once for all questions; return ``{qnum: [bullet, bullet, bullet]}``.
 
@@ -488,6 +492,7 @@ def generate_mcq_explanations(
             model=model,
             effort=effort,
             save_dir=save_dir,
+            stream_thinking=stream_thinking,
         )
 
     system = _build_system_prompt(exam_key, provider)
@@ -517,7 +522,7 @@ def generate_mcq_explanations(
                 **kwargs,
             )
             text = print_streamed_response(
-                stream, print_thinking=True, print_content=False, thinking_out=thinking_parts,
+                stream, stream_thinking=stream_thinking, print_content=False, thinking_out=thinking_parts,
             )
             return text, "stop" if text else "length"
         completion = client.chat.completions.create(

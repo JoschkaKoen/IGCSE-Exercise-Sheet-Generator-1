@@ -383,7 +383,7 @@ def run_extraction_jobs(
             print(f"\nGenerating AI explanations ({n_mcq} MCQ paper(s), 1 API call)…")
             paper_data_list = [mcq_prepared[i] for i in sorted_indices]
             _t = time.monotonic()
-            batch_results = batch_generate_mcq_explanations(paper_data_list)
+            batch_results = batch_generate_mcq_explanations(paper_data_list, stream_thinking=False)
             _rec("AI explanations", _t)
             for idx, expl in zip(sorted_indices, batch_results):
                 mcq_explanations_map[idx] = expl
@@ -418,6 +418,7 @@ def run_extraction_jobs(
                 answer_pdf=answers_path if (all_ms_strips and answers_path.exists()) else None,
                 out_path=out_path.parent,
                 name=out_path.stem,
+                stream_thinking=False,
             )
             _rec("Difficulty ranking", _t)
 

@@ -156,6 +156,7 @@ def _rank_exercises_ai_gemini(
     model: str,
     effort: str | None,
     save_dir: Path | None = None,
+    stream_thinking: bool = True,
 ) -> list[str]:
     """Rank exercises by uploading PDFs natively to the Gemini Files API.
 
@@ -253,14 +254,16 @@ def _rank_exercises_ai_gemini(
                 if not in_thinking:
                     print("  [thinking]", flush=True)
                     in_thinking = True
-                print(text, end="", flush=True)
+                if stream_thinking:
+                    print(text, end="", flush=True)
             else:
                 if in_thinking:
                     print("\n  [/thinking]", flush=True)
                     in_thinking = False
-                chunks.append(text)  # collect but don't print
+                chunks.append(text)
     if in_thinking:
         print()
+
 
     # Delete uploaded files (auto-expire after 48h anyway)
     for label, f in ready.items():
@@ -294,6 +297,7 @@ def _rank_exercises_ai(
     exercise_pdf: Path,
     answer_pdf: Path | None,
     save_dir: Path | None = None,
+    stream_thinking: bool = True,
 ) -> list[str]:
     """Call the LLM and return the ranked list of question identifiers."""
     if not _AI_OK:
@@ -318,7 +322,7 @@ def _rank_exercises_ai(
     # Native Gemini path: upload PDFs directly — no image rendering needed
     if provider == "gemini":
         try:
-            ranking = _rank_exercises_ai_gemini(exercise_pdf, answer_pdf, model, effort, save_dir=save_dir)
+            ranking = _rank_exercises_ai_gemini(exercise_pdf, answer_pdf, model, effort, save_dir=save_dir, stream_thinking=stream_thinking)
             print(f"  Ranked {len(ranking)} question part(s).")
             return ranking
         except Exception as exc:
@@ -386,7 +390,7 @@ def _rank_exercises_ai(
                 **thinking_kw,
             )
             return print_streamed_response(
-                stream, print_thinking=True, print_content=False, thinking_out=ranking_thinking,
+                stream, stream_thinking=stream_thinking, print_content=False, thinking_out=ranking_thinking,
             )
         completion = client.chat.completions.create(
             model=model,
@@ -538,6 +542,7 @@ def generate_difficulty_ranking(
     answer_pdf: Path | None,
     out_path: Path,
     name: str,
+    stream_thinking: bool = True,
 ) -> Path | None:
     """Rank questions in *exercise_pdf* from hardest to easiest and save a PDF.
 
@@ -568,7 +573,7 @@ def generate_difficulty_ranking(
 
     print(f"  Calling AI for difficulty ranking ({name})…")
     try:
-        ranking = _rank_exercises_ai(exercise_pdf, answer_pdf, save_dir=out_path)
+        ranking = _rank_exercises_ai(exercise_pdf, answer_pdf, save_dir=out_path, stream_thinking=stream_thinking)
     except Exception as exc:
         _eprint(f"  Ranking: unexpected error during AI call: {exc}")
         _eprint(_traceback.format_exc())
