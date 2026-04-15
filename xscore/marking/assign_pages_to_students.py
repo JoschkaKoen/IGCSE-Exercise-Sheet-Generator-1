@@ -13,10 +13,11 @@ Returns a list of ``PageAssignment`` objects.
 from __future__ import annotations
 
 import os
-import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+from typing import Any
 
-from xscore.config import PAGE_API_DELAY_S
+from xscore.config import NAME_RECOGNITION_DPI
 
 from .kimi_helpers import KimiChatClient, kimi_image_call, page_to_jpeg_b64, parse_json_safe
 from xscore.shared.models import PageAssignment
@@ -42,7 +43,7 @@ def _crop_top(page, fraction: float = 0.15):
 def assign_pages(
     cleaned_pdf: Path,
     students: list[str],
-    dpi: int = 200,
+    dpi: int = NAME_RECOGNITION_DPI,
     client: KimiChatClient | None = None,
     name_crop_fraction: float = 0.15,
     *,
@@ -63,36 +64,40 @@ def assign_pages(
     if client is None:
         raise RuntimeError("No Kimi client available for page assignment.")
 
-    from xscore.shared.terminal_ui import info_line, note_line, tool_line
+    from xscore.shared.terminal_ui import info_line, tool_line
 
     if pages is None:
         tool_line("pages", f"Rendering pages @ {dpi} DPI …")
         pages = convert_from_path(str(cleaned_pdf), dpi=dpi, thread_count=os.cpu_count() or 4)
     n_pages = len(pages)
-    step = max(1, n_pages // 8) if n_pages > 1 else 1
 
-    # For each page: ask Kimi for the student name (or empty string)
-    raw_names: list[str] = []
-    for i, page in enumerate(pages, 1):
+    # Parallel OCR + fuzzy-match: each worker crops the page, calls Kimi, and
+    # immediately fuzzy-matches the result against the roster.
+    workers = int(os.environ.get("NAME_WORKERS", str(min(n_pages, 8))))
+
+    def _ocr_and_match(args: tuple[int, Any]) -> tuple[int, str | None]:
+        i, page = args
         crop = _crop_top(page, fraction=name_crop_fraction)
         img_b64 = page_to_jpeg_b64(crop)
         raw = kimi_image_call(client, img_b64, _NAME_PROMPT, max_tokens=64)
         data = parse_json_safe(raw)
-        name = str(data.get("name", "") or "").strip()
-        if i == 1 or i == n_pages or (i % step == 0):
-            info_line(f"Page {i:3d}/{n_pages}: raw name = {name!r}")
-        raw_names.append(name)
-        time.sleep(PAGE_API_DELAY_S)
-    if n_pages > 1:
-        info_line(f"Name OCR: {n_pages} pages (sample every {step})")
+        raw_name = str(data.get("name", "") or "").strip()
+        matched_name = fuzzy_match_name(raw_name, students) if raw_name else None
+        info_line(f"Page {i:3d}/{n_pages}: {raw_name!r}  →  {matched_name!r}")
+        return i, matched_name
 
-    # Fuzzy-match each raw name; empty → "UNKNOWN"
-    matched: list[str | None] = []
-    for raw in raw_names:
-        if raw:
-            matched.append(fuzzy_match_name(raw, students))
-        else:
-            matched.append(None)
+    page_results: dict[int, str | None] = {}
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        futures = {
+            ex.submit(_ocr_and_match, (i, page)): i
+            for i, page in enumerate(pages, 1)
+        }
+        for fut in as_completed(futures):
+            i, matched_name = fut.result()
+            page_results[i] = matched_name
+
+    # Restore page order for the grouping step below.
+    matched: list[str | None] = [page_results[i] for i in range(1, n_pages + 1)]
 
     # Group consecutive pages: a None name inherits from the previous match
     assignments: dict[str, list[int]] = {}

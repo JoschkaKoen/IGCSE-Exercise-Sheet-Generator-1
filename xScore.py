@@ -459,6 +459,7 @@ def _step10_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
     ctx.page_assignments = gi.assign_pages(
         ctx.cleaned_pdf,
         ctx.students or [],
+        dpi=ctx.instruction.dpi,
     )
     json_path = gi.artifact_exam_student_list_json_path(ctx.artifact_dir)
     json_path.write_text(
