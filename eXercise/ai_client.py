@@ -247,12 +247,16 @@ def print_streamed_response(
     print_thinking: bool = True,
     print_content: bool = True,
     indent: str = "  ",
+    thinking_out: list | None = None,
 ) -> str:
     """Consume a streaming chat completion, print thinking + content live, return content.
 
     Thinking (``delta.reasoning_content``) is wrapped in ``[thinking]`` /
     ``[/thinking]`` blocks.  Content (``delta.content``) is printed as-is.
     Only ``delta.content`` is accumulated and returned.
+
+    If *thinking_out* is a list, thinking text is appended to it (useful for
+    saving to file regardless of whether *print_thinking* is True).
     """
     content_parts: list[str] = []
     in_thinking = False
@@ -264,11 +268,14 @@ def print_streamed_response(
         thinking_text = getattr(delta, "reasoning_content", None) or ""
         content_text = delta.content or ""
 
-        if thinking_text and print_thinking:
-            if not in_thinking:
-                print(f"\n{indent}[thinking]", flush=True)
-                in_thinking = True
-            print(thinking_text, end="", flush=True)
+        if thinking_text:
+            if thinking_out is not None:
+                thinking_out.append(thinking_text)
+            if print_thinking:
+                if not in_thinking:
+                    print(f"\n{indent}[thinking]", flush=True)
+                    in_thinking = True
+                print(thinking_text, end="", flush=True)
 
         if content_text:
             if in_thinking:

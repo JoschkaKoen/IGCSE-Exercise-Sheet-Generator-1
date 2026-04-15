@@ -381,8 +381,8 @@ def generate_mcq_explanations_gemini_pdf(
             ]
 
             try:
-                t0 = _time.monotonic()
                 chunks: list[str] = []
+                thinking_chunks: list[str] = []
                 in_thinking = False
                 for chunk in client.models.generate_content_stream(
                     model=model,
@@ -403,6 +403,7 @@ def generate_mcq_explanations_gemini_pdf(
                         if not text:
                             continue
                         if is_thought:
+                            thinking_chunks.append(text)
                             if not in_thinking:
                                 print("  [thinking]", flush=True)
                                 in_thinking = True
@@ -411,11 +412,9 @@ def generate_mcq_explanations_gemini_pdf(
                             if in_thinking:
                                 print("\n  [/thinking]", flush=True)
                                 in_thinking = False
-                            print(text, end="", flush=True)
-                            chunks.append(text)
+                            chunks.append(text)  # collect but don't print
                 if in_thinking:
                     print()
-                print()
             except Exception as exc:
                 print(f"  MCQ explanations (PDF): API error on attempt {attempt + 1}: {exc}")
                 if attempt == max_attempts - 1:
@@ -427,6 +426,10 @@ def generate_mcq_explanations_gemini_pdf(
                 from pathlib import Path as _P  # noqa: PLC0415
                 (_P(save_dir) / "mcq_expl_response.txt").write_text(raw, encoding="utf-8")
                 print("  Saved MCQ response: mcq_expl_response.txt")
+                if thinking_chunks:
+                    (_P(save_dir) / "mcq_expl_thinking.txt").write_text(
+                        "".join(thinking_chunks), encoding="utf-8"
+                    )
             result = _parse_explanations(raw, questions)
             if result:
                 return result
@@ -496,6 +499,7 @@ def generate_mcq_explanations(
         _save_mcq_prompt(save_dir, system, user_content, exam_key, q_texts=q_texts)
 
     use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
+    thinking_parts: list[str] = []
 
     def _call(**kwargs: Any) -> tuple[str, str | None]:
         """Return (content, finish_reason)."""
@@ -512,7 +516,9 @@ def generate_mcq_explanations(
                 **thinking_kw,
                 **kwargs,
             )
-            text = print_streamed_response(stream, print_thinking=True, print_content=True)
+            text = print_streamed_response(
+                stream, print_thinking=True, print_content=False, thinking_out=thinking_parts,
+            )
             return text, "stop" if text else "length"
         completion = client.chat.completions.create(
             model=model,
@@ -534,6 +540,10 @@ def generate_mcq_explanations(
                 from pathlib import Path as _P  # noqa: PLC0415
                 (_P(save_dir) / "mcq_expl_response.txt").write_text(raw, encoding="utf-8")
                 print("  Saved MCQ response: mcq_expl_response.txt")
+                if thinking_parts:
+                    (_P(save_dir) / "mcq_expl_thinking.txt").write_text(
+                        "".join(thinking_parts), encoding="utf-8"
+                    )
         except Exception as exc:
             print(f"  MCQ explanations: API error on attempt {attempt + 1}: {exc}")
             if attempt == max_attempts - 1:

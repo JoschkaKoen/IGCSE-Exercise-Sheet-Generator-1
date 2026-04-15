@@ -308,16 +308,21 @@ def resolve_natural_language(
     if not pdf_names:
         raise NaturalLanguageError(f"No PDFs available for subject {exam_key!r} under {exam_root}")
 
-    # Build a whitespace-normalised lookup so AI responses with collapsed spaces
-    # (e.g. "Question Paper 21.pdf" vs the real "Question Paper  21.pdf") still match.
+    # Build whitespace-normalised lookups (exact-case and case-insensitive fallback) so
+    # AI responses with collapsed spaces or wrong capitalisation still resolve correctly.
+    # e.g. "Question paper 11.pdf" → "Question Paper  11.pdf"
     _normalise = lambda s: re.sub(r" {2,}", " ", s).strip()
-    _norm_map = {_normalise(n): n for n in pdf_names}
+    _norm_map    = {_normalise(n): n for n in pdf_names}
+    _norm_map_ci = {_normalise(n).lower(): n for n in pdf_names}
 
     def _resolve_pdf(name: str) -> str | None:
-        """Return the canonical filename for *name*, tolerating collapsed whitespace."""
+        """Return the canonical filename for *name*, tolerating collapsed whitespace and case."""
         if name in pdf_names:
             return name
-        return _norm_map.get(_normalise(name))
+        norm = _normalise(name)
+        if norm in _norm_map:
+            return _norm_map[norm]
+        return _norm_map_ci.get(norm.lower())
 
     def _one_extraction(ex: dict, idx: str) -> dict:
         """Validate and normalize a single extraction record.

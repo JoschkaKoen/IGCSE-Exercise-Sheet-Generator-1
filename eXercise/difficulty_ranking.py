@@ -234,6 +234,7 @@ def _rank_exercises_ai_gemini(
 
     print("  Ranking (streaming):", flush=True)
     chunks: list[str] = []
+    thinking_chunks: list[str] = []
     in_thinking = False
     for chunk in client.models.generate_content_stream(
         model=model,
@@ -248,6 +249,7 @@ def _rank_exercises_ai_gemini(
             if not text:
                 continue
             if is_thought:
+                thinking_chunks.append(text)
                 if not in_thinking:
                     print("  [thinking]", flush=True)
                     in_thinking = True
@@ -256,11 +258,9 @@ def _rank_exercises_ai_gemini(
                 if in_thinking:
                     print("\n  [/thinking]", flush=True)
                     in_thinking = False
-                print(text, end="", flush=True)
-                chunks.append(text)
+                chunks.append(text)  # collect but don't print
     if in_thinking:
         print()
-    print()  # newline after streamed output
 
     # Delete uploaded files (auto-expire after 48h anyway)
     for label, f in ready.items():
@@ -273,6 +273,10 @@ def _rank_exercises_ai_gemini(
     if save_dir:
         (save_dir / "ranking_response.txt").write_text(raw, encoding="utf-8")
         print(f"  Saved raw response: ranking_response.txt")
+        if thinking_chunks:
+            (save_dir / "ranking_thinking.txt").write_text(
+                "".join(thinking_chunks), encoding="utf-8"
+            )
     return _parse_ranking(raw)
 
 
@@ -368,6 +372,8 @@ def _rank_exercises_ai(
             {"role": "user", "content": "\n\n".join(parts)},
         ]
 
+    ranking_thinking: list[str] = []
+
     def _call(messages: list[dict]) -> str:
         use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
         print("  Waiting for AI response…", flush=True)
@@ -379,7 +385,9 @@ def _rank_exercises_ai(
                 max_tokens=8192,
                 **thinking_kw,
             )
-            return print_streamed_response(stream)
+            return print_streamed_response(
+                stream, print_thinking=True, print_content=False, thinking_out=ranking_thinking,
+            )
         completion = client.chat.completions.create(
             model=model,
             messages=messages,
@@ -402,6 +410,10 @@ def _rank_exercises_ai(
     if save_dir:
         (save_dir / "ranking_response.txt").write_text(raw, encoding="utf-8")
         print(f"  Saved raw response: ranking_response.txt", flush=True)
+        if ranking_thinking:
+            (save_dir / "ranking_thinking.txt").write_text(
+                "".join(ranking_thinking), encoding="utf-8"
+            )
     ranking = _parse_ranking(raw)
     if not ranking and raw.strip():
         _eprint("  Ranking: response was non-empty but produced no lines after parsing.")
