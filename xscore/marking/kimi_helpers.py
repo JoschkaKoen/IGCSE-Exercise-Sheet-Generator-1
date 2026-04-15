@@ -34,14 +34,18 @@ def kimi_image_call(
     *,
     max_tokens: int = 128,
     response_format: Any = _USE_DEFAULT_JSON_OBJECT,
+    model_id: str | None = None,
 ) -> str:
     """Kimi vision call with retries. Uses :func:`resolve_pipeline_ai_model_id`.
+
+    Pass *model_id* to override the global ``PIPELINE_AI_MODEL`` for this call
+    (used by name-detection to honour ``NAME_DETECTION_MODEL`` independently).
 
     Retries use ``2**attempt`` seconds between attempts (2s, then 4s). This differs from
     extraction's ``RETRY_BACKOFF_S`` (default 1s, configurable) — intentional; do not
     unify without checking both code paths.
     """
-    model = resolve_pipeline_ai_model_id()
+    model = model_id if model_id is not None else resolve_pipeline_ai_model_id()
     create_kwargs: dict[str, Any] = dict(
         model=model,
         messages=[
