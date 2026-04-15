@@ -28,7 +28,7 @@ flowchart TD
         direction TB
         n1["Step 1 — Describe your exercise\n(subject · paper · questions)"]
         n2["Step 2 — Precheck  ·  LLM sanity check\n(skippable)"]
-        n3["Step 3 — Interpret  ·  LLM maps request → PDF paths\nand question numbers"]
+        n3["Step 3 — Interpret  ·  LLM maps request → PDF paths,\nquestion numbers, and ranking flag"]
         n1 --> n2 --> n3
     end
 
@@ -37,25 +37,27 @@ flowchart TD
         l1["Provide PDF paths and question numbers directly\n(no LLM step)"]
     end
 
-    cut["Step 4 — Extract questions from PDF\nas vector graphics"]
+    cut["Step 4 — Extract questions from PDFs\nas vector graphics (papers processed in parallel)"]
 
     subgraph outputs ["📄  Outputs"]
         direction TB
         ex["exercise.pdf\none continuous exercise sheet"]
         ms{"Mark scheme\nprovided?"}
-        ans["answers.pdf\n(MCQ: optional LLM explanations)"]
+        ans["answers.pdf — structured MS\n(regions extracted as vectors)"]
+        mcqans["answers.pdf — MCQ\n(Gemini PDF upload → LaTeX explanations)"]
         nup["_2up / _4up print variants\n(requires pdfjam)"]
         ex --> ms
-        ms -->|Yes| ans --> nup
+        ms -->|"Yes — structured"| ans --> nup
+        ms -->|"Yes — MCQ"| mcqans --> nup
         ms -->|No| nup
     end
 
-    rank["ranking.pdf\nquestions ranked by difficulty\n(background LLM job)"]
+    rank["ranking.pdf\nquestions ranked hardest → easiest\n(background · optional)"]
 
     n3 --> cut
     l1 --> cut
     cut --> ex
-    ex -.->|"background"| rank
+    ex -.->|"background; skipped if ranking=false\nor RANKING_SKIP=true"| rank
 ```
 
 ### Natural language mode (one sentence)
@@ -64,17 +66,17 @@ flowchart TD
 
 2. **Optional precheck** — a small LLM call checks that your text mentions a supported subject and enough detail to identify a paper (unless you turn precheck off in config).
 
-3. **Main interpretation** — the LLM sees the list of real PDF filenames in your exam folders and returns structured data: which question paper(s) to open, which question numbers, output filename, and matching mark scheme files when they exist.
+3. **Main interpretation** — the LLM sees the list of real PDF filenames in your exam folders and returns structured data: which question paper(s) to open, which question numbers, output filename, matching mark scheme files when they exist, and a `ranking` flag (defaults to `true`; set to `false` by saying "no ranking" in your request).
 
-4. **Cut questions from the PDFs** — for each paper, the program opens the question paper, finds where each question sits on the page, and extracts those regions as vector graphics (not screenshots), preserving crisp text and diagrams.
+4. **Cut questions from the PDFs** — all question papers are opened in parallel; for each, the program finds where each question sits on the page and extracts those regions as vector graphics (not screenshots), preserving crisp text and diagrams.
 
 5. **Build the exercise PDF** — all extracted strips are combined into **one continuous PDF** (your exercise sheet), with layout and headers appropriate to the subject.
 
-6. **Answers PDF (if a mark scheme is available)** — the matching mark scheme is opened. For typical structured MS layouts, answer regions are extracted the same way. For **MCQ** mark schemes, the tool can optionally call the LLM once per batch to add short explanation blocks, then compile them; if TeX is missing, it falls back to simpler answer lines.
+6. **Answers PDF (if a mark scheme is available)** — the matching mark scheme is opened. For typical structured MS layouts, answer regions are extracted the same way as questions. For **MCQ** mark schemes, the tool uploads the question-paper PDF directly to the **Gemini Files API** (one call per batch of papers) and receives short 3-bullet explanations for each question, which are compiled into LaTeX; if `pdflatex` or the Gemini key is missing, it falls back to plain answer lines.
 
 7. **Optional n-up copies** — if `pdfjam` is installed, **2-up** and **4-up** versions of the exercise (and answers) may be generated for printing.
 
-8. **Difficulty ranking (background)** — while the exercise is ready, a second LLM job reads the assembled exercise (as images or extracted text) and returns a ranked list of every question part from hardest to easiest. This is compiled into `*_ranking.pdf` and appears as an extra tab in the web UI once ready. Requires `pdflatex`; set `RANKING_SKIP=true` or omit `pdflatex` to skip silently.
+8. **Difficulty ranking (background, optional)** — a second LLM job reads the assembled exercise as images and returns a ranked list of every question part from hardest to easiest. The result is compiled into `*_ranking.pdf` and appears as an extra tab in the web UI once ready. Requires `pdflatex`. Skipped if: the NL request contains "no ranking" / "skip ranking" (sets `ranking: false`), `RANKING_SKIP=true` is set in the environment, or `pdflatex` is not installed.
 
 ### Legacy mode (explicit paths)
 
@@ -213,7 +215,7 @@ The app uses the OpenAI Python client against each vendor's **OpenAI-compatible*
 
 | Model name starts with | API key variable | Notes |
 |------------------------|------------------|--------|
-| `gemini` | `GOOGLE_API_KEY` | Google Gemini |
+| `gemini` | `GEMINI_API_KEY` | Google Gemini (`GOOGLE_API_KEY` accepted as fallback) |
 | `grok` | `XAI_API_KEY` | xAI Grok |
 | `qwen` | `DASHSCOPE_API_KEY` | Alibaba Qwen (DashScope) |
 
