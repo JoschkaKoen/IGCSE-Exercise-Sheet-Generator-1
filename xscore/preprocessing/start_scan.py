@@ -76,6 +76,38 @@ def find_source_scan_match(
     )
 
 
+def _scan_blanks_to_md(
+    source_pdf: Path,
+    total_pages: int,
+    content_page_nums: list,
+    blank_page_nums: list,
+    page_render_sizes: list,
+    blank_mean: float,
+    blank_std: float,
+    use_tesseract_rotation: bool,
+    analysis_dpi: int,
+) -> str:
+    """Render a compact human-readable summary of scan blank-detection results."""
+    from collections import Counter
+    size_counts = Counter(f"{w}\u00d7{h}" for w, h in page_render_sizes)
+    size_summary = ", ".join(f"{s} ({n} pages)" for s, n in size_counts.most_common())
+    lines = [
+        "# Scan Blanks Analysis",
+        "",
+        "| Field | Value |",
+        "|-------|-------|",
+        f"| Source PDF | {source_pdf.name} |",
+        f"| Total pages | {total_pages} |",
+        f"| Content pages | {len(content_page_nums)} |",
+        f"| Blank pages | {len(blank_page_nums)} |",
+        f"| Analysis DPI | {analysis_dpi} |",
+        f"| Blank detection | mean \u2265 {blank_mean}, std \u2264 {blank_std} |",
+        f"| Tesseract rotation | {'Yes' if use_tesseract_rotation else 'No'} |",
+        f"| Page sizes | {size_summary} |",
+    ]
+    return "\n".join(lines) + "\n"
+
+
 def detect_blank_pages_phase(
     source_pdf: Path,
     artifact_dir: Path,

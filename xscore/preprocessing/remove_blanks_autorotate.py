@@ -162,9 +162,16 @@ def detect_blank_page_lists(
     total_pages = len(low_res_pages)
     content_page_nums: list[int] = []
     blank_page_nums: list[int] = []
-    for i, page_img in enumerate(low_res_pages):
-        page_num = i + 1
-        if is_blank_page(page_img, blank_mean, blank_std):
+
+    def _classify(args: tuple[int, Image.Image]) -> tuple[int, bool]:
+        i, page_img = args
+        return i + 1, is_blank_page(page_img, blank_mean, blank_std)
+
+    workers = min(4, os.cpu_count() or 1)
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        results = list(ex.map(_classify, enumerate(low_res_pages)))
+    for page_num, blank in results:
+        if blank:
             blank_page_nums.append(page_num)
         else:
             content_page_nums.append(page_num)

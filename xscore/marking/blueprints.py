@@ -44,6 +44,33 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
     return blueprints
 
 
+def marked_to_md(filled: dict) -> str:
+    """Render a completed ``12_marked_*.json`` as a human-readable markdown table."""
+    student = filled.get("student_name", "Unknown")
+    page = filled.get("page", "?")
+    questions = filled.get("questions", [])
+    total_awarded = sum(q.get("assigned_marks") or 0 for q in questions)
+    total_max = sum(q.get("max_marks") or 0 for q in questions)
+    lines = [
+        f"# Marked: {student} — Page {page}",
+        "",
+        f"**Score: {total_awarded} / {total_max}**",
+        "",
+        "| # | Type | Max | Answer | Marks | Reasoning |",
+        "|---|------|-----|--------|-------|-----------|",
+    ]
+    for q in questions:
+        num = q.get("number", "")
+        qtype = (q.get("question_type") or "").replace("_", " ")
+        max_m = q.get("max_marks", "")
+        ans = (q.get("student_answer") or "—").replace("|", "\\|")
+        awarded = q.get("assigned_marks")
+        awarded_str = "—" if awarded is None else str(awarded)
+        reasoning = (q.get("reasoning") or "").replace("|", "\\|")
+        lines.append(f"| {num} | {qtype} | {max_m} | {ans} | {awarded_str} | {reasoning} |")
+    return "\n".join(lines) + "\n"
+
+
 def _blueprint_to_md(bp: dict) -> str:
     lines = [f"# AI Marking Blueprint — Page {bp['page']}\n"]
     if not bp["questions"]:

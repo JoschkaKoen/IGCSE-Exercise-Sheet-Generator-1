@@ -2,6 +2,9 @@
 
 Uses the MARKING_MODEL env var (default: qwen3.6-plus, off) via make_ai_client().
 Requires DASHSCOPE_API_KEY to be set in .env.
+
+Students are processed in parallel (MARKING_WORKERS workers, default 4).
+Each worker opens its own fitz document handle (fitz is not thread-safe).
 """
 
 from __future__ import annotations
@@ -9,12 +12,16 @@ from __future__ import annotations
 import base64
 import difflib
 import json
+import os
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
+from xscore.marking.blueprints import marked_to_md
 from xscore.marking.kimi_helpers import parse_json_safe
-from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_json_path
+from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_json_path, artifact_marked_md_path
 from xscore.shared.terminal_ui import api_latency_line, info_line, warn_line
 
 
@@ -47,51 +54,58 @@ def _identify_student(
 ) -> str:
     """Vision call to read the student name from the top of the first exam page.
 
-    Fuzzy-matches the AI response against the roster.  Falls back to
-    ``Unknown_<idx>`` if the call fails or no match is found.
+    Retries up to 3 times with 2 s / 4 s backoff (same pattern as kimi_helpers).
+    Fuzzy-matches the result against the roster; falls back to ``Unknown_<idx>``.
     """
     roster_json = json.dumps(roster, ensure_ascii=False)
-    messages = [
-        {
-            "role": "system",
-            "content": (
-                "You are identifying which student's exam this is. "
-                "Return ONLY valid JSON: {\"student_name\": \"<name from the list>\"}."
-            ),
-        },
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": (
-                        f"Student roster (choose exactly one name):\n{roster_json}\n\n"
-                        "Look at the top third of this exam page to find the student's handwritten "
-                        "name. Return the roster name that best matches."
-                    ),
-                },
-                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
-            ],
-        },
-    ]
-    try:
-        resp = client.chat.completions.create(
-            model=model_id,
-            messages=messages,
-            response_format={"type": "json_object"},
-            extra_body=extra_body,
-        )
-        raw = resp.choices[0].message.content or ""
-        data = parse_json_safe(raw)
-        raw_name = str(data.get("student_name", "")).strip()
-        if raw_name:
-            matches = difflib.get_close_matches(raw_name, roster, n=1, cutoff=0.6)
-            if matches:
-                return matches[0]
-            warn_line(f"Name '{raw_name}' not in roster — using as-is")
-            return raw_name
-    except Exception as exc:  # noqa: BLE001
-        warn_line(f"Student ID call failed: {exc}")
+    kwargs: dict[str, Any] = dict(
+        model=model_id,
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "You are identifying which student's exam this is. "
+                    "Return ONLY valid JSON: {\"student_name\": \"<name from the list>\"}."
+                ),
+            },
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": (
+                            f"Student roster (choose exactly one name):\n{roster_json}\n\n"
+                            "Look at the top third of this exam page to find the student's "
+                            "handwritten name. Return the roster name that best matches."
+                        ),
+                    },
+                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
+                ],
+            },
+        ],
+        response_format={"type": "json_object"},
+        extra_body=extra_body,
+    )
+
+    for attempt in range(1, 4):
+        try:
+            t0 = time.perf_counter()
+            resp = client.chat.completions.create(**kwargs)
+            api_latency_line(time.perf_counter() - t0, label="name id")
+            raw = resp.choices[0].message.content or ""
+            data = parse_json_safe(raw)
+            raw_name = str(data.get("student_name", "")).strip()
+            if raw_name:
+                matches = difflib.get_close_matches(raw_name, roster, n=1, cutoff=0.6)
+                if matches:
+                    return matches[0]
+                warn_line(f"Name '{raw_name}' not in roster — using as-is")
+                return raw_name
+            return f"Unknown_{fallback_idx}"
+        except Exception as exc:  # noqa: BLE001
+            warn_line(f"Student ID API error (attempt {attempt}/3): {exc}")
+            if attempt < 3:
+                time.sleep(2**attempt)
     return f"Unknown_{fallback_idx}"
 
 
@@ -105,9 +119,8 @@ def _mark_page(
 ) -> dict:
     """Vision call to fill in a marking blueprint for one scan page.
 
-    Returns the filled blueprint dict (same schema with student_answer,
-    assigned_marks, reasoning populated).  Falls back to the original
-    blueprint (all blanks) if the call fails or returns invalid JSON.
+    Retries up to 3 times with 2 s / 4 s backoff (same pattern as kimi_helpers).
+    Returns the original blueprint (all blanks) if all attempts fail.
     """
     criteria_text = _format_criteria(page_questions_info)
     blueprint_json = json.dumps(blueprint, indent=2, ensure_ascii=False)
@@ -125,32 +138,38 @@ def _mark_page(
         f"Marking criteria:\n{criteria_text}\n\n"
         f"Blueprint template to fill in:\n{blueprint_json}"
     )
+    kwargs: dict[str, Any] = dict(
+        model=model_id,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": user_text},
+                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
+                ],
+            },
+        ],
+        response_format={"type": "json_object"},
+        extra_body=extra_body,
+    )
 
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {
-            "role": "user",
-            "content": [
-                {"type": "text", "text": user_text},
-                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
-            ],
-        },
-    ]
-    try:
-        resp = client.chat.completions.create(
-            model=model_id,
-            messages=messages,
-            response_format={"type": "json_object"},
-            extra_body=extra_body,
-        )
-        raw = resp.choices[0].message.content or ""
-        result = parse_json_safe(raw)
-        if result:
-            return result
-        warn_line("Marking call returned empty/invalid JSON — using blank blueprint")
-    except Exception as exc:  # noqa: BLE001
-        warn_line(f"Marking call failed: {exc}")
+    for attempt in range(1, 4):
+        try:
+            t0 = time.perf_counter()
+            resp = client.chat.completions.create(**kwargs)
+            api_latency_line(time.perf_counter() - t0, label="marking")
+            raw = resp.choices[0].message.content or ""
+            result = parse_json_safe(raw)
+            if result:
+                return result
+            warn_line(f"Marking call returned empty JSON (attempt {attempt}/3) — retrying")
+        except Exception as exc:  # noqa: BLE001
+            warn_line(f"Marking API error (attempt {attempt}/3): {exc}")
+            if attempt < 3:
+                time.sleep(2**attempt)
 
+    warn_line("All marking attempts failed — using blank blueprint")
     return blueprint.copy()
 
 
@@ -184,7 +203,8 @@ def _flatten_leaf_questions(questions: list[dict]) -> list[dict]:
 def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
-    Returns a list of API call timing records (one per call) for step 14.
+    Students are processed in parallel (MARKING_WORKERS env var, default 4).
+    Returns a list of API call timing records for step 14.
     """
     import fitz
 
@@ -198,7 +218,7 @@ def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
     client, model_id, _provider, _effort = result
     extra_body = {"enable_thinking": False}
 
-    # Load short report once; build page → leaf-questions lookup
+    # Load short report once; build page → leaf-questions lookup (read-only, shared)
     short_report_path = ctx.artifact_dir / "6_short_report.json"
     short_report = json.loads(short_report_path.read_text(encoding="utf-8"))
     all_leaf_qs = _flatten_leaf_questions(short_report.get("questions", []))
@@ -207,15 +227,21 @@ def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
         pg = int(q.get("page") or 0)
         page_questions.setdefault(pg, []).append(q)
 
+    workers = int(os.environ.get("MARKING_WORKERS", "4"))
+    timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
 
-    doc = fitz.open(str(ctx.cleaned_pdf))
-    try:
-        for i in range(ctx.num_students):
+    def _mark_student(i: int) -> list[dict]:
+        """Mark one student's pages. Opens its own fitz handle (fitz is not thread-safe)."""
+        local_timings: list[dict] = []
+        doc = fitz.open(str(ctx.cleaned_pdf))
+        try:
             student_name: str | None = None
             for p in range(1, ctx.pages_per_student + 1):
                 scan_idx = i * ctx.pages_per_student + (p - 1)
-                info_line(f"Student {i + 1}/{ctx.num_students} · page {p}/{ctx.pages_per_student}")
+                info_line(
+                    f"Student {i + 1}/{ctx.num_students} · page {p}/{ctx.pages_per_student}"
+                )
 
                 b64 = _render_page_b64(doc, scan_idx, dpi=dpi)
                 blueprint = json.loads(
@@ -228,8 +254,7 @@ def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
                         client, model_id, b64, ctx.students or [], i, extra_body
                     )
                     name_dur = round(time.perf_counter() - t0, 2)
-                    api_latency_line(name_dur, label=f"name id · {student_name}")
-                    api_call_timings.append({
+                    local_timings.append({
                         "phase": "name_id",
                         "student_idx": i,
                         "student": student_name,
@@ -242,8 +267,7 @@ def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
                     client, model_id, b64, blueprint, page_questions.get(p, []), extra_body
                 )
                 mark_dur = round(time.perf_counter() - t0, 2)
-                api_latency_line(mark_dur, label=f"{student_name} p{p}")
-                api_call_timings.append({
+                local_timings.append({
                     "phase": "marking",
                     "student": student_name,
                     "page": p,
@@ -251,11 +275,21 @@ def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
                 })
 
                 filled["student_name"] = student_name
-                out_path = artifact_marked_json_path(
-                    ctx.artifact_dir, student_name or f"Unknown_{i}", p
+                safe_name = student_name or f"Unknown_{i}"
+                out_path = artifact_marked_json_path(ctx.artifact_dir, safe_name, p)
+                out_path.write_text(
+                    json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8"
                 )
-                out_path.write_text(json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8")
-    finally:
-        doc.close()
+                md_path = artifact_marked_md_path(ctx.artifact_dir, safe_name, p)
+                md_path.write_text(marked_to_md(filled), encoding="utf-8")
+        finally:
+            doc.close()
+        return local_timings
+
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        futures = {ex.submit(_mark_student, i): i for i in range(ctx.num_students)}
+        for fut in as_completed(futures):
+            with timings_lock:
+                api_call_timings.extend(fut.result())
 
     return api_call_timings

@@ -167,6 +167,13 @@ def artifact_marked_json_path(artifact_dir: Path, student: str, page: int) -> Pa
     return artifact_dir / f"12_marked_{safe}_{page}.json"
 
 
+def artifact_marked_md_path(artifact_dir: Path, student: str, page: int) -> Path:
+    """Step 12: human-readable marking result for one student's scan page."""
+    import re
+    safe = re.sub(r"[^\w]", "_", student)
+    return artifact_dir / f"12_marked_{safe}_{page}.md"
+
+
 def artifact_student_report_json_path(artifact_dir: Path, student: str) -> Path:
     """Step 13: merged student report JSON."""
     import re

@@ -228,11 +228,13 @@ def write_mark_scheme_markdown(artifact_dir: Path, scheme_questions: list[Any]) 
 
         raw_criteria = q.get("mark_scheme") or []
         if isinstance(raw_criteria, list) and raw_criteria:
-            criteria_lines = [
-                f"[{m.get('mark', '')}] {m.get('criterion', '')}".strip()
-                for m in raw_criteria
-                if isinstance(m, dict) and m.get("criterion")
-            ]
+            criteria_lines = []
+            for m in raw_criteria:
+                if not isinstance(m, dict) or not m.get("criterion"):
+                    continue
+                mark = m.get("mark") or ""
+                criterion = m.get("criterion", "")
+                criteria_lines.append(f"[{mark}] {criterion}".strip() if mark else criterion)
             if criteria_lines:
                 lines.extend(_format_prose_block("Marking criteria", "\n".join(criteria_lines)))
                 lines.append("")

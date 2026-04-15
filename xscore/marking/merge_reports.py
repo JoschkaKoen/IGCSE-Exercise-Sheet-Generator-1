@@ -7,8 +7,10 @@ xelatex is used for compilation; a warning is printed if it is not installed.
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 
@@ -311,7 +313,9 @@ def compile_reports(ctx: Any) -> list[dict]:
 
     total_max_marks = ctx.scaffold.total_marks
     student_summaries: list[dict] = []
+    tex_paths: list[Path] = []
 
+    # Pass 1 — sequential: merge marks and write all data files (fast I/O, order-sensitive)
     for name in _derive_student_names(ctx.artifact_dir):
         report = _merge_student_pages(
             ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks
@@ -325,7 +329,7 @@ def compile_reports(ctx: Any) -> list[dict]:
         )
         tex_path = artifact_student_report_tex_path(ctx.artifact_dir, name)
         tex_path.write_text(_student_report_to_tex(report), encoding="utf-8")
-        _compile_tex(tex_path, ctx.artifact_dir)
+        tex_paths.append(tex_path)
 
         student_summaries.append({
             "name": name,
@@ -335,6 +339,11 @@ def compile_reports(ctx: Any) -> list[dict]:
         info_line(
             f"{name}: {report['total_marks']}/{total_max_marks} ({report['percentage']}%)"
         )
+
+    # Pass 2 — parallel: compile all student .tex files concurrently (each is an independent process)
+    workers = int(os.environ.get("MARKING_WORKERS", "4"))
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        list(ex.map(lambda p: _compile_tex(p, ctx.artifact_dir), tex_paths))
 
     if student_summaries:
         per_question_avgs = _compute_per_question_averages(ctx.artifact_dir)

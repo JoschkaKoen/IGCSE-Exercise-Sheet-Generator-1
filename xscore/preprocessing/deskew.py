@@ -572,18 +572,22 @@ def detect_page_anchors_for_cleaned_scan(
     def _anc_dict(a: AnchorPoint | None) -> dict | None:
         return asdict(a) if a is not None else None
 
-    for i in range(n_side):
+    def _detect_for_page(i: int) -> tuple[int, dict]:
         page_gray = np.array(pages[i].convert("L"))
         p_mid = page_gray.shape[0] // 2
         tl, tr = detect_igcse_anchors(page_gray[:p_mid, :], igcse_template)
         bl, br = detect_igcse_anchors(page_gray[p_mid:, :], igcse_template)
-        entry = data[i]
-        entry["anchors"] = {
+        return i, {
             "top_left": _anc_dict(tl),
             "top_right": _anc_dict(tr),
             "bot_left": _anc_dict(bl),
             "bot_right": _anc_dict(br),
         }
+
+    workers = min(4, os.cpu_count() or 1)
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        for i, anchors in ex.map(_detect_for_page, range(n_side)):
+            data[i]["anchors"] = anchors
     sidecar_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
     ok_line(f"Anchors saved · {format_duration(time.perf_counter() - t1)}")
