@@ -96,7 +96,7 @@ def assign_pages(
         crop = _crop_top(page, fraction=name_crop_fraction)
         img_b64 = page_to_jpeg_b64(crop)
         raw = kimi_image_call(client, img_b64, _NAME_PROMPT, max_tokens=64, model_id=model_id)
-        data = parse_json_safe(raw)
+        data = parse_json_safe(raw) or {}
         raw_name = str(data.get("name", "") or "").strip()
         matched_name = fuzzy_match_name(raw_name, students) if raw_name else None
         info_line(f"Page {i:3d}/{n_pages}: {raw_name!r}  →  {matched_name!r}")

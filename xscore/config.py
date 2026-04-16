@@ -48,7 +48,7 @@ from typing import Any
 # To change the model, either:
 #   1. Edit the line below, OR
 #   2. Set AI_MODEL environment variable (takes precedence)
-# Scope: extraction/benchmarking (extraction/providers/kimi.py, Gemini path) — not xscore.py marking.
+# Scope: extraction/benchmarking (extraction/providers/kimi.py, Kimi path) — not xscore.py marking.
 AI_MODEL = os.getenv("AI_MODEL", "kimi-k2.5")
 
 # Exam layout + prompt + schema (see extraction/profiles/)

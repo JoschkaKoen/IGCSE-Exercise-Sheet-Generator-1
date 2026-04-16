@@ -48,7 +48,7 @@ def _grade_mc(
     for page in pages:
         img_b64 = page_to_jpeg_b64(page)
         raw = kimi_image_call(client, img_b64, _prompt_mc(question))
-        data = parse_json_safe(raw)
+        data = parse_json_safe(raw) or {}
         answer = str(data.get("answer", "?")).upper().strip()
         if answer not in ("", "?"):
             if question.marks is None:
@@ -83,7 +83,7 @@ def _grade_written(
     for page in pages:
         img_b64 = page_to_jpeg_b64(page)
         raw = kimi_image_call(client, img_b64, _prompt_written(question), max_tokens=256)
-        data = parse_json_safe(raw)
+        data = parse_json_safe(raw) or {}
         answer = str(data.get("answer", "")).strip() or "?"
         try:
             marks = max(0.0, min(float(data.get("marks", 0)), float(question.marks)))
@@ -115,7 +115,7 @@ If no red marks are visible, return:
 def _count_marks_on_page(client: KimiChatClient, page) -> dict[str, float]:
     img_b64 = page_to_jpeg_b64(page)
     raw = kimi_image_call(client, img_b64, _COUNT_PROMPT, max_tokens=256)
-    data = parse_json_safe(raw)
+    data = parse_json_safe(raw) or {}
     raw_marks = data.get("marks", {})
     result: dict[str, float] = {}
     for k, v in raw_marks.items():

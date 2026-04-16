@@ -78,7 +78,7 @@ def detect_answered_exercises(
             page = all_pages[page_num - 1]
             img_b64 = page_to_jpeg_b64(page)
             raw = kimi_image_call(client, img_b64, prompt, max_tokens=256)
-            data = parse_json_safe(raw)
+            data = parse_json_safe(raw) or {}
             att = data.get("attempted", [])
             if isinstance(att, list):
                 page_attempted = [str(x) for x in att if x is not None]

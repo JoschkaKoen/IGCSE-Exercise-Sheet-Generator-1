@@ -122,28 +122,34 @@ def kimi_text_call(
     return ""
 
 
-def parse_json_safe(raw: str) -> dict:
+def parse_json_safe(raw: str) -> dict | None:
     """Parse JSON from model text; slice object bounds; light truncation repair.
 
-    Policy aligned with ``extraction.providers.kimi._extract_json_from_text`` (marking
-    returns empty dict on failure; extraction returns None).
+    Returns the parsed dict on success (including an empty ``{}`` if the model
+    genuinely returned one), or ``None`` if the text could not be parsed as a
+    JSON object at all.  Callers should check ``if result is not None`` rather
+    than ``if result`` to avoid treating a valid empty dict as a parse failure.
     """
     text = raw.strip()
     if not text:
-        return {}
+        return None
 
-    def _as_dict(obj: Any) -> dict:
-        return obj if isinstance(obj, dict) else {}
+    def _as_dict(obj: Any) -> dict | None:
+        return obj if isinstance(obj, dict) else None
 
     try:
-        return _as_dict(json.loads(text))
+        result = _as_dict(json.loads(text))
+        if result is not None:
+            return result
     except json.JSONDecodeError:
         pass
 
     start, end = text.find("{"), text.rfind("}")
     if start != -1 and end > start:
         try:
-            return _as_dict(json.loads(text[start : end + 1]))
+            result = _as_dict(json.loads(text[start : end + 1]))
+            if result is not None:
+                return result
         except json.JSONDecodeError:
             pass
 
@@ -153,8 +159,10 @@ def parse_json_safe(raw: str) -> dict:
             fixed = fixed.rstrip() + '"}'
         if not fixed.rstrip().endswith("}"):
             fixed = fixed.rstrip() + "}"
-        return _as_dict(json.loads(fixed))
+        result = _as_dict(json.loads(fixed))
+        if result is not None:
+            return result
     except json.JSONDecodeError:
         pass
 
-    return {}
+    return None

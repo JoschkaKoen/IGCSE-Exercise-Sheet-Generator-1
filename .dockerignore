@@ -12,3 +12,7 @@ venv
 *.egg-info
 .cursor
 *.code-workspace
+logs/
+AGENTS.md
+CLAUDE.md
+Space Physics Unit Test/

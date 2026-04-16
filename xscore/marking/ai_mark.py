@@ -96,9 +96,9 @@ def _mark_page(
             api_latency_line(time.perf_counter() - t0, label="marking")
             raw = resp.choices[0].message.content or ""
             result = parse_json_safe(raw)
-            if result:
+            if result is not None:
                 return result
-            warn_line(f"Marking call returned empty JSON (attempt {attempt}/3) — retrying")
+            warn_line(f"Marking call returned unparseable JSON (attempt {attempt}/3) — retrying")
         except Exception as exc:  # noqa: BLE001
             warn_line(f"Marking API error (attempt {attempt}/3): {exc}")
             if attempt < 3:

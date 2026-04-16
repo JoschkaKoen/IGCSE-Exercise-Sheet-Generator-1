@@ -179,6 +179,7 @@ def _start_ranking_thread(job_id: str, main_pdf: Path, ans_pdf: Path | None) -> 
             else:
                 store.set_ranking_status(job_id, JobStatus.SKIPPED)
         except Exception:  # noqa: BLE001
+            logging.exception("Ranking failed for job %s", job_id)
             store.set_ranking_status(job_id, JobStatus.FAILED)
 
     threading.Thread(target=_run, daemon=True).start()
@@ -202,6 +203,7 @@ async def _run_job(job_id: str, prompt: str) -> None:
     except ExtractionUserError as e:
         store.fail(job_id, str(e))
     except Exception as e:  # noqa: BLE001 — last-resort message for the UI
+        logging.exception("NL job %s failed", job_id)
         store.fail(job_id, f"Unexpected error: {e}")
 
 
@@ -513,9 +515,9 @@ async def create_grade_job(
 
     # Save optional files
     if empty_exam is not None and empty_exam.filename:
-        (folder / "empty_exam.pdf").write_bytes(await empty_exam.read())
+        (folder / "empty_exam.pdf").write_bytes(await _read_limited(empty_exam, "empty_exam"))
     if answer_sheet is not None and answer_sheet.filename:
-        (folder / "answer_sheet.pdf").write_bytes(await answer_sheet.read())
+        (folder / "answer_sheet.pdf").write_bytes(await _read_limited(answer_sheet, "answer_sheet"))
 
     job = store.create()
     _create_background_task(_run_grade_job(job.id, folder, prompt or None))

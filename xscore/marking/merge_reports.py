@@ -167,7 +167,7 @@ def _student_report_to_tex(report: dict) -> str:
         "\\usepackage{booktabs}\n"
         "\\usepackage{longtable}\n"
         "\\usepackage{geometry}\n"
-        "\\geometry{a4paper,margin=2cm}\n"
+        "\\geometry{a4paper,landscape,margin=2cm}\n"
         "\\begin{document}\n"
         f"\\section*{{Student Report: {name}}}\n"
         f"\\textbf{{Total: {total}/{max_m} ({pct_display})}}\n"

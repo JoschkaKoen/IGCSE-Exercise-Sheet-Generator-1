@@ -48,7 +48,7 @@ def _extract_json_from_text(text: str) -> dict | None:
 
     Tries to find complete JSON object even if response was truncated.
     """
-    # Marking-side equivalent: marking.kimi_helpers.parse_json_safe (returns {} on failure).
+    # Marking-side equivalent: marking.kimi_helpers.parse_json_safe (returns None on failure).
     text = text.strip()
 
     # Try direct parsing first

@@ -115,7 +115,7 @@ def parse_prompt(
         return instruction
 
     data = parse_json_safe(raw)
-    if not data:
+    if data is None:
         warn_line("Could not parse AI response — using heuristic parse.")
         return instruction
 
