@@ -130,6 +130,6 @@ def read_student_list(folder: Path) -> list[str]:
         contents=contents,
         config=gen_config,
     )
-    api_latency_line(_time.perf_counter() - _t0)
+    api_latency_line(time.perf_counter() - _t0)
     # JSON mode guarantees valid JSON; direct parse is safe
     return json.loads(response.text)

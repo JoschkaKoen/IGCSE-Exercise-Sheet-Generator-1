@@ -55,6 +55,8 @@ def _merge_student_pages(
     - If only one page has assigned_marks, use that entry.
     - If both pages have assigned_marks, take the higher value.
     """
+    from xscore.shared.exam_paths import artifact_marked_json_path
+
     merged_questions: dict[str, dict] = {}
 
     for p in range(1, pages_per_student + 1):
