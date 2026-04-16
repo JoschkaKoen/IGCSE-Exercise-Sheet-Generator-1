@@ -135,14 +135,19 @@ def _flatten_leaf_questions(questions: list[dict]) -> list[dict]:
     return result
 
 
-def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
+def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
     Reads page assignments from ``10_exam_student_list.json`` (written by step 10)
     so each student's scan pages are determined by name detection, not position.
-    Students are processed in parallel (MARKING_WORKERS env var, default 4).
+    Students are processed in parallel (MARKING_WORKERS env var, default varies with cpu_count).
+    *dpi* defaults to ``PIPELINE_DEFAULT_DPI`` when not supplied.
     Returns a list of API call timing records for step 14.
     """
+    from xscore.config import PIPELINE_DEFAULT_DPI
+    if dpi is None:
+        dpi = PIPELINE_DEFAULT_DPI
+
     import fitz
 
     from eXercise.ai_client import make_ai_client
@@ -174,7 +179,7 @@ def run_ai_marking(ctx: Any, *, dpi: int = 150) -> list[dict]:
         pg = int(q.get("page") or 0)
         page_questions.setdefault(pg, []).append(q)
 
-    workers = int(os.environ.get("MARKING_WORKERS", "4"))
+    workers = int(os.environ.get("MARKING_WORKERS", str(min(os.cpu_count() or 4, 16))))
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
 

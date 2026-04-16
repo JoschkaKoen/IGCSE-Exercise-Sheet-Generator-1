@@ -464,7 +464,6 @@ def _step10_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
     ctx.page_assignments = gi.assign_pages(
         ctx.cleaned_pdf,
         ctx.students or [],
-        dpi=ctx.instruction.dpi,
         pages_per_student=ctx.pages_per_student,
     )
     json_path = gi.artifact_exam_student_list_json_path(ctx.artifact_dir)
@@ -510,7 +509,7 @@ def _step12_mark(ctx: _Ctx, gi: SimpleNamespace) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     gi.pipeline_step(12, "AI marking")
     t0 = time.perf_counter()
-    ctx.marking_api_calls = gi.run_ai_marking(ctx)
+    ctx.marking_api_calls = gi.run_ai_marking(ctx, dpi=ctx.instruction.dpi)
     gi.ok_line(
         f"{len(ctx.marking_api_calls)} API calls  ·  "
         f"{ctx.num_students * ctx.pages_per_student} pages marked"

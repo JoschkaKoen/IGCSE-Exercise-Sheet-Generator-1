@@ -180,10 +180,10 @@ GROUND_TRUTH_PATH = Path(__file__).resolve().parent / "Ground Truth "
 # =============================================================================
 
 # DPI used when rendering pages for the main grading pass
-PIPELINE_DEFAULT_DPI = 400
+PIPELINE_DEFAULT_DPI = 300
 
 # DPI used for quick name-recognition crops (lower = faster, sufficient for names)
-NAME_RECOGNITION_DPI = 200
+NAME_RECOGNITION_DPI = 300
 
 # Fraction of the page height to crop for name detection (top strip only)
 NAME_CROP_FRACTION = 0.15
@@ -193,8 +193,8 @@ NAME_CROP_FRACTION = 0.15
 PIPELINE_AI_MODEL = "kimi-k2.5"
 
 # Inter-call delays in the marking pipeline (rate limiting). Override via env if needed.
-GRADE_QUESTION_DELAY_S: float = float(os.getenv("GRADE_QUESTION_DELAY_S", "0.15"))
-PAGE_API_DELAY_S: float = float(os.getenv("PAGE_API_DELAY_S", "0.2"))
+GRADE_QUESTION_DELAY_S: float = float(os.getenv("GRADE_QUESTION_DELAY_S", "0.0"))
+PAGE_API_DELAY_S: float = float(os.getenv("PAGE_API_DELAY_S", "0.0"))
 
 
 def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = False) -> None:

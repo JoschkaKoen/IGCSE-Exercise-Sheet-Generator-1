@@ -34,6 +34,8 @@ import pytesseract
 from pdf2image import convert_from_path
 from PIL import Image
 
+from xscore.config import PIPELINE_DEFAULT_DPI
+
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
@@ -596,7 +598,7 @@ def detect_page_anchors_for_cleaned_scan(
 def deskew_pdf_raster(
     input_pdf: Path,
     output_pdf: Path,
-    dpi: int = 300,
+    dpi: int = PIPELINE_DEFAULT_DPI,
     *,
     reflines_sidecar: Path | None = None,
     saved_as: str | None = None,

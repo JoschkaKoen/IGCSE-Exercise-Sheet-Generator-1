@@ -11,6 +11,7 @@ import re
 import time
 
 from .kimi_helpers import parse_json_safe
+from xscore.config import PIPELINE_DEFAULT_DPI
 from xscore.shared.models import StudentFilter, TaskInstruction
 from xscore.shared.terminal_ui import api_latency_line, info_line, warn_line
 
@@ -153,9 +154,9 @@ def parse_prompt(
 
     raw_dpi = data.get("dpi")
     try:
-        parsed_dpi = int(raw_dpi) if raw_dpi is not None and raw_dpi != "" else 400
+        parsed_dpi = int(raw_dpi) if raw_dpi is not None and raw_dpi != "" else PIPELINE_DEFAULT_DPI
     except (TypeError, ValueError):
-        parsed_dpi = 400
+        parsed_dpi = PIPELINE_DEFAULT_DPI
     dpi = dpi_override or parsed_dpi
     raw_hint = data.get("folder_hint")
     folder_hint = str(raw_hint).strip() if raw_hint not in (None, "") else None
@@ -221,7 +222,7 @@ def _heuristic_fallback(prompt: str, dpi_override: int | None) -> TaskInstructio
             if k > 0:
                 student_filter = StudentFilter(mode="first_n", n=k)
 
-    dpi = dpi_override or (300 if ("fast" in p or "quick" in p) else 400)
+    dpi = dpi_override or PIPELINE_DEFAULT_DPI
 
     skip_clean = "skip" in p and ("clean" in p or "deskew" in p or "scan" in p)
     force_clean = ("force" in p and "clean" in p) or "re-clean" in p or "reclean" in p.replace(" ", "")
