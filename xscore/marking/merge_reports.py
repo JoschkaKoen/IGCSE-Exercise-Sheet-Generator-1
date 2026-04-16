@@ -210,7 +210,7 @@ def _class_report_to_tex(report: dict) -> str:
         "\\geometry{a4paper,margin=2cm}\n"
         "\\begin{document}\n"
         "\\section*{Class Report}\n"
-        f"\\textbf{{Class average: {'N/A' if report['class_average_pct'] is None else str(report['class_average_pct']) + r'\\%'}}} \\quad\n"
+        f"\\textbf{{Class average: {'N/A' if report['class_average_pct'] is None else str(report['class_average_pct']) + '\\%'}}} \\quad\n"
         f"\\textbf{{Max marks: {report['total_max_marks']}}}\n"
         "\\vspace{1em}\n\n"
         "\\subsection*{Student Summary}\n"

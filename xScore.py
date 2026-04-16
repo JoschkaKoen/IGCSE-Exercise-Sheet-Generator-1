@@ -542,10 +542,7 @@ def _step14_timing(ctx: _Ctx, gi: SimpleNamespace) -> None:
     assert ctx.artifact_dir is not None
     gi.pipeline_step(14, "Timing summary")
     t0 = time.perf_counter()
-    ctx.step_timings_marking["step_14_s"] = 0.0  # will be updated below
-    gi.write_timing_report(ctx.artifact_dir, ctx.step_timings_marking, ctx.marking_api_calls)
     ctx.step_timings_marking["step_14_s"] = round(time.perf_counter() - t0, 3)
-    # Rewrite with accurate step 14 duration
     gi.write_timing_report(ctx.artifact_dir, ctx.step_timings_marking, ctx.marking_api_calls)
 
 
