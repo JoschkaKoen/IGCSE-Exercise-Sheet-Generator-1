@@ -80,8 +80,10 @@ def _mark_page(
         "  • student_answer: what the student wrote (for multiple_choice: a single letter A–D)\n"
         "  • assigned_marks: an integer between 0 and max_marks\n"
         "  • reasoning: a brief justification for the marks awarded\n"
-        "Write all text in LaTeX-safe format: $...$ for math (e.g. \"$10^{3}$\", \"$v_0 = 5$ m/s\"), "
-        "\\% for percent signs, \\& for ampersands."
+        "IMPORTANT — LaTeX formatting: any expression containing ^, _, or math operators MUST "
+        "be wrapped in $...$ (e.g. write \"$10^{3}$\", \"$v_0 = 5$ m/s\", never \"10^3\" or "
+        "\"v_0 = 5 m/s\"). Also write \\% for percent signs, \\& for ampersands. Failing to "
+        "use math mode for such expressions will crash the PDF renderer."
     )
     if rows > 1 or cols > 1:
         grid_desc = "\n".join(
@@ -94,7 +96,13 @@ def _mark_page(
             f"{grid_desc}\n"
             "Each question in the template carries subpage_row and subpage_col that tell you "
             "which quadrant it lives in. Use these coordinates to locate the correct answer "
-            "bubble — do not confuse questions from different quadrants with each other."
+            "bubble — do not confuse questions from different quadrants with each other.\n"
+            "IMPORTANT — question number matching: template question numbers may not match the "
+            "printed number on the image — e.g. two questions both printed as '38' in different "
+            "quadrants appear as '38' and '38_2' in the template. Locate each question using "
+            "subpage_row, subpage_col, and question_text. Do not reproduce question_text or "
+            "answer_options in your response — fill in only student_answer, assigned_marks, "
+            "and reasoning."
         )
     user_text = (
         f"Marking criteria:\n{criteria_text}\n\n"
@@ -150,6 +158,17 @@ def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1
             c = int(q.get("subpage_col") or 1)
             label = _QUADRANT_LABELS.get((r, c), f"quadrant ({r},{c})")
             line += f"  (sub-page row {r}, col {c} — {label})"
+        question_text = (q.get("text") or q.get("question_text") or "").strip()
+        if question_text:
+            line += f"\n  Question: \"{question_text}\""
+        answer_options = q.get("answer_options") or []
+        if answer_options:
+            opts_str = "  ".join(
+                f"{o.get('letter', '?')}) {o.get('text', '')}"
+                for o in answer_options
+                if isinstance(o, dict)
+            )
+            line += f"\n  Options: {opts_str}"
         if q.get("correct_answer"):
             line += f"\n  Correct answer: {q['correct_answer']}"
         if q.get("marking_criteria"):

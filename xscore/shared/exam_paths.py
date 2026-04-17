@@ -14,8 +14,8 @@ SUBDIR_REPORTS  = "reports"
 
 
 def artifact_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Path for a saved AI prompt: ``<artifact_dir>/prompts/<name>.json``."""
-    return artifact_dir / SUBDIR_PROMPTS / f"{name}.json"
+    """Path for a saved AI prompt: ``<artifact_dir>/prompts/<name>.md``."""
+    return artifact_dir / SUBDIR_PROMPTS / f"{name}.md"
 
 
 def safe_path_stem(stem: str) -> str:

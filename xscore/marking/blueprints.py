@@ -28,6 +28,11 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
                 "question_type": q.question_type,
                 "subpage_row": q.subpage_row,
                 "subpage_col": q.subpage_col,
+                "question_text": (q.text or "")[:200],
+                "answer_options": [
+                    {"letter": o.letter, "text": o.text}
+                    for o in (q.answer_options or [])
+                ],
                 "max_marks": q.marks,
                 "student_answer": "",
                 "assigned_marks": None,

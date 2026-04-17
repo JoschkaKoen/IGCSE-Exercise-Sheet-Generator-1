@@ -39,6 +39,16 @@ def _latex_escape(text: str) -> str:
     return _LATEX_RE.sub(lambda m: _LATEX_MAP[m.group()], text)
 
 
+def _latex_escape_smart(text: str) -> str:
+    """Apply _latex_escape to non-math parts of *text*, leaving $...$ blocks intact."""
+    parts = re.split(r"(\$[^$]+\$)", text)
+    return "".join(
+        part if (part.startswith("$") and part.endswith("$") and len(part) > 1)
+        else _latex_escape(part)
+        for part in parts
+    )
+
+
 # ---------------------------------------------------------------------------
 # Per-student merge
 # ---------------------------------------------------------------------------
@@ -194,10 +204,10 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
-        answer = "\\textit{(blank)}" if not answer_raw else answer_raw
+        answer = "\\textit{(blank)}" if not answer_raw else _latex_escape_smart(answer_raw)
         correct_raw = str(q.get("correct_answer") or "").strip()
-        correct_ans = "---" if not correct_raw else correct_raw
-        reasoning = str(q.get("reasoning") or "")
+        correct_ans = "---" if not correct_raw else _latex_escape_smart(correct_raw)
+        reasoning = _latex_escape_smart(str(q.get("reasoning") or ""))
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(
             f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\"
