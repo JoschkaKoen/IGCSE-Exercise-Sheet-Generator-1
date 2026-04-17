@@ -13,6 +13,9 @@ venv
 .cursor
 *.code-workspace
 logs/
+exams/
+output/
+screenshots/
 AGENTS.md
 CLAUDE.md
 Space Physics Unit Test/
