@@ -89,7 +89,7 @@ Extract marking information for every question from this mark scheme.
 
 Return a FLAT list — do not recreate nesting. For each entry:
 - "number": question label in run-together form matching the exam paper (e.g. "9a", "9ai", "38")
-- "correct_answer": model answer string; for multiple-choice just the letter ("A"/"B"/"C"/"D"); null if not applicable
+- "correct_answer": model answer in LaTeX-safe text — use $...$ for inline math (e.g. "$1.5 \\times 10^{11}$ m", "$v_0$"), \\% for percent signs, \\& for ampersands; for multiple-choice just the letter; null if not applicable
 - "mark_scheme": [{"mark": "B1/M1/A1/...", "criterion": "text"}, ...]
 
 Return ONLY valid JSON: {"questions": [...]}

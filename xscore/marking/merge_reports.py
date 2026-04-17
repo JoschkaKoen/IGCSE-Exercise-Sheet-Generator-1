@@ -134,8 +134,9 @@ def _student_report_to_md(report: dict) -> str:
         awarded_str = "*?*" if awarded is None else str(awarded)
         correct = str(q.get("correct_answer") or "—").replace("|", "/")
         reasoning = str(q.get("reasoning") or "").replace("|", "/")
+        qtype_md = str(q.get("question_type", "")).replace("_", " ").title()
         lines.append(
-            f"| {q.get('number', '')} | {q.get('question_type', '')} | "
+            f"| {q.get('number', '')} | {qtype_md} | "
             f"{q.get('max_marks', '')} | {awarded_str} | {answer} | {correct} | {reasoning} |"
         )
     return "\n".join(lines) + "\n"
@@ -189,14 +190,14 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
     rows = []
     for q in report["questions"]:
         qnum = _latex_escape(str(q.get("number", "")))
-        qtype = _latex_escape(str(q.get("question_type", "")))
+        qtype = str(q.get("question_type", "")).replace("_", " ").title()
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
-        answer = "\\textit{(blank)}" if not answer_raw else _latex_escape(answer_raw)
+        answer = "\\textit{(blank)}" if not answer_raw else answer_raw
         correct_raw = str(q.get("correct_answer") or "").strip()
-        correct_ans = "---" if not correct_raw else _latex_escape(correct_raw)
-        reasoning = _latex_escape(str(q.get("reasoning") or ""))
+        correct_ans = "---" if not correct_raw else correct_raw
+        reasoning = str(q.get("reasoning") or "")
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(
             f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\"

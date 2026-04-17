@@ -79,7 +79,9 @@ def _mark_page(
         "or remove keys. For each question:\n"
         "  • student_answer: what the student wrote (for multiple_choice: a single letter A–D)\n"
         "  • assigned_marks: an integer between 0 and max_marks\n"
-        "  • reasoning: a brief justification for the marks awarded"
+        "  • reasoning: a brief justification for the marks awarded\n"
+        "Write all text in LaTeX-safe format: $...$ for math (e.g. \"$10^{3}$\", \"$v_0 = 5$ m/s\"), "
+        "\\% for percent signs, \\& for ampersands."
     )
     if rows > 1 or cols > 1:
         grid_desc = "\n".join(

@@ -6,7 +6,13 @@ import json
 from pathlib import Path
 
 _STEP_LABELS: dict[str, str] = {
-    "step_10_s": "Name detection (10)",
+    "step_4_s": "Blank pages (4)",
+    "step_5_s": "Autorotate (5)",
+    "step_6_s": "Deskew (6)",
+    "step_7_s": "Exam geometry (7)",
+    "step_8_s": "Parse exam PDF (8)",
+    "step_9_s": "Parse mark scheme (9)",
+    "step_10_s": "Merge scaffold (10)",
     "step_11_s": "Blueprints (11)",
     "step_12_s": "AI marking (12)",
     "step_13_s": "Reports (13)",

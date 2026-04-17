@@ -8,14 +8,14 @@ Steps:
   1. Parse the natural language prompt (via Kimi).
   2. Locate the exam folder.
   3. Read the student roster from StudentList.xlsx.
-  4. AI: parse exam PDF → question hierarchy → 4_exam_questions.json + 4_exam_questions.md.
-  5. AI: parse mark scheme → correct answers + criteria → 5_mark_scheme.json + 5_mark_scheme.md.
-  6. Merge scaffold → 6_scaffold.json + 6_scaffold.md.
-  7. Detect blank scan pages.
-  8. Autorotate (remove blanks, apply /Rotate metadata).
-  9. Deskew (small-angle per-half correction) → 3_cleaned_scan.pdf.
- 10. Assign scan pages to students (name OCR via Kimi) → 10_exam_student_list.json.
- 11. Project scaffold boxes onto scanned pages → 11_page_data.json.
+  4. Detect blank scan pages.
+  5. Autorotate (remove blanks, apply /Rotate metadata).
+  6. Deskew (small-angle per-half correction) → 3_cleaned_scan.pdf.
+  7. Assign scan pages to students (name OCR via Kimi) → 10_exam_student_list.json.
+  8. AI: parse exam PDF → question hierarchy + layout → 4_exam_questions.json + 4_exam_questions.md.
+  9. AI: parse mark scheme → correct answers + criteria → 5_mark_scheme.json + 5_mark_scheme.md.
+ 10. Merge scaffold → 6_scaffold.json + 6_scaffold.md.
+ 11. Build per-page AI marking blueprints → 11_ai_marking_blueprint_N.json.
  12. AI: grade each student page (Kimi) → 12_marked_*.json.
  13. Merge per-page results into student and class reports → 13_student_report_*.json + PDF.
  14. Produce final graded summary.
@@ -357,24 +357,24 @@ def _step03_students(ctx: _Ctx, gi: SimpleNamespace) -> None:
         raise SystemExit(0)
 
 
-def _step04_05_06_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Steps 4 (parse exam PDF), 5 (parse mark scheme), and 6 (merge scaffold)."""
+def _step08_09_10_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Steps 8 (parse exam PDF), 9 (parse mark scheme), and 10 (merge scaffold)."""
     assert ctx.folder is not None and ctx.artifact_dir is not None
-    gi.pipeline_step(4, "AI API call — Parse exam PDF")
+    gi.pipeline_step(8, "AI API call — Parse exam PDF")
 
     def _on_exam_done(raw_questions: list) -> None:
         gi.ok_line(f"{len(raw_questions)} top-level questions extracted")
-        if ctx.through_step == 4:
-            ctx.partial_stop_step = 4
+        if ctx.through_step == 8:
+            ctx.partial_stop_step = 8
             raise SystemExit(0)
-        gi.pipeline_step(5, "AI API call — Parse mark scheme")
+        gi.pipeline_step(9, "AI API call — Parse mark scheme")
 
     def _on_scheme_done(scheme_questions: list) -> None:
         gi.ok_line(f"{len(scheme_questions)} answers in mark scheme")
-        if ctx.through_step == 5:
-            ctx.partial_stop_step = 5
+        if ctx.through_step == 9:
+            ctx.partial_stop_step = 9
             raise SystemExit(0)
-        gi.pipeline_step(6, "Create report")
+        gi.pipeline_step(10, "Create report")
 
     try:
         ctx.scaffold = gi.build_scaffold(
@@ -390,20 +390,20 @@ def _step04_05_06_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
         )
     except FileNotFoundError as exc:
         gi.warn_line(f"No exam PDF found — scaffold skipped ({exc})")
-    if ctx.through_step == 6:
-        ctx.partial_stop_step = 6
+    if ctx.through_step == 10:
+        ctx.partial_stop_step = 10
         raise SystemExit(0)
 
 
 def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Steps 7–9: blank detection → autorotate → deskew."""
+    """Steps 4–6: blank detection → autorotate → deskew."""
     assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
     ad = ctx.artifact_dir
     dpi = ctx.instruction.dpi
     cleaned_path = ad / gi.CLEANED_SCAN_PDF
 
     if ctx.skip_clean_scan:
-        gi.pipeline_step(7, "Detect blank pages")
+        gi.pipeline_step(4, "Detect blank pages")
         legacy_cleaned = ctx.folder / gi.CLEANED_SCAN_PDF
         if cleaned_path.exists():
             ctx.cleaned_pdf = cleaned_path
@@ -423,7 +423,7 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     match = gi.find_source_scan_match(ctx.folder, ad, dpi)
 
     # Use cache when doing a full run (not stopping mid-scan)
-    partial_scan = ctx.through_step is not None and 7 <= ctx.through_step <= 9
+    partial_scan = ctx.through_step is not None and 4 <= ctx.through_step <= 6
     cache_ok = (
         not partial_scan
         and not ctx.force_clean_scan
@@ -431,50 +431,50 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
         and cleaned_path.stat().st_mtime >= match.stat().st_mtime
     )
     if cache_ok:
-        gi.pipeline_step(7, "Detect blank pages")
-        gi.info_line("Using cached cleaned scan (steps 7–9 skipped).")
+        gi.pipeline_step(4, "Detect blank pages")
+        gi.info_line("Using cached cleaned scan (steps 4–6 skipped).")
         ctx.cleaned_pdf = cleaned_path
         return
 
     from xscore.config import ROTATION_ANALYSIS_DPI
-    gi.pipeline_step(7, "Detect blank pages")
+    gi.pipeline_step(4, "Detect blank pages")
     t0_7 = time.perf_counter()
     gi.detect_blank_pages_phase(match, ad, analysis_dpi=ROTATION_ANALYSIS_DPI, force_clean_scan=ctx.force_clean_scan)
-    (ad / "meta" / "7_blank_detection_summary.json").write_text(
-        json.dumps({"step": 7, "elapsed_s": round(time.perf_counter() - t0_7, 3), "status": "ok"}, indent=2),
+    (ad / "meta" / "4_blank_detection_summary.json").write_text(
+        json.dumps({"step": 4, "elapsed_s": round(time.perf_counter() - t0_7, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
-    if ctx.through_step == 7:
-        ctx.partial_stop_step = 7
+    if ctx.through_step == 4:
+        ctx.partial_stop_step = 4
         raise SystemExit(0)
 
-    gi.pipeline_step(8, "Autorotate")
+    gi.pipeline_step(5, "Autorotate")
     t0_rot = time.perf_counter()
     gi.autorotate_phase(ad)
     elapsed_rot = time.perf_counter() - t0_rot
     gi.info_line(gi.format_duration(elapsed_rot))
-    (ad / "meta" / "8_autorotate_summary.json").write_text(
-        json.dumps({"step": 8, "elapsed_s": round(elapsed_rot, 3), "status": "ok"}, indent=2),
+    (ad / "meta" / "5_autorotate_summary.json").write_text(
+        json.dumps({"step": 5, "elapsed_s": round(elapsed_rot, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
-    if ctx.through_step == 8:
-        ctx.partial_stop_step = 8
+    if ctx.through_step == 5:
+        ctx.partial_stop_step = 5
         raise SystemExit(0)
 
-    gi.pipeline_step(9, "Deskew")
+    gi.pipeline_step(6, "Deskew")
     t0_9 = time.perf_counter()
     ctx.cleaned_pdf = gi.deskew_phase(ctx.folder, ad, dpi)
-    (ad / "meta" / "9_deskew_summary.json").write_text(
-        json.dumps({"step": 9, "elapsed_s": round(time.perf_counter() - t0_9, 3), "status": "ok"}, indent=2),
+    (ad / "meta" / "6_deskew_summary.json").write_text(
+        json.dumps({"step": 6, "elapsed_s": round(time.perf_counter() - t0_9, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
-    if ctx.through_step == 9:
-        ctx.partial_stop_step = 9
+    if ctx.through_step == 6:
+        ctx.partial_stop_step = 6
         raise SystemExit(0)
 
 
 # ---------------------------------------------------------------------------
-# Marking pipeline steps (10–14)
+# Marking pipeline steps (7–14)
 # ---------------------------------------------------------------------------
 
 def _exam_pdf_page_count(folder: Path) -> int:
@@ -485,10 +485,10 @@ def _exam_pdf_page_count(folder: Path) -> int:
         return doc.page_count
 
 
-def _step10_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 10 — Count scan/exam pages, derive student count."""
+def _step07_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 7 — Count scan/exam pages, derive student count."""
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
-    gi.pipeline_step(10, "Exam geometry")
+    gi.pipeline_step(7, "Exam geometry")
     t0 = time.perf_counter()
     exam_pages = ctx.scaffold.page_count if ctx.scaffold else _exam_pdf_page_count(ctx.folder)
     geo = gi.compute_geometry(ctx.cleaned_pdf, exam_pages, ctx.students or [])
@@ -533,9 +533,9 @@ def _step10_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
             "Step 12 will use the scan-detected list."
         )
 
-    ctx.step_timings_marking["step_10_s"] = time.perf_counter() - t0
-    if ctx.through_step == 10:
-        ctx.partial_stop_step = 10
+    ctx.step_timings_marking["step_07_s"] = time.perf_counter() - t0
+    if ctx.through_step == 7:
+        ctx.partial_stop_step = 7
         raise SystemExit(0)
 
 
@@ -629,8 +629,8 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         _step03_students(ctx, gi)
         _scan_phases(ctx, gi)
         if ctx.cleaned_pdf:
-            _step10_geometry(ctx, gi)
-        _step04_05_06_scaffold(ctx, gi)
+            _step07_geometry(ctx, gi)
+        _step08_09_10_scaffold(ctx, gi)
         if ctx.cleaned_pdf and ctx.scaffold:
             _step11_blueprints(ctx, gi)
             _step12_mark(ctx, gi)
