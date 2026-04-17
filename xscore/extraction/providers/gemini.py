@@ -16,7 +16,6 @@ from xscore.config import (
     ENSEMBLE_CALLS,
     GEMINI_MAX_OUTPUT_TOKENS,
     GEMINI_TEMPERATURE,
-    GEMINI_THINKING,
     GEMINI_THINKING_BUDGET,
     MAX_RETRIES,
     RETRY_BACKOFF_S,
@@ -76,7 +75,7 @@ class GeminiProvider:
             response_mime_type="application/json",
             response_schema=schema,
             thinking_config=types.ThinkingConfig(
-                thinking_budget=GEMINI_THINKING_BUDGET if GEMINI_THINKING else 0
+                thinking_budget=GEMINI_THINKING_BUDGET,  # 0 = off, >0 = on
             ),
         )
 

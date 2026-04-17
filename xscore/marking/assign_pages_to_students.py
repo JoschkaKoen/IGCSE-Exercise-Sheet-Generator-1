@@ -27,7 +27,7 @@ from .kimi_helpers import kimi_image_call, page_to_jpeg_b64, parse_json_safe
 from xscore.shared.models import PageAssignment
 
 
-_NAME_PROMPT = """\
+_NAME_PROMPT_FREEFORM = """\
 Look at the top of this exam page for the student's HANDWRITTEN name.
 
 Ignore all pre-printed or typed text: exam codes, stamps, watermarks, \
@@ -38,6 +38,26 @@ Return ONLY a JSON object:
 
 If no handwritten name is visible or the name field is blank, return:
 {"name": ""}
+"""
+
+
+def _make_name_prompt(students: list[str]) -> str:
+    roster = "\n".join(f"  - {s}" for s in students)
+    return f"""\
+Look at the top of this exam page for the student's HANDWRITTEN name.
+
+Ignore all pre-printed or typed text: exam codes, stamps, watermarks, \
+school names, or labels (e.g. "EMPL", "EMPI", page numbers).
+
+Here is the official student roster:
+{roster}
+
+Return ONLY a JSON object with the roster name that best matches the \
+handwritten name, spelled EXACTLY as it appears in the roster above:
+{{"name": "FirstName LastName"}}
+
+If no handwritten name is visible or none of the roster entries match, return:
+{{"name": ""}}
 """
 
 
@@ -90,12 +110,13 @@ def assign_pages(
     # Parallel OCR + fuzzy-match: each worker crops one page, calls the vision
     # model, and immediately fuzzy-matches the result against the roster.
     workers = int(os.environ.get("NAME_WORKERS", str(min(n_pages, 8))))
+    prompt = _make_name_prompt(students) if students else _NAME_PROMPT_FREEFORM
 
     def _ocr_and_match(args: tuple[int, Any]) -> tuple[int, str | None]:
         i, page = args
         crop = _crop_top(page, fraction=name_crop_fraction)
         img_b64 = page_to_jpeg_b64(crop)
-        raw = kimi_image_call(client, img_b64, _NAME_PROMPT, max_tokens=64, model_id=model_id)
+        raw = kimi_image_call(client, img_b64, prompt, max_tokens=64, model_id=model_id)
         data = parse_json_safe(raw) or {}
         raw_name = str(data.get("name", "") or "").strip()
         matched_name = fuzzy_match_name(raw_name, students) if raw_name else None

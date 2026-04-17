@@ -141,16 +141,10 @@ GEMINI_TEMPERATURE: float = float(os.getenv("GEMINI_TEMPERATURE", "0.1"))
 # Maximum output tokens for Gemini response.
 GEMINI_MAX_OUTPUT_TOKENS: int = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "32000"))
 
-# Enable extended thinking for Gemini 2.5+ models.
-# True  → model reasons step-by-step before answering (slower, uses more tokens).
-# False → thinking disabled (thinking_budget=0); faster and cheaper.
-_gemini_thinking = os.getenv("GEMINI_THINKING", "").strip().lower()
-GEMINI_THINKING: bool = _gemini_thinking in ("1", "true", "yes", "on")
-
-# Token budget for Gemini's internal reasoning (only used when GEMINI_THINKING = True).
-# Higher values allow deeper reasoning; lower values constrain it.
-# Recommended range: 512–8192. Gemini 2.5 Flash cap is 24576.
-GEMINI_THINKING_BUDGET: int = int(os.getenv("GEMINI_THINKING_BUDGET", "2048"))
+# Token budget for Gemini's internal reasoning (xScore extraction only).
+# 0 = thinking off (default). Set >0 to enable; 8192 recommended for the spatial task.
+# Gemini 2.5 Flash ceiling: 24 576. Pro ceiling: 32 768.
+GEMINI_THINKING_BUDGET: int = int(os.getenv("GEMINI_THINKING_BUDGET", "0"))
 
 # =============================================================================
 # Kimi Model Parameters
@@ -161,12 +155,6 @@ KIMI_MAX_TOKENS: int = int(os.getenv("KIMI_MAX_TOKENS", "8192"))
 
 # Token cap for parse_prompt (JSON ~120 tokens; 512 is a safe ceiling).
 PARSE_PROMPT_MAX_TOKENS = 512
-
-# Enable extended thinking for kimi-k2.x models.
-# True  → model reasons step-by-step before answering (slower, uses more tokens).
-# False → thinking disabled; faster and cheaper, usually sufficient for OCR.
-_kimi_thinking = os.getenv("KIMI_THINKING", "").strip().lower()
-KIMI_THINKING: bool = _kimi_thinking in ("1", "true", "yes", "on")
 
 # =============================================================================
 # Paths and File Handling

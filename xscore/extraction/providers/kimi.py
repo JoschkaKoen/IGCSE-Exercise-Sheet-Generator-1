@@ -14,7 +14,6 @@ from pydantic import BaseModel, ValidationError
 from xscore.config import (
     AI_MODEL,
     KIMI_MAX_TOKENS,
-    KIMI_THINKING,
     MAX_RETRIES,
     RETRY_BACKOFF_S,
     apply_kimi_k2_extra,
@@ -181,7 +180,7 @@ class KimiProvider:
                     max_tokens=KIMI_MAX_TOKENS,
                     response_format={"type": "json_object"},
                 )
-                apply_kimi_k2_extra(AI_MODEL, kwargs, thinking=KIMI_THINKING)
+                apply_kimi_k2_extra(AI_MODEL, kwargs, thinking=False)
                 _t0 = time.perf_counter()
                 response = client.chat.completions.create(**kwargs)
                 api_latency_line(time.perf_counter() - _t0)
