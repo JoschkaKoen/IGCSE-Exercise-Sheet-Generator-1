@@ -176,25 +176,17 @@ def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
 
 
 def artifact_marked_json_path(artifact_dir: Path, student: str, page: int) -> Path:
-    """Step 12: AI-filled marking blueprint for one student's scan page.
-
-    Uses a CRC32 hash of the original name to disambiguate names that collide
-    after sanitisation (e.g. "John Doe" and "John_Doe" both become "John_Doe").
-    """
+    """Step 12: AI-filled marking blueprint for one student's scan page."""
     import re
-    from binascii import crc32
     safe = re.sub(r"[^\w]", "_", student)
-    discriminator = crc32(student.encode()) & 0xFFFFFFFF
-    return artifact_dir / f"12_marked_{safe}_{discriminator:08x}_{page}.json"
+    return artifact_dir / f"12_marked_{safe}_{page}.json"
 
 
 def artifact_marked_md_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Step 12: human-readable marking result for one student's scan page."""
     import re
-    from binascii import crc32
     safe = re.sub(r"[^\w]", "_", student)
-    discriminator = crc32(student.encode()) & 0xFFFFFFFF
-    return artifact_dir / f"12_marked_{safe}_{discriminator:08x}_{page}.md"
+    return artifact_dir / f"12_marked_{safe}_{page}.md"
 
 
 def artifact_student_report_json_path(artifact_dir: Path, student: str) -> Path:

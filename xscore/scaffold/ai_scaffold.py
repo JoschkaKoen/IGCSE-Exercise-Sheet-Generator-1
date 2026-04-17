@@ -228,7 +228,7 @@ def build_ai_scaffold(
     thinking_map = {"off": 0, "low": 1024, "high": 8192}
 
     def _make_gen_config(effort: str | None, system: str) -> "gai_types.GenerateContentConfig":
-        cfg: dict = {"max_output_tokens": 16384, "response_mime_type": "application/json"}
+        cfg: dict = {"max_output_tokens": 65536, "response_mime_type": "application/json"}
         if effort in thinking_map:
             cfg["thinking_config"] = gai_types.ThinkingConfig(
                 thinking_budget=thinking_map[effort],
