@@ -23,6 +23,9 @@ def _parse_question_tokens(tokens: list[str]) -> list[int]:
                 print(f"Invalid range: {arg}", file=sys.stderr)
                 sys.exit(1)
             start, end = int(parts[0]), int(parts[1])
+            if start > end:
+                print(f"Invalid range '{arg}': start must be ≤ end", file=sys.stderr)
+                sys.exit(1)
             requested.extend(range(start, end + 1))
         else:
             requested.append(int(arg))

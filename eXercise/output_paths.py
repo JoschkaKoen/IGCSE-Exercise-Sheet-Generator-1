@@ -1,24 +1,25 @@
 # -*- coding: utf-8 -*-
 """Run output directory and bare-filename resolution."""
 
+import threading
 from pathlib import Path
 
 from .config import OUTPUT_DIR
 
 _CURRENT_RUN_DIR: Path | None = None
-_RUN_COMMAND: str | None = None
+_tls = threading.local()
 
 
 def set_run_command(command: str) -> None:
     """Store the command/prompt that initiated this run (written into the output dir)."""
-    global _RUN_COMMAND
-    _RUN_COMMAND = command
+    _tls.run_command = command
 
 
 def _write_command_txt(run_dir: Path) -> None:
     """Write command.txt into *run_dir* if a command has been stored."""
-    if _RUN_COMMAND:
-        (run_dir / "command.txt").write_text(_RUN_COMMAND, encoding="utf-8")
+    cmd = getattr(_tls, "run_command", None)
+    if cmd:
+        (run_dir / "command.txt").write_text(cmd, encoding="utf-8")
 
 
 def _create_run_dir(label: str | None = None) -> Path:

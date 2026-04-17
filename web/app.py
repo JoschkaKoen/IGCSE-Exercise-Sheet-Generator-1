@@ -309,6 +309,10 @@ async def job_status(request: Request, job_id: str) -> JSONResponse:
         "status": rec.status,
         "error": rec.error,
         "log_line": rec.log_line or "",
+        "steps": [
+            {"num": s.num, "name": s.name, "status": s.status, "elapsed_s": s.elapsed_s}
+            for s in rec.steps
+        ],
     }
     if rec.status == JobStatus.DONE and rec.output_pdf is not None:
         out["download_url"] = f"{base}/api/jobs/{job_id}/file"
@@ -447,10 +451,27 @@ async def library_file(subject: str, filename: str) -> FileResponse:
 
 
 # ---------------------------------------------------------------------------
-# Grade jobs — scan pipeline (steps 1, 3, 5–7)
+# Grade jobs — full xScore pipeline (steps 1–14)
 # ---------------------------------------------------------------------------
 
 _GRADE_UPLOADS_ROOT = Path(__file__).parent.parent / "output" / "xscore" / "grade_uploads"
+
+_GRADE_STEPS = [
+    (1,  "Parse grading instructions"),
+    (2,  "Folder from upload"),
+    (3,  "Load student roster"),
+    (4,  "Parse exam PDF"),
+    (5,  "Parse mark scheme"),
+    (6,  "Build scaffold"),
+    (7,  "Detect blank pages"),
+    (8,  "Autorotate"),
+    (9,  "Deskew"),
+    (10, "Assign pages to students"),
+    (11, "Build blueprints"),
+    (12, "AI marking"),
+    (13, "Compile reports"),
+    (14, "Timing summary"),
+]
 
 
 async def _run_grade_job(
@@ -459,26 +480,40 @@ async def _run_grade_job(
     prompt: str | None,
 ) -> None:
     store.set_status(job_id, JobStatus.RUNNING)
-    store.set_log_line(job_id, "Starting scan pipeline…")
+    store.init_steps(job_id, _GRADE_STEPS)
+    store.set_log_line(job_id, "Starting pipeline…")
 
     def on_line(line: str) -> None:
         store.set_log_line(job_id, line)
 
+    def on_step(num: int, event: str, elapsed_s: float | None) -> None:
+        if event == "running":
+            store.step_running(job_id, num)
+        elif event == "done":
+            store.step_done(job_id, num, elapsed_s or 0.0)
+        elif event == "failed":
+            store.step_failed(job_id, num, elapsed_s or 0.0)
+
     try:
-        cleaned_pdf = await asyncio.to_thread(
-            run_scan_pipeline_logged, folder, prompt, on_line
+        cleaned_pdf, artifact_dir = await asyncio.to_thread(
+            run_full_pipeline_logged, folder, prompt, on_line, on_step
         )
-        store.complete(job_id, output_pdf=cleaned_pdf, answers_pdf=None)
+        class_report_pdf = artifact_dir / "13_class_report.pdf"
+        store.complete(
+            job_id,
+            output_pdf=cleaned_pdf,
+            answers_pdf=class_report_pdf if class_report_pdf.is_file() else None,
+        )
     except Exception as e:  # noqa: BLE001
-        logging.exception("Scan pipeline failed for job %s", job_id)
-        store.fail(job_id, f"Scan pipeline error: {e}")
+        logging.exception("Grade pipeline failed for job %s", job_id)
+        store.fail(job_id, f"Pipeline error: {e}")
 
 
 @app.post("/api/grade/jobs")
 async def create_grade_job(
     exam_scans: UploadFile = File(...),
     student_list: UploadFile = File(...),
-    empty_exam: UploadFile | None = File(None),
+    empty_exam: UploadFile = File(...),
     answer_sheet: UploadFile | None = File(None),
     prompt: str | None = Form(None),
 ) -> dict[str, str]:

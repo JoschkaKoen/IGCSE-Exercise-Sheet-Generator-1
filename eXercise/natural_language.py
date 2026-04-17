@@ -400,5 +400,11 @@ def resolve_natural_language(
     from .labels import build_output_filename
 
     output_pdf = build_output_filename(exam_key, normalized)
-    ranking = bool(data.get("ranking", True))
+    ranking_raw = data.get("ranking", True)
+    if isinstance(ranking_raw, bool):
+        ranking = ranking_raw
+    elif isinstance(ranking_raw, str):
+        ranking = ranking_raw.strip().lower() not in ("false", "0", "no", "")
+    else:
+        ranking = bool(ranking_raw)
     return exam_root, {"exam": exam_key, "output_pdf": output_pdf, "extractions": normalized, "ranking": ranking}

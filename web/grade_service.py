@@ -123,16 +123,16 @@ def run_full_pipeline(
 
     def _on_exam_done(raw_questions: list) -> None:
         elapsed = round(time.perf_counter() - t4_start[0], 2) if t4_start else 0.0
-        on_step(4, "done", elapsed)
         step_timings["step_4_s"] = elapsed
+        on_step(4, "done", elapsed)
         on_line(f"Step 4 — {len(raw_questions)} top-level questions extracted.")
         on_step(5, "running", None)
         t5_start.append(time.perf_counter())
 
     def _on_scheme_done(scheme_questions: list) -> None:
         elapsed = round(time.perf_counter() - t5_start[0], 2) if t5_start else 0.0
-        on_step(5, "done", elapsed)
         step_timings["step_5_s"] = elapsed
+        on_step(5, "done", elapsed)
         on_line(f"Step 5 — {len(scheme_questions)} answers in mark scheme.")
         on_step(6, "running", None)
 
@@ -166,9 +166,12 @@ def run_full_pipeline(
             f"{scaffold.total_marks} marks."
         )
     except Exception:
-        # Mark steps 4/5/6 failed if they haven't completed yet.
-        for sn in (4, 5, 6):
-            on_step(sn, "failed", 0.0)
+        if "step_4_s" not in step_timings:
+            on_step(4, "failed", 0.0)
+        if "step_5_s" not in step_timings:
+            on_step(5, "failed", 0.0)
+        if "step_6_s" not in step_timings:
+            on_step(6, "failed", 0.0)
         raise
 
     # ---------------------------------------------------------------------- steps 7–9

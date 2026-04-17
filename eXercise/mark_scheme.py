@@ -305,7 +305,7 @@ def _cap_y_end_before_headers(y_start, y_end, header_rows_for_page, page=None):
                         continue
                     # Wide drawing whose bottom sits just above the header text
                     if dr[3] <= h_top and dr[3] > h_top - 15:
-                        cap = min(cap, dr[1] - 2)
+                        cap = min(cap, dr[1])
             return cap
     return y_end
 
@@ -453,7 +453,6 @@ def _tight_y_end(page, y_start, y_end_max, trailing_gap_pt: float,
             continue
         if dr[0] > 300:
             continue
-        # Use strict upper bound so a border exactly on y_end_max is still considered.
         if dr[3] <= y_start or dr[3] > y_end_max:
             continue
         if last_drawing_y is None or dr[3] > last_drawing_y:
@@ -538,7 +537,6 @@ def find_ms_answer_regions(doc, requested_questions, cfg: SubjectConfig | None =
         if last_idx + 1 < len(all_entries):
             next_entry = all_entries[last_idx + 1]
             if next_entry[1] == last_entry[1]:
-                # Slightly below the next question row so the crop includes the full last row.
                 y_end = next_entry[2] + 1.0
             else:
                 y_end = doc[last_entry[1]].rect.height - 30

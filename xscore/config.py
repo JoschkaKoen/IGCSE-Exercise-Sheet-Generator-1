@@ -66,10 +66,10 @@ EXAM_PROFILE = "igcse_physics"
 API_CALL_DELAY_S = 0
 
 # Maximum retries for failed API calls
-MAX_RETRIES = 3
+MAX_RETRIES: int = int(os.getenv("MAX_RETRIES", "3"))
 
 # Initial backoff time for retries (seconds). Doubles after each failure.
-RETRY_BACKOFF_S = 1
+RETRY_BACKOFF_S: float = float(os.getenv("RETRY_BACKOFF_S", "1"))
 
 # =============================================================================
 # Image Processing Configuration
@@ -80,7 +80,7 @@ RETRY_BACKOFF_S = 1
 PDF_DPI = 300
 
 # JPEG quality for image encoding (0-100). Higher = better quality, larger size.
-JPEG_QUALITY = 95
+JPEG_QUALITY: int = int(os.getenv("JPEG_QUALITY", "95"))
 
 # Page images embedded in cleaned_scan.pdf after deskew (see preprocessing/deskew.py).
 #   "jpeg" — faster write, smaller file, lossy (uses CLEANED_SCAN_JPEG_QUALITY).
@@ -104,13 +104,13 @@ DESKEW_DETECT_REFERENCE_LINES: bool = _deskew_refl in ("1", "true", "yes", "on")
 
 # Fraction of page to crop from top. 0.6 = top 60% of page.
 # The answer section is typically in the top half of the page.
-CROP_TOP_FRACTION = 0.6
+CROP_TOP_FRACTION: float = float(os.getenv("CROP_TOP_FRACTION", "0.6"))
 
 # Image preprocessing enhancement factors
 # These help make handwritten marks more visible
-PREPROCESS_CONTRAST = 1.5      # Contrast enhancement (1.0 = no change)
-PREPROCESS_SHARPNESS = 1.6     # Sharpness enhancement
-PREPROCESS_BRIGHTNESS = 1.1    # Brightness adjustment
+PREPROCESS_CONTRAST: float = float(os.getenv("PREPROCESS_CONTRAST", "1.5"))      # Contrast enhancement (1.0 = no change)
+PREPROCESS_SHARPNESS: float = float(os.getenv("PREPROCESS_SHARPNESS", "1.6"))    # Sharpness enhancement
+PREPROCESS_BRIGHTNESS: float = float(os.getenv("PREPROCESS_BRIGHTNESS", "1.1"))  # Brightness adjustment
 
 # =============================================================================
 # Ensemble / Multi-Pass Configuration
@@ -119,11 +119,12 @@ PREPROCESS_BRIGHTNESS = 1.1    # Brightness adjustment
 # Enable ensemble voting for improved accuracy.
 # When enabled, makes multiple API calls and uses majority voting.
 # Slower but potentially more accurate.
-USE_ENSEMBLE = False
+_use_ensemble = os.getenv("USE_ENSEMBLE", "").strip().lower()
+USE_ENSEMBLE: bool = _use_ensemble in ("1", "true", "yes", "on")
 
 # Number of API calls per page for ensemble voting.
 # Only used when USE_ENSEMBLE is True.
-ENSEMBLE_CALLS = 3
+ENSEMBLE_CALLS: int = int(os.getenv("ENSEMBLE_CALLS", "3"))
 
 # Number of passes for multi-pass extraction (without full ensemble).
 # Set to 1 for single-pass (faster), 2+ for multiple passes.
@@ -135,27 +136,28 @@ MULTI_PASS_COUNT = 1
 
 # Temperature controls randomness in model output.
 # 0.0 = deterministic, higher = more creative.
-GEMINI_TEMPERATURE = 0.1
+GEMINI_TEMPERATURE: float = float(os.getenv("GEMINI_TEMPERATURE", "0.1"))
 
 # Maximum output tokens for Gemini response.
-GEMINI_MAX_OUTPUT_TOKENS = 32000
+GEMINI_MAX_OUTPUT_TOKENS: int = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "32000"))
 
 # Enable extended thinking for Gemini 2.5+ models.
 # True  → model reasons step-by-step before answering (slower, uses more tokens).
 # False → thinking disabled (thinking_budget=0); faster and cheaper.
-GEMINI_THINKING = False
+_gemini_thinking = os.getenv("GEMINI_THINKING", "").strip().lower()
+GEMINI_THINKING: bool = _gemini_thinking in ("1", "true", "yes", "on")
 
 # Token budget for Gemini's internal reasoning (only used when GEMINI_THINKING = True).
 # Higher values allow deeper reasoning; lower values constrain it.
 # Recommended range: 512–8192. Gemini 2.5 Flash cap is 24576.
-GEMINI_THINKING_BUDGET = 2048
+GEMINI_THINKING_BUDGET: int = int(os.getenv("GEMINI_THINKING_BUDGET", "2048"))
 
 # =============================================================================
 # Kimi Model Parameters
 # =============================================================================
 
 # Maximum tokens for Kimi response
-KIMI_MAX_TOKENS = 8192
+KIMI_MAX_TOKENS: int = int(os.getenv("KIMI_MAX_TOKENS", "8192"))
 
 # Token cap for parse_prompt (JSON ~120 tokens; 512 is a safe ceiling).
 PARSE_PROMPT_MAX_TOKENS = 512
@@ -163,7 +165,8 @@ PARSE_PROMPT_MAX_TOKENS = 512
 # Enable extended thinking for kimi-k2.x models.
 # True  → model reasons step-by-step before answering (slower, uses more tokens).
 # False → thinking disabled; faster and cheaper, usually sufficient for OCR.
-KIMI_THINKING = False
+_kimi_thinking = os.getenv("KIMI_THINKING", "").strip().lower()
+KIMI_THINKING: bool = _kimi_thinking in ("1", "true", "yes", "on")
 
 # =============================================================================
 # Paths and File Handling
