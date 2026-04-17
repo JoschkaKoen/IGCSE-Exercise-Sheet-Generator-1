@@ -243,6 +243,11 @@ def artifact_timing_md_path(artifact_dir: Path) -> Path:
     return artifact_dir / "14_timing.md"
 
 
+def artifact_accuracy_json_path(artifact_dir: Path) -> Path:
+    """Step 14: recognition accuracy vs ground truth."""
+    return artifact_dir / "14_accuracy.json"
+
+
 def find_scaffold_cache_file(
     exam_folder: Path, output_base: str | Path = "output/xscore"
 ) -> Path | None:

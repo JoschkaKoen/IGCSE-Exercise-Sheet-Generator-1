@@ -132,11 +132,18 @@ def load_ground_truth(
     if not data_lines:
         return None
 
-    # If we got no q_numbers from a header, infer from scaffold or use indices
+    # If we got no q_numbers from a header, infer from scaffold or use indices.
+    # Apply _2 deduplication so duplicate question numbers in the scaffold get
+    # unique keys that match the renamed numbers in the student report JSONs.
     if not q_numbers:
         n_cols = max(len(split_line(ln)) - 1 for ln in data_lines)
         if scaffold is not None:
-            q_numbers = [q.number for q in scaffold.gradable_questions[:n_cols]]
+            seen_nums: dict[str, int] = {}
+            q_numbers = []
+            for q in scaffold.gradable_questions[:n_cols]:
+                seen_nums[q.number] = seen_nums.get(q.number, 0) + 1
+                occ = seen_nums[q.number]
+                q_numbers.append(q.number if occ == 1 else f"{q.number}_{occ}")
         else:
             q_numbers = [str(i + 1) for i in range(n_cols)]
 
@@ -184,7 +191,15 @@ def evaluate_results(
     from xscore.extraction.ground_truth import fuzzy_match_name
 
     gt_names = list(ground_truth.keys())
-    q_nums = [q.number for q in scaffold.gradable_questions]
+    # Deduplicate question numbers with _2 suffix, matching the convention used in
+    # _merge_student_pages so that keys align across ground_truth, student results,
+    # and scaffold iteration.
+    seen_q: dict[str, int] = {}
+    q_nums: list[str] = []
+    for q in scaffold.gradable_questions:
+        seen_q[q.number] = seen_q.get(q.number, 0) + 1
+        occ = seen_q[q.number]
+        q_nums.append(q.number if occ == 1 else f"{q.number}_{occ}")
 
     per_student = []
     overall_correct = 0

@@ -110,6 +110,12 @@ def run_full_pipeline(
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     artifact_dir = folder / f"{timestamp}_{uuid.uuid4().hex[:8]}"
     artifact_dir.mkdir(parents=True, exist_ok=False)
+    _cmd_parts = ["web"]
+    if prompt and prompt.strip():
+        _cmd_parts.append(prompt.strip())
+    if dpi is not None:
+        _cmd_parts.append(f"--dpi {dpi}")
+    (artifact_dir / "command.txt").write_text(" ".join(_cmd_parts), encoding="utf-8")
 
     # ---------------------------------------------------------------------- steps 4–6
     # empty_exam.pdf is required. Missing → step 4 raises with a clear message.

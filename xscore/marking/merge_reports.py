@@ -54,35 +54,48 @@ def _merge_student_pages(
     Cross-page question strategy:
     - If only one page has assigned_marks, use that entry.
     - If both pages have assigned_marks, take the higher value.
+
+    Duplicate question numbers on the same page (e.g. two MCQ variants both
+    numbered "38") are kept as separate entries: first occurrence → "38",
+    second → "38_2", etc.  Across pages, entries at the same (number, occurrence)
+    slot are merged with the higher-marks strategy.
     """
+    import logging
     from xscore.shared.exam_paths import artifact_marked_json_path
 
-    merged_questions: dict[str, dict] = {}
+    merged_questions: dict[tuple[str, int], dict] = {}
 
     for p in range(1, pages_per_student + 1):
         path = artifact_marked_json_path(artifact_dir, student_name, p)
         if not path.is_file():
             continue
         data = json.loads(path.read_text(encoding="utf-8"))
+        file_occ: dict[str, int] = {}
         for q in data.get("questions", []):
             qnum = q.get("number", "?")
-            if qnum not in merged_questions:
-                merged_questions[qnum] = q.copy()
+            file_occ[qnum] = file_occ.get(qnum, 0) + 1
+            key = (qnum, file_occ[qnum])
+            if key not in merged_questions:
+                merged_questions[key] = q.copy()
             else:
-                existing = merged_questions[qnum]
-                existing_marks = existing.get("assigned_marks")
+                existing_marks = merged_questions[key].get("assigned_marks")
                 new_marks = q.get("assigned_marks")
                 if existing_marks is None and new_marks is None:
-                    import logging
-                    logging.warning("Q%s for %s: both pages have assigned_marks=None", qnum, student_name)
-                    # leave merged_questions[qnum] unchanged
+                    logging.warning(
+                        "Q%s for %s: both pages have assigned_marks=None", qnum, student_name
+                    )
                 elif existing_marks is None and new_marks is not None:
-                    merged_questions[qnum] = q.copy()
-                elif existing_marks is not None and new_marks is not None:
-                    if new_marks > existing_marks:
-                        merged_questions[qnum] = q.copy()
+                    merged_questions[key] = q.copy()
+                elif (existing_marks is not None and new_marks is not None
+                      and new_marks > existing_marks):
+                    merged_questions[key] = q.copy()
 
-    questions_list = list(merged_questions.values())
+    questions_list = []
+    for (qnum, occ), q_data in merged_questions.items():
+        entry = q_data.copy()
+        if occ > 1:
+            entry["number"] = f"{qnum}_{occ}"
+        questions_list.append(entry)
     total_marks = sum(q.get("assigned_marks") or 0 for q in questions_list)
     percentage = round(total_marks / total_max_marks * 100, 1) if total_max_marks > 0 else None
 
@@ -111,18 +124,19 @@ def _student_report_to_md(report: dict) -> str:
     lines = [
         f"# Student Report: {name}\n",
         f"**Total: {total}/{max_m} ({_fmt_pct(pct)})**\n",
-        "| Question | Type | Max | Awarded | Student Answer | Reasoning |",
-        "|----------|------|-----|---------|----------------|-----------|",
+        "| Question | Type | Max | Awarded | Student Answer | Correct Answer | Reasoning |",
+        "|----------|------|-----|---------|----------------|----------------|-----------|",
     ]
     for q in report["questions"]:
         answer_raw = str(q.get("student_answer") or "").strip()
         answer = "*(blank)*" if not answer_raw else answer_raw.replace("|", "/")
         awarded = q.get("assigned_marks")
         awarded_str = "*?*" if awarded is None else str(awarded)
+        correct = str(q.get("correct_answer") or "—").replace("|", "/")
         reasoning = str(q.get("reasoning") or "").replace("|", "/")
         lines.append(
             f"| {q.get('number', '')} | {q.get('question_type', '')} | "
-            f"{q.get('max_marks', '')} | {awarded_str} | {answer} | {reasoning} |"
+            f"{q.get('max_marks', '')} | {awarded_str} | {answer} | {correct} | {reasoning} |"
         )
     return "\n".join(lines) + "\n"
 
@@ -180,13 +194,17 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
         answer = "\\textit{(blank)}" if not answer_raw else _latex_escape(answer_raw)
+        correct_raw = str(q.get("correct_answer") or "").strip()
+        correct_ans = "---" if not correct_raw else _latex_escape(correct_raw)
         reasoning = _latex_escape(str(q.get("reasoning") or ""))
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(
-            f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {reasoning} \\\\"
+            f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\"
         )
     rows_str = "\n".join(rows)
     pct_display = "N/A" if pct is None else f"{pct}\\%"
+    # Column widths fill landscape A4 text width (25.7 cm - ~3 cm separator overhead = 22.7 cm):
+    # p{1cm} + p{2.2cm} + p{0.9cm} + p{1.1cm} + p{4cm} + p{3.5cm} + p{10cm} = 22.7 cm
     return (
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
@@ -202,15 +220,15 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
         "\\vspace{1em}\n\n"
         "{\\small\n"
-        "\\begin{longtable}{llp{1.5cm}rp{3.5cm}p{6.5cm}}\n"
+        "\\begin{longtable}{p{1cm}p{2.2cm}p{0.9cm}p{1.1cm}p{4cm}p{3.5cm}p{10cm}}\n"
         "\\toprule\n"
         "\\textbf{Q\\#} & \\textbf{Type} & \\textbf{Max} & \\textbf{Awarded} & "
-        "\\textbf{Student Answer} & \\textbf{Reasoning} \\\\\n"
+        "\\textbf{Student Answer} & \\textbf{Correct Answer} & \\textbf{Reasoning} \\\\\n"
         "\\midrule\n"
         "\\endfirsthead\n"
         "\\midrule\n"
         "\\textbf{Q\\#} & \\textbf{Type} & \\textbf{Max} & \\textbf{Awarded} & "
-        "\\textbf{Student Answer} & \\textbf{Reasoning} \\\\\n"
+        "\\textbf{Student Answer} & \\textbf{Correct Answer} & \\textbf{Reasoning} \\\\\n"
         "\\midrule\n"
         "\\endhead\n"
         f"{rows_str}\n"
@@ -249,7 +267,7 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
         "\\geometry{a4paper,margin=2cm}\n"
         "\\begin{document}\n"
         f"\\section*{{Class Report{header_extra}}}\n"
-        f"\\textbf{{Class average: {'N/A' if report['class_average_pct'] is None else str(report['class_average_pct']) + r'\\%'}}} \\quad\n"
+        f"\\textbf{{Class average: {'N/A' if report['class_average_pct'] is None else str(report['class_average_pct']) + '\\%'}}} \\quad\n"
         f"\\textbf{{Max marks: {report['total_max_marks']}}} \\quad\n"
         f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
         "\\vspace{1em}\n\n"
@@ -383,11 +401,24 @@ def compile_reports(ctx: Any) -> list[dict]:
     student_summaries: list[dict] = []
     tex_paths: list[Path] = []
 
+    # Build correct_answer lookup keyed by (possibly _2-suffixed) question number so it
+    # matches the renamed numbers produced by _merge_student_pages.
+    correct_answers: dict[str, str] = {}
+    seen_ca: dict[str, int] = {}
+    for _q in ctx.scaffold.gradable_questions:
+        seen_ca[_q.number] = seen_ca.get(_q.number, 0) + 1
+        _occ = seen_ca[_q.number]
+        _key = _q.number if _occ == 1 else f"{_q.number}_{_occ}"
+        correct_answers[_key] = _q.correct_answer or ""
+
     # Pass 1 — sequential: merge marks and write all data files (fast I/O, order-sensitive)
     for name in _derive_student_names(ctx.artifact_dir):
         report = _merge_student_pages(
             ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks
         )
+        # Annotate each question with the correct answer from the scaffold.
+        for _q in report["questions"]:
+            _q["correct_answer"] = correct_answers.get(str(_q.get("number", "")), "")
 
         artifact_student_report_json_path(ctx.artifact_dir, name).write_text(
             json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8"
@@ -448,3 +479,40 @@ def compile_reports(ctx: Any) -> list[dict]:
         info_line(f"Class average: {_fmt_pct(class_avg)}")
 
     return student_summaries
+
+
+def load_student_results_from_reports(artifact_dir: Path) -> list:
+    """Read all 13_student_report_*.json and reconstruct StudentResult objects.
+
+    Used by step 14 to compare AI-extracted answers against ground truth.
+    """
+    from xscore.shared.models import StudentResult
+
+    results = []
+    for f in sorted(artifact_dir.glob("13_student_report_*.json")):
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            continue
+        name = data.get("student_name", "")
+        if not name:
+            continue
+        answers: dict[str, str] = {}
+        marks_per_q: dict[str, float] = {}
+        for q in data.get("questions", []):
+            qnum = str(q.get("number", ""))
+            if not qnum:
+                continue
+            ans = q.get("student_answer")
+            answers[qnum] = str(ans).strip() if ans is not None else "?"
+            m = q.get("assigned_marks")
+            marks_per_q[qnum] = float(m) if m is not None else 0.0
+        results.append(StudentResult(
+            student_name=name,
+            page_numbers=[],
+            answers=answers,
+            marks_per_question=marks_per_q,
+            total_marks=float(data.get("total_marks", 0)),
+            max_marks=float(data.get("max_marks", 0)),
+        ))
+    return results

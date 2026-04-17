@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import datetime
+import json
 import re
 import shlex
 import sys
@@ -187,7 +188,7 @@ def _load_imports() -> SimpleNamespace:
     from xscore.marking.blueprints import build_blueprints
     from xscore.marking.find_exam_folder import find_folder
     from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
-    from xscore.marking.merge_reports import compile_reports
+    from xscore.marking.merge_reports import compile_reports, load_student_results_from_reports
     from xscore.marking.parse_instruction import parse_prompt
     from xscore.marking.timing_report import write_timing_report
     from xscore.preprocessing.start_scan import (
@@ -202,6 +203,7 @@ def _load_imports() -> SimpleNamespace:
         artifact_exam_student_list_json_path,
         artifact_exam_student_list_md_path,
     )
+    from xscore.shared.load_ground_truth import evaluate_results, load_ground_truth
     from xscore.shared.load_student_list import read_student_list
     from xscore.shared.terminal_ui import (
         api_latency_line,
@@ -235,6 +237,9 @@ def _load_imports() -> SimpleNamespace:
         build_blueprints=build_blueprints,
         run_ai_marking=run_ai_marking,
         compile_reports=compile_reports,
+        load_student_results_from_reports=load_student_results_from_reports,
+        load_ground_truth=load_ground_truth,
+        evaluate_results=evaluate_results,
         write_timing_report=write_timing_report,
         # Terminal UI
         api_latency_line=api_latency_line,
@@ -318,6 +323,7 @@ def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
         suffix += 1
         ctx.artifact_dir = exam_output_root / f"{ctx.timestamp}_{suffix}"
     ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
+    (ctx.artifact_dir / "command.txt").write_text(shlex.join(sys.argv), encoding="utf-8")
     gi.ok_line(ctx.folder.name)
     if ctx.through_step == 2:
         ctx.partial_stop_step = 2
@@ -450,7 +456,7 @@ def _step10_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
     ctx.num_students = geo["num_students"]
     ctx.pages_per_student = geo["pages_per_student"]
     if geo["roster_mismatch"]:
-        gi.warn_line(
+        gi.ok_line(
             f"Roster has {geo['num_students_roster']} students "
             f"but scan implies {geo['num_students']}"
         )
@@ -538,12 +544,34 @@ def _step13_reports(ctx: _Ctx, gi: SimpleNamespace) -> None:
 
 
 def _step14_timing(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 14 — Write timing summary (14_timing.json / .md)."""
+    """Step 14 — Write timing summary (14_timing.json / .md) and accuracy report."""
     assert ctx.artifact_dir is not None
     gi.pipeline_step(14, "Timing summary")
     t0 = time.perf_counter()
     ctx.step_timings_marking["step_14_s"] = round(time.perf_counter() - t0, 3)
-    gi.write_timing_report(ctx.artifact_dir, ctx.step_timings_marking, ctx.marking_api_calls)
+
+    accuracy_summary = None
+    if ctx.folder is not None:
+        ground_truth = gi.load_ground_truth(ctx.folder, ctx.scaffold)
+        if ground_truth and ctx.scaffold:
+            student_results = gi.load_student_results_from_reports(ctx.artifact_dir)
+            accuracy_summary = gi.evaluate_results(student_results, ground_truth, ctx.scaffold)
+            from xscore.shared.exam_paths import artifact_accuracy_json_path
+            artifact_accuracy_json_path(ctx.artifact_dir).write_text(
+                json.dumps(accuracy_summary, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+            gi.info_line(
+                f"Accuracy: {accuracy_summary['overall_correct']}/"
+                f"{accuracy_summary['overall_total']} "
+                f"({accuracy_summary['overall_accuracy_pct']:.1f}%)"
+            )
+
+    gi.write_timing_report(
+        ctx.artifact_dir,
+        ctx.step_timings_marking,
+        ctx.marking_api_calls,
+        accuracy_summary=accuracy_summary,
+    )
 
 
 # ---------------------------------------------------------------------------
