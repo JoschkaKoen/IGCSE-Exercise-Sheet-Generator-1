@@ -219,6 +219,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
     return (
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
+        "\\usepackage{amsmath}\n"
         "\\usepackage{booktabs}\n"
         "\\usepackage{longtable}\n"
         "\\usepackage{geometry}\n"
@@ -271,6 +272,7 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
     return (
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
+        "\\usepackage{amsmath}\n"
         "\\usepackage{booktabs}\n"
         "\\usepackage{longtable}\n"
         "\\usepackage{geometry}\n"
