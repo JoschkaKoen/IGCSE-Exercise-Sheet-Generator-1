@@ -157,6 +157,15 @@ def load_ground_truth(
         row: dict[str, str] = {}
         for q_num, val in zip(q_numbers, values):
             row[q_num] = val
+        if name in gt:
+            import logging as _log
+            new_name = f"{name}_2"
+            _log.warning(
+                "Ground truth: duplicate student name '%s' — storing as '%s'. "
+                "This may be a typo in the ground truth file.",
+                name, new_name,
+            )
+            name = new_name
         gt[name] = row
 
     return gt if gt else None
@@ -204,12 +213,27 @@ def evaluate_results(
     per_student = []
     overall_correct = 0
     overall_total = 0
+    used_gt: dict[str, str] = {}  # gt_name → first pipeline student that claimed it
 
     for result in results:
         matched_gt = fuzzy_match_name(result.student_name, gt_names)
         if matched_gt is None:
+            import logging as _log
+            _log.warning(
+                "Accuracy: no ground-truth match for '%s' — skipped", result.student_name
+            )
             continue
 
+        if matched_gt in used_gt:
+            import logging as _log
+            _log.warning(
+                "Accuracy: '%s' fuzzy-matches ground-truth '%s' but that entry was already "
+                "claimed by '%s' — '%s' skipped. Check for a typo in the ground truth file.",
+                result.student_name, matched_gt, used_gt[matched_gt], result.student_name,
+            )
+            continue
+
+        used_gt[matched_gt] = result.student_name
         gt_row = ground_truth[matched_gt]
         per_question: dict[str, dict] = {}
         correct = 0

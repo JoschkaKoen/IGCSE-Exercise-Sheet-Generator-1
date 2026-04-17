@@ -449,11 +449,14 @@ def compile_reports(ctx: Any) -> list[dict]:
         per_question_avgs = _compute_per_question_averages(ctx.artifact_dir)
         # Collect max marks per question from the scaffold's gradable questions.
         per_question_max: dict[str, int] = {}
+        seen_pq: dict[str, int] = {}
         try:
             for q in getattr(ctx.scaffold, "gradable_questions", []):
                 qnum = str(getattr(q, "number", "") or "")
                 if qnum:
-                    per_question_max[qnum] = int(getattr(q, "marks", 0))
+                    seen_pq[qnum] = seen_pq.get(qnum, 0) + 1
+                    key = qnum if seen_pq[qnum] == 1 else f"{qnum}_{seen_pq[qnum]}"
+                    per_question_max[key] = int(getattr(q, "marks", 0))
         except Exception:  # noqa: BLE001
             pass
         known_pcts = [s["percentage"] for s in student_summaries if s["percentage"] is not None]

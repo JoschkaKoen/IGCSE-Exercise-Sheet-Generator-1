@@ -324,6 +324,20 @@ def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
         ctx.artifact_dir = exam_output_root / f"{ctx.timestamp}_{suffix}"
     ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
     (ctx.artifact_dir / "command.txt").write_text(shlex.join(sys.argv), encoding="utf-8")
+
+    # Write step 1 summary now that artifact_dir exists (artifact_dir is created here, not in step 1)
+    inst = ctx.instruction
+    step1_summary = {
+        "step": 1,
+        "elapsed_s": round(ctx.parse_elapsed, 3),
+        "task_type": inst.task_type,
+        "dpi": inst.dpi,
+        "status": "ok",
+    }
+    (ctx.artifact_dir / "1_parse_summary.json").write_text(
+        json.dumps(step1_summary, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+
     gi.ok_line(ctx.folder.name)
     if ctx.through_step == 2:
         ctx.partial_stop_step = 2
@@ -422,7 +436,12 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
 
     from xscore.config import ROTATION_ANALYSIS_DPI
     gi.pipeline_step(7, "Detect blank pages")
+    t0_7 = time.perf_counter()
     gi.detect_blank_pages_phase(match, ad, analysis_dpi=ROTATION_ANALYSIS_DPI, force_clean_scan=ctx.force_clean_scan)
+    (ad / "7_blank_detection_summary.json").write_text(
+        json.dumps({"step": 7, "elapsed_s": round(time.perf_counter() - t0_7, 3), "status": "ok"}, indent=2),
+        encoding="utf-8",
+    )
     if ctx.through_step == 7:
         ctx.partial_stop_step = 7
         raise SystemExit(0)
@@ -430,13 +449,23 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     gi.pipeline_step(8, "Autorotate")
     t0_rot = time.perf_counter()
     gi.autorotate_phase(ad)
-    gi.info_line(gi.format_duration(time.perf_counter() - t0_rot))
+    elapsed_rot = time.perf_counter() - t0_rot
+    gi.info_line(gi.format_duration(elapsed_rot))
+    (ad / "8_autorotate_summary.json").write_text(
+        json.dumps({"step": 8, "elapsed_s": round(elapsed_rot, 3), "status": "ok"}, indent=2),
+        encoding="utf-8",
+    )
     if ctx.through_step == 8:
         ctx.partial_stop_step = 8
         raise SystemExit(0)
 
     gi.pipeline_step(9, "Deskew")
+    t0_9 = time.perf_counter()
     ctx.cleaned_pdf = gi.deskew_phase(ctx.folder, ad, dpi)
+    (ad / "9_deskew_summary.json").write_text(
+        json.dumps({"step": 9, "elapsed_s": round(time.perf_counter() - t0_9, 3), "status": "ok"}, indent=2),
+        encoding="utf-8",
+    )
     if ctx.through_step == 9:
         ctx.partial_stop_step = 9
         raise SystemExit(0)
@@ -548,7 +577,6 @@ def _step14_timing(ctx: _Ctx, gi: SimpleNamespace) -> None:
     assert ctx.artifact_dir is not None
     gi.pipeline_step(14, "Timing summary")
     t0 = time.perf_counter()
-    ctx.step_timings_marking["step_14_s"] = round(time.perf_counter() - t0, 3)
 
     accuracy_summary = None
     if ctx.folder is not None:
@@ -566,6 +594,7 @@ def _step14_timing(ctx: _Ctx, gi: SimpleNamespace) -> None:
                 f"({accuracy_summary['overall_accuracy_pct']:.1f}%)"
             )
 
+    ctx.step_timings_marking["step_14_s"] = round(time.perf_counter() - t0, 3)
     gi.write_timing_report(
         ctx.artifact_dir,
         ctx.step_timings_marking,

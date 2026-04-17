@@ -340,6 +340,28 @@ def build_ai_scaffold(
             # The callback may raise SystemExit(0) for --through 5.
             if on_scheme_complete is not None:
                 on_scheme_complete(scheme_data["questions"])
+
+            # Suffix duplicate question numbers in exam questions so that
+            # two questions both printed as "38" become "38" and "38_2".
+            # Done after saving artifacts so 4_exam_questions.json retains original numbers.
+            _seen_rq: dict[str, int] = {}
+            for _node in raw_questions:
+                _qnum = str(_node.get("number", ""))
+                _seen_rq[_qnum] = _seen_rq.get(_qnum, 0) + 1
+                if _seen_rq[_qnum] > 1:
+                    _node["number"] = f"{_qnum}_{_seen_rq[_qnum]}"
+
+            # Apply the same suffix to mark scheme entries so scheme_map keys align.
+            # Done after saving 5_mark_scheme.json to preserve original numbers there.
+            _seen_sq: dict[str, int] = {}
+            for _sq in scheme_data["questions"]:
+                if not isinstance(_sq, dict) or not _sq.get("number"):
+                    continue
+                _snum = _norm(_sq.get("number", ""))
+                _seen_sq[_snum] = _seen_sq.get(_snum, 0) + 1
+                if _seen_sq[_snum] > 1:
+                    _sq["number"] = f"{_sq['number']}_{_seen_sq[_snum]}"
+
             scheme_map = {
                 _norm(q.get("number", "")): q
                 for q in scheme_data["questions"]
@@ -362,4 +384,25 @@ def build_ai_scaffold(
             _logging.warning("ai_scaffold: skipping question node missing 'number' key: %r", node)
             continue
         valid_nodes.append(node)
-    return [_json_to_question(node) for node in valid_nodes]
+
+    questions = [_json_to_question(node) for node in valid_nodes]
+    _fix_zero_mark_leaves(questions)
+    return questions
+
+
+def _fix_zero_mark_leaves(questions: list) -> None:
+    """Upgrade any leaf question with marks=0 but a marking criterion to marks=1.
+
+    Gemini sometimes returns marks=0 for sub-questions whose mark allocation is
+    not explicitly bracketed in the PDF. When a marking criterion exists the
+    question is worth at least 1 mark.
+    """
+    import logging as _log
+    for q in questions:
+        if q.subquestions:
+            _fix_zero_mark_leaves(q.subquestions)
+        elif q.marks == 0 and q.marking_criteria:
+            _log.warning(
+                "ai_scaffold: %s has marks=0 but a marking criterion — upgraded to 1", q.number
+            )
+            q.marks = 1
