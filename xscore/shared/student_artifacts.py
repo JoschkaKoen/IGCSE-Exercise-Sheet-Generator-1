@@ -17,10 +17,10 @@ def write_student_artifacts(artifact_dir: Path, students: list[str]) -> None:
     *students* is the list of name strings returned by :func:`read_student_list`.
     Both files are created (or overwritten); the parent directory must exist.
     """
-    artifact_dir.mkdir(parents=True, exist_ok=True)
+    json_path = artifact_students_json_path(artifact_dir)
+    json_path.parent.mkdir(parents=True, exist_ok=True)
 
     # JSON — plain array for easy machine parsing
-    json_path = artifact_students_json_path(artifact_dir)
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(students, f, indent=2, ensure_ascii=False)
 

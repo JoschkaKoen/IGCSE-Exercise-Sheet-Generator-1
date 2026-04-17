@@ -24,6 +24,7 @@ from typing import Any
 from xscore.config import NAME_RECOGNITION_DPI
 
 from .kimi_helpers import kimi_image_call, page_to_jpeg_b64, parse_json_safe
+from xscore.shared.exam_paths import artifact_prompt_path
 from xscore.shared.models import PageAssignment
 
 
@@ -75,6 +76,7 @@ def assign_pages(
     name_crop_fraction: float = 0.15,
     *,
     pages: list | None = None,
+    artifact_dir: Path | None = None,
 ) -> list[PageAssignment]:
     """Return one ``PageAssignment`` per student block.
 
@@ -116,7 +118,9 @@ def assign_pages(
         i, page = args
         crop = _crop_top(page, fraction=name_crop_fraction)
         img_b64 = page_to_jpeg_b64(crop)
-        raw = kimi_image_call(client, img_b64, prompt, max_tokens=64, model_id=model_id)
+        save_path = artifact_prompt_path(artifact_dir, f"10_name_{i}") if artifact_dir else None
+        raw = kimi_image_call(client, img_b64, prompt, max_tokens=64, model_id=model_id,
+                              prompt_save_path=save_path)
         data = parse_json_safe(raw) or {}
         raw_name = str(data.get("name", "") or "").strip()
         matched_name = fuzzy_match_name(raw_name, students) if raw_name else None

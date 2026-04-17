@@ -20,7 +20,8 @@ from typing import Any
 
 from xscore.marking.blueprints import marked_to_md
 from xscore.marking.kimi_helpers import parse_json_safe
-from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_json_path, artifact_marked_md_path, artifact_short_scaffold_json_path
+from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path, artifact_short_scaffold_json_path
+from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import api_latency_line, info_line, warn_line
 
 
@@ -51,6 +52,7 @@ def _mark_page(
     blueprint: dict,
     page_questions_info: list[dict],
     extra_body: dict,
+    prompt_save_path: Path | None = None,
 ) -> dict:
     """Vision call to fill in a marking blueprint for one scan page.
 
@@ -88,6 +90,8 @@ def _mark_page(
         response_format={"type": "json_object"},
         extra_body=extra_body,
     )
+
+    save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
 
     for attempt in range(1, 4):
         try:
@@ -205,11 +209,15 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         encoding="utf-8"
                     )
                 )
+                safe_name = student_name or f"Unknown_{scan_page}"
 
                 t0 = time.perf_counter()
                 filled = _mark_page(
                     client, model_id, b64, blueprint,
                     page_questions.get(p_label, []), extra_body,
+                    prompt_save_path=artifact_prompt_path(
+                        ctx.artifact_dir, f"12_marked_{safe_name}_{p_label}"
+                    ),
                 )
                 mark_dur = round(time.perf_counter() - t0, 2)
                 local_timings.append({
@@ -220,8 +228,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 })
 
                 filled["student_name"] = student_name
-                safe_name = student_name or f"Unknown_{scan_page}"
-                artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label).write_text(
+                out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
+                out_json.parent.mkdir(parents=True, exist_ok=True)
+                out_json.write_text(
                     json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8"
                 )
                 artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(

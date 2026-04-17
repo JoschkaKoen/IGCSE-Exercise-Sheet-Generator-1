@@ -170,7 +170,7 @@ def extract_images(
     cfg: ParserConfig | None = None,
 ) -> list[ExamImage]:
     cfg = cfg or DEFAULT_PARSER_CONFIG
-    out_dir = artifact_dir / "scaffold_images"
+    out_dir = artifact_dir / "scaffold" / "scaffold_images"
     out_dir.mkdir(parents=True, exist_ok=True)
     found: list[ExamImage] = []
     for item in page.get_images(full=True):
@@ -195,7 +195,7 @@ def extract_images(
             except Exception:
                 img_counter[0] -= 1
                 continue
-            rel = f"scaffold_images/{name}"
+            rel = f"scaffold/scaffold_images/{name}"
             found.append(
                 ExamImage(
                     bbox=BBox(crop.x0, crop.y0, crop.x1, crop.y1, page_1based),
@@ -219,7 +219,7 @@ def extract_images(
                 except Exception:
                     img_counter[0] -= 1
                 else:
-                    rel = f"scaffold_images/{name}"
+                    rel = f"scaffold/scaffold_images/{name}"
                     found.append(
                         ExamImage(
                             bbox=BBox(crop.x0, crop.y0, crop.x1, crop.y1, page_1based),

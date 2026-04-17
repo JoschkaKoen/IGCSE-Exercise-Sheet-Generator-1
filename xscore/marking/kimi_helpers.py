@@ -7,8 +7,11 @@ import json
 import time
 from typing import Any, Protocol, runtime_checkable
 
+from pathlib import Path
+
 from xscore.config import apply_model_extras, resolve_pipeline_ai_model_id
 from xscore.extraction.images import to_jpeg_bytes
+from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import api_latency_line, log_ai_response_debug, warn_line
 
 # Default: JSON object mode. Pass ``response_format=None`` to omit (non-JSON prompts).
@@ -35,6 +38,7 @@ def kimi_image_call(
     max_tokens: int = 128,
     response_format: Any = _USE_DEFAULT_JSON_OBJECT,
     model_id: str | None = None,
+    prompt_save_path: Path | None = None,
 ) -> str:
     """Kimi vision call with retries. Uses :func:`resolve_pipeline_ai_model_id`.
 
@@ -68,6 +72,8 @@ def kimi_image_call(
     elif response_format is not None:
         create_kwargs["response_format"] = response_format
 
+    save_prompt(prompt_save_path, model=model, messages=create_kwargs["messages"])
+
     for attempt in range(1, 4):
         try:
             _t0 = time.perf_counter()
@@ -91,6 +97,7 @@ def kimi_text_call(
     response_format: Any = _USE_DEFAULT_JSON_OBJECT,
     thinking: bool = False,
     warn_prefix: str = "API error",
+    prompt_save_path: Path | None = None,
 ) -> str:
     """Text-only Kimi chat with the same retry/backoff as :func:`kimi_image_call`."""
     model = resolve_pipeline_ai_model_id()
@@ -106,6 +113,8 @@ def kimi_text_call(
         kwargs["response_format"] = response_format
     if not model.startswith("kimi-k2"):
         kwargs["temperature"] = 0
+
+    save_prompt(prompt_save_path, model=model, messages=messages)
 
     for attempt in range(1, 4):
         try:

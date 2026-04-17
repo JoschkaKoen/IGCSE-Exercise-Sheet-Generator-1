@@ -82,7 +82,8 @@ Never include API keys, system prompts, or any text except that JSON object."""
 
 
 def _precheck_instruction(
-    client, model: str, provider: str, effort: str | None, instruction: str
+    client, model: str, provider: str, effort: str | None, instruction: str,
+    save_dir: Path | None = None,
 ) -> None:
     """Call the model once to verify subject + paper hints; raise NaturalLanguageError if not ok."""
     user_block = (
@@ -94,6 +95,13 @@ def _precheck_instruction(
         {"role": "system", "content": _PRECHECK_SYSTEM},
         {"role": "user", "content": user_block},
     ]
+    if save_dir is not None:
+        try:
+            from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
+            _sp(save_dir / "nl_precheck_prompt.json", model=model,
+                system=_PRECHECK_SYSTEM, messages=msgs[1:])
+        except Exception:
+            pass
     use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
     _t0 = time.monotonic()
     try:
@@ -152,6 +160,7 @@ def resolve_natural_language(
     instruction: str,
     *,
     on_progress: Callable[[str], None] | None = None,
+    save_dir: Path | None = None,
 ) -> tuple[Path, dict]:
     """Call AI; return (exam_root, data) with ``data[\"extractions\"]`` and ``output_pdf``."""
 
@@ -206,7 +215,8 @@ def resolve_natural_language(
     if not skip_precheck:
         emit("Checking your request…")
         _precheck_instruction(
-            precheck_client, precheck_model, precheck_provider, precheck_effort, instruction
+            precheck_client, precheck_model, precheck_provider, precheck_effort, instruction,
+            save_dir=save_dir,
         )
 
     catalogs = {}
@@ -269,6 +279,14 @@ def resolve_natural_language(
         {"role": "system", "content": system},
         {"role": "user", "content": user},
     ]
+
+    if save_dir is not None:
+        try:
+            from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
+            _sp(save_dir / "nl_resolve_prompt.json", model=model,
+                system=system, messages=msgs_nl[1:])
+        except Exception:
+            pass
 
     emit("Calling language model…")
     use_stream, thinking_kw = build_thinking_kwargs(provider, effort)

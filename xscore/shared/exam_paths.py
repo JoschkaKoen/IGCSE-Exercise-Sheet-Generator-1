@@ -5,6 +5,19 @@ from __future__ import annotations
 from pathlib import Path
 
 
+SUBDIR_META     = "meta"
+SUBDIR_PROMPTS  = "prompts"
+SUBDIR_SCAFFOLD = "scaffold"
+SUBDIR_SCAN     = "scan"
+SUBDIR_MARKING  = "marking"
+SUBDIR_REPORTS  = "reports"
+
+
+def artifact_prompt_path(artifact_dir: Path, name: str) -> Path:
+    """Path for a saved AI prompt: ``<artifact_dir>/prompts/<name>.json``."""
+    return artifact_dir / SUBDIR_PROMPTS / f"{name}.json"
+
+
 def safe_path_stem(stem: str) -> str:
     """Stable directory / filename fragment from a PDF stem (no spaces, slashes, or traversal)."""
     # Remove null bytes and replace path-unsafe characters.
@@ -28,22 +41,22 @@ def exam_artifact_dir(exam_folder: Path, output_base: str | Path = "output/xscor
 
 def artifact_scaffold_json_path(artifact_dir: Path) -> Path:
     """Canonical report JSON in the run folder."""
-    return artifact_dir / "6_report.json"
+    return artifact_dir / SUBDIR_SCAFFOLD / "6_report.json"
 
 
 def artifact_scaffold_markdown_path(artifact_dir: Path) -> Path:
     """Human-readable report beside :func:`artifact_scaffold_json_path`."""
-    return artifact_dir / "6_report.md"
+    return artifact_dir / SUBDIR_SCAFFOLD / "6_report.md"
 
 
 def artifact_short_scaffold_json_path(artifact_dir: Path) -> Path:
     """Short report JSON — same as 6_report.json but without the student list."""
-    return artifact_dir / "6_short_report.json"
+    return artifact_dir / SUBDIR_SCAFFOLD / "6_short_report.json"
 
 
 def artifact_short_scaffold_markdown_path(artifact_dir: Path) -> Path:
     """Short report markdown — same as 6_report.md but without the student list."""
-    return artifact_dir / "6_short_report.md"
+    return artifact_dir / SUBDIR_SCAFFOLD / "6_short_report.md"
 
 
 def legacy_flat_artifact_scaffold_cache_path(artifact_dir: Path) -> Path:
@@ -58,37 +71,37 @@ def legacy_artifact_scaffold_cache_path(artifact_dir: Path) -> Path:
 
 def artifact_scaffold_boxes_path(artifact_dir: Path) -> Path:
     """Vector-exam PDF with scaffold rectangles drawn (one file per run)."""
-    return artifact_dir / "1_exam_bboxes.pdf"
+    return artifact_dir / SUBDIR_SCAFFOLD / "1_exam_bboxes.pdf"
 
 
 def artifact_students_json_path(artifact_dir: Path) -> Path:
     """Step 3: student roster as a JSON array of name strings."""
-    return artifact_dir / "3_students.json"
+    return artifact_dir / SUBDIR_SCAFFOLD / "3_students.json"
 
 
 def artifact_students_markdown_path(artifact_dir: Path) -> Path:
     """Step 3: human-readable numbered student list."""
-    return artifact_dir / "3_students.md"
+    return artifact_dir / SUBDIR_SCAFFOLD / "3_students.md"
 
 
 def artifact_exam_questions_json_path(artifact_dir: Path) -> Path:
     """Step 4: raw Gemini exam-parse output (no answers/criteria yet)."""
-    return artifact_dir / "4_exam_questions.json"
+    return artifact_dir / SUBDIR_SCAFFOLD / "4_exam_questions.json"
 
 
 def artifact_exam_questions_markdown_path(artifact_dir: Path) -> Path:
     """Step 4: human-readable exam questions without mark-scheme annotations."""
-    return artifact_dir / "4_exam_questions.md"
+    return artifact_dir / SUBDIR_SCAFFOLD / "4_exam_questions.md"
 
 
 def artifact_mark_scheme_json_path(artifact_dir: Path) -> Path:
     """Step 5: raw Gemini mark-scheme output before merge into question tree."""
-    return artifact_dir / "5_mark_scheme.json"
+    return artifact_dir / SUBDIR_SCAFFOLD / "5_mark_scheme.json"
 
 
 def artifact_mark_scheme_markdown_path(artifact_dir: Path) -> Path:
     """Step 5: human-readable mark scheme (per-question sections with criteria)."""
-    return artifact_dir / "5_mark_scheme.md"
+    return artifact_dir / SUBDIR_SCAFFOLD / "5_mark_scheme.md"
 
 
 def extract_answers_output_dir(
@@ -130,6 +143,9 @@ def find_latest_cleaned_scan(
             for p in b.glob(f"*/{name}"):
                 if p.is_file():
                     candidates.append(p)
+        for p in b.glob(f"*/scan/{name}"):
+                if p.is_file():
+                    candidates.append(p)
 
     legacy = exam_folder / name
     if legacy.is_file():
@@ -147,97 +163,97 @@ def find_latest_cleaned_scan(
 
 def artifact_geometry_json_path(artifact_dir: Path) -> Path:
     """Step 10: exam geometry (page counts, student count)."""
-    return artifact_dir / "10_exam_geometry.json"
+    return artifact_dir / SUBDIR_MARKING / "10_exam_geometry.json"
 
 
 def artifact_geometry_md_path(artifact_dir: Path) -> Path:
     """Step 10: human-readable exam geometry table."""
-    return artifact_dir / "10_exam_geometry.md"
+    return artifact_dir / SUBDIR_MARKING / "10_exam_geometry.md"
 
 
 def artifact_exam_student_list_json_path(artifact_dir: Path) -> Path:
     """Step 10: scan-detected student list with page assignments."""
-    return artifact_dir / "10_exam_student_list.json"
+    return artifact_dir / SUBDIR_MARKING / "10_exam_student_list.json"
 
 
 def artifact_exam_student_list_md_path(artifact_dir: Path) -> Path:
     """Step 10: human-readable student-to-page assignment table."""
-    return artifact_dir / "10_exam_student_list.md"
+    return artifact_dir / SUBDIR_MARKING / "10_exam_student_list.md"
 
 
 def artifact_blueprint_json_path(artifact_dir: Path, page: int) -> Path:
     """Step 11: empty AI marking blueprint for one exam page."""
-    return artifact_dir / f"11_ai_marking_blueprint_{page}.json"
+    return artifact_dir / SUBDIR_MARKING / f"11_ai_marking_blueprint_{page}.json"
 
 
 def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
     """Step 11: human-readable blueprint summary for one exam page."""
-    return artifact_dir / f"11_ai_marking_blueprint_{page}.md"
+    return artifact_dir / SUBDIR_MARKING / f"11_ai_marking_blueprint_{page}.md"
 
 
 def artifact_marked_json_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Step 12: AI-filled marking blueprint for one student's scan page."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / f"12_marked_{safe}_{page}.json"
+    return artifact_dir / SUBDIR_MARKING / f"12_marked_{safe}_{page}.json"
 
 
 def artifact_marked_md_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Step 12: human-readable marking result for one student's scan page."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / f"12_marked_{safe}_{page}.md"
+    return artifact_dir / SUBDIR_MARKING / f"12_marked_{safe}_{page}.md"
 
 
 def artifact_student_report_json_path(artifact_dir: Path, student: str) -> Path:
     """Step 13: merged student report JSON."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / f"13_student_report_{safe}.json"
+    return artifact_dir / SUBDIR_REPORTS / f"13_student_report_{safe}.json"
 
 
 def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
     """Step 13: human-readable student report."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / f"13_student_report_{safe}.md"
+    return artifact_dir / SUBDIR_REPORTS / f"13_student_report_{safe}.md"
 
 
 def artifact_student_report_tex_path(artifact_dir: Path, student: str) -> Path:
     """Step 13: LaTeX source for student report PDF."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / f"13_student_report_{safe}.tex"
+    return artifact_dir / SUBDIR_REPORTS / f"13_student_report_{safe}.tex"
 
 
 def artifact_class_report_json_path(artifact_dir: Path) -> Path:
     """Step 13: class-wide summary JSON."""
-    return artifact_dir / "13_class_report.json"
+    return artifact_dir / SUBDIR_REPORTS / "13_class_report.json"
 
 
 def artifact_class_report_md_path(artifact_dir: Path) -> Path:
     """Step 13: human-readable class report."""
-    return artifact_dir / "13_class_report.md"
+    return artifact_dir / SUBDIR_REPORTS / "13_class_report.md"
 
 
 def artifact_class_report_tex_path(artifact_dir: Path) -> Path:
     """Step 13: LaTeX source for class report PDF."""
-    return artifact_dir / "13_class_report.tex"
+    return artifact_dir / SUBDIR_REPORTS / "13_class_report.tex"
 
 
 def artifact_timing_json_path(artifact_dir: Path) -> Path:
     """Step 14: marking pipeline timing data."""
-    return artifact_dir / "14_timing.json"
+    return artifact_dir / SUBDIR_META / "14_timing.json"
 
 
 def artifact_timing_md_path(artifact_dir: Path) -> Path:
     """Step 14: human-readable timing table."""
-    return artifact_dir / "14_timing.md"
+    return artifact_dir / SUBDIR_META / "14_timing.md"
 
 
 def artifact_accuracy_json_path(artifact_dir: Path) -> Path:
     """Step 14: recognition accuracy vs ground truth."""
-    return artifact_dir / "14_accuracy.json"
+    return artifact_dir / SUBDIR_META / "14_accuracy.json"
 
 
 def find_scaffold_cache_file(

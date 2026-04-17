@@ -229,6 +229,19 @@ def _rank_exercises_ai_gemini(
             ]
         )
 
+    if save_dir:
+        try:
+            from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
+            _sp(
+                save_dir / "ranking_prompt.json",
+                model=model,
+                system=_SYSTEM_PROMPT,
+                messages=[{"role": "user", "content": f"[PDF: {exercise_pdf.name}]"
+                           + (f" + [answers: {answer_pdf.name}]" if answer_pdf else "")}],
+            )
+        except Exception:
+            pass
+
     print("  Ranking (streaming):", flush=True)
     chunks: list[str] = []
     thinking_chunks: list[str] = []
@@ -398,7 +411,19 @@ def _rank_exercises_ai(
 
     # First attempt: vision
     try:
-        raw = _call(_build_vision_messages())
+        _vision_msgs = _build_vision_messages()
+        if save_dir:
+            try:
+                from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
+                _sp(
+                    save_dir / "ranking_prompt.json",
+                    model=model,
+                    system=_SYSTEM_PROMPT,
+                    messages=_vision_msgs[1:],  # skip system message — it's in `system` param
+                )
+            except Exception:
+                pass
+        raw = _call(_vision_msgs)
     except Exception as exc:
         _eprint(f"  Ranking: vision call failed ({type(exc).__name__}: {exc}); retrying with text.")
         try:

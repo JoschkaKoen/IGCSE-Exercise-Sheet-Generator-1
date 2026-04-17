@@ -44,7 +44,7 @@ def _spreadsheet_to_csv(path: Path) -> str:
     raise ValueError(f"Unsupported spreadsheet format: {path.suffix}")
 
 
-def read_student_list(folder: Path) -> list[str]:
+def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[str]:
     """Return student names from any student list file in *folder*.
 
     Supports .xlsx, .xls, .csv (converted to CSV text) and .pdf (File API).
@@ -97,9 +97,11 @@ def read_student_list(folder: Path) -> list[str]:
         gen_config_kwargs["thinking_config"] = thinking_cfg
     gen_config = gai_types.GenerateContentConfig(**gen_config_kwargs)
 
+    _prompt_user_text = ""
     if ext in (".xlsx", ".xls", ".csv"):
         csv_text = _spreadsheet_to_csv(target)
-        contents = [_PROMPT + "\n\n" + csv_text]
+        _prompt_user_text = _PROMPT + "\n\n" + csv_text
+        contents = [_prompt_user_text]
     elif ext == ".pdf":
         uploaded = client.files.upload(file=target)
         for _ in range(180):  # up to 6 minutes at 2 s intervals
@@ -113,6 +115,7 @@ def read_student_list(folder: Path) -> list[str]:
             )
         if getattr(uploaded.state, "name", str(uploaded.state)) == "FAILED":
             raise RuntimeError(f"Gemini file processing failed: {uploaded.name}")
+        _prompt_user_text = _PROMPT
         contents = [
             gai_types.Part.from_uri(file_uri=uploaded.uri, mime_type="application/pdf"),
             gai_types.Part.from_text(text=_PROMPT),
@@ -124,6 +127,14 @@ def read_student_list(folder: Path) -> list[str]:
         )
 
     from xscore.shared.terminal_ui import api_latency_line
+    if artifact_dir is not None:
+        from xscore.shared.exam_paths import artifact_prompt_path
+        from xscore.shared.prompt_logger import save_prompt
+        save_prompt(
+            artifact_prompt_path(artifact_dir, "10_student_list"),
+            model=model_name,
+            messages=[{"role": "user", "content": _prompt_user_text}],
+        )
     _t0 = time.perf_counter()
     response = client.models.generate_content(
         model=model_name,

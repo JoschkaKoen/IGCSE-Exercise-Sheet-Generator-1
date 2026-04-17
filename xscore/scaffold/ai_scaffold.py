@@ -21,8 +21,10 @@ from pathlib import Path
 from xscore.shared.exam_paths import (
     artifact_exam_questions_json_path,
     artifact_mark_scheme_json_path,
+    artifact_prompt_path,
 )
 from xscore.shared.models import BBox, McAnswerOption, Question
+from xscore.shared.prompt_logger import save_prompt
 
 
 # ---------------------------------------------------------------------------
@@ -256,6 +258,12 @@ def build_ai_scaffold(
         # ---- Inference closures (called from threads or inline) -----------
 
         def _do_exam_call() -> list[dict]:
+            if artifact_dir is not None:
+                save_prompt(
+                    artifact_prompt_path(artifact_dir, "4_exam_questions"),
+                    model=exam_model, system=_SYSTEM_EXAM,
+                    messages=[{"role": "user", "content": _USER_EXAM}],
+                )
             _t0 = time.perf_counter()
             resp = client.models.generate_content(
                 model=exam_model,
@@ -281,6 +289,12 @@ def build_ai_scaffold(
             return data["questions"]
 
         def _do_scheme_call() -> dict:
+            if artifact_dir is not None:
+                save_prompt(
+                    artifact_prompt_path(artifact_dir, "5_mark_scheme"),
+                    model=scheme_model, system=_SYSTEM_SCHEME,
+                    messages=[{"role": "user", "content": _USER_SCHEME}],
+                )
             _t0 = time.perf_counter()
             resp = client.models.generate_content(
                 model=scheme_model,

@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import time
 from collections import Counter
+from pathlib import Path
 from typing import Any
 
 from google import genai
@@ -38,6 +39,7 @@ def call_ocr_api(
     image_bytes: bytes,
     page_num: int,
     profile: ExamProfile,
+    prompt_save_dir: Path | None = None,
 ) -> dict:
     """Single (or ensemble) extraction for one page image."""
     return get_provider().extract(
@@ -47,6 +49,7 @@ def call_ocr_api(
         profile.schema,
         page_num,
         profile.answer_fields,
+        prompt_save_dir=prompt_save_dir,
     )
 
 
@@ -56,10 +59,11 @@ def multi_pass_extract(
     page_num: int,
     profile: ExamProfile,
     passes: int,
+    prompt_save_dir: Path | None = None,
 ) -> dict:
     """Run extraction multiple times and majority-vote all schema fields."""
     if passes <= 1:
-        return call_ocr_api(client, image_bytes, page_num, profile)
+        return call_ocr_api(client, image_bytes, page_num, profile, prompt_save_dir=prompt_save_dir)
 
     provider = get_provider()
     results: list[dict] = []
@@ -72,6 +76,7 @@ def multi_pass_extract(
                 profile.schema,
                 page_num,
                 profile.answer_fields,
+                prompt_save_dir=prompt_save_dir if i == 0 else None,
             )
         )
         if i < passes - 1:

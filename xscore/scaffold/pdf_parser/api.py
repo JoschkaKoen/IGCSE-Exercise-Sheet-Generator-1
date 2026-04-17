@@ -247,7 +247,7 @@ def prepare_scaffold_image_dirs(artifact_dir: Path) -> Path:
 
     Answer-key PDFs are not rasterized here (they are text-only mark schemes).
     """
-    base = artifact_dir / "scaffold_images"
+    base = artifact_dir / "scaffold" / "scaffold_images"
     if base.exists():
         shutil.rmtree(base)
     base.mkdir(parents=True)

@@ -18,6 +18,7 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
     """
     from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_blueprint_md_path
 
+    (artifact_dir / "marking").mkdir(parents=True, exist_ok=True)
     blueprints: list[dict] = []
     for page_num in range(1, scaffold.page_count + 1):
         page_qs = [

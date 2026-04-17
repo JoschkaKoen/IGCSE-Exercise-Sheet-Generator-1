@@ -336,7 +336,7 @@ def _derive_student_names(artifact_dir: Path) -> list[str]:
     """Collect unique student names from 12_marked_*_*.json files, in order."""
     seen: dict[str, str] = {}   # safe_name → original name
     result: list[str] = []
-    for f in sorted(artifact_dir.glob("12_marked_*_*.json")):
+    for f in sorted((artifact_dir / "marking").glob("12_marked_*_*.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
             name = str(data.get("student_name") or "").strip()
@@ -363,7 +363,7 @@ def _derive_student_names(artifact_dir: Path) -> list[str]:
 def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
     """Compute mean assigned_marks per question number across all student reports."""
     q_totals: dict[str, list[float]] = {}
-    for f in sorted(artifact_dir.glob("13_student_report_*.json")):
+    for f in sorted((artifact_dir / "reports").glob("13_student_report_*.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
             for q in data.get("questions", []):
@@ -412,6 +412,7 @@ def compile_reports(ctx: Any) -> list[dict]:
         correct_answers[_key] = _q.correct_answer or ""
 
     # Pass 1 — sequential: merge marks and write all data files (fast I/O, order-sensitive)
+    (ctx.artifact_dir / "reports").mkdir(parents=True, exist_ok=True)
     for name in _derive_student_names(ctx.artifact_dir):
         report = _merge_student_pages(
             ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks
@@ -443,7 +444,7 @@ def compile_reports(ctx: Any) -> list[dict]:
     # Pass 2 — parallel: compile all student .tex files concurrently (each is an independent process)
     workers = int(os.environ.get("MARKING_WORKERS", "4"))
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        list(ex.map(lambda p: _compile_tex(p, ctx.artifact_dir), tex_paths))
+        list(ex.map(lambda p: _compile_tex(p, p.parent), tex_paths))
 
     if student_summaries:
         per_question_avgs = _compute_per_question_averages(ctx.artifact_dir)
@@ -478,7 +479,7 @@ def compile_reports(ctx: Any) -> list[dict]:
         exam_name = ctx.artifact_dir.parent.name
         tex_path = artifact_class_report_tex_path(ctx.artifact_dir)
         tex_path.write_text(_class_report_to_tex(class_report, exam_name=exam_name), encoding="utf-8")
-        _compile_tex(tex_path, ctx.artifact_dir)
+        _compile_tex(tex_path, tex_path.parent)
         info_line(f"Class average: {_fmt_pct(class_avg)}")
 
     return student_summaries
@@ -492,7 +493,7 @@ def load_student_results_from_reports(artifact_dir: Path) -> list:
     from xscore.shared.models import StudentResult
 
     results = []
-    for f in sorted(artifact_dir.glob("13_student_report_*.json")):
+    for f in sorted((artifact_dir / "reports").glob("13_student_report_*.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
         except Exception:  # noqa: BLE001

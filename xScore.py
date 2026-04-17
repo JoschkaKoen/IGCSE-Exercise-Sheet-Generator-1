@@ -323,7 +323,9 @@ def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
         suffix += 1
         ctx.artifact_dir = exam_output_root / f"{ctx.timestamp}_{suffix}"
     ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
-    (ctx.artifact_dir / "command.txt").write_text(shlex.join(sys.argv), encoding="utf-8")
+    meta_dir = ctx.artifact_dir / "meta"
+    meta_dir.mkdir(parents=True, exist_ok=True)
+    (meta_dir / "command.txt").write_text(shlex.join(sys.argv), encoding="utf-8")
 
     # Write step 1 summary now that artifact_dir exists (artifact_dir is created here, not in step 1)
     inst = ctx.instruction
@@ -334,7 +336,7 @@ def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
         "dpi": inst.dpi,
         "status": "ok",
     }
-    (ctx.artifact_dir / "1_parse_summary.json").write_text(
+    (meta_dir / "1_parse_summary.json").write_text(
         json.dumps(step1_summary, indent=2, ensure_ascii=False), encoding="utf-8"
     )
 
@@ -347,7 +349,7 @@ def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
 def _step03_students(ctx: _Ctx, gi: SimpleNamespace) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None
     gi.pipeline_step(3, "Read student list")
-    ctx.students = gi.read_student_list(ctx.folder)
+    ctx.students = gi.read_student_list(ctx.folder, ctx.artifact_dir)
     gi.ok_line(f"{len(ctx.students)} students on the roster")
     write_student_artifacts(ctx.artifact_dir, ctx.students)
     if ctx.through_step == 3:
@@ -438,7 +440,7 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     gi.pipeline_step(7, "Detect blank pages")
     t0_7 = time.perf_counter()
     gi.detect_blank_pages_phase(match, ad, analysis_dpi=ROTATION_ANALYSIS_DPI, force_clean_scan=ctx.force_clean_scan)
-    (ad / "7_blank_detection_summary.json").write_text(
+    (ad / "meta" / "7_blank_detection_summary.json").write_text(
         json.dumps({"step": 7, "elapsed_s": round(time.perf_counter() - t0_7, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
@@ -451,7 +453,7 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     gi.autorotate_phase(ad)
     elapsed_rot = time.perf_counter() - t0_rot
     gi.info_line(gi.format_duration(elapsed_rot))
-    (ad / "8_autorotate_summary.json").write_text(
+    (ad / "meta" / "8_autorotate_summary.json").write_text(
         json.dumps({"step": 8, "elapsed_s": round(elapsed_rot, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
@@ -462,7 +464,7 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     gi.pipeline_step(9, "Deskew")
     t0_9 = time.perf_counter()
     ctx.cleaned_pdf = gi.deskew_phase(ctx.folder, ad, dpi)
-    (ad / "9_deskew_summary.json").write_text(
+    (ad / "meta" / "9_deskew_summary.json").write_text(
         json.dumps({"step": 9, "elapsed_s": round(time.perf_counter() - t0_9, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
@@ -501,6 +503,7 @@ def _step10_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
         ctx.cleaned_pdf,
         ctx.students or [],
         pages_per_student=ctx.pages_per_student,
+        artifact_dir=ctx.artifact_dir,
     )
     json_path = gi.artifact_exam_student_list_json_path(ctx.artifact_dir)
     json_path.write_text(

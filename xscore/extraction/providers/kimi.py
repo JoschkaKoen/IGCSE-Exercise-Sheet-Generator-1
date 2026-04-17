@@ -7,6 +7,7 @@ import json
 import os
 import sys
 import time
+from pathlib import Path
 from typing import Any
 
 from pydantic import BaseModel, ValidationError
@@ -129,6 +130,7 @@ class KimiProvider:
         schema: type[BaseModel],
         page_num: int,
         answer_fields: list[str],
+        prompt_save_dir: Path | None = None,
     ) -> dict:
         if not KIMI_AVAILABLE or _OpenAIClient is None:
             return _failed_record("openai package not installed", answer_fields)
@@ -140,7 +142,8 @@ class KimiProvider:
             except Exception:
                 print("Error: Kimi model selected but wrong client type", file=sys.stderr)
             return _failed_record("Client type mismatch for Kimi", answer_fields)
-        return self._single(client, image_bytes, page_num, prompt, schema, answer_fields)
+        return self._single(client, image_bytes, page_num, prompt, schema, answer_fields,
+                            prompt_save_dir=prompt_save_dir)
 
     def _single(
         self,
@@ -150,10 +153,19 @@ class KimiProvider:
         prompt: str,
         schema: type[BaseModel],
         answer_fields: list[str],
+        prompt_save_dir: Path | None = None,
     ) -> dict:
         last_error: Exception | None = None
         backoff = RETRY_BACKOFF_S
         image_b64 = base64.b64encode(image_bytes).decode("utf-8")
+
+        if prompt_save_dir is not None:
+            from xscore.shared.prompt_logger import save_prompt
+            save_prompt(
+                prompt_save_dir / f"page_{page_num}.json",
+                model=AI_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+            )
 
         # kimi-k2.5 has fixed temperature (1.0 thinking / 0.6 non-thinking);
         # passing any other value raises a 400 error.

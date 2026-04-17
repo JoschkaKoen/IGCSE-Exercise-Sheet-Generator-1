@@ -20,6 +20,7 @@ from typing import Any
 from xscore.config import GRADE_QUESTION_DELAY_S
 
 from .kimi_helpers import KimiChatClient, kimi_image_call, page_to_jpeg_b64, parse_json_safe
+from xscore.shared.exam_paths import artifact_prompt_path
 from xscore.shared.models import ExamScaffold, PageAssignment, Question, StudentResult, TaskInstruction
 
 
@@ -41,13 +42,15 @@ def _grade_mc(
     client: KimiChatClient,
     pages: list,
     question: Question,
+    artifact_dir: Path | None = None,
 ) -> tuple[str, float]:
     """Return (student_answer, marks_awarded)."""
     correct = (question.correct_answer or "").upper().strip()
 
     for page in pages:
         img_b64 = page_to_jpeg_b64(page)
-        raw = kimi_image_call(client, img_b64, _prompt_mc(question))
+        save_path = artifact_prompt_path(artifact_dir, f"12_grade_mc_{question.number}") if artifact_dir else None
+        raw = kimi_image_call(client, img_b64, _prompt_mc(question), prompt_save_path=save_path)
         data = parse_json_safe(raw) or {}
         answer = str(data.get("answer", "?")).upper().strip()
         if answer not in ("", "?"):
@@ -79,10 +82,13 @@ def _grade_written(
     client: KimiChatClient,
     pages: list,
     question: Question,
+    artifact_dir: Path | None = None,
 ) -> tuple[str, float]:
     for page in pages:
         img_b64 = page_to_jpeg_b64(page)
-        raw = kimi_image_call(client, img_b64, _prompt_written(question), max_tokens=256)
+        save_path = artifact_prompt_path(artifact_dir, f"12_grade_written_{question.number}") if artifact_dir else None
+        raw = kimi_image_call(client, img_b64, _prompt_written(question), max_tokens=256,
+                              prompt_save_path=save_path)
         data = parse_json_safe(raw) or {}
         answer = str(data.get("answer", "")).strip() or "?"
         try:
@@ -112,9 +118,10 @@ If no red marks are visible, return:
 """
 
 
-def _count_marks_on_page(client: KimiChatClient, page) -> dict[str, float]:
+def _count_marks_on_page(client: KimiChatClient, page, artifact_dir: Path | None = None, page_num: int = 0) -> dict[str, float]:
     img_b64 = page_to_jpeg_b64(page)
-    raw = kimi_image_call(client, img_b64, _COUNT_PROMPT, max_tokens=256)
+    save_path = artifact_prompt_path(artifact_dir, f"12_count_marks_{page_num}") if artifact_dir else None
+    raw = kimi_image_call(client, img_b64, _COUNT_PROMPT, max_tokens=256, prompt_save_path=save_path)
     data = parse_json_safe(raw) or {}
     raw_marks = data.get("marks", {})
     result: dict[str, float] = {}
@@ -152,6 +159,7 @@ def grade_students(
     client: KimiChatClient | None = None,
     *,
     pages: list | None = None,
+    artifact_dir: Path | None = None,
 ) -> list[StudentResult]:
     """Grade all students and return a ``StudentResult`` for each.
 
@@ -197,8 +205,8 @@ def grade_students(
         info_line(f"Grading {name} ({len(student_pages)} page(s), mode={task}) …")
 
         if task == "count_marks":
-            for page in student_pages:
-                page_marks = _count_marks_on_page(client, page)
+            for pg_idx, page in enumerate(student_pages, 1):
+                page_marks = _count_marks_on_page(client, page, artifact_dir=artifact_dir, page_num=pg_idx)
                 for q_num, m in page_marks.items():
                     marks_per_q[q_num] = marks_per_q.get(q_num, 0.0) + m
                 time.sleep(GRADE_QUESTION_DELAY_S)
@@ -212,9 +220,9 @@ def grade_students(
                     continue
 
                 if q.question_type == "multiple_choice":
-                    ans, marks = _grade_mc(client, student_pages, q)
+                    ans, marks = _grade_mc(client, student_pages, q, artifact_dir=artifact_dir)
                 else:
-                    ans, marks = _grade_written(client, student_pages, q)
+                    ans, marks = _grade_written(client, student_pages, q, artifact_dir=artifact_dir)
 
                 answers[q.number] = ans
                 marks_per_q[q.number] = marks

@@ -248,6 +248,19 @@ def _save_mcq_prompt(
     (Path(save_dir) / "mcq_expl_prompt.txt").write_text("\n".join(lines), encoding="utf-8")
     print(f"  Saved MCQ prompt: mcq_expl_prompt.txt")
 
+    # JSON version (stripped of images) for machine-readable audit
+    try:
+        from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
+        _sp(
+            Path(save_dir) / "mcq_expl_prompt.json",
+            model="",
+            system=system,
+            messages=[{"role": "user", "content": user_content if isinstance(user_content, str) else
+                       " ".join(p.get("text", "") for p in user_content if isinstance(p, dict) and p.get("type") == "text")}],
+        )
+    except Exception:
+        pass
+
     # Raw extracted question texts
     if q_texts:
         text_lines: list[str] = []
@@ -351,6 +364,16 @@ def generate_mcq_explanations_gemini_pdf(
                 "\n".join(debug_lines), encoding="utf-8"
             )
             print("  Saved MCQ prompt (PDF path): mcq_expl_prompt_pdf.txt")
+            try:
+                from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
+                _sp(
+                    _P(save_dir) / "mcq_expl_prompt_pdf.json",
+                    model=model,
+                    system=system_prompt,
+                    messages=[{"role": "user", "content": user_text}],
+                )
+            except Exception:
+                pass
 
         # Thinking config — mirror difficulty_ranking.py exactly.
         if effort == "off":

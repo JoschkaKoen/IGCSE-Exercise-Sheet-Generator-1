@@ -48,6 +48,7 @@ def write_geometry_artifacts(artifact_dir: Path, geo: dict) -> None:
     from xscore.shared.exam_paths import artifact_geometry_json_path, artifact_geometry_md_path
 
     json_path = artifact_geometry_json_path(artifact_dir)
+    json_path.parent.mkdir(parents=True, exist_ok=True)
     json_path.write_text(json.dumps(geo, indent=2, ensure_ascii=False), encoding="utf-8")
 
     mismatch_note = f" ⚠ roster has {geo['num_students_roster']}" if geo["roster_mismatch"] else ""

@@ -115,7 +115,8 @@ def run_full_pipeline(
         _cmd_parts.append(prompt.strip())
     if dpi is not None:
         _cmd_parts.append(f"--dpi {dpi}")
-    (artifact_dir / "command.txt").write_text(" ".join(_cmd_parts), encoding="utf-8")
+    (artifact_dir / "meta").mkdir(parents=True, exist_ok=True)
+    (artifact_dir / "meta" / "command.txt").write_text(" ".join(_cmd_parts), encoding="utf-8")
 
     # ---------------------------------------------------------------------- steps 4–6
     # empty_exam.pdf is required. Missing → step 4 raises with a clear message.
@@ -227,6 +228,7 @@ def run_full_pipeline(
             cleaned_pdf,
             students,
             pages_per_student=pages_per_student,
+            artifact_dir=artifact_dir,
         )
         artifact_exam_student_list_json_path(artifact_dir).write_text(
             page_assignments_to_json(page_assignments), encoding="utf-8"

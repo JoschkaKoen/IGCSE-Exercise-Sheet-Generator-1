@@ -308,7 +308,7 @@
 
   /* ── Polling ──────────────────────────────────────────────────────────── */
   var pollTimer = null;
-  var MAX_POLLS = 1200;  /* 1200 × 1.5 s = 30 min */
+  var MAX_POLLS = 9000;  /* 9000 × 0.2 s = 30 min */
 
   function startPolling(jobId) {
     var pollCount = 0;
@@ -364,7 +364,7 @@
         });
     }
 
-    pollTimer = setInterval(poll, 1500);
+    pollTimer = setInterval(poll, 200);
     poll();
   }
 

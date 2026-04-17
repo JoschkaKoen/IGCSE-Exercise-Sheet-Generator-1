@@ -39,7 +39,9 @@ def write_timing_report(
     if accuracy_summary is not None:
         payload["accuracy_summary"] = accuracy_summary
 
-    artifact_timing_json_path(artifact_dir).write_text(
+    timing_json = artifact_timing_json_path(artifact_dir)
+    timing_json.parent.mkdir(parents=True, exist_ok=True)
+    timing_json.write_text(
         json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8"
     )
     artifact_timing_md_path(artifact_dir).write_text(

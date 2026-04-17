@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import time
 from collections import Counter
+from pathlib import Path
 from typing import Any
 
 from google import genai
@@ -47,6 +48,7 @@ class GeminiProvider:
         schema: type[BaseModel],
         page_num: int,
         answer_fields: list[str],
+        prompt_save_dir: Path | None = None,
     ) -> dict:
         if not isinstance(client, genai.Client):
             from xscore.shared.terminal_ui import err_line
@@ -54,8 +56,10 @@ class GeminiProvider:
             err_line("Gemini model selected but wrong client type")
             return _failed_record("Client type mismatch for Gemini", answer_fields)
         if USE_ENSEMBLE:
-            return self._ensemble(client, image_bytes, page_num, prompt, schema, answer_fields, ENSEMBLE_CALLS)
-        return self._single(client, image_bytes, page_num, prompt, schema, answer_fields)
+            return self._ensemble(client, image_bytes, page_num, prompt, schema, answer_fields, ENSEMBLE_CALLS,
+                                  prompt_save_dir=prompt_save_dir)
+        return self._single(client, image_bytes, page_num, prompt, schema, answer_fields,
+                            prompt_save_dir=prompt_save_dir)
 
     def _single(
         self,
@@ -65,9 +69,18 @@ class GeminiProvider:
         prompt: str,
         schema: type[BaseModel],
         answer_fields: list[str],
+        prompt_save_dir: Path | None = None,
     ) -> dict:
         last_error: Exception | None = None
         backoff = RETRY_BACKOFF_S
+
+        if prompt_save_dir is not None:
+            from xscore.shared.prompt_logger import save_prompt
+            save_prompt(
+                prompt_save_dir / f"page_{page_num}.json",
+                model=AI_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+            )
 
         gen_config = types.GenerateContentConfig(
             temperature=GEMINI_TEMPERATURE,
@@ -141,10 +154,12 @@ class GeminiProvider:
         schema: type[BaseModel],
         answer_fields: list[str],
         num_calls: int,
+        prompt_save_dir: Path | None = None,
     ) -> dict:
         results: list[dict] = []
-        for _ in range(num_calls):
-            results.append(self._single(client, image_bytes, page_num, prompt, schema, answer_fields))
+        for i in range(num_calls):
+            results.append(self._single(client, image_bytes, page_num, prompt, schema, answer_fields,
+                                        prompt_save_dir=prompt_save_dir if i == 0 else None))
 
         if len(results) == 1:
             return results[0]

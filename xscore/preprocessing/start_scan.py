@@ -21,23 +21,23 @@ SCAN_EXERCISE_BOXES_PDF   = "7_scan_exercise_boxes.pdf"
 
 
 def _scan_phase_paths(artifact_dir: Path) -> dict[str, Path]:
-    ad = artifact_dir
-    out = ad / CLEANED_SCAN_PDF  # stem still used for transient paths only
+    scan_dir = artifact_dir / "scan"
+    out = scan_dir / CLEANED_SCAN_PDF  # stem still used for transient paths only
     return {
-        "blanks_json":            ad / SCAN_BLANKS_JSON,
-        "rotated":                ad / SCAN_ROTATED_PDF,
-        "cleaned":                ad / CLEANED_SCAN_PDF,
-        "sidecar":                ad / SCAN_ANCHORS_JSON,
+        "blanks_json":            scan_dir / SCAN_BLANKS_JSON,
+        "rotated":                scan_dir / SCAN_ROTATED_PDF,
+        "cleaned":                scan_dir / CLEANED_SCAN_PDF,
+        "sidecar":                scan_dir / SCAN_ANCHORS_JSON,
         "sidecar_legacy":         out.with_name(f"{out.stem}_reflines.json"),  # transient
-        "deskew_tmp":             ad / f"{out.stem}_deskew_tmp{out.suffix}",   # transient
-        "transforms":             ad / SCAN_TRANSFORMS_JSON,
-        "vlines_removed":         ad / SCAN_LINES_REMOVED_PDF,
-        "projected":              ad / SCAN_BOXES_PROJECTED_PDF,
-        "projected_boxes_json":   ad / SCAN_BOXES_PROJECTED_JSON,
-        "refined":                ad / SCAN_BOXES_REFINED_PDF,
-        "hw_results":             ad / SCAN_HANDWRITING_JSON,
-        "adjusted_exercise_json": ad / SCAN_EXERCISE_BOXES_JSON,
-        "adjusted_exercise_pdf":  ad / SCAN_EXERCISE_BOXES_PDF,
+        "deskew_tmp":             scan_dir / f"{out.stem}_deskew_tmp{out.suffix}",   # transient
+        "transforms":             scan_dir / SCAN_TRANSFORMS_JSON,
+        "vlines_removed":         scan_dir / SCAN_LINES_REMOVED_PDF,
+        "projected":              scan_dir / SCAN_BOXES_PROJECTED_PDF,
+        "projected_boxes_json":   scan_dir / SCAN_BOXES_PROJECTED_JSON,
+        "refined":                scan_dir / SCAN_BOXES_REFINED_PDF,
+        "hw_results":             scan_dir / SCAN_HANDWRITING_JSON,
+        "adjusted_exercise_json": scan_dir / SCAN_EXERCISE_BOXES_JSON,
+        "adjusted_exercise_pdf":  scan_dir / SCAN_EXERCISE_BOXES_PDF,
     }
 
 
@@ -60,7 +60,7 @@ def find_source_scan_match(
     dpi: int,
 ) -> Path:
     """Pick the class-scan PDF under *folder* (same rules as :func:`cleanup_pdf`)."""
-    output = artifact_dir / CLEANED_SCAN_PDF
+    output = artifact_dir / "scan" / CLEANED_SCAN_PDF
     legacy_out = folder / CLEANED_SCAN_PDF
     scans = [
         f
