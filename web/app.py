@@ -38,7 +38,7 @@ from .auth_gate import (
     parse_login_disabled,
     request_is_authenticated,
 )
-from .grade_service import run_scan_pipeline_logged
+from .grade_service import run_full_pipeline_logged
 from .jobs import JobRecord, JobStatus, JobStore
 from .process_log import run_with_last_log_line
 from .service import invalidate_library_cache, list_library_pdfs, run_nl_prompt_logged

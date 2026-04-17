@@ -141,12 +141,12 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     Reads page assignments from ``10_exam_student_list.json`` (written by step 10)
     so each student's scan pages are determined by name detection, not position.
     Students are processed in parallel (MARKING_WORKERS env var, default varies with cpu_count).
-    *dpi* defaults to ``PIPELINE_DEFAULT_DPI`` when not supplied.
+    *dpi* defaults to ``MARKING_DPI`` when not supplied.
     Returns a list of API call timing records for step 14.
     """
-    from xscore.config import PIPELINE_DEFAULT_DPI
+    from xscore.config import MARKING_DPI
     if dpi is None:
-        dpi = PIPELINE_DEFAULT_DPI
+        dpi = MARKING_DPI
 
     import fitz
 

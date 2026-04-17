@@ -23,6 +23,15 @@ class JobStatus(StrEnum):
 
 
 @dataclass
+class StepRecord:
+    """Progress record for a single pipeline step inside a grade job."""
+    num: int
+    name: str
+    status: JobStatus = JobStatus.PENDING
+    elapsed_s: float | None = None
+
+
+@dataclass
 class JobRecord:
     """Single extraction job (poll until status is done or failed)."""
 
@@ -40,6 +49,7 @@ class JobRecord:
     ranking_log_line: str = ""
     log_line: str = ""
     overview: dict[str, Any] | None = None
+    steps: list[StepRecord] = field(default_factory=list)
     created_at: datetime.datetime = field(default_factory=datetime.datetime.now)
 
 
@@ -120,6 +130,44 @@ class JobStore:
             if j:
                 j.status = JobStatus.FAILED
                 j.error = message
+
+    def init_steps(self, job_id: str, step_defs: list[tuple[int, str]]) -> None:
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j:
+                j.steps = [StepRecord(num=n, name=name) for n, name in step_defs]
+
+    def _find_step(self, j: JobRecord, num: int) -> StepRecord | None:
+        for s in j.steps:
+            if s.num == num:
+                return s
+        return None
+
+    def step_running(self, job_id: str, num: int) -> None:
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j:
+                s = self._find_step(j, num)
+                if s:
+                    s.status = JobStatus.RUNNING
+
+    def step_done(self, job_id: str, num: int, elapsed_s: float) -> None:
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j:
+                s = self._find_step(j, num)
+                if s:
+                    s.status = JobStatus.DONE
+                    s.elapsed_s = elapsed_s
+
+    def step_failed(self, job_id: str, num: int, elapsed_s: float) -> None:
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j:
+                s = self._find_step(j, num)
+                if s:
+                    s.status = JobStatus.FAILED
+                    s.elapsed_s = elapsed_s
 
     def complete(
         self,

@@ -179,11 +179,22 @@ GROUND_TRUTH_PATH = Path(__file__).resolve().parent / "Ground Truth "
 # Generic Pipeline Configuration (xscore.py)
 # =============================================================================
 
-# DPI used when rendering pages for the main grading pass
-PIPELINE_DEFAULT_DPI = 300
+# Steps 9–11: deskew + all coordinate-dependent geometric steps.
+# All pixel coordinates in JSON sidecars share this DPI — change as a unit.
+PIPELINE_DEFAULT_DPI: int = int(os.getenv("PIPELINE_DEFAULT_DPI", "300"))
 
-# DPI used for quick name-recognition crops (lower = faster, sufficient for names)
-NAME_RECOGNITION_DPI = 300
+# Step 7: blank-page detection raster (mean/std; 72 DPI is sufficient).
+BLANK_DETECTION_DPI: int = int(os.getenv("BLANK_DETECTION_DPI", "72"))
+
+# Step 7: Tesseract OSD rotation (only when SCAN_USE_TESSERACT_ROTATION=true).
+ROTATION_ANALYSIS_DPI: int = int(os.getenv("ROTATION_ANALYSIS_DPI", "150"))
+
+# Step 10: name-recognition crop sent to vision API.
+NAME_RECOGNITION_DPI: int = int(os.getenv("NAME_RECOGNITION_DPI", "300"))
+
+# Step 12: full scan page sent to vision API for marking.
+# Can be lower than PIPELINE_DEFAULT_DPI; 150 DPI is sufficient for handwriting.
+MARKING_DPI: int = int(os.getenv("MARKING_DPI", "150"))
 
 # Fraction of the page height to crop for name detection (top strip only)
 NAME_CROP_FRACTION = 0.15

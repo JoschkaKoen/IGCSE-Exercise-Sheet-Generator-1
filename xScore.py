@@ -414,8 +414,9 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
         ctx.cleaned_pdf = cleaned_path
         return
 
+    from xscore.config import ROTATION_ANALYSIS_DPI
     gi.pipeline_step(7, "Detect blank pages")
-    gi.detect_blank_pages_phase(match, ad, analysis_dpi=dpi, force_clean_scan=ctx.force_clean_scan)
+    gi.detect_blank_pages_phase(match, ad, analysis_dpi=ROTATION_ANALYSIS_DPI, force_clean_scan=ctx.force_clean_scan)
     if ctx.through_step == 7:
         ctx.partial_stop_step = 7
         raise SystemExit(0)

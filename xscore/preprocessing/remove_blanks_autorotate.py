@@ -33,16 +33,11 @@ from rich.progress import (
     TextColumn,
 )
 from xscore.shared.terminal_ui import CompactElapsedColumn
+from xscore.config import BLANK_DETECTION_DPI as BLANK_DPI, ROTATION_ANALYSIS_DPI as ANALYSIS_DPI
 
 # ---------------------------------------------------------------------------
 # Configuration defaults
 # ---------------------------------------------------------------------------
-
-# Default OSD raster DPI when process_pdf is called without analysis_dpi (standalone / tests).
-# Pipeline callers should pass pipeline dpi when Tesseract rotation is enabled: low DPI yields
-# orientation_conf < 2.0 and skipped rotation.
-ANALYSIS_DPI = 150
-BLANK_DPI = 72  # Fast blank-page pass (mean/std); optional second pass at *analysis_dpi* for OSD.
 BLANK_MEAN_THRESHOLD = 250  # Pages with grayscale mean above this are considered blank (0-255)
 BLANK_STD_THRESHOLD = 6     # Pages with grayscale std below this are considered blank
 

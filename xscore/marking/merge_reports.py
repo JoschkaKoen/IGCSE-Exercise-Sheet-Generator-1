@@ -111,14 +111,18 @@ def _student_report_to_md(report: dict) -> str:
     lines = [
         f"# Student Report: {name}\n",
         f"**Total: {total}/{max_m} ({_fmt_pct(pct)})**\n",
-        "| Question | Type | Max | Awarded | Reasoning |",
-        "|----------|------|-----|---------|-----------|",
+        "| Question | Type | Max | Awarded | Student Answer | Reasoning |",
+        "|----------|------|-----|---------|----------------|-----------|",
     ]
     for q in report["questions"]:
+        answer_raw = str(q.get("student_answer") or "").strip()
+        answer = "*(blank)*" if not answer_raw else answer_raw.replace("|", "/")
+        awarded = q.get("assigned_marks")
+        awarded_str = "*?*" if awarded is None else str(awarded)
         reasoning = str(q.get("reasoning") or "").replace("|", "/")
         lines.append(
             f"| {q.get('number', '')} | {q.get('question_type', '')} | "
-            f"{q.get('max_marks', '')} | {q.get('assigned_marks', '—')} | {reasoning} |"
+            f"{q.get('max_marks', '')} | {awarded_str} | {answer} | {reasoning} |"
         )
     return "\n".join(lines) + "\n"
 
@@ -146,19 +150,41 @@ def _class_report_to_md(report: dict) -> str:
 # LaTeX
 # ---------------------------------------------------------------------------
 
-def _student_report_to_tex(report: dict) -> str:
+def _awarded_tex(awarded: int | None, max_q: int | str) -> str:
+    """Render awarded marks with colour: green=full, red=zero, plain=partial."""
+    if awarded is None:
+        return "\\textit{?}"
+    if awarded == 0:
+        return f"\\textcolor{{red!65!black}}{{{awarded}}}"
+    try:
+        if int(awarded) == int(max_q):
+            return f"\\textcolor{{green!55!black}}{{{awarded}}}"
+    except (TypeError, ValueError):
+        pass
+    return str(awarded)
+
+
+def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
+    import datetime
     name = _latex_escape(report["student_name"])
     total = report["total_marks"]
     max_m = report["max_marks"]
     pct = report["percentage"]
+    date_str = datetime.date.today().isoformat()
+    header_extra = f" — {_latex_escape(exam_name)}" if exam_name else ""
     rows = []
     for q in report["questions"]:
         qnum = _latex_escape(str(q.get("number", "")))
         qtype = _latex_escape(str(q.get("question_type", "")))
         max_q = q.get("max_marks", "")
-        awarded = q.get("assigned_marks", "---")
+        awarded = q.get("assigned_marks")
+        answer_raw = str(q.get("student_answer") or "").strip()
+        answer = "\\textit{(blank)}" if not answer_raw else _latex_escape(answer_raw)
         reasoning = _latex_escape(str(q.get("reasoning") or ""))
-        rows.append(f"    {qnum} & {qtype} & {max_q} & {awarded} & {reasoning} \\\\")
+        awarded_cell = _awarded_tex(awarded, max_q)
+        rows.append(
+            f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {reasoning} \\\\"
+        )
     rows_str = "\n".join(rows)
     pct_display = "N/A" if pct is None else f"{pct}\\%"
     return (
@@ -167,28 +193,38 @@ def _student_report_to_tex(report: dict) -> str:
         "\\usepackage{booktabs}\n"
         "\\usepackage{longtable}\n"
         "\\usepackage{geometry}\n"
+        "\\usepackage{xcolor}\n"
+        "\\usepackage{array}\n"
         "\\geometry{a4paper,landscape,margin=2cm}\n"
         "\\begin{document}\n"
-        f"\\section*{{Student Report: {name}}}\n"
-        f"\\textbf{{Total: {total}/{max_m} ({pct_display})}}\n"
+        f"\\section*{{Student Report: {name}{header_extra}}}\n"
+        f"\\textbf{{Total: {total}/{max_m} ({pct_display})}} \\quad "
+        f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
         "\\vspace{1em}\n\n"
-        "\\begin{longtable}{lllrl}\n"
+        "{\\small\n"
+        "\\begin{longtable}{llp{1.5cm}rp{3.5cm}p{6.5cm}}\n"
         "\\toprule\n"
-        "\\textbf{Q\\#} & \\textbf{Type} & \\textbf{Max} & \\textbf{Awarded} & \\textbf{Reasoning} \\\\\n"
+        "\\textbf{Q\\#} & \\textbf{Type} & \\textbf{Max} & \\textbf{Awarded} & "
+        "\\textbf{Student Answer} & \\textbf{Reasoning} \\\\\n"
         "\\midrule\n"
         "\\endfirsthead\n"
         "\\midrule\n"
-        "\\textbf{Q\\#} & \\textbf{Type} & \\textbf{Max} & \\textbf{Awarded} & \\textbf{Reasoning} \\\\\n"
+        "\\textbf{Q\\#} & \\textbf{Type} & \\textbf{Max} & \\textbf{Awarded} & "
+        "\\textbf{Student Answer} & \\textbf{Reasoning} \\\\\n"
         "\\midrule\n"
         "\\endhead\n"
         f"{rows_str}\n"
         "\\bottomrule\n"
         "\\end{longtable}\n"
+        "}\n"
         "\\end{document}\n"
     )
 
 
-def _class_report_to_tex(report: dict) -> str:
+def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
+    import datetime
+    header_extra = f" — {_latex_escape(exam_name)}" if exam_name else ""
+    date_str = datetime.date.today().isoformat()
     student_rows = []
     for s in report["students"]:
         name = _latex_escape(s["name"])
@@ -196,9 +232,11 @@ def _class_report_to_tex(report: dict) -> str:
         student_rows.append(f"    {name} & {s['total_marks']} & {pct_display} \\\\")
     student_rows_str = "\n".join(student_rows)
 
+    q_max = report.get("per_question_max_marks", {})
     q_rows = []
     for qnum, avg in sorted(report.get("per_question_averages", {}).items()):
-        q_rows.append(f"    {_latex_escape(qnum)} & {avg} \\\\")
+        max_cell = str(q_max.get(qnum, "")) if q_max else ""
+        q_rows.append(f"    {_latex_escape(qnum)} & {max_cell} & {avg} \\\\")
     q_rows_str = "\n".join(q_rows)
 
     return (
@@ -207,11 +245,13 @@ def _class_report_to_tex(report: dict) -> str:
         "\\usepackage{booktabs}\n"
         "\\usepackage{longtable}\n"
         "\\usepackage{geometry}\n"
+        "\\usepackage{xcolor}\n"
         "\\geometry{a4paper,margin=2cm}\n"
         "\\begin{document}\n"
-        "\\section*{Class Report}\n"
-        f"\\textbf{{Class average: {'N/A' if report['class_average_pct'] is None else str(report['class_average_pct']) + '\\%'}}} \\quad\n"
-        f"\\textbf{{Max marks: {report['total_max_marks']}}}\n"
+        f"\\section*{{Class Report{header_extra}}}\n"
+        f"\\textbf{{Class average: {'N/A' if report['class_average_pct'] is None else str(report['class_average_pct']) + r'\\%'}}} \\quad\n"
+        f"\\textbf{{Max marks: {report['total_max_marks']}}} \\quad\n"
+        f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
         "\\vspace{1em}\n\n"
         "\\subsection*{Student Summary}\n"
         "\\begin{longtable}{lrl}\n"
@@ -227,13 +267,13 @@ def _class_report_to_tex(report: dict) -> str:
         "\\bottomrule\n"
         "\\end{longtable}\n\n"
         "\\subsection*{Per-Question Class Averages}\n"
-        "\\begin{longtable}{lr}\n"
+        "\\begin{longtable}{lrr}\n"
         "\\toprule\n"
-        "\\textbf{Question} & \\textbf{Class Avg} \\\\\n"
+        "\\textbf{Question} & \\textbf{Max} & \\textbf{Class Avg} \\\\\n"
         "\\midrule\n"
         "\\endfirsthead\n"
         "\\midrule\n"
-        "\\textbf{Question} & \\textbf{Class Avg} \\\\\n"
+        "\\textbf{Question} & \\textbf{Max} & \\textbf{Class Avg} \\\\\n"
         "\\midrule\n"
         "\\endhead\n"
         f"{q_rows_str}\n"
@@ -356,7 +396,8 @@ def compile_reports(ctx: Any) -> list[dict]:
             _student_report_to_md(report), encoding="utf-8"
         )
         tex_path = artifact_student_report_tex_path(ctx.artifact_dir, name)
-        tex_path.write_text(_student_report_to_tex(report), encoding="utf-8")
+        exam_name = ctx.artifact_dir.parent.name
+        tex_path.write_text(_student_report_to_tex(report, exam_name=exam_name), encoding="utf-8")
         tex_paths.append(tex_path)
 
         student_summaries.append({
@@ -375,11 +416,21 @@ def compile_reports(ctx: Any) -> list[dict]:
 
     if student_summaries:
         per_question_avgs = _compute_per_question_averages(ctx.artifact_dir)
+        # Collect max marks per question from the scaffold's gradable questions.
+        per_question_max: dict[str, int] = {}
+        try:
+            for q in getattr(ctx.scaffold, "gradable_questions", []):
+                qnum = str(getattr(q, "number", "") or "")
+                if qnum:
+                    per_question_max[qnum] = int(getattr(q, "marks", 0))
+        except Exception:  # noqa: BLE001
+            pass
         known_pcts = [s["percentage"] for s in student_summaries if s["percentage"] is not None]
         class_avg = round(sum(known_pcts) / len(known_pcts), 1) if known_pcts else None
         class_report = {
             "students": student_summaries,
             "per_question_averages": per_question_avgs,
+            "per_question_max_marks": per_question_max,
             "class_average_pct": class_avg,
             "total_max_marks": total_max_marks,
         }
@@ -390,8 +441,9 @@ def compile_reports(ctx: Any) -> list[dict]:
         artifact_class_report_md_path(ctx.artifact_dir).write_text(
             _class_report_to_md(class_report), encoding="utf-8"
         )
+        exam_name = ctx.artifact_dir.parent.name
         tex_path = artifact_class_report_tex_path(ctx.artifact_dir)
-        tex_path.write_text(_class_report_to_tex(class_report), encoding="utf-8")
+        tex_path.write_text(_class_report_to_tex(class_report, exam_name=exam_name), encoding="utf-8")
         _compile_tex(tex_path, ctx.artifact_dir)
         info_line(f"Class average: {_fmt_pct(class_avg)}")
 
