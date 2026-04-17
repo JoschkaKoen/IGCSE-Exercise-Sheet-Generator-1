@@ -75,6 +75,12 @@ class McAnswerOption:
 
 
 @dataclass
+class ExamLayout:
+    rows: int = 1  # number of subpage rows per physical scan page
+    cols: int = 1  # number of subpage cols per physical scan page
+
+
+@dataclass
 class Question:
     number: str                 # hierarchical label: "9", "9a", "9ai", "9aii"; duplicate mains "38_2"
     question_type: str          # "multiple_choice" | "short_answer" | "calculation" | "long_answer"
@@ -82,6 +88,8 @@ class Question:
     marks: int
     bbox: BBox                  # primary region (first segment of multi-page questions)
     page: int = 0               # 1-based page in exam PDF; auto-set from bbox.page if not provided
+    subpage_row: int = 1        # 1-based row in the layout grid (always 1 for 1×1 exams)
+    subpage_col: int = 1        # 1-based col in the layout grid (always 1 for 1×1 exams)
     images: list[ExamImage] = field(default_factory=list)
     equation_blank_bboxes: list[BBox] = field(default_factory=list)  # one per "label = …… [n]" line
     writing_areas: list[WritingArea] = field(default_factory=list)
@@ -128,6 +136,7 @@ class ExamScaffold:
     total_marks: int
     page_count: int = 0
     raw_description: str = ""
+    layout: ExamLayout = field(default_factory=ExamLayout)
 
     @property
     def all_questions(self) -> list[Question]:

@@ -23,7 +23,7 @@ from xscore.shared.exam_paths import (
     artifact_mark_scheme_json_path,
     artifact_prompt_path,
 )
-from xscore.shared.models import BBox, McAnswerOption, Question
+from xscore.shared.models import BBox, ExamLayout, McAnswerOption, Question
 from xscore.shared.prompt_logger import save_prompt
 
 
@@ -56,18 +56,27 @@ _SYSTEM_EXAM = (
 )
 
 _USER_EXAM = """\
-Extract the complete question hierarchy from this exam paper.
+First identify the page layout — how many sub-pages (quadrants) are arranged on \
+each physical PDF page. Return a top-level "layout" object:
+  {"rows": 1 or 2, "cols": 1 or 2}
+A standard single-page exam has rows=1, cols=1. A 4-up exam (2×2 grid printed on one sheet) has rows=2, cols=2.
+
+Then extract the complete question hierarchy from this exam paper.
 
 For EACH question and sub-question at EVERY nesting level return an object with:
 - "number": the label as printed, in run-together form — top-level "9", then "9a", then "9ai", "9aii" (no parentheses, no spaces in the number)
 - "question_type": one of "multiple_choice" | "short_answer" | "calculation" | "long_answer"
 - "page": 1-based page number where this question first appears
+- "subpage_row": 1-based row of the sub-page quadrant this question is in \
+(always 1 for a 1×1 layout; 1=top row, 2=bottom row for a 2×2 layout)
+- "subpage_col": 1-based column of the sub-page quadrant this question is in \
+(always 1 for a 1×1 layout; 1=left col, 2=right col for a 2×2 layout)
 - "marks": integer mark allocation from [N] brackets; 0 if not printed
 - "text": complete question text in markdown; $...$ for inline math, $$...$$ for display math
 - "answer_options": for multiple_choice only — [{"letter": "A", "text": "..."}, ...]; empty list otherwise
 - "subquestions": list of child questions in the same format; empty list for leaf questions
 
-Return ONLY valid JSON: {"questions": [...]}
+Return ONLY valid JSON: {"layout": {"rows": N, "cols": M}, "questions": [...]}
 """
 
 _SYSTEM_SCHEME = (
@@ -115,21 +124,25 @@ def _merge_scheme(questions: list[dict], scheme_map: dict[str, dict]) -> None:
         _merge_scheme(node.get("subquestions") or [], scheme_map)
 
 
-def _json_to_question(node: dict) -> Question:
+def _json_to_question(node: dict, layout: ExamLayout) -> Question:
     """Convert a raw JSON dict from Gemini into a Question dataclass."""
     page = max(1, int(node.get("page") or 1))
+    subpage_row = min(max(1, int(node.get("subpage_row") or 1)), layout.rows)
+    subpage_col = min(max(1, int(node.get("subpage_col") or 1)), layout.cols)
     return Question(
         number=str(node["number"]),
         question_type=node.get("question_type", "short_answer"),
         text=node.get("text", ""),
         marks=max(0, int(node.get("marks") or 0)),
         bbox=BBox(0.0, 0.0, 0.0, 0.0, page),   # page preserved; spatial coords zeroed
+        subpage_row=subpage_row,
+        subpage_col=subpage_col,
         answer_options=[
             McAnswerOption(letter=str(o["letter"]), text=str(o.get("text") or ""))
             for o in (node.get("answer_options") or [])
             if isinstance(o, dict) and o.get("letter")
         ],
-        subquestions=[_json_to_question(s) for s in (node.get("subquestions") or [])],
+        subquestions=[_json_to_question(s, layout) for s in (node.get("subquestions") or [])],
         correct_answer=node.get("correct_answer"),
         marking_criteria=node.get("marking_criteria"),
     )
@@ -190,7 +203,7 @@ def build_ai_scaffold(
     on_exam_complete: "Callable[[list[dict]], None] | None" = None,
     on_scheme_complete: "Callable[[list[dict]], None] | None" = None,
     artifact_dir: Path | None = None,
-) -> list[Question]:
+) -> tuple[list[Question], ExamLayout]:
     """Extract exam structure via Gemini and return a list[Question].
 
     Args:
@@ -208,7 +221,8 @@ def build_ai_scaffold(
             Saves are best-effort; OSError is silently ignored.
 
     Returns:
-        list[Question] with spatial BBox coordinates zeroed (page number preserved).
+        Tuple of (list[Question], ExamLayout). Questions have spatial BBox coordinates
+        zeroed (page and subpage numbers preserved).
 
     Raises:
         RuntimeError: GOOGLE_API_KEY unset, file upload failed, or Gemini returns non-JSON.
@@ -257,7 +271,7 @@ def build_ai_scaffold(
 
         # ---- Inference closures (called from threads or inline) -----------
 
-        def _do_exam_call() -> list[dict]:
+        def _do_exam_call() -> tuple[list[dict], dict]:
             if artifact_dir is not None:
                 save_prompt(
                     artifact_prompt_path(artifact_dir, "4_exam_questions"),
@@ -286,7 +300,7 @@ def build_ai_scaffold(
                 raise RuntimeError(
                     f"Gemini exam response missing 'questions' list: {resp.text[:300]!r}"
                 )
-            return data["questions"]
+            return data["questions"], data.get("layout") or {}
 
         def _do_scheme_call() -> dict:
             if artifact_dir is not None:
@@ -317,17 +331,18 @@ def build_ai_scaffold(
         # calls concurrently saves ~10–20 s (the duration of the shorter call).
         # rich.Console.print() holds an internal lock so api_latency_line is
         # safe to call from worker threads.
+        raw_layout: dict = {}
         if "scheme" in uploaded_files:
             with ThreadPoolExecutor(max_workers=2) as _ex:
                 _exam_fut = _ex.submit(_do_exam_call)
                 _scheme_fut = _ex.submit(_do_scheme_call)
-            raw_questions: list[dict] = _exam_fut.result()   # propagates RuntimeError on failure
+            raw_questions, raw_layout = _exam_fut.result()   # propagates RuntimeError on failure
             try:
                 scheme_data: dict = _scheme_fut.result()
             except Exception:
                 scheme_data = {"questions": []}   # match non-fatal sequential behavior
         else:
-            raw_questions = _do_exam_call()
+            raw_questions, raw_layout = _do_exam_call()
             scheme_data = {"questions": []}
 
         # ---- Artifacts + callbacks (main thread, same order as before) ---
@@ -391,6 +406,11 @@ def build_ai_scaffold(
             except Exception:
                 pass
 
+    layout = ExamLayout(
+        rows=max(1, int(raw_layout.get("rows") or 1)),
+        cols=max(1, int(raw_layout.get("cols") or 1)),
+    )
+
     import logging as _logging
     valid_nodes = []
     for node in raw_questions:
@@ -399,9 +419,9 @@ def build_ai_scaffold(
             continue
         valid_nodes.append(node)
 
-    questions = [_json_to_question(node) for node in valid_nodes]
+    questions = [_json_to_question(node, layout) for node in valid_nodes]
     _fix_zero_mark_leaves(questions)
-    return questions
+    return questions, layout
 
 
 def _fix_zero_mark_leaves(questions: list) -> None:

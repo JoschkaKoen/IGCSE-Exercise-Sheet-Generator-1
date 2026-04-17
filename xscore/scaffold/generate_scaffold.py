@@ -19,6 +19,7 @@ from typing import Any
 from xscore.shared.models import (
     BBox,
     ExamImage,
+    ExamLayout,
     ExamScaffold,
     McAnswerOption,
     Question,
@@ -49,10 +50,10 @@ from xscore.scaffold.pdf_parser.content import (
 from xscore.scaffold.draw_boxes_on_empty_exam import write_scaffold_boxes_pdf
 
 
-SCHEMA_VERSION = 16
+SCHEMA_VERSION = 17
 
 
-def _find_exam_pdf(folder: Path) -> Path:
+def find_exam_pdf(folder: Path) -> Path:
     """Pick the vector exam PDF for parsing.
 
     Prefers files with 'empty' or 'exam' in the name; skips scan/answer/student files.
@@ -127,6 +128,8 @@ def question_to_dict(q: Question) -> dict[str, Any]:
         "text": q.text,
         "marks": q.marks,
         "page": q.page,
+        "subpage_row": q.subpage_row,
+        "subpage_col": q.subpage_col,
     }
     if q.bbox.x0 or q.bbox.y0 or q.bbox.x1 or q.bbox.y1:
         d["bbox"] = _bbox_to_dict(q.bbox)
@@ -176,6 +179,8 @@ def question_from_dict(d: dict) -> Question:
         marks=int(d.get("marks", 1)),
         bbox=_bbox_from_dict(bbox_d),
         page=page,
+        subpage_row=int(d.get("subpage_row", 1)),
+        subpage_col=int(d.get("subpage_col", 1)),
         equation_blank_bboxes=[_bbox_from_dict(x) for x in d.get("equation_blank_bboxes") or []],
         images=[_img_from_dict(x) for x in d.get("images") or []],
         writing_areas=[_wa_from_dict(x) for x in d.get("writing_areas") or []],
@@ -216,7 +221,7 @@ def _effective_cache_path(folder: Path, artifact_dir: Path) -> Path | None:
 def _source_pdfs(folder: Path, exam_pdf_override: Path | None = None) -> list[Path]:
     """Return only the PDFs that the scaffold is built from (exam + answer key)."""
     try:
-        exam = exam_pdf_override or _find_exam_pdf(folder)
+        exam = exam_pdf_override or find_exam_pdf(folder)
         sources = [exam]
     except FileNotFoundError:
         sources = []
@@ -299,17 +304,23 @@ def _load_cache(folder: Path, artifact_dir: Path) -> ExamScaffold:
     total = int(data.get("total_marks", 0))
     if not total and questions:
         total = sum(q.marks for q in gradable_questions(questions))
+    layout_d = data.get("layout") or {}
     return ExamScaffold(
         questions=questions,
         total_marks=total,
         page_count=int(data.get("page_count", 0)),
         raw_description=data.get("raw_description", ""),
+        layout=ExamLayout(
+            rows=int(layout_d.get("rows", 1)),
+            cols=int(layout_d.get("cols", 1)),
+        ),
     )
 
 
 def _scaffold_to_payload(scaffold: ExamScaffold, students: list[str] | None = None) -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,
+        "layout": {"rows": scaffold.layout.rows, "cols": scaffold.layout.cols},
         "students": students or [],
         "questions": [question_to_dict(q) for q in scaffold.questions],
         "total_marks": scaffold.total_marks,
@@ -443,14 +454,14 @@ def build_scaffold(
         except (ValueError, KeyError, TypeError, json.JSONDecodeError):
             tool_line("scaffold", "Cache incompatible or corrupt — rebuilding …")
 
-    exam_pdf = exam_pdf_override or _find_exam_pdf(folder)
+    exam_pdf = exam_pdf_override or find_exam_pdf(folder)
 
     # AI-based extraction (default route) — uses Gemini to parse structure.
     # To revert to the PyMuPDF heuristic parser, replace the two lines below with:
     #   questions = _build_heuristic_scaffold(exam_pdf, folder, _find_answer_pdf(folder), ad)
     from xscore.scaffold.ai_scaffold import build_ai_scaffold
     ans = _find_answer_pdf(folder)
-    questions = build_ai_scaffold(
+    questions, layout = build_ai_scaffold(
         exam_pdf, ans,
         on_exam_complete=on_exam_complete,
         on_scheme_complete=on_scheme_complete,
@@ -487,6 +498,7 @@ def build_scaffold(
         total_marks=total_marks,
         page_count=page_count,
         raw_description=raw_description,
+        layout=layout,
     )
     _save_cache(ad, scaffold, students)
     _clear_legacy_scaffold_outputs(folder)

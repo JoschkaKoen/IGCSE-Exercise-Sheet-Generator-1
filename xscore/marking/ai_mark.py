@@ -45,6 +45,14 @@ def _render_page_b64(doc: Any, page_idx: int, dpi: int = 150) -> str:
 
 
 
+_QUADRANT_LABELS: dict[tuple[int, int], str] = {
+    (1, 1): "top-left",
+    (1, 2): "top-right",
+    (2, 1): "bottom-left",
+    (2, 2): "bottom-right",
+}
+
+
 def _mark_page(
     client: Any,
     model_id: str,
@@ -59,7 +67,9 @@ def _mark_page(
     Retries up to 3 times with 2 s / 4 s backoff (same pattern as kimi_helpers).
     Returns the original blueprint (all blanks) if all attempts fail.
     """
-    criteria_text = _format_criteria(page_questions_info)
+    layout = blueprint.get("layout") or {"rows": 1, "cols": 1}
+    rows, cols = int(layout.get("rows", 1)), int(layout.get("cols", 1))
+    criteria_text = _format_criteria(page_questions_info, rows=rows, cols=cols)
     blueprint_json = json.dumps(blueprint, indent=2, ensure_ascii=False)
 
     system_prompt = (
@@ -71,6 +81,19 @@ def _mark_page(
         "  • assigned_marks: an integer between 0 and max_marks\n"
         "  • reasoning: a brief justification for the marks awarded"
     )
+    if rows > 1 or cols > 1:
+        grid_desc = "\n".join(
+            f"  row {r} col {c} = {_QUADRANT_LABELS.get((r, c), f'quadrant ({r},{c})')}"
+            for r in range(1, rows + 1)
+            for c in range(1, cols + 1)
+        )
+        system_prompt += (
+            f"\n\nThis exam page has a {rows}×{cols} grid of sub-pages (row-major reading order):\n"
+            f"{grid_desc}\n"
+            "Each question in the template carries subpage_row and subpage_col that tell you "
+            "which quadrant it lives in. Use these coordinates to locate the correct answer "
+            "bubble — do not confuse questions from different quadrants with each other."
+        )
     user_text = (
         f"Marking criteria:\n{criteria_text}\n\n"
         f"Blueprint template to fill in:\n{blueprint_json}"
@@ -112,13 +135,19 @@ def _mark_page(
     return blueprint.copy()
 
 
-def _format_criteria(questions_info: list[dict]) -> str:
+def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1) -> str:
     """Format question marking criteria for the AI prompt."""
     if not questions_info:
         return "(no questions assigned to this page)"
+    multi_subpage = rows > 1 or cols > 1
     parts = []
     for q in questions_info:
         line = f"Q{q.get('number', '?')} [{q.get('question_type', '')}] — {q.get('marks', '?')} mark(s)"
+        if multi_subpage:
+            r = int(q.get("subpage_row") or 1)
+            c = int(q.get("subpage_col") or 1)
+            label = _QUADRANT_LABELS.get((r, c), f"quadrant ({r},{c})")
+            line += f"  (sub-page row {r}, col {c} — {label})"
         if q.get("correct_answer"):
             line += f"\n  Correct answer: {q['correct_answer']}"
         if q.get("marking_criteria"):

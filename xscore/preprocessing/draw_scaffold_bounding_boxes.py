@@ -59,7 +59,7 @@ def write_projected_scaffold_debug_pdf(
         write_scan_page_transforms_json,
     )
     from xscore.shared.exam_paths import exam_artifact_dir
-    from xscore.scaffold.generate_scaffold import _find_exam_pdf, build_scaffold
+    from xscore.scaffold.generate_scaffold import find_exam_pdf, build_scaffold
     from xscore.shared.terminal_ui import info_line, warn_line
 
     folder = Path(folder)
@@ -74,7 +74,7 @@ def write_projected_scaffold_debug_pdf(
         return None
 
     try:
-        exam_for_scaffold = _find_exam_pdf(folder)
+        exam_for_scaffold = find_exam_pdf(folder)
     except FileNotFoundError:
         info_line("No raw exam PDF — skip projected overlay")
         return None

@@ -477,12 +477,21 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
 # Marking pipeline steps (10–14)
 # ---------------------------------------------------------------------------
 
+def _exam_pdf_page_count(folder: Path) -> int:
+    """Count pages in the exam PDF without building the scaffold."""
+    from xscore.scaffold.generate_scaffold import find_exam_pdf
+    import fitz
+    with fitz.open(str(find_exam_pdf(folder))) as doc:
+        return doc.page_count
+
+
 def _step10_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
     """Step 10 — Count scan/exam pages, derive student count."""
-    assert ctx.cleaned_pdf is not None and ctx.scaffold is not None and ctx.artifact_dir is not None
+    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     gi.pipeline_step(10, "Exam geometry")
     t0 = time.perf_counter()
-    geo = gi.compute_geometry(ctx.cleaned_pdf, ctx.scaffold.page_count, ctx.students or [])
+    exam_pages = ctx.scaffold.page_count if ctx.scaffold else _exam_pdf_page_count(ctx.folder)
+    geo = gi.compute_geometry(ctx.cleaned_pdf, exam_pages, ctx.students or [])
     gi.write_geometry_artifacts(ctx.artifact_dir, geo)
     ctx.num_students = geo["num_students"]
     ctx.pages_per_student = geo["pages_per_student"]
@@ -618,10 +627,11 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         _step01_parse(ctx, gi)
         _step02_folder(ctx, gi)
         _step03_students(ctx, gi)
-        _step04_05_06_scaffold(ctx, gi)
         _scan_phases(ctx, gi)
-        if ctx.cleaned_pdf and ctx.scaffold:
+        if ctx.cleaned_pdf:
             _step10_geometry(ctx, gi)
+        _step04_05_06_scaffold(ctx, gi)
+        if ctx.cleaned_pdf and ctx.scaffold:
             _step11_blueprints(ctx, gi)
             _step12_mark(ctx, gi)
             _step13_reports(ctx, gi)

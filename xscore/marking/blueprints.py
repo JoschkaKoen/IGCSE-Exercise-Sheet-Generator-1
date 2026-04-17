@@ -19,12 +19,15 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
     from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_blueprint_md_path
 
     (artifact_dir / "marking").mkdir(parents=True, exist_ok=True)
+    layout = scaffold.layout
     blueprints: list[dict] = []
     for page_num in range(1, scaffold.page_count + 1):
         page_qs = [
             {
                 "number": q.number,
                 "question_type": q.question_type,
+                "subpage_row": q.subpage_row,
+                "subpage_col": q.subpage_col,
                 "max_marks": q.marks,
                 "student_answer": "",
                 "assigned_marks": None,
@@ -33,7 +36,11 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
             for q in scaffold.gradable_questions
             if q.page == page_num
         ]
-        bp = {"page": page_num, "questions": page_qs}
+        bp = {
+            "page": page_num,
+            "layout": {"rows": layout.rows, "cols": layout.cols},
+            "questions": page_qs,
+        }
         blueprints.append(bp)
 
         json_path = artifact_blueprint_json_path(artifact_dir, page_num)
