@@ -562,6 +562,7 @@ def layout_vector_strips_to_pdf(
     *,
     paper_always_newpage: bool = False,
     page_number_circle: bool = True,
+    page_number_raise: float = 2 / 3,
     name_field: bool = False,
 ) -> list[dict[str, Any]]:
     """Flow strips onto A4 pages and write a vector PDF.
@@ -853,8 +854,7 @@ def layout_vector_strips_to_pdf(
         rx = w / 2 + _pagenum_pad_x
         ry = cap_h / 2 + _pagenum_pad_y
         r = max(rx, ry)             # use a circle (equal radii)
-        # Shift circle and text 60% of the circle diameter upward.
-        offset = 1.2 * r
+        offset = page_number_raise * r
         cy -= offset
         baseline_y -= offset
         # Draw the thin circle *before* the text so the text sits on top.
