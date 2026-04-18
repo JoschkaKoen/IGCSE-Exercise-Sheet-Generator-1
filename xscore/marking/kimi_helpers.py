@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import json
+import re
 import time
 from typing import Any, Protocol, runtime_checkable
 
@@ -169,6 +170,14 @@ def parse_json_safe(raw: str) -> dict | None:
         if not fixed.rstrip().endswith("}"):
             fixed = fixed.rstrip() + "}"
         result = _as_dict(json.loads(fixed))
+        if result is not None:
+            return result
+    except json.JSONDecodeError:
+        pass
+
+    try:
+        cleaned = re.sub(r'[\x00-\x1f]', lambda m: '\\u{:04x}'.format(ord(m.group())), text)
+        result = _as_dict(json.loads(cleaned))
         if result is not None:
             return result
     except json.JSONDecodeError:

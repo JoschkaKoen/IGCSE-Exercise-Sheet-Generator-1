@@ -74,7 +74,8 @@ def _mark_page(
         "You are an expert exam marker. You will be shown one page of a student's exam paper. "
         "Fill in the provided JSON template by reading the student's answers and applying the "
         "marking criteria below. Return ONLY valid JSON in the exact same schema — do not add "
-        "or remove keys. For each question:\n"
+        "or remove keys. Use proper JSON escape sequences in all strings (\\n for newlines, "
+        "\\t for tabs) — never embed literal control characters. For each question:\n"
         "  • student_answer: what the student wrote (for multiple_choice: the letter the student marked)\n"
         "  • assigned_marks: an integer between 0 and max_marks\n"
         "  • reasoning: a brief justification for the marks awarded\n"
@@ -154,7 +155,7 @@ def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1
         if multi_subpage:
             r = int(q.get("subpage_row") or 1)
             c = int(q.get("subpage_col") or 1)
-            label = _QUADRANT_LABELS.get((r, c), f"quadrant ({r},{c})")
+            label = _quadrant_label(r, c, rows, cols)
             line += f"  (sub-page row {r}, col {c} — {label})"
         question_text = (q.get("text") or q.get("question_text") or "").strip()
         if question_text:

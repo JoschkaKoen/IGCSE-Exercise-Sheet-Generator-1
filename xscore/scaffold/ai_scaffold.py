@@ -77,6 +77,7 @@ For EACH question and sub-question at EVERY nesting level return an object with:
 - "subquestions": list of child questions in the same format; empty list for leaf questions
 
 Return ONLY valid JSON: {"layout": {"rows": N, "cols": M}, "questions": [...]}
+Use proper JSON escape sequences in all strings (\\n for newlines, \\t for tabs) — never embed literal control characters.
 """
 
 _SYSTEM_SCHEME = (
@@ -93,6 +94,7 @@ Return a FLAT list — do not recreate nesting. For each entry:
 - "mark_scheme": [{"mark": "B1/M1/A1/...", "criterion": "text"}, ...]
 
 Return ONLY valid JSON: {"questions": [...]}
+Use proper JSON escape sequences in all strings (\\n for newlines, \\t for tabs) — never embed literal control characters.
 """
 
 
