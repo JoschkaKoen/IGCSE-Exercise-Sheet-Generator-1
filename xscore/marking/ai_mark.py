@@ -161,12 +161,12 @@ def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1
             line += f"\n  Question: \"{question_text}\""
         answer_options = q.get("answer_options") or []
         if answer_options:
-            opts_str = "  ".join(
-                f"{o.get('letter', '?')}) {o.get('text', '')}"
+            opts_lines = "\n".join(
+                f"    {o.get('letter', '?')}) {o.get('text', '')}"
                 for o in answer_options
                 if isinstance(o, dict)
             )
-            line += f"\n  Options: {opts_str}"
+            line += f"\n  Options:\n{opts_lines}"
         if q.get("correct_answer"):
             line += f"\n  Correct answer: {q['correct_answer']}"
         if q.get("marking_criteria"):
