@@ -85,7 +85,11 @@ def _mark_page(
         "IMPORTANT — LaTeX formatting: any expression containing ^, _, or math operators MUST "
         "be wrapped in $...$ (e.g. write \"$10^{3}$\", \"$v_0 = 5$ m/s\", never \"10^3\" or "
         "\"v_0 = 5 m/s\"). Also write \\% for percent signs, \\& for ampersands. Failing to "
-        "use math mode for such expressions will crash the PDF renderer."
+        "use math mode for such expressions will crash the PDF renderer. "
+        "All LaTeX commands in JSON strings MUST use a double backslash — "
+        "e.g. write $\\\\rightarrow$, $\\\\times$, $\\\\approx$ — never $\\rightarrow$. "
+        "A single \\r, \\t, or \\n before a command name is a JSON control character "
+        "that corrupts the output."
     )
     if rows > 1 or cols > 1:
         grid_desc = "\n".join(

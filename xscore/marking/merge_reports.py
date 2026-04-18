@@ -54,10 +54,21 @@ def _latex_newlines(text: str) -> str:
 
     Must be called AFTER _latex_escape_smart — if called before, the backslash
     in \\newline would itself be escaped to \\textbackslash{}newline.
+
+    Skips $...$ math blocks: stray CR/LF inside math are stripped rather than
+    converted to \\newline (they are artefacts of JSON-parsed backslash commands
+    such as \\rightarrow whose \\r was interpreted as a carriage return).
     """
-    text = text.replace("\r\n", "\n").replace("\r", "\n")
-    text = re.sub(r"\n{2,}", r"\\newline ", text)
-    return text.replace("\n", r"\\newline ")
+    parts = re.split(r"(\$[^$]+\$)", text)
+    result = []
+    for part in parts:
+        if part.startswith("$") and part.endswith("$") and len(part) > 1:
+            result.append(re.sub(r"[\r\n]", " ", part))
+        else:
+            part = part.replace("\r\n", "\n").replace("\r", "\n")
+            part = re.sub(r"\n{2,}", r"\\newline ", part)
+            result.append(part.replace("\n", r"\\newline "))
+    return "".join(result)
 
 
 def _format_criteria_cell(raw: str) -> str:
