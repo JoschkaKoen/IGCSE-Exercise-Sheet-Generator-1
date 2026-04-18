@@ -32,10 +32,10 @@ _NAME_PROMPT_FREEFORM = """\
 Look at the top of this exam page for the student's HANDWRITTEN name.
 
 Ignore all pre-printed or typed text: exam codes, stamps, watermarks, \
-school names, or labels (e.g. "EMPL", "EMPI", page numbers).
+school names, barcodes, or labels (e.g. printed codes, page numbers, stamps).
 
 Return ONLY a JSON object:
-{"name": "FirstName LastName"}
+{"name": "Full name as written"}
 
 If no handwritten name is visible or the name field is blank, return:
 {"name": ""}
@@ -48,14 +48,14 @@ def _make_name_prompt(students: list[str]) -> str:
 Look at the top of this exam page for the student's HANDWRITTEN name.
 
 Ignore all pre-printed or typed text: exam codes, stamps, watermarks, \
-school names, or labels (e.g. "EMPL", "EMPI", page numbers).
+school names, barcodes, or labels (e.g. printed codes, page numbers, stamps).
 
 Here is the official student roster:
 {roster}
 
 Return ONLY a JSON object with the roster name that best matches the \
 handwritten name, spelled EXACTLY as it appears in the roster above:
-{{"name": "FirstName LastName"}}
+{{"name": "Full name as written"}}
 
 If no handwritten name is visible or none of the roster entries match, return:
 {{"name": ""}}

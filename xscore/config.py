@@ -52,6 +52,7 @@ from typing import Any
 AI_MODEL = os.getenv("AI_MODEL", "kimi-k2.5")
 
 # Exam layout + prompt + schema (see extraction/profiles/)
+# NOTE: used ONLY by xscore/extraction/ benchmarking scripts, NOT by the main grading pipeline.
 EXAM_PROFILE = "igcse_physics"
 
 # =============================================================================
@@ -160,8 +161,8 @@ PARSE_PROMPT_MAX_TOKENS = 512
 # Paths and File Handling
 # =============================================================================
 
-# Default PDF to process (raw scans; see ``Space Physics Unit Test/``)
-DEFAULT_PDF = "Space Physics Unit Test/scan 400dpi.pdf"
+# Default PDF — leave empty so the folder-find logic raises a clear error if no folder is given
+DEFAULT_PDF = ""
 
 # Ground truth file path (for accuracy evaluation; repo-relative)
 GROUND_TRUTH_PATH = Path(__file__).resolve().parent / "Ground Truth "

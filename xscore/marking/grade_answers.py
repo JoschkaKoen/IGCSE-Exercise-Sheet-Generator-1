@@ -32,7 +32,7 @@ def _prompt_mc(question: Question) -> str:
     answer_hint = f" The correct answer is {question.correct_answer}." if question.correct_answer else ""
     return (
         f"Look at Question {question.number} on this exam page. "
-        f"What letter (A/B/C/D) did the student mark for this question? "
+        f"What letter did the student mark for this question (could be A, B, C, D, E, or another option)? "
         f"Return ONLY: {{\"answer\": \"B\"}} or {{\"answer\": \"?\"}} if unreadable."
         f"{answer_hint}"
     )

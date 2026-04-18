@@ -45,12 +45,10 @@ def _render_page_b64(doc: Any, page_idx: int, dpi: int = 150) -> str:
 
 
 
-_QUADRANT_LABELS: dict[tuple[int, int], str] = {
-    (1, 1): "top-left",
-    (1, 2): "top-right",
-    (2, 1): "bottom-left",
-    (2, 2): "bottom-right",
-}
+def _quadrant_label(row: int, col: int, total_rows: int, total_cols: int) -> str:
+    v = "top" if row == 1 else "bottom" if row == total_rows else f"row {row}"
+    h = "left" if col == 1 else "right" if col == total_cols else f"col {col}"
+    return f"{v}-{h}"
 
 
 def _mark_page(
@@ -77,7 +75,7 @@ def _mark_page(
         "Fill in the provided JSON template by reading the student's answers and applying the "
         "marking criteria below. Return ONLY valid JSON in the exact same schema — do not add "
         "or remove keys. For each question:\n"
-        "  • student_answer: what the student wrote (for multiple_choice: a single letter A–D)\n"
+        "  • student_answer: what the student wrote (for multiple_choice: the letter the student marked)\n"
         "  • assigned_marks: an integer between 0 and max_marks\n"
         "  • reasoning: a brief justification for the marks awarded\n"
         "IMPORTANT — LaTeX formatting: any expression containing ^, _, or math operators MUST "
@@ -87,7 +85,7 @@ def _mark_page(
     )
     if rows > 1 or cols > 1:
         grid_desc = "\n".join(
-            f"  row {r} col {c} = {_QUADRANT_LABELS.get((r, c), f'quadrant ({r},{c})')}"
+            f"  row {r} col {c} = {_quadrant_label(r, c, rows, cols)}"
             for r in range(1, rows + 1)
             for c in range(1, cols + 1)
         )
