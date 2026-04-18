@@ -76,7 +76,10 @@ def _mark_page(
         "marking criteria below. Return ONLY valid JSON in the exact same schema — do not add "
         "or remove keys. Use proper JSON escape sequences in all strings (\\n for newlines, "
         "\\t for tabs) — never embed literal control characters. For each question:\n"
-        "  • student_answer: what the student wrote (for multiple_choice: the letter the student marked)\n"
+        "  • student_answer: what the student wrote. For multiple_choice: find the option the student "
+        "physically marked (written letter, circled letter, cross, or tick) and report that single "
+        "letter. Do NOT infer from the question content or your own knowledge of which answer is correct. "
+        "If no mark is visible, report '?'.\n"
         "  • assigned_marks: an integer between 0 and max_marks\n"
         "  • reasoning: a brief justification for the marks awarded\n"
         "IMPORTANT — LaTeX formatting: any expression containing ^, _, or math operators MUST "
@@ -94,8 +97,8 @@ def _mark_page(
             f"\n\nThis exam page has a {rows}×{cols} grid of sub-pages (row-major reading order):\n"
             f"{grid_desc}\n"
             "Each question in the template carries subpage_row and subpage_col that tell you "
-            "which quadrant it lives in. Use these coordinates to locate the correct answer "
-            "bubble — do not confuse questions from different quadrants with each other.\n"
+            "which quadrant it lives in. Use these coordinates to locate the student's answer "
+            "— do not confuse questions from different quadrants with each other.\n"
             "IMPORTANT — question number matching: template question numbers may not match the "
             "printed number on the image — e.g. two questions both printed as '38' "
             "appear as '38' and '38_2' in the template. Locate each question using "
@@ -103,6 +106,10 @@ def _mark_page(
             "answer_options in your response — fill in only student_answer, assigned_marks, "
             "and reasoning."
         )
+    system_prompt += (
+        "\nMCQ reminder: report only the letter the student physically marked — "
+        "even if it appears to be a wrong answer. Do not use subject knowledge to guess."
+    )
     user_text = (
         f"Marking criteria:\n{criteria_text}\n\n"
         f"Blueprint template to fill in:\n{blueprint_json}"
@@ -133,6 +140,7 @@ def _mark_page(
             raw = resp.choices[0].message.content or ""
             result = parse_json_safe(raw)
             if result is not None:
+                _fix_mc_marks(result, page_questions_info)
                 return result
             warn_line(f"Marking call returned unparseable JSON (attempt {attempt}/3) — retrying")
         except Exception as exc:  # noqa: BLE001
@@ -142,6 +150,31 @@ def _mark_page(
 
     warn_line("All marking attempts failed — using blank blueprint")
     return blueprint.copy()
+
+
+def _fix_mc_marks(result: dict, page_questions_info: list[dict]) -> None:
+    """Normalise student_answer and recompute assigned_marks for MCQ questions in-place.
+
+    The AI is not shown the correct answer for MCQs, so it cannot award marks
+    reliably. This function overrides assigned_marks deterministically and
+    normalises the extracted letter (e.g. "b." → "B").
+    """
+    mc_correct: dict[str, str] = {
+        q.get("number", ""): (q.get("correct_answer") or "").strip().upper()
+        for q in page_questions_info
+        if q.get("question_type") == "multiple_choice" and q.get("correct_answer")
+    }
+    if not mc_correct:
+        return
+    for q in result.get("questions", []):
+        num = q.get("number", "")
+        if num not in mc_correct:
+            continue
+        raw_ans = (q.get("student_answer") or "").strip()
+        student_ans = raw_ans[0].upper() if raw_ans and raw_ans[0].isalpha() else "?"
+        q["student_answer"] = student_ans
+        max_m = int(q.get("max_marks") or 1)
+        q["assigned_marks"] = max_m if student_ans == mc_correct[num] else 0
 
 
 def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1) -> str:
@@ -168,7 +201,7 @@ def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1
                 if isinstance(o, dict)
             )
             line += f"\n  Options:\n{opts_lines}"
-        if q.get("correct_answer"):
+        if q.get("correct_answer") and q.get("question_type") != "multiple_choice":
             line += f"\n  Correct answer: {q['correct_answer']}"
         if q.get("marking_criteria"):
             line += f"\n  Criteria: {q['marking_criteria']}"
