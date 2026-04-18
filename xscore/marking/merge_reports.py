@@ -49,6 +49,34 @@ def _latex_escape_smart(text: str) -> str:
     )
 
 
+def _latex_newlines(text: str) -> str:
+    """Replace Python newlines with LaTeX \\newline for p{} table cells.
+
+    Must be called AFTER _latex_escape_smart — if called before, the backslash
+    in \\newline would itself be escaped to \\textbackslash{}newline.
+    """
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = re.sub(r"\n{2,}", r"\\newline ", text)
+    return text.replace("\n", r"\\newline ")
+
+
+def _format_criteria_cell(raw: str) -> str:
+    """Format a marking_criteria string for the Expected column.
+
+    Strips [criterion] prefixes, joins lines with ' / ', truncates to 200 chars,
+    then escapes for LaTeX.
+    """
+    lines = []
+    for line in raw.split("\n"):
+        line = re.sub(r"^\s*\[criterion\]\s*", "", line).strip()
+        if line:
+            lines.append(line)
+    joined = " / ".join(lines)
+    if len(joined) > 200:
+        joined = joined[:199] + "…"
+    return _latex_newlines(_latex_escape_smart(joined))
+
+
 # ---------------------------------------------------------------------------
 # Per-student merge
 # ---------------------------------------------------------------------------
@@ -199,15 +227,19 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
     header_extra = f" — {_latex_escape(exam_name)}" if exam_name else ""
     rows = []
     for q in report["questions"]:
-        qnum = _latex_escape(str(q.get("number", "")))
+        qnum = _latex_escape(str(q.get("number", "")).replace("_", "."))
         qtype = str(q.get("question_type", "")).replace("_", " ").title()
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
-        answer = "\\textit{(blank)}" if not answer_raw else _latex_escape_smart(answer_raw)
+        answer = "\\textit{(blank)}" if not answer_raw else _latex_newlines(_latex_escape_smart(answer_raw))
         correct_raw = str(q.get("correct_answer") or "").strip()
-        correct_ans = "---" if not correct_raw else _latex_escape_smart(correct_raw)
-        reasoning = _latex_escape_smart(str(q.get("reasoning") or ""))
+        if correct_raw:
+            correct_ans = _latex_newlines(_latex_escape_smart(correct_raw))
+        else:
+            criteria_raw = str(q.get("marking_criteria") or "").strip()
+            correct_ans = f"\\textit{{{_format_criteria_cell(criteria_raw)}}}" if criteria_raw else "---"
+        reasoning = _latex_newlines(_latex_escape_smart(str(q.get("reasoning") or "")))
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(
             f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\"
@@ -215,7 +247,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
     rows_str = "\n".join(rows)
     pct_display = "N/A" if pct is None else f"{pct}\\%"
     # Column widths fill landscape A4 text width (25.7 cm - ~3 cm separator overhead = 22.7 cm):
-    # p{1cm} + p{2.2cm} + p{0.9cm} + p{1.1cm} + p{4cm} + p{3.5cm} + p{10cm} = 22.7 cm
+    # p{1cm} + p{2.2cm} + p{0.9cm} + p{1.1cm} + p{4cm} + p{4.5cm} + p{9cm} = 22.7 cm
     return (
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
@@ -232,15 +264,16 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
         "\\vspace{1em}\n\n"
         "{\\small\n"
-        "\\begin{longtable}{p{1cm}p{2.2cm}p{0.9cm}p{1.1cm}p{4cm}p{3.5cm}p{10cm}}\n"
+        "\\renewcommand{\\arraystretch}{1.2}\n"
+        "\\begin{longtable}{p{1cm}p{2.2cm}p{0.9cm}p{1.1cm}p{4cm}p{4.5cm}p{9cm}}\n"
         "\\toprule\n"
-        "\\textbf{Q\\#} & \\textbf{Type} & \\textbf{Max} & \\textbf{Awarded} & "
-        "\\textbf{Student Answer} & \\textbf{Correct Answer} & \\textbf{Reasoning} \\\\\n"
+        "\\textbf{Q} & \\textbf{Type} & \\textbf{Max} & \\textbf{Got} & "
+        "\\textbf{Student Answer} & \\textbf{Expected} & \\textbf{Reasoning} \\\\\n"
         "\\midrule\n"
         "\\endfirsthead\n"
         "\\midrule\n"
-        "\\textbf{Q\\#} & \\textbf{Type} & \\textbf{Max} & \\textbf{Awarded} & "
-        "\\textbf{Student Answer} & \\textbf{Correct Answer} & \\textbf{Reasoning} \\\\\n"
+        "\\textbf{Q} & \\textbf{Type} & \\textbf{Max} & \\textbf{Got} & "
+        "\\textbf{Student Answer} & \\textbf{Expected} & \\textbf{Reasoning} \\\\\n"
         "\\midrule\n"
         "\\endhead\n"
         f"{rows_str}\n"
@@ -417,12 +450,14 @@ def compile_reports(ctx: Any) -> list[dict]:
     # Build correct_answer lookup keyed by (possibly _2-suffixed) question number so it
     # matches the renamed numbers produced by _merge_student_pages.
     correct_answers: dict[str, str] = {}
+    marking_criteria_by_num: dict[str, str] = {}
     seen_ca: dict[str, int] = {}
     for _q in ctx.scaffold.gradable_questions:
         seen_ca[_q.number] = seen_ca.get(_q.number, 0) + 1
         _occ = seen_ca[_q.number]
         _key = _q.number if _occ == 1 else f"{_q.number}_{_occ}"
         correct_answers[_key] = _q.correct_answer or ""
+        marking_criteria_by_num[_key] = _q.marking_criteria or ""
 
     # Pass 1 — sequential: merge marks and write all data files (fast I/O, order-sensitive)
     (ctx.artifact_dir / "reports").mkdir(parents=True, exist_ok=True)
@@ -430,9 +465,10 @@ def compile_reports(ctx: Any) -> list[dict]:
         report = _merge_student_pages(
             ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks
         )
-        # Annotate each question with the correct answer from the scaffold.
+        # Annotate each question with the correct answer and marking criteria from the scaffold.
         for _q in report["questions"]:
             _q["correct_answer"] = correct_answers.get(str(_q.get("number", "")), "")
+            _q["marking_criteria"] = marking_criteria_by_num.get(str(_q.get("number", "")), "")
 
         artifact_student_report_json_path(ctx.artifact_dir, name).write_text(
             json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8"
