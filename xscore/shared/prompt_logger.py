@@ -29,7 +29,7 @@ def save_prompt(
             content = msg.get("content", "")
             if isinstance(content, list):
                 texts = [
-                    part["text"]
+                    part.get("text", "")
                     for part in content
                     if isinstance(part, dict) and part.get("type") == "text"
                 ]

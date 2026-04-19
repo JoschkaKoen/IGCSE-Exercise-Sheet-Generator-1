@@ -84,10 +84,10 @@ Prefer folder_path when both apply.
 skip_clean_scan: true=reuse cleaned scan ("skip cleaning", "don't reprocess").
 force_clean_scan: true=ignore cache, re-clean ("re-clean", "force deskew"). Never both true.
 rescaffold: true=rebuild scaffold ("rebuild scaffold", "reparse", "refresh questions").
-through_step: 1-14 or null. 1=parse, 2=folder, 3=roster, 4=exam PDF, 5=mark scheme,
-  6=merge scaffold, 7=blank pages, 8=autorotate, 9=deskew,
-  10=exam geometry + scan student name detection → 10_exam_student_list.json,
-  11=AI marking blueprints, 12=AI marking, 13=compile reports, 14=timing summary.
+through_step: 1-14 or null. 1=parse prompt, 2=find folder, 3=roster,
+  4=blank pages, 5=autorotate, 6=deskew, 7=geometry + student name detection,
+  8=parse exam PDF, 9=parse mark scheme, 10=merge scaffold,
+  11=blueprints, 12=AI marking, 13=compile reports, 14=timing summary.
 no_report: true=skip PDF ("terminal only", "no report").
 """
 

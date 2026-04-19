@@ -82,7 +82,7 @@ class _Tee:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="xScore.py",
-        description="Prepare an exam scan (steps 1–8).",
+        description="Grade an exam scan (steps 1–14).",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument(

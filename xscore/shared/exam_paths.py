@@ -151,8 +151,8 @@ def find_latest_cleaned_scan(
                 if p.is_file():
                     candidates.append(p)
         for p in b.glob(f"*/scan/{name}"):
-                if p.is_file():
-                    candidates.append(p)
+            if p.is_file():
+                candidates.append(p)
 
     legacy = exam_folder / name
     if legacy.is_file():

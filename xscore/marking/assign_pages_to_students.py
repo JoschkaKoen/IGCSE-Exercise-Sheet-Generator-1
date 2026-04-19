@@ -103,7 +103,7 @@ def assign_pages(
         )
     client, model_id, _provider, _effort = ai_result
 
-    from xscore.shared.terminal_ui import info_line, tool_line, format_duration
+    from xscore.shared.terminal_ui import info_line, tool_line, format_duration, warn_line
 
     if pages is None:
         tool_line("pages", f"Rendering pages @ {dpi} DPI …")
@@ -147,6 +147,11 @@ def assign_pages(
     # Group into fixed blocks of pages_per_student (guaranteed by geometry).
     # Undetected first pages become Unknown_N — no cross-student inheritance.
     n_blocks = n_pages // pages_per_student
+    if n_pages % pages_per_student:
+        warn_line(
+            f"Scan has {n_pages} pages — {n_pages % pages_per_student} trailing page(s) "
+            f"dropped (expected a multiple of {pages_per_student})"
+        )
     result: list[PageAssignment] = []
     for b in range(n_blocks):
         first_idx = b * pages_per_student           # 0-based index of block's first page

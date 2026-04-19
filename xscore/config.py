@@ -165,7 +165,7 @@ PARSE_PROMPT_MAX_TOKENS = 512
 DEFAULT_PDF = ""
 
 # Ground truth file path (for accuracy evaluation; repo-relative)
-GROUND_TRUTH_PATH = Path(__file__).resolve().parent / "Ground Truth "
+GROUND_TRUTH_PATH = Path(__file__).resolve().parent / "Ground Truth"
 
 # =============================================================================
 # Generic Pipeline Configuration (xscore.py)

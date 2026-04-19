@@ -151,9 +151,8 @@ def detect_handwriting_in_rects(
         One HWResult per input rect, in the same order.
     """
     mat = fitz.Matrix(dpi / 72, dpi / 72)
-    doc = fitz.open(str(scan_pdf))
-    pix = doc[page_idx].get_pixmap(matrix=mat, colorspace=fitz.csRGB)
-    doc.close()
+    with fitz.open(str(scan_pdf)) as doc:
+        pix = doc[page_idx].get_pixmap(matrix=mat, colorspace=fitz.csRGB)
 
     img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(pix.height, pix.width, 3)
     pix = None  # release pixmap memory
@@ -347,7 +346,7 @@ def write_vlines_removed_pdf(
                 )
             for hw in page_results.get(page_idx, []):
                 color = _RED if hw.has_handwriting else _GREEN
-                dashes = "[4 4] 0" if hw.has_handwriting else None
+                dashes = [4, 4] if hw.has_handwriting else None
                 page_out.draw_rect(hw.rect, color=color, width=line_width, dashes=dashes)
 
         doc_out.save(str(output_pdf), garbage=4, deflate=True)
@@ -378,15 +377,14 @@ def overlay_refined_boxes(
         output_pdf path after the atomic save.
     """
     tmp = output_pdf.with_suffix(".tmp.pdf")
-    doc = fitz.open(str(projected_pdf))
-    for page_idx, results in page_results.items():
-        page = doc[page_idx]
-        for hw in results:
-            color = _RED if hw.has_handwriting else _GREEN
-            dashes = "[4 4] 0" if hw.has_handwriting else None
-            page.draw_rect(hw.rect, color=color, width=line_width, dashes=dashes)
-    doc.save(str(tmp), garbage=4, deflate=True)
-    doc.close()
+    with fitz.open(str(projected_pdf)) as doc:
+        for page_idx, results in page_results.items():
+            page = doc[page_idx]
+            for hw in results:
+                color = _RED if hw.has_handwriting else _GREEN
+                dashes = [4, 4] if hw.has_handwriting else None
+                page.draw_rect(hw.rect, color=color, width=line_width, dashes=dashes)
+        doc.save(str(tmp), garbage=4, deflate=True)
     tmp.replace(output_pdf)
     return output_pdf
 

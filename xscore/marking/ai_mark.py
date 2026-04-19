@@ -294,6 +294,14 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
     # Each entry: {"student_name": str, "page_numbers": [int, ...], "confidence": str}
 
+    _instr = getattr(ctx, "instruction", None)
+    if _instr is not None:
+        sf = _instr.student_filter
+        if sf.mode == "specific" and sf.names:
+            raw_assignments = [a for a in raw_assignments if a["student_name"] in sf.names]
+        elif sf.mode == "first_n" and sf.n:
+            raw_assignments = raw_assignments[: sf.n]
+
     # Load short report once; build page → leaf-questions lookup (read-only, shared)
     short_report_path = artifact_short_scaffold_json_path(ctx.artifact_dir)
     short_report = json.loads(short_report_path.read_text(encoding="utf-8"))
@@ -307,8 +315,11 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
 
+    import contextlib
+    import sys
     from rich.live import Live
 
+    _use_live = sys.stdout.isatty()
     _display_lock = threading.Lock()
     _student_lines: dict[str, str] = {}
 
@@ -330,7 +341,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 key = f"{student_name}_{p_label}"
                 with _display_lock:
                     _student_lines[key] = f"[dim]  {icon('info')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}[/]"
-                    live.update(_render())
+                    if _use_live:
+                        live.update(_render())
 
                 b64 = _render_page_b64(doc, scan_idx, dpi=dpi)
                 blueprint = json.loads(
@@ -354,7 +366,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         f"[dim]  {icon('info')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}"
                         f"  ·  {format_duration(mark_dur)}[/]"
                     )
-                    live.update(_render())
+                    if _use_live:
+                        live.update(_render())
                 local_timings.append({
                     "phase": "marking",
                     "student": student_name,
@@ -375,7 +388,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             doc.close()
         return local_timings
 
-    with Live("", console=get_console(), refresh_per_second=4) as live:
+    _live_ctx = Live("", console=get_console(), refresh_per_second=4) if _use_live else contextlib.nullcontext()
+    with _live_ctx as live:
         with ThreadPoolExecutor(max_workers=workers) as ex:
             futures = {
                 ex.submit(_mark_student, a): a["student_name"] for a in raw_assignments

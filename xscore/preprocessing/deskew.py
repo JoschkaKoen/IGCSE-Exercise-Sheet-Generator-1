@@ -704,15 +704,14 @@ def deskew_pdf_raster(
         encoded = list(ex.map(_encode_cleaned_scan_page, range(n)))
     encoded.sort(key=lambda t: t[0])
 
-    doc = fitz.open()
     pt_per_px = 72.0 / dpi
-    for _idx, stream_bytes, (w_px, h_px) in encoded:
-        page = doc.new_page(width=w_px * pt_per_px, height=h_px * pt_per_px)
-        rect = fitz.Rect(0, 0, w_px * pt_per_px, h_px * pt_per_px)
-        page.insert_image(rect, stream=stream_bytes)
-    # Image streams (JPEG / PNG) are already compressed; skip extra document-level zlib.
-    doc.save(str(output_pdf), deflate=False)
-    doc.close()
+    with fitz.open() as doc:
+        for _idx, stream_bytes, (w_px, h_px) in encoded:
+            page = doc.new_page(width=w_px * pt_per_px, height=h_px * pt_per_px)
+            rect = fitz.Rect(0, 0, w_px * pt_per_px, h_px * pt_per_px)
+            page.insert_image(rect, stream=stream_bytes)
+        # Image streams (JPEG / PNG) are already compressed; skip extra document-level zlib.
+        doc.save(str(output_pdf), deflate=False)
 
     ok_line(f"Saved scan · {format_duration(time.perf_counter() - t_write)}")
     return output_pdf

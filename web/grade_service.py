@@ -41,7 +41,7 @@ def run_full_pipeline(
     from xscore.marking.blueprints import build_blueprints
     from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
     from xscore.marking.merge_reports import compile_reports
-    from xscore.marking.parse_instruction import parse_prompt
+    from xscore.marking.parse_instruction import _heuristic_fallback, parse_prompt
     from xscore.marking.timing_report import write_timing_report
     from xscore.config import ROTATION_ANALYSIS_DPI
     from xscore.preprocessing.start_scan import (
@@ -75,6 +75,7 @@ def run_full_pipeline(
 
     # ---------------------------------------------------------------------- step 1
     effective_dpi = dpi or 400
+    instruction = _heuristic_fallback(prompt or "", dpi_override=dpi)
     if prompt and prompt.strip():
         on_line("Step 1 — Parsing grading instructions…")
         t0_1 = time.perf_counter()
@@ -85,9 +86,9 @@ def run_full_pipeline(
                 effective_dpi = instruction.dpi
             on_step(1, "done", round(time.perf_counter() - t0_1, 2))
         except Exception as exc:  # noqa: BLE001
-            on_step(1, "failed", round(time.perf_counter() - t0_1, 2))
             logging.exception("Step 1 prompt parse failed")
-            on_line(f"Step 1 — Parse failed ({exc}); using defaults.")
+            on_line(f"Step 1 — Prompt parse error ({exc}); using heuristic defaults.")
+            on_step(1, "done", round(time.perf_counter() - t0_1, 2))
     else:
         t0_1 = time.perf_counter()
         on_step(1, "running", None)
@@ -272,6 +273,7 @@ def run_full_pipeline(
         scaffold=scaffold,
         pages_per_student=pages_per_student,
         num_students=num_students,
+        instruction=instruction,
     )
 
     def _mark() -> list:
@@ -281,14 +283,19 @@ def run_full_pipeline(
     on_line(f"Step 12 — {len(api_calls)} API calls completed.")
 
     # ---------------------------------------------------------------------- step 13
-    on_line("Step 13 — Compiling reports…")
+    if instruction.no_report:
+        on_line("Step 13 — Skipped (no_report requested).")
+        on_step(13, "running", None)
+        on_step(13, "done", 0.0)
+    else:
+        on_line("Step 13 — Compiling reports…")
 
-    def _reports() -> list:
-        summaries = compile_reports(ctx)
-        on_line(f"Step 13 — {len(summaries)} student report(s) written.")
-        return summaries
+        def _reports() -> list:
+            summaries = compile_reports(ctx)
+            on_line(f"Step 13 — {len(summaries)} student report(s) written.")
+            return summaries
 
-    _step(13, _reports)
+        _step(13, _reports)
 
     # ---------------------------------------------------------------------- step 14
     on_line("Step 14 — Writing timing summary…")

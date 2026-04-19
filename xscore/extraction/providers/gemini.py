@@ -8,8 +8,6 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from google import genai
-from google.genai import types
 from pydantic import BaseModel
 
 from xscore.config import (
@@ -50,6 +48,7 @@ class GeminiProvider:
         answer_fields: list[str],
         prompt_save_dir: Path | None = None,
     ) -> dict:
+        from google import genai
         if not isinstance(client, genai.Client):
             from xscore.shared.terminal_ui import err_line
 
@@ -71,6 +70,8 @@ class GeminiProvider:
         answer_fields: list[str],
         prompt_save_dir: Path | None = None,
     ) -> dict:
+        from google import genai
+        from google.genai import types
         last_error: Exception | None = None
         backoff = RETRY_BACKOFF_S
 

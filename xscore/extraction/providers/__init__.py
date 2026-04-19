@@ -8,8 +8,6 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from google import genai
-
 from xscore.config import AI_MODEL
 
 from xscore.extraction.images import normalize_extracted_record
@@ -31,6 +29,7 @@ def create_extraction_client(api_key: str | None = None) -> Any | None:
     key = api_key or os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
     if not key:
         return None
+    from google import genai
     return genai.Client(api_key=key)
 
 
