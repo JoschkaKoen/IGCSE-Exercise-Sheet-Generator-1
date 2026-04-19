@@ -43,7 +43,7 @@ from dotenv import load_dotenv
 
 from xscore.shared.student_artifacts import write_student_artifacts
 
-__version__ = "0.1"
+__version__ = "0.2"
 
 class _Tee:
     """Duplicate stdout to a log file, stripping ANSI colour codes from the file."""
