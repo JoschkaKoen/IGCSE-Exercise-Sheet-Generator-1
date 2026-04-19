@@ -12,12 +12,12 @@ Steps:
   5. Autorotate (remove blanks, apply /Rotate metadata).
   6. Deskew (small-angle per-half correction) → 3_cleaned_scan.pdf.
   7. Assign scan pages to students (name OCR via Kimi) → 10_exam_student_list.json.
-  8. AI: parse exam PDF → question hierarchy + layout → 4_exam_questions.json + 4_exam_questions.md.
-  9. AI: parse mark scheme → correct answers + criteria → 5_mark_scheme.json + 5_mark_scheme.md.
- 10. Merge scaffold → 6_scaffold.json + 6_scaffold.md.
- 11. Build per-page AI marking blueprints → 11_ai_marking_blueprint_N.json.
- 12. AI: grade each student page (Kimi) → 12_marked_*.json.
- 13. Merge per-page results into student and class reports → 13_student_report_*.json + PDF.
+  8. AI: parse exam PDF → question hierarchy + layout → 4_exam_questions.yaml + 4_exam_questions.md.
+  9. AI: parse mark scheme → correct answers + criteria → 5_mark_scheme.yaml + 5_mark_scheme.md.
+ 10. Merge scaffold → 6_report.yaml + 6_report.md (and 6_short_report.yaml).
+ 11. Build per-page AI marking blueprints → 11_ai_marking_blueprint_N.yaml.
+ 12. AI: grade each student page → 12_marked_*.txt (Q-block plain text).
+ 13. Merge per-page results into student and class reports → 13_student_report_*.yaml + PDF.
  14. Produce final graded summary.
 
 Usage:

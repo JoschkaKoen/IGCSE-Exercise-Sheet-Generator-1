@@ -46,24 +46,29 @@ def exam_artifact_dir(exam_folder: Path, output_base: str | Path = "output/xscor
     return Path(output_base) / stem
 
 
-def artifact_scaffold_json_path(artifact_dir: Path) -> Path:
-    """Canonical report JSON in the run folder."""
-    return artifact_dir / SUBDIR_SCAFFOLD / "6_report.json"
+def artifact_scaffold_yaml_path(artifact_dir: Path) -> Path:
+    """Canonical report YAML in the run folder."""
+    return artifact_dir / SUBDIR_SCAFFOLD / "6_report.yaml"
 
 
 def artifact_scaffold_markdown_path(artifact_dir: Path) -> Path:
-    """Human-readable report beside :func:`artifact_scaffold_json_path`."""
+    """Human-readable report beside :func:`artifact_scaffold_yaml_path`."""
     return artifact_dir / SUBDIR_SCAFFOLD / "6_report.md"
 
 
-def artifact_short_scaffold_json_path(artifact_dir: Path) -> Path:
-    """Short report JSON — same as 6_report.json but without the student list."""
-    return artifact_dir / SUBDIR_SCAFFOLD / "6_short_report.json"
+def artifact_short_scaffold_yaml_path(artifact_dir: Path) -> Path:
+    """Short report YAML — same as 6_report.yaml but without the student list."""
+    return artifact_dir / SUBDIR_SCAFFOLD / "6_short_report.yaml"
 
 
 def artifact_short_scaffold_markdown_path(artifact_dir: Path) -> Path:
     """Short report markdown — same as 6_report.md but without the student list."""
     return artifact_dir / SUBDIR_SCAFFOLD / "6_short_report.md"
+
+
+def artifact_scaffold_json_path(artifact_dir: Path) -> Path:
+    """Legacy JSON scaffold cache path — kept for backward-compat lookup of old runs."""
+    return artifact_dir / SUBDIR_SCAFFOLD / "6_report.json"
 
 
 def legacy_flat_artifact_scaffold_cache_path(artifact_dir: Path) -> Path:
@@ -91,9 +96,9 @@ def artifact_students_markdown_path(artifact_dir: Path) -> Path:
     return artifact_dir / SUBDIR_SCAFFOLD / "3_students.md"
 
 
-def artifact_exam_questions_json_path(artifact_dir: Path) -> Path:
+def artifact_exam_questions_yaml_path(artifact_dir: Path) -> Path:
     """Step 4: raw Gemini exam-parse output (no answers/criteria yet)."""
-    return artifact_dir / SUBDIR_SCAFFOLD / "4_exam_questions.json"
+    return artifact_dir / SUBDIR_SCAFFOLD / "4_exam_questions.yaml"
 
 
 def artifact_exam_questions_markdown_path(artifact_dir: Path) -> Path:
@@ -101,9 +106,9 @@ def artifact_exam_questions_markdown_path(artifact_dir: Path) -> Path:
     return artifact_dir / SUBDIR_SCAFFOLD / "4_exam_questions.md"
 
 
-def artifact_mark_scheme_json_path(artifact_dir: Path) -> Path:
+def artifact_mark_scheme_yaml_path(artifact_dir: Path) -> Path:
     """Step 5: raw Gemini mark-scheme output before merge into question tree."""
-    return artifact_dir / SUBDIR_SCAFFOLD / "5_mark_scheme.json"
+    return artifact_dir / SUBDIR_SCAFFOLD / "5_mark_scheme.yaml"
 
 
 def artifact_mark_scheme_markdown_path(artifact_dir: Path) -> Path:
@@ -188,9 +193,9 @@ def artifact_exam_student_list_md_path(artifact_dir: Path) -> Path:
     return artifact_dir / SUBDIR_MARKING / "geometry" / "10_exam_student_list.md"
 
 
-def artifact_blueprint_json_path(artifact_dir: Path, page: int) -> Path:
+def artifact_blueprint_yaml_path(artifact_dir: Path, page: int) -> Path:
     """Step 11: empty AI marking blueprint for one exam page."""
-    return artifact_dir / SUBDIR_MARKING / "blueprints" / f"11_ai_marking_blueprint_{page}.json"
+    return artifact_dir / SUBDIR_MARKING / "blueprints" / f"11_ai_marking_blueprint_{page}.yaml"
 
 
 def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
@@ -198,11 +203,11 @@ def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
     return artifact_dir / SUBDIR_MARKING / "blueprints" / f"11_ai_marking_blueprint_{page}.md"
 
 
-def artifact_marked_json_path(artifact_dir: Path, student: str, page: int) -> Path:
-    """Step 12: AI-filled marking blueprint for one student's scan page."""
+def artifact_marked_path(artifact_dir: Path, student: str, page: int) -> Path:
+    """Step 12: AI-filled marking result for one student's scan page (plain Q-block text)."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_MARKING / "students" / f"12_marked_{safe}_{page}.json"
+    return artifact_dir / SUBDIR_MARKING / "students" / f"12_marked_{safe}_{page}.txt"
 
 
 def artifact_marked_md_path(artifact_dir: Path, student: str, page: int) -> Path:
@@ -213,15 +218,15 @@ def artifact_marked_md_path(artifact_dir: Path, student: str, page: int) -> Path
 
 
 def artifact_marking_students_dir(artifact_dir: Path) -> Path:
-    """Directory containing per-student marking JSON files (step 12)."""
+    """Directory containing per-student marking text files (step 12)."""
     return artifact_dir / SUBDIR_MARKING / "students"
 
 
-def artifact_student_report_json_path(artifact_dir: Path, student: str) -> Path:
-    """Step 13: merged student report JSON."""
+def artifact_student_report_yaml_path(artifact_dir: Path, student: str) -> Path:
+    """Step 13: merged student report YAML."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_REPORTS / "students" / f"13_student_report_{safe}.json"
+    return artifact_dir / SUBDIR_REPORTS / "students" / f"13_student_report_{safe}.yaml"
 
 
 def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
@@ -239,13 +244,13 @@ def artifact_student_report_tex_path(artifact_dir: Path, student: str) -> Path:
 
 
 def artifact_reports_students_dir(artifact_dir: Path) -> Path:
-    """Directory containing per-student report JSON files (step 13)."""
+    """Directory containing per-student report YAML files (step 13)."""
     return artifact_dir / SUBDIR_REPORTS / "students"
 
 
-def artifact_class_report_json_path(artifact_dir: Path) -> Path:
-    """Step 13: class-wide summary JSON."""
-    return artifact_dir / SUBDIR_REPORTS / "class" / "13_class_report.json"
+def artifact_class_report_yaml_path(artifact_dir: Path) -> Path:
+    """Step 13: class-wide summary YAML."""
+    return artifact_dir / SUBDIR_REPORTS / "class" / "13_class_report.yaml"
 
 
 def artifact_class_report_md_path(artifact_dir: Path) -> Path:
@@ -327,7 +332,8 @@ def find_scaffold_cache_file(
     for base in (output_base, "output"):   # new location first, then legacy
         ad = exam_artifact_dir(exam_folder, base)
         for p in (
-            artifact_scaffold_json_path(ad),          # 6_report.json    (current)
+            artifact_scaffold_yaml_path(ad),          # 6_report.yaml    (current)
+            artifact_scaffold_json_path(ad),          # 6_report.json    (legacy fallback)
             ad / "6_scaffold.json",                   # renamed this session
             ad / "5_scaffold.json",                   # renamed two sessions ago
             ad / "1_scaffold.json",                   # older legacy name

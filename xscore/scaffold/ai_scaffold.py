@@ -10,17 +10,17 @@ overlay PDF generator produces a clean copy of the exam PDF with no annotations.
 
 from __future__ import annotations
 
-import json
 import os
 import re
 import time
+import yaml
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from xscore.shared.exam_paths import (
-    artifact_exam_questions_json_path,
-    artifact_mark_scheme_json_path,
+    artifact_exam_questions_yaml_path,
+    artifact_mark_scheme_yaml_path,
     artifact_prompt_path,
 )
 from xscore.shared.models import BBox, ExamLayout, McAnswerOption, Question
@@ -52,13 +52,14 @@ def _mark_scheme_model_config() -> tuple[str, str | None]:
 
 _SYSTEM_EXAM = (
     "You are an expert at reading Cambridge IGCSE exam papers. "
-    "Extract every question and sub-question as structured JSON."
+    "Extract every question and sub-question as structured YAML."
 )
 
 _USER_EXAM = """\
 First identify the page layout — how many sub-pages (quadrants) are arranged on \
-each physical PDF page. Return a top-level "layout" object:
-  {"rows": 1 or 2, "cols": 1 or 2}
+each physical PDF page. Return a top-level "layout" mapping:
+  rows: 1 or 2
+  cols: 1 or 2
 A standard single-page exam has rows=1, cols=1. A 4-up exam (2×2 grid printed on one sheet) has rows=2, cols=2.
 
 Then extract the complete question hierarchy from this exam paper.
@@ -80,13 +81,26 @@ A question at the very right edge of the left half still belongs to subpage_col=
 - "answer_options": for multiple_choice only — [{"letter": "A", "text": "..."}, ...]; empty list otherwise
 - "subquestions": list of child questions in the same format; empty list for leaf questions
 
-Return ONLY valid JSON: {"layout": {"rows": N, "cols": M}, "questions": [...]}
-Use proper JSON escape sequences in all strings (\\n for newlines, \\t for tabs) — never embed literal control characters.
+Return ONLY valid YAML. No JSON. No preamble. No code fences. Example:
+layout:
+  rows: 1
+  cols: 1
+questions:
+  - number: "9a"
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: "Calculate the orbital speed where $r = 1.5 \\times 10^{11}$ m"
+    answer_options: []
+    subquestions: []
+LaTeX math uses single backslash as normal ($\\times$, $\\frac{a}{b}$). No escaping needed.
 """
 
 _SYSTEM_SCHEME = (
     "You are an expert at reading Cambridge IGCSE mark schemes. "
-    "Extract marking criteria as structured JSON."
+    "Extract marking criteria as structured YAML."
 )
 
 _USER_SCHEME = """\
@@ -95,10 +109,18 @@ Extract marking information for every question from this mark scheme.
 Return a FLAT list — do not recreate nesting. For each entry:
 - "number": question label in run-together form matching the exam paper (e.g. "9a", "9ai", "38")
 - "correct_answer": model answer in LaTeX-safe text — use $...$ for inline math (e.g. "$1.5 \\times 10^{11}$ m", "$v_0$"), \\% for percent signs, \\& for ampersands; for multiple-choice just the letter; null if not applicable
-- "mark_scheme": [{"mark": "B1/M1/A1/etc. for Cambridge-typed marks, or \\\"\\\" (empty string) when the criterion has no specific mark type — never use JSON null for this field", "criterion": "text"}, ...]
+- "mark_scheme": [{"mark": "B1/M1/A1/etc. for Cambridge-typed marks, or \\\"\\\" (empty string) when the criterion has no specific mark type — never use null for this field", "criterion": "text"}, ...]
 
-Return ONLY valid JSON: {"questions": [...]}
-Use proper JSON escape sequences (\\n for newlines) — strip all leading whitespace and tab characters from every criterion string; never start a criterion with \\t or any indentation.
+Return ONLY valid YAML. No JSON. No preamble. No code fences. Example:
+questions:
+  - number: "9a"
+    correct_answer: "$1.5 \\times 10^{11}$ m"
+    mark_scheme:
+      - mark: M1
+        criterion: "Correct substitution $s = vt$"
+      - mark: A1
+        criterion: "Answer $1.5 \\times 10^{11}$ m with unit"
+LaTeX math uses single backslash ($\\times$, $\\frac{a}{b}$, \\%). No escaping needed.
 """
 
 
@@ -178,26 +200,39 @@ def _upload_and_poll(client, path: Path, label: str):
 
 
 # ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _strip_fences(text: str) -> str:
+    """Strip ```yaml / ``` code fences Gemini sometimes adds in non-JSON mode."""
+    text = text.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```[^\n]*\n", "", text)
+        text = re.sub(r"\n?```\s*$", "", text)
+    return text
+
+
+# ---------------------------------------------------------------------------
 # Artifact helpers
 # ---------------------------------------------------------------------------
 
 def _save_exam_questions(artifact_dir: Path, raw_questions: list[dict]) -> None:
-    """Write step-4 artifacts: ``4_exam_questions.json`` + ``4_exam_questions.md``."""
+    """Write step-4 artifacts: ``4_exam_questions.yaml`` + ``4_exam_questions.md``."""
     from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
-    json_path = artifact_exam_questions_json_path(artifact_dir)
-    json_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(raw_questions, f, indent=2, ensure_ascii=False)
+    yaml_path = artifact_exam_questions_yaml_path(artifact_dir)
+    yaml_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(yaml_path, "w", encoding="utf-8") as f:
+        yaml.dump(raw_questions, f, allow_unicode=True, sort_keys=False)
     write_raw_exam_markdown(artifact_dir, raw_questions)
 
 
 def _save_mark_scheme(artifact_dir: Path, scheme_questions: list[dict]) -> None:
-    """Write step-5 artifacts: ``5_mark_scheme.json`` + ``5_mark_scheme.md``."""
+    """Write step-5 artifacts: ``5_mark_scheme.yaml`` + ``5_mark_scheme.md``."""
     from xscore.scaffold.scaffold_markdown import write_mark_scheme_markdown
-    json_path = artifact_mark_scheme_json_path(artifact_dir)
-    json_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(scheme_questions, f, indent=2, ensure_ascii=False)
+    yaml_path = artifact_mark_scheme_yaml_path(artifact_dir)
+    yaml_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(yaml_path, "w", encoding="utf-8") as f:
+        yaml.dump(scheme_questions, f, allow_unicode=True, sort_keys=False)
     write_mark_scheme_markdown(artifact_dir, scheme_questions)
 
 
@@ -234,7 +269,7 @@ def build_ai_scaffold(
         zeroed (page and subpage numbers preserved).
 
     Raises:
-        RuntimeError: GOOGLE_API_KEY unset, file upload failed, or Gemini returns non-JSON.
+        RuntimeError: GOOGLE_API_KEY unset, file upload failed, or Gemini returns non-YAML.
     """
     try:
         from google import genai as gai
@@ -253,7 +288,7 @@ def build_ai_scaffold(
     thinking_map = {"off": 0, "low": 1024, "high": 8192}
 
     def _make_gen_config(effort: str | None, system: str) -> "gai_types.GenerateContentConfig":
-        cfg: dict = {"max_output_tokens": 65536, "response_mime_type": "application/json"}
+        cfg: dict = {"max_output_tokens": 65536}
         if effort in thinking_map:
             cfg["thinking_config"] = gai_types.ThinkingConfig(
                 thinking_budget=thinking_map[effort],
@@ -300,10 +335,10 @@ def build_ai_scaffold(
             )
             api_latency_line(time.perf_counter() - _t0, label="exam")
             try:
-                data = json.loads(resp.text)
-            except json.JSONDecodeError:
+                data = yaml.safe_load(_strip_fences(resp.text))
+            except (yaml.YAMLError, Exception):
                 raise RuntimeError(
-                    f"Gemini returned non-JSON for exam extraction: {resp.text[:300]!r}"
+                    f"Gemini returned non-YAML for exam extraction: {resp.text[:300]!r}"
                 )
             if not isinstance(data.get("questions"), list):
                 raise RuntimeError(
@@ -331,8 +366,8 @@ def build_ai_scaffold(
             )
             api_latency_line(time.perf_counter() - _t0, label="mark scheme")
             try:
-                return json.loads(resp.text)
-            except json.JSONDecodeError:
+                return yaml.safe_load(_strip_fences(resp.text)) or {"questions": []}
+            except (yaml.YAMLError, Exception):
                 return {"questions": []}   # non-fatal
 
         # ---- Dispatch: parallel when scheme is present -------------------

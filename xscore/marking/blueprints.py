@@ -1,15 +1,14 @@
-"""Step 11 — AI marking blueprints: one JSON per exam page, leaf questions only."""
+"""Step 11 — AI marking blueprints: one YAML per exam page, leaf questions only."""
 
 from __future__ import annotations
 
-import json
 import re
 from pathlib import Path
 from typing import Any
 
 
 def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
-    """For each exam page create a blueprint JSON with only the leaf questions.
+    """For each exam page create a blueprint YAML with only the leaf questions.
 
     Each question entry has: number, question_type, max_marks, student_answer (empty),
     assigned_marks (null), reasoning (empty).  Only leaf questions (gradable_questions)
@@ -17,7 +16,8 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
 
     Returns a list of blueprint dicts, one per exam page (1-indexed).
     """
-    from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_blueprint_md_path
+    import yaml
+    from xscore.shared.exam_paths import artifact_blueprint_yaml_path, artifact_blueprint_md_path
     layout = scaffold.layout
     blueprints: list[dict] = []
     for page_num in range(1, scaffold.page_count + 1):
@@ -47,9 +47,9 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
         }
         blueprints.append(bp)
 
-        json_path = artifact_blueprint_json_path(artifact_dir, page_num)
-        json_path.parent.mkdir(parents=True, exist_ok=True)
-        json_path.write_text(json.dumps(bp, indent=2, ensure_ascii=False), encoding="utf-8")
+        yaml_path = artifact_blueprint_yaml_path(artifact_dir, page_num)
+        yaml_path.parent.mkdir(parents=True, exist_ok=True)
+        yaml_path.write_text(yaml.dump(bp, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
         md_path = artifact_blueprint_md_path(artifact_dir, page_num)
         md_path.write_text(_blueprint_to_md(bp), encoding="utf-8")
@@ -58,7 +58,7 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
 
 
 def marked_to_md(filled: dict) -> str:
-    """Render a completed ``12_marked_*.json`` as a human-readable markdown table."""
+    """Render a completed marking dict as a human-readable markdown table."""
     student = filled.get("student_name", "Unknown")
     page = filled.get("page", "?")
     questions = filled.get("questions", [])

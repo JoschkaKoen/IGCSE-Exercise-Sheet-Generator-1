@@ -156,7 +156,7 @@ def _write_scaffold_markdown(path: Path, payload: dict[str, Any]) -> None:
 
 
 def write_scaffold_markdown(artifact_dir: Path, payload: dict[str, Any]) -> None:
-    """Write ``6_report.md`` next to ``6_report.json`` (same folder as *artifact_dir*)."""
+    """Write ``6_report.md`` next to ``6_report.yaml`` (same folder as *artifact_dir*)."""
     _write_scaffold_markdown(artifact_scaffold_markdown_path(artifact_dir), payload)
 
 

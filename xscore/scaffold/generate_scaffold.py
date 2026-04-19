@@ -11,9 +11,9 @@ if no source PDF is newer than the cache. Exam PDF figures go under
 
 from __future__ import annotations
 
-import json
 import shutil
 from pathlib import Path
+import yaml
 from typing import Any
 
 from xscore.shared.models import (
@@ -31,7 +31,8 @@ from xscore.shared.exam_paths import (
     artifact_scaffold_boxes_path,
     artifact_scaffold_json_path,
     artifact_scaffold_markdown_path,
-    artifact_short_scaffold_json_path,
+    artifact_scaffold_yaml_path,
+    artifact_short_scaffold_yaml_path,
     exam_artifact_dir,
     legacy_artifact_scaffold_cache_path,
     legacy_flat_artifact_scaffold_cache_path,
@@ -207,6 +208,7 @@ def _legacy_scaffold_subdir_cache(folder: Path) -> Path:
 
 def _effective_cache_path(folder: Path, artifact_dir: Path) -> Path | None:
     for p in (
+        artifact_scaffold_yaml_path(artifact_dir),
         artifact_scaffold_json_path(artifact_dir),
         legacy_flat_artifact_scaffold_cache_path(artifact_dir),
         legacy_artifact_scaffold_cache_path(artifact_dir),
@@ -294,7 +296,7 @@ def _load_cache(folder: Path, artifact_dir: Path) -> ExamScaffold:
     if path is None:
         raise FileNotFoundError(f"No scaffold cache for {folder}")
     with open(path, encoding="utf-8") as f:
-        data = json.load(f)
+        data = yaml.safe_load(f)
     if data.get("schema_version") != SCHEMA_VERSION:
         raise ValueError(
             "scaffold cache schema_version mismatch — rebuild required "
@@ -331,17 +333,23 @@ def _scaffold_to_payload(scaffold: ExamScaffold, students: list[str] | None = No
 
 def _save_cache(artifact_dir: Path, scaffold: ExamScaffold, students: list[str] | None = None) -> None:
     payload = _scaffold_to_payload(scaffold, students)
-    out = artifact_scaffold_json_path(artifact_dir)
+    out = artifact_scaffold_yaml_path(artifact_dir)
     out.parent.mkdir(parents=True, exist_ok=True)
     with open(out, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, ensure_ascii=False)
+        yaml.dump(payload, f, allow_unicode=True, sort_keys=False)
     write_scaffold_markdown(artifact_dir, payload)
     short_payload = {k: v for k, v in payload.items() if k != "students"}
-    short_out = artifact_short_scaffold_json_path(artifact_dir)
+    short_out = artifact_short_scaffold_yaml_path(artifact_dir)
     with open(short_out, "w", encoding="utf-8") as f:
-        json.dump(short_payload, f, indent=2, ensure_ascii=False)
+        yaml.dump(short_payload, f, allow_unicode=True, sort_keys=False)
     write_short_scaffold_markdown(artifact_dir, payload)
-    for old_name in (artifact_dir / "6_scaffold.json", artifact_dir / "5_scaffold.json", artifact_dir / "1_scaffold.json"):
+    for old_name in (
+        artifact_dir / "6_scaffold.json",
+        artifact_dir / "5_scaffold.json",
+        artifact_dir / "1_scaffold.json",
+        artifact_scaffold_json_path(artifact_dir),
+        artifact_dir / "scaffold" / "6_short_report.json",
+    ):
         if old_name.is_file() and old_name != out:
             try:
                 old_name.unlink()
@@ -445,13 +453,19 @@ def build_scaffold(
             elif not artifact_scaffold_markdown_path(ad).is_file():
                 _cached_students: list[str] = []
                 try:
-                    with open(artifact_scaffold_json_path(ad), encoding="utf-8") as _f:
-                        _cached_students = json.load(_f).get("students") or []
-                except (OSError, json.JSONDecodeError):
+                    with open(artifact_scaffold_yaml_path(ad), encoding="utf-8") as _f:
+                        _cached_students = (yaml.safe_load(_f) or {}).get("students") or []
+                except OSError:
+                    try:
+                        with open(artifact_scaffold_json_path(ad), encoding="utf-8") as _f:
+                            _cached_students = (yaml.safe_load(_f) or {}).get("students") or []
+                    except (OSError, Exception):
+                        pass
+                except Exception:
                     pass
                 write_scaffold_markdown(ad, _scaffold_to_payload(scaffold, _cached_students))
             return scaffold
-        except (ValueError, KeyError, TypeError, json.JSONDecodeError):
+        except (ValueError, KeyError, TypeError, yaml.YAMLError):
             tool_line("scaffold", "Cache incompatible or corrupt — rebuilding …")
 
     exam_pdf = exam_pdf_override or find_exam_pdf(folder)

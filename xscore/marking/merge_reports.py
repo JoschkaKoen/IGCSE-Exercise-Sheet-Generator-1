@@ -1,12 +1,11 @@
 """Step 13 — Merge per-page marking results into student and class reports.
 
-Produces JSON + Markdown + LaTeX/PDF for each student and the class overall.
+Produces YAML + Markdown + LaTeX/PDF for each student and the class overall.
 xelatex is used for compilation; a warning is printed if it is not installed.
 """
 
 from __future__ import annotations
 
-import json
 import os
 import re
 import subprocess
@@ -57,9 +56,8 @@ def _latex_newlines(text: str) -> str:
     Must be called AFTER _latex_escape_smart — if called before, the backslash
     in \\newline would itself be escaped to \\textbackslash{}newline.
 
-    Skips $...$ math blocks: stray CR/LF inside math are stripped rather than
-    converted to \\newline (they are artefacts of JSON-parsed backslash commands
-    such as \\rightarrow whose \\r was interpreted as a carriage return).
+    Skips $...$ math blocks: CR/LF inside math are stripped to spaces
+    (math environments do not use \\newline).
     """
     parts = re.split(r"(\$[^$]+\$)", text)
     result = []
@@ -68,8 +66,7 @@ def _latex_newlines(text: str) -> str:
             result.append(re.sub(r"[\r\n]", " ", part))
         else:
             part = part.replace("\r\n", "\n").replace("\r", "\n")
-            # "\\newline " is a regular-string literal: one backslash → \newline in LaTeX.
-            # (str.replace is literal, not a regex, so "\\" here means one backslash.)
+            # str.replace is literal: "\\" is one backslash → \newline in LaTeX.
             part = part.replace("\n", "\\newline ")
             result.append(part)
     return "".join(result)
@@ -96,13 +93,65 @@ def _format_criteria_cell(raw: str) -> str:
 # Per-student merge
 # ---------------------------------------------------------------------------
 
+def _read_marked_txt(path: Path) -> dict:
+    """Parse a 12_marked_*.txt Q-block file into a dict with student_name, page, questions."""
+    result: dict = {"student_name": "", "page": 0, "questions": []}
+    current_q: dict | None = None
+    current_field: str | None = None
+
+    def _flush() -> None:
+        nonlocal current_q
+        if current_q is not None:
+            result["questions"].append(current_q)
+            current_q = None
+
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.rstrip()
+        if stripped.startswith("student:"):
+            result["student_name"] = stripped[8:].strip()
+            current_field = None
+        elif stripped.startswith("page:"):
+            try:
+                result["page"] = int(stripped[5:].strip())
+            except ValueError:
+                pass
+            current_field = None
+        elif re.match(r"^Q\S+\s*$", stripped):
+            _flush()
+            current_q = {
+                "number": stripped.strip()[1:],  # strip leading "Q"; stored number is "38" not "Q38"
+                "student_answer": "",
+                "assigned_marks": None,
+                "reasoning": "",
+            }
+            current_field = None
+        elif current_q is not None:
+            if stripped.startswith("marks:"):
+                val = stripped[6:].strip()
+                try:
+                    current_q["assigned_marks"] = float(val) if "." in val else int(val)
+                except ValueError:
+                    current_q["assigned_marks"] = None
+                current_field = "marks"
+            elif stripped.startswith("answer:"):
+                current_q["student_answer"] = stripped[7:].strip()
+                current_field = "student_answer"
+            elif stripped.startswith("reasoning:"):
+                current_q["reasoning"] = stripped[10:].strip()
+                current_field = "reasoning"
+            elif stripped and current_field in ("student_answer", "reasoning"):
+                current_q[current_field] += " " + stripped.strip()
+    _flush()
+    return result
+
+
 def _merge_student_pages(
     artifact_dir: Path,
     student_name: str,
     pages_per_student: int,
     total_max_marks: int,
 ) -> dict:
-    """Load all 12_marked_{student}_{p}.json and merge into one student report.
+    """Load all 12_marked_{student}_{p}.txt and merge into one student report.
 
     Cross-page question strategy:
     - If only one page has assigned_marks, use that entry.
@@ -114,15 +163,15 @@ def _merge_student_pages(
     slot are merged with the higher-marks strategy.
     """
     import logging
-    from xscore.shared.exam_paths import artifact_marked_json_path
+    from xscore.shared.exam_paths import artifact_marked_path
 
     merged_questions: dict[tuple[str, int], dict] = {}
 
     for p in range(1, pages_per_student + 1):
-        path = artifact_marked_json_path(artifact_dir, student_name, p)
+        path = artifact_marked_path(artifact_dir, student_name, p)
         if not path.is_file():
             continue
-        data = json.loads(path.read_text(encoding="utf-8"))
+        data = _read_marked_txt(path)
         file_occ: dict[str, int] = {}
         for q in data.get("questions", []):
             qnum = q.get("number", "?")
@@ -419,12 +468,12 @@ def _compile_tex(tex_path: Path, output_dir: Path) -> None:
 # ---------------------------------------------------------------------------
 
 def _derive_student_names(artifact_dir: Path) -> list[str]:
-    """Collect unique student names from 12_marked_*_*.json files, in order."""
+    """Collect unique student names from 12_marked_*_*.txt files, in order."""
     seen: dict[str, str] = {}   # safe_name → original name
     result: list[str] = []
-    for f in sorted(artifact_marking_students_dir(artifact_dir).glob("12_marked_*_*.json")):
+    for f in sorted(artifact_marking_students_dir(artifact_dir).glob("12_marked_*_*.txt")):
         try:
-            data = json.loads(f.read_text(encoding="utf-8"))
+            data = _read_marked_txt(f)
             name = str(data.get("student_name") or "").strip()
             if not name:
                 continue
@@ -448,10 +497,11 @@ def _derive_student_names(artifact_dir: Path) -> list[str]:
 
 def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
     """Compute mean assigned_marks per question number across all student reports."""
+    import yaml
     q_totals: dict[str, list[float]] = {}
-    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("13_student_report_*.json")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("13_student_report_*.yaml")):
         try:
-            data = json.loads(f.read_text(encoding="utf-8"))
+            data = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
             for q in data.get("questions", []):
                 qnum = q.get("number", "?")
                 marks = q.get("assigned_marks")
@@ -472,13 +522,13 @@ def compile_reports(ctx: Any) -> list[dict]:
     Returns a list of per-student summary dicts
     (keys: name, total_marks, percentage) for use in step 14 timing.
     """
+    import yaml
     from xscore.shared.exam_paths import (
         SUBDIR_REPORTS,
-        artifact_class_report_json_path,
+        artifact_class_report_yaml_path,
         artifact_class_report_md_path,
         artifact_class_report_tex_path,
-        artifact_marked_json_path,
-        artifact_student_report_json_path,
+        artifact_student_report_yaml_path,
         artifact_student_report_md_path,
         artifact_student_report_tex_path,
     )
@@ -512,8 +562,8 @@ def compile_reports(ctx: Any) -> list[dict]:
             _q["correct_answer"] = correct_answers.get(str(_q.get("number", "")), "")
             _q["marking_criteria"] = marking_criteria_by_num.get(str(_q.get("number", "")), "")
 
-        artifact_student_report_json_path(ctx.artifact_dir, name).write_text(
-            json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8"
+        artifact_student_report_yaml_path(ctx.artifact_dir, name).write_text(
+            yaml.dump(report, allow_unicode=True, sort_keys=False), encoding="utf-8"
         )
         artifact_student_report_md_path(ctx.artifact_dir, name).write_text(
             _student_report_to_md(report), encoding="utf-8"
@@ -561,8 +611,8 @@ def compile_reports(ctx: Any) -> list[dict]:
             "total_max_marks": total_max_marks,
         }
 
-        artifact_class_report_json_path(ctx.artifact_dir).write_text(
-            json.dumps(class_report, indent=2, ensure_ascii=False), encoding="utf-8"
+        artifact_class_report_yaml_path(ctx.artifact_dir).write_text(
+            yaml.dump(class_report, allow_unicode=True, sort_keys=False), encoding="utf-8"
         )
         artifact_class_report_md_path(ctx.artifact_dir).write_text(
             _class_report_to_md(class_report), encoding="utf-8"
@@ -582,16 +632,17 @@ def compile_reports(ctx: Any) -> list[dict]:
 
 
 def load_student_results_from_reports(artifact_dir: Path) -> list:
-    """Read all 13_student_report_*.json and reconstruct StudentResult objects.
+    """Read all 13_student_report_*.yaml and reconstruct StudentResult objects.
 
     Used by step 14 to compare AI-extracted answers against ground truth.
     """
+    import yaml
     from xscore.shared.models import StudentResult
 
     results = []
-    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("13_student_report_*.json")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("13_student_report_*.yaml")):
         try:
-            data = json.loads(f.read_text(encoding="utf-8"))
+            data = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
         except Exception:  # noqa: BLE001
             continue
         name = data.get("student_name", "")
