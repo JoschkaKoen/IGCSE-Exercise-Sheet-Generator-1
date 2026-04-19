@@ -54,6 +54,7 @@ def run_full_pipeline(
     from xscore.shared.exam_paths import (
         artifact_exam_student_list_json_path,
         artifact_exam_student_list_md_path,
+        validate_input_files,
     )
     from xscore.shared.load_student_list import read_student_list
 
@@ -96,9 +97,15 @@ def run_full_pipeline(
         on_step(1, "done", round(time.perf_counter() - t0_1, 2))
 
     # ---------------------------------------------------------------------- step 2
-    # Folder is already known from upload — mark done immediately.
+    # Folder is already known from upload; validate required input files.
     on_step(2, "running", None)
-    on_step(2, "done", 0.0)
+    try:
+        validate_input_files(folder)
+        on_step(2, "done", 0.0)
+    except FileNotFoundError as exc:
+        on_line(f"Step 2 — {exc}")
+        on_step(2, "failed", 0.0)
+        raise
 
     # ---------------------------------------------------------------------- step 3
     on_line("Step 3 — Loading student roster…")

@@ -23,7 +23,6 @@ Steps:
 Usage:
     python xScore.py "grade Space Physics Unit Test"
     python xScore.py "grade the exam" --folder "exams/space_physics" --dpi 300
-    python xScore.py "grade" --folder "exams/space_physics" --through-step 3
 """
 
 from __future__ import annotations
@@ -511,10 +510,9 @@ def _step13_reports(ctx: _Ctx, gi: SimpleNamespace) -> None:
     gi.pipeline_step(13, "Compile reports")
     t0 = time.perf_counter()
     summaries = gi.compile_reports(ctx)
-    gi.ok_line(
-        f"{len(summaries)} student report(s)  ·  "
-        f"class avg {summaries[0]['percentage'] if len(summaries) == 1 else round(sum(s['percentage'] for s in summaries) / len(summaries), 1) if summaries else 0}%"
-    )
+    _known = [s["percentage"] for s in summaries if s["percentage"] is not None]
+    _avg_str = f"{round(sum(_known) / len(_known), 1)}%" if _known else "N/A"
+    gi.ok_line(f"{len(summaries)} student report(s)  ·  class avg {_avg_str}")
     ctx.step_timings_marking["step_13_s"] = time.perf_counter() - t0
 
 
