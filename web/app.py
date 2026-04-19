@@ -533,13 +533,28 @@ async def create_grade_job(
     _MAX_UPLOAD_BYTES = 500 * 1024 * 1024  # 500 MB
 
     async def _read_limited(upload: UploadFile, name: str) -> bytes:
-        data = await upload.read()
-        if len(data) > _MAX_UPLOAD_BYTES:
+        # Early rejection via Content-Length header (avoids reading the body at all)
+        cl = upload.headers.get("content-length")
+        if cl and int(cl) > _MAX_UPLOAD_BYTES:
             raise HTTPException(
                 status_code=413,
-                detail=f"{name} exceeds the {_MAX_UPLOAD_BYTES // (1024*1024)} MB upload limit",
+                detail=f"{name} exceeds the {_MAX_UPLOAD_BYTES // (1024 * 1024)} MB upload limit",
             )
-        return data
+        # Chunked read: reject as soon as running total crosses the limit
+        chunks: list[bytes] = []
+        total = 0
+        while True:
+            chunk = await upload.read(1024 * 1024)  # 1 MB chunks
+            if not chunk:
+                break
+            total += len(chunk)
+            if total > _MAX_UPLOAD_BYTES:
+                raise HTTPException(
+                    status_code=413,
+                    detail=f"{name} exceeds the {_MAX_UPLOAD_BYTES // (1024 * 1024)} MB upload limit",
+                )
+            chunks.append(chunk)
+        return b"".join(chunks)
 
     # Save required files
     scan_path = folder / "scan.pdf"
