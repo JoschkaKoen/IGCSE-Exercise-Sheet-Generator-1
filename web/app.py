@@ -515,7 +515,7 @@ async def create_grade_job(
     exam_scans: UploadFile = File(...),
     student_list: UploadFile = File(...),
     empty_exam: UploadFile = File(...),
-    answer_sheet: UploadFile | None = File(None),
+    answer_sheet: UploadFile = File(...),
     prompt: str | None = Form(None),
 ) -> dict[str, str]:
     """Accept uploaded exam files, save them, and launch an xScore pipeline job."""
@@ -549,11 +549,9 @@ async def create_grade_job(
     sl_path = folder / f"StudentList{sl_suffix}"
     sl_path.write_bytes(await _read_limited(student_list, "student_list"))
 
-    # Save optional files
-    if empty_exam is not None and empty_exam.filename:
-        (folder / "empty_exam.pdf").write_bytes(await _read_limited(empty_exam, "empty_exam"))
-    if answer_sheet is not None and answer_sheet.filename:
-        (folder / "answer_sheet.pdf").write_bytes(await _read_limited(answer_sheet, "answer_sheet"))
+    # Save required files (all four are now mandatory)
+    (folder / "empty_exam.pdf").write_bytes(await _read_limited(empty_exam, "empty_exam"))
+    (folder / "answer_sheet.pdf").write_bytes(await _read_limited(answer_sheet, "answer_sheet"))
 
     job = store.create()
     _create_background_task(_run_grade_job(job.id, folder, prompt or None))

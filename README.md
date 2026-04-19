@@ -90,14 +90,21 @@ flowchart TD
 
 ## How grading works
 
+All four input files are required:
+
+- **scan PDF** — the class exam scan (e.g. `scan.pdf`)
+- **student roster** — `StudentList.xlsx` / `.csv` / `.pdf`
+- **empty exam PDF** — blank exam template (`empty_exam.pdf`)
+- **mark scheme PDF** — answer key (`answer_sheet.pdf`)
+
 ```mermaid
 flowchart TD
-    subgraph uploads ["Inputs"]
+    subgraph uploads ["Inputs (all required)"]
         direction LR
         u1[exam scan PDF]
-        u2["student roster · optional"]
-        u3["exam PDF · optional"]
-        u4["mark scheme · optional"]
+        u2[student roster]
+        u3[exam PDF]
+        u4[mark scheme]
     end
 
     s1["Step 1 — Parse grading prompt\n(Gemini · INTERPRET_PROMPT_MODEL)"]
@@ -121,12 +128,9 @@ flowchart TD
     subgraph scaffold ["Steps 8–10 — Exam scaffold"]
         direction TB
         s8["Step 8 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)\ndetects layout · subpage coords per question"]
-        msCond{"Mark scheme\nprovided?"}
         s9["Step 9 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL)"]
         s10["Step 10 — Merge report"]
-        s8 --> msCond
-        msCond -->|Yes| s9 --> s10
-        msCond -->|No| s10
+        s8 --> s9 --> s10
     end
 
     subgraph marking ["Steps 11–14 — AI marking"]
@@ -166,8 +170,8 @@ flowchart TD
 | **5** | Each content page's PDF `/Rotate` metadata is applied so scanners that encode rotation in metadata come out portrait. Optional Tesseract OSD pass for extra correction. |
 | **6** | IGCSE header anchors are detected on each page (parallel). Anchor positions drive the fine deskew transform; corrected pages are written to `3_cleaned_scan.pdf`. |
 | **7** | `scan_pages ÷ exam_pages` gives `num_students`. Cross-checked against the roster; a count mismatch is a warning, not an error. Writes `10_exam_geometry.json`. Student names are detected from the first scan page of each student block and fuzzy-matched against the roster. |
-| **8** | **Optional — requires exam PDF.** Gemini reads the exam paper and returns every question and sub-question with its number, type, marks, page, subpage position, and answer options. Also detects the exam layout (e.g. 2×2 for a 4-up paper). Writes `4_exam_questions.json` + `.md`. Configure with `READ_EXAM_PDF_MODEL`. |
-| **9** | **Optional — requires mark scheme.** Gemini reads the mark scheme and returns correct answers and marking criteria. Writes `5_mark_scheme.json` + `.md`. Configure with `READ_MARK_SCHEME_MODEL`. |
+| **8** | Gemini reads the exam paper and returns every question and sub-question with its number, type, marks, page, subpage position, and answer options. Also detects the exam layout (e.g. 2×2 for a 4-up paper). Writes `4_exam_questions.json` + `.md`. Configure with `READ_EXAM_PDF_MODEL`. |
+| **9** | Gemini reads the mark scheme and returns correct answers and marking criteria. Writes `5_mark_scheme.json` + `.md`. Configure with `READ_MARK_SCHEME_MODEL`. |
 | **10** | Merges the exam question tree with mark scheme annotations into a single `6_short_report.json` + `.md`. Runs even without a mark scheme (exam-only report). This report drives steps 11–12. |
 | **11** | For each exam page, leaf questions from the scaffold are extracted into a per-page JSON blueprint (`11_ai_marking_blueprint_N.json`), including `subpage_row`/`subpage_col` coordinates and the page layout. These become the fill-in templates for step 12. |
 | **12** | Each student's pages are rendered as JPEG and sent to the Qwen vision model (one API call per page). The prompt includes subpage layout context so the model can correctly locate answers in multi-up papers. The model fills in `student_answer`, `assigned_marks`, and `reasoning` for every question. Students are processed in parallel (`MARKING_WORKERS` threads); results written as `12_marked_name_N.json`. Requires `DASHSCOPE_API_KEY`. |

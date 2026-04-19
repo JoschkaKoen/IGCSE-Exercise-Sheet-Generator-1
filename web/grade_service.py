@@ -134,7 +134,7 @@ def run_full_pipeline(
             source_scan,
             artifact_dir,
             analysis_dpi=ROTATION_ANALYSIS_DPI,
-            force_clean_scan=False,
+            force_clean_scan=True,
         )
 
     _step(4, _blank)

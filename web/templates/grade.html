@@ -362,6 +362,7 @@
       var scanInput   = form.querySelector('input[name="exam_scans"]');
       var rosterInput = form.querySelector('input[name="student_list"]');
       var examInput   = form.querySelector('input[name="empty_exam"]');
+      var msInput     = form.querySelector('input[name="answer_sheet"]');
 
       if (!scanInput || !scanInput.files || scanInput.files.length === 0) {
         setError('Please select an exam scan file before submitting.');
@@ -373,6 +374,10 @@
       }
       if (!examInput || !examInput.files || examInput.files.length === 0) {
         setError('Please upload the blank exam PDF (Empty Exam) — it is required for AI marking.');
+        return;
+      }
+      if (!msInput || !msInput.files || msInput.files.length === 0) {
+        setError('Please upload the answer sheet (mark scheme) — it is required for AI marking.');
         return;
       }
 

@@ -273,6 +273,33 @@ def artifact_timing_md_path(artifact_dir: Path) -> Path:
     return artifact_dir / SUBDIR_META / "14_timing.md"
 
 
+def validate_input_files(folder: Path) -> None:
+    """Raise FileNotFoundError listing every missing required input file."""
+    missing: list[str] = []
+
+    scans = [
+        f for f in folder.glob("*.pdf")
+        if "scan" in f.name.lower() and "cleaned" not in f.name.lower()
+    ]
+    if not scans:
+        missing.append("scan PDF  (e.g. scan.pdf)")
+
+    if not list(folder.glob("StudentList.*")):
+        missing.append("student roster  (StudentList.xlsx / .csv / .pdf)")
+
+    if not (folder / "empty_exam.pdf").is_file():
+        missing.append("empty_exam.pdf")
+
+    if not (folder / "answer_sheet.pdf").is_file():
+        missing.append("answer_sheet.pdf")
+
+    if missing:
+        bullet = "\n  • "
+        raise FileNotFoundError(
+            f"Required input files missing from {folder}:{bullet}{bullet.join(missing)}"
+        )
+
+
 def artifact_accuracy_json_path(artifact_dir: Path) -> Path:
     """Step 14: recognition accuracy vs ground truth."""
     return artifact_dir / SUBDIR_META / "14_accuracy.json"

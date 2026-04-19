@@ -341,6 +341,10 @@ def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
     )
 
     gi.ok_line(ctx.folder.name)
+
+    from xscore.shared.exam_paths import validate_input_files
+    validate_input_files(ctx.folder)
+
     if ctx.through_step == 2:
         ctx.partial_stop_step = 2
         raise SystemExit(0)
@@ -402,41 +406,8 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
     ad = ctx.artifact_dir
     dpi = ctx.instruction.dpi
-    cleaned_path = ad / gi.CLEANED_SCAN_PDF
-
-    if ctx.skip_clean_scan:
-        gi.pipeline_step(4, "Detect blank pages")
-        legacy_cleaned = ctx.folder / gi.CLEANED_SCAN_PDF
-        if cleaned_path.exists():
-            ctx.cleaned_pdf = cleaned_path
-            gi.info_line("Using existing cleaned scan (skip) — scan steps skipped.")
-        elif legacy_cleaned.exists():
-            ctx.cleaned_pdf = legacy_cleaned
-            gi.info_line("Using existing cleaned scan (skip) — scan steps skipped.")
-        else:
-            scans = [f for f in ctx.folder.glob("*.pdf") if "scan" in f.name.lower()]
-            if not scans:
-                gi.err_line("--skip-clean-scan set but no scan PDF found.")
-                raise SystemExit(1)
-            ctx.cleaned_pdf = scans[0]
-            gi.info_line("Using existing scan PDF (skip) — scan steps skipped.")
-        return
 
     match = gi.find_source_scan_match(ctx.folder, ad, dpi)
-
-    # Use cache when doing a full run (not stopping mid-scan)
-    partial_scan = ctx.through_step is not None and 4 <= ctx.through_step <= 6
-    cache_ok = (
-        not partial_scan
-        and not ctx.force_clean_scan
-        and cleaned_path.is_file()
-        and cleaned_path.stat().st_mtime >= match.stat().st_mtime
-    )
-    if cache_ok:
-        gi.pipeline_step(4, "Detect blank pages")
-        gi.info_line("Using cached cleaned scan (steps 4–6 skipped).")
-        ctx.cleaned_pdf = cleaned_path
-        return
 
     from xscore.config import ROTATION_ANALYSIS_DPI
     gi.pipeline_step(4, "Detect blank pages")
