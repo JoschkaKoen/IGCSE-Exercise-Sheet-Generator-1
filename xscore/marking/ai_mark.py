@@ -12,6 +12,7 @@ from __future__ import annotations
 import base64
 import json
 import os
+import re
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -19,10 +20,10 @@ from pathlib import Path
 from typing import Any
 
 from xscore.marking.blueprints import marked_to_md
-from xscore.marking.kimi_helpers import parse_json_safe
+from xscore.marking.ai_helpers import parse_json_safe
 from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path, artifact_short_scaffold_json_path
 from xscore.shared.prompt_logger import save_prompt
-from xscore.shared.terminal_ui import api_latency_line, info_line, warn_line
+from xscore.shared.terminal_ui import format_duration, get_console, icon, warn_line
 
 
 def _render_page_b64(doc: Any, page_idx: int, dpi: int = 150) -> str:
@@ -108,10 +109,14 @@ def _mark_page(
             "Each question in the template carries subpage_row and subpage_col that tell you "
             "which quadrant it lives in. Use these coordinates to locate the student's answer "
             "— do not confuse questions from different quadrants with each other.\n"
-            "IMPORTANT — question number matching: template question numbers may not match the "
-            "printed number on the image — e.g. two questions both printed as '38' "
-            "appear as '38' and '38_2' in the template. Locate each question using "
-            "subpage_row, subpage_col, and question_text. Do not reproduce question_text or "
+            "IMPORTANT — question number matching: the same question number may appear "
+            "more than once in the template (e.g. two questions both numbered '38' in "
+            "different sub-pages). Locate each occurrence using subpage_row, subpage_col, "
+            "and question_text — do not rely on the number field alone to find questions "
+            "on the paper. "
+            "The same question number may appear more than once in the same sub-page — "
+            "locate each occurrence by its question_text. "
+            "Do not reproduce question_text or "
             "answer_options in your response — fill in only student_answer, assigned_marks, "
             "and reasoning."
         )
@@ -143,9 +148,7 @@ def _mark_page(
 
     for attempt in range(1, 4):
         try:
-            t0 = time.perf_counter()
             resp = client.chat.completions.create(**kwargs)
-            api_latency_line(time.perf_counter() - t0, label="marking")
             raw = resp.choices[0].message.content or ""
             result = parse_json_safe(raw)
             if result is not None:
@@ -167,23 +170,32 @@ def _fix_mc_marks(result: dict, page_questions_info: list[dict]) -> None:
     The AI is not shown the correct answer for MCQs, so it cannot award marks
     reliably. This function overrides assigned_marks deterministically and
     normalises the extracted letter (e.g. "b." → "B").
+
+    Keyed by question_text (not number) because duplicate question numbers
+    (e.g. two Q38s on the same page) share the same stripped number after
+    _2 is removed from blueprints.
     """
     mc_correct: dict[str, str] = {
-        q.get("number", ""): (q.get("correct_answer") or "").strip().upper()
+        (q.get("question_text") or q.get("text") or "").strip(): (q.get("correct_answer") or "").strip().upper()
         for q in page_questions_info
         if q.get("question_type") == "multiple_choice" and q.get("correct_answer")
     }
     if not mc_correct:
         return
     for q in result.get("questions", []):
-        num = q.get("number", "")
-        if num not in mc_correct:
+        qt = (q.get("question_text") or "").strip()
+        if qt not in mc_correct:
             continue
         raw_ans = (q.get("student_answer") or "").strip()
         student_ans = raw_ans[0].upper() if raw_ans and raw_ans[0].isalpha() else "?"
         q["student_answer"] = student_ans
         max_m = int(q.get("max_marks") or 1)
-        q["assigned_marks"] = max_m if student_ans == mc_correct[num] else 0
+        q["assigned_marks"] = max_m if student_ans == mc_correct[qt] else 0
+
+
+def _clean_criteria_line(l: str) -> str:
+    c = l.lstrip().removeprefix("[None]").lstrip(" ")
+    return "  " + c[2:] if c.startswith("\\t") else c
 
 
 def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1) -> str:
@@ -191,9 +203,15 @@ def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1
     if not questions_info:
         return "(no questions assigned to this page)"
     multi_subpage = rows > 1 or cols > 1
+    # Sort by quadrant so same-subpage questions are grouped together.
+    sorted_qs = sorted(
+        questions_info,
+        key=lambda q: (int(q.get("subpage_row") or 1), int(q.get("subpage_col") or 1)),
+    )
     parts = []
-    for q in questions_info:
-        line = f"Q{q.get('number', '?')} [{q.get('question_type', '')}] — {q.get('marks', '?')} mark(s)"
+    for q in sorted_qs:
+        display_num = re.sub(r"_\d+$", "", str(q.get("number", "?")))
+        line = f"Q{display_num} [{q.get('question_type', '')}] — {q.get('marks', '?')} mark(s)"
         if multi_subpage:
             r = int(q.get("subpage_row") or 1)
             c = int(q.get("subpage_col") or 1)
@@ -213,13 +231,20 @@ def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1
         if q.get("correct_answer") and q.get("question_type") != "multiple_choice":
             line += f"\n  Correct answer: {q['correct_answer']}"
         if q.get("marking_criteria"):
-            def _clean_criteria_line(l: str) -> str:
-                c = l.lstrip().removeprefix("[None]").lstrip(" ")
-                return "  " + c[2:] if c.startswith("\\t") else c
-            cleaned = "\n".join(_clean_criteria_line(l) for l in q["marking_criteria"].splitlines())
+            lines = [_clean_criteria_line(l) for l in q["marking_criteria"].splitlines()]
+            if len(lines) > 1:
+                bulleted = []
+                for l in lines:
+                    stripped = l.lstrip(" ")
+                    if stripped and not stripped.startswith("•") and not stripped.endswith(":"):
+                        bulleted.append(l[: len(l) - len(stripped)] + "• " + stripped)
+                    else:
+                        bulleted.append(l)
+                lines = bulleted
+            cleaned = "\n".join(lines)
             line += f"\n  Criteria: {cleaned}"
         parts.append(line)
-    return "\n".join(parts)
+    return "\n\n".join(parts)
 
 
 def _flatten_leaf_questions(questions: list[dict]) -> list[dict]:
@@ -282,6 +307,14 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
 
+    from rich.live import Live
+
+    _display_lock = threading.Lock()
+    _student_lines: dict[str, str] = {}
+
+    def _render() -> str:  # caller must hold _display_lock
+        return "\n".join(_student_lines.values()) if _student_lines else ""
+
     def _mark_student(assignment: dict) -> list[dict]:
         """Mark one student's pages using scan-detected page assignments.
 
@@ -294,9 +327,10 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         try:
             for p_label, scan_page in enumerate(page_numbers, 1):
                 scan_idx = scan_page - 1  # fitz is 0-based
-                info_line(
-                    f"Student '{student_name}' · page {p_label}/{len(page_numbers)}"
-                )
+                key = f"{student_name}_{p_label}"
+                with _display_lock:
+                    _student_lines[key] = f"[dim]  {icon('info')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}[/]"
+                    live.update(_render())
 
                 b64 = _render_page_b64(doc, scan_idx, dpi=dpi)
                 blueprint = json.loads(
@@ -315,6 +349,12 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     ),
                 )
                 mark_dur = round(time.perf_counter() - t0, 2)
+                with _display_lock:
+                    _student_lines[key] = (
+                        f"[dim]  {icon('info')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}"
+                        f"  ·  {format_duration(mark_dur)}[/]"
+                    )
+                    live.update(_render())
                 local_timings.append({
                     "phase": "marking",
                     "student": student_name,
@@ -335,12 +375,13 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             doc.close()
         return local_timings
 
-    with ThreadPoolExecutor(max_workers=workers) as ex:
-        futures = {
-            ex.submit(_mark_student, a): a["student_name"] for a in raw_assignments
-        }
-        for fut in as_completed(futures):
-            with timings_lock:
-                api_call_timings.extend(fut.result())
+    with Live("", console=get_console(), refresh_per_second=4) as live:
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            futures = {
+                ex.submit(_mark_student, a): a["student_name"] for a in raw_assignments
+            }
+            for fut in as_completed(futures):
+                with timings_lock:
+                    api_call_timings.extend(fut.result())
 
     return api_call_timings

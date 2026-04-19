@@ -10,7 +10,7 @@ import os
 import re
 import time
 
-from .kimi_helpers import parse_json_safe
+from .ai_helpers import parse_json_safe
 from xscore.config import PIPELINE_DEFAULT_DPI
 from xscore.shared.models import StudentFilter, TaskInstruction
 from xscore.shared.terminal_ui import api_latency_line, info_line, warn_line

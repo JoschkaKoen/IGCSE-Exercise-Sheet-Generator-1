@@ -239,7 +239,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
     max_m = report["max_marks"]
     pct = report["percentage"]
     date_str = datetime.date.today().isoformat()
-    header_extra = f" — {_latex_escape(exam_name)}" if exam_name else ""
+    header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
     rows = []
     for q in report["questions"]:
         qnum = _latex_escape(str(q.get("number", "")).replace("_", "."))
@@ -301,7 +301,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
 
 def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
     import datetime
-    header_extra = f" — {_latex_escape(exam_name)}" if exam_name else ""
+    header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
     date_str = datetime.date.today().isoformat()
     student_rows = []
     for s in report["students"]:
@@ -362,7 +362,7 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
     )
 
 
-def _merge_pdfs(class_pdf: Path, reports_dir: Path, output_pdf: Path) -> None:
+def _merge_pdfs(class_pdf: Path, students_dir: Path, output_pdf: Path) -> None:
     """Concatenate the class overview PDF with all student PDFs (alphabetical by name)."""
     from xscore.shared.terminal_ui import warn_line
 
@@ -370,7 +370,7 @@ def _merge_pdfs(class_pdf: Path, reports_dir: Path, output_pdf: Path) -> None:
         stem = p.stem  # e.g. "13_student_report_Ashley"
         return stem.split("_student_report_", 1)[-1] if "_student_report_" in stem else stem
 
-    student_pdfs = sorted(reports_dir.glob("13_student_report_*.pdf"), key=_student_name)
+    student_pdfs = sorted(students_dir.glob("13_student_report_*.pdf"), key=_student_name)
 
     try:
         from pikepdf import Pdf
@@ -573,7 +573,7 @@ def compile_reports(ctx: Any) -> list[dict]:
         _compile_tex(tex_path, tex_path.parent)
         _merge_pdfs(
             tex_path.with_suffix(".pdf"),
-            tex_path.parent,
+            artifact_reports_students_dir(ctx.artifact_dir),
             tex_path.parent / "13_class_report_combined.pdf",
         )
         info_line(f"Class average: {_fmt_pct(class_avg)}")

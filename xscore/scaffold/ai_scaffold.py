@@ -68,9 +68,13 @@ For EACH question and sub-question at EVERY nesting level return an object with:
 - "question_type": one of "multiple_choice" | "short_answer" | "calculation" | "long_answer"
 - "page": 1-based page number where this question first appears
 - "subpage_row": 1-based row of the sub-page quadrant this question is in \
-(always 1 for a 1×1 layout; 1=top row, 2=bottom row for a 2×2 layout)
+(always 1 for a 1×1 layout; 1=top half, 2=bottom half for a 2×2 layout). \
+The boundary is the physical printed dividing line — a question at the very \
+bottom of the top half still belongs to subpage_row=1. \
+The same question number can appear more than once in the same quadrant.
 - "subpage_col": 1-based column of the sub-page quadrant this question is in \
-(always 1 for a 1×1 layout; 1=left col, 2=right col for a 2×2 layout)
+(always 1 for a 1×1 layout; 1=left half, 2=right half for a 2×2 layout). \
+A question at the very right edge of the left half still belongs to subpage_col=1.
 - "marks": integer mark allocation from [N] brackets; 0 if not printed
 - "text": complete question text in markdown; $...$ for inline math, $$...$$ for display math
 - "answer_options": for multiple_choice only — [{"letter": "A", "text": "..."}, ...]; empty list otherwise
@@ -384,6 +388,23 @@ def build_ai_scaffold(
                 _seen_rq[_qnum] = _seen_rq.get(_qnum, 0) + 1
                 if _seen_rq[_qnum] > 1:
                     _node["number"] = f"{_qnum}_{_seen_rq[_qnum]}"
+
+            # Warn if duplicate-numbered questions share the same subpage (likely a scaffold error).
+            import logging as _log
+            _base_pos: dict[str, list] = {}
+            for _node in raw_questions:
+                _base = re.sub(r"_\d+$", "", str(_node.get("number", "")))
+                _base_pos.setdefault(_base, []).append(
+                    (_node.get("subpage_row"), _node.get("subpage_col"), _node.get("number"))
+                )
+            for _base, _bpos in _base_pos.items():
+                if len(_bpos) > 1:
+                    _coords = [(_r, _c) for _r, _c, _ in _bpos]
+                    if len(set(_coords)) < len(_coords):
+                        _log.warning(
+                            "ai_scaffold: Q%s duplicates share the same subpage — "
+                            "possible misclassification: %s", _base, _bpos
+                        )
 
             # Apply the same suffix to mark scheme entries so scheme_map keys align.
             # Done after saving 5_mark_scheme.json to preserve original numbers there.

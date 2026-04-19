@@ -1,4 +1,4 @@
-"""Shared Kimi multimodal helpers for marking (JPEG, retries, JSON recovery)."""
+"""Shared AI multimodal helpers for marking (JPEG, retries, JSON recovery)."""
 
 from __future__ import annotations
 
@@ -20,8 +20,8 @@ _USE_DEFAULT_JSON_OBJECT = object()
 
 
 @runtime_checkable
-class KimiChatClient(Protocol):
-    """OpenAI-compatible client used by marking Kimi helpers (``client.chat.completions.create``)."""
+class AIChatClient(Protocol):
+    """OpenAI-compatible client used by marking AI helpers (``client.chat.completions.create``)."""
 
     chat: Any
 
@@ -31,8 +31,8 @@ def page_to_jpeg_b64(image: Any, quality: int = 85) -> str:
     return base64.b64encode(to_jpeg_bytes(image, quality=quality)).decode("utf-8")
 
 
-def kimi_image_call(
-    client: KimiChatClient,
+def ai_image_call(
+    client: AIChatClient,
     image_b64: str,
     prompt: str,
     *,
@@ -40,8 +40,9 @@ def kimi_image_call(
     response_format: Any = _USE_DEFAULT_JSON_OBJECT,
     model_id: str | None = None,
     prompt_save_path: Path | None = None,
+    print_latency: bool = True,
 ) -> str:
-    """Kimi vision call with retries. Uses :func:`resolve_pipeline_ai_model_id`.
+    """Vision call with retries. Uses :func:`resolve_pipeline_ai_model_id`.
 
     Pass *model_id* to override the global ``PIPELINE_AI_MODEL`` for this call
     (used by name-detection to honour ``NAME_DETECTION_MODEL`` independently).
@@ -79,9 +80,10 @@ def kimi_image_call(
         try:
             _t0 = time.perf_counter()
             resp = client.chat.completions.create(**create_kwargs)
-            api_latency_line(time.perf_counter() - _t0)
+            if print_latency:
+                api_latency_line(time.perf_counter() - _t0)
             raw = resp.choices[0].message.content or ""
-            log_ai_response_debug("kimi_image", model, raw)
+            log_ai_response_debug("ai_image", model, raw)
             return raw
         except Exception as exc:
             warn_line(f"API error (attempt {attempt}/3): {exc}")
@@ -90,8 +92,8 @@ def kimi_image_call(
     return ""
 
 
-def kimi_text_call(
-    client: KimiChatClient,
+def ai_text_call(
+    client: AIChatClient,
     messages: list[dict[str, Any]],
     *,
     max_tokens: int,
@@ -100,7 +102,7 @@ def kimi_text_call(
     warn_prefix: str = "API error",
     prompt_save_path: Path | None = None,
 ) -> str:
-    """Text-only Kimi chat with the same retry/backoff as :func:`kimi_image_call`."""
+    """Text-only AI chat with the same retry/backoff as :func:`ai_image_call`."""
     model = resolve_pipeline_ai_model_id()
     kwargs: dict[str, Any] = dict(
         model=model,
@@ -123,7 +125,7 @@ def kimi_text_call(
             response = client.chat.completions.create(**kwargs)
             api_latency_line(time.perf_counter() - _t0)
             raw = response.choices[0].message.content or ""
-            log_ai_response_debug("kimi_text", model, raw)
+            log_ai_response_debug("ai_text", model, raw)
             return raw
         except Exception as exc:
             warn_line(f"{warn_prefix} (attempt {attempt}/3): {exc}")

@@ -137,7 +137,7 @@ MULTI_PASS_COUNT = 1
 
 # Temperature controls randomness in model output.
 # 0.0 = deterministic, higher = more creative.
-GEMINI_TEMPERATURE: float = float(os.getenv("GEMINI_TEMPERATURE", "0.1"))
+GEMINI_TEMPERATURE: float = float(os.getenv("GEMINI_TEMPERATURE", "0.0"))
 
 # Maximum output tokens for Gemini response.
 GEMINI_MAX_OUTPUT_TOKENS: int = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "32000"))
@@ -210,7 +210,7 @@ def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = 
 
 
 def apply_model_extras(model: str, kwargs: dict[str, Any], *, thinking: bool = False) -> None:
-    """Set model-specific extras for the non-streaming kimi_helpers calls.
+    """Set model-specific extras for the non-streaming ai_helpers calls.
 
     Delegates Kimi-k2 thinking to :func:`apply_kimi_k2_extra` so behaviour stays
     identical to the historical pipeline; then applies Qwen-only extras.

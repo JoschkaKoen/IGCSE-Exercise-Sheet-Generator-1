@@ -8,7 +8,7 @@ Step 10 sub-step of the pipeline:
    Undetected names become ``Unknown_N`` entries rather than inheriting
    from a neighbouring student.
 
-Model is resolved from ``NAME_DETECTION_MODEL`` env var (default ``kimi-k2.5``).
+Model is resolved from ``NAME_DETECTION_MODEL`` env var (default ``qwen3.6-plus, off``).
 Worker count is resolved from ``NAME_WORKERS`` env var (default ``min(n_pages, 8)``).
 
 Returns a list of ``PageAssignment`` objects (one per student block).
@@ -17,13 +17,14 @@ Returns a list of ``PageAssignment`` objects (one per student block).
 from __future__ import annotations
 
 import os
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
 from xscore.config import NAME_RECOGNITION_DPI
 
-from .kimi_helpers import kimi_image_call, page_to_jpeg_b64, parse_json_safe
+from .ai_helpers import ai_image_call, page_to_jpeg_b64, parse_json_safe
 from xscore.shared.exam_paths import artifact_prompt_path
 from xscore.shared.models import PageAssignment
 
@@ -86,7 +87,7 @@ def assign_pages(
     ``confidence="low"`` instead of being merged into a neighbouring student.
 
     The vision model is configured via ``NAME_DETECTION_MODEL`` (default
-    ``kimi-k2.5``). Worker parallelism via ``NAME_WORKERS`` (default
+    ``qwen3.6-plus, off``). Worker parallelism via ``NAME_WORKERS`` (default
     ``min(n_pages, 8)``).
 
     *pages*: optional pre-rendered PIL images at *dpi* (skips PDF rendering).
@@ -102,7 +103,7 @@ def assign_pages(
         )
     client, model_id, _provider, _effort = ai_result
 
-    from xscore.shared.terminal_ui import info_line, tool_line
+    from xscore.shared.terminal_ui import info_line, tool_line, format_duration
 
     if pages is None:
         tool_line("pages", f"Rendering pages @ {dpi} DPI …")
@@ -119,12 +120,14 @@ def assign_pages(
         crop = _crop_top(page, fraction=name_crop_fraction)
         img_b64 = page_to_jpeg_b64(crop)
         save_path = artifact_prompt_path(artifact_dir, f"10_name_{i}") if artifact_dir else None
-        raw = kimi_image_call(client, img_b64, prompt, max_tokens=64, model_id=model_id,
-                              prompt_save_path=save_path)
+        _t0 = time.perf_counter()
+        raw = ai_image_call(client, img_b64, prompt, max_tokens=64, model_id=model_id,
+                              prompt_save_path=save_path, print_latency=False)
+        elapsed = time.perf_counter() - _t0
         data = parse_json_safe(raw) or {}
         raw_name = str(data.get("name", "") or "").strip()
         matched_name = fuzzy_match_name(raw_name, students) if raw_name else None
-        info_line(f"Page {i:3d}/{n_pages}: {raw_name!r}  →  {matched_name!r}")
+        info_line(f"Page {i:3d}/{n_pages}: {raw_name!r}  →  {matched_name!r}  ·  {format_duration(elapsed)}")
         return i, matched_name
 
     page_results: dict[int, str | None] = {}

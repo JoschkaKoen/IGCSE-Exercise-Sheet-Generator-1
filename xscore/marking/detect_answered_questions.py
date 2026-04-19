@@ -12,7 +12,7 @@ from pathlib import Path
 
 from xscore.config import PAGE_API_DELAY_S
 
-from .kimi_helpers import KimiChatClient, kimi_image_call, page_to_jpeg_b64, parse_json_safe
+from .ai_helpers import AIChatClient, ai_image_call, page_to_jpeg_b64, parse_json_safe
 from xscore.shared.exam_paths import artifact_prompt_path
 from xscore.shared.models import ExamScaffold, PageAssignment
 
@@ -39,7 +39,7 @@ def detect_answered_exercises(
     page_map: list[PageAssignment],
     scaffold: ExamScaffold,
     dpi: int = 200,
-    client: KimiChatClient | None = None,
+    client: AIChatClient | None = None,
     *,
     pages: list | None = None,
     artifact_dir: Path | None = None,
@@ -80,7 +80,7 @@ def detect_answered_exercises(
             page = all_pages[page_num - 1]
             img_b64 = page_to_jpeg_b64(page)
             save_path = artifact_prompt_path(artifact_dir, f"12_detect_answered_{page_num}") if artifact_dir else None
-            raw = kimi_image_call(client, img_b64, prompt, max_tokens=256,
+            raw = ai_image_call(client, img_b64, prompt, max_tokens=256,
                                   prompt_save_path=save_path)
             data = parse_json_safe(raw) or {}
             att = data.get("attempted", [])

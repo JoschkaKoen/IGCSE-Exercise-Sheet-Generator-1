@@ -19,7 +19,7 @@ from typing import Any
 
 from xscore.config import GRADE_QUESTION_DELAY_S
 
-from .kimi_helpers import KimiChatClient, kimi_image_call, page_to_jpeg_b64, parse_json_safe
+from .ai_helpers import AIChatClient, ai_image_call, page_to_jpeg_b64, parse_json_safe
 from xscore.shared.exam_paths import artifact_prompt_path
 from xscore.shared.models import ExamScaffold, PageAssignment, Question, StudentResult, TaskInstruction
 
@@ -39,7 +39,7 @@ def _prompt_mc(question: Question) -> str:
 
 
 def _grade_mc(
-    client: KimiChatClient,
+    client: AIChatClient,
     pages: list,
     question: Question,
     artifact_dir: Path | None = None,
@@ -50,7 +50,7 @@ def _grade_mc(
     for page in pages:
         img_b64 = page_to_jpeg_b64(page)
         save_path = artifact_prompt_path(artifact_dir, f"12_grade_mc_{question.number}") if artifact_dir else None
-        raw = kimi_image_call(client, img_b64, _prompt_mc(question), prompt_save_path=save_path)
+        raw = ai_image_call(client, img_b64, _prompt_mc(question), prompt_save_path=save_path)
         data = parse_json_safe(raw) or {}
         answer = str(data.get("answer", "?")).upper().strip()
         if answer not in ("", "?"):
@@ -79,7 +79,7 @@ def _prompt_written(question: Question) -> str:
 
 
 def _grade_written(
-    client: KimiChatClient,
+    client: AIChatClient,
     pages: list,
     question: Question,
     artifact_dir: Path | None = None,
@@ -87,7 +87,7 @@ def _grade_written(
     for page in pages:
         img_b64 = page_to_jpeg_b64(page)
         save_path = artifact_prompt_path(artifact_dir, f"12_grade_written_{question.number}") if artifact_dir else None
-        raw = kimi_image_call(client, img_b64, _prompt_written(question), max_tokens=256,
+        raw = ai_image_call(client, img_b64, _prompt_written(question), max_tokens=256,
                               prompt_save_path=save_path)
         data = parse_json_safe(raw) or {}
         answer = str(data.get("answer", "")).strip() or "?"
@@ -118,10 +118,10 @@ If no red marks are visible, return:
 """
 
 
-def _count_marks_on_page(client: KimiChatClient, page, artifact_dir: Path | None = None, page_num: int = 0) -> dict[str, float]:
+def _count_marks_on_page(client: AIChatClient, page, artifact_dir: Path | None = None, page_num: int = 0) -> dict[str, float]:
     img_b64 = page_to_jpeg_b64(page)
     save_path = artifact_prompt_path(artifact_dir, f"12_count_marks_{page_num}") if artifact_dir else None
-    raw = kimi_image_call(client, img_b64, _COUNT_PROMPT, max_tokens=256, prompt_save_path=save_path)
+    raw = ai_image_call(client, img_b64, _COUNT_PROMPT, max_tokens=256, prompt_save_path=save_path)
     data = parse_json_safe(raw) or {}
     raw_marks = data.get("marks", {})
     result: dict[str, float] = {}
@@ -156,7 +156,7 @@ def grade_students(
     exercise_map: dict[str, list[str]],
     scaffold: ExamScaffold,
     instruction: TaskInstruction,
-    client: KimiChatClient | None = None,
+    client: AIChatClient | None = None,
     *,
     pages: list | None = None,
     artifact_dir: Path | None = None,

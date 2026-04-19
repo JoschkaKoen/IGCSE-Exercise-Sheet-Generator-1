@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -22,7 +23,7 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
     for page_num in range(1, scaffold.page_count + 1):
         page_qs = [
             {
-                "number": q.number,
+                "number": re.sub(r"_\d+$", "", q.number),
                 "question_type": q.question_type,
                 "subpage_row": q.subpage_row,
                 "subpage_col": q.subpage_col,
@@ -47,6 +48,7 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
         blueprints.append(bp)
 
         json_path = artifact_blueprint_json_path(artifact_dir, page_num)
+        json_path.parent.mkdir(parents=True, exist_ok=True)
         json_path.write_text(json.dumps(bp, indent=2, ensure_ascii=False), encoding="utf-8")
 
         md_path = artifact_blueprint_md_path(artifact_dir, page_num)
