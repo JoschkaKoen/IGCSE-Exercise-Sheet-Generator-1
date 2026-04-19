@@ -69,10 +69,8 @@ Convert the grading instruction to JSON. Return ONLY the JSON, no explanation.
   "dpi": 400,
   "folder_hint": null,
   "folder_path": null,
-  "skip_clean_scan": false,
   "force_clean_scan": false,
   "rescaffold": false,
-  "through_step": null,
   "no_report": false
 }
 
@@ -81,13 +79,8 @@ student_filter.mode: all=default; specific=named students; first_n=first N (set 
 dpi: 400 default; 300 if "fast"/"quick"; 600 if "high quality"/"accurate".
 folder_hint: short name for fuzzy folder match. folder_path: only if user gives explicit path; else null.
 Prefer folder_path when both apply.
-skip_clean_scan: true=reuse cleaned scan ("skip cleaning", "don't reprocess").
-force_clean_scan: true=ignore cache, re-clean ("re-clean", "force deskew"). Never both true.
+force_clean_scan: true=ignore cache, re-clean ("re-clean", "force deskew").
 rescaffold: true=rebuild scaffold ("rebuild scaffold", "reparse", "refresh questions").
-through_step: 1-14 or null. 1=parse prompt, 2=find folder, 3=roster,
-  4=blank pages, 5=autorotate, 6=deskew, 7=geometry + student name detection,
-  8=parse exam PDF, 9=parse mark scheme, 10=merge scaffold,
-  11=blueprints, 12=AI marking, 13=compile reports, 14=timing summary.
 no_report: true=skip PDF ("terminal only", "no report").
 """
 
@@ -163,25 +156,9 @@ def parse_prompt(
     raw_fp = data.get("folder_path")
     folder_path = str(raw_fp).strip() if raw_fp not in (None, "") else None
 
-    skip_clean_scan = bool(data.get("skip_clean_scan", False))
     force_clean_scan = bool(data.get("force_clean_scan", False))
     rescaffold = bool(data.get("rescaffold", False))
     no_report = bool(data.get("no_report", False))
-
-    ts = data.get("through_step")
-    through_step: int | None = None
-    if ts is not None and ts != "":
-        try:
-            n = int(ts)
-            if 1 <= n <= 14:
-                through_step = n
-        except (TypeError, ValueError):
-            pass
-
-    if skip_clean_scan and force_clean_scan:
-        info_line("AI JSON had both skip_clean_scan and force_clean_scan — cleared both.")
-        skip_clean_scan = False
-        force_clean_scan = False
 
     _VALID_TASK_TYPES = {"count_marks", "check_mc", "check_answers"}
     raw_task = data.get("task_type", instruction.task_type)
@@ -195,10 +172,8 @@ def parse_prompt(
         dpi=dpi,
         folder_hint=folder_hint,
         folder_path=folder_path,
-        skip_clean_scan=skip_clean_scan,
         force_clean_scan=force_clean_scan,
         rescaffold=rescaffold,
-        through_step=through_step,
         no_report=no_report,
     )
 
@@ -224,18 +199,13 @@ def _heuristic_fallback(prompt: str, dpi_override: int | None) -> TaskInstructio
 
     dpi = dpi_override or PIPELINE_DEFAULT_DPI
 
-    skip_clean = "skip" in p and ("clean" in p or "deskew" in p or "scan" in p)
     force_clean = ("force" in p and "clean" in p) or "re-clean" in p or "reclean" in p.replace(" ", "")
-    # avoid double-trigger: simple heuristics
-    if skip_clean and force_clean:
-        skip_clean = force_clean = False
 
     return TaskInstruction(
         task_type=task_type,
         student_filter=student_filter,
         dpi=dpi,
         rescaffold="rescaffold" in p or "reparse" in p or "rebuild scaffold" in p,
-        skip_clean_scan=skip_clean,
         force_clean_scan=force_clean,
         no_report="no report" in p or "terminal only" in p,
     )

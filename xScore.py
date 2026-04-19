@@ -46,9 +46,6 @@ from xscore.shared.student_artifacts import write_student_artifacts
 
 __version__ = "0.1"
 
-_VALID_THROUGH_STEPS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-
-
 class _Tee:
     """Duplicate stdout to a log file, stripping ANSI colour codes from the file."""
 
@@ -103,28 +100,12 @@ def parse_args() -> argparse.Namespace:
         help="Rendering DPI (overrides dpi from prompt; default 400)",
     )
     parser.add_argument(
-        "--skip-clean-scan",
-        action="store_true",
-        default=False,
-        help="Reuse existing 3_cleaned_scan.pdf (skip steps 6–8)",
-    )
-    parser.add_argument(
         "--force-clean-scan",
         action="store_true",
         default=False,
         help="Rebuild cleaned scan even if cached",
     )
-    parser.add_argument(
-        "--through-step",
-        type=int,
-        default=None,
-        metavar="N",
-        choices=_VALID_THROUGH_STEPS,
-        help=f"Exit after step N (choices: {_VALID_THROUGH_STEPS})",
-    )
     args = parser.parse_args()
-    if args.skip_clean_scan and args.force_clean_scan:
-        parser.error("--skip-clean-scan and --force-clean-scan cannot be used together.")
     return args
 
 
@@ -138,15 +119,12 @@ class _Ctx:
     timestamp: str
     instruction: Any = None          # TaskInstruction
     parse_elapsed: float = 0.0
-    skip_clean_scan: bool = False
     force_clean_scan: bool = False
-    through_step: int | None = None
     folder: Path | None = None
     artifact_dir: Path | None = None
     students: list[str] | None = None
     scaffold: Any = None
     cleaned_pdf: Path | None = None
-    partial_stop_step: int | None = None
     pipeline_completed_ok: bool = False
     # Steps 10–14: AI marking pipeline
     num_students: int = 0
@@ -164,9 +142,7 @@ class _Ctx:
 
 def _print_footer(ctx: _Ctx, gi: SimpleNamespace, elapsed: float) -> None:
     t = f"{elapsed:.1f}s"
-    if ctx.partial_stop_step is not None:
-        gi.info_line(f"Run · {t} · partial step {ctx.partial_stop_step}")
-    elif ctx.pipeline_completed_ok:
+    if ctx.pipeline_completed_ok:
         gi.info_line(f"Run · {t} · complete")
     else:
         gi.info_line(f"Run · {t}")
@@ -265,18 +241,7 @@ def _step01_parse(ctx: _Ctx, gi: SimpleNamespace) -> None:
     assert ctx.instruction is not None
     inst = ctx.instruction
 
-    ctx.skip_clean_scan = ctx.args.skip_clean_scan or inst.skip_clean_scan
     ctx.force_clean_scan = ctx.args.force_clean_scan or inst.force_clean_scan
-    if ctx.skip_clean_scan and ctx.force_clean_scan:
-        gi.err_line("Cannot combine skip and force class-scan cleaning.")
-        raise SystemExit(1)
-    ctx.through_step = (
-        ctx.args.through_step if ctx.args.through_step is not None else inst.through_step
-    )
-    # Clamp through_step to valid range for this script
-    if ctx.through_step is not None and ctx.through_step not in _VALID_THROUGH_STEPS:
-        gi.warn_line(f"through_step={ctx.through_step} not in {_VALID_THROUGH_STEPS}; ignoring.")
-        ctx.through_step = None
 
     task_labels = {
         "check_answers": "Grade answers",
@@ -299,10 +264,6 @@ def _step01_parse(ctx: _Ctx, gi: SimpleNamespace) -> None:
         f"{task_label}  ·  {scope}  ·  {inst.dpi} DPI  ·  "
         f"{gi.format_duration(ctx.parse_elapsed)}"
     )
-
-    if ctx.through_step == 1:
-        ctx.partial_stop_step = 1
-        raise SystemExit(0)
 
 
 def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
@@ -345,10 +306,6 @@ def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
     from xscore.shared.exam_paths import validate_input_files
     validate_input_files(ctx.folder)
 
-    if ctx.through_step == 2:
-        ctx.partial_stop_step = 2
-        raise SystemExit(0)
-
 
 def _step03_students(ctx: _Ctx, gi: SimpleNamespace, *, on_header_printed=None) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None
@@ -358,9 +315,6 @@ def _step03_students(ctx: _Ctx, gi: SimpleNamespace, *, on_header_printed=None) 
     ctx.students = gi.read_student_list(ctx.folder, ctx.artifact_dir)
     gi.ok_line(f"{len(ctx.students)} students on the roster")
     write_student_artifacts(ctx.artifact_dir, ctx.students)
-    if ctx.through_step == 3:
-        ctx.partial_stop_step = 3
-        raise SystemExit(0)
 
 
 def _step08_09_10_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
@@ -370,16 +324,10 @@ def _step08_09_10_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
 
     def _on_exam_done(raw_questions: list) -> None:
         gi.ok_line(f"{len(raw_questions)} top-level questions extracted")
-        if ctx.through_step == 8:
-            ctx.partial_stop_step = 8
-            raise SystemExit(0)
         gi.pipeline_step(9, "AI API call — Parse mark scheme")
 
     def _on_scheme_done(scheme_questions: list) -> None:
         gi.ok_line(f"{len(scheme_questions)} answers in mark scheme")
-        if ctx.through_step == 9:
-            ctx.partial_stop_step = 9
-            raise SystemExit(0)
         gi.pipeline_step(10, "Create report")
 
     try:
@@ -396,9 +344,6 @@ def _step08_09_10_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
         )
     except FileNotFoundError as exc:
         gi.warn_line(f"No exam PDF found — scaffold skipped ({exc})")
-    if ctx.through_step == 10:
-        ctx.partial_stop_step = 10
-        raise SystemExit(0)
 
 
 def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
@@ -417,9 +362,6 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
         json.dumps({"step": 4, "elapsed_s": round(time.perf_counter() - t0_7, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
-    if ctx.through_step == 4:
-        ctx.partial_stop_step = 4
-        raise SystemExit(0)
 
     gi.pipeline_step(5, "Autorotate")
     t0_rot = time.perf_counter()
@@ -430,9 +372,6 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
         json.dumps({"step": 5, "elapsed_s": round(elapsed_rot, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
-    if ctx.through_step == 5:
-        ctx.partial_stop_step = 5
-        raise SystemExit(0)
 
     gi.pipeline_step(6, "Deskew")
     t0_9 = time.perf_counter()
@@ -441,9 +380,6 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
         json.dumps({"step": 6, "elapsed_s": round(time.perf_counter() - t0_9, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
-    if ctx.through_step == 6:
-        ctx.partial_stop_step = 6
-        raise SystemExit(0)
 
 
 def _run_step3_and_scan_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
@@ -544,9 +480,6 @@ def _step07_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
         )
 
     ctx.step_timings_marking["step_07_s"] = time.perf_counter() - t0
-    if ctx.through_step == 7:
-        ctx.partial_stop_step = 7
-        raise SystemExit(0)
 
 
 def _step11_blueprints(ctx: _Ctx, gi: SimpleNamespace) -> None:
@@ -557,9 +490,6 @@ def _step11_blueprints(ctx: _Ctx, gi: SimpleNamespace) -> None:
     blueprints = gi.build_blueprints(ctx.scaffold, ctx.artifact_dir)
     gi.ok_line(f"{len(blueprints)} page blueprint(s) written")
     ctx.step_timings_marking["step_11_s"] = time.perf_counter() - t0
-    if ctx.through_step == 11:
-        ctx.partial_stop_step = 11
-        raise SystemExit(0)
 
 
 def _step12_mark(ctx: _Ctx, gi: SimpleNamespace) -> None:
@@ -573,9 +503,6 @@ def _step12_mark(ctx: _Ctx, gi: SimpleNamespace) -> None:
         f"{ctx.num_students * ctx.pages_per_student} pages marked"
     )
     ctx.step_timings_marking["step_12_s"] = time.perf_counter() - t0
-    if ctx.through_step == 12:
-        ctx.partial_stop_step = 12
-        raise SystemExit(0)
 
 
 def _step13_reports(ctx: _Ctx, gi: SimpleNamespace) -> None:
@@ -589,9 +516,6 @@ def _step13_reports(ctx: _Ctx, gi: SimpleNamespace) -> None:
         f"class avg {summaries[0]['percentage'] if len(summaries) == 1 else round(sum(s['percentage'] for s in summaries) / len(summaries), 1) if summaries else 0}%"
     )
     ctx.step_timings_marking["step_13_s"] = time.perf_counter() - t0
-    if ctx.through_step == 13:
-        ctx.partial_stop_step = 13
-        raise SystemExit(0)
 
 
 def _step14_timing(ctx: _Ctx, gi: SimpleNamespace) -> None:
