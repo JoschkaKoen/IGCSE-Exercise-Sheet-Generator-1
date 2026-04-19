@@ -498,7 +498,8 @@ async def _run_grade_job(
         cleaned_pdf, artifact_dir = await asyncio.to_thread(
             run_full_pipeline_logged, folder, prompt, on_line, on_step
         )
-        class_report_pdf = artifact_dir / "reports" / "13_class_report.pdf"
+        from xscore.shared.exam_paths import artifact_class_report_pdf_path
+        class_report_pdf = artifact_class_report_pdf_path(artifact_dir)
         store.complete(
             job_id,
             output_pdf=cleaned_pdf,

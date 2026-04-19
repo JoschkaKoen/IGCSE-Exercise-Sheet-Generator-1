@@ -346,9 +346,11 @@ def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
         raise SystemExit(0)
 
 
-def _step03_students(ctx: _Ctx, gi: SimpleNamespace) -> None:
+def _step03_students(ctx: _Ctx, gi: SimpleNamespace, *, on_header_printed=None) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None
     gi.pipeline_step(3, "Read student list")
+    if on_header_printed is not None:
+        on_header_printed()
     ctx.students = gi.read_student_list(ctx.folder, ctx.artifact_dir)
     gi.ok_line(f"{len(ctx.students)} students on the roster")
     write_student_artifacts(ctx.artifact_dir, ctx.students)
@@ -471,6 +473,43 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     if ctx.through_step == 6:
         ctx.partial_stop_step = 6
         raise SystemExit(0)
+
+
+def _run_step3_and_scan_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 3 runs on the main thread; scan phases (4–6) run concurrently.
+
+    A threading.Event gates the scan thread so the step 4 header cannot print
+    before the step 3 header, keeping terminal output in step order.
+    Exceptions are caught and re-raised in pipeline order after both finish.
+    """
+    import threading
+    from concurrent.futures import ThreadPoolExecutor
+
+    _scan_ready = threading.Event()
+    scan_exc: BaseException | None = None
+
+    def _scan_wrapper() -> None:
+        nonlocal scan_exc
+        _scan_ready.wait()          # wait for step 3 header before printing step 4
+        try:
+            _scan_phases(ctx, gi)
+        except BaseException as exc:
+            scan_exc = exc
+
+    step3_exc: BaseException | None = None
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        pool.submit(_scan_wrapper)
+        try:
+            _step03_students(ctx, gi, on_header_printed=_scan_ready.set)
+        except BaseException as exc:
+            _scan_ready.set()       # unblock scan thread even on step-3 error
+            step3_exc = exc
+        # exiting the `with` block waits for the scan thread to finish
+
+    if step3_exc is not None:
+        raise step3_exc
+    if scan_exc is not None:
+        raise scan_exc
 
 
 # ---------------------------------------------------------------------------
@@ -626,8 +665,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
     try:
         _step01_parse(ctx, gi)
         _step02_folder(ctx, gi)
-        _step03_students(ctx, gi)
-        _scan_phases(ctx, gi)
+        _run_step3_and_scan_parallel(ctx, gi)
         if ctx.cleaned_pdf:
             _step07_geometry(ctx, gi)
         _step08_09_10_scaffold(ctx, gi)

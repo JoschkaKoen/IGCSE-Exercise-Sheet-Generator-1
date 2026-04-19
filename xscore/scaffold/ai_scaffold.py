@@ -91,10 +91,10 @@ Extract marking information for every question from this mark scheme.
 Return a FLAT list — do not recreate nesting. For each entry:
 - "number": question label in run-together form matching the exam paper (e.g. "9a", "9ai", "38")
 - "correct_answer": model answer in LaTeX-safe text — use $...$ for inline math (e.g. "$1.5 \\times 10^{11}$ m", "$v_0$"), \\% for percent signs, \\& for ampersands; for multiple-choice just the letter; null if not applicable
-- "mark_scheme": [{"mark": "B1/M1/A1/...", "criterion": "text"}, ...]
+- "mark_scheme": [{"mark": "B1/M1/A1/etc. for Cambridge-typed marks, or \\\"\\\" (empty string) when the criterion has no specific mark type — never use JSON null for this field", "criterion": "text"}, ...]
 
 Return ONLY valid JSON: {"questions": [...]}
-Use proper JSON escape sequences in all strings (\\n for newlines, \\t for tabs) — never embed literal control characters.
+Use proper JSON escape sequences (\\n for newlines) — strip all leading whitespace and tab characters from every criterion string; never start a criterion with \\t or any indentation.
 """
 
 
@@ -114,11 +114,14 @@ def _merge_scheme(questions: list[dict], scheme_map: dict[str, dict]) -> None:
         entry = scheme_map.get(key)
         if entry:
             node["correct_answer"] = entry.get("correct_answer")
-            criteria_lines = [
-                f"[{m.get('mark', '')}] {m.get('criterion', '')}"
-                for m in (entry.get("mark_scheme") or [])
-                if m.get("criterion")
-            ]
+            criteria_lines = []
+            for m in (entry.get("mark_scheme") or []):
+                criterion = m.get("criterion", "").lstrip("\t ")
+                if not criterion:
+                    continue
+                mark_label = m.get("mark") or ""
+                prefix = f"[{mark_label}] " if mark_label else ""
+                criteria_lines.append(f"{prefix}{criterion}")
             node["marking_criteria"] = "\n".join(criteria_lines) or None
         else:
             node.setdefault("correct_answer", None)

@@ -14,6 +14,8 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 
+from xscore.shared.exam_paths import artifact_marking_students_dir, artifact_reports_students_dir
+
 
 def _safe_name(name: str) -> str:
     return re.sub(r"[^\w]", "_", name)
@@ -66,8 +68,10 @@ def _latex_newlines(text: str) -> str:
             result.append(re.sub(r"[\r\n]", " ", part))
         else:
             part = part.replace("\r\n", "\n").replace("\r", "\n")
-            part = re.sub(r"\n{2,}", r"\\newline ", part)
-            result.append(part.replace("\n", r"\\newline "))
+            # "\\newline " is a regular-string literal: one backslash → \newline in LaTeX.
+            # (str.replace is literal, not a regex, so "\\" here means one backslash.)
+            part = part.replace("\n", "\\newline ")
+            result.append(part)
     return "".join(result)
 
 
@@ -79,7 +83,7 @@ def _format_criteria_cell(raw: str) -> str:
     """
     lines = []
     for line in raw.split("\n"):
-        line = re.sub(r"^\s*\[criterion\]\s*", "", line).strip()
+        line = re.sub(r"^\s*\[[^\]]*\]\s*", "", line).strip()
         if line:
             lines.append(line)
     joined = " / ".join(lines)
@@ -310,7 +314,7 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
     q_rows = []
     for qnum, avg in sorted(report.get("per_question_averages", {}).items()):
         max_cell = str(q_max.get(qnum, "")) if q_max else ""
-        q_rows.append(f"    {_latex_escape(qnum)} & {max_cell} & {avg} \\\\")
+        q_rows.append(f"    {_latex_escape(qnum.replace('_', '.'))} & {max_cell} & {avg} \\\\")
     q_rows_str = "\n".join(q_rows)
 
     return (
@@ -358,6 +362,31 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
     )
 
 
+def _merge_pdfs(class_pdf: Path, reports_dir: Path, output_pdf: Path) -> None:
+    """Concatenate the class overview PDF with all student PDFs (alphabetical by name)."""
+    from xscore.shared.terminal_ui import warn_line
+
+    def _student_name(p: Path) -> str:
+        stem = p.stem  # e.g. "13_student_report_Ashley"
+        return stem.split("_student_report_", 1)[-1] if "_student_report_" in stem else stem
+
+    student_pdfs = sorted(reports_dir.glob("13_student_report_*.pdf"), key=_student_name)
+
+    try:
+        from pikepdf import Pdf
+
+        combined = Pdf.new()
+        for pdf_path in [class_pdf, *student_pdfs]:
+            if not pdf_path.exists():
+                warn_line(f"PDF missing, skipping from combined report: {pdf_path.name}")
+                continue
+            with Pdf.open(pdf_path) as src:
+                combined.pages.extend(src.pages)
+        combined.save(output_pdf)
+    except Exception as exc:  # noqa: BLE001
+        warn_line(f"Could not create combined class report: {exc}")
+
+
 def _compile_tex(tex_path: Path, output_dir: Path) -> None:
     """Compile .tex with xelatex. Warns on failure but does not raise."""
     from xscore.shared.terminal_ui import warn_line
@@ -393,7 +422,7 @@ def _derive_student_names(artifact_dir: Path) -> list[str]:
     """Collect unique student names from 12_marked_*_*.json files, in order."""
     seen: dict[str, str] = {}   # safe_name → original name
     result: list[str] = []
-    for f in sorted((artifact_dir / "marking").glob("12_marked_*_*.json")):
+    for f in sorted(artifact_marking_students_dir(artifact_dir).glob("12_marked_*_*.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
             name = str(data.get("student_name") or "").strip()
@@ -420,7 +449,7 @@ def _derive_student_names(artifact_dir: Path) -> list[str]:
 def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
     """Compute mean assigned_marks per question number across all student reports."""
     q_totals: dict[str, list[float]] = {}
-    for f in sorted((artifact_dir / "reports").glob("13_student_report_*.json")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("13_student_report_*.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
             for q in data.get("questions", []):
@@ -444,6 +473,7 @@ def compile_reports(ctx: Any) -> list[dict]:
     (keys: name, total_marks, percentage) for use in step 14 timing.
     """
     from xscore.shared.exam_paths import (
+        SUBDIR_REPORTS,
         artifact_class_report_json_path,
         artifact_class_report_md_path,
         artifact_class_report_tex_path,
@@ -471,7 +501,8 @@ def compile_reports(ctx: Any) -> list[dict]:
         marking_criteria_by_num[_key] = _q.marking_criteria or ""
 
     # Pass 1 — sequential: merge marks and write all data files (fast I/O, order-sensitive)
-    (ctx.artifact_dir / "reports").mkdir(parents=True, exist_ok=True)
+    (ctx.artifact_dir / SUBDIR_REPORTS / "class").mkdir(parents=True, exist_ok=True)
+    (ctx.artifact_dir / SUBDIR_REPORTS / "students").mkdir(parents=True, exist_ok=True)
     for name in _derive_student_names(ctx.artifact_dir):
         report = _merge_student_pages(
             ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks
@@ -540,6 +571,11 @@ def compile_reports(ctx: Any) -> list[dict]:
         tex_path = artifact_class_report_tex_path(ctx.artifact_dir)
         tex_path.write_text(_class_report_to_tex(class_report, exam_name=exam_name), encoding="utf-8")
         _compile_tex(tex_path, tex_path.parent)
+        _merge_pdfs(
+            tex_path.with_suffix(".pdf"),
+            tex_path.parent,
+            tex_path.parent / "13_class_report_combined.pdf",
+        )
         info_line(f"Class average: {_fmt_pct(class_avg)}")
 
     return student_summaries
@@ -553,7 +589,7 @@ def load_student_results_from_reports(artifact_dir: Path) -> list:
     from xscore.shared.models import StudentResult
 
     results = []
-    for f in sorted((artifact_dir / "reports").glob("13_student_report_*.json")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("13_student_report_*.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
         except Exception:  # noqa: BLE001

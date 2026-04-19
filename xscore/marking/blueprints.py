@@ -17,8 +17,6 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
     Returns a list of blueprint dicts, one per exam page (1-indexed).
     """
     from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_blueprint_md_path
-
-    (artifact_dir / "marking").mkdir(parents=True, exist_ok=True)
     layout = scaffold.layout
     blueprints: list[dict] = []
     for page_num in range(1, scaffold.page_count + 1):
@@ -28,7 +26,7 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
                 "question_type": q.question_type,
                 "subpage_row": q.subpage_row,
                 "subpage_col": q.subpage_col,
-                "question_text": (q.text or "")[:200],
+                "question_text": q.text or "",
                 "answer_options": [
                     {"letter": o.letter, "text": o.text}
                     for o in (q.answer_options or [])

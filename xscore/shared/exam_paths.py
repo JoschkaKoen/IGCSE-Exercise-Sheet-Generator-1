@@ -14,8 +14,15 @@ SUBDIR_REPORTS  = "reports"
 
 
 def artifact_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Path for a saved AI prompt: ``<artifact_dir>/prompts/<name>.md``."""
-    return artifact_dir / SUBDIR_PROMPTS / f"{name}.md"
+    """Path for a saved AI prompt, routed into a sub-subdirectory by step prefix."""
+    if name.startswith("10_name"):
+        subdir = "name_detection"
+    elif name.startswith("12_"):
+        subdir = "marking"
+    else:
+        subdir = ""
+    base = artifact_dir / SUBDIR_PROMPTS
+    return (base / subdir / f"{name}.md") if subdir else (base / f"{name}.md")
 
 
 def safe_path_stem(stem: str) -> str:
@@ -163,82 +170,97 @@ def find_latest_cleaned_scan(
 
 def artifact_geometry_json_path(artifact_dir: Path) -> Path:
     """Step 10: exam geometry (page counts, student count)."""
-    return artifact_dir / SUBDIR_MARKING / "10_exam_geometry.json"
+    return artifact_dir / SUBDIR_MARKING / "geometry" / "10_exam_geometry.json"
 
 
 def artifact_geometry_md_path(artifact_dir: Path) -> Path:
     """Step 10: human-readable exam geometry table."""
-    return artifact_dir / SUBDIR_MARKING / "10_exam_geometry.md"
+    return artifact_dir / SUBDIR_MARKING / "geometry" / "10_exam_geometry.md"
 
 
 def artifact_exam_student_list_json_path(artifact_dir: Path) -> Path:
     """Step 10: scan-detected student list with page assignments."""
-    return artifact_dir / SUBDIR_MARKING / "10_exam_student_list.json"
+    return artifact_dir / SUBDIR_MARKING / "geometry" / "10_exam_student_list.json"
 
 
 def artifact_exam_student_list_md_path(artifact_dir: Path) -> Path:
     """Step 10: human-readable student-to-page assignment table."""
-    return artifact_dir / SUBDIR_MARKING / "10_exam_student_list.md"
+    return artifact_dir / SUBDIR_MARKING / "geometry" / "10_exam_student_list.md"
 
 
 def artifact_blueprint_json_path(artifact_dir: Path, page: int) -> Path:
     """Step 11: empty AI marking blueprint for one exam page."""
-    return artifact_dir / SUBDIR_MARKING / f"11_ai_marking_blueprint_{page}.json"
+    return artifact_dir / SUBDIR_MARKING / "blueprints" / f"11_ai_marking_blueprint_{page}.json"
 
 
 def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
     """Step 11: human-readable blueprint summary for one exam page."""
-    return artifact_dir / SUBDIR_MARKING / f"11_ai_marking_blueprint_{page}.md"
+    return artifact_dir / SUBDIR_MARKING / "blueprints" / f"11_ai_marking_blueprint_{page}.md"
 
 
 def artifact_marked_json_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Step 12: AI-filled marking blueprint for one student's scan page."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_MARKING / f"12_marked_{safe}_{page}.json"
+    return artifact_dir / SUBDIR_MARKING / "students" / f"12_marked_{safe}_{page}.json"
 
 
 def artifact_marked_md_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Step 12: human-readable marking result for one student's scan page."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_MARKING / f"12_marked_{safe}_{page}.md"
+    return artifact_dir / SUBDIR_MARKING / "students" / f"12_marked_{safe}_{page}.md"
+
+
+def artifact_marking_students_dir(artifact_dir: Path) -> Path:
+    """Directory containing per-student marking JSON files (step 12)."""
+    return artifact_dir / SUBDIR_MARKING / "students"
 
 
 def artifact_student_report_json_path(artifact_dir: Path, student: str) -> Path:
     """Step 13: merged student report JSON."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_REPORTS / f"13_student_report_{safe}.json"
+    return artifact_dir / SUBDIR_REPORTS / "students" / f"13_student_report_{safe}.json"
 
 
 def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
     """Step 13: human-readable student report."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_REPORTS / f"13_student_report_{safe}.md"
+    return artifact_dir / SUBDIR_REPORTS / "students" / f"13_student_report_{safe}.md"
 
 
 def artifact_student_report_tex_path(artifact_dir: Path, student: str) -> Path:
     """Step 13: LaTeX source for student report PDF."""
     import re
     safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_REPORTS / f"13_student_report_{safe}.tex"
+    return artifact_dir / SUBDIR_REPORTS / "students" / f"13_student_report_{safe}.tex"
+
+
+def artifact_reports_students_dir(artifact_dir: Path) -> Path:
+    """Directory containing per-student report JSON files (step 13)."""
+    return artifact_dir / SUBDIR_REPORTS / "students"
 
 
 def artifact_class_report_json_path(artifact_dir: Path) -> Path:
     """Step 13: class-wide summary JSON."""
-    return artifact_dir / SUBDIR_REPORTS / "13_class_report.json"
+    return artifact_dir / SUBDIR_REPORTS / "class" / "13_class_report.json"
 
 
 def artifact_class_report_md_path(artifact_dir: Path) -> Path:
     """Step 13: human-readable class report."""
-    return artifact_dir / SUBDIR_REPORTS / "13_class_report.md"
+    return artifact_dir / SUBDIR_REPORTS / "class" / "13_class_report.md"
 
 
 def artifact_class_report_tex_path(artifact_dir: Path) -> Path:
     """Step 13: LaTeX source for class report PDF."""
-    return artifact_dir / SUBDIR_REPORTS / "13_class_report.tex"
+    return artifact_dir / SUBDIR_REPORTS / "class" / "13_class_report.tex"
+
+
+def artifact_class_report_pdf_path(artifact_dir: Path) -> Path:
+    """Step 13: compiled class report PDF."""
+    return artifact_dir / SUBDIR_REPORTS / "class" / "13_class_report.pdf"
 
 
 def artifact_timing_json_path(artifact_dir: Path) -> Path:

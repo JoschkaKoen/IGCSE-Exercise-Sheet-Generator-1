@@ -79,9 +79,14 @@ def _mark_page(
         "  • student_answer: what the student wrote. For multiple_choice: find the option the student "
         "physically marked (written letter, circled letter, cross, or tick) and report that single "
         "letter. Do NOT infer from the question content or your own knowledge of which answer is correct. "
-        "If no mark is visible, report '?'.\n"
-        "  • assigned_marks: an integer between 0 and max_marks\n"
-        "  • reasoning: a brief justification for the marks awarded\n"
+        "If no mark is visible, report '?'. "
+        "For calculation questions transcribe the student's complete working and final answer. "
+        "For all other question types copy the student's written answer verbatim. "
+        "If handwriting is illegible, transcribe your best attempt and mark unreadable words with [?].\n"
+        "  • assigned_marks: an integer between 0 and max_marks. "
+        "Award 1 mark for each criteria point the student satisfies, up to max_marks. "
+        "For 'any N from' lists, each listed item is a separate mark point.\n"
+        "  • reasoning: 1–2 sentences maximum — state the verdict and the key reason. Do NOT show calculations, working-out steps, or deliberation.\n"
         "IMPORTANT — LaTeX formatting: any expression containing ^, _, or math operators MUST "
         "be wrapped in $...$ (e.g. write \"$10^{3}$\", \"$v_0 = 5$ m/s\", never \"10^3\" or "
         "\"v_0 = 5 m/s\"). Also write \\% for percent signs, \\& for ampersands. Failing to "
@@ -208,7 +213,11 @@ def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1
         if q.get("correct_answer") and q.get("question_type") != "multiple_choice":
             line += f"\n  Correct answer: {q['correct_answer']}"
         if q.get("marking_criteria"):
-            line += f"\n  Criteria: {q['marking_criteria']}"
+            def _clean_criteria_line(l: str) -> str:
+                c = l.lstrip().removeprefix("[None]").lstrip(" ")
+                return "  " + c[2:] if c.startswith("\\t") else c
+            cleaned = "\n".join(_clean_criteria_line(l) for l in q["marking_criteria"].splitlines())
+            line += f"\n  Criteria: {cleaned}"
         parts.append(line)
     return "\n".join(parts)
 
