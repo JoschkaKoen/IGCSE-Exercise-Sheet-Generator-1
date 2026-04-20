@@ -18,6 +18,7 @@ import time
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+from collections.abc import Callable
 from typing import Any
 
 import xml.etree.ElementTree as ET
@@ -105,6 +106,7 @@ def _mark_page(
     thinking_kw: dict,
     use_stream: bool = False,
     prompt_save_path: Path | None = None,
+    warn: Callable[[str], None] = warn_line,
 ) -> dict:
     """Vision call to fill in a marking blueprint for one scan page.
 
@@ -222,7 +224,7 @@ def _mark_page(
             try:
                 parsed_questions = _parse_xml_response(raw)
             except ET.ParseError as exc:
-                warn_line(f"Marking XML parse error (attempt {attempt + 1}/{MAX_RETRIES + 1}) — retrying")
+                warn(f"Marking XML parse error (attempt {attempt + 1}/{MAX_RETRIES + 1}) — retrying")
                 _last_exc = exc
                 continue
             result = blueprint.copy()
@@ -260,13 +262,13 @@ def _mark_page(
                     _unfilled.append(bq.get("number"))
 
             if _unfilled:
-                warn_line(f"Marking: {len(_unfilled)} blueprint question(s) skipped by AI: {_unfilled}")
+                warn(f"Marking: {len(_unfilled)} blueprint question(s) skipped by AI: {_unfilled}")
             _unmatched_count = sum(
                 max(0, len(grp) - fill_group_idx.get(key, 0))
                 for key, grp in fill_groups.items()
             )
             if _unmatched_count:
-                warn_line(f"Marking: {_unmatched_count} AI entries had no matching blueprint question")
+                warn(f"Marking: {_unmatched_count} AI entries had no matching blueprint question")
             _fix_mc_marks(result, page_questions_info)
             for bq in result.get("questions", []):
                 max_m = bq.get("max_marks")
@@ -274,14 +276,14 @@ def _mark_page(
                     continue
                 m = bq.get("assigned_marks", 0)
                 if not isinstance(m, int) or m < 0 or m > int(max_m):
-                    warn_line(
+                    warn(
                         f"Marking: Q{bq.get('number')} assigned_marks={m} out of range "
                         f"[0, {max_m}] — clamping"
                     )
                     bq["assigned_marks"] = max(0, min(int(m) if isinstance(m, (int, float)) else 0, int(max_m)))
             return result
         except Exception as exc:  # noqa: BLE001
-            warn_line(f"Marking error — retrying ({attempt + 1}/{MAX_RETRIES + 1})")
+            warn(f"Marking error — retrying ({attempt + 1}/{MAX_RETRIES + 1})")
             _last_exc = exc
             if attempt < MAX_RETRIES:
                 time.sleep(2 ** (attempt + 1))
@@ -490,9 +492,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         prompt_save_path=artifact_prompt_path(
                             ctx.artifact_dir, f"13_marked_{safe_name}_{p_label}"
                         ),
+                        warn=_warn,
                     )
                 except MarkingFailure as mf:
-                    warn_line(f"Marking failed: '{student_name}' p{p_label}")
                     filled = blueprint.copy()
                     filled["student_name"] = student_name
                     local_failures.append({
@@ -556,6 +558,13 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     all_failures: list[dict] = []
     _live_ctx = Live("", console=get_console(), refresh_per_second=4) if _use_live else contextlib.nullcontext()
     with _live_ctx as live:
+        def _warn(msg: str) -> None:
+            if _use_live:
+                with _display_lock:
+                    live.console.print(f"[yellow]  {icon('warn')}  {msg}[/]")
+            else:
+                warn_line(msg)
+
         with ThreadPoolExecutor(max_workers=workers) as ex:
             futures = {
                 ex.submit(_mark_student, a): a["student_name"] for a in raw_assignments
