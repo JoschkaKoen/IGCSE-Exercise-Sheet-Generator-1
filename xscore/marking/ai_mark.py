@@ -185,9 +185,21 @@ def _mark_page(
             "answer_options in your response — fill in only student_answer, assigned_marks, "
             "and explanation."
         )
+        system_prompt += (
+            "\nEach question also has an `order_in_subpage` field (integer: 1 = topmost "
+            "within that quadrant, 2 = second from top, etc.). Within each quadrant read "
+            "answers strictly top-to-bottom — match the Nth answer slot to the question "
+            "with `order_in_subpage = N`. When the same question number appears more than "
+            "once in the same sub-page, use `order_in_subpage` to distinguish them: the "
+            "lower the value, the higher the question sits on the physical page."
+        )
     system_prompt += (
         "\nMCQ reminder: report only the letter the student physically marked — "
-        "even if it appears to be a wrong answer. Do not use subject knowledge to guess."
+        "even if it appears to be a wrong answer. Do not use subject knowledge to guess. "
+        "Use `order_in_subpage` and the position label in the criteria to locate each "
+        "question within its quadrant: `order_in_subpage = 1` is the topmost question, "
+        "`order_in_subpage = 2` is directly below it, and so on — match the Nth answer "
+        "slot in the quadrant to the question with `order_in_subpage = N`."
     )
     user_text = (
         f"Marking criteria:\n{criteria_text}\n\n"
@@ -338,14 +350,19 @@ def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1
         key=lambda q: (int(q.get("subpage_row") or 1), int(q.get("subpage_col") or 1)),
     )
     parts = []
+    subpage_order_counters: dict[tuple[int, int], int] = {}
     for q in sorted_qs:
         display_num = re.sub(r"_\d+$", "", str(q.get("number", "?")))
+        r = int(q.get("subpage_row") or 1)
+        c = int(q.get("subpage_col") or 1)
+        subpage_order_counters[(r, c)] = subpage_order_counters.get((r, c), 0) + 1
+        order = subpage_order_counters[(r, c)]
         line = f"Q{display_num} [{q.get('question_type', '')}] — {q.get('marks', '?')} mark(s)"
         if multi_subpage:
-            r = int(q.get("subpage_row") or 1)
-            c = int(q.get("subpage_col") or 1)
             label = _quadrant_label(r, c, rows, cols)
-            line += f"  (sub-page row {r}, col {c} — {label})"
+            line += f"  (sub-page row {r}, col {c} — {label}, position {order})"
+        else:
+            line += f"  (position {order})"
         question_text = (q.get("text") or q.get("question_text") or "").strip()
         if question_text:
             line += f"\n  Question: \"{question_text}\""

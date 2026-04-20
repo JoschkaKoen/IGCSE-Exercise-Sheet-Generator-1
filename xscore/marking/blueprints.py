@@ -21,12 +21,19 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
     layout = scaffold.layout
     blueprints: list[dict] = []
     for page_num in range(1, scaffold.page_count + 1):
-        page_qs = [
-            {
+        subpage_counters: dict[tuple[int, int], int] = {}
+        page_qs = []
+        for q in scaffold.gradable_questions:
+            if q.page != page_num:
+                continue
+            key = (q.subpage_row, q.subpage_col)
+            subpage_counters[key] = subpage_counters.get(key, 0) + 1
+            page_qs.append({
                 "number": re.sub(r"_\d+$", "", q.number),
                 "question_type": q.question_type,
                 "subpage_row": q.subpage_row,
                 "subpage_col": q.subpage_col,
+                "order_in_subpage": subpage_counters[key],
                 "question_text": q.text or "",
                 "answer_options": [
                     {"letter": o.letter, "text": o.text}
@@ -37,10 +44,7 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
                 "student_answer": "",
                 "assigned_marks": None,
                 "explanation": "",
-            }
-            for q in scaffold.gradable_questions
-            if q.page == page_num
-        ]
+            })
         bp = {
             "page": page_num,
             "layout": {"rows": layout.rows, "cols": layout.cols},
