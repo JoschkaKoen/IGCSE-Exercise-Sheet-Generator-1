@@ -93,7 +93,7 @@ class GeminiProvider:
             ),
         )
 
-        for attempt in range(1, MAX_RETRIES + 1):
+        for attempt in range(MAX_RETRIES + 1):
             try:
                 _t0 = time.perf_counter()
                 response = client.models.generate_content(
@@ -134,7 +134,7 @@ class GeminiProvider:
             except Exception as e:
                 from xscore.shared.terminal_ui import warn_line
 
-                warn_line(f"Gemini API error (attempt {attempt}/{MAX_RETRIES}): {e}")
+                warn_line(f"Gemini API error (attempt {attempt + 1}/{MAX_RETRIES + 1}): {e}")
                 last_error = e
 
             if attempt < MAX_RETRIES:

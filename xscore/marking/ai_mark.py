@@ -22,6 +22,7 @@ from typing import Any
 import xml.etree.ElementTree as ET
 
 from eXercise.ai_client import collect_streamed_response
+from xscore.config import MAX_RETRIES
 from xscore.marking.blueprints import marked_to_md
 from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_failed_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path, artifact_short_scaffold_json_path
 from xscore.shared.prompt_logger import save_prompt
@@ -193,7 +194,7 @@ def _mark_page(
     save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
 
     _last_exc: BaseException = RuntimeError("no attempts made")
-    for attempt in range(1, 4):
+    for attempt in range(MAX_RETRIES + 1):
         try:
             if use_stream:
                 stream = client.chat.completions.create(**kwargs, stream=True)
@@ -204,7 +205,7 @@ def _mark_page(
             try:
                 parsed_questions = _parse_xml_response(raw)
             except ET.ParseError as exc:
-                warn_line(f"Marking XML parse error (attempt {attempt}/3) — retrying")
+                warn_line(f"Marking XML parse error (attempt {attempt + 1}/{MAX_RETRIES + 1}) — retrying")
                 _last_exc = exc
                 continue
             result = blueprint.copy()
@@ -270,12 +271,12 @@ def _mark_page(
                     bq["assigned_marks"] = max(0, min(int(m) if isinstance(m, (int, float)) else 0, int(max_m)))
             return result
         except Exception as exc:  # noqa: BLE001
-            warn_line(f"Marking API error (attempt {attempt}/3): {exc}")
+            warn_line(f"Marking API error (attempt {attempt + 1}/{MAX_RETRIES + 1}): {exc}")
             _last_exc = exc
-            if attempt < 3:
-                time.sleep(2**attempt)
+            if attempt < MAX_RETRIES:
+                time.sleep(2 ** (attempt + 1))
 
-    raise MarkingFailure(attempts=3, last_exc=_last_exc)
+    raise MarkingFailure(attempts=MAX_RETRIES + 1, last_exc=_last_exc)
 
 
 def _fix_mc_marks(result: dict, page_questions_info: list[dict]) -> None:

@@ -173,13 +173,14 @@ flowchart TD
 | **5** | Each content page's PDF `/Rotate` metadata is applied so scanners that encode rotation in metadata come out portrait. Optional Tesseract OSD pass for extra correction. |
 | **6** | IGCSE header anchors are detected on each page (parallel). Anchor positions drive the fine deskew transform; corrected pages are written to `3_cleaned_scan.pdf`. |
 | **7** | `scan_pages ÷ exam_pages` gives `num_students`. Cross-checked against the roster; a count mismatch is a warning, not an error. Writes `10_exam_geometry.json`. Student names are detected from the first scan page of each student block and fuzzy-matched against the roster. |
-| **8** | Gemini reads the exam paper and returns every question and sub-question with its number, type, marks, page, subpage position, and answer options. Also detects the exam layout (e.g. 2×2 for a 4-up paper). Writes `4_exam_questions.json` + `.md`. Configure with `READ_EXAM_PDF_MODEL`. |
-| **9** | Gemini reads the mark scheme and returns correct answers and marking criteria. Writes `5_mark_scheme.json` + `.md`. Configure with `READ_MARK_SCHEME_MODEL`. |
-| **10** | Merges the exam question tree with mark scheme annotations into a single `6_short_report.json` + `.md`. Runs even without a mark scheme (exam-only report). This report drives steps 11–12. |
-| **11** | For each exam page, leaf questions from the scaffold are extracted into a per-page JSON blueprint (`11_ai_marking_blueprint_N.json`), including `subpage_row`/`subpage_col` coordinates and the page layout. These become the fill-in templates for step 12. |
-| **12** | Each student's pages are rendered as JPEG and sent to the Qwen vision model (one API call per page). The prompt includes subpage layout context so the model can correctly locate answers in multi-up papers. The model fills in `student_answer`, `assigned_marks`, and `reasoning` for every question. Students are processed in parallel (`MARKING_WORKERS` threads); results written as `12_marked_name_N.json`. Requires `DASHSCOPE_API_KEY`. |
-| **13** | Per-student results are merged (cross-page questions: take max marks). Each student gets `13_student_report_name.json`, `.md`, and a compiled `.pdf`. A class summary PDF with per-question averages is written as `13_class_report.pdf`. PDF compilation runs in parallel (`MARKING_WORKERS` xelatex processes). Requires `xelatex`. |
-| **14** | Writes a `14_timing.json` and `.md` with wall-clock durations for each pipeline phase, API call counts, and per-student mark summaries. |
+| **8** | Gemini renders the first page of the exam PDF as an image and detects the printing layout (1×1, 2-up, or 4-up). In multi-up mode the PDF is split into one PDF page per sub-page in reading order — the split PDF is what step 9 uploads. Writes `4a_exam_layout.json` + `.md` and `4b_split_exam.pdf`. Configure with `DETECT_LAYOUT_MODEL`. Skipped (merged into step 8) in legacy non-split mode. |
+| **9** | Gemini reads the (split) exam PDF and returns every question and sub-question with its number, type, marks, page, subpage position, and answer options. Writes `4_exam_questions.json` + `.md`. Configure with `READ_EXAM_PDF_MODEL`. |
+| **10** | Gemini reads the mark scheme and returns correct answers and marking criteria. Writes `5_mark_scheme.json` + `.md`. Configure with `READ_MARK_SCHEME_MODEL`. |
+| **11** | Merges the exam question tree with mark scheme annotations into a single `6_short_report.json` + `.md`. Runs even without a mark scheme (exam-only report). This report drives steps 12–13. |
+| **12** | For each exam page, leaf questions from the scaffold are extracted into a per-page JSON blueprint (`11_ai_marking_blueprint_N.json`), including `subpage_row`/`subpage_col` coordinates and the page layout. These become the fill-in templates for step 13. |
+| **13** | Each student's pages are rendered as JPEG and sent to the Qwen vision model (one API call per page). The prompt includes subpage layout context so the model can correctly locate answers in multi-up papers. The model fills in `student_answer`, `assigned_marks`, and `reasoning` for every question. Students are processed in parallel (`MARKING_WORKERS` threads); results written as `12_marked_name_N.json`. Requires `DASHSCOPE_API_KEY`. |
+| **14** | Per-student results are merged (cross-page questions: take max marks). Each student gets `13_student_report_name.json`, `.md`, and a compiled `.pdf`. A class summary PDF with per-question averages is written as `13_class_report.pdf`. PDF compilation runs in parallel (`MARKING_WORKERS` xelatex processes). Requires `xelatex`. |
+| **15** | Writes a `14_timing.json` and `.md` with wall-clock durations for each pipeline phase, API call counts, and per-student mark summaries. |
 
 ---
 
@@ -218,7 +219,7 @@ The **Grade** page depends on the `xscore` package (not in `requirements.txt`) a
 | | |
 |---|---|
 | `xscore` | Install separately if you want the scan-cleaning and AI-marking pipeline |
-| `GEMINI_API_KEY` | Steps 1, 3, 8, 9 — prompt parsing, roster reading, exam and mark-scheme scaffold (`GOOGLE_API_KEY` accepted as fallback) |
+| `GEMINI_API_KEY` | Steps 1, 3, 8–10 — prompt parsing, roster reading, layout detection, exam and mark-scheme parsing (`GOOGLE_API_KEY` accepted as fallback) |
 | `DASHSCOPE_API_KEY` | Step 12 — AI marking via Qwen vision model |
 
 If `xscore` is not installed, the rest of the app runs normally — only `/grade` will return errors.
@@ -272,10 +273,10 @@ Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 | `RANKING_MODEL` | Difficulty ranking job (questions ranked hardest to easiest) |
 | `INTERPRET_PROMPT_MODEL` | xScore step 1 — parse grading prompt |
 | `READ_STUDENT_LIST_MODEL` | xScore step 3 — parse student roster files (PDF, Excel, CSV) |
-| `READ_EXAM_PDF_MODEL` | xScore step 8 — extract question hierarchy + layout from exam PDF |
-| `READ_MARK_SCHEME_MODEL` | xScore step 9 — extract answers and criteria from mark scheme |
-| `MARKING_MODEL` | xScore step 12 — Qwen vision model for AI marking; requires `DASHSCOPE_API_KEY`; use `, off` to disable thinking (required for non-streaming JSON output) |
-| `MARKING_WORKERS` | Parallel workers for step 12 (AI marking) and step 13 (xelatex compiles); default `4` |
+| `READ_EXAM_PDF_MODEL` | xScore step 9 — extract question hierarchy from the (split) exam PDF |
+| `READ_MARK_SCHEME_MODEL` | xScore step 10 — extract answers and criteria from mark scheme |
+| `MARKING_MODEL` | xScore step 13 — Qwen vision model for AI marking; requires `DASHSCOPE_API_KEY`; use `, off` to disable thinking (required for non-streaming JSON output) |
+| `MARKING_WORKERS` | Parallel workers for step 13 (AI marking) and step 14 (xelatex compiles); default `4` |
 
 **Optional thinking suffix:** add `, off`, `, low`, or `, high` after the model name:
 

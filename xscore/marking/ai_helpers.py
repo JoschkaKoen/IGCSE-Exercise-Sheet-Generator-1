@@ -76,7 +76,7 @@ def ai_image_call(
 
     save_prompt(prompt_save_path, model=model, messages=create_kwargs["messages"])
 
-    for attempt in range(1, MAX_RETRIES + 1):
+    for attempt in range(MAX_RETRIES + 1):
         try:
             _t0 = time.perf_counter()
             resp = client.chat.completions.create(**create_kwargs)
@@ -86,9 +86,9 @@ def ai_image_call(
             log_ai_response_debug("ai_image", model, raw)
             return raw
         except Exception as exc:
-            warn_line(f"API error (attempt {attempt}/{MAX_RETRIES}): {exc}")
+            warn_line(f"API error (attempt {attempt + 1}/{MAX_RETRIES + 1}): {exc}")
             if attempt < MAX_RETRIES:
-                time.sleep(2**attempt)
+                time.sleep(2 ** (attempt + 1))
     return ""
 
 

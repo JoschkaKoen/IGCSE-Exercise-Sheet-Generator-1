@@ -66,8 +66,8 @@ EXAM_PROFILE = "igcse_physics"
 # Delay between API calls (seconds). Set to 0 for no delay.
 API_CALL_DELAY_S = 0
 
-# Maximum retries for failed API calls
-MAX_RETRIES: int = int(os.getenv("MAX_RETRIES", "3"))
+# Maximum retries for failed API calls (0 = no retries, try once).
+MAX_RETRIES: int = int(os.getenv("MAX_RETRIES", "0"))
 
 # Initial backoff time for retries (seconds). Doubles after each failure.
 RETRY_BACKOFF_S: float = float(os.getenv("RETRY_BACKOFF_S", "1"))
