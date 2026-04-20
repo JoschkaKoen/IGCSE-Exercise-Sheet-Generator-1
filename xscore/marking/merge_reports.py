@@ -273,7 +273,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
             correct_ans = _latex_newlines(_latex_escape_smart(_restore_json_control_chars(correct_raw)))
         else:
             criteria_raw = str(q.get("marking_criteria") or "").strip()
-            correct_ans = f"\\textit{{{_format_criteria_cell(_restore_json_control_chars(criteria_raw))}}}" if criteria_raw else "---"
+            correct_ans = _format_criteria_cell(_restore_json_control_chars(criteria_raw)) if criteria_raw else "---"
         reasoning = _latex_newlines(_latex_escape_smart(_restore_json_control_chars(str(q.get("reasoning") or ""))))
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(

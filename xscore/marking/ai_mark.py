@@ -34,10 +34,18 @@ _DEFAULT_MARKING_MODEL = "qwen3.6-plus, off"
 
 class MarkingFailure(Exception):
     """Raised when all retry attempts to mark a page are exhausted."""
-    def __init__(self, *, attempts: int, last_exc: BaseException) -> None:
+    def __init__(self, *, attempts: int, last_exc: BaseException, last_raw: str = "") -> None:
         super().__init__(f"All {attempts} marking attempts failed: {last_exc}")
         self.attempts = attempts
         self.last_exc = last_exc
+        self.last_raw = last_raw
+
+
+def _text_slug(text: str) -> str:
+    """First 6 words of *text*, lowercased — used to disambiguate questions
+    that share the same (number, subpage_row, subpage_col) key."""
+    words = re.sub(r'[^\w\s]', '', text.lower()).split()
+    return ' '.join(words[:6])
 
 
 def _parse_xml_response(raw: str) -> list[dict]:
@@ -48,6 +56,8 @@ def _parse_xml_response(raw: str) -> list[dict]:
         raw = re.sub(r'\n?```$', '', raw.strip())
     # Fix unescaped & in element text (e.g. student wrote "P & Q")
     raw = re.sub(r'&(?![a-zA-Z#]\w*;)', '&amp;', raw)
+    # Fix bare < in text content (e.g. "x < y", "< 50%") — leave valid tag starts intact
+    raw = re.sub(r'<(?!/?[a-zA-Z_:!?])', '&lt;', raw)
     root = ET.fromstring(raw)
     questions = []
     for q in root.findall('question'):
@@ -60,6 +70,7 @@ def _parse_xml_response(raw: str) -> list[dict]:
             'assigned_marks': int(q.get('assigned_marks', 0)),
             'student_answer': (sa_el.text or '').strip() if sa_el is not None else '',
             'reasoning':      (re_el.text or '').strip() if re_el is not None else '',
+            'question_text':  q.get('question_text', ''),
         })
     return questions
 
@@ -115,9 +126,10 @@ def _mark_page(
         "Read the question list below and the marking criteria, then return an XML response "
         "with one <question> element per question in the list, in the same order. "
         "Each element must have attributes: number (copy from the list), subpage_row (copy from the list), "
-        "subpage_col (copy from the list), assigned_marks (integer 0–max_marks). "
+        "subpage_col (copy from the list), assigned_marks (integer 0–max_marks), "
+        "question_text (copy the first 6 words of the question text exactly as shown). "
         "Each element must contain child elements: <student_answer> and <reasoning> (1–2 sentences). "
-        "Do not include question_text, answer_options, or any other content.\n"
+        "Do not include answer_options or any other content.\n"
         "For each question:\n"
         "  • student_answer: what the student wrote. For multiple_choice: find the option the student "
         "physically marked (written letter, circled letter, cross, or tick) and report that single "
@@ -129,11 +141,12 @@ def _mark_page(
         "  • assigned_marks: an integer between 0 and max_marks. "
         "Award 1 mark for each criteria point the student satisfies, up to max_marks. "
         "For 'any N from' lists, each listed item is a separate mark point.\n"
-        "  • reasoning: 1–2 sentences maximum — state the verdict and the key reason. Do NOT show calculations, working-out steps, or deliberation.\n"
+        "  • reasoning: 1–2 sentences — state the verdict as a done decision (e.g. 'Student answered B; correct answer is A — 0 marks.'). "
+        "Never write deliberation, working-out, or self-corrections (no 'Wait', 'Let me', 'Actually', 'Let's re-read', etc.).\n"
         "IMPORTANT — output format: return ONLY well-formed XML, no markdown fences or other text outside the XML. "
         "Use this exact structure:\n"
         "<marking>\n"
-        "  <question number=\"...\" subpage_row=\"...\" subpage_col=\"...\" assigned_marks=\"...\">\n"
+        "  <question number=\"...\" subpage_row=\"...\" subpage_col=\"...\" assigned_marks=\"...\" question_text=\"first 6 words...\">\n"
         "    <student_answer>...</student_answer>\n"
         "    <reasoning>...</reasoning>\n"
         "  </question>\n"
@@ -194,6 +207,7 @@ def _mark_page(
     save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
 
     _last_exc: BaseException = RuntimeError("no attempts made")
+    _last_raw: str = ""
     for attempt in range(MAX_RETRIES + 1):
         try:
             if use_stream:
@@ -202,6 +216,7 @@ def _mark_page(
             else:
                 resp = client.chat.completions.create(**kwargs)
                 raw = resp.choices[0].message.content or ""
+            _last_raw = raw
             try:
                 parsed_questions = _parse_xml_response(raw)
             except ET.ParseError as exc:
@@ -209,51 +224,40 @@ def _mark_page(
                 _last_exc = exc
                 continue
             result = blueprint.copy()
-            fill_map = {
-                (q['number'], q['subpage_row'], q['subpage_col']): q
-                for q in parsed_questions
-            }
-            for bq in result.get("questions", []):
+            # Build fill_map keyed by (number, row, col, question_slug).
+            # question_slug (first 6 words of question text) disambiguates
+            # questions that share the same number in the same subpage.
+            def _bq_key(bq: dict) -> tuple:
                 _row = bq.get("subpage_row")
                 _col = bq.get("subpage_col")
-                key = (
+                qt = bq.get("question_text") or bq.get("text") or ""
+                return (
                     str(bq.get("number", "")),
                     int(_row) if _row is not None else 1,
                     int(_col) if _col is not None else 1,
+                    _text_slug(qt),
                 )
-                if key in fill_map:
-                    fq = fill_map[key]
+            fill_map = {_bq_key(q): q for q in parsed_questions}
+            for bq in result.get("questions", []):
+                fq = fill_map.get(_bq_key(bq))
+                if fq is not None:
                     bq["student_answer"] = fq['student_answer']
                     bq["assigned_marks"] = fq['assigned_marks']
                     bq["reasoning"] = fq['reasoning']
-            _blueprint_keys = {
-                (
-                    str(bq.get("number", "")),
-                    int(bq.get("subpage_row")) if bq.get("subpage_row") is not None else 1,
-                    int(bq.get("subpage_col")) if bq.get("subpage_col") is not None else 1,
-                )
-                for bq in result.get("questions", [])
-            }
+            _blueprint_keys = {_bq_key(bq) for bq in result.get("questions", [])}
             _unmatched = [
-                q for q in parsed_questions
-                if (q['number'], q['subpage_row'], q['subpage_col']) not in _blueprint_keys
+                q for q in parsed_questions if _bq_key(q) not in _blueprint_keys
             ]
             if _unmatched:
                 warn_line(
                     f"Marking: {len(_unmatched)} AI entr{'y' if len(_unmatched) == 1 else 'ies'} "
                     f"didn't match blueprint: "
-                    f"{[(q['number'], q['subpage_row'], q['subpage_col']) for q in _unmatched]}"
+                    f"{[(_bq_key(q)) for q in _unmatched]}"
                 )
-            _fill_keys = {
-                (q['number'], q['subpage_row'], q['subpage_col']) for q in parsed_questions
-            }
+            _fill_keys = {_bq_key(q) for q in parsed_questions}
             _unfilled = [
                 bq.get("number") for bq in result.get("questions", [])
-                if (
-                    str(bq.get("number", "")),
-                    int(bq.get("subpage_row")) if bq.get("subpage_row") is not None else 1,
-                    int(bq.get("subpage_col")) if bq.get("subpage_col") is not None else 1,
-                ) not in _fill_keys
+                if _bq_key(bq) not in _fill_keys
             ]
             if _unfilled:
                 warn_line(f"Marking: {len(_unfilled)} blueprint question(s) skipped by AI: {_unfilled}")
@@ -276,7 +280,7 @@ def _mark_page(
             if attempt < MAX_RETRIES:
                 time.sleep(2 ** (attempt + 1))
 
-    raise MarkingFailure(attempts=MAX_RETRIES + 1, last_exc=_last_exc)
+    raise MarkingFailure(attempts=MAX_RETRIES + 1, last_exc=_last_exc, last_raw=_last_raw)
 
 
 def _fix_mc_marks(result: dict, page_questions_info: list[dict]) -> None:
@@ -305,7 +309,9 @@ def _fix_mc_marks(result: dict, page_questions_info: list[dict]) -> None:
         student_ans = raw_ans[0].upper() if raw_ans and raw_ans[0].isalpha() else "?"
         q["student_answer"] = student_ans
         max_m = int(q.get("max_marks") or 1)
-        q["assigned_marks"] = max_m if student_ans == mc_correct[qt] else 0
+        correct = student_ans == mc_correct[qt]
+        q["assigned_marks"] = max_m if correct else 0
+        q["reasoning"] = "Correct." if correct else "Incorrect."
 
 
 def _clean_criteria_line(l: str) -> str:
@@ -490,6 +496,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         "page": p_label,
                         "attempts": mf.attempts,
                         "error": str(mf.last_exc),
+                        "raw_response": mf.last_raw or None,
                     })
                     out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
                     out_json.parent.mkdir(parents=True, exist_ok=True)
