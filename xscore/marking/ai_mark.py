@@ -19,7 +19,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, ValidationError
+import xml.etree.ElementTree as ET
 
 from eXercise.ai_client import collect_streamed_response
 from xscore.marking.blueprints import marked_to_md
@@ -39,50 +39,28 @@ class MarkingFailure(Exception):
         self.last_exc = last_exc
 
 
-class _FillQuestion(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    number: str
-    subpage_row: int
-    subpage_col: int
-    student_answer: str
-    assigned_marks: int
-    reasoning: str
-
-
-class _FillResponse(BaseModel):
-    model_config = ConfigDict(extra="forbid")
-    questions: list[_FillQuestion]
-
-
-_FILL_RESPONSE_FORMAT: dict = {
-    "type": "json_schema",
-    "json_schema": {
-        "name": "FillResponse",
-        "schema": _FillResponse.model_json_schema(),
-        "strict": True,
-    },
-}
-
-
-def _fix_latex_in_math(text: str) -> str:
-    """Normalise AI LaTeX inside $...$ blocks before storing to disk.
-
-    Three passes, math blocks only:
-    1. Restore JSON-escape control chars (\\t → \\t, etc.) — any number of leading backslashes.
-    2. Collapse double-escaped \\\\letter → \\letter (AI over-escaping in JSON).
-    3. Strip \\text{} wrapper around bare math commands (\\text{\\pi} → \\pi).
-    """
-    parts = re.split(r'(\$[^$]+\$)', text)
-    out = []
-    for part in parts:
-        if part.startswith('$') and part.endswith('$') and len(part) > 1:
-            for ctrl, letter in [('\t', 't'), ('\f', 'f'), ('\r', 'r'), ('\b', 'b')]:
-                part = re.sub(r'\\*' + re.escape(ctrl),
-                              lambda m, _l=letter: '\\' + _l, part)
-            part = re.sub(r'\\\\([a-zA-Z])', r'\\\1', part)
-            part = re.sub(r'\\text\{(\\[a-zA-Z]+)\}', r'\1', part)
-        out.append(part)
-    return ''.join(out)
+def _parse_xml_response(raw: str) -> list[dict]:
+    """Parse the AI's XML marking response into a list of question dicts."""
+    raw = raw.strip()
+    if raw.startswith('```'):
+        raw = re.sub(r'^```[^\n]*\n?', '', raw)
+        raw = re.sub(r'\n?```$', '', raw.strip())
+    # Fix unescaped & in element text (e.g. student wrote "P & Q")
+    raw = re.sub(r'&(?![a-zA-Z#]\w*;)', '&amp;', raw)
+    root = ET.fromstring(raw)
+    questions = []
+    for q in root.findall('question'):
+        sa_el = q.find('student_answer')
+        re_el = q.find('reasoning')
+        questions.append({
+            'number':         q.get('number', ''),
+            'subpage_row':    int(q.get('subpage_row', 1)),
+            'subpage_col':    int(q.get('subpage_col', 1)),
+            'assigned_marks': int(q.get('assigned_marks', 0)),
+            'student_answer': (sa_el.text or '').strip() if sa_el is not None else '',
+            'reasoning':      (re_el.text or '').strip() if re_el is not None else '',
+        })
+    return questions
 
 
 def _render_page_b64(doc: Any, page_idx: int, dpi: int = 150) -> str:
@@ -133,12 +111,12 @@ def _mark_page(
 
     system_prompt = (
         "You are an expert exam marker. You will be shown one page of a student's exam paper. "
-        "Read the question list below and the marking criteria, then return a JSON object with a "
-        "'questions' array — one entry per question in the list, in the same order. "
-        "Each entry must have: number (copy from the list), subpage_row (copy from the list), "
-        "subpage_col (copy from the list), student_answer (string), assigned_marks (integer 0–max_marks), "
-        "reasoning (string, 1–2 sentences). "
-        "Do not include question_text, answer_options, or any other fields.\n"
+        "Read the question list below and the marking criteria, then return an XML response "
+        "with one <question> element per question in the list, in the same order. "
+        "Each element must have attributes: number (copy from the list), subpage_row (copy from the list), "
+        "subpage_col (copy from the list), assigned_marks (integer 0–max_marks). "
+        "Each element must contain child elements: <student_answer> and <reasoning> (1–2 sentences). "
+        "Do not include question_text, answer_options, or any other content.\n"
         "For each question:\n"
         "  • student_answer: what the student wrote. For multiple_choice: find the option the student "
         "physically marked (written letter, circled letter, cross, or tick) and report that single "
@@ -151,16 +129,20 @@ def _mark_page(
         "Award 1 mark for each criteria point the student satisfies, up to max_marks. "
         "For 'any N from' lists, each listed item is a separate mark point.\n"
         "  • reasoning: 1–2 sentences maximum — state the verdict and the key reason. Do NOT show calculations, working-out steps, or deliberation.\n"
-        "IMPORTANT — LaTeX formatting: any expression containing ^, _, or math operators MUST "
-        "be wrapped in $...$ (e.g. write \"$10^{3}$\", \"$v_0 = 5$ m/s\", never \"10^3\" or "
-        "\"v_0 = 5 m/s\"). Also write \\% for percent signs, \\& for ampersands. "
-        "Use LaTeX commands for math symbols — write \\times, \\approx, \\rightarrow, "
-        "\\leq, \\geq, \\pm, \\infty, \\pi, \\theta, \\therefore, etc. — "
-        "never Unicode characters (×, ≈, →, ≤, ≥, ±, ∞, π, θ, ∴). "
-        "Never use \\text{} around a math symbol — \\text{} is only for prose/units "
-        "(e.g. \\text{ m/s}). Write \\pi directly, not \\text{\\pi}. "
-        "Use a single backslash for every LaTeX command — write \\times, not \\\\times. "
-        "Failing to use math mode or using Unicode symbols will crash the PDF renderer."
+        "IMPORTANT — output format: return ONLY well-formed XML, no markdown fences or other text outside the XML. "
+        "Use this exact structure:\n"
+        "<marking>\n"
+        "  <question number=\"...\" subpage_row=\"...\" subpage_col=\"...\" assigned_marks=\"...\">\n"
+        "    <student_answer>...</student_answer>\n"
+        "    <reasoning>...</reasoning>\n"
+        "  </question>\n"
+        "</marking>\n"
+        "In XML text content use &lt; for <, &gt; for >, &amp; for &.\n"
+        "IMPORTANT — LaTeX: wrap all math expressions in $...$ inline math "
+        "(e.g. $v = 2\\pi r / T$, $3.0 \\times 10^4$ m/s, $\\frac{d}{v}$). "
+        "Use standard LaTeX commands (\\times, \\approx, \\frac{}{}, \\pi, \\rightarrow, etc.). "
+        "Also write \\% for percent signs. "
+        "Failing to wrap math in $...$ will crash the PDF renderer."
     )
     if rows > 1 or cols > 1:
         grid_desc = "\n".join(
@@ -205,7 +187,6 @@ def _mark_page(
                 ],
             },
         ],
-        response_format=_FILL_RESPONSE_FORMAT,
     )
     kwargs.update(thinking_kw)
 
@@ -221,17 +202,15 @@ def _mark_page(
                 resp = client.chat.completions.create(**kwargs)
                 raw = resp.choices[0].message.content or ""
             try:
-                fill = _FillResponse.model_validate_json(raw)
-            except ValidationError as ve:
-                warn_line(f"Marking call schema validation failed (attempt {attempt}/3) — retrying")
-                _last_exc = ve
+                parsed_questions = _parse_xml_response(raw)
+            except ET.ParseError as exc:
+                warn_line(f"Marking XML parse error (attempt {attempt}/3) — retrying")
+                _last_exc = exc
                 continue
-            for fq in fill.questions:
-                fq.reasoning = _fix_latex_in_math(fq.reasoning)
-                fq.student_answer = _fix_latex_in_math(fq.student_answer)
             result = blueprint.copy()
             fill_map = {
-                (q.number, q.subpage_row, q.subpage_col): q for q in fill.questions
+                (q['number'], q['subpage_row'], q['subpage_col']): q
+                for q in parsed_questions
             }
             for bq in result.get("questions", []):
                 _row = bq.get("subpage_row")
@@ -243,9 +222,9 @@ def _mark_page(
                 )
                 if key in fill_map:
                     fq = fill_map[key]
-                    bq["student_answer"] = fq.student_answer
-                    bq["assigned_marks"] = fq.assigned_marks
-                    bq["reasoning"] = fq.reasoning
+                    bq["student_answer"] = fq['student_answer']
+                    bq["assigned_marks"] = fq['assigned_marks']
+                    bq["reasoning"] = fq['reasoning']
             _blueprint_keys = {
                 (
                     str(bq.get("number", "")),
@@ -255,16 +234,18 @@ def _mark_page(
                 for bq in result.get("questions", [])
             }
             _unmatched = [
-                q for q in fill.questions
-                if (q.number, q.subpage_row, q.subpage_col) not in _blueprint_keys
+                q for q in parsed_questions
+                if (q['number'], q['subpage_row'], q['subpage_col']) not in _blueprint_keys
             ]
             if _unmatched:
                 warn_line(
                     f"Marking: {len(_unmatched)} AI entr{'y' if len(_unmatched) == 1 else 'ies'} "
                     f"didn't match blueprint: "
-                    f"{[(q.number, q.subpage_row, q.subpage_col) for q in _unmatched]}"
+                    f"{[(q['number'], q['subpage_row'], q['subpage_col']) for q in _unmatched]}"
                 )
-            _fill_keys = {(q.number, q.subpage_row, q.subpage_col) for q in fill.questions}
+            _fill_keys = {
+                (q['number'], q['subpage_row'], q['subpage_col']) for q in parsed_questions
+            }
             _unfilled = [
                 bq.get("number") for bq in result.get("questions", [])
                 if (

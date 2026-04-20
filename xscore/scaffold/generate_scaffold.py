@@ -12,6 +12,7 @@ if no source PDF is newer than the cache. Exam PDF figures go under
 from __future__ import annotations
 
 import json
+import os
 import shutil
 from pathlib import Path
 from typing import Any
@@ -461,8 +462,10 @@ def build_scaffold(
     #   questions = _build_heuristic_scaffold(exam_pdf, folder, _find_answer_pdf(folder), ad)
     from xscore.scaffold.ai_scaffold import build_ai_scaffold
     ans = _find_answer_pdf(folder)
+    _split = os.getenv("READ_EXAM_PDF_SPLIT", "1").strip() not in ("0", "false", "no")
     questions, layout = build_ai_scaffold(
         exam_pdf, ans,
+        split_subpages=_split,
         on_exam_complete=on_exam_complete,
         on_scheme_complete=on_scheme_complete,
         artifact_dir=ad,

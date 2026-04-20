@@ -107,6 +107,19 @@ _EXAM_JSON_SCHEMA: dict = _ExamSchema.model_json_schema()
 _SCHEME_JSON_SCHEMA: dict = _SchemeSchema.model_json_schema()
 
 
+class _LayoutDetectSchema(BaseModel):
+    rows: int = 1
+    cols: int = 1
+    reading_order: list[list[int]] = []
+    # Each entry is [row, col] (1-based). Order = left-to-right reading sequence.
+    # 4-up reading order: [[1,1],[1,2],[2,1],[2,2]]
+    # 2-up landscape: [[1,1],[1,2]]
+    # Empty list = fallback to row-major (left→right, top→bottom)
+
+
+_LAYOUT_DETECT_JSON_SCHEMA: dict = _LayoutDetectSchema.model_json_schema()
+
+
 # ---------------------------------------------------------------------------
 # Model config — same pattern as load_student_list.py
 # ---------------------------------------------------------------------------
@@ -124,6 +137,10 @@ def _exam_pdf_model_config() -> tuple[str, str | None]:
 
 def _mark_scheme_model_config() -> tuple[str, str | None]:
     return _parse_model(os.getenv("READ_MARK_SCHEME_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash")))
+
+
+def _layout_detect_model_config() -> tuple[str, str | None]:
+    return _parse_model(os.getenv("DETECT_LAYOUT_MODEL", "gemini-2.0-flash-lite"))
 
 
 # ---------------------------------------------------------------------------
@@ -181,6 +198,26 @@ Return a FLAT list — do not recreate nesting. For each entry:
 - "number": question label in run-together form matching the exam paper (e.g. "9a", "9ai", "38")
 - "correct_answer": model answer — use $...$ for inline math (e.g. "$1.5 \\times 10^{11}$ m"), \\% for percent, \\& for ampersands; for multiple-choice just the letter; null if not applicable
 - "mark_scheme": [{"mark": "B1/M1/A1/etc., or empty string when no mark type", "criterion": "criterion text — use $...$ for any math or physical quantity (e.g. $F = ma$, $9.81 \\text{ m s}^{-2}$)"}, ...]
+"""
+
+_SYSTEM_LAYOUT = "You are an expert at identifying exam paper printing layouts."
+
+_USER_LAYOUT = """\
+Look at this exam page image. Determine how many exam sub-pages are printed on this \
+physical page and in what reading order they appear.
+
+Return:
+- "rows": number of rows of sub-pages (1 or 2)
+- "cols": number of columns of sub-pages (1 or 2)
+- "reading_order": list of [row, col] pairs (1-based) in the order a reader would \
+read the sub-pages left-to-right, top-to-bottom
+
+Standard single-page exam:
+  {"rows":1,"cols":1,"reading_order":[[1,1]]}
+Two-up landscape (left exam / right exam):
+  {"rows":1,"cols":2,"reading_order":[[1,1],[1,2]]}
+Four-up 2x2 grid, standard reading order:
+  {"rows":2,"cols":2,"reading_order":[[1,1],[1,2],[2,1],[2,2]]}
 """
 
 
@@ -284,6 +321,167 @@ def _save_mark_scheme(artifact_dir: Path, scheme_questions: list[dict]) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Layout detection helpers (split-subpages mode)
+# ---------------------------------------------------------------------------
+
+def _detect_layout(client, exam_pdf: Path, model: str) -> tuple["_LayoutDetectSchema", float]:
+    """Cheap layout detection: render first page as JPEG, ask Gemini for rows/cols/order.
+
+    Self-contained — imports fitz and gai_types locally (not at module level).
+    Falls back to 1×1 single-page on any error.
+    """
+    from google.genai import types as gai_types
+    import fitz
+
+    with fitz.open(str(exam_pdf)) as doc:
+        pix = doc[0].get_pixmap(matrix=fitz.Matrix(1.0, 1.0))  # 72 DPI
+    img_bytes = pix.tobytes("jpeg")
+
+    cfg = gai_types.GenerateContentConfig(
+        system_instruction=_SYSTEM_LAYOUT,
+        max_output_tokens=512,
+        response_mime_type="application/json",
+        response_json_schema=_LAYOUT_DETECT_JSON_SCHEMA,
+    )
+
+    t0 = time.perf_counter()
+    resp = client.models.generate_content(
+        model=model,
+        contents=[
+            gai_types.Part.from_bytes(data=img_bytes, mime_type="image/jpeg"),
+            gai_types.Part.from_text(_USER_LAYOUT),
+        ],
+        config=cfg,
+    )
+    elapsed = time.perf_counter() - t0
+
+    try:
+        result = _LayoutDetectSchema.model_validate_json(resp.text)
+    except Exception:
+        result = _LayoutDetectSchema(rows=1, cols=1, reading_order=[])
+    return result, elapsed
+
+
+def _order_cells(page_rect, layout: "_LayoutDetectSchema") -> list:
+    """Crop rects for *page_rect* in the detected reading order (row, col entries are 1-based)."""
+    import fitz
+
+    r = page_rect
+    cw = r.width / layout.cols
+    rh = r.height / layout.rows
+
+    def cell(row: int, col: int) -> "fitz.Rect":
+        return fitz.Rect(
+            r.x0 + (col - 1) * cw, r.y0 + (row - 1) * rh,
+            r.x0 + col * cw,       r.y0 + row * rh,
+        )
+
+    order = layout.reading_order
+    if not order:
+        order = [[row + 1, col + 1] for row in range(layout.rows) for col in range(layout.cols)]
+    return [cell(rc[0], rc[1]) for rc in order]
+
+
+def _split_pdf_by_layout(exam_pdf: Path, layout: "_LayoutDetectSchema") -> tuple[Path, int, int]:
+    """Split *exam_pdf* into a temp PDF where each page = one sub-page in reading order.
+
+    Returns *(temp_path, n_physical_pages, n_split_pages)*.
+    The caller must delete *temp_path* when done.
+    """
+    import fitz
+    import tempfile
+
+    src = fitz.open(str(exam_pdf))
+    dst = fitz.open()
+    for page_idx in range(len(src)):
+        for cell in _order_cells(src[page_idx].rect, layout):
+            new_page = dst.new_page(width=cell.width, height=cell.height)
+            new_page.show_pdf_page(new_page.rect, src, page_idx, clip=cell)
+    n_physical = len(src)
+    n_split = len(dst)
+    src.close()
+
+    tmp = tempfile.NamedTemporaryFile(suffix=".pdf", delete=False)
+    tmp_path = Path(tmp.name)
+    tmp.close()
+    dst.save(str(tmp_path))
+    dst.close()
+    return tmp_path, n_physical, n_split
+
+
+def _remap_split_pages(questions: list[dict], layout: "_LayoutDetectSchema") -> None:
+    """Convert split-PDF page numbers back to physical page + subpage coords (in-place).
+
+    The split PDF was built with pages in *layout.reading_order* order, so the
+    inverse mapping is: split_page p → physical page and (row, col) from reading_order.
+    """
+    order = layout.reading_order or [
+        [row + 1, col + 1] for row in range(layout.rows) for col in range(layout.cols)
+    ]
+    cells = len(order)
+
+    def remap(node: dict) -> None:
+        p = int(node.get("page", 1))
+        node["page"]        = (p - 1) // cells + 1   # physical page (1-based)
+        rc = order[(p - 1) % cells]
+        node["subpage_row"] = rc[0]
+        node["subpage_col"] = rc[1]
+        for sq in node.get("subquestions", []):
+            remap(sq)
+
+    for q in questions:
+        remap(q)
+
+
+def _save_layout_artifact(
+    artifact_dir: Path,
+    layout: "_LayoutDetectSchema",
+    model: str,
+    elapsed: float,
+    n_physical: int,
+    n_split: int,
+) -> None:
+    """Write step-8 (split mode) artifacts: ``4a_exam_layout.json`` + ``.md``."""
+    from xscore.shared.exam_paths import (
+        artifact_exam_layout_json_path,
+        artifact_exam_layout_markdown_path,
+    )
+
+    payload = {
+        "rows": layout.rows,
+        "cols": layout.cols,
+        "reading_order": layout.reading_order,
+        "model": model,
+        "elapsed_s": round(elapsed, 2),
+        "n_physical_pages": n_physical,
+        "n_split_pages": n_split,
+    }
+    try:
+        p = artifact_exam_layout_json_path(artifact_dir)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        with open(p, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2, ensure_ascii=False)
+
+        if layout.rows * layout.cols > 1:
+            order_desc = "→".join(
+                ("T" if rc[0] == 1 else "B") + ("L" if rc[1] == 1 else "R")
+                for rc in (layout.reading_order or [])
+            ) or "row-major"
+            md = (
+                f"Layout: {layout.rows}×{layout.cols}  ·  reading order: {order_desc}  ·  "
+                f"{model}  ·  {elapsed:.1f}s  ·  "
+                f"{n_physical} physical page(s) → {n_split} sub-pages\n"
+            )
+        else:
+            md = f"Layout: 1×1 (single)  ·  {model}  ·  {elapsed:.1f}s  ·  no splitting\n"
+
+        with open(artifact_exam_layout_markdown_path(artifact_dir), "w", encoding="utf-8") as f:
+            f.write(md)
+    except OSError:
+        pass
+
+
+# ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
@@ -291,6 +489,7 @@ def build_ai_scaffold(
     exam_pdf: Path,
     marking_scheme_pdf: Path | None,
     *,
+    split_subpages: bool = True,
     on_exam_complete: "Callable[[list[dict]], None] | None" = None,
     on_scheme_complete: "Callable[[list[dict]], None] | None" = None,
     artifact_dir: Path | None = None,
@@ -300,6 +499,9 @@ def build_ai_scaffold(
     Args:
         exam_pdf: Path to the exam question-paper PDF.
         marking_scheme_pdf: Optional mark-scheme PDF; skipped when None.
+        split_subpages: When True (default), run a cheap layout-detection call first,
+            then split the exam PDF into individual sub-pages before extraction.
+            Disable with READ_EXAM_PDF_SPLIT=0 to use the legacy single-call path.
         on_exam_complete: Optional callback invoked with the raw question dicts
             after the first API call (exam extraction) completes successfully.
             Use this to advance the pipeline step counter between the two calls.
@@ -308,6 +510,7 @@ def build_ai_scaffold(
             merged into the question tree.  Use this to advance the step counter
             to the merge step.  May raise SystemExit(0) to stop before merging.
         artifact_dir: If set, write intermediate JSON + Markdown snapshots:
+            ``4a_exam_layout.*`` after layout detection (split mode only),
             ``4_exam_questions.*`` after call 1, ``5_mark_scheme.*`` after call 2.
             Saves are best-effort; OSError is silently ignored.
 
@@ -347,22 +550,47 @@ def build_ai_scaffold(
             )
         return gai_types.GenerateContentConfig(system_instruction=system, **cfg)
 
-    # ---- Upload PDFs in parallel ----------------------------------------
-    pdfs_to_upload: list[tuple[str, Path]] = [("exam", exam_pdf)]
-    if marking_scheme_pdf is not None:
-        pdfs_to_upload.append(("scheme", marking_scheme_pdf))
-
-    def _upload(item: tuple[str, Path]):
-        label, path = item
-        return label, _upload_and_poll(client, path, label)
-
+    # State tracked across the try/finally (split PDF must always be cleaned up)
+    split_pdf_path: Path | None = None
+    n_physical_pages: int = 0
+    n_split_pages: int = 0
+    layout_result: _LayoutDetectSchema | None = None
+    layout_elapsed: float = 0.0
+    layout_model: str = ""
     uploaded_files: dict[str, object] = {}
-    with ThreadPoolExecutor(max_workers=2) as pool:
-        for label, f in pool.map(_upload, pdfs_to_upload):
-            uploaded_files[label] = f
 
     try:
-        from xscore.shared.terminal_ui import api_latency_line
+        from xscore.shared.terminal_ui import api_latency_line, ok_line, tool_line
+
+        # ---- Step A: cheap layout detection + PDF splitting (split mode) ---
+        if split_subpages:
+            layout_model, _ = _layout_detect_model_config()
+            layout_result, layout_elapsed = _detect_layout(client, exam_pdf, layout_model)
+            api_latency_line(layout_elapsed, label="layout")
+
+            if layout_result.rows * layout_result.cols > 1:
+                layout_label = f"{layout_result.rows}×{layout_result.cols}"
+                tool_line("split", f"Splitting exam PDF ({layout_label} layout) …")
+                split_pdf_path, n_physical_pages, n_split_pages = _split_pdf_by_layout(
+                    exam_pdf, layout_result
+                )
+                ok_line(f"{n_physical_pages} physical page(s) → {n_split_pages} sub-pages")
+            else:
+                ok_line("Layout 1×1 — no splitting needed")
+
+        # ---- Upload PDFs in parallel ----------------------------------------
+        actual_exam_pdf = split_pdf_path if split_pdf_path is not None else exam_pdf
+        pdfs_to_upload: list[tuple[str, Path]] = [("exam", actual_exam_pdf)]
+        if marking_scheme_pdf is not None:
+            pdfs_to_upload.append(("scheme", marking_scheme_pdf))
+
+        def _upload(item: tuple[str, Path]):
+            label, path = item
+            return label, _upload_and_poll(client, path, label)
+
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            for label, f in pool.map(_upload, pdfs_to_upload):
+                uploaded_files[label] = f
 
         # ---- Inference closures (called from threads or inline) -----------
 
@@ -439,6 +667,21 @@ def build_ai_scaffold(
             raw_questions, raw_layout = _do_exam_call()
             scheme_data = {"questions": []}
 
+        # ---- Post-extraction: remap split-PDF page numbers + save layout artifact ---
+        # Remap before saving artifacts so 4_exam_questions.json has physical page coords.
+        if split_pdf_path is not None and layout_result is not None:
+            _remap_split_pages(raw_questions, layout_result)
+
+        # Use pre-detected layout (ignore raw_layout from extraction response in split mode).
+        if layout_result is not None:
+            raw_layout = {"rows": layout_result.rows, "cols": layout_result.cols}
+
+        if split_subpages and artifact_dir is not None and layout_result is not None:
+            _save_layout_artifact(
+                artifact_dir, layout_result, layout_model, layout_elapsed,
+                n_physical_pages, n_split_pages,
+            )
+
         # ---- Artifacts + callbacks (main thread, same order as before) ---
 
         # Save step-4 artifacts BEFORE on_exam_complete — the callback may raise
@@ -510,11 +753,17 @@ def build_ai_scaffold(
             _merge_scheme(raw_questions, scheme_map)
 
     finally:
-        # Delete uploaded files (auto-expire after 48 h anyway)
+        # Delete uploaded Gemini files (auto-expire after 48 h anyway)
         for label, f in uploaded_files.items():
             try:
                 client.files.delete(name=f.name)
             except Exception:
+                pass
+        # Delete temp split PDF (always, even if upload or inference failed)
+        if split_pdf_path is not None:
+            try:
+                split_pdf_path.unlink()
+            except OSError:
                 pass
 
     layout = ExamLayout(

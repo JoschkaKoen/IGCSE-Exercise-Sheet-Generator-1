@@ -125,28 +125,30 @@ flowchart TD
 
     s7["Step 7 — Exam geometry\npage count ÷ exam pages = students\n+ student name detection"]
 
-    subgraph scaffold ["Steps 8–10 — Exam scaffold"]
+    subgraph scaffold ["Steps 8–11 — Exam scaffold  (Steps 8–10 in legacy mode)"]
         direction TB
-        s8["Step 8 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)\ndetects layout · subpage coords per question"]
-        s9["Step 9 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL)"]
-        s10["Step 10 — Merge report"]
-        s8 --> s9 --> s10
+        s8["Step 8 — Detect exam layout\n(Gemini · DETECT_LAYOUT_MODEL)\ncheap inline-image call · detects reading order\nsplits PDF into sub-pages if multi-up"]
+        s9["Step 9 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)\nsplit PDF: one sub-page per page in reading order"]
+        s10["Step 10 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL)"]
+        s11["Step 11 — Merge report"]
+        s8 --> s9 --> s10 --> s11
     end
 
-    subgraph marking ["Steps 11–14 — AI marking"]
+    subgraph marking ["Steps 12–15 — AI marking  (Steps 11–14 in legacy mode)"]
         direction TB
-        s11["Step 11 — Marking blueprints\nper-page JSON templates from scaffold"]
-        s12["Step 12 — AI marking\n(Qwen vision · MARKING_MODEL)\nsubpage-aware · students in parallel"]
-        s13["Step 13 — Compile reports\nper-student PDF + class PDF\nxelatex · parallel · MARKING_WORKERS"]
-        s14["Step 14 — Timing summary"]
-        s11 --> s12 --> s13 --> s14
+        s12["Step 12 — Marking blueprints\nper-page JSON templates from scaffold"]
+        s13["Step 13 — AI marking\n(Qwen vision · MARKING_MODEL)\nsubpage-aware · students in parallel"]
+        s14["Step 14 — Compile reports\nper-student PDF + class PDF\nxelatex · parallel · MARKING_WORKERS"]
+        s15["Step 15 — Timing summary"]
+        s12 --> s13 --> s14 --> s15
     end
 
     f3[/"3_students.json · md"/]
+    f8[/"4a_exam_layout.json · md"/]
     f10[/"6_short_report.json · md"/]
-    f12[/"12_marked_name_page.json\n(one per student × page)"/]
-    f13[/"13_student_report_name.pdf\n13_class_report.pdf"/]
-    f14[/"14_timing.json · md"/]
+    f13[/"12_marked_name_page.json\n(one per student × page)"/]
+    f14[/"13_student_report_name.pdf\n13_class_report.pdf"/]
+    f15[/"14_timing.json · md"/]
 
     uploads --> s1
     s1 --> routeCond
@@ -155,10 +157,11 @@ flowchart TD
     s3 --> cleaning --> cleaned --> s7 --> scaffold --> marking
 
     s3 -.-> f3
-    s10 -.-> f10
-    s12 -.-> f12
+    s8 -.-> f8
+    s11 -.-> f10
     s13 -.-> f13
     s14 -.-> f14
+    s15 -.-> f15
 ```
 
 | Step | Description |

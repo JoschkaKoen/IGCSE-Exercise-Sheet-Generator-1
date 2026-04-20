@@ -132,6 +132,7 @@ class _Ctx:
     marking_api_calls: list = None           # populated in step 12
     marking_failures: list = None            # populated in step 12 (pages that exhausted all retries)
     page_assignments: list | None = None     # list[PageAssignment] set by step 10
+    step_offset: int = 0                     # 1 when split-subpages mode adds step 8 (layout)
 
     def __post_init__(self) -> None:
         if self.step_timings_marking is None:
@@ -328,11 +329,23 @@ def _step08_09_10_scaffold(
     gate_event: "threading.Event | None" = None,
     background: bool = False,
 ) -> None:
-    """Steps 8 (parse exam PDF), 9 (parse mark scheme), and 10 (merge scaffold)."""
+    """Steps 8–11 in split mode (8 layout, 9 exam, 10 scheme, 11 merge) or 8–10 in legacy mode."""
+    import os as _os
     assert ctx.folder is not None and ctx.artifact_dir is not None
     t0 = time.perf_counter()
+
+    _split = _os.getenv("READ_EXAM_PDF_SPLIT", "1").strip() not in ("0", "false", "no")
+    ctx.step_offset = 1 if _split else 0
+    off = ctx.step_offset
+
+    if _split:
+        gi.pipeline_step(
+            8, "Detect exam layout",
+            subtitle="running in background" if background else None,
+        )
+
     gi.pipeline_step(
-        8, "AI API call — Parse exam PDF",
+        8 + off, "AI API call — Parse exam PDF",
         subtitle="running in background" if background else None,
     )
 
@@ -341,13 +354,13 @@ def _step08_09_10_scaffold(
         if gate_event is not None:
             gate_event.wait()       # wait for step 7 before printing step 9 header
         gi.pipeline_step(
-            9, "AI API call — Parse mark scheme",
+            9 + off, "AI API call — Parse mark scheme",
             subtitle="completed in background" if background else None,
         )
 
     def _on_scheme_done(scheme_questions: list) -> None:
         gi.ok_line(f"{len(scheme_questions)} answers in mark scheme")
-        gi.pipeline_step(10, "Create report")
+        gi.pipeline_step(10 + off, "Create report")
 
     try:
         ctx.scaffold = gi.build_scaffold(
@@ -551,9 +564,9 @@ def _step07_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
 
 
 def _step11_blueprints(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 11 — Build per-page AI marking blueprints (no AI calls)."""
+    """Step 11/12 — Build per-page AI marking blueprints (no AI calls)."""
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
-    gi.pipeline_step(11, "AI marking blueprints")
+    gi.pipeline_step(11 + ctx.step_offset, "AI marking blueprints")
     t0 = time.perf_counter()
     blueprints = gi.build_blueprints(ctx.scaffold, ctx.artifact_dir)
     gi.ok_line(f"{len(blueprints)} page blueprint(s) written")
@@ -561,9 +574,9 @@ def _step11_blueprints(ctx: _Ctx, gi: SimpleNamespace) -> None:
 
 
 def _step12_mark(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 12 — AI marking: vision calls to fill blueprints for each student page."""
+    """Step 12/13 — AI marking: vision calls to fill blueprints for each student page."""
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
-    gi.pipeline_step(12, "AI marking")
+    gi.pipeline_step(12 + ctx.step_offset, "AI marking")
     t0 = time.perf_counter()
     ctx.marking_api_calls = gi.run_ai_marking(ctx, dpi=ctx.instruction.dpi)
     gi.ok_line(
@@ -574,9 +587,9 @@ def _step12_mark(ctx: _Ctx, gi: SimpleNamespace) -> None:
 
 
 def _step13_reports(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 13 — Merge per-page results into student + class reports; compile PDFs."""
+    """Step 13/14 — Merge per-page results into student + class reports; compile PDFs."""
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
-    gi.pipeline_step(13, "Compile reports")
+    gi.pipeline_step(13 + ctx.step_offset, "Compile reports")
     t0 = time.perf_counter()
     summaries = gi.compile_reports(ctx)
     _known = [s["percentage"] for s in summaries if s["percentage"] is not None]
@@ -586,9 +599,9 @@ def _step13_reports(ctx: _Ctx, gi: SimpleNamespace) -> None:
 
 
 def _step14_timing(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 14 — Write timing summary (14_timing.json / .md) and accuracy report."""
+    """Step 14/15 — Write timing summary (14_timing.json / .md) and accuracy report."""
     assert ctx.artifact_dir is not None
-    gi.pipeline_step(14, "Timing summary")
+    gi.pipeline_step(14 + ctx.step_offset, "Timing summary")
     t0 = time.perf_counter()
 
     accuracy_summary = None

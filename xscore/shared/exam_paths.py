@@ -111,6 +111,16 @@ def artifact_mark_scheme_markdown_path(artifact_dir: Path) -> Path:
     return artifact_dir / SUBDIR_SCAFFOLD / "5_mark_scheme.md"
 
 
+def artifact_exam_layout_json_path(artifact_dir: Path) -> Path:
+    """Step 8 (split mode): layout detection result — rows, cols, reading order."""
+    return artifact_dir / SUBDIR_SCAFFOLD / "4a_exam_layout.json"
+
+
+def artifact_exam_layout_markdown_path(artifact_dir: Path) -> Path:
+    """Step 8 (split mode): human-readable layout detection summary."""
+    return artifact_dir / SUBDIR_SCAFFOLD / "4a_exam_layout.md"
+
+
 def extract_answers_output_dir(
     pdf_stem: str, output_base: str | Path = "output"
 ) -> Path:
