@@ -167,7 +167,7 @@ def _merge_student_pages(
             entry["number"] = f"{qnum}_{occ}"
         questions_list.append(entry)
     total_marks = sum(q.get("assigned_marks") or 0 for q in questions_list)
-    percentage = round(total_marks / total_max_marks * 100, 1) if total_max_marks > 0 else None
+    percentage = int(round(total_marks / total_max_marks * 100)) if total_max_marks > 0 else None
 
     return {
         "student_name": student_name,
@@ -203,7 +203,7 @@ def _student_report_to_md(report: dict) -> str:
         awarded = q.get("assigned_marks")
         awarded_str = "*?*" if awarded is None else str(awarded)
         correct = str(q.get("correct_answer") or "—").replace("|", "/")
-        reasoning = str(q.get("reasoning") or "").replace("|", "/")
+        reasoning = str(q.get("explanation") or "").replace("|", "/")
         qtype_md = str(q.get("question_type", "")).replace("_", " ").title()
         lines.append(
             f"| {q.get('number', '')} | {qtype_md} | "
@@ -224,10 +224,14 @@ def _class_report_to_md(report: dict) -> str:
         lines.append(f"| {s['name']} | {s['total_marks']} | {_fmt_pct(s['percentage'])} |")
     if report.get("per_question_averages"):
         lines.append("\n## Per-Question Class Averages\n")
-        lines.append("| Question | Class Average |")
-        lines.append("|----------|---------------|")
+        lines.append("| Question | Max | Class Avg | Class Avg % |")
+        lines.append("|----------|-----|-----------|-------------|")
+        q_max = report.get("per_question_max_marks", {})
+        q_pct = report.get("per_question_pct_averages", {})
         for qnum, avg in sorted(report["per_question_averages"].items()):
-            lines.append(f"| {qnum} | {avg} |")
+            max_cell = q_max.get(qnum, "")
+            pct_cell = f"{q_pct[qnum]}%" if qnum in q_pct else "N/A"
+            lines.append(f"| {qnum} | {max_cell} | {avg} | {pct_cell} |")
     return "\n".join(lines) + "\n"
 
 
@@ -274,7 +278,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         else:
             criteria_raw = str(q.get("marking_criteria") or "").strip()
             correct_ans = _format_criteria_cell(_restore_json_control_chars(criteria_raw)) if criteria_raw else "---"
-        reasoning = _latex_newlines(_latex_escape_smart(_restore_json_control_chars(str(q.get("reasoning") or ""))))
+        reasoning = _latex_newlines(_latex_escape_smart(_restore_json_control_chars(str(q.get("explanation") or ""))))
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(
             f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\"
@@ -332,10 +336,14 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
     student_rows_str = "\n".join(student_rows)
 
     q_max = report.get("per_question_max_marks", {})
+    q_pct = report.get("per_question_pct_averages", {})
     q_rows = []
     for qnum, avg in sorted(report.get("per_question_averages", {}).items()):
         max_cell = str(q_max.get(qnum, "")) if q_max else ""
-        q_rows.append(f"    {_latex_escape(qnum.replace('_', '.'))} & {max_cell} & {avg} \\\\")
+        pct_cell = f"{q_pct[qnum]}\\%" if qnum in q_pct else "N/A"
+        q_rows.append(
+            f"    {_latex_escape(qnum.replace('_', '.'))} & {max_cell} & {avg} & {pct_cell} \\\\"
+        )
     q_rows_str = "\n".join(q_rows)
 
     return (
@@ -368,13 +376,13 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
         "\\bottomrule\n"
         "\\end{longtable}\n\n"
         "\\subsection*{Per-Question Class Averages}\n"
-        "\\begin{longtable}{lrr}\n"
+        "\\begin{longtable}{lrrr}\n"
         "\\toprule\n"
-        "\\textbf{Question} & \\textbf{Max} & \\textbf{Class Avg} \\\\\n"
+        "\\textbf{Question} & \\textbf{Max} & \\textbf{Class Avg} & \\textbf{Class Avg \\%} \\\\\n"
         "\\midrule\n"
         "\\endfirsthead\n"
         "\\midrule\n"
-        "\\textbf{Question} & \\textbf{Max} & \\textbf{Class Avg} \\\\\n"
+        "\\textbf{Question} & \\textbf{Max} & \\textbf{Class Avg} & \\textbf{Class Avg \\%} \\\\\n"
         "\\midrule\n"
         "\\endhead\n"
         f"{q_rows_str}\n"
@@ -468,6 +476,42 @@ def _derive_student_names(artifact_dir: Path) -> list[str]:
     return result
 
 
+def _build_all_question_tables(
+    questions: list,
+    leaf_avgs: dict[str, float],
+) -> tuple[dict[str, float], dict[str, int]]:
+    """Return (all_avgs, all_max) for every question node including parents.
+
+    Leaf averages come directly from leaf_avgs (keyed with _N suffixes for duplicates).
+    Parent averages are the rounded sum of their direct children's averages (recursive).
+    all_max is keyed with the same _N suffix convention using a seen counter.
+    """
+    from xscore.shared.models import flatten_questions
+
+    def _subtree_avg(q) -> float | None:
+        if not q.subquestions:
+            return leaf_avgs.get(str(q.number or ""))
+        parts = [_subtree_avg(c) for c in q.subquestions]
+        valid = [p for p in parts if p is not None]
+        return round(sum(valid), 1) if valid else None
+
+    all_avgs: dict[str, float] = dict(leaf_avgs)
+    all_max: dict[str, int] = {}
+    seen: dict[str, int] = {}
+    for q in flatten_questions(questions):
+        num = str(q.number or "")
+        if not num:
+            continue
+        seen[num] = seen.get(num, 0) + 1
+        key = num if seen[num] == 1 else f"{num}_{seen[num]}"
+        all_max[key] = int(q.marks or 0)
+        if q.subquestions:
+            avg = _subtree_avg(q)
+            if avg is not None:
+                all_avgs[key] = avg
+    return all_avgs, all_max
+
+
 def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
     """Compute mean assigned_marks per question number across all student reports."""
     q_totals: dict[str, list[float]] = {}
@@ -481,7 +525,7 @@ def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
                     q_totals.setdefault(qnum, []).append(float(marks))
         except Exception:  # noqa: BLE001
             pass
-    return {k: round(sum(v) / len(v), 2) for k, v in q_totals.items()}
+    return {k: round(sum(v) / len(v), 1) for k, v in q_totals.items()}
 
 
 # ---------------------------------------------------------------------------
@@ -559,25 +603,22 @@ def compile_reports(ctx: Any) -> list[dict]:
         list(ex.map(lambda p: _compile_tex(p, p.parent), tex_paths))
 
     if student_summaries:
-        per_question_avgs = _compute_per_question_averages(ctx.artifact_dir)
-        # Collect max marks per question from the scaffold's gradable questions.
-        per_question_max: dict[str, int] = {}
-        seen_pq: dict[str, int] = {}
-        try:
-            for q in getattr(ctx.scaffold, "gradable_questions", []):
-                qnum = str(getattr(q, "number", "") or "")
-                if qnum:
-                    seen_pq[qnum] = seen_pq.get(qnum, 0) + 1
-                    key = qnum if seen_pq[qnum] == 1 else f"{qnum}_{seen_pq[qnum]}"
-                    per_question_max[key] = int(getattr(q, "marks", 0))
-        except Exception:  # noqa: BLE001
-            pass
+        leaf_avgs = _compute_per_question_averages(ctx.artifact_dir)
+        all_avgs, all_max = _build_all_question_tables(
+            getattr(ctx.scaffold, "questions", []), leaf_avgs
+        )
+        per_question_pct: dict[str, int] = {
+            qnum: int(round(avg / all_max[qnum] * 100))
+            for qnum, avg in all_avgs.items()
+            if all_max.get(qnum, 0) > 0
+        }
         known_pcts = [s["percentage"] for s in student_summaries if s["percentage"] is not None]
-        class_avg = round(sum(known_pcts) / len(known_pcts), 1) if known_pcts else None
+        class_avg = int(round(sum(known_pcts) / len(known_pcts))) if known_pcts else None
         class_report = {
             "students": student_summaries,
-            "per_question_averages": per_question_avgs,
-            "per_question_max_marks": per_question_max,
+            "per_question_averages": all_avgs,
+            "per_question_max_marks": all_max,
+            "per_question_pct_averages": per_question_pct,
             "class_average_pct": class_avg,
             "total_max_marks": total_max_marks,
         }

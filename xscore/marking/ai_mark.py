@@ -57,14 +57,14 @@ def _parse_xml_response(raw: str) -> list[dict]:
     questions = []
     for q in root.findall('question'):
         sa_el = q.find('student_answer')
-        re_el = q.find('reasoning')
+        re_el = q.find('explanation')
         questions.append({
             'number':         q.get('number', ''),
             'subpage_row':    int(q.get('subpage_row', 1)),
             'subpage_col':    int(q.get('subpage_col', 1)),
             'assigned_marks': int(q.get('assigned_marks', 0)),
             'student_answer': (sa_el.text or '').strip() if sa_el is not None else '',
-            'reasoning':      (re_el.text or '').strip() if re_el is not None else '',
+            'explanation':    (re_el.text or '').strip() if re_el is not None else '',
             'question_text':  q.get('question_text', ''),
         })
     return questions
@@ -123,7 +123,7 @@ def _mark_page(
         "Each element must have attributes: number (copy from the list), subpage_row (copy from the list), "
         "subpage_col (copy from the list), assigned_marks (integer 0–max_marks), "
         "question_text (copy the first 6 words of the question text exactly as shown). "
-        "Each element must contain child elements: <student_answer> and <reasoning> (1–2 sentences). "
+        "Each element must contain child elements: <student_answer> and <explanation> (1–2 sentences). "
         "Do not include answer_options or any other content.\n"
         "For each question:\n"
         "  • student_answer: what the student wrote. For multiple_choice: find the option the student "
@@ -136,16 +136,23 @@ def _mark_page(
         "  • assigned_marks: an integer between 0 and max_marks. "
         "Award 1 mark for each criteria point the student satisfies, up to max_marks. "
         "For 'any N from' lists, each listed item is a separate mark point.\n"
-        "  • reasoning: 1–2 sentences — state the verdict as a done decision (e.g. 'Student answered B; correct answer is A — 0 marks.'). "
-        "Never write deliberation, working-out, or self-corrections (no 'Wait', 'Let me', 'Actually', 'Let's re-read', etc.).\n"
+        "  • explanation: 1–2 sentences of concise grading feedback — state what the student wrote, "
+        "whether it is correct, and the mark outcome. Write as a finished verdict, not a thought process: "
+        "no deliberation, no working-out, no self-corrections. "
+        "Examples: 'Student correctly identified Newton's third law — 1 mark.' "
+        "/ 'Student wrote F=ma but omitted units — 1 of 2 marks.' "
+        "/ 'Student selected B; correct answer is C — 0 marks.'\n"
         "IMPORTANT — output format: return ONLY well-formed XML, no markdown fences or other text outside the XML. "
         "Use this exact structure:\n"
         "<marking>\n"
         "  <question number=\"...\" subpage_row=\"...\" subpage_col=\"...\" assigned_marks=\"...\" question_text=\"first 6 words...\">\n"
         "    <student_answer>...</student_answer>\n"
-        "    <reasoning>...</reasoning>\n"
+        "    <explanation>...</explanation>\n"
         "  </question>\n"
         "</marking>\n"
+        "Each child element must be closed with its own matching tag — "
+        "</student_answer> closes only <student_answer>, "
+        "</explanation> closes only <explanation>.\n"
         "In XML text content use &lt; for <, &gt; for >, &amp; for &.\n"
         "IMPORTANT — LaTeX: wrap all math expressions in $...$ inline math "
         "(e.g. $v = 2\\pi r / T$, $3.0 \\times 10^4$ m/s, $\\frac{d}{v}$). "
@@ -174,7 +181,7 @@ def _mark_page(
             "locate each occurrence by its question_text. "
             "Do not reproduce question_text or "
             "answer_options in your response — fill in only student_answer, assigned_marks, "
-            "and reasoning."
+            "and explanation."
         )
     system_prompt += (
         "\nMCQ reminder: report only the letter the student physically marked — "
@@ -248,7 +255,7 @@ def _mark_page(
                     fq = group[idx]
                     bq["student_answer"] = fq['student_answer']
                     bq["assigned_marks"] = fq['assigned_marks']
-                    bq["reasoning"] = fq['reasoning']
+                    bq["explanation"] = fq['explanation']
                 else:
                     _unfilled.append(bq.get("number"))
 
@@ -274,7 +281,7 @@ def _mark_page(
                     bq["assigned_marks"] = max(0, min(int(m) if isinstance(m, (int, float)) else 0, int(max_m)))
             return result
         except Exception as exc:  # noqa: BLE001
-            warn_line(f"Marking API error (attempt {attempt + 1}/{MAX_RETRIES + 1}): {exc}")
+            warn_line(f"Marking error — retrying ({attempt + 1}/{MAX_RETRIES + 1})")
             _last_exc = exc
             if attempt < MAX_RETRIES:
                 time.sleep(2 ** (attempt + 1))
@@ -310,7 +317,7 @@ def _fix_mc_marks(result: dict, page_questions_info: list[dict]) -> None:
         max_m = int(q.get("max_marks") or 1)
         correct = student_ans == mc_correct[qt]
         q["assigned_marks"] = max_m if correct else 0
-        q["reasoning"] = "Correct." if correct else "Incorrect."
+        q["explanation"] = "Correct." if correct else "Incorrect."
 
 
 def _clean_criteria_line(l: str) -> str:
@@ -485,9 +492,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         ),
                     )
                 except MarkingFailure as mf:
-                    warn_line(
-                        f"Marking failed: student '{student_name}' page {p_label} — {mf.last_exc}"
-                    )
+                    warn_line(f"Marking failed: '{student_name}' p{p_label}")
                     filled = blueprint.copy()
                     filled["student_name"] = student_name
                     local_failures.append({

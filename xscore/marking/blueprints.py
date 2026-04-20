@@ -36,7 +36,7 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
                 "max_marks": q.marks,
                 "student_answer": "",
                 "assigned_marks": None,
-                "reasoning": "",
+                "explanation": "",
             }
             for q in scaffold.gradable_questions
             if q.page == page_num
@@ -80,7 +80,7 @@ def marked_to_md(filled: dict) -> str:
         ans = (q.get("student_answer") or "—").replace("|", "\\|")
         awarded = q.get("assigned_marks")
         awarded_str = "—" if awarded is None else str(awarded)
-        reasoning = (q.get("reasoning") or "").replace("|", "\\|")
+        reasoning = (q.get("explanation") or "").replace("|", "\\|")
         lines.append(f"| {num} | {qtype} | {max_m} | {ans} | {awarded_str} | {reasoning} |")
     return "\n".join(lines) + "\n"
 
