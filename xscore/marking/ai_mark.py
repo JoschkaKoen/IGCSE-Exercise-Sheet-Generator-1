@@ -15,6 +15,7 @@ import os
 import re
 import threading
 import time
+from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
@@ -40,12 +41,6 @@ class MarkingFailure(Exception):
         self.last_exc = last_exc
         self.last_raw = last_raw
 
-
-def _text_slug(text: str) -> str:
-    """First 6 words of *text*, lowercased — used to disambiguate questions
-    that share the same (number, subpage_row, subpage_col) key."""
-    words = re.sub(r'[^\w\s]', '', text.lower()).split()
-    return ' '.join(words[:6])
 
 
 def _parse_xml_response(raw: str) -> list[dict]:
@@ -224,43 +219,47 @@ def _mark_page(
                 _last_exc = exc
                 continue
             result = blueprint.copy()
-            # Build fill_map keyed by (number, row, col, question_slug).
-            # question_slug (first 6 words of question text) disambiguates
-            # questions that share the same number in the same subpage.
+            # Group AI responses by (bare_number, subpage_row, subpage_col).
+            # The _N suffix is stripped so Q38 and Q38_2 share the same group;
+            # blueprint questions consume positionally so Q38 gets group[0] and
+            # Q38_2 gets group[1], matching the order the AI echoes them back.
             def _bq_key(bq: dict) -> tuple:
                 _row = bq.get("subpage_row")
                 _col = bq.get("subpage_col")
-                qt = bq.get("question_text") or bq.get("text") or ""
+                num = re.sub(r'_\d+$', '', str(bq.get("number", "")))
                 return (
-                    str(bq.get("number", "")),
+                    num,
                     int(_row) if _row is not None else 1,
                     int(_col) if _col is not None else 1,
-                    _text_slug(qt),
                 )
-            fill_map = {_bq_key(q): q for q in parsed_questions}
+
+            fill_groups: dict[tuple, list] = defaultdict(list)
+            for q in parsed_questions:
+                fill_groups[_bq_key(q)].append(q)
+
+            fill_group_idx: dict[tuple, int] = defaultdict(int)
+            _unfilled = []
             for bq in result.get("questions", []):
-                fq = fill_map.get(_bq_key(bq))
-                if fq is not None:
+                key = _bq_key(bq)
+                idx = fill_group_idx[key]
+                fill_group_idx[key] += 1
+                group = fill_groups.get(key, [])
+                if idx < len(group):
+                    fq = group[idx]
                     bq["student_answer"] = fq['student_answer']
                     bq["assigned_marks"] = fq['assigned_marks']
                     bq["reasoning"] = fq['reasoning']
-            _blueprint_keys = {_bq_key(bq) for bq in result.get("questions", [])}
-            _unmatched = [
-                q for q in parsed_questions if _bq_key(q) not in _blueprint_keys
-            ]
-            if _unmatched:
-                warn_line(
-                    f"Marking: {len(_unmatched)} AI entr{'y' if len(_unmatched) == 1 else 'ies'} "
-                    f"didn't match blueprint: "
-                    f"{[(_bq_key(q)) for q in _unmatched]}"
-                )
-            _fill_keys = {_bq_key(q) for q in parsed_questions}
-            _unfilled = [
-                bq.get("number") for bq in result.get("questions", [])
-                if _bq_key(bq) not in _fill_keys
-            ]
+                else:
+                    _unfilled.append(bq.get("number"))
+
             if _unfilled:
                 warn_line(f"Marking: {len(_unfilled)} blueprint question(s) skipped by AI: {_unfilled}")
+            _unmatched_count = sum(
+                max(0, len(grp) - fill_group_idx.get(key, 0))
+                for key, grp in fill_groups.items()
+            )
+            if _unmatched_count:
+                warn_line(f"Marking: {_unmatched_count} AI entries had no matching blueprint question")
             _fix_mc_marks(result, page_questions_info)
             for bq in result.get("questions", []):
                 max_m = bq.get("max_marks")
