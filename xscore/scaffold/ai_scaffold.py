@@ -14,12 +14,11 @@ import json
 import os
 import re
 import time
+import xml.etree.ElementTree as ET
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import Literal
-
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel
 
 from xscore.shared.exam_paths import (
     artifact_exam_questions_json_path,
@@ -31,81 +30,8 @@ from xscore.shared.prompt_logger import save_prompt
 
 
 # ---------------------------------------------------------------------------
-# Pydantic schemas for Gemini native structured output (response_json_schema)
+# Pydantic schema for layout detection (JSON — no LaTeX fields)
 # ---------------------------------------------------------------------------
-
-_QType = Literal["multiple_choice", "short_answer", "calculation", "long_answer"]
-
-
-class _McOption(BaseModel):
-    letter: str
-    text: str = ""
-
-
-class _QuestionL2(BaseModel):           # leaf: "9ai", "9aii" — no subquestions field
-    number: str
-    question_type: _QType
-    page: int
-    subpage_row: int
-    subpage_col: int
-    marks: int = 0
-    text: str = ""
-    answer_options: list[_McOption] = []
-
-
-class _QuestionL1(BaseModel):           # part: "9a", "9b"
-    number: str
-    question_type: _QType
-    page: int
-    subpage_row: int
-    subpage_col: int
-    marks: int = 0
-    text: str = ""
-    answer_options: list[_McOption] = []
-    subquestions: list[_QuestionL2] = []
-
-
-class _QuestionL0(BaseModel):           # top-level: "9", "38"
-    number: str
-    question_type: _QType
-    page: int
-    subpage_row: int
-    subpage_col: int
-    marks: int = 0
-    text: str = ""
-    answer_options: list[_McOption] = []
-    subquestions: list[_QuestionL1] = []
-
-
-class _LayoutSchema(BaseModel):
-    rows: int = 1
-    cols: int = 1
-
-
-class _ExamSchema(BaseModel):
-    layout: _LayoutSchema
-    questions: list[_QuestionL0]
-
-
-class _MarkCriterion(BaseModel):
-    mark: str   # "B1"/"M1"/"A1"/etc. or "" — schema enforces str, never null
-    criterion: str
-
-
-class _SchemeEntry(BaseModel):
-    number: str
-    correct_answer: str | None = None
-    mark_scheme: list[_MarkCriterion] = []
-
-
-class _SchemeSchema(BaseModel):
-    questions: list[_SchemeEntry]
-
-
-# Computed once at import time; passed to response_json_schema on every call.
-_EXAM_JSON_SCHEMA: dict = _ExamSchema.model_json_schema()
-_SCHEME_JSON_SCHEMA: dict = _SchemeSchema.model_json_schema()
-
 
 class _LayoutDetectSchema(BaseModel):
     rows: int = 1
@@ -149,55 +75,64 @@ def _layout_detect_model_config() -> tuple[str, str | None]:
 
 _SYSTEM_EXAM = (
     "You are an expert at reading Cambridge IGCSE exam papers. "
-    "Extract every question and sub-question as structured JSON."
+    "Extract every question and sub-question as structured XML."
 )
 
 _USER_EXAM = """\
-First identify the page layout — how many sub-pages (quadrants) are arranged on \
-each physical PDF page. Return a top-level "layout" object:
-  {"rows": 1 or 2, "cols": 1 or 2}
-A standard single-page exam has rows=1, cols=1. A 4-up exam (2×2 grid printed on one sheet) has rows=2, cols=2.
+Return ONLY well-formed XML, no markdown fences or other text outside the XML.
 
-Then extract the complete question hierarchy from this exam paper.
+First identify the page layout and set it as attributes on the root element:
+  <exam rows="1 or 2" cols="1 or 2">
 
-For EACH question and sub-question at EVERY nesting level return an object with:
-- "number": the label as printed, in run-together form — top-level "9", then "9a", then "9ai", "9aii" (no parentheses, no spaces in the number)
-- "question_type": one of "multiple_choice" | "short_answer" | "calculation" | "long_answer"
-- "page": 1-based page number where this question first appears
-- "subpage_row": 1-based row of the sub-page quadrant this question is in \
-(always 1 for a 1×1 layout; 1=top half, 2=bottom half for a 2×2 layout). \
-The boundary is the physical printed dividing line — a question at the very \
-bottom of the top half still belongs to subpage_row=1.
-- "subpage_col": 1-based column of the sub-page quadrant this question is in \
-(always 1 for a 1×1 layout; 1=left half, 2=right half for a 2×2 layout). \
-A question at the very right edge of the left half still belongs to subpage_col=1.
+A standard single-page exam: rows="1" cols="1".
+A 4-up exam (2×2 grid): rows="2" cols="2".
 
-IMPORTANT — subpage assignment for every question:
-Assign subpage_row and subpage_col based solely on where the question is \
-physically printed on the page. Do not reassign a question to a different \
-quadrant because another question with the same number already appeared there. \
-The same question number can appear more than once within the same quadrant \
-(e.g. two exam papers printed side-by-side in the same half), and that is \
-correct — both instances must receive the subpage_row/subpage_col of the \
-quadrant they are physically in.
-- "marks": integer mark allocation from [N] brackets; 0 if not printed
-- "text": complete question text in markdown; $...$ for inline math, $$...$$ for display math
-- "answer_options": for multiple_choice only — [{"letter": "A", "text": "..."}, ...]; empty list otherwise
-- "subquestions": list of child questions in the same format; empty list for leaf questions
+Then extract every question and sub-question at every nesting level as <question> elements.
+Nested sub-questions are child <question> elements inside their parent.
+
+Each <question> must have these attributes:
+- number: the label as printed, run-together — "9", then "9a", then "9ai" (no parentheses or spaces)
+- type: one of multiple_choice | short_answer | calculation | long_answer
+- page: 1-based page number where this question first appears
+- subpage_row: 1-based row of the quadrant (1 for 1x1 layout; 1=top, 2=bottom for 2x2)
+- subpage_col: 1-based column of the quadrant (1 for 1x1 layout; 1=left, 2=right for 2x2)
+- marks: integer mark allocation from [N] brackets; 0 if not printed
+
+IMPORTANT — subpage assignment: assign based solely on where the question is
+physically printed. The same question number can appear more than once in the same
+quadrant; assign the quadrant each instance is physically in.
+
+Each <question> must contain:
+- <text>: complete question text in markdown; $...$ for inline math, $$...$$ for display math
+- <option letter="A">text</option>: for multiple_choice only — one per answer option
+- child <question> elements for any sub-questions
+
+In XML text content use &lt; for <, &gt; for >, &amp; for &.
 """
 
 _SYSTEM_SCHEME = (
     "You are an expert at reading Cambridge IGCSE mark schemes. "
-    "Extract marking criteria as structured JSON."
+    "Extract marking criteria as structured XML."
 )
 
 _USER_SCHEME = """\
-Extract marking information for every question from this mark scheme.
+Return ONLY well-formed XML, no markdown fences or other text outside the XML.
 
-Return a FLAT list — do not recreate nesting. For each entry:
-- "number": question label in run-together form matching the exam paper (e.g. "9a", "9ai", "38")
-- "correct_answer": model answer — use $...$ for inline math (e.g. "$1.5 \\times 10^{11}$ m"), \\% for percent, \\& for ampersands; for multiple-choice just the letter; null if not applicable
-- "mark_scheme": [{"mark": "B1/M1/A1/etc., or empty string when no mark type", "criterion": "criterion text — use $...$ for any math or physical quantity (e.g. $F = ma$, $9.81 \\text{ m s}^{-2}$)"}, ...]
+Return a FLAT list of questions — do not recreate nesting. Use this structure:
+
+<scheme>
+  <question number="9a" correct_answer="...">
+    <criterion mark="B1">criterion text</criterion>
+    <criterion mark="A1">criterion text</criterion>
+  </question>
+</scheme>
+
+For each <question>:
+- number attribute: label in run-together form matching the exam (e.g. "9a", "9ai", "38")
+- correct_answer attribute: model answer with $...$ for inline math (e.g. "$1.5 \\times 10^{11}$ m"); for multiple-choice just the letter; omit the attribute if not applicable
+- <criterion> children: each has a mark attribute ("B1"/"M1"/"A1"/etc., or empty string); element text is the criterion description — use $...$ for any math
+
+In XML text content use &lt; for <, &gt; for >, &amp; for &.
 """
 
 _SYSTEM_LAYOUT = "You are an expert at identifying exam paper printing layouts."
@@ -349,7 +284,7 @@ def _detect_layout(client, exam_pdf: Path, model: str) -> tuple["_LayoutDetectSc
         model=model,
         contents=[
             gai_types.Part.from_bytes(data=img_bytes, mime_type="image/jpeg"),
-            gai_types.Part.from_text(_USER_LAYOUT),
+            gai_types.Part.from_text(text=_USER_LAYOUT),
         ],
         config=cfg,
     )
@@ -482,6 +417,65 @@ def _save_layout_artifact(
 
 
 # ---------------------------------------------------------------------------
+# XML parsing helpers
+# ---------------------------------------------------------------------------
+
+def _preprocess_xml(raw: str) -> str:
+    """Strip markdown fences and fix unescaped & before XML parsing."""
+    raw = raw.strip()
+    if raw.startswith("```"):
+        raw = re.sub(r"^```[^\n]*\n?", "", raw)
+        raw = re.sub(r"\n?```$", "", raw.strip())
+    return re.sub(r"&(?![a-zA-Z#]\w*;)", "&amp;", raw)
+
+
+def _parse_exam_xml(raw: str) -> tuple[list[dict], dict]:
+    """Parse Gemini exam XML → (questions_list, layout_dict).
+    Raises ET.ParseError / RuntimeError if malformed.
+    """
+    root = ET.fromstring(_preprocess_xml(raw))
+    layout = {"rows": int(root.get("rows", 1)), "cols": int(root.get("cols", 1))}
+
+    def _parse_q(el: ET.Element) -> dict:
+        text_el = el.find("text")
+        return {
+            "number":        el.get("number", ""),
+            "question_type": el.get("type", "short_answer"),
+            "page":          int(el.get("page", 1)),
+            "subpage_row":   int(el.get("subpage_row", 1)),
+            "subpage_col":   int(el.get("subpage_col", 1)),
+            "marks":         int(el.get("marks", 0)),
+            "text":          (text_el.text or "").strip() if text_el is not None else "",
+            "answer_options": [
+                {"letter": opt.get("letter", ""), "text": (opt.text or "").strip()}
+                for opt in el.findall("option")
+            ],
+            "subquestions": [_parse_q(child) for child in el.findall("question")],
+        }
+
+    return [_parse_q(q_el) for q_el in root.findall("question")], layout
+
+
+def _parse_scheme_xml(raw: str) -> dict:
+    """Parse Gemini mark scheme XML → scheme dict. Non-fatal: returns empty on error."""
+    try:
+        root = ET.fromstring(_preprocess_xml(raw))
+    except ET.ParseError:
+        return {"questions": []}
+    questions = []
+    for q_el in root.findall("question"):
+        questions.append({
+            "number":         q_el.get("number", ""),
+            "correct_answer": q_el.get("correct_answer") or None,
+            "mark_scheme": [
+                {"mark": c.get("mark", ""), "criterion": (c.text or "").strip()}
+                for c in q_el.findall("criterion")
+            ],
+        })
+    return {"questions": questions}
+
+
+# ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
@@ -490,6 +484,7 @@ def build_ai_scaffold(
     marking_scheme_pdf: Path | None,
     *,
     split_subpages: bool = True,
+    on_layout_complete: "Callable[[], None] | None" = None,
     on_exam_complete: "Callable[[list[dict]], None] | None" = None,
     on_scheme_complete: "Callable[[list[dict]], None] | None" = None,
     artifact_dir: Path | None = None,
@@ -540,8 +535,9 @@ def build_ai_scaffold(
     def _make_gen_config(
         effort: str | None, system: str, schema: dict | None = None
     ) -> "gai_types.GenerateContentConfig":
-        cfg: dict = {"max_output_tokens": 65536, "response_mime_type": "application/json"}
+        cfg: dict = {"max_output_tokens": 65536}
         if schema is not None:
+            cfg["response_mime_type"] = "application/json"
             cfg["response_json_schema"] = schema
         if effort in thinking_map:
             cfg["thinking_config"] = gai_types.ThinkingConfig(
@@ -578,6 +574,9 @@ def build_ai_scaffold(
             else:
                 ok_line("Layout 1×1 — no splitting needed")
 
+            if on_layout_complete is not None:
+                on_layout_complete()
+
         # ---- Upload PDFs in parallel ----------------------------------------
         actual_exam_pdf = split_pdf_path if split_pdf_path is not None else exam_pdf
         pdfs_to_upload: list[tuple[str, Path]] = [("exam", actual_exam_pdf)]
@@ -610,16 +609,15 @@ def build_ai_scaffold(
                     ),
                     gai_types.Part.from_text(text=_USER_EXAM),
                 ],
-                config=_make_gen_config(exam_effort, _SYSTEM_EXAM, schema=_EXAM_JSON_SCHEMA),
+                config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
             )
             api_latency_line(time.perf_counter() - _t0, label="exam")
             try:
-                data = _ExamSchema.model_validate_json(resp.text).model_dump()
+                return _parse_exam_xml(resp.text)
             except Exception as exc:
                 raise RuntimeError(
-                    f"Gemini exam response failed schema validation: {exc}: {resp.text[:300]!r}"
+                    f"Gemini exam response failed XML parsing: {exc}: {resp.text[:300]!r}"
                 )
-            return data["questions"], data["layout"]
 
         def _do_scheme_call() -> dict:
             if artifact_dir is not None:
@@ -637,16 +635,10 @@ def build_ai_scaffold(
                     ),
                     gai_types.Part.from_text(text=_USER_SCHEME),
                 ],
-                config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME, schema=_SCHEME_JSON_SCHEMA),
+                config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
             )
             api_latency_line(time.perf_counter() - _t0, label="mark scheme")
-            try:
-                parsed = json.loads(resp.text)
-                if isinstance(parsed, list):
-                    parsed = {"questions": parsed}
-                return _SchemeSchema.model_validate(parsed).model_dump()
-            except Exception:
-                return {"questions": []}   # non-fatal — scheme parse failure is recoverable
+            return _parse_scheme_xml(resp.text)   # non-fatal — returns {} on parse error
 
         # ---- Dispatch: parallel when scheme is present -------------------
         # Both PDFs are already uploaded; running the two Gemini inference

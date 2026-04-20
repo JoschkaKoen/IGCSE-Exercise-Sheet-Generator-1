@@ -343,16 +343,22 @@ def _step08_09_10_scaffold(
             8, "Detect exam layout",
             subtitle="running in background" if background else None,
         )
+    else:
+        gi.pipeline_step(
+            8, "AI API call — Parse exam PDF",
+            subtitle="running in background" if background else None,
+        )
 
-    gi.pipeline_step(
-        8 + off, "AI API call — Parse exam PDF",
-        subtitle="running in background" if background else None,
-    )
+    def _on_layout_done() -> None:
+        gi.pipeline_step(
+            9, "AI API call — Parse exam PDF",
+            subtitle="running in background" if background else None,
+        )
 
     def _on_exam_done(raw_questions: list) -> None:
         gi.ok_line(f"{len(raw_questions)} top-level questions extracted")
         if gate_event is not None:
-            gate_event.wait()       # wait for step 7 before printing step 9 header
+            gate_event.wait()       # wait for step 7 before printing scheme header
         gi.pipeline_step(
             9 + off, "AI API call — Parse mark scheme",
             subtitle="completed in background" if background else None,
@@ -366,6 +372,7 @@ def _step08_09_10_scaffold(
         ctx.scaffold = gi.build_scaffold(
             ctx.folder,
             artifact_dir=ctx.artifact_dir,
+            on_layout_complete=_on_layout_done if _split else None,
             on_exam_complete=_on_exam_done,
             on_scheme_complete=_on_scheme_done,
             students=ctx.students,
