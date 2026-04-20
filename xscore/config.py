@@ -76,10 +76,6 @@ RETRY_BACKOFF_S: float = float(os.getenv("RETRY_BACKOFF_S", "1"))
 # Image Processing Configuration
 # =============================================================================
 
-# DPI for PDF to image conversion. Higher = better quality but slower.
-# 400 DPI is recommended for handwriting recognition.
-PDF_DPI = 300
-
 # JPEG quality for image encoding (0-100). Higher = better quality, larger size.
 JPEG_QUALITY: int = int(os.getenv("JPEG_QUALITY", "95"))
 
@@ -154,9 +150,6 @@ GEMINI_THINKING_BUDGET: int = int(os.getenv("GEMINI_THINKING_BUDGET", "0"))
 # Maximum tokens for Kimi response
 KIMI_MAX_TOKENS: int = int(os.getenv("KIMI_MAX_TOKENS", "8192"))
 
-# Token cap for parse_prompt (JSON ~120 tokens; 512 is a safe ceiling).
-PARSE_PROMPT_MAX_TOKENS = 512
-
 # =============================================================================
 # Paths and File Handling
 # =============================================================================
@@ -191,11 +184,6 @@ MARKING_DPI: int = int(os.getenv("MARKING_DPI", "150"))
 # Fraction of the page height to crop for name detection (top strip only)
 NAME_CROP_FRACTION = 0.15
 
-# AI model for xscore scaffold vision calls (parse_instruction, assign_pages, etc.).
-# Default also in default.env — change there for production; change here for dev.
-# Override at runtime with the PIPELINE_AI_MODEL env var.
-PIPELINE_AI_MODEL = "kimi-k2.5"
-
 # Inter-call delays in the marking pipeline (rate limiting). Override via env if needed.
 GRADE_QUESTION_DELAY_S: float = float(os.getenv("GRADE_QUESTION_DELAY_S", "0.0"))
 PAGE_API_DELAY_S: float = float(os.getenv("PAGE_API_DELAY_S", "0.0"))
@@ -228,11 +216,9 @@ def apply_model_extras(model: str, kwargs: dict[str, Any], *, thinking: bool = F
 
 
 def resolve_pipeline_ai_model_id() -> str:
-    """Return the pipeline model id (``PIPELINE_AI_MODEL`` env overrides the default)."""
-    v = os.getenv("PIPELINE_AI_MODEL")
-    if v is None or not v.strip():
-        return PIPELINE_AI_MODEL
-    return v.strip()
+    """Return the pipeline model id (``PIPELINE_AI_MODEL`` env var, default ``kimi-k2.5``)."""
+    v = os.getenv("PIPELINE_AI_MODEL", "kimi-k2.5")
+    return v.strip() if v.strip() else "kimi-k2.5"
 
 
 def pipeline_ai_model_display_name() -> str:

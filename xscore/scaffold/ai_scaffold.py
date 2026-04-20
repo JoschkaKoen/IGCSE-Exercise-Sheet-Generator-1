@@ -66,7 +66,7 @@ def _mark_scheme_model_config() -> tuple[str, str | None]:
 
 
 def _layout_detect_model_config() -> tuple[str, str | None]:
-    return _parse_model(os.getenv("DETECT_LAYOUT_MODEL", "gemini-2.5-flash"))
+    return _parse_model(os.getenv("DETECT_LAYOUT_MODEL", "gemini-2.5-flash, low"))
 
 
 # ---------------------------------------------------------------------------
@@ -259,11 +259,15 @@ def _save_mark_scheme(artifact_dir: Path, scheme_questions: list[dict]) -> None:
 # Layout detection helpers (split-subpages mode)
 # ---------------------------------------------------------------------------
 
-def _detect_layout(client, exam_pdf: Path, model: str) -> tuple["_LayoutDetectSchema", float]:
+def _detect_layout(
+    client, exam_pdf: Path, model: str, effort: "str | None" = None
+) -> tuple["_LayoutDetectSchema", float, "str | None", "str | None"]:
     """Cheap layout detection: render first page as JPEG, ask Gemini for rows/cols/order.
 
-    Self-contained — imports fitz and gai_types locally (not at module level).
-    Falls back to 1×1 single-page on any error.
+    Returns (result, elapsed_s, raw_response_text, error_summary).
+    On success: error_summary is None.
+    On failure: falls back to 1×1; error_summary is a one-line description; raw_response_text
+    may still be set if the API succeeded but JSON parsing failed.
     """
     from google.genai import types as gai_types
     import fitz
@@ -272,13 +276,21 @@ def _detect_layout(client, exam_pdf: Path, model: str) -> tuple["_LayoutDetectSc
         pix = doc[0].get_pixmap(matrix=fitz.Matrix(1.0, 1.0))  # 72 DPI
     img_bytes = pix.tobytes("jpeg")
 
-    cfg = gai_types.GenerateContentConfig(
-        system_instruction=_SYSTEM_LAYOUT,
-        max_output_tokens=512,
-        response_mime_type="application/json",
-        response_json_schema=_LAYOUT_DETECT_JSON_SCHEMA,
-    )
+    from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
+    _thinking_map = {"off": 0, "low": 1024, "high": 8192}
+    cfg_kwargs: dict = {
+        "max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS,
+        "response_mime_type": "application/json",
+        "response_json_schema": _LAYOUT_DETECT_JSON_SCHEMA,
+    }
+    if effort in _thinking_map:
+        cfg_kwargs["thinking_config"] = gai_types.ThinkingConfig(
+            thinking_budget=_thinking_map[effort],
+            include_thoughts=False,
+        )
+    cfg = gai_types.GenerateContentConfig(system_instruction=_SYSTEM_LAYOUT, **cfg_kwargs)
 
+    raw_text: str | None = None
     t0 = time.perf_counter()
     try:
         resp = client.models.generate_content(
@@ -290,13 +302,13 @@ def _detect_layout(client, exam_pdf: Path, model: str) -> tuple["_LayoutDetectSc
             config=cfg,
         )
         elapsed = time.perf_counter() - t0
-        result = _LayoutDetectSchema.model_validate_json(resp.text)
+        raw_text = resp.text
+        result = _LayoutDetectSchema.model_validate_json(raw_text)
+        return result, elapsed, raw_text, None
     except Exception as exc:
         elapsed = time.perf_counter() - t0
-        from xscore.shared.terminal_ui import warn_line
-        warn_line(f"Layout detection failed ({str(exc)[:120]}) — assuming 1×1")
-        result = _LayoutDetectSchema(rows=1, cols=1, reading_order=[])
-    return result, elapsed
+        err_summary = str(exc).split("\n")[0]
+        return _LayoutDetectSchema(rows=1, cols=1, reading_order=[]), elapsed, raw_text, err_summary
 
 
 def _order_cells(page_rect, layout: "_LayoutDetectSchema") -> list:
@@ -558,15 +570,51 @@ def build_ai_scaffold(
     uploaded_files: dict[str, object] = {}
 
     try:
-        from xscore.shared.terminal_ui import api_latency_line, ok_line, tool_line
+        from xscore.shared.terminal_ui import api_latency_line, ok_line, tool_line, warn_line
 
         # ---- Step A: cheap layout detection + PDF splitting (split mode) ---
         if split_subpages:
-            layout_model, _ = _layout_detect_model_config()
-            layout_result, layout_elapsed = _detect_layout(client, exam_pdf, layout_model)
-            api_latency_line(layout_elapsed, label="layout")
+            layout_model, layout_effort = _layout_detect_model_config()
 
-            if layout_result.rows * layout_result.cols > 1:
+            # Save prompt before API call
+            if artifact_dir is not None:
+                save_prompt(
+                    artifact_prompt_path(artifact_dir, "8_detect_layout"),
+                    model=layout_model, system=_SYSTEM_LAYOUT,
+                    messages=[{"role": "user", "content": _USER_LAYOUT}],
+                )
+
+            layout_result, layout_elapsed, layout_raw_text, layout_error = _detect_layout(
+                client, exam_pdf, layout_model, layout_effort
+            )
+
+            # Save raw AI response immediately (even on failure, if we got a response)
+            if artifact_dir is not None and layout_raw_text is not None:
+                try:
+                    from xscore.shared.exam_paths import artifact_exam_layout_json_path
+                    raw_path = artifact_exam_layout_json_path(artifact_dir).parent / "4a_exam_layout_raw.json"
+                    raw_path.parent.mkdir(parents=True, exist_ok=True)
+                    raw_path.write_text(layout_raw_text, encoding="utf-8")
+                except OSError:
+                    pass
+
+            # Terminal output
+            n_cells = layout_result.rows * layout_result.cols
+            if layout_error is not None:
+                warn_line(
+                    f"Layout detection failed — assuming 1×1"
+                    f"  ·  {layout_model}  ·  {layout_elapsed:.1f}s"
+                    f"\n    {layout_error}"
+                )
+            elif n_cells > 1:
+                ok_line(
+                    f"Layout {layout_result.rows}×{layout_result.cols} ({n_cells}-up)"
+                    f"  ·  {layout_model}  ·  {layout_elapsed:.1f}s"
+                )
+            else:
+                ok_line(f"Layout 1×1 (single)  ·  {layout_model}  ·  {layout_elapsed:.1f}s")
+
+            if n_cells > 1:
                 layout_label = f"{layout_result.rows}×{layout_result.cols}"
                 tool_line("split", f"Splitting exam PDF ({layout_label} layout) …")
                 split_pdf_path, n_physical_pages, n_split_pages = _split_pdf_by_layout(
@@ -582,8 +630,13 @@ def build_ai_scaffold(
                         shutil.copy2(str(split_pdf_path), str(dest))
                     except OSError:
                         pass
-            else:
-                ok_line("Layout 1×1 — no splitting needed")
+
+            # Save layout artifact immediately — do not wait for exam call to finish
+            if artifact_dir is not None:
+                _save_layout_artifact(
+                    artifact_dir, layout_result, layout_model, layout_elapsed,
+                    n_physical_pages, n_split_pages,
+                )
 
             if on_layout_complete is not None:
                 on_layout_complete()
@@ -670,7 +723,7 @@ def build_ai_scaffold(
             raw_questions, raw_layout = _do_exam_call()
             scheme_data = {"questions": []}
 
-        # ---- Post-extraction: remap split-PDF page numbers + save layout artifact ---
+        # ---- Post-extraction: remap split-PDF page numbers -------------------
         # Remap before saving artifacts so 4_exam_questions.json has physical page coords.
         if split_pdf_path is not None and layout_result is not None:
             _remap_split_pages(raw_questions, layout_result)
@@ -679,11 +732,7 @@ def build_ai_scaffold(
         if layout_result is not None:
             raw_layout = {"rows": layout_result.rows, "cols": layout_result.cols}
 
-        if split_subpages and artifact_dir is not None and layout_result is not None:
-            _save_layout_artifact(
-                artifact_dir, layout_result, layout_model, layout_elapsed,
-                n_physical_pages, n_split_pages,
-            )
+        # Layout artifact already saved immediately after detection above.
 
         # ---- Artifacts + callbacks (main thread, same order as before) ---
 
