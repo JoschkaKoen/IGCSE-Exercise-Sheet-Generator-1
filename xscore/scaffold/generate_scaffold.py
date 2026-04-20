@@ -413,6 +413,7 @@ def build_scaffold(
     on_exam_complete: "Any | None" = None,
     on_scheme_complete: "Any | None" = None,
     on_layout_complete: "Any | None" = None,
+    on_cut_complete: "Any | None" = None,
     students: "list[str] | None" = None,
 ) -> ExamScaffold:
     """Build (or load from cache) the ExamScaffold for the exam in *folder*.
@@ -464,6 +465,7 @@ def build_scaffold(
         exam_pdf, ans,
         split_subpages=_split,
         on_layout_complete=on_layout_complete,
+        on_cut_complete=on_cut_complete,
         on_exam_complete=on_exam_complete,
         on_scheme_complete=on_scheme_complete,
         artifact_dir=ad,

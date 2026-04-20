@@ -144,11 +144,11 @@ flowchart TD
     end
 
     f3[/"3_students.json · md"/]
-    f8[/"4a_exam_layout.json · md"/]
-    f10[/"6_short_report.json · md"/]
-    f13[/"12_marked_name_page.json\n(one per student × page)"/]
-    f14[/"13_student_report_name.pdf\n13_class_report.pdf"/]
-    f15[/"14_timing.json · md"/]
+    f8[/"8_exam_layout.json · md\n8_split_exam.pdf"/]
+    f10[/"11_short_report.json · md"/]
+    f13[/"13_marked_name_page.json\n(one per student × page)"/]
+    f14[/"14_student_report_name.pdf\n14_class_report.pdf"/]
+    f15[/"15_timing.json · md"/]
 
     uploads --> s1
     s1 --> routeCond
@@ -172,15 +172,15 @@ flowchart TD
 | **4** | Low-resolution raster pass (72 DPI) to classify each page as blank or content. Blank pages are dropped. Runs in parallel using up to `min(4, cpu_count)` threads. |
 | **5** | Each content page's PDF `/Rotate` metadata is applied so scanners that encode rotation in metadata come out portrait. Optional Tesseract OSD pass for extra correction. |
 | **6** | IGCSE header anchors are detected on each page (parallel). Anchor positions drive the fine deskew transform; corrected pages are written to `3_cleaned_scan.pdf`. |
-| **7** | `scan_pages ÷ exam_pages` gives `num_students`. Cross-checked against the roster; a count mismatch is a warning, not an error. Writes `10_exam_geometry.json`. Student names are detected from the first scan page of each student block and fuzzy-matched against the roster. |
-| **8** | Gemini renders the first page of the exam PDF as an image and detects the printing layout (1×1, 2-up, or 4-up). In multi-up mode the PDF is split into one PDF page per sub-page in reading order — the split PDF is what step 9 uploads. Writes `4a_exam_layout.json` + `.md` and `4b_split_exam.pdf`. Configure with `DETECT_LAYOUT_MODEL`. Skipped (merged into step 8) in legacy non-split mode. |
-| **9** | Gemini reads the (split) exam PDF and returns every question and sub-question with its number, type, marks, page, subpage position, and answer options. Writes `4_exam_questions.json` + `.md`. Configure with `READ_EXAM_PDF_MODEL`. |
-| **10** | Gemini reads the mark scheme and returns correct answers and marking criteria. Writes `5_mark_scheme.json` + `.md`. Configure with `READ_MARK_SCHEME_MODEL`. |
-| **11** | Merges the exam question tree with mark scheme annotations into a single `6_short_report.json` + `.md`. Runs even without a mark scheme (exam-only report). This report drives steps 12–13. |
-| **12** | For each exam page, leaf questions from the scaffold are extracted into a per-page JSON blueprint (`11_ai_marking_blueprint_N.json`), including `subpage_row`/`subpage_col` coordinates and the page layout. These become the fill-in templates for step 13. |
-| **13** | Each student's pages are rendered as JPEG and sent to the Qwen vision model (one API call per page). The prompt includes subpage layout context so the model can correctly locate answers in multi-up papers. The model fills in `student_answer`, `assigned_marks`, and `reasoning` for every question. Students are processed in parallel (`MARKING_WORKERS` threads); results written as `12_marked_name_N.json`. Requires `DASHSCOPE_API_KEY`. |
-| **14** | Per-student results are merged (cross-page questions: take max marks). Each student gets `13_student_report_name.json`, `.md`, and a compiled `.pdf`. A class summary PDF with per-question averages is written as `13_class_report.pdf`. PDF compilation runs in parallel (`MARKING_WORKERS` xelatex processes). Requires `xelatex`. |
-| **15** | Writes a `14_timing.json` and `.md` with wall-clock durations for each pipeline phase, API call counts, and per-student mark summaries. |
+| **7** | `scan_pages ÷ exam_pages` gives `num_students`. Cross-checked against the roster; a count mismatch is a warning, not an error. Writes `7_exam_geometry.json`. Student names are detected from the first scan page of each student block and fuzzy-matched against the roster. |
+| **8** | Gemini renders the first page of the exam PDF as an image and detects the printing layout (1×1, 2-up, or 4-up). In multi-up mode the PDF is split into one PDF page per sub-page in reading order — the split PDF is what step 9 uploads. Writes `8_exam_layout.json` + `.md` and `8_split_exam.pdf`. Configure with `DETECT_LAYOUT_MODEL`. Skipped (merged into step 8) in legacy non-split mode. |
+| **9** | Gemini reads the (split) exam PDF and returns every question and sub-question with its number, type, marks, page, subpage position, and answer options. Writes `9_exam_questions.json` + `.md`. Configure with `READ_EXAM_PDF_MODEL`. |
+| **10** | Gemini reads the mark scheme and returns correct answers and marking criteria. Writes `10_mark_scheme.json` + `.md`. Configure with `READ_MARK_SCHEME_MODEL`. |
+| **11** | Merges the exam question tree with mark scheme annotations into a single `11_short_report.json` + `.md`. Runs even without a mark scheme (exam-only report). This report drives steps 12–13. |
+| **12** | For each exam page, leaf questions from the scaffold are extracted into a per-page JSON blueprint (`12_ai_marking_blueprint_N.json`), including `subpage_row`/`subpage_col` coordinates and the page layout. These become the fill-in templates for step 13. |
+| **13** | Each student's pages are rendered as JPEG and sent to the Qwen vision model (one API call per page). The prompt includes subpage layout context so the model can correctly locate answers in multi-up papers. The model fills in `student_answer`, `assigned_marks`, and `reasoning` for every question. Students are processed in parallel (`MARKING_WORKERS` threads); results written as `13_marked_name_N.json`. Requires `DASHSCOPE_API_KEY`. |
+| **14** | Per-student results are merged (cross-page questions: take max marks). Each student gets `14_student_report_name.json`, `.md`, and a compiled `.pdf`. A class summary PDF with per-question averages is written as `14_class_report.pdf`. PDF compilation runs in parallel (`MARKING_WORKERS` xelatex processes). Requires `xelatex`. |
+| **15** | Writes a `15_timing.json` and `.md` with wall-clock durations for each pipeline phase, API call counts, and per-student mark summaries. |
 
 ---
 

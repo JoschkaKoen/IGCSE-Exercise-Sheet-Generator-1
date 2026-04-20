@@ -131,7 +131,7 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
         from xscore.shared.exam_paths import artifact_prompt_path
         from xscore.shared.prompt_logger import save_prompt
         save_prompt(
-            artifact_prompt_path(artifact_dir, "10_student_list"),
+            artifact_prompt_path(artifact_dir, "3_student_list"),
             model=model_name,
             messages=[{"role": "user", "content": _prompt_user_text}],
         )

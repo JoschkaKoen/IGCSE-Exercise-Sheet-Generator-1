@@ -8,7 +8,7 @@ from pathlib import Path
 # Phased pipeline artifacts (steps 5–12 scan block in xscore.py README).
 SCAN_BLANKS_JSON          = "2_scan_blanks.json"
 SCAN_ROTATED_PDF          = "2_scan_rotated.pdf"
-CLEANED_SCAN_PDF          = "3_cleaned_scan.pdf"
+CLEANED_SCAN_PDF          = "6_cleaned_scan.pdf"
 SCAN_ANCHORS_JSON         = "3_scan_anchors.json"
 SCAN_TRANSFORMS_JSON      = "4_scan_transforms.json"
 SCAN_LINES_REMOVED_PDF    = "4_scan_lines_removed.pdf"

@@ -400,11 +400,11 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     client, model_id, _provider, _effort = result
     _use_stream, _thinking_kw = build_thinking_kwargs(_provider, _effort)
 
-    # Load page assignments produced by step 10 name detection.
+    # Load page assignments produced by step 7 name detection.
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     if not list_path.exists():
         raise FileNotFoundError(
-            f"10_exam_student_list.json not found at {list_path} — run step 10 first"
+            f"7_exam_student_list.json not found at {list_path} — run step 7 first"
         )
     raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
     # Each entry: {"student_name": str, "page_numbers": [int, ...], "confidence": str}
@@ -476,7 +476,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         page_questions.get(p_label, []), _thinking_kw,
                         use_stream=_use_stream,
                         prompt_save_path=artifact_prompt_path(
-                            ctx.artifact_dir, f"12_marked_{safe_name}_{p_label}"
+                            ctx.artifact_dir, f"13_marked_{safe_name}_{p_label}"
                         ),
                     )
                 except MarkingFailure as mf:

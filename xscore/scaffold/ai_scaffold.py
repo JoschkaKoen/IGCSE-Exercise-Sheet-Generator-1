@@ -531,6 +531,7 @@ def build_ai_scaffold(
     *,
     split_subpages: bool = True,
     on_layout_complete: "Callable[[], None] | None" = None,
+    on_cut_complete: "Callable[[], None] | None" = None,
     on_exam_complete: "Callable[[list[dict]], None] | None" = None,
     on_scheme_complete: "Callable[[list[dict]], None] | None" = None,
     artifact_dir: Path | None = None,
@@ -624,7 +625,7 @@ def build_ai_scaffold(
             if artifact_dir is not None and layout_raw_text is not None:
                 try:
                     from xscore.shared.exam_paths import artifact_exam_layout_json_path
-                    raw_path = artifact_exam_layout_json_path(artifact_dir).parent / "4a_exam_layout_raw.json"
+                    raw_path = artifact_exam_layout_json_path(artifact_dir).parent / "8_exam_layout_raw.json"
                     raw_path.parent.mkdir(parents=True, exist_ok=True)
                     raw_path.write_text(layout_raw_text, encoding="utf-8")
                 except OSError:
@@ -645,6 +646,9 @@ def build_ai_scaffold(
                 )
             else:
                 ok_line(f"Layout 1×1 (single)  ·  {layout_model}  ·  {layout_elapsed:.1f}s")
+
+            if on_layout_complete is not None:
+                on_layout_complete()
 
             if n_cells > 1:
                 layout_label = f"{layout_result.rows}×{layout_result.cols}"
@@ -681,8 +685,8 @@ def build_ai_scaffold(
                     except OSError:
                         pass
 
-            if on_layout_complete is not None:
-                on_layout_complete()
+            if on_cut_complete is not None:
+                on_cut_complete()
 
         # ---- Upload PDFs in parallel ----------------------------------------
         actual_exam_pdf = split_pdf_path if split_pdf_path is not None else exam_pdf
@@ -703,7 +707,7 @@ def build_ai_scaffold(
         def _do_exam_call() -> tuple[list[dict], dict]:
             if artifact_dir is not None:
                 save_prompt(
-                    artifact_prompt_path(artifact_dir, "4_exam_questions"),
+                    artifact_prompt_path(artifact_dir, "9_exam_questions"),
                     model=exam_model, system=_SYSTEM_EXAM,
                     messages=[{"role": "user", "content": _USER_EXAM}],
                 )
@@ -729,7 +733,7 @@ def build_ai_scaffold(
         def _do_scheme_call() -> dict:
             if artifact_dir is not None:
                 save_prompt(
-                    artifact_prompt_path(artifact_dir, "5_mark_scheme"),
+                    artifact_prompt_path(artifact_dir, "10_mark_scheme"),
                     model=scheme_model, system=_SYSTEM_SCHEME,
                     messages=[{"role": "user", "content": _USER_SCHEME}],
                 )

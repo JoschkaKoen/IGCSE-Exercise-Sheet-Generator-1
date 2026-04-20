@@ -119,7 +119,7 @@ def assign_pages(
         i, page = args
         crop = _crop_top(page, fraction=name_crop_fraction)
         img_b64 = page_to_jpeg_b64(crop)
-        save_path = artifact_prompt_path(artifact_dir, f"10_name_{i}") if artifact_dir else None
+        save_path = artifact_prompt_path(artifact_dir, f"7_name_{i}") if artifact_dir else None
         _t0 = time.perf_counter()
         raw = ai_image_call(client, img_b64, prompt, max_tokens=64, model_id=model_id,
                               prompt_save_path=save_path, print_latency=False)

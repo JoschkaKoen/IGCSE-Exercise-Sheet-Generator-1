@@ -12,13 +12,15 @@ Steps:
   5. Autorotate (remove blanks, apply /Rotate metadata).
   6. Deskew (small-angle per-half correction) → 3_cleaned_scan.pdf.
   7. Assign scan pages to students (name OCR via Kimi) → 10_exam_student_list.json.
-  8. AI: parse exam PDF → question hierarchy + layout → 4_exam_questions.json + 4_exam_questions.md.
-  9. AI: parse mark scheme → correct answers + criteria → 5_mark_scheme.json + 5_mark_scheme.md.
- 10. Merge scaffold → 6_scaffold.json + 6_scaffold.md.
- 11. Build per-page AI marking blueprints → 11_ai_marking_blueprint_N.json.
- 12. AI: grade each student page (Kimi) → 12_marked_*.json.
- 13. Merge per-page results into student and class reports → 13_student_report_*.json + PDF.
- 14. Produce final graded summary.
+  8. AI: detect raw exam layout → 4a_exam_layout.json (split mode only).
+  9. Cut raw exam PDF into sub-pages (split mode only).
+ 10. AI: parse exam PDF → question hierarchy → 4_exam_questions.json + 4_exam_questions.md.
+ 11. AI: parse mark scheme → correct answers + criteria → 5_mark_scheme.json + 5_mark_scheme.md.
+ 12. Merge scaffold → 6_scaffold.json + 6_scaffold.md.
+ 13. Build per-page AI marking blueprints → 11_ai_marking_blueprint_N.json.
+ 14. AI: grade each student page (Kimi) → 12_marked_*.json.
+ 15. Merge per-page results into student and class reports → 13_student_report_*.json + PDF.
+ 16. Produce final graded summary.
 
 Usage:
     python xScore.py "grade Space Physics Unit Test"
@@ -329,18 +331,18 @@ def _step08_09_10_scaffold(
     gate_event: "threading.Event | None" = None,
     background: bool = False,
 ) -> None:
-    """Steps 8–11 in split mode (8 layout, 9 exam, 10 scheme, 11 merge) or 8–10 in legacy mode."""
+    """Steps 8–12 in split mode (8 layout, 9 cut, 10 exam, 11 scheme, 12 merge) or 8–10 in legacy mode."""
     import os as _os
     assert ctx.folder is not None and ctx.artifact_dir is not None
     t0 = time.perf_counter()
 
     _split = _os.getenv("READ_EXAM_PDF_SPLIT", "1").strip() not in ("0", "false", "no")
-    ctx.step_offset = 1 if _split else 0
+    ctx.step_offset = 2 if _split else 0
     off = ctx.step_offset
 
     if _split:
         gi.pipeline_step(
-            8, "Detect exam layout",
+            8, "Detect raw exam layout",
             subtitle="running in background" if background else None,
         )
     else:
@@ -351,7 +353,13 @@ def _step08_09_10_scaffold(
 
     def _on_layout_done() -> None:
         gi.pipeline_step(
-            9, "AI API call — Parse exam PDF",
+            9, "Cut raw exam PDF",
+            subtitle="running in background" if background else None,
+        )
+
+    def _on_cut_done() -> None:
+        gi.pipeline_step(
+            10, "AI API call — Parse exam PDF",
             subtitle="running in background" if background else None,
         )
 
@@ -373,6 +381,7 @@ def _step08_09_10_scaffold(
             ctx.folder,
             artifact_dir=ctx.artifact_dir,
             on_layout_complete=_on_layout_done if _split else None,
+            on_cut_complete=_on_cut_done if _split else None,
             on_exam_complete=_on_exam_done,
             on_scheme_complete=_on_scheme_done,
             students=ctx.students,
