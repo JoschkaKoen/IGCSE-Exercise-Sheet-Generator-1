@@ -191,8 +191,9 @@ MARKING_DPI: int = int(os.getenv("MARKING_DPI", "150"))
 # Fraction of the page height to crop for name detection (top strip only)
 NAME_CROP_FRACTION = 0.15
 
-# AI model used by xscore.py marking (parse_prompt, assign_pages, grade_answers, etc.).
-# Can differ from AI_MODEL above; override with PIPELINE_AI_MODEL env.
+# AI model for xscore scaffold vision calls (parse_instruction, assign_pages, etc.).
+# Default also in default.env — change there for production; change here for dev.
+# Override at runtime with the PIPELINE_AI_MODEL env var.
 PIPELINE_AI_MODEL = "kimi-k2.5"
 
 # Inter-call delays in the marking pipeline (rate limiting). Override via env if needed.

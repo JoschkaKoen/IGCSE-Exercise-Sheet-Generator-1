@@ -51,6 +51,23 @@ def _latex_escape_smart(text: str) -> str:
     )
 
 
+def _restore_json_control_chars(text: str) -> str:
+    """Undo JSON escape-sequence damage in AI-generated LaTeX text.
+
+    JSON parsers interpret \\t, \\f, \\r, \\b as control characters.
+    LaTeX commands starting with those letters (\\times, \\frac, \\rightarrow,
+    \\boldsymbol) get silently corrupted. This restores them to backslash + letter
+    before the LaTeX escape pipeline runs.
+    Handles both single-escaped (\\t → tab) and double-escaped (\\\\t → backslash+tab)
+    variants so AI over-escaping produces a single backslash, not two.
+    \\n is left intact — _latex_newlines() needs it for table-cell line breaks.
+    """
+    for ctrl, letter in [("\t", "t"), ("\f", "f"), ("\r", "r"), ("\b", "b")]:
+        text = text.replace("\\" + ctrl, "\\" + letter)  # backslash+ctrl → backslash+letter first
+        text = text.replace(ctrl, "\\" + letter)          # bare ctrl → backslash+letter
+    return text
+
+
 def _latex_newlines(text: str) -> str:
     """Replace Python newlines with LaTeX \\newline for p{} table cells.
 
@@ -58,8 +75,8 @@ def _latex_newlines(text: str) -> str:
     in \\newline would itself be escaped to \\textbackslash{}newline.
 
     Skips $...$ math blocks: stray CR/LF inside math are stripped rather than
-    converted to \\newline (they are artefacts of JSON-parsed backslash commands
-    such as \\rightarrow whose \\r was interpreted as a carriage return).
+    converted to \\newline (safety net; _restore_json_control_chars should have
+    already restored \\r artefacts to backslash+r before this is called).
     """
     parts = re.split(r"(\$[^$]+\$)", text)
     result = []
@@ -247,14 +264,17 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
-        answer = "\\textit{(blank)}" if not answer_raw else _latex_newlines(_latex_escape_smart(answer_raw))
+        answer = (
+            "\\textit{(blank)}" if not answer_raw
+            else _latex_newlines(_latex_escape_smart(_restore_json_control_chars(answer_raw)))
+        )
         correct_raw = str(q.get("correct_answer") or "").strip()
         if correct_raw:
-            correct_ans = _latex_newlines(_latex_escape_smart(correct_raw))
+            correct_ans = _latex_newlines(_latex_escape_smart(_restore_json_control_chars(correct_raw)))
         else:
             criteria_raw = str(q.get("marking_criteria") or "").strip()
-            correct_ans = f"\\textit{{{_format_criteria_cell(criteria_raw)}}}" if criteria_raw else "---"
-        reasoning = _latex_newlines(_latex_escape_smart(str(q.get("reasoning") or "")))
+            correct_ans = f"\\textit{{{_format_criteria_cell(_restore_json_control_chars(criteria_raw))}}}" if criteria_raw else "---"
+        reasoning = _latex_newlines(_latex_escape_smart(_restore_json_control_chars(str(q.get("reasoning") or ""))))
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(
             f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\"
@@ -267,6 +287,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
         "\\usepackage{amsmath}\n"
+        "\\usepackage{amssymb}\n"
         "\\usepackage{booktabs}\n"
         "\\usepackage{longtable}\n"
         "\\usepackage{geometry}\n"
@@ -321,6 +342,7 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
         "\\usepackage{amsmath}\n"
+        "\\usepackage{amssymb}\n"
         "\\usepackage{booktabs}\n"
         "\\usepackage{longtable}\n"
         "\\usepackage{geometry}\n"

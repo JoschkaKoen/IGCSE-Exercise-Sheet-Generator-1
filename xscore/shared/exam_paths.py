@@ -212,6 +212,18 @@ def artifact_marked_md_path(artifact_dir: Path, student: str, page: int) -> Path
     return artifact_dir / SUBDIR_MARKING / "students" / f"12_marked_{safe}_{page}.md"
 
 
+def artifact_marked_failed_path(artifact_dir: Path, student: str, page: int) -> Path:
+    """Step 12: failure record written when all marking retries are exhausted for a page.
+
+    Lives in a 'failures/' subdirectory so it is never matched by the
+    12_marked_*_*.json glob in merge_reports.py (which only scans 'students/').
+    Downstream report rendering still reads the blank blueprint from students/.
+    """
+    import re
+    safe = re.sub(r"[^\w]", "_", student)
+    return artifact_dir / SUBDIR_MARKING / "failures" / f"{safe}_{page}.json"
+
+
 def artifact_marking_students_dir(artifact_dir: Path) -> Path:
     """Directory containing per-student marking JSON files (step 12)."""
     return artifact_dir / SUBDIR_MARKING / "students"

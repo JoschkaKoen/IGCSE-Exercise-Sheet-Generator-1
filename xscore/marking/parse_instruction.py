@@ -15,9 +15,11 @@ from xscore.config import PIPELINE_DEFAULT_DPI
 from xscore.shared.models import StudentFilter, TaskInstruction
 from xscore.shared.terminal_ui import api_latency_line, info_line, warn_line
 
+_DEFAULT_MODEL = "gemini-2.5-flash"  # also set as INTERPRET_PROMPT_MODEL in default.env
+
 
 def _read_model_config() -> tuple[str, str | None]:
-    raw = os.getenv("INTERPRET_PROMPT_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash"))
+    raw = os.getenv("INTERPRET_PROMPT_MODEL") or os.getenv("AI_DEFAULT_MODEL") or _DEFAULT_MODEL
     if "," in raw:
         model, effort = raw.split(",", 1)
         return model.strip(), effort.strip() or None

@@ -23,9 +23,20 @@ from pydantic import BaseModel, ConfigDict, ValidationError
 
 from eXercise.ai_client import collect_streamed_response
 from xscore.marking.blueprints import marked_to_md
-from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path, artifact_short_scaffold_json_path
+from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_failed_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path, artifact_short_scaffold_json_path
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, warn_line
+
+
+_DEFAULT_MARKING_MODEL = "qwen3.6-plus, off"
+
+
+class MarkingFailure(Exception):
+    """Raised when all retry attempts to mark a page are exhausted."""
+    def __init__(self, *, attempts: int, last_exc: BaseException) -> None:
+        super().__init__(f"All {attempts} marking attempts failed: {last_exc}")
+        self.attempts = attempts
+        self.last_exc = last_exc
 
 
 class _FillQuestion(BaseModel):
@@ -51,6 +62,27 @@ _FILL_RESPONSE_FORMAT: dict = {
         "strict": True,
     },
 }
+
+
+def _fix_latex_in_math(text: str) -> str:
+    """Normalise AI LaTeX inside $...$ blocks before storing to disk.
+
+    Three passes, math blocks only:
+    1. Restore JSON-escape control chars (\\t → \\t, etc.) — any number of leading backslashes.
+    2. Collapse double-escaped \\\\letter → \\letter (AI over-escaping in JSON).
+    3. Strip \\text{} wrapper around bare math commands (\\text{\\pi} → \\pi).
+    """
+    parts = re.split(r'(\$[^$]+\$)', text)
+    out = []
+    for part in parts:
+        if part.startswith('$') and part.endswith('$') and len(part) > 1:
+            for ctrl, letter in [('\t', 't'), ('\f', 'f'), ('\r', 'r'), ('\b', 'b')]:
+                part = re.sub(r'\\*' + re.escape(ctrl),
+                              lambda m, _l=letter: '\\' + _l, part)
+            part = re.sub(r'\\\\([a-zA-Z])', r'\\\1', part)
+            part = re.sub(r'\\text\{(\\[a-zA-Z]+)\}', r'\1', part)
+        out.append(part)
+    return ''.join(out)
 
 
 def _render_page_b64(doc: Any, page_idx: int, dpi: int = 150) -> str:
@@ -121,8 +153,14 @@ def _mark_page(
         "  • reasoning: 1–2 sentences maximum — state the verdict and the key reason. Do NOT show calculations, working-out steps, or deliberation.\n"
         "IMPORTANT — LaTeX formatting: any expression containing ^, _, or math operators MUST "
         "be wrapped in $...$ (e.g. write \"$10^{3}$\", \"$v_0 = 5$ m/s\", never \"10^3\" or "
-        "\"v_0 = 5 m/s\"). Also write \\% for percent signs, \\& for ampersands. Failing to "
-        "use math mode for such expressions will crash the PDF renderer."
+        "\"v_0 = 5 m/s\"). Also write \\% for percent signs, \\& for ampersands. "
+        "Use LaTeX commands for math symbols — write \\times, \\approx, \\rightarrow, "
+        "\\leq, \\geq, \\pm, \\infty, \\pi, \\theta, \\therefore, etc. — "
+        "never Unicode characters (×, ≈, →, ≤, ≥, ±, ∞, π, θ, ∴). "
+        "Never use \\text{} around a math symbol — \\text{} is only for prose/units "
+        "(e.g. \\text{ m/s}). Write \\pi directly, not \\text{\\pi}. "
+        "Use a single backslash for every LaTeX command — write \\times, not \\\\times. "
+        "Failing to use math mode or using Unicode symbols will crash the PDF renderer."
     )
     if rows > 1 or cols > 1:
         grid_desc = "\n".join(
@@ -173,6 +211,7 @@ def _mark_page(
 
     save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
 
+    _last_exc: BaseException = RuntimeError("no attempts made")
     for attempt in range(1, 4):
         try:
             if use_stream:
@@ -183,9 +222,13 @@ def _mark_page(
                 raw = resp.choices[0].message.content or ""
             try:
                 fill = _FillResponse.model_validate_json(raw)
-            except ValidationError:
+            except ValidationError as ve:
                 warn_line(f"Marking call schema validation failed (attempt {attempt}/3) — retrying")
+                _last_exc = ve
                 continue
+            for fq in fill.questions:
+                fq.reasoning = _fix_latex_in_math(fq.reasoning)
+                fq.student_answer = _fix_latex_in_math(fq.student_answer)
             result = blueprint.copy()
             fill_map = {
                 (q.number, q.subpage_row, q.subpage_col): q for q in fill.questions
@@ -247,11 +290,11 @@ def _mark_page(
             return result
         except Exception as exc:  # noqa: BLE001
             warn_line(f"Marking API error (attempt {attempt}/3): {exc}")
+            _last_exc = exc
             if attempt < 3:
                 time.sleep(2**attempt)
 
-    warn_line("All marking attempts failed — using blank blueprint")
-    return blueprint.copy()
+    raise MarkingFailure(attempts=3, last_exc=_last_exc)
 
 
 def _fix_mc_marks(result: dict, page_questions_info: list[dict]) -> None:
@@ -367,7 +410,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     from eXercise.ai_client import make_ai_client, build_thinking_kwargs
     from xscore.shared.exam_paths import artifact_exam_student_list_json_path
 
-    result = make_ai_client(model_env="MARKING_MODEL", default_model="qwen3.6-plus, off")
+    result = make_ai_client(model_env="MARKING_MODEL", default_model=_DEFAULT_MARKING_MODEL)
     if result is None:
         raise RuntimeError(
             "MARKING_MODEL client could not be created — check DASHSCOPE_API_KEY in .env"
@@ -416,14 +459,16 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     def _render() -> str:  # caller must hold _display_lock
         return "\n".join(_student_lines.values()) if _student_lines else ""
 
-    def _mark_student(assignment: dict) -> list[dict]:
+    def _mark_student(assignment: dict) -> tuple[list[dict], list[dict]]:
         """Mark one student's pages using scan-detected page assignments.
 
         Opens its own fitz handle (fitz is not thread-safe).
+        Returns (timings, failures) where failures is non-empty if any page exhausted all retries.
         """
         student_name: str = assignment["student_name"]
         page_numbers: list[int] = assignment["page_numbers"]  # 1-based scan pages
         local_timings: list[dict] = []
+        local_failures: list[dict] = []
         doc = fitz.open(str(ctx.cleaned_pdf))
         try:
             for p_label, scan_page in enumerate(page_numbers, 1):
@@ -443,14 +488,50 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 safe_name = student_name or f"Unknown_{scan_page}"
 
                 t0 = time.perf_counter()
-                filled = _mark_page(
-                    client, model_id, b64, blueprint,
-                    page_questions.get(p_label, []), _thinking_kw,
-                    use_stream=_use_stream,
-                    prompt_save_path=artifact_prompt_path(
-                        ctx.artifact_dir, f"12_marked_{safe_name}_{p_label}"
-                    ),
-                )
+                try:
+                    filled = _mark_page(
+                        client, model_id, b64, blueprint,
+                        page_questions.get(p_label, []), _thinking_kw,
+                        use_stream=_use_stream,
+                        prompt_save_path=artifact_prompt_path(
+                            ctx.artifact_dir, f"12_marked_{safe_name}_{p_label}"
+                        ),
+                    )
+                except MarkingFailure as mf:
+                    warn_line(
+                        f"Marking failed: student '{student_name}' page {p_label} — {mf.last_exc}"
+                    )
+                    filled = blueprint.copy()
+                    filled["student_name"] = student_name
+                    local_failures.append({
+                        "student": student_name,
+                        "page": p_label,
+                        "attempts": mf.attempts,
+                        "error": str(mf.last_exc),
+                    })
+                    out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
+                    out_json.parent.mkdir(parents=True, exist_ok=True)
+                    out_json.write_text(
+                        json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8"
+                    )
+                    artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
+                        marked_to_md(filled), encoding="utf-8"
+                    )
+                    failed_path = artifact_marked_failed_path(ctx.artifact_dir, safe_name, p_label)
+                    failed_path.parent.mkdir(parents=True, exist_ok=True)
+                    failed_path.write_text(
+                        json.dumps(local_failures[-1], indent=2, ensure_ascii=False),
+                        encoding="utf-8",
+                    )
+                    with _display_lock:
+                        _student_lines[key] = (
+                            f"[red]  {icon('warn')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}"
+                            f"  ·  FAILED[/]"
+                        )
+                        if _use_live:
+                            live.update(_render())
+                    continue
+
                 mark_dur = round(time.perf_counter() - t0, 2)
                 with _display_lock:
                     _student_lines[key] = (
@@ -477,8 +558,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 )
         finally:
             doc.close()
-        return local_timings
+        return local_timings, local_failures
 
+    all_failures: list[dict] = []
     _live_ctx = Live("", console=get_console(), refresh_per_second=4) if _use_live else contextlib.nullcontext()
     with _live_ctx as live:
         with ThreadPoolExecutor(max_workers=workers) as ex:
@@ -486,7 +568,10 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 ex.submit(_mark_student, a): a["student_name"] for a in raw_assignments
             }
             for fut in as_completed(futures):
+                timings, failures = fut.result()
                 with timings_lock:
-                    api_call_timings.extend(fut.result())
+                    api_call_timings.extend(timings)
+                    all_failures.extend(failures)
 
+    ctx.marking_failures = all_failures
     return api_call_timings

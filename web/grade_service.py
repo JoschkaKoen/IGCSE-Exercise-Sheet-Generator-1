@@ -281,6 +281,7 @@ def run_full_pipeline(
         pages_per_student=pages_per_student,
         num_students=num_students,
         instruction=instruction,
+        marking_failures=[],
     )
 
     def _mark() -> list:

@@ -130,6 +130,7 @@ class _Ctx:
     pages_per_student: int = 0
     step_timings_marking: dict = None        # populated in steps 10–14
     marking_api_calls: list = None           # populated in step 12
+    marking_failures: list = None            # populated in step 12 (pages that exhausted all retries)
     page_assignments: list | None = None     # list[PageAssignment] set by step 10
 
     def __post_init__(self) -> None:
@@ -137,6 +138,8 @@ class _Ctx:
             self.step_timings_marking = {}
         if self.marking_api_calls is None:
             self.marking_api_calls = []
+        if self.marking_failures is None:
+            self.marking_failures = []
 
 
 def _print_footer(ctx: _Ctx, gi: SimpleNamespace, elapsed: float) -> None:
@@ -610,6 +613,7 @@ def _step14_timing(ctx: _Ctx, gi: SimpleNamespace) -> None:
         ctx.step_timings_marking,
         ctx.marking_api_calls,
         accuracy_summary=accuracy_summary,
+        failures=ctx.marking_failures,
     )
 
 

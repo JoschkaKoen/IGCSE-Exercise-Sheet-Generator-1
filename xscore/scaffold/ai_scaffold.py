@@ -150,11 +150,19 @@ For EACH question and sub-question at EVERY nesting level return an object with:
 - "subpage_row": 1-based row of the sub-page quadrant this question is in \
 (always 1 for a 1×1 layout; 1=top half, 2=bottom half for a 2×2 layout). \
 The boundary is the physical printed dividing line — a question at the very \
-bottom of the top half still belongs to subpage_row=1. \
-The same question number can appear more than once in the same quadrant.
+bottom of the top half still belongs to subpage_row=1.
 - "subpage_col": 1-based column of the sub-page quadrant this question is in \
 (always 1 for a 1×1 layout; 1=left half, 2=right half for a 2×2 layout). \
 A question at the very right edge of the left half still belongs to subpage_col=1.
+
+IMPORTANT — subpage assignment for every question:
+Assign subpage_row and subpage_col based solely on where the question is \
+physically printed on the page. Do not reassign a question to a different \
+quadrant because another question with the same number already appeared there. \
+The same question number can appear more than once within the same quadrant \
+(e.g. two exam papers printed side-by-side in the same half), and that is \
+correct — both instances must receive the subpage_row/subpage_col of the \
+quadrant they are physically in.
 - "marks": integer mark allocation from [N] brackets; 0 if not printed
 - "text": complete question text in markdown; $...$ for inline math, $$...$$ for display math
 - "answer_options": for multiple_choice only — [{"letter": "A", "text": "..."}, ...]; empty list otherwise
@@ -405,8 +413,11 @@ def build_ai_scaffold(
             )
             api_latency_line(time.perf_counter() - _t0, label="mark scheme")
             try:
-                return _SchemeSchema.model_validate_json(resp.text).model_dump()
-            except ValidationError:
+                parsed = json.loads(resp.text)
+                if isinstance(parsed, list):
+                    parsed = {"questions": parsed}
+                return _SchemeSchema.model_validate(parsed).model_dump()
+            except Exception:
                 return {"questions": []}   # non-fatal — scheme parse failure is recoverable
 
         # ---- Dispatch: parallel when scheme is present -------------------

@@ -25,23 +25,29 @@ def write_timing_report(
     step_durations: dict[str, float],
     api_calls: list[dict],
     accuracy_summary: dict | None = None,
+    failures: list[dict] | None = None,
 ) -> None:
     """Write timing artifacts and print a summary to the terminal.
 
     *step_durations* keys are like ``"step_10_s"``, ``"step_11_s"`` etc.
     *api_calls* is the list returned by :func:`run_ai_marking`.
     *accuracy_summary* is the optional dict from :func:`evaluate_results`.
+    *failures* is the list of page-level marking failures set on ctx by :func:`run_ai_marking`.
     """
     from xscore.shared.exam_paths import artifact_timing_json_path, artifact_timing_md_path
-    from xscore.shared.terminal_ui import format_duration, info_line
+    from xscore.shared.terminal_ui import format_duration, info_line, warn_line
 
+    failures = failures or []
     total = sum(step_durations.values())
     payload: dict = {
         **{k: round(v, 2) for k, v in step_durations.items()},
         "total_marking_s": round(total, 2),
         "total_api_calls": len(api_calls),
+        "total_failures": len(failures),
         "api_calls": api_calls,
     }
+    if failures:
+        payload["failures"] = failures
     if accuracy_summary is not None:
         payload["accuracy_summary"] = accuracy_summary
 
@@ -60,6 +66,8 @@ def write_timing_report(
         label = _STEP_LABELS.get(key, key.replace("_s", "").replace("_", " ").title())
         info_line(f"  {label}: {format_duration(val)}")
     info_line(f"  Total: {format_duration(total)}  ·  {len(api_calls)} API calls")
+    if failures:
+        warn_line(f"  {len(failures)} page(s) failed marking — see 14_timing.md for details")
 
 
 def _timing_to_md(payload: dict) -> str:
@@ -87,6 +95,16 @@ def _timing_to_md(payload: dict) -> str:
             lines.append(
                 f"| {call.get('phase', '')} | {call.get('student', '')} "
                 f"| {call.get('page', '')} | {call.get('duration_s', '')}s |"
+            )
+
+    if payload.get("failures"):
+        lines.append(f"\n## Marking Failures ({len(payload['failures'])} page(s))\n")
+        lines.append("| Student | Page | Attempts | Error |")
+        lines.append("|---------|------|----------|-------|")
+        for f in payload["failures"]:
+            lines.append(
+                f"| {f.get('student', '')} | {f.get('page', '')} "
+                f"| {f.get('attempts', '')} | {f.get('error', '')} |"
             )
 
     if payload.get("accuracy_summary"):
