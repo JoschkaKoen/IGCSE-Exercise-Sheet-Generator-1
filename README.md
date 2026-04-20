@@ -164,6 +164,47 @@ flowchart TD
     s15 -.-> f15
 ```
 
+### Parallel execution — steps 3–14
+
+```mermaid
+flowchart TD
+    s1s2["Steps 1–2 — Parse prompt · locate folder"]
+    s3["Step 3 — Read student roster\n(Gemini · READ_STUDENT_LIST_MODEL)"]
+    s1s2 --> s3
+
+    s3 -->|"header prints → scan thread starts"| s4
+    s3 -->|"step 3 done → scaffold thread starts"| s8
+
+    subgraph scan ["Scan thread — steps 4–6"]
+        direction TB
+        s4["Step 4 — Blank page detection\n(≤ 4 CPU workers)"]
+        s5["Step 5 — Auto-rotate pages"]
+        s6["Step 6 — Deskew\n(parallel · N CPU workers)"]
+        s4 --> s5 --> s6
+    end
+
+    s6 --> s7["Step 7 — Exam geometry\n(main thread)"]
+
+    subgraph scaffold ["Scaffold thread — steps 8–11"]
+        direction TB
+        s8["Step 8 — Detect exam layout\n(Gemini · DETECT_LAYOUT_MODEL)"]
+        gate7{{"wait: step 7 done"}}
+        s9["Step 9 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)"]
+        s10["Step 10 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL)"]
+        s11["Step 11 — Merge scaffold"]
+        s8 --> gate7
+        gate7 --> s9 & s10
+        s9 & s10 --> s11
+    end
+
+    s7 -.->|"signals gate"| gate7
+
+    s11 --> s12["Step 12 — Marking blueprints"]
+    s12 --> s13["Step 13 — AI marking\n(MARKING_WORKERS threads · one per student)"]
+    s13 --> s14["Step 14 — Compile reports\n(MARKING_WORKERS · parallel xelatex)"]
+    s14 --> s15["Step 15 — Timing summary"]
+```
+
 | Step | Description |
 |------|-------------|
 | **1** | Gemini parses any free-text grading prompt and returns structured config (DPI, task type, student filter). Configure with `INTERPRET_PROMPT_MODEL` in `default.env`. |
