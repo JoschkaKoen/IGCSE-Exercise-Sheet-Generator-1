@@ -1,4 +1,4 @@
-"""Step 14 — Timing summary: write 14_timing.json / 14_timing.md and print table."""
+"""Step 15 — Timing summary: write 15_timing.json / 15_timing.md and print table."""
 
 from __future__ import annotations
 
@@ -67,7 +67,7 @@ def write_timing_report(
         info_line(f"  {label}: {format_duration(val)}")
     info_line(f"  Total: {format_duration(total)}  ·  {len(api_calls)} API calls")
     if failures:
-        warn_line(f"  {len(failures)} page(s) failed marking — see 14_timing.md for details")
+        warn_line(f"  {len(failures)} page(s) failed marking — see 15_timing.md for details")
 
 
 def _timing_to_md(payload: dict) -> str:

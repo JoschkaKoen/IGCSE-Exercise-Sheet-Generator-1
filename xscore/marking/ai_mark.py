@@ -1,4 +1,4 @@
-"""Step 12 — AI marking: iterate over student scan pages and fill blueprint JSONs.
+"""Step 13 — AI marking: iterate over student scan pages and fill blueprint JSONs.
 
 Uses the MARKING_MODEL env var (default: qwen3.6-plus, off) via make_ai_client().
 Requires DASHSCOPE_API_KEY to be set in .env.
@@ -377,7 +377,7 @@ def _flatten_leaf_questions(questions: list[dict]) -> list[dict]:
 def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
-    Reads page assignments from ``10_exam_student_list.json`` (written by step 10)
+    Reads page assignments from ``7_exam_student_list.json`` (written by step 7)
     so each student's scan pages are determined by name detection, not position.
     Students are processed in parallel (MARKING_WORKERS env var, default varies with cpu_count).
     *dpi* defaults to ``MARKING_DPI`` when not supplied.

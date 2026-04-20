@@ -127,8 +127,8 @@ def run_full_pipeline(
         _cmd_parts.append(prompt.strip())
     if dpi is not None:
         _cmd_parts.append(f"--dpi {dpi}")
-    (artifact_dir / "meta").mkdir(parents=True, exist_ok=True)
-    (artifact_dir / "meta" / "command.txt").write_text(" ".join(_cmd_parts), encoding="utf-8")
+    artifact_dir.mkdir(parents=True, exist_ok=True)
+    (artifact_dir / "command.txt").write_text(" ".join(_cmd_parts), encoding="utf-8")
 
     # ---------------------------------------------------------------------- steps 4–6 (scan cleaning — same order as xScore.py)
     empty_exam_path = folder / "empty_exam.pdf"

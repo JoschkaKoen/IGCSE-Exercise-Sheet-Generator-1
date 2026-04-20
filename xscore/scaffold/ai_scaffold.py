@@ -236,7 +236,7 @@ def _upload_and_poll(client, path: Path, label: str):
 # ---------------------------------------------------------------------------
 
 def _save_exam_questions(artifact_dir: Path, raw_questions: list[dict]) -> None:
-    """Write step-4 artifacts: ``4_exam_questions.json`` + ``4_exam_questions.md``."""
+    """Write step-9 artifacts: ``9_exam_questions.json`` + ``9_exam_questions.md``."""
     from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
     json_path = artifact_exam_questions_json_path(artifact_dir)
     json_path.parent.mkdir(parents=True, exist_ok=True)
@@ -246,7 +246,7 @@ def _save_exam_questions(artifact_dir: Path, raw_questions: list[dict]) -> None:
 
 
 def _save_mark_scheme(artifact_dir: Path, scheme_questions: list[dict]) -> None:
-    """Write step-5 artifacts: ``5_mark_scheme.json`` + ``5_mark_scheme.md``."""
+    """Write step-10 artifacts: ``10_mark_scheme.json`` + ``10_mark_scheme.md``."""
     from xscore.scaffold.scaffold_markdown import write_mark_scheme_markdown
     json_path = artifact_mark_scheme_json_path(artifact_dir)
     json_path.parent.mkdir(parents=True, exist_ok=True)
@@ -552,8 +552,8 @@ def build_ai_scaffold(
             merged into the question tree.  Use this to advance the step counter
             to the merge step.  May raise SystemExit(0) to stop before merging.
         artifact_dir: If set, write intermediate JSON + Markdown snapshots:
-            ``4a_exam_layout.*`` after layout detection (split mode only),
-            ``4_exam_questions.*`` after call 1, ``5_mark_scheme.*`` after call 2.
+            ``8_exam_layout.*`` after layout detection (split mode only),
+            ``9_exam_questions.*`` after call 1, ``10_mark_scheme.*`` after call 2.
             Saves are best-effort; OSError is silently ignored.
 
     Returns:
@@ -771,7 +771,7 @@ def build_ai_scaffold(
             scheme_data = {"questions": []}
 
         # ---- Post-extraction: remap split-PDF page numbers -------------------
-        # Remap before saving artifacts so 4_exam_questions.json has physical page coords.
+        # Remap before saving artifacts so 9_exam_questions.json has physical page coords.
         if split_pdf_path is not None and layout_result is not None:
             _remap_split_pages(raw_questions, layout_result)
 
@@ -783,8 +783,8 @@ def build_ai_scaffold(
 
         # ---- Artifacts + callbacks (main thread, same order as before) ---
 
-        # Save step-4 artifacts BEFORE on_exam_complete — the callback may raise
-        # SystemExit(0) when --through 4 is used, so anything after it won't run.
+        # Save step-9 artifacts BEFORE on_exam_complete — the callback may raise
+        # SystemExit(0) when --through 9 is used, so anything after it won't run.
         if artifact_dir is not None:
             try:
                 _save_exam_questions(artifact_dir, raw_questions)
@@ -795,7 +795,7 @@ def build_ai_scaffold(
             on_exam_complete(raw_questions)
 
         if isinstance(scheme_data.get("questions"), list):
-            # Save step-5 artifacts before merging — preserves the raw scheme output.
+            # Save step-10 artifacts before merging — preserves the raw scheme output.
             if artifact_dir is not None:
                 try:
                     _save_mark_scheme(artifact_dir, scheme_data["questions"])
@@ -808,7 +808,7 @@ def build_ai_scaffold(
 
             # Suffix duplicate question numbers in exam questions so that
             # two questions both printed as "38" become "38" and "38_2".
-            # Done after saving artifacts so 4_exam_questions.json retains original numbers.
+            # Done after saving artifacts so 9_exam_questions.json retains original numbers.
             _seen_rq: dict[str, int] = {}
             for _node in raw_questions:
                 _qnum = str(_node.get("number", ""))
@@ -834,7 +834,7 @@ def build_ai_scaffold(
                         )
 
             # Apply the same suffix to mark scheme entries so scheme_map keys align.
-            # Done after saving 5_mark_scheme.json to preserve original numbers there.
+            # Done after saving 10_mark_scheme.json to preserve original numbers there.
             _seen_sq: dict[str, int] = {}
             for _sq in scheme_data["questions"]:
                 if not isinstance(_sq, dict) or not _sq.get("number"):

@@ -5,39 +5,38 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-# Phased pipeline artifacts (steps 5–12 scan block in xscore.py README).
-SCAN_BLANKS_JSON          = "2_scan_blanks.json"
-SCAN_ROTATED_PDF          = "2_scan_rotated.pdf"
+# Phased pipeline artifacts (steps 4–6 scan block).
+SCAN_BLANKS_JSON          = "4_scan_blanks.json"
+SCAN_ROTATED_PDF          = "5_scan_rotated.pdf"
 CLEANED_SCAN_PDF          = "6_cleaned_scan.pdf"
-SCAN_ANCHORS_JSON         = "3_scan_anchors.json"
-SCAN_TRANSFORMS_JSON      = "4_scan_transforms.json"
-SCAN_LINES_REMOVED_PDF    = "4_scan_lines_removed.pdf"
-SCAN_BOXES_PROJECTED_PDF  = "5_scan_boxes_projected.pdf"
-SCAN_BOXES_PROJECTED_JSON = "5_scan_boxes_projected.json"
+SCAN_ANCHORS_JSON         = "6_scan_anchors.json"
+SCAN_TRANSFORMS_JSON      = "6_scan_transforms.json"
+SCAN_LINES_REMOVED_PDF    = "6_scan_lines_removed.pdf"
+SCAN_BOXES_PROJECTED_PDF  = "6_scan_boxes_projected.pdf"
+SCAN_BOXES_PROJECTED_JSON = "6_scan_boxes_projected.json"
 SCAN_BOXES_REFINED_PDF    = "6_scan_boxes_refined.pdf"
 SCAN_HANDWRITING_JSON     = "6_scan_handwriting.json"
-SCAN_EXERCISE_BOXES_JSON  = "7_scan_exercise_boxes.json"
-SCAN_EXERCISE_BOXES_PDF   = "7_scan_exercise_boxes.pdf"
+SCAN_EXERCISE_BOXES_JSON  = "6_scan_exercise_boxes.json"
+SCAN_EXERCISE_BOXES_PDF   = "6_scan_exercise_boxes.pdf"
 
 
 def _scan_phase_paths(artifact_dir: Path) -> dict[str, Path]:
-    scan_dir = artifact_dir / "scan"
-    out = scan_dir / CLEANED_SCAN_PDF  # stem still used for transient paths only
+    out = artifact_dir / CLEANED_SCAN_PDF  # stem still used for transient paths only
     return {
-        "blanks_json":            scan_dir / SCAN_BLANKS_JSON,
-        "rotated":                scan_dir / SCAN_ROTATED_PDF,
-        "cleaned":                scan_dir / CLEANED_SCAN_PDF,
-        "sidecar":                scan_dir / SCAN_ANCHORS_JSON,
+        "blanks_json":            artifact_dir / SCAN_BLANKS_JSON,
+        "rotated":                artifact_dir / SCAN_ROTATED_PDF,
+        "cleaned":                artifact_dir / CLEANED_SCAN_PDF,
+        "sidecar":                artifact_dir / SCAN_ANCHORS_JSON,
         "sidecar_legacy":         out.with_name(f"{out.stem}_reflines.json"),  # transient
-        "deskew_tmp":             scan_dir / f"{out.stem}_deskew_tmp{out.suffix}",   # transient
-        "transforms":             scan_dir / SCAN_TRANSFORMS_JSON,
-        "vlines_removed":         scan_dir / SCAN_LINES_REMOVED_PDF,
-        "projected":              scan_dir / SCAN_BOXES_PROJECTED_PDF,
-        "projected_boxes_json":   scan_dir / SCAN_BOXES_PROJECTED_JSON,
-        "refined":                scan_dir / SCAN_BOXES_REFINED_PDF,
-        "hw_results":             scan_dir / SCAN_HANDWRITING_JSON,
-        "adjusted_exercise_json": scan_dir / SCAN_EXERCISE_BOXES_JSON,
-        "adjusted_exercise_pdf":  scan_dir / SCAN_EXERCISE_BOXES_PDF,
+        "deskew_tmp":             artifact_dir / f"{out.stem}_deskew_tmp{out.suffix}",   # transient
+        "transforms":             artifact_dir / SCAN_TRANSFORMS_JSON,
+        "vlines_removed":         artifact_dir / SCAN_LINES_REMOVED_PDF,
+        "projected":              artifact_dir / SCAN_BOXES_PROJECTED_PDF,
+        "projected_boxes_json":   artifact_dir / SCAN_BOXES_PROJECTED_JSON,
+        "refined":                artifact_dir / SCAN_BOXES_REFINED_PDF,
+        "hw_results":             artifact_dir / SCAN_HANDWRITING_JSON,
+        "adjusted_exercise_json": artifact_dir / SCAN_EXERCISE_BOXES_JSON,
+        "adjusted_exercise_pdf":  artifact_dir / SCAN_EXERCISE_BOXES_PDF,
     }
 
 
@@ -60,7 +59,7 @@ def find_source_scan_match(
     dpi: int,
 ) -> Path:
     """Pick the class-scan PDF under *folder* (same rules as :func:`cleanup_pdf`)."""
-    output = artifact_dir / "scan" / CLEANED_SCAN_PDF
+    output = artifact_dir / CLEANED_SCAN_PDF
     legacy_out = folder / CLEANED_SCAN_PDF
     scans = [
         f

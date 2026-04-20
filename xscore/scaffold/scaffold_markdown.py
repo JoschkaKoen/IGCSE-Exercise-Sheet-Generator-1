@@ -167,7 +167,7 @@ def write_short_scaffold_markdown(artifact_dir: Path, payload: dict[str, Any]) -
 
 
 def write_raw_exam_markdown(artifact_dir: Path, raw_questions: list[Any]) -> None:
-    """Write ``4_exam_questions.md`` — exam questions without mark-scheme annotations.
+    """Write ``9_exam_questions.md`` — exam questions without mark-scheme annotations.
 
     Reuses :func:`_render_question`; since ``correct_answer`` / ``marking_criteria``
     are absent at this stage the renderer omits those sections automatically.
@@ -198,7 +198,7 @@ def write_raw_exam_markdown(artifact_dir: Path, raw_questions: list[Any]) -> Non
 
 
 def write_mark_scheme_markdown(artifact_dir: Path, scheme_questions: list[Any]) -> None:
-    """Write ``5_mark_scheme.md`` — per-question sections from the raw Gemini scheme output.
+    """Write ``10_mark_scheme.md`` — per-question sections from the raw Gemini scheme output.
 
     *scheme_questions* is the ``scheme_data["questions"]`` list returned by Gemini before
     merging into the question tree.  Each entry may contain:

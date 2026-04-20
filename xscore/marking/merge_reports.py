@@ -495,7 +495,6 @@ def compile_reports(ctx: Any) -> list[dict]:
     (keys: name, total_marks, percentage) for use in step 14 timing.
     """
     from xscore.shared.exam_paths import (
-        SUBDIR_REPORTS,
         artifact_class_report_json_path,
         artifact_class_report_md_path,
         artifact_class_report_tex_path,
@@ -523,8 +522,8 @@ def compile_reports(ctx: Any) -> list[dict]:
         marking_criteria_by_num[_key] = _q.marking_criteria or ""
 
     # Pass 1 — sequential: merge marks and write all data files (fast I/O, order-sensitive)
-    (ctx.artifact_dir / SUBDIR_REPORTS / "class").mkdir(parents=True, exist_ok=True)
-    (ctx.artifact_dir / SUBDIR_REPORTS / "students").mkdir(parents=True, exist_ok=True)
+    ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
+    (ctx.artifact_dir / "students").mkdir(parents=True, exist_ok=True)
     for name in _derive_student_names(ctx.artifact_dir):
         report = _merge_student_pages(
             ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks

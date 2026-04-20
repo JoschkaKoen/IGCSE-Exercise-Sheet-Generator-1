@@ -170,7 +170,7 @@ def extract_images(
     cfg: ParserConfig | None = None,
 ) -> list[ExamImage]:
     cfg = cfg or DEFAULT_PARSER_CONFIG
-    out_dir = artifact_dir / "scaffold" / "scaffold_images"
+    out_dir = artifact_dir / "scaffold_images"
     out_dir.mkdir(parents=True, exist_ok=True)
     found: list[ExamImage] = []
     for item in page.get_images(full=True):

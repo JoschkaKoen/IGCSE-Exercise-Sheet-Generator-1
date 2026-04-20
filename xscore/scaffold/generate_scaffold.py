@@ -262,7 +262,7 @@ def _migrate_scaffold_cache_to_artifact(
     artifact_dir.mkdir(parents=True, exist_ok=True)
     _save_cache(artifact_dir, scaffold)
     src_img = exam_folder / "scaffold_images"
-    dst_img = artifact_dir / "scaffold" / "scaffold_images"
+    dst_img = artifact_dir / "scaffold_images"
     if src_img.is_dir():
         if dst_img.exists():
             shutil.rmtree(dst_img)

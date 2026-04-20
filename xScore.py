@@ -2,7 +2,7 @@
 """
 xScore.py
 ---------
-Exam scan grading pipeline (steps 1–14) — run from the eXercise project root.
+Exam scan grading pipeline (steps 1–15) — run from the eXercise project root.
 
 Steps:
   1. Parse the natural language prompt (via Kimi).
@@ -10,17 +10,16 @@ Steps:
   3. Read the student roster from StudentList.xlsx.
   4. Detect blank scan pages.
   5. Autorotate (remove blanks, apply /Rotate metadata).
-  6. Deskew (small-angle per-half correction) → 3_cleaned_scan.pdf.
-  7. Assign scan pages to students (name OCR via Kimi) → 10_exam_student_list.json.
-  8. AI: detect raw exam layout → 4a_exam_layout.json (split mode only).
+  6. Deskew (small-angle per-half correction) → 6_cleaned_scan.pdf.
+  7. Assign scan pages to students (name OCR) → 7_exam_student_list.json.
+  8. AI: detect raw exam layout → 8_exam_layout.json (split mode only).
   9. Cut raw exam PDF into sub-pages (split mode only).
- 10. AI: parse exam PDF → question hierarchy → 4_exam_questions.json + 4_exam_questions.md.
- 11. AI: parse mark scheme → correct answers + criteria → 5_mark_scheme.json + 5_mark_scheme.md.
- 12. Merge scaffold → 6_scaffold.json + 6_scaffold.md.
- 13. Build per-page AI marking blueprints → 11_ai_marking_blueprint_N.json.
- 14. AI: grade each student page (Kimi) → 12_marked_*.json.
- 15. Merge per-page results into student and class reports → 13_student_report_*.json + PDF.
- 16. Produce final graded summary.
+ 10. AI: parse exam PDF → question hierarchy → 9_exam_questions.json + 9_exam_questions.md.
+ 11. AI: parse mark scheme → correct answers + criteria → 10_mark_scheme.json + 10_mark_scheme.md.
+ 12. Merge scaffold → 11_report.json + 11_report.md.
+ 13. Build per-page AI marking blueprints → 12_ai_marking_blueprint_N.json.
+ 14. AI: grade each student page → 13_marked_*.json.
+ 15. Merge per-page results into student and class reports → 14_student_report_*.json + PDF.
 
 Usage:
     python xScore.py "grade Space Physics Unit Test"
@@ -407,7 +406,7 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     gi.pipeline_step(4, "Detect blank pages")
     t0_7 = time.perf_counter()
     gi.detect_blank_pages_phase(match, ad, analysis_dpi=ROTATION_ANALYSIS_DPI, force_clean_scan=ctx.force_clean_scan)
-    (ad / "meta" / "4_blank_detection_summary.json").write_text(
+    (ad / "4_blank_detection_summary.json").write_text(
         json.dumps({"step": 4, "elapsed_s": round(time.perf_counter() - t0_7, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
@@ -417,7 +416,7 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     gi.autorotate_phase(ad)
     elapsed_rot = time.perf_counter() - t0_rot
     gi.info_line(gi.format_duration(elapsed_rot))
-    (ad / "meta" / "5_autorotate_summary.json").write_text(
+    (ad / "5_autorotate_summary.json").write_text(
         json.dumps({"step": 5, "elapsed_s": round(elapsed_rot, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
@@ -425,7 +424,7 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     gi.pipeline_step(6, "Deskew")
     t0_9 = time.perf_counter()
     ctx.cleaned_pdf = gi.deskew_phase(ctx.folder, ad, dpi)
-    (ad / "meta" / "6_deskew_summary.json").write_text(
+    (ad / "6_deskew_summary.json").write_text(
         json.dumps({"step": 6, "elapsed_s": round(time.perf_counter() - t0_9, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
