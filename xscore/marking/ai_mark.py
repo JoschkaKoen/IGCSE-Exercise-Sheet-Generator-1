@@ -1,4 +1,4 @@
-"""Step 12 — AI marking: iterate over student scan pages and produce Q-block text files.
+"""Step 12 — AI marking: iterate over student scan pages and fill blueprint JSONs.
 
 Uses the MARKING_MODEL env var (default: qwen3.6-plus, off) via make_ai_client().
 Requires DASHSCOPE_API_KEY to be set in .env.
@@ -20,7 +20,8 @@ from pathlib import Path
 from typing import Any
 
 from xscore.marking.blueprints import marked_to_md
-from xscore.shared.exam_paths import artifact_blueprint_yaml_path, artifact_marked_path, artifact_marked_md_path, artifact_prompt_path, artifact_short_scaffold_yaml_path
+from xscore.marking.ai_helpers import parse_json_safe
+from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path, artifact_short_scaffold_json_path
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, warn_line
 
@@ -59,39 +60,42 @@ def _mark_page(
     page_questions_info: list[dict],
     extra_body: dict,
     prompt_save_path: Path | None = None,
-) -> str:
-    """Vision call to mark one scan page. Returns Q-block plain text.
+) -> dict:
+    """Vision call to fill in a marking blueprint for one scan page.
 
-    Retries up to 3 times with 2 s / 4 s backoff.
-    Returns an empty string if all attempts fail.
+    Retries up to 3 times with 2 s / 4 s backoff (same pattern as kimi_helpers).
+    Returns the original blueprint (all blanks) if all attempts fail.
     """
     layout = blueprint.get("layout") or {"rows": 1, "cols": 1}
     rows, cols = int(layout.get("rows", 1)), int(layout.get("cols", 1))
     criteria_text = _format_criteria(page_questions_info, rows=rows, cols=cols)
+    blueprint_json = json.dumps(blueprint, indent=2, ensure_ascii=False)
 
     system_prompt = (
-        "You are an expert exam marker. You will be shown one page of a student's exam paper.\n"
-        "For each question listed in the marking criteria, output a Q-block:\n\n"
-        "Q<number>\n"
-        "marks: <integer or decimal, between 0 and max_marks>\n"
-        "answer: <student's answer>\n"
-        "reasoning: <1 sentence — verdict and key reason>\n\n"
-        "Output ONLY the Q-blocks. No JSON. No preamble. No trailing text.\n\n"
-        "Rules:\n"
-        "• student_answer for multiple_choice: report only the letter the student PHYSICALLY "
-        "marked (written, circled, crossed, or ticked). Do NOT infer from question content or "
-        "your own knowledge of correct answers. If no mark is visible, write '?'.\n"
-        "• For calculation questions: transcribe the student's complete working and final answer.\n"
-        "• For other question types: copy the student's written answer verbatim.\n"
-        "• If handwriting is illegible: transcribe best attempt; mark unreadable words with [?].\n"
-        "• assigned_marks: award 1 mark per satisfied criteria point, up to max_marks. "
+        "You are an expert exam marker. You will be shown one page of a student's exam paper. "
+        "Fill in the provided JSON template by reading the student's answers and applying the "
+        "marking criteria below. Return ONLY valid JSON in the exact same schema — do not add "
+        "or remove keys. Use proper JSON escape sequences in all strings (\\n for newlines, "
+        "\\t for tabs) — never embed literal control characters. For each question:\n"
+        "  • student_answer: what the student wrote. For multiple_choice: find the option the student "
+        "physically marked (written letter, circled letter, cross, or tick) and report that single "
+        "letter. Do NOT infer from the question content or your own knowledge of which answer is correct. "
+        "If no mark is visible, report '?'. "
+        "For calculation questions transcribe the student's complete working and final answer. "
+        "For all other question types copy the student's written answer verbatim. "
+        "If handwriting is illegible, transcribe your best attempt and mark unreadable words with [?].\n"
+        "  • assigned_marks: an integer between 0 and max_marks. "
+        "Award 1 mark for each criteria point the student satisfies, up to max_marks. "
         "For 'any N from' lists, each listed item is a separate mark point.\n"
-        "• LaTeX math: wrap expressions containing ^, _, or math operators in $...$ "
-        "(e.g. $10^{3}$, $v_0 = 5$ m/s, $\\frac{a}{b}$). "
-        "Write \\% for percent signs, \\& for ampersands. "
-        "Standard single-backslash LaTeX syntax is correct here — no escaping needed.\n"
-        "• MCQ reminder: report only the letter the student physically marked — "
-        "even if it appears to be a wrong answer. Do not use subject knowledge to guess."
+        "  • reasoning: 1–2 sentences maximum — state the verdict and the key reason. Do NOT show calculations, working-out steps, or deliberation.\n"
+        "IMPORTANT — LaTeX formatting: any expression containing ^, _, or math operators MUST "
+        "be wrapped in $...$ (e.g. write \"$10^{3}$\", \"$v_0 = 5$ m/s\", never \"10^3\" or "
+        "\"v_0 = 5 m/s\"). Also write \\% for percent signs, \\& for ampersands. Failing to "
+        "use math mode for such expressions will crash the PDF renderer. "
+        "All LaTeX commands in JSON strings MUST use a double backslash — "
+        "e.g. write $\\\\rightarrow$, $\\\\times$, $\\\\approx$ — never $\\rightarrow$. "
+        "A single \\r, \\t, or \\n before a command name is a JSON control character "
+        "that corrupts the output."
     )
     if rows > 1 or cols > 1:
         grid_desc = "\n".join(
@@ -102,20 +106,27 @@ def _mark_page(
         system_prompt += (
             f"\n\nThis exam page has a {rows}×{cols} grid of sub-pages (row-major reading order):\n"
             f"{grid_desc}\n"
-            "Each question in the criteria carries subpage_row and subpage_col — use these "
-            "coordinates to locate the student's answer. Do not confuse questions from "
-            "different quadrants.\n"
-            "The same question number may appear more than once (e.g. two Q38s in different "
-            "sub-pages). Locate each by its subpage position and question_text."
+            "Each question in the template carries subpage_row and subpage_col that tell you "
+            "which quadrant it lives in. Use these coordinates to locate the student's answer "
+            "— do not confuse questions from different quadrants with each other.\n"
+            "IMPORTANT — question number matching: the same question number may appear "
+            "more than once in the template (e.g. two questions both numbered '38' in "
+            "different sub-pages). Locate each occurrence using subpage_row, subpage_col, "
+            "and question_text — do not rely on the number field alone to find questions "
+            "on the paper. "
+            "The same question number may appear more than once in the same sub-page — "
+            "locate each occurrence by its question_text. "
+            "Do not reproduce question_text or "
+            "answer_options in your response — fill in only student_answer, assigned_marks, "
+            "and reasoning."
         )
-
-    q_list = ", ".join(
-        re.sub(r"_\d+$", "", str(q.get("number", "?")))
-        for q in (blueprint.get("questions") or [])
+    system_prompt += (
+        "\nMCQ reminder: report only the letter the student physically marked — "
+        "even if it appears to be a wrong answer. Do not use subject knowledge to guess."
     )
     user_text = (
         f"Marking criteria:\n{criteria_text}\n\n"
-        f"Output Q-blocks for: {q_list}"
+        f"Blueprint template to fill in:\n{blueprint_json}"
     )
     kwargs: dict[str, Any] = dict(
         model=model_id,
@@ -129,17 +140,28 @@ def _mark_page(
                 ],
             },
         ],
+        response_format={"type": "json_object"},
         extra_body=extra_body,
     )
 
     save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
 
-    try:
-        resp = client.chat.completions.create(**kwargs)
-        return (resp.choices[0].message.content or "").strip()
-    except Exception as exc:  # noqa: BLE001
-        warn_line(f"Marking API error: {exc}")
-        return ""
+    for attempt in range(1, 4):
+        try:
+            resp = client.chat.completions.create(**kwargs)
+            raw = resp.choices[0].message.content or ""
+            result = parse_json_safe(raw)
+            if result is not None:
+                _fix_mc_marks(result, page_questions_info)
+                return result
+            warn_line(f"Marking call returned unparseable JSON (attempt {attempt}/3) — retrying")
+        except Exception as exc:  # noqa: BLE001
+            warn_line(f"Marking API error (attempt {attempt}/3): {exc}")
+            if attempt < 3:
+                time.sleep(2**attempt)
+
+    warn_line("All marking attempts failed — using blank blueprint")
+    return blueprint.copy()
 
 
 def _fix_mc_marks(result: dict, page_questions_info: list[dict]) -> None:
@@ -237,80 +259,6 @@ def _flatten_leaf_questions(questions: list[dict]) -> list[dict]:
     return result
 
 
-def _parse_text_response(text: str, blueprint: dict) -> dict:
-    """Parse Q-block plain text into a dict matching the blueprint structure."""
-    result: dict = {"student_name": "", "page": blueprint.get("page", 0), "questions": []}
-    current_q: dict | None = None
-    current_field: str | None = None
-
-    bp_qs = blueprint.get("questions") or []
-
-    def _flush():
-        nonlocal current_q
-        if current_q is not None:
-            result["questions"].append(current_q)
-            current_q = None
-
-    for line in text.splitlines():
-        stripped = line.rstrip()
-        if stripped.startswith("student:"):
-            result["student_name"] = stripped[8:].strip()
-            current_field = None
-        elif stripped.startswith("page:"):
-            try:
-                result["page"] = int(stripped[5:].strip())
-            except ValueError:
-                pass
-            current_field = None
-        elif re.match(r"^Q\S+\s*$", stripped):
-            _flush()
-            qnum = stripped.strip()[1:]  # strip leading "Q"; blueprint stores "38" not "Q38"
-            bp_q = next((q for q in bp_qs if q.get("number") == qnum), {})
-            current_q = {
-                **{k: v for k, v in bp_q.items() if k not in ("student_answer", "assigned_marks", "reasoning")},
-                "number": qnum,
-                "student_answer": "",
-                "assigned_marks": None,
-                "reasoning": "",
-            }
-            current_field = None
-        elif current_q is not None:
-            if stripped.startswith("marks:"):
-                val = stripped[6:].strip()
-                try:
-                    current_q["assigned_marks"] = float(val) if "." in val else int(val)
-                except ValueError:
-                    current_q["assigned_marks"] = None
-                current_field = "marks"
-            elif stripped.startswith("answer:"):
-                current_q["student_answer"] = stripped[7:].strip()
-                current_field = "student_answer"
-            elif stripped.startswith("reasoning:"):
-                current_q["reasoning"] = stripped[10:].strip()
-                current_field = "reasoning"
-            elif stripped and current_field in ("student_answer", "reasoning"):
-                current_q[current_field] += " " + stripped.strip()
-    _flush()
-    return result
-
-
-def _dict_to_marked_txt(filled: dict) -> str:
-    """Serialise a filled marking dict to Q-block plain text."""
-    lines = [
-        f"student: {filled.get('student_name', '')}",
-        f"page: {filled.get('page', '')}",
-        "",
-    ]
-    for q in filled.get("questions") or []:
-        lines.append(f"Q{q.get('number', '?')}")
-        marks = q.get("assigned_marks")
-        lines.append(f"marks: {'' if marks is None else marks}")
-        lines.append(f"answer: {q.get('student_answer', '')}")
-        lines.append(f"reasoning: {q.get('reasoning', '')}")
-        lines.append("")
-    return "\n".join(lines)
-
-
 def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
@@ -355,9 +303,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             raw_assignments = raw_assignments[: sf.n]
 
     # Load short report once; build page → leaf-questions lookup (read-only, shared)
-    import yaml as _yaml
-    short_report_path = artifact_short_scaffold_yaml_path(ctx.artifact_dir)
-    short_report = _yaml.safe_load(short_report_path.read_text(encoding="utf-8"))
+    short_report_path = artifact_short_scaffold_json_path(ctx.artifact_dir)
+    short_report = json.loads(short_report_path.read_text(encoding="utf-8"))
     all_leaf_qs = _flatten_leaf_questions(short_report.get("questions", []))
     page_questions: dict[int, list[dict]] = {}
     for q in all_leaf_qs:
@@ -386,7 +333,6 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         """
         student_name: str = assignment["student_name"]
         page_numbers: list[int] = assignment["page_numbers"]  # 1-based scan pages
-        import yaml
         local_timings: list[dict] = []
         doc = fitz.open(str(ctx.cleaned_pdf))
         try:
@@ -399,15 +345,15 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         live.update(_render())
 
                 b64 = _render_page_b64(doc, scan_idx, dpi=dpi)
-                blueprint = yaml.safe_load(
-                    artifact_blueprint_yaml_path(ctx.artifact_dir, p_label).read_text(
+                blueprint = json.loads(
+                    artifact_blueprint_json_path(ctx.artifact_dir, p_label).read_text(
                         encoding="utf-8"
                     )
                 )
                 safe_name = student_name or f"Unknown_{scan_page}"
 
                 t0 = time.perf_counter()
-                raw_text = _mark_page(
+                filled = _mark_page(
                     client, model_id, b64, blueprint,
                     page_questions.get(p_label, []), extra_body,
                     prompt_save_path=artifact_prompt_path(
@@ -429,13 +375,12 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     "duration_s": mark_dur,
                 })
 
-                filled = _parse_text_response(raw_text, blueprint)
                 filled["student_name"] = student_name
-                _fix_mc_marks(filled, page_questions.get(p_label, []))
-
-                out_txt = artifact_marked_path(ctx.artifact_dir, safe_name, p_label)
-                out_txt.parent.mkdir(parents=True, exist_ok=True)
-                out_txt.write_text(_dict_to_marked_txt(filled), encoding="utf-8")
+                out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
+                out_json.parent.mkdir(parents=True, exist_ok=True)
+                out_json.write_text(
+                    json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8"
+                )
                 artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
                     marked_to_md(filled), encoding="utf-8"
                 )
