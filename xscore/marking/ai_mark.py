@@ -364,7 +364,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
 
     import fitz
 
-    from eXercise.ai_client import make_ai_client, build_thinking_kwargs, collect_streamed_response
+    from eXercise.ai_client import make_ai_client, build_thinking_kwargs
     from xscore.shared.exam_paths import artifact_exam_student_list_json_path
 
     result = make_ai_client(model_env="MARKING_MODEL", default_model="qwen3.6-plus, off")
