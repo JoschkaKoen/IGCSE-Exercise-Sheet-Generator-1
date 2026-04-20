@@ -121,6 +121,11 @@ def artifact_exam_layout_markdown_path(artifact_dir: Path) -> Path:
     return artifact_dir / SUBDIR_SCAFFOLD / "4a_exam_layout.md"
 
 
+def artifact_split_exam_pdf_path(artifact_dir: Path) -> Path:
+    """Step 8 (split mode): exam PDF cut into individual sub-pages in reading order."""
+    return artifact_dir / SUBDIR_SCAFFOLD / "4b_split_exam.pdf"
+
+
 def extract_answers_output_dir(
     pdf_stem: str, output_base: str | Path = "output"
 ) -> Path:

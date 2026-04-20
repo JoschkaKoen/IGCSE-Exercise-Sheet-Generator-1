@@ -66,7 +66,7 @@ def _mark_scheme_model_config() -> tuple[str, str | None]:
 
 
 def _layout_detect_model_config() -> tuple[str, str | None]:
-    return _parse_model(os.getenv("DETECT_LAYOUT_MODEL", "gemini-2.0-flash-lite"))
+    return _parse_model(os.getenv("DETECT_LAYOUT_MODEL", "gemini-2.5-flash"))
 
 
 # ---------------------------------------------------------------------------
@@ -280,19 +280,21 @@ def _detect_layout(client, exam_pdf: Path, model: str) -> tuple["_LayoutDetectSc
     )
 
     t0 = time.perf_counter()
-    resp = client.models.generate_content(
-        model=model,
-        contents=[
-            gai_types.Part.from_bytes(data=img_bytes, mime_type="image/jpeg"),
-            gai_types.Part.from_text(text=_USER_LAYOUT),
-        ],
-        config=cfg,
-    )
-    elapsed = time.perf_counter() - t0
-
     try:
+        resp = client.models.generate_content(
+            model=model,
+            contents=[
+                gai_types.Part.from_bytes(data=img_bytes, mime_type="image/jpeg"),
+                gai_types.Part.from_text(text=_USER_LAYOUT),
+            ],
+            config=cfg,
+        )
+        elapsed = time.perf_counter() - t0
         result = _LayoutDetectSchema.model_validate_json(resp.text)
-    except Exception:
+    except Exception as exc:
+        elapsed = time.perf_counter() - t0
+        from xscore.shared.terminal_ui import warn_line
+        warn_line(f"Layout detection failed ({str(exc)[:120]}) — assuming 1×1")
         result = _LayoutDetectSchema(rows=1, cols=1, reading_order=[])
     return result, elapsed
 
@@ -571,6 +573,15 @@ def build_ai_scaffold(
                     exam_pdf, layout_result
                 )
                 ok_line(f"{n_physical_pages} physical page(s) → {n_split_pages} sub-pages")
+                if artifact_dir is not None:
+                    try:
+                        import shutil
+                        from xscore.shared.exam_paths import artifact_split_exam_pdf_path
+                        dest = artifact_split_exam_pdf_path(artifact_dir)
+                        dest.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copy2(str(split_pdf_path), str(dest))
+                    except OSError:
+                        pass
             else:
                 ok_line("Layout 1×1 — no splitting needed")
 
