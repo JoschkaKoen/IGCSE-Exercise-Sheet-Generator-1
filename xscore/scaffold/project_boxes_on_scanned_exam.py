@@ -392,48 +392,6 @@ def project_scaffold_bbox(
     return tf.project_bbox(x0, y0, x1, y1)
 
 
-def project_all_scaffold_bboxes(
-    questions: list,
-    top_transform: SimilarityTransform,
-    bot_transform: SimilarityTransform,
-    mid_y: float = _RAW_MID_Y_PT,
-) -> list[dict]:
-    """Project every scaffold question's bbox and return a flat list of records.
-
-    Walks the full question tree (including nested subquestions) and projects
-    each bbox.  Useful for validation and debugging.
-
-    Args:
-        questions:     Root-level questions list from an :class:`ExamScaffold`.
-        top_transform: See :func:`project_scaffold_bbox`.
-        bot_transform: See :func:`project_scaffold_bbox`.
-        mid_y:         See :func:`project_scaffold_bbox`.
-
-    Returns:
-        List of dicts, one per question node, with keys:
-        ``number``, ``half`` ("top"/"bot"), ``raw_bbox`` (x0,y0,x1,y1),
-        ``scan_bbox`` (x0_px,y0_px,x1_px,y1_px).
-    """
-    results: list[dict] = []
-
-    def _walk(q) -> None:
-        bbox = q.bbox
-        half = "top" if bbox.y0 < mid_y else "bot"
-        scan = project_scaffold_bbox(bbox, top_transform, bot_transform, mid_y)
-        results.append({
-            "number":   q.number,
-            "half":     half,
-            "raw_bbox": (bbox.x0, bbox.y0, bbox.x1, bbox.y1),
-            "scan_bbox": scan,
-        })
-        for sub in q.subquestions:
-            _walk(sub)
-
-    for q in questions:
-        _walk(q)
-    return results
-
-
 # ---------------------------------------------------------------------------
 # Draw projected boxes on a deskewed raster scan PDF
 # ---------------------------------------------------------------------------

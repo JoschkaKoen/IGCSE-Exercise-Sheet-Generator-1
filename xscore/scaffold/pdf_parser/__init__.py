@@ -13,7 +13,6 @@ from xscore.scaffold.pdf_parser.api import (
     merge_answers_into_scaffold,
     parse_answer_key_pdf,
     parse_exam_pdf,
-    prepare_scaffold_image_dirs,
 )
 from xscore.scaffold.pdf_parser.config import DEFAULT_PARSER_CONFIG, ParserConfig
 from xscore.scaffold.pdf_parser.layout import page_layout_cells
@@ -28,5 +27,4 @@ __all__ = [
     "page_layout_cells",
     "parse_answer_key_pdf",
     "parse_exam_pdf",
-    "prepare_scaffold_image_dirs",
 ]

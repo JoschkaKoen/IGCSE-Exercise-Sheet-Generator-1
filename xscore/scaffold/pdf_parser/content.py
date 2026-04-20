@@ -389,11 +389,6 @@ def split_mc_options_from_stem(raw: str) -> tuple[str, list[McAnswerOption]]:
     return stem, options
 
 
-def mc_answer_options_display(options: list[McAnswerOption]) -> str:
-    """``A: …  B: …`` style single line for scaffold / reports."""
-    return "  ".join(f"{o.letter}: {o.text}" for o in options)
-
-
 def ensure_multiple_choice_options_parsed(q: Question) -> None:
     """If *q* is MC but options were not split (e.g. type set from answer key), split *q.text*."""
     if q.question_type != "multiple_choice":

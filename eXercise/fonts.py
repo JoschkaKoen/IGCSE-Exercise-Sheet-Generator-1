@@ -56,30 +56,6 @@ def pil_font(size_px: int) -> ImageFont.ImageFont:
     return ImageFont.load_default()
 
 
-def pil_font_bold(size_px: int) -> ImageFont.ImageFont:
-    """Same as ``pil_font`` for Latin Modern (bold OTF); extra sans-serif bold fallbacks."""
-    f = _try_truetype(_lm_roman_paths(bold=True), size_px)
-    if f is not None:
-        return f
-    fallbacks = [
-        "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
-        "/Library/Fonts/Arial Bold.ttf",
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
-        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
-        "C:\\Windows\\Fonts\\arialbd.ttf",
-    ]
-    f = _try_truetype(fallbacks, size_px)
-    if f is not None:
-        return f
-    helv = "/System/Library/Fonts/Helvetica.ttc"
-    if os.path.isfile(helv):
-        try:
-            return ImageFont.truetype(helv, size_px, index=1)
-        except OSError:
-            pass
-    return pil_font(size_px)
-
-
 def draw_page_header_pil(
     img: Image.Image,
     subject_label: str,
@@ -122,26 +98,3 @@ def draw_page_header_pil(
             y += th + gap
 
 
-def draw_exam_label_pil(img: Image.Image, label: str, header_h: int, scale: float) -> None:
-    """Center a single exam label in the top ``header_h`` pixels (legacy single-line helper)."""
-    draw_page_header_pil(img, label, None, header_h, scale)
-
-
-def header_band_px(header_label: str | None, scale: float, has_paper_label: bool = False) -> int:
-    if not (header_label or "").strip():
-        return 0
-    if has_paper_label:
-        # Two labels packed at the top: top_pad(3) + font(11) + gap(4) + font(11) + bottom_pad(3)
-        return int((EXAM_LABEL_FONT_PT * 2 + 3 + 4 + 3) * scale)
-    return int(EXAM_LABEL_FONT_PT * 2 * scale)
-
-
-def header_band_pt(header_label: str | None, has_paper_label: bool = False) -> float:
-    """Return the header band height in PDF points for the vector pipeline.
-
-    Single combined line: top_pad(4) + font(11) + bottom_pad(4) = 19 pt.
-    Returns 0 when there is no label at all.
-    """
-    if not (header_label or "").strip() and not has_paper_label:
-        return 0.0
-    return float(EXAM_LABEL_FONT_PT + 8)  # 19 pt

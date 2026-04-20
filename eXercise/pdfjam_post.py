@@ -15,8 +15,6 @@ _NF_X0, _NF_Y0 = 0.0,   0.0
 _NF_X1, _NF_Y1 = 170.0, 38.0
 
 # IGCSE decorative line in 1-up source coordinates.
-# line_y = EXAM_LABEL_TOP_PT + (EXAM_LABEL_FONT_PT + 4) - EXAM_LABEL_FONT_PT * 0.35
-#        = 15 + 13 - 3.15 = 24.85
 _NF_LINE_Y  = 24.85   # y of the horizontal decoration line
 _NF_LINE_X0 = 18.0    # left start (= OUTPUT_MARGIN_PT + line pad = 10 + 8)
 _NF_LINE_W  = 0.5     # stroke width in 1-up (scaled with the sub-page below)

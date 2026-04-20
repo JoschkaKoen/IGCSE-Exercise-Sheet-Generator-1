@@ -7,8 +7,6 @@ dependency-free (no internal imports) so it can be imported early.
 
 from __future__ import annotations
 
-import re
-
 # Characters that must be escaped in LaTeX plain-text contexts.
 _LATEX_SPECIAL = str.maketrans({
     "\\": r"\textbackslash{}",
@@ -75,14 +73,3 @@ def sanitize_bullet(text: str) -> str:
     return text
 
 
-def escape_question_text(raw: str) -> str:
-    """Escape a question text for LaTeX, preserving math delimiters $...$ and $$...$$."""
-    # Split on math regions; escape only the non-math parts.
-    parts = re.split(r'(\$\$.*?\$\$|\$[^$]*?\$)', raw, flags=re.DOTALL)
-    out = []
-    for i, part in enumerate(parts):
-        if i % 2 == 0:
-            out.append(latex_escape(part))
-        else:
-            out.append(part)
-    return "".join(out)

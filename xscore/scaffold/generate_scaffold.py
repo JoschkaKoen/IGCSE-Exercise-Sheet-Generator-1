@@ -29,7 +29,6 @@ from xscore.shared.models import (
     gradable_questions,
 )
 from xscore.shared.exam_paths import (
-    artifact_scaffold_boxes_path,
     artifact_scaffold_json_path,
     artifact_scaffold_markdown_path,
     artifact_short_scaffold_json_path,
@@ -458,9 +457,6 @@ def build_scaffold(
 
     exam_pdf = exam_pdf_override or find_exam_pdf(folder)
 
-    # AI-based extraction (default route) — uses Gemini to parse structure.
-    # To revert to the PyMuPDF heuristic parser, replace the two lines below with:
-    #   questions = _build_heuristic_scaffold(exam_pdf, folder, _find_answer_pdf(folder), ad)
     from xscore.scaffold.ai_scaffold import build_ai_scaffold
     ans = _find_answer_pdf(folder)
     _split = os.getenv("READ_EXAM_PDF_SPLIT", "1").strip() not in ("0", "false", "no")

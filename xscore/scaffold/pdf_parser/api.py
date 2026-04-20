@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import re
-import shutil
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -242,13 +241,3 @@ def merge_answers_into_scaffold(
             q.correct_answer = letter
 
 
-def prepare_scaffold_image_dirs(artifact_dir: Path) -> Path:
-    """Create empty ``scaffold_images`` under *artifact_dir*; remove prior tree there.
-
-    Answer-key PDFs are not rasterized here (they are text-only mark schemes).
-    """
-    base = artifact_dir / "scaffold" / "scaffold_images"
-    if base.exists():
-        shutil.rmtree(base)
-    base.mkdir(parents=True)
-    return base

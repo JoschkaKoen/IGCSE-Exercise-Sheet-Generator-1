@@ -382,6 +382,10 @@ def _remap_split_pages(questions: list[dict], layout: "_LayoutDetectSchema") -> 
         remap(q)
 
 
+def _cell_label(row: int, col: int) -> str:
+    return ("T" if row == 1 else "B") + ("L" if col == 1 else "R")
+
+
 def _save_layout_artifact(
     artifact_dir: Path,
     layout: "_LayoutDetectSchema",
@@ -396,36 +400,64 @@ def _save_layout_artifact(
         artifact_exam_layout_markdown_path,
     )
 
+    n_cells = layout.rows * layout.cols
+    order = layout.reading_order or [
+        [r + 1, c + 1] for r in range(layout.rows) for c in range(layout.cols)
+    ]
+    order_labels = [_cell_label(rc[0], rc[1]) for rc in order]
+
+    if n_cells > 1:
+        layout_label = f"{layout.rows}×{layout.cols} ({n_cells}-up)"
+    else:
+        layout_label = "1×1 (single)"
+
     payload = {
         "rows": layout.rows,
         "cols": layout.cols,
-        "reading_order": layout.reading_order,
+        "layout": layout_label,
+        "reading_order": order,
+        "reading_order_labels": order_labels,
         "model": model,
         "elapsed_s": round(elapsed, 2),
         "n_physical_pages": n_physical,
         "n_split_pages": n_split,
     }
+
+    if n_cells > 1:
+        order_str = " → ".join(order_labels)
+        md_lines = [
+            "# Exam Layout",
+            "",
+            f"| Field | Value |",
+            f"|-------|-------|",
+            f"| Layout | {layout_label} |",
+            f"| Reading order | {order_str} |",
+            f"| Physical pages | {n_physical} |",
+            f"| Sub-pages | {n_split} |",
+            f"| Model | {model} |",
+            f"| Elapsed | {elapsed:.1f} s |",
+            "",
+        ]
+    else:
+        md_lines = [
+            "# Exam Layout",
+            "",
+            f"| Field | Value |",
+            f"|-------|-------|",
+            f"| Layout | {layout_label} |",
+            f"| Model | {model} |",
+            f"| Elapsed | {elapsed:.1f} s |",
+            "",
+        ]
+
     try:
         p = artifact_exam_layout_json_path(artifact_dir)
         p.parent.mkdir(parents=True, exist_ok=True)
         with open(p, "w", encoding="utf-8") as f:
             json.dump(payload, f, indent=2, ensure_ascii=False)
 
-        if layout.rows * layout.cols > 1:
-            order_desc = "→".join(
-                ("T" if rc[0] == 1 else "B") + ("L" if rc[1] == 1 else "R")
-                for rc in (layout.reading_order or [])
-            ) or "row-major"
-            md = (
-                f"Layout: {layout.rows}×{layout.cols}  ·  reading order: {order_desc}  ·  "
-                f"{model}  ·  {elapsed:.1f}s  ·  "
-                f"{n_physical} physical page(s) → {n_split} sub-pages\n"
-            )
-        else:
-            md = f"Layout: 1×1 (single)  ·  {model}  ·  {elapsed:.1f}s  ·  no splitting\n"
-
         with open(artifact_exam_layout_markdown_path(artifact_dir), "w", encoding="utf-8") as f:
-            f.write(md)
+            f.write("\n".join(md_lines))
     except OSError:
         pass
 
@@ -637,6 +669,17 @@ def build_ai_scaffold(
                     artifact_dir, layout_result, layout_model, layout_elapsed,
                     n_physical_pages, n_split_pages,
                 )
+                # In 1×1 mode no split PDF is produced; copy the original so
+                # the artifact directory always contains the PDF sent to Gemini.
+                if n_cells == 1:
+                    try:
+                        import shutil
+                        from xscore.shared.exam_paths import artifact_exam_input_pdf_path
+                        dest = artifact_exam_input_pdf_path(artifact_dir)
+                        dest.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copy2(str(exam_pdf), str(dest))
+                    except OSError:
+                        pass
 
             if on_layout_complete is not None:
                 on_layout_complete()

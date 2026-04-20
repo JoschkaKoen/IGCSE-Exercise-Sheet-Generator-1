@@ -108,17 +108,6 @@ def merge_answer_anchors_into_overview(
                 ex["answers_y_view_pt"] = pos[2]
 
 
-def merge_pdf_files(part_paths: list[str], dest: str) -> None:
-    """Concatenate multiple PDF files into a single output PDF."""
-    merged = fitz.open()
-    for p in part_paths:
-        src = fitz.open(p)
-        merged.insert_pdf(src)
-        src.close()
-    merged.save(dest, deflate=True, garbage=2)
-    merged.close()
-
-
 def _run_qp_extraction_phase(
     jobs: list[dict],
     cfg: Any,

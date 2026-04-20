@@ -104,11 +104,6 @@ def paint(text: str, *codes: str) -> str:
     return "".join(codes) + text + RESET
 
 
-def rule(char: str = "═", width: int = 60) -> str:
-    line = char * width
-    return paint(line, DIM) if use_color() else line
-
-
 # Rich ``TextColumn`` template: aligns task labels with :func:`info_line` / :func:`tool_line`
 # (they print ``  {icon}  {text}`` — two spaces + one-column icon + two spaces).
 # Four spaces: Rich adds one cell padding before the first column, so five visible columns match.
@@ -203,13 +198,6 @@ def pipeline_step(
     c.print(f"[bold cyan]{label}[/]")
     if subtitle:
         c.print(f"[dim]  {icon('info')}  {subtitle}[/]")
-    sys.stdout.flush()
-
-
-def progress_line(message: str) -> None:
-    """Highlight the current action (brighter than :func:`info_line`)."""
-    c = get_console()
-    c.print(f"[cyan]  {icon('info')}  {message}[/]")
     sys.stdout.flush()
 
 

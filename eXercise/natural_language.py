@@ -24,7 +24,7 @@ from .ai_client import (
     strip_json_fences,
 )
 from .env_load import load_project_env
-from .config import EXAM_ROOT_BY_KEY, PROJECT_ROOT
+from .config import EXAM_ROOT_BY_KEY
 from .exceptions import NaturalLanguageError
 
 # Hard cap on user prompt size (characters) to limit cost and abuse.

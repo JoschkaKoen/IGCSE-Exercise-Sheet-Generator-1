@@ -76,11 +76,6 @@ def legacy_artifact_scaffold_cache_path(artifact_dir: Path) -> Path:
     return artifact_dir / "scaffolds" / "scaffold_cache.json"
 
 
-def artifact_scaffold_boxes_path(artifact_dir: Path) -> Path:
-    """Vector-exam PDF with scaffold rectangles drawn (one file per run)."""
-    return artifact_dir / SUBDIR_SCAFFOLD / "1_exam_bboxes.pdf"
-
-
 def artifact_students_json_path(artifact_dir: Path) -> Path:
     """Step 3: student roster as a JSON array of name strings."""
     return artifact_dir / SUBDIR_SCAFFOLD / "3_students.json"
@@ -126,6 +121,11 @@ def artifact_split_exam_pdf_path(artifact_dir: Path) -> Path:
     return artifact_dir / SUBDIR_SCAFFOLD / "4b_split_exam.pdf"
 
 
+def artifact_exam_input_pdf_path(artifact_dir: Path) -> Path:
+    """Step 9 (1×1 mode): copy of the original exam PDF uploaded to Gemini."""
+    return artifact_dir / SUBDIR_SCAFFOLD / "4b_exam_input.pdf"
+
+
 def extract_answers_output_dir(
     pdf_stem: str, output_base: str | Path = "output"
 ) -> Path:
@@ -134,49 +134,6 @@ def extract_answers_output_dir(
 
 
 CLEANED_SCAN_PDF = "3_cleaned_scan.pdf"
-
-
-def find_latest_cleaned_scan(
-    exam_folder: Path,
-    output_base: str | Path = "output/xscore",
-) -> Path | None:
-    """Return the newest ``3_cleaned_scan.pdf`` among known layouts, or ``None``.
-
-    Searches (candidates from newest to oldest by mtime):
-
-    - ``<output_base>/<safe_stem>/CLEANED_SCAN_PDF`` (flat)
-    - ``<output_base>/<safe_stem>/*/CLEANED_SCAN_PDF`` (per-run folders)
-    - Same two patterns under ``output/<safe_stem>/`` (legacy pre-split location)
-    - ``<exam_folder>/CLEANED_SCAN_PDF`` (legacy next to exam inputs)
-
-    *safe_stem* is ``exam_folder.name`` with spaces replaced by underscores.
-    The winner is the path with the largest ``st_mtime``.
-    """
-    stem = exam_folder.name.replace(" ", "_")
-    name = CLEANED_SCAN_PDF
-    candidates: list[Path] = []
-
-    for base in (Path(output_base), Path("output")):   # new location, then legacy
-        b = base / stem
-        flat = b / name
-        if flat.is_file():
-            candidates.append(flat)
-        if b.is_dir():
-            for p in b.glob(f"*/{name}"):
-                if p.is_file():
-                    candidates.append(p)
-        for p in b.glob(f"*/scan/{name}"):
-            if p.is_file():
-                candidates.append(p)
-
-    legacy = exam_folder / name
-    if legacy.is_file():
-        candidates.append(legacy)
-
-    if not candidates:
-        return None
-
-    return max(candidates, key=lambda p: p.stat().st_mtime)
 
 
 # ---------------------------------------------------------------------------

@@ -10,7 +10,7 @@ from typing import Any, Protocol, runtime_checkable
 
 from pathlib import Path
 
-from xscore.config import apply_model_extras, resolve_pipeline_ai_model_id
+from xscore.config import MAX_RETRIES, apply_model_extras, resolve_pipeline_ai_model_id
 from xscore.extraction.images import to_jpeg_bytes
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import api_latency_line, log_ai_response_debug, warn_line
@@ -76,7 +76,7 @@ def ai_image_call(
 
     save_prompt(prompt_save_path, model=model, messages=create_kwargs["messages"])
 
-    for attempt in range(1, 4):
+    for attempt in range(1, MAX_RETRIES + 1):
         try:
             _t0 = time.perf_counter()
             resp = client.chat.completions.create(**create_kwargs)
@@ -86,50 +86,8 @@ def ai_image_call(
             log_ai_response_debug("ai_image", model, raw)
             return raw
         except Exception as exc:
-            warn_line(f"API error (attempt {attempt}/3): {exc}")
-            if attempt < 3:
-                time.sleep(2**attempt)
-    return ""
-
-
-def ai_text_call(
-    client: AIChatClient,
-    messages: list[dict[str, Any]],
-    *,
-    max_tokens: int,
-    response_format: Any = _USE_DEFAULT_JSON_OBJECT,
-    thinking: bool = False,
-    warn_prefix: str = "API error",
-    prompt_save_path: Path | None = None,
-) -> str:
-    """Text-only AI chat with the same retry/backoff as :func:`ai_image_call`."""
-    model = resolve_pipeline_ai_model_id()
-    kwargs: dict[str, Any] = dict(
-        model=model,
-        messages=messages,
-        max_tokens=max_tokens,
-    )
-    apply_model_extras(model, kwargs, thinking=thinking)
-    if response_format is _USE_DEFAULT_JSON_OBJECT:
-        kwargs["response_format"] = {"type": "json_object"}
-    elif response_format is not None:
-        kwargs["response_format"] = response_format
-    if not model.startswith("kimi-k2"):
-        kwargs["temperature"] = 0
-
-    save_prompt(prompt_save_path, model=model, messages=messages)
-
-    for attempt in range(1, 4):
-        try:
-            _t0 = time.perf_counter()
-            response = client.chat.completions.create(**kwargs)
-            api_latency_line(time.perf_counter() - _t0)
-            raw = response.choices[0].message.content or ""
-            log_ai_response_debug("ai_text", model, raw)
-            return raw
-        except Exception as exc:
-            warn_line(f"{warn_prefix} (attempt {attempt}/3): {exc}")
-            if attempt < 3:
+            warn_line(f"API error (attempt {attempt}/{MAX_RETRIES}): {exc}")
+            if attempt < MAX_RETRIES:
                 time.sleep(2**attempt)
     return ""
 

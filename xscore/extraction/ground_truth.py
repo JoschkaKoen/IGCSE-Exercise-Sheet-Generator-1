@@ -66,18 +66,3 @@ def fuzzy_match_name(extracted_name: str, gt_names: list[str]) -> str | None:
     return best_match
 
 
-def calculate_student_accuracy(
-    extracted: dict, gt_answers: list[str], answer_fields: list[str]
-) -> float:
-    """Calculate accuracy percentage for a single student."""
-    correct = 0
-    total = len(answer_fields)
-
-    for i, field in enumerate(answer_fields):
-        extracted_val = extracted.get(field, "?").upper().strip()
-        gt_val = gt_answers[i].upper().strip() if i < len(gt_answers) else ""
-
-        if extracted_val == gt_val and extracted_val not in ("", "?"):
-            correct += 1
-
-    return (correct / total) * 100 if total > 0 else 0.0

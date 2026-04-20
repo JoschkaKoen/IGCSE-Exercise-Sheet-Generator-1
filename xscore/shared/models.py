@@ -101,13 +101,6 @@ class Question:
         if self.page == 0 and self.bbox.page:
             self.page = self.bbox.page
 
-    @property
-    def content_summary(self) -> str:
-        """Backward compatibility: first line or truncated text."""
-        line = self.text.strip().split("\n", 1)[0].strip()
-        return line[:200] + ("…" if len(line) > 200 else "")
-
-
 def flatten_questions(questions: list[Question]) -> list[Question]:
     """Depth-first list of this node and all nested subquestions."""
     out: list[Question] = []
@@ -135,11 +128,6 @@ class ExamScaffold:
     page_count: int = 0
     raw_description: str = ""
     layout: ExamLayout = field(default_factory=ExamLayout)
-
-    @property
-    def all_questions(self) -> list[Question]:
-        """Every scaffold node in document reading order (parents and nested subparts)."""
-        return flatten_questions(self.questions)
 
     @property
     def gradable_questions(self) -> list[Question]:
