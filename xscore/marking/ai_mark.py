@@ -50,6 +50,13 @@ def _parse_xml_response(raw: str) -> list[dict]:
     if raw.startswith('```'):
         raw = re.sub(r'^```[^\n]*\n?', '', raw)
         raw = re.sub(r'\n?```$', '', raw.strip())
+    # Extract the <marking>…</marking> block, discarding any surrounding
+    # reasoning text or stray duplicate </marking> tags the model may emit.
+    m = re.search(r'(<marking\b.*?</marking>)', raw, re.DOTALL)
+    if m:
+        raw = m.group(1)
+    # Replace HTML <br> variants with a space (not valid XML void elements)
+    raw = re.sub(r'<br\s*/?>', ' ', raw, flags=re.IGNORECASE)
     # Fix unescaped & in element text (e.g. student wrote "P & Q")
     raw = re.sub(r'&(?![a-zA-Z#]\w*;)', '&amp;', raw)
     # Fix bare < in text content (e.g. "x < y", "< 50%") — leave valid tag starts intact
@@ -155,7 +162,8 @@ def _mark_page(
         "Each child element must be closed with its own matching tag — "
         "</student_answer> closes only <student_answer>, "
         "</explanation> closes only <explanation>.\n"
-        "In XML text content use &lt; for <, &gt; for >, &amp; for &.\n"
+        "In XML text content use &lt; for <, &gt; for >, &amp; for &. "
+        "Do not use HTML tags such as <br> inside element text — use a space or comma to separate items instead.\n"
         "IMPORTANT — LaTeX: wrap all math expressions in $...$ inline math "
         "(e.g. $v = 2\\pi r / T$, $3.0 \\times 10^4$ m/s, $\\frac{d}{v}$). "
         "Use standard LaTeX commands (\\times, \\approx, \\frac{}{}, \\pi, \\rightarrow, etc.). "
