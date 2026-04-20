@@ -32,6 +32,7 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
                     {"letter": o.letter, "text": o.text}
                     for o in (q.answer_options or [])
                 ],
+                "correct_answer": q.correct_answer,
                 "max_marks": q.marks,
                 "student_answer": "",
                 "assigned_marks": None,

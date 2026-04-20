@@ -844,11 +844,20 @@ def build_ai_scaffold(
                 if _seen_sq[_snum] > 1:
                     _sq["number"] = f"{_sq['number']}_{_seen_sq[_snum]}"
 
-            scheme_map = {
-                _norm(q.get("number", "")): q
-                for q in scheme_data["questions"]
-                if isinstance(q, dict) and q.get("number")
-            }
+            scheme_map: dict[str, dict] = {}
+            for _sq in scheme_data["questions"]:
+                if not isinstance(_sq, dict) or not _sq.get("number"):
+                    continue
+                _k = _norm(_sq["number"])
+                scheme_map[_k] = _sq
+                # The mark scheme AI may use "_alt" for a second occurrence of the
+                # same question number while the exam dedup logic uses "_2". Add a
+                # numeric alias so both conventions resolve to the same entry.
+                _alt_m = re.match(r"^(.+?)_alt(\d*)$", _k)
+                if _alt_m:
+                    _base, _n = _alt_m.group(1), _alt_m.group(2)
+                    _idx = (int(_n) + 1) if _n else 2
+                    scheme_map[f"{_base}_{_idx}"] = _sq
             _merge_scheme(raw_questions, scheme_map)
 
     finally:
