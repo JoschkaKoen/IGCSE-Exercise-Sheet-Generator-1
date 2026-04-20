@@ -19,11 +19,38 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
+from pydantic import BaseModel, ConfigDict, ValidationError
+
+from eXercise.ai_client import collect_streamed_response
 from xscore.marking.blueprints import marked_to_md
-from xscore.marking.ai_helpers import parse_json_safe
 from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path, artifact_short_scaffold_json_path
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, warn_line
+
+
+class _FillQuestion(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    number: str
+    subpage_row: int
+    subpage_col: int
+    student_answer: str
+    assigned_marks: int
+    reasoning: str
+
+
+class _FillResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    questions: list[_FillQuestion]
+
+
+_FILL_RESPONSE_FORMAT: dict = {
+    "type": "json_schema",
+    "json_schema": {
+        "name": "FillResponse",
+        "schema": _FillResponse.model_json_schema(),
+        "strict": True,
+    },
+}
 
 
 def _render_page_b64(doc: Any, page_idx: int, dpi: int = 150) -> str:
@@ -58,7 +85,8 @@ def _mark_page(
     b64: str,
     blueprint: dict,
     page_questions_info: list[dict],
-    extra_body: dict,
+    thinking_kw: dict,
+    use_stream: bool = False,
     prompt_save_path: Path | None = None,
 ) -> dict:
     """Vision call to fill in a marking blueprint for one scan page.
@@ -73,10 +101,13 @@ def _mark_page(
 
     system_prompt = (
         "You are an expert exam marker. You will be shown one page of a student's exam paper. "
-        "Fill in the provided JSON template by reading the student's answers and applying the "
-        "marking criteria below. Return ONLY valid JSON in the exact same schema — do not add "
-        "or remove keys. Use proper JSON escape sequences in all strings (\\n for newlines, "
-        "\\t for tabs) — never embed literal control characters. For each question:\n"
+        "Read the question list below and the marking criteria, then return a JSON object with a "
+        "'questions' array — one entry per question in the list, in the same order. "
+        "Each entry must have: number (copy from the list), subpage_row (copy from the list), "
+        "subpage_col (copy from the list), student_answer (string), assigned_marks (integer 0–max_marks), "
+        "reasoning (string, 1–2 sentences). "
+        "Do not include question_text, answer_options, or any other fields.\n"
+        "For each question:\n"
         "  • student_answer: what the student wrote. For multiple_choice: find the option the student "
         "physically marked (written letter, circled letter, cross, or tick) and report that single "
         "letter. Do NOT infer from the question content or your own knowledge of which answer is correct. "
@@ -91,11 +122,7 @@ def _mark_page(
         "IMPORTANT — LaTeX formatting: any expression containing ^, _, or math operators MUST "
         "be wrapped in $...$ (e.g. write \"$10^{3}$\", \"$v_0 = 5$ m/s\", never \"10^3\" or "
         "\"v_0 = 5 m/s\"). Also write \\% for percent signs, \\& for ampersands. Failing to "
-        "use math mode for such expressions will crash the PDF renderer. "
-        "All LaTeX commands in JSON strings MUST use a double backslash — "
-        "e.g. write $\\\\rightarrow$, $\\\\times$, $\\\\approx$ — never $\\rightarrow$. "
-        "A single \\r, \\t, or \\n before a command name is a JSON control character "
-        "that corrupts the output."
+        "use math mode for such expressions will crash the PDF renderer."
     )
     if rows > 1 or cols > 1:
         grid_desc = "\n".join(
@@ -126,7 +153,7 @@ def _mark_page(
     )
     user_text = (
         f"Marking criteria:\n{criteria_text}\n\n"
-        f"Blueprint template to fill in:\n{blueprint_json}"
+        f"Question list (read to identify questions — return one entry per question):\n{blueprint_json}"
     )
     kwargs: dict[str, Any] = dict(
         model=model_id,
@@ -140,21 +167,84 @@ def _mark_page(
                 ],
             },
         ],
-        response_format={"type": "json_object"},
-        extra_body=extra_body,
+        response_format=_FILL_RESPONSE_FORMAT,
     )
+    kwargs.update(thinking_kw)
 
     save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
 
     for attempt in range(1, 4):
         try:
-            resp = client.chat.completions.create(**kwargs)
-            raw = resp.choices[0].message.content or ""
-            result = parse_json_safe(raw)
-            if result is not None:
-                _fix_mc_marks(result, page_questions_info)
-                return result
-            warn_line(f"Marking call returned unparseable JSON (attempt {attempt}/3) — retrying")
+            if use_stream:
+                stream = client.chat.completions.create(**kwargs, stream=True)
+                raw = collect_streamed_response(stream)
+            else:
+                resp = client.chat.completions.create(**kwargs)
+                raw = resp.choices[0].message.content or ""
+            try:
+                fill = _FillResponse.model_validate_json(raw)
+            except ValidationError:
+                warn_line(f"Marking call schema validation failed (attempt {attempt}/3) — retrying")
+                continue
+            result = blueprint.copy()
+            fill_map = {
+                (q.number, q.subpage_row, q.subpage_col): q for q in fill.questions
+            }
+            for bq in result.get("questions", []):
+                _row = bq.get("subpage_row")
+                _col = bq.get("subpage_col")
+                key = (
+                    str(bq.get("number", "")),
+                    int(_row) if _row is not None else 1,
+                    int(_col) if _col is not None else 1,
+                )
+                if key in fill_map:
+                    fq = fill_map[key]
+                    bq["student_answer"] = fq.student_answer
+                    bq["assigned_marks"] = fq.assigned_marks
+                    bq["reasoning"] = fq.reasoning
+            _blueprint_keys = {
+                (
+                    str(bq.get("number", "")),
+                    int(bq.get("subpage_row")) if bq.get("subpage_row") is not None else 1,
+                    int(bq.get("subpage_col")) if bq.get("subpage_col") is not None else 1,
+                )
+                for bq in result.get("questions", [])
+            }
+            _unmatched = [
+                q for q in fill.questions
+                if (q.number, q.subpage_row, q.subpage_col) not in _blueprint_keys
+            ]
+            if _unmatched:
+                warn_line(
+                    f"Marking: {len(_unmatched)} AI entr{'y' if len(_unmatched) == 1 else 'ies'} "
+                    f"didn't match blueprint: "
+                    f"{[(q.number, q.subpage_row, q.subpage_col) for q in _unmatched]}"
+                )
+            _fill_keys = {(q.number, q.subpage_row, q.subpage_col) for q in fill.questions}
+            _unfilled = [
+                bq.get("number") for bq in result.get("questions", [])
+                if (
+                    str(bq.get("number", "")),
+                    int(bq.get("subpage_row")) if bq.get("subpage_row") is not None else 1,
+                    int(bq.get("subpage_col")) if bq.get("subpage_col") is not None else 1,
+                ) not in _fill_keys
+            ]
+            if _unfilled:
+                warn_line(f"Marking: {len(_unfilled)} blueprint question(s) skipped by AI: {_unfilled}")
+            _fix_mc_marks(result, page_questions_info)
+            for bq in result.get("questions", []):
+                max_m = bq.get("max_marks")
+                if max_m is None:
+                    continue
+                m = bq.get("assigned_marks", 0)
+                if not isinstance(m, int) or m < 0 or m > int(max_m):
+                    warn_line(
+                        f"Marking: Q{bq.get('number')} assigned_marks={m} out of range "
+                        f"[0, {max_m}] — clamping"
+                    )
+                    bq["assigned_marks"] = max(0, min(int(m) if isinstance(m, (int, float)) else 0, int(max_m)))
+            return result
         except Exception as exc:  # noqa: BLE001
             warn_line(f"Marking API error (attempt {attempt}/3): {exc}")
             if attempt < 3:
@@ -274,7 +364,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
 
     import fitz
 
-    from eXercise.ai_client import make_ai_client
+    from eXercise.ai_client import make_ai_client, build_thinking_kwargs, collect_streamed_response
     from xscore.shared.exam_paths import artifact_exam_student_list_json_path
 
     result = make_ai_client(model_env="MARKING_MODEL", default_model="qwen3.6-plus, off")
@@ -283,7 +373,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             "MARKING_MODEL client could not be created — check DASHSCOPE_API_KEY in .env"
         )
     client, model_id, _provider, _effort = result
-    extra_body = {"enable_thinking": False} if _provider in ("qwen", "openai", "xai") else {}
+    _use_stream, _thinking_kw = build_thinking_kwargs(_provider, _effort)
 
     # Load page assignments produced by step 10 name detection.
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
@@ -355,7 +445,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 t0 = time.perf_counter()
                 filled = _mark_page(
                     client, model_id, b64, blueprint,
-                    page_questions.get(p_label, []), extra_body,
+                    page_questions.get(p_label, []), _thinking_kw,
+                    use_stream=_use_stream,
                     prompt_save_path=artifact_prompt_path(
                         ctx.artifact_dir, f"12_marked_{safe_name}_{p_label}"
                     ),

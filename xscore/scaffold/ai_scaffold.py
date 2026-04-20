@@ -17,6 +17,9 @@ import time
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from typing import Literal
+
+from pydantic import BaseModel, ValidationError
 
 from xscore.shared.exam_paths import (
     artifact_exam_questions_json_path,
@@ -25,6 +28,83 @@ from xscore.shared.exam_paths import (
 )
 from xscore.shared.models import BBox, ExamLayout, McAnswerOption, Question
 from xscore.shared.prompt_logger import save_prompt
+
+
+# ---------------------------------------------------------------------------
+# Pydantic schemas for Gemini native structured output (response_json_schema)
+# ---------------------------------------------------------------------------
+
+_QType = Literal["multiple_choice", "short_answer", "calculation", "long_answer"]
+
+
+class _McOption(BaseModel):
+    letter: str
+    text: str = ""
+
+
+class _QuestionL2(BaseModel):           # leaf: "9ai", "9aii" — no subquestions field
+    number: str
+    question_type: _QType
+    page: int
+    subpage_row: int
+    subpage_col: int
+    marks: int = 0
+    text: str = ""
+    answer_options: list[_McOption] = []
+
+
+class _QuestionL1(BaseModel):           # part: "9a", "9b"
+    number: str
+    question_type: _QType
+    page: int
+    subpage_row: int
+    subpage_col: int
+    marks: int = 0
+    text: str = ""
+    answer_options: list[_McOption] = []
+    subquestions: list[_QuestionL2] = []
+
+
+class _QuestionL0(BaseModel):           # top-level: "9", "38"
+    number: str
+    question_type: _QType
+    page: int
+    subpage_row: int
+    subpage_col: int
+    marks: int = 0
+    text: str = ""
+    answer_options: list[_McOption] = []
+    subquestions: list[_QuestionL1] = []
+
+
+class _LayoutSchema(BaseModel):
+    rows: int = 1
+    cols: int = 1
+
+
+class _ExamSchema(BaseModel):
+    layout: _LayoutSchema
+    questions: list[_QuestionL0]
+
+
+class _MarkCriterion(BaseModel):
+    mark: str   # "B1"/"M1"/"A1"/etc. or "" — schema enforces str, never null
+    criterion: str
+
+
+class _SchemeEntry(BaseModel):
+    number: str
+    correct_answer: str | None = None
+    mark_scheme: list[_MarkCriterion] = []
+
+
+class _SchemeSchema(BaseModel):
+    questions: list[_SchemeEntry]
+
+
+# Computed once at import time; passed to response_json_schema on every call.
+_EXAM_JSON_SCHEMA: dict = _ExamSchema.model_json_schema()
+_SCHEME_JSON_SCHEMA: dict = _SchemeSchema.model_json_schema()
 
 
 # ---------------------------------------------------------------------------
@@ -79,9 +159,6 @@ A question at the very right edge of the left half still belongs to subpage_col=
 - "text": complete question text in markdown; $...$ for inline math, $$...$$ for display math
 - "answer_options": for multiple_choice only — [{"letter": "A", "text": "..."}, ...]; empty list otherwise
 - "subquestions": list of child questions in the same format; empty list for leaf questions
-
-Return ONLY valid JSON: {"layout": {"rows": N, "cols": M}, "questions": [...]}
-Use proper JSON escape sequences in all strings (\\n for newlines, \\t for tabs) — never embed literal control characters.
 """
 
 _SYSTEM_SCHEME = (
@@ -94,11 +171,8 @@ Extract marking information for every question from this mark scheme.
 
 Return a FLAT list — do not recreate nesting. For each entry:
 - "number": question label in run-together form matching the exam paper (e.g. "9a", "9ai", "38")
-- "correct_answer": model answer in LaTeX-safe text — use $...$ for inline math (e.g. "$1.5 \\times 10^{11}$ m", "$v_0$"), \\% for percent signs, \\& for ampersands; for multiple-choice just the letter; null if not applicable
-- "mark_scheme": [{"mark": "B1/M1/A1/etc. for Cambridge-typed marks, or \\\"\\\" (empty string) when the criterion has no specific mark type — never use JSON null for this field", "criterion": "text"}, ...]
-
-Return ONLY valid JSON: {"questions": [...]}
-Use proper JSON escape sequences (\\n for newlines) — strip all leading whitespace and tab characters from every criterion string; never start a criterion with \\t or any indentation.
+- "correct_answer": model answer — use $...$ for inline math (e.g. "$1.5 \\times 10^{11}$ m"), \\% for percent, \\& for ampersands; for multiple-choice just the letter; null if not applicable
+- "mark_scheme": [{"mark": "B1/M1/A1/etc., or empty string when no mark type", "criterion": "criterion text — use $...$ for any math or physical quantity (e.g. $F = ma$, $9.81 \\text{ m s}^{-2}$)"}, ...]
 """
 
 
@@ -252,8 +326,12 @@ def build_ai_scaffold(
 
     thinking_map = {"off": 0, "low": 1024, "high": 8192}
 
-    def _make_gen_config(effort: str | None, system: str) -> "gai_types.GenerateContentConfig":
+    def _make_gen_config(
+        effort: str | None, system: str, schema: dict | None = None
+    ) -> "gai_types.GenerateContentConfig":
         cfg: dict = {"max_output_tokens": 65536, "response_mime_type": "application/json"}
+        if schema is not None:
+            cfg["response_json_schema"] = schema
         if effort in thinking_map:
             cfg["thinking_config"] = gai_types.ThinkingConfig(
                 thinking_budget=thinking_map[effort],
@@ -296,20 +374,16 @@ def build_ai_scaffold(
                     ),
                     gai_types.Part.from_text(text=_USER_EXAM),
                 ],
-                config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
+                config=_make_gen_config(exam_effort, _SYSTEM_EXAM, schema=_EXAM_JSON_SCHEMA),
             )
             api_latency_line(time.perf_counter() - _t0, label="exam")
             try:
-                data = json.loads(resp.text)
-            except json.JSONDecodeError:
+                data = _ExamSchema.model_validate_json(resp.text).model_dump()
+            except Exception as exc:
                 raise RuntimeError(
-                    f"Gemini returned non-JSON for exam extraction: {resp.text[:300]!r}"
+                    f"Gemini exam response failed schema validation: {exc}: {resp.text[:300]!r}"
                 )
-            if not isinstance(data.get("questions"), list):
-                raise RuntimeError(
-                    f"Gemini exam response missing 'questions' list: {resp.text[:300]!r}"
-                )
-            return data["questions"], data.get("layout") or {}
+            return data["questions"], data["layout"]
 
         def _do_scheme_call() -> dict:
             if artifact_dir is not None:
@@ -327,13 +401,13 @@ def build_ai_scaffold(
                     ),
                     gai_types.Part.from_text(text=_USER_SCHEME),
                 ],
-                config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
+                config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME, schema=_SCHEME_JSON_SCHEMA),
             )
             api_latency_line(time.perf_counter() - _t0, label="mark scheme")
             try:
-                return json.loads(resp.text)
-            except json.JSONDecodeError:
-                return {"questions": []}   # non-fatal
+                return _SchemeSchema.model_validate_json(resp.text).model_dump()
+            except ValidationError:
+                return {"questions": []}   # non-fatal — scheme parse failure is recoverable
 
         # ---- Dispatch: parallel when scheme is present -------------------
         # Both PDFs are already uploaded; running the two Gemini inference

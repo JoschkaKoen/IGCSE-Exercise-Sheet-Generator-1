@@ -306,7 +306,7 @@ def _step02_folder(ctx: _Ctx, gi: SimpleNamespace) -> None:
     validate_input_files(ctx.folder)
 
 
-def _step03_students(ctx: _Ctx, gi: SimpleNamespace, *, on_header_printed=None) -> None:
+def _step03_students(ctx: _Ctx, gi: SimpleNamespace, *, on_header_printed=None, on_complete=None) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None
     gi.pipeline_step(3, "Read student list")
     if on_header_printed is not None:
@@ -314,16 +314,33 @@ def _step03_students(ctx: _Ctx, gi: SimpleNamespace, *, on_header_printed=None) 
     ctx.students = gi.read_student_list(ctx.folder, ctx.artifact_dir)
     gi.ok_line(f"{len(ctx.students)} students on the roster")
     write_student_artifacts(ctx.artifact_dir, ctx.students)
+    if on_complete is not None:
+        on_complete()
 
 
-def _step08_09_10_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
+def _step08_09_10_scaffold(
+    ctx: _Ctx,
+    gi: SimpleNamespace,
+    *,
+    gate_event: "threading.Event | None" = None,
+    background: bool = False,
+) -> None:
     """Steps 8 (parse exam PDF), 9 (parse mark scheme), and 10 (merge scaffold)."""
     assert ctx.folder is not None and ctx.artifact_dir is not None
-    gi.pipeline_step(8, "AI API call — Parse exam PDF")
+    t0 = time.perf_counter()
+    gi.pipeline_step(
+        8, "AI API call — Parse exam PDF",
+        subtitle="running in background" if background else None,
+    )
 
     def _on_exam_done(raw_questions: list) -> None:
         gi.ok_line(f"{len(raw_questions)} top-level questions extracted")
-        gi.pipeline_step(9, "AI API call — Parse mark scheme")
+        if gate_event is not None:
+            gate_event.wait()       # wait for step 7 before printing step 9 header
+        gi.pipeline_step(
+            9, "AI API call — Parse mark scheme",
+            subtitle="completed in background" if background else None,
+        )
 
     def _on_scheme_done(scheme_questions: list) -> None:
         gi.ok_line(f"{len(scheme_questions)} answers in mark scheme")
@@ -340,6 +357,7 @@ def _step08_09_10_scaffold(ctx: _Ctx, gi: SimpleNamespace) -> None:
         qs = ctx.scaffold.gradable_questions
         gi.ok_line(
             f"{len(qs)} gradable parts  ·  {ctx.scaffold.total_marks} marks total"
+            f"  ·  {gi.format_duration(time.perf_counter() - t0)}"
         )
     except FileNotFoundError as exc:
         gi.warn_line(f"No exam PDF found — scaffold skipped ({exc})")
@@ -381,7 +399,7 @@ def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
     )
 
 
-def _run_step3_and_scan_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
+def _run_step3_and_scan_parallel(ctx: _Ctx, gi: SimpleNamespace, *, on_students_ready=None) -> None:
     """Step 3 runs on the main thread; scan phases (4–6) run concurrently.
 
     A threading.Event gates the scan thread so the step 4 header cannot print
@@ -406,9 +424,13 @@ def _run_step3_and_scan_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
     with ThreadPoolExecutor(max_workers=1) as pool:
         pool.submit(_scan_wrapper)
         try:
-            _step03_students(ctx, gi, on_header_printed=_scan_ready.set)
+            _step03_students(ctx, gi,
+                             on_header_printed=_scan_ready.set,
+                             on_complete=on_students_ready)
         except BaseException as exc:
             _scan_ready.set()       # unblock scan thread even on step-3 error
+            if on_students_ready is not None:
+                on_students_ready()  # unblock scaffold thread even on step-3 error
             step3_exc = exc
         # exiting the `with` block waits for the scan thread to finish
 
@@ -416,6 +438,50 @@ def _run_step3_and_scan_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
         raise step3_exc
     if scan_exc is not None:
         raise scan_exc
+
+
+def _run_steps3to10_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Steps 3–10 with maximum parallelism after step 2.
+
+    Main thread : step 3 → (steps 4-6 background) → step 7
+    Scaffold thread: (wait students_ready) → steps 8-9-10
+                     step 8 header fires immediately; steps 9/10 headers are
+                     gated until step 7 finishes to keep output in logical order.
+    Exceptions are re-raised in pipeline order after both threads finish.
+    """
+    import threading
+    from concurrent.futures import ThreadPoolExecutor
+
+    _students_ready = threading.Event()
+    _step7_done = threading.Event()
+    scaffold_exc: BaseException | None = None
+    main_exc: BaseException | None = None
+
+    def _scaffold_wrapper() -> None:
+        nonlocal scaffold_exc
+        _students_ready.wait()
+        try:
+            _step08_09_10_scaffold(ctx, gi, gate_event=_step7_done, background=True)
+        except BaseException as exc:
+            scaffold_exc = exc
+
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        pool.submit(_scaffold_wrapper)
+        try:
+            _run_step3_and_scan_parallel(ctx, gi, on_students_ready=_students_ready.set)
+            if ctx.cleaned_pdf:
+                _step07_geometry(ctx, gi)
+        except BaseException as exc:
+            _students_ready.set()   # unblock scaffold thread on main-thread error
+            main_exc = exc
+        finally:
+            _step7_done.set()       # always unblock scaffold gate (even on error/no scan)
+        # exiting the `with` block waits for the scaffold thread to finish
+
+    if main_exc is not None:
+        raise main_exc
+    if scaffold_exc is not None:
+        raise scaffold_exc
 
 
 # ---------------------------------------------------------------------------
@@ -558,10 +624,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
     try:
         _step01_parse(ctx, gi)
         _step02_folder(ctx, gi)
-        _run_step3_and_scan_parallel(ctx, gi)
-        if ctx.cleaned_pdf:
-            _step07_geometry(ctx, gi)
-        _step08_09_10_scaffold(ctx, gi)
+        _run_steps3to10_parallel(ctx, gi)
         if ctx.cleaned_pdf and ctx.scaffold:
             _step11_blueprints(ctx, gi)
             _step12_mark(ctx, gi)
