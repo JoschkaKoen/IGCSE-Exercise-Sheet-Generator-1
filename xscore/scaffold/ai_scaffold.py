@@ -21,10 +21,9 @@ from pathlib import Path
 from pydantic import BaseModel
 
 from xscore.shared.exam_paths import (
-    artifact_exam_questions_json_path,
     artifact_exam_questions_raw_xml_path,
-    artifact_mark_scheme_json_path,
-    artifact_mark_scheme_raw_xml_path,
+    artifact_exam_questions_xml_path,
+    artifact_mark_scheme_xml_path,
     artifact_prompt_path,
 )
 from xscore.shared.models import BBox, ExamLayout, McAnswerOption, Question
@@ -237,24 +236,43 @@ def _upload_and_poll(client, path: Path, label: str):
 # Artifact helpers
 # ---------------------------------------------------------------------------
 
-def _save_exam_questions(artifact_dir: Path, raw_questions: list[dict]) -> None:
-    """Write step-9 artifacts: ``9_exam_questions.json`` + ``9_exam_questions.md``."""
+def _serialize_exam_xml(questions: list[dict], layout: dict) -> str:
+    """Serialise post-remap question dicts to <exam rows cols> XML string."""
+    import xml.etree.ElementTree as ET
+
+    def _q_el(parent: ET.Element, q: dict) -> None:
+        el = ET.SubElement(parent, "question")
+        el.set("number", str(q.get("number", "")))
+        el.set("type", str(q.get("question_type", "short_answer")))
+        el.set("page", str(q.get("page", 1)))
+        el.set("subpage_row", str(q.get("subpage_row", 1)))
+        el.set("subpage_col", str(q.get("subpage_col", 1)))
+        el.set("marks", str(q.get("marks", 0)))
+        text_el = ET.SubElement(el, "text")
+        text_el.text = q.get("text", "")
+        for opt in (q.get("answer_options") or []):
+            opt_el = ET.SubElement(el, "option")
+            opt_el.set("letter", str(opt.get("letter", "")))
+            opt_el.text = opt.get("text", "")
+        for sub in (q.get("subquestions") or []):
+            _q_el(el, sub)
+
+    root = ET.Element("exam")
+    root.set("rows", str(layout.get("rows", 1)))
+    root.set("cols", str(layout.get("cols", 1)))
+    for q in questions:
+        _q_el(root, q)
+    ET.indent(root)
+    return ET.tostring(root, encoding="unicode", xml_declaration=False)
+
+
+def _save_exam_questions_xml(artifact_dir: Path, raw_questions: list[dict], layout: dict) -> None:
+    """Write step-9 artifacts: ``9_exam_questions.xml`` + ``9_exam_questions.md``."""
     from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
-    json_path = artifact_exam_questions_json_path(artifact_dir)
-    json_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(raw_questions, f, indent=2, ensure_ascii=False)
+    xml_path = artifact_exam_questions_xml_path(artifact_dir)
+    xml_path.parent.mkdir(parents=True, exist_ok=True)
+    xml_path.write_text(_serialize_exam_xml(raw_questions, layout), encoding="utf-8")
     write_raw_exam_markdown(artifact_dir, raw_questions)
-
-
-def _save_mark_scheme(artifact_dir: Path, scheme_questions: list[dict]) -> None:
-    """Write step-10 artifacts: ``10_mark_scheme.json`` + ``10_mark_scheme.md``."""
-    from xscore.scaffold.scaffold_markdown import write_mark_scheme_markdown
-    json_path = artifact_mark_scheme_json_path(artifact_dir)
-    json_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(scheme_questions, f, indent=2, ensure_ascii=False)
-    write_mark_scheme_markdown(artifact_dir, scheme_questions)
 
 
 # ---------------------------------------------------------------------------
@@ -758,14 +776,17 @@ def build_ai_scaffold(
                 config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
             )
             api_latency_line(time.perf_counter() - _t0, label="mark scheme")
+            result = _parse_scheme_xml(resp.text)   # non-fatal — returns {} on parse error
             if artifact_dir is not None:
                 try:
-                    p = artifact_mark_scheme_raw_xml_path(artifact_dir)
+                    from xscore.scaffold.scaffold_markdown import write_mark_scheme_markdown
+                    p = artifact_mark_scheme_xml_path(artifact_dir)
                     p.parent.mkdir(parents=True, exist_ok=True)
-                    p.write_text(resp.text, encoding="utf-8")
+                    p.write_text(_preprocess_xml(resp.text), encoding="utf-8")
+                    write_mark_scheme_markdown(artifact_dir, result.get("questions", []))
                 except OSError:
                     pass
-            return _parse_scheme_xml(resp.text)   # non-fatal — returns {} on parse error
+            return result
 
         # ---- Dispatch: parallel when scheme is present -------------------
         # Both PDFs are already uploaded; running the two Gemini inference
@@ -787,7 +808,7 @@ def build_ai_scaffold(
             scheme_data = {"questions": []}
 
         # ---- Post-extraction: remap split-PDF page numbers -------------------
-        # Remap before saving artifacts so 9_exam_questions.json has physical page coords.
+        # Remap before saving artifacts so 9_exam_questions.xml has physical page coords.
         if split_pdf_path is not None and layout_result is not None:
             _remap_split_pages(raw_questions, layout_result)
 
@@ -803,7 +824,7 @@ def build_ai_scaffold(
         # SystemExit(0) when --through 9 is used, so anything after it won't run.
         if artifact_dir is not None:
             try:
-                _save_exam_questions(artifact_dir, raw_questions)
+                _save_exam_questions_xml(artifact_dir, raw_questions, raw_layout)
             except OSError:
                 pass
 
@@ -811,12 +832,7 @@ def build_ai_scaffold(
             on_exam_complete(raw_questions)
 
         if isinstance(scheme_data.get("questions"), list):
-            # Save step-10 artifacts before merging — preserves the raw scheme output.
-            if artifact_dir is not None:
-                try:
-                    _save_mark_scheme(artifact_dir, scheme_data["questions"])
-                except OSError:
-                    pass
+            # Step-10 XML + markdown already saved inside _do_scheme_call().
             # Notify caller that scheme parse is done, before merging.
             # The callback may raise SystemExit(0) for --through 5.
             if on_scheme_complete is not None:

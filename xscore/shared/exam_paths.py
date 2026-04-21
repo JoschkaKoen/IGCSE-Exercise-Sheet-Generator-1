@@ -114,9 +114,24 @@ def artifact_exam_questions_raw_xml_path(artifact_dir: Path) -> Path:
     return artifact_dir / "9_exam_questions_raw.xml"
 
 
-def artifact_mark_scheme_raw_xml_path(artifact_dir: Path) -> Path:
-    """Step 10: raw XML string returned by Gemini before parsing."""
-    return artifact_dir / "10_mark_scheme_raw.xml"
+def artifact_mark_scheme_xml_path(artifact_dir: Path) -> Path:
+    """Step 10: canonical XML (preprocessed Gemini response)."""
+    return artifact_dir / "10_mark_scheme.xml"
+
+
+def artifact_exam_questions_xml_path(artifact_dir: Path) -> Path:
+    """Step 9: canonical XML after page remapping."""
+    return artifact_dir / "9_exam_questions.xml"
+
+
+def artifact_scaffold_xml_path(artifact_dir: Path) -> Path:
+    """Step 11: merged exam + mark scheme XML scaffold cache."""
+    return artifact_dir / "11_report.xml"
+
+
+def artifact_blueprint_xml_path(artifact_dir: Path, page: int) -> Path:
+    """Step 12: XML marking blueprint for one exam page."""
+    return artifact_dir / f"12_ai_marking_blueprint_{page}.xml"
 
 
 def artifact_exam_layout_json_path(artifact_dir: Path) -> Path:
@@ -323,7 +338,8 @@ def find_scaffold_cache_file(
     for base in (output_base, "output"):   # new location first, then legacy
         ad = exam_artifact_dir(exam_folder, base)
         for p in (
-            artifact_scaffold_json_path(ad),          # 11_report.json  (current — flat)
+            artifact_scaffold_xml_path(ad),           # 11_report.xml   (current — XML)
+            artifact_scaffold_json_path(ad),          # 11_report.json  (legacy JSON)
             ad / "exam" / "11_report.json",           # legacy: was in exam/ subdir
             ad / "scaffold" / "11_report.json",       # legacy: was in scaffold/ subdir
             ad / "6_report.json",                     # legacy: older name

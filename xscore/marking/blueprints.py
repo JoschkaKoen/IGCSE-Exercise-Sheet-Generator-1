@@ -1,23 +1,67 @@
-"""Step 11 — AI marking blueprints: one JSON per exam page, leaf questions only."""
+"""Step 12 — AI marking blueprints: one XML per exam page, leaf questions only."""
 
 from __future__ import annotations
 
-import json
 import re
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
 
-def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
-    """For each exam page create a blueprint JSON with only the leaf questions.
+def _criteria_from_marking_str(criteria_str: str | None) -> list[tuple[str, str]]:
+    """Parse '[B1] text\n[M1] text' → [(mark, text), ...]."""
+    if not criteria_str:
+        return []
+    result = []
+    for line in criteria_str.strip().splitlines():
+        m = re.match(r'^\[([^\]]*)\]\s*(.*)', line.strip())
+        if m:
+            result.append((m.group(1), m.group(2).strip()))
+        elif line.strip():
+            result.append(("", line.strip()))
+    return result
 
-    Each question entry has: number, question_type, max_marks, student_answer (empty),
-    assigned_marks (null), reasoning (empty).  Only leaf questions (gradable_questions)
-    whose .page field matches the page number are included.
+
+def _build_blueprint_xml(page_num: int, layout: Any, page_qs: list[dict]) -> str:
+    """Build <marking page rows cols> XML for one exam page."""
+    root = ET.Element("marking")
+    root.set("page", str(page_num))
+    root.set("rows", str(layout.rows))
+    root.set("cols", str(layout.cols))
+    for q in page_qs:
+        qel = ET.SubElement(root, "question")
+        qel.set("number", str(q["number"]))
+        qel.set("type", str(q["question_type"]))
+        qel.set("subpage_row", str(q["subpage_row"]))
+        qel.set("subpage_col", str(q["subpage_col"]))
+        qel.set("order_in_subpage", str(q["order_in_subpage"]))
+        qel.set("max_marks", str(q["max_marks"]))
+        if q.get("correct_answer") is not None:
+            qel.set("correct_answer", str(q["correct_answer"]))
+        text_el = ET.SubElement(qel, "text")
+        text_el.text = q.get("question_text", "")
+        for opt in (q.get("answer_options") or []):
+            opt_el = ET.SubElement(qel, "option")
+            opt_el.set("letter", str(opt.get("letter", "")))
+            opt_el.text = opt.get("text", "")
+        if q.get("question_type") != "multiple_choice":
+            for mark, ctext in _criteria_from_marking_str(q.get("marking_criteria")):
+                cel = ET.SubElement(qel, "criterion")
+                cel.set("mark", mark)
+                cel.text = ctext
+        ET.SubElement(qel, "student_answer")
+        ET.SubElement(qel, "assigned_marks")
+        ET.SubElement(qel, "explanation")
+    ET.indent(root)
+    return ET.tostring(root, encoding="unicode", xml_declaration=False)
+
+
+def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
+    """For each exam page create a blueprint XML with only the leaf questions.
 
     Returns a list of blueprint dicts, one per exam page (1-indexed).
     """
-    from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_blueprint_md_path
+    from xscore.shared.exam_paths import artifact_blueprint_xml_path, artifact_blueprint_md_path
     layout = scaffold.layout
     blueprints: list[dict] = []
     for page_num in range(1, scaffold.page_count + 1):
@@ -40,6 +84,7 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
                     for o in (q.answer_options or [])
                 ],
                 "correct_answer": q.correct_answer,
+                "marking_criteria": q.marking_criteria,
                 "max_marks": q.marks,
                 "student_answer": "",
                 "assigned_marks": None,
@@ -52,9 +97,9 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
         }
         blueprints.append(bp)
 
-        json_path = artifact_blueprint_json_path(artifact_dir, page_num)
-        json_path.parent.mkdir(parents=True, exist_ok=True)
-        json_path.write_text(json.dumps(bp, indent=2, ensure_ascii=False), encoding="utf-8")
+        xml_path = artifact_blueprint_xml_path(artifact_dir, page_num)
+        xml_path.parent.mkdir(parents=True, exist_ok=True)
+        xml_path.write_text(_build_blueprint_xml(page_num, layout, page_qs), encoding="utf-8")
 
         md_path = artifact_blueprint_md_path(artifact_dir, page_num)
         md_path.write_text(_blueprint_to_md(bp), encoding="utf-8")

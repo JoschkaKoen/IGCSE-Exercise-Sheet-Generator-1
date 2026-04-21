@@ -26,7 +26,7 @@ import xml.etree.ElementTree as ET
 from eXercise.ai_client import collect_streamed_response
 from xscore.config import MAX_RETRIES
 from xscore.marking.blueprints import marked_to_md
-from xscore.shared.exam_paths import artifact_blueprint_json_path, artifact_marked_failed_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path, artifact_short_scaffold_json_path
+from xscore.shared.exam_paths import artifact_blueprint_xml_path, artifact_marked_failed_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, warn_line
 
@@ -78,6 +78,46 @@ def _parse_xml_response(raw: str) -> list[dict]:
     return questions
 
 
+def _blueprint_xml_to_dict(xml_str: str) -> dict:
+    """Parse <marking page rows cols> XML into the blueprint dict format."""
+    root = ET.fromstring(xml_str)
+    questions = []
+    for qel in root.findall("question"):
+        text_el = qel.find("text")
+        answer_options = [
+            {"letter": o.get("letter", ""), "text": (o.text or "").strip()}
+            for o in qel.findall("option")
+        ]
+        mark_scheme = [
+            {"mark": c.get("mark", ""), "criterion": (c.text or "").strip()}
+            for c in qel.findall("criterion")
+            if (c.text or "").strip()
+        ]
+        sa_el = qel.find("student_answer")
+        am_el = qel.find("assigned_marks")
+        ex_el = qel.find("explanation")
+        questions.append({
+            "number":          qel.get("number", ""),
+            "question_type":   qel.get("type", "short_answer"),
+            "subpage_row":     int(qel.get("subpage_row", 1)),
+            "subpage_col":     int(qel.get("subpage_col", 1)),
+            "order_in_subpage": int(qel.get("order_in_subpage", 1)),
+            "question_text":   (text_el.text or "").strip() if text_el is not None else "",
+            "answer_options":  answer_options,
+            "correct_answer":  qel.get("correct_answer") or None,
+            "max_marks":       int(qel.get("max_marks", 0)),
+            "mark_scheme":     mark_scheme,
+            "student_answer":  (sa_el.text or "").strip() if sa_el is not None else "",
+            "assigned_marks":  None if am_el is None or not (am_el.text or "").strip() else int(am_el.text),
+            "explanation":     (ex_el.text or "").strip() if ex_el is not None else "",
+        })
+    return {
+        "page":     int(root.get("page", 1)),
+        "layout":   {"rows": int(root.get("rows", 1)), "cols": int(root.get("cols", 1))},
+        "questions": questions,
+    }
+
+
 def _render_page_b64(doc: Any, page_idx: int, dpi: int = 150) -> str:
     """Render a fitz Document page at *page_idx* as base64 JPEG.
 
@@ -109,8 +149,8 @@ def _mark_page(
     model_id: str,
     b64: str,
     blueprint: dict,
-    page_questions_info: list[dict],
     thinking_kw: dict,
+    blueprint_xml: str = "",
     use_stream: bool = False,
     prompt_save_path: Path | None = None,
     warn: Callable[[str], None] = warn_line,
@@ -122,8 +162,7 @@ def _mark_page(
     """
     layout = blueprint.get("layout") or {"rows": 1, "cols": 1}
     rows, cols = int(layout.get("rows", 1)), int(layout.get("cols", 1))
-    criteria_text = _format_criteria(page_questions_info, rows=rows, cols=cols)
-    blueprint_json = json.dumps(blueprint, indent=2, ensure_ascii=False)
+    criteria_text = _format_criteria(blueprint.get("questions", []), rows=rows, cols=cols)
 
     system_prompt = (
         "You are an expert exam marker. You will be shown one page of a student's exam paper. "
@@ -211,7 +250,7 @@ def _mark_page(
     )
     user_text = (
         f"Marking criteria:\n{criteria_text}\n\n"
-        f"Question list (read to identify questions — return one entry per question):\n{blueprint_json}"
+        f"Blueprint XML (read to identify questions — return one entry per question):\n{blueprint_xml}"
     )
     kwargs: dict[str, Any] = dict(
         model=model_id,
@@ -289,7 +328,7 @@ def _mark_page(
             )
             if _unmatched_count:
                 warn(f"Marking: {_unmatched_count} AI entries had no matching blueprint question")
-            _fix_mc_marks(result, page_questions_info)
+            _fix_mc_marks(result)
             for bq in result.get("questions", []):
                 max_m = bq.get("max_marks")
                 if max_m is None:
@@ -311,7 +350,7 @@ def _mark_page(
     raise MarkingFailure(attempts=MAX_RETRIES + 1, last_exc=_last_exc, last_raw=_last_raw)
 
 
-def _fix_mc_marks(result: dict, page_questions_info: list[dict]) -> None:
+def _fix_mc_marks(result: dict) -> None:
     """Normalise student_answer and recompute assigned_marks for MCQ questions in-place.
 
     The AI is not shown the correct answer for MCQs, so it cannot award marks
@@ -323,8 +362,8 @@ def _fix_mc_marks(result: dict, page_questions_info: list[dict]) -> None:
     _2 is removed from blueprints.
     """
     mc_correct: dict[str, str] = {
-        (q.get("question_text") or q.get("text") or "").strip(): (q.get("correct_answer") or "").strip().upper()
-        for q in page_questions_info
+        (q.get("question_text") or "").strip(): (q.get("correct_answer") or "").strip().upper()
+        for q in result.get("questions", [])
         if q.get("question_type") == "multiple_choice" and q.get("correct_answer")
     }
     if not mc_correct:
@@ -347,14 +386,14 @@ def _clean_criteria_line(l: str) -> str:
     return "  " + c[2:] if c.startswith("\\t") else c
 
 
-def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1) -> str:
+def _format_criteria(blueprint_questions: list[dict], *, rows: int = 1, cols: int = 1) -> str:
     """Format question marking criteria for the AI prompt."""
-    if not questions_info:
+    if not blueprint_questions:
         return "(no questions assigned to this page)"
     multi_subpage = rows > 1 or cols > 1
     # Sort by quadrant so same-subpage questions are grouped together.
     sorted_qs = sorted(
-        questions_info,
+        blueprint_questions,
         key=lambda q: (int(q.get("subpage_row") or 1), int(q.get("subpage_col") or 1)),
     )
     parts = []
@@ -365,13 +404,13 @@ def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1
         c = int(q.get("subpage_col") or 1)
         subpage_order_counters[(r, c)] = subpage_order_counters.get((r, c), 0) + 1
         order = subpage_order_counters[(r, c)]
-        line = f"Q{display_num} [{q.get('question_type', '')}] — {q.get('marks', '?')} mark(s)"
+        line = f"Q{display_num} [{q.get('question_type', '')}] — {q.get('max_marks', '?')} mark(s)"
         if multi_subpage:
             label = _quadrant_label(r, c, rows, cols)
             line += f"  (sub-page row {r}, col {c} — {label}, position {order})"
         else:
             line += f"  (position {order})"
-        question_text = (q.get("text") or q.get("question_text") or "").strip()
+        question_text = (q.get("question_text") or "").strip()
         if question_text:
             line += f"\n  Question: \"{question_text}\""
         answer_options = q.get("answer_options") or []
@@ -384,8 +423,12 @@ def _format_criteria(questions_info: list[dict], *, rows: int = 1, cols: int = 1
             line += f"\n  Options:\n{opts_lines}"
         if q.get("correct_answer") and q.get("question_type") != "multiple_choice":
             line += f"\n  Correct answer: {q['correct_answer']}"
-        if q.get("marking_criteria"):
-            lines = [_clean_criteria_line(l) for l in q["marking_criteria"].splitlines()]
+        ms = [m for m in (q.get("mark_scheme") or []) if m.get("criterion")]
+        if ms:
+            criteria_str = "\n".join(
+                f"[{m.get('mark', '')}] {m.get('criterion', '')}" for m in ms
+            )
+            lines = [_clean_criteria_line(l) for l in criteria_str.splitlines()]
             if len(lines) > 1:
                 bulleted = []
                 for l in lines:
@@ -456,15 +499,6 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         elif sf.mode == "first_n" and sf.n:
             raw_assignments = raw_assignments[: sf.n]
 
-    # Load short report once; build page → leaf-questions lookup (read-only, shared)
-    short_report_path = artifact_short_scaffold_json_path(ctx.artifact_dir)
-    short_report = json.loads(short_report_path.read_text(encoding="utf-8"))
-    all_leaf_qs = _flatten_leaf_questions(short_report.get("questions", []))
-    page_questions: dict[int, list[dict]] = {}
-    for q in all_leaf_qs:
-        pg = int(q.get("page") or 0)
-        page_questions.setdefault(pg, []).append(q)
-
     workers = int(os.environ.get("MARKING_WORKERS", str(min(os.cpu_count() or 4, 16))))
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
@@ -501,18 +535,17 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         live.update(_render())
 
                 b64 = _render_page_b64(doc, scan_idx, dpi=dpi)
-                blueprint = json.loads(
-                    artifact_blueprint_json_path(ctx.artifact_dir, p_label).read_text(
-                        encoding="utf-8"
-                    )
+                blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, p_label).read_text(
+                    encoding="utf-8"
                 )
+                blueprint = _blueprint_xml_to_dict(blueprint_xml)
                 safe_name = student_name or f"Unknown_{scan_page}"
 
                 t0 = time.perf_counter()
                 try:
                     filled = _mark_page(
-                        client, model_id, b64, blueprint,
-                        page_questions.get(p_label, []), _thinking_kw,
+                        client, model_id, b64, blueprint, _thinking_kw,
+                        blueprint_xml=blueprint_xml,
                         use_stream=_use_stream,
                         prompt_save_path=artifact_prompt_path(
                             ctx.artifact_dir, f"13_marked_{safe_name}_{p_label}"

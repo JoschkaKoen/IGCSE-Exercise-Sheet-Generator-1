@@ -13,7 +13,9 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
@@ -31,7 +33,7 @@ from xscore.shared.models import (
 from xscore.shared.exam_paths import (
     artifact_scaffold_json_path,
     artifact_scaffold_markdown_path,
-    artifact_short_scaffold_json_path,
+    artifact_scaffold_xml_path,
     exam_artifact_dir,
     legacy_artifact_scaffold_cache_path,
     legacy_flat_artifact_scaffold_cache_path,
@@ -50,7 +52,7 @@ from xscore.scaffold.pdf_parser.content import (
 from xscore.scaffold.draw_boxes_on_empty_exam import write_scaffold_boxes_pdf
 
 
-SCHEMA_VERSION = 17
+SCHEMA_VERSION = 18
 
 
 def find_exam_pdf(folder: Path) -> Path:
@@ -207,6 +209,7 @@ def _legacy_scaffold_subdir_cache(folder: Path) -> Path:
 
 def _effective_cache_path(folder: Path, artifact_dir: Path) -> Path | None:
     for p in (
+        artifact_scaffold_xml_path(artifact_dir),
         artifact_scaffold_json_path(artifact_dir),
         legacy_flat_artifact_scaffold_cache_path(artifact_dir),
         legacy_artifact_scaffold_cache_path(artifact_dir),
@@ -293,6 +296,8 @@ def _load_cache(folder: Path, artifact_dir: Path) -> ExamScaffold:
     path = _effective_cache_path(folder, artifact_dir)
     if path is None:
         raise FileNotFoundError(f"No scaffold cache for {folder}")
+    if path.suffix == ".xml":
+        return _load_cache_xml(path)
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
     if data.get("schema_version") != SCHEMA_VERSION:
@@ -317,6 +322,121 @@ def _load_cache(folder: Path, artifact_dir: Path) -> ExamScaffold:
     )
 
 
+def _criterion_str_to_elements(criteria_str: str) -> list[ET.Element]:
+    """Convert '[B1] text\n[M1] text' → list of <criterion mark="B1"> elements."""
+    elements = []
+    for line in criteria_str.strip().splitlines():
+        el = ET.Element("criterion")
+        m = re.match(r'^\[([^\]]*)\]\s*(.*)', line.strip())
+        if m:
+            el.set("mark", m.group(1))
+            el.text = m.group(2).strip()
+        else:
+            el.set("mark", "")
+            el.text = line.strip()
+        if el.text:
+            elements.append(el)
+    return elements
+
+
+def _question_to_xml_element(q: Question) -> ET.Element:
+    el = ET.Element("question")
+    el.set("number", q.number)
+    el.set("type", q.question_type)
+    el.set("page", str(q.page or (q.bbox.page if q.bbox else 1)))
+    el.set("subpage_row", str(q.subpage_row))
+    el.set("subpage_col", str(q.subpage_col))
+    el.set("marks", str(q.marks))
+    if q.correct_answer is not None and str(q.correct_answer).strip():
+        el.set("correct_answer", str(q.correct_answer))
+    text_el = ET.SubElement(el, "text")
+    text_el.text = q.text or ""
+    for opt in (q.answer_options or []):
+        opt_el = ET.SubElement(el, "option")
+        opt_el.set("letter", opt.letter)
+        opt_el.text = opt.text
+    if q.question_type != "multiple_choice" and q.marking_criteria and str(q.marking_criteria).strip():
+        for crit_el in _criterion_str_to_elements(str(q.marking_criteria)):
+            el.append(crit_el)
+    for sub in (q.subquestions or []):
+        el.append(_question_to_xml_element(sub))
+    return el
+
+
+def _scaffold_to_xml(scaffold: ExamScaffold, students: list[str] | None = None) -> str:
+    """Serialise ExamScaffold to an XML string."""
+    root = ET.Element("scaffold")
+    root.set("schema_version", str(SCHEMA_VERSION))
+    root.set("total_marks", str(scaffold.total_marks))
+    root.set("page_count", str(scaffold.page_count))
+    root.set("rows", str(scaffold.layout.rows))
+    root.set("cols", str(scaffold.layout.cols))
+    if students:
+        studs_el = ET.SubElement(root, "students")
+        for s in students:
+            s_el = ET.SubElement(studs_el, "student")
+            s_el.text = s
+    for q in scaffold.questions:
+        root.append(_question_to_xml_element(q))
+    ET.indent(root)
+    return ET.tostring(root, encoding="unicode", xml_declaration=False)
+
+
+def _question_from_xml_element(el: ET.Element) -> Question:
+    page = int(el.get("page", 1))
+    text_el = el.find("text")
+    text = (text_el.text or "").strip() if text_el is not None else ""
+    answer_options = [
+        McAnswerOption(letter=o.get("letter", ""), text=(o.text or "").strip())
+        for o in el.findall("option")
+    ]
+    criterion_parts = []
+    for c in el.findall("criterion"):
+        mark = c.get("mark", "")
+        ctext = (c.text or "").strip()
+        if ctext:
+            criterion_parts.append(f"[{mark}] {ctext}" if mark else ctext)
+    marking_criteria: str | None = "\n".join(criterion_parts) or None
+    subquestions = [_question_from_xml_element(sub) for sub in el.findall("question")]
+    return Question(
+        number=el.get("number", ""),
+        question_type=el.get("type", "short_answer"),
+        text=text,
+        marks=int(el.get("marks", 0)),
+        bbox=BBox(0.0, 0.0, 0.0, 0.0, page),
+        page=page,
+        subpage_row=int(el.get("subpage_row", 1)),
+        subpage_col=int(el.get("subpage_col", 1)),
+        answer_options=answer_options,
+        subquestions=subquestions,
+        correct_answer=el.get("correct_answer") or None,
+        marking_criteria=marking_criteria,
+    )
+
+
+def _load_cache_xml(path: Path) -> ExamScaffold:
+    tree = ET.parse(path)
+    root = tree.getroot()
+    if root.get("schema_version") != str(SCHEMA_VERSION):
+        raise ValueError(
+            f"scaffold XML schema_version mismatch — rebuild required "
+            f"(got {root.get('schema_version')!r}, need {str(SCHEMA_VERSION)!r})"
+        )
+    questions = [_question_from_xml_element(el) for el in root.findall("question")]
+    total = int(root.get("total_marks", 0))
+    if not total and questions:
+        total = sum(q.marks for q in gradable_questions(questions))
+    return ExamScaffold(
+        questions=questions,
+        total_marks=total,
+        page_count=int(root.get("page_count", 0)),
+        layout=ExamLayout(
+            rows=int(root.get("rows", 1)),
+            cols=int(root.get("cols", 1)),
+        ),
+    )
+
+
 def _scaffold_to_payload(scaffold: ExamScaffold, students: list[str] | None = None) -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,
@@ -330,25 +450,20 @@ def _scaffold_to_payload(scaffold: ExamScaffold, students: list[str] | None = No
 
 
 def _save_cache(artifact_dir: Path, scaffold: ExamScaffold, students: list[str] | None = None) -> None:
-    payload = _scaffold_to_payload(scaffold, students)
-    out = artifact_scaffold_json_path(artifact_dir)
+    out = artifact_scaffold_xml_path(artifact_dir)
     out.parent.mkdir(parents=True, exist_ok=True)
-    with open(out, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2, ensure_ascii=False)
+    out.write_text(_scaffold_to_xml(scaffold, students), encoding="utf-8")
+    payload = _scaffold_to_payload(scaffold, students)
     write_scaffold_markdown(artifact_dir, payload)
-    short_payload = {k: v for k, v in payload.items() if k != "students"}
-    short_out = artifact_short_scaffold_json_path(artifact_dir)
-    with open(short_out, "w", encoding="utf-8") as f:
-        json.dump(short_payload, f, indent=2, ensure_ascii=False)
     write_short_scaffold_markdown(artifact_dir, payload)
     for old_name in (artifact_dir / "6_scaffold.json", artifact_dir / "5_scaffold.json", artifact_dir / "1_scaffold.json"):
-        if old_name.is_file() and old_name != out:
+        if old_name.is_file():
             try:
                 old_name.unlink()
             except OSError:
                 pass
     flat_old = legacy_flat_artifact_scaffold_cache_path(artifact_dir)
-    if flat_old.is_file() and flat_old != out:
+    if flat_old.is_file():
         try:
             flat_old.unlink()
         except OSError:
@@ -445,15 +560,9 @@ def build_scaffold(
                     )
                 _migrate_scaffold_cache_to_artifact(folder, ad, scaffold)
             elif not artifact_scaffold_markdown_path(ad).is_file():
-                _cached_students: list[str] = []
-                try:
-                    with open(artifact_scaffold_json_path(ad), encoding="utf-8") as _f:
-                        _cached_students = json.load(_f).get("students") or []
-                except (OSError, json.JSONDecodeError):
-                    pass
-                write_scaffold_markdown(ad, _scaffold_to_payload(scaffold, _cached_students))
+                write_scaffold_markdown(ad, _scaffold_to_payload(scaffold, []))
             return scaffold
-        except (ValueError, KeyError, TypeError, json.JSONDecodeError):
+        except (ValueError, KeyError, TypeError, json.JSONDecodeError, ET.ParseError):
             tool_line("scaffold", "Cache incompatible or corrupt — rebuilding …")
 
     exam_pdf = exam_pdf_override or find_exam_pdf(folder)
