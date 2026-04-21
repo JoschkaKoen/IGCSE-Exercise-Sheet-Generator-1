@@ -109,6 +109,16 @@ def artifact_mark_scheme_markdown_path(artifact_dir: Path) -> Path:
     return artifact_dir / "10_mark_scheme.md"
 
 
+def artifact_exam_questions_raw_xml_path(artifact_dir: Path) -> Path:
+    """Step 9: raw XML string returned by Gemini before parsing."""
+    return artifact_dir / "9_exam_questions_raw.xml"
+
+
+def artifact_mark_scheme_raw_xml_path(artifact_dir: Path) -> Path:
+    """Step 10: raw XML string returned by Gemini before parsing."""
+    return artifact_dir / "10_mark_scheme_raw.xml"
+
+
 def artifact_exam_layout_json_path(artifact_dir: Path) -> Path:
     """Step 8: layout detection result — rows, cols, reading order."""
     return artifact_dir / "8_exam_layout.json"

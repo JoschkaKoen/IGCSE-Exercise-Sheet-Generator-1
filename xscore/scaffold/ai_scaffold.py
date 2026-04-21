@@ -22,7 +22,9 @@ from pydantic import BaseModel
 
 from xscore.shared.exam_paths import (
     artifact_exam_questions_json_path,
+    artifact_exam_questions_raw_xml_path,
     artifact_mark_scheme_json_path,
+    artifact_mark_scheme_raw_xml_path,
     artifact_prompt_path,
 )
 from xscore.shared.models import BBox, ExamLayout, McAnswerOption, Question
@@ -723,6 +725,13 @@ def build_ai_scaffold(
                 config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
             )
             api_latency_line(time.perf_counter() - _t0, label="exam")
+            if artifact_dir is not None:
+                try:
+                    p = artifact_exam_questions_raw_xml_path(artifact_dir)
+                    p.parent.mkdir(parents=True, exist_ok=True)
+                    p.write_text(resp.text, encoding="utf-8")
+                except OSError:
+                    pass
             try:
                 return _parse_exam_xml(resp.text)
             except Exception as exc:
@@ -749,6 +758,13 @@ def build_ai_scaffold(
                 config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
             )
             api_latency_line(time.perf_counter() - _t0, label="mark scheme")
+            if artifact_dir is not None:
+                try:
+                    p = artifact_mark_scheme_raw_xml_path(artifact_dir)
+                    p.parent.mkdir(parents=True, exist_ok=True)
+                    p.write_text(resp.text, encoding="utf-8")
+                except OSError:
+                    pass
             return _parse_scheme_xml(resp.text)   # non-fatal — returns {} on parse error
 
         # ---- Dispatch: parallel when scheme is present -------------------
