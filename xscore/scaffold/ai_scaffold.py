@@ -119,21 +119,21 @@ _SYSTEM_SCHEME = (
 _USER_SCHEME = """\
 Return ONLY well-formed XML, no markdown fences or other text outside the XML.
 
-Return a FLAT list of questions — do not recreate nesting. Use this structure:
+Below is a scaffold listing every question from the exam. Fill in the correct_answer \
+attribute and add <criterion> children for each question, based on the mark scheme PDF.
 
-<scheme>
-  <question number="9a" correct_answer="...">
-    <criterion mark="B1">criterion text</criterion>
-    <criterion mark="A1">criterion text</criterion>
-  </question>
-</scheme>
+{scaffold}
 
 For each <question>:
-- number attribute: label in run-together form matching the exam (e.g. "9a", "9ai", "38")
-- correct_answer attribute: model answer with $...$ for inline math (e.g. "$1.5 \\times 10^{11}$ m"); for multiple-choice just the letter; omit the attribute if not applicable
-- <criterion> children: each has a mark attribute ("B1"/"M1"/"A1"/etc., or empty string); element text is the criterion description — use $...$ for any math
-
-In XML text content use &lt; for <, &gt; for >, &amp; for &.
+- correct_answer attribute: model answer with $...$ for inline math \
+(e.g. "$1.5 \\times 10^{{11}}$ m"); for multiple-choice just the letter
+- <criterion> children: each has a mark attribute ("B1"/"M1"/"A1"/etc., or empty string); \
+element text is the criterion description — use $...$ for any math
+- For multiple_choice questions: set correct_answer only; no <criterion> children needed
+- marks attribute tells you the total marks for that question — use it to guide how many \
+criteria to produce
+- Keep every <question> element present — even if marks cannot be found for it
+- In XML text use &lt; for <, &gt; for >, &amp; for &
 """
 
 _SYSTEM_LAYOUT = "You are an expert at identifying exam paper printing layouts."
@@ -186,6 +186,25 @@ def _merge_scheme(questions: list[dict], scheme_map: dict[str, dict]) -> None:
             node.setdefault("correct_answer", None)
             node.setdefault("marking_criteria", None)
         _merge_scheme(node.get("subquestions") or [], scheme_map)
+
+
+def _build_scheme_scaffold(questions: list[dict]) -> str:
+    """Build a flat XML scaffold from parsed exam questions for the mark scheme AI."""
+    lines = ["<scheme>"]
+
+    def _visit(node: dict) -> None:
+        num = node.get("number", "")
+        qtype = node.get("question_type", "")
+        marks = node.get("marks", 0)
+        lines.append(f'  <question number="{num}" type="{qtype}" marks="{marks}" correct_answer=""/>')
+        for sub in (node.get("subquestions") or []):
+            _visit(sub)
+
+    for q in questions:
+        _visit(q)
+
+    lines.append("</scheme>")
+    return "\n".join(lines)
 
 
 def _json_to_question(node: dict, layout: ExamLayout) -> Question:
@@ -406,6 +425,35 @@ def _cell_label(row: int, col: int) -> str:
     return ("T" if row == 1 else "B") + ("L" if col == 1 else "R")
 
 
+def _serialize_layout_xml(
+    layout: "_LayoutDetectSchema",
+    model: str,
+    elapsed: float,
+    n_physical: int,
+    n_split: int,
+) -> str:
+    import xml.etree.ElementTree as ET
+    _LABEL = {(1, 1): "TL", (1, 2): "TR", (2, 1): "BL", (2, 2): "BR"}
+    root = ET.Element("layout")
+    root.set("rows", str(layout.rows))
+    root.set("cols", str(layout.cols))
+    root.set("model", model)
+    root.set("elapsed_s", f"{elapsed:.2f}")
+    root.set("n_physical_pages", str(n_physical))
+    root.set("n_split_pages", str(n_split))
+    order = layout.reading_order or [
+        [r + 1, c + 1] for r in range(layout.rows) for c in range(layout.cols)
+    ]
+    for i, rc in enumerate(order):
+        cel = ET.SubElement(root, "cell")
+        cel.set("position", str(i + 1))
+        cel.set("row", str(rc[0]))
+        cel.set("col", str(rc[1]))
+        cel.set("label", _LABEL.get((rc[0], rc[1]), f"r{rc[0]}c{rc[1]}"))
+    ET.indent(root)
+    return ET.tostring(root, encoding="unicode", xml_declaration=False)
+
+
 def _save_layout_artifact(
     artifact_dir: Path,
     layout: "_LayoutDetectSchema",
@@ -416,7 +464,7 @@ def _save_layout_artifact(
 ) -> None:
     """Write step-8 (split mode) artifacts: ``4a_exam_layout.json`` + ``.md``."""
     from xscore.shared.exam_paths import (
-        artifact_exam_layout_json_path,
+        artifact_exam_layout_xml_path,
         artifact_exam_layout_markdown_path,
     )
 
@@ -430,18 +478,6 @@ def _save_layout_artifact(
         layout_label = f"{layout.rows}×{layout.cols} ({n_cells}-up)"
     else:
         layout_label = "1×1 (single)"
-
-    payload = {
-        "rows": layout.rows,
-        "cols": layout.cols,
-        "layout": layout_label,
-        "reading_order": order,
-        "reading_order_labels": order_labels,
-        "model": model,
-        "elapsed_s": round(elapsed, 2),
-        "n_physical_pages": n_physical,
-        "n_split_pages": n_split,
-    }
 
     if n_cells > 1:
         order_str = " → ".join(order_labels)
@@ -471,10 +507,9 @@ def _save_layout_artifact(
         ]
 
     try:
-        p = artifact_exam_layout_json_path(artifact_dir)
+        p = artifact_exam_layout_xml_path(artifact_dir)
         p.parent.mkdir(parents=True, exist_ok=True)
-        with open(p, "w", encoding="utf-8") as f:
-            json.dump(payload, f, indent=2, ensure_ascii=False)
+        p.write_text(_serialize_layout_xml(layout, model, elapsed, n_physical, n_split), encoding="utf-8")
 
         with open(artifact_exam_layout_markdown_path(artifact_dir), "w", encoding="utf-8") as f:
             f.write("\n".join(md_lines))
@@ -757,12 +792,13 @@ def build_ai_scaffold(
                     f"Gemini exam response failed XML parsing: {exc}: {resp.text[:300]!r}"
                 )
 
-        def _do_scheme_call() -> dict:
+        def _do_scheme_call(scaffold: str) -> dict:
+            user_msg = _USER_SCHEME.format(scaffold=scaffold)
             if artifact_dir is not None:
                 save_prompt(
                     artifact_prompt_path(artifact_dir, "10_mark_scheme"),
                     model=scheme_model, system=_SYSTEM_SCHEME,
-                    messages=[{"role": "user", "content": _USER_SCHEME}],
+                    messages=[{"role": "user", "content": user_msg}],
                 )
             _t0 = time.perf_counter()
             resp = client.models.generate_content(
@@ -771,7 +807,7 @@ def build_ai_scaffold(
                     gai_types.Part.from_uri(
                         file_uri=uploaded_files["scheme"].uri, mime_type="application/pdf"
                     ),
-                    gai_types.Part.from_text(text=_USER_SCHEME),
+                    gai_types.Part.from_text(text=user_msg),
                 ],
                 config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
             )
@@ -788,26 +824,10 @@ def build_ai_scaffold(
                     pass
             return result
 
-        # ---- Dispatch: parallel when scheme is present -------------------
-        # Both PDFs are already uploaded; running the two Gemini inference
-        # calls concurrently saves ~10–20 s (the duration of the shorter call).
-        # rich.Console.print() holds an internal lock so api_latency_line is
-        # safe to call from worker threads.
+        # ---- Step 9: exam extraction ----------------------------------------
         raw_layout: dict = {}
-        if "scheme" in uploaded_files:
-            with ThreadPoolExecutor(max_workers=2) as _ex:
-                _exam_fut = _ex.submit(_do_exam_call)
-                _scheme_fut = _ex.submit(_do_scheme_call)
-            raw_questions, raw_layout = _exam_fut.result()   # propagates RuntimeError on failure
-            try:
-                scheme_data: dict = _scheme_fut.result()
-            except Exception:
-                scheme_data = {"questions": []}   # match non-fatal sequential behavior
-        else:
-            raw_questions, raw_layout = _do_exam_call()
-            scheme_data = {"questions": []}
+        raw_questions, raw_layout = _do_exam_call()
 
-        # ---- Post-extraction: remap split-PDF page numbers -------------------
         # Remap before saving artifacts so 9_exam_questions.xml has physical page coords.
         if split_pdf_path is not None and layout_result is not None:
             _remap_split_pages(raw_questions, layout_result)
@@ -817,8 +837,6 @@ def build_ai_scaffold(
             raw_layout = {"rows": layout_result.rows, "cols": layout_result.cols}
 
         # Layout artifact already saved immediately after detection above.
-
-        # ---- Artifacts + callbacks (main thread, same order as before) ---
 
         # Save step-9 artifacts BEFORE on_exam_complete — the callback may raise
         # SystemExit(0) when --through 9 is used, so anything after it won't run.
@@ -830,6 +848,16 @@ def build_ai_scaffold(
 
         if on_exam_complete is not None:
             on_exam_complete(raw_questions)
+
+        # ---- Step 10: mark scheme extraction (uses step-9 scaffold) ---------
+        if "scheme" in uploaded_files:
+            scaffold = _build_scheme_scaffold(raw_questions)
+            try:
+                scheme_data: dict = _do_scheme_call(scaffold)
+            except Exception:
+                scheme_data = {"questions": []}
+        else:
+            scheme_data = {"questions": []}
 
         if isinstance(scheme_data.get("questions"), list):
             # Step-10 XML + markdown already saved inside _do_scheme_call().

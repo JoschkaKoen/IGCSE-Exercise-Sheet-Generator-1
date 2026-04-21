@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 
@@ -134,6 +135,11 @@ def artifact_blueprint_xml_path(artifact_dir: Path, page: int) -> Path:
     return artifact_dir / f"12_ai_marking_blueprint_{page}.xml"
 
 
+def artifact_exam_layout_xml_path(artifact_dir: Path) -> Path:
+    """Step 8: layout detection result as XML."""
+    return artifact_dir / "8_exam_layout.xml"
+
+
 def artifact_exam_layout_json_path(artifact_dir: Path) -> Path:
     """Step 8: layout detection result — rows, cols, reading order."""
     return artifact_dir / "8_exam_layout.json"
@@ -200,14 +206,12 @@ def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
 
 def artifact_marked_json_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Step 13: AI-filled marking blueprint for one student's scan page."""
-    import re
     safe = re.sub(r"[^\w]", "_", student)
     return artifact_dir / SUBDIR_STUDENTS / f"13_marked_{safe}_{page}.json"
 
 
 def artifact_marked_md_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Step 13: human-readable marking result for one student's scan page."""
-    import re
     safe = re.sub(r"[^\w]", "_", student)
     return artifact_dir / SUBDIR_STUDENTS / f"13_marked_{safe}_{page}.md"
 
@@ -218,7 +222,6 @@ def artifact_marked_failed_path(artifact_dir: Path, student: str, page: int) -> 
     Uses a distinct ``13_failed_*`` prefix so it is never matched by the
     ``13_marked_*_*.json`` glob used by merge_reports.py.
     """
-    import re
     safe = re.sub(r"[^\w]", "_", student)
     return artifact_dir / SUBDIR_STUDENTS / f"13_failed_{safe}_{page}.json"
 
@@ -230,21 +233,18 @@ def artifact_marking_students_dir(artifact_dir: Path) -> Path:
 
 def artifact_student_report_json_path(artifact_dir: Path, student: str) -> Path:
     """Step 14: merged student report JSON."""
-    import re
     safe = re.sub(r"[^\w]", "_", student)
     return artifact_dir / SUBDIR_STUDENTS / f"14_student_report_{safe}.json"
 
 
 def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
     """Step 14: human-readable student report."""
-    import re
     safe = re.sub(r"[^\w]", "_", student)
     return artifact_dir / SUBDIR_STUDENTS / f"14_student_report_{safe}.md"
 
 
 def artifact_student_report_tex_path(artifact_dir: Path, student: str) -> Path:
     """Step 14: LaTeX source for student report PDF."""
-    import re
     safe = re.sub(r"[^\w]", "_", student)
     return artifact_dir / SUBDIR_STUDENTS / f"14_student_report_{safe}.tex"
 

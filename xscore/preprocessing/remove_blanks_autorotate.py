@@ -211,85 +211,85 @@ def write_rotated_pdf_after_blanks(
 
     c = get_console()
     _tc = os.cpu_count() or 4
-    src_pdf = pikepdf.open(str(input_path))
-    landscape_pages: set[int] = set()
+    with pikepdf.open(str(input_path)) as src_pdf:
+        landscape_pages: set[int] = set()
 
-    if use_tesseract_rotation:
-        hi_res_pages = _raster_timed(
-            f"Rotation detection ({analysis_dpi} DPI)",
-            lambda: convert_from_path(
-                str(input_path),
-                dpi=analysis_dpi,
-                grayscale=True,
-                thread_count=_tc,
-            ),
-        )
+        if use_tesseract_rotation:
+            hi_res_pages = _raster_timed(
+                f"Rotation detection ({analysis_dpi} DPI)",
+                lambda: convert_from_path(
+                    str(input_path),
+                    dpi=analysis_dpi,
+                    grayscale=True,
+                    thread_count=_tc,
+                ),
+            )
 
-        rotation_map = _rotation_map_from_tesseract_osd(
-            hi_res_pages, content_page_nums, console=c
-        )
-        del hi_res_pages
-    else:
-        rotation_map = {pn: 0 for pn in content_page_nums}
-        landscape_pages = {
-            pn
-            for pn in content_page_nums
-            if page_render_sizes[pn - 1][0] > page_render_sizes[pn - 1][1]
-        }
+            rotation_map = _rotation_map_from_tesseract_osd(
+                hi_res_pages, content_page_nums, console=c
+            )
+            del hi_res_pages
+        else:
+            rotation_map = {pn: 0 for pn in content_page_nums}
+            landscape_pages = {
+                pn
+                for pn in content_page_nums
+                if page_render_sizes[pn - 1][0] > page_render_sizes[pn - 1][1]
+            }
 
-    if use_tesseract_rotation:
-        rotated = sum(1 for a in rotation_map.values() if a != 0)
-        rot_s = (
-            f"{rotated} page(s) rotated via Tesseract OSD"
-            if rotated
-            else "All pages already upright"
-        )
-    else:
-        rots: list[int] = []
-        for pn in content_page_nums:
-            if pn in landscape_pages:
-                rots.append(0)
-            else:
-                rots.append(_normalized_page_rotate(src_pdf.pages[pn - 1]))
-        cnt = Counter(rots)
-        n_land = len(landscape_pages)
-        n_kept = len(content_page_nums)
-        if n_land == n_kept:
-            rot_s = f"All {n_kept} pages corrected from landscape to portrait"
-        elif n_land:
-            rot_s = f"{n_land} of {n_kept} pages corrected from landscape to portrait"
-        elif len(cnt) == 1:
-            only_deg = next(iter(cnt))
+        if use_tesseract_rotation:
+            rotated = sum(1 for a in rotation_map.values() if a != 0)
             rot_s = (
-                "All pages already upright"
-                if only_deg == 0
-                else f"All pages at {only_deg}°"
+                f"{rotated} page(s) rotated via Tesseract OSD"
+                if rotated
+                else "All pages already upright"
             )
         else:
-            parts = [f"{n} at {deg}°" for deg, n in sorted(cnt.items())]
-            rot_s = "Mixed orientation: " + ", ".join(parts)
+            rots: list[int] = []
+            for pn in content_page_nums:
+                if pn in landscape_pages:
+                    rots.append(0)
+                else:
+                    rots.append(_normalized_page_rotate(src_pdf.pages[pn - 1]))
+            cnt = Counter(rots)
+            n_land = len(landscape_pages)
+            n_kept = len(content_page_nums)
+            if n_land == n_kept:
+                rot_s = f"All {n_kept} pages corrected from landscape to portrait"
+            elif n_land:
+                rot_s = f"{n_land} of {n_kept} pages corrected from landscape to portrait"
+            elif len(cnt) == 1:
+                only_deg = next(iter(cnt))
+                rot_s = (
+                    "All pages already upright"
+                    if only_deg == 0
+                    else f"All pages at {only_deg}°"
+                )
+            else:
+                parts = [f"{n} at {deg}°" for deg, n in sorted(cnt.items())]
+                rot_s = "Mixed orientation: " + ", ".join(parts)
 
-    out_pdf = pikepdf.new()
+        out_pdf = pikepdf.new()
+        try:
+            for pn in content_page_nums:
+                src_page = src_pdf.pages[pn - 1]
+                angle = rotation_map.get(pn, 0)
 
-    for pn in content_page_nums:
-        src_page = src_pdf.pages[pn - 1]
-        angle = rotation_map.get(pn, 0)
+                if angle != 0:
+                    try:
+                        existing_rotate = int(src_page.get("/Rotate", 0))
+                    except (TypeError, ValueError):
+                        existing_rotate = 0
+                    new_rotate = (existing_rotate + angle) % 360
+                    src_page["/Rotate"] = new_rotate
+                elif pn in landscape_pages:
+                    src_page["/Rotate"] = pikepdf.Integer(0)
 
-        if angle != 0:
-            try:
-                existing_rotate = int(src_page.get("/Rotate", 0))
-            except (TypeError, ValueError):
-                existing_rotate = 0
-            new_rotate = (existing_rotate + angle) % 360
-            src_page["/Rotate"] = new_rotate
-        elif pn in landscape_pages:
-            src_page["/Rotate"] = pikepdf.Integer(0)
+                out_pdf.pages.append(src_page)
 
-        out_pdf.pages.append(src_page)
-
-    out_pdf.save(str(output_path))
-    out_pdf.close()
-    src_pdf.close()
+            out_pdf.save(str(output_path))
+        finally:
+            out_pdf.close()
 
     kept = len(content_page_nums)
     blanks = len(blank_page_nums)

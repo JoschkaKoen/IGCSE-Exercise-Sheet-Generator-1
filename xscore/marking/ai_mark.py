@@ -43,7 +43,6 @@ class MarkingFailure(Exception):
         self.last_raw = last_raw
 
 
-
 def _repair_mismatched_leaf_tags(raw: str) -> str:
     """Fix the observed model error: leaf element closed with the wrong sibling tag.
 
@@ -199,8 +198,7 @@ def _mark_page(
 ) -> dict:
     """Vision call to fill in a marking blueprint for one scan page.
 
-    Retries up to 3 times with 2 s / 4 s backoff (same pattern as kimi_helpers).
-    Returns the original blueprint (all blanks) if all attempts fail.
+    Raises :class:`MarkingFailure` if all attempts are exhausted.
     """
     layout = blueprint.get("layout") or {"rows": 1, "cols": 1}
     rows, cols = int(layout.get("rows", 1)), int(layout.get("cols", 1))
@@ -324,7 +322,7 @@ def _mark_page(
             try:
                 parsed_questions = _parse_xml_response(raw)
             except ET.ParseError as exc:
-                warn(f"Marking XML parse error — XML repair failed, marking aborted")
+                warn("Marking XML parse error — XML repair failed, marking aborted")
                 _last_exc = exc
                 break
             result = blueprint.copy()
@@ -420,8 +418,6 @@ def _fix_mc_marks(result: dict) -> None:
         correct = student_ans == mc_correct[qt]
         q["assigned_marks"] = max_m if correct else 0
         q["explanation"] = "Correct." if correct else "Incorrect."
-
-
 
 
 

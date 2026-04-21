@@ -212,23 +212,51 @@ def _student_report_to_md(report: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _rank_students(students: list[dict]) -> list[dict]:
+    """Return students sorted by percentage desc, each dict annotated with 'rank'.
+
+    Ties share the same rank; the next rank skips (1, 2, 2, 4).
+    Students with percentage=None sort last and receive rank=None.
+    """
+    sorted_s = sorted(
+        students,
+        key=lambda s: s["percentage"] if s["percentage"] is not None else -1,
+        reverse=True,
+    )
+    rank = 1
+    for i, s in enumerate(sorted_s):
+        if i == 0:
+            s["rank"] = rank if s["percentage"] is not None else None
+        elif s["percentage"] is None:
+            s["rank"] = None
+        else:
+            if s["percentage"] != sorted_s[i - 1]["percentage"]:
+                rank = i + 1
+            s["rank"] = rank
+    return sorted_s
+
+
 def _class_report_to_md(report: dict) -> str:
     lines = [
         "# Class Report\n",
         f"**Class average: {_fmt_pct(report['class_average_pct'])}  |  Max marks: {report['total_max_marks']}**\n",
-        "## Student Summary\n",
-        "| Student | Marks | Percentage |",
-        "|---------|-------|------------|",
+        "## Student Rankings\n",
+        "| Rank | Student | Marks | Percentage |",
+        "|------|---------|-------|------------|",
     ]
     for s in report["students"]:
-        lines.append(f"| {s['name']} | {s['total_marks']} | {_fmt_pct(s['percentage'])} |")
+        rank_cell = str(s["rank"]) if s.get("rank") is not None else "—"
+        lines.append(f"| {rank_cell} | {s['name']} | {s['total_marks']} | {_fmt_pct(s['percentage'])} |")
     if report.get("per_question_averages"):
-        lines.append("\n## Per-Question Class Averages\n")
+        lines.append("\n## Exercise Rankings (hardest first)\n")
         lines.append("| Question | Max | Class Avg | Class Avg % |")
         lines.append("|----------|-----|-----------|-------------|")
         q_max = report.get("per_question_max_marks", {})
         q_pct = report.get("per_question_pct_averages", {})
-        for qnum, avg in sorted(report["per_question_averages"].items()):
+        for qnum, avg in sorted(
+            report["per_question_averages"].items(),
+            key=lambda x: (q_pct.get(x[0], float("inf")), x[0]),
+        ):
             max_cell = q_max.get(qnum, "")
             pct_cell = f"{q_pct[qnum]}%" if qnum in q_pct else "N/A"
             lines.append(f"| {qnum} | {max_cell} | {avg} | {pct_cell} |")
@@ -332,13 +360,17 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
     for s in report["students"]:
         name = _latex_escape(s["name"])
         pct_display = "N/A" if s["percentage"] is None else f"{s['percentage']}\\%"
-        student_rows.append(f"    {name} & {s['total_marks']} & {pct_display} \\\\")
+        rank_cell = str(s["rank"]) if s.get("rank") is not None else "---"
+        student_rows.append(f"    {rank_cell} & {name} & {s['total_marks']} & {pct_display} \\\\")
     student_rows_str = "\n".join(student_rows)
 
     q_max = report.get("per_question_max_marks", {})
     q_pct = report.get("per_question_pct_averages", {})
     q_rows = []
-    for qnum, avg in sorted(report.get("per_question_averages", {}).items()):
+    for qnum, avg in sorted(
+        report.get("per_question_averages", {}).items(),
+        key=lambda x: (q_pct.get(x[0], float("inf")), x[0]),
+    ):
         max_cell = str(q_max.get(qnum, "")) if q_max else ""
         pct_cell = f"{q_pct[qnum]}\\%" if qnum in q_pct else "N/A"
         q_rows.append(
@@ -362,20 +394,20 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
         f"\\textbf{{Max marks: {report['total_max_marks']}}} \\quad\n"
         f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
         "\\vspace{1em}\n\n"
-        "\\subsection*{Student Summary}\n"
-        "\\begin{longtable}{lrl}\n"
+        "\\subsection*{Student Rankings}\n"
+        "\\begin{longtable}{rlrl}\n"
         "\\toprule\n"
-        "\\textbf{Student} & \\textbf{Marks} & \\textbf{Percentage} \\\\\n"
+        "\\textbf{Rank} & \\textbf{Student} & \\textbf{Marks} & \\textbf{Percentage} \\\\\n"
         "\\midrule\n"
         "\\endfirsthead\n"
         "\\midrule\n"
-        "\\textbf{Student} & \\textbf{Marks} & \\textbf{Percentage} \\\\\n"
+        "\\textbf{Rank} & \\textbf{Student} & \\textbf{Marks} & \\textbf{Percentage} \\\\\n"
         "\\midrule\n"
         "\\endhead\n"
         f"{student_rows_str}\n"
         "\\bottomrule\n"
         "\\end{longtable}\n\n"
-        "\\subsection*{Per-Question Class Averages}\n"
+        "\\subsection*{Exercise Rankings (hardest first)}\n"
         "\\begin{longtable}{lrrr}\n"
         "\\toprule\n"
         "\\textbf{Question} & \\textbf{Max} & \\textbf{Class Avg} & \\textbf{Class Avg \\%} \\\\\n"
@@ -567,7 +599,7 @@ def compile_reports(ctx: Any) -> list[dict]:
 
     # Pass 1 — sequential: merge marks and write all data files (fast I/O, order-sensitive)
     ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
-    (ctx.artifact_dir / "students").mkdir(parents=True, exist_ok=True)
+    artifact_marking_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
     for name in _derive_student_names(ctx.artifact_dir):
         report = _merge_student_pages(
             ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks
@@ -598,7 +630,7 @@ def compile_reports(ctx: Any) -> list[dict]:
         )
 
     # Pass 2 — parallel: compile all student .tex files concurrently (each is an independent process)
-    workers = int(os.environ.get("MARKING_WORKERS", "4"))
+    workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
     with ThreadPoolExecutor(max_workers=workers) as ex:
         list(ex.map(lambda p: _compile_tex(p, p.parent), tex_paths))
 
@@ -614,8 +646,9 @@ def compile_reports(ctx: Any) -> list[dict]:
         }
         known_pcts = [s["percentage"] for s in student_summaries if s["percentage"] is not None]
         class_avg = int(round(sum(known_pcts) / len(known_pcts))) if known_pcts else None
+        ranked_students = _rank_students(student_summaries)
         class_report = {
-            "students": student_summaries,
+            "students": ranked_students,
             "per_question_averages": all_avgs,
             "per_question_max_marks": all_max,
             "per_question_pct_averages": per_question_pct,
