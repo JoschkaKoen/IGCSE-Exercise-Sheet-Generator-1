@@ -125,37 +125,45 @@ def _build_user_exam_prompt(
     if layout_result is None:
         return _USER_EXAM
 
-    common_tail = """\
-Extract every question and sub-question at every nesting level as <question> elements.
-Nested sub-questions are child <question> elements inside their parent.
-
-Each <question> must have these attributes:
-- number: the label as printed, run-together — "9", then "9a", then "9ai" (no parentheses or spaces)
-- type: one of multiple_choice | short_answer | calculation | long_answer
-- page: 1-based page number where this question first appears
-- subpage_row: always 1
-- subpage_col: always 1
-- marks: integer mark allocation from [N] brackets; 0 if not printed
-
-Each <question> must contain:
-- <text>: complete question text in markdown; $...$ for inline math, $$...$$ for display math
-- <option letter="A">text</option>: for multiple_choice only — one per answer option
-- child <question> elements for any sub-questions
-
-In XML text content use &lt; for <, &gt; for >, &amp; for &.
-"""
+    _QUAD = {
+        (1, 1): "top-left", (1, 2): "top-right",
+        (2, 1): "bottom-left", (2, 2): "bottom-right",
+    }
 
     if is_split:
         rows, cols = layout_result.rows, layout_result.cols
+        order = layout_result.reading_order or [
+            [r + 1, c + 1] for r in range(rows) for c in range(cols)
+        ]
+        cells = len(order)
+        order_labels = [_QUAD.get((rc[0], rc[1]), f"r{rc[0]}c{rc[1]}") for rc in order]
+        reading_order_str = " → ".join(order_labels)
+
+        mapping_lines = []
+        for split_p in range(1, n_split_pages + 1):
+            phys = (split_p - 1) // cells + 1
+            rc = order[(split_p - 1) % cells]
+            label = _QUAD.get((rc[0], rc[1]), f"row {rc[0]} col {rc[1]}")
+            mapping_lines.append(
+                f"  PDF page {split_p} → "
+                f"page=\"{phys}\" subpage_row=\"{rc[0]}\" subpage_col=\"{rc[1]}\" ({label})"
+            )
+        mapping = "\n".join(mapping_lines)
+
         header = (
-            f"The layout of this exam has already been detected: {rows}\u00d7{cols} grid.\n"
+            f"The layout of this exam has already been detected: "
+            f"{rows}\u00d7{cols} grid, reading order: {reading_order_str}.\n"
             f"This PDF has been pre-split into {n_split_pages} individual sub-pages "
-            f"(one per PDF page). Each PDF page is exactly one exam sub-page.\n\n"
+            f"(one per PDF page).\n\n"
             "Return ONLY well-formed XML, no markdown fences or other text outside the XML.\n\n"
-            'Set the root element as: <exam rows="1" cols="1">\n\n'
-            'Since each PDF page is already one sub-page, set subpage_row="1" and '
-            'subpage_col="1" for every question.\n\n'
+            f'Set the root element as: <exam rows="{rows}" cols="{cols}">\n\n'
+            "Use this mapping to set page, subpage_row, and subpage_col for each question\n"
+            "based on which PDF page the question physically appears on:\n"
+            f"{mapping}\n\n"
         )
+        page_desc      = "exam page from the mapping above"
+        subpage_r_desc = "subpage_row from the mapping above"
+        subpage_c_desc = "subpage_col from the mapping above"
     else:
         # 1×1 non-split (layout_result.rows == layout_result.cols == 1 always here)
         header = (
@@ -164,6 +172,27 @@ In XML text content use &lt; for <, &gt; for >, &amp; for &.
             'Set the root element as: <exam rows="1" cols="1">\n\n'
             'Set subpage_row="1" and subpage_col="1" for every question.\n\n'
         )
+        page_desc      = "1-based page number where this question first appears"
+        subpage_r_desc = "always 1"
+        subpage_c_desc = "always 1"
+
+    common_tail = (
+        "Extract every question and sub-question at every nesting level as <question> elements.\n"
+        "Nested sub-questions are child <question> elements inside their parent.\n\n"
+        "Each <question> must have these attributes:\n"
+        '- number: the label as printed, run-together — "9", then "9a", then "9ai"'
+        " (no parentheses or spaces)\n"
+        "- type: one of multiple_choice | short_answer | calculation | long_answer\n"
+        f"- page: {page_desc}\n"
+        f"- subpage_row: {subpage_r_desc}\n"
+        f"- subpage_col: {subpage_c_desc}\n"
+        "- marks: integer mark allocation from [N] brackets; 0 if not printed\n\n"
+        "Each <question> must contain:\n"
+        "- <text>: complete question text in markdown; $...$ for inline math, $$...$$ for display math\n"
+        '- <option letter="A">text</option>: for multiple_choice only — one per answer option\n'
+        "- child <question> elements for any sub-questions\n\n"
+        "In XML text content use &lt; for <, &gt; for >, &amp; for &.\n"
+    )
 
     return header + common_tail
 
@@ -456,29 +485,6 @@ def _split_pdf_by_layout(exam_pdf: Path, layout: "_LayoutDetectSchema") -> tuple
     return tmp_path, n_physical, n_split
 
 
-def _remap_split_pages(questions: list[dict], layout: "_LayoutDetectSchema") -> None:
-    """Convert split-PDF page numbers back to physical page + subpage coords (in-place).
-
-    The split PDF was built with pages in *layout.reading_order* order, so the
-    inverse mapping is: split_page p → physical page and (row, col) from reading_order.
-    """
-    order = layout.reading_order or [
-        [row + 1, col + 1] for row in range(layout.rows) for col in range(layout.cols)
-    ]
-    cells = len(order)
-
-    def remap(node: dict) -> None:
-        p = int(node.get("page", 1))
-        node["page"]        = (p - 1) // cells + 1   # physical page (1-based)
-        rc = order[(p - 1) % cells]
-        node["subpage_row"] = rc[0]
-        node["subpage_col"] = rc[1]
-        for sq in node.get("subquestions", []):
-            remap(sq)
-
-    for q in questions:
-        remap(q)
-
 
 def _cell_label(row: int, col: int) -> str:
     return ("T" if row == 1 else "B") + ("L" if col == 1 else "R")
@@ -503,12 +509,14 @@ def _serialize_layout_xml(
     order = layout.reading_order or [
         [r + 1, c + 1] for r in range(layout.rows) for c in range(layout.cols)
     ]
-    for i, rc in enumerate(order):
+    labels = [_LABEL.get((rc[0], rc[1]), f"r{rc[0]}c{rc[1]}") for rc in order]
+    root.set("reading_order", " ".join(labels))
+    for i, (rc, label) in enumerate(zip(order, labels)):
         cel = ET.SubElement(root, "cell")
         cel.set("position", str(i + 1))
         cel.set("row", str(rc[0]))
         cel.set("col", str(rc[1]))
-        cel.set("label", _LABEL.get((rc[0], rc[1]), f"r{rc[0]}c{rc[1]}"))
+        cel.set("label", label)
     ET.indent(root)
     return ET.tostring(root, encoding="unicode", xml_declaration=False)
 
@@ -889,10 +897,6 @@ def build_ai_scaffold(
         # ---- Step 9: exam extraction ----------------------------------------
         raw_layout: dict = {}
         raw_questions, raw_layout = _do_exam_call()
-
-        # Remap before saving artifacts so 9_exam_questions.xml has physical page coords.
-        if split_pdf_path is not None and layout_result is not None:
-            _remap_split_pages(raw_questions, layout_result)
 
         # Use pre-detected layout (ignore raw_layout from extraction response in split mode).
         if layout_result is not None:

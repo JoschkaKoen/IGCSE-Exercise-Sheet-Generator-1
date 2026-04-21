@@ -372,6 +372,9 @@ def _mark_page(
                 warn(f"Marking: {_unmatched_count} AI entries had no matching blueprint question")
             _fix_mc_marks(result)
             for bq in result.get("questions", []):
+                if not (bq.get("student_answer") or "").strip():
+                    bq["explanation"] = "Blank answer."
+            for bq in result.get("questions", []):
                 max_m = bq.get("max_marks")
                 if max_m is None:
                     continue
