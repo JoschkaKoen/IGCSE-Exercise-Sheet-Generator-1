@@ -111,6 +111,63 @@ Each <question> must contain:
 In XML text content use &lt; for <, &gt; for >, &amp; for &.
 """
 
+
+def _build_user_exam_prompt(
+    layout_result: "_LayoutDetectSchema | None",
+    is_split: bool,
+    n_split_pages: int,
+) -> str:
+    """Build the step-9 user prompt, injecting the layout known from step 8.
+
+    Falls back to _USER_EXAM (which asks the AI to detect the layout) when
+    layout_result is None, i.e. when split_subpages=False and step 8 was skipped.
+    """
+    if layout_result is None:
+        return _USER_EXAM
+
+    common_tail = """\
+Extract every question and sub-question at every nesting level as <question> elements.
+Nested sub-questions are child <question> elements inside their parent.
+
+Each <question> must have these attributes:
+- number: the label as printed, run-together — "9", then "9a", then "9ai" (no parentheses or spaces)
+- type: one of multiple_choice | short_answer | calculation | long_answer
+- page: 1-based page number where this question first appears
+- subpage_row: always 1
+- subpage_col: always 1
+- marks: integer mark allocation from [N] brackets; 0 if not printed
+
+Each <question> must contain:
+- <text>: complete question text in markdown; $...$ for inline math, $$...$$ for display math
+- <option letter="A">text</option>: for multiple_choice only — one per answer option
+- child <question> elements for any sub-questions
+
+In XML text content use &lt; for <, &gt; for >, &amp; for &.
+"""
+
+    if is_split:
+        rows, cols = layout_result.rows, layout_result.cols
+        header = (
+            f"The layout of this exam has already been detected: {rows}\u00d7{cols} grid.\n"
+            f"This PDF has been pre-split into {n_split_pages} individual sub-pages "
+            f"(one per PDF page). Each PDF page is exactly one exam sub-page.\n\n"
+            "Return ONLY well-formed XML, no markdown fences or other text outside the XML.\n\n"
+            'Set the root element as: <exam rows="1" cols="1">\n\n'
+            'Since each PDF page is already one sub-page, set subpage_row="1" and '
+            'subpage_col="1" for every question.\n\n'
+        )
+    else:
+        # 1×1 non-split (layout_result.rows == layout_result.cols == 1 always here)
+        header = (
+            "The layout of this exam has already been detected: 1\u00d71 (one sub-page per page).\n\n"
+            "Return ONLY well-formed XML, no markdown fences or other text outside the XML.\n\n"
+            'Set the root element as: <exam rows="1" cols="1">\n\n'
+            'Set subpage_row="1" and subpage_col="1" for every question.\n\n'
+        )
+
+    return header + common_tail
+
+
 _SYSTEM_SCHEME = (
     "You are an expert at reading Cambridge IGCSE mark schemes. "
     "Extract marking criteria as structured XML."
@@ -129,9 +186,11 @@ For each <question>:
 (e.g. "$1.5 \\times 10^{{11}}$ m"); for multiple-choice just the letter
 - <criterion> children: each has a mark attribute ("B1"/"M1"/"A1"/etc., or empty string); \
 element text is the criterion description — use $...$ for any math
+- Extract each criterion exactly as it appears in the mark scheme — do not merge multiple \
+criteria into one <criterion> element and do not add any criteria that are not in the PDF
+- Bullet points, numbered items, and semicolon-separated list entries should each become a \
+separate <criterion> element, copied verbatim
 - For multiple_choice questions: set correct_answer only; no <criterion> children needed
-- marks attribute tells you the total marks for that question — use it to guide how many \
-criteria to produce
 - Keep every <question> element present — even if marks cannot be found for it
 - In XML text use &lt; for <, &gt; for >, &amp; for &
 """
@@ -760,11 +819,14 @@ def build_ai_scaffold(
         # ---- Inference closures (called from threads or inline) -----------
 
         def _do_exam_call() -> tuple[list[dict], dict]:
+            user_exam = _build_user_exam_prompt(
+                layout_result, split_pdf_path is not None, n_split_pages
+            )
             if artifact_dir is not None:
                 save_prompt(
                     artifact_prompt_path(artifact_dir, "9_exam_questions"),
                     model=exam_model, system=_SYSTEM_EXAM,
-                    messages=[{"role": "user", "content": _USER_EXAM}],
+                    messages=[{"role": "user", "content": user_exam}],
                 )
             _t0 = time.perf_counter()
             resp = client.models.generate_content(
@@ -773,7 +835,7 @@ def build_ai_scaffold(
                     gai_types.Part.from_uri(
                         file_uri=uploaded_files["exam"].uri, mime_type="application/pdf"
                     ),
-                    gai_types.Part.from_text(text=_USER_EXAM),
+                    gai_types.Part.from_text(text=user_exam),
                 ],
                 config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
             )

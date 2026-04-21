@@ -475,9 +475,9 @@ def _run_steps3to10_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
     """Steps 3–10 with maximum parallelism after step 2.
 
     Main thread : step 3 → (steps 4-6 background) → step 7
-    Scaffold thread: (wait students_ready) → steps 8-9-10
-                     step 8 header fires immediately; steps 9/10 headers are
-                     gated until step 7 finishes to keep output in logical order.
+    Scaffold thread: (wait students_ready) → (wait step7_done) → steps 8-9-10
+                     All scaffold headers are gated until step 7 finishes to
+                     keep output in logical order.
     Exceptions are re-raised in pipeline order after both threads finish.
     """
     import threading
@@ -491,8 +491,9 @@ def _run_steps3to10_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
     def _scaffold_wrapper() -> None:
         nonlocal scaffold_exc
         _students_ready.wait()
+        _step7_done.wait()  # wait for step 7 before printing any scaffold headers
         try:
-            _step08_09_10_scaffold(ctx, gi, gate_event=_step7_done, background=True)
+            _step08_09_10_scaffold(ctx, gi, gate_event=None, background=True)
         except BaseException as exc:
             scaffold_exc = exc
 
