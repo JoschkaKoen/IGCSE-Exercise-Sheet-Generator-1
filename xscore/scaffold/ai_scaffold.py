@@ -784,7 +784,7 @@ def build_ai_scaffold(
                     p.parent.mkdir(parents=True, exist_ok=True)
                     p.write_text(_preprocess_xml(resp.text), encoding="utf-8")
                     write_mark_scheme_markdown(artifact_dir, result.get("questions", []))
-                except OSError:
+                except Exception:
                     pass
             return result
 

@@ -444,17 +444,6 @@ def _format_criteria(blueprint_questions: list[dict], *, rows: int = 1, cols: in
     return "\n\n".join(parts)
 
 
-def _flatten_leaf_questions(questions: list[dict]) -> list[dict]:
-    """Depth-first flatten of question tree to leaf nodes only."""
-    result = []
-    for q in questions:
-        subs = q.get("subquestions") or []
-        if subs:
-            result.extend(_flatten_leaf_questions(subs))
-        else:
-            result.append(q)
-    return result
-
 
 def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
