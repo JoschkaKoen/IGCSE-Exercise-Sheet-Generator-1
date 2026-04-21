@@ -142,25 +142,11 @@ flowchart TD
         s12 --> s13 --> s14 --> s15
     end
 
-    f3[/"3_students.json · md"/]
-    f8[/"8_exam_layout.json · md\n8_split_exam.pdf"/]
-    f10[/"11_short_report.json · md"/]
-    f13[/"13_marked_name_page.json\n(one per student × page)"/]
-    f14[/"14_student_report_name.pdf\n14_class_report.pdf"/]
-    f15[/"15_timing.json · md"/]
-
     uploads --> s1
     s1 --> routeCond
     routeCond -->|terminal| s2 --> s3
     routeCond -->|web| s3
     s3 --> cleaning --> cleaned --> s7 --> scaffold --> marking
-
-    s3 -.-> f3
-    s8 -.-> f8
-    s11 -.-> f10
-    s13 -.-> f13
-    s14 -.-> f14
-    s15 -.-> f15
 ```
 
 ### Parallel execution — steps 3–16
