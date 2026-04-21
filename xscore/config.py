@@ -178,8 +178,7 @@ ROTATION_ANALYSIS_DPI: int = int(os.getenv("ROTATION_ANALYSIS_DPI", "150"))
 NAME_RECOGNITION_DPI: int = int(os.getenv("NAME_RECOGNITION_DPI", "300"))
 
 # Step 12: full scan page sent to vision API for marking.
-# Can be lower than PIPELINE_DEFAULT_DPI; 150 DPI is sufficient for handwriting.
-MARKING_DPI: int = int(os.getenv("MARKING_DPI", "150"))
+MARKING_DPI: int = int(os.getenv("MARKING_DPI", "300"))
 
 # Fraction of the page height to crop for name detection (top strip only)
 NAME_CROP_FRACTION = 0.15

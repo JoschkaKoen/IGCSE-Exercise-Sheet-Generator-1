@@ -28,7 +28,7 @@ from xscore.config import MAX_RETRIES
 from xscore.marking.blueprints import marked_to_md
 from xscore.shared.exam_paths import artifact_blueprint_xml_path, artifact_marked_failed_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path
 from xscore.shared.prompt_logger import save_prompt
-from xscore.shared.terminal_ui import format_duration, get_console, icon, warn_line
+from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, warn_line
 
 
 _DEFAULT_MARKING_MODEL = "qwen3.6-plus, off"
@@ -42,6 +42,35 @@ class MarkingFailure(Exception):
         self.last_exc = last_exc
         self.last_raw = last_raw
 
+
+
+def _repair_mismatched_leaf_tags(raw: str) -> str:
+    """Fix the observed model error: leaf element closed with the wrong sibling tag.
+
+    e.g. <explanation>long text</student_answer> → <explanation>long text</explanation>
+    Applied per <question> block to avoid cross-question interference.
+    """
+    _LEAF = ('student_answer', 'assigned_marks', 'explanation')
+
+    def _fix_within_question(q_text: str) -> str:
+        for tag in _LEAF:
+            for wrong in _LEAF:
+                if wrong == tag:
+                    continue
+                q_text = re.sub(
+                    r'(<' + tag + r'(?:\s[^>]*)?>)(.*?)</' + wrong + r'>',
+                    r'\1\2</' + tag + r'>',
+                    q_text,
+                    flags=re.DOTALL,
+                )
+        return q_text
+
+    return re.sub(
+        r'(<question\b[^>]*>)(.*?)(</question>)',
+        lambda m: m.group(1) + _fix_within_question(m.group(2)) + m.group(3),
+        raw,
+        flags=re.DOTALL,
+    )
 
 
 def _parse_xml_response(raw: str) -> list[dict]:
@@ -61,16 +90,29 @@ def _parse_xml_response(raw: str) -> list[dict]:
     raw = re.sub(r'&(?![a-zA-Z#]\w*;)', '&amp;', raw)
     # Fix bare < in text content (e.g. "x < y", "< 50%") — leave valid tag starts intact
     raw = re.sub(r'<(?!/?[a-zA-Z_:!?])', '&lt;', raw)
-    root = ET.fromstring(raw)
+    try:
+        root = ET.fromstring(raw)
+    except ET.ParseError:
+        raw = _repair_mismatched_leaf_tags(raw)
+        root = ET.fromstring(raw)  # raises ET.ParseError if still malformed
     questions = []
     for q in root.findall('question'):
         sa_el = q.find('student_answer')
+        am_el = q.find('assigned_marks')
         re_el = q.find('explanation')
+        # assigned_marks: prefer child element (new format), fall back to attribute (legacy)
+        if am_el is not None and (am_el.text or '').strip():
+            try:
+                assigned_marks = int(am_el.text.strip())
+            except ValueError:
+                assigned_marks = 0
+        else:
+            assigned_marks = int(q.get('assigned_marks', 0))
         questions.append({
             'number':         q.get('number', ''),
             'subpage_row':    int(q.get('subpage_row', 1)),
             'subpage_col':    int(q.get('subpage_col', 1)),
-            'assigned_marks': int(q.get('assigned_marks', 0)),
+            'assigned_marks': assigned_marks,
             'student_answer': (sa_el.text or '').strip() if sa_el is not None else '',
             'explanation':    (re_el.text or '').strip() if re_el is not None else '',
             'question_text':  q.get('question_text', ''),
@@ -162,53 +204,68 @@ def _mark_page(
     """
     layout = blueprint.get("layout") or {"rows": 1, "cols": 1}
     rows, cols = int(layout.get("rows", 1)), int(layout.get("cols", 1))
-    criteria_text = _format_criteria(blueprint.get("questions", []), rows=rows, cols=cols)
 
+    # --- Section A: role + task ---
     system_prompt = (
-        "You are an expert exam marker. You will be shown one page of a student's exam paper. "
-        "Read the question list below and the marking criteria, then return an XML response "
-        "with one <question> element per question in the list, in the same order. "
-        "Each element must have attributes: number (copy from the list), subpage_row (copy from the list), "
-        "subpage_col (copy from the list), assigned_marks (integer 0–max_marks), "
-        "question_text (copy the first 6 words of the question text exactly as shown). "
-        "Each element must contain child elements: <student_answer> and <explanation> (1–2 sentences). "
-        "Do not include answer_options or any other content.\n"
-        "For each question:\n"
-        "  • student_answer: what the student wrote. For multiple_choice: find the option the student "
-        "physically marked (written letter, circled letter, cross, or tick) and report that single "
-        "letter. Do NOT infer from the question content or your own knowledge of which answer is correct. "
-        "If no mark is visible, report '?'. "
-        "For calculation questions transcribe the student's complete working and final answer. "
-        "For all other question types copy the student's written answer verbatim. "
-        "If handwriting is illegible, transcribe your best attempt and mark unreadable words with [?].\n"
-        "  • assigned_marks: an integer between 0 and max_marks. "
-        "Award 1 mark for each criteria point the student satisfies, up to max_marks. "
-        "For 'any N from' lists, each listed item is a separate mark point.\n"
-        "  • explanation: 1–2 sentences of concise grading feedback — state what the student wrote, "
-        "whether it is correct, and the mark outcome. Write as a finished verdict, not a thought process: "
-        "no deliberation, no working-out, no self-corrections. "
-        "Examples: 'Student correctly identified Newton's third law — 1 mark.' "
+        "You are an expert exam marker. You will be shown one page of a student's exam paper "
+        "and a Blueprint XML listing every question. The blueprint is a form: each question has "
+        "three empty fields for you to fill in — <student_answer>, <assigned_marks>, and "
+        "<explanation>. Fill every field for every question in the list."
+    )
+
+    # --- Section B: field rules ---
+    system_prompt += (
+        "\n\nFill each field as follows:\n"
+        "1. student_answer — transcribe exactly what the student wrote:\n"
+        "   • multiple_choice: report the single letter the student physically marked "
+        "(written, circled, crossed, or ticked). Report '?' if nothing is marked. "
+        "Do NOT infer from the question or your subject knowledge — only report what is physically visible.\n"
+        "   • calculation: transcribe the student's full working and final answer verbatim.\n"
+        "   • all other types: copy the student's written answer verbatim. "
+        "Mark unreadable words with [?].\n"
+        "2. assigned_marks — an integer 0–max_marks.\n"
+        "   • Award 1 mark for each criterion the student satisfies, up to max_marks.\n"
+        "   • For 'any N from' lists, each listed item is a separate mark point.\n"
+        "   • For multiple_choice: compare student_answer to correct_answer; "
+        "award max_marks if they match, 0 otherwise.\n"
+        "3. explanation — 1–2 sentences. State what the student wrote, whether it is correct, "
+        "and the mark outcome. Write a finished verdict, not a thought process: "
+        "no deliberation, no working-out, no self-corrections.\n"
+        "   Examples: 'Student correctly identified Newton's third law — 1 mark.' "
         "/ 'Student wrote F=ma but omitted units — 1 of 2 marks.' "
-        "/ 'Student selected B; correct answer is C — 0 marks.'\n"
-        "IMPORTANT — output format: return ONLY well-formed XML, no markdown fences or other text outside the XML. "
-        "Use this exact structure:\n"
-        "<marking>\n"
-        "  <question number=\"...\" subpage_row=\"...\" subpage_col=\"...\" assigned_marks=\"...\" question_text=\"first 6 words...\">\n"
+        "/ 'Student selected B; correct answer is C — 0 marks.'"
+    )
+
+    # --- Section C: output format + CRITICAL tag rule ---
+    system_prompt += (
+        "\n\nReturn ONLY the filled Blueprint XML — no markdown fences, no surrounding text. "
+        "Keep every question in the same order. Use this exact structure:\n"
+        "<marking ...>\n"
+        "  <question number=\"...\" subpage_row=\"...\" subpage_col=\"...\" "
+        "question_text=\"first 6 words of question text\">\n"
         "    <student_answer>...</student_answer>\n"
+        "    <assigned_marks>N</assigned_marks>\n"
         "    <explanation>...</explanation>\n"
         "  </question>\n"
         "</marking>\n"
-        "Each child element must be closed with its own matching tag — "
-        "</student_answer> closes only <student_answer>, "
-        "</explanation> closes only <explanation>.\n"
-        "In XML text content use &lt; for <, &gt; for >, &amp; for &. "
-        "Do not use HTML tags such as <br> inside element text — use a space or comma to separate items instead.\n"
-        "IMPORTANT — LaTeX: wrap all math expressions in $...$ inline math "
+        "CRITICAL — each element must be closed with its own matching tag. "
+        "WRONG: <explanation>text</student_answer>. "
+        "RIGHT: <explanation>text</explanation>. "
+        "Never close <explanation> with </student_answer> or vice versa."
+    )
+
+    # --- Section D: XML validity + LaTeX ---
+    system_prompt += (
+        "\n\nXML validity:\n"
+        "• In element text use &lt; for <, &gt; for >, &amp; for &.\n"
+        "• Do not use HTML tags (e.g. <br>) — use a space or comma instead.\n"
+        "• LaTeX: wrap all math in $...$  "
         "(e.g. $v = 2\\pi r / T$, $3.0 \\times 10^4$ m/s, $\\frac{d}{v}$). "
-        "Use standard LaTeX commands (\\times, \\approx, \\frac{}{}, \\pi, \\rightarrow, etc.). "
-        "Also write \\% for percent signs. "
+        "Use \\times, \\approx, \\frac{}{}, \\pi, \\rightarrow, \\% etc. "
         "Failing to wrap math in $...$ will crash the PDF renderer."
     )
+
+    # --- Section E: grid navigation (only for multi-subpage layouts) ---
     if rows > 1 or cols > 1:
         grid_desc = "\n".join(
             f"  row {r} col {c} = {_quadrant_label(r, c, rows, cols)}"
@@ -216,41 +273,25 @@ def _mark_page(
             for c in range(1, cols + 1)
         )
         system_prompt += (
-            f"\n\nThis exam page has a {rows}×{cols} grid of sub-pages (row-major reading order):\n"
+            f"\n\nThis exam page is a {rows}×{cols} grid of sub-pages (row-major reading order):\n"
             f"{grid_desc}\n"
-            "Each question in the template carries subpage_row and subpage_col that tell you "
-            "which quadrant it lives in. Use these coordinates to locate the student's answer "
-            "— do not confuse questions from different quadrants with each other.\n"
-            "IMPORTANT — question number matching: the same question number may appear "
-            "more than once in the template (e.g. two questions both numbered '38' in "
-            "different sub-pages). Locate each occurrence using subpage_row, subpage_col, "
-            "and question_text — do not rely on the number field alone to find questions "
-            "on the paper. "
-            "The same question number may appear more than once in the same sub-page — "
-            "locate each occurrence by its question_text. "
-            "Do not reproduce question_text or "
-            "answer_options in your response — fill in only student_answer, assigned_marks, "
-            "and explanation."
+            "Each question carries subpage_row and subpage_col — use these to locate which "
+            "quadrant on the physical page the student's answer is in. "
+            "Do not confuse answers from different quadrants.\n"
+            "Each question also carries order_in_subpage (1 = topmost within that quadrant). "
+            "Within a quadrant, match the Nth answer slot top-to-bottom to the question with "
+            "order_in_subpage = N.\n"
+            "The same question number may appear in more than one sub-page or more than once "
+            "in the same sub-page. Always identify questions by subpage_row + subpage_col + "
+            "question_text, not by number alone.\n"
+            "Do not reproduce <text> or <option> content in your response — "
+            "fill only <student_answer>, <assigned_marks>, and <explanation>."
         )
-        system_prompt += (
-            "\nEach question also has an `order_in_subpage` field (integer: 1 = topmost "
-            "within that quadrant, 2 = second from top, etc.). Within each quadrant read "
-            "answers strictly top-to-bottom — match the Nth answer slot to the question "
-            "with `order_in_subpage = N`. When the same question number appears more than "
-            "once in the same sub-page, use `order_in_subpage` to distinguish them: the "
-            "lower the value, the higher the question sits on the physical page."
-        )
-    system_prompt += (
-        "\nMCQ reminder: report only the letter the student physically marked — "
-        "even if it appears to be a wrong answer. Do not use subject knowledge to guess. "
-        "Use `order_in_subpage` and the position label in the criteria to locate each "
-        "question within its quadrant: `order_in_subpage = 1` is the topmost question, "
-        "`order_in_subpage = 2` is directly below it, and so on — match the Nth answer "
-        "slot in the quadrant to the question with `order_in_subpage = N`."
-    )
+
     user_text = (
-        f"Marking criteria:\n{criteria_text}\n\n"
-        f"Blueprint XML (read to identify questions — return one entry per question):\n{blueprint_xml}"
+        "Fill in the three empty fields for each question "
+        "(<student_answer>, <assigned_marks>, <explanation>):\n"
+        f"{blueprint_xml}"
     )
     kwargs: dict[str, Any] = dict(
         model=model_id,
@@ -283,9 +324,9 @@ def _mark_page(
             try:
                 parsed_questions = _parse_xml_response(raw)
             except ET.ParseError as exc:
-                warn(f"Marking XML parse error (attempt {attempt + 1}/{MAX_RETRIES + 1}) — retrying")
+                warn(f"Marking XML parse error — XML repair failed, marking aborted")
                 _last_exc = exc
-                continue
+                break
             result = blueprint.copy()
             # Group AI responses by (bare_number, subpage_row, subpage_col).
             # The _N suffix is stripped so Q38 and Q38_2 share the same group;
@@ -381,67 +422,6 @@ def _fix_mc_marks(result: dict) -> None:
         q["explanation"] = "Correct." if correct else "Incorrect."
 
 
-def _clean_criteria_line(l: str) -> str:
-    c = l.lstrip().removeprefix("[None]").lstrip(" ")
-    return "  " + c[2:] if c.startswith("\\t") else c
-
-
-def _format_criteria(blueprint_questions: list[dict], *, rows: int = 1, cols: int = 1) -> str:
-    """Format question marking criteria for the AI prompt."""
-    if not blueprint_questions:
-        return "(no questions assigned to this page)"
-    multi_subpage = rows > 1 or cols > 1
-    # Sort by quadrant so same-subpage questions are grouped together.
-    sorted_qs = sorted(
-        blueprint_questions,
-        key=lambda q: (int(q.get("subpage_row") or 1), int(q.get("subpage_col") or 1)),
-    )
-    parts = []
-    subpage_order_counters: dict[tuple[int, int], int] = {}
-    for q in sorted_qs:
-        display_num = re.sub(r"_\d+$", "", str(q.get("number", "?")))
-        r = int(q.get("subpage_row") or 1)
-        c = int(q.get("subpage_col") or 1)
-        subpage_order_counters[(r, c)] = subpage_order_counters.get((r, c), 0) + 1
-        order = subpage_order_counters[(r, c)]
-        line = f"Q{display_num} [{q.get('question_type', '')}] — {q.get('max_marks', '?')} mark(s)"
-        if multi_subpage:
-            label = _quadrant_label(r, c, rows, cols)
-            line += f"  (sub-page row {r}, col {c} — {label}, position {order})"
-        else:
-            line += f"  (position {order})"
-        question_text = (q.get("question_text") or "").strip()
-        if question_text:
-            line += f"\n  Question: \"{question_text}\""
-        answer_options = q.get("answer_options") or []
-        if answer_options:
-            opts_lines = "\n".join(
-                f"    {o.get('letter', '?')}) {o.get('text', '')}"
-                for o in answer_options
-                if isinstance(o, dict)
-            )
-            line += f"\n  Options:\n{opts_lines}"
-        if q.get("correct_answer") and q.get("question_type") != "multiple_choice":
-            line += f"\n  Correct answer: {q['correct_answer']}"
-        ms = [m for m in (q.get("mark_scheme") or []) if m.get("criterion")]
-        if ms:
-            criteria_str = "\n".join(
-                f"[{m.get('mark', '')}] {m.get('criterion', '')}" for m in ms
-            )
-            lines = [_clean_criteria_line(l) for l in criteria_str.splitlines()]
-            if len(lines) > 1:
-                bulleted = []
-                for l in lines:
-                    stripped = l.lstrip(" ")
-                    if stripped and not stripped.startswith("•") and not stripped.endswith(":"):
-                        bulleted.append(l[: len(l) - len(stripped)] + "• " + stripped)
-                    else:
-                        bulleted.append(l)
-                lines = bulleted
-            cleaned = "\n".join(lines)
-            line += f"\n  Criteria: {cleaned}"
-        parts.append(line)
-    return "\n\n".join(parts)
 
 
 
@@ -492,11 +472,26 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
 
+    # Pre-render all pages to b64 before spawning API workers so every worker
+    # has its image ready and all API calls fire within milliseconds of each other.
+    _total_pages = sum(len(a["page_numbers"]) for a in raw_assignments)
+    info_line(f"Rendering {_total_pages} page(s) for {len(raw_assignments)} students at {dpi} DPI …")
+    _b64_cache: dict[tuple[str, int], str] = {}
+    _pre_doc = fitz.open(str(ctx.cleaned_pdf))
+    try:
+        for _a in raw_assignments:
+            for _p_label, _scan_page in enumerate(_a["page_numbers"], 1):
+                _b64_cache[(_a["student_name"], _p_label)] = _render_page_b64(
+                    _pre_doc, _scan_page - 1, dpi=dpi
+                )
+    finally:
+        _pre_doc.close()
+
     import contextlib
     import sys
     from rich.live import Live
 
-    _use_live = sys.stdout.isatty()
+    _use_live = sys.stdout.isatty() and not hasattr(sys.stdout, '_log')
     _display_lock = threading.Lock()
     _student_lines: dict[str, str] = {}
 
@@ -504,92 +499,49 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         return "\n".join(_student_lines.values()) if _student_lines else ""
 
     def _mark_student(assignment: dict) -> tuple[list[dict], list[dict]]:
-        """Mark one student's pages using scan-detected page assignments.
+        """Mark one student's pages using pre-rendered b64 images.
 
-        Opens its own fitz handle (fitz is not thread-safe).
         Returns (timings, failures) where failures is non-empty if any page exhausted all retries.
         """
         student_name: str = assignment["student_name"]
         page_numbers: list[int] = assignment["page_numbers"]  # 1-based scan pages
         local_timings: list[dict] = []
         local_failures: list[dict] = []
-        doc = fitz.open(str(ctx.cleaned_pdf))
-        try:
-            for p_label, scan_page in enumerate(page_numbers, 1):
-                scan_idx = scan_page - 1  # fitz is 0-based
-                key = f"{student_name}_{p_label}"
-                with _display_lock:
-                    _student_lines[key] = f"[dim]  {icon('info')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}[/]"
-                    if _use_live:
-                        live.update(_render())
+        for p_label, _ in enumerate(page_numbers, 1):
+            key = f"{student_name}_{p_label}"
+            with _display_lock:
+                _student_lines[key] = f"[dim]  {icon('info')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}[/]"
+                if _use_live:
+                    live.update(_render())
 
-                b64 = _render_page_b64(doc, scan_idx, dpi=dpi)
-                blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, p_label).read_text(
-                    encoding="utf-8"
+            b64 = _b64_cache[(student_name, p_label)]
+            blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, p_label).read_text(
+                encoding="utf-8"
+            )
+            blueprint = _blueprint_xml_to_dict(blueprint_xml)
+            safe_name = student_name or f"Unknown_{p_label}"
+
+            t0 = time.perf_counter()
+            try:
+                filled = _mark_page(
+                    client, model_id, b64, blueprint, _thinking_kw,
+                    blueprint_xml=blueprint_xml,
+                    use_stream=_use_stream,
+                    prompt_save_path=artifact_prompt_path(
+                        ctx.artifact_dir, f"13_marked_{safe_name}_{p_label}"
+                    ),
+                    warn=_warn,
                 )
-                blueprint = _blueprint_xml_to_dict(blueprint_xml)
-                safe_name = student_name or f"Unknown_{scan_page}"
-
-                t0 = time.perf_counter()
-                try:
-                    filled = _mark_page(
-                        client, model_id, b64, blueprint, _thinking_kw,
-                        blueprint_xml=blueprint_xml,
-                        use_stream=_use_stream,
-                        prompt_save_path=artifact_prompt_path(
-                            ctx.artifact_dir, f"13_marked_{safe_name}_{p_label}"
-                        ),
-                        warn=_warn,
-                    )
-                except MarkingFailure as mf:
-                    filled = blueprint.copy()
-                    filled["student_name"] = student_name
-                    local_failures.append({
-                        "student": student_name,
-                        "page": p_label,
-                        "attempts": mf.attempts,
-                        "error": str(mf.last_exc),
-                        "raw_response": mf.last_raw or None,
-                    })
-                    out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
-                    out_json.parent.mkdir(parents=True, exist_ok=True)
-                    out_json.write_text(
-                        json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8"
-                    )
-                    artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
-                        marked_to_md(filled), encoding="utf-8"
-                    )
-                    failed_path = artifact_marked_failed_path(ctx.artifact_dir, safe_name, p_label)
-                    failed_path.parent.mkdir(parents=True, exist_ok=True)
-                    failed_path.write_text(
-                        json.dumps(local_failures[-1], indent=2, ensure_ascii=False),
-                        encoding="utf-8",
-                    )
-                    with _display_lock:
-                        _student_lines[key] = (
-                            f"[red]  {icon('warn')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}"
-                            f"  ·  FAILED[/]"
-                        )
-                        if _use_live:
-                            live.update(_render())
-                    continue
-
-                mark_dur = round(time.perf_counter() - t0, 2)
-                with _display_lock:
-                    _student_lines[key] = (
-                        f"[dim]  {icon('info')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}"
-                        f"  ·  {format_duration(mark_dur)}[/]"
-                    )
-                    if _use_live:
-                        live.update(_render())
-                local_timings.append({
-                    "phase": "marking",
+            except MarkingFailure as mf:
+                filled = blueprint.copy()
+                filled["student_name"] = student_name
+                local_failures.append({
                     "student": student_name,
                     "page": p_label,
-                    "duration_s": mark_dur,
+                    "attempts": mf.attempts,
+                    "error": str(mf.last_exc),
+                    "raw_response": mf.last_raw or None,
                 })
-
-                filled["student_name"] = student_name
                 out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
                 out_json.parent.mkdir(parents=True, exist_ok=True)
                 out_json.write_text(
@@ -598,8 +550,49 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
                     marked_to_md(filled), encoding="utf-8"
                 )
-        finally:
-            doc.close()
+                failed_path = artifact_marked_failed_path(ctx.artifact_dir, safe_name, p_label)
+                failed_path.parent.mkdir(parents=True, exist_ok=True)
+                failed_path.write_text(
+                    json.dumps(local_failures[-1], indent=2, ensure_ascii=False),
+                    encoding="utf-8",
+                )
+                with _display_lock:
+                    _student_lines[key] = (
+                        f"[red]  {icon('warn')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}"
+                        f"  ·  FAILED[/]"
+                    )
+                    if _use_live:
+                        live.update(_render())
+                    else:
+                        get_console().print(_student_lines[key])
+                continue
+
+            mark_dur = round(time.perf_counter() - t0, 2)
+            with _display_lock:
+                _student_lines[key] = (
+                    f"[dim]  {icon('info')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}"
+                    f"  ·  {format_duration(mark_dur)}[/]"
+                )
+                if _use_live:
+                    live.update(_render())
+                else:
+                    get_console().print(_student_lines[key])
+            local_timings.append({
+                "phase": "marking",
+                "student": student_name,
+                "page": p_label,
+                "duration_s": mark_dur,
+            })
+
+            filled["student_name"] = student_name
+            out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
+            out_json.parent.mkdir(parents=True, exist_ok=True)
+            out_json.write_text(
+                json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+            artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
+                marked_to_md(filled), encoding="utf-8"
+            )
         return local_timings, local_failures
 
     all_failures: list[dict] = []

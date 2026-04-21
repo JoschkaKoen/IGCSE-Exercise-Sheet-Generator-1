@@ -24,24 +24,23 @@ Overview (rendered on GitHub as a diagram):
 
 ```mermaid
 flowchart TD
-    subgraph nlPath ["🧠  Natural language mode"]
+    subgraph nlPath ["Natural language mode"]
         direction TB
         n1["Step 1 — Describe your exercise\n(subject · paper · questions)"]
-        n2["Step 2 — Precheck  ·  LLM sanity check\n(skippable)"]
-        n3["Step 3 — Interpret  ·  LLM maps request → PDF paths,\nquestion numbers, and ranking flag"]
+        n2["Step 2 — Precheck\n(LLM sanity check · skippable)"]
+        n3["Step 3 — Interpret\n(LLM maps request → PDF paths, questions, ranking flag)"]
         n1 --> n2 --> n3
     end
 
-    subgraph legPath ["📂  Legacy / explicit mode"]
-        direction TB
-        l1["Provide PDF paths and question numbers directly\n(no LLM step)"]
+    subgraph legPath ["Legacy / explicit mode"]
+        l1["Provide PDF paths and question numbers directly"]
     end
 
-    cut["Step 4 — Extract questions from PDFs\nas vector graphics (papers processed in parallel)"]
+    cut["Step 4 — Extract questions\n(vector graphics · papers in parallel)"]
 
-    subgraph outputs ["📄  Outputs"]
+    subgraph outputs ["Outputs"]
         direction TB
-        ex["exercise.pdf\none continuous exercise sheet"]
+        ex["exercise.pdf"]
         ms{"Mark scheme\nprovided?"}
         ans["answers.pdf — structured MS\n(regions extracted as vectors)"]
         mcqans["answers.pdf — MCQ\n(Gemini PDF upload → LaTeX explanations)"]
@@ -52,8 +51,8 @@ flowchart TD
         ms -->|No| nup
     end
 
-    rankCond{"Skip ranking?\nranking=false or\nRANKING_SKIP=true"}
-    rank["ranking.pdf\nquestions ranked hardest → easiest\n(background · optional)"]
+    rankCond{"Skip ranking?"}
+    rank["ranking.pdf\n(hardest → easiest · background · optional)"]
 
     n3 --> cut
     l1 --> cut
@@ -108,12 +107,12 @@ flowchart TD
     end
 
     s1["Step 1 — Parse grading prompt\n(Gemini · INTERPRET_PROMPT_MODEL)"]
-    s2["Step 2 — Locate exam folder\n(terminal only — fuzzy search)"]
+    s2["Step 2 — Locate exam folder\n(terminal only · fuzzy search)"]
     s3["Step 3 — Read student roster\n(Gemini · READ_STUDENT_LIST_MODEL)"]
 
     routeCond{"Terminal or\nweb route?"}
 
-    subgraph cleaning ["Steps 4–6 — Scan cleaning"]
+    subgraph cleaning ["Scan cleaning"]
         direction TB
         s4["Step 4 — Blank page detection\n(parallel · ≤ 4 CPU workers)"]
         s5["Step 5 — Auto-rotate pages"]
@@ -123,22 +122,22 @@ flowchart TD
 
     cleaned(["3_cleaned_scan.pdf"])
 
-    s7["Step 7 — Exam geometry\npage count ÷ exam pages = students\n+ student name detection"]
+    s7["Step 7 — Exam geometry\n(page count ÷ exam pages = students · student name detection)"]
 
-    subgraph scaffold ["Steps 8–11 — Exam scaffold  (Steps 8–10 in legacy mode)"]
+    subgraph scaffold ["Exam scaffold"]
         direction TB
-        s8["Step 8 — Detect exam layout\n(Gemini · DETECT_LAYOUT_MODEL)\ncheap inline-image call · detects reading order\nsplits PDF into sub-pages if multi-up"]
-        s9["Step 9 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)\nsplit PDF: one sub-page per page in reading order"]
+        s8["Step 8 — Detect exam layout\n(Gemini · DETECT_LAYOUT_MODEL · splits multi-up PDFs)"]
+        s9["Step 9 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)"]
         s10["Step 10 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL)"]
         s11["Step 11 — Merge report"]
         s8 --> s9 --> s10 --> s11
     end
 
-    subgraph marking ["Steps 12–15 — AI marking  (Steps 11–14 in legacy mode)"]
+    subgraph marking ["AI marking"]
         direction TB
-        s12["Step 12 — Marking blueprints\nper-page JSON templates from scaffold"]
-        s13["Step 13 — AI marking\n(Qwen vision · MARKING_MODEL)\nsubpage-aware · students in parallel"]
-        s14["Step 14 — Compile reports\nper-student PDF + class PDF\nxelatex · parallel · MARKING_WORKERS"]
+        s12["Step 12 — Marking blueprints\n(per-page JSON templates from scaffold)"]
+        s13["Step 13 — AI marking\n(Qwen vision · MARKING_MODEL · students in parallel)"]
+        s14["Step 14 — Compile reports\n(per-student PDF + class PDF · xelatex · MARKING_WORKERS)"]
         s15["Step 15 — Timing summary"]
         s12 --> s13 --> s14 --> s15
     end
@@ -168,14 +167,15 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    s1s2["Steps 1–2 — Parse prompt · locate folder"]
+    s1["Step 1 — Parse grading prompt"]
+    s2["Step 2 — Locate exam folder\n(terminal route only)"]
     s3["Step 3 — Read student roster\n(Gemini · READ_STUDENT_LIST_MODEL)"]
-    s1s2 --> s3
+    s1 --> s2 --> s3
 
     s3 -->|"header prints → scan thread starts"| s4
     s3 -->|"step 3 done → scaffold thread starts"| s8
 
-    subgraph scan ["Scan thread — steps 4–6"]
+    subgraph scan ["Scan thread"]
         direction TB
         s4["Step 4 — Blank page detection\n(≤ 4 CPU workers)"]
         s5["Step 5 — Auto-rotate pages"]
@@ -185,7 +185,7 @@ flowchart TD
 
     s6 --> s7["Step 7 — Exam geometry\n(main thread)"]
 
-    subgraph scaffold ["Scaffold thread — steps 8–11"]
+    subgraph scaffold ["Scaffold thread"]
         direction TB
         s8["Step 8 — Detect exam layout\n(Gemini · DETECT_LAYOUT_MODEL)"]
         gate7{{"wait: step 7 done"}}

@@ -53,7 +53,7 @@ def _build_blueprint_xml(page_num: int, layout: Any, page_qs: list[dict]) -> str
         ET.SubElement(qel, "assigned_marks")
         ET.SubElement(qel, "explanation")
     ET.indent(root)
-    return ET.tostring(root, encoding="unicode", xml_declaration=False)
+    return ET.tostring(root, encoding="unicode", xml_declaration=False, short_empty_elements=False)
 
 
 def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
