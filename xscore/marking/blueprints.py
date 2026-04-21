@@ -8,6 +8,12 @@ from pathlib import Path
 from typing import Any
 
 
+def _quadrant_label(row: int, col: int, total_rows: int, total_cols: int) -> str:
+    v = "top" if row == 1 else "bottom" if row == total_rows else f"row {row}"
+    h = "left" if col == 1 else "right" if col == total_cols else f"col {col}"
+    return f"{v}-{h}"
+
+
 def _criteria_from_marking_str(criteria_str: str | None) -> list[tuple[str, str]]:
     """Parse '[B1] text\n[M1] text' → [(mark, text), ...]."""
     if not criteria_str:
@@ -28,6 +34,13 @@ def _build_blueprint_xml(page_num: int, layout: Any, page_qs: list[dict]) -> str
     root.set("page", str(page_num))
     root.set("rows", str(layout.rows))
     root.set("cols", str(layout.cols))
+    if layout.rows > 1 or layout.cols > 1:
+        for r in range(1, layout.rows + 1):
+            for c in range(1, layout.cols + 1):
+                sp = ET.SubElement(root, "subpage")
+                sp.set("row", str(r))
+                sp.set("col", str(c))
+                sp.set("label", _quadrant_label(r, c, layout.rows, layout.cols))
     for q in page_qs:
         qel = ET.SubElement(root, "question")
         qel.set("number", str(q["number"]))

@@ -31,7 +31,7 @@ from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, warn_line
 
 
-_DEFAULT_MARKING_MODEL = "qwen3.6-plus, off"
+_DEFAULT_MARKING_MODEL = "qwen3.6-plus, low"
 
 
 class MarkingFailure(Exception):
@@ -240,15 +240,12 @@ def _mark_page(
     # --- Section C: output format + CRITICAL tag rule ---
     system_prompt += (
         "\n\nReturn ONLY the filled Blueprint XML — no markdown fences, no surrounding text. "
-        "Keep every question in the same order. Use this exact structure:\n"
-        "<marking ...>\n"
-        "  <question number=\"...\" subpage_row=\"...\" subpage_col=\"...\" "
-        "question_text=\"first 6 words of question text\">\n"
-        "    <student_answer>...</student_answer>\n"
-        "    <assigned_marks>N</assigned_marks>\n"
-        "    <explanation>...</explanation>\n"
-        "  </question>\n"
-        "</marking>\n"
+        "Fill in the three empty XML fields in each <question>: "
+        "<student_answer>, <assigned_marks>, and <explanation>. "
+        "Do not change any other content.\n"
+        "CRITICAL — write each field exactly once, final answer only. "
+        "Do NOT reason, deliberate, or self-correct inside any XML field or anywhere in the output. "
+        "Decide first, then write the answer directly into the field and close the tag immediately.\n"
         "CRITICAL — each element must be closed with its own matching tag. "
         "WRONG: <explanation>text</student_answer>. "
         "RIGHT: <explanation>text</explanation>. "
@@ -268,25 +265,14 @@ def _mark_page(
 
     # --- Section E: grid navigation (only for multi-subpage layouts) ---
     if rows > 1 or cols > 1:
-        grid_desc = "\n".join(
-            f"  row {r} col {c} = {_quadrant_label(r, c, rows, cols)}"
-            for r in range(1, rows + 1)
-            for c in range(1, cols + 1)
-        )
         system_prompt += (
-            f"\n\nThis exam page is a {rows}×{cols} grid of sub-pages (row-major reading order):\n"
-            f"{grid_desc}\n"
-            "Each question carries subpage_row and subpage_col — use these to locate which "
-            "quadrant on the physical page the student's answer is in. "
-            "Do not confuse answers from different quadrants.\n"
-            "Each question also carries order_in_subpage (1 = topmost within that quadrant). "
-            "Within a quadrant, match the Nth answer slot top-to-bottom to the question with "
-            "order_in_subpage = N.\n"
-            "The same question number may appear in more than one sub-page or more than once "
-            "in the same sub-page. Always identify questions by subpage_row + subpage_col + "
-            "question_text, not by number alone.\n"
-            "Do not reproduce <text> or <option> content in your response — "
-            "fill only <student_answer>, <assigned_marks>, and <explanation>."
+            f"\n\nThis page is divided into a {rows}×{cols} grid — "
+            "the <subpage> elements at the top of the blueprint label each quadrant. "
+            "Each question's subpage_row and subpage_col identify its quadrant; "
+            "do not confuse answers from different quadrants. "
+            "order_in_subpage (1 = topmost) gives the vertical position within a quadrant. "
+            "The same question number may appear more than once — always identify questions "
+            "by subpage_row + subpage_col + question text, not by number alone."
         )
 
     user_text = (

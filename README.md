@@ -163,7 +163,7 @@ flowchart TD
     s15 -.-> f15
 ```
 
-### Parallel execution — steps 3–14
+### Parallel execution — steps 3–16
 
 ```mermaid
 flowchart TD
@@ -173,7 +173,6 @@ flowchart TD
     s1 --> s2 --> s3
 
     s3 -->|"header prints → scan thread starts"| s4
-    s3 -->|"step 3 done → scaffold thread starts"| s8
 
     subgraph scan ["Scan thread"]
         direction TB
@@ -185,24 +184,22 @@ flowchart TD
 
     s6 --> s7["Step 7 — Exam geometry\n(main thread)"]
 
+    s7 -->|"step 7 done → scaffold thread unblocks"| s8
+
     subgraph scaffold ["Scaffold thread"]
         direction TB
-        s8["Step 8 — Detect exam layout\n(Gemini · DETECT_LAYOUT_MODEL)"]
-        gate7{{"wait: step 7 done"}}
-        s9["Step 9 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)"]
-        s10["Step 10 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL)"]
-        s11["Step 11 — Merge scaffold"]
-        s8 --> gate7
-        gate7 --> s9 & s10
-        s9 & s10 --> s11
+        s8["Step 8 — Detect raw exam layout\n(Gemini · DETECT_LAYOUT_MODEL)"]
+        s9["Step 9 — Cut raw exam PDF\n(split mode · sub-pages in reading order)"]
+        s10["Step 10 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)"]
+        s11["Step 11 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL)"]
+        s12["Step 12 — Merge scaffold"]
+        s8 --> s9 --> s10 --> s11 --> s12
     end
 
-    s7 -.->|"signals gate"| gate7
-
-    s11 --> s12["Step 12 — Marking blueprints"]
-    s12 --> s13["Step 13 — AI marking\n(MARKING_WORKERS threads · one per student)"]
-    s13 --> s14["Step 14 — Compile reports\n(MARKING_WORKERS · parallel xelatex)"]
-    s14 --> s15["Step 15 — Timing summary"]
+    s12 --> s13["Step 13 — Marking blueprints"]
+    s13 --> s14["Step 14 — AI marking\n(MARKING_WORKERS threads · one per student)"]
+    s14 --> s15["Step 15 — Compile reports\n(MARKING_WORKERS · parallel xelatex)"]
+    s15 --> s16["Step 16 — Timing summary"]
 ```
 
 | Step | Description |

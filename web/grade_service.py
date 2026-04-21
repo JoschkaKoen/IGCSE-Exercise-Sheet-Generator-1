@@ -236,6 +236,7 @@ def run_full_pipeline(
         result = build_scaffold(
             folder,
             artifact_dir=artifact_dir,
+            force_rebuild=True,
             exam_pdf_override=empty_exam_path,
             on_exam_complete=_on_exam_done,
             on_scheme_complete=_on_scheme_done,

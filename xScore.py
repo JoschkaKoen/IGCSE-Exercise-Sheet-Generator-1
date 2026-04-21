@@ -379,6 +379,7 @@ def _step08_09_10_scaffold(
         ctx.scaffold = gi.build_scaffold(
             ctx.folder,
             artifact_dir=ctx.artifact_dir,
+            force_rebuild=True,
             on_layout_complete=_on_layout_done if _split else None,
             on_cut_complete=_on_cut_done if _split else None,
             on_exam_complete=_on_exam_done,

@@ -530,6 +530,7 @@ def build_scaffold(
     on_layout_complete: "Any | None" = None,
     on_cut_complete: "Any | None" = None,
     students: "list[str] | None" = None,
+    force_rebuild: bool = False,
 ) -> ExamScaffold:
     """Build (or load from cache) the ExamScaffold for the exam in *folder*.
 
@@ -538,13 +539,14 @@ def build_scaffold(
     *dpi* is unused; parsing is vector-based.
     *quiet*: when True, omit cache-hit log lines.
     *exam_pdf_override*: use this PDF instead of auto-detecting one in *folder*.
+    *force_rebuild*: when True, skip cache entirely and always re-run AI extraction.
     """
     _ = client, dpi
     from xscore.shared.terminal_ui import ok_line, tool_line
 
     ad = artifact_dir or exam_artifact_dir(folder, output_base)
 
-    if _is_cache_valid(folder, ad, exam_pdf_override):
+    if not force_rebuild and _is_cache_valid(folder, ad, exam_pdf_override):
         try:
             if not quiet:
                 tool_line("scaffold", "Loading scaffold from cache …")
