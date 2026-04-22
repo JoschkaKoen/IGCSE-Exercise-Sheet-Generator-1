@@ -511,13 +511,11 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     live.update(_render())
 
             b64 = _b64_cache[(student_name, p_label)]
-            # Blueprints and output filenames are indexed by exam answer page (1…N), not scan order.
-            exam_page = answer_label
-            blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, exam_page).read_text(
+            blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, p_label).read_text(
                 encoding="utf-8"
             )
             blueprint = _blueprint_xml_to_dict(blueprint_xml)
-            safe_name = student_name or f"Unknown_{exam_page}"
+            safe_name = student_name or f"Unknown_{p_label}"
 
             t0 = time.perf_counter()
             try:
@@ -526,7 +524,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     blueprint_xml=blueprint_xml,
                     use_stream=_use_stream,
                     prompt_save_path=artifact_prompt_path(
-                        ctx.artifact_dir, f"14_marked_{safe_name}_{exam_page}"
+                        ctx.artifact_dir, f"14_marked_{safe_name}_{p_label}"
                     ),
                     warn=_warn,
                 )
@@ -535,20 +533,20 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 filled["student_name"] = student_name
                 local_failures.append({
                     "student": student_name,
-                    "page": exam_page,
+                    "page": p_label,
                     "attempts": mf.attempts,
                     "error": str(mf.last_exc),
                     "raw_response": mf.last_raw or None,
                 })
-                out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, exam_page)
+                out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
                 out_json.parent.mkdir(parents=True, exist_ok=True)
                 out_json.write_text(
                     json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8"
                 )
-                artifact_marked_md_path(ctx.artifact_dir, safe_name, exam_page).write_text(
+                artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
                     marked_to_md(filled), encoding="utf-8"
                 )
-                failed_path = artifact_marked_failed_path(ctx.artifact_dir, safe_name, exam_page)
+                failed_path = artifact_marked_failed_path(ctx.artifact_dir, safe_name, p_label)
                 failed_path.parent.mkdir(parents=True, exist_ok=True)
                 failed_path.write_text(
                     json.dumps(local_failures[-1], indent=2, ensure_ascii=False),
@@ -578,17 +576,17 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             local_timings.append({
                 "phase": "marking",
                 "student": student_name,
-                "page": exam_page,
+                "page": p_label,
                 "duration_s": mark_dur,
             })
 
             filled["student_name"] = student_name
-            out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, exam_page)
+            out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
             out_json.parent.mkdir(parents=True, exist_ok=True)
             out_json.write_text(
                 json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8"
             )
-            artifact_marked_md_path(ctx.artifact_dir, safe_name, exam_page).write_text(
+            artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
                 marked_to_md(filled), encoding="utf-8"
             )
         return local_timings, local_failures
