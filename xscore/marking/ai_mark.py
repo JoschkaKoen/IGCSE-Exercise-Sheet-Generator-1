@@ -413,6 +413,61 @@ def _fix_mc_marks(result: dict) -> None:
 
 
 
+def render_pages_b64(
+    cleaned_pdf: Path,
+    artifact_dir: Path,
+    dpi: int,
+    workers: int,
+    *,
+    instruction: Any = None,
+) -> dict[tuple[str, int], str]:
+    """Render all scan pages to base64 JPEG, parallelised.
+
+    Reads 8_exam_student_list.json directly (same source as run_ai_marking).
+    Each worker opens its own fitz.Document — fitz is not thread-safe.
+    Returns {(student_name, page_label): b64_str}.
+    """
+    import fitz
+    from concurrent.futures import as_completed
+    from xscore.shared.exam_paths import artifact_exam_student_list_json_path
+
+    list_path = artifact_exam_student_list_json_path(artifact_dir)
+    raw: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
+
+    if instruction is not None:
+        sf = instruction.student_filter
+        if sf.mode == "specific" and sf.names:
+            raw = [a for a in raw if a["student_name"] in sf.names]
+        elif sf.mode == "first_n" and sf.n:
+            raw = raw[: sf.n]
+
+    tasks: list[tuple[str, int, int]] = []
+    for a in raw:
+        for p_label, scan_page in enumerate(a["page_numbers"], 1):
+            tasks.append((a["student_name"], p_label, scan_page - 1))
+
+    cache: dict[tuple[str, int], str] = {}
+    if not tasks:
+        return cache
+
+    def _render_one(student: str, p_label: int, page_0idx: int) -> tuple[tuple[str, int], str]:
+        doc = fitz.open(str(cleaned_pdf))
+        try:
+            b64 = _render_page_b64(doc, page_0idx, dpi=dpi)
+        finally:
+            doc.close()
+        return (student, p_label), b64
+
+    n_workers = min(len(tasks), workers)
+    with ThreadPoolExecutor(max_workers=n_workers) as pool:
+        futs = {pool.submit(_render_one, s, pl, p0): None for s, pl, p0 in tasks}
+        for fut in as_completed(futs):
+            key, b64 = fut.result()
+            cache[key] = b64
+
+    return cache
+
+
 def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
@@ -460,20 +515,16 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
 
-    # Pre-render all pages to b64 before spawning API workers so every worker
-    # has its image ready and all API calls fire within milliseconds of each other.
-    _total_pages = sum(len(a["page_numbers"]) for a in raw_assignments)
-    info_line(f"Rendering {_total_pages} page(s) for {len(raw_assignments)} students at {dpi} DPI …")
-    _b64_cache: dict[tuple[str, int], str] = {}
-    _pre_doc = fitz.open(str(ctx.cleaned_pdf))
-    try:
-        for _a in raw_assignments:
-            for _p_label, _scan_page in enumerate(_a["page_numbers"], 1):
-                _b64_cache[(_a["student_name"], _p_label)] = _render_page_b64(
-                    _pre_doc, _scan_page - 1, dpi=dpi
-                )
-    finally:
-        _pre_doc.close()
+    b64_future = getattr(ctx, "b64_future", None)
+    if b64_future is not None:
+        _b64_cache = b64_future.result()   # instant if BG finished; brief wait if not
+    else:
+        _total_pages = sum(len(a["page_numbers"]) for a in raw_assignments)
+        info_line(f"Rendering {_total_pages} page(s) for {len(raw_assignments)} students at {dpi} DPI …")
+        _b64_cache = render_pages_b64(
+            ctx.cleaned_pdf, ctx.artifact_dir, dpi, workers,
+            instruction=getattr(ctx, "instruction", None),
+        )
 
     # Build flat per-page task list — cover pages and out-of-range pages are excluded here
     # (single authoritative filter; was spread across _mark_student's inner loop).

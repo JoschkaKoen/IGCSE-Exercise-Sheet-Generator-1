@@ -149,6 +149,7 @@ class _Ctx:
     cover_page_mode: bool = False            # True when step 8 detects cover pages in the scan
     step_offset: int = 0                     # 1 when split-subpages mode adds step 9 (layout + cut)
     stop_after: int = 9999                   # --stop-after N; 9999 = run everything
+    b64_future: Any = None                   # Future[dict] set by _kick_off_render_bg after step 8
 
     def __post_init__(self) -> None:
         if getattr(self.args, "stop_after", None) is not None:
@@ -437,6 +438,31 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         if scan_exc is not None:
             raise scan_exc
 
+    def _kick_off_render_bg(ctx: _Ctx) -> None:
+        """Start parallel page rendering in a background thread right after step 8.
+
+        No-op if cleaned_pdf or page_assignments are not yet set.
+        """
+        if not (ctx.cleaned_pdf and ctx.page_assignments and ctx.artifact_dir):
+            return
+        from concurrent.futures import ThreadPoolExecutor
+        from xscore.config import MARKING_DPI
+        from xscore.marking.ai_mark import render_pages_b64
+        _instr = getattr(ctx, "instruction", None)
+        dpi = getattr(_instr, "dpi", None) or MARKING_DPI
+        total_pages = sum(len(a.page_numbers) for a in ctx.page_assignments)
+        workers = min(
+            total_pages,
+            int(os.environ.get("MARKING_WORKERS", str(min(os.cpu_count() or 4, 16)))),
+        )
+        info_line(f"Pre-rendering {total_pages} page(s) in background ({workers} threads, {dpi} DPI) …")
+        pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="render_bg")
+        ctx.b64_future = pool.submit(
+            render_pages_b64, ctx.cleaned_pdf, ctx.artifact_dir, dpi, workers,
+            instruction=_instr,
+        )
+        pool.shutdown(wait=False)
+
     def _run_steps3to11_sequential(ctx: _Ctx) -> None:
         """Steps 3–11 run one after the other in the main thread."""
         _step03_students(ctx)
@@ -445,6 +471,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         if ctx.stop_after <= 7: raise _EarlyExit()
         if ctx.cleaned_pdf:
             _step08_geometry(ctx)
+            _kick_off_render_bg(ctx)
         if ctx.stop_after <= 8: raise _EarlyExit()
         _scaffold_steps(ctx)
 
@@ -484,6 +511,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
                     raise _EarlyExit()
                 if ctx.cleaned_pdf:
                     _step08_geometry(ctx)
+                    _kick_off_render_bg(ctx)
             except BaseException as exc:
                 _students_ready.set()   # unblock scaffold thread on main-thread error
                 main_exc = exc
