@@ -33,6 +33,7 @@ from xscore.config import NAME_RECOGNITION_DPI
 from .ai_helpers import ai_image_call, page_to_jpeg_b64, parse_json_safe
 from xscore.shared.exam_paths import artifact_prompt_path
 from xscore.shared.models import PageAssignment
+from xscore.shared.prompt_logger import save_prompt, save_response
 
 
 _NAME_PROMPT_FREEFORM = """\
@@ -70,30 +71,77 @@ If no handwritten name is visible or none of the roster entries match, return:
 
 
 _COVER_PAGE_PROMPT = """\
-A COVER PAGE is defined as a page that contains a name or candidate identification \
-field (where the student writes their name, class, date, or candidate number) but \
-contains NO exercises, questions, answer boxes, or areas for written work. \
-It is purely an identification or title page.
+A COVER PAGE contains a name/identification field (where the student writes \
+their name, class, date, or candidate number) but no exercises or questions.
 
-Does this exam page match that definition of a cover page?
+Is this exam page a cover page?
 
 Return ONLY JSON: {"cover_page": true} or {"cover_page": false}
 """
 
 
-def is_cover_page(page_img, client, model_id: str, *, prompt_save_path: Path | None = None) -> bool:
-    """Return True if *page_img* matches the cover-page definition.
+def is_cover_page(pdf_path: Path, page_idx: int, gai_client, model_id: str,
+                  *, prompt_save_path: Path | None = None) -> bool:
+    """Return True if page *page_idx* of *pdf_path* matches the cover-page definition.
 
-    Used for both the empty-exam informational check and the authoritative
-    scan-level checks.  The same prompt is used in all cases.
+    Uploads a single-page PDF to the Gemini Files API (same pattern as exam/scheme
+    parsing in ai_scaffold.py) and queries with ThinkingConfig(thinking_budget=0).
+    Used for both the empty-exam informational check and authoritative scan checks.
     """
-    img_b64 = page_to_jpeg_b64(page_img)
-    raw = ai_image_call(
-        client, img_b64, _COVER_PAGE_PROMPT,
-        max_tokens=20, model_id=model_id, print_latency=False,
-        prompt_save_path=prompt_save_path,
-    )
-    return bool((parse_json_safe(raw) or {}).get("cover_page", False))
+    import fitz
+    import tempfile
+    from google.genai import types as gai_types
+    from xscore.shared.terminal_ui import warn_line
+
+    tmp_path: Path | None = None
+    uploaded = None
+    try:
+        with fitz.open(str(pdf_path)) as doc:
+            single = fitz.open()
+            single.insert_pdf(doc, from_page=page_idx, to_page=page_idx)
+            with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
+                tmp_path = Path(f.name)
+            single.save(str(tmp_path))
+            single.close()
+
+        save_prompt(prompt_save_path, model=model_id,
+                    messages=[{"role": "user", "content": _COVER_PAGE_PROMPT}])
+
+        uploaded = gai_client.files.upload(file=tmp_path)
+        while getattr(uploaded.state, "name", str(uploaded.state)) == "PROCESSING":
+            time.sleep(1)
+            uploaded = gai_client.files.get(name=uploaded.name)
+        if getattr(uploaded.state, "name", str(uploaded.state)) == "FAILED":
+            warn_line(f"[{model_id}] PDF upload failed for page {page_idx}")
+            return False
+
+        config = gai_types.GenerateContentConfig(
+            max_output_tokens=20,
+            thinking_config=gai_types.ThinkingConfig(thinking_budget=0),
+            response_mime_type="application/json",
+        )
+        resp = gai_client.models.generate_content(
+            model=model_id,
+            contents=[
+                gai_types.Part.from_uri(file_uri=uploaded.uri, mime_type="application/pdf"),
+                gai_types.Part.from_text(text=_COVER_PAGE_PROMPT),
+            ],
+            config=config,
+        )
+        raw = resp.text or ""
+        if not raw:
+            warn_line(f"[{model_id}] cover page check returned empty response")
+        save_response(prompt_save_path, raw)
+        return bool((parse_json_safe(raw) or {}).get("cover_page", False))
+
+    finally:
+        if tmp_path:
+            tmp_path.unlink(missing_ok=True)
+        if uploaded:
+            try:
+                gai_client.files.delete(name=uploaded.name)
+            except Exception:
+                pass
 
 
 def _crop_top(page, fraction: float = 0.15):
@@ -150,7 +198,7 @@ def assign_pages(
     """
     from xscore.extraction.ground_truth import fuzzy_match_name
     from pdf2image import convert_from_path
-    from eXercise.ai_client import make_ai_client
+    from eXercise.ai_client import make_ai_client, parse_model_effort
 
     ai_result = make_ai_client(model_env="NAME_DETECTION_MODEL", default_model="gemini-2.5-flash")
     if ai_result is None:
@@ -175,22 +223,23 @@ def assign_pages(
     cover_page_mode: bool = False
     cover_ok: dict[int, bool] = {}  # 0-based index → is_cover_page result
 
-    _cover_result = make_ai_client(
-        model_env="COVER_PAGE_DETECTION_MODEL", default_model="gemini-2.5-flash"
-    )
-    if _cover_result is None:
+    _cover_api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
+    if not _cover_api_key:
         warn_line(
-            "COVER_PAGE_DETECTION_MODEL client could not be created — "
-            "cover-page detection skipped, running in standard mode"
+            "GEMINI_API_KEY not set — cover-page detection skipped, running in standard mode"
         )
     else:
-        _cover_client, _cover_model, *_ = _cover_result
+        from google import genai as gai
+        _gai_client = gai.Client(api_key=_cover_api_key)
+        _cover_model, _ = parse_model_effort(
+            os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
+        )
 
         # Authoritative check: is scan page 1 a cover page?
         info_line("Checking scan page 1 for cover page …")
         _p1_save = artifact_prompt_path(artifact_dir, "8_cover_p1") if artifact_dir else None
         _t_cover = time.perf_counter()
-        page1_is_cover = is_cover_page(pages[0], _cover_client, _cover_model, prompt_save_path=_p1_save)
+        page1_is_cover = is_cover_page(cleaned_pdf, 0, _gai_client, _cover_model, prompt_save_path=_p1_save)
         _cover_elapsed = format_duration(time.perf_counter() - _t_cover)
         cover_page_mode = page1_is_cover
 
@@ -206,7 +255,7 @@ def assign_pages(
 
             def _check_cover(idx: int) -> tuple[int, bool]:
                 save_path = artifact_prompt_path(artifact_dir, f"8_cover_p{idx + 1}") if artifact_dir else None
-                return idx, is_cover_page(pages[idx], _cover_client, _cover_model, prompt_save_path=save_path)
+                return idx, is_cover_page(cleaned_pdf, idx, _gai_client, _cover_model, prompt_save_path=save_path)
 
             if cover_indices_to_check:
                 _cover_workers = min(len(cover_indices_to_check), 8)

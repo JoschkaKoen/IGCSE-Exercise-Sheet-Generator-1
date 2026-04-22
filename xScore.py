@@ -32,6 +32,7 @@ from __future__ import annotations
 import argparse
 import datetime
 import json
+import os
 import re
 import shlex
 import sys
@@ -528,21 +529,19 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         _empty_exam_has_cover: bool | None = None   # None = check was not performed
         try:
             from xscore.scaffold.generate_scaffold import find_exam_pdf
-            from pdf2image import convert_from_path
-            from eXercise.ai_client import make_ai_client
+            from google import genai as gai
+            from eXercise.ai_client import parse_model_effort
             from xscore.marking.assign_pages_to_students import is_cover_page
             from xscore.shared.exam_paths import artifact_prompt_path
             info_line("Checking empty exam for cover page (informational) …")
             _exam_pdf = find_exam_pdf(ctx.folder)
-            _exam_page1 = convert_from_path(str(_exam_pdf), dpi=150, first_page=1, last_page=1)[0]
-            _empty_cover_result = make_ai_client(
-                model_env="EMPTY_EXAM_COVER_MODEL", default_model="gemini-2.5-flash"
-            )
-            if _empty_cover_result:
-                _ec_client, _ec_model, *_ = _empty_cover_result
+            _ec_api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
+            if _ec_api_key:
+                _gai_client_ec = gai.Client(api_key=_ec_api_key)
+                _ec_model, _ = parse_model_effort(os.environ.get("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash"))
                 _ec_save = artifact_prompt_path(ctx.artifact_dir, "8_cover_empty_exam")
                 _t_ec = time.perf_counter()
-                _empty_exam_has_cover = is_cover_page(_exam_page1, _ec_client, _ec_model, prompt_save_path=_ec_save)
+                _empty_exam_has_cover = is_cover_page(_exam_pdf, 0, _gai_client_ec, _ec_model, prompt_save_path=_ec_save)
                 info_line(
                     f"Empty exam page 1: {'cover page' if _empty_exam_has_cover else 'answer page'} "
                     f"(informational — scan is authoritative)  ·  {format_duration(time.perf_counter() - _t_ec)}"
