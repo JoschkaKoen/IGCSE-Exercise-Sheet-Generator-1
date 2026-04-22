@@ -92,6 +92,22 @@ def _latex_newlines(text: str) -> str:
     return "".join(result)
 
 
+def _strip_mark_outcome(text: str) -> str:
+    """Remove the trailing mark tally the AI appends to explanations.
+
+    Patterns stripped (case-insensitive, with em-dash, en-dash, or hyphen):
+      "— 1 mark."  "— 0 marks."  "— 1 of 2 marks."  "– 2/3 marks."
+    The Got column already shows the awarded marks, so this is redundant in the
+    Reasoning column.
+    """
+    return re.sub(
+        r'\s*[—–\-]\s*\d+(?:\s+of\s+\d+|\s*/\s*\d+)?\s+marks?\.?\s*$',
+        '',
+        text,
+        flags=re.IGNORECASE,
+    ).rstrip()
+
+
 def _format_criteria_cell(raw: str) -> str:
     """Format a marking_criteria string for the Expected column.
 
@@ -318,12 +334,19 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
             else _latex_newlines(_latex_escape_smart(_restore_json_control_chars(answer_raw)))
         )
         correct_raw = str(q.get("correct_answer") or "").strip()
-        if correct_raw:
-            correct_ans = _latex_newlines(_latex_escape_smart(_restore_json_control_chars(correct_raw)))
+        criteria_raw = str(q.get("marking_criteria") or "").strip()
+        question_type = str(q.get("question_type", "")).strip()
+        if question_type == "multiple_choice" or not criteria_raw:
+            # MCQ: always show the answer letter.
+            # Non-MCQ without criteria: fall back to correct_answer.
+            correct_ans = (
+                _latex_newlines(_latex_escape_smart(_restore_json_control_chars(correct_raw)))
+                if correct_raw else "---"
+            )
         else:
-            criteria_raw = str(q.get("marking_criteria") or "").strip()
-            correct_ans = _format_criteria_cell(_restore_json_control_chars(criteria_raw)) if criteria_raw else "---"
-        reasoning = _latex_newlines(_latex_escape_smart(_restore_json_control_chars(str(q.get("explanation") or ""))))
+            # Non-MCQ with criteria: show the full breakdown regardless of correct_answer.
+            correct_ans = _format_criteria_cell(_restore_json_control_chars(criteria_raw))
+        reasoning = _latex_newlines(_latex_escape_smart(_restore_json_control_chars(_strip_mark_outcome(str(q.get("explanation") or "")))))
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(
             f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\"
@@ -331,7 +354,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
     rows_str = "\n".join(rows)
     pct_display = "N/A" if pct is None else f"{pct}\\%"
     # Column widths fill landscape A4 text width (25.7 cm - ~3 cm separator overhead = 22.7 cm):
-    # p{0.9cm} + p{2.0cm} + p{0.8cm} + p{1.0cm} + p{4cm} + p{5.5cm} + p{8.5cm} = 22.7 cm
+    # p{0.9cm} + p{2.0cm} + p{0.7cm} + p{0.8cm} + p{4cm} + p{6.5cm} + p{7.8cm} = 22.7 cm
     return (
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
@@ -342,6 +365,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         "\\usepackage{geometry}\n"
         "\\usepackage{xcolor}\n"
         "\\usepackage{array}\n"
+        "\\newcolumntype{L}[1]{>{\\raggedright\\arraybackslash}p{#1}}\n"
         "\\geometry{a4paper,landscape,margin=2cm}\n"
         "\\begin{document}\n"
         f"\\section*{{Student Report: {name}{header_extra}}}\n"
@@ -350,7 +374,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         "\\vspace{1em}\n\n"
         "{\\small\n"
         "\\renewcommand{\\arraystretch}{1.2}\n"
-        "\\begin{longtable}{p{0.9cm}p{2.0cm}p{0.8cm}p{1.0cm}p{4cm}p{5.5cm}p{8.5cm}}\n"
+        "\\begin{longtable}{L{0.9cm}L{2.0cm}L{0.7cm}L{0.8cm}L{4cm}L{6.5cm}L{7.8cm}}\n"
         "\\toprule\n"
         "\\textbf{Q} & \\textbf{Type} & \\textbf{Max} & \\textbf{Got} & "
         "\\textbf{Student Answer} & \\textbf{Expected} & \\textbf{Reasoning} \\\\\n"
