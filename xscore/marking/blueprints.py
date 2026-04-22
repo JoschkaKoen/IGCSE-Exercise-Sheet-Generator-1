@@ -121,7 +121,7 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
 
 
 def marked_to_md(filled: dict) -> str:
-    """Render a completed ``13_marked_*.json`` as a human-readable markdown table."""
+    """Render a completed ``14_marked_*.json`` as a human-readable markdown table."""
     student = filled.get("student_name", "Unknown")
     page = filled.get("page", "?")
     questions = filled.get("questions", [])

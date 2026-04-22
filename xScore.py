@@ -2,24 +2,25 @@
 """
 xScore.py
 ---------
-Exam scan grading pipeline (steps 1–15) — run from the eXercise project root.
+Exam scan grading pipeline (steps 1–16) — run from the eXercise project root.
 
 Steps:
   1. Parse the natural language prompt (via Kimi).
   2. Locate the exam folder.
   3. Read the student roster from StudentList.xlsx.
-  4. Detect blank scan pages.
-  5. Autorotate (remove blanks, apply /Rotate metadata).
-  6. Deskew (small-angle per-half correction) → 6_cleaned_scan.pdf.
-  7. Assign scan pages to students (name OCR) → 7_exam_student_list.json.
-  8. AI: detect raw exam layout → 8_exam_layout.json (split mode only).
-  9. Cut raw exam PDF into sub-pages (split mode only).
- 10. AI: parse exam PDF → question hierarchy → 9_exam_questions.json + 9_exam_questions.md.
- 11. AI: parse mark scheme → correct answers + criteria → 10_mark_scheme.json + 10_mark_scheme.md.
- 12. Merge scaffold → 11_report.json + 11_report.md.
- 13. Build per-page AI marking blueprints → 12_ai_marking_blueprint_N.json.
- 14. AI: grade each student page → 13_marked_*.json.
- 15. Merge per-page results into student and class reports → 14_student_report_*.json + PDF.
+  4. Merge duplex scan halves into one PDF (only when two scan files are found).
+  5. Detect blank scan pages.
+  6. Autorotate (remove blanks, apply /Rotate metadata).
+  7. Deskew (small-angle per-half correction) → 7_cleaned_scan.pdf.
+  8. Assign scan pages to students (name OCR) → 8_exam_student_list.json.
+  9. AI: detect raw exam layout → 9_exam_layout.json (split mode only).
+ 10. Cut raw exam PDF into sub-pages (split mode only).
+ 11. AI: parse exam PDF → question hierarchy → 10_exam_questions.json + 10_exam_questions.md.
+ 12. AI: parse mark scheme → correct answers + criteria → 11_mark_scheme.json + 11_mark_scheme.md.
+ 13. Merge scaffold → 12_report.json + 12_report.md.
+ 14. Build per-page AI marking blueprints → 13_ai_marking_blueprint_N.json.
+ 15. AI: grade each student page → 14_marked_*.json.
+ 16. Merge per-page results into student and class reports → 15_student_report_*.json + PDF.
 
 Usage:
     python xScore.py "grade Space Physics Unit Test"
@@ -143,8 +144,8 @@ class _Ctx:
     step_timings_marking: dict = None        # populated in steps 10–14
     marking_api_calls: list = None           # populated in step 12
     marking_failures: list = None            # populated in step 12 (pages that exhausted all retries)
-    page_assignments: list | None = None     # list[PageAssignment] set by step 10
-    step_offset: int = 0                     # 1 when split-subpages mode adds step 8 (layout)
+    page_assignments: list | None = None     # list[PageAssignment] set by step 11
+    step_offset: int = 0                     # 2 when split-subpages mode adds steps 9–10 (layout + cut)
     stop_after: int = 9999                   # --stop-after N; 9999 = run everything
 
     def __post_init__(self) -> None:
@@ -337,14 +338,14 @@ def _step03_students(ctx: _Ctx, gi: SimpleNamespace, *, on_header_printed=None, 
         on_complete()
 
 
-def _step08_09_10_scaffold(
+def _step09_10_11_scaffold(
     ctx: _Ctx,
     gi: SimpleNamespace,
     *,
     gate_event: "threading.Event | None" = None,
     background: bool = False,
 ) -> None:
-    """Steps 8–12 in split mode (8 layout, 9 cut, 10 exam, 11 scheme, 12 merge) or 8–10 in legacy mode."""
+    """Steps 9–13 in split mode (9 layout, 10 cut, 11 exam, 12 scheme, 13 merge) or 9–11 in legacy mode."""
     import os as _os
     assert ctx.folder is not None and ctx.artifact_dir is not None
     t0 = time.perf_counter()
@@ -355,39 +356,39 @@ def _step08_09_10_scaffold(
 
     if _split:
         gi.pipeline_step(
-            8, "Detect raw exam layout",
+            9, "Detect raw exam layout",
             subtitle="running in background" if background else None,
         )
     else:
         gi.pipeline_step(
-            8, "AI API call — Parse exam PDF",
+            9, "AI API call — Parse exam PDF",
             subtitle="running in background" if background else None,
         )
 
     def _on_layout_done() -> None:
         gi.pipeline_step(
-            9, "Cut raw exam PDF",
+            10, "Cut raw exam PDF",
             subtitle="running in background" if background else None,
         )
 
     def _on_cut_done() -> None:
         gi.pipeline_step(
-            10, "AI API call — Parse exam PDF",
+            11, "AI API call — Parse exam PDF",
             subtitle="running in background" if background else None,
         )
 
     def _on_exam_done(raw_questions: list) -> None:
         gi.ok_line(f"{len(raw_questions)} top-level questions extracted")
         if gate_event is not None:
-            gate_event.wait()       # wait for step 7 before printing scheme header
+            gate_event.wait()       # wait for step 8 before printing scheme header
         gi.pipeline_step(
-            9 + off, "AI API call — Parse mark scheme",
+            10 + off, "AI API call — Parse mark scheme",
             subtitle="completed in background" if background else None,
         )
 
     def _on_scheme_done(scheme_questions: list) -> None:
         gi.ok_line(f"{len(scheme_questions)} answers in mark scheme")
-        gi.pipeline_step(10 + off, "Create report")
+        gi.pipeline_step(11 + off, "Create report")
 
     try:
         ctx.scaffold = gi.build_scaffold(
@@ -410,37 +411,43 @@ def _step08_09_10_scaffold(
 
 
 def _scan_phases(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Steps 4–6: blank detection → autorotate → deskew."""
+    """Steps 4–7: optional duplex merge → blank detection → autorotate → deskew."""
     assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
     ad = ctx.artifact_dir
     dpi = ctx.instruction.dpi
 
-    match = gi.find_source_scan_match(ctx.folder, ad, dpi)
+    from xscore.preprocessing.start_scan import find_two_scan_pdfs, merge_duplex_scans_phase
+    two = find_two_scan_pdfs(ctx.folder, ad)
+    if two is not None:
+        gi.pipeline_step(4, "Merge duplex scans")
+        match = merge_duplex_scans_phase(two[0], two[1], ad, force_rebuild=ctx.force_clean_scan)
+    else:
+        match = gi.find_source_scan_match(ctx.folder, ad, dpi)
 
     from xscore.config import ROTATION_ANALYSIS_DPI
-    gi.pipeline_step(4, "Detect blank pages")
+    gi.pipeline_step(5, "Detect blank pages")
     t0_7 = time.perf_counter()
     gi.detect_blank_pages_phase(match, ad, analysis_dpi=ROTATION_ANALYSIS_DPI, force_clean_scan=ctx.force_clean_scan)
-    (ad / "4_blank_detection_summary.json").write_text(
-        json.dumps({"step": 4, "elapsed_s": round(time.perf_counter() - t0_7, 3), "status": "ok"}, indent=2),
+    (ad / "5_blank_detection_summary.json").write_text(
+        json.dumps({"step": 5, "elapsed_s": round(time.perf_counter() - t0_7, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
 
-    gi.pipeline_step(5, "Autorotate")
+    gi.pipeline_step(6, "Autorotate")
     t0_rot = time.perf_counter()
     gi.autorotate_phase(ad)
     elapsed_rot = time.perf_counter() - t0_rot
     gi.info_line(gi.format_duration(elapsed_rot))
-    (ad / "5_autorotate_summary.json").write_text(
-        json.dumps({"step": 5, "elapsed_s": round(elapsed_rot, 3), "status": "ok"}, indent=2),
+    (ad / "6_autorotate_summary.json").write_text(
+        json.dumps({"step": 6, "elapsed_s": round(elapsed_rot, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
 
-    gi.pipeline_step(6, "Deskew")
+    gi.pipeline_step(7, "Deskew")
     t0_9 = time.perf_counter()
     ctx.cleaned_pdf = gi.deskew_phase(ctx.folder, ad, dpi)
-    (ad / "6_deskew_summary.json").write_text(
-        json.dumps({"step": 6, "elapsed_s": round(time.perf_counter() - t0_9, 3), "status": "ok"}, indent=2),
+    (ad / "7_deskew_summary.json").write_text(
+        json.dumps({"step": 7, "elapsed_s": round(time.perf_counter() - t0_9, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
 
@@ -488,12 +495,12 @@ def _run_step3_and_scan_parallel(ctx: _Ctx, gi: SimpleNamespace, *, on_students_
         raise scan_exc
 
 
-def _run_steps3to10_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Steps 3–10 with maximum parallelism after step 2.
+def _run_steps3to11_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Steps 3–11 with maximum parallelism after step 2.
 
-    Main thread : step 3 → (steps 4-6 background) → step 7
-    Scaffold thread: (wait students_ready) → (wait step7_done) → steps 8-9-10
-                     All scaffold headers are gated until step 7 finishes to
+    Main thread : step 3 → (steps 4-7 background) → step 8
+    Scaffold thread: (wait students_ready) → (wait step8_done) → steps 9-10-11
+                     All scaffold headers are gated until step 8 finishes to
                      keep output in logical order.
     Exceptions are re-raised in pipeline order after both threads finish.
     """
@@ -501,34 +508,34 @@ def _run_steps3to10_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
     from concurrent.futures import ThreadPoolExecutor
 
     _students_ready = threading.Event()
-    _step7_done = threading.Event()
+    _step8_done = threading.Event()
     scaffold_exc: BaseException | None = None
     main_exc: BaseException | None = None
 
     def _scaffold_wrapper() -> None:
         nonlocal scaffold_exc
         _students_ready.wait()
-        _step7_done.wait()  # wait for step 7 before printing any scaffold headers
+        _step8_done.wait()  # wait for step 8 before printing any scaffold headers
         try:
-            _step08_09_10_scaffold(ctx, gi, gate_event=None, background=True)
+            _step09_10_11_scaffold(ctx, gi, gate_event=None, background=True)
         except BaseException as exc:
             scaffold_exc = exc
 
-    run_scaffold = ctx.stop_after >= 8
+    run_scaffold = ctx.stop_after >= 9
     with ThreadPoolExecutor(max_workers=1) as pool:
         if run_scaffold:
             pool.submit(_scaffold_wrapper)
         try:
             _run_step3_and_scan_parallel(ctx, gi, on_students_ready=_students_ready.set)
-            if ctx.stop_after <= 6:
+            if ctx.stop_after <= 7:
                 raise _EarlyExit()
             if ctx.cleaned_pdf:
-                _step07_geometry(ctx, gi)
+                _step08_geometry(ctx, gi)
         except BaseException as exc:
             _students_ready.set()   # unblock scaffold thread on main-thread error
             main_exc = exc
         finally:
-            _step7_done.set()       # always unblock scaffold gate (even on error/no scan)
+            _step8_done.set()       # always unblock scaffold gate (even on error/no scan)
         # exiting the `with` block waits for the scaffold thread to finish
 
     if main_exc is not None:
@@ -538,7 +545,7 @@ def _run_steps3to10_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Marking pipeline steps (7–14)
+# Marking pipeline steps (8–15)
 # ---------------------------------------------------------------------------
 
 def _exam_pdf_page_count(folder: Path) -> int:
@@ -549,10 +556,10 @@ def _exam_pdf_page_count(folder: Path) -> int:
         return doc.page_count
 
 
-def _step07_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 7 — Count scan/exam pages, derive student count."""
+def _step08_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 8 — Count scan/exam pages, derive student count."""
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
-    gi.pipeline_step(7, "Exam geometry")
+    gi.pipeline_step(8, "Exam geometry")
     t0 = time.perf_counter()
     exam_pages = ctx.scaffold.page_count if ctx.scaffold else _exam_pdf_page_count(ctx.folder)
     geo = gi.compute_geometry(ctx.cleaned_pdf, exam_pages, ctx.students or [])
@@ -594,51 +601,51 @@ def _step07_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
     if detected != ctx.num_students:
         gi.warn_line(
             f"Name detection found {detected} students; geometry expected {ctx.num_students}. "
-            "Step 12 will use the scan-detected list."
+            "Step 13 will use the scan-detected list."
         )
 
-    ctx.step_timings_marking["step_07_s"] = time.perf_counter() - t0
+    ctx.step_timings_marking["step_8_s"] = time.perf_counter() - t0
 
 
-def _step11_blueprints(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 11/12 — Build per-page AI marking blueprints (no AI calls)."""
+def _step12_blueprints(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 12/13 — Build per-page AI marking blueprints (no AI calls)."""
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
-    gi.pipeline_step(11 + ctx.step_offset, "AI marking blueprints")
+    gi.pipeline_step(12 + ctx.step_offset, "AI marking blueprints")
     t0 = time.perf_counter()
     blueprints = gi.build_blueprints(ctx.scaffold, ctx.artifact_dir)
     gi.ok_line(f"{len(blueprints)} page blueprint(s) written")
-    ctx.step_timings_marking["step_11_s"] = time.perf_counter() - t0
+    ctx.step_timings_marking["step_12_s"] = time.perf_counter() - t0
 
 
-def _step12_mark(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 12/13 — AI marking: vision calls to fill blueprints for each student page."""
+def _step13_mark(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 13/14 — AI marking: vision calls to fill blueprints for each student page."""
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
-    gi.pipeline_step(12 + ctx.step_offset, "AI marking")
+    gi.pipeline_step(13 + ctx.step_offset, "AI marking")
     t0 = time.perf_counter()
     ctx.marking_api_calls = gi.run_ai_marking(ctx, dpi=ctx.instruction.dpi)
     gi.ok_line(
         f"{len(ctx.marking_api_calls)} API calls  ·  "
         f"{ctx.num_students * ctx.pages_per_student} pages marked"
     )
-    ctx.step_timings_marking["step_12_s"] = time.perf_counter() - t0
+    ctx.step_timings_marking["step_13_s"] = time.perf_counter() - t0
 
 
-def _step13_reports(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 13/14 — Merge per-page results into student + class reports; compile PDFs."""
+def _step14_reports(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 14/15 — Merge per-page results into student + class reports; compile PDFs."""
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
-    gi.pipeline_step(13 + ctx.step_offset, "Compile reports")
+    gi.pipeline_step(14 + ctx.step_offset, "Compile reports")
     t0 = time.perf_counter()
     summaries = gi.compile_reports(ctx)
     _known = [s["percentage"] for s in summaries if s["percentage"] is not None]
     _avg_str = f"{round(sum(_known) / len(_known), 1)}%" if _known else "N/A"
     gi.ok_line(f"{len(summaries)} student report(s)  ·  class avg {_avg_str}")
-    ctx.step_timings_marking["step_13_s"] = time.perf_counter() - t0
+    ctx.step_timings_marking["step_14_s"] = time.perf_counter() - t0
 
 
-def _step14_timing(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 14/15 — Write timing summary (14_timing.json / .md) and accuracy report."""
+def _step15_timing(ctx: _Ctx, gi: SimpleNamespace) -> None:
+    """Step 15/16 — Write timing summary (16_timing.json / .md) and accuracy report."""
     assert ctx.artifact_dir is not None
-    gi.pipeline_step(14 + ctx.step_offset, "Timing summary")
+    gi.pipeline_step(15 + ctx.step_offset, "Timing summary")
     t0 = time.perf_counter()
 
     accuracy_summary = None
@@ -657,7 +664,7 @@ def _step14_timing(ctx: _Ctx, gi: SimpleNamespace) -> None:
                 f"({accuracy_summary['overall_accuracy_pct']:.1f}%)"
             )
 
-    ctx.step_timings_marking["step_14_s"] = round(time.perf_counter() - t0, 3)
+    ctx.step_timings_marking["step_15_s"] = round(time.perf_counter() - t0, 3)
     gi.write_timing_report(
         ctx.artifact_dir,
         ctx.step_timings_marking,
@@ -680,16 +687,16 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         if ctx.stop_after <= 1: raise _EarlyExit()
         _step02_folder(ctx, gi)
         if ctx.stop_after <= 2: raise _EarlyExit()
-        _run_steps3to10_parallel(ctx, gi)
-        if ctx.stop_after <= 10 + ctx.step_offset: raise _EarlyExit()
+        _run_steps3to11_parallel(ctx, gi)
+        if ctx.stop_after <= 11 + ctx.step_offset: raise _EarlyExit()
         if ctx.cleaned_pdf and ctx.scaffold:
-            _step11_blueprints(ctx, gi)
-            if ctx.stop_after <= 11 + ctx.step_offset: raise _EarlyExit()
-            _step12_mark(ctx, gi)
+            _step12_blueprints(ctx, gi)
             if ctx.stop_after <= 12 + ctx.step_offset: raise _EarlyExit()
-            _step13_reports(ctx, gi)
+            _step13_mark(ctx, gi)
             if ctx.stop_after <= 13 + ctx.step_offset: raise _EarlyExit()
-            _step14_timing(ctx, gi)
+            _step14_reports(ctx, gi)
+            if ctx.stop_after <= 14 + ctx.step_offset: raise _EarlyExit()
+            _step15_timing(ctx, gi)
         gi.ok_line("Pipeline complete.")
         ctx.pipeline_completed_ok = True
         if ctx.cleaned_pdf:

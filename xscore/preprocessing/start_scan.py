@@ -5,24 +5,26 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-# Phased pipeline artifacts (steps 4–6 scan block).
-SCAN_BLANKS_JSON          = "4_scan_blanks.json"
-SCAN_ROTATED_PDF          = "5_scan_rotated.pdf"
-CLEANED_SCAN_PDF          = "6_cleaned_scan.pdf"
-SCAN_ANCHORS_JSON         = "6_scan_anchors.json"
-SCAN_TRANSFORMS_JSON      = "6_scan_transforms.json"
-SCAN_LINES_REMOVED_PDF    = "6_scan_lines_removed.pdf"
-SCAN_BOXES_PROJECTED_PDF  = "6_scan_boxes_projected.pdf"
-SCAN_BOXES_PROJECTED_JSON = "6_scan_boxes_projected.json"
-SCAN_BOXES_REFINED_PDF    = "6_scan_boxes_refined.pdf"
-SCAN_HANDWRITING_JSON     = "6_scan_handwriting.json"
-SCAN_EXERCISE_BOXES_JSON  = "6_scan_exercise_boxes.json"
-SCAN_EXERCISE_BOXES_PDF   = "6_scan_exercise_boxes.pdf"
+# Phased pipeline artifacts (steps 4–7 scan block).
+MERGED_SCAN_PDF           = "4_merged_scan.pdf"
+SCAN_BLANKS_JSON          = "5_scan_blanks.json"
+SCAN_ROTATED_PDF          = "6_scan_rotated.pdf"
+CLEANED_SCAN_PDF          = "7_cleaned_scan.pdf"
+SCAN_ANCHORS_JSON         = "7_scan_anchors.json"
+SCAN_TRANSFORMS_JSON      = "7_scan_transforms.json"
+SCAN_LINES_REMOVED_PDF    = "7_scan_lines_removed.pdf"
+SCAN_BOXES_PROJECTED_PDF  = "7_scan_boxes_projected.pdf"
+SCAN_BOXES_PROJECTED_JSON = "7_scan_boxes_projected.json"
+SCAN_BOXES_REFINED_PDF    = "7_scan_boxes_refined.pdf"
+SCAN_HANDWRITING_JSON     = "7_scan_handwriting.json"
+SCAN_EXERCISE_BOXES_JSON  = "7_scan_exercise_boxes.json"
+SCAN_EXERCISE_BOXES_PDF   = "7_scan_exercise_boxes.pdf"
 
 
 def _scan_phase_paths(artifact_dir: Path) -> dict[str, Path]:
     out = artifact_dir / CLEANED_SCAN_PDF  # stem still used for transient paths only
     return {
+        "merged":                 artifact_dir / MERGED_SCAN_PDF,
         "blanks_json":            artifact_dir / SCAN_BLANKS_JSON,
         "rotated":                artifact_dir / SCAN_ROTATED_PDF,
         "cleaned":                artifact_dir / CLEANED_SCAN_PDF,
@@ -73,6 +75,70 @@ def find_source_scan_match(
         (s for s in scans if str(dpi) in s.stem),
         sorted(scans, key=lambda p: p.name.lower())[0],
     )
+
+
+def find_two_scan_pdfs(folder: Path, artifact_dir: Path) -> tuple[Path, Path] | None:
+    """Return (scan1, scan2) sorted by mtime if exactly 2 scan PDFs exist, else None.
+
+    scan1 is the older file (fronts, scanned first).
+    scan2 is the newer file (backs, scanned after flipping the stack).
+    """
+    merged_out = artifact_dir / MERGED_SCAN_PDF
+    scans = [
+        f for f in folder.glob("*.pdf")
+        if "scan" in f.name.lower()
+        and "cleaned" not in f.name.lower()
+        and f.resolve() != merged_out.resolve()
+    ]
+    if len(scans) != 2:
+        return None
+    scans.sort(key=lambda p: p.stat().st_mtime)
+    return scans[0], scans[1]
+
+
+def merge_duplex_scans_phase(
+    scan1: Path,
+    scan2: Path,
+    artifact_dir: Path,
+    *,
+    force_rebuild: bool = False,
+) -> Path:
+    """Step 4: interleave front and back single-sided scans into one double-sided PDF.
+
+    scan1 pages are fronts in order [p1, p3, p5, ...].
+    scan2 pages are backs in reverse order [p2N, p2N-2, ..., p2] (stack was flipped).
+    Output interleaves them: [p1, p2, p3, p4, ...].
+    """
+    import fitz
+    from xscore.shared.terminal_ui import ok_line, warn_line
+
+    out = artifact_dir / MERGED_SCAN_PDF
+    if out.is_file() and not force_rebuild:
+        ok_line(f"Using cached {out.name}")
+        return out
+
+    doc1 = fitz.open(str(scan1))
+    doc2 = fitz.open(str(scan2))
+    n1, n2 = len(doc1), len(doc2)
+    if n1 != n2:
+        warn_line(
+            f"Page count mismatch: {scan1.name}={n1}, {scan2.name}={n2}; "
+            f"pairing first {min(n1, n2)} from each"
+        )
+    n = min(n1, n2)
+
+    merged = fitz.open()
+    for i in range(n):
+        merged.insert_pdf(doc1, from_page=i, to_page=i)
+        merged.insert_pdf(doc2, from_page=n2 - 1 - i, to_page=n2 - 1 - i)
+
+    out.parent.mkdir(parents=True, exist_ok=True)
+    merged.save(str(out))
+    merged.close()
+    doc1.close()
+    doc2.close()
+    ok_line(f"{n * 2} pages merged  ·  {scan1.name} + {scan2.name}")
+    return out
 
 
 def _scan_blanks_to_md(

@@ -1,4 +1,4 @@
-"""Step 13 — AI marking: iterate over student scan pages and fill blueprint JSONs.
+"""Step 14 — AI marking: iterate over student scan pages and fill blueprint JSONs.
 
 Uses the MARKING_MODEL env var (default: qwen3.6-plus, off) via make_ai_client().
 Requires DASHSCOPE_API_KEY to be set in .env.
@@ -416,11 +416,11 @@ def _fix_mc_marks(result: dict) -> None:
 def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
-    Reads page assignments from ``7_exam_student_list.json`` (written by step 7)
+    Reads page assignments from ``8_exam_student_list.json`` (written by step 8)
     so each student's scan pages are determined by name detection, not position.
     Students are processed in parallel (MARKING_WORKERS env var, default varies with cpu_count).
     *dpi* defaults to ``MARKING_DPI`` when not supplied.
-    Returns a list of API call timing records for step 14.
+    Returns a list of API call timing records for step 15.
     """
     from xscore.config import MARKING_DPI
     if dpi is None:
@@ -439,11 +439,11 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     client, model_id, _provider, _effort = result
     _use_stream, _thinking_kw = build_thinking_kwargs(_provider, _effort)
 
-    # Load page assignments produced by step 7 name detection.
+    # Load page assignments produced by step 8 name detection.
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     if not list_path.exists():
         raise FileNotFoundError(
-            f"7_exam_student_list.json not found at {list_path} — run step 7 first"
+            f"8_exam_student_list.json not found at {list_path} — run step 8 first"
         )
     raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
     # Each entry: {"student_name": str, "page_numbers": [int, ...], "confidence": str}
@@ -516,7 +516,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     blueprint_xml=blueprint_xml,
                     use_stream=_use_stream,
                     prompt_save_path=artifact_prompt_path(
-                        ctx.artifact_dir, f"13_marked_{safe_name}_{p_label}"
+                        ctx.artifact_dir, f"14_marked_{safe_name}_{p_label}"
                     ),
                     warn=_warn,
                 )

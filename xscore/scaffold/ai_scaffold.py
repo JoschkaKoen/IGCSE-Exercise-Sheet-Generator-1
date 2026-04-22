@@ -374,7 +374,7 @@ def _serialize_exam_xml(questions: list[dict], layout: dict) -> str:
 
 
 def _save_exam_questions_xml(artifact_dir: Path, raw_questions: list[dict], layout: dict) -> None:
-    """Write step-9 artifacts: ``9_exam_questions.xml`` + ``9_exam_questions.md``."""
+    """Write step-10 artifacts: ``10_exam_questions.xml`` + ``10_exam_questions.md``."""
     from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
     xml_path = artifact_exam_questions_xml_path(artifact_dir)
     xml_path.parent.mkdir(parents=True, exist_ok=True)
@@ -674,8 +674,8 @@ def build_ai_scaffold(
             merged into the question tree.  Use this to advance the step counter
             to the merge step.  May raise SystemExit(0) to stop before merging.
         artifact_dir: If set, write intermediate JSON + Markdown snapshots:
-            ``8_exam_layout.*`` after layout detection (split mode only),
-            ``9_exam_questions.*`` after call 1, ``10_mark_scheme.*`` after call 2.
+            ``9_exam_layout.*`` after layout detection (split mode only),
+            ``10_exam_questions.*`` after call 1, ``11_mark_scheme.*`` after call 2.
             Saves are best-effort; OSError is silently ignored.
 
     Returns:
@@ -734,7 +734,7 @@ def build_ai_scaffold(
             # Save prompt before API call
             if artifact_dir is not None:
                 save_prompt(
-                    artifact_prompt_path(artifact_dir, "8_detect_layout"),
+                    artifact_prompt_path(artifact_dir, "9_detect_layout"),
                     model=layout_model, system=_SYSTEM_LAYOUT,
                     messages=[{"role": "user", "content": _USER_LAYOUT}],
                 )
@@ -747,7 +747,7 @@ def build_ai_scaffold(
             if artifact_dir is not None and layout_raw_text is not None:
                 try:
                     from xscore.shared.exam_paths import artifact_exam_layout_json_path
-                    raw_path = artifact_exam_layout_json_path(artifact_dir).parent / "8_exam_layout_raw.json"
+                    raw_path = artifact_exam_layout_json_path(artifact_dir).parent / "9_exam_layout_raw.json"
                     raw_path.parent.mkdir(parents=True, exist_ok=True)
                     raw_path.write_text(layout_raw_text, encoding="utf-8")
                 except OSError:
@@ -832,7 +832,7 @@ def build_ai_scaffold(
             )
             if artifact_dir is not None:
                 save_prompt(
-                    artifact_prompt_path(artifact_dir, "9_exam_questions"),
+                    artifact_prompt_path(artifact_dir, "10_exam_questions"),
                     model=exam_model, system=_SYSTEM_EXAM,
                     messages=[{"role": "user", "content": user_exam}],
                 )
@@ -866,7 +866,7 @@ def build_ai_scaffold(
             user_msg = _USER_SCHEME.format(scaffold=scaffold)
             if artifact_dir is not None:
                 save_prompt(
-                    artifact_prompt_path(artifact_dir, "10_mark_scheme"),
+                    artifact_prompt_path(artifact_dir, "11_mark_scheme"),
                     model=scheme_model, system=_SYSTEM_SCHEME,
                     messages=[{"role": "user", "content": user_msg}],
                 )
@@ -934,7 +934,7 @@ def build_ai_scaffold(
 
             # Suffix duplicate question numbers in exam questions so that
             # two questions both printed as "38" become "38" and "38_2".
-            # Done after saving artifacts so 9_exam_questions.json retains original numbers.
+            # Done after saving artifacts so 10_exam_questions.json retains original numbers.
             _seen_rq: dict[str, int] = {}
             for _node in raw_questions:
                 _qnum = str(_node.get("number", ""))
@@ -960,7 +960,7 @@ def build_ai_scaffold(
                         )
 
             # Apply the same suffix to mark scheme entries so scheme_map keys align.
-            # Done after saving 10_mark_scheme.json to preserve original numbers there.
+            # Done after saving 11_mark_scheme.json to preserve original numbers there.
             _seen_sq: dict[str, int] = {}
             for _sq in scheme_data["questions"]:
                 if not isinstance(_sq, dict) or not _sq.get("number"):

@@ -1,4 +1,4 @@
-"""Step 13 — Merge per-page marking results into student and class reports.
+"""Step 14 — Merge per-page marking results into student and class reports.
 
 Produces JSON + Markdown + LaTeX/PDF for each student and the class overall.
 xelatex is used for compilation; a warning is printed if it is not installed.
@@ -119,7 +119,7 @@ def _merge_student_pages(
     pages_per_student: int,
     total_max_marks: int,
 ) -> dict:
-    """Load all 13_marked_{student}_{p}.json and merge into one student report.
+    """Load all 14_marked_{student}_{p}.json and merge into one student report.
 
     Cross-page question strategy:
     - If only one page has assigned_marks, use that entry.
@@ -429,10 +429,10 @@ def _merge_pdfs(class_pdf: Path, students_dir: Path, output_pdf: Path) -> None:
     from xscore.shared.terminal_ui import warn_line
 
     def _student_name(p: Path) -> str:
-        stem = p.stem  # e.g. "14_student_report_Ashley"
+        stem = p.stem  # e.g. "15_student_report_Ashley"
         return stem.split("_student_report_", 1)[-1] if "_student_report_" in stem else stem
 
-    student_pdfs = sorted(students_dir.glob("14_student_report_*.pdf"), key=_student_name)
+    student_pdfs = sorted(students_dir.glob("15_student_report_*.pdf"), key=_student_name)
 
     try:
         from pikepdf import Pdf
@@ -481,10 +481,10 @@ def _compile_tex(tex_path: Path, output_dir: Path) -> None:
 # ---------------------------------------------------------------------------
 
 def _derive_student_names(artifact_dir: Path) -> list[str]:
-    """Collect unique student names from 13_marked_*_*.json files, in order."""
+    """Collect unique student names from 14_marked_*_*.json files, in order."""
     seen: dict[str, str] = {}   # safe_name → original name
     result: list[str] = []
-    for f in sorted(artifact_marking_students_dir(artifact_dir).glob("13_marked_*_*.json")):
+    for f in sorted(artifact_marking_students_dir(artifact_dir).glob("14_marked_*_*.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
             name = str(data.get("student_name") or "").strip()
@@ -547,7 +547,7 @@ def _build_all_question_tables(
 def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
     """Compute mean assigned_marks per question number across all student reports."""
     q_totals: dict[str, list[float]] = {}
-    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("14_student_report_*.json")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("15_student_report_*.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
             for q in data.get("questions", []):
@@ -669,7 +669,7 @@ def compile_reports(ctx: Any) -> list[dict]:
         _merge_pdfs(
             tex_path.with_suffix(".pdf"),
             artifact_reports_students_dir(ctx.artifact_dir),
-            tex_path.parent / "14_class_report_combined.pdf",
+            tex_path.parent / "15_class_report_combined.pdf",
         )
         info_line(f"Class average: {_fmt_pct(class_avg)}")
 
@@ -677,14 +677,14 @@ def compile_reports(ctx: Any) -> list[dict]:
 
 
 def load_student_results_from_reports(artifact_dir: Path) -> list:
-    """Read all 14_student_report_*.json and reconstruct StudentResult objects.
+    """Read all 15_student_report_*.json and reconstruct StudentResult objects.
 
     Used by step 15 to compare AI-extracted answers against ground truth.
     """
     from xscore.shared.models import StudentResult
 
     results = []
-    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("14_student_report_*.json")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("15_student_report_*.json")):
         try:
             data = json.loads(f.read_text(encoding="utf-8"))
         except Exception:  # noqa: BLE001

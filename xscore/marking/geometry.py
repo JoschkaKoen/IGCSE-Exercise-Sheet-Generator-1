@@ -44,7 +44,7 @@ def compute_geometry(cleaned_pdf: Path, exam_pages: int, roster: list[str]) -> d
 
 
 def write_geometry_artifacts(artifact_dir: Path, geo: dict) -> None:
-    """Write 7_exam_geometry.json and 7_exam_geometry.md."""
+    """Write 8_exam_geometry.json and 8_exam_geometry.md."""
     from xscore.shared.exam_paths import artifact_geometry_json_path, artifact_geometry_md_path
 
     json_path = artifact_geometry_json_path(artifact_dir)

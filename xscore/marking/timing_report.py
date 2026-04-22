@@ -1,4 +1,4 @@
-"""Step 15 — Timing summary: write 15_timing.json / 15_timing.md and print table."""
+"""Step 16 — Timing summary: write 16_timing.json / 16_timing.md and print table."""
 
 from __future__ import annotations
 
@@ -6,17 +6,18 @@ import json
 from pathlib import Path
 
 _STEP_LABELS: dict[str, str] = {
-    "step_4_s": "Blank pages (4)",
-    "step_5_s": "Autorotate (5)",
-    "step_6_s": "Deskew (6)",
-    "step_7_s": "Exam geometry (7)",
-    "step_8_s": "Parse exam PDF (8)",
-    "step_9_s": "Parse mark scheme (9)",
-    "step_10_s": "Merge scaffold (10)",
-    "step_11_s": "Blueprints (11)",
-    "step_12_s": "AI marking (12)",
-    "step_13_s": "Reports (13)",
-    "step_14_s": "Timing (14)",
+    "step_4_s":  "Merge duplex scans (4)",
+    "step_5_s":  "Blank pages (5)",
+    "step_6_s":  "Autorotate (6)",
+    "step_7_s":  "Deskew (7)",
+    "step_8_s":  "Exam geometry (8)",
+    "step_9_s":  "Parse exam PDF (9)",
+    "step_10_s": "Parse mark scheme (10)",
+    "step_11_s": "Merge scaffold (11)",
+    "step_12_s": "Blueprints (12)",
+    "step_13_s": "AI marking (13)",
+    "step_14_s": "Reports (14)",
+    "step_15_s": "Timing (15)",
 }
 
 
@@ -67,7 +68,7 @@ def write_timing_report(
         info_line(f"  {label}: {format_duration(val)}")
     info_line(f"  Total: {format_duration(total)}  ·  {len(api_calls)} API calls")
     if failures:
-        warn_line(f"  {len(failures)} page(s) failed marking — see 15_timing.md for details")
+        warn_line(f"  {len(failures)} page(s) failed marking — see 16_timing.md for details")
 
 
 def _timing_to_md(payload: dict) -> str:

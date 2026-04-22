@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Run the full xScore pipeline (steps 1–14) for the web grade worker thread.
+"""Run the full xScore pipeline (steps 1–15) for the web grade worker thread.
 
 Step 2 (find folder) is bypassed — the folder is already known from the uploaded files.
-Order matches ``xScore.py``: steps 4–6 scan cleaning, step 7 exam geometry + name assignment,
-steps 8–10 scaffold (requires ``empty_exam.pdf``), steps 11–14 marking and reports.
+Order matches ``xScore.py``: step 4 merges duplex scans (when 2 scan PDFs present),
+steps 5–7 scan cleaning, step 8 exam geometry + name assignment,
+steps 9–11 scaffold (requires ``empty_exam.pdf``), steps 12–15 marking and reports.
 """
 
 from __future__ import annotations
@@ -25,7 +26,7 @@ def run_full_pipeline(
     *,
     dpi: int | None = None,
 ) -> tuple[Path, Path]:
-    """Run all 14 xScore pipeline steps against *folder* (uploaded exam files).
+    """Run all xScore pipeline steps against *folder* (uploaded exam files).
 
     on_step(num, event, elapsed_s) is called for each step state change.
     event is one of: "running", "done", "failed".
@@ -49,6 +50,8 @@ def run_full_pipeline(
         deskew_phase,
         detect_blank_pages_phase,
         find_source_scan_match,
+        find_two_scan_pdfs,
+        merge_duplex_scans_phase,
     )
     from xscore.scaffold.generate_scaffold import build_scaffold
     from xscore.shared.exam_paths import (
@@ -130,12 +133,24 @@ def run_full_pipeline(
     artifact_dir.mkdir(parents=True, exist_ok=True)
     (artifact_dir / "command.txt").write_text(" ".join(_cmd_parts), encoding="utf-8")
 
-    # ---------------------------------------------------------------------- steps 4–6 (scan cleaning — same order as xScore.py)
+    # ---------------------------------------------------------------------- step 4 (conditional: duplex scan merge)
     empty_exam_path = folder / "empty_exam.pdf"
     scaffold = None
 
-    on_line("Step 4 — Detecting blank pages…")
-    source_scan = find_source_scan_match(folder, artifact_dir, effective_dpi)
+    two = find_two_scan_pdfs(folder, artifact_dir)
+    if two is not None:
+        on_line("Step 4 — Merging duplex scans…")
+
+        def _merge() -> Path:
+            return merge_duplex_scans_phase(two[0], two[1], artifact_dir, force_rebuild=True)
+
+        source_scan = _step(4, _merge)
+        on_line("Step 4 — Duplex scans merged.")
+    else:
+        source_scan = find_source_scan_match(folder, artifact_dir, effective_dpi)
+
+    # ---------------------------------------------------------------------- steps 5–7 (scan cleaning)
+    on_line("Step 5 — Detecting blank pages…")
 
     def _blank() -> None:
         detect_blank_pages_phase(
@@ -145,25 +160,25 @@ def run_full_pipeline(
             force_clean_scan=True,
         )
 
-    _step(4, _blank)
-    on_line("Step 4 — Blank pages detected.")
+    _step(5, _blank)
+    on_line("Step 5 — Blank pages detected.")
 
     def _rotate() -> None:
         autorotate_phase(artifact_dir)
 
-    on_line("Step 5 — Autorotating…")
-    _step(5, _rotate)
+    on_line("Step 6 — Autorotating…")
+    _step(6, _rotate)
 
-    on_line("Step 6 — Deskewing…")
+    on_line("Step 7 — Deskewing…")
 
     def _deskew() -> Path:
         return deskew_phase(folder, artifact_dir, effective_dpi)
 
-    cleaned_pdf: Path = _step(6, _deskew)
-    on_line("Step 6 — Cleaned scan ready.")
+    cleaned_pdf: Path = _step(7, _deskew)
+    on_line("Step 7 — Cleaned scan ready.")
 
-    # ---------------------------------------------------------------------- step 7 (geometry + name assignment — before scaffold)
-    on_line("Step 7 — Computing geometry and assigning pages to students (AI)…")
+    # ---------------------------------------------------------------------- step 8 (geometry + name assignment — before scaffold)
+    on_line("Step 8 — Computing geometry and assigning pages to students (AI)…")
 
     def _empty_exam_page_count() -> int:
         import fitz
@@ -183,8 +198,8 @@ def run_full_pipeline(
         write_geometry_artifacts(artifact_dir, geo)
         return geo
 
-    t7 = time.perf_counter()
-    on_step(7, "running", None)
+    t8 = time.perf_counter()
+    on_step(8, "running", None)
     try:
         geo = _geometry()
         pages_per_student: int = geo["pages_per_student"]
@@ -202,37 +217,37 @@ def run_full_pipeline(
         artifact_exam_student_list_md_path(artifact_dir).write_text(
             page_assignments_to_md(page_assignments), encoding="utf-8"
         )
-        elapsed_7 = round(time.perf_counter() - t7, 2)
-        step_timings["step_7_s"] = elapsed_7
-        on_step(7, "done", elapsed_7)
-        on_line(f"Step 7 — {len(page_assignments)} students detected from scan.")
+        elapsed_8 = round(time.perf_counter() - t8, 2)
+        step_timings["step_8_s"] = elapsed_8
+        on_step(8, "done", elapsed_8)
+        on_line(f"Step 8 — {len(page_assignments)} students detected from scan.")
     except Exception:
-        on_step(7, "failed", round(time.perf_counter() - t7, 2))
+        on_step(8, "failed", round(time.perf_counter() - t8, 2))
         raise
 
-    # ---------------------------------------------------------------------- steps 8–10 (scaffold)
-    t8_start: list[float] = []
+    # ---------------------------------------------------------------------- steps 9–11 (scaffold)
     t9_start: list[float] = []
+    t10_start: list[float] = []
 
     def _on_exam_done(raw_questions: list) -> None:
-        elapsed = round(time.perf_counter() - t8_start[0], 2) if t8_start else 0.0
-        step_timings["step_8_s"] = elapsed
-        on_step(8, "done", elapsed)
-        on_line(f"Step 8 — {len(raw_questions)} top-level questions extracted.")
-        on_step(9, "running", None)
-        t9_start.append(time.perf_counter())
-
-    def _on_scheme_done(scheme_questions: list) -> None:
         elapsed = round(time.perf_counter() - t9_start[0], 2) if t9_start else 0.0
         step_timings["step_9_s"] = elapsed
         on_step(9, "done", elapsed)
-        on_line(f"Step 9 — {len(scheme_questions)} answers in mark scheme.")
+        on_line(f"Step 9 — {len(raw_questions)} top-level questions extracted.")
         on_step(10, "running", None)
+        t10_start.append(time.perf_counter())
+
+    def _on_scheme_done(scheme_questions: list) -> None:
+        elapsed = round(time.perf_counter() - t10_start[0], 2) if t10_start else 0.0
+        step_timings["step_10_s"] = elapsed
+        on_step(10, "done", elapsed)
+        on_line(f"Step 10 — {len(scheme_questions)} answers in mark scheme.")
+        on_step(11, "running", None)
 
     def _build() -> any:
-        t8_start.append(time.perf_counter())
-        on_step(8, "running", None)
-        on_line("Step 8 — Parsing exam PDF (AI)…")
+        t9_start.append(time.perf_counter())
+        on_step(9, "running", None)
+        on_line("Step 9 — Parsing exam PDF (AI)…")
         result = build_scaffold(
             folder,
             artifact_dir=artifact_dir,
@@ -244,37 +259,37 @@ def run_full_pipeline(
         )
         return result
 
-    t10_0 = time.perf_counter()
+    t11_0 = time.perf_counter()
     try:
         scaffold = _build()
-        elapsed_10 = round(time.perf_counter() - t10_0, 2)
-        on_step(10, "done", elapsed_10)
-        step_timings["step_10_s"] = elapsed_10
+        elapsed_11 = round(time.perf_counter() - t11_0, 2)
+        on_step(11, "done", elapsed_11)
+        step_timings["step_11_s"] = elapsed_11
         on_line(
-            f"Step 10 — {len(scaffold.gradable_questions)} gradable parts  ·  "
+            f"Step 11 — {len(scaffold.gradable_questions)} gradable parts  ·  "
             f"{scaffold.total_marks} marks."
         )
     except Exception:
-        if "step_8_s" not in step_timings:
-            on_step(8, "failed", 0.0)
         if "step_9_s" not in step_timings:
             on_step(9, "failed", 0.0)
         if "step_10_s" not in step_timings:
             on_step(10, "failed", 0.0)
+        if "step_11_s" not in step_timings:
+            on_step(11, "failed", 0.0)
         raise
 
-    # ---------------------------------------------------------------------- step 11
-    on_line("Step 11 — Building marking blueprints…")
+    # ---------------------------------------------------------------------- step 12
+    on_line("Step 12 — Building marking blueprints…")
 
     def _blueprints() -> list:
         bps = build_blueprints(scaffold, artifact_dir)
-        on_line(f"Step 11 — {len(bps)} page blueprint(s) written.")
+        on_line(f"Step 12 — {len(bps)} page blueprint(s) written.")
         return bps
 
-    _step(11, _blueprints)
+    _step(12, _blueprints)
 
-    # ---------------------------------------------------------------------- step 12
-    on_line("Step 12 — AI marking…")
+    # ---------------------------------------------------------------------- step 13
+    on_line("Step 13 — AI marking…")
     ctx = SimpleNamespace(
         cleaned_pdf=cleaned_pdf,
         artifact_dir=artifact_dir,
@@ -288,33 +303,33 @@ def run_full_pipeline(
     def _mark() -> list:
         return run_ai_marking(ctx, dpi=effective_dpi)
 
-    api_calls: list[dict] = _step(12, _mark)
-    on_line(f"Step 12 — {len(api_calls)} API calls completed.")
+    api_calls: list[dict] = _step(13, _mark)
+    on_line(f"Step 13 — {len(api_calls)} API calls completed.")
 
-    # ---------------------------------------------------------------------- step 13
+    # ---------------------------------------------------------------------- step 14
     if instruction.no_report:
-        on_line("Step 13 — Skipped (no_report requested).")
-        on_step(13, "running", None)
-        on_step(13, "done", 0.0)
+        on_line("Step 14 — Skipped (no_report requested).")
+        on_step(14, "running", None)
+        on_step(14, "done", 0.0)
     else:
-        on_line("Step 13 — Compiling reports…")
+        on_line("Step 14 — Compiling reports…")
 
         def _reports() -> list:
             summaries = compile_reports(ctx)
-            on_line(f"Step 13 — {len(summaries)} student report(s) written.")
+            on_line(f"Step 14 — {len(summaries)} student report(s) written.")
             return summaries
 
-        _step(13, _reports)
+        _step(14, _reports)
 
-    # ---------------------------------------------------------------------- step 14
-    on_line("Step 14 — Writing timing summary…")
+    # ---------------------------------------------------------------------- step 15
+    on_line("Step 15 — Writing timing summary…")
 
     def _timing() -> None:
         write_timing_report(artifact_dir, step_timings, api_calls)
 
-    _step(14, _timing)
+    _step(15, _timing)
 
-    on_line("Done — all 14 steps complete.")
+    on_line("Done — all 15 steps complete.")
     return cleaned_pdf, artifact_dir
 
 
