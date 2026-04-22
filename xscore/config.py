@@ -116,11 +116,6 @@ GEMINI_TEMPERATURE: float = float(os.getenv("GEMINI_TEMPERATURE", "0.0"))
 # Maximum output tokens for Gemini response.
 GEMINI_MAX_OUTPUT_TOKENS: int = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "32000"))
 
-# Token budget for Gemini's internal reasoning (xScore extraction only).
-# 0 = thinking off (default). Set >0 to enable; 8192 recommended for the spatial task.
-# Gemini 2.5 Flash ceiling: 24 576. Pro ceiling: 32 768.
-GEMINI_THINKING_BUDGET: int = int(os.getenv("GEMINI_THINKING_BUDGET", "0"))
-
 # =============================================================================
 # Kimi Model Parameters
 # =============================================================================
