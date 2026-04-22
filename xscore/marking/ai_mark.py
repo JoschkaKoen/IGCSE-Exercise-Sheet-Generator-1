@@ -245,12 +245,7 @@ def _mark_page(
         "answers, not only verbatim matches.\n"
         "   • For multiple_choice: compare student_answer to correct_answer; "
         "award max_marks if they match, 0 otherwise.\n"
-        "3. explanation — 1–2 sentences. State what the student wrote, whether it is correct, "
-        "and the mark outcome. Write a finished verdict, not a thought process: "
-        "no deliberation, no working-out, no self-corrections.\n"
-        "   Examples: 'Student correctly identified Newton's third law — 1 mark.' "
-        "/ 'Student wrote F=ma but omitted units — 1 of 2 marks.' "
-        "/ 'Student selected B; correct answer is C — 0 marks.'"
+        "3. explanation: clear, easy to understand, simple english."
     )
 
     # --- Section C: output format + CRITICAL tag rule ---
