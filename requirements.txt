@@ -15,6 +15,7 @@ opencv-python>=4.9.0
 pdf2image>=1.17.0
 pikepdf>=8.0.0
 pytesseract>=0.3.10
+rapidocr-onnxruntime>=1.4
 # Web UI
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0

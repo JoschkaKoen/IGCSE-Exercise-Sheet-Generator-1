@@ -70,20 +70,11 @@ If no handwritten name is visible or none of the roster entries match, return:
 """
 
 
-_COVER_PAGE_PROMPT = """\
-A COVER PAGE contains a name/identification field (where the student writes \
-their name, class, date, or candidate number) but no exercises or questions.
-
-Is this exam page a cover page?
-
-Return ONLY JSON: {"cover_page": true} or {"cover_page": false}
-"""
-
 _COVER_PAGE_TEXT_PROMPT = """\
 A COVER PAGE contains a name/identification field (where the student writes \
 their name, class, date, or candidate number) but no exercises or questions.
 
-Here is the text extracted from the first page of the empty exam:
+Here is the text extracted from this exam page:
 
 {text}
 
@@ -91,6 +82,17 @@ Is this page a cover page?
 
 Return ONLY JSON: {{"cover_page": true}} or {{"cover_page": false}}
 """
+
+
+_ocr_engine = None
+
+
+def _get_ocr():
+    global _ocr_engine
+    if _ocr_engine is None:
+        from rapidocr_onnxruntime import RapidOCR
+        _ocr_engine = RapidOCR()
+    return _ocr_engine
 
 
 def is_cover_page(
@@ -102,89 +104,62 @@ def is_cover_page(
     prompt_save_path: Path | None = None,
     effort: str | None = None,
 ) -> bool:
-    """Return True if page *page_idx* of *pdf_path* matches the cover-page definition.
+    """Cover-page detection for scanned pages via OCR + text-only AI call.
 
-    Uploads a single-page PDF to the Gemini Files API (same pattern as exam/scheme
-    parsing in ai_scaffold.py). Used for both the empty-exam informational check and
-    authoritative scan checks.
+    Renders the page to a grayscale pixmap, runs RapidOCR to extract printed
+    text (conf > 0.8 filters out handwriting), then sends the text to the model.
+    No temp file, no Gemini Files API upload.
     """
     import fitz
-    import tempfile
     from google.genai import types as gai_types
     from xscore.shared.terminal_ui import warn_line
 
-    tmp_path: Path | None = None
-    uploaded = None
-    try:
-        with fitz.open(str(pdf_path)) as doc:
-            single = fitz.open()
-            single.insert_pdf(doc, from_page=page_idx, to_page=page_idx)
-            with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
-                tmp_path = Path(f.name)
-            single.save(str(tmp_path))
-            single.close()
+    with fitz.open(str(pdf_path)) as doc:
+        pix = doc[page_idx].get_pixmap(dpi=300, colorspace=fitz.csGRAY)
 
-        save_prompt(prompt_save_path, model=model_id,
-                    messages=[{"role": "user", "content": _COVER_PAGE_PROMPT}])
+    result, _ = _get_ocr()(pix.tobytes("png"))
+    printed_text = "\n".join(
+        text for _, text, conf in (result or []) if conf > 0.8
+    )
 
-        uploaded = gai_client.files.upload(file=tmp_path)
-        while getattr(uploaded.state, "name", str(uploaded.state)) == "PROCESSING":
-            time.sleep(1)
-            uploaded = gai_client.files.get(name=uploaded.name)
-        if getattr(uploaded.state, "name", str(uploaded.state)) == "FAILED":
-            warn_line(f"[{model_id}] PDF upload failed for page {page_idx}")
-            return False
+    prompt = _COVER_PAGE_TEXT_PROMPT.format(text=printed_text or "(no text extracted)")
 
-        _thinking_map = {"off": 0, "low": 1024, "high": 8192}
-        _budget = _thinking_map.get(effort or "", 1024)
-        config = gai_types.GenerateContentConfig(
-            max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
-            thinking_config=gai_types.ThinkingConfig(
-                thinking_budget=_budget,
-                include_thoughts=_budget > 0,
-            ),
-        )
-        resp = gai_client.models.generate_content(
-            model=model_id,
-            contents=[
-                gai_types.Part.from_uri(file_uri=uploaded.uri, mime_type="application/pdf"),
-                gai_types.Part.from_text(text=_COVER_PAGE_PROMPT),
-            ],
-            config=config,
-        )
-        if prompt_save_path is not None:
-            import shutil
-            _page_save = prompt_save_path.with_name(prompt_save_path.stem + "_page.pdf")
-            _page_save.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(tmp_path, _page_save)
+    save_prompt(prompt_save_path, model=model_id,
+                messages=[{"role": "user", "content": prompt}])
 
-        thinking_parts: list[str] = []
-        answer_parts: list[str] = []
-        for candidate in (resp.candidates or []):
-            for part in getattr(candidate.content, "parts", None) or []:
-                text = part.text or ""
-                if getattr(part, "thought", False):
-                    thinking_parts.append(text)
-                else:
-                    answer_parts.append(text)
+    _thinking_map = {"off": 0, "low": 1024, "high": 8192}
+    _budget = _thinking_map.get(effort or "off", 0)
+    config = gai_types.GenerateContentConfig(
+        max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+        thinking_config=gai_types.ThinkingConfig(
+            thinking_budget=_budget,
+            include_thoughts=_budget > 0,
+        ),
+    )
+    resp = gai_client.models.generate_content(
+        model=model_id,
+        contents=[gai_types.Part.from_text(text=prompt)],
+        config=config,
+    )
 
-        thinking_text = "".join(thinking_parts)
-        raw = "".join(answer_parts) or resp.text or ""
+    thinking_parts: list[str] = []
+    answer_parts: list[str] = []
+    for candidate in (resp.candidates or []):
+        for part in getattr(candidate.content, "parts", None) or []:
+            text = part.text or ""
+            if getattr(part, "thought", False):
+                thinking_parts.append(text)
+            else:
+                answer_parts.append(text)
 
-        if not raw:
-            warn_line(f"[{model_id}] cover page check returned empty response")
-        save_thinking(prompt_save_path, thinking_text)
-        save_response(prompt_save_path, raw)
-        return bool((parse_json_safe(raw) or {}).get("cover_page", False))
+    thinking_text = "".join(thinking_parts)
+    raw = "".join(answer_parts) or resp.text or ""
 
-    finally:
-        if tmp_path:
-            tmp_path.unlink(missing_ok=True)
-        if uploaded:
-            try:
-                gai_client.files.delete(name=uploaded.name)
-            except Exception:
-                pass
+    if not raw:
+        warn_line(f"[{model_id}] cover page check returned empty response")
+    save_thinking(prompt_save_path, thinking_text)
+    save_response(prompt_save_path, raw)
+    return bool((parse_json_safe(raw) or {}).get("cover_page", False))
 
 
 def check_cover_page_text(
