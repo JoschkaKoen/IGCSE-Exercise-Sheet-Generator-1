@@ -83,6 +83,8 @@ def ai_image_call(
             if print_latency:
                 api_latency_line(time.perf_counter() - _t0)
             raw = resp.choices[0].message.content or ""
+            if not raw:
+                warn_line(f"[{model}] returned empty content — check thinking/token budget")
             log_ai_response_debug("ai_image", model, raw)
             save_response(prompt_save_path, raw)
             return raw

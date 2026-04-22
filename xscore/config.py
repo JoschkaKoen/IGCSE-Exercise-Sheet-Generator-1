@@ -199,18 +199,18 @@ def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = 
 def apply_model_extras(model: str, kwargs: dict[str, Any], *, thinking: bool = False) -> None:
     """Set model-specific extras for the non-streaming ai_helpers calls.
 
-    Delegates Kimi-k2 thinking to :func:`apply_kimi_k2_extra` so behaviour stays
-    identical to the historical pipeline; then applies Qwen-only extras.
-
     - Kimi-k2: ``extra_body.thinking`` via :func:`apply_kimi_k2_extra`.
     - Qwen: ``extra_body.enable_thinking=False`` (non-streaming helpers cannot
       consume streaming thinking).  The *thinking* argument is ignored for Qwen.
-    - Other models (Gemini, Grok, …): no-op from Kimi; Qwen branch only if id
-      starts with ``qwen``.
+    - Gemini: ``reasoning_effort="none"`` — disables thinking so ``max_tokens``
+      is the actual output budget, not shared with thinking tokens.
+    - Other models (Grok, …): no-op.
     """
     apply_kimi_k2_extra(model, kwargs, thinking=thinking)
     if model.startswith("qwen"):
         kwargs["extra_body"] = {"enable_thinking": False}
+    if model.startswith("gemini"):
+        kwargs["reasoning_effort"] = "none"
 
 
 def resolve_pipeline_ai_model_id() -> str:
