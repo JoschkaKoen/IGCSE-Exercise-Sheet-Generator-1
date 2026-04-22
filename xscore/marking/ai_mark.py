@@ -245,7 +245,8 @@ def _mark_page(
         "answers, not only verbatim matches.\n"
         "   • For multiple_choice: compare student_answer to correct_answer; "
         "award max_marks if they match, 0 otherwise.\n"
-        "3. explanation: clear, easy to understand, simple english."
+        "3. explanation: clear, easy to understand, short, simple english. Avoid difficult English words "
+        "(non native, high school english speakers). "
     )
 
     # --- Section C: output format + CRITICAL tag rule ---
@@ -254,9 +255,6 @@ def _mark_page(
         "Fill in the three empty XML fields in each <question>: "
         "<student_answer>, <assigned_marks>, and <explanation>. "
         "Do not change any other content.\n"
-        "CRITICAL — write each field exactly once, final answer only. "
-        "Do NOT reason, deliberate, or self-correct inside any XML field or anywhere in the output. "
-        "Decide first, then write the answer directly into the field and close the tag immediately.\n"
         "CRITICAL — each element must be closed with its own matching tag. "
         "WRONG: <explanation>text</student_answer>. "
         "RIGHT: <explanation>text</explanation>. "

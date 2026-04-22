@@ -349,12 +349,12 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         reasoning = _latex_newlines(_latex_escape_smart(_restore_json_control_chars(_strip_mark_outcome(str(q.get("explanation") or "")))))
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(
-            f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\"
+            f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"
         )
     rows_str = "\n".join(rows)
     pct_display = "N/A" if pct is None else f"{pct}\\%"
     # Column widths fill landscape A4 text width (25.7 cm - ~3 cm separator overhead = 22.7 cm):
-    # p{0.9cm} + p{2.0cm} + p{0.7cm} + p{0.8cm} + p{4cm} + p{6.5cm} + p{7.8cm} = 22.7 cm
+    # p{0.7cm} + p{1.0cm} + p{0.7cm} + p{0.8cm} + p{5.2cm} + p{6.5cm} + p{7.8cm} = 22.7 cm
     return (
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
@@ -373,8 +373,8 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
         "\\vspace{1em}\n\n"
         "{\\small\n"
-        "\\renewcommand{\\arraystretch}{1.2}\n"
-        "\\begin{longtable}{L{0.9cm}L{2.0cm}L{0.7cm}L{0.8cm}L{4cm}L{6.5cm}L{7.8cm}}\n"
+        "\\renewcommand{\\arraystretch}{1.6}\n"
+        "\\begin{longtable}{L{0.7cm}L{1.0cm}L{0.7cm}L{0.8cm}L{5.2cm}L{6.5cm}L{7.8cm}}\n"
         "\\toprule\n"
         "\\textbf{Q} & \\textbf{Type} & \\textbf{Max} & \\textbf{Got} & "
         "\\textbf{Student Answer} & \\textbf{Expected} & \\textbf{Reasoning} \\\\\n"
