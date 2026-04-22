@@ -76,6 +76,10 @@ class _Tee:
         self._log.close()
 
 
+class _EarlyExit(Exception):
+    """Pipeline stopped because --stop-after N was reached."""
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="xScore.py",
@@ -104,6 +108,13 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         default=False,
         help="Rebuild cleaned scan even if cached",
+    )
+    parser.add_argument(
+        "--stop-after",
+        type=int,
+        default=None,
+        metavar="N",
+        help="Stop pipeline after step N completes (e.g. 7 to stop after geometry)",
     )
     args = parser.parse_args()
     return args
@@ -134,6 +145,7 @@ class _Ctx:
     marking_failures: list = None            # populated in step 12 (pages that exhausted all retries)
     page_assignments: list | None = None     # list[PageAssignment] set by step 10
     step_offset: int = 0                     # 1 when split-subpages mode adds step 8 (layout)
+    stop_after: int = 9999                   # --stop-after N; 9999 = run everything
 
     def __post_init__(self) -> None:
         if self.step_timings_marking is None:
@@ -142,6 +154,8 @@ class _Ctx:
             self.marking_api_calls = []
         if self.marking_failures is None:
             self.marking_failures = []
+        if getattr(self.args, "stop_after", None) is not None:
+            self.stop_after = self.args.stop_after
 
 
 def _print_footer(ctx: _Ctx, gi: SimpleNamespace, elapsed: float) -> None:
@@ -452,9 +466,11 @@ def _run_step3_and_scan_parallel(ctx: _Ctx, gi: SimpleNamespace, *, on_students_
         except BaseException as exc:
             scan_exc = exc
 
+    run_scan = ctx.stop_after >= 4
     step3_exc: BaseException | None = None
     with ThreadPoolExecutor(max_workers=1) as pool:
-        pool.submit(_scan_wrapper)
+        if run_scan:
+            pool.submit(_scan_wrapper)
         try:
             _step03_students(ctx, gi,
                              on_header_printed=_scan_ready.set,
@@ -498,10 +514,14 @@ def _run_steps3to10_parallel(ctx: _Ctx, gi: SimpleNamespace) -> None:
         except BaseException as exc:
             scaffold_exc = exc
 
+    run_scaffold = ctx.stop_after >= 8
     with ThreadPoolExecutor(max_workers=1) as pool:
-        pool.submit(_scaffold_wrapper)
+        if run_scaffold:
+            pool.submit(_scaffold_wrapper)
         try:
             _run_step3_and_scan_parallel(ctx, gi, on_students_ready=_students_ready.set)
+            if ctx.stop_after <= 6:
+                raise _EarlyExit()
             if ctx.cleaned_pdf:
                 _step07_geometry(ctx, gi)
         except BaseException as exc:
@@ -657,17 +677,25 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
     t0 = time.perf_counter()
     try:
         _step01_parse(ctx, gi)
+        if ctx.stop_after <= 1: raise _EarlyExit()
         _step02_folder(ctx, gi)
+        if ctx.stop_after <= 2: raise _EarlyExit()
         _run_steps3to10_parallel(ctx, gi)
+        if ctx.stop_after <= 10 + ctx.step_offset: raise _EarlyExit()
         if ctx.cleaned_pdf and ctx.scaffold:
             _step11_blueprints(ctx, gi)
+            if ctx.stop_after <= 11 + ctx.step_offset: raise _EarlyExit()
             _step12_mark(ctx, gi)
+            if ctx.stop_after <= 12 + ctx.step_offset: raise _EarlyExit()
             _step13_reports(ctx, gi)
+            if ctx.stop_after <= 13 + ctx.step_offset: raise _EarlyExit()
             _step14_timing(ctx, gi)
         gi.ok_line("Pipeline complete.")
         ctx.pipeline_completed_ok = True
         if ctx.cleaned_pdf:
             gi.info_line(f"Cleaned scan: {ctx.cleaned_pdf}")
+    except _EarlyExit:
+        gi.info_line(f"Stopped after step {ctx.stop_after}.")
     finally:
         _print_footer(ctx, gi, time.perf_counter() - t0)
 

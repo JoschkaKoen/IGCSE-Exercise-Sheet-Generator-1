@@ -23,6 +23,20 @@ def _read_model_config() -> tuple[str, str | None]:
     return raw.strip(), None
 
 
+_SHEET_KEYWORDS = ["student list", "student", "roster", "class list", "participants", "names"]
+
+
+def _best_sheet(wb):
+    """Return the worksheet whose name best matches a student-list keyword."""
+    if len(wb.sheetnames) == 1:
+        return wb.active
+    for keyword in _SHEET_KEYWORDS:
+        for name in wb.sheetnames:
+            if keyword in name.lower():
+                return wb[name]
+    return wb.active or wb.worksheets[0]
+
+
 def _spreadsheet_to_csv(path: Path) -> str:
     """Convert Excel or CSV to a plain CSV string."""
     ext = path.suffix.lower()
@@ -32,7 +46,7 @@ def _spreadsheet_to_csv(path: Path) -> str:
         except ImportError:
             raise ImportError("openpyxl is required: pip install openpyxl>=3.1.0")
         wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
-        ws = wb.active
+        ws = _best_sheet(wb)
         buf = io.StringIO()
         writer = csv.writer(buf)
         for row in ws.iter_rows(values_only=True):
