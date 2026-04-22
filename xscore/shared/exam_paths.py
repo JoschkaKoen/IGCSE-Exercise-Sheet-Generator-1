@@ -295,19 +295,28 @@ def validate_input_files(folder: Path) -> None:
     if not scans:
         missing.append("scan PDF  (e.g. scan.pdf)")
 
-    if not list(folder.glob("StudentList.*")):
-        missing.append("student roster  (StudentList.xlsx / .csv / .pdf)")
+    _roster = list(folder.glob("StudentList.*"))
+    if not _roster:
+        for _pat in ("*[Ss]tudent*", "*[Rr]oster*"):
+            _roster = list(folder.glob(_pat))
+            if _roster:
+                break
+    if not _roster:
+        missing.append("student roster  (StudentList.xlsx, or any *student* / *roster* file)")
 
-    # Accept exact name OR any PDF with 'empty'/'exam' that isn't a scan/answer/student file
-    # (mirrors generate_scaffold.find_exam_pdf so validation is consistent with the pipeline)
+    # Accept: exact name, any *empty*/*exam* PDF, or (fallback) any non-scan/answer/student PDF.
+    # Mirrors generate_scaffold.find_exam_pdf which uses the same fallback.
     _EXAM_SKIP = ("scan", "answer", "student", "cleaned")
-    _exam_pdfs = [
+    _non_skip_pdfs = [
         f for f in folder.glob("*.pdf")
         if not any(kw in f.name.lower() for kw in _EXAM_SKIP)
-        and any(kw in f.name.lower() for kw in ("empty", "exam"))
     ]
-    if not (folder / "empty_exam.pdf").is_file() and not _exam_pdfs:
-        missing.append("empty_exam.pdf  (or any *empty*/*exam*.pdf that isn't a scan/answer)")
+    _exam_pdfs = [
+        f for f in _non_skip_pdfs
+        if any(kw in f.name.lower() for kw in ("empty", "exam"))
+    ]
+    if not (folder / "empty_exam.pdf").is_file() and not _exam_pdfs and not _non_skip_pdfs:
+        missing.append("empty_exam.pdf  (or any PDF that isn't a scan/answer/student file)")
 
     # Accept exact name OR any PDF with 'answer' in the name
     # (mirrors generate_scaffold._find_answer_pdf)
