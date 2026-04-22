@@ -28,7 +28,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
-from xscore.config import NAME_RECOGNITION_DPI
+from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, NAME_RECOGNITION_DPI
 
 from .ai_helpers import ai_image_call, page_to_jpeg_b64, parse_json_safe
 from xscore.shared.exam_paths import artifact_prompt_path
@@ -80,13 +80,20 @@ Return ONLY JSON: {"cover_page": true} or {"cover_page": false}
 """
 
 
-def is_cover_page(pdf_path: Path, page_idx: int, gai_client, model_id: str,
-                  *, prompt_save_path: Path | None = None) -> bool:
+def is_cover_page(
+    pdf_path: Path,
+    page_idx: int,
+    gai_client,
+    model_id: str,
+    *,
+    prompt_save_path: Path | None = None,
+    effort: str | None = None,
+) -> bool:
     """Return True if page *page_idx* of *pdf_path* matches the cover-page definition.
 
     Uploads a single-page PDF to the Gemini Files API (same pattern as exam/scheme
-    parsing in ai_scaffold.py) and queries with ThinkingConfig(thinking_budget=0).
-    Used for both the empty-exam informational check and authoritative scan checks.
+    parsing in ai_scaffold.py). Used for both the empty-exam informational check and
+    authoritative scan checks.
     """
     import fitz
     import tempfile
@@ -115,9 +122,14 @@ def is_cover_page(pdf_path: Path, page_idx: int, gai_client, model_id: str,
             warn_line(f"[{model_id}] PDF upload failed for page {page_idx}")
             return False
 
+        _thinking_map = {"off": 0, "low": 1024, "high": 8192}
+        _budget = _thinking_map.get(effort or "", 1024)
         config = gai_types.GenerateContentConfig(
-            max_output_tokens=1500,
-            thinking_config=gai_types.ThinkingConfig(thinking_budget=1024, include_thoughts=True),
+            max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+            thinking_config=gai_types.ThinkingConfig(
+                thinking_budget=_budget,
+                include_thoughts=_budget > 0,
+            ),
         )
         resp = gai_client.models.generate_content(
             model=model_id,
@@ -127,6 +139,12 @@ def is_cover_page(pdf_path: Path, page_idx: int, gai_client, model_id: str,
             ],
             config=config,
         )
+        if prompt_save_path is not None:
+            import shutil
+            _page_save = prompt_save_path.with_name(prompt_save_path.stem + "_page.pdf")
+            _page_save.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(tmp_path, _page_save)
+
         thinking_parts: list[str] = []
         answer_parts: list[str] = []
         for candidate in (resp.candidates or []):
@@ -243,20 +261,18 @@ def assign_pages(
     else:
         from google import genai as gai
         _gai_client = gai.Client(api_key=_cover_api_key)
-        _cover_model, _ = parse_model_effort(
+        _cover_model, _cover_effort = parse_model_effort(
             os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
         )
 
-        # Authoritative check: is scan page 1 a cover page?
-        info_line("Checking scan page 1 for cover page …")
         _p1_save = artifact_prompt_path(artifact_dir, "8_cover_p1") if artifact_dir else None
         _t_cover = time.perf_counter()
-        page1_is_cover = is_cover_page(cleaned_pdf, 0, _gai_client, _cover_model, prompt_save_path=_p1_save)
+        page1_is_cover = is_cover_page(cleaned_pdf, 0, _gai_client, _cover_model, prompt_save_path=_p1_save, effort=_cover_effort)
         _cover_elapsed = format_duration(time.perf_counter() - _t_cover)
         cover_page_mode = page1_is_cover
 
         if cover_page_mode:
-            info_line(f"Cover page detected on scan page 1 — cover-page mode active  ·  {_cover_elapsed}")
+            info_line(f"Scan page 1: cover page — cover-page mode active  ·  {_cover_elapsed}")
 
             # Verify every expected cover position in parallel.
             # Block 0 reuses the page-1 result; blocks 1..n-1 are checked in parallel.
@@ -267,7 +283,7 @@ def assign_pages(
 
             def _check_cover(idx: int) -> tuple[int, bool]:
                 save_path = artifact_prompt_path(artifact_dir, f"8_cover_p{idx + 1}") if artifact_dir else None
-                return idx, is_cover_page(cleaned_pdf, idx, _gai_client, _cover_model, prompt_save_path=save_path)
+                return idx, is_cover_page(cleaned_pdf, idx, _gai_client, _cover_model, prompt_save_path=save_path, effort=_cover_effort)
 
             if cover_indices_to_check:
                 _cover_workers = min(len(cover_indices_to_check), 8)
@@ -288,7 +304,7 @@ def assign_pages(
                         f"but this page doesn't look like one — check scan quality"
                     )
         else:
-            info_line(f"Scan page 1 is an answer page — standard mode (no cover pages)  ·  {_cover_elapsed}")
+            info_line(f"Scan page 1: no cover page — standard mode  ·  {_cover_elapsed}")
 
     # ------------------------------------------------------------------
     # Name detection — only the first page of each student block is checked.
