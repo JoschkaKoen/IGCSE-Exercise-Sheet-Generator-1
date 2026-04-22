@@ -327,11 +327,11 @@ def compute_transformation_phase(
 ) -> Path | None:
     """Step 9: write ``cleaned_scan_transforms.json`` (4-up ↔ scan similarity per page)."""
     from xscore.preprocessing.deskew import resolve_deskew_sidecar
-    from scaffold.project_boxes_on_scanned_exam import (
+    from xscore.scaffold.project_boxes_on_scanned_exam import (
         find_raw_four_up_pdf,
         write_scan_page_transforms_json,
     )
-    from scaffold.generate_scaffold import find_exam_pdf
+    from xscore.scaffold.generate_scaffold import find_exam_pdf
     from xscore.shared.terminal_ui import info_line, ok_line
 
     paths = _scan_phase_paths(artifact_dir)
@@ -395,8 +395,8 @@ def project_bounding_boxes_phase(
 ) -> Path | None:
     """Step 10: draw ``*_projected_boxes.pdf`` using transforms from step 9."""
     from xscore.preprocessing.deskew import resolve_deskew_sidecar
-    from scaffold.generate_scaffold import find_exam_pdf, build_scaffold
-    from scaffold.project_boxes_on_scanned_exam import (
+    from xscore.scaffold.generate_scaffold import find_exam_pdf, build_scaffold
+    from xscore.scaffold.project_boxes_on_scanned_exam import (
         find_raw_four_up_pdf,
         overlay_projected_scaffold_from_transforms_json,
         overlay_projected_scaffold_on_scan_pdf,

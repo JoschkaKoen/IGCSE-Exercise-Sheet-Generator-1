@@ -95,18 +95,35 @@ def _latex_newlines(text: str) -> str:
 def _format_criteria_cell(raw: str) -> str:
     """Format a marking_criteria string for the Expected column.
 
-    Strips [criterion] prefixes, joins lines with ' / ', truncates to 200 chars,
-    then escapes for LaTeX.
+    Single-token criteria (one word or one number, no spaces) are grouped
+    on one line joined with ' / '. Multi-word criteria each get their own line.
     """
     lines = []
     for line in raw.split("\n"):
         line = re.sub(r"^\s*\[[^\]]*\]\s*", "", line).strip()
         if line:
             lines.append(line)
-    joined = " / ".join(lines)
-    if len(joined) > 200:
-        joined = joined[:199] + "…"
-    return _latex_newlines(_latex_escape_smart(joined))
+
+    if not lines:
+        return "---"
+
+    segments: list[str] = []
+    short_group: list[str] = []
+    for criterion in lines:
+        if " " not in criterion:   # single token: one word or one number
+            short_group.append(criterion)
+        else:
+            if short_group:
+                segments.append(" / ".join(short_group))
+                short_group = []
+            segments.append(criterion)
+    if short_group:
+        segments.append(" / ".join(short_group))
+
+    result = "\n".join(segments)
+    if len(result) > 300:
+        result = result[:299] + "…"
+    return _latex_newlines(_latex_escape_smart(result))
 
 
 # ---------------------------------------------------------------------------
@@ -314,7 +331,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
     rows_str = "\n".join(rows)
     pct_display = "N/A" if pct is None else f"{pct}\\%"
     # Column widths fill landscape A4 text width (25.7 cm - ~3 cm separator overhead = 22.7 cm):
-    # p{1cm} + p{2.2cm} + p{0.9cm} + p{1.1cm} + p{4cm} + p{4.5cm} + p{9cm} = 22.7 cm
+    # p{0.9cm} + p{2.0cm} + p{0.8cm} + p{1.0cm} + p{4cm} + p{5.5cm} + p{8.5cm} = 22.7 cm
     return (
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
@@ -333,7 +350,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         "\\vspace{1em}\n\n"
         "{\\small\n"
         "\\renewcommand{\\arraystretch}{1.2}\n"
-        "\\begin{longtable}{p{1cm}p{2.2cm}p{0.9cm}p{1.1cm}p{4cm}p{4.5cm}p{9cm}}\n"
+        "\\begin{longtable}{p{0.9cm}p{2.0cm}p{0.8cm}p{1.0cm}p{4cm}p{5.5cm}p{8.5cm}}\n"
         "\\toprule\n"
         "\\textbf{Q} & \\textbf{Type} & \\textbf{Max} & \\textbf{Got} & "
         "\\textbf{Student Answer} & \\textbf{Expected} & \\textbf{Reasoning} \\\\\n"

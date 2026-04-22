@@ -185,6 +185,22 @@ def _quadrant_label(row: int, col: int, total_rows: int, total_cols: int) -> str
     return f"{v}-{h}"
 
 
+def _bq_key(bq: dict) -> tuple:
+    """Group key for a blueprint question: (bare_number, subpage_row, subpage_col).
+
+    The _N suffix is stripped so Q38 and Q38_2 share the same group; blueprint
+    questions consume positionally so Q38 gets group[0] and Q38_2 gets group[1].
+    """
+    _row = bq.get("subpage_row")
+    _col = bq.get("subpage_col")
+    num = re.sub(r'_\d+$', '', str(bq.get("number", "")))
+    return (
+        num,
+        int(_row) if _row is not None else 1,
+        int(_col) if _col is not None else 1,
+    )
+
+
 def _mark_page(
     client: Any,
     model_id: str,
@@ -315,20 +331,6 @@ def _mark_page(
                 _last_exc = exc
                 break
             result = blueprint.copy()
-            # Group AI responses by (bare_number, subpage_row, subpage_col).
-            # The _N suffix is stripped so Q38 and Q38_2 share the same group;
-            # blueprint questions consume positionally so Q38 gets group[0] and
-            # Q38_2 gets group[1], matching the order the AI echoes them back.
-            def _bq_key(bq: dict) -> tuple:
-                _row = bq.get("subpage_row")
-                _col = bq.get("subpage_col")
-                num = re.sub(r'_\d+$', '', str(bq.get("number", "")))
-                return (
-                    num,
-                    int(_row) if _row is not None else 1,
-                    int(_col) if _col is not None else 1,
-                )
-
             fill_groups: dict[tuple, list] = defaultdict(list)
             for q in parsed_questions:
                 fill_groups[_bq_key(q)].append(q)

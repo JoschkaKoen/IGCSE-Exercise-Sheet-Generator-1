@@ -706,7 +706,7 @@ def deskew_pdf_raster(
                 "bot": [asdict(ln) for ln in bot_lines],
                 "anchors": dict(null_anchors),
             })
-        Path(reflines_sidecar).resolve().write_text(json.dumps(reflines_data, indent=2))
+        Path(reflines_sidecar).resolve().write_text(json.dumps(reflines_data, indent=2), encoding="utf-8")
 
     t_write = time.perf_counter()
 
