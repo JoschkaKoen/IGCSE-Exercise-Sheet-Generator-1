@@ -504,6 +504,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             if has_cover and p_label == 1:
                 continue  # skip cover page — not an answer page
             answer_label = p_label - (1 if has_cover else 0)  # 1-based answer page index
+            # Skip pages that fall beyond the exam's page count (trailing blank scan pages).
+            if ctx.scaffold is not None and answer_label > ctx.scaffold.page_count:
+                continue
             key = f"{student_name}_{p_label}"
             with _display_lock:
                 _student_lines[key] = f"[dim]  {icon('info')}  Student '{student_name}' · page {answer_label}/{answer_page_count}[/]"
@@ -511,7 +514,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     live.update(_render())
 
             b64 = _b64_cache[(student_name, p_label)]
-            blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, p_label).read_text(
+            blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, answer_label).read_text(
                 encoding="utf-8"
             )
             blueprint = _blueprint_xml_to_dict(blueprint_xml)

@@ -442,6 +442,17 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         if scan_exc is not None:
             raise scan_exc
 
+    def _run_steps3to11_sequential(ctx: _Ctx) -> None:
+        """Steps 3–11 run one after the other in the main thread."""
+        _step03_students(ctx)
+        if ctx.stop_after <= 3: raise _EarlyExit()
+        _scan_phases(ctx)
+        if ctx.stop_after <= 7: raise _EarlyExit()
+        if ctx.cleaned_pdf:
+            _step08_geometry(ctx)
+        if ctx.stop_after <= 8: raise _EarlyExit()
+        _scaffold_steps(ctx)
+
     def _run_steps3to11_parallel(ctx: _Ctx) -> None:
         """Steps 3–11 with maximum parallelism after step 2.
 
@@ -663,7 +674,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         if ctx.stop_after <= 1: raise _EarlyExit()
         _step02_folder(ctx)
         if ctx.stop_after <= 2: raise _EarlyExit()
-        _run_steps3to11_parallel(ctx)
+        _run_steps3to11_sequential(ctx)
         if ctx.stop_after <= 11 + ctx.step_offset: raise _EarlyExit()
         if ctx.cleaned_pdf and ctx.scaffold:
             _step12_blueprints(ctx)
