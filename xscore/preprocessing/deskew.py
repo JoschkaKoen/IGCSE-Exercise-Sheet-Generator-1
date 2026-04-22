@@ -49,6 +49,10 @@ _SWEEP_FINE_HALF = 0.15     # deg — fine window ± this around coarse best (co
 _MIN_PROXY_DIM = 80         # px — if proxy smaller, run coarse sweep on full-res thresh instead
 _MIN_ABS_DEG = 0.05         # skip warp if detected angle is below this
 
+# A3/A4 classifier: A4 portrait height ≈ 11.69×DPI, A3 portrait ≈ 16.54×DPI.
+# Midpoint 14.1×DPI works at any configured DPI, not just 300.
+_A3_HEIGHT_THRESHOLD_FACTOR = 14.1
+
 # Morphological line detection
 _VKERNEL_HEIGHT = 150       # px — minimum height a blob must survive MORPH_OPEN
 _MIN_LINE_HEIGHT_FRAC = 0.3 # blob must span > this fraction of the half-page height
@@ -477,6 +481,20 @@ def deskew_page_halves(
     return np.vstack([top_fixed, bot_fixed]), top_angle, bot_angle, top_lines, bot_lines
 
 
+def deskew_whole_page(
+    page_gray: np.ndarray,
+) -> tuple[np.ndarray, float, float, list[ReferenceLine], list[ReferenceLine]]:
+    """Deskew *page_gray* as a single unit — A4 page mode.
+
+    Unlike :func:`deskew_page_halves`, one angle is estimated over the full
+    page and one rotation is applied.  ``bot_angle`` is always ``0.0`` and
+    both reference-line lists are empty.
+    """
+    angle = get_deskew_angle(page_gray)
+    fixed = deskew_image(page_gray, angle)
+    return fixed, angle, 0.0, [], []
+
+
 # ---------------------------------------------------------------------------
 # Full PDF pipeline
 # ---------------------------------------------------------------------------
@@ -488,9 +506,12 @@ def _process_page(
     args: tuple,
 ) -> tuple[int, Image.Image, float, float, list[ReferenceLine], list[ReferenceLine]]:
     """Worker: deskew a single page and detect reference lines."""
-    page_idx, pil_img = args
+    page_idx, pil_img, dpi = args
     gray = np.array(pil_img.convert("L"))
-    fixed_gray, top_angle, bot_angle, top_lines, bot_lines = deskew_page_halves(gray)
+    if pil_img.height > _A3_HEIGHT_THRESHOLD_FACTOR * dpi:
+        fixed_gray, top_angle, bot_angle, top_lines, bot_lines = deskew_page_halves(gray)
+    else:
+        fixed_gray, top_angle, bot_angle, top_lines, bot_lines = deskew_whole_page(gray)
     fixed_pil = Image.fromarray(fixed_gray, mode="L")
     return page_idx, fixed_pil, top_angle, bot_angle, top_lines, bot_lines
 
@@ -659,7 +680,7 @@ def deskew_pdf_raster(
     t_angle = time.perf_counter()
     with ThreadPoolExecutor(max_workers=num_workers) as ex:
         futures = {
-            ex.submit(_process_page, (i, pages[i])): i
+            ex.submit(_process_page, (i, pages[i], dpi)): i
             for i in range(n)
         }
         for fut in as_completed(futures):

@@ -24,7 +24,7 @@ from typing import Any
 import xml.etree.ElementTree as ET
 
 from eXercise.ai_client import collect_streamed_response
-from xscore.config import MAX_RETRIES
+from xscore.config import MARKING_JPEG_QUALITY, MAX_RETRIES
 from xscore.marking.blueprints import marked_to_md
 from xscore.shared.exam_paths import artifact_blueprint_xml_path, artifact_marked_failed_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path
 from xscore.shared.prompt_logger import save_prompt
@@ -422,7 +422,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     *dpi* defaults to ``MARKING_DPI`` when not supplied.
     Returns a list of API call timing records for step 15.
     """
-    from xscore.config import MARKING_DPI, MARKING_JPEG_QUALITY
+    from xscore.config import MARKING_DPI
     if dpi is None:
         dpi = MARKING_DPI
 
