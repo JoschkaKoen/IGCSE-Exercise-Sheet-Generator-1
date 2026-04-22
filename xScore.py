@@ -13,14 +13,14 @@ Steps:
   6. Autorotate (remove blanks, apply /Rotate metadata).
   7. Deskew (small-angle per-half correction) → 7_cleaned_scan.pdf.
   8. Assign scan pages to students (name OCR) → 8_exam_student_list.json.
-  9. AI: detect raw exam layout → 9_exam_layout.json (split mode only).
- 10. Cut raw exam PDF into sub-pages (split mode only).
- 11. AI: parse exam PDF → question hierarchy → 10_exam_questions.json + 10_exam_questions.md.
- 12. AI: parse mark scheme → correct answers + criteria → 11_mark_scheme.json + 11_mark_scheme.md.
- 13. Merge scaffold → 12_report.json + 12_report.md.
- 14. Build per-page AI marking blueprints → 13_ai_marking_blueprint_N.json.
- 15. AI: grade each student page → 14_marked_*.json.
- 16. Merge per-page results into student and class reports → 15_student_report_*.json + PDF.
+  9. AI: detect exam layout + split multi-up PDFs → 9_exam_layout.json (split mode only).
+ 10. AI: parse exam PDF → question hierarchy → 10_exam_questions.json + 10_exam_questions.md.
+ 11. AI: parse mark scheme → correct answers + criteria → 11_mark_scheme.json + 11_mark_scheme.md.
+ 12. Merge scaffold → 12_report.json + 12_report.md.
+ 13. Build per-page AI marking blueprints → 13_ai_marking_blueprint_N.json.
+ 14. AI: grade each student page → 14_marked_*.json.
+ 15. Merge per-page results into student and class reports → 15_student_report_*.json + PDF.
+ 16. Timing summary.
 
 Usage:
     python xScore.py "grade Space Physics Unit Test"
@@ -147,7 +147,7 @@ class _Ctx:
     marking_failures: list[dict] = field(default_factory=list)
     page_assignments: list | None = None     # list[PageAssignment] set by step 8
     cover_page_mode: bool = False            # True when step 8 detects cover pages in the scan
-    step_offset: int = 0                     # 2 when split-subpages mode adds steps 9–10 (layout + cut)
+    step_offset: int = 0                     # 1 when split-subpages mode adds step 9 (layout + cut)
     stop_after: int = 9999                   # --stop-after N; 9999 = run everything
 
     def __post_init__(self) -> None:
@@ -298,43 +298,37 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             on_complete()
 
     def _scaffold_steps(ctx: _Ctx, *, background: bool = False) -> None:
-        """Steps 9–13 in split mode (9 layout, 10 cut, 11 exam, 12 scheme, 13 merge)
-        or 9–11 in legacy mode."""
+        """Steps 9–12 in split mode (9 layout+cut, 10 exam, 11 scheme, 12 merge)
+        or 9–11 in legacy mode (9 exam, 10 scheme, 11 merge)."""
         import os as _os
         assert ctx.folder is not None and ctx.artifact_dir is not None
         t0 = time.perf_counter()
 
         _split = _os.getenv("READ_EXAM_PDF_SPLIT", "1").strip() not in ("0", "false", "no")
-        ctx.step_offset = 2 if _split else 0
+        ctx.step_offset = 1 if _split else 0
         off = ctx.step_offset
 
         if _split:
             pipeline_step(
-                9, "Detect raw exam layout",
+                9, "Detect exam layout",
                 subtitle="running in background" if background else None,
             )
         else:
             pipeline_step(
-                9, "AI API call — Parse exam PDF",
+                9, "Parse exam PDF",
                 subtitle="running in background" if background else None,
             )
 
-        def _on_layout_done() -> None:
+        def _on_cut_done(skipped: bool) -> None:
             pipeline_step(
-                10, "Cut raw exam PDF",
-                subtitle="running in background" if background else None,
-            )
-
-        def _on_cut_done() -> None:
-            pipeline_step(
-                11, "AI API call — Parse exam PDF",
+                10, "Parse exam PDF",
                 subtitle="running in background" if background else None,
             )
 
         def _on_exam_done(raw_questions: list) -> None:
             ok_line(f"{len(raw_questions)} top-level questions extracted")
             pipeline_step(
-                10 + off, "AI API call — Parse mark scheme",
+                10 + off, "Parse mark scheme",
                 subtitle="completed in background" if background else None,
             )
 
@@ -347,7 +341,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
                 ctx.folder,
                 artifact_dir=ctx.artifact_dir,
                 force_rebuild=True,
-                on_layout_complete=_on_layout_done if _split else None,
+                on_layout_complete=None,
                 on_cut_complete=_on_cut_done if _split else None,
                 on_exam_complete=_on_exam_done,
                 on_scheme_complete=_on_scheme_done,
@@ -596,7 +590,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.step_timings_marking["assign_pages_s"] = time.perf_counter() - t0
 
     def _step12_blueprints(ctx: _Ctx) -> None:
-        """Step 12/14 — Build per-page AI marking blueprints (no AI calls)."""
+        """Step 12/13 — Build per-page AI marking blueprints (no AI calls)."""
         assert ctx.scaffold is not None and ctx.artifact_dir is not None
         pipeline_step(12 + ctx.step_offset, "AI marking blueprints")
         t0 = time.perf_counter()
@@ -605,7 +599,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.step_timings_marking["blueprints_s"] = time.perf_counter() - t0
 
     def _step13_mark(ctx: _Ctx) -> None:
-        """Step 13/15 — AI marking: vision calls to fill blueprints for each student page."""
+        """Step 13/14 — AI marking: vision calls to fill blueprints for each student page."""
         assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
         pipeline_step(13 + ctx.step_offset, "AI marking")
         t0 = time.perf_counter()
@@ -617,7 +611,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.step_timings_marking["marking_s"] = time.perf_counter() - t0
 
     def _step14_reports(ctx: _Ctx) -> None:
-        """Step 14/16 — Merge per-page results into student + class reports; compile PDFs."""
+        """Step 14/15 — Merge per-page results into student + class reports; compile PDFs."""
         assert ctx.scaffold is not None and ctx.artifact_dir is not None
         pipeline_step(14 + ctx.step_offset, "Compile reports")
         t0 = time.perf_counter()
@@ -628,7 +622,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.step_timings_marking["reports_s"] = time.perf_counter() - t0
 
     def _step15_timing(ctx: _Ctx) -> None:
-        """Step 15/17 — Write timing summary (16_timing.json / .md) and accuracy report."""
+        """Step 15/16 — Write timing summary (16_timing.json / .md) and accuracy report."""
         assert ctx.artifact_dir is not None
         pipeline_step(15 + ctx.step_offset, "Timing summary")
         t0 = time.perf_counter()

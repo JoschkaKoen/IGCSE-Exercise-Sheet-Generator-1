@@ -77,9 +77,6 @@ RETRY_BACKOFF_S: float = float(os.getenv("RETRY_BACKOFF_S", "1"))
 # Image Processing Configuration
 # =============================================================================
 
-# JPEG quality for image encoding (0-100). Higher = better quality, larger size.
-JPEG_QUALITY: int = int(os.getenv("JPEG_QUALITY", "95"))
-
 # Page images embedded in cleaned_scan.pdf after deskew (see preprocessing/deskew.py).
 #   "jpeg" — faster write, smaller file, lossy (uses CLEANED_SCAN_JPEG_QUALITY).
 #   "png"  — lossless; still written with parallel encoding (slower than jpeg).
@@ -100,26 +97,12 @@ SCAN_USE_TESSERACT_ROTATION: bool = _scan_tess_rot in ("1", "true", "yes", "on")
 _deskew_refl = os.getenv("XSCORE_DESKEW_REFERENCE_LINES", "").strip().lower()
 DESKEW_DETECT_REFERENCE_LINES: bool = _deskew_refl in ("1", "true", "yes", "on")
 
-# Fraction of page to crop from top. 0.6 = top 60% of page.
-# The answer section is typically in the top half of the page.
-CROP_TOP_FRACTION: float = float(os.getenv("CROP_TOP_FRACTION", "0.6"))
-
-# Image preprocessing enhancement factors
-# These help make handwritten marks more visible
-PREPROCESS_CONTRAST: float = float(os.getenv("PREPROCESS_CONTRAST", "1.5"))      # Contrast enhancement (1.0 = no change)
-PREPROCESS_SHARPNESS: float = float(os.getenv("PREPROCESS_SHARPNESS", "1.6"))    # Sharpness enhancement
-PREPROCESS_BRIGHTNESS: float = float(os.getenv("PREPROCESS_BRIGHTNESS", "1.1"))  # Brightness adjustment
-
 # =============================================================================
 # Ensemble Configuration  (xscore/extraction/ benchmarking only — not the grading pipeline)
 # =============================================================================
 
-# Enable ensemble voting when running xscore/extraction/ benchmarks.
 _use_ensemble = os.getenv("USE_ENSEMBLE", "").strip().lower()
 USE_ENSEMBLE: bool = _use_ensemble in ("1", "true", "yes", "on")
-
-# Number of API calls per page for ensemble voting.
-# Only used when USE_ENSEMBLE is True.
 ENSEMBLE_CALLS: int = int(os.getenv("ENSEMBLE_CALLS", "3"))
 
 # =============================================================================
@@ -179,9 +162,11 @@ COVER_PAGE_DETECTION_DPI: int = int(os.getenv("COVER_PAGE_DETECTION_DPI", "150")
 
 # Step 10: name-recognition crop sent to vision API.
 NAME_RECOGNITION_DPI: int = int(os.getenv("NAME_RECOGNITION_DPI", "300"))
+NAME_JPEG_QUALITY: int = int(os.getenv("NAME_JPEG_QUALITY", "85"))
 
 # Step 12: full scan page sent to vision API for marking.
 MARKING_DPI: int = int(os.getenv("MARKING_DPI", "300"))
+MARKING_JPEG_QUALITY: int = int(os.getenv("MARKING_JPEG_QUALITY", "90"))
 
 # Inter-call delays in the marking pipeline (rate limiting). Override via env if needed.
 GRADE_QUESTION_DELAY_S: float = float(os.getenv("GRADE_QUESTION_DELAY_S", "0.0"))

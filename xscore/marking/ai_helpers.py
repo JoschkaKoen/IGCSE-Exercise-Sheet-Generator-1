@@ -10,7 +10,7 @@ from typing import Any, Protocol, runtime_checkable
 
 from pathlib import Path
 
-from xscore.config import MAX_RETRIES, apply_model_extras, resolve_pipeline_ai_model_id
+from xscore.config import MAX_RETRIES, NAME_JPEG_QUALITY, apply_model_extras, resolve_pipeline_ai_model_id
 from xscore.extraction.images import to_jpeg_bytes
 from xscore.shared.prompt_logger import save_prompt, save_response
 from xscore.shared.terminal_ui import api_latency_line, log_ai_response_debug, warn_line
@@ -26,8 +26,8 @@ class AIChatClient(Protocol):
     chat: Any
 
 
-def page_to_jpeg_b64(image: Any, quality: int = 85) -> str:
-    """Encode a PIL image as base64 JPEG (quality matches prior marking modules)."""
+def page_to_jpeg_b64(image: Any, quality: int = NAME_JPEG_QUALITY) -> str:
+    """Encode a PIL image as base64 JPEG."""
     return base64.b64encode(to_jpeg_bytes(image, quality=quality)).decode("utf-8")
 
 

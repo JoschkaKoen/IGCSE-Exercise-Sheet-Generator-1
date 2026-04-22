@@ -339,6 +339,28 @@ def _upload_and_poll(client, path: Path, label: str):
     return f
 
 
+def _extract_text(resp) -> str:
+    """Return resp.text, tolerating None and empty-candidates responses."""
+    try:
+        return resp.text or ""
+    except Exception:
+        return ""
+
+
+def _finish_reason(resp) -> str:
+    """Return a human-readable diagnostic: finish_reason + block_reason if set."""
+    parts = []
+    try:
+        if resp.candidates:
+            parts.append(f"finish_reason={resp.candidates[0].finish_reason.name}")
+        pf = getattr(resp, "prompt_feedback", None)
+        if pf and getattr(pf, "block_reason", None):
+            parts.append(f"block_reason={pf.block_reason.name}")
+    except Exception:
+        pass
+    return ", ".join(parts) or "unknown"
+
+
 # ---------------------------------------------------------------------------
 # Artifact helpers
 # ---------------------------------------------------------------------------
@@ -374,7 +396,6 @@ def _serialize_exam_xml(questions: list[dict], layout: dict) -> str:
 
 
 def _save_exam_questions_xml(artifact_dir: Path, raw_questions: list[dict], layout: dict) -> None:
-    """Write step-10 artifacts: ``10_exam_questions.xml`` + ``10_exam_questions.md``."""
     from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
     xml_path = artifact_exam_questions_xml_path(artifact_dir)
     xml_path.parent.mkdir(parents=True, exist_ok=True)
@@ -653,7 +674,7 @@ def build_ai_scaffold(
     *,
     split_subpages: bool = True,
     on_layout_complete: "Callable[[], None] | None" = None,
-    on_cut_complete: "Callable[[], None] | None" = None,
+    on_cut_complete: "Callable[[bool], None] | None" = None,
     on_exam_complete: "Callable[[list[dict]], None] | None" = None,
     on_scheme_complete: "Callable[[list[dict]], None] | None" = None,
     artifact_dir: Path | None = None,
@@ -808,7 +829,7 @@ def build_ai_scaffold(
                         pass
 
             if on_cut_complete is not None:
-                on_cut_complete()
+                on_cut_complete(n_cells == 1)
 
         # ---- Upload PDFs in parallel ----------------------------------------
         actual_exam_pdf = split_pdf_path if split_pdf_path is not None else exam_pdf
@@ -830,12 +851,6 @@ def build_ai_scaffold(
             user_exam = _build_user_exam_prompt(
                 layout_result, split_pdf_path is not None, n_split_pages
             )
-            if artifact_dir is not None:
-                save_prompt(
-                    artifact_prompt_path(artifact_dir, "10_exam_questions"),
-                    model=exam_model, system=_SYSTEM_EXAM,
-                    messages=[{"role": "user", "content": user_exam}],
-                )
             _t0 = time.perf_counter()
             resp = client.models.generate_content(
                 model=exam_model,
@@ -848,7 +863,44 @@ def build_ai_scaffold(
                 config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
             )
             api_latency_line(time.perf_counter() - _t0, label="exam")
-            raw_exam = resp.text or ""
+            if artifact_dir is not None:
+                save_prompt(
+                    artifact_prompt_path(artifact_dir, "10_exam_questions"),
+                    model=exam_model, system=_SYSTEM_EXAM,
+                    messages=[{
+                        "role": "user",
+                        "content": f"[PDF: {actual_exam_pdf.name}]\n\n{user_exam}",
+                    }],
+                )
+            raw_exam = _extract_text(resp)
+            if not raw_exam:
+                reason = _finish_reason(resp)
+                warn_line(f"Exam API: empty response ({reason}) — retrying once …")
+                _t0 = time.perf_counter()
+                resp = client.models.generate_content(
+                    model=exam_model,
+                    contents=[
+                        gai_types.Part.from_uri(
+                            file_uri=uploaded_files["exam"].uri, mime_type="application/pdf"
+                        ),
+                        gai_types.Part.from_text(text=user_exam),
+                    ],
+                    config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
+                )
+                api_latency_line(time.perf_counter() - _t0, label="exam retry")
+                raw_exam = _extract_text(resp)
+                if not raw_exam:
+                    reason = _finish_reason(resp)
+                    if artifact_dir is not None:
+                        try:
+                            p = artifact_exam_questions_raw_xml_path(artifact_dir)
+                            p.parent.mkdir(parents=True, exist_ok=True)
+                            p.write_text(f"<!-- empty response: {reason} -->", encoding="utf-8")
+                        except OSError:
+                            pass
+                    raise RuntimeError(
+                        f"Gemini exam response empty after retry — {reason}"
+                    )
             if artifact_dir is not None:
                 try:
                     p = artifact_exam_questions_raw_xml_path(artifact_dir)
@@ -865,12 +917,6 @@ def build_ai_scaffold(
 
         def _do_scheme_call(scaffold: str) -> dict:
             user_msg = _USER_SCHEME.format(scaffold=scaffold)
-            if artifact_dir is not None:
-                save_prompt(
-                    artifact_prompt_path(artifact_dir, "11_mark_scheme"),
-                    model=scheme_model, system=_SYSTEM_SCHEME,
-                    messages=[{"role": "user", "content": user_msg}],
-                )
             _t0 = time.perf_counter()
             resp = client.models.generate_content(
                 model=scheme_model,
@@ -883,13 +929,25 @@ def build_ai_scaffold(
                 config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
             )
             api_latency_line(time.perf_counter() - _t0, label="mark scheme")
-            result = _parse_scheme_xml(resp.text)   # non-fatal — returns {} on parse error
+            if artifact_dir is not None:
+                save_prompt(
+                    artifact_prompt_path(artifact_dir, "11_mark_scheme"),
+                    model=scheme_model, system=_SYSTEM_SCHEME,
+                    messages=[{
+                        "role": "user",
+                        "content": f"[PDF: {marking_scheme_pdf.name}]\n\n{user_msg}",
+                    }],
+                )
+            raw_scheme = _extract_text(resp)
+            if not raw_scheme:
+                warn_line(f"Mark scheme API: empty response ({_finish_reason(resp)}) — skipping scheme")
+            result = _parse_scheme_xml(raw_scheme)
             if artifact_dir is not None:
                 try:
                     from xscore.scaffold.scaffold_markdown import write_mark_scheme_markdown
                     p = artifact_mark_scheme_xml_path(artifact_dir)
                     p.parent.mkdir(parents=True, exist_ok=True)
-                    p.write_text(_preprocess_xml(resp.text), encoding="utf-8")
+                    p.write_text(_preprocess_xml(raw_scheme), encoding="utf-8")
                     write_mark_scheme_markdown(artifact_dir, result.get("questions", []))
                 except Exception:
                     pass

@@ -21,6 +21,8 @@ import cv2
 import fitz
 import numpy as np
 
+from xscore.config import CLEANED_SCAN_JPEG_QUALITY
+
 _GREEN: tuple[float, float, float] = (0.0, 0.75, 0.2)
 _RED: tuple[float, float, float] = (0.9, 0.1, 0.1)
 _YELLOW: tuple[float, float, float] = (1.0, 0.9, 0.0)
@@ -246,7 +248,7 @@ def remove_vertical_lines_pdf(
             img_bgr = _erase_vertical_lines_from_crop(img_bgr)
             img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
             _, jpg_bytes = cv2.imencode(
-                ".jpg", img_rgb, [cv2.IMWRITE_JPEG_QUALITY, 95]
+                ".jpg", img_rgb, [cv2.IMWRITE_JPEG_QUALITY, CLEANED_SCAN_JPEG_QUALITY]
             )
             page_out = doc_out.new_page(
                 width=page_in.rect.width, height=page_in.rect.height
@@ -401,7 +403,7 @@ def write_adjusted_exercise_pdf(
                     )
 
             img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
-            _, jpg_bytes = cv2.imencode(".jpg", img_rgb, [cv2.IMWRITE_JPEG_QUALITY, 95])
+            _, jpg_bytes = cv2.imencode(".jpg", img_rgb, [cv2.IMWRITE_JPEG_QUALITY, CLEANED_SCAN_JPEG_QUALITY])
 
             page_out = doc_out.new_page(
                 width=page_in.rect.width, height=page_in.rect.height

@@ -17,7 +17,7 @@ def safe_student_name(name: str) -> str:
     """Replace every non-word character in *name* with an underscore for use in filenames."""
     return re.sub(r"[^\w]", "_", name)
 
-_PROMPT_COLLISION = {"10_exam_questions", "11_mark_scheme"}
+_PROMPT_COLLISION = {"10_exam_questions", "11_exam_questions", "11_mark_scheme", "12_mark_scheme"}
 
 
 def artifact_prompt_path(artifact_dir: Path, name: str) -> Path:

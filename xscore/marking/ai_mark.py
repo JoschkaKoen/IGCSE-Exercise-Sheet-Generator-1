@@ -175,7 +175,7 @@ def _render_page_b64(doc: Any, page_idx: int, dpi: int = 150) -> str:
     img = Image.fromarray(
         np.frombuffer(pix.samples, dtype=np.uint8).reshape(pix.height, pix.width, 3)
     )
-    return base64.b64encode(to_jpeg_bytes(img, quality=90)).decode()
+    return base64.b64encode(to_jpeg_bytes(img, quality=MARKING_JPEG_QUALITY)).decode()
 
 
 
@@ -422,7 +422,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     *dpi* defaults to ``MARKING_DPI`` when not supplied.
     Returns a list of API call timing records for step 15.
     """
-    from xscore.config import MARKING_DPI
+    from xscore.config import MARKING_DPI, MARKING_JPEG_QUALITY
     if dpi is None:
         dpi = MARKING_DPI
 

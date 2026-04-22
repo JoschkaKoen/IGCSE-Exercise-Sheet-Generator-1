@@ -7,10 +7,7 @@ from typing import Any
 
 from PIL import Image
 
-from xscore.config import JPEG_QUALITY
-
-
-def to_jpeg_bytes(image: Image.Image, quality: int = JPEG_QUALITY) -> bytes:
+def to_jpeg_bytes(image: Image.Image, quality: int = 95) -> bytes:
     """Convert a PIL image to JPEG bytes."""
     buf = io.BytesIO()
     image.convert("RGB").save(buf, format="JPEG", quality=quality)
