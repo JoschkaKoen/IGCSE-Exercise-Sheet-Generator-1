@@ -28,7 +28,7 @@ from xscore.config import MARKING_JPEG_QUALITY, MAX_RETRIES
 from xscore.marking.blueprints import marked_to_md
 from xscore.shared.exam_paths import artifact_blueprint_xml_path, artifact_marked_failed_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path
 from xscore.shared.prompt_logger import save_prompt
-from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, warn_line
+from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, ok_line, warn_line
 
 
 _DEFAULT_MARKING_MODEL = "qwen3.6-plus, low"
@@ -518,6 +518,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     b64_future = getattr(ctx, "b64_future", None)
     if b64_future is not None:
         _b64_cache = b64_future.result()   # instant if BG finished; brief wait if not
+        ok_line(f"Pre-rendering done  ·  {len(_b64_cache)} page(s) ready")
     else:
         _total_pages = sum(len(a["page_numbers"]) for a in raw_assignments)
         info_line(f"Rendering {_total_pages} page(s) for {len(raw_assignments)} students at {dpi} DPI …")
@@ -536,7 +537,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             if has_cover and p_label == 1:
                 continue
             answer_label = p_label - (1 if has_cover else 0)
-            if ctx.scaffold is not None and answer_label > ctx.scaffold.page_count:
+            if ctx.scaffold is not None and p_label > ctx.scaffold.page_count:
                 continue
             page_tasks.append((a, p_label, answer_label, answer_page_count))
 
@@ -567,7 +568,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 live.update(_render())
 
         b64 = _b64_cache[(student_name, p_label)]
-        blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, answer_label).read_text(
+        blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, p_label).read_text(
             encoding="utf-8"
         )
         blueprint = _blueprint_xml_to_dict(blueprint_xml)
