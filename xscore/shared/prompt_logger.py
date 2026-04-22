@@ -59,3 +59,19 @@ def save_response(prompt_path: Path | None, response: str) -> None:
         resp_path.write_text(response, encoding="utf-8")
     except Exception:  # noqa: BLE001
         pass
+
+
+def save_thinking(prompt_path: Path | None, thinking: str) -> None:
+    """Write AI thinking/reasoning text alongside *prompt_path*.
+
+    Saves to <stem>_thinking.txt in the same directory.
+    Silently does nothing if path is None, thinking is empty, or on I/O error.
+    """
+    if prompt_path is None or not thinking:
+        return
+    try:
+        thinking_path = prompt_path.with_name(prompt_path.stem + "_thinking.txt")
+        thinking_path.parent.mkdir(parents=True, exist_ok=True)
+        thinking_path.write_text(thinking, encoding="utf-8")
+    except Exception:  # noqa: BLE001
+        pass

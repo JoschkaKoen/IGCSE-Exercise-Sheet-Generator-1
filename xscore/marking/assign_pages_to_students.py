@@ -33,7 +33,7 @@ from xscore.config import NAME_RECOGNITION_DPI
 from .ai_helpers import ai_image_call, page_to_jpeg_b64, parse_json_safe
 from xscore.shared.exam_paths import artifact_prompt_path
 from xscore.shared.models import PageAssignment
-from xscore.shared.prompt_logger import save_prompt, save_response
+from xscore.shared.prompt_logger import save_prompt, save_response, save_thinking
 
 
 _NAME_PROMPT_FREEFORM = """\
@@ -116,9 +116,8 @@ def is_cover_page(pdf_path: Path, page_idx: int, gai_client, model_id: str,
             return False
 
         config = gai_types.GenerateContentConfig(
-            max_output_tokens=20,
-            thinking_config=gai_types.ThinkingConfig(thinking_budget=0),
-            response_mime_type="application/json",
+            max_output_tokens=1500,
+            thinking_config=gai_types.ThinkingConfig(thinking_budget=1024, include_thoughts=True),
         )
         resp = gai_client.models.generate_content(
             model=model_id,
@@ -128,9 +127,22 @@ def is_cover_page(pdf_path: Path, page_idx: int, gai_client, model_id: str,
             ],
             config=config,
         )
-        raw = resp.text or ""
+        thinking_parts: list[str] = []
+        answer_parts: list[str] = []
+        for candidate in (resp.candidates or []):
+            for part in getattr(candidate.content, "parts", None) or []:
+                text = part.text or ""
+                if getattr(part, "thought", False):
+                    thinking_parts.append(text)
+                else:
+                    answer_parts.append(text)
+
+        thinking_text = "".join(thinking_parts)
+        raw = "".join(answer_parts) or resp.text or ""
+
         if not raw:
             warn_line(f"[{model_id}] cover page check returned empty response")
+        save_thinking(prompt_save_path, thinking_text)
         save_response(prompt_save_path, raw)
         return bool((parse_json_safe(raw) or {}).get("cover_page", False))
 

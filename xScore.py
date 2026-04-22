@@ -528,6 +528,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         # --- Informational empty-exam cover check (does NOT determine behaviour) ---
         _empty_exam_has_cover: bool | None = None   # None = check was not performed
         try:
+            import os as _os
             from xscore.scaffold.generate_scaffold import find_exam_pdf
             from google import genai as gai
             from eXercise.ai_client import parse_model_effort
@@ -535,10 +536,10 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             from xscore.shared.exam_paths import artifact_prompt_path
             info_line("Checking empty exam for cover page (informational) …")
             _exam_pdf = find_exam_pdf(ctx.folder)
-            _ec_api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
+            _ec_api_key = (_os.environ.get("GEMINI_API_KEY", "") or _os.environ.get("GOOGLE_API_KEY", "")).strip()
             if _ec_api_key:
                 _gai_client_ec = gai.Client(api_key=_ec_api_key)
-                _ec_model, _ = parse_model_effort(os.environ.get("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash"))
+                _ec_model, _ = parse_model_effort(_os.environ.get("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash"))
                 _ec_save = artifact_prompt_path(ctx.artifact_dir, "8_cover_empty_exam")
                 _t_ec = time.perf_counter()
                 _empty_exam_has_cover = is_cover_page(_exam_pdf, 0, _gai_client_ec, _ec_model, prompt_save_path=_ec_save)
