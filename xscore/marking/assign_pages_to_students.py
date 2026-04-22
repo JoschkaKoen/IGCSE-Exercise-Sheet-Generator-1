@@ -81,7 +81,7 @@ Return ONLY JSON: {"cover_page": true} or {"cover_page": false}
 """
 
 
-def is_cover_page(page_img, client, model_id: str) -> bool:
+def is_cover_page(page_img, client, model_id: str, *, prompt_save_path: Path | None = None) -> bool:
     """Return True if *page_img* matches the cover-page definition.
 
     Used for both the empty-exam informational check and the authoritative
@@ -91,6 +91,7 @@ def is_cover_page(page_img, client, model_id: str) -> bool:
     raw = ai_image_call(
         client, img_b64, _COVER_PAGE_PROMPT,
         max_tokens=20, model_id=model_id, print_latency=False,
+        prompt_save_path=prompt_save_path,
     )
     return bool((parse_json_safe(raw) or {}).get("cover_page", False))
 
@@ -101,12 +102,31 @@ def _crop_top(page, fraction: float = 0.15):
     return page.crop((0, 0, w, int(h * fraction)))
 
 
+# Paper-size thresholds for name-area cropping.
+# A4 long side ≈ 297 mm; A3 long side ≈ 420 mm; threshold at midpoint.
+_A3_LONG_SIDE_THRESHOLD_MM: float = 360.0
+_NAME_CROP_FRACTION_A4: float = 0.5       # top half
+_NAME_CROP_FRACTION_A3: float = 1 / 3    # top third
+
+
+def _name_crop_fraction(page: Any, dpi: int) -> float:
+    """Return the name-area crop fraction for *page* based on its paper size.
+
+    A4 (portrait or landscape) → 0.5 (top half).
+    A3 (portrait or landscape) → 1/3 (top third).
+    Falls back to A4 for unrecognised sizes.
+    """
+    w, h = page.size
+    long_side_mm = max(w, h) / dpi * 25.4
+    return _NAME_CROP_FRACTION_A3 if long_side_mm > _A3_LONG_SIDE_THRESHOLD_MM else _NAME_CROP_FRACTION_A4
+
+
 def assign_pages(
     cleaned_pdf: Path,
     students: list[str],
     dpi: int = NAME_RECOGNITION_DPI,
     pages_per_student: int = 1,
-    name_crop_fraction: float = 0.15,
+    name_crop_fraction: float | None = None,
     *,
     pages: list | None = None,
     artifact_dir: Path | None = None,
@@ -120,7 +140,11 @@ def assign_pages(
 
     The vision model is configured via ``NAME_DETECTION_MODEL`` (default
     ``qwen3.6-plus, off``). Worker parallelism via ``NAME_WORKERS`` (default
-    ``min(n_pages, 8)``).
+    ``min(n_blocks, 8)``).
+
+    *name_crop_fraction*: fraction of page height to crop for name detection.
+    ``None`` (default) auto-detects A4 (top half, 0.5) vs A3 (top third, 1/3)
+    from pixel dimensions.  Pass a float to override for all pages.
 
     *pages*: optional pre-rendered PIL images at *dpi* (skips PDF rendering).
     """
@@ -141,6 +165,8 @@ def assign_pages(
         tool_line("pages", f"Rendering pages @ {dpi} DPI …")
         pages = convert_from_path(str(cleaned_pdf), dpi=dpi, thread_count=os.cpu_count() or 4)
     n_pages = len(pages)
+    n_blocks = n_pages // pages_per_student
+    first_page_set = {b * pages_per_student + 1 for b in range(n_blocks)}  # 1-based scan pages
 
     # ------------------------------------------------------------------
     # Cover-page detection (independent of name detection below)
@@ -162,12 +188,14 @@ def assign_pages(
 
         # Authoritative check: is scan page 1 a cover page?
         info_line("Checking scan page 1 for cover page …")
-        page1_is_cover = is_cover_page(pages[0], _cover_client, _cover_model)
+        _p1_save = artifact_prompt_path(artifact_dir, "8_cover_p1") if artifact_dir else None
+        _t_cover = time.perf_counter()
+        page1_is_cover = is_cover_page(pages[0], _cover_client, _cover_model, prompt_save_path=_p1_save)
+        _cover_elapsed = format_duration(time.perf_counter() - _t_cover)
         cover_page_mode = page1_is_cover
 
         if cover_page_mode:
-            info_line("Cover page detected on scan page 1 — cover-page mode active")
-            n_blocks = n_pages // pages_per_student
+            info_line(f"Cover page detected on scan page 1 — cover-page mode active  ·  {_cover_elapsed}")
 
             # Verify every expected cover position in parallel.
             # Block 0 reuses the page-1 result; blocks 1..n-1 are checked in parallel.
@@ -177,13 +205,18 @@ def assign_pages(
             ]
 
             def _check_cover(idx: int) -> tuple[int, bool]:
-                return idx, is_cover_page(pages[idx], _cover_client, _cover_model)
+                save_path = artifact_prompt_path(artifact_dir, f"8_cover_p{idx + 1}") if artifact_dir else None
+                return idx, is_cover_page(pages[idx], _cover_client, _cover_model, prompt_save_path=save_path)
 
             if cover_indices_to_check:
                 _cover_workers = min(len(cover_indices_to_check), 8)
+                _t_verify = time.perf_counter()
                 with ThreadPoolExecutor(max_workers=_cover_workers) as ex:
                     for _idx, _ok in ex.map(_check_cover, cover_indices_to_check):
                         cover_ok[_idx] = _ok
+                info_line(
+                    f"Verified {len(cover_indices_to_check)} cover position(s)  ·  {format_duration(time.perf_counter() - _t_verify)}"
+                )
 
             # Warn for any block whose expected cover page failed verification.
             for b in range(n_blocks):
@@ -194,19 +227,21 @@ def assign_pages(
                         f"but this page doesn't look like one — check scan quality"
                     )
         else:
-            info_line("Scan page 1 is an answer page — standard mode (no cover pages)")
+            info_line(f"Scan page 1 is an answer page — standard mode (no cover pages)  ·  {_cover_elapsed}")
 
     # ------------------------------------------------------------------
-    # Name detection — unchanged from original implementation.
-    # In cover-page mode, the cover page is the first page of each block,
-    # which is exactly where name detection reads from — no changes needed.
+    # Name detection — only the first page of each student block is checked.
+    # In cover-page mode the first page is the cover page, which is where
+    # the student writes their name, so the same positions apply.
     # ------------------------------------------------------------------
-    workers = int(os.environ.get("NAME_WORKERS", str(min(n_pages, 8))))
+    info_line("Detecting student names from scan pages …")
+    workers = int(os.environ.get("NAME_WORKERS", str(min(n_blocks, 8))))
     prompt = _make_name_prompt(students) if students else _NAME_PROMPT_FREEFORM
 
     def _ocr_and_match(args: tuple[int, Any]) -> tuple[int, str | None]:
         i, page = args
-        crop = _crop_top(page, fraction=name_crop_fraction)
+        fraction = name_crop_fraction if name_crop_fraction is not None else _name_crop_fraction(page, dpi)
+        crop = _crop_top(page, fraction=fraction)
         img_b64 = page_to_jpeg_b64(crop)
         save_path = artifact_prompt_path(artifact_dir, f"8_name_{i}") if artifact_dir else None
         _t0 = time.perf_counter()
@@ -224,18 +259,18 @@ def assign_pages(
         futures = {
             ex.submit(_ocr_and_match, (i, page)): i
             for i, page in enumerate(pages, 1)
+            if i in first_page_set
         }
         for fut in as_completed(futures):
             i, matched_name = fut.result()
             page_results[i] = matched_name
 
     # Restore page order for the block-grouping step below.
-    matched: list[str | None] = [page_results[i] for i in range(1, n_pages + 1)]
+    # Non-first pages were not submitted and default to None.
+    matched: list[str | None] = [page_results.get(i) for i in range(1, n_pages + 1)]
     del pages  # free PIL image list
 
     # Group into fixed blocks of pages_per_student (guaranteed by geometry).
-    # Undetected first pages become Unknown_N — no cross-student inheritance.
-    n_blocks = n_pages // pages_per_student
     if n_pages % pages_per_student:
         warn_line(
             f"Scan has {n_pages} pages — {n_pages % pages_per_student} trailing page(s) "

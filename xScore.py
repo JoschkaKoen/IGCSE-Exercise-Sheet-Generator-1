@@ -531,6 +531,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             from pdf2image import convert_from_path
             from eXercise.ai_client import make_ai_client
             from xscore.marking.assign_pages_to_students import is_cover_page
+            from xscore.shared.exam_paths import artifact_prompt_path
             info_line("Checking empty exam for cover page (informational) …")
             _exam_pdf = find_exam_pdf(ctx.folder)
             _exam_page1 = convert_from_path(str(_exam_pdf), dpi=150, first_page=1, last_page=1)[0]
@@ -539,10 +540,12 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             )
             if _empty_cover_result:
                 _ec_client, _ec_model, *_ = _empty_cover_result
-                _empty_exam_has_cover = is_cover_page(_exam_page1, _ec_client, _ec_model)
+                _ec_save = artifact_prompt_path(ctx.artifact_dir, "8_cover_empty_exam")
+                _t_ec = time.perf_counter()
+                _empty_exam_has_cover = is_cover_page(_exam_page1, _ec_client, _ec_model, prompt_save_path=_ec_save)
                 info_line(
                     f"Empty exam page 1: {'cover page' if _empty_exam_has_cover else 'answer page'} "
-                    f"(informational — scan is authoritative)"
+                    f"(informational — scan is authoritative)  ·  {format_duration(time.perf_counter() - _t_ec)}"
                 )
             else:
                 info_line("Empty exam cover check skipped — no API client configured")
@@ -550,7 +553,6 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             warn_line(f"Empty exam cover check skipped: {_e}")
 
         # --- Name detection + cover-page detection (scan is authoritative) ---
-        info_line("Detecting student names from scan pages …")
         t1 = time.perf_counter()
         ctx.page_assignments = assign_pages(
             ctx.cleaned_pdf,

@@ -12,7 +12,7 @@ from pathlib import Path
 
 from xscore.config import MAX_RETRIES, apply_model_extras, resolve_pipeline_ai_model_id
 from xscore.extraction.images import to_jpeg_bytes
-from xscore.shared.prompt_logger import save_prompt
+from xscore.shared.prompt_logger import save_prompt, save_response
 from xscore.shared.terminal_ui import api_latency_line, log_ai_response_debug, warn_line
 
 # Default: JSON object mode. Pass ``response_format=None`` to omit (non-JSON prompts).
@@ -84,6 +84,7 @@ def ai_image_call(
                 api_latency_line(time.perf_counter() - _t0)
             raw = resp.choices[0].message.content or ""
             log_ai_response_debug("ai_image", model, raw)
+            save_response(prompt_save_path, raw)
             return raw
         except Exception as exc:
             warn_line(f"API error (attempt {attempt + 1}/{MAX_RETRIES + 1}): {exc}")

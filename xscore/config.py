@@ -182,9 +182,6 @@ NAME_RECOGNITION_DPI: int = int(os.getenv("NAME_RECOGNITION_DPI", "300"))
 # Step 12: full scan page sent to vision API for marking.
 MARKING_DPI: int = int(os.getenv("MARKING_DPI", "300"))
 
-# Fraction of the page height to crop for name detection (top strip only)
-NAME_CROP_FRACTION = 0.15
-
 # Inter-call delays in the marking pipeline (rate limiting). Override via env if needed.
 GRADE_QUESTION_DELAY_S: float = float(os.getenv("GRADE_QUESTION_DELAY_S", "0.0"))
 PAGE_API_DELAY_S: float = float(os.getenv("PAGE_API_DELAY_S", "0.0"))
