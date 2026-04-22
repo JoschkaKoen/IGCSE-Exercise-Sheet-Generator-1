@@ -848,18 +848,19 @@ def build_ai_scaffold(
                 config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
             )
             api_latency_line(time.perf_counter() - _t0, label="exam")
+            raw_exam = resp.text or ""
             if artifact_dir is not None:
                 try:
                     p = artifact_exam_questions_raw_xml_path(artifact_dir)
                     p.parent.mkdir(parents=True, exist_ok=True)
-                    p.write_text(resp.text, encoding="utf-8")
+                    p.write_text(raw_exam, encoding="utf-8")
                 except OSError:
                     pass
             try:
-                return _parse_exam_xml(resp.text)
+                return _parse_exam_xml(raw_exam)
             except Exception as exc:
                 raise RuntimeError(
-                    f"Gemini exam response failed XML parsing: {exc}: {resp.text[:300]!r}"
+                    f"Gemini exam response failed XML parsing: {exc}: {raw_exam[:300]!r}"
                 )
 
         def _do_scheme_call(scaffold: str) -> dict:

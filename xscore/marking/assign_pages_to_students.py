@@ -28,7 +28,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
-from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, NAME_RECOGNITION_DPI
+from xscore.config import COVER_PAGE_DETECTION_DPI, GEMINI_MAX_OUTPUT_TOKENS, NAME_RECOGNITION_DPI
 
 from .ai_helpers import ai_image_call, page_to_jpeg_b64, parse_json_safe
 from xscore.shared.exam_paths import artifact_prompt_path
@@ -115,7 +115,9 @@ def is_cover_page(
     from xscore.shared.terminal_ui import warn_line
 
     with fitz.open(str(pdf_path)) as doc:
-        pix = doc[page_idx].get_pixmap(dpi=300, colorspace=fitz.csGRAY)
+        page = doc[page_idx]
+        clip = fitz.Rect(0, 0, page.rect.width, page.rect.height * 0.5)
+        pix = page.get_pixmap(dpi=COVER_PAGE_DETECTION_DPI, colorspace=fitz.csGRAY, clip=clip)
 
     result, _ = _get_ocr()(pix.tobytes("png"))
     printed_text = "\n".join(
