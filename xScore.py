@@ -532,7 +532,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             from xscore.scaffold.generate_scaffold import find_exam_pdf
             from google import genai as gai
             from eXercise.ai_client import parse_model_effort
-            from xscore.marking.assign_pages_to_students import is_cover_page
+            from xscore.marking.assign_pages_to_students import check_cover_page_text
             from xscore.shared.exam_paths import artifact_prompt_path
             _exam_pdf = find_exam_pdf(ctx.folder)
             _ec_api_key = (_os.environ.get("GEMINI_API_KEY", "") or _os.environ.get("GOOGLE_API_KEY", "")).strip()
@@ -541,7 +541,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
                 _ec_model, _ec_effort = parse_model_effort(_os.environ.get("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash"))
                 _ec_save = artifact_prompt_path(ctx.artifact_dir, "8_cover_empty_exam")
                 _t_ec = time.perf_counter()
-                _empty_exam_has_cover = is_cover_page(
+                _empty_exam_has_cover = check_cover_page_text(
                     _exam_pdf, 0, _gai_client_ec, _ec_model,
                     prompt_save_path=_ec_save,
                     effort=_ec_effort,
@@ -566,14 +566,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             a.cover_page_number is not None for a in ctx.page_assignments
         )
 
-        # Cross-reference: warn if empty exam and scan disagree (only when check ran)
-        if _empty_exam_has_cover is not None and _empty_exam_has_cover != ctx.cover_page_mode:
-            warn_line(
-                f"Cover page mismatch: empty exam says "
-                f"{'yes' if _empty_exam_has_cover else 'no'}, "
-                f"scan says {'yes' if ctx.cover_page_mode else 'no'}. "
-                f"Using scan result."
-            )
+
 
         # Overwrite geometry artifacts with the authoritative cover_page_mode from the scan.
         geo["cover_page_mode"] = ctx.cover_page_mode

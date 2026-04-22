@@ -79,6 +79,19 @@ Is this exam page a cover page?
 Return ONLY JSON: {"cover_page": true} or {"cover_page": false}
 """
 
+_COVER_PAGE_TEXT_PROMPT = """\
+A COVER PAGE contains a name/identification field (where the student writes \
+their name, class, date, or candidate number) but no exercises or questions.
+
+Here is the text extracted from the first page of the empty exam:
+
+{text}
+
+Is this page a cover page?
+
+Return ONLY JSON: {{"cover_page": true}} or {{"cover_page": false}}
+"""
+
 
 def is_cover_page(
     pdf_path: Path,
@@ -172,6 +185,67 @@ def is_cover_page(
                 gai_client.files.delete(name=uploaded.name)
             except Exception:
                 pass
+
+
+def check_cover_page_text(
+    pdf_path: Path,
+    page_idx: int,
+    gai_client,
+    model_id: str,
+    *,
+    prompt_save_path: Path | None = None,
+    effort: str | None = None,
+) -> bool:
+    """Cover-page detection for vector PDFs via text extraction (no vision).
+
+    Extracts page text with fitz and sends it as a plain-text prompt.
+    No temp file, no Gemini Files API upload needed.
+    """
+    import fitz
+    from google.genai import types as gai_types
+    from xscore.shared.terminal_ui import warn_line
+
+    with fitz.open(str(pdf_path)) as doc:
+        page_text = doc[page_idx].get_text().strip()
+
+    prompt = _COVER_PAGE_TEXT_PROMPT.format(text=page_text or "(no text extracted)")
+
+    save_prompt(prompt_save_path, model=model_id,
+                messages=[{"role": "user", "content": prompt}])
+
+    _thinking_map = {"off": 0, "low": 1024, "high": 8192}
+    _budget = _thinking_map.get(effort or "off", 0)
+    config = gai_types.GenerateContentConfig(
+        max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+        thinking_config=gai_types.ThinkingConfig(
+            thinking_budget=_budget,
+            include_thoughts=_budget > 0,
+        ),
+    )
+    resp = gai_client.models.generate_content(
+        model=model_id,
+        contents=[gai_types.Part.from_text(text=prompt)],
+        config=config,
+    )
+
+    thinking_parts: list[str] = []
+    answer_parts: list[str] = []
+    for candidate in (resp.candidates or []):
+        for part in getattr(candidate.content, "parts", None) or []:
+            text = part.text or ""
+            if getattr(part, "thought", False):
+                thinking_parts.append(text)
+            else:
+                answer_parts.append(text)
+
+    thinking_text = "".join(thinking_parts)
+    raw = "".join(answer_parts) or resp.text or ""
+
+    if not raw:
+        warn_line(f"[{model_id}] cover page text check returned empty response")
+    save_thinking(prompt_save_path, thinking_text)
+    save_response(prompt_save_path, raw)
+    return bool((parse_json_safe(raw) or {}).get("cover_page", False))
 
 
 def _crop_top(page, fraction: float = 0.15):
