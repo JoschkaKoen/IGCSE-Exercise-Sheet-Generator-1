@@ -145,6 +145,7 @@ class _Ctx:
     marking_api_calls: list = None           # populated in step 12
     marking_failures: list = None            # populated in step 12 (pages that exhausted all retries)
     page_assignments: list | None = None     # list[PageAssignment] set by step 11
+    cover_page_mode: bool = False            # True when step 8 detects cover pages in the scan
     step_offset: int = 0                     # 2 when split-subpages mode adds steps 9–10 (layout + cut)
     stop_after: int = 9999                   # --stop-after N; 9999 = run everything
 
@@ -557,13 +558,12 @@ def _exam_pdf_page_count(folder: Path) -> int:
 
 
 def _step08_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
-    """Step 8 — Count scan/exam pages, derive student count."""
+    """Step 8 — Count scan/exam pages, derive student count, detect cover pages."""
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     gi.pipeline_step(8, "Exam geometry")
     t0 = time.perf_counter()
     exam_pages = ctx.scaffold.page_count if ctx.scaffold else _exam_pdf_page_count(ctx.folder)
     geo = gi.compute_geometry(ctx.cleaned_pdf, exam_pages, ctx.students or [])
-    gi.write_geometry_artifacts(ctx.artifact_dir, geo)
     ctx.num_students = geo["num_students"]
     ctx.pages_per_student = geo["pages_per_student"]
     if geo["roster_mismatch"]:
@@ -575,8 +575,37 @@ def _step08_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
         f"{ctx.num_students} students  ·  {ctx.pages_per_student} pages each  "
         f"·  {geo['scan_pages']} scan pages total"
     )
+    # Write geometry artifacts immediately so downstream steps can read them even
+    # if assign_pages() later raises (cover_page_mode will be overwritten below).
+    geo["cover_page_mode"] = False
+    gi.write_geometry_artifacts(ctx.artifact_dir, geo)
 
-    # --- Name detection sub-step ---
+    # --- Informational empty-exam cover check (does NOT determine behaviour) ---
+    _empty_exam_has_cover: bool | None = None   # None = check was not performed
+    try:
+        from xscore.scaffold.generate_scaffold import find_exam_pdf
+        from pdf2image import convert_from_path
+        from eXercise.ai_client import make_ai_client
+        from xscore.marking.assign_pages_to_students import is_cover_page
+        gi.info_line("Checking empty exam for cover page (informational) …")
+        _exam_pdf = find_exam_pdf(ctx.folder)
+        _exam_page1 = convert_from_path(str(_exam_pdf), dpi=150, first_page=1, last_page=1)[0]
+        _empty_cover_result = make_ai_client(
+            model_env="EMPTY_EXAM_COVER_MODEL", default_model="gemini-2.5-flash"
+        )
+        if _empty_cover_result:
+            _ec_client, _ec_model, *_ = _empty_cover_result
+            _empty_exam_has_cover = is_cover_page(_exam_page1, _ec_client, _ec_model)
+            gi.info_line(
+                f"Empty exam page 1: {'cover page' if _empty_exam_has_cover else 'answer page'} "
+                f"(informational — scan is authoritative)"
+            )
+        else:
+            gi.info_line("Empty exam cover check skipped — no API client configured")
+    except Exception as _e:
+        gi.warn_line(f"Empty exam cover check skipped: {_e}")
+
+    # --- Name detection + cover-page detection (scan is authoritative) ---
     gi.info_line("Detecting student names from scan pages …")
     t1 = time.perf_counter()
     ctx.page_assignments = gi.assign_pages(
@@ -585,6 +614,25 @@ def _step08_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
         pages_per_student=ctx.pages_per_student,
         artifact_dir=ctx.artifact_dir,
     )
+
+    # Authoritative cover_page_mode: derived from scan result inside assign_pages()
+    ctx.cover_page_mode = any(
+        a.cover_page_number is not None for a in ctx.page_assignments
+    )
+
+    # Cross-reference: warn if empty exam and scan disagree (only when check ran)
+    if _empty_exam_has_cover is not None and _empty_exam_has_cover != ctx.cover_page_mode:
+        gi.warn_line(
+            f"Cover page mismatch: empty exam says "
+            f"{'yes' if _empty_exam_has_cover else 'no'}, "
+            f"scan says {'yes' if ctx.cover_page_mode else 'no'}. "
+            f"Using scan result."
+        )
+
+    # Overwrite geometry artifacts with the authoritative cover_page_mode from the scan.
+    geo["cover_page_mode"] = ctx.cover_page_mode
+    gi.write_geometry_artifacts(ctx.artifact_dir, geo)
+
     json_path = gi.artifact_exam_student_list_json_path(ctx.artifact_dir)
     json_path.write_text(
         gi.page_assignments_to_json(ctx.page_assignments), encoding="utf-8"
@@ -594,9 +642,11 @@ def _step08_geometry(ctx: _Ctx, gi: SimpleNamespace) -> None:
         gi.page_assignments_to_md(ctx.page_assignments), encoding="utf-8"
     )
     detected = len(ctx.page_assignments)
+    answer_pages = ctx.pages_per_student - (1 if ctx.cover_page_mode else 0)
     gi.ok_line(
-        f"{detected} students detected from scan  ·  "
-        f"{gi.format_duration(time.perf_counter() - t1)}"
+        f"{detected} students detected from scan  ·  {answer_pages} answer pages each"
+        + ("  ·  cover page mode" if ctx.cover_page_mode else "")
+        + f"  ·  {gi.format_duration(time.perf_counter() - t1)}"
     )
     if detected != ctx.num_students:
         gi.warn_line(

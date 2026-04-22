@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from difflib import SequenceMatcher
 from pathlib import Path
 
@@ -27,7 +28,7 @@ def find_folder(
     root = search_root or Path.cwd()
 
     def _resolve_explicit(path_str: str, label: str) -> Path:
-        p = Path(path_str.strip())
+        p = Path(os.path.expandvars(path_str.strip())).expanduser()
         if not p.is_absolute():
             p = root / p
         if p.is_dir():

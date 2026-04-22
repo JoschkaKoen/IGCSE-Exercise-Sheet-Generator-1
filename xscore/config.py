@@ -174,6 +174,13 @@ BLANK_DETECTION_DPI: int = int(os.getenv("BLANK_DETECTION_DPI", "72"))
 # Step 7: Tesseract OSD rotation (only when SCAN_USE_TESSERACT_ROTATION=true).
 ROTATION_ANALYSIS_DPI: int = int(os.getenv("ROTATION_ANALYSIS_DPI", "150"))
 
+# Step 8: model for the informational check on the empty exam's first page.
+EMPTY_EXAM_COVER_MODEL: str = os.getenv("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash")
+
+# Step 8: model for the authoritative cover-page check on scan page 1 and per-block verification.
+# Independent of NAME_DETECTION_MODEL (name OCR) and EMPTY_EXAM_COVER_MODEL.
+COVER_PAGE_DETECTION_MODEL: str = os.getenv("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
+
 # Step 10: name-recognition crop sent to vision API.
 NAME_RECOGNITION_DPI: int = int(os.getenv("NAME_RECOGNITION_DPI", "300"))
 

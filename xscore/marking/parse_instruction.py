@@ -15,6 +15,14 @@ from xscore.config import PIPELINE_DEFAULT_DPI
 from xscore.shared.models import StudentFilter, TaskInstruction
 from xscore.shared.terminal_ui import api_latency_line, info_line, warn_line
 
+# Matches quoted paths ("…" or '…') first, then bare paths starting with / or ~.
+# Trailing sentence punctuation is excluded from bare paths.
+_PATH_RE = re.compile(
+    r'"((?:/|~)[^"]+)"'                   # double-quoted path
+    r"|'((?:/|~)[^']+)'"                  # single-quoted path
+    r"|(?<!\S)((?:/|~)[^\s,;.!?]+)"       # bare path (no trailing punctuation)
+)
+
 _DEFAULT_MODEL = "gemini-2.5-flash"  # also set as INTERPRET_PROMPT_MODEL in default.env
 
 
@@ -79,8 +87,8 @@ Convert the grading instruction to JSON. Return ONLY the JSON, no explanation.
 task_type: count_marks=tally red teacher marks; check_mc=MC only; check_answers=all types.
 student_filter.mode: all=default; specific=named students; first_n=first N (set n). names=list.
 dpi: 400 default; 300 if "fast"/"quick"; 600 if "high quality"/"accurate".
-folder_hint: short name for fuzzy folder match. folder_path: only if user gives explicit path; else null.
-Prefer folder_path when both apply.
+folder_hint: short name for fuzzy folder match. folder_path: absolute or ~-relative path; set only when user gives an explicit path; else null. Prefer folder_path when both apply.
+Examples: "from ~/Desktop/exams/physics" → folder_path "~/Desktop/exams/physics", folder_hint null; "Space Physics test" → folder_hint "Space Physics", folder_path null.
 force_clean_scan: true=ignore cache, re-clean ("re-clean", "force deskew").
 rescaffold: true=rebuild scaffold ("rebuild scaffold", "reparse", "refresh questions").
 no_report: true=skip PDF ("terminal only", "no report").
@@ -203,10 +211,16 @@ def _heuristic_fallback(prompt: str, dpi_override: int | None) -> TaskInstructio
 
     force_clean = ("force" in p and "clean" in p) or "re-clean" in p or "reclean" in p.replace(" ", "")
 
+    folder_path: str | None = None
+    pm = _PATH_RE.search(prompt)
+    if pm:
+        folder_path = next(g for g in pm.groups() if g is not None)
+
     return TaskInstruction(
         task_type=task_type,
         student_filter=student_filter,
         dpi=dpi,
+        folder_path=folder_path,
         rescaffold="rescaffold" in p or "reparse" in p or "rebuild scaffold" in p,
         force_clean_scan=force_clean,
         no_report="no report" in p or "terminal only" in p,

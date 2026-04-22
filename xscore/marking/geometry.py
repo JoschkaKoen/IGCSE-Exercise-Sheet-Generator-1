@@ -52,6 +52,10 @@ def write_geometry_artifacts(artifact_dir: Path, geo: dict) -> None:
     json_path.write_text(json.dumps(geo, indent=2, ensure_ascii=False), encoding="utf-8")
 
     mismatch_note = f" ⚠ roster has {geo['num_students_roster']}" if geo["roster_mismatch"] else ""
+    cover_row = (
+        f"| Cover page mode | {'Yes' if geo.get('cover_page_mode') else 'No'} |\n"
+        if "cover_page_mode" in geo else ""
+    )
     md = (
         "# Exam Geometry\n\n"
         "| Field | Value |\n"
@@ -61,6 +65,7 @@ def write_geometry_artifacts(artifact_dir: Path, geo: dict) -> None:
         f"| Students (scan-derived) | {geo['num_students']}{mismatch_note} |\n"
         f"| Students (roster) | {geo['num_students_roster']} |\n"
         f"| Roster mismatch | {'Yes ⚠' if geo['roster_mismatch'] else 'No'} |\n"
+        + cover_row
     )
 
     md_path = artifact_geometry_md_path(artifact_dir)

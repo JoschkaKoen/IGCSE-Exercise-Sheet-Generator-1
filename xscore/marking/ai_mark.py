@@ -493,21 +493,31 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         """
         student_name: str = assignment["student_name"]
         page_numbers: list[int] = assignment["page_numbers"]  # 1-based scan pages
+        # cover_page_number is set when step 8 detected a cover page for this student.
+        # The cover page is always p_label=1 (first page of the block); skip it entirely —
+        # no AI call, no output file written (neither success nor failure path).
+        has_cover: bool = assignment.get("cover_page_number") is not None
+        answer_page_count = len(page_numbers) - (1 if has_cover else 0)
         local_timings: list[dict] = []
         local_failures: list[dict] = []
         for p_label, _ in enumerate(page_numbers, 1):
+            if has_cover and p_label == 1:
+                continue  # skip cover page — not an answer page
+            answer_label = p_label - (1 if has_cover else 0)  # 1-based answer page index
             key = f"{student_name}_{p_label}"
             with _display_lock:
-                _student_lines[key] = f"[dim]  {icon('info')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}[/]"
+                _student_lines[key] = f"[dim]  {icon('info')}  Student '{student_name}' · page {answer_label}/{answer_page_count}[/]"
                 if _use_live:
                     live.update(_render())
 
             b64 = _b64_cache[(student_name, p_label)]
-            blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, p_label).read_text(
+            # Blueprints and output filenames are indexed by exam answer page (1…N), not scan order.
+            exam_page = answer_label
+            blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, exam_page).read_text(
                 encoding="utf-8"
             )
             blueprint = _blueprint_xml_to_dict(blueprint_xml)
-            safe_name = student_name or f"Unknown_{p_label}"
+            safe_name = student_name or f"Unknown_{exam_page}"
 
             t0 = time.perf_counter()
             try:
@@ -516,7 +526,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     blueprint_xml=blueprint_xml,
                     use_stream=_use_stream,
                     prompt_save_path=artifact_prompt_path(
-                        ctx.artifact_dir, f"14_marked_{safe_name}_{p_label}"
+                        ctx.artifact_dir, f"14_marked_{safe_name}_{exam_page}"
                     ),
                     warn=_warn,
                 )
@@ -525,20 +535,20 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 filled["student_name"] = student_name
                 local_failures.append({
                     "student": student_name,
-                    "page": p_label,
+                    "page": exam_page,
                     "attempts": mf.attempts,
                     "error": str(mf.last_exc),
                     "raw_response": mf.last_raw or None,
                 })
-                out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
+                out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, exam_page)
                 out_json.parent.mkdir(parents=True, exist_ok=True)
                 out_json.write_text(
                     json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8"
                 )
-                artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
+                artifact_marked_md_path(ctx.artifact_dir, safe_name, exam_page).write_text(
                     marked_to_md(filled), encoding="utf-8"
                 )
-                failed_path = artifact_marked_failed_path(ctx.artifact_dir, safe_name, p_label)
+                failed_path = artifact_marked_failed_path(ctx.artifact_dir, safe_name, exam_page)
                 failed_path.parent.mkdir(parents=True, exist_ok=True)
                 failed_path.write_text(
                     json.dumps(local_failures[-1], indent=2, ensure_ascii=False),
@@ -546,7 +556,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 )
                 with _display_lock:
                     _student_lines[key] = (
-                        f"[red]  {icon('warn')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}"
+                        f"[red]  {icon('warn')}  Student '{student_name}' · page {answer_label}/{answer_page_count}"
                         f"  ·  FAILED[/]"
                     )
                     if _use_live:
@@ -558,7 +568,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             mark_dur = round(time.perf_counter() - t0, 2)
             with _display_lock:
                 _student_lines[key] = (
-                    f"[dim]  {icon('info')}  Student '{student_name}' · page {p_label}/{len(page_numbers)}"
+                    f"[dim]  {icon('info')}  Student '{student_name}' · page {answer_label}/{answer_page_count}"
                     f"  ·  {format_duration(mark_dur)}[/]"
                 )
                 if _use_live:
@@ -568,17 +578,17 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             local_timings.append({
                 "phase": "marking",
                 "student": student_name,
-                "page": p_label,
+                "page": exam_page,
                 "duration_s": mark_dur,
             })
 
             filled["student_name"] = student_name
-            out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
+            out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, exam_page)
             out_json.parent.mkdir(parents=True, exist_ok=True)
             out_json.write_text(
                 json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8"
             )
-            artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
+            artifact_marked_md_path(ctx.artifact_dir, safe_name, exam_page).write_text(
                 marked_to_md(filled), encoding="utf-8"
             )
         return local_timings, local_failures

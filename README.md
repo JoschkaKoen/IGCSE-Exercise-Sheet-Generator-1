@@ -122,7 +122,7 @@ flowchart TD
         s5 --> s6 --> s7
     end
 
-    s8["Step 8 — Exam geometry\n(page count ÷ exam pages = students · student name detection)"]
+    s8["Step 8 — Exam geometry & cover detection\n(page count ÷ exam pages = students · name detection · cover-page mode)"]
 
     subgraph scaffold ["Exam scaffold"]
         direction TB
@@ -170,7 +170,7 @@ flowchart TD
         s5 --> s6 --> s7
     end
 
-    s7 --> s8["Step 8 — Exam geometry\n(main thread)"]
+    s7 --> s8["Step 8 — Exam geometry & cover detection\n(main thread)"]
 
     s8 -->|"step 8 done → scaffold thread unblocks"| s9
 
@@ -199,7 +199,7 @@ flowchart TD
 | **5** | Low-resolution raster pass (72 DPI) to classify each page as blank or content. Blank pages are dropped. Runs in parallel using up to `min(4, cpu_count)` threads. |
 | **6** | Each content page's PDF `/Rotate` metadata is applied so scanners that encode rotation in metadata come out portrait. Optional Tesseract OSD pass for extra correction. |
 | **7** | IGCSE header anchors are detected on each page (parallel). Anchor positions drive the fine deskew transform; corrected pages are written to `7_cleaned_scan.pdf`. |
-| **8** | `scan_pages ÷ exam_pages` gives `num_students`. Cross-checked against the roster; a count mismatch is a warning, not an error. Writes `8_exam_geometry.json`. Student names are detected from the first scan page of each student block and fuzzy-matched against the roster. |
+| **8** | `scan_pages ÷ exam_pages` gives `num_students`. Cross-checked against the roster; a count mismatch is a warning, not an error. Student names are detected from the first scan page of each student block and fuzzy-matched against the roster. Two independent AI checks determine **cover-page mode**: (1) an informational check on page 1 of the empty exam PDF (`EMPTY_EXAM_COVER_MODEL`) — logged to the console only, no downstream effect; (2) an authoritative check on page 1 of the scan (`COVER_PAGE_DETECTION_MODEL`) — determines whether the pipeline runs in cover-page mode. In cover-page mode, every expected cover page position is verified in parallel (a warning is printed if any block looks misaligned). Each `PageAssignment` gains a `cover_page_number` field, and Step 15 skips that page during AI marking. If the empty-exam check and the scan check disagree, a warning is printed and the scan result wins. If the API client for `COVER_PAGE_DETECTION_MODEL` cannot be created, a warning is logged and the pipeline falls back to standard mode. Writes `8_exam_geometry.json` (includes `cover_page_mode` flag) and `8_exam_student_list.json` / `.md`. |
 | **9** | Gemini renders the first page of the exam PDF as an image and detects the printing layout (1×1, 2-up, or 4-up). In multi-up mode the PDF is split into one PDF page per sub-page in reading order — the split PDF is what step 11 uploads. Writes `9_exam_layout.json` + `.md` and `9_split_exam.pdf`. Configure with `DETECT_LAYOUT_MODEL`. In legacy non-split mode, layout and cut are skipped and the single combined exam-parse step still writes `10_exam_questions.*`. |
 | **10** | Cuts the raw exam PDF into sub-pages in reading order (split mode only). Output is used by step 11 for parsing. |
 | **11** | Gemini reads the (split) exam PDF and returns every question and sub-question with its number, type, marks, page, subpage position, and answer options. Writes `10_exam_questions.json` + `.md` (and related XML). Configure with `READ_EXAM_PDF_MODEL`. |
@@ -248,7 +248,7 @@ The **Grade** page depends on the `xscore` package (not in `requirements.txt`) a
 |---|---|
 | `xscore` | Install separately if you want the scan-cleaning and AI-marking pipeline |
 | `GEMINI_API_KEY` | Steps 1, 3, 8–10 — prompt parsing, roster reading, layout detection, exam and mark-scheme parsing (`GOOGLE_API_KEY` accepted as fallback) |
-| `DASHSCOPE_API_KEY` | Step 12 — AI marking via Qwen vision model |
+| `DASHSCOPE_API_KEY` | Step 15 — AI marking via Qwen vision model |
 
 If `xscore` is not installed, the rest of the app runs normally — only `/grade` will return errors.
 
@@ -303,7 +303,9 @@ Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 | `READ_STUDENT_LIST_MODEL` | xScore step 3 — parse student roster files (PDF, Excel, CSV) |
 | `READ_EXAM_PDF_MODEL` | xScore step 9 — extract question hierarchy from the (split) exam PDF |
 | `READ_MARK_SCHEME_MODEL` | xScore step 10 — extract answers and criteria from mark scheme |
-| `MARKING_MODEL` | xScore step 13 — Qwen vision model for AI marking; requires `DASHSCOPE_API_KEY`; use `, off` to disable thinking (required for non-streaming JSON output) |
+| `EMPTY_EXAM_COVER_MODEL` | xScore step 8 — checks page 1 of the empty exam PDF for a cover page (informational only; result is logged but never drives behaviour) |
+| `COVER_PAGE_DETECTION_MODEL` | xScore step 8 — checks page 1 of the scan to determine cover-page mode; result is authoritative and drives all downstream logic |
+| `MARKING_MODEL` | xScore step 15 — Qwen vision model for AI marking; requires `DASHSCOPE_API_KEY`; use `, off` to disable thinking (required for non-streaming JSON output) |
 | `MARKING_WORKERS` | Parallel workers for step 13 (AI marking) and step 14 (xelatex compiles); default `4` |
 
 **Optional thinking suffix:** add `, off`, `, low`, or `, high` after the model name:

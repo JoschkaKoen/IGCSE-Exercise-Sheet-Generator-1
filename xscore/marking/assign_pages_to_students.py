@@ -2,16 +2,22 @@
 
 Step 10 sub-step of the pipeline:
 1. Render each page of the cleaned scan PDF at *dpi*.
-2. Crop the top fraction (name area) and send to the vision model.
-3. Fuzzy-match the returned name against the student roster.
-4. Group pages into fixed blocks of *pages_per_student* (from geometry).
+2. (Optional) Detect whether the exam uses cover pages by checking scan page 1
+   with the ``COVER_PAGE_DETECTION_MODEL``.  If cover-page mode is active,
+   every expected cover position is also verified in parallel.
+3. Crop the top fraction (name area) and send to the vision model.
+4. Fuzzy-match the returned name against the student roster.
+5. Group pages into fixed blocks of *pages_per_student* (from geometry).
    Undetected names become ``Unknown_N`` entries rather than inheriting
    from a neighbouring student.
 
-Model is resolved from ``NAME_DETECTION_MODEL`` env var (default ``qwen3.6-plus, off``).
-Worker count is resolved from ``NAME_WORKERS`` env var (default ``min(n_pages, 8)``).
+Name detection model: ``NAME_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
+Cover detection model: ``COVER_PAGE_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
+Worker count: ``NAME_WORKERS`` env var (default ``min(n_pages, 8)``).
 
 Returns a list of ``PageAssignment`` objects (one per student block).
+``PageAssignment.cover_page_number`` is set to the 1-based scan page of the
+cover page when cover-page mode is active, or ``None`` otherwise.
 """
 
 from __future__ import annotations
@@ -63,6 +69,32 @@ If no handwritten name is visible or none of the roster entries match, return:
 """
 
 
+_COVER_PAGE_PROMPT = """\
+A COVER PAGE is defined as a page that contains a name or candidate identification \
+field (where the student writes their name, class, date, or candidate number) but \
+contains NO exercises, questions, answer boxes, or areas for written work. \
+It is purely an identification or title page.
+
+Does this exam page match that definition of a cover page?
+
+Return ONLY JSON: {"cover_page": true} or {"cover_page": false}
+"""
+
+
+def is_cover_page(page_img, client, model_id: str) -> bool:
+    """Return True if *page_img* matches the cover-page definition.
+
+    Used for both the empty-exam informational check and the authoritative
+    scan-level checks.  The same prompt is used in all cases.
+    """
+    img_b64 = page_to_jpeg_b64(page_img)
+    raw = ai_image_call(
+        client, img_b64, _COVER_PAGE_PROMPT,
+        max_tokens=20, model_id=model_id, print_latency=False,
+    )
+    return bool((parse_json_safe(raw) or {}).get("cover_page", False))
+
+
 def _crop_top(page, fraction: float = 0.15):
     """Return the top *fraction* of a PIL image."""
     w, h = page.size
@@ -110,8 +142,65 @@ def assign_pages(
         pages = convert_from_path(str(cleaned_pdf), dpi=dpi, thread_count=os.cpu_count() or 4)
     n_pages = len(pages)
 
-    # Parallel OCR + fuzzy-match: each worker crops one page, calls the vision
-    # model, and immediately fuzzy-matches the result against the roster.
+    # ------------------------------------------------------------------
+    # Cover-page detection (independent of name detection below)
+    # Uses COVER_PAGE_DETECTION_MODEL — separate client, separate concern.
+    # ------------------------------------------------------------------
+    cover_page_mode: bool = False
+    cover_ok: dict[int, bool] = {}  # 0-based index → is_cover_page result
+
+    _cover_result = make_ai_client(
+        model_env="COVER_PAGE_DETECTION_MODEL", default_model="gemini-2.5-flash"
+    )
+    if _cover_result is None:
+        warn_line(
+            "COVER_PAGE_DETECTION_MODEL client could not be created — "
+            "cover-page detection skipped, running in standard mode"
+        )
+    else:
+        _cover_client, _cover_model, *_ = _cover_result
+
+        # Authoritative check: is scan page 1 a cover page?
+        info_line("Checking scan page 1 for cover page …")
+        page1_is_cover = is_cover_page(pages[0], _cover_client, _cover_model)
+        cover_page_mode = page1_is_cover
+
+        if cover_page_mode:
+            info_line("Cover page detected on scan page 1 — cover-page mode active")
+            n_blocks = n_pages // pages_per_student
+
+            # Verify every expected cover position in parallel.
+            # Block 0 reuses the page-1 result; blocks 1..n-1 are checked in parallel.
+            cover_ok[0] = page1_is_cover
+            cover_indices_to_check = [
+                b * pages_per_student for b in range(1, n_blocks)
+            ]
+
+            def _check_cover(idx: int) -> tuple[int, bool]:
+                return idx, is_cover_page(pages[idx], _cover_client, _cover_model)
+
+            if cover_indices_to_check:
+                _cover_workers = min(len(cover_indices_to_check), 8)
+                with ThreadPoolExecutor(max_workers=_cover_workers) as ex:
+                    for _idx, _ok in ex.map(_check_cover, cover_indices_to_check):
+                        cover_ok[_idx] = _ok
+
+            # Warn for any block whose expected cover page failed verification.
+            for b in range(n_blocks):
+                idx = b * pages_per_student
+                if not cover_ok.get(idx, False):
+                    warn_line(
+                        f"Block {b + 1} (scan page {idx + 1}): expected a cover page "
+                        f"but this page doesn't look like one — check scan quality"
+                    )
+        else:
+            info_line("Scan page 1 is an answer page — standard mode (no cover pages)")
+
+    # ------------------------------------------------------------------
+    # Name detection — unchanged from original implementation.
+    # In cover-page mode, the cover page is the first page of each block,
+    # which is exactly where name detection reads from — no changes needed.
+    # ------------------------------------------------------------------
     workers = int(os.environ.get("NAME_WORKERS", str(min(n_pages, 8))))
     prompt = _make_name_prompt(students) if students else _NAME_PROMPT_FREEFORM
 
@@ -153,6 +242,7 @@ def assign_pages(
             f"dropped (expected a multiple of {pages_per_student})"
         )
     result: list[PageAssignment] = []
+    expected_non_cover = pages_per_student - 1  # only meaningful in cover-page mode
     for b in range(n_blocks):
         first_idx = b * pages_per_student           # 0-based index of block's first page
         name = matched[first_idx]
@@ -162,10 +252,22 @@ def assign_pages(
         else:
             confidence = "high"
         block_pages = list(range(first_idx + 1, first_idx + pages_per_student + 1))  # 1-based
+
+        cover_page_number: int | None = None
+        if cover_page_mode:
+            cover_page_number = first_idx + 1   # 1-based scan page of this block's cover page
+            non_cover_pages = pages_per_student - 1
+            if non_cover_pages != expected_non_cover:
+                warn_line(
+                    f"Student '{name}': expected {expected_non_cover} answer pages, "
+                    f"got {non_cover_pages}"
+                )
+
         result.append(PageAssignment(
             student_name=name,
             page_numbers=block_pages,
             confidence=confidence,
+            cover_page_number=cover_page_number,
         ))
     return result
 
@@ -174,28 +276,39 @@ def page_assignments_to_json(assignments: list[PageAssignment]) -> str:
     """Serialise a PageAssignment list to a JSON string."""
     import json
 
-    return json.dumps(
-        [
-            {
-                "student_name": a.student_name,
-                "page_numbers": a.page_numbers,
-                "confidence": a.confidence,
-            }
-            for a in assignments
-        ],
-        indent=2,
-        ensure_ascii=False,
-    )
+    rows = []
+    for a in assignments:
+        row: dict = {
+            "student_name": a.student_name,
+            "page_numbers": a.page_numbers,
+            "confidence": a.confidence,
+        }
+        if a.cover_page_number is not None:
+            row["cover_page_number"] = a.cover_page_number
+        rows.append(row)
+    return json.dumps(rows, indent=2, ensure_ascii=False)
 
 
 def page_assignments_to_md(assignments: list[PageAssignment]) -> str:
     """Return a markdown table of student → scan pages."""
-    lines = [
-        "# Exam Student List (scan-detected)\n",
-        "| # | Student | Pages | Confidence |",
-        "|---|---------|-------|------------|",
-    ]
-    for i, a in enumerate(assignments, 1):
-        pages = ", ".join(str(p) for p in a.page_numbers)
-        lines.append(f"| {i} | {a.student_name} | {pages} | {a.confidence} |")
+    has_cover = any(a.cover_page_number is not None for a in assignments)
+    if has_cover:
+        lines = [
+            "# Exam Student List (scan-detected)\n",
+            "| # | Student | Pages | Confidence | Cover pg |",
+            "|---|---------|-------|------------|----------|",
+        ]
+        for i, a in enumerate(assignments, 1):
+            pages = ", ".join(str(p) for p in a.page_numbers)
+            cover = str(a.cover_page_number) if a.cover_page_number is not None else "—"
+            lines.append(f"| {i} | {a.student_name} | {pages} | {a.confidence} | {cover} |")
+    else:
+        lines = [
+            "# Exam Student List (scan-detected)\n",
+            "| # | Student | Pages | Confidence |",
+            "|---|---------|-------|------------|",
+        ]
+        for i, a in enumerate(assignments, 1):
+            pages = ", ".join(str(p) for p in a.page_numbers)
+            lines.append(f"| {i} | {a.student_name} | {pages} | {a.confidence} |")
     return "\n".join(lines) + "\n"

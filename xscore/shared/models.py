@@ -139,7 +139,8 @@ class ExamScaffold:
 class PageAssignment:
     student_name: str
     page_numbers: list[int]
-    confidence: str             # "high" | "medium" | "low"
+    confidence: str                         # "high" | "medium" | "low"
+    cover_page_number: int | None = None    # 1-based scan page of the cover page, or None
 
 
 @dataclass
