@@ -119,7 +119,7 @@ def is_cover_page(
 
     result, _ = _get_ocr()(pix.tobytes("png"))
     printed_text = "\n".join(
-        text for _, text, conf in (result or []) if conf > 0.8
+        text for _, text, conf in (result or []) if float(conf) > 0.8
     )
 
     prompt = _COVER_PAGE_TEXT_PROMPT.format(text=printed_text or "(no text extracted)")
