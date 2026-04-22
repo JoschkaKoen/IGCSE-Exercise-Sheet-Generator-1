@@ -24,13 +24,25 @@ def compute_geometry(cleaned_pdf: Path, exam_pages: int, roster: list[str]) -> d
 
     if exam_pages == 0:
         raise ValueError("scaffold.page_count is 0 — re-run steps 4–6 to rebuild the scaffold")
-    if scan_pages % exam_pages != 0:
+
+    # Scans may have extra pages per student vs the empty exam (cover page, blanks, etc.).
+    # Try exam_pages + 0, +1, +2, … until one divides scan_pages evenly.
+    _MAX_EXTRA = 5
+    pages_per_student = None
+    for extra in range(_MAX_EXTRA + 1):
+        candidate = exam_pages + extra
+        if scan_pages % candidate == 0:
+            pages_per_student = candidate
+            break
+
+    if pages_per_student is None:
         raise ValueError(
-            f"scan_pages={scan_pages} not divisible by exam_pages={exam_pages}. "
+            f"scan_pages={scan_pages} not divisible by exam_pages={exam_pages} "
+            f"(tried offsets 0–{_MAX_EXTRA}). "
             "Check that the scan PDF contains complete student blocks."
         )
 
-    num_students_scan = scan_pages // exam_pages
+    num_students_scan = scan_pages // pages_per_student
     roster_mismatch = num_students_scan != len(roster)
 
     return {
@@ -39,7 +51,7 @@ def compute_geometry(cleaned_pdf: Path, exam_pages: int, roster: list[str]) -> d
         "num_students": num_students_scan,
         "num_students_roster": len(roster),
         "roster_mismatch": roster_mismatch,
-        "pages_per_student": exam_pages,
+        "pages_per_student": pages_per_student,
     }
 
 

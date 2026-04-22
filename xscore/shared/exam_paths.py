@@ -5,9 +5,17 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+# Re-exported here for backwards compatibility; canonical location is find_exam_folder.py.
+from xscore.marking.find_exam_folder import validate_input_files as validate_input_files  # noqa: F401
+
 
 SUBDIR_STUDENTS = "students"   # per-student files (marking results + reports)
 SUBDIR_NAMES    = "8_names"    # name-detection prompts (one per scan page — many files)
+
+
+def safe_student_name(name: str) -> str:
+    """Replace every non-word character in *name* with an underscore for use in filenames."""
+    return re.sub(r"[^\w]", "_", name)
 
 _PROMPT_COLLISION = {"10_exam_questions", "11_mark_scheme"}
 
@@ -206,14 +214,12 @@ def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
 
 def artifact_marked_json_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Step 14: AI-filled marking blueprint for one student's scan page."""
-    safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_STUDENTS / f"14_marked_{safe}_{page}.json"
+    return artifact_dir / SUBDIR_STUDENTS / f"14_marked_{safe_student_name(student)}_{page}.json"
 
 
 def artifact_marked_md_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Step 14: human-readable marking result for one student's scan page."""
-    safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_STUDENTS / f"14_marked_{safe}_{page}.md"
+    return artifact_dir / SUBDIR_STUDENTS / f"14_marked_{safe_student_name(student)}_{page}.md"
 
 
 def artifact_marked_failed_path(artifact_dir: Path, student: str, page: int) -> Path:
@@ -222,8 +228,7 @@ def artifact_marked_failed_path(artifact_dir: Path, student: str, page: int) -> 
     Uses a distinct ``14_failed_*`` prefix so it is never matched by the
     ``14_marked_*_*.json`` glob used by merge_reports.py.
     """
-    safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_STUDENTS / f"14_failed_{safe}_{page}.json"
+    return artifact_dir / SUBDIR_STUDENTS / f"14_failed_{safe_student_name(student)}_{page}.json"
 
 
 def artifact_marking_students_dir(artifact_dir: Path) -> Path:
@@ -233,20 +238,17 @@ def artifact_marking_students_dir(artifact_dir: Path) -> Path:
 
 def artifact_student_report_json_path(artifact_dir: Path, student: str) -> Path:
     """Step 15: merged student report JSON."""
-    safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_STUDENTS / f"15_student_report_{safe}.json"
+    return artifact_dir / SUBDIR_STUDENTS / f"15_student_report_{safe_student_name(student)}.json"
 
 
 def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
     """Step 15: human-readable student report."""
-    safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_STUDENTS / f"15_student_report_{safe}.md"
+    return artifact_dir / SUBDIR_STUDENTS / f"15_student_report_{safe_student_name(student)}.md"
 
 
 def artifact_student_report_tex_path(artifact_dir: Path, student: str) -> Path:
     """Step 15: LaTeX source for student report PDF."""
-    safe = re.sub(r"[^\w]", "_", student)
-    return artifact_dir / SUBDIR_STUDENTS / f"15_student_report_{safe}.tex"
+    return artifact_dir / SUBDIR_STUDENTS / f"15_student_report_{safe_student_name(student)}.tex"
 
 
 def artifact_reports_students_dir(artifact_dir: Path) -> Path:
@@ -282,53 +284,6 @@ def artifact_timing_json_path(artifact_dir: Path) -> Path:
 def artifact_timing_md_path(artifact_dir: Path) -> Path:
     """Step 16: human-readable timing table."""
     return artifact_dir / "16_timing.md"
-
-
-def validate_input_files(folder: Path) -> None:
-    """Raise FileNotFoundError listing every missing required input file."""
-    missing: list[str] = []
-
-    scans = [
-        f for f in folder.glob("*.pdf")
-        if "scan" in f.name.lower() and "cleaned" not in f.name.lower()
-    ]
-    if not scans:
-        missing.append("scan PDF  (e.g. scan.pdf)")
-
-    _roster = list(folder.glob("StudentList.*"))
-    if not _roster:
-        for _pat in ("*[Ss]tudent*", "*[Rr]oster*"):
-            _roster = list(folder.glob(_pat))
-            if _roster:
-                break
-    if not _roster:
-        missing.append("student roster  (StudentList.xlsx, or any *student* / *roster* file)")
-
-    # Accept: exact name, any *empty*/*exam* PDF, or (fallback) any non-scan/answer/student PDF.
-    # Mirrors generate_scaffold.find_exam_pdf which uses the same fallback.
-    _EXAM_SKIP = ("scan", "answer", "student", "cleaned")
-    _non_skip_pdfs = [
-        f for f in folder.glob("*.pdf")
-        if not any(kw in f.name.lower() for kw in _EXAM_SKIP)
-    ]
-    _exam_pdfs = [
-        f for f in _non_skip_pdfs
-        if any(kw in f.name.lower() for kw in ("empty", "exam"))
-    ]
-    if not (folder / "empty_exam.pdf").is_file() and not _exam_pdfs and not _non_skip_pdfs:
-        missing.append("empty_exam.pdf  (or any PDF that isn't a scan/answer/student file)")
-
-    # Accept exact name OR any PDF with 'answer' in the name
-    # (mirrors generate_scaffold._find_answer_pdf)
-    _answer_pdfs = [f for f in folder.glob("*.pdf") if "answer" in f.name.lower()]
-    if not (folder / "answer_sheet.pdf").is_file() and not _answer_pdfs:
-        missing.append("answer_sheet.pdf  (or any *answer*.pdf)")
-
-    if missing:
-        bullet = "\n  • "
-        raise FileNotFoundError(
-            f"Required input files missing from {folder}:{bullet}{bullet.join(missing)}"
-        )
 
 
 def artifact_accuracy_json_path(artifact_dir: Path) -> Path:

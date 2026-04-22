@@ -14,11 +14,11 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 
-from xscore.shared.exam_paths import artifact_marking_students_dir, artifact_reports_students_dir
-
-
-def _safe_name(name: str) -> str:
-    return re.sub(r"[^\w]", "_", name)
+from xscore.shared.exam_paths import (
+    artifact_marking_students_dir,
+    artifact_reports_students_dir,
+    safe_student_name as _safe_name,
+)
 
 
 _LATEX_MAP = {

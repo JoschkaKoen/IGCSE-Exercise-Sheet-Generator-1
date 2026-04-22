@@ -5,10 +5,11 @@ config.py
 Configuration for xScore. Edit values here or set the noted environment
 variables. See README.md for full detail.
 
-AI provider usage by step:
-  Steps 1 / 3 / 4 / 5 : Gemini (GOOGLE_API_KEY or GEMINI_API_KEY)
-  Step 10              : Kimi — name OCR (KIMI_API_KEY)
-  Step 12              : Kimi — answer grading (KIMI_API_KEY)
+AI provider usage by step (16-step pipeline):
+  Steps 1 / 5 / 6 / 7 : Gemini  (GOOGLE_API_KEY or GEMINI_API_KEY)
+  Step 8               : Gemini  — name OCR + cover-page detection
+  Steps 9–13           : Gemini  — exam/mark-scheme parsing (split or legacy mode)
+  Steps 14–15          : Kimi    — AI marking + report compilation (KIMI_API_KEY)
 
 How to run (from repo root, with venv activated and dependencies installed):
 
@@ -110,22 +111,16 @@ PREPROCESS_SHARPNESS: float = float(os.getenv("PREPROCESS_SHARPNESS", "1.6"))   
 PREPROCESS_BRIGHTNESS: float = float(os.getenv("PREPROCESS_BRIGHTNESS", "1.1"))  # Brightness adjustment
 
 # =============================================================================
-# Ensemble / Multi-Pass Configuration
+# Ensemble Configuration  (xscore/extraction/ benchmarking only — not the grading pipeline)
 # =============================================================================
 
-# Enable ensemble voting for improved accuracy.
-# When enabled, makes multiple API calls and uses majority voting.
-# Slower but potentially more accurate.
+# Enable ensemble voting when running xscore/extraction/ benchmarks.
 _use_ensemble = os.getenv("USE_ENSEMBLE", "").strip().lower()
 USE_ENSEMBLE: bool = _use_ensemble in ("1", "true", "yes", "on")
 
 # Number of API calls per page for ensemble voting.
 # Only used when USE_ENSEMBLE is True.
 ENSEMBLE_CALLS: int = int(os.getenv("ENSEMBLE_CALLS", "3"))
-
-# Number of passes for multi-pass extraction (without full ensemble).
-# Set to 1 for single-pass (faster), 2+ for multiple passes.
-MULTI_PASS_COUNT = 1
 
 # =============================================================================
 # Gemini Model Parameters

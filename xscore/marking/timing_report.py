@@ -6,18 +6,11 @@ import json
 from pathlib import Path
 
 _STEP_LABELS: dict[str, str] = {
-    "step_4_s":  "Merge duplex scans (4)",
-    "step_5_s":  "Blank pages (5)",
-    "step_6_s":  "Autorotate (6)",
-    "step_7_s":  "Deskew (7)",
-    "step_8_s":  "Exam geometry (8)",
-    "step_9_s":  "Parse exam PDF (9)",
-    "step_10_s": "Parse mark scheme (10)",
-    "step_11_s": "Merge scaffold (11)",
-    "step_12_s": "Blueprints (12)",
-    "step_13_s": "AI marking (13)",
-    "step_14_s": "Reports (14)",
-    "step_15_s": "Timing (15)",
+    "assign_pages_s": "Assign pages (step 8)",
+    "blueprints_s":   "Blueprints",
+    "marking_s":      "AI marking",
+    "reports_s":      "Reports",
+    "timing_s":       "Timing",
 }
 
 
@@ -30,7 +23,7 @@ def write_timing_report(
 ) -> None:
     """Write timing artifacts and print a summary to the terminal.
 
-    *step_durations* keys are like ``"step_10_s"``, ``"step_11_s"`` etc.
+    *step_durations* keys are semantic names like ``"marking_s"``, ``"reports_s"`` etc.
     *api_calls* is the list returned by :func:`run_ai_marking`.
     *accuracy_summary* is the optional dict from :func:`evaluate_results`.
     *failures* is the list of page-level marking failures set on ctx by :func:`run_ai_marking`.

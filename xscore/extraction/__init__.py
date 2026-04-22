@@ -1,4 +1,4 @@
-"""Answer extraction package: profiles, providers, reporting."""
+"""Benchmarking harness for raw AI extraction quality — not used by the grading pipeline."""
 
 from __future__ import annotations
 
