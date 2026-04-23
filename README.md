@@ -174,10 +174,22 @@ flowchart TD
         s5 --> s6 --> s7
     end
 
-    s7 --> s8["Step 8 — Exam geometry & cover detection\n(main thread)"]
+    subgraph step8 ["Step 8 — Exam geometry (main thread)"]
+        direction TB
+        s8a["8a — Compute geometry\n(scan÷exam pages → num_students\n· roster cross-check)"]
+        s8b["8b — Empty-exam cover check\n(informational · EMPTY_EXAM_COVER_MODEL)"]
+        s8c["8c — Assign pages + name detection\n(COVER_PAGE_DETECTION_MODEL)"]
+        s8d["8d — Page-count validation\n(abort if mismatch)"]
+        s8e["8e — Page order check"]
+        s8f["8f — Blank page detection"]
+        s8g["8g — Write final artifacts\n(8_exam_geometry.json\n8_exam_student_list.json / .md)"]
+        s8a --> s8b --> s8c --> s8d --> s8e --> s8f --> s8g
+    end
 
-    s8 -->|"step 8 done → scaffold thread unblocks"| s9
-    s8 -.->|"background thread"| bg["Pre-render scan pages\n(parallel · MARKING_WORKERS threads)"]
+    s7 --> s8a
+
+    s8g -->|"step 8 done → scaffold thread unblocks"| s9
+    s8g -.->|"background thread"| bg["Pre-render scan pages\n(parallel · MARKING_WORKERS threads)"]
 
     subgraph scaffold ["Scaffold thread"]
         direction TB
