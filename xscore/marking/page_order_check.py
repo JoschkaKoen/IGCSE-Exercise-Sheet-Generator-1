@@ -73,7 +73,7 @@ def check_page_order(
 ) -> None:
     """Validate page order and content for all students. Raises SystemExit(1) on mismatch."""
     import os
-    from xscore.shared.terminal_ui import info_line, warn_line
+    from xscore.shared.terminal_ui import info_line, ok_line, warn_line
     from xscore.marking.ai_helpers import parse_json_safe
     from eXercise.ai_client import parse_model_effort
     from xscore.shared.prompt_logger import save_prompt, save_response
@@ -126,18 +126,21 @@ def check_page_order(
     save_path = artifact_prompt_path(artifact_dir, "8_page_order") if artifact_dir else None
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
 
+    import time as _time
+    t0 = _time.perf_counter()
     resp = _gai.models.generate_content(
         model=model_id,
         contents=[gai_types.Part.from_text(text=prompt)],
         config=gai_types.GenerateContentConfig(max_output_tokens=2048),
     )
+    dur = round(_time.perf_counter() - t0, 1)
     raw = resp.text or ""
     save_response(save_path, raw)
 
     # ── Parse and report ──────────────────────────────────────────────────────
     data = parse_json_safe(raw) or {}
     if data.get("all_ok", True):
-        info_line("Page order check: all students OK")
+        ok_line(f"Page order check: all students OK  ·  {dur}s")
         return
 
     error_lines = ["Scan page order / content mismatch:", ""]

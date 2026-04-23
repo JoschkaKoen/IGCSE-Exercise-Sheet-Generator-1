@@ -288,7 +288,7 @@ def assign_pages(
         )
     client, model_id, _provider, _effort = ai_result
 
-    from xscore.shared.terminal_ui import info_line, tool_line, format_duration, warn_line
+    from xscore.shared.terminal_ui import info_line, ok_line, tool_line, format_duration, warn_line
 
     if pages is None:
         tool_line("pages", f"Rendering pages @ {dpi} DPI …")
@@ -324,7 +324,7 @@ def assign_pages(
         cover_page_mode = page1_is_cover
 
         if cover_page_mode:
-            info_line(f"Scan page 1: cover page — cover-page mode active  ·  {_cover_elapsed}")
+            ok_line(f"Scan page 1: cover page — cover-page mode active  ·  {_cover_elapsed}")
 
             # Verify every expected cover position in parallel.
             # Block 0 reuses the page-1 result; blocks 1..n-1 are checked in parallel.
@@ -343,7 +343,7 @@ def assign_pages(
                 with ThreadPoolExecutor(max_workers=_cover_workers) as ex:
                     for _idx, _ok in ex.map(_check_cover, cover_indices_to_check):
                         cover_ok[_idx] = _ok
-                info_line(
+                ok_line(
                     f"Verified {len(cover_indices_to_check)} cover position(s)  ·  {format_duration(time.perf_counter() - _t_verify)}"
                 )
 
@@ -356,7 +356,7 @@ def assign_pages(
                         f"but this page doesn't look like one — check scan quality"
                     )
         else:
-            info_line(f"Scan page 1: no cover page — standard mode  ·  {_cover_elapsed}")
+            ok_line(f"Scan page 1: no cover page — standard mode  ·  {_cover_elapsed}")
 
     # ------------------------------------------------------------------
     # Name detection — only the first page of each student block is checked.
@@ -380,7 +380,7 @@ def assign_pages(
         data = parse_json_safe(raw) or {}
         raw_name = str(data.get("name", "") or "").strip()
         matched_name = fuzzy_match_name(raw_name, students) if raw_name else None
-        info_line(f"Page {i:3d}/{n_pages}: {raw_name!r}  →  {matched_name!r}  ·  {format_duration(elapsed)}")
+        ok_line(f"Page {i:3d}/{n_pages}: {raw_name!r}  →  {matched_name!r}  ·  {format_duration(elapsed)}")
         return i, matched_name
 
     page_results: dict[int, str | None] = {}

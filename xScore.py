@@ -547,7 +547,8 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         geo["cover_page_mode"] = False
         write_geometry_artifacts(ctx.artifact_dir, geo)
 
-        # --- Informational empty-exam cover check (does NOT determine behaviour) ---
+        # --- 8b: Informational empty-exam cover check (does NOT determine behaviour) ---
+        info_line("8b — Checking empty exam for cover page …")
         _empty_exam_has_cover: bool | None = None   # None = check was not performed
         try:
             import os as _os
@@ -568,13 +569,14 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
                     prompt_save_path=_ec_save,
                     effort=_ec_effort,
                 )
-                info_line(
+                ok_line(
                     f"Empty exam page 1: {'cover page' if _empty_exam_has_cover else 'no cover page'}  ·  {format_duration(time.perf_counter() - _t_ec)}"
                 )
         except Exception as _e:
             warn_line(f"Empty exam cover check skipped: {_e}")
 
-        # --- Name detection + cover-page detection (scan is authoritative) ---
+        # --- 8c: Name detection + cover-page detection (scan is authoritative) ---
+        info_line("8c — Assigning scan pages + detecting student names …")
         t1 = time.perf_counter()
         ctx.page_assignments = assign_pages(
             ctx.cleaned_pdf,
@@ -583,7 +585,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             artifact_dir=ctx.artifact_dir,
         )
 
-        # ── Page-count validation ──────────────────────────────────────────────────────
+        # ── 8d: Page-count validation ─────────────────────────────────────────────────
         if not geo.get("pages_valid", True):
             n_detected   = len(ctx.page_assignments)
             scan_pages   = geo["scan_pages"]
@@ -626,12 +628,15 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             raise SystemExit(1)
         # ─────────────────────────────────────────────────────────────────────────────
 
+        ok_line("8d — Page counts valid")
+
         # Authoritative cover_page_mode: derived from scan result inside assign_pages()
         ctx.cover_page_mode = any(
             a.cover_page_number is not None for a in ctx.page_assignments
         )
 
-        # ── Page order / content validation ───────────────────────────────────────────
+        # ── 8e: Page order / content validation ──────────────────────────────────────
+        info_line("8e — Page order check …")
         try:
             from xscore.scaffold.generate_scaffold import find_exam_pdf as _fep
             from xscore.marking.page_order_check import check_page_order as _check_order
@@ -647,7 +652,8 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             warn_line(f"Page order check skipped: {_e}")
         # ─────────────────────────────────────────────────────────────────────────────
 
-        # ── Blank page detection ──────────────────────────────────────────────────────
+        # ── 8f: Blank page detection ──────────────────────────────────────────────────
+        info_line("8f — Blank page detection …")
         try:
             from xscore.scaffold.generate_scaffold import find_exam_pdf as _fep2
             from xscore.marking.blank_page_detection import check_blank_pages as _check_blank
@@ -656,6 +662,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
                 ctx.cleaned_pdf,
                 ctx.page_assignments,
                 ctx.artifact_dir,
+                empty_exam_has_cover=bool(_empty_exam_has_cover),
             )
         except SystemExit:
             raise

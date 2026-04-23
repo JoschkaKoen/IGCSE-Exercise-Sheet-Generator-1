@@ -116,13 +116,20 @@ def check_blank_pages(
     scan_pdf: Path,
     page_assignments: list["PageAssignment"],
     artifact_dir: Path | None = None,
+    empty_exam_has_cover: bool | None = None,
 ) -> None:
     """Detect blank pages in the empty exam, then check each student's blank scan pages
-    for handwriting. Writes ``8_blank_pages.json`` to artifact_dir."""
+    for handwriting. Writes ``8_blank_pages.json`` to artifact_dir.
+
+    *empty_exam_has_cover* — True when the empty exam's first page is a cover page.
+    When True the scan's cover page (p_label=1) maps 1:1 to exam page 1, so no offset
+    is needed.  When False/None (empty exam has no cover), the scan cover page shifts
+    all answer pages by +1 relative to the empty exam page numbers.
+    """
     from eXercise.ai_client import parse_model_effort
     from google import genai as gai
     from xscore.shared.exam_paths import artifact_prompt_path
-    from xscore.shared.terminal_ui import info_line, warn_line
+    from xscore.shared.terminal_ui import info_line, ok_line, warn_line
 
     _api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
     if not _api_key:
@@ -134,32 +141,48 @@ def check_blank_pages(
     gai_client = gai.Client(api_key=_api_key)
 
     # ── 1. Find blank pages in the empty exam ────────────────────────────────
+    import time as _time
     exam_texts = _exam_page_texts(exam_pdf)
+    t0 = _time.perf_counter()
     blank_exam_pages = find_blank_exam_pages(exam_texts, gai_client, model_id, artifact_dir)
+    detect_dur = round(_time.perf_counter() - t0, 1)
 
     empty_artifact = {"blank_exam_pages": [], "students": []}
     if not blank_exam_pages:
-        info_line("Blank page detection: no blank pages found in empty exam")
+        ok_line(f"Blank page detection: no blank pages found in empty exam  ·  {detect_dur}s")
         if artifact_dir:
             (artifact_dir / "8_blank_pages.json").write_text(
                 json.dumps(empty_artifact, indent=2), encoding="utf-8"
             )
         return
 
-    info_line(f"Blank page detection: found blank exam pages {sorted(blank_exam_pages)}")
+    ok_line(f"Blank page detection: found blank exam pages {sorted(blank_exam_pages)}  ·  {detect_dur}s")
 
     cover_page_mode = any(a.cover_page_number is not None for a in page_assignments)
+    # Offset is needed only when the scan has a cover page that the empty exam does not.
+    # When the empty exam also starts with a cover page, both are aligned at position 1.
+    cover_offset = 1 if (cover_page_mode and not empty_exam_has_cover) else 0
 
     # ── 2. For each student × blank page: render JPEG + detect handwriting ──
     # Build tasks: (assignment, exam_page, scan_page)
     tasks: list[tuple[object, int, int]] = []
     for a in page_assignments:
         for exam_page in sorted(blank_exam_pages):
-            p_label = exam_page + (1 if cover_page_mode else 0)
+            p_label = exam_page + cover_offset
             if p_label > len(a.page_numbers):
                 continue
             scan_page = a.page_numbers[p_label - 1]
             tasks.append((a, exam_page, scan_page))
+
+    if not tasks:
+        ok_line("Blank page detection: all blank exam pages are beyond every student's scan range — skipping handwriting check")
+        students_out = [{"student_name": a.student_name, "blank_scan_pages": []} for a in page_assignments]
+        artifact = {"blank_exam_pages": sorted(blank_exam_pages), "students": students_out}
+        if artifact_dir:
+            (artifact_dir / "8_blank_pages.json").write_text(
+                json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+        return
 
     jpeg_dir = artifact_dir / "8_blank_pages" if artifact_dir else None
     if jpeg_dir:
@@ -183,10 +206,12 @@ def check_blank_pages(
 
     results: list[tuple[str, int, int, bool]] = []
     workers = min(len(tasks), 8)
+    t_hw = _time.perf_counter()
     with ThreadPoolExecutor(max_workers=workers) as ex:
         futs = {ex.submit(_detect, t): t for t in tasks}
         for fut in as_completed(futs):
             results.append(fut.result())
+    hw_dur = round(_time.perf_counter() - t_hw, 1)
 
     # ── 3. Compute attach_to_exam_page + build artifact ──────────────────────
     non_blank = set(range(1, len(exam_texts) + 1)) - blank_exam_pages
@@ -224,6 +249,6 @@ def check_blank_pages(
         )
 
     hw_count = sum(1 for _, _, hw in [e for s in by_student.values() for e in s] if hw)
-    info_line(
-        f"Blank page detection: {hw_count}/{len(results)} blank scan page(s) have handwriting"
+    ok_line(
+        f"Blank page detection: {hw_count}/{len(results)} blank scan page(s) have handwriting  ·  {hw_dur}s"
     )
