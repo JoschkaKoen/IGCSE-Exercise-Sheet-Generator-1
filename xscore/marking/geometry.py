@@ -10,9 +10,10 @@ def compute_geometry(cleaned_pdf: Path, exam_pages: int, roster: list[str]) -> d
     """Count scan pages, derive number of students, cross-check roster.
 
     Returns a dict with keys: scan_pages, exam_pages, num_students,
-    num_students_roster, roster_mismatch, pages_per_student.
+    num_students_roster, roster_mismatch, pages_per_student, pages_valid.
 
-    Raises ValueError if scan_pages is not evenly divisible by exam_pages.
+    When no exact divisor is found, pages_valid=False and pages_per_student
+    falls back to exam_pages+1; the caller validates after name detection.
     """
     try:
         import fitz
@@ -36,11 +37,10 @@ def compute_geometry(cleaned_pdf: Path, exam_pages: int, roster: list[str]) -> d
             break
 
     if pages_per_student is None:
-        raise ValueError(
-            f"scan_pages={scan_pages} not divisible by exam_pages={exam_pages} "
-            f"(tried offsets 0–{_MAX_EXTRA}). "
-            "Check that the scan PDF contains complete student blocks."
-        )
+        pages_per_student = exam_pages + 1  # best-effort; validation in xScore.py catches real mismatch
+        pages_valid = False
+    else:
+        pages_valid = True
 
     num_students_scan = scan_pages // pages_per_student
     roster_mismatch = num_students_scan != len(roster)
@@ -52,6 +52,7 @@ def compute_geometry(cleaned_pdf: Path, exam_pages: int, roster: list[str]) -> d
         "num_students_roster": len(roster),
         "roster_mismatch": roster_mismatch,
         "pages_per_student": pages_per_student,
+        "pages_valid": pages_valid,
     }
 
 

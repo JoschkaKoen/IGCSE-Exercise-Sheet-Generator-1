@@ -294,7 +294,8 @@ def assign_pages(
         tool_line("pages", f"Rendering pages @ {dpi} DPI …")
         pages = convert_from_path(str(cleaned_pdf), dpi=dpi, thread_count=os.cpu_count() or 4)
     n_pages = len(pages)
-    n_blocks = n_pages // pages_per_student
+    import math
+    n_blocks = math.ceil(n_pages / pages_per_student)
     first_page_set = {b * pages_per_student + 1 for b in range(n_blocks)}  # 1-based scan pages
 
     # ------------------------------------------------------------------

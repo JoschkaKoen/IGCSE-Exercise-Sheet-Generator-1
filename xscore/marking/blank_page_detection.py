@@ -1,0 +1,229 @@
+"""Step 8 sub-step: detect blank pages in the empty exam and check for student handwriting."""
+
+from __future__ import annotations
+
+import json
+import os
+import tempfile
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from xscore.shared.models import PageAssignment
+
+
+def _exam_page_texts(exam_pdf: Path) -> list[str]:
+    import fitz
+    with fitz.open(str(exam_pdf)) as doc:
+        return [doc[i].get_text().strip() for i in range(doc.page_count)]
+
+
+def _render_page_jpeg(pdf_path: Path, page_1based: int, dpi: int = 150) -> bytes:
+    import fitz
+    with fitz.open(str(pdf_path)) as doc:
+        pix = doc[page_1based - 1].get_pixmap(dpi=dpi, colorspace=fitz.csGRAY)
+    return pix.tobytes("jpeg")
+
+
+def find_blank_exam_pages(
+    exam_texts: list[str],
+    gai_client,
+    model_id: str,
+    artifact_dir: Path | None,
+) -> set[int]:
+    """One LLM text call to identify blank exam pages. Returns set of 1-based page numbers."""
+    from google.genai import types as gai_types
+    from xscore.shared.prompt_logger import save_prompt, save_response
+    from xscore.shared.exam_paths import artifact_prompt_path
+    from xscore.marking.ai_helpers import parse_json_safe
+
+    lines = [
+        "You are analysing an empty exam paper.",
+        "Below is the printed text from each page.",
+        "",
+    ]
+    for i, text in enumerate(exam_texts, 1):
+        lines += [f"Page {i}:", text or "(no printed text)", ""]
+
+    lines += [
+        "Identify all BLANK pages. A blank page:",
+        "- Contains the words \"BLANK PAGE\"",
+        "- Has NO exercise instructions or question text",
+        "- May have printed horizontal lines (writing lines for students) — these do NOT",
+        "  disqualify a page from being blank",
+        "",
+        'Return ONLY JSON: {"blank_pages": [list of 1-based page numbers]}',
+    ]
+    prompt = "\n".join(lines)
+
+    if artifact_dir:
+        (artifact_dir / "8_blank_detection_empty_exam.txt").write_text(
+            prompt, encoding="utf-8"
+        )
+
+    save_path = artifact_prompt_path(artifact_dir, "8_blank_detection_exam") if artifact_dir else None
+    save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
+
+    resp = gai_client.models.generate_content(
+        model=model_id,
+        contents=[gai_types.Part.from_text(text=prompt)],
+        config=gai_types.GenerateContentConfig(max_output_tokens=256),
+    )
+    raw = resp.text or ""
+    save_response(save_path, raw)
+
+    data = parse_json_safe(raw) or {}
+    return set(int(p) for p in data.get("blank_pages", []))
+
+
+def _has_handwriting(
+    gai_client,
+    model_id: str,
+    jpeg_bytes: bytes,
+    save_path: Path | None,
+) -> bool:
+    """Vision call: does this blank scan page contain student handwriting?"""
+    from google.genai import types as gai_types
+    from xscore.shared.prompt_logger import save_prompt, save_response
+    from xscore.marking.ai_helpers import parse_json_safe
+
+    prompt_text = (
+        "This is a blank exam page. It may have printed horizontal writing lines.\n"
+        "Is there any STUDENT HANDWRITING on this page? "
+        "Ignore the printed lines — only count ink written by a student.\n"
+        'Return ONLY JSON: {"has_handwriting": true} or {"has_handwriting": false}'
+    )
+    save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt_text}])
+
+    resp = gai_client.models.generate_content(
+        model=model_id,
+        contents=[
+            gai_types.Part.from_bytes(data=jpeg_bytes, mime_type="image/jpeg"),
+            gai_types.Part.from_text(text=prompt_text),
+        ],
+        config=gai_types.GenerateContentConfig(max_output_tokens=32),
+    )
+    raw = resp.text or ""
+    save_response(save_path, raw)
+
+    data = parse_json_safe(raw) or {}
+    return bool(data.get("has_handwriting", False))
+
+
+def check_blank_pages(
+    exam_pdf: Path,
+    scan_pdf: Path,
+    page_assignments: list["PageAssignment"],
+    artifact_dir: Path | None = None,
+) -> None:
+    """Detect blank pages in the empty exam, then check each student's blank scan pages
+    for handwriting. Writes ``8_blank_pages.json`` to artifact_dir."""
+    from eXercise.ai_client import parse_model_effort
+    from google import genai as gai
+    from xscore.shared.exam_paths import artifact_prompt_path
+    from xscore.shared.terminal_ui import info_line, warn_line
+
+    _api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
+    if not _api_key:
+        warn_line("GEMINI_API_KEY not set — blank page detection skipped")
+        return
+    model_id, _effort = parse_model_effort(
+        os.environ.get("BLANK_PAGE_DETECTION_MODEL", "gemini-2.5-flash-lite")
+    )
+    gai_client = gai.Client(api_key=_api_key)
+
+    # ── 1. Find blank pages in the empty exam ────────────────────────────────
+    exam_texts = _exam_page_texts(exam_pdf)
+    blank_exam_pages = find_blank_exam_pages(exam_texts, gai_client, model_id, artifact_dir)
+
+    empty_artifact = {"blank_exam_pages": [], "students": []}
+    if not blank_exam_pages:
+        info_line("Blank page detection: no blank pages found in empty exam")
+        if artifact_dir:
+            (artifact_dir / "8_blank_pages.json").write_text(
+                json.dumps(empty_artifact, indent=2), encoding="utf-8"
+            )
+        return
+
+    info_line(f"Blank page detection: found blank exam pages {sorted(blank_exam_pages)}")
+
+    cover_page_mode = any(a.cover_page_number is not None for a in page_assignments)
+
+    # ── 2. For each student × blank page: render JPEG + detect handwriting ──
+    # Build tasks: (assignment, exam_page, scan_page)
+    tasks: list[tuple[object, int, int]] = []
+    for a in page_assignments:
+        for exam_page in sorted(blank_exam_pages):
+            p_label = exam_page + (1 if cover_page_mode else 0)
+            if p_label > len(a.page_numbers):
+                continue
+            scan_page = a.page_numbers[p_label - 1]
+            tasks.append((a, exam_page, scan_page))
+
+    jpeg_dir = artifact_dir / "8_blank_pages" if artifact_dir else None
+    if jpeg_dir:
+        jpeg_dir.mkdir(parents=True, exist_ok=True)
+
+    def _detect(args: tuple) -> tuple[str, int, int, bool]:
+        """Returns (student_name, exam_page, scan_page, has_handwriting)."""
+        assignment, exam_page, scan_page = args
+        safe_name = (assignment.student_name or "Unknown").replace(" ", "_")
+        jpeg_bytes = _render_page_jpeg(scan_pdf, scan_page)
+
+        if jpeg_dir:
+            (jpeg_dir / f"{safe_name}_{exam_page}.jpg").write_bytes(jpeg_bytes)
+
+        save_path = (
+            artifact_prompt_path(artifact_dir, f"8_blank_{safe_name}_{exam_page}")
+            if artifact_dir else None
+        )
+        hw = _has_handwriting(gai_client, model_id, jpeg_bytes, save_path)
+        return assignment.student_name, exam_page, scan_page, hw
+
+    results: list[tuple[str, int, int, bool]] = []
+    workers = min(len(tasks), 8)
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        futs = {ex.submit(_detect, t): t for t in tasks}
+        for fut in as_completed(futs):
+            results.append(fut.result())
+
+    # ── 3. Compute attach_to_exam_page + build artifact ──────────────────────
+    non_blank = set(range(1, len(exam_texts) + 1)) - blank_exam_pages
+
+    def _attach_target(exam_page: int) -> int | None:
+        candidates = [p for p in non_blank if p < exam_page]
+        return max(candidates) if candidates else None
+
+    # Group results by student
+    by_student: dict[str, list[tuple[int, int, bool]]] = {}
+    for student_name, exam_page, scan_page, has_hw in results:
+        by_student.setdefault(student_name, []).append((exam_page, scan_page, has_hw))
+
+    students_out = []
+    for a in page_assignments:
+        student_entries = sorted(by_student.get(a.student_name, []), key=lambda x: x[0])
+        blank_scan_pages = []
+        for exam_page, scan_page, has_hw in student_entries:
+            entry: dict = {
+                "exam_page": exam_page,
+                "scan_page": scan_page,
+                "has_handwriting": has_hw,
+                "attach_to_exam_page": _attach_target(exam_page) if has_hw else None,
+            }
+            blank_scan_pages.append(entry)
+        students_out.append({"student_name": a.student_name, "blank_scan_pages": blank_scan_pages})
+
+    artifact = {
+        "blank_exam_pages": sorted(blank_exam_pages),
+        "students": students_out,
+    }
+    if artifact_dir:
+        (artifact_dir / "8_blank_pages.json").write_text(
+            json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
+
+    hw_count = sum(1 for _, _, hw in [e for s in by_student.values() for e in s] if hw)
+    info_line(
+        f"Blank page detection: {hw_count}/{len(results)} blank scan page(s) have handwriting"
+    )

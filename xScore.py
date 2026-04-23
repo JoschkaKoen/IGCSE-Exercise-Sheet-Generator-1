@@ -583,12 +583,85 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             artifact_dir=ctx.artifact_dir,
         )
 
+        # ── Page-count validation ──────────────────────────────────────────────────────
+        if not geo.get("pages_valid", True):
+            n_detected   = len(ctx.page_assignments)
+            scan_pages   = geo["scan_pages"]
+            _cover = any(a.cover_page_number is not None for a in ctx.page_assignments)
+            expected_per = geo["exam_pages"] + (1 if _cover else 0)
+            expected_total = n_detected * expected_per
+            diff = scan_pages - expected_total
+            msg_lines = [
+                "Scan page count mismatch — cannot mark reliably.",
+                "",
+                f"  Empty exam:  {geo['exam_pages']} pages per student",
+                f"  Detected:    {n_detected} student(s) in scan",
+                f"  Expected:    {n_detected} × {expected_per} pages = {expected_total} pages total",
+                f"  Scan found:  {scan_pages} pages  ({diff:+d})",
+                "",
+                "  Per-student breakdown:",
+            ]
+            for a in ctx.page_assignments:
+                actual = len(a.page_numbers)
+                marker = "✓" if actual == expected_per else "✗"
+                deficit = (
+                    f"  ← MISSING {expected_per - actual} page(s)" if actual < expected_per else
+                    f"  ← EXTRA {actual - expected_per} page(s)"   if actual > expected_per else ""
+                )
+                first, last = a.page_numbers[0], a.page_numbers[-1]
+                msg_lines.append(
+                    f"    {a.student_name:<22}"
+                    f"scan pages {first:>3}–{last:<3}  "
+                    f"{actual}/{expected_per} pages  {marker}{deficit}"
+                )
+            msg_lines += [
+                "",
+                "  Note: the short block shown above is always the LAST student in the scan.",
+                "  If pages were actually missing from an earlier booklet, the scanner's",
+                "  page shift means a later student appears short. Check all booklets.",
+                "",
+                "  Re-scan the missing page(s) and re-run.",
+            ]
+            warn_line("\n".join(msg_lines))
+            raise SystemExit(1)
+        # ─────────────────────────────────────────────────────────────────────────────
+
         # Authoritative cover_page_mode: derived from scan result inside assign_pages()
         ctx.cover_page_mode = any(
             a.cover_page_number is not None for a in ctx.page_assignments
         )
 
+        # ── Page order / content validation ───────────────────────────────────────────
+        try:
+            from xscore.scaffold.generate_scaffold import find_exam_pdf as _fep
+            from xscore.marking.page_order_check import check_page_order as _check_order
+            _check_order(
+                _fep(ctx.folder),
+                ctx.cleaned_pdf,
+                ctx.page_assignments,
+                artifact_dir=ctx.artifact_dir,
+            )
+        except SystemExit:
+            raise
+        except Exception as _e:
+            warn_line(f"Page order check skipped: {_e}")
+        # ─────────────────────────────────────────────────────────────────────────────
 
+        # ── Blank page detection ──────────────────────────────────────────────────────
+        try:
+            from xscore.scaffold.generate_scaffold import find_exam_pdf as _fep2
+            from xscore.marking.blank_page_detection import check_blank_pages as _check_blank
+            _check_blank(
+                _fep2(ctx.folder),
+                ctx.cleaned_pdf,
+                ctx.page_assignments,
+                ctx.artifact_dir,
+            )
+        except SystemExit:
+            raise
+        except Exception as _e:
+            warn_line(f"Blank page detection skipped: {_e}")
+        # ─────────────────────────────────────────────────────────────────────────────
 
         # Overwrite geometry artifacts with the authoritative cover_page_mode from the scan.
         geo["cover_page_mode"] = ctx.cover_page_mode

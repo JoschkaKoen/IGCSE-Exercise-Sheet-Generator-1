@@ -458,6 +458,106 @@ def render_pages_b64(
     return cache
 
 
+def _mark_page_pdf(
+    pdf_path: str,
+    blueprint: dict,
+    blueprint_xml: str,
+    prompt_save_path: Path | None,
+    warn: Callable[[str], None],
+) -> dict:
+    """Upload a pre-built multi-page PDF to Gemini and mark it.
+
+    pdf_path is a temporary file built by the caller (exercise page + blank continuation pages).
+    Raises MarkingFailure if all retries are exhausted.
+    """
+    import os
+    from google import genai as gai
+    from google.genai import types as gai_types
+    from xscore.shared.prompt_logger import save_response
+    from eXercise.ai_client import parse_model_effort
+
+    _api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
+    if not _api_key:
+        raise RuntimeError("GEMINI_API_KEY not set — cannot upload multi-page PDF for blank continuation pages")
+
+    _model_env = os.environ.get("MARKING_MODEL", "")
+    model_id, _ = parse_model_effort(_model_env) if _model_env else ("gemini-2.5-flash", None)
+    gai_client = gai.Client(api_key=_api_key)
+
+    system_prompt = (
+        "You are marking a student's exam answer. The uploaded PDF contains the exercise page "
+        "followed by one or more continuation pages the student used for additional writing. "
+        "Mark all pages together as one answer."
+    )
+    user_text = (
+        "Fill in the three empty fields for each question "
+        "(<student_answer>, <assigned_marks>, <explanation>):\n"
+        f"{blueprint_xml}"
+    )
+    save_prompt(prompt_save_path, model=model_id, messages=[{"role": "user", "content": user_text}])
+
+    _last_exc: BaseException = RuntimeError("no attempts made")
+    _last_raw: str = ""
+    uploaded = None
+    for attempt in range(MAX_RETRIES + 1):
+        try:
+            if uploaded is None:
+                uploaded = gai_client.files.upload(
+                    file=pdf_path,
+                    config=gai_types.UploadFileConfig(mime_type="application/pdf"),
+                )
+            resp = gai_client.models.generate_content(
+                model=model_id,
+                contents=[
+                    gai_types.Part.from_uri(file_uri=uploaded.uri, mime_type="application/pdf"),
+                    gai_types.Part.from_text(text=user_text),
+                ],
+                config=gai_types.GenerateContentConfig(
+                    system_instruction=system_prompt,
+                    max_output_tokens=4096,
+                ),
+            )
+            raw = resp.text or ""
+            _last_raw = raw
+            save_response(prompt_save_path, raw)
+            parsed_questions = _parse_xml_response(raw)
+            result = blueprint.copy()
+            fill_groups: dict[tuple, list] = defaultdict(list)
+            for q in parsed_questions:
+                fill_groups[_bq_key(q)].append(q)
+            fill_group_idx: dict[tuple, int] = defaultdict(int)
+            for bq in result.get("questions", []):
+                grp_key = _bq_key(bq)
+                idx = fill_group_idx[grp_key]
+                fill_group_idx[grp_key] += 1
+                if fill_groups[grp_key] and idx < len(fill_groups[grp_key]):
+                    src_q = fill_groups[grp_key][idx]
+                    bq["student_answer"] = src_q.get("student_answer", "")
+                    bq["assigned_marks"] = src_q.get("assigned_marks", 0)
+                    bq["explanation"] = src_q.get("explanation", "")
+            try:
+                gai_client.files.delete(name=uploaded.name)
+            except Exception:
+                pass
+            return result
+        except ET.ParseError as exc:
+            warn("Marking XML parse error (PDF upload path) — XML repair failed, marking aborted")
+            _last_exc = exc
+            break
+        except Exception as exc:
+            _last_exc = exc
+            if attempt < MAX_RETRIES:
+                time.sleep(2 ** attempt)
+    if uploaded is not None:
+        try:
+            gai_client.files.delete(name=uploaded.name)
+        except Exception:
+            pass
+    raise MarkingFailure(
+        attempts=MAX_RETRIES + 1, last_exc=_last_exc, last_raw=_last_raw
+    )
+
+
 def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
@@ -493,6 +593,20 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
     # Each entry: {"student_name": str, "page_numbers": [int, ...], "confidence": str}
 
+    # Load blank page detection results (written by step 8 blank_page_detection).
+    _blank_json = ctx.artifact_dir / "8_blank_pages.json"
+    _blank_exam_pages: set[int] = set()
+    _extra_by_student: dict[str, dict[int, list[int]]] = {}
+    if _blank_json.exists():
+        _bdata = json.loads(_blank_json.read_text(encoding="utf-8"))
+        _blank_exam_pages = set(_bdata.get("blank_exam_pages", []))
+        for _s in _bdata.get("students", []):
+            _extras: dict[int, list[int]] = {}
+            for _bp in _s["blank_scan_pages"]:
+                if _bp["has_handwriting"] and _bp["attach_to_exam_page"]:
+                    _extras.setdefault(_bp["attach_to_exam_page"], []).append(_bp["scan_page"])
+            _extra_by_student[_s["student_name"]] = _extras
+
     _instr = getattr(ctx, "instruction", None)
     if _instr is not None:
         sf = _instr.student_filter
@@ -517,19 +631,23 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             instruction=getattr(ctx, "instruction", None),
         )
 
-    # Build flat per-page task list — cover pages and out-of-range pages are excluded here
-    # (single authoritative filter; was spread across _mark_student's inner loop).
-    page_tasks: list[tuple[dict, int, int, int]] = []
+    # Build flat per-page task list — cover pages, out-of-range pages, and blank exam pages
+    # without handwriting are excluded here.
+    page_tasks: list[tuple[dict, int, int, int, list[int]]] = []
     for a in raw_assignments:
         has_cover = a.get("cover_page_number") is not None
         answer_page_count = len(a["page_numbers"]) - (1 if has_cover else 0)
+        student_extras = _extra_by_student.get(a["student_name"], {})
         for p_label, _ in enumerate(a["page_numbers"], 1):
             if has_cover and p_label == 1:
                 continue
             answer_label = p_label - (1 if has_cover else 0)
             if ctx.scaffold is not None and p_label > ctx.scaffold.page_count:
                 continue
-            page_tasks.append((a, p_label, answer_label, answer_page_count))
+            if answer_label in _blank_exam_pages:
+                continue
+            extra_scan_pages = student_extras.get(answer_label, [])
+            page_tasks.append((a, p_label, answer_label, answer_page_count, extra_scan_pages))
 
     import contextlib
     import sys
@@ -543,7 +661,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         return "\n".join(_student_lines.values()) if _student_lines else ""
 
     def _mark_one_page(
-        assignment: dict, p_label: int, answer_label: int, answer_page_count: int
+        assignment: dict, p_label: int, answer_label: int, answer_page_count: int,
+        extra_scan_pages: list[int],
     ) -> tuple[dict | None, dict | None]:
         student_name: str = assignment["student_name"]
         safe_name = student_name or f"Unknown_{p_label}"
@@ -557,23 +676,60 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             if _use_live:
                 live.update(_render())
 
-        b64 = _b64_cache[(student_name, p_label)]
         blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, p_label).read_text(
             encoding="utf-8"
         )
         blueprint = _blueprint_xml_to_dict(blueprint_xml)
 
         t0 = time.perf_counter()
+        prompt_save = artifact_prompt_path(ctx.artifact_dir, f"14_marked_{safe_name}_{p_label}")
         try:
-            filled = _mark_page(
-                client, model_id, b64, blueprint, _thinking_kw,
-                blueprint_xml=blueprint_xml,
-                use_stream=_use_stream,
-                prompt_save_path=artifact_prompt_path(
-                    ctx.artifact_dir, f"14_marked_{safe_name}_{p_label}"
-                ),
-                warn=_warn,
+            _use_pdf_path = extra_scan_pages and (
+                os.environ.get("GEMINI_API_KEY", "").strip()
+                or os.environ.get("GOOGLE_API_KEY", "").strip()
             )
+            if extra_scan_pages and not _use_pdf_path:
+                _warn(
+                    f"GEMINI_API_KEY not set — blank continuation pages for "
+                    f"'{student_name}' page {answer_label} will be omitted from marking"
+                )
+            if _use_pdf_path:
+                import shutil
+                import tempfile
+                exercise_scan_page = assignment["page_numbers"][p_label - 1]
+                all_scan_pages = [exercise_scan_page] + extra_scan_pages
+                with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as _tmp:
+                    tmp_path = _tmp.name
+                try:
+                    with fitz.open(str(ctx.cleaned_pdf)) as _src:
+                        _out = fitz.open()
+                        try:
+                            for sp in all_scan_pages:
+                                _out.insert_pdf(_src, from_page=sp - 1, to_page=sp - 1)
+                            _out.save(tmp_path)
+                        finally:
+                            _out.close()
+                    local_pdf = ctx.artifact_dir / f"14_upload_{safe_name}_{p_label}.pdf"
+                    shutil.copy(tmp_path, local_pdf)
+                    filled = _mark_page_pdf(
+                        tmp_path, blueprint, blueprint_xml,
+                        prompt_save_path=prompt_save,
+                        warn=_warn,
+                    )
+                finally:
+                    try:
+                        os.unlink(tmp_path)
+                    except OSError:
+                        pass
+            else:
+                b64 = _b64_cache[(student_name, p_label)]
+                filled = _mark_page(
+                    client, model_id, b64, blueprint, _thinking_kw,
+                    blueprint_xml=blueprint_xml,
+                    use_stream=_use_stream,
+                    prompt_save_path=prompt_save,
+                    warn=_warn,
+                )
         except MarkingFailure as mf:
             filled = blueprint.copy()
             filled["student_name"] = student_name
@@ -635,8 +791,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
 
         with ThreadPoolExecutor(max_workers=workers) as ex:
             futures = {
-                ex.submit(_mark_one_page, a, p_label, ans_lbl, ans_cnt): (a["student_name"], p_label)
-                for a, p_label, ans_lbl, ans_cnt in page_tasks
+                ex.submit(_mark_one_page, a, p_label, ans_lbl, ans_cnt, extras): (a["student_name"], p_label)
+                for a, p_label, ans_lbl, ans_cnt, extras in page_tasks
             }
             for fut in as_completed(futures):
                 timing, failure = fut.result()
