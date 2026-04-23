@@ -222,6 +222,11 @@ separate <criterion> element, copied verbatim
 - For multiple_choice questions: set correct_answer only; no <criterion> children needed
 - Keep every <question> element present — even if marks cannot be found for it
 - In XML text use &lt; for <, &gt; for >, &amp; for &
+- If the mark scheme contains a diagram, graph, or image (NOT a table) as part of the \
+expected answer for a question, add one <graphic page="N" x0="…" y0="…" x1="…" y1="…"/> \
+child element per graphic, where N is the 1-based page number in the mark scheme PDF and \
+x0/y0/x1/y1 are normalised bounding-box coordinates (0.0–1.0, top-left origin). \
+Omit <graphic> entirely when there is no graphic.
 """
 
 _SYSTEM_LAYOUT = "You are an expert at identifying exam paper printing layouts."
@@ -645,6 +650,17 @@ def _parse_exam_xml(raw: str) -> tuple[list[dict], dict]:
     return [_parse_q(q_el) for q_el in root.findall("question")], layout
 
 
+def _parse_graphic(g_el) -> "dict | None":
+    try:
+        return {
+            "page": int(g_el.get("page", 1)),
+            "x0": float(g_el.get("x0", 0)), "y0": float(g_el.get("y0", 0)),
+            "x1": float(g_el.get("x1", 1)), "y1": float(g_el.get("y1", 1)),
+        }
+    except (ValueError, TypeError):
+        return None
+
+
 def _parse_scheme_xml(raw: str) -> dict:
     """Parse Gemini mark scheme XML → scheme dict. Non-fatal: returns empty on error."""
     try:
@@ -660,8 +676,37 @@ def _parse_scheme_xml(raw: str) -> dict:
                 {"mark": c.get("mark", ""), "criterion": (c.text or "").strip()}
                 for c in q_el.findall("criterion")
             ],
+            "graphics": [g for g_el in q_el.findall("graphic") if (g := _parse_graphic(g_el))],
         })
     return {"questions": questions}
+
+
+def _extract_scheme_graphics(
+    questions: list[dict],
+    scheme_pdf: "Path",
+    out_dir: "Path",
+    dpi: int = 150,
+) -> None:
+    """Crop graphic bboxes from scheme_pdf and save as PNG files in out_dir."""
+    import fitz
+    out_dir.mkdir(parents=True, exist_ok=True)
+    with fitz.open(str(scheme_pdf)) as doc:
+        for q in questions:
+            graphics = q.get("graphics") or []
+            if not graphics:
+                continue
+            safe_num = re.sub(r"[^\w]", "_", str(q.get("number", "unknown")))
+            for idx, g in enumerate(graphics, start=1):
+                page_idx = g["page"] - 1
+                if not (0 <= page_idx < doc.page_count):
+                    continue
+                page = doc[page_idx]
+                w, h = page.rect.width, page.rect.height
+                clip = fitz.Rect(g["x0"] * w, g["y0"] * h, g["x1"] * w, g["y1"] * h)
+                if clip.is_empty or clip.is_infinite:
+                    continue
+                pix = page.get_pixmap(dpi=dpi, clip=clip)
+                pix.save(str(out_dir / f"{g['page']}_{safe_num}_{idx}.png"))
 
 
 # ---------------------------------------------------------------------------
@@ -951,6 +996,22 @@ def build_ai_scaffold(
                     write_mark_scheme_markdown(artifact_dir, result.get("questions", []))
                 except Exception:
                     pass
+            if artifact_dir is not None and marking_scheme_pdf is not None:
+                _graphics_dpi = int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "150"))
+                _n_graphics = sum(len(q.get("graphics") or []) for q in result.get("questions", []))
+                if _n_graphics:
+                    try:
+                        _extract_scheme_graphics(
+                            result.get("questions", []),
+                            marking_scheme_pdf,
+                            artifact_dir / "11_mark_scheme_graphics",
+                            dpi=_graphics_dpi,
+                        )
+                        ok_line(f"Mark scheme: {_n_graphics} graphic(s) extracted")
+                    except Exception:
+                        warn_line("Mark scheme: graphic extraction failed")
+                else:
+                    ok_line("Mark scheme: no graphics detected")
             return result
 
         # ---- Step 9: exam extraction ----------------------------------------

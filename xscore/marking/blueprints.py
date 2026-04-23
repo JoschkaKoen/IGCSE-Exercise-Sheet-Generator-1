@@ -2,10 +2,20 @@
 
 from __future__ import annotations
 
+import html
 import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
+
+
+def _clean_text(text: str) -> str:
+    """Decode HTML entities left as literals after scaffold XML round-trip,
+    then collapse long fill-in-the-blank ellipsis runs to a short placeholder."""
+    text = html.unescape(text)
+    text = re.sub(r'\u2026{2,}', '…', text)
+    text = re.sub(r'\.{6,}', '…', text)
+    return text
 
 
 def _quadrant_label(row: int, col: int, total_rows: int, total_cols: int) -> str:
@@ -52,16 +62,16 @@ def _build_blueprint_xml(page_num: int, layout: Any, page_qs: list[dict]) -> str
         if q.get("correct_answer") is not None:
             qel.set("correct_answer", str(q["correct_answer"]))
         text_el = ET.SubElement(qel, "text")
-        text_el.text = q.get("question_text", "")
+        text_el.text = _clean_text(q.get("question_text", ""))
         for opt in (q.get("answer_options") or []):
             opt_el = ET.SubElement(qel, "option")
             opt_el.set("letter", str(opt.get("letter", "")))
-            opt_el.text = opt.get("text", "")
+            opt_el.text = _clean_text(opt.get("text", ""))
         if q.get("question_type") != "multiple_choice":
             for mark, ctext in _criteria_from_marking_str(q.get("marking_criteria")):
                 cel = ET.SubElement(qel, "criterion")
                 cel.set("mark", mark)
-                cel.text = ctext
+                cel.text = _clean_text(ctext)
         ET.SubElement(qel, "student_answer")
         ET.SubElement(qel, "assigned_marks")
         ET.SubElement(qel, "explanation")

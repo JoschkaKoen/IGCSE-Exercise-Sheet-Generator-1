@@ -626,7 +626,14 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             raise SystemExit(1)
         # ─────────────────────────────────────────────────────────────────────────────
 
-        ok_line("8d — Page counts valid")
+        _8d_cover = any(a.cover_page_number is not None for a in ctx.page_assignments)
+        _8d_per = geo["exam_pages"] + (1 if _8d_cover else 0)
+        _8d_n = len(ctx.page_assignments)
+        ok_line(
+            f"8d — Page counts valid"
+            f"  ·  {_8d_n} × {_8d_per} pages = {geo['scan_pages']} total"
+            + (f"  (cover + {geo['exam_pages']} answer)" if _8d_cover else "")
+        )
 
         # Authoritative cover_page_mode: derived from scan result inside assign_pages()
         ctx.cover_page_mode = any(
@@ -711,10 +718,12 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         pipeline_step(13 + ctx.step_offset, "AI marking")
         t0 = time.perf_counter()
         ctx.marking_api_calls = run_ai_marking(ctx, dpi=ctx.instruction.dpi)
-        _marked_total = len(ctx.marking_api_calls) + len(ctx.marking_failures)
+        _n_calls = len(ctx.marking_api_calls)
+        _n_failed = len(ctx.marking_failures)
+        _n_total = _n_calls + _n_failed
         ok_line(
-            f"{len(ctx.marking_api_calls)} API calls  ·  {_marked_total} pages marked"
-            + (f"  ·  {len(ctx.marking_failures)} failed" if ctx.marking_failures else "")
+            f"{_n_calls}/{_n_total} pages marked"
+            + (f"  ·  {_n_failed} failed" if _n_failed else "")
         )
         ctx.step_timings_marking["marking_s"] = time.perf_counter() - t0
 

@@ -41,12 +41,13 @@ def _latex_escape(text: str) -> str:
     return _LATEX_RE.sub(lambda m: _LATEX_MAP[m.group()], text)
 
 
+_LATEX_PASSTHROUGH_RE = re.compile(r'(\$[^$]+\$|\\[a-zA-Z]+\{[^}]*\})')
+
 def _latex_escape_smart(text: str) -> str:
-    """Apply _latex_escape to non-math parts of *text*, leaving $...$ blocks intact."""
-    parts = re.split(r"(\$[^$]+\$)", text)
+    """Apply _latex_escape to plain text, leaving $...$ and \\command{...} blocks intact."""
+    parts = _LATEX_PASSTHROUGH_RE.split(text)
     return "".join(
-        part if (part.startswith("$") and part.endswith("$") and len(part) > 1)
-        else _latex_escape(part)
+        part if _LATEX_PASSTHROUGH_RE.fullmatch(part) else _latex_escape(part)
         for part in parts
     )
 

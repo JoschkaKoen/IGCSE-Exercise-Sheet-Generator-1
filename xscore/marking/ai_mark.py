@@ -676,10 +676,11 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         safe_name = student_name or f"Unknown_{p_label}"
         key = f"{student_name}_{p_label}"
 
+        _total_pages = len(assignment["page_numbers"])
         with _display_lock:
             _student_lines[key] = (
                 f"[dim]  {icon('info')}  Student '{student_name}'"
-                f" · page {answer_label}/{answer_page_count}[/]"
+                f" · page {p_label}/{_total_pages}[/]"
             )
             if _use_live:
                 live.update(_render())
@@ -699,7 +700,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             if extra_scan_pages and not _use_pdf_path:
                 _warn(
                     f"GEMINI_API_KEY not set — blank continuation pages for "
-                    f"'{student_name}' page {answer_label} will be omitted from marking"
+                    f"'{student_name}' page {p_label} will be omitted from marking"
                 )
             if _use_pdf_path:
                 import shutil
@@ -758,7 +759,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             with _display_lock:
                 _student_lines[key] = (
                     f"[red]  {icon('warn')}  Student '{student_name}'"
-                    f" · page {answer_label}/{answer_page_count}  ·  FAILED[/]"
+                    f" · page {p_label}/{_total_pages}  ·  FAILED[/]"
                 )
                 if _use_live:
                     live.update(_render())
@@ -770,7 +771,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         with _display_lock:
             _student_lines[key] = (
                 f"[green]  {icon('ok')}  Student '{student_name}'"
-                f" · page {answer_label}/{answer_page_count}  ·  {format_duration(mark_dur)}[/]"
+                f" · page {p_label}/{_total_pages}  ·  {format_duration(mark_dur)}[/]"
             )
             if _use_live:
                 live.update(_render())
