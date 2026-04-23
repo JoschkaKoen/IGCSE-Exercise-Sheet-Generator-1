@@ -10,6 +10,7 @@ overlay PDF generator produces a clean copy of the exam PDF with no annotations.
 
 from __future__ import annotations
 
+import base64 as _base64
 import json
 import os
 import re
@@ -19,6 +20,8 @@ from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from pydantic import BaseModel
+
+from eXercise.ai_client import build_thinking_kwargs, make_ai_client
 
 from xscore.shared.exam_paths import (
     artifact_exam_questions_raw_xml_path,
@@ -47,6 +50,19 @@ class _LayoutDetectSchema(BaseModel):
 _LAYOUT_DETECT_JSON_SCHEMA: dict = _LayoutDetectSchema.model_json_schema()
 
 
+class _SchemeGraphic(BaseModel):
+    question_number: str   # "3(b)(ii)" as printed in the mark scheme
+    bbox: list[int]        # [x_min, y_min, x_max, y_max] on 0-1000 scale
+    description: str       # "circuit diagram"
+
+
+class _SchemePageGraphics(BaseModel):
+    graphics: list[_SchemeGraphic]
+
+
+_SCHEME_GRAPHICS_JSON_SCHEMA: dict = _SchemePageGraphics.model_json_schema()
+
+
 # ---------------------------------------------------------------------------
 # Model config — same pattern as load_student_list.py
 # ---------------------------------------------------------------------------
@@ -68,6 +84,10 @@ def _mark_scheme_model_config() -> tuple[str, str | None]:
 
 def _layout_detect_model_config() -> tuple[str, str | None]:
     return _parse_model(os.getenv("DETECT_LAYOUT_MODEL", "gemini-2.5-flash, low"))
+
+
+def _detect_scheme_graphics_model_config() -> tuple[str, str | None]:
+    return _parse_model(os.getenv("DETECT_SCHEME_GRAPHICS_MODEL", "gemini-2.5-flash, off"))
 
 
 # ---------------------------------------------------------------------------
@@ -237,15 +257,22 @@ mark scheme text. Do not skip any text associated with the question's marking cr
 - For multiple_choice questions: set correct_answer only; no <criterion> children needed
 - Keep every <question> element present — even if marks cannot be found for it
 - In XML text use &lt; for <, &gt; for >, &amp; for &
-- If the mark scheme contains a diagram, graph, or image (NOT a table) as part of the \
-expected answer for a question, add one <graphic page="N" y0="…" y1="…"/> \
-child element per graphic, where N is the 1-based page number in the mark scheme PDF and \
-y0/y1 are the normalised vertical positions (0.0–1.0, top-left origin) of the top and bottom \
-edges of the graphic region. The region must include the visual graphic AND all text labels, \
-annotations, or captions that are part of it (e.g. node names, arrow labels, axis titles). \
-Include a small margin above and below — do not clip tightly. \
-Omit <graphic> entirely when there is no graphic.
 """
+
+_USER_GRAPHICS = (
+    "Identify diagrams, figures, and illustrations on this page — things a human would "
+    "describe as 'a drawing' or 'a figure'. This includes circuit diagrams, logic gate "
+    "diagrams, network diagrams, ray diagrams, graphs with plotted data or axes, labeled "
+    "physical setups, geometric figures, flowcharts, and maps.\n\n"
+    "This does NOT include: tables (even tables with borders), truth tables, mathematical "
+    "equations or expressions, pseudocode, program code, text with unusual formatting, "
+    "page decorations, logos, or page numbers. Don't include text lines beside the graphic.\n\n"
+    "For each graphic return:\n"
+    "  question_number — the question number as printed in the mark scheme (e.g. \"3(b)(ii)\")\n"
+    "  bbox            — [x_min, y_min, x_max, y_max] as integers on a 0\u20131000 scale\n"
+    "  description     — short label (e.g. \"circuit diagram\")\n\n"
+    "Return an empty graphics list if the page has no graphics."
+)
 
 _SYSTEM_LAYOUT = "You are an expert at identifying exam paper printing layouts."
 
@@ -800,6 +827,7 @@ def build_ai_scaffold(
 
     exam_model, exam_effort = _exam_pdf_model_config()
     scheme_model, scheme_effort = _mark_scheme_model_config()
+    graphics_model, graphics_effort = _detect_scheme_graphics_model_config()
     client = gai.Client(api_key=api_key)
 
     thinking_map = {"off": 0, "low": 1024, "high": 8192}
@@ -1019,6 +1047,14 @@ def build_ai_scaffold(
                         _out.close()
                     page_paths.append(_out_path)
 
+            # 1b. Rasterize pages to PNG for graphics detection
+            _gfx_dpi = int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300"))
+            page_pngs: dict[int, bytes] = {}
+            with fitz.open(str(marking_scheme_pdf)) as _doc_r:
+                for _i in range(n_pages):
+                    pix = _doc_r[_i].get_pixmap(dpi=_gfx_dpi)
+                    page_pngs[_i + 1] = pix.tobytes("png")
+
             # 2. Upload all pages in parallel
             info_line(f"Mark scheme: uploading {n_pages} page(s) …")
 
@@ -1073,16 +1109,96 @@ def build_ai_scaffold(
                     )
                     save_response(_prompt_path, raw or "")
                 result = _parse_scheme_xml(raw or "")
-                for _q in result.get("questions", []):
-                    for _g in (_q.get("graphics") or []):
-                        _g["page"] = page_num
                 return result
 
-            with ThreadPoolExecutor(max_workers=n_pages) as pool:
-                page_results = list(pool.map(_call_page, range(1, n_pages + 1)))
+            # Build graphics detection system message (schema embedded once, shared across threads)
+            _gfx_schema_str = json.dumps(_SCHEME_GRAPHICS_JSON_SCHEMA, indent=2)
+            _gfx_system = (
+                "You are a graphic-detection assistant for Cambridge IGCSE mark schemes. "
+                "Respond ONLY with valid JSON matching this schema:\n" + _gfx_schema_str + "\n\n"
+                "Return bounding boxes as [x_min, y_min, x_max, y_max] with integer "
+                "coordinates on a 0\u20131000 scale (0=top-left, 1000=bottom-right of the image)."
+            )
+
+            def _detect_graphics_page(page_num: int) -> dict:  # no-op fallback
+                return {"questions": []}
+
+            _gfx_client_result = make_ai_client(model_env="DETECT_SCHEME_GRAPHICS_MODEL")
+            if _gfx_client_result is None:
+                warn_line("DETECT_SCHEME_GRAPHICS_MODEL: API key missing — graphics detection skipped")
+            else:
+                _det_client, _det_model, _det_provider, _ = _gfx_client_result
+                # Always force thinking off: visual detection needs no reasoning and must be non-streaming.
+                _, _det_thinking_kw = build_thinking_kwargs(_det_provider, "off")
+                info_line(f"Mark scheme: detecting graphics ({_det_model}) …")
+
+                def _detect_graphics_page(page_num: int) -> dict:
+                    b64 = _base64.b64encode(page_pngs[page_num]).decode()
+                    _t0 = time.perf_counter()
+                    try:
+                        resp = _det_client.chat.completions.create(
+                            model=_det_model,
+                            messages=[
+                                {"role": "system", "content": _gfx_system},
+                                {"role": "user", "content": [
+                                    {"type": "image_url",
+                                     "image_url": {"url": f"data:image/png;base64,{b64}"}},
+                                    {"type": "text", "text": _USER_GRAPHICS},
+                                ]},
+                            ],
+                            response_format={"type": "json_object"},
+                            **_det_thinking_kw,
+                        )
+                        ok_line(f"{format_duration(time.perf_counter() - _t0)}  (scheme graphics p{page_num})")
+                        raw = resp.choices[0].message.content or '{"graphics":[]}'
+                    except Exception as _exc:
+                        warn_line(f"Scheme graphics p{page_num}: API error  ·  {format_duration(time.perf_counter() - _t0)}  —  {_exc}")
+                        return {"questions": []}
+                    try:
+                        data = json.loads(raw)
+                    except json.JSONDecodeError:
+                        return {"questions": []}
+                    if artifact_dir is not None:
+                        _prompt_path = artifact_prompt_path(artifact_dir, f"11_mark_scheme_graphics_detect_p{page_num}")
+                        save_prompt(_prompt_path, model=_det_model, system=_gfx_system,
+                                    messages=[{"role": "user", "content": f"[PNG: p{page_num}]\n\n{_USER_GRAPHICS}"}])
+                        save_response(_prompt_path, raw)
+                    questions_map: dict[str, list] = {}
+                    for g in data.get("graphics", []):
+                        qnum = str(g.get("question_number", "")).strip()
+                        bbox = g.get("bbox") or []
+                        if not qnum or len(bbox) != 4:
+                            continue
+                        x_min, y_min, x_max, y_max = bbox
+                        questions_map.setdefault(qnum, []).append({
+                            "page": page_num,
+                            "x0": x_min / 1000.0, "y0": y_min / 1000.0,
+                            "x1": x_max / 1000.0, "y1": y_max / 1000.0,
+                        })
+                    return {
+                        "questions": [
+                            {"number": qnum, "correct_answer": None, "mark_scheme": [], "graphics": gfx}
+                            for qnum, gfx in questions_map.items()
+                        ]
+                    }
+
+            with ThreadPoolExecutor(max_workers=n_pages * 2) as pool:
+                _scheme_futs   = [pool.submit(_call_page,            p) for p in range(1, n_pages + 1)]
+                _graphics_futs = [pool.submit(_detect_graphics_page, p) for p in range(1, n_pages + 1)]
+                page_results          = [f.result() for f in _scheme_futs]
+                graphics_page_results = [f.result() for f in _graphics_futs]
 
             # 4. Merge
             result = _merge_scheme_results(page_results)
+            _graphics_merged = _merge_scheme_results(graphics_page_results)
+            _graphics_by_qnum = {
+                q["number"]: q["graphics"]
+                for q in _graphics_merged.get("questions", [])
+                if q.get("graphics")
+            }
+            for _q in result.get("questions", []):
+                if _q["number"] in _graphics_by_qnum:
+                    _q["graphics"] = _graphics_by_qnum[_q["number"]]
             ok_line(
                 f"Mark scheme: merged {n_pages} page(s)  ·  "
                 f"{len(result['questions'])} question(s)"
