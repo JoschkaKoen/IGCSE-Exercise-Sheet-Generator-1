@@ -226,7 +226,8 @@ separate <criterion> element, copied verbatim
 expected answer for a question, add one <graphic page="N" x0="…" y0="…" x1="…" y1="…"/> \
 child element per graphic, where N is the 1-based page number in the mark scheme PDF and \
 x0/y0/x1/y1 are normalised bounding-box coordinates (0.0–1.0, top-left origin). \
-Omit <graphic> entirely when there is no graphic.
+The bbox must encompass the complete graphic plus a small margin of surrounding whitespace — \
+do not clip tightly to the graphic edges. Omit <graphic> entirely when there is no graphic.
 """
 
 _SYSTEM_LAYOUT = "You are an expert at identifying exam paper printing layouts."
@@ -681,6 +682,25 @@ def _parse_scheme_xml(raw: str) -> dict:
     return {"questions": questions}
 
 
+def _merge_scheme_results(page_results: list[dict]) -> dict:
+    """Merge per-page _parse_scheme_xml results into one dict.
+
+    Per question: first non-null correct_answer; concatenated mark_scheme + graphics lists.
+    """
+    merged: dict[str, dict] = {}
+    for result in page_results:
+        for q in result.get("questions", []):
+            num = q["number"]
+            if num not in merged:
+                merged[num] = {"number": num, "correct_answer": None,
+                               "mark_scheme": [], "graphics": []}
+            if not merged[num]["correct_answer"] and q.get("correct_answer"):
+                merged[num]["correct_answer"] = q["correct_answer"]
+            merged[num]["mark_scheme"].extend(q.get("mark_scheme") or [])
+            merged[num]["graphics"].extend(q.get("graphics") or [])
+    return {"questions": list(merged.values())}
+
+
 def _extract_scheme_graphics(
     questions: list[dict],
     scheme_pdf: "Path",
@@ -791,7 +811,13 @@ def build_ai_scaffold(
     uploaded_files: dict[str, object] = {}
 
     try:
-        from xscore.shared.terminal_ui import api_latency_line, ok_line, tool_line, warn_line
+        from xscore.shared.terminal_ui import (
+            api_latency_line,
+            info_line,
+            ok_line,
+            tool_line,
+            warn_line,
+        )
 
         # ---- Step A: cheap layout detection + PDF splitting (split mode) ---
         if split_subpages:
@@ -878,17 +904,7 @@ def build_ai_scaffold(
 
         # ---- Upload PDFs in parallel ----------------------------------------
         actual_exam_pdf = split_pdf_path if split_pdf_path is not None else exam_pdf
-        pdfs_to_upload: list[tuple[str, Path]] = [("exam", actual_exam_pdf)]
-        if marking_scheme_pdf is not None:
-            pdfs_to_upload.append(("scheme", marking_scheme_pdf))
-
-        def _upload(item: tuple[str, Path]):
-            label, path = item
-            return label, _upload_and_poll(client, path, label)
-
-        with ThreadPoolExecutor(max_workers=2) as pool:
-            for label, f in pool.map(_upload, pdfs_to_upload):
-                uploaded_files[label] = f
+        uploaded_files["exam"] = _upload_and_poll(client, actual_exam_pdf, "exam")
 
         # ---- Inference closures (called from threads or inline) -----------
 
@@ -961,43 +977,123 @@ def build_ai_scaffold(
                 )
 
         def _do_scheme_call(scaffold: str) -> dict:
-            user_msg = _USER_SCHEME.format(scaffold=scaffold)
-            _t0 = time.perf_counter()
-            resp = client.models.generate_content(
-                model=scheme_model,
-                contents=[
-                    gai_types.Part.from_uri(
-                        file_uri=uploaded_files["scheme"].uri, mime_type="application/pdf"
-                    ),
-                    gai_types.Part.from_text(text=user_msg),
-                ],
-                config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
-            )
-            api_latency_line(time.perf_counter() - _t0, label="mark scheme")
+            import fitz
+
+            # 1. Extract single-page PDFs from the mark scheme
             if artifact_dir is not None:
-                save_prompt(
-                    artifact_prompt_path(artifact_dir, "11_mark_scheme"),
-                    model=scheme_model, system=_SYSTEM_SCHEME,
-                    messages=[{
-                        "role": "user",
-                        "content": f"[PDF: {marking_scheme_pdf.name}]\n\n{user_msg}",
-                    }],
+                pages_dir = artifact_dir / "11_mark_scheme_pages"
+            else:
+                import tempfile
+                pages_dir = Path(tempfile.mkdtemp())
+            pages_dir.mkdir(parents=True, exist_ok=True)
+
+            page_paths: list[Path] = []
+            with fitz.open(str(marking_scheme_pdf)) as _doc:
+                n_pages = _doc.page_count
+                for _i in range(n_pages):
+                    _out_path = pages_dir / f"page_{_i + 1}.pdf"
+                    _out = fitz.open()
+                    try:
+                        _out.insert_pdf(_doc, from_page=_i, to_page=_i)
+                        _out.save(str(_out_path))
+                    finally:
+                        _out.close()
+                    page_paths.append(_out_path)
+
+            # 2. Upload all pages in parallel
+            info_line(f"Mark scheme: uploading {n_pages} page(s) …")
+
+            def _upload_page(item: tuple[int, Path]):
+                page_num, path = item
+                return page_num, _upload_and_poll(client, path, f"scheme p{page_num}")
+
+            page_uris: dict[int, str] = {}
+            with ThreadPoolExecutor(max_workers=n_pages) as pool:
+                for page_num, f in pool.map(_upload_page, enumerate(page_paths, 1)):
+                    page_uris[page_num] = f.uri
+
+            # 3. Per-page API calls in parallel
+            info_line(f"Mark scheme: parsing {n_pages} page(s) in parallel …")
+
+            def _call_page(page_num: int) -> dict:
+                page_note = (
+                    f"\n\nNote: the PDF you receive contains only page {page_num} of {n_pages} "
+                    "of the mark scheme. Only fill in correct_answer and <criterion> elements for "
+                    "questions whose criteria appear on this page. For all other questions leave "
+                    "correct_answer empty and add no <criterion> elements."
                 )
-            raw_scheme = _extract_text(resp)
-            if not raw_scheme:
-                warn_line(f"Mark scheme API: empty response ({_finish_reason(resp)}) — skipping scheme")
-            result = _parse_scheme_xml(raw_scheme)
+                user_msg = _USER_SCHEME.format(scaffold=scaffold) + page_note
+                _t0 = time.perf_counter()
+                try:
+                    resp = client.models.generate_content(
+                        model=scheme_model,
+                        contents=[
+                            gai_types.Part.from_uri(
+                                file_uri=page_uris[page_num], mime_type="application/pdf"
+                            ),
+                            gai_types.Part.from_text(text=user_msg),
+                        ],
+                        config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
+                    )
+                    api_latency_line(time.perf_counter() - _t0, label=f"mark scheme p{page_num}")
+                    raw = _extract_text(resp)
+                except Exception as _exc:
+                    api_latency_line(time.perf_counter() - _t0, label=f"mark scheme p{page_num}")
+                    warn_line(f"Mark scheme p{page_num}: API error — {_exc}")
+                    return {"questions": []}
+                if not raw:
+                    warn_line(f"Mark scheme p{page_num}: empty response ({_finish_reason(resp)})")
+                if artifact_dir is not None:
+                    save_prompt(
+                        artifact_prompt_path(artifact_dir, f"11_mark_scheme_p{page_num}"),
+                        model=scheme_model, system=_SYSTEM_SCHEME,
+                        messages=[{
+                            "role": "user",
+                            "content": f"[PDF: {marking_scheme_pdf.name} p{page_num}]\n\n{user_msg}",
+                        }],
+                    )
+                    try:
+                        _xp = pages_dir / f"page_{page_num}.xml"
+                        _xp.write_text(_preprocess_xml(raw or ""), encoding="utf-8")
+                    except OSError:
+                        pass
+                return _parse_scheme_xml(raw or "")
+
+            with ThreadPoolExecutor(max_workers=n_pages) as pool:
+                page_results = list(pool.map(_call_page, range(1, n_pages + 1)))
+
+            # 4. Merge
+            result = _merge_scheme_results(page_results)
+            ok_line(
+                f"Mark scheme: merged {n_pages} page(s)  ·  "
+                f"{len(result['questions'])} question(s)"
+            )
+
+            # 5. Save merged artifacts
             if artifact_dir is not None:
                 try:
                     from xscore.scaffold.scaffold_markdown import write_mark_scheme_markdown
+                    _root = ET.Element("scheme")
+                    for _q in result.get("questions", []):
+                        _qel = ET.SubElement(_root, "question")
+                        _qel.set("number", _q["number"])
+                        _qel.set("correct_answer", _q.get("correct_answer") or "")
+                        for _c in (_q.get("mark_scheme") or []):
+                            _cel = ET.SubElement(_qel, "criterion")
+                            _cel.set("mark", _c.get("mark", ""))
+                            _cel.text = _c.get("criterion", "")
+                    ET.indent(_root)
+                    _xml_str = ET.tostring(_root, encoding="unicode", xml_declaration=False)
                     p = artifact_mark_scheme_xml_path(artifact_dir)
                     p.parent.mkdir(parents=True, exist_ok=True)
-                    p.write_text(_preprocess_xml(raw_scheme), encoding="utf-8")
+                    p.write_text(_xml_str, encoding="utf-8")
                     write_mark_scheme_markdown(artifact_dir, result.get("questions", []))
                 except Exception:
                     pass
+
+            # 6. Graphics extraction — unchanged
             if artifact_dir is not None and marking_scheme_pdf is not None:
-                _graphics_dpi = int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "150"))
+                _graphics_dpi = int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300"))
                 _n_graphics = sum(len(q.get("graphics") or []) for q in result.get("questions", []))
                 if _n_graphics:
                     try:
@@ -1010,8 +1106,7 @@ def build_ai_scaffold(
                         ok_line(f"Mark scheme: {_n_graphics} graphic(s) extracted")
                     except Exception:
                         warn_line("Mark scheme: graphic extraction failed")
-                else:
-                    ok_line("Mark scheme: no graphics detected")
+
             return result
 
         # ---- Step 9: exam extraction ----------------------------------------
@@ -1036,7 +1131,7 @@ def build_ai_scaffold(
             on_exam_complete(raw_questions)
 
         # ---- Step 10: mark scheme extraction (uses step-9 scaffold) ---------
-        if "scheme" in uploaded_files:
+        if marking_scheme_pdf is not None:
             scaffold = _build_scheme_scaffold(raw_questions)
             try:
                 scheme_data: dict = _do_scheme_call(scaffold)

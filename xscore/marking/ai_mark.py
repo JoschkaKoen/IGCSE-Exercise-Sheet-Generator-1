@@ -204,6 +204,7 @@ def _mark_page(
     use_stream: bool = False,
     prompt_save_path: Path | None = None,
     warn: Callable[[str], None] = warn_line,
+    scheme_graphics: list[tuple[str, str]] = (),
 ) -> dict:
     """Vision call to fill in a marking blueprint for one scan page.
 
@@ -279,22 +280,40 @@ def _mark_page(
             "by subpage_row + subpage_col + question text, not by number alone."
         )
 
+    # --- Section F: mark-scheme graphics (only when present) ---
+    if scheme_graphics:
+        _seen: dict[str, int] = {}
+        for _qn, _ in scheme_graphics:
+            _seen[_qn] = _seen.get(_qn, 0) + 1
+        _idx: dict[str, int] = {}
+        _lines = [
+            "\n\nThe mark scheme for the following question(s) includes a diagram or graph "
+            "as the expected answer. The corresponding mark-scheme images are appended "
+            "after the student's page in the order listed below:"
+        ]
+        for _qn, _ in scheme_graphics:
+            _idx[_qn] = _idx.get(_qn, 0) + 1
+            _label = f"image {_idx[_qn]}" if _seen[_qn] > 1 else "image"
+            _lines.append(f"  • Question {_qn} expected answer → {_label}")
+        _lines.append("Use these images when assessing the student's diagram or graph for the listed questions.")
+        system_prompt += "\n".join(_lines)
+
     user_text = (
         "Fill in the three empty fields for each question "
         "(<student_answer>, <assigned_marks>, <explanation>):\n"
         f"{blueprint_xml}"
     )
+    _user_content: list[dict] = [
+        {"type": "text", "text": user_text},
+        {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
+    ]
+    for _, _g_b64 in scheme_graphics:
+        _user_content.append({"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_g_b64}"}})
     kwargs: dict[str, Any] = dict(
         model=model_id,
         messages=[
             {"role": "system", "content": system_prompt},
-            {
-                "role": "user",
-                "content": [
-                    {"type": "text", "text": user_text},
-                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
-                ],
-            },
+            {"role": "user", "content": _user_content},
         ],
     )
     kwargs.update(thinking_kw)
@@ -559,6 +578,20 @@ def _mark_page_pdf(
     )
 
 
+def _scheme_graphics_for_page(
+    blueprint: dict,
+    graphics_map: dict[str, list[Path]],
+) -> list[tuple[str, str]]:
+    """Return (question_number, base64_png) tuples for mark-scheme graphics on this page."""
+    out = []
+    for q in blueprint.get("questions", []):
+        qnum = str(q.get("number", ""))
+        safe_num = re.sub(r"[^\w]", "_", qnum)
+        for png_path in graphics_map.get(safe_num, []):
+            out.append((qnum, base64.b64encode(png_path.read_bytes()).decode()))
+    return out
+
+
 def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
@@ -636,6 +669,18 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             ctx.cleaned_pdf, ctx.artifact_dir, dpi, workers,
             instruction=getattr(ctx, "instruction", None),
         )
+
+    # Pre-build mark-scheme graphics map: safe_qnum → sorted list of PNG paths
+    _graphics_dir = ctx.artifact_dir / "11_mark_scheme_graphics"
+    _graphics_map: dict[str, list[Path]] = {}
+    if _graphics_dir.is_dir():
+        _gfx_re = re.compile(r"^\d+_(.+)_(\d+)\.png$")
+        for _p in sorted(_graphics_dir.glob("*.png")):
+            _m = _gfx_re.match(_p.name)
+            if _m:
+                _graphics_map.setdefault(_m.group(1), []).append(_p)
+        for _v in _graphics_map.values():
+            _v.sort()
 
     # Build flat per-page task list — cover pages, out-of-range pages, and blank exam pages
     # without handwriting are excluded here.
@@ -732,12 +777,14 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         pass
             else:
                 b64 = _b64_cache[(student_name, p_label)]
+                _page_graphics = _scheme_graphics_for_page(blueprint, _graphics_map)
                 filled = _mark_page(
                     client, model_id, b64, blueprint, _thinking_kw,
                     blueprint_xml=blueprint_xml,
                     use_stream=_use_stream,
                     prompt_save_path=prompt_save,
                     warn=_warn,
+                    scheme_graphics=_page_graphics,
                 )
         except MarkingFailure as mf:
             filled = blueprint.copy()
