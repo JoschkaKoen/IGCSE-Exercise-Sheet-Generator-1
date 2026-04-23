@@ -41,72 +41,22 @@ def _latex_escape(text: str) -> str:
     return _LATEX_RE.sub(lambda m: _LATEX_MAP[m.group()], text)
 
 
-_LATEX_PASSTHROUGH_RE = re.compile(r'(\$[^$]+\$|\\[a-zA-Z]+\{[^}]*\})')
-
-def _latex_escape_smart(text: str) -> str:
-    """Apply _latex_escape to plain text, leaving $...$ and \\command{...} blocks intact."""
-    parts = _LATEX_PASSTHROUGH_RE.split(text)
-    return "".join(
-        part if _LATEX_PASSTHROUGH_RE.fullmatch(part) else _latex_escape(part)
-        for part in parts
-    )
-
-
 def _restore_json_control_chars(text: str) -> str:
-    """Undo JSON escape-sequence damage in AI-generated LaTeX text.
+    """Undo JSON transport corruption in AI-generated LaTeX text.
 
-    JSON parsers interpret \\t, \\f, \\r, \\b as control characters.
-    LaTeX commands starting with those letters (\\times, \\frac, \\rightarrow,
-    \\boldsymbol) get silently corrupted. This restores them to backslash + letter
-    before the LaTeX escape pipeline runs.
-    Handles both single-escaped (\\t → tab) and double-escaped (\\\\t → backslash+tab)
-    variants so AI over-escaping produces a single backslash, not two.
-    \\n is left intact — _latex_newlines() needs it for table-cell line breaks.
+    Some API implementations return \\t, \\f, \\r, \\b as literal control characters
+    inside JSON strings, corrupting LaTeX commands like \\times, \\frac, \\rightarrow,
+    \\boldsymbol. This restores them to backslash + letter.
     """
     for ctrl, letter in [("\t", "t"), ("\f", "f"), ("\r", "r"), ("\b", "b")]:
-        text = text.replace("\\" + ctrl, "\\" + letter)  # backslash+ctrl → backslash+letter first
-        text = text.replace(ctrl, "\\" + letter)          # bare ctrl → backslash+letter
+        text = text.replace("\\" + ctrl, "\\" + letter)
+        text = text.replace(ctrl, "\\" + letter)
     return text
 
 
-def _latex_newlines(text: str) -> str:
-    """Replace Python newlines with LaTeX \\newline for p{} table cells.
-
-    Must be called AFTER _latex_escape_smart — if called before, the backslash
-    in \\newline would itself be escaped to \\textbackslash{}newline.
-
-    Skips $...$ math blocks: stray CR/LF inside math are stripped rather than
-    converted to \\newline (safety net; _restore_json_control_chars should have
-    already restored \\r artefacts to backslash+r before this is called).
-    """
-    parts = re.split(r"(\$[^$]+\$)", text)
-    result = []
-    for part in parts:
-        if part.startswith("$") and part.endswith("$") and len(part) > 1:
-            result.append(re.sub(r"[\r\n]", " ", part))
-        else:
-            part = part.replace("\r\n", "\n").replace("\r", "\n")
-            # "\\newline " is a regular-string literal: one backslash → \newline in LaTeX.
-            # (str.replace is literal, not a regex, so "\\" here means one backslash.)
-            part = part.replace("\n", "\\newline ")
-            result.append(part)
-    return "".join(result)
-
-
-def _strip_mark_outcome(text: str) -> str:
-    """Remove the trailing mark tally the AI appends to explanations.
-
-    Patterns stripped (case-insensitive, with em-dash, en-dash, or hyphen):
-      "— 1 mark."  "— 0 marks."  "— 1 of 2 marks."  "– 2/3 marks."
-    The Got column already shows the awarded marks, so this is redundant in the
-    Reasoning column.
-    """
-    return re.sub(
-        r'\s*[—–\-]\s*\d+(?:\s+of\s+\d+|\s*/\s*\d+)?\s+marks?\.?\s*$',
-        '',
-        text,
-        flags=re.IGNORECASE,
-    ).rstrip()
+def _ai_cell(text: str) -> str:
+    """Prepare AI-generated LaTeX text for a p{} table cell."""
+    return _restore_json_control_chars(text).replace("\n", "\\newline ")
 
 
 def _format_criteria_cell(raw: str) -> str:
@@ -115,6 +65,7 @@ def _format_criteria_cell(raw: str) -> str:
     Single-token criteria (one word or one number, no spaces) are grouped
     on one line joined with ' / '. Multi-word criteria each get their own line.
     """
+    raw = _restore_json_control_chars(raw)
     lines = []
     for line in raw.split("\n"):
         line = re.sub(r"^\s*\[[^\]]*\]\s*", "", line).strip()
@@ -140,7 +91,7 @@ def _format_criteria_cell(raw: str) -> str:
     result = "\n".join(segments)
     if len(result) > 300:
         result = result[:299] + "…"
-    return _latex_newlines(_latex_escape_smart(result))
+    return _ai_cell(result)
 
 
 # ---------------------------------------------------------------------------
@@ -332,7 +283,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         answer_raw = str(q.get("student_answer") or "").strip()
         answer = (
             "\\textit{(blank)}" if not answer_raw
-            else _latex_newlines(_latex_escape_smart(_restore_json_control_chars(answer_raw)))
+            else _ai_cell(answer_raw)
         )
         correct_raw = str(q.get("correct_answer") or "").strip()
         criteria_raw = str(q.get("marking_criteria") or "").strip()
@@ -340,14 +291,11 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         if question_type == "multiple_choice" or not criteria_raw:
             # MCQ: always show the answer letter.
             # Non-MCQ without criteria: fall back to correct_answer.
-            correct_ans = (
-                _latex_newlines(_latex_escape_smart(_restore_json_control_chars(correct_raw)))
-                if correct_raw else "---"
-            )
+            correct_ans = _ai_cell(correct_raw) if correct_raw else "---"
         else:
             # Non-MCQ with criteria: show the full breakdown regardless of correct_answer.
-            correct_ans = _format_criteria_cell(_restore_json_control_chars(criteria_raw))
-        reasoning = _latex_newlines(_latex_escape_smart(_restore_json_control_chars(_strip_mark_outcome(str(q.get("explanation") or "")))))
+            correct_ans = _format_criteria_cell(criteria_raw)
+        reasoning = _ai_cell(str(q.get("explanation") or ""))
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(
             f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"

@@ -627,12 +627,14 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         # ─────────────────────────────────────────────────────────────────────────────
 
         _8d_cover = any(a.cover_page_number is not None for a in ctx.page_assignments)
-        _8d_per = geo["exam_pages"] + (1 if _8d_cover else 0)
         _8d_n = len(ctx.page_assignments)
+        if _8d_cover:
+            _8d_per_str = f"cover + {geo['exam_pages']} answer"
+        else:
+            _8d_per_str = f"{geo['exam_pages']} pages"
         ok_line(
             f"8d — Page counts valid"
-            f"  ·  {_8d_n} × {_8d_per} pages = {geo['scan_pages']} total"
-            + (f"  (cover + {geo['exam_pages']} answer)" if _8d_cover else "")
+            f"  ·  {_8d_n} × ({_8d_per_str}) = {geo['scan_pages']} total"
         )
 
         # Authoritative cover_page_mode: derived from scan result inside assign_pages()

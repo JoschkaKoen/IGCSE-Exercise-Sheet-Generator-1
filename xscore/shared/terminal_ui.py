@@ -232,8 +232,9 @@ def tool_line(tool: str, message: str) -> None:
 
 
 def api_latency_line(seconds: float, *, label: str | None = None) -> None:
-    """Print a dim timing line after an AI API call completes."""
+    """Print a green completion line after an AI API call completes."""
     from rich.markup import escape as _escape
     dur = format_duration(seconds)
     suffix = f"  ({_escape(label)})" if label else ""
-    get_console().print(f"[dim]  {icon('info')}  {dur}{suffix}[/]")
+    get_console().print(f"[green]  {icon('ok')}  {dur}{suffix}[/]")
+    sys.stdout.flush()

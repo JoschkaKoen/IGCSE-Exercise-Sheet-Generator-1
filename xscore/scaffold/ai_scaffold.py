@@ -27,7 +27,7 @@ from xscore.shared.exam_paths import (
     artifact_prompt_path,
 )
 from xscore.shared.models import BBox, ExamLayout, McAnswerOption, Question
-from xscore.shared.prompt_logger import save_prompt
+from xscore.shared.prompt_logger import save_prompt, save_response
 
 
 # ---------------------------------------------------------------------------
@@ -225,6 +225,14 @@ mark scheme text. Do not skip any text associated with the question's marking cr
     tables              → \\begin{{tabular}}{{col-spec}} cell & cell \\\\ next row \\end{{tabular}} \
 (infer col-spec as l/c/r per column)
     inline math         → $...$
+    output contract     → your text is placed verbatim into LaTeX table cells (p{{}} columns).
+                          Escape characters that appear as literal text (not LaTeX syntax):
+                          % → \\%,   $ → \\$,   # → \\#,   _ → \\_,
+                          {{ → \\{{,   }} → \\}},   backslash → \\textbackslash{{}},
+                          literal ampersand → \\&amp;  (\\& for LaTeX + &amp; for XML, combined).
+                          Use \\newline (not a literal newline) for explicit line breaks.
+                          Write \\begin{{itemize}}/\\begin{{enumerate}} items inline —
+                          no literal newlines between \\begin{{...}}, \\item entries, \\end{{...}}.
     plain prose and introductory sentences are written verbatim (no special wrapping)
 - For multiple_choice questions: set correct_answer only; no <criterion> children needed
 - Keep every <question> element present — even if marks cannot be found for it
@@ -820,6 +828,7 @@ def build_ai_scaffold(
     try:
         from xscore.shared.terminal_ui import (
             api_latency_line,
+            format_duration,
             info_line,
             ok_line,
             tool_line,
@@ -1042,29 +1051,29 @@ def build_ai_scaffold(
                         ],
                         config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
                     )
-                    api_latency_line(time.perf_counter() - _t0, label=f"mark scheme p{page_num}")
+                    ok_line(f"{format_duration(time.perf_counter() - _t0)}  (mark scheme p{page_num})")
                     raw = _extract_text(resp)
                 except Exception as _exc:
-                    api_latency_line(time.perf_counter() - _t0, label=f"mark scheme p{page_num}")
-                    warn_line(f"Mark scheme p{page_num}: API error — {_exc}")
+                    warn_line(f"Mark scheme p{page_num}: API error  ·  {format_duration(time.perf_counter() - _t0)}  —  {_exc}")
                     return {"questions": []}
                 if not raw:
                     warn_line(f"Mark scheme p{page_num}: empty response ({_finish_reason(resp)})")
                 if artifact_dir is not None:
+                    _prompt_path = artifact_prompt_path(artifact_dir, f"11_mark_scheme_p{page_num}")
                     save_prompt(
-                        artifact_prompt_path(artifact_dir, f"11_mark_scheme_p{page_num}"),
+                        _prompt_path,
                         model=scheme_model, system=_SYSTEM_SCHEME,
                         messages=[{
                             "role": "user",
                             "content": f"[PDF: {marking_scheme_pdf.name} p{page_num}]\n\n{user_msg}",
                         }],
                     )
-                    try:
-                        _xp = pages_dir / f"page_{page_num}.xml"
-                        _xp.write_text(_preprocess_xml(raw or ""), encoding="utf-8")
-                    except OSError:
-                        pass
-                return _parse_scheme_xml(raw or "")
+                    save_response(_prompt_path, raw or "")
+                result = _parse_scheme_xml(raw or "")
+                for _q in result.get("questions", []):
+                    for _g in (_q.get("graphics") or []):
+                        _g["page"] = page_num
+                return result
 
             with ThreadPoolExecutor(max_workers=n_pages) as pool:
                 page_results = list(pool.map(_call_page, range(1, n_pages + 1)))

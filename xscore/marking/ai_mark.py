@@ -204,7 +204,7 @@ def _mark_page(
     use_stream: bool = False,
     prompt_save_path: Path | None = None,
     warn: Callable[[str], None] = warn_line,
-    scheme_graphics: list[tuple[str, str]] = (),
+    scheme_graphics: list[tuple[str, int, str]] = (),
 ) -> dict:
     """Vision call to fill in a marking blueprint for one scan page.
 
@@ -231,6 +231,12 @@ def _mark_page(
         "   • calculation: transcribe the student's full working and final answer verbatim.\n"
         "   • all other types: copy the student's written answer verbatim. "
         "Mark unreadable words with [?].\n"
+        "   The output is placed verbatim in a LaTeX document. "
+        "Escape characters that appear literally in the student's answer: "
+        "% → \\%, $ → \\$, # → \\#, _ → \\_, { → \\{, } → \\}, "
+        "backslash → \\textbackslash{}, "
+        "literal ampersand → \\&amp; (\\& for LaTeX + &amp; for XML, combined). "
+        "Use \\newline for line breaks; do not include literal newlines.\n"
         "2. assigned_marks — an integer 0–max_marks.\n"
         "   • Award 1 mark for each criterion the student satisfies, up to max_marks.\n"
         "   • For 'any N from' lists, each listed item is a separate mark point.\n"
@@ -243,6 +249,10 @@ def _mark_page(
         "(non native, high school english speakers). "
         "Address the student directly using 'you'. "
         "You can make important words bold using LaTeX syntax \\textbf{word}: only for important words. "
+        "Escape non-math special characters that appear literally in your prose: "
+        "% → \\%, _ → \\_, literal ampersand → \\&amp;. "
+        "Use \\newline for line breaks. "
+        "Do not append a mark tally (e.g. '— 1 mark.') at the end."
     )
 
     # --- Section C: output format + CRITICAL tag rule ---
@@ -265,7 +275,8 @@ def _mark_page(
         "• LaTeX: wrap all math in $...$  "
         "(e.g. $v = 2\\pi r / T$, $3.0 \\times 10^4$ m/s, $\\frac{d}{v}$). "
         "Use \\times, \\approx, \\frac{}{}, \\pi, \\rightarrow, \\% etc. "
-        "Failing to wrap math in $...$ will crash the PDF renderer."
+        "Failing to wrap math in $...$ will crash the PDF renderer.\n"
+        "• Do not append a mark tally ('— X marks.') at the end of any field."
     )
 
     # --- Section E: grid navigation (only for multi-subpage layouts) ---
@@ -283,7 +294,7 @@ def _mark_page(
     # --- Section F: mark-scheme graphics (only when present) ---
     if scheme_graphics:
         _seen: dict[str, int] = {}
-        for _qn, _ in scheme_graphics:
+        for _qn, _, _ in scheme_graphics:
             _seen[_qn] = _seen.get(_qn, 0) + 1
         _idx: dict[str, int] = {}
         _lines = [
@@ -291,7 +302,7 @@ def _mark_page(
             "as the expected answer. The corresponding mark-scheme images are appended "
             "after the student's page in the order listed below:"
         ]
-        for _qn, _ in scheme_graphics:
+        for _qn, _, _ in scheme_graphics:
             _idx[_qn] = _idx.get(_qn, 0) + 1
             _label = f"image {_idx[_qn]}" if _seen[_qn] > 1 else "image"
             _lines.append(f"  • Question {_qn} expected answer → {_label}")
@@ -307,7 +318,7 @@ def _mark_page(
         {"type": "text", "text": user_text},
         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
     ]
-    for _, _g_b64 in scheme_graphics:
+    for _, _, _g_b64 in scheme_graphics:
         _user_content.append({"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_g_b64}"}})
     kwargs: dict[str, Any] = dict(
         model=model_id,
@@ -581,14 +592,16 @@ def _mark_page_pdf(
 def _scheme_graphics_for_page(
     blueprint: dict,
     graphics_map: dict[str, list[Path]],
-) -> list[tuple[str, str]]:
-    """Return (question_number, base64_png) tuples for mark-scheme graphics on this page."""
+) -> list[tuple[str, int, str]]:
+    """Return (question_number, ms_page, base64_png) tuples for mark-scheme graphics on this page."""
     out = []
     for q in blueprint.get("questions", []):
         qnum = str(q.get("number", ""))
         safe_num = re.sub(r"[^\w]", "_", qnum)
         for png_path in graphics_map.get(safe_num, []):
-            out.append((qnum, base64.b64encode(png_path.read_bytes()).decode()))
+            page_prefix = png_path.name.split("_")[0]
+            ms_page = int(page_prefix) if page_prefix.isdigit() else 0
+            out.append((qnum, ms_page, base64.b64encode(png_path.read_bytes()).decode()))
     return out
 
 
@@ -738,6 +751,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         t0 = time.perf_counter()
         prompt_save = artifact_prompt_path(ctx.artifact_dir, f"14_marked_{safe_name}_{p_label}")
         try:
+            _page_graphics: list = []
             _use_pdf_path = extra_scan_pages and (
                 os.environ.get("GEMINI_API_KEY", "").strip()
                 or os.environ.get("GOOGLE_API_KEY", "").strip()
@@ -815,10 +829,15 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             return None, failure
 
         mark_dur = round(time.perf_counter() - t0, 2)
+        if _page_graphics:
+            _graphic_labels = [f"ms p{pg} Q{qn}" for qn, pg, _ in _page_graphics]
+            _graphic_note = f"  · +graphic ({', '.join(_graphic_labels)})"
+        else:
+            _graphic_note = ""
         with _display_lock:
             _student_lines[key] = (
                 f"[green]  {icon('ok')}  Student '{student_name}'"
-                f" · page {p_label}/{_total_pages}  ·  {format_duration(mark_dur)}[/]"
+                f" · page {p_label}/{_total_pages}  ·  {format_duration(mark_dur)}{_graphic_note}[/]"
             )
             if _use_live:
                 live.update(_render())
