@@ -25,17 +25,10 @@ def _quadrant_label(row: int, col: int, total_rows: int, total_cols: int) -> str
 
 
 def _criteria_from_marking_str(criteria_str: str | None) -> list[tuple[str, str]]:
-    """Parse '[B1] text\n[M1] text' → [(mark, text), ...]."""
-    if not criteria_str:
+    """Return the full marking criteria block as a single (mark, text) entry."""
+    if not criteria_str or not criteria_str.strip():
         return []
-    result = []
-    for line in criteria_str.strip().splitlines():
-        m = re.match(r'^\[([^\]]*)\]\s*(.*)', line.strip())
-        if m:
-            result.append((m.group(1), m.group(2).strip()))
-        elif line.strip():
-            result.append(("", line.strip()))
-    return result
+    return [("", criteria_str.strip())]
 
 
 def _build_blueprint_xml(page_num: int, layout: Any, page_qs: list[dict]) -> str:

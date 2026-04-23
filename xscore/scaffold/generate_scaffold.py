@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import json
 import os
-import re
 import shutil
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -323,20 +322,14 @@ def _load_cache(folder: Path, artifact_dir: Path) -> ExamScaffold:
 
 
 def _criterion_str_to_elements(criteria_str: str) -> list[ET.Element]:
-    """Convert '[B1] text\n[M1] text' → list of <criterion mark="B1"> elements."""
-    elements = []
-    for line in criteria_str.strip().splitlines():
-        el = ET.Element("criterion")
-        m = re.match(r'^\[([^\]]*)\]\s*(.*)', line.strip())
-        if m:
-            el.set("mark", m.group(1))
-            el.text = m.group(2).strip()
-        else:
-            el.set("mark", "")
-            el.text = line.strip()
-        if el.text:
-            elements.append(el)
-    return elements
+    """Convert a LaTeX-formatted marking criteria block → single <criterion mark=""> element."""
+    text = criteria_str.strip()
+    if not text:
+        return []
+    el = ET.Element("criterion")
+    el.set("mark", "")
+    el.text = text
+    return [el]
 
 
 def _question_to_xml_element(q: Question) -> ET.Element:

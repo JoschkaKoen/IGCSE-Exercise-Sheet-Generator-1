@@ -206,19 +206,26 @@ _USER_SCHEME = """\
 Return ONLY well-formed XML, no markdown fences or other text outside the XML.
 
 Below is a scaffold listing every question from the exam. Fill in the correct_answer \
-attribute and add <criterion> children for each question, based on the mark scheme PDF.
+attribute and add a <criterion> child for each question, based on the mark scheme PDF.
 
 {scaffold}
 
 For each <question>:
 - correct_answer attribute: model answer with $...$ for inline math \
 (e.g. "$1.5 \\times 10^{{11}}$ m"); for multiple-choice just the letter
-- <criterion> children: each has a mark attribute ("B1"/"M1"/"A1"/etc., or empty string); \
-element text is the criterion description — use $...$ for any math
-- Extract each criterion exactly as it appears in the mark scheme — do not merge multiple \
-criteria into one <criterion> element and do not add any criteria that are not in the PDF
-- Bullet points, numbered items, and semicolon-separated list entries should each become a \
-separate <criterion> element, copied verbatim
+- <criterion mark=""> child: extract the COMPLETE marking scheme text for this question \
+as a single <criterion mark=""> element containing a LaTeX-formatted block. \
+Include ALL content — introductory sentences (e.g. "One mark per each correct character \
+in the correct order:"), bullet lists, numbered lists, tables, bold text, and any other \
+mark scheme text. Do not skip any text associated with the question's marking criteria.
+- LaTeX formatting rules for the block:
+    bold text           → \\textbf{{...}}
+    unordered lists     → \\begin{{itemize}}\\item ...\\item ...\\end{{itemize}}
+    ordered/numbered lists → \\begin{{enumerate}}\\item ...\\item ...\\end{{enumerate}}
+    tables              → \\begin{{tabular}}{{col-spec}} cell & cell \\\\ next row \\end{{tabular}} \
+(infer col-spec as l/c/r per column)
+    inline math         → $...$
+    plain prose and introductory sentences are written verbatim (no special wrapping)
 - For multiple_choice questions: set correct_answer only; no <criterion> children needed
 - Keep every <question> element present — even if marks cannot be found for it
 - In XML text use &lt; for <, &gt; for >, &amp; for &
@@ -902,7 +909,7 @@ def build_ai_scaffold(
             if on_cut_complete is not None:
                 on_cut_complete(n_cells == 1)
 
-        # ---- Upload PDFs in parallel ----------------------------------------
+        # ---- Upload exam PDF ------------------------------------------------
         actual_exam_pdf = split_pdf_path if split_pdf_path is not None else exam_pdf
         uploaded_files["exam"] = _upload_and_poll(client, actual_exam_pdf, "exam")
 
