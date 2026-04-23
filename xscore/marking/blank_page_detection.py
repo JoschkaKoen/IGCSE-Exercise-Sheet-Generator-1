@@ -230,11 +230,18 @@ def check_blank_pages(
         student_entries = sorted(by_student.get(a.student_name, []), key=lambda x: x[0])
         blank_scan_pages = []
         for exam_page, scan_page, has_hw in student_entries:
+            attach_exam = _attach_target(exam_page) if has_hw else None
+            attach_scan_page: int | None = None
+            if attach_exam is not None:
+                attach_p_label = attach_exam + cover_offset
+                if 1 <= attach_p_label <= len(a.page_numbers):
+                    attach_scan_page = a.page_numbers[attach_p_label - 1]
             entry: dict = {
                 "exam_page": exam_page,
                 "scan_page": scan_page,
                 "has_handwriting": has_hw,
-                "attach_to_exam_page": _attach_target(exam_page) if has_hw else None,
+                "attach_to_exam_page": attach_exam,
+                "attach_to_scan_page": attach_scan_page,
             }
             blank_scan_pages.append(entry)
         students_out.append({"student_name": a.student_name, "blank_scan_pages": blank_scan_pages})

@@ -340,12 +340,13 @@ def _mark_page(
 
             if _unfilled:
                 warn(f"Marking: {len(_unfilled)} blueprint question(s) skipped by AI: {_unfilled}")
-            _unmatched_count = sum(
-                max(0, len(grp) - fill_group_idx.get(key, 0))
-                for key, grp in fill_groups.items()
-            )
-            if _unmatched_count:
-                warn(f"Marking: {_unmatched_count} AI entries had no matching blueprint question")
+            _unmatched: list[str] = []
+            for key, grp in fill_groups.items():
+                excess = len(grp) - fill_group_idx.get(key, 0)
+                for fq in grp[fill_group_idx.get(key, 0):fill_group_idx.get(key, 0) + max(0, excess)]:
+                    _unmatched.append(fq.get("number") or str(key))
+            if _unmatched:
+                warn(f"Marking: AI returned question(s) with no blueprint match: {_unmatched}")
             _fix_mc_marks(result)
             for bq in result.get("questions", []):
                 if not (bq.get("student_answer") or "").strip():
@@ -595,16 +596,21 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
 
     # Load blank page detection results (written by step 8 blank_page_detection).
     _blank_json = ctx.artifact_dir / "8_blank_pages.json"
-    _blank_exam_pages: set[int] = set()
+    # Keys: student_name → set of scan_pages to skip (blank, no handwriting)
+    _skip_scan_pages_by_student: dict[str, set[int]] = {}
+    # Keys: student_name → {exercise_scan_page → [extra_blank_scan_pages_with_handwriting]}
     _extra_by_student: dict[str, dict[int, list[int]]] = {}
     if _blank_json.exists():
         _bdata = json.loads(_blank_json.read_text(encoding="utf-8"))
-        _blank_exam_pages = set(_bdata.get("blank_exam_pages", []))
         for _s in _bdata.get("students", []):
+            _skip: set[int] = set()
             _extras: dict[int, list[int]] = {}
             for _bp in _s["blank_scan_pages"]:
-                if _bp["has_handwriting"] and _bp["attach_to_exam_page"]:
-                    _extras.setdefault(_bp["attach_to_exam_page"], []).append(_bp["scan_page"])
+                if not _bp["has_handwriting"]:
+                    _skip.add(_bp["scan_page"])
+                elif _bp.get("attach_to_scan_page") is not None:
+                    _extras.setdefault(_bp["attach_to_scan_page"], []).append(_bp["scan_page"])
+            _skip_scan_pages_by_student[_s["student_name"]] = _skip
             _extra_by_student[_s["student_name"]] = _extras
 
     _instr = getattr(ctx, "instruction", None)
@@ -637,16 +643,18 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     for a in raw_assignments:
         has_cover = a.get("cover_page_number") is not None
         answer_page_count = len(a["page_numbers"]) - (1 if has_cover else 0)
+        student_skip = _skip_scan_pages_by_student.get(a["student_name"], set())
         student_extras = _extra_by_student.get(a["student_name"], {})
         for p_label, _ in enumerate(a["page_numbers"], 1):
             if has_cover and p_label == 1:
                 continue
             answer_label = p_label - (1 if has_cover else 0)
+            scan_page = a["page_numbers"][p_label - 1]
             if ctx.scaffold is not None and p_label > ctx.scaffold.page_count:
                 continue
-            if answer_label in _blank_exam_pages:
+            if scan_page in student_skip:
                 continue
-            extra_scan_pages = student_extras.get(answer_label, [])
+            extra_scan_pages = student_extras.get(scan_page, [])
             page_tasks.append((a, p_label, answer_label, answer_page_count, extra_scan_pages))
 
     import contextlib
@@ -761,7 +769,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         mark_dur = round(time.perf_counter() - t0, 2)
         with _display_lock:
             _student_lines[key] = (
-                f"[dim]  {icon('info')}  Student '{student_name}'"
+                f"[green]  {icon('ok')}  Student '{student_name}'"
                 f" · page {answer_label}/{answer_page_count}  ·  {format_duration(mark_dur)}[/]"
             )
             if _use_live:

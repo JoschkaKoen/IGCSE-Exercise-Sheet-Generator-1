@@ -471,7 +471,6 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         if ctx.stop_after <= 7: raise _EarlyExit()
         if ctx.cleaned_pdf:
             _step08_geometry(ctx)
-            _kick_off_render_bg(ctx)
         if ctx.stop_after <= 8: raise _EarlyExit()
         _scaffold_steps(ctx)
 
@@ -511,7 +510,6 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
                     raise _EarlyExit()
                 if ctx.cleaned_pdf:
                     _step08_geometry(ctx)
-                    _kick_off_render_bg(ctx)
             except BaseException as exc:
                 _students_ready.set()   # unblock scaffold thread on main-thread error
                 main_exc = exc
@@ -684,11 +682,6 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         )
         detected = len(ctx.page_assignments)
         answer_pages = ctx.pages_per_student - (1 if ctx.cover_page_mode else 0)
-        ok_line(
-            f"{detected} students detected from scan  ·  {answer_pages} answer pages each"
-            + ("  ·  cover page mode" if ctx.cover_page_mode else "")
-            + f"  ·  {format_duration(time.perf_counter() - t1)}"
-        )
         if detected != ctx.num_students:
             warn_line(
                 f"Name detection found {detected} students; geometry expected {ctx.num_students}. "
@@ -696,6 +689,12 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             )
 
         ctx.step_timings_marking["assign_pages_s"] = time.perf_counter() - t0
+        _kick_off_render_bg(ctx)
+        ok_line(
+            f"{detected} students detected from scan  ·  {answer_pages} answer pages each"
+            + ("  ·  cover page mode" if ctx.cover_page_mode else "")
+            + f"  ·  {format_duration(time.perf_counter() - t0)}"
+        )
 
     def _step12_blueprints(ctx: _Ctx) -> None:
         """Step 12/13 — Build per-page AI marking blueprints (no AI calls)."""
@@ -712,9 +711,10 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         pipeline_step(13 + ctx.step_offset, "AI marking")
         t0 = time.perf_counter()
         ctx.marking_api_calls = run_ai_marking(ctx, dpi=ctx.instruction.dpi)
+        _marked_total = len(ctx.marking_api_calls) + len(ctx.marking_failures)
         ok_line(
-            f"{len(ctx.marking_api_calls)} API calls  ·  "
-            f"{ctx.num_students * ctx.pages_per_student} pages marked"
+            f"{len(ctx.marking_api_calls)} API calls  ·  {_marked_total} pages marked"
+            + (f"  ·  {len(ctx.marking_failures)} failed" if ctx.marking_failures else "")
         )
         ctx.step_timings_marking["marking_s"] = time.perf_counter() - t0
 
