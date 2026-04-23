@@ -26,12 +26,63 @@ import xml.etree.ElementTree as ET
 from eXercise.ai_client import collect_streamed_response
 from xscore.config import MARKING_JPEG_QUALITY, MAX_RETRIES
 from xscore.marking.blueprints import marked_to_md
-from xscore.shared.exam_paths import artifact_blueprint_xml_path, artifact_marked_failed_path, artifact_marked_json_path, artifact_marked_md_path, artifact_prompt_path
+from xscore.shared.exam_paths import artifact_blueprint_xml_path, artifact_marked_failed_path, artifact_marked_md_path, artifact_marked_xml_path, artifact_prompt_path
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, ok_line, warn_line
 
 
 _DEFAULT_MARKING_MODEL = "qwen3.6-plus, low"
+
+
+def filled_to_xml(filled: dict) -> str:
+    """Serialise a filled marking blueprint dict to Blueprint XML.
+
+    Using the in-memory ``filled`` dict (rather than the raw AI response)
+    guarantees every question is present even if the model omitted some.
+    LaTeX content is stored verbatim as element text — no JSON escaping layer.
+    """
+    layout = filled.get("layout") or {}
+    root = ET.Element("marking")
+    root.set("page", str(filled.get("page", "")))
+    root.set("rows", str(layout.get("rows", 1)))
+    root.set("cols", str(layout.get("cols", 1)))
+    root.set("student_name", str(filled.get("student_name") or ""))
+
+    for q in filled.get("questions") or []:
+        qel = ET.SubElement(root, "question")
+        qel.set("number", str(q.get("number", "")))
+        qel.set("type", str(q.get("question_type", "")))
+        qel.set("subpage_row", str(q.get("subpage_row", 1)))
+        qel.set("subpage_col", str(q.get("subpage_col", 1)))
+        qel.set("order_in_subpage", str(q.get("order_in_subpage", 1)))
+        qel.set("max_marks", str(q.get("max_marks", 0)))
+        qel.set("correct_answer", str(q.get("correct_answer") or ""))
+
+        text_el = ET.SubElement(qel, "text")
+        text_el.text = str(q.get("question_text") or "")
+
+        for crit in q.get("mark_scheme") or []:
+            crit_el = ET.SubElement(qel, "criterion")
+            crit_el.set("mark", str(crit.get("mark") or ""))
+            crit_el.text = str(crit.get("criterion") or "")
+
+        for opt in q.get("answer_options") or []:
+            opt_el = ET.SubElement(qel, "option")
+            opt_el.set("letter", str(opt.get("letter") or ""))
+            opt_el.text = str(opt.get("text") or "")
+
+        sa_el = ET.SubElement(qel, "student_answer")
+        sa_el.text = str(q.get("student_answer") or "")
+
+        am_el = ET.SubElement(qel, "assigned_marks")
+        am_val = q.get("assigned_marks")
+        am_el.text = str(am_val) if am_val is not None else ""
+
+        exp_el = ET.SubElement(qel, "explanation")
+        exp_el.text = str(q.get("explanation") or "")
+
+    ET.indent(root)
+    return ET.tostring(root, encoding="unicode")
 
 
 class MarkingFailure(Exception):
@@ -236,7 +287,7 @@ def _mark_page(
         "% → \\%, $ → \\$, # → \\#, _ → \\_, { → \\{, } → \\}, "
         "backslash → \\textbackslash{}, "
         "literal ampersand → \\&amp; (\\& for LaTeX + &amp; for XML, combined). "
-        "Use \\newline for line breaks; do not include literal newlines.\n"
+        "Use \\\\ for line breaks; do not include literal newlines.\n"
         "2. assigned_marks — an integer 0–max_marks.\n"
         "   • Award 1 mark for each criterion the student satisfies, up to max_marks.\n"
         "   • For 'any N from' lists, each listed item is a separate mark point.\n"
@@ -251,7 +302,7 @@ def _mark_page(
         "You can make important words bold using LaTeX syntax \\textbf{word}: only for important words. "
         "Escape non-math special characters that appear literally in your prose: "
         "% → \\%, _ → \\_, literal ampersand → \\&amp;. "
-        "Use \\newline for line breaks. "
+        "Use \\\\ for line breaks. "
         "Do not append a mark tally (e.g. '— 1 mark.') at the end."
     )
 
@@ -808,9 +859,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 "attempts": mf.attempts, "error": str(mf.last_exc),
                 "raw_response": mf.last_raw or None,
             }
-            out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
-            out_json.parent.mkdir(parents=True, exist_ok=True)
-            out_json.write_text(json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8")
+            out_xml = artifact_marked_xml_path(ctx.artifact_dir, safe_name, p_label)
+            out_xml.parent.mkdir(parents=True, exist_ok=True)
+            out_xml.write_text(filled_to_xml(filled), encoding="utf-8")
             artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
                 marked_to_md(filled), encoding="utf-8"
             )
@@ -845,9 +896,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 get_console().print(_student_lines[key])
 
         filled["student_name"] = student_name
-        out_json = artifact_marked_json_path(ctx.artifact_dir, safe_name, p_label)
-        out_json.parent.mkdir(parents=True, exist_ok=True)
-        out_json.write_text(json.dumps(filled, indent=2, ensure_ascii=False), encoding="utf-8")
+        out_xml = artifact_marked_xml_path(ctx.artifact_dir, safe_name, p_label)
+        out_xml.parent.mkdir(parents=True, exist_ok=True)
+        out_xml.write_text(filled_to_xml(filled), encoding="utf-8")
         artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
             marked_to_md(filled), encoding="utf-8"
         )

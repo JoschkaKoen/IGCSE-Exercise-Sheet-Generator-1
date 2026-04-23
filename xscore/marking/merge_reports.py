@@ -1,15 +1,15 @@
 """Step 14 — Merge per-page marking results into student and class reports.
 
-Produces JSON + Markdown + LaTeX/PDF for each student and the class overall.
+Produces XML + Markdown + LaTeX/PDF for each student and the class overall.
 xelatex is used for compilation; a warning is printed if it is not installed.
 """
 
 from __future__ import annotations
 
-import json
 import os
 import re
 import subprocess
+import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
@@ -41,22 +41,14 @@ def _latex_escape(text: str) -> str:
     return _LATEX_RE.sub(lambda m: _LATEX_MAP[m.group()], text)
 
 
-def _restore_json_control_chars(text: str) -> str:
-    """Undo JSON transport corruption in AI-generated LaTeX text.
-
-    Some API implementations return \\t, \\f, \\r, \\b as literal control characters
-    inside JSON strings, corrupting LaTeX commands like \\times, \\frac, \\rightarrow,
-    \\boldsymbol. This restores them to backslash + letter.
-    """
-    for ctrl, letter in [("\t", "t"), ("\f", "f"), ("\r", "r"), ("\b", "b")]:
-        text = text.replace("\\" + ctrl, "\\" + letter)
-        text = text.replace(ctrl, "\\" + letter)
-    return text
-
-
 def _ai_cell(text: str) -> str:
-    """Prepare AI-generated LaTeX text for a p{} table cell."""
-    return _restore_json_control_chars(text).replace("\n", "\\newline ")
+    """Prepare AI-generated LaTeX text for a p{} table cell.
+
+    XML element text is stored verbatim (no JSON escaping layer), so no
+    control-character restoration is needed.  Literal newlines in the text
+    are converted to LaTeX line breaks.
+    """
+    return text.replace("\n", "\\\\ ")
 
 
 def _format_criteria_cell(raw: str) -> str:
@@ -65,7 +57,6 @@ def _format_criteria_cell(raw: str) -> str:
     Single-token criteria (one word or one number, no spaces) are grouped
     on one line joined with ' / '. Multi-word criteria each get their own line.
     """
-    raw = _restore_json_control_chars(raw)
     lines = []
     for line in raw.split("\n"):
         line = re.sub(r"^\s*\[[^\]]*\]\s*", "", line).strip()
@@ -104,7 +95,7 @@ def _merge_student_pages(
     pages_per_student: int,
     total_max_marks: int,
 ) -> dict:
-    """Load all 14_marked_{student}_{p}.json and merge into one student report.
+    """Load all 14_marked_{student}_{p}.xml and merge into one student report.
 
     Cross-page question strategy:
     - If only one page has assigned_marks, use that entry.
@@ -116,17 +107,56 @@ def _merge_student_pages(
     slot are merged with the higher-marks strategy.
     """
     import logging
-    from xscore.shared.exam_paths import artifact_marked_json_path
+    from xscore.shared.exam_paths import artifact_marked_xml_path
+
+    def _parse_marked_xml(path: Path) -> list[dict]:
+        """Parse a 14_marked_*.xml file into a list of question dicts."""
+        root = ET.parse(str(path)).getroot()
+        questions = []
+        for qel in root.findall("question"):
+            am_el = qel.find("assigned_marks")
+            am_text = (am_el.text or "").strip() if am_el is not None else ""
+            try:
+                assigned_marks: int | None = int(am_text)
+            except ValueError:
+                assigned_marks = None
+
+            mark_scheme = [
+                {"mark": c.get("mark", ""), "criterion": c.text or ""}
+                for c in qel.findall("criterion")
+            ]
+            answer_options = [
+                {"letter": o.get("letter", ""), "text": o.text or ""}
+                for o in qel.findall("option")
+            ]
+            text_el = qel.find("text")
+            sa_el = qel.find("student_answer")
+            exp_el = qel.find("explanation")
+            questions.append({
+                "number":          qel.get("number", "?"),
+                "question_type":   qel.get("type", ""),
+                "subpage_row":     int(qel.get("subpage_row", 1)),
+                "subpage_col":     int(qel.get("subpage_col", 1)),
+                "order_in_subpage": int(qel.get("order_in_subpage", 1)),
+                "question_text":   (text_el.text or "") if text_el is not None else "",
+                "answer_options":  answer_options,
+                "correct_answer":  qel.get("correct_answer", ""),
+                "max_marks":       int(qel.get("max_marks", 0)),
+                "mark_scheme":     mark_scheme,
+                "student_answer":  (sa_el.text or "") if sa_el is not None else "",
+                "assigned_marks":  assigned_marks,
+                "explanation":     (exp_el.text or "") if exp_el is not None else "",
+            })
+        return questions
 
     merged_questions: dict[tuple[str, int], dict] = {}
 
     for p in range(1, pages_per_student + 1):
-        path = artifact_marked_json_path(artifact_dir, student_name, p)
+        path = artifact_marked_xml_path(artifact_dir, student_name, p)
         if not path.is_file():
             continue
-        data = json.loads(path.read_text(encoding="utf-8"))
         file_occ: dict[str, int] = {}
-        for q in data.get("questions", []):
+        for q in _parse_marked_xml(path):
             qnum = q.get("number", "?")
             file_occ[qnum] = file_occ.get(qnum, 0) + 1
             key = (qnum, file_occ[qnum])
@@ -471,13 +501,13 @@ def _compile_tex(tex_path: Path, output_dir: Path) -> None:
 # ---------------------------------------------------------------------------
 
 def _derive_student_names(artifact_dir: Path) -> list[str]:
-    """Collect unique student names from 14_marked_*_*.json files, in order."""
+    """Collect unique student names from 14_marked_*_*.xml files, in order."""
     seen: dict[str, str] = {}   # safe_name → original name
     result: list[str] = []
-    for f in sorted(artifact_marking_students_dir(artifact_dir).glob("14_marked_*_*.json")):
+    for f in sorted(artifact_marking_students_dir(artifact_dir).glob("14_marked_*_*.xml")):
         try:
-            data = json.loads(f.read_text(encoding="utf-8"))
-            name = str(data.get("student_name") or "").strip()
+            root = ET.parse(str(f)).getroot()
+            name = str(root.get("student_name") or "").strip()
             if not name:
                 continue
             key = _safe_name(name)
@@ -537,17 +567,89 @@ def _build_all_question_tables(
 def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
     """Compute mean assigned_marks per question number across all student reports."""
     q_totals: dict[str, list[float]] = {}
-    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("15_student_report_*.json")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("15_student_report_*.xml")):
         try:
-            data = json.loads(f.read_text(encoding="utf-8"))
-            for q in data.get("questions", []):
-                qnum = q.get("number", "?")
-                marks = q.get("assigned_marks")
+            root = ET.parse(str(f)).getroot()
+            for qel in root.findall("question"):
+                qnum = qel.get("number", "?")
+                marks_str = qel.get("assigned_marks", "")
+                try:
+                    marks: float | None = float(marks_str)
+                except (ValueError, TypeError):
+                    marks = None
                 if marks is not None:
-                    q_totals.setdefault(qnum, []).append(float(marks))
+                    q_totals.setdefault(qnum, []).append(marks)
         except Exception:  # noqa: BLE001
             pass
     return {k: round(sum(v) / len(v), 1) for k, v in q_totals.items()}
+
+
+# ---------------------------------------------------------------------------
+# XML serialisers for step-15 output files
+# ---------------------------------------------------------------------------
+
+def student_report_to_xml(report: dict) -> str:
+    """Serialise a merged student report dict to XML.
+
+    Scalar values (marks, question metadata) are stored as attributes.
+    LaTeX content (marking_criteria, student_answer, explanation) is stored
+    as child elements so no JSON escaping conflicts arise.
+    """
+    root = ET.Element("student_report")
+    root.set("student_name", str(report.get("student_name") or ""))
+    root.set("total_marks", str(report.get("total_marks", 0)))
+    root.set("max_marks", str(report.get("max_marks", 0)))
+    root.set("percentage", str(report.get("percentage", "")))
+
+    for q in report.get("questions") or []:
+        qel = ET.SubElement(root, "question")
+        qel.set("number", str(q.get("number", "")))
+        qel.set("question_type", str(q.get("question_type", "")))
+        qel.set("max_marks", str(q.get("max_marks", 0)))
+        assigned = q.get("assigned_marks")
+        qel.set("assigned_marks", str(assigned) if assigned is not None else "")
+        qel.set("correct_answer", str(q.get("correct_answer") or ""))
+
+        mc_el = ET.SubElement(qel, "marking_criteria")
+        mc_el.text = str(q.get("marking_criteria") or "")
+
+        sa_el = ET.SubElement(qel, "student_answer")
+        sa_el.text = str(q.get("student_answer") or "")
+
+        exp_el = ET.SubElement(qel, "explanation")
+        exp_el.text = str(q.get("explanation") or "")
+
+    ET.indent(root)
+    return ET.tostring(root, encoding="unicode")
+
+
+def class_report_to_xml(report: dict) -> str:
+    """Serialise a class report dict to XML."""
+    root = ET.Element("class_report")
+    root.set("class_average_pct", str(report.get("class_average_pct", "")))
+    root.set("total_max_marks", str(report.get("total_max_marks", 0)))
+
+    students_el = ET.SubElement(root, "students")
+    for s in report.get("students") or []:
+        sel = ET.SubElement(students_el, "student")
+        sel.set("name", str(s.get("name", "")))
+        sel.set("total_marks", str(s.get("total_marks", 0)))
+        sel.set("percentage", str(s.get("percentage", "")))
+        sel.set("rank", str(s.get("rank", "")))
+
+    avgs_el = ET.SubElement(root, "per_question_averages")
+    all_avgs = report.get("per_question_averages") or {}
+    all_max = report.get("per_question_max_marks") or {}
+    pct_avgs = report.get("per_question_pct_averages") or {}
+    for qnum, avg in all_avgs.items():
+        qel = ET.SubElement(avgs_el, "question")
+        qel.set("number", str(qnum))
+        qel.set("avg", str(avg))
+        qel.set("max_marks", str(all_max.get(qnum, "")))
+        qel.set("avg_pct", str(pct_avgs.get(qnum, "")))
+
+    ET.indent(root)
+    return ET.tostring(root, encoding="unicode")
 
 
 # ---------------------------------------------------------------------------
@@ -561,13 +663,12 @@ def compile_reports(ctx: Any) -> list[dict]:
     (keys: name, total_marks, percentage) for use in step 14 timing.
     """
     from xscore.shared.exam_paths import (
-        artifact_class_report_json_path,
         artifact_class_report_md_path,
         artifact_class_report_tex_path,
-        artifact_marked_json_path,
-        artifact_student_report_json_path,
+        artifact_class_report_xml_path,
         artifact_student_report_md_path,
         artifact_student_report_tex_path,
+        artifact_student_report_xml_path,
     )
     from xscore.shared.terminal_ui import info_line
 
@@ -599,8 +700,8 @@ def compile_reports(ctx: Any) -> list[dict]:
             _q["correct_answer"] = correct_answers.get(str(_q.get("number", "")), "")
             _q["marking_criteria"] = marking_criteria_by_num.get(str(_q.get("number", "")), "")
 
-        artifact_student_report_json_path(ctx.artifact_dir, name).write_text(
-            json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8"
+        artifact_student_report_xml_path(ctx.artifact_dir, name).write_text(
+            student_report_to_xml(report), encoding="utf-8"
         )
         artifact_student_report_md_path(ctx.artifact_dir, name).write_text(
             _student_report_to_md(report), encoding="utf-8"
@@ -646,8 +747,8 @@ def compile_reports(ctx: Any) -> list[dict]:
             "total_max_marks": total_max_marks,
         }
 
-        artifact_class_report_json_path(ctx.artifact_dir).write_text(
-            json.dumps(class_report, indent=2, ensure_ascii=False), encoding="utf-8"
+        artifact_class_report_xml_path(ctx.artifact_dir).write_text(
+            class_report_to_xml(class_report), encoding="utf-8"
         )
         artifact_class_report_md_path(ctx.artifact_dir).write_text(
             _class_report_to_md(class_report), encoding="utf-8"
@@ -667,37 +768,47 @@ def compile_reports(ctx: Any) -> list[dict]:
 
 
 def load_student_results_from_reports(artifact_dir: Path) -> list:
-    """Read all 15_student_report_*.json and reconstruct StudentResult objects.
+    """Read all 15_student_report_*.xml and reconstruct StudentResult objects.
 
     Used by step 15 to compare AI-extracted answers against ground truth.
     """
     from xscore.shared.models import StudentResult
 
     results = []
-    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("15_student_report_*.json")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("15_student_report_*.xml")):
         try:
-            data = json.loads(f.read_text(encoding="utf-8"))
+            root = ET.parse(str(f)).getroot()
         except Exception:  # noqa: BLE001
             continue
-        name = data.get("student_name", "")
+        name = root.get("student_name", "")
         if not name:
             continue
         answers: dict[str, str] = {}
         marks_per_q: dict[str, float] = {}
-        for q in data.get("questions", []):
-            qnum = str(q.get("number", ""))
+        for qel in root.findall("question"):
+            qnum = str(qel.get("number", ""))
             if not qnum:
                 continue
-            ans = q.get("student_answer")
-            answers[qnum] = str(ans).strip() if ans is not None else "?"
-            m = q.get("assigned_marks")
-            marks_per_q[qnum] = float(m) if m is not None else 0.0
+            sa_el = qel.find("student_answer")
+            ans = (sa_el.text or "") if sa_el is not None else ""
+            answers[qnum] = ans.strip() if ans else "?"
+            marks_str = qel.get("assigned_marks", "")
+            try:
+                marks_per_q[qnum] = float(marks_str)
+            except (ValueError, TypeError):
+                marks_per_q[qnum] = 0.0
+        try:
+            total_marks = float(root.get("total_marks", 0))
+            max_marks = float(root.get("max_marks", 0))
+        except (ValueError, TypeError):
+            total_marks = 0.0
+            max_marks = 0.0
         results.append(StudentResult(
             student_name=name,
             page_numbers=[],
             answers=answers,
             marks_per_question=marks_per_q,
-            total_marks=float(data.get("total_marks", 0)),
-            max_marks=float(data.get("max_marks", 0)),
+            total_marks=total_marks,
+            max_marks=max_marks,
         ))
     return results

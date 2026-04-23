@@ -17,24 +17,22 @@ def safe_student_name(name: str) -> str:
     """Replace every non-word character in *name* with an underscore for use in filenames."""
     return re.sub(r"[^\w]", "_", name)
 
-_PROMPT_COLLISION = {"10_exam_questions", "11_exam_questions", "11_mark_scheme", "12_mark_scheme"}
-
-
 def artifact_prompt_path(artifact_dir: Path, name: str) -> Path:
     """Path for a saved AI prompt.
 
+    All prompt files end in ``_prompt.md`` so they are visually distinct from
+    response / artifact files in the output directory.
+
     Routing:
-    - ``8_name_*``  → ``8_names/<name>.md``   (many per exam — own subdir)
-    - ``14_*``      → ``students/<name>_prompt.md``  (per-student, avoids collision)
-    - ``10_exam_questions`` / ``11_mark_scheme`` → ``<name>_prompt.md``  (collision)
-    - everything else → ``<name>.md``  (flat in root)
+    - ``8_name_*``  → ``8_names/<name>_prompt.md``   (many per exam — own subdir)
+    - ``14_*``      → ``students/<name>_prompt.md``   (per-student, avoids collision)
+    - everything else → ``<name>_prompt.md``          (flat in root)
     """
     if name.startswith("8_name"):
-        return artifact_dir / SUBDIR_NAMES / f"{name}.md"
+        return artifact_dir / SUBDIR_NAMES / f"{name}_prompt.md"
     if name.startswith("14_"):
         return artifact_dir / SUBDIR_STUDENTS / f"{name}_prompt.md"
-    suffix = "_prompt" if name in _PROMPT_COLLISION else ""
-    return artifact_dir / f"{name}{suffix}.md"
+    return artifact_dir / f"{name}_prompt.md"
 
 
 def safe_path_stem(stem: str) -> str:
@@ -106,6 +104,21 @@ def artifact_exam_questions_json_path(artifact_dir: Path) -> Path:
 def artifact_exam_questions_markdown_path(artifact_dir: Path) -> Path:
     """Step 10: human-readable exam questions without mark-scheme annotations."""
     return artifact_dir / "10_exam_questions.md"
+
+
+def artifact_marked_xml_path(artifact_dir: Path, student: str, page: int) -> Path:
+    """Step 14: AI-filled marking blueprint for one student's scan page (XML)."""
+    return artifact_dir / SUBDIR_STUDENTS / f"14_marked_{safe_student_name(student)}_{page}.xml"
+
+
+def artifact_student_report_xml_path(artifact_dir: Path, student: str) -> Path:
+    """Step 15: merged student report (XML)."""
+    return artifact_dir / SUBDIR_STUDENTS / f"15_student_report_{safe_student_name(student)}.xml"
+
+
+def artifact_class_report_xml_path(artifact_dir: Path) -> Path:
+    """Step 15: class-wide summary (XML)."""
+    return artifact_dir / "15_class_report.xml"
 
 
 def artifact_mark_scheme_json_path(artifact_dir: Path) -> Path:
@@ -212,11 +225,6 @@ def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
     return artifact_dir / f"13_ai_marking_blueprint_{page}.md"
 
 
-def artifact_marked_json_path(artifact_dir: Path, student: str, page: int) -> Path:
-    """Step 14: AI-filled marking blueprint for one student's scan page."""
-    return artifact_dir / SUBDIR_STUDENTS / f"14_marked_{safe_student_name(student)}_{page}.json"
-
-
 def artifact_marked_md_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Step 14: human-readable marking result for one student's scan page."""
     return artifact_dir / SUBDIR_STUDENTS / f"14_marked_{safe_student_name(student)}_{page}.md"
@@ -236,11 +244,6 @@ def artifact_marking_students_dir(artifact_dir: Path) -> Path:
     return artifact_dir / SUBDIR_STUDENTS
 
 
-def artifact_student_report_json_path(artifact_dir: Path, student: str) -> Path:
-    """Step 15: merged student report JSON."""
-    return artifact_dir / SUBDIR_STUDENTS / f"15_student_report_{safe_student_name(student)}.json"
-
-
 def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
     """Step 15: human-readable student report."""
     return artifact_dir / SUBDIR_STUDENTS / f"15_student_report_{safe_student_name(student)}.md"
@@ -254,11 +257,6 @@ def artifact_student_report_tex_path(artifact_dir: Path, student: str) -> Path:
 def artifact_reports_students_dir(artifact_dir: Path) -> Path:
     """Directory containing per-student report files (step 15)."""
     return artifact_dir / SUBDIR_STUDENTS
-
-
-def artifact_class_report_json_path(artifact_dir: Path) -> Path:
-    """Step 15: class-wide summary JSON."""
-    return artifact_dir / "15_class_report.json"
 
 
 def artifact_class_report_md_path(artifact_dir: Path) -> Path:

@@ -250,7 +250,7 @@ mark scheme text. Do not skip any text associated with the question's marking cr
                           % → \\%,   $ → \\$,   # → \\#,   _ → \\_,
                           {{ → \\{{,   }} → \\}},   backslash → \\textbackslash{{}},
                           literal ampersand → \\&amp;  (\\& for LaTeX + &amp; for XML, combined).
-                          Use \\newline (not a literal newline) for explicit line breaks.
+                          Use \\\\ (not a literal newline) for explicit line breaks.
                           Write \\begin{{itemize}}/\\begin{{enumerate}} items inline —
                           no literal newlines between \\begin{{...}}, \\item entries, \\end{{...}}.
     plain prose and introductory sentences are written verbatim (no special wrapping)
@@ -1120,6 +1120,19 @@ def build_ai_scaffold(
                 "coordinates on a 0\u20131000 scale (0=top-left, 1000=bottom-right of the image)."
             )
 
+            # Extract canonical question numbers from the scaffold XML (built from step-10
+            # exam questions) so the graphics detector can return exact matching numbers.
+            try:
+                _scaffold_root = ET.fromstring(scaffold)
+                _all_qnums = [
+                    q.get("number", "")
+                    for q in _scaffold_root.findall(".//question")
+                ]
+                _all_qnums = [n for n in _all_qnums if n]
+            except ET.ParseError:
+                _all_qnums = []
+            _qnum_hint = ", ".join(f'"{n}"' for n in _all_qnums)
+
             def _detect_graphics_page(page_num: int) -> dict:  # no-op fallback
                 return {"questions": []}
 
@@ -1135,6 +1148,13 @@ def build_ai_scaffold(
                 def _detect_graphics_page(page_num: int) -> dict:
                     b64 = _base64.b64encode(page_pngs[page_num]).decode()
                     _t0 = time.perf_counter()
+                    # Prepend canonical question numbers so the AI returns them in the
+                    # exact format used by the mark scheme parser (e.g. "7a" not "7(a)").
+                    _hint = (
+                        f"Valid question numbers in this mark scheme: {_qnum_hint}\n"
+                        "Return exactly one of these as the question_number for each graphic.\n\n"
+                    ) if _qnum_hint else ""
+                    _user_msg = _hint + _USER_GRAPHICS
                     try:
                         resp = _det_client.chat.completions.create(
                             model=_det_model,
@@ -1143,13 +1163,12 @@ def build_ai_scaffold(
                                 {"role": "user", "content": [
                                     {"type": "image_url",
                                      "image_url": {"url": f"data:image/png;base64,{b64}"}},
-                                    {"type": "text", "text": _USER_GRAPHICS},
+                                    {"type": "text", "text": _user_msg},
                                 ]},
                             ],
                             response_format={"type": "json_object"},
                             **_det_thinking_kw,
                         )
-                        ok_line(f"{format_duration(time.perf_counter() - _t0)}  (scheme graphics p{page_num})")
                         raw = resp.choices[0].message.content or '{"graphics":[]}'
                     except Exception as _exc:
                         warn_line(f"Scheme graphics p{page_num}: API error  ·  {format_duration(time.perf_counter() - _t0)}  —  {_exc}")
@@ -1157,11 +1176,12 @@ def build_ai_scaffold(
                     try:
                         data = json.loads(raw)
                     except json.JSONDecodeError:
+                        ok_line(f"{format_duration(time.perf_counter() - _t0)}  (scheme graphics p{page_num})")
                         return {"questions": []}
                     if artifact_dir is not None:
                         _prompt_path = artifact_prompt_path(artifact_dir, f"11_mark_scheme_graphics_detect_p{page_num}")
                         save_prompt(_prompt_path, model=_det_model, system=_gfx_system,
-                                    messages=[{"role": "user", "content": f"[PNG: p{page_num}]\n\n{_USER_GRAPHICS}"}])
+                                    messages=[{"role": "user", "content": f"[PNG: p{page_num}]\n\n{_user_msg}"}])
                         save_response(_prompt_path, raw)
                     questions_map: dict[str, list] = {}
                     for g in data.get("graphics", []):
@@ -1175,6 +1195,11 @@ def build_ai_scaffold(
                             "x0": x_min / 1000.0, "y0": y_min / 1000.0,
                             "x1": x_max / 1000.0, "y1": y_max / 1000.0,
                         })
+                    _qnums_str = (
+                        f"  ·  q{', q'.join(questions_map.keys())}"
+                        if questions_map else ""
+                    )
+                    ok_line(f"{format_duration(time.perf_counter() - _t0)}  (scheme graphics p{page_num}){_qnums_str}")
                     return {
                         "questions": [
                             {"number": qnum, "correct_answer": None, "mark_scheme": [], "graphics": gfx}
@@ -1191,14 +1216,24 @@ def build_ai_scaffold(
             # 4. Merge
             result = _merge_scheme_results(page_results)
             _graphics_merged = _merge_scheme_results(graphics_page_results)
+            def _norm_qnum(s: str) -> str:
+                """Normalise question number for matching: remove parentheses.
+
+                The mark-scheme parser yields ``"7a"`` while the graphics
+                detector may yield ``"7(a)"``.  Stripping ``()`` makes both
+                forms compare equal.
+                """
+                return re.sub(r"[()]", "", s)
+
             _graphics_by_qnum = {
-                q["number"]: q["graphics"]
+                _norm_qnum(q["number"]): q["graphics"]
                 for q in _graphics_merged.get("questions", [])
                 if q.get("graphics")
             }
             for _q in result.get("questions", []):
-                if _q["number"] in _graphics_by_qnum:
-                    _q["graphics"] = _graphics_by_qnum[_q["number"]]
+                _key = _norm_qnum(_q["number"])
+                if _key in _graphics_by_qnum:
+                    _q["graphics"] = _graphics_by_qnum[_key]
             ok_line(
                 f"Mark scheme: merged {n_pages} page(s)  ·  "
                 f"{len(result['questions'])} question(s)"

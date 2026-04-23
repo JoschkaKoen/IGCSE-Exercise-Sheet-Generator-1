@@ -267,9 +267,11 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             suffix += 1
             ctx.artifact_dir = exam_output_root / f"{ctx.timestamp}_{suffix}"
         ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
-        meta_dir = ctx.artifact_dir / "meta"
-        meta_dir.mkdir(parents=True, exist_ok=True)
-        (meta_dir / "command.txt").write_text(shlex.join(sys.argv), encoding="utf-8")
+        print(f"Output: {ctx.artifact_dir}")
+        (ctx.artifact_dir / "command.txt").write_text(
+            "python " + shlex.join([Path(sys.argv[0]).name] + sys.argv[1:]),
+            encoding="utf-8",
+        )
 
         # Write step 1 summary now that artifact_dir exists (created here, not in step 1)
         inst = ctx.instruction
@@ -280,7 +282,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             "dpi": inst.dpi,
             "status": "ok",
         }
-        (meta_dir / "1_parse_summary.json").write_text(
+        (ctx.artifact_dir / "1_parse_summary.json").write_text(
             json.dumps(step1_summary, indent=2, ensure_ascii=False), encoding="utf-8"
         )
 
