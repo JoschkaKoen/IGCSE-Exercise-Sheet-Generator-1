@@ -114,14 +114,14 @@ ENSEMBLE_CALLS: int = int(os.getenv("ENSEMBLE_CALLS", "3"))
 GEMINI_TEMPERATURE: float = float(os.getenv("GEMINI_TEMPERATURE", "0.0"))
 
 # Maximum output tokens for Gemini response.
-GEMINI_MAX_OUTPUT_TOKENS: int = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "32000"))
+GEMINI_MAX_OUTPUT_TOKENS: int = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "64000"))
 
 # =============================================================================
 # Kimi Model Parameters
 # =============================================================================
 
 # Maximum tokens for Kimi response
-KIMI_MAX_TOKENS: int = int(os.getenv("KIMI_MAX_TOKENS", "8192"))
+KIMI_MAX_TOKENS: int = int(os.getenv("KIMI_MAX_TOKENS", "64000"))
 
 # =============================================================================
 # Paths and File Handling

@@ -238,11 +238,13 @@ mark scheme text. Do not skip any text associated with the question's marking cr
 - Keep every <question> element present — even if marks cannot be found for it
 - In XML text use &lt; for <, &gt; for >, &amp; for &
 - If the mark scheme contains a diagram, graph, or image (NOT a table) as part of the \
-expected answer for a question, add one <graphic page="N" x0="…" y0="…" x1="…" y1="…"/> \
+expected answer for a question, add one <graphic page="N" y0="…" y1="…"/> \
 child element per graphic, where N is the 1-based page number in the mark scheme PDF and \
-x0/y0/x1/y1 are normalised bounding-box coordinates (0.0–1.0, top-left origin). \
-The bbox must encompass the complete graphic plus a small margin of surrounding whitespace — \
-do not clip tightly to the graphic edges. Omit <graphic> entirely when there is no graphic.
+y0/y1 are the normalised vertical positions (0.0–1.0, top-left origin) of the top and bottom \
+edges of the graphic region. The region must include the visual graphic AND all text labels, \
+annotations, or captions that are part of it (e.g. node names, arrow labels, axis titles). \
+Include a small margin above and below — do not clip tightly. \
+Omit <graphic> entirely when there is no graphic.
 """
 
 _SYSTEM_LAYOUT = "You are an expert at identifying exam paper printing layouts."
@@ -670,8 +672,8 @@ def _parse_graphic(g_el) -> "dict | None":
     try:
         return {
             "page": int(g_el.get("page", 1)),
-            "x0": float(g_el.get("x0", 0)), "y0": float(g_el.get("y0", 0)),
-            "x1": float(g_el.get("x1", 1)), "y1": float(g_el.get("y1", 1)),
+            "x0": 0.0, "y0": float(g_el.get("y0", 0)),
+            "x1": 1.0, "y1": float(g_el.get("y1", 1)),
         }
     except (ValueError, TypeError):
         return None
@@ -805,7 +807,8 @@ def build_ai_scaffold(
     def _make_gen_config(
         effort: str | None, system: str, schema: dict | None = None
     ) -> "gai_types.GenerateContentConfig":
-        cfg: dict = {"max_output_tokens": 65536}
+        from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
+        cfg: dict = {"max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS}
         if schema is not None:
             cfg["response_mime_type"] = "application/json"
             cfg["response_json_schema"] = schema

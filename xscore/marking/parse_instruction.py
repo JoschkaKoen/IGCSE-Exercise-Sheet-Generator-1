@@ -11,7 +11,7 @@ import re
 import time
 
 from .ai_helpers import parse_json_safe
-from xscore.config import PIPELINE_DEFAULT_DPI
+from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, PIPELINE_DEFAULT_DPI
 from xscore.shared.models import StudentFilter, TaskInstruction
 from xscore.shared.terminal_ui import api_latency_line, info_line, warn_line
 
@@ -50,7 +50,7 @@ def _call_gemini_text(user_message: str) -> str:
     client = gai.Client(api_key=api_key)
 
     thinking_map = {"off": 0, "low": 1024, "high": 8192}
-    gen_config_kwargs: dict = {"response_mime_type": "application/json"}
+    gen_config_kwargs: dict = {"max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS, "response_mime_type": "application/json"}
     if effort in thinking_map:
         gen_config_kwargs["thinking_config"] = gai_types.ThinkingConfig(
             thinking_budget=thinking_map[effort],
