@@ -354,7 +354,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
     rows_str = "\n".join(rows)
     pct_display = "N/A" if pct is None else f"{pct}\\%"
     # Column widths fill landscape A4 text width (25.7 cm - ~3 cm separator overhead = 22.7 cm):
-    # p{0.7cm} + p{1.0cm} + p{0.7cm} + p{0.8cm} + p{5.2cm} + p{6.5cm} + p{7.8cm} = 22.7 cm
+    # p{0.6cm} + p{1.5cm} + p{0.6cm} + p{0.7cm} + p{5.2cm} + p{6.5cm} + p{7.6cm} = 22.7 cm
     return (
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
@@ -374,7 +374,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         "\\vspace{1em}\n\n"
         "{\\small\n"
         "\\renewcommand{\\arraystretch}{1.6}\n"
-        "\\begin{longtable}{L{0.7cm}L{1.0cm}L{0.7cm}L{0.8cm}L{5.2cm}L{6.5cm}L{7.8cm}}\n"
+        "\\begin{longtable}{L{0.6cm}L{1.5cm}L{0.6cm}L{0.7cm}L{5.2cm}L{6.5cm}L{7.6cm}}\n"
         "\\toprule\n"
         "\\textbf{Q} & \\textbf{Type} & \\textbf{Max} & \\textbf{Got} & "
         "\\textbf{Student Answer} & \\textbf{Expected} & \\textbf{Reasoning} \\\\\n"

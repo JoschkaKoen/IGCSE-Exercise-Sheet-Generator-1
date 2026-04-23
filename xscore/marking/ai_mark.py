@@ -159,23 +159,16 @@ def _blueprint_xml_to_dict(xml_str: str) -> dict:
     }
 
 
-def _render_page_b64(doc: Any, page_idx: int, dpi: int = 150) -> str:
+def _render_page_b64(doc: Any, page_idx: int, dpi: int = 300) -> str:
     """Render a fitz Document page at *page_idx* as base64 JPEG.
 
     The document must be already open; the caller owns its lifecycle.
+    Default DPI matches MARKING_DPI (300); override via the dpi parameter.
     """
-    import numpy as np
-    from PIL import Image
-
     import fitz
-    from xscore.extraction.images import to_jpeg_bytes
-
     mat = fitz.Matrix(dpi / 72, dpi / 72)
     pix = doc[page_idx].get_pixmap(matrix=mat, colorspace=fitz.csRGB)
-    img = Image.fromarray(
-        np.frombuffer(pix.samples, dtype=np.uint8).reshape(pix.height, pix.width, 3)
-    )
-    return base64.b64encode(to_jpeg_bytes(img, quality=MARKING_JPEG_QUALITY)).decode()
+    return base64.b64encode(pix.tobytes("jpeg", jpg_quality=MARKING_JPEG_QUALITY)).decode()
 
 
 
@@ -247,6 +240,8 @@ def _mark_page(
         "award max_marks if they match, 0 otherwise.\n"
         "3. explanation: clear, easy to understand, short, simple english. Avoid difficult English words "
         "(non native, high school english speakers). "
+        "Address the student directly using 'you'. "
+        "You can make important words bold using LaTeX syntax \\textbf{word}: only for important words. "
     )
 
     # --- Section C: output format + CRITICAL tag rule ---

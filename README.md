@@ -122,11 +122,11 @@ flowchart TD
         s5 --> s6 --> s7
     end
 
-    s8["Step 8 — Exam geometry & cover detection\n(page count ÷ exam pages = students · name detection · cover-page mode)"]
+    s8["Step 8 — Exam geometry & cover detection\n(page count ÷ exam pages = students\n· name detection · cover-page mode)"]
 
     subgraph scaffold ["Exam scaffold"]
         direction TB
-        s9["Step 9 — Detect layout + cut\n(Gemini · DETECT_LAYOUT_MODEL · splits multi-up PDFs)"]
+        s9["Step 9 — Detect layout + cut\n(Gemini · DETECT_LAYOUT_MODEL\n· splits multi-up PDFs)"]
         s10["Step 10 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)"]
         s11["Step 11 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL)"]
         s12["Step 12 — Merge report"]
@@ -137,7 +137,7 @@ flowchart TD
         direction TB
         s13["Step 13 — Marking blueprints\n(per-page XML templates from scaffold)"]
         s14["Step 14 — AI marking\n(MARKING_MODEL · one API call per student page · parallel)"]
-        s15["Step 15 — Compile reports\n(per-student PDF + class PDF · xelatex · MARKING_WORKERS)"]
+        s15["Step 15 — Compile reports\n(per-student PDF + class PDF\n· xelatex · MARKING_WORKERS)"]
         s16["Step 16 — Timing summary"]
         s13 --> s14 --> s15 --> s16
     end
@@ -183,15 +183,15 @@ flowchart TD
         direction TB
         s9["Step 9 — Detect layout + cut\n(Gemini · DETECT_LAYOUT_MODEL)"]
         s10["Step 10 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)"]
-        s11["Step 11 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL · uses step 10 output)"]
+        s11["Step 11 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL\n· uses step 10 output)"]
         s12["Step 12 — Merge scaffold"]
         s9 --> s10 --> s11 --> s12
     end
 
     s12 --> s13["Step 13 — Marking blueprints"]
     bg -.->|"images ready"| s14
-    s13 --> s14["Step 14 — AI marking\n(MARKING_WORKERS threads · one per student page)"]
-    s14 --> s15["Step 15 — Compile reports\n(MARKING_WORKERS · parallel xelatex)"]
+    s13 --> s14["Step 14 — AI marking\n(MARKING_WORKERS threads\n· one per student page)"]
+    s14 --> s15["Step 15 — Compile reports\n(MARKING_WORKERS\n· parallel xelatex)"]
     s15 --> s16["Step 16 — Timing summary"]
 ```
 
