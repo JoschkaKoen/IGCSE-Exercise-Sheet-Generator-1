@@ -1,15 +1,8 @@
 """Assign PDF pages to students by reading names from the top of each page.
 
-Step 10 sub-step of the pipeline:
-1. Render each page of the cleaned scan PDF at *dpi*.
-2. (Optional) Detect whether the exam uses cover pages by checking scan page 1
-   with the ``COVER_PAGE_DETECTION_MODEL``.  If cover-page mode is active,
-   every expected cover position is also verified in parallel.
-3. Crop the top fraction (name area) and send to the vision model.
-4. Fuzzy-match the returned name against the student roster.
-5. Group pages into fixed blocks of *pages_per_student* (from geometry).
-   Undetected names become ``Unknown_N`` entries rather than inheriting
-   from a neighbouring student.
+Steps 10–11 of the pipeline:
+- Step 10: ``detect_scan_cover_pages`` — checks whether the scan uses a cover-page layout.
+- Step 11: ``assign_pages`` — renders pages, reads student names, groups into blocks.
 
 Name detection model: ``NAME_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
 Cover detection model: ``COVER_PAGE_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
@@ -308,6 +301,76 @@ def _name_crop_fraction(page: Any, dpi: int) -> float:
     return _NAME_CROP_FRACTION_A3 if long_side_mm > _A3_LONG_SIDE_THRESHOLD_MM else _NAME_CROP_FRACTION_A4
 
 
+def detect_scan_cover_pages(
+    cleaned_pdf: Path,
+    pages_per_student: int,
+    *,
+    artifact_dir: Path | None = None,
+) -> tuple[bool, dict[int, bool]]:
+    """Detect whether the scanned exam uses a cover-page layout (Step 10).
+
+    Returns (cover_page_mode, cover_ok):
+    - cover_page_mode: True when scan page 1 is a cover page
+    - cover_ok: 0-based page index → is_cover_page result (populated only when cover_page_mode)
+    """
+    import math
+    import fitz
+    from eXercise.ai_client import make_gemini_native_client, parse_model_effort
+    from xscore.shared.terminal_ui import ok_line, warn_line, format_duration
+
+    cover_page_mode: bool = False
+    cover_ok: dict[int, bool] = {}
+
+    _gai_client = make_gemini_native_client()
+    if _gai_client is None:
+        warn_line("GEMINI_API_KEY not set — cover-page detection skipped, running in standard mode")
+        return cover_page_mode, cover_ok
+
+    n_pages = fitz.open(str(cleaned_pdf)).page_count
+    n_blocks = math.ceil(n_pages / pages_per_student)
+
+    _cover_model, _cover_effort = parse_model_effort(
+        os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
+    )
+    _p1_save = artifact_cover_scan_prompt_path(artifact_dir, "cover_p1") if artifact_dir else None
+    _t_cover = time.perf_counter()
+    page1_is_cover = is_cover_page(cleaned_pdf, 0, _gai_client, _cover_model, prompt_save_path=_p1_save, effort=_cover_effort)
+    _cover_elapsed = format_duration(time.perf_counter() - _t_cover)
+    cover_page_mode = page1_is_cover
+
+    if cover_page_mode:
+        ok_line(f"Scan page 1: cover page — cover-page mode active  ·  {_cover_elapsed}")
+        cover_ok[0] = page1_is_cover
+        cover_indices_to_check = [b * pages_per_student for b in range(1, n_blocks)]
+
+        def _check_cover(idx: int) -> tuple[int, bool]:
+            save_path = artifact_cover_scan_prompt_path(artifact_dir, f"cover_p{idx + 1}") if artifact_dir else None
+            return idx, is_cover_page(cleaned_pdf, idx, _gai_client, _cover_model, prompt_save_path=save_path, effort=_cover_effort)
+
+        if cover_indices_to_check:
+            _cover_workers = min(len(cover_indices_to_check), 8)
+            _t_verify = time.perf_counter()
+            with ThreadPoolExecutor(max_workers=_cover_workers) as ex:
+                for _idx, _ok in ex.map(_check_cover, cover_indices_to_check):
+                    cover_ok[_idx] = _ok
+            ok_line(
+                f"Verified {len(cover_indices_to_check)} cover position(s)"
+                f"  ·  {format_duration(time.perf_counter() - _t_verify)}"
+            )
+
+        for b in range(n_blocks):
+            idx = b * pages_per_student
+            if not cover_ok.get(idx, False):
+                warn_line(
+                    f"Block {b + 1} (scan page {idx + 1}): expected a cover page "
+                    f"but this page doesn't look like one — check scan quality"
+                )
+    else:
+        ok_line(f"Scan page 1: no cover page — standard mode  ·  {_cover_elapsed}")
+
+    return cover_page_mode, cover_ok
+
+
 def assign_pages(
     cleaned_pdf: Path,
     students: list[str],
@@ -317,17 +380,18 @@ def assign_pages(
     *,
     pages: list | None = None,
     artifact_dir: Path | None = None,
+    cover_page_mode: bool = False,
 ) -> list[PageAssignment]:
-    """Return one ``PageAssignment`` per student block.
+    """Return one ``PageAssignment`` per student block (Step 11).
 
     Pages are grouped into fixed blocks of *pages_per_student* (as determined
     by exam geometry). The name is read from the first page of each block.
     Blocks with no detectable name are recorded as ``Unknown_N`` with
     ``confidence="low"`` instead of being merged into a neighbouring student.
 
-    The vision model is configured via ``NAME_DETECTION_MODEL`` (default
-    ``qwen3.6-plus, off``). Worker parallelism via ``NAME_WORKERS`` (default
-    ``min(n_blocks, 8)``).
+    Cover-page detection is performed separately in Step 10 via
+    ``detect_scan_cover_pages``; pass the results via *cover_page_mode* and
+    *cover_ok* to skip re-detection.
 
     *name_crop_fraction*: fraction of page height to crop for name detection.
     ``None`` (default) auto-detects A4 (top half, 0.5) vs A3 (top third, 1/3)
@@ -355,65 +419,6 @@ def assign_pages(
     import math
     n_blocks = math.ceil(n_pages / pages_per_student)
     first_page_set = {b * pages_per_student + 1 for b in range(n_blocks)}  # 1-based scan pages
-
-    # ------------------------------------------------------------------
-    # Cover-page detection (independent of name detection below)
-    # Uses COVER_PAGE_DETECTION_MODEL — separate client, separate concern.
-    # ------------------------------------------------------------------
-    cover_page_mode: bool = False
-    cover_ok: dict[int, bool] = {}  # 0-based index → is_cover_page result
-
-    from eXercise.ai_client import make_gemini_native_client
-    _gai_client = make_gemini_native_client()
-    if _gai_client is None:
-        warn_line(
-            "GEMINI_API_KEY not set — cover-page detection skipped, running in standard mode"
-        )
-    else:
-        _cover_model, _cover_effort = parse_model_effort(
-            os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
-        )
-
-        _p1_save = artifact_cover_scan_prompt_path(artifact_dir, "cover_p1") if artifact_dir else None
-        _t_cover = time.perf_counter()
-        page1_is_cover = is_cover_page(cleaned_pdf, 0, _gai_client, _cover_model, prompt_save_path=_p1_save, effort=_cover_effort)
-        _cover_elapsed = format_duration(time.perf_counter() - _t_cover)
-        cover_page_mode = page1_is_cover
-
-        if cover_page_mode:
-            ok_line(f"Scan page 1: cover page — cover-page mode active  ·  {_cover_elapsed}")
-
-            # Verify every expected cover position in parallel.
-            # Block 0 reuses the page-1 result; blocks 1..n-1 are checked in parallel.
-            cover_ok[0] = page1_is_cover
-            cover_indices_to_check = [
-                b * pages_per_student for b in range(1, n_blocks)
-            ]
-
-            def _check_cover(idx: int) -> tuple[int, bool]:
-                save_path = artifact_cover_scan_prompt_path(artifact_dir, f"cover_p{idx + 1}") if artifact_dir else None
-                return idx, is_cover_page(cleaned_pdf, idx, _gai_client, _cover_model, prompt_save_path=save_path, effort=_cover_effort)
-
-            if cover_indices_to_check:
-                _cover_workers = min(len(cover_indices_to_check), 8)
-                _t_verify = time.perf_counter()
-                with ThreadPoolExecutor(max_workers=_cover_workers) as ex:
-                    for _idx, _ok in ex.map(_check_cover, cover_indices_to_check):
-                        cover_ok[_idx] = _ok
-                ok_line(
-                    f"Verified {len(cover_indices_to_check)} cover position(s)  ·  {format_duration(time.perf_counter() - _t_verify)}"
-                )
-
-            # Warn for any block whose expected cover page failed verification.
-            for b in range(n_blocks):
-                idx = b * pages_per_student
-                if not cover_ok.get(idx, False):
-                    warn_line(
-                        f"Block {b + 1} (scan page {idx + 1}): expected a cover page "
-                        f"but this page doesn't look like one — check scan quality"
-                    )
-        else:
-            ok_line(f"Scan page 1: no cover page — standard mode  ·  {_cover_elapsed}")
 
     # ------------------------------------------------------------------
     # Name detection — only the first page of each student block is checked.

@@ -144,39 +144,24 @@ def get_deskew_angle(gray: np.ndarray) -> float:
     Ruling lines are found later by :func:`detect_reference_lines` on the
     **deskewed** half.
 
-    Two-stage sweep: a **coarse** pass (0.1° steps) on a 1/4-scale Otsu proxy for
-    speed, then a **fine** pass (0.01° steps) on full-resolution Otsu within
-    ± ``_SWEEP_FINE_HALF``° of the coarse winner so 0.01° accuracy matches
-    the legacy single-pass behaviour.
+    Two-stage sweep on the same Otsu-thresholded full-resolution image:
+    a **coarse** pass (0.1° steps) over ±3° to locate the maximum, then a
+    **fine** pass (0.01° steps) within ±``_SWEEP_FINE_HALF``° of the coarse
+    winner for 0.01° accuracy.  Using the same image for both stages ensures
+    the fine window is always anchored in the correct region.
 
     Args:
         gray: Grayscale uint8 numpy array (any size).
 
     Returns:
-        Best rotation angle in degrees (positive = CCW).
-        The caller should rotate by *-angle* to straighten the image.
+        Best rotation angle in degrees.  Apply this angle directly to
+        straighten the image (positive rotates CCW in OpenCV convention).
     """
-    h, w = gray.shape[:2]
-    pw, ph = w // _SWEEP_PROXY_SCALE, h // _SWEEP_PROXY_SCALE
-
-    if min(pw, ph) >= _MIN_PROXY_DIM:
-        small = cv2.resize(gray, (pw, ph), interpolation=cv2.INTER_AREA)
-        _, thresh_coarse = cv2.threshold(
-            small, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU
-        )
-        coarse_best = _best_angle_projection_variance(
-            thresh_coarse, _SWEEP_MIN, _SWEEP_MAX, _SWEEP_COARSE_STEP
-        )
-    else:
-        _, thresh_coarse = cv2.threshold(
-            gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU
-        )
-        coarse_best = _best_angle_projection_variance(
-            thresh_coarse, _SWEEP_MIN, _SWEEP_MAX, _SWEEP_COARSE_STEP
-        )
-
     _, thresh_full = cv2.threshold(
         gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU
+    )
+    coarse_best = _best_angle_projection_variance(
+        thresh_full, _SWEEP_MIN, _SWEEP_MAX, _SWEEP_COARSE_STEP
     )
     fine_lo = max(_SWEEP_MIN, coarse_best - _SWEEP_FINE_HALF)
     fine_hi = min(_SWEEP_MAX, coarse_best + _SWEEP_FINE_HALF)

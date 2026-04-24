@@ -69,26 +69,53 @@ def write_timing_report(
         _timing_to_md(payload), encoding="utf-8"
     )
 
-    # Terminal summary
-    info_line("Marking timing:")
-    for key, val in step_durations.items():
-        if val < 0.5:
-            continue
-        label = _STEP_LABELS.get(key, key.replace("_s", "").replace("_", " ").title())
-        info_line(f"  {label}: {format_duration(val)}")
-    info_line(f"  Total: {format_duration(total)}  ·  {len(api_calls)} API calls")
+    # Terminal summary — step durations (column-aligned)
+    _vis_steps = [
+        (_STEP_LABELS.get(k, k.replace("_s", "").replace("_", " ").title()), v)
+        for k, v in step_durations.items() if v >= 0.5
+    ]
+    _lw = max((len(lbl) for lbl, _ in _vis_steps), default=5)
+    _lw = max(_lw, len("Total"))
+    info_line("Step durations:")
+    for _lbl, _val in _vis_steps:
+        info_line(f"  {_lbl:<{_lw}}   {format_duration(_val)}")
+    info_line(f"  {'Total':<{_lw}}   {format_duration(total)}  ·  {len(api_calls)} API calls")
+
+    # API cost table (column-aligned)
     if token_usage:
-        info_line("  Token usage:")
+        _mw = max((len(m) for m in breakdown), default=5)
+        _mw = max(_mw, len("Model"), len("Total"))
+        _iw = max(
+            max((len(f"{d['input_tokens']:,}") for d in breakdown.values()), default=0),
+            len("Input"), len(f"{total_input:,}"),
+        )
+        _ow = max(
+            max((len(f"{d['output_tokens']:,}") for d in breakdown.values()), default=0),
+            len("Output"), len(f"{total_output:,}"),
+        )
+        _cost_strs = [f"¥{d['cost_rmb']:.4f}" for d in breakdown.values()] + [f"¥{total_cost_rmb:.4f}", "Cost"]
+        _cw = max(len(s) for s in _cost_strs)
+        _sep = "  " + "─" * (_mw + 3 + _iw + 3 + _ow + 3 + _cw)
+
+        from xscore.shared.cost_report import _load_pricing
+        _n_prices = len(_load_pricing())
+        info_line("")
+        info_line("API cost:")
+        info_line(f"  {_n_prices} model(s) loaded from AI API costs.xlsx")
+        info_line(f"  {'Model':<{_mw}}   {'Input':>{_iw}}   {'Output':>{_ow}}   {'Cost':>{_cw}}")
+        info_line(_sep)
         for _model, _data in breakdown.items():
-            _cost_str = f"  ·  ¥{_data['cost_rmb']:.4f}" if _data['cost_rmb'] > 0 else ""
+            _cs = f"¥{_data['cost_rmb']:.4f}"
             info_line(
-                f"    {_model}: {_data['input_tokens']:,} in"
-                f" · {_data['output_tokens']:,} out{_cost_str}"
+                f"  {_model:<{_mw}}   {_data['input_tokens']:>{_iw},}"
+                f"   {_data['output_tokens']:>{_ow},}   {_cs:>{_cw}}"
             )
+        info_line(_sep)
         _hint = "" if total_cost_rmb > 0 else "  (prices not found in AI API costs.xlsx)"
+        _ts = f"¥{total_cost_rmb:.4f}"
         info_line(
-            f"  Total: {total_input:,} in · {total_output:,} out"
-            f"  ·  ¥{total_cost_rmb:.4f}{_hint}"
+            f"  {'Total':<{_mw}}   {total_input:>{_iw},}"
+            f"   {total_output:>{_ow},}   {_ts:>{_cw}}{_hint}"
         )
     if failures:
         warn_line(f"  {len(failures)} page(s) failed marking — see 16_timing.md for details")

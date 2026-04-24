@@ -48,10 +48,10 @@ def build_ai_scaffold(
     exam_pdf: Path,
     marking_scheme_pdf: Path | None,
     *,
-    split_subpages: bool = True,
     on_layout_complete: "Callable[[], None] | None" = None,
     on_cut_complete: "Callable[[bool], None] | None" = None,
     on_exam_complete: "Callable[[list[dict]], None] | None" = None,
+    on_graphics_complete: "Callable[[list | None], None] | None" = None,
     on_scheme_complete: "Callable[[list[dict]], None] | None" = None,
     artifact_dir: Path | None = None,
 ) -> tuple[list[Question], ExamLayout]:
@@ -60,20 +60,14 @@ def build_ai_scaffold(
     Args:
         exam_pdf: Path to the exam question-paper PDF.
         marking_scheme_pdf: Optional mark-scheme PDF; skipped when None.
-        split_subpages: When True (default), run a cheap layout-detection call first,
-            then split the exam PDF into individual sub-pages before extraction.
-            Disable with READ_EXAM_PDF_SPLIT=0 to use the legacy single-call path.
         on_exam_complete: Optional callback invoked with the raw question dicts
             after the first API call (exam extraction) completes successfully.
-            Use this to advance the pipeline step counter between the two calls.
         on_scheme_complete: Optional callback invoked with the raw scheme question
             dicts after the second API call completes, but *before* the scheme is
-            merged into the question tree.  Use this to advance the step counter
-            to the merge step.  May raise SystemExit(0) to stop before merging.
-        artifact_dir: If set, write intermediate JSON + Markdown snapshots:
-            ``14_exam_layout.*`` after layout detection (split mode only),
-            ``15_exam_questions.*`` after call 1, ``16_mark_scheme.*`` after call 2.
-            Saves are best-effort; OSError is silently ignored.
+            merged into the question tree.  May raise SystemExit(0) to stop before merging.
+        artifact_dir: If set, write intermediate JSON + Markdown snapshots under the
+            fixed step directories (14, 15, 16, 17). Saves are best-effort; OSError
+            is silently ignored.
 
     Returns:
         Tuple of (list[Question], ExamLayout). Questions have spatial BBox coordinates
@@ -87,8 +81,7 @@ def build_ai_scaffold(
     scheme_model, scheme_effort = _mark_scheme_model_config()
 
     client = make_gemini_native_client()
-    _needs_gemini = split_subpages or exam_model.startswith("gemini")
-    if _needs_gemini and client is None:
+    if client is None:
         raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
 
     # State tracked across the try/finally (split PDF must always be cleaned up)
@@ -102,91 +95,88 @@ def build_ai_scaffold(
     try:
         from xscore.shared.terminal_ui import ok_line, tool_line, warn_line
 
-        # ---- Step A: cheap layout detection + PDF splitting (split mode) ---
-        if split_subpages:
-            layout_model, layout_effort = _layout_detect_model_config()
+        # ---- Step 14: layout detection + PDF splitting -------------------------
+        layout_model, layout_effort = _layout_detect_model_config()
 
-            # Save prompt before API call
-            if artifact_dir is not None:
-                save_prompt(
-                    artifact_scaffold_prompt_path(artifact_dir, "detect_layout", 0),
-                    model=layout_model, system=_SYSTEM_LAYOUT,
-                    messages=[{"role": "user", "content": _USER_LAYOUT}],
-                )
-
-            layout_result, layout_elapsed, layout_raw_text, layout_error = _detect_layout(
-                client, exam_pdf, layout_model, layout_effort
+        # Save prompt before API call
+        if artifact_dir is not None:
+            save_prompt(
+                artifact_scaffold_prompt_path(artifact_dir, "detect_layout"),
+                model=layout_model, system=_SYSTEM_LAYOUT,
+                messages=[{"role": "user", "content": _USER_LAYOUT}],
             )
 
-            # Save raw AI response immediately (even on failure, if we got a response)
-            if artifact_dir is not None and layout_raw_text is not None:
+        layout_result, layout_elapsed, layout_raw_text, layout_error = _detect_layout(
+            client, exam_pdf, layout_model, layout_effort
+        )
+
+        # Save raw AI response immediately (even on failure, if we got a response)
+        if artifact_dir is not None and layout_raw_text is not None:
+            try:
+                raw_path = artifact_exam_layout_raw_path(artifact_dir)
+                raw_path.parent.mkdir(parents=True, exist_ok=True)
+                raw_path.write_text(layout_raw_text, encoding="utf-8")
+            except OSError:
+                pass
+
+        # Terminal output
+        n_cells = layout_result.rows * layout_result.cols
+        if layout_error is not None:
+            warn_line(
+                f"Layout detection failed — assuming 1×1"
+                f"  ·  {layout_model}  ·  {layout_elapsed:.1f}s"
+                f"\n    {layout_error}"
+            )
+        elif n_cells > 1:
+            ok_line(
+                f"Layout {layout_result.rows}×{layout_result.cols} ({n_cells}-up)"
+                f"  ·  {layout_model}  ·  {layout_elapsed:.1f}s"
+            )
+        else:
+            ok_line(f"Layout 1×1 (single)  ·  {layout_model}  ·  {layout_elapsed:.1f}s")
+
+        if on_layout_complete is not None:
+            on_layout_complete()
+
+        if n_cells > 1:
+            layout_label = f"{layout_result.rows}×{layout_result.cols}"
+            tool_line("split", f"Splitting exam PDF ({layout_label} layout) …")
+            split_pdf_path, n_physical_pages, n_split_pages = _split_pdf_by_layout(
+                exam_pdf, layout_result
+            )
+            ok_line(f"{n_physical_pages} physical page(s) → {n_split_pages} sub-pages")
+            if artifact_dir is not None:
                 try:
-                    raw_path = artifact_exam_layout_raw_path(artifact_dir)
-                    raw_path.parent.mkdir(parents=True, exist_ok=True)
-                    raw_path.write_text(layout_raw_text, encoding="utf-8")
+                    import shutil
+                    from xscore.shared.exam_paths import artifact_split_exam_pdf_path
+                    dest = artifact_split_exam_pdf_path(artifact_dir)
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(str(split_pdf_path), str(dest))
                 except OSError:
                     pass
 
-            # Terminal output
-            n_cells = layout_result.rows * layout_result.cols
-            if layout_error is not None:
-                warn_line(
-                    f"Layout detection failed — assuming 1×1"
-                    f"  ·  {layout_model}  ·  {layout_elapsed:.1f}s"
-                    f"\n    {layout_error}"
-                )
-            elif n_cells > 1:
-                ok_line(
-                    f"Layout {layout_result.rows}×{layout_result.cols} ({n_cells}-up)"
-                    f"  ·  {layout_model}  ·  {layout_elapsed:.1f}s"
-                )
-            else:
-                ok_line(f"Layout 1×1 (single)  ·  {layout_model}  ·  {layout_elapsed:.1f}s")
+        # Save layout artifact immediately — do not wait for exam call to finish
+        if artifact_dir is not None:
+            _save_layout_artifact(
+                artifact_dir, layout_result, layout_model, layout_elapsed,
+                n_physical_pages, n_split_pages,
+            )
+            # In 1×1 mode no split PDF is produced; copy the original so
+            # the artifact directory always contains the PDF sent to Gemini.
+            if n_cells == 1:
+                try:
+                    import shutil
+                    from xscore.shared.exam_paths import artifact_exam_input_pdf_path
+                    dest = artifact_exam_input_pdf_path(artifact_dir)
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(str(exam_pdf), str(dest))
+                except OSError:
+                    pass
 
-            if on_layout_complete is not None:
-                on_layout_complete()
+        if on_cut_complete is not None:
+            on_cut_complete(n_cells == 1)
 
-            if n_cells > 1:
-                layout_label = f"{layout_result.rows}×{layout_result.cols}"
-                tool_line("split", f"Splitting exam PDF ({layout_label} layout) …")
-                split_pdf_path, n_physical_pages, n_split_pages = _split_pdf_by_layout(
-                    exam_pdf, layout_result
-                )
-                ok_line(f"{n_physical_pages} physical page(s) → {n_split_pages} sub-pages")
-                if artifact_dir is not None:
-                    try:
-                        import shutil
-                        from xscore.shared.exam_paths import artifact_split_exam_pdf_path
-                        dest = artifact_split_exam_pdf_path(artifact_dir)
-                        dest.parent.mkdir(parents=True, exist_ok=True)
-                        shutil.copy2(str(split_pdf_path), str(dest))
-                    except OSError:
-                        pass
-
-            # Save layout artifact immediately — do not wait for exam call to finish
-            if artifact_dir is not None:
-                _save_layout_artifact(
-                    artifact_dir, layout_result, layout_model, layout_elapsed,
-                    n_physical_pages, n_split_pages,
-                )
-                # In 1×1 mode no split PDF is produced; copy the original so
-                # the artifact directory always contains the PDF sent to Gemini.
-                if n_cells == 1:
-                    try:
-                        import shutil
-                        from xscore.shared.exam_paths import artifact_exam_input_pdf_path
-                        dest = artifact_exam_input_pdf_path(artifact_dir)
-                        dest.parent.mkdir(parents=True, exist_ok=True)
-                        shutil.copy2(str(exam_pdf), str(dest))
-                    except OSError:
-                        pass
-
-            if on_cut_complete is not None:
-                on_cut_complete(n_cells == 1)
-
-        # ---- Step 9/10: exam extraction ----------------------------------------
-        # step_offset=1 when layout detection ran and found a multi-up layout.
-        _effective_step_offset = 1 if (split_subpages and layout_result is not None and layout_result.rows * layout_result.cols > 1) else 0
+        # ---- Step 15: exam extraction ------------------------------------------
         actual_exam_pdf = split_pdf_path if split_pdf_path is not None else exam_pdf
         raw_layout: dict = {}
         raw_questions, raw_layout = _do_exam_call(
@@ -199,7 +189,6 @@ def build_ai_scaffold(
             n_split_pages=n_split_pages,
             artifact_dir=artifact_dir,
             fmt=fmt,
-            step_offset=_effective_step_offset,
         )
 
         # Use pre-detected layout (ignore raw_layout from extraction response in split mode).
@@ -208,12 +197,12 @@ def build_ai_scaffold(
 
         # Layout artifact already saved immediately after detection above.
 
-        # Save step-9 artifacts BEFORE on_exam_complete — the callback may raise
-        # SystemExit(0) when --through 9 is used, so anything after it won't run.
+        # Save step-15 artifacts BEFORE on_exam_complete — the callback may raise
+        # SystemExit(0) when --through 15 is used, so anything after it won't run.
         if artifact_dir is not None:
             try:
                 from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
-                p = artifact_exam_questions_path(artifact_dir, fmt=fmt.artifact_ext(), step_offset=_effective_step_offset)
+                p = artifact_exam_questions_path(artifact_dir, fmt=fmt.artifact_ext())
                 p.parent.mkdir(parents=True, exist_ok=True)
                 p.write_text(fmt.serialize_exam(raw_questions, raw_layout), encoding="utf-8")
                 write_raw_exam_markdown(artifact_dir, raw_questions)
@@ -235,7 +224,7 @@ def build_ai_scaffold(
                     scaffold_str=scaffold_str,
                     artifact_dir=artifact_dir,
                     fmt=fmt,
-                    step_offset=_effective_step_offset,
+                    on_graphics_complete=on_graphics_complete,
                 )
             except Exception as _exc:
                 import logging as _log

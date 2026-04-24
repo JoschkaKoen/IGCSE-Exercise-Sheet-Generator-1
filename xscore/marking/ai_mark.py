@@ -341,7 +341,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         )
 
     # Pre-build mark-scheme graphics map: safe_qnum → sorted list of PNG paths
-    _graphics_dir = artifact_mark_scheme_graphics_dir(ctx.artifact_dir, ctx.step_offset)
+    _graphics_dir = artifact_mark_scheme_graphics_dir(ctx.artifact_dir)
     _graphics_map: dict[str, list[Path]] = {}
     if _graphics_dir.is_dir():
         _gfx_re = re.compile(r"^\d+_(.+)_(\d+)\.png$")
@@ -417,7 +417,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         blueprint = fmt.deserialize_blueprint(blueprint_str)
 
         t0 = time.perf_counter()
-        prompt_save = artifact_marking_prompt_path(ctx.artifact_dir, student_name, p_label, ctx.step_offset)
+        prompt_save = artifact_marking_prompt_path(ctx.artifact_dir, student_name, p_label)
         try:
             _page_graphics = _scheme_graphics_for_page(blueprint, _graphics_map)
             _use_pdf_path = _provider == "gemini"

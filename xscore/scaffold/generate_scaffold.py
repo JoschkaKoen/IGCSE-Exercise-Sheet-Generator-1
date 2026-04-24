@@ -527,6 +527,7 @@ def build_scaffold(
     quiet: bool = False,
     exam_pdf_override: Path | None = None,
     on_exam_complete: "Any | None" = None,
+    on_graphics_complete: "Any | None" = None,
     on_scheme_complete: "Any | None" = None,
     on_layout_complete: "Any | None" = None,
     on_cut_complete: "Any | None" = None,
@@ -572,13 +573,12 @@ def build_scaffold(
 
     from xscore.scaffold.ai_scaffold import build_ai_scaffold
     ans = _find_answer_pdf(folder)
-    _split = os.getenv("READ_EXAM_PDF_SPLIT", "1").strip() not in ("0", "false", "no")
     questions, layout = build_ai_scaffold(
         exam_pdf, ans,
-        split_subpages=_split,
         on_layout_complete=on_layout_complete,
         on_cut_complete=on_cut_complete,
         on_exam_complete=on_exam_complete,
+        on_graphics_complete=on_graphics_complete,
         on_scheme_complete=on_scheme_complete,
         artifact_dir=ad,
     )

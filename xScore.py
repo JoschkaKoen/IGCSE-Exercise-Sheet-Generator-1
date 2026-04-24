@@ -2,7 +2,7 @@
 """
 xScore.py
 ---------
-Exam scan grading pipeline (steps 1–21) — run from the eXercise project root.
+Exam scan grading pipeline (steps 1–22) — run from the eXercise project root.
 
 Steps:
   1. Parse the natural language prompt (via Kimi).
@@ -14,18 +14,19 @@ Steps:
   7. Deskew (small-angle per-half correction) → 07_deskew/cleaned_scan.pdf.
   8. Scan geometry (page/student counts) → 08_exam_geometry/exam_geometry.json.
   9. Cover page detection (empty exam) → 09_cover_page/.
- 10. Student name detection (name OCR) → 10_student_names/exam_student_list.json.
- 11. Page count validation.
- 12. Page order check → 12_page_order/.
- 13. Blank page detection → 13_blank_pages/.
- 14. AI: detect exam layout + split multi-up PDFs → 14_detect_exam_layout/ (split mode only).
- 15. AI: parse exam PDF → question hierarchy → 15_parse_exam_pdf/exam_questions.json.
- 16. AI: parse mark scheme → correct answers + criteria → 16_parse_mark_scheme/mark_scheme.json.
- 17. Merge scaffold → 17_create_report/report.json.
- 18. Build per-page AI marking blueprints → 18_ai_marking_blueprints/.
- 19. AI: grade each student page → 19_ai_marking/students/.
- 20. Merge per-page results into student and class reports → 20_compile_reports/.
- 21. Timing summary → 21_timing_summary/.
+ 10. AI: cover page detection (scan) → 10_cover_page_scan/.
+ 11. Student name detection (name OCR) → 11_student_names/exam_student_list.json.
+ 12. Page count validation.
+ 13. Page order check → 13_page_order/.
+ 14. Blank page detection → 14_blank_pages/.
+ 15. AI: detect exam layout + split multi-up PDFs → 15_detect_exam_layout/.
+ 16. AI: parse exam PDF → question hierarchy → 16_parse_exam_pdf/exam_questions.json.
+ 17. AI: parse mark scheme → correct answers + criteria → 17_parse_mark_scheme/mark_scheme.json.
+ 18. Merge scaffold → 18_create_report/report.json.
+ 19. Build per-page AI marking blueprints → 19_ai_marking_blueprints/.
+ 20. AI: grade each student page → 20_ai_marking/students/.
+ 21. Merge per-page results into student and class reports → 21_compile_reports/.
+ 22. Timing summary → 22_timing_summary/.
 
 Usage:
     python xScore.py "grade Space Physics Unit Test"
@@ -185,24 +186,20 @@ def _copy_artifacts(src: Path, dst: Path, from_step: int, blueprint_step: int) -
     flat layout so that resuming from old runs still works.
     """
     import shutil
-    step_offset = blueprint_step - 17   # 0 = non-split, 1 = split
-    ms_step  = 15 + step_offset
-    rep_step = 16 + step_offset
-    mk_step  = 18 + step_offset
     patterns = [
         # New per-step folder paths
         "03_read_student_list/students.*",
         "07_deskew/cleaned_scan.pdf",
         "08_exam_geometry/exam_geometry.*",
-        "10_student_names/exam_student_list.*",
-        "13_blank_pages/blank_pages.json",
-        "14_detect_exam_layout/exam_layout.*",
-        "14_detect_exam_layout/split_exam.pdf",
-        f"{14 + step_offset:02d}_parse_exam_pdf/exam_questions.*",
-        f"{14 + step_offset:02d}_parse_exam_pdf/exam_input.pdf",
-        f"{ms_step:02d}_parse_mark_scheme/mark_scheme.*",
-        f"{rep_step:02d}_create_report/report.*",
-        f"{rep_step:02d}_create_report/short_report.*",
+        "11_student_names/exam_student_list.*",
+        "14_blank_pages/blank_pages.json",
+        "15_detect_exam_layout/exam_layout.*",
+        "15_detect_exam_layout/split_exam.pdf",
+        "16_parse_exam_pdf/exam_questions.*",
+        "16_parse_exam_pdf/exam_input.pdf",
+        "17_parse_mark_scheme/mark_scheme.*",
+        "18_create_report/report.*",
+        "18_create_report/short_report.*",
         # Pre-restructure legacy flat paths (backward compatibility)
         "3_students.*",
         "7_cleaned_scan.pdf",
@@ -218,7 +215,7 @@ def _copy_artifacts(src: Path, dst: Path, from_step: int, blueprint_step: int) -
         ]
     if from_step >= blueprint_step + 2:   # from reports — need marking results
         patterns += [
-            f"{mk_step:02d}_ai_marking/students/",
+            "20_ai_marking/students/",
             "students/14_marked_*.*", "students/14_failed_*.*",  # legacy
         ]
     for pat in patterns:
@@ -237,8 +234,9 @@ def _resume_pipeline(ctx: "_Ctx") -> None:
         exam_output_root = Path("output") / "xscore" / ctx.folder.name.replace(" ", "_")
         def _is_valid_run(p: Path) -> bool:
             return (
-                (p / "16_create_report" / "report.xml").exists() or   # new non-split
-                (p / "17_create_report" / "report.xml").exists() or   # new split
+                (p / "18_create_report" / "report.xml").exists() or   # current
+                (p / "17_create_report" / "report.xml").exists() or   # post-step-16 refactor legacy
+                (p / "16_create_report" / "report.xml").exists() or   # pre-step-16 refactor legacy
                 (p / "12_report.json").exists()                        # pre-restructure legacy
             )
         candidates = sorted(
@@ -253,15 +251,8 @@ def _resume_pipeline(ctx: "_Ctx") -> None:
         resume_dir = candidates[0]
     ctx.resume_dir = resume_dir
 
-    # Derive step_offset from prior run (split mode = layout detection artifact present)
-    ctx.step_offset = 1 if (
-        (resume_dir / "14_detect_exam_layout").is_dir() or          # new layout
-        (resume_dir / "09_detect_exam_layout").is_dir() or          # transitional
-        (resume_dir / "9_exam_layout.json").exists()                 # pre-restructure legacy
-    ) else 0
-
     # Validate from_step
-    blueprint_step = 17 + ctx.step_offset
+    blueprint_step = 19
     valid_steps = (blueprint_step, blueprint_step + 1, blueprint_step + 2)
     if ctx.from_step not in valid_steps:
         raise SystemExit(
@@ -270,19 +261,15 @@ def _resume_pipeline(ctx: "_Ctx") -> None:
         )
 
     # Validate required artifacts exist (check new paths first, then pre-restructure legacy)
-    step_offset = ctx.step_offset
-    rep_step = 16 + step_offset
-    mk_step  = 18 + step_offset
-
     def _first_existing(*paths: Path) -> Path | None:
         return next((p for p in paths if p.exists()), None)
 
     required: list[Path] = []
     for new_p, old_p in [
-        (resume_dir / "07_deskew" / "cleaned_scan.pdf",         resume_dir / "7_cleaned_scan.pdf"),
-        (resume_dir / "03_read_student_list" / "students.json",  resume_dir / "3_students.json"),
-        (resume_dir / "10_student_names" / "exam_student_list.json", resume_dir / "8_exam_student_list.json"),
-        (resume_dir / f"{rep_step:02d}_create_report" / "report.xml", resume_dir / "12_report.json"),
+        (resume_dir / "07_deskew" / "cleaned_scan.pdf",          resume_dir / "7_cleaned_scan.pdf"),
+        (resume_dir / "03_read_student_list" / "students.json",   resume_dir / "3_students.json"),
+        (resume_dir / "11_student_names" / "exam_student_list.json", resume_dir / "8_exam_student_list.json"),
+        (resume_dir / "18_create_report" / "report.xml",          resume_dir / "12_report.json"),
     ]:
         found = _first_existing(new_p, old_p)
         if found:
@@ -291,11 +278,11 @@ def _resume_pipeline(ctx: "_Ctx") -> None:
             required.append(new_p)   # will be reported as missing
 
     if ctx.from_step >= blueprint_step + 1:
-        bp_new = list(resume_dir.glob(f"{blueprint_step:02d}_ai_marking_blueprints/blueprint_page_*.json"))
+        bp_new = list(resume_dir.glob("19_ai_marking_blueprints/blueprint_page_*.json"))
         bp_old = list(resume_dir.glob("18_ai_marking_blueprint_*.json"))
         required += bp_new or bp_old
     if ctx.from_step >= blueprint_step + 2:
-        mk_new = list(resume_dir.glob(f"{mk_step:02d}_ai_marking/students/*.xml"))
+        mk_new = list(resume_dir.glob("20_ai_marking/students/*.yaml"))
         mk_old = list(resume_dir.glob("students/14_marked_*.xml"))
         required += mk_new or mk_old
     missing = [p for p in required if not p.exists()]
@@ -327,6 +314,8 @@ def _resume_pipeline(ctx: "_Ctx") -> None:
     ctx.students = json.loads(students_path.read_text())
 
     student_list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
+    if not student_list_path.exists():
+        student_list_path = ctx.artifact_dir / "10_student_names" / "exam_student_list.json"  # post-step-16 legacy
     if not student_list_path.exists():
         student_list_path = ctx.artifact_dir / "10_exam_student_list.json"   # transitional
     if not student_list_path.exists():
@@ -509,45 +498,46 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             on_complete()
 
     def _scaffold_steps(ctx: _Ctx, *, background: bool = False) -> None:
-        """Steps 14–17 in split mode (14 layout+cut, 15 exam, 16 scheme, 17 merge)
-        or 14–16 in legacy mode (14 exam, 15 scheme, 16 merge)."""
-        import os as _os
+        """Steps 15–18: layout+cut, exam PDF, mark scheme, report merge."""
         assert ctx.folder is not None and ctx.artifact_dir is not None
         if ctx.from_step:
             return
         t0 = time.perf_counter()
 
-        _split = _os.getenv("READ_EXAM_PDF_SPLIT", "1").strip() not in ("0", "false", "no")
-        ctx.step_offset = 1 if _split else 0
-        off = ctx.step_offset
+        pipeline_step(
+            15, "Detect exam layout",
+            subtitle="running in background" if background else None,
+        )
 
-        if _split:
-            pipeline_step(
-                14, "Detect exam layout",
-                subtitle="running in background" if background else None,
-            )
-        else:
-            pipeline_step(
-                14, "Parse exam PDF",
-                subtitle="running in background" if background else None,
-            )
+        _step_t = [0.0, 0.0]  # [t_graphics_start, t_scheme_start]
 
         def _on_cut_done(skipped: bool) -> None:
             pipeline_step(
-                15, "Parse exam PDF",
+                16, "Parse exam PDF",
                 subtitle="running in background" if background else None,
             )
 
         def _on_exam_done(raw_questions: list) -> None:
             ok_line(f"{len(raw_questions)} top-level questions extracted")
             pipeline_step(
-                15 + off, "Parse mark scheme",
+                17, "Parse mark scheme",
                 subtitle="completed in background" if background else None,
             )
+            _step_t[0] = time.perf_counter()
+
+        def _on_graphics_done(graphics_qs: "list | None") -> None:
+            if graphics_qs is None:
+                ok_line("Skipped (DETECT_SCHEME_GRAPHICS_MODEL not set)")
+            else:
+                n = sum(len(q.get("graphics") or []) for q in graphics_qs)
+                dur = format_duration(time.perf_counter() - _step_t[0])
+                ok_line(f"{n} graphic{'s' if n != 1 else ''} detected  ·  {dur}")
+            _step_t[1] = time.perf_counter()
 
         def _on_scheme_done(scheme_questions: list) -> None:
-            ok_line(f"{len(scheme_questions)} answers in mark scheme")
-            pipeline_step(16 + off, "Create report")
+            dur = format_duration(time.perf_counter() - _step_t[1])
+            ok_line(f"{len(scheme_questions)} answers in mark scheme  ·  {dur}")
+            pipeline_step(18, "Create report")
 
         try:
             ctx.scaffold = build_scaffold(
@@ -555,8 +545,9 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
                 artifact_dir=ctx.artifact_dir,
                 force_rebuild=True,
                 on_layout_complete=None,
-                on_cut_complete=_on_cut_done if _split else None,
+                on_cut_complete=_on_cut_done,
                 on_exam_complete=_on_exam_done,
+                on_graphics_complete=_on_graphics_done,
                 on_scheme_complete=_on_scheme_done,
                 students=ctx.students,
             )
@@ -743,18 +734,33 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             except Exception as _e:
                 warn_line(f"Empty exam cover check skipped: {_e}")
 
-        def _step10_student_names() -> None:
+        def _step10_cover_scan() -> None:
+            assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+            if ctx.from_step:
+                return
+            pipeline_step(10, "Cover page detection (scan)")
+            from xscore.marking.assign_pages_to_students import detect_scan_cover_pages
+            cover_page_mode, cover_ok = detect_scan_cover_pages(
+                ctx.cleaned_pdf,
+                ctx.pages_per_student,
+                artifact_dir=ctx.artifact_dir,
+            )
+            ctx.cover_page_mode = cover_page_mode
+            ctx.cover_ok = cover_ok
+
+        def _step11_student_names() -> None:
             nonlocal _geo
             assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
             if ctx.from_step:
                 return
-            pipeline_step(10, "Student names")
+            pipeline_step(11, "Student names")
             t0 = time.perf_counter()
             ctx.page_assignments = assign_pages(
                 ctx.cleaned_pdf,
                 ctx.students or [],
                 pages_per_student=ctx.pages_per_student,
                 artifact_dir=ctx.artifact_dir,
+                cover_page_mode=ctx.cover_page_mode,
             )
             ctx.cover_page_mode = any(
                 a.cover_page_number is not None for a in ctx.page_assignments
@@ -785,11 +791,11 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
                 + f"  ·  {format_duration(time.perf_counter() - t0)}"
             )
 
-        def _step11_page_count_validation() -> None:
+        def _step12_page_count_validation() -> None:
             assert ctx.page_assignments is not None
             if ctx.from_step:
                 return
-            pipeline_step(11, "Page count validation")
+            pipeline_step(12, "Page count validation")
             if not _geo.get("pages_valid", True):
                 n_detected   = len(ctx.page_assignments)
                 scan_pages   = _geo["scan_pages"]
@@ -835,11 +841,11 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             per_str = f"cover + {_geo['exam_pages']} answer" if _cover else f"{_geo['exam_pages']} pages"
             ok_line(f"Page counts valid  ·  {n} × ({per_str}) = {_geo['scan_pages']} total")
 
-        def _step12_page_order() -> None:
+        def _step13_page_order() -> None:
             assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
             if ctx.from_step:
                 return
-            pipeline_step(12, "Page order")
+            pipeline_step(13, "Page order")
             try:
                 from xscore.scaffold.generate_scaffold import find_exam_pdf as _fep
                 from xscore.marking.page_order_check import check_page_order as _check_order
@@ -854,11 +860,11 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             except Exception as _e:
                 warn_line(f"Page order check skipped: {_e}")
 
-        def _step13_blank_pages() -> None:
+        def _step14_blank_pages() -> None:
             assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
             if ctx.from_step:
                 return
-            pipeline_step(13, "Blank pages")
+            pipeline_step(14, "Blank pages")
             try:
                 from xscore.scaffold.generate_scaffold import find_exam_pdf as _fep2
                 from xscore.marking.blank_page_detection import check_blank_pages as _check_blank
@@ -883,29 +889,31 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             if ctx.stop_after <= 8: raise _EarlyExit()
             _step09_cover_detection()
             if ctx.stop_after <= 9: raise _EarlyExit()
-            _step10_student_names()
+            _step10_cover_scan()
             if ctx.stop_after <= 10: raise _EarlyExit()
-            _step11_page_count_validation()
+            _step11_student_names()
             if ctx.stop_after <= 11: raise _EarlyExit()
-            _step12_page_order()
+            _step12_page_count_validation()
             if ctx.stop_after <= 12: raise _EarlyExit()
-            _step13_blank_pages()
+            _step13_page_order()
             if ctx.stop_after <= 13: raise _EarlyExit()
+            _step14_blank_pages()
+            if ctx.stop_after <= 14: raise _EarlyExit()
         _scaffold_steps(ctx)
 
     def _step17_blueprints(ctx: _Ctx) -> None:
-        """Step 17/18 — Build per-page AI marking blueprints (no AI calls)."""
+        """Step 19 — Build per-page AI marking blueprints (no AI calls)."""
         assert ctx.scaffold is not None and ctx.artifact_dir is not None
-        pipeline_step(17 + ctx.step_offset, "AI marking blueprints")
+        pipeline_step(19, "AI marking blueprints")
         t0 = time.perf_counter()
         blueprints = build_blueprints(ctx.scaffold, ctx.artifact_dir)
         ok_line(f"{len(blueprints)} page blueprint(s) written")
         ctx.step_timings_marking["blueprints_s"] = time.perf_counter() - t0
 
     def _step18_mark(ctx: _Ctx) -> None:
-        """Step 18/19 — AI marking: vision calls to fill blueprints for each student page."""
+        """Step 20 — AI marking: vision calls to fill blueprints for each student page."""
         assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
-        pipeline_step(18 + ctx.step_offset, "AI marking")
+        pipeline_step(20, "AI marking")
         t0 = time.perf_counter()
         ctx.marking_api_calls = run_ai_marking(ctx, dpi=ctx.instruction.dpi)
         _n_calls = len(ctx.marking_api_calls)
@@ -918,9 +926,9 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.step_timings_marking["marking_s"] = time.perf_counter() - t0
 
     def _step19_reports(ctx: _Ctx) -> None:
-        """Step 19/20 — Merge per-page results into student + class reports; compile PDFs."""
+        """Step 21 — Merge per-page results into student + class reports; compile PDFs."""
         assert ctx.scaffold is not None and ctx.artifact_dir is not None
-        pipeline_step(19 + ctx.step_offset, "Compile reports")
+        pipeline_step(21, "Compile reports")
         t0 = time.perf_counter()
         summaries = compile_reports(ctx)
         _known = [s["percentage"] for s in summaries if s["percentage"] is not None]
@@ -929,9 +937,9 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.step_timings_marking["reports_s"] = time.perf_counter() - t0
 
     def _step20_timing(ctx: _Ctx) -> None:
-        """Step 20/21 — Write timing summary (21_timing.json / .md) and accuracy report."""
+        """Step 22 — Write timing summary and accuracy report."""
         assert ctx.artifact_dir is not None
-        pipeline_step(20 + ctx.step_offset, "Timing summary")
+        pipeline_step(22, "Timing summary")
         t0 = time.perf_counter()
 
         accuracy_summary = None
@@ -941,7 +949,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
                 student_results = load_student_results_from_reports(ctx.artifact_dir)
                 accuracy_summary = evaluate_results(student_results, ground_truth, ctx.scaffold)
                 from xscore.shared.exam_paths import artifact_accuracy_json_path
-                _acc_path = artifact_accuracy_json_path(ctx.artifact_dir, ctx.step_offset)
+                _acc_path = artifact_accuracy_json_path(ctx.artifact_dir)
                 _acc_path.parent.mkdir(parents=True, exist_ok=True)
                 _acc_path.write_text(
                     json.dumps(accuracy_summary, indent=2, ensure_ascii=False), encoding="utf-8"
@@ -982,17 +990,17 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         _step02_folder(ctx)
         if ctx.stop_after <= 2: raise _EarlyExit()
         _run_geometry_steps(ctx)
-        if ctx.stop_after <= 16 + ctx.step_offset: raise _EarlyExit()
+        if ctx.stop_after <= 18: raise _EarlyExit()
         if ctx.cleaned_pdf and ctx.scaffold:
             _step17_blueprints(ctx)
-            if ctx.stop_after <= 17 + ctx.step_offset: raise _EarlyExit()
+            if ctx.stop_after <= 19: raise _EarlyExit()
             _step18_mark(ctx)
-            if ctx.stop_after <= 18 + ctx.step_offset: raise _EarlyExit()
+            if ctx.stop_after <= 20: raise _EarlyExit()
             _step19_reports(ctx)
-            if ctx.stop_after <= 19 + ctx.step_offset: raise _EarlyExit()
+            if ctx.stop_after <= 21: raise _EarlyExit()
             _step20_timing(ctx)
         elif ctx.cleaned_pdf and not ctx.scaffold:
-            warn_line("Marking skipped — scaffold not available (steps 17–20 omitted).")
+            warn_line("Marking skipped — scaffold not available (steps 19–22 omitted).")
         ok_line("Pipeline complete.")
         ctx.pipeline_completed_ok = True
         if ctx.cleaned_pdf:

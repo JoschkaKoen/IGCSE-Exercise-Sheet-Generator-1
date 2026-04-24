@@ -13,6 +13,8 @@ from pathlib import Path
 
 from google.genai import types as gai_types
 
+from collections.abc import Callable
+
 from eXercise.ai_client import build_thinking_kwargs, collect_streamed_response, make_ai_client
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.scaffold.scaffold_prompts import (
@@ -126,7 +128,6 @@ def _do_exam_call(
     n_split_pages: int,
     artifact_dir: "Path | None",
     fmt=None,
-    step_offset: int = 0,
 ) -> tuple[list[dict], dict]:
     if fmt is None:
         from xscore.scaffold.formats.xml_format import XmlScaffoldFormat
@@ -208,7 +209,7 @@ def _do_exam_call(
                 raise RuntimeError(f"Exam response empty after retry — {exam_model}")
         if artifact_dir is not None:
             save_prompt(
-                artifact_scaffold_prompt_path(artifact_dir, "exam_questions", step_offset),
+                artifact_scaffold_prompt_path(artifact_dir, "exam_questions"),
                 model=exam_model, system=fmt.system_exam_prompt(),
                 messages=[{
                     "role": "user",
@@ -249,7 +250,7 @@ def _do_scheme_call(
     scaffold_str: str = "",
     artifact_dir: "Path | None",
     fmt=None,
-    step_offset: int = 0,
+    on_graphics_complete: "Callable[[list | None], None] | None" = None,
 ) -> dict:
     # Accept both old (scaffold_xml) and new (scaffold_str) param names for compatibility.
     if not scaffold_str:
@@ -262,7 +263,7 @@ def _do_scheme_call(
     # 1. Extract single-page PDFs from the mark scheme
     _tmp_dir: Path | None = None
     if artifact_dir is not None:
-        pages_dir = artifact_mark_scheme_pages_dir(artifact_dir, step_offset)
+        pages_dir = artifact_mark_scheme_pages_dir(artifact_dir)
     else:
         import tempfile
         _tmp_dir = Path(tempfile.mkdtemp())
@@ -282,7 +283,7 @@ def _do_scheme_call(
                 _out.close()
             page_paths.append(_out_path)
 
-    # 1b. Rasterize pages to PNG for graphics detection
+    # 1b. Rasterize pages to PNG for graphics detection and non-Gemini scheme parsing
     _gfx_dpi = int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300"))
     page_pngs: dict[int, bytes] = {}
     with fitz.open(str(marking_scheme_pdf)) as _doc_r:
@@ -301,92 +302,11 @@ def _do_scheme_call(
         _oa_client, _, _oa_provider, _ = _oa_result
         _oa_use_stream, _oa_thinking_kw = build_thinking_kwargs(_oa_provider, scheme_effort or "off")
 
-    # 3. Upload all pages in parallel (Gemini only; non-Gemini uses base64 PNG from page_pngs)
-    page_uris: dict[int, str] = {}
-    if _oa_client is None:
-        info_line(f"Mark scheme: uploading {n_pages} page(s) …")
+    def _norm_qnum(s: str) -> str:
+        return re.sub(r"[()]", "", s)
 
-        def _upload_page(item: tuple[int, Path]):
-            page_num, path = item
-            return page_num, _upload_and_poll(client, path, f"scheme p{page_num}")
+    # ── Phase 1: Graphics detection ──────────────────────────────────────────
 
-        with ThreadPoolExecutor(max_workers=n_pages) as pool:
-            for page_num, f in pool.map(_upload_page, enumerate(page_paths, 1)):
-                page_uris[page_num] = f.uri
-    else:
-        info_line(f"Mark scheme: parsing {n_pages} page(s) via {scheme_model} …")
-
-    # 4. Per-page API calls in parallel
-
-    def _call_page(page_num: int) -> dict:
-        _input_label = "image" if _oa_client is not None else "PDF"
-        user_msg = fmt.build_scheme_user_msg(scaffold_str, page_num, n_pages, input_label=_input_label)
-        _t0 = time.perf_counter()
-        try:
-            if _oa_client is not None:
-                # OpenAI-compatible path (Qwen, Grok, etc.)
-                # PNG from page_pngs: 300 DPI lossless — preserves fine mark-scheme text
-                b64 = _base64.b64encode(page_pngs[page_num]).decode()
-                kwargs: dict = dict(
-                    model=scheme_model,
-                    messages=[
-                        {"role": "system", "content": fmt.system_scheme_prompt()},
-                        {"role": "user", "content": [
-                            {"type": "image_url",
-                             "image_url": {"url": f"data:image/png;base64,{b64}"}},
-                            {"type": "text", "text": user_msg},
-                        ]},
-                    ],
-                )
-                kwargs.update(_oa_thinking_kw)
-                kwargs.update(fmt.scheme_oa_extra_kwargs())
-                if _oa_use_stream:
-                    stream = _oa_client.chat.completions.create(**kwargs, stream=True)
-                    raw = collect_streamed_response(stream)
-                else:
-                    resp = _oa_client.chat.completions.create(**kwargs)
-                    raw = resp.choices[0].message.content or ""
-                ok_line(f"{format_duration(time.perf_counter() - _t0)}  (mark scheme p{page_num})")
-            else:
-                # Gemini native path
-                resp = client.models.generate_content(
-                    model=scheme_model,
-                    contents=[
-                        gai_types.Part.from_uri(
-                            file_uri=page_uris[page_num], mime_type="application/pdf"
-                        ),
-                        gai_types.Part.from_text(text=user_msg),
-                    ],
-                    config=_make_gen_config(
-                        scheme_effort, fmt.system_scheme_prompt(),
-                        pydantic_schema=fmt.pydantic_schema_scheme(),
-                    ),
-                )
-                ok_line(f"{format_duration(time.perf_counter() - _t0)}  (mark scheme p{page_num})")
-                raw = _extract_text(resp)
-        except Exception as _exc:
-            warn_line(
-                f"Mark scheme p{page_num}: API error  ·  "
-                f"{format_duration(time.perf_counter() - _t0)}  —  {_exc}"
-            )
-            return {"questions": []}
-        if not raw:
-            _reason = "" if _oa_client is not None else f" ({_finish_reason(resp)})"
-            warn_line(f"Mark scheme p{page_num}: empty response{_reason}")
-        if artifact_dir is not None:
-            _prompt_path = artifact_scaffold_prompt_path(artifact_dir, f"mark_scheme_p{page_num}", step_offset)
-            save_prompt(
-                _prompt_path,
-                model=scheme_model, system=fmt.system_scheme_prompt(),
-                messages=[{
-                    "role": "user",
-                    "content": f"[PDF: {marking_scheme_pdf.name} p{page_num}]\n\n{user_msg}",
-                }],
-            )
-            save_response(_prompt_path, raw or "")
-        return fmt.parse_scheme_response(raw or "")
-
-    # Build graphics detection system message (schema embedded once, shared across threads)
     _gfx_schema_str = json.dumps(_SCHEME_GRAPHICS_JSON_SCHEMA, indent=2)
     _gfx_system = (
         "You are a graphic-detection assistant for Cambridge IGCSE mark schemes. "
@@ -395,20 +315,17 @@ def _do_scheme_call(
         "coordinates on a 0\u20131000 scale (0=top-left, 1000=bottom-right of the image)."
     )
 
-    # Extract canonical question numbers from scaffold so graphics detector returns exact matches
     _all_qnums = fmt.extract_question_numbers(scaffold_str)
     _qnum_hint = ", ".join(f'"{n}"' for n in _all_qnums)
 
-    def _detect_graphics_page(page_num: int) -> dict:  # no-op fallback
-        return {"questions": []}
-
+    graphics_page_results: list[dict] = [{"questions": []}] * n_pages
     _gfx_client_result = make_ai_client(model_env="DETECT_SCHEME_GRAPHICS_MODEL")
-    if _gfx_client_result is None:
-        warn_line("DETECT_SCHEME_GRAPHICS_MODEL: API key missing — graphics detection skipped")
-    else:
+    _gfx_skipped = _gfx_client_result is None
+
+    if not _gfx_skipped:
         _det_client, _det_model, _det_provider, _ = _gfx_client_result
         _, _det_thinking_kw = build_thinking_kwargs(_det_provider, "off")
-        info_line(f"Mark scheme: detecting graphics ({_det_model}) …")
+        info_line(f"Detecting graphics ({_det_model}) …")
 
         def _detect_graphics_page(page_num: int) -> dict:
             b64 = _base64.b64encode(page_pngs[page_num]).decode()
@@ -442,11 +359,11 @@ def _do_scheme_call(
             try:
                 data = json.loads(raw)
             except json.JSONDecodeError:
-                ok_line(f"{format_duration(time.perf_counter() - _t0)}  (scheme graphics p{page_num})")
+                ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
                 return {"questions": []}
             if artifact_dir is not None:
                 _prompt_path = artifact_scaffold_prompt_path(
-                    artifact_dir, f"mark_scheme_graphics_detect_p{page_num}", step_offset
+                    artifact_dir, f"mark_scheme_graphics_detect_p{page_num}"
                 )
                 save_prompt(
                     _prompt_path, model=_det_model, system=_gfx_system,
@@ -466,13 +383,10 @@ def _do_scheme_call(
                     "x1": x_max / 1000.0, "y1": y_max / 1000.0,
                 })
             _qnums_str = (
-                f"  ·  q{', q'.join(questions_map.keys())}"
+                f"  q{', q'.join(questions_map.keys())}"
                 if questions_map else ""
             )
-            ok_line(
-                f"{format_duration(time.perf_counter() - _t0)}  "
-                f"(scheme graphics p{page_num}){_qnums_str}"
-            )
+            ok_line(f"p{page_num}{_qnums_str}  ·  {format_duration(time.perf_counter() - _t0)}")
             return {
                 "questions": [
                     {"number": qnum, "correct_answer": None, "mark_scheme": [], "graphics": gfx}
@@ -480,34 +394,127 @@ def _do_scheme_call(
                 ]
             }
 
-    with ThreadPoolExecutor(max_workers=n_pages * 2) as pool:
-        _scheme_futs   = [pool.submit(_call_page,            p) for p in range(1, n_pages + 1)]
-        _graphics_futs = [pool.submit(_detect_graphics_page, p) for p in range(1, n_pages + 1)]
-        page_results          = [f.result() for f in _scheme_futs]
-        graphics_page_results = [f.result() for f in _graphics_futs]
+        with ThreadPoolExecutor(max_workers=n_pages) as pool:
+            graphics_page_results = list(pool.map(_detect_graphics_page, range(1, n_pages + 1)))
 
-    # 4. Merge scheme results and graphics results
-    result = _merge_scheme_results(page_results)
     _graphics_merged = _merge_scheme_results(graphics_page_results)
-
-    def _norm_qnum(s: str) -> str:
-        return re.sub(r"[()]", "", s)
-
     _graphics_by_qnum = {
         _norm_qnum(q["number"]): q["graphics"]
         for q in _graphics_merged.get("questions", [])
         if q.get("graphics")
     }
+    _n_graphics = sum(len(g) for g in _graphics_by_qnum.values())
+
+    if artifact_dir is not None and _n_graphics:
+        _graphics_margin = float(os.environ.get("SCHEME_GRAPHICS_MARGIN", "0.01"))
+        try:
+            _extract_scheme_graphics(
+                _graphics_merged.get("questions", []),
+                marking_scheme_pdf,
+                artifact_mark_scheme_graphics_dir(artifact_dir),
+                dpi=_gfx_dpi,
+                margin=_graphics_margin,
+            )
+        except Exception:
+            warn_line("Mark scheme: graphic extraction failed")
+
+    if on_graphics_complete is not None:
+        on_graphics_complete(None if _gfx_skipped else _graphics_merged.get("questions", []))
+
+    # ── Phase 2: Scheme parsing ──────────────────────────────────────────────
+
+    page_uris: dict[int, str] = {}
+    if _oa_client is None:
+        info_line(f"Uploading {n_pages} page(s) …")
+
+        def _upload_page(item: tuple[int, Path]):
+            page_num, path = item
+            return page_num, _upload_and_poll(client, path, f"scheme p{page_num}")
+
+        with ThreadPoolExecutor(max_workers=n_pages) as pool:
+            for page_num, f in pool.map(_upload_page, enumerate(page_paths, 1)):
+                page_uris[page_num] = f.uri
+
+    def _call_page(page_num: int) -> dict:
+        _input_label = "image" if _oa_client is not None else "PDF"
+        user_msg = fmt.build_scheme_user_msg(scaffold_str, page_num, n_pages, input_label=_input_label)
+        _t0 = time.perf_counter()
+        try:
+            if _oa_client is not None:
+                # OpenAI-compatible path (Qwen, Grok, etc.)
+                # PNG from page_pngs: 300 DPI lossless — preserves fine mark-scheme text
+                b64 = _base64.b64encode(page_pngs[page_num]).decode()
+                kwargs: dict = dict(
+                    model=scheme_model,
+                    messages=[
+                        {"role": "system", "content": fmt.system_scheme_prompt()},
+                        {"role": "user", "content": [
+                            {"type": "image_url",
+                             "image_url": {"url": f"data:image/png;base64,{b64}"}},
+                            {"type": "text", "text": user_msg},
+                        ]},
+                    ],
+                )
+                kwargs.update(_oa_thinking_kw)
+                kwargs.update(fmt.scheme_oa_extra_kwargs())
+                if _oa_use_stream:
+                    stream = _oa_client.chat.completions.create(**kwargs, stream=True)
+                    raw = collect_streamed_response(stream)
+                else:
+                    resp = _oa_client.chat.completions.create(**kwargs)
+                    raw = resp.choices[0].message.content or ""
+                ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
+            else:
+                # Gemini native path
+                resp = client.models.generate_content(
+                    model=scheme_model,
+                    contents=[
+                        gai_types.Part.from_uri(
+                            file_uri=page_uris[page_num], mime_type="application/pdf"
+                        ),
+                        gai_types.Part.from_text(text=user_msg),
+                    ],
+                    config=_make_gen_config(
+                        scheme_effort, fmt.system_scheme_prompt(),
+                        pydantic_schema=fmt.pydantic_schema_scheme(),
+                    ),
+                )
+                ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
+                raw = _extract_text(resp)
+        except Exception as _exc:
+            warn_line(
+                f"Mark scheme p{page_num}: API error  ·  "
+                f"{format_duration(time.perf_counter() - _t0)}  —  {_exc}"
+            )
+            return {"questions": []}
+        if not raw:
+            _reason = "" if _oa_client is not None else f" ({_finish_reason(resp)})"
+            warn_line(f"Mark scheme p{page_num}: empty response{_reason}")
+        if artifact_dir is not None:
+            _prompt_path = artifact_scaffold_prompt_path(artifact_dir, f"mark_scheme_p{page_num}")
+            save_prompt(
+                _prompt_path,
+                model=scheme_model, system=fmt.system_scheme_prompt(),
+                messages=[{
+                    "role": "user",
+                    "content": f"[PDF: {marking_scheme_pdf.name} p{page_num}]\n\n{user_msg}",
+                }],
+            )
+            save_response(_prompt_path, raw or "")
+        return fmt.parse_scheme_response(raw or "")
+
+    with ThreadPoolExecutor(max_workers=n_pages) as pool:
+        page_results = list(pool.map(_call_page, range(1, n_pages + 1)))
+
+    result = _merge_scheme_results(page_results)
+
+    # Attach graphics positions from phase 1 into the merged scheme result
     for _q in result.get("questions", []):
         _key = _norm_qnum(_q["number"])
         if _key in _graphics_by_qnum:
             _q["graphics"] = _graphics_by_qnum[_key]
-    ok_line(
-        f"Mark scheme: merged {n_pages} page(s)  ·  "
-        f"{len(result['questions'])} question(s)"
-    )
 
-    # 5. Save merged artifacts
+    # Save merged artifacts
     if artifact_dir is not None:
         try:
             from xscore.scaffold.scaffold_markdown import write_mark_scheme_markdown
@@ -535,24 +542,6 @@ def _do_scheme_call(
             write_mark_scheme_markdown(artifact_dir, result.get("questions", []))
         except Exception:
             pass
-
-    # 6. Graphics extraction
-    if artifact_dir is not None and marking_scheme_pdf is not None:
-        _graphics_dpi = int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300"))
-        _graphics_margin = float(os.environ.get("SCHEME_GRAPHICS_MARGIN", "0.01"))
-        _n_graphics = sum(len(q.get("graphics") or []) for q in result.get("questions", []))
-        if _n_graphics:
-            try:
-                _extract_scheme_graphics(
-                    result.get("questions", []),
-                    marking_scheme_pdf,
-                    artifact_mark_scheme_graphics_dir(artifact_dir, step_offset),
-                    dpi=_graphics_dpi,
-                    margin=_graphics_margin,
-                )
-                ok_line(f"Mark scheme: {_n_graphics} graphic(s) extracted")
-            except Exception:
-                warn_line("Mark scheme: graphic extraction failed")
 
     if _tmp_dir is not None:
         import shutil
