@@ -21,7 +21,7 @@ from pathlib import Path
 from collections.abc import Callable
 from typing import Any
 
-from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, MARKING_MODEL_DEFAULT, MAX_RETRIES
+from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, MARKING_MODEL_DEFAULT
 from xscore.marking.blueprints import marked_to_md
 from xscore.marking.formats import get_marking_format
 from xscore.marking.formats.base import FormatParseError
@@ -118,7 +118,7 @@ def _mark_page_pdf(
     import os
     from google.genai import types as gai_types
     from xscore.shared.prompt_logger import save_response
-    from eXercise.ai_client import make_gemini_native_client, parse_model_effort
+    from eXercise.ai_client import make_gemini_native_client, parse_model_effort, is_503_error
 
     if fmt is None:
         from xscore.marking.formats.xml_format import XmlMarkingFormat
@@ -155,7 +155,7 @@ def _mark_page_pdf(
     _last_raw: str = ""
     _actual_attempts = 0
     uploaded = None
-    for attempt in range(MAX_RETRIES + 1):
+    for attempt in range(2):  # initial attempt + 1 retry on 503
         _actual_attempts += 1
         try:
             if uploaded is None:
@@ -227,8 +227,10 @@ def _mark_page_pdf(
         except Exception as exc:  # noqa: BLE001
             warn(f"Gemini error (attempt {_actual_attempts}): {exc}")
             _last_exc = exc
-            if attempt < MAX_RETRIES:
-                time.sleep(2 ** attempt)
+            if attempt == 0 and is_503_error(exc):
+                time.sleep(0.1)
+            else:
+                break
     if uploaded is not None:
         try:
             gai_client.files.delete(name=uploaded.name)
@@ -417,11 +419,6 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         try:
             _page_graphics = _scheme_graphics_for_page(blueprint, _graphics_map)
             _use_pdf_path = _provider == "gemini"
-            if extra_scan_pages and not _use_pdf_path:
-                _warn(
-                    f"Continuation pages for '{student_name}' page {p_label} omitted "
-                    f"— use a Gemini MARKING_MODEL to include them"
-                )
             if _use_pdf_path:
                 import shutil
                 import tempfile
@@ -455,6 +452,12 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         pass
             else:
                 b64 = _b64_cache[(student_name, p_label)]
+                _scan_to_plabel = {sp: i + 1 for i, sp in enumerate(assignment["page_numbers"])}
+                extra_b64 = [
+                    _b64_cache[(student_name, _scan_to_plabel[esp])]
+                    for esp in extra_scan_pages
+                    if esp in _scan_to_plabel and (student_name, _scan_to_plabel[esp]) in _b64_cache
+                ]
                 filled = _mark_page(
                     client, model_id, b64, blueprint, _thinking_kw,
                     blueprint_xml=blueprint_str,
@@ -463,6 +466,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     warn=_warn,
                     scheme_graphics=_page_graphics,
                     fmt=fmt,
+                    extra_b64=extra_b64,
                 )
         except MarkingFailure as mf:
             filled = blueprint.copy()

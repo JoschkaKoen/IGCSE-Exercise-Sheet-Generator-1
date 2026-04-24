@@ -8,7 +8,8 @@ from typing import Any, Protocol, runtime_checkable
 
 from pathlib import Path
 
-from xscore.config import MAX_RETRIES, NAME_JPEG_QUALITY, apply_model_extras, resolve_pipeline_ai_model_id
+from eXercise.ai_client import is_503_error
+from xscore.config import NAME_JPEG_QUALITY, apply_model_extras, resolve_pipeline_ai_model_id
 from xscore.extraction.images import to_jpeg_bytes
 from xscore.shared.prompt_logger import save_prompt, save_response
 from xscore.shared.response_parsing import parse_json_safe  # noqa: F401 — re-exported for callers
@@ -46,9 +47,7 @@ def ai_image_call(
     Pass *model_id* to override the global ``PIPELINE_AI_MODEL`` for this call
     (used by name-detection to honour ``NAME_DETECTION_MODEL`` independently).
 
-    Retries use ``2**attempt`` seconds between attempts (2s, then 4s). This differs from
-    extraction's ``RETRY_BACKOFF_S`` (default 1s, configurable) — intentional; do not
-    unify without checking both code paths.
+    Retries once on 503 after 0.1 s; all other errors fail immediately.
     """
     model = model_id if model_id is not None else resolve_pipeline_ai_model_id()
     create_kwargs: dict[str, Any] = dict(
@@ -75,7 +74,7 @@ def ai_image_call(
 
     save_prompt(prompt_save_path, model=model, messages=create_kwargs["messages"])
 
-    for attempt in range(MAX_RETRIES + 1):
+    for attempt in range(2):  # initial attempt + 1 retry on 503
         try:
             _t0 = time.perf_counter()
             resp = client.chat.completions.create(**create_kwargs)
@@ -90,9 +89,11 @@ def ai_image_call(
         except KeyboardInterrupt:
             raise
         except Exception as exc:
-            warn_line(f"API error (attempt {attempt + 1}/{MAX_RETRIES + 1}): {exc}")
-            if attempt < MAX_RETRIES:
-                time.sleep(2 ** (attempt + 1))
+            warn_line(f"API error (attempt {attempt + 1}/2): {exc}")
+            if attempt == 0 and is_503_error(exc):
+                time.sleep(0.1)
+            else:
+                break
     return ""
 
 

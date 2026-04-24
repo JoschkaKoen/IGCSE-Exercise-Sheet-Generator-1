@@ -96,7 +96,10 @@ def _has_handwriting(
     prompt_text = (
         "This is a blank exam page. It may have printed horizontal writing lines.\n"
         "Is there any STUDENT HANDWRITING on this page? "
-        "Ignore the printed lines — only count ink written by a student."
+        "Ignore the printed lines — only count ink written by a student.\n"
+        "IMPORTANT: Some pages show faint marks that bleed through from ink written on the "
+        "other side of the paper (show-through). Do NOT count these — only report handwriting "
+        "that is clearly and deliberately written on THIS side of the page."
     )
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt_text}])
 

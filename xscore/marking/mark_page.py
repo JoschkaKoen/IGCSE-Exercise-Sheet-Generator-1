@@ -10,8 +10,8 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
-from eXercise.ai_client import collect_streamed_response
-from xscore.config import MARKING_JPEG_QUALITY, MAX_RETRIES
+from eXercise.ai_client import collect_streamed_response, is_503_error
+from xscore.config import MARKING_JPEG_QUALITY
 from xscore.marking.formats.base import FormatParseError, MarkingFormat
 from xscore.marking.mark_xml import MarkingFailure
 from xscore.shared.prompt_logger import save_prompt
@@ -157,22 +157,28 @@ def _mark_page(
     warn: Callable[[str], None] = warn_line,
     scheme_graphics: list[tuple[str, int, str]] = (),
     fmt: "MarkingFormat | None" = None,
+    extra_b64: list[str] = (),
 ) -> dict:
     """Vision call to fill in a marking blueprint for one scan page.
 
     Raises :class:`MarkingFailure` if all attempts are exhausted.
+    *extra_b64* — additional continuation-page images appended after the main image.
     """
     if fmt is None:
         from xscore.marking.formats.xml_format import XmlMarkingFormat
         fmt = XmlMarkingFormat()
     use_stream = use_stream and fmt.prefer_stream()
-    system_prompt = _build_marking_system_prompt(blueprint, scheme_graphics, fmt=fmt)
+    system_prompt = _build_marking_system_prompt(
+        blueprint, scheme_graphics, has_continuation=bool(extra_b64), fmt=fmt
+    )
 
     user_text = fmt.build_user_text(blueprint_xml)
     _user_content: list[dict] = [
         {"type": "text", "text": user_text},
         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
     ]
+    for _cb64 in extra_b64:
+        _user_content.append({"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{_cb64}"}})
     for _, _, _g_b64 in scheme_graphics:
         _user_content.append({"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_g_b64}"}})
     kwargs: dict[str, Any] = dict(
@@ -190,7 +196,7 @@ def _mark_page(
     _last_exc: BaseException = RuntimeError("no attempts made")
     _last_raw: str = ""
     _actual_attempts = 0
-    for attempt in range(MAX_RETRIES + 1):
+    for attempt in range(2):  # initial attempt + 1 retry on 503
         _actual_attempts += 1
         try:
             if use_stream:
@@ -258,10 +264,12 @@ def _mark_page(
         except KeyboardInterrupt:
             raise
         except Exception as exc:  # noqa: BLE001
-            warn(f"Marking error — retrying ({attempt + 1}/{MAX_RETRIES + 1})")
             _last_exc = exc
-            if attempt < MAX_RETRIES:
-                time.sleep(2 ** (attempt + 1))
+            if attempt == 0 and is_503_error(exc):
+                warn("Marking error (503) — retrying in 0.1 s")
+                time.sleep(0.1)
+            else:
+                break
 
     raise MarkingFailure(attempts=_actual_attempts, last_exc=_last_exc, last_raw=_last_raw)
 

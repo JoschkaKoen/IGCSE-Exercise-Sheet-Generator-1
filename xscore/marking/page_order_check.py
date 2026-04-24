@@ -80,6 +80,9 @@ def _build_prompt(exam_texts: list[str], students_data: list[dict]) -> str:
     lines += [
         "For each student check that position N matches empty exam page N in content.",
         "OCR may have minor noise — focus on question numbers, instructions, 'BLANK PAGE', section headings.",
+        "IMPORTANT: Student answers written in blank answer spaces are NOT page order issues — ignore them completely.",
+        "Only flag a mismatch when printed structural content is wrong: question numbers out of order, "
+        "wrong question text, wrong section headings, or a BLANK PAGE marker where question text is expected.",
         "Report any mismatches with the position, scan page number, and a brief detail.",
     ]
     return "\n".join(lines)

@@ -285,6 +285,23 @@ def make_gemini_native_client() -> Any:
     return gai.Client(api_key=api_key)
 
 
+def is_503_error(exc: BaseException) -> bool:
+    """Return True if exc is an HTTP 503 from any supported provider SDK."""
+    try:
+        from openai import APIStatusError
+        if isinstance(exc, APIStatusError) and exc.status_code == 503:
+            return True
+    except ImportError:
+        pass
+    try:
+        from google.genai.errors import APIError
+        if isinstance(exc, APIError) and exc.code == 503:
+            return True
+    except ImportError:
+        pass
+    return False
+
+
 def print_streamed_response(
     stream: Any,
     *,
