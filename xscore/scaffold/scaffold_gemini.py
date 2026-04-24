@@ -202,11 +202,13 @@ def _do_scheme_call(
     import fitz
 
     # 1. Extract single-page PDFs from the mark scheme
+    _tmp_dir: Path | None = None
     if artifact_dir is not None:
         pages_dir = artifact_dir / "11_mark_scheme_pages"
     else:
         import tempfile
-        pages_dir = Path(tempfile.mkdtemp())
+        _tmp_dir = Path(tempfile.mkdtemp())
+        pages_dir = _tmp_dir
     pages_dir.mkdir(parents=True, exist_ok=True)
 
     page_paths: list[Path] = []
@@ -457,4 +459,7 @@ def _do_scheme_call(
             except Exception:
                 warn_line("Mark scheme: graphic extraction failed")
 
+    if _tmp_dir is not None:
+        import shutil
+        shutil.rmtree(_tmp_dir, ignore_errors=True)
     return result

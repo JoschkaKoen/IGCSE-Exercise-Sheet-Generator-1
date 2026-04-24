@@ -228,7 +228,10 @@ def build_ai_scaffold(
                     scaffold_xml=scaffold,
                     artifact_dir=artifact_dir,
                 )
-            except Exception:
+            except Exception as _exc:
+                import logging as _log
+                _log.warning("ai_scaffold: mark-scheme extraction failed — %s", _exc)
+                warn_line(f"Mark-scheme extraction failed — grading without criteria\n    {_exc}")
                 scheme_data = {"questions": []}
         else:
             scheme_data = {"questions": []}

@@ -154,5 +154,10 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
         config=gen_config,
     )
     api_latency_line(time.perf_counter() - _t0)
-    # JSON mode guarantees valid JSON; direct parse is safe
-    return json.loads(response.text)
+    try:
+        return json.loads(response.text)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(
+            f"Student-list API returned non-JSON (model={model_name}): {exc}\n"
+            f"  Raw response: {response.text!r:.200}"
+        ) from exc
