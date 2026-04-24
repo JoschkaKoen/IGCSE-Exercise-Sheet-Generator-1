@@ -13,24 +13,22 @@ from pathlib import Path
 
 from google.genai import types as gai_types
 
-from eXercise.ai_client import build_thinking_kwargs, make_ai_client
+from eXercise.ai_client import build_thinking_kwargs, collect_streamed_response, make_ai_client
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.scaffold.scaffold_prompts import (
     _SCHEME_GRAPHICS_JSON_SCHEMA,
     _SYSTEM_EXAM,
     _SYSTEM_SCHEME,
     _USER_GRAPHICS,
-    _USER_SCHEME,
-    _build_user_exam_prompt,
 )
 from xscore.scaffold.scaffold_xml import (
     _extract_scheme_graphics,
     _merge_scheme_results,
-    _parse_exam_xml,
-    _parse_scheme_xml,
 )
 from xscore.shared.exam_paths import (
+    artifact_exam_questions_raw_path,
     artifact_exam_questions_raw_xml_path,
+    artifact_mark_scheme_path,
     artifact_mark_scheme_xml_path,
     artifact_prompt_path,
 )
@@ -94,10 +92,15 @@ def _finish_reason(resp) -> str:
 # ---------------------------------------------------------------------------
 
 def _make_gen_config(
-    effort: str | None, system: str, schema: dict | None = None
+    effort: str | None, system: str,
+    schema: dict | None = None,
+    pydantic_schema=None,
 ) -> "gai_types.GenerateContentConfig":
     cfg: dict = {"max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS}
-    if schema is not None:
+    if pydantic_schema is not None:
+        cfg["response_mime_type"] = "application/json"
+        cfg["response_schema"] = pydantic_schema
+    elif schema is not None:
         cfg["response_mime_type"] = "application/json"
         cfg["response_json_schema"] = schema
     if effort in _THINKING_MAP:
@@ -117,73 +120,118 @@ def _do_exam_call(
     exam_model: str,
     exam_effort: str | None,
     *,
-    exam_file_uri: str,
-    actual_exam_pdf_name: str,
+    actual_exam_pdf: Path,
     layout_result,
     split_pdf_path: "Path | None",
     n_split_pages: int,
     artifact_dir: "Path | None",
+    fmt=None,
 ) -> tuple[list[dict], dict]:
-    user_exam = _build_user_exam_prompt(
-        layout_result, split_pdf_path is not None, n_split_pages
-    )
-    _t0 = time.perf_counter()
-    resp = client.models.generate_content(
-        model=exam_model,
-        contents=[
-            gai_types.Part.from_uri(file_uri=exam_file_uri, mime_type="application/pdf"),
-            gai_types.Part.from_text(text=user_exam),
-        ],
-        config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
-    )
-    api_latency_line(time.perf_counter() - _t0, label="exam")
-    if artifact_dir is not None:
-        save_prompt(
-            artifact_prompt_path(artifact_dir, "10_exam_questions"),
-            model=exam_model, system=_SYSTEM_EXAM,
-            messages=[{
-                "role": "user",
-                "content": f"[PDF: {actual_exam_pdf_name}]\n\n{user_exam}",
-            }],
-        )
-    raw_exam = _extract_text(resp)
-    if not raw_exam:
-        reason = _finish_reason(resp)
-        warn_line(f"Exam API: empty response ({reason}) — retrying once …")
+    if fmt is None:
+        from xscore.scaffold.formats.xml_format import XmlScaffoldFormat
+        fmt = XmlScaffoldFormat()
+    user_exam = fmt.build_exam_prompt(layout_result, split_pdf_path is not None, n_split_pages)
+
+    # Non-Gemini path: OpenAI-compatible client + base64 PNG images
+    _oa_client = None
+    _oa_use_stream = False
+    _oa_thinking_kw: dict = {}
+    if not exam_model.startswith("gemini"):
+        _oa_result = make_ai_client(model_env="READ_EXAM_PDF_MODEL")
+        if _oa_result is None:
+            raise RuntimeError(f"No API key set for exam model {exam_model!r}")
+        _oa_client, _, _oa_provider, _ = _oa_result
+        _oa_use_stream, _oa_thinking_kw = build_thinking_kwargs(_oa_provider, exam_effort or "off")
+
+    # Gemini: upload PDF.  Qwen: rasterize all pages to PNG (300 DPI by default).
+    exam_file = None
+    _exam_page_b64s: list[str] = []
+    if _oa_client is None:
+        exam_file = _upload_and_poll(client, actual_exam_pdf, "exam")
+    else:
+        import fitz as _fitz
+        _dpi = int(os.environ.get("READ_EXAM_PDF_DPI", "300"))
+        with _fitz.open(str(actual_exam_pdf)) as _doc:
+            for _i in range(_doc.page_count):
+                pix = _doc[_i].get_pixmap(dpi=_dpi)
+                _exam_page_b64s.append(_base64.b64encode(pix.tobytes("png")).decode())
+
+    def _make_exam_call(label: str) -> str:
         _t0 = time.perf_counter()
-        resp = client.models.generate_content(
-            model=exam_model,
-            contents=[
-                gai_types.Part.from_uri(file_uri=exam_file_uri, mime_type="application/pdf"),
-                gai_types.Part.from_text(text=user_exam),
-            ],
-            config=_make_gen_config(exam_effort, _SYSTEM_EXAM),
-        )
-        api_latency_line(time.perf_counter() - _t0, label="exam retry")
-        raw_exam = _extract_text(resp)
-        if not raw_exam:
-            reason = _finish_reason(resp)
-            if artifact_dir is not None:
-                try:
-                    p = artifact_exam_questions_raw_xml_path(artifact_dir)
-                    p.parent.mkdir(parents=True, exist_ok=True)
-                    p.write_text(f"<!-- empty response: {reason} -->", encoding="utf-8")
-                except OSError:
-                    pass
-            raise RuntimeError(f"Gemini exam response empty after retry — {reason}")
-    if artifact_dir is not None:
-        try:
-            p = artifact_exam_questions_raw_xml_path(artifact_dir)
-            p.parent.mkdir(parents=True, exist_ok=True)
-            p.write_text(raw_exam, encoding="utf-8")
-        except OSError:
-            pass
+        if _oa_client is not None:
+            _content = [
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}
+                for b64 in _exam_page_b64s
+            ]
+            _content.append({"type": "text", "text": user_exam})
+            kwargs: dict = dict(
+                model=exam_model,
+                messages=[
+                    {"role": "system", "content": _SYSTEM_EXAM},
+                    {"role": "user", "content": _content},
+                ],
+            )
+            kwargs.update(_oa_thinking_kw)
+            if _oa_use_stream:
+                stream = _oa_client.chat.completions.create(**kwargs, stream=True)
+                raw = collect_streamed_response(stream)
+            else:
+                resp = _oa_client.chat.completions.create(**kwargs)
+                raw = resp.choices[0].message.content or ""
+        else:
+            resp = client.models.generate_content(
+                model=exam_model,
+                contents=[
+                    gai_types.Part.from_uri(file_uri=exam_file.uri, mime_type="application/pdf"),
+                    gai_types.Part.from_text(text=user_exam),
+                ],
+                config=_make_gen_config(exam_effort, _SYSTEM_EXAM, pydantic_schema=fmt.pydantic_schema_exam()),
+            )
+            raw = _extract_text(resp)
+        api_latency_line(time.perf_counter() - _t0, label=label)
+        return raw
+
     try:
-        return _parse_exam_xml(raw_exam)
-    except Exception as exc:
-        raise RuntimeError(
-            f"Gemini exam response failed XML parsing: {exc}: {raw_exam[:300]!r}"
-        )
+        raw_exam = _make_exam_call("exam")
+        if not raw_exam:
+            warn_line("Exam API: empty response — retrying once …")
+            raw_exam = _make_exam_call("exam retry")
+            if not raw_exam:
+                if artifact_dir is not None:
+                    try:
+                        p = artifact_exam_questions_raw_path(artifact_dir, fmt=fmt.artifact_ext())
+                        p.parent.mkdir(parents=True, exist_ok=True)
+                        p.write_text("# empty response after retry", encoding="utf-8")
+                    except OSError:
+                        pass
+                raise RuntimeError(f"Exam response empty after retry — {exam_model}")
+        if artifact_dir is not None:
+            save_prompt(
+                artifact_prompt_path(artifact_dir, "10_exam_questions"),
+                model=exam_model, system=_SYSTEM_EXAM,
+                messages=[{
+                    "role": "user",
+                    "content": f"[PDF: {actual_exam_pdf.name}]\n\n{user_exam}",
+                }],
+            )
+            try:
+                p = artifact_exam_questions_raw_path(artifact_dir, fmt=fmt.artifact_ext())
+                p.parent.mkdir(parents=True, exist_ok=True)
+                p.write_text(raw_exam, encoding="utf-8")
+            except OSError:
+                pass
+        try:
+            return fmt.parse_exam_response(raw_exam)
+        except Exception as exc:
+            raise RuntimeError(
+                f"Exam response failed parsing: {exc}: {raw_exam[:300]!r}"
+            )
+    finally:
+        if exam_file is not None:
+            try:
+                client.files.delete(name=exam_file.name)
+            except Exception:
+                pass
 
 
 # ---------------------------------------------------------------------------
@@ -196,9 +244,17 @@ def _do_scheme_call(
     scheme_effort: str | None,
     *,
     marking_scheme_pdf: Path,
-    scaffold_xml: str,
+    scaffold_xml: str = "",
+    scaffold_str: str = "",
     artifact_dir: "Path | None",
+    fmt=None,
 ) -> dict:
+    # Accept both old (scaffold_xml) and new (scaffold_str) param names for compatibility.
+    if not scaffold_str:
+        scaffold_str = scaffold_xml
+    if fmt is None:
+        from xscore.scaffold.formats.xml_format import XmlScaffoldFormat
+        fmt = XmlScaffoldFormat()
     import fitz
 
     # 1. Extract single-page PDFs from the mark scheme
@@ -232,43 +288,80 @@ def _do_scheme_call(
             pix = _doc_r[_i].get_pixmap(dpi=_gfx_dpi)
             page_pngs[_i + 1] = pix.tobytes("png")
 
-    # 2. Upload all pages in parallel
-    info_line(f"Mark scheme: uploading {n_pages} page(s) …")
+    # 2. Detect provider; for non-Gemini use OpenAI-compatible client with base64 PNG
+    _oa_client = None
+    _oa_use_stream = False
+    _oa_thinking_kw: dict = {}
+    if not scheme_model.startswith("gemini"):
+        _oa_result = make_ai_client(model_env="READ_MARK_SCHEME_MODEL")
+        if _oa_result is None:
+            raise RuntimeError(f"No API key set for mark scheme model {scheme_model!r}")
+        _oa_client, _, _oa_provider, _ = _oa_result
+        _oa_use_stream, _oa_thinking_kw = build_thinking_kwargs(_oa_provider, scheme_effort or "off")
 
-    def _upload_page(item: tuple[int, Path]):
-        page_num, path = item
-        return page_num, _upload_and_poll(client, path, f"scheme p{page_num}")
-
+    # 3. Upload all pages in parallel (Gemini only; non-Gemini uses base64 PNG from page_pngs)
     page_uris: dict[int, str] = {}
-    with ThreadPoolExecutor(max_workers=n_pages) as pool:
-        for page_num, f in pool.map(_upload_page, enumerate(page_paths, 1)):
-            page_uris[page_num] = f.uri
+    if _oa_client is None:
+        info_line(f"Mark scheme: uploading {n_pages} page(s) …")
 
-    # 3. Per-page API calls in parallel
-    info_line(f"Mark scheme: parsing {n_pages} page(s) in parallel …")
+        def _upload_page(item: tuple[int, Path]):
+            page_num, path = item
+            return page_num, _upload_and_poll(client, path, f"scheme p{page_num}")
+
+        with ThreadPoolExecutor(max_workers=n_pages) as pool:
+            for page_num, f in pool.map(_upload_page, enumerate(page_paths, 1)):
+                page_uris[page_num] = f.uri
+    else:
+        info_line(f"Mark scheme: parsing {n_pages} page(s) via {scheme_model} …")
+
+    # 4. Per-page API calls in parallel
 
     def _call_page(page_num: int) -> dict:
-        page_note = (
-            f"\n\nNote: the PDF you receive contains only page {page_num} of {n_pages} "
-            "of the mark scheme. Only fill in correct_answer and <criterion> elements for "
-            "questions whose criteria appear on this page. For all other questions leave "
-            "correct_answer empty and add no <criterion> elements."
-        )
-        user_msg = _USER_SCHEME.format(scaffold=scaffold_xml) + page_note
+        _input_label = "image" if _oa_client is not None else "PDF"
+        user_msg = fmt.build_scheme_user_msg(scaffold_str, page_num, n_pages, input_label=_input_label)
         _t0 = time.perf_counter()
         try:
-            resp = client.models.generate_content(
-                model=scheme_model,
-                contents=[
-                    gai_types.Part.from_uri(
-                        file_uri=page_uris[page_num], mime_type="application/pdf"
+            if _oa_client is not None:
+                # OpenAI-compatible path (Qwen, Grok, etc.)
+                # PNG from page_pngs: 300 DPI lossless — preserves fine mark-scheme text
+                b64 = _base64.b64encode(page_pngs[page_num]).decode()
+                kwargs: dict = dict(
+                    model=scheme_model,
+                    messages=[
+                        {"role": "system", "content": _SYSTEM_SCHEME},
+                        {"role": "user", "content": [
+                            {"type": "image_url",
+                             "image_url": {"url": f"data:image/png;base64,{b64}"}},
+                            {"type": "text", "text": user_msg},
+                        ]},
+                    ],
+                )
+                kwargs.update(_oa_thinking_kw)
+                kwargs.update(fmt.scheme_oa_extra_kwargs())
+                if _oa_use_stream:
+                    stream = _oa_client.chat.completions.create(**kwargs, stream=True)
+                    raw = collect_streamed_response(stream)
+                else:
+                    resp = _oa_client.chat.completions.create(**kwargs)
+                    raw = resp.choices[0].message.content or ""
+                ok_line(f"{format_duration(time.perf_counter() - _t0)}  (mark scheme p{page_num})")
+            else:
+                # Gemini native path
+                resp = client.models.generate_content(
+                    model=scheme_model,
+                    contents=[
+                        gai_types.Part.from_uri(
+                            file_uri=page_uris[page_num], mime_type="application/pdf"
+                        ),
+                        gai_types.Part.from_text(text=user_msg),
+                    ],
+                    config=_make_gen_config(
+                        scheme_effort, _SYSTEM_SCHEME,
+                        pydantic_schema=fmt.pydantic_schema_scheme(),
                     ),
-                    gai_types.Part.from_text(text=user_msg),
-                ],
-                config=_make_gen_config(scheme_effort, _SYSTEM_SCHEME),
-            )
-            ok_line(f"{format_duration(time.perf_counter() - _t0)}  (mark scheme p{page_num})")
-            raw = _extract_text(resp)
+                )
+                ok_line(f"{format_duration(time.perf_counter() - _t0)}  (mark scheme p{page_num})")
+                raw = _extract_text(resp)
         except Exception as _exc:
             warn_line(
                 f"Mark scheme p{page_num}: API error  ·  "
@@ -276,7 +369,8 @@ def _do_scheme_call(
             )
             return {"questions": []}
         if not raw:
-            warn_line(f"Mark scheme p{page_num}: empty response ({_finish_reason(resp)})")
+            _reason = "" if _oa_client is not None else f" ({_finish_reason(resp)})"
+            warn_line(f"Mark scheme p{page_num}: empty response{_reason}")
         if artifact_dir is not None:
             _prompt_path = artifact_prompt_path(artifact_dir, f"11_mark_scheme_p{page_num}")
             save_prompt(
@@ -288,7 +382,7 @@ def _do_scheme_call(
                 }],
             )
             save_response(_prompt_path, raw or "")
-        return _parse_scheme_xml(raw or "")
+        return fmt.parse_scheme_response(raw or "")
 
     # Build graphics detection system message (schema embedded once, shared across threads)
     _gfx_schema_str = json.dumps(_SCHEME_GRAPHICS_JSON_SCHEMA, indent=2)
@@ -300,15 +394,7 @@ def _do_scheme_call(
     )
 
     # Extract canonical question numbers from scaffold so graphics detector returns exact matches
-    try:
-        _scaffold_root = ET.fromstring(scaffold_xml)
-        _all_qnums = [
-            q.get("number", "")
-            for q in _scaffold_root.findall(".//question")
-        ]
-        _all_qnums = [n for n in _all_qnums if n]
-    except ET.ParseError:
-        _all_qnums = []
+    _all_qnums = fmt.extract_question_numbers(scaffold_str)
     _qnum_hint = ", ".join(f'"{n}"' for n in _all_qnums)
 
     def _detect_graphics_page(page_num: int) -> dict:  # no-op fallback
@@ -423,20 +509,27 @@ def _do_scheme_call(
     if artifact_dir is not None:
         try:
             from xscore.scaffold.scaffold_markdown import write_mark_scheme_markdown
-            _root = ET.Element("scheme")
-            for _q in result.get("questions", []):
-                _qel = ET.SubElement(_root, "question")
-                _qel.set("number", _q["number"])
-                _qel.set("correct_answer", _q.get("correct_answer") or "")
-                for _c in (_q.get("mark_scheme") or []):
-                    _cel = ET.SubElement(_qel, "criterion")
-                    _cel.set("mark", _c.get("mark", ""))
-                    _cel.text = _c.get("criterion", "")
-            ET.indent(_root)
-            _xml_str = ET.tostring(_root, encoding="unicode", xml_declaration=False)
-            p = artifact_mark_scheme_xml_path(artifact_dir)
+            _ext = fmt.artifact_ext()
+            if _ext == "xml":
+                _root = ET.Element("scheme")
+                for _q in result.get("questions", []):
+                    _qel = ET.SubElement(_root, "question")
+                    _qel.set("number", _q["number"])
+                    _qel.set("correct_answer", _q.get("correct_answer") or "")
+                    for _c in (_q.get("mark_scheme") or []):
+                        _cel = ET.SubElement(_qel, "criterion")
+                        _cel.set("mark", _c.get("mark", ""))
+                        _cel.text = _c.get("criterion", "")
+                ET.indent(_root)
+                _out_str = ET.tostring(_root, encoding="unicode", xml_declaration=False)
+            elif _ext == "yaml":
+                import yaml as _yaml
+                _out_str = _yaml.dump(result, allow_unicode=True, default_flow_style=False)
+            else:
+                _out_str = json.dumps(result, ensure_ascii=False, indent=2)
+            p = artifact_mark_scheme_path(artifact_dir, fmt=_ext)
             p.parent.mkdir(parents=True, exist_ok=True)
-            p.write_text(_xml_str, encoding="utf-8")
+            p.write_text(_out_str, encoding="utf-8")
             write_mark_scheme_markdown(artifact_dir, result.get("questions", []))
         except Exception:
             pass

@@ -21,19 +21,24 @@ from pathlib import Path
 from collections.abc import Callable
 from typing import Any
 
-import xml.etree.ElementTree as ET
-
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, MARKING_MODEL_DEFAULT, MAX_RETRIES
 from xscore.marking.blueprints import marked_to_md
-from xscore.shared.exam_paths import artifact_blueprint_xml_path, artifact_marked_failed_path, artifact_marked_md_path, artifact_marked_xml_path, artifact_prompt_path
+from xscore.marking.formats import get_marking_format
+from xscore.marking.formats.base import FormatParseError
+from xscore.shared.exam_paths import (
+    artifact_blueprint_path,
+    artifact_marked_failed_path,
+    artifact_marked_md_path,
+    artifact_marked_path,
+    artifact_prompt_path,
+)
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, ok_line, warn_line
 
-
-from xscore.marking.mark_xml import (
-    MarkingFailure, _blueprint_xml_to_dict, _parse_xml_response, filled_to_xml,
+from xscore.marking.mark_xml import MarkingFailure
+from xscore.marking.mark_page import (
+    _bq_key, _build_marking_system_prompt, _fix_mc_marks, _mark_page, _render_page_b64,
 )
-from xscore.marking.mark_page import _bq_key, _fix_mc_marks, _mark_page, _render_page_b64
 
 _DEFAULT_MARKING_MODEL = MARKING_MODEL_DEFAULT
 
@@ -99,13 +104,15 @@ def render_pages_b64(
 def _mark_page_pdf(
     pdf_path: str,
     blueprint: dict,
-    blueprint_xml: str,
+    blueprint_str: str,
     prompt_save_path: Path | None,
     warn: Callable[[str], None],
+    scheme_graphics: "list[tuple[str, int, str]]" = (),
+    has_continuation: bool = False,
+    fmt=None,
 ) -> dict:
-    """Upload a pre-built multi-page PDF to Gemini and mark it.
+    """Upload a PDF page (+ optional continuation pages) to Gemini and mark it.
 
-    pdf_path is a temporary file built by the caller (exercise page + blank continuation pages).
     Raises MarkingFailure if all retries are exhausted.
     """
     import os
@@ -113,24 +120,35 @@ def _mark_page_pdf(
     from xscore.shared.prompt_logger import save_response
     from eXercise.ai_client import make_gemini_native_client, parse_model_effort
 
+    if fmt is None:
+        from xscore.marking.formats.xml_format import XmlMarkingFormat
+        fmt = XmlMarkingFormat()
+
     gai_client = make_gemini_native_client()
     if gai_client is None:
-        raise RuntimeError("GEMINI_API_KEY not set — cannot upload multi-page PDF for blank continuation pages")
+        raise RuntimeError("GEMINI_API_KEY not set — required for Gemini MARKING_MODEL")
 
     _model_env = os.environ.get("MARKING_MODEL", "")
-    model_id, _ = parse_model_effort(_model_env) if _model_env else ("gemini-2.5-flash", None)
+    model_id, _effort = parse_model_effort(_model_env) if _model_env else ("gemini-2.5-flash", None)
 
-    system_prompt = (
-        "You are marking a student's exam answer. The uploaded PDF contains the exercise page "
-        "followed by one or more continuation pages the student used for additional writing. "
-        "Mark all pages together as one answer."
+    system_prompt = _build_marking_system_prompt(
+        blueprint, scheme_graphics, has_continuation=has_continuation, fmt=fmt
     )
-    user_text = (
-        "Fill in the three empty fields for each question "
-        "(<student_answer>, <assigned_marks>, <explanation>):\n"
-        f"{blueprint_xml}"
-    )
-    save_prompt(prompt_save_path, model=model_id, messages=[{"role": "user", "content": user_text}])
+    user_text = fmt.build_user_text(blueprint_str)
+    save_prompt(prompt_save_path, model=model_id, system=system_prompt,
+                messages=[{"role": "user", "content": user_text}])
+
+    _THINKING_MAP = {"off": 0, "low": 1024, "high": 8192}
+    cfg: dict = {
+        "system_instruction": system_prompt,
+        "max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS,
+    }
+    if _effort in _THINKING_MAP:
+        cfg["thinking_config"] = gai_types.ThinkingConfig(
+            thinking_budget=_THINKING_MAP[_effort],
+            include_thoughts=False,
+        )
+    config = gai_types.GenerateContentConfig(**cfg)
 
     _last_exc: BaseException = RuntimeError("no attempts made")
     _last_raw: str = ""
@@ -144,21 +162,23 @@ def _mark_page_pdf(
                     file=pdf_path,
                     config=gai_types.UploadFileConfig(mime_type="application/pdf"),
                 )
+            contents = [
+                gai_types.Part.from_uri(file_uri=uploaded.uri, mime_type="application/pdf"),
+                gai_types.Part.from_text(text=user_text),
+            ]
+            for _, _, g_b64 in scheme_graphics:
+                contents.append(
+                    gai_types.Part.from_bytes(
+                        data=base64.b64decode(g_b64), mime_type="image/png"
+                    )
+                )
             resp = gai_client.models.generate_content(
-                model=model_id,
-                contents=[
-                    gai_types.Part.from_uri(file_uri=uploaded.uri, mime_type="application/pdf"),
-                    gai_types.Part.from_text(text=user_text),
-                ],
-                config=gai_types.GenerateContentConfig(
-                    system_instruction=system_prompt,
-                    max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
-                ),
+                model=model_id, contents=contents, config=config,
             )
             raw = resp.text or ""
             _last_raw = raw
             save_response(prompt_save_path, raw)
-            parsed_questions = _parse_xml_response(raw)
+            parsed_questions = fmt.parse_response(raw)
             result = blueprint.copy()
             fill_groups: dict[tuple, list] = defaultdict(list)
             for q in parsed_questions:
@@ -178,8 +198,8 @@ def _mark_page_pdf(
             except Exception as _del_exc:  # noqa: BLE001
                 warn(f"Gemini file cleanup failed (file may remain in storage): {_del_exc}")
             return result
-        except ET.ParseError as exc:
-            warn("Marking XML parse error (PDF upload path) — XML repair failed, marking aborted")
+        except FormatParseError as exc:
+            warn(f"Marking parse error (PDF upload path) — marking aborted ({exc})")
             _last_exc = exc
             break
         except KeyboardInterrupt:
@@ -233,10 +253,13 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     from eXercise.ai_client import make_ai_client, build_thinking_kwargs
     from xscore.shared.exam_paths import artifact_exam_student_list_json_path
 
+    fmt = get_marking_format()
+
     result = make_ai_client(model_env="MARKING_MODEL", default_model=_DEFAULT_MARKING_MODEL)
     if result is None:
         raise RuntimeError(
-            "MARKING_MODEL client could not be created — check DASHSCOPE_API_KEY in .env"
+            "MARKING_MODEL client could not be created — "
+            "check DASHSCOPE_API_KEY / GEMINI_API_KEY in .env"
         )
     client, model_id, _provider, _effort = result
     _use_stream, _thinking_kw = build_thinking_kwargs(_provider, _effort)
@@ -365,23 +388,19 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             if _use_live:
                 live.update(_render())
 
-        blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, answer_label).read_text(
-            encoding="utf-8"
-        )
-        blueprint = _blueprint_xml_to_dict(blueprint_xml)
+        bp_path = artifact_blueprint_path(ctx.artifact_dir, answer_label, fmt=fmt.artifact_ext())
+        blueprint_str = bp_path.read_text(encoding="utf-8")
+        blueprint = fmt.deserialize_blueprint(blueprint_str)
 
         t0 = time.perf_counter()
         prompt_save = artifact_prompt_path(ctx.artifact_dir, f"14_marked_{safe_name}_{p_label}")
         try:
-            _page_graphics: list = []
-            _use_pdf_path = extra_scan_pages and (
-                os.environ.get("GEMINI_API_KEY", "").strip()
-                or os.environ.get("GOOGLE_API_KEY", "").strip()
-            )
+            _page_graphics = _scheme_graphics_for_page(blueprint, _graphics_map)
+            _use_pdf_path = _provider == "gemini"
             if extra_scan_pages and not _use_pdf_path:
                 _warn(
-                    f"GEMINI_API_KEY not set — blank continuation pages for "
-                    f"'{student_name}' page {p_label} will be omitted from marking"
+                    f"Continuation pages for '{student_name}' page {p_label} omitted "
+                    f"— use a Gemini MARKING_MODEL to include them"
                 )
             if _use_pdf_path:
                 import shutil
@@ -402,9 +421,12 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     local_pdf = ctx.artifact_dir / f"14_upload_{safe_name}_{p_label}.pdf"
                     shutil.copy(tmp_path, local_pdf)
                     filled = _mark_page_pdf(
-                        tmp_path, blueprint, blueprint_xml,
+                        tmp_path, blueprint, blueprint_str,
                         prompt_save_path=prompt_save,
                         warn=_warn,
+                        scheme_graphics=_page_graphics,
+                        has_continuation=bool(extra_scan_pages),
+                        fmt=fmt,
                     )
                 finally:
                     try:
@@ -413,14 +435,14 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         pass
             else:
                 b64 = _b64_cache[(student_name, p_label)]
-                _page_graphics = _scheme_graphics_for_page(blueprint, _graphics_map)
                 filled = _mark_page(
                     client, model_id, b64, blueprint, _thinking_kw,
-                    blueprint_xml=blueprint_xml,
+                    blueprint_xml=blueprint_str,
                     use_stream=_use_stream,
                     prompt_save_path=prompt_save,
                     warn=_warn,
                     scheme_graphics=_page_graphics,
+                    fmt=fmt,
                 )
         except MarkingFailure as mf:
             filled = blueprint.copy()
@@ -430,9 +452,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 "attempts": mf.attempts, "error": str(mf.last_exc),
                 "raw_response": mf.last_raw or None,
             }
-            out_xml = artifact_marked_xml_path(ctx.artifact_dir, safe_name, p_label)
-            out_xml.parent.mkdir(parents=True, exist_ok=True)
-            out_xml.write_text(filled_to_xml(filled), encoding="utf-8")
+            out_path = artifact_marked_path(ctx.artifact_dir, safe_name, p_label, fmt=fmt.artifact_ext())
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_text(fmt.serialize_filled(filled), encoding="utf-8")
             artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
                 marked_to_md(filled), encoding="utf-8"
             )
@@ -467,9 +489,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 get_console().print(_student_lines[key])
 
         filled["student_name"] = student_name
-        out_xml = artifact_marked_xml_path(ctx.artifact_dir, safe_name, p_label)
-        out_xml.parent.mkdir(parents=True, exist_ok=True)
-        out_xml.write_text(filled_to_xml(filled), encoding="utf-8")
+        out_path = artifact_marked_path(ctx.artifact_dir, safe_name, p_label, fmt=fmt.artifact_ext())
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(fmt.serialize_filled(filled), encoding="utf-8")
         artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
             marked_to_md(filled), encoding="utf-8"
         )

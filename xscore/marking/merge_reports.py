@@ -15,7 +15,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
+from xscore.marking.formats import get_marking_format
 from xscore.shared.exam_paths import (
+    artifact_marked_path,
     artifact_marking_students_dir,
     artifact_reports_students_dir,
     safe_student_name as _safe_name,
@@ -35,8 +37,9 @@ def _merge_student_pages(
     student_name: str,
     pages_per_student: int,
     total_max_marks: int,
+    fmt=None,
 ) -> dict:
-    """Load all 14_marked_{student}_{p}.xml and merge into one student report.
+    """Load all 14_marked_{student}_{p} files and merge into one student report.
 
     Cross-page question strategy:
     - If only one page has assigned_marks, use that entry.
@@ -48,56 +51,19 @@ def _merge_student_pages(
     slot are merged with the higher-marks strategy.
     """
     import logging
-    from xscore.shared.exam_paths import artifact_marked_xml_path
-
-    def _parse_marked_xml(path: Path) -> list[dict]:
-        """Parse a 14_marked_*.xml file into a list of question dicts."""
-        root = ET.parse(str(path)).getroot()
-        questions = []
-        for qel in root.findall("question"):
-            am_el = qel.find("assigned_marks")
-            am_text = (am_el.text or "").strip() if am_el is not None else ""
-            try:
-                assigned_marks: int | None = int(am_text)
-            except ValueError:
-                assigned_marks = None
-
-            mark_scheme = [
-                {"mark": c.get("mark", ""), "criterion": c.text or ""}
-                for c in qel.findall("criterion")
-            ]
-            answer_options = [
-                {"letter": o.get("letter", ""), "text": o.text or ""}
-                for o in qel.findall("option")
-            ]
-            text_el = qel.find("text")
-            sa_el = qel.find("student_answer")
-            exp_el = qel.find("explanation")
-            questions.append({
-                "number":          qel.get("number", "?"),
-                "question_type":   qel.get("type", ""),
-                "subpage_row":     int(qel.get("subpage_row", 1)),
-                "subpage_col":     int(qel.get("subpage_col", 1)),
-                "order_in_subpage": int(qel.get("order_in_subpage", 1)),
-                "question_text":   (text_el.text or "") if text_el is not None else "",
-                "answer_options":  answer_options,
-                "correct_answer":  qel.get("correct_answer", ""),
-                "max_marks":       int(qel.get("max_marks", 0)),
-                "mark_scheme":     mark_scheme,
-                "student_answer":  (sa_el.text or "") if sa_el is not None else "",
-                "assigned_marks":  assigned_marks,
-                "explanation":     (exp_el.text or "") if exp_el is not None else "",
-            })
-        return questions
+    if fmt is None:
+        from xscore.marking.formats.xml_format import XmlMarkingFormat
+        fmt = XmlMarkingFormat()
 
     merged_questions: dict[tuple[str, int], dict] = {}
 
     for p in range(1, pages_per_student + 1):
-        path = artifact_marked_xml_path(artifact_dir, student_name, p)
+        path = artifact_marked_path(artifact_dir, student_name, p, fmt=fmt.artifact_ext())
         if not path.is_file():
             continue
         file_occ: dict[str, int] = {}
-        for q in _parse_marked_xml(path):
+        parsed = fmt.deserialize_blueprint(path.read_text(encoding="utf-8"))
+        for q in parsed.get("questions", []):
             qnum = q.get("number", "?")
             file_occ[qnum] = file_occ.get(qnum, 0) + 1
             key = (qnum, file_occ[qnum])
@@ -290,16 +256,20 @@ def _compile_tex(tex_path: Path, output_dir: Path) -> None:
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _derive_student_names(artifact_dir: Path) -> list[str]:
-    """Collect unique student names from 14_marked_*_*.xml files, in order."""
+def _derive_student_names(artifact_dir: Path, fmt=None) -> list[str]:
+    """Collect unique student names from 14_marked_*_* files, in order."""
     from xscore.shared.terminal_ui import warn_line
+    if fmt is None:
+        from xscore.marking.formats.xml_format import XmlMarkingFormat
+        fmt = XmlMarkingFormat()
+    _ext = fmt.artifact_ext()
     seen: dict[str, str] = {}   # safe_name → original name
     result: list[str] = []
     failed: list[str] = []
-    for f in sorted(artifact_marking_students_dir(artifact_dir).glob("14_marked_*_*.xml")):
+    for f in sorted(artifact_marking_students_dir(artifact_dir).glob(f"14_marked_*_*.{_ext}")):
         try:
-            root = ET.parse(str(f)).getroot()
-            name = str(root.get("student_name") or "").strip()
+            data = fmt.deserialize_blueprint(f.read_text(encoding="utf-8"))
+            name = str(data.get("student_name") or "").strip()
             if not name:
                 continue
             key = _safe_name(name)
@@ -476,6 +446,7 @@ def compile_reports(ctx: Any) -> list[dict]:
     )
     from xscore.shared.terminal_ui import info_line
 
+    fmt = get_marking_format()
     total_max_marks = ctx.scaffold.total_marks
     student_summaries: list[dict] = []
     tex_paths: list[Path] = []
@@ -505,7 +476,7 @@ def compile_reports(ctx: Any) -> list[dict]:
 
     def _process_one_student(name: str) -> None:
         report = _merge_student_pages(
-            ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks
+            ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks, fmt=fmt
         )
         for _q in report["questions"]:
             _q["correct_answer"] = correct_answers.get(str(_q.get("number", "")), "")
@@ -539,7 +510,7 @@ def compile_reports(ctx: Any) -> list[dict]:
             f"{name}: {report['total_marks']}/{total_max_marks} ({_fmt_pct(report['percentage'])})"
         )
 
-    names = _derive_student_names(ctx.artifact_dir)
+    names = _derive_student_names(ctx.artifact_dir, fmt=fmt)
     with ThreadPoolExecutor(max_workers=workers) as ex:
         for exc in (f.exception() for f in as_completed(
             ex.submit(_process_one_student, n) for n in names

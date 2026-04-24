@@ -236,3 +236,5 @@ DETECT_LAYOUT_MODEL: str = os.getenv("DETECT_LAYOUT_MODEL", "gemini-2.5-flash, l
 DETECT_SCHEME_GRAPHICS_MODEL: str = os.getenv("DETECT_SCHEME_GRAPHICS_MODEL", "gemini-2.5-flash, off")
 
 MARKING_MODEL_DEFAULT: str = os.getenv("MARKING_MODEL", "qwen3.6-plus, low")
+
+AI_OUTPUT_FORMAT: str = os.getenv("AI_OUTPUT_FORMAT", "yaml").strip().lower()

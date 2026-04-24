@@ -139,8 +139,8 @@ flowchart TD
     subgraph scaffold ["Exam scaffold"]
         direction TB
         s9["Step 9 — Detect layout + cut\n(Gemini · DETECT_LAYOUT_MODEL\n· splits multi-up PDFs)"]
-        s10["Step 10 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)"]
-        s11["Step 11 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL)"]
+        s10["Step 10 — Parse exam PDF\n(READ_EXAM_PDF_MODEL)"]
+        s11["Step 11 — Parse mark scheme\n(READ_MARK_SCHEME_MODEL)"]
         s12["Step 12 — Merge report"]
         s9 --> s10 --> s11 --> s12
     end
@@ -206,8 +206,8 @@ flowchart TD
     subgraph scaffold ["Scaffold thread"]
         direction TB
         s9["Step 9 — Detect layout + cut\n(Gemini · DETECT_LAYOUT_MODEL)"]
-        s10["Step 10 — Parse exam PDF\n(Gemini · READ_EXAM_PDF_MODEL)"]
-        s11["Step 11 — Parse mark scheme\n(Gemini · READ_MARK_SCHEME_MODEL\n· uses step 10 output)"]
+        s10["Step 10 — Parse exam PDF\n(READ_EXAM_PDF_MODEL)"]
+        s11["Step 11 — Parse mark scheme\n(READ_MARK_SCHEME_MODEL\n· uses step 10 output)"]
         s12["Step 12 — Merge scaffold"]
         s9 --> s10 --> s11 --> s12
     end
@@ -230,8 +230,8 @@ flowchart TD
 | **7** | IGCSE header anchors are detected on each page (parallel). Anchor positions drive the fine deskew transform; corrected pages are written to `7_cleaned_scan.pdf`. |
 | **8** | `scan_pages ÷ exam_pages` gives `num_students`. Cross-checked against the roster; a count mismatch is a warning, not an error. Student names are detected from the first scan page of each student block and fuzzy-matched against the roster. Two independent AI checks determine **cover-page mode**: (1) an informational check on page 1 of the empty exam PDF (`EMPTY_EXAM_COVER_MODEL`) — logged to the console only, no downstream effect; (2) an authoritative check on page 1 of the scan (`COVER_PAGE_DETECTION_MODEL`) — determines whether the pipeline runs in cover-page mode. In cover-page mode, every expected cover page position is verified in parallel (a warning is printed if any block looks misaligned). Each `PageAssignment` gains a `cover_page_number` field, and step 14 skips that page during AI marking. If the empty-exam check and the scan check disagree, a warning is printed and the scan result wins. Writes `8_exam_geometry.json` (includes `cover_page_mode` flag) and `8_exam_student_list.json` / `.md`. Immediately after completion, all scan pages are pre-rendered to JPEG in a background thread (parallel, `MARKING_WORKERS` threads) so they are ready when step 14 starts. |
 | **9** | Gemini renders the first page of the exam PDF as an image and detects the printing layout (1×1, 2-up, or 4-up). In multi-up mode the PDF is split into one PDF page per sub-page in reading order — the split PDF is what step 10 uploads. Writes `9_exam_layout.json` + `.md` and `9_exam_input.pdf`. Configure with `DETECT_LAYOUT_MODEL`. In legacy mode (`READ_EXAM_PDF_SPLIT=0`) layout detection and cut are skipped. |
-| **10** | Gemini reads the (split) exam PDF and returns every question and sub-question with its number, type, marks, page, subpage position, and answer options. Writes `10_exam_questions.json` + `.md` (and related XML). Configure with `READ_EXAM_PDF_MODEL`. |
-| **11** | Gemini reads the mark scheme and returns correct answers and marking criteria. The exam question structure from step 10 is embedded in the prompt so the model can match answers to questions. Writes `11_mark_scheme.json` + `.md` (and related XML). Configure with `READ_MARK_SCHEME_MODEL`. |
+| **10** | Reads the (split) exam PDF and returns every question and sub-question with its number, type, marks, page, subpage position, and answer options. Writes `10_exam_questions.json` + `.md` (and related XML). Configure with `READ_EXAM_PDF_MODEL` (Gemini or Qwen). |
+| **11** | Reads the mark scheme and returns correct answers and marking criteria. The exam question structure from step 10 is embedded in the prompt so the model can match answers to questions. Writes `11_mark_scheme.json` + `.md` (and related XML). Configure with `READ_MARK_SCHEME_MODEL` (Gemini or Qwen). |
 | **12** | Merges the exam question tree with mark scheme annotations into a single `12_report.json` / `12_report.xml` + `12_report.md` (and `12_short_report.*`). Runs even without a mark scheme (exam-only report). This report drives the marking blueprints and AI marking. |
 | **13** | For each exam page, leaf questions from the scaffold are extracted into a per-page blueprint (`13_ai_marking_blueprint_N.xml`), including `subpage_row`/`subpage_col` coordinates and the page layout. These become the fill-in templates for step 14. |
 | **14** | Each student's scan pages are sent to the vision model (one API call per page). Page images were pre-rendered in background after step 8, so all API calls fire immediately with no rendering wait. The model fills in `student_answer`, `assigned_marks`, and `explanation` for every question. All pages run in parallel (`MARKING_WORKERS` threads); results written as `14_marked_name_N.json`. Requires `DASHSCOPE_API_KEY` (or the provider matching `MARKING_MODEL`). |

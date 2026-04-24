@@ -16,6 +16,7 @@ from pathlib import Path
 
 from eXercise.ai_client import make_gemini_native_client
 
+from xscore.scaffold.formats import get_scaffold_format
 from xscore.scaffold.scaffold_gemini import _do_exam_call, _do_scheme_call, _upload_and_poll
 from xscore.scaffold.scaffold_layout import _detect_layout, _save_layout_artifact, _split_pdf_by_layout
 from xscore.scaffold.scaffold_prompts import (
@@ -26,13 +27,11 @@ from xscore.scaffold.scaffold_prompts import (
     _mark_scheme_model_config,
 )
 from xscore.scaffold.scaffold_xml import (
-    _build_scheme_scaffold,
     _json_to_question,
     _merge_scheme,
     _norm,
-    _save_exam_questions_xml,
 )
-from xscore.shared.exam_paths import artifact_prompt_path
+from xscore.shared.exam_paths import artifact_exam_questions_path, artifact_prompt_path
 from xscore.shared.models import ExamLayout, Question
 from xscore.shared.prompt_logger import save_prompt
 
@@ -79,12 +78,14 @@ def build_ai_scaffold(
     Raises:
         RuntimeError: GOOGLE_API_KEY unset, file upload failed, or Gemini returns non-JSON.
     """
-    client = make_gemini_native_client()
-    if client is None:
-        raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
-
+    fmt = get_scaffold_format()
     exam_model, exam_effort = _exam_pdf_model_config()
     scheme_model, scheme_effort = _mark_scheme_model_config()
+
+    client = make_gemini_native_client()
+    _needs_gemini = split_subpages or exam_model.startswith("gemini")
+    if _needs_gemini and client is None:
+        raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
 
     # State tracked across the try/finally (split PDF must always be cleaned up)
     split_pdf_path: Path | None = None
@@ -93,7 +94,6 @@ def build_ai_scaffold(
     layout_result = None
     layout_elapsed: float = 0.0
     layout_model: str = ""
-    uploaded_files: dict[str, object] = {}
 
     try:
         from xscore.shared.terminal_ui import ok_line, tool_line, warn_line
@@ -181,22 +181,19 @@ def build_ai_scaffold(
             if on_cut_complete is not None:
                 on_cut_complete(n_cells == 1)
 
-        # ---- Upload exam PDF ------------------------------------------------
-        actual_exam_pdf = split_pdf_path if split_pdf_path is not None else exam_pdf
-        uploaded_files["exam"] = _upload_and_poll(client, actual_exam_pdf, "exam")
-
         # ---- Step 9: exam extraction ----------------------------------------
+        actual_exam_pdf = split_pdf_path if split_pdf_path is not None else exam_pdf
         raw_layout: dict = {}
         raw_questions, raw_layout = _do_exam_call(
             client,
             exam_model,
             exam_effort,
-            exam_file_uri=uploaded_files["exam"].uri,
-            actual_exam_pdf_name=actual_exam_pdf.name,
+            actual_exam_pdf=actual_exam_pdf,
             layout_result=layout_result,
             split_pdf_path=split_pdf_path,
             n_split_pages=n_split_pages,
             artifact_dir=artifact_dir,
+            fmt=fmt,
         )
 
         # Use pre-detected layout (ignore raw_layout from extraction response in split mode).
@@ -209,7 +206,11 @@ def build_ai_scaffold(
         # SystemExit(0) when --through 9 is used, so anything after it won't run.
         if artifact_dir is not None:
             try:
-                _save_exam_questions_xml(artifact_dir, raw_questions, raw_layout)
+                from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
+                p = artifact_exam_questions_path(artifact_dir, fmt=fmt.artifact_ext())
+                p.parent.mkdir(parents=True, exist_ok=True)
+                p.write_text(fmt.serialize_exam(raw_questions, raw_layout), encoding="utf-8")
+                write_raw_exam_markdown(artifact_dir, raw_questions)
             except OSError:
                 pass
 
@@ -218,15 +219,16 @@ def build_ai_scaffold(
 
         # ---- Step 10: mark scheme extraction (uses step-9 scaffold) ---------
         if marking_scheme_pdf is not None:
-            scaffold = _build_scheme_scaffold(raw_questions)
+            scaffold_str = fmt.build_scheme_scaffold(raw_questions)
             try:
                 scheme_data: dict = _do_scheme_call(
                     client,
                     scheme_model,
                     scheme_effort,
                     marking_scheme_pdf=marking_scheme_pdf,
-                    scaffold_xml=scaffold,
+                    scaffold_str=scaffold_str,
                     artifact_dir=artifact_dir,
+                    fmt=fmt,
                 )
             except Exception as _exc:
                 import logging as _log
@@ -298,12 +300,6 @@ def build_ai_scaffold(
             _merge_scheme(raw_questions, scheme_map)
 
     finally:
-        # Delete uploaded Gemini files (auto-expire after 48 h anyway)
-        for label, f in uploaded_files.items():
-            try:
-                client.files.delete(name=f.name)
-            except Exception:
-                pass
         # Delete temp split PDF (always, even if upload or inference failed)
         if split_pdf_path is not None:
             try:

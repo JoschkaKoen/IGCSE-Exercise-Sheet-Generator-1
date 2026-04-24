@@ -5,7 +5,6 @@ from __future__ import annotations
 import base64
 import re
 import time
-import xml.etree.ElementTree as ET
 from collections import defaultdict
 from collections.abc import Callable
 from pathlib import Path
@@ -13,7 +12,8 @@ from typing import Any
 
 from eXercise.ai_client import collect_streamed_response
 from xscore.config import MARKING_JPEG_QUALITY, MAX_RETRIES
-from xscore.marking.mark_xml import MarkingFailure, _parse_xml_response
+from xscore.marking.formats.base import FormatParseError, MarkingFormat
+from xscore.marking.mark_xml import MarkingFailure
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import warn_line
 
@@ -46,32 +46,22 @@ def _bq_key(bq: dict) -> tuple:
     )
 
 
-def _mark_page(
-    client: Any,
-    model_id: str,
-    b64: str,
+def _build_marking_system_prompt(
     blueprint: dict,
-    thinking_kw: dict,
-    blueprint_xml: str = "",
-    use_stream: bool = False,
-    prompt_save_path: Path | None = None,
-    warn: Callable[[str], None] = warn_line,
-    scheme_graphics: list[tuple[str, int, str]] = (),
-) -> dict:
-    """Vision call to fill in a marking blueprint for one scan page.
-
-    Raises :class:`MarkingFailure` if all attempts are exhausted.
-    """
+    scheme_graphics: "list[tuple[str, int, str]]" = (),
+    *,
+    has_continuation: bool = False,
+    fmt: "MarkingFormat | None" = None,
+) -> str:
+    """Build the system prompt shared by the JPEG and Gemini PDF marking paths."""
+    if fmt is None:
+        from xscore.marking.formats.xml_format import XmlMarkingFormat
+        fmt = XmlMarkingFormat()
     layout = blueprint.get("layout") or {"rows": 1, "cols": 1}
     rows, cols = int(layout.get("rows", 1)), int(layout.get("cols", 1))
 
     # --- Section A: role + task ---
-    system_prompt = (
-        "You are an expert exam marker. You will be shown one page of a student's exam paper "
-        "and a Blueprint XML listing every question. The blueprint is a form: each question has "
-        "three empty fields for you to fill in — <student_answer>, <assigned_marks>, and "
-        "<explanation>. Fill every field for every question in the list."
-    )
+    system_prompt = fmt.section_A()
 
     # --- Section B: field rules ---
     system_prompt += (
@@ -91,7 +81,7 @@ def _mark_page(
         "2. assigned_marks — an integer 0–max_marks.\n"
         "   • Award 1 mark for each criterion the student satisfies, up to max_marks.\n"
         "   • For 'any N from' lists, each listed item is a separate mark point.\n"
-        "   • If <criterion> elements are absent or empty, use the correct_answer field "
+        f"   • If {fmt.criterion_ref()} are absent or empty, use the correct_answer field "
         "and good judgement to assess the student's answer; accept semantically equivalent "
         "answers, not only verbatim matches.\n"
         "   • For multiple_choice: compare student_answer to correct_answer; "
@@ -109,35 +99,17 @@ def _mark_page(
         "Do not append a mark tally (e.g. '— 1 mark.') at the end."
     )
 
-    # --- Section C: output format + CRITICAL tag rule ---
-    system_prompt += (
-        "\n\nReturn ONLY the filled Blueprint XML — no markdown fences, no surrounding text. "
-        "Fill in the three empty XML fields in each <question>: "
-        "<student_answer>, <assigned_marks>, and <explanation>. "
-        "Do not change any other content.\n"
-        "CRITICAL — each element must be closed with its own matching tag. "
-        "WRONG: <explanation>text</student_answer>. "
-        "RIGHT: <explanation>text</explanation>. "
-        "Never close <explanation> with </student_answer> or vice versa."
-    )
+    # --- Section C: output format ---
+    system_prompt += fmt.section_C(rows, cols)
 
-    # --- Section D: XML validity + LaTeX ---
-    system_prompt += (
-        "\n\nXML validity:\n"
-        "• In element text use &lt; for <, &gt; for >, &amp; for &.\n"
-        "• Do not use HTML tags (e.g. <br>) — use a space or comma instead.\n"
-        "• LaTeX: wrap all math in $...$  "
-        "(e.g. $v = 2\\pi r / T$, $3.0 \\times 10^4$ m/s, $\\frac{d}{v}$). "
-        "Use \\times, \\approx, \\frac{}{}, \\pi, \\rightarrow, \\% etc. "
-        "Failing to wrap math in $...$ will crash the PDF renderer.\n"
-        "• Do not append a mark tally ('— X marks.') at the end of any field."
-    )
+    # --- Section D: format validity + LaTeX ---
+    system_prompt += fmt.section_D()
 
     # --- Section E: grid navigation (only for multi-subpage layouts) ---
     if rows > 1 or cols > 1:
         system_prompt += (
             f"\n\nThis page is divided into a {rows}×{cols} grid — "
-            "the <subpage> elements at the top of the blueprint label each quadrant. "
+            f"the {fmt.subpage_ref()} at the top of the blueprint label each quadrant. "
             "Each question's subpage_row and subpage_col identify its quadrant; "
             "do not confuse answers from different quadrants. "
             "order_in_subpage (1 = topmost) gives the vertical position within a quadrant. "
@@ -163,11 +135,40 @@ def _mark_page(
         _lines.append("Use these images when assessing the student's diagram or graph for the listed questions.")
         system_prompt += "\n".join(_lines)
 
-    user_text = (
-        "Fill in the three empty fields for each question "
-        "(<student_answer>, <assigned_marks>, <explanation>):\n"
-        f"{blueprint_xml}"
-    )
+    # --- Section G: continuation pages (Gemini PDF multi-page path only) ---
+    if has_continuation:
+        system_prompt += (
+            "\n\nThe student used continuation pages for additional writing. "
+            "All pages are included in this document. Mark them together as one answer."
+        )
+
+    return system_prompt
+
+
+def _mark_page(
+    client: Any,
+    model_id: str,
+    b64: str,
+    blueprint: dict,
+    thinking_kw: dict,
+    blueprint_xml: str = "",
+    use_stream: bool = False,
+    prompt_save_path: Path | None = None,
+    warn: Callable[[str], None] = warn_line,
+    scheme_graphics: list[tuple[str, int, str]] = (),
+    fmt: "MarkingFormat | None" = None,
+) -> dict:
+    """Vision call to fill in a marking blueprint for one scan page.
+
+    Raises :class:`MarkingFailure` if all attempts are exhausted.
+    """
+    if fmt is None:
+        from xscore.marking.formats.xml_format import XmlMarkingFormat
+        fmt = XmlMarkingFormat()
+    use_stream = use_stream and fmt.prefer_stream()
+    system_prompt = _build_marking_system_prompt(blueprint, scheme_graphics, fmt=fmt)
+
+    user_text = fmt.build_user_text(blueprint_xml)
     _user_content: list[dict] = [
         {"type": "text", "text": user_text},
         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
@@ -182,6 +183,7 @@ def _mark_page(
         ],
     )
     kwargs.update(thinking_kw)
+    kwargs.update(fmt.api_extra_kwargs(model_id))
 
     save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
 
@@ -199,9 +201,9 @@ def _mark_page(
                 raw = resp.choices[0].message.content or ""
             _last_raw = raw
             try:
-                parsed_questions = _parse_xml_response(raw)
-            except ET.ParseError as exc:
-                warn("Marking XML parse error — XML repair failed, marking aborted")
+                parsed_questions = fmt.parse_response(raw)
+            except FormatParseError as exc:
+                warn(f"Marking parse error — marking aborted ({exc})")
                 _last_exc = exc
                 break
             result = blueprint.copy()

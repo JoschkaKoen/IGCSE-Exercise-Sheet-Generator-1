@@ -73,11 +73,13 @@ def _build_blueprint_xml(page_num: int, layout: Any, page_qs: list[dict]) -> str
 
 
 def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
-    """For each exam page create a blueprint XML with only the leaf questions.
+    """For each exam page create a blueprint with only the leaf questions.
 
     Returns a list of blueprint dicts, one per exam page (1-indexed).
     """
-    from xscore.shared.exam_paths import artifact_blueprint_xml_path, artifact_blueprint_md_path
+    from xscore.marking.formats import get_marking_format
+    from xscore.shared.exam_paths import artifact_blueprint_md_path, artifact_blueprint_path
+    fmt = get_marking_format()
     layout = scaffold.layout
     blueprints: list[dict] = []
     for page_num in range(1, scaffold.page_count + 1):
@@ -113,16 +115,11 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
         }
         blueprints.append(bp)
 
-        xml_path = artifact_blueprint_xml_path(artifact_dir, page_num)
-        xml_path.parent.mkdir(parents=True, exist_ok=True)
-        _xml_text = _build_blueprint_xml(page_num, layout, page_qs)
-        try:
-            ET.fromstring(_xml_text)
-        except ET.ParseError as _bp_exc:
-            raise RuntimeError(
-                f"Blueprint XML for page {page_num} is malformed: {_bp_exc}"
-            ) from _bp_exc
-        xml_path.write_text(_xml_text, encoding="utf-8")
+        bp_path = artifact_blueprint_path(artifact_dir, page_num, fmt=fmt.artifact_ext())
+        bp_path.parent.mkdir(parents=True, exist_ok=True)
+        _bp_text = fmt.build_blueprint(page_num, layout, page_qs)
+        fmt.validate_blueprint(_bp_text)
+        bp_path.write_text(_bp_text, encoding="utf-8")
 
         md_path = artifact_blueprint_md_path(artifact_dir, page_num)
         md_path.write_text(_blueprint_to_md(bp), encoding="utf-8")

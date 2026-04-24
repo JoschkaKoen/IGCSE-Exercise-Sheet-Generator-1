@@ -147,6 +147,37 @@ def artifact_blueprint_xml_path(artifact_dir: Path, page: int) -> Path:
     return artifact_dir / f"13_ai_marking_blueprint_{page}.xml"
 
 
+# ---------------------------------------------------------------------------
+# Format-parameterised helpers (AI_OUTPUT_FORMAT = yaml | json | xml)
+# The ``fmt`` parameter is a string extension: "yaml", "json", or "xml".
+# Old *_xml_path functions above are kept as shims for backwards compatibility.
+# ---------------------------------------------------------------------------
+
+def artifact_exam_questions_raw_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
+    """Step 10: raw AI response before parsing."""
+    return artifact_dir / f"10_exam_questions_raw.{fmt}"
+
+
+def artifact_exam_questions_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
+    """Step 10: canonical exam questions after page remapping."""
+    return artifact_dir / f"10_exam_questions.{fmt}"
+
+
+def artifact_mark_scheme_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
+    """Step 11: parsed mark scheme artifact."""
+    return artifact_dir / f"11_mark_scheme.{fmt}"
+
+
+def artifact_blueprint_path(artifact_dir: Path, page: int, fmt: str = "yaml") -> Path:
+    """Step 13: AI marking blueprint for one exam page."""
+    return artifact_dir / f"13_ai_marking_blueprint_{page}.{fmt}"
+
+
+def artifact_marked_path(artifact_dir: Path, student: str, page: int, fmt: str = "yaml") -> Path:
+    """Step 14: AI-filled marking blueprint for one student's scan page."""
+    return artifact_dir / SUBDIR_STUDENTS / f"14_marked_{safe_student_name(student)}_{page}.{fmt}"
+
+
 def artifact_exam_layout_xml_path(artifact_dir: Path) -> Path:
     """Step 9: layout detection result as XML."""
     return artifact_dir / "9_exam_layout.xml"
