@@ -3,45 +3,11 @@
 from __future__ import annotations
 
 from difflib import SequenceMatcher
-from pathlib import Path
-
-from xscore.config import GROUND_TRUTH_PATH
-
-
-def load_ground_truth(gt_path: Path | None = None) -> dict[str, list[str]]:
-    """Load ground truth answers from file.
-
-    Returns dict mapping student_name -> answer columns in profile order.
-    """
-    path = gt_path if gt_path is not None else GROUND_TRUTH_PATH
-    if not path.exists():
-        return {}
-
-    gt_data: dict[str, list[str]] = {}
-    try:
-        with open(path, encoding="utf-8") as f:
-            lines = f.readlines()
-
-        for line in lines[1:]:  # Skip header line
-            line = line.strip()
-            if not line:
-                continue
-            parts = line.split()
-            if len(parts) >= 7:  # name + 6 answers
-                name = parts[0]
-                answers = parts[1:7]
-                gt_data[name] = answers
-    except OSError as e:
-        from xscore.shared.terminal_ui import warn_line
-
-        warn_line(f"Could not load ground truth: {e}")
-
-    return gt_data
 
 
 def fuzzy_match_name(extracted_name: str, gt_names: list[str]) -> str | None:
     """Find the best matching ground truth name using fuzzy matching."""
-    if not extracted_name or extracted_name in ("UNKNOWN", "EXTRACTION_ERROR"):
+    if not extracted_name or extracted_name in ("UNKNOWN", "EXTRACTION_ERROR", "?"):
         return None
 
     extracted_lower = extracted_name.lower().strip()

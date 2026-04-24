@@ -147,6 +147,7 @@ class _Ctx:
     marking_failures: list[dict] = field(default_factory=list)
     page_assignments: list | None = None     # list[PageAssignment] set by step 8
     cover_page_mode: bool = False            # True when step 8 detects cover pages in the scan
+    empty_exam_has_cover: bool | None = None  # set by step 8b; None = check not performed
     step_offset: int = 0                     # 1 when split-subpages mode adds step 9 (layout + cut)
     stop_after: int = 9999                   # --stop-after N; 9999 = run everything
     b64_future: Any = None                   # Future[dict] set by _kick_off_render_bg after step 8
@@ -476,54 +477,6 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         if ctx.stop_after <= 8: raise _EarlyExit()
         _scaffold_steps(ctx)
 
-    def _run_steps3to11_parallel(ctx: _Ctx) -> None:
-        """Steps 3–11 with maximum parallelism after step 2.
-
-        Main thread : step 3 → (steps 4-7 background) → step 8
-        Scaffold thread: (wait students_ready) → (wait step8_done) → steps 9-10-11
-                         All scaffold headers are gated until step 8 finishes to
-                         keep output in logical order.
-        Exceptions are re-raised in pipeline order after both threads finish.
-        """
-        import threading
-        from concurrent.futures import ThreadPoolExecutor
-
-        _students_ready = threading.Event()
-        _step8_done = threading.Event()
-        scaffold_exc: BaseException | None = None
-        main_exc: BaseException | None = None
-
-        def _scaffold_wrapper() -> None:
-            nonlocal scaffold_exc
-            _students_ready.wait()
-            _step8_done.wait()  # wait for step 8 before printing any scaffold headers
-            try:
-                _scaffold_steps(ctx, background=True)
-            except BaseException as exc:
-                scaffold_exc = exc
-
-        run_scaffold = ctx.stop_after >= 9
-        with ThreadPoolExecutor(max_workers=1) as pool:
-            if run_scaffold:
-                pool.submit(_scaffold_wrapper)
-            try:
-                _run_step3_and_scan_parallel(ctx, on_students_ready=_students_ready.set)
-                if ctx.stop_after <= 7:
-                    raise _EarlyExit()
-                if ctx.cleaned_pdf:
-                    _step08_geometry(ctx)
-            except BaseException as exc:
-                _students_ready.set()   # unblock scaffold thread on main-thread error
-                main_exc = exc
-            finally:
-                _step8_done.set()       # always unblock scaffold gate (even on error/no scan)
-            # exiting the `with` block waits for the scaffold thread to finish
-
-        if main_exc is not None:
-            raise main_exc
-        if scaffold_exc is not None:
-            raise scaffold_exc
-
     def _step08_geometry(ctx: _Ctx) -> None:
         """Step 8 — Count scan/exam pages, derive student count, detect cover pages."""
         assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
@@ -574,6 +527,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
                 )
         except Exception as _e:
             warn_line(f"Empty exam cover check skipped: {_e}")
+        ctx.empty_exam_has_cover = _empty_exam_has_cover
 
         # --- 8c: Name detection + cover-page detection (scan is authoritative) ---
         info_line("8c — Assigning scan pages + detecting student names …")
@@ -794,6 +748,8 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             _step14_reports(ctx)
             if ctx.stop_after <= 14 + ctx.step_offset: raise _EarlyExit()
             _step15_timing(ctx)
+        elif ctx.cleaned_pdf and not ctx.scaffold:
+            warn_line("Marking skipped — scaffold not available (steps 12–15 omitted).")
         ok_line("Pipeline complete.")
         ctx.pipeline_completed_ok = True
         if ctx.cleaned_pdf:

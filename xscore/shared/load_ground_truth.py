@@ -159,7 +159,10 @@ def load_ground_truth(
             row[q_num] = val
         if name in gt:
             import logging as _log
-            new_name = f"{name}_2"
+            counter = 2
+            while f"{name}_{counter}" in gt:
+                counter += 1
+            new_name = f"{name}_{counter}"
             _log.warning(
                 "Ground truth: duplicate student name '%s' — storing as '%s'. "
                 "This may be a typo in the ground truth file.",

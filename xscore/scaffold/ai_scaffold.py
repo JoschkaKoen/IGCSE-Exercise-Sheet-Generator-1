@@ -750,6 +750,7 @@ def _extract_scheme_graphics(
     scheme_pdf: "Path",
     out_dir: "Path",
     dpi: int = 150,
+    margin: float = 0.0,
 ) -> None:
     """Crop graphic bboxes from scheme_pdf and save as PNG files in out_dir."""
     import fitz
@@ -766,7 +767,14 @@ def _extract_scheme_graphics(
                     continue
                 page = doc[page_idx]
                 w, h = page.rect.width, page.rect.height
-                clip = fitz.Rect(g["x0"] * w, g["y0"] * h, g["x1"] * w, g["y1"] * h)
+                mx = margin * w
+                my = margin * h
+                clip = fitz.Rect(
+                    max(0, g["x0"] * w - mx),
+                    max(0, g["y0"] * h - my),
+                    min(w, g["x1"] * w + mx),
+                    min(h, g["y1"] * h + my),
+                )
                 if clip.is_empty or clip.is_infinite:
                     continue
                 pix = page.get_pixmap(dpi=dpi, clip=clip)
@@ -1264,6 +1272,7 @@ def build_ai_scaffold(
             # 6. Graphics extraction — unchanged
             if artifact_dir is not None and marking_scheme_pdf is not None:
                 _graphics_dpi = int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300"))
+                _graphics_margin = float(os.environ.get("SCHEME_GRAPHICS_MARGIN", "0.01"))
                 _n_graphics = sum(len(q.get("graphics") or []) for q in result.get("questions", []))
                 if _n_graphics:
                     try:
@@ -1272,6 +1281,7 @@ def build_ai_scaffold(
                             marking_scheme_pdf,
                             artifact_dir / "11_mark_scheme_graphics",
                             dpi=_graphics_dpi,
+                            margin=_graphics_margin,
                         )
                         ok_line(f"Mark scheme: {_n_graphics} graphic(s) extracted")
                     except Exception:

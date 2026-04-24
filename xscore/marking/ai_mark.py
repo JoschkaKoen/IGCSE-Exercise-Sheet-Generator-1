@@ -24,7 +24,7 @@ from typing import Any
 import xml.etree.ElementTree as ET
 
 from eXercise.ai_client import collect_streamed_response
-from xscore.config import MARKING_JPEG_QUALITY, MAX_RETRIES
+from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, MARKING_JPEG_QUALITY, MAX_RETRIES
 from xscore.marking.blueprints import marked_to_md
 from xscore.shared.exam_paths import artifact_blueprint_xml_path, artifact_marked_failed_path, artifact_marked_md_path, artifact_marked_xml_path, artifact_prompt_path
 from xscore.shared.prompt_logger import save_prompt
@@ -444,6 +444,8 @@ def _mark_page(
                     )
                     bq["assigned_marks"] = max(0, min(int(m) if isinstance(m, (int, float)) else 0, int(max_m)))
             return result
+        except KeyboardInterrupt:
+            raise
         except Exception as exc:  # noqa: BLE001
             warn(f"Marking error — retrying ({attempt + 1}/{MAX_RETRIES + 1})")
             _last_exc = exc
@@ -596,7 +598,7 @@ def _mark_page_pdf(
                 ],
                 config=gai_types.GenerateContentConfig(
                     system_instruction=system_prompt,
-                    max_output_tokens=4096,
+                    max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
                 ),
             )
             raw = resp.text or ""
@@ -626,6 +628,8 @@ def _mark_page_pdf(
             warn("Marking XML parse error (PDF upload path) — XML repair failed, marking aborted")
             _last_exc = exc
             break
+        except KeyboardInterrupt:
+            raise
         except Exception as exc:
             _last_exc = exc
             if attempt < MAX_RETRIES:
@@ -757,9 +761,10 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         for p_label, _ in enumerate(a["page_numbers"], 1):
             if has_cover and p_label == 1:
                 continue
-            answer_label = p_label - (1 if has_cover else 0)
+            _cover_offset = 1 if (has_cover and not ctx.empty_exam_has_cover) else 0
+            answer_label = p_label - _cover_offset
             scan_page = a["page_numbers"][p_label - 1]
-            if ctx.scaffold is not None and p_label > ctx.scaffold.page_count:
+            if ctx.scaffold is not None and answer_label > ctx.scaffold.page_count:
                 continue
             if scan_page in student_skip:
                 continue
@@ -794,7 +799,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             if _use_live:
                 live.update(_render())
 
-        blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, p_label).read_text(
+        blueprint_xml = artifact_blueprint_xml_path(ctx.artifact_dir, answer_label).read_text(
             encoding="utf-8"
         )
         blueprint = _blueprint_xml_to_dict(blueprint_xml)

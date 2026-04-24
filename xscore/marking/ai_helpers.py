@@ -88,6 +88,8 @@ def ai_image_call(
             log_ai_response_debug("ai_image", model, raw)
             save_response(prompt_save_path, raw)
             return raw
+        except KeyboardInterrupt:
+            raise
         except Exception as exc:
             warn_line(f"API error (attempt {attempt + 1}/{MAX_RETRIES + 1}): {exc}")
             if attempt < MAX_RETRIES:
