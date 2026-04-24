@@ -7,12 +7,13 @@ _Tee logging setup.
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import Future
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
-    from xscore.shared.models import ExamScaffold, TaskInstruction
+    from xscore.shared.models import ExamScaffold, PageAssignment, TaskInstruction
 
 
 class _EarlyExit(Exception):
@@ -38,16 +39,19 @@ class _Ctx:
     step_timings_marking: dict[str, float] = field(default_factory=dict)
     marking_api_calls: list[dict] = field(default_factory=list)
     marking_failures: list[dict] = field(default_factory=list)
-    page_assignments: list | None = None     # list[PageAssignment] set by step 10
-    cover_page_mode: bool = False            # True when step 10 detects cover pages in the scan
-    cover_ok: dict[int, bool] = field(default_factory=dict)  # step 10: 0-based idx → is_cover_page
-    empty_exam_has_cover: bool | None = None  # set by step 9; None = check not performed
+    page_assignments: "list[PageAssignment] | None" = None  # set by step 11
+    # --- Cover page detection (steps 9–11) ---
+    # Step 9 sets this; None means the AI check was skipped (no API key or error).
+    empty_exam_has_cover: bool | None = None
+    # Set to a preliminary value by step 10, then finalized by step 11.
+    # False = no cover pages found (also the pre-step-10 default).
+    cover_page_mode: bool = False
     stop_after: int = 9999                   # --stop-after N; 9999 = run everything
     from_step: int | None = None             # --from-step N; skip steps < N, resume from prior run
     resume_dir: Path | None = None           # --resume-dir PATH; prior artifact dir to resume from
-    geo: dict = field(default_factory=dict)   # scan geometry from step 8; updated by step 11
-    b64_future: Any = None                   # Future[dict] set by _kick_off_render_bg after step 10
-    accuracy_summary: dict | None = None     # set by step 22; read by step 23 for write_timing_report
+    geo: dict[str, Any] = field(default_factory=dict)   # scan geometry from step 8; updated by step 11
+    b64_future: "Future[dict[int, str]] | None" = None  # render_pages_b64 submitted by _kick_off_render_bg
+    accuracy_summary: dict[str, Any] | None = None      # set by step 22; read by step 23
 
     def __post_init__(self) -> None:
         if getattr(self.args, "stop_after", None) is not None:
