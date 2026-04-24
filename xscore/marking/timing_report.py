@@ -1,4 +1,4 @@
-"""Step 16 — Timing summary: write 16_timing.json / 16_timing.md and print table."""
+"""Steps 23–24 — Timing summary and AI Costs: write 23_timing_summary/timing.json / timing.md and print tables."""
 
 from __future__ import annotations
 
@@ -14,6 +14,22 @@ _STEP_LABELS: dict[str, str] = {
 }
 
 
+def print_step_durations(step_durations: dict[str, float], api_calls: list[dict]) -> None:
+    """Print the step-duration table to the terminal (no file I/O)."""
+    from xscore.shared.terminal_ui import format_duration, info_line
+    total = sum(step_durations.values())
+    _vis_steps = [
+        (_STEP_LABELS.get(k, k.replace("_s", "").replace("_", " ").title()), v)
+        for k, v in step_durations.items() if v >= 0.5
+    ]
+    _lw = max((len(lbl) for lbl, _ in _vis_steps), default=5)
+    _lw = max(_lw, len("Total"))
+    info_line("Step durations:")
+    for _lbl, _val in _vis_steps:
+        info_line(f"  {_lbl:<{_lw}}   {format_duration(_val)}")
+    info_line(f"  {'Total':<{_lw}}   {format_duration(total)}  ·  {len(api_calls)} API calls")
+
+
 def write_timing_report(
     artifact_dir: Path,
     step_durations: dict[str, float],
@@ -22,6 +38,7 @@ def write_timing_report(
     failures: list[dict] | None = None,
     token_usage: dict | None = None,
     total_cost_rmb: float = 0.0,
+    print_timing: bool = True,
 ) -> None:
     """Write timing artifacts and print a summary to the terminal.
 
@@ -33,7 +50,7 @@ def write_timing_report(
     *total_cost_rmb* is the sum of all per-model costs in RMB (from :func:`compute_cost`).
     """
     from xscore.shared.exam_paths import artifact_timing_json_path, artifact_timing_md_path
-    from xscore.shared.terminal_ui import format_duration, info_line, warn_line
+    from xscore.shared.terminal_ui import info_line, warn_line
 
     failures = failures or []
     token_usage = token_usage or {}
@@ -69,17 +86,8 @@ def write_timing_report(
         _timing_to_md(payload), encoding="utf-8"
     )
 
-    # Terminal summary — step durations (column-aligned)
-    _vis_steps = [
-        (_STEP_LABELS.get(k, k.replace("_s", "").replace("_", " ").title()), v)
-        for k, v in step_durations.items() if v >= 0.5
-    ]
-    _lw = max((len(lbl) for lbl, _ in _vis_steps), default=5)
-    _lw = max(_lw, len("Total"))
-    info_line("Step durations:")
-    for _lbl, _val in _vis_steps:
-        info_line(f"  {_lbl:<{_lw}}   {format_duration(_val)}")
-    info_line(f"  {'Total':<{_lw}}   {format_duration(total)}  ·  {len(api_calls)} API calls")
+    if print_timing:
+        print_step_durations(step_durations, api_calls)
 
     # API cost table (column-aligned)
     if token_usage:

@@ -32,7 +32,7 @@ class _Ctx:
     scaffold: "ExamScaffold | None" = None
     cleaned_pdf: Path | None = None
     pipeline_completed_ok: bool = False
-    # Steps 19–22: AI marking pipeline
+    # Steps 19–23: AI marking pipeline
     num_students: int = 0
     pages_per_student: int = 0
     step_timings_marking: dict[str, float] = field(default_factory=dict)
@@ -46,6 +46,7 @@ class _Ctx:
     from_step: int | None = None             # --from-step N; skip steps < N, resume from prior run
     resume_dir: Path | None = None           # --resume-dir PATH; prior artifact dir to resume from
     b64_future: Any = None                   # Future[dict] set by _kick_off_render_bg after step 10
+    accuracy_summary: dict | None = None     # set by step 22; read by step 23 for write_timing_report
 
     def __post_init__(self) -> None:
         if getattr(self.args, "stop_after", None) is not None:

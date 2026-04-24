@@ -29,13 +29,13 @@ STEP_13_PAGE_ORDER  = "13_page_order"
 STEP_14_BLANK_PAGES = "14_blank_pages"
 
 STEP_15_LAYOUT          = "15_detect_exam_layout"
-STEP_16_PARSE_EXAM      = "16_parse_exam_pdf"
-STEP_17_PARSE_SCHEME    = "17_parse_mark_scheme"
-STEP_18_CREATE_REPORT   = "18_create_report"
-STEP_19_BLUEPRINTS      = "19_ai_marking_blueprints"
-STEP_20_AI_MARKING      = "20_ai_marking"
-STEP_21_COMPILE_REPORTS = "21_compile_reports"
-STEP_22_TIMING          = "22_timing_summary"
+STEP_17_PARSE_EXAM      = "17_parse_exam_pdf"
+STEP_18_PARSE_SCHEME    = "18_parse_mark_scheme"
+STEP_19_CREATE_REPORT   = "19_create_report"
+STEP_20_BLUEPRINTS      = "20_ai_marking_blueprints"
+STEP_21_AI_MARKING      = "21_ai_marking"
+STEP_22_COMPILE_REPORTS = "22_compile_reports"
+STEP_23_TIMING          = "23_timing_summary"
 
 # Path of cleaned scan relative to artifact_dir (updated from "7_cleaned_scan.pdf")
 CLEANED_SCAN_PDF = STEP_07 + "/cleaned_scan.pdf"
@@ -230,31 +230,31 @@ def artifact_split_exam_pdf_path(artifact_dir: Path) -> Path:
 
 def artifact_exam_input_pdf_path(artifact_dir: Path) -> Path:
     """Copy of the original exam PDF uploaded to Gemini (1×1 mode)."""
-    return artifact_dir / STEP_16_PARSE_EXAM / "exam_input.pdf"
+    return artifact_dir / STEP_17_PARSE_EXAM / "exam_input.pdf"
 
 
 def artifact_exam_questions_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_16_PARSE_EXAM / "exam_questions.json"
+    return artifact_dir / STEP_17_PARSE_EXAM / "exam_questions.json"
 
 
 def artifact_exam_questions_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_16_PARSE_EXAM / "exam_questions.md"
+    return artifact_dir / STEP_17_PARSE_EXAM / "exam_questions.md"
 
 
 def artifact_exam_questions_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_16_PARSE_EXAM / "exam_questions.xml"
+    return artifact_dir / STEP_17_PARSE_EXAM / "exam_questions.xml"
 
 
 def artifact_exam_questions_raw_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_16_PARSE_EXAM / "exam_questions_raw.xml"
+    return artifact_dir / STEP_17_PARSE_EXAM / "exam_questions_raw.xml"
 
 
 def artifact_exam_questions_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_16_PARSE_EXAM / f"exam_questions.{fmt}"
+    return artifact_dir / STEP_17_PARSE_EXAM / f"exam_questions.{fmt}"
 
 
 def artifact_exam_questions_raw_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_16_PARSE_EXAM / f"exam_questions_raw.{fmt}"
+    return artifact_dir / STEP_17_PARSE_EXAM / f"exam_questions_raw.{fmt}"
 
 
 # ---------------------------------------------------------------------------
@@ -262,29 +262,29 @@ def artifact_exam_questions_raw_path(artifact_dir: Path, fmt: str = "yaml") -> P
 # ---------------------------------------------------------------------------
 
 def artifact_mark_scheme_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_17_PARSE_SCHEME / "mark_scheme.json"
+    return artifact_dir / STEP_18_PARSE_SCHEME / "mark_scheme.json"
 
 
 def artifact_mark_scheme_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_17_PARSE_SCHEME / "mark_scheme.md"
+    return artifact_dir / STEP_18_PARSE_SCHEME / "mark_scheme.md"
 
 
 def artifact_mark_scheme_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_17_PARSE_SCHEME / "mark_scheme.xml"
+    return artifact_dir / STEP_18_PARSE_SCHEME / "mark_scheme.xml"
 
 
 def artifact_mark_scheme_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_17_PARSE_SCHEME / f"mark_scheme.{fmt}"
+    return artifact_dir / STEP_18_PARSE_SCHEME / f"mark_scheme.{fmt}"
 
 
 def artifact_mark_scheme_graphics_dir(artifact_dir: Path) -> Path:
     """Directory of images extracted from the mark scheme."""
-    return artifact_dir / STEP_17_PARSE_SCHEME / "mark_scheme_graphics"
+    return artifact_dir / STEP_18_PARSE_SCHEME / "mark_scheme_graphics"
 
 
 def artifact_mark_scheme_pages_dir(artifact_dir: Path) -> Path:
     """Temporary directory used during mark-scheme page rendering (cleaned up afterwards)."""
-    return artifact_dir / STEP_17_PARSE_SCHEME / "mark_scheme_pages"
+    return artifact_dir / STEP_18_PARSE_SCHEME / "mark_scheme_pages"
 
 
 # ---------------------------------------------------------------------------
@@ -293,23 +293,23 @@ def artifact_mark_scheme_pages_dir(artifact_dir: Path) -> Path:
 
 def artifact_scaffold_xml_path(artifact_dir: Path) -> Path:
     """Merged exam + mark scheme XML scaffold cache."""
-    return artifact_dir / STEP_18_CREATE_REPORT / "report.xml"
+    return artifact_dir / STEP_19_CREATE_REPORT / "report.xml"
 
 
 def artifact_scaffold_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_18_CREATE_REPORT / "report.json"
+    return artifact_dir / STEP_19_CREATE_REPORT / "report.json"
 
 
 def artifact_scaffold_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_18_CREATE_REPORT / "report.md"
+    return artifact_dir / STEP_19_CREATE_REPORT / "report.md"
 
 
 def artifact_short_scaffold_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_18_CREATE_REPORT / "short_report.json"
+    return artifact_dir / STEP_19_CREATE_REPORT / "short_report.json"
 
 
 def artifact_short_scaffold_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_18_CREATE_REPORT / "short_report.md"
+    return artifact_dir / STEP_19_CREATE_REPORT / "short_report.md"
 
 
 # ---------------------------------------------------------------------------
@@ -317,19 +317,19 @@ def artifact_short_scaffold_markdown_path(artifact_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_blueprint_path(artifact_dir: Path, page: int, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_19_BLUEPRINTS / f"blueprint_page_{page}.{fmt}"
+    return artifact_dir / STEP_20_BLUEPRINTS / f"blueprint_page_{page}.{fmt}"
 
 
 def artifact_blueprint_xml_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_19_BLUEPRINTS / f"blueprint_page_{page}.xml"
+    return artifact_dir / STEP_20_BLUEPRINTS / f"blueprint_page_{page}.xml"
 
 
 def artifact_blueprint_json_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_19_BLUEPRINTS / f"blueprint_page_{page}.json"
+    return artifact_dir / STEP_20_BLUEPRINTS / f"blueprint_page_{page}.json"
 
 
 def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_19_BLUEPRINTS / f"blueprint_page_{page}.md"
+    return artifact_dir / STEP_20_BLUEPRINTS / f"blueprint_page_{page}.md"
 
 
 # ---------------------------------------------------------------------------
@@ -338,7 +338,7 @@ def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
 
 def artifact_marking_students_dir(artifact_dir: Path) -> Path:
     """Directory containing per-student marking files."""
-    return artifact_dir / STEP_20_AI_MARKING / "students"
+    return artifact_dir / STEP_21_AI_MARKING / "students"
 
 
 def artifact_marked_path(artifact_dir: Path, student: str, page: int, fmt: str = "yaml") -> Path:
@@ -368,7 +368,7 @@ def artifact_marking_prompt_path(artifact_dir: Path, student: str, page: int) ->
 # ---------------------------------------------------------------------------
 
 def artifact_reports_dir(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_21_COMPILE_REPORTS
+    return artifact_dir / STEP_22_COMPILE_REPORTS
 
 
 def artifact_reports_students_dir(artifact_dir: Path) -> Path:
@@ -417,15 +417,15 @@ def artifact_student_report_pdf_path(artifact_dir: Path, student: str) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_timing_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_22_TIMING / "timing.json"
+    return artifact_dir / STEP_23_TIMING / "timing.json"
 
 
 def artifact_timing_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_22_TIMING / "timing.md"
+    return artifact_dir / STEP_23_TIMING / "timing.md"
 
 
 def artifact_accuracy_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_22_TIMING / "accuracy.json"
+    return artifact_dir / STEP_23_TIMING / "accuracy.json"
 
 
 # ---------------------------------------------------------------------------
@@ -442,8 +442,8 @@ def artifact_scaffold_prompt_path(artifact_dir: Path, name: str) -> Path:
     if "detect" in name or "layout" in name:
         return artifact_dir / STEP_15_LAYOUT / f"{name}_prompt.md"
     if "mark_scheme" in name:
-        return artifact_dir / STEP_17_PARSE_SCHEME / f"{name}_prompt.md"
-    return artifact_dir / STEP_16_PARSE_EXAM / f"{name}_prompt.md"
+        return artifact_dir / STEP_18_PARSE_SCHEME / f"{name}_prompt.md"
+    return artifact_dir / STEP_17_PARSE_EXAM / f"{name}_prompt.md"
 
 
 # ---------------------------------------------------------------------------
@@ -506,8 +506,10 @@ def find_scaffold_cache_file(
     for base in (output_base, "output"):
         ad = exam_artifact_dir(exam_folder, base)
         for p in (
-            artifact_scaffold_xml_path(ad),                   # 18_create_report/report.xml
-            artifact_scaffold_json_path(ad),                  # 18_create_report/report.json
+            artifact_scaffold_xml_path(ad),                   # 19_create_report/report.xml
+            artifact_scaffold_json_path(ad),                  # 19_create_report/report.json
+            ad / "18_create_report" / "report.xml",           # post-step-split-refactor legacy
+            ad / "18_create_report" / "report.json",          # post-step-split-refactor legacy
             ad / "17_create_report" / "report.xml",           # post-step-16-refactor legacy
             ad / "17_create_report" / "report.json",          # post-step-16-refactor legacy
             ad / "16_create_report" / "report.xml",           # pre-step-16-refactor legacy

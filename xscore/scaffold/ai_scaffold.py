@@ -95,7 +95,7 @@ def build_ai_scaffold(
     try:
         from xscore.shared.terminal_ui import ok_line, tool_line, warn_line
 
-        # ---- Step 14: layout detection + PDF splitting -------------------------
+        # ---- Steps 15–16: layout detection + PDF cutting ----------------------
         layout_model, layout_effort = _layout_detect_model_config()
 
         # Save prompt before API call
@@ -145,6 +145,8 @@ def build_ai_scaffold(
                 exam_pdf, layout_result
             )
             ok_line(f"{n_physical_pages} physical page(s) → {n_split_pages} sub-pages")
+        else:
+            ok_line("skipped")
             if artifact_dir is not None:
                 try:
                     import shutil
@@ -176,7 +178,7 @@ def build_ai_scaffold(
         if on_cut_complete is not None:
             on_cut_complete(n_cells == 1)
 
-        # ---- Step 15: exam extraction ------------------------------------------
+        # ---- Step 17: exam extraction ------------------------------------------
         actual_exam_pdf = split_pdf_path if split_pdf_path is not None else exam_pdf
         raw_layout: dict = {}
         raw_questions, raw_layout = _do_exam_call(
