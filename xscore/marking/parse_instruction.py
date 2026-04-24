@@ -12,7 +12,7 @@ import time
 from .ai_helpers import parse_json_safe
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, PIPELINE_DEFAULT_DPI
 from xscore.shared.models import StudentFilter, TaskInstruction
-from xscore.shared.terminal_ui import api_latency_line, info_line, warn_line
+from xscore.shared.terminal_ui import info_line, warn_line
 
 # Matches quoted paths ("…" or '…') first, then bare paths starting with / or ~.
 # Trailing sentence punctuation is excluded from bare paths.
@@ -64,7 +64,6 @@ def _call_gemini_text(user_message: str) -> str:
             **gen_config_kwargs,
         ),
     )
-    api_latency_line(time.perf_counter() - _t0)
     return response.text or ""
 
 

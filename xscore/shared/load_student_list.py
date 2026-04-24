@@ -153,7 +153,7 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
         contents=contents,
         config=gen_config,
     )
-    api_latency_line(time.perf_counter() - _t0)
+    api_latency_line(time.perf_counter() - _t0, label="student list")
     try:
         return json.loads(response.text)
     except json.JSONDecodeError as exc:

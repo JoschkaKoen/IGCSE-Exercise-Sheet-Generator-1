@@ -10,7 +10,7 @@ _STEP_LABELS: dict[str, str] = {
     "blueprints_s":   "Blueprints",
     "marking_s":      "AI marking",
     "reports_s":      "Reports",
-    "timing_s":       "Timing",
+    "timing_s":       "Overhead",
 }
 
 
@@ -57,6 +57,8 @@ def write_timing_report(
     # Terminal summary
     info_line("Marking timing:")
     for key, val in step_durations.items():
+        if val < 0.5:
+            continue
         label = _STEP_LABELS.get(key, key.replace("_s", "").replace("_", " ").title())
         info_line(f"  {label}: {format_duration(val)}")
     info_line(f"  Total: {format_duration(total)}  ·  {len(api_calls)} API calls")

@@ -443,7 +443,7 @@ def compile_reports(ctx: Any) -> list[dict]:
         artifact_student_report_tex_path,
         artifact_student_report_xml_path,
     )
-    from xscore.shared.terminal_ui import info_line
+    from xscore.shared.terminal_ui import ok_line
 
     fmt = get_marking_format()
     total_max_marks = ctx.scaffold.total_marks
@@ -503,7 +503,7 @@ def compile_reports(ctx: Any) -> list[dict]:
             })
             _full_reports[name] = report
 
-        info_line(
+        ok_line(
             f"{name}: {report['total_marks']}/{total_max_marks} ({_fmt_pct(report['percentage'])})"
         )
 
@@ -572,7 +572,6 @@ def compile_reports(ctx: Any) -> list[dict]:
             artifact_reports_students_dir(ctx.artifact_dir),
             tex_path.parent / "15_class_report_combined.pdf",
         )
-        info_line(f"Class average: {_fmt_pct(class_avg)}")
 
     return student_summaries
 

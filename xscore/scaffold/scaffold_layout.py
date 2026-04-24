@@ -6,6 +6,7 @@ import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from eXercise.ai_client import is_503_error
 from xscore.scaffold.scaffold_prompts import (
     _LAYOUT_DETECT_JSON_SCHEMA,
     _LayoutDetectSchema,
@@ -47,23 +48,32 @@ def _detect_layout(
 
     raw_text: str | None = None
     t0 = time.perf_counter()
-    try:
-        resp = client.models.generate_content(
-            model=model,
-            contents=[
-                gai_types.Part.from_bytes(data=img_bytes, mime_type="image/jpeg"),
-                gai_types.Part.from_text(text=_USER_LAYOUT),
-            ],
-            config=cfg,
-        )
-        elapsed = time.perf_counter() - t0
-        raw_text = resp.text
-        result = _LayoutDetectSchema.model_validate_json(raw_text)
-        return result, elapsed, raw_text, None
-    except Exception as exc:
-        elapsed = time.perf_counter() - t0
-        err_summary = str(exc).split("\n")[0]
-        return _LayoutDetectSchema(rows=1, cols=1, reading_order=[]), elapsed, raw_text, err_summary
+    last_exc: Exception = RuntimeError("no attempts made")
+    for attempt in range(2):  # initial attempt + 1 retry on transient error
+        try:
+            resp = client.models.generate_content(
+                model=model,
+                contents=[
+                    gai_types.Part.from_bytes(data=img_bytes, mime_type="image/jpeg"),
+                    gai_types.Part.from_text(text=_USER_LAYOUT),
+                ],
+                config=cfg,
+            )
+            elapsed = time.perf_counter() - t0
+            raw_text = resp.text
+            result = _LayoutDetectSchema.model_validate_json(raw_text)
+            return result, elapsed, raw_text, None
+        except KeyboardInterrupt:
+            raise
+        except Exception as exc:
+            last_exc = exc
+            if attempt == 0 and is_503_error(exc):
+                time.sleep(0.1)
+            else:
+                break
+    elapsed = time.perf_counter() - t0
+    err_summary = str(last_exc).split("\n")[0]
+    return _LayoutDetectSchema(rows=1, cols=1, reading_order=[]), elapsed, raw_text, err_summary
 
 
 def _order_cells(page_rect, layout: "_LayoutDetectSchema") -> list:

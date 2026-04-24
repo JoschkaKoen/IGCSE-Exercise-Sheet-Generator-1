@@ -31,6 +31,7 @@ from typing import Any
 
 from xscore.config import COVER_PAGE_DETECTION_DPI, GEMINI_MAX_OUTPUT_TOKENS, NAME_RECOGNITION_DPI
 
+from eXercise.ai_client import is_503_error
 from .ai_helpers import ai_image_call, page_to_jpeg_b64
 from xscore.shared.exam_paths import artifact_prompt_path
 from xscore.shared.models import PageAssignment
@@ -243,11 +244,21 @@ def check_cover_page_text(
             include_thoughts=_budget > 0,
         ),
     )
-    resp = gai_client.models.generate_content(
-        model=model_id,
-        contents=[gai_types.Part.from_text(text=prompt)],
-        config=config,
-    )
+    for _attempt in range(2):  # initial attempt + 1 retry on 503
+        try:
+            resp = gai_client.models.generate_content(
+                model=model_id,
+                contents=[gai_types.Part.from_text(text=prompt)],
+                config=config,
+            )
+            break
+        except KeyboardInterrupt:
+            raise
+        except Exception as _exc:
+            if _attempt == 0 and is_503_error(_exc):
+                time.sleep(0.1)
+            else:
+                raise
 
     thinking_parts: list[str] = []
     answer_parts: list[str] = []

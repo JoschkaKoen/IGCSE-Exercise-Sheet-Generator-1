@@ -167,7 +167,7 @@ def check_blank_pages(
             )
         return
 
-    ok_line(f"Blank page detection: found blank exam pages {sorted(blank_exam_pages)}  ·  {detect_dur}s")
+    _blank_pages_found = sorted(blank_exam_pages)
 
     cover_page_mode = any(a.cover_page_number is not None for a in page_assignments)
     # Offset is needed only when the scan has a cover page that the empty exam does not.
@@ -267,6 +267,8 @@ def check_blank_pages(
         )
 
     hw_count = sum(1 for _, _, hw in [e for s in by_student.values() for e in s] if hw)
-    ok_line(
-        f"Blank page detection: {hw_count}/{len(results)} blank scan page(s) have handwriting  ·  {hw_dur}s"
-    )
+    total_dur = round(_time.perf_counter() - t0, 1)
+    _n_blank = len(_blank_pages_found)
+    _pages_label = f"exam page{'s' if _n_blank != 1 else ''} {_blank_pages_found}"
+    _hw_label = "no handwriting" if hw_count == 0 else f"{hw_count}/{len(results)} with handwriting"
+    ok_line(f"Blank page detection: {_pages_label} — {_hw_label}  ·  {total_dur}s")

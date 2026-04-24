@@ -286,7 +286,11 @@ def make_gemini_native_client() -> Any:
 
 
 def is_503_error(exc: BaseException) -> bool:
-    """Return True if exc is an HTTP 503 from any supported provider SDK."""
+    """Return True if exc is a transient server error worth retrying.
+
+    Covers HTTP 503 from any supported provider SDK, and connection drops
+    (httpx.RemoteProtocolError — "Server disconnected without sending a response.").
+    """
     try:
         from openai import APIStatusError
         if isinstance(exc, APIStatusError) and exc.status_code == 503:
@@ -296,6 +300,12 @@ def is_503_error(exc: BaseException) -> bool:
     try:
         from google.genai.errors import APIError
         if isinstance(exc, APIError) and exc.code == 503:
+            return True
+    except ImportError:
+        pass
+    try:
+        from httpx import RemoteProtocolError
+        if isinstance(exc, RemoteProtocolError):
             return True
     except ImportError:
         pass

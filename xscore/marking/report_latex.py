@@ -38,7 +38,8 @@ def _ai_cell(text: str) -> str:
     (``\\begin{...}`` / ``\\end{...}``) is invalid LaTeX and causes
     "There's no line here to end"; strip those.
     """
-    result = text.replace("\n", "\\newline ")
+    result = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", text)
+    result = result.replace("\n", "\\newline ")
     # \newline adjacent to block-level environments is invalid LaTeX
     # ("There's no line here to end") — strip it in all four positions.
     result = re.sub(r"\\newline\s*(?=\\begin\{)", "", result)
@@ -46,6 +47,7 @@ def _ai_cell(text: str) -> str:
     result = re.sub(r"(\\begin\{[^}]+\})\s*\\newline\b", r"\1", result)
     result = re.sub(r"(\\end\{[^}]+\})\s*\\newline\b", r"\1 ", result)
     result = re.sub(r"\\newline\s*(?=\\item\b)", "", result)
+    result = re.sub(r"\\newline\s*(?=\\end\{)", "", result)
     return result
 
 
@@ -67,7 +69,7 @@ def _format_criteria_cell(raw: str) -> str:
     segments: list[str] = []
     short_group: list[str] = []
     for criterion in lines:
-        if " " not in criterion:   # single token: one word or one number
+        if " " not in criterion and not criterion.startswith("\\"):  # single token: one word or one number (not a LaTeX command)
             short_group.append(criterion)
         else:
             if short_group:

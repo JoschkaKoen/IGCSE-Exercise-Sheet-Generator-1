@@ -482,7 +482,6 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         t0_rot = time.perf_counter()
         autorotate_phase(ad)
         elapsed_rot = time.perf_counter() - t0_rot
-        info_line(format_duration(elapsed_rot))
         (ad / "6_autorotate_summary.json").write_text(
             json.dumps({"step": 6, "elapsed_s": round(elapsed_rot, 3), "status": "ok"}, indent=2),
             encoding="utf-8",
@@ -586,7 +585,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.num_students = geo["num_students"]
         ctx.pages_per_student = geo["pages_per_student"]
         if geo["roster_mismatch"]:
-            ok_line(
+            info_line(
                 f"Roster has {geo['num_students_roster']} students "
                 f"but scan implies {geo['num_students']}"
             )
@@ -600,7 +599,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         write_geometry_artifacts(ctx.artifact_dir, geo)
 
         # --- 8b: Informational empty-exam cover check (does NOT determine behaviour) ---
-        info_line("8b — Checking empty exam for cover page …")
+        info_line("Checking cover page …")
         _empty_exam_has_cover: bool | None = None   # None = check was not performed
         try:
             import os as _os
@@ -629,7 +628,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.empty_exam_has_cover = _empty_exam_has_cover
 
         # --- 8c: Name detection + cover-page detection (scan is authoritative) ---
-        info_line("8c — Assigning scan pages + detecting student names …")
+        info_line("Assigning pages + detecting names …")
         t1 = time.perf_counter()
         ctx.page_assignments = assign_pages(
             ctx.cleaned_pdf,
@@ -688,7 +687,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         else:
             _8d_per_str = f"{geo['exam_pages']} pages"
         ok_line(
-            f"8d — Page counts valid"
+            f"Page counts valid"
             f"  ·  {_8d_n} × ({_8d_per_str}) = {geo['scan_pages']} total"
         )
 
@@ -698,7 +697,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         )
 
         # ── 8e: Page order / content validation ──────────────────────────────────────
-        info_line("8e — Page order check …")
+        info_line("Checking page order …")
         try:
             from xscore.scaffold.generate_scaffold import find_exam_pdf as _fep
             from xscore.marking.page_order_check import check_page_order as _check_order
@@ -715,7 +714,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         # ─────────────────────────────────────────────────────────────────────────────
 
         # ── 8f: Blank page detection ──────────────────────────────────────────────────
-        info_line("8f — Blank page detection …")
+        info_line("Checking for blank pages …")
         try:
             from xscore.scaffold.generate_scaffold import find_exam_pdf as _fep2
             from xscore.marking.blank_page_detection import check_blank_pages as _check_blank
@@ -755,7 +754,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.step_timings_marking["assign_pages_s"] = time.perf_counter() - t0
         _kick_off_render_bg(ctx)
         ok_line(
-            f"{detected} students detected from scan  ·  {answer_pages} answer pages each"
+            f"{detected} {'student' if detected == 1 else 'students'} detected from scan  ·  {answer_pages} answer pages each"
             + ("  ·  cover page mode" if ctx.cover_page_mode else "")
             + f"  ·  {format_duration(time.perf_counter() - t0)}"
         )
