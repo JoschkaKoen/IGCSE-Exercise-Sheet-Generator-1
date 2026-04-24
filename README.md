@@ -1,5 +1,7 @@
 # eXercise
 
+**Version 0.4**
+
 ![Generate page — natural language prompt and example buttons](screenshots/web-ui.png)
 
 Build printable exercise sheets from Cambridge-style IGCSE question papers (PDF). You describe what you want in plain English or pass explicit file paths. The app extracts questions from bundled exam PDFs, optionally attaches mark-scheme answers, generates short MCQ explanations with an LLM, ranks questions by difficulty, and includes a browser for the bundled paper library. A separate **Grade** page accepts student exam scans and returns a cleaned, deskewed PDF ready for review.
