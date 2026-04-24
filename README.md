@@ -122,7 +122,17 @@ flowchart TD
         s5 --> s6 --> s7
     end
 
-    s8["Step 8 — Exam geometry & cover detection\n(page count ÷ exam pages = students\n· name detection · cover-page mode)"]
+    subgraph step8 ["Step 8 — Exam geometry"]
+        direction TB
+        s8a["8a — Compute geometry\n(scan÷exam pages → num_students\n· roster cross-check)"]
+        s8b["8b — Empty-exam cover check\n(informational · EMPTY_EXAM_COVER_MODEL)"]
+        s8c["8c — Assign pages + name detection\n(COVER_PAGE_DETECTION_MODEL)"]
+        s8d["8d — Page-count validation\n(abort if mismatch)"]
+        s8e["8e — Page order check"]
+        s8f["8f — Blank page detection"]
+        s8g["8g — Write artifacts\n(8_exam_geometry.json\n8_exam_student_list.json / .md)"]
+        s8a --> s8b --> s8c --> s8d --> s8e --> s8f --> s8g
+    end
 
     subgraph scaffold ["Exam scaffold"]
         direction TB
@@ -148,8 +158,8 @@ flowchart TD
     s1 --> routeCond
     routeCond -->|terminal| s2 --> s3
     routeCond -->|web| s3
-    s3 --> cleaning --> s8 --> scaffold --> marking
-    s8 -.->|"starts in background"| bg
+    s3 --> cleaning --> step8 --> scaffold --> marking
+    s8g -.->|"starts in background"| bg
     bg -.->|"images ready"| s14
 ```
 
@@ -263,8 +273,8 @@ The **Grade** page depends on the `xscore` package (not in `requirements.txt`) a
 | | |
 |---|---|
 | `xscore` | Install separately if you want the scan-cleaning and AI-marking pipeline |
-| `GEMINI_API_KEY` | Steps 1, 3, 8–10 — prompt parsing, roster reading, layout detection, exam and mark-scheme parsing (`GOOGLE_API_KEY` accepted as fallback) |
-| `DASHSCOPE_API_KEY` | Step 15 — AI marking via Qwen vision model |
+| `GEMINI_API_KEY` | Steps 1, 3, 8–11 — prompt parsing, roster reading, geometry, layout detection, exam and mark-scheme parsing (`GOOGLE_API_KEY` accepted as fallback) |
+| `DASHSCOPE_API_KEY` | Step 14 — AI marking via Qwen vision model |
 
 If `xscore` is not installed, the rest of the app runs normally — only `/grade` will return errors.
 
@@ -317,11 +327,12 @@ Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 | `RANKING_MODEL` | Difficulty ranking job (questions ranked hardest to easiest) |
 | `INTERPRET_PROMPT_MODEL` | xScore step 1 — parse grading prompt |
 | `READ_STUDENT_LIST_MODEL` | xScore step 3 — parse student roster files (PDF, Excel, CSV) |
-| `READ_EXAM_PDF_MODEL` | xScore step 9 — extract question hierarchy from the (split) exam PDF |
-| `READ_MARK_SCHEME_MODEL` | xScore step 10 — extract answers and criteria from mark scheme |
 | `EMPTY_EXAM_COVER_MODEL` | xScore step 8 — checks page 1 of the empty exam PDF for a cover page (informational only; result is logged but never drives behaviour) |
 | `COVER_PAGE_DETECTION_MODEL` | xScore step 8 — checks page 1 of the scan to determine cover-page mode; result is authoritative and drives all downstream logic |
-| `MARKING_MODEL` | xScore step 15 — Qwen vision model for AI marking; requires `DASHSCOPE_API_KEY`; use `, off` to disable thinking (required for non-streaming JSON output) |
+| `DETECT_LAYOUT_MODEL` | xScore step 9 — detect printing layout (1×1, 2-up, 4-up) and split multi-up exam PDFs |
+| `READ_EXAM_PDF_MODEL` | xScore step 10 — extract question hierarchy from the (split) exam PDF |
+| `READ_MARK_SCHEME_MODEL` | xScore step 11 — extract answers and criteria from mark scheme |
+| `MARKING_MODEL` | xScore step 14 — Qwen vision model for AI marking; requires `DASHSCOPE_API_KEY`; use `, off` to disable thinking (required for non-streaming JSON output) |
 | `MARKING_WORKERS` | Parallel workers for step 13 (AI marking) and step 14 (xelatex compiles); default `4` |
 
 **Optional thinking suffix:** add `, off`, `, low`, or `, high` after the model name:
@@ -398,7 +409,7 @@ Three pages are available:
 | Page | Path | Purpose |
 |------|------|---------|
 | **Generate** | `/` | Build exercise sheets (natural language or legacy); PDF preview with tabs (exercise, answers, 2-up, 4-up, ranking), Ctrl-wheel zoom, and jump-to-question overview. |
-| **Grade** | `/grade` | Upload student scan PDF, exam PDF, mark scheme, and optional roster; runs the full 14-step pipeline and returns a cleaned PDF plus per-student and class mark reports. Requires `xscore`, `GEMINI_API_KEY`, and `DASHSCOPE_API_KEY`. |
+| **Grade** | `/grade` | Upload student scan PDF, exam PDF, mark scheme, and optional roster; runs the full 16-step pipeline and returns a cleaned PDF plus per-student and class mark reports. Requires `xscore`, `GEMINI_API_KEY`, and `DASHSCOPE_API_KEY`. |
 | **Library** | `/library` | Browse and download the bundled Cambridge IGCSE papers by subject, year, and session. |
 
 ### Programmatic
@@ -454,7 +465,7 @@ The two pipelines write to separate sub-folders under `output/`:
 |------|------|
 | `eXercise.py` | CLI entry |
 | `eXercise/` | Config, pipeline, NL resolver, MCQ explanations, difficulty ranking, PDF layout |
-| `xScore.py` | xScore pipeline entry (steps 1–14) |
+| `xScore.py` | xScore pipeline entry (steps 1–16) |
 | `xscore/marking/` | Steps 1, 3, 7–14 — prompt parsing, geometry, scaffold, blueprints, AI marking, report compilation |
 | `xscore/preprocessing/` | Steps 4–6 — blank detection, rotation, deskew |
 | `xscore/shared/` | Terminal UI, exam path helpers, config |

@@ -100,6 +100,7 @@ def _mark_page(
         "(non native, high school english speakers). "
         "Address the student directly using 'you'. "
         "You can make important words bold using LaTeX syntax \\textbf{word}: only for important words. "
+        "NEVER use markdown bold (**word**) — it breaks the PDF renderer. "
         "Escape non-math special characters that appear literally in your prose: "
         "% → \\%, _ → \\_. "
         "Use \\newline for line breaks. "
