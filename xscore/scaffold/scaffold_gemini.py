@@ -17,8 +17,6 @@ from eXercise.ai_client import build_thinking_kwargs, collect_streamed_response,
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.scaffold.scaffold_prompts import (
     _SCHEME_GRAPHICS_JSON_SCHEMA,
-    _SYSTEM_EXAM,
-    _SYSTEM_SCHEME,
     _USER_GRAPHICS,
 )
 from xscore.scaffold.scaffold_xml import (
@@ -167,7 +165,7 @@ def _do_exam_call(
             kwargs: dict = dict(
                 model=exam_model,
                 messages=[
-                    {"role": "system", "content": _SYSTEM_EXAM},
+                    {"role": "system", "content": fmt.system_exam_prompt()},
                     {"role": "user", "content": _content},
                 ],
             )
@@ -185,7 +183,7 @@ def _do_exam_call(
                     gai_types.Part.from_uri(file_uri=exam_file.uri, mime_type="application/pdf"),
                     gai_types.Part.from_text(text=user_exam),
                 ],
-                config=_make_gen_config(exam_effort, _SYSTEM_EXAM, pydantic_schema=fmt.pydantic_schema_exam()),
+                config=_make_gen_config(exam_effort, fmt.system_exam_prompt(), pydantic_schema=fmt.pydantic_schema_exam()),
             )
             raw = _extract_text(resp)
         api_latency_line(time.perf_counter() - _t0, label=label)
@@ -208,7 +206,7 @@ def _do_exam_call(
         if artifact_dir is not None:
             save_prompt(
                 artifact_prompt_path(artifact_dir, "10_exam_questions"),
-                model=exam_model, system=_SYSTEM_EXAM,
+                model=exam_model, system=fmt.system_exam_prompt(),
                 messages=[{
                     "role": "user",
                     "content": f"[PDF: {actual_exam_pdf.name}]\n\n{user_exam}",
@@ -328,7 +326,7 @@ def _do_scheme_call(
                 kwargs: dict = dict(
                     model=scheme_model,
                     messages=[
-                        {"role": "system", "content": _SYSTEM_SCHEME},
+                        {"role": "system", "content": fmt.system_scheme_prompt()},
                         {"role": "user", "content": [
                             {"type": "image_url",
                              "image_url": {"url": f"data:image/png;base64,{b64}"}},
@@ -356,7 +354,7 @@ def _do_scheme_call(
                         gai_types.Part.from_text(text=user_msg),
                     ],
                     config=_make_gen_config(
-                        scheme_effort, _SYSTEM_SCHEME,
+                        scheme_effort, fmt.system_scheme_prompt(),
                         pydantic_schema=fmt.pydantic_schema_scheme(),
                     ),
                 )
@@ -375,7 +373,7 @@ def _do_scheme_call(
             _prompt_path = artifact_prompt_path(artifact_dir, f"11_mark_scheme_p{page_num}")
             save_prompt(
                 _prompt_path,
-                model=scheme_model, system=_SYSTEM_SCHEME,
+                model=scheme_model, system=fmt.system_scheme_prompt(),
                 messages=[{
                     "role": "user",
                     "content": f"[PDF: {marking_scheme_pdf.name} p{page_num}]\n\n{user_msg}",

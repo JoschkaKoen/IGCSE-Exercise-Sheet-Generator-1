@@ -91,9 +91,14 @@ _USER_SCHEME_JSON = """\
 For each question in the scaffold below, fill in `correct_answer` and `criteria` \
 based on the mark scheme.
 
-{{scaffold}}
+{scaffold}
 
-- `correct_answer`: model answer with $...$; for multiple-choice just the letter
+- `correct_answer`: always a non-empty string — the model/expected answer. \
+For multiple-choice: just the letter (e.g. "C"). \
+For questions with a single definitive answer: that answer (e.g. "930D", "00001111"). \
+For "any N from" / open-ended questions: write a brief sample answer derived from \
+the criteria (e.g. "Actuator, Printer, Speaker" or "Any three from: A, B, C"). \
+Never leave this empty or null.
 - `criteria`: list of {{mark, criterion}} — extract the COMPLETE marking scheme text.
 
 LaTeX in criterion strings: use \\\\ for backslash in JSON strings.
@@ -110,6 +115,12 @@ def _strip_fences(raw: str) -> str:
 
 
 class JsonScaffoldFormat(ScaffoldFormat):
+
+    def system_exam_prompt(self) -> str:
+        return _SYSTEM_EXAM_JSON
+
+    def system_scheme_prompt(self) -> str:
+        return _SYSTEM_SCHEME_JSON
 
     def build_exam_prompt(self, layout_result, is_split: bool, n_split_pages: int) -> str:
         if layout_result is None:

@@ -32,8 +32,12 @@ Below is a scaffold listing every question from the exam. Fill in `correct_answe
 {scaffold}
 
 For each question:
-- `correct_answer`: model answer with $...$ for inline math \
-(e.g. "$1.5 \\times 10^{{11}}$ m"); for multiple-choice just the letter
+- `correct_answer`: always a non-empty string — the model/expected answer. \
+For multiple-choice: just the letter (e.g. "C"). \
+For questions with a single definitive answer: that answer (e.g. "930D", "00001111"). \
+For "any N from" / open-ended questions: write a brief sample answer derived from \
+the criteria (e.g. "Actuator, Printer, Speaker" or "Any three from: A, B, C"). \
+Never leave this empty or null.
 - `criteria`: a YAML list of `{{mark: "", criterion: "..."}}` entries — use a block scalar (`|`) \
 for each criterion to preserve LaTeX backslashes and braces literally.
   Extract the COMPLETE marking scheme text — introductory sentences, bullet lists, numbered lists, \
@@ -168,6 +172,12 @@ def _common_tail_yaml(page_desc: str, subpage_r_desc: str, subpage_c_desc: str) 
 
 
 class YamlScaffoldFormat(ScaffoldFormat):
+
+    def system_exam_prompt(self) -> str:
+        return _SYSTEM_EXAM_YAML
+
+    def system_scheme_prompt(self) -> str:
+        return _SYSTEM_SCHEME_YAML
 
     def build_exam_prompt(self, layout_result, is_split: bool, n_split_pages: int) -> str:
         return _build_user_exam_prompt_yaml(layout_result, is_split, n_split_pages)

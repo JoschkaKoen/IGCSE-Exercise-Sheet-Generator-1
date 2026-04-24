@@ -48,6 +48,16 @@ class ScaffoldFormat(ABC):
     def serialize_exam(self, questions: list[dict], layout: dict) -> str:
         """Serialise post-remap question dicts for the step-10 artifact."""
 
+    def system_exam_prompt(self) -> str:
+        """Return the system prompt for the exam-extraction call."""
+        from xscore.scaffold.scaffold_prompts import _SYSTEM_EXAM
+        return _SYSTEM_EXAM
+
+    def system_scheme_prompt(self) -> str:
+        """Return the system prompt for the scheme-extraction call."""
+        from xscore.scaffold.scaffold_prompts import _SYSTEM_SCHEME
+        return _SYSTEM_SCHEME
+
     def pydantic_schema_exam(self):
         """Return Pydantic class for Gemini response_schema (exam), or None."""
         return None
