@@ -143,6 +143,7 @@ def _mark_page_pdf(
         "system_instruction": system_prompt,
         "max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS,
     }
+    cfg.update(fmt.api_extra_kwargs(model_id))
     if _effort in _THINKING_MAP:
         cfg["thinking_config"] = gai_types.ThinkingConfig(
             thinking_budget=_THINKING_MAP[_effort],
@@ -193,6 +194,25 @@ def _mark_page_pdf(
                     bq["student_answer"] = src_q.get("student_answer", "")
                     bq["assigned_marks"] = src_q.get("assigned_marks", 0)
                     bq["explanation"] = src_q.get("explanation", "")
+            _fix_mc_marks(result)
+            for bq in result.get("questions", []):
+                if not (bq.get("student_answer") or "").strip() and bq.get("assigned_marks") in (None, 0):
+                    bq["explanation"] = "Blank answer."
+            for bq in result.get("questions", []):
+                max_m = bq.get("max_marks")
+                if max_m is None:
+                    continue
+                m = bq.get("assigned_marks", 0)
+                if not isinstance(m, int) or m < 0 or m > int(max_m):
+                    warn(
+                        f"Marking: Q{bq.get('number')} assigned_marks={m} out of range "
+                        f"[0, {max_m}] — clamping"
+                    )
+                    try:
+                        m_int = int(m)
+                    except (TypeError, ValueError):
+                        m_int = 0
+                    bq["assigned_marks"] = max(0, min(m_int, int(max_m)))
             try:
                 gai_client.files.delete(name=uploaded.name)
             except Exception as _del_exc:  # noqa: BLE001
