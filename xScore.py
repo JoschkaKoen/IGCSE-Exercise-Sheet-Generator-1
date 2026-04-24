@@ -774,7 +774,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             if detected != ctx.num_students:
                 warn_line(
                     f"Name detection found {detected} students; geometry expected {ctx.num_students}. "
-                    "Step 18 will use the scan-detected list."
+                    "AI marking will use the scan-detected list."
                 )
             ctx.step_timings_marking["assign_pages_s"] = time.perf_counter() - t0
             _kick_off_render_bg(ctx)

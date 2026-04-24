@@ -1,4 +1,4 @@
-"""Step 14 — AI marking: iterate over student scan pages and fill blueprint JSONs.
+"""Step 18/19 — AI marking: iterate over student scan pages and fill blueprint JSONs.
 
 Uses the MARKING_MODEL env var (default: qwen3.6-plus, off) via make_ai_client().
 Requires DASHSCOPE_API_KEY to be set in .env.

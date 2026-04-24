@@ -1,29 +1,58 @@
-"""Cost computation from accumulated token usage and COST_* env vars."""
+"""Cost computation from accumulated token usage and AI API costs.xlsx."""
 from __future__ import annotations
 
-import os
-import re
+from pathlib import Path
+
+_PRICING_FILE = Path(__file__).parents[2] / "AI API costs.xlsx"
+_pricing_cache: dict[str, tuple[float, float]] | None = None  # model → (input_rate, output_rate)
 
 
-def _model_cost_key(model: str) -> str:
-    return re.sub(r"[-.]", "_", model).upper()
+def _load_pricing() -> dict[str, tuple[float, float]]:
+    """Load pricing from AI API costs.xlsx (cached after first call)."""
+    global _pricing_cache
+    if _pricing_cache is not None:
+        return _pricing_cache
+    result: dict[str, tuple[float, float]] = {}
+    try:
+        import openpyxl
+        wb = openpyxl.load_workbook(_PRICING_FILE, read_only=True, data_only=True)
+        ws = wb.active
+        rows = iter(ws.rows)
+        headers = [str(c.value).strip() if c.value else "" for c in next(rows)]
+        model_col = next((i for i, h in enumerate(headers) if "model" in h.lower()), None)
+        inp_col   = next((i for i, h in enumerate(headers) if "input" in h.lower()), None)
+        out_col   = next((i for i, h in enumerate(headers) if "output" in h.lower()), None)
+        if None not in (model_col, inp_col, out_col):
+            for row in rows:
+                model = str(row[model_col].value or "").strip()
+                if not model:
+                    continue
+                try:
+                    inp = float(row[inp_col].value or 0)
+                    out = float(row[out_col].value or 0)
+                except (TypeError, ValueError):
+                    inp, out = 0.0, 0.0
+                result[model] = (inp, out)
+        wb.close()
+    except Exception:
+        pass  # file missing or unreadable → all costs are 0
+    _pricing_cache = result
+    return result
 
 
 def compute_cost(
     usage: dict[str, dict[str, int]],
 ) -> tuple[float, dict[str, dict]]:
-    """Return ``(total_rmb, per_model_breakdown)``.
+    """Return (total_rmb, per_model_breakdown).
 
-    *breakdown* maps model name → ``{"input_tokens": N, "output_tokens": N, "cost_rmb": X}``.
-    Rates are read from ``COST_<MODEL_KEY>_INPUT`` / ``COST_<MODEL_KEY>_OUTPUT`` env vars
-    (RMB per 1 million tokens).  Missing or zero rates produce zero cost for that model.
+    breakdown: model → {"input_tokens": N, "output_tokens": N, "cost_rmb": X}
+    Rates come from AI API costs.xlsx (RMB per 1M tokens); 0.0 if model not listed.
     """
+    pricing = _load_pricing()
     breakdown: dict[str, dict] = {}
     total = 0.0
     for model, counts in usage.items():
-        key = _model_cost_key(model)
-        inp_rate = float(os.environ.get(f"COST_{key}_INPUT", "0") or "0")
-        out_rate = float(os.environ.get(f"COST_{key}_OUTPUT", "0") or "0")
+        inp_rate, out_rate = pricing.get(model, (0.0, 0.0))
         cost = counts["input"] / 1_000_000 * inp_rate + counts["output"] / 1_000_000 * out_rate
         total += cost
         breakdown[model] = {

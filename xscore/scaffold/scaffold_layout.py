@@ -165,7 +165,7 @@ def _save_layout_artifact(
     n_physical: int,
     n_split: int,
 ) -> None:
-    """Write step-8 (split mode) artifacts: ``4a_exam_layout.json`` + ``.md``."""
+    """Write step-14 (split mode) layout detection artifacts to artifact_dir."""
     from xscore.shared.exam_paths import (
         artifact_exam_layout_markdown_path,
         artifact_exam_layout_xml_path,

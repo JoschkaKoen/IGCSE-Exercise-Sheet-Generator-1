@@ -1,4 +1,4 @@
-"""Step 8 sub-step: verify that scan pages are in the correct order and content."""
+"""Step 12 sub-step: verify that scan pages are in the correct order and content."""
 
 from __future__ import annotations
 

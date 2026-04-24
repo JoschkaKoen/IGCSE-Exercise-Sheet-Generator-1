@@ -1,4 +1,4 @@
-"""Step 8 sub-step: detect blank pages in the empty exam and check for student handwriting."""
+"""Step 13 sub-step: detect blank pages in the empty exam and check for student handwriting."""
 
 from __future__ import annotations
 

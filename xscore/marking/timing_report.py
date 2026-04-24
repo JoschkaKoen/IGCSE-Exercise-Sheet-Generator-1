@@ -78,10 +78,17 @@ def write_timing_report(
         info_line(f"  {label}: {format_duration(val)}")
     info_line(f"  Total: {format_duration(total)}  ·  {len(api_calls)} API calls")
     if token_usage:
-        _hint = "" if total_cost_rmb > 0 else "  (fill COST_* in default.env)"
+        info_line("  Token usage:")
+        for _model, _data in breakdown.items():
+            _cost_str = f"  ·  ¥{_data['cost_rmb']:.4f}" if _data['cost_rmb'] > 0 else ""
+            info_line(
+                f"    {_model}: {_data['input_tokens']:,} in"
+                f" · {_data['output_tokens']:,} out{_cost_str}"
+            )
+        _hint = "" if total_cost_rmb > 0 else "  (prices not found in AI API costs.xlsx)"
         info_line(
-            f"  Tokens: {total_input:,} in · {total_output:,} out"
-            f"  ·  Estimated cost: ¥{total_cost_rmb:.4f}{_hint}"
+            f"  Total: {total_input:,} in · {total_output:,} out"
+            f"  ·  ¥{total_cost_rmb:.4f}{_hint}"
         )
     if failures:
         warn_line(f"  {len(failures)} page(s) failed marking — see 16_timing.md for details")
