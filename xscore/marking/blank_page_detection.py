@@ -35,7 +35,7 @@ def find_blank_exam_pages(
     """One LLM text call to identify blank exam pages. Returns set of 1-based page numbers."""
     from google.genai import types as gai_types
     from xscore.shared.prompt_logger import save_prompt, save_response
-    from xscore.shared.exam_paths import artifact_blank_pages_prompt_path
+    from xscore.shared.exam_paths import artifact_blank_detection_txt_path, artifact_blank_pages_prompt_path
 
     lines = [
         "You are analysing an empty exam paper.",
