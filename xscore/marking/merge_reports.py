@@ -501,7 +501,6 @@ def compile_reports(ctx: Any) -> list[dict]:
 
     _summaries_lock = threading.Lock()
     _q_totals_lock = threading.Lock()
-    _tex_lock = threading.Lock()
     _q_totals: dict[str, list[float]] = {}
 
     def _process_one_student(name: str) -> None:
