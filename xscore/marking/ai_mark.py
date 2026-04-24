@@ -134,8 +134,10 @@ def _mark_page_pdf(
 
     _last_exc: BaseException = RuntimeError("no attempts made")
     _last_raw: str = ""
+    _actual_attempts = 0
     uploaded = None
     for attempt in range(MAX_RETRIES + 1):
+        _actual_attempts += 1
         try:
             if uploaded is None:
                 uploaded = gai_client.files.upload(
@@ -173,8 +175,8 @@ def _mark_page_pdf(
                     bq["explanation"] = src_q.get("explanation", "")
             try:
                 gai_client.files.delete(name=uploaded.name)
-            except Exception:
-                pass
+            except Exception as _del_exc:  # noqa: BLE001
+                warn(f"Gemini file cleanup failed (file may remain in storage): {_del_exc}")
             return result
         except ET.ParseError as exc:
             warn("Marking XML parse error (PDF upload path) — XML repair failed, marking aborted")
@@ -182,17 +184,18 @@ def _mark_page_pdf(
             break
         except KeyboardInterrupt:
             raise
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
+            warn(f"Gemini error (attempt {_actual_attempts}): {exc}")
             _last_exc = exc
             if attempt < MAX_RETRIES:
                 time.sleep(2 ** attempt)
     if uploaded is not None:
         try:
             gai_client.files.delete(name=uploaded.name)
-        except Exception:
-            pass
+        except Exception as _del_exc:  # noqa: BLE001
+            warn(f"Gemini file cleanup failed after all retries (file may remain in storage): {_del_exc}")
     raise MarkingFailure(
-        attempts=MAX_RETRIES + 1, last_exc=_last_exc, last_raw=_last_raw
+        attempts=_actual_attempts, last_exc=_last_exc, last_raw=_last_raw
     )
 
 
@@ -301,6 +304,17 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 _graphics_map.setdefault(_m.group(1), []).append(_p)
         for _v in _graphics_map.values():
             _v.sort()
+
+    # Validate cover-page state before building the task list.
+    # empty_exam_has_cover drives the per-student page offset; if it is None
+    # (step 8 did not complete), the offset would silently default to the wrong value.
+    if ctx.empty_exam_has_cover is None and any(
+        a.get("cover_page_number") is not None for a in raw_assignments
+    ):
+        raise RuntimeError(
+            "empty_exam_has_cover was not determined (step 8 incomplete?) — "
+            "cannot safely compute page offsets for students with cover pages"
+        )
 
     # Build flat per-page task list — cover pages, out-of-range pages, and blank exam pages
     # without handwriting are excluded here.
@@ -478,7 +492,17 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 for a, p_label, ans_lbl, ans_cnt, extras in page_tasks
             }
             for fut in as_completed(futures):
-                timing, failure = fut.result()
+                try:
+                    timing, failure = fut.result()
+                except Exception as exc:  # noqa: BLE001
+                    student, page = futures[fut]
+                    failure = {
+                        "student": student, "page": page,
+                        "attempts": 1, "error": f"Unhandled worker exception: {exc}",
+                        "raw_response": None,
+                    }
+                    timing = None
+                    _warn(f"Unhandled exception for '{student}' page {page}: {exc}")
                 with timings_lock:
                     if timing:
                         api_call_timings.append(timing)

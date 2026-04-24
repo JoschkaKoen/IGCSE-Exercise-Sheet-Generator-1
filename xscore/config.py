@@ -68,10 +68,16 @@ EXAM_PROFILE = "igcse_physics"
 API_CALL_DELAY_S = 0
 
 # Maximum retries for failed API calls (0 = no retries, try once).
-MAX_RETRIES: int = int(os.getenv("MAX_RETRIES", "0"))
+try:
+    MAX_RETRIES: int = int(os.getenv("MAX_RETRIES", "0"))
+except ValueError as _e:
+    raise RuntimeError(f"MAX_RETRIES must be an integer; got: {os.getenv('MAX_RETRIES')!r}") from _e
 
 # Initial backoff time for retries (seconds). Doubles after each failure.
-RETRY_BACKOFF_S: float = float(os.getenv("RETRY_BACKOFF_S", "1"))
+try:
+    RETRY_BACKOFF_S: float = float(os.getenv("RETRY_BACKOFF_S", "1"))
+except ValueError as _e:
+    raise RuntimeError(f"RETRY_BACKOFF_S must be a number; got: {os.getenv('RETRY_BACKOFF_S')!r}") from _e
 
 # =============================================================================
 # Image Processing Configuration

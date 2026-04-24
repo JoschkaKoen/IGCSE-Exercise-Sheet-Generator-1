@@ -9,8 +9,9 @@ from __future__ import annotations
 import os
 import re
 import subprocess
+import threading
 import xml.etree.ElementTree as ET
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
@@ -103,17 +104,32 @@ def _merge_student_pages(
             if key not in merged_questions:
                 merged_questions[key] = q.copy()
             else:
+                from xscore.shared.terminal_ui import warn_line
                 existing_marks = merged_questions[key].get("assigned_marks")
                 new_marks = q.get("assigned_marks")
                 if existing_marks is None and new_marks is None:
-                    logging.warning(
-                        "Q%s for %s: both pages have assigned_marks=None", qnum, student_name
+                    warn_line(
+                        f"Merged Q{qnum} for {student_name}: both pages have assigned_marks=None"
                     )
                 elif existing_marks is None and new_marks is not None:
                     merged_questions[key] = q.copy()
-                elif (existing_marks is not None and new_marks is not None
-                      and new_marks > existing_marks):
-                    merged_questions[key] = q.copy()
+                    warn_line(
+                        f"Merged Q{qnum} for {student_name}: page {p} = {new_marks}, "
+                        f"earlier pages = None → keeping {new_marks}"
+                    )
+                elif existing_marks is not None and new_marks is None:
+                    warn_line(
+                        f"Merged Q{qnum} for {student_name}: page {p} = None, "
+                        f"earlier pages = {existing_marks} → keeping {existing_marks}"
+                    )
+                elif existing_marks is not None and new_marks is not None:
+                    if new_marks > existing_marks:
+                        merged_questions[key] = q.copy()
+                    warn_line(
+                        f"Merged Q{qnum} for {student_name}: page {p} = {new_marks}, "
+                        f"earlier pages = {existing_marks} → keeping "
+                        f"{max(existing_marks, new_marks)}"
+                    )
 
     questions_list = []
     for (qnum, occ), q_data in merged_questions.items():
@@ -276,8 +292,10 @@ def _compile_tex(tex_path: Path, output_dir: Path) -> None:
 
 def _derive_student_names(artifact_dir: Path) -> list[str]:
     """Collect unique student names from 14_marked_*_*.xml files, in order."""
+    from xscore.shared.terminal_ui import warn_line
     seen: dict[str, str] = {}   # safe_name → original name
     result: list[str] = []
+    failed: list[str] = []
     for f in sorted(artifact_marking_students_dir(artifact_dir).glob("14_marked_*_*.xml")):
         try:
             root = ET.parse(str(f)).getroot()
@@ -298,7 +316,12 @@ def _derive_student_names(artifact_dir: Path) -> list[str]:
                 seen[unique_key] = name
                 result.append(name)
         except Exception:  # noqa: BLE001
-            pass
+            failed.append(f.name)
+    if failed:
+        warn_line(
+            f"{len(failed)} marked XML file(s) could not be parsed and will be skipped: "
+            + ", ".join(failed)
+        )
     return result
 
 
@@ -340,7 +363,9 @@ def _build_all_question_tables(
 
 def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
     """Compute mean assigned_marks per question number across all student reports."""
+    from xscore.shared.terminal_ui import warn_line
     q_totals: dict[str, list[float]] = {}
+    failed: list[str] = []
     for f in sorted(artifact_reports_students_dir(artifact_dir).glob("15_student_report_*.xml")):
         try:
             root = ET.parse(str(f)).getroot()
@@ -354,7 +379,12 @@ def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
                 if marks is not None:
                     q_totals.setdefault(qnum, []).append(marks)
         except Exception:  # noqa: BLE001
-            pass
+            failed.append(f.name)
+    if failed:
+        warn_line(
+            f"{len(failed)} student report XML file(s) skipped from per-question averages: "
+            + ", ".join(failed)
+        )
     return {k: round(sum(v) / len(v), 1) for k, v in q_totals.items()}
 
 
@@ -462,14 +492,22 @@ def compile_reports(ctx: Any) -> list[dict]:
         correct_answers[_key] = _q.correct_answer or ""
         marking_criteria_by_num[_key] = _q.marking_criteria or ""
 
-    # Pass 1 — sequential: merge marks and write all data files (fast I/O, order-sensitive)
+    # Pass 1 — parallel: merge marks and write all data files per student.
+    # Per-question mark totals are accumulated in-memory (avoids a second disk pass).
     ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
     artifact_marking_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
-    for name in _derive_student_names(ctx.artifact_dir):
+    exam_name = ctx.artifact_dir.parent.name
+    workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
+
+    _summaries_lock = threading.Lock()
+    _q_totals_lock = threading.Lock()
+    _tex_lock = threading.Lock()
+    _q_totals: dict[str, list[float]] = {}
+
+    def _process_one_student(name: str) -> None:
         report = _merge_student_pages(
             ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks
         )
-        # Annotate each question with the correct answer and marking criteria from the scaffold.
         for _q in report["questions"]:
             _q["correct_answer"] = correct_answers.get(str(_q.get("number", "")), "")
             _q["marking_criteria"] = marking_criteria_by_num.get(str(_q.get("number", "")), "")
@@ -481,26 +519,41 @@ def compile_reports(ctx: Any) -> list[dict]:
             _student_report_to_md(report), encoding="utf-8"
         )
         tex_path = artifact_student_report_tex_path(ctx.artifact_dir, name)
-        exam_name = ctx.artifact_dir.parent.name
         tex_path.write_text(_student_report_to_tex(report, exam_name=exam_name), encoding="utf-8")
-        tex_paths.append(tex_path)
 
-        student_summaries.append({
-            "name": name,
-            "total_marks": report["total_marks"],
-            "percentage": report["percentage"],
-        })
+        with _q_totals_lock:
+            for _q in report["questions"]:
+                _am = _q.get("assigned_marks")
+                if _am is not None:
+                    _qnum = str(_q.get("number", ""))
+                    _q_totals.setdefault(_qnum, []).append(float(_am))
+
+        with _summaries_lock:
+            student_summaries.append({
+                "name": name,
+                "total_marks": report["total_marks"],
+                "percentage": report["percentage"],
+            })
+            tex_paths.append(tex_path)
+
         info_line(
             f"{name}: {report['total_marks']}/{total_max_marks} ({_fmt_pct(report['percentage'])})"
         )
 
+    names = _derive_student_names(ctx.artifact_dir)
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        for exc in (f.exception() for f in as_completed(
+            ex.submit(_process_one_student, n) for n in names
+        )):
+            if exc is not None:
+                raise exc
+
     # Pass 2 — parallel: compile all student .tex files concurrently (each is an independent process)
-    workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
     with ThreadPoolExecutor(max_workers=workers) as ex:
         list(ex.map(lambda p: _compile_tex(p, p.parent), tex_paths))
 
     if student_summaries:
-        leaf_avgs = _compute_per_question_averages(ctx.artifact_dir)
+        leaf_avgs = {k: round(sum(v) / len(v), 1) for k, v in _q_totals.items()}
         all_avgs, all_max = _build_all_question_tables(
             getattr(ctx.scaffold, "questions", []), leaf_avgs
         )
@@ -547,12 +600,15 @@ def load_student_results_from_reports(artifact_dir: Path) -> list:
     Used by step 15 to compare AI-extracted answers against ground truth.
     """
     from xscore.shared.models import StudentResult
+    from xscore.shared.terminal_ui import warn_line
 
     results = []
+    failed: list[str] = []
     for f in sorted(artifact_reports_students_dir(artifact_dir).glob("15_student_report_*.xml")):
         try:
             root = ET.parse(str(f)).getroot()
         except Exception:  # noqa: BLE001
+            failed.append(f.name)
             continue
         name = root.get("student_name", "")
         if not name:
@@ -585,4 +641,9 @@ def load_student_results_from_reports(artifact_dir: Path) -> list:
             total_marks=total_marks,
             max_marks=max_marks,
         ))
+    if failed:
+        warn_line(
+            f"{len(failed)} student report XML file(s) could not be parsed for accuracy comparison: "
+            + ", ".join(failed)
+        )
     return results

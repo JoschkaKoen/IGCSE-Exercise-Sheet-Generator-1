@@ -22,6 +22,7 @@ cover page when cover-page mode is active, or ``None`` otherwise.
 
 from __future__ import annotations
 
+import json
 import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -29,8 +30,6 @@ from pathlib import Path
 from typing import Any
 
 from xscore.config import COVER_PAGE_DETECTION_DPI, GEMINI_MAX_OUTPUT_TOKENS, NAME_RECOGNITION_DPI
-
-import json
 
 from .ai_helpers import ai_image_call, page_to_jpeg_b64
 from xscore.shared.exam_paths import artifact_prompt_path

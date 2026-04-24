@@ -34,8 +34,6 @@ from xscore.shared.exam_paths import (
     artifact_scaffold_markdown_path,
     artifact_scaffold_xml_path,
     exam_artifact_dir,
-    legacy_artifact_scaffold_cache_path,
-    legacy_flat_artifact_scaffold_cache_path,
 )
 from xscore.scaffold.scaffold_markdown import write_scaffold_markdown, write_short_scaffold_markdown
 from xscore.scaffold.pdf_parser import (
@@ -206,12 +204,22 @@ def _legacy_scaffold_subdir_cache(folder: Path) -> Path:
     return folder / "scaffolds" / "scaffold_cache.json"
 
 
+def _legacy_flat_artifact_scaffold_cache_path(artifact_dir: Path) -> Path:
+    """Older runs stored the cache as ``scaffold_cache.json`` in the run folder."""
+    return artifact_dir / "scaffold_cache.json"
+
+
+def _legacy_artifact_scaffold_subdir_cache_path(artifact_dir: Path) -> Path:
+    """Older layout: cache lived under ``scaffolds/`` inside *artifact_dir*."""
+    return artifact_dir / "scaffolds" / "scaffold_cache.json"
+
+
 def _effective_cache_path(folder: Path, artifact_dir: Path) -> Path | None:
     for p in (
         artifact_scaffold_xml_path(artifact_dir),
         artifact_scaffold_json_path(artifact_dir),
-        legacy_flat_artifact_scaffold_cache_path(artifact_dir),
-        legacy_artifact_scaffold_cache_path(artifact_dir),
+        _legacy_flat_artifact_scaffold_cache_path(artifact_dir),
+        _legacy_artifact_scaffold_subdir_cache_path(artifact_dir),
         _legacy_scaffold_subdir_cache(folder),
         _legacy_cache_path(folder),
     ):
@@ -455,13 +463,13 @@ def _save_cache(artifact_dir: Path, scaffold: ExamScaffold, students: list[str] 
                 old_name.unlink()
             except OSError:
                 pass
-    flat_old = legacy_flat_artifact_scaffold_cache_path(artifact_dir)
+    flat_old = _legacy_flat_artifact_scaffold_cache_path(artifact_dir)
     if flat_old.is_file():
         try:
             flat_old.unlink()
         except OSError:
             pass
-    leg = legacy_artifact_scaffold_cache_path(artifact_dir)
+    leg = _legacy_artifact_scaffold_subdir_cache_path(artifact_dir)
     if leg.is_file():
         try:
             leg.unlink()

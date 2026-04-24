@@ -76,15 +76,6 @@ def artifact_short_scaffold_markdown_path(artifact_dir: Path) -> Path:
     return artifact_dir / "12_short_report.md"
 
 
-def legacy_flat_artifact_scaffold_cache_path(artifact_dir: Path) -> Path:
-    """Deprecated: older runs stored the cache as ``scaffold_cache.json`` in the run folder."""
-    return artifact_dir / "scaffold_cache.json"
-
-
-def legacy_artifact_scaffold_cache_path(artifact_dir: Path) -> Path:
-    """Older layout: cache lived under ``scaffolds/`` inside *artifact_dir*."""
-    return artifact_dir / "scaffolds" / "scaffold_cache.json"
-
 
 def artifact_students_json_path(artifact_dir: Path) -> Path:
     """Step 3: student roster as a JSON array of name strings."""
@@ -302,14 +293,9 @@ def find_scaffold_cache_file(
         for p in (
             artifact_scaffold_xml_path(ad),           # 12_report.xml   (current — XML)
             artifact_scaffold_json_path(ad),          # 12_report.json  (current JSON)
-            ad / "exam" / "12_report.json",           # legacy: was in exam/ subdir
+            ad / "exam" / "12_report.json",           # legacy: was in exam/ subdir (pre-2025)
             ad / "scaffold" / "12_report.json",       # legacy: was in scaffold/ subdir
-            ad / "6_report.json",                     # legacy: older name
-            ad / "6_scaffold.json",                   # older legacy name
-            ad / "5_scaffold.json",                   # older legacy name
-            ad / "1_scaffold.json",                   # oldest legacy name
-            legacy_flat_artifact_scaffold_cache_path(ad),
-            legacy_artifact_scaffold_cache_path(ad),
+            ad / "6_report.json",                     # legacy: step renaming (2024)
         ):
             if p.is_file():
                 return p

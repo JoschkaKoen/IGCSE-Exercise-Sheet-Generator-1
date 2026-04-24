@@ -16,6 +16,8 @@ _LATEX_MAP = {
     "}": r"\}",
     "~": r"\textasciitilde{}",
     "^": r"\textasciicircum{}",
+    "<": r"\textless{}",
+    ">": r"\textgreater{}",
 }
 _LATEX_RE = re.compile("|".join(re.escape(k) for k in _LATEX_MAP))
 

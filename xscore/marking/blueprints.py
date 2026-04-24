@@ -115,7 +115,14 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
 
         xml_path = artifact_blueprint_xml_path(artifact_dir, page_num)
         xml_path.parent.mkdir(parents=True, exist_ok=True)
-        xml_path.write_text(_build_blueprint_xml(page_num, layout, page_qs), encoding="utf-8")
+        _xml_text = _build_blueprint_xml(page_num, layout, page_qs)
+        try:
+            ET.fromstring(_xml_text)
+        except ET.ParseError as _bp_exc:
+            raise RuntimeError(
+                f"Blueprint XML for page {page_num} is malformed: {_bp_exc}"
+            ) from _bp_exc
+        xml_path.write_text(_xml_text, encoding="utf-8")
 
         md_path = artifact_blueprint_md_path(artifact_dir, page_num)
         md_path.write_text(_blueprint_to_md(bp), encoding="utf-8")

@@ -5,7 +5,6 @@ Uses a text-only Gemini call (PARSE_PROMPT_MODEL) so this step is fast and cheap
 
 from __future__ import annotations
 
-import json
 import os
 import re
 import time

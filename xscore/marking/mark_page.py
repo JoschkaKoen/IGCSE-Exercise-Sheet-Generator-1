@@ -86,8 +86,7 @@ def _mark_page(
         "   The output is placed verbatim in a LaTeX document. "
         "Escape characters that appear literally in the student's answer: "
         "% → \\%, $ → \\$, # → \\#, _ → \\_, { → \\{, } → \\}, "
-        "backslash → \\textbackslash{}, "
-        "literal ampersand → \\&amp; (\\& for LaTeX + &amp; for XML, combined). "
+        "backslash → \\textbackslash{}. "
         "Use \\newline for line breaks; do not include literal newlines.\n"
         "2. assigned_marks — an integer 0–max_marks.\n"
         "   • Award 1 mark for each criterion the student satisfies, up to max_marks.\n"
@@ -102,7 +101,7 @@ def _mark_page(
         "Address the student directly using 'you'. "
         "You can make important words bold using LaTeX syntax \\textbf{word}: only for important words. "
         "Escape non-math special characters that appear literally in your prose: "
-        "% → \\%, _ → \\_, literal ampersand → \\&amp;. "
+        "% → \\%, _ → \\_. "
         "Use \\newline for line breaks. "
         "Use \\newline to break into a new paragraph after each idea. "
         "Break long dense blocks into paragraphs. "
@@ -187,7 +186,9 @@ def _mark_page(
 
     _last_exc: BaseException = RuntimeError("no attempts made")
     _last_raw: str = ""
+    _actual_attempts = 0
     for attempt in range(MAX_RETRIES + 1):
+        _actual_attempts += 1
         try:
             if use_stream:
                 stream = client.chat.completions.create(**kwargs, stream=True)
@@ -233,7 +234,7 @@ def _mark_page(
                 warn(f"Marking: AI returned question(s) with no blueprint match: {_unmatched}")
             _fix_mc_marks(result)
             for bq in result.get("questions", []):
-                if not (bq.get("student_answer") or "").strip():
+                if not (bq.get("student_answer") or "").strip() and bq.get("assigned_marks") == 0:
                     bq["explanation"] = "Blank answer."
             for bq in result.get("questions", []):
                 max_m = bq.get("max_marks")
@@ -245,7 +246,11 @@ def _mark_page(
                         f"Marking: Q{bq.get('number')} assigned_marks={m} out of range "
                         f"[0, {max_m}] — clamping"
                     )
-                    bq["assigned_marks"] = max(0, min(int(m) if isinstance(m, (int, float)) else 0, int(max_m)))
+                    try:
+                        m_int = int(m)
+                    except (TypeError, ValueError):
+                        m_int = 0
+                    bq["assigned_marks"] = max(0, min(m_int, int(max_m)))
             return result
         except KeyboardInterrupt:
             raise
@@ -255,7 +260,7 @@ def _mark_page(
             if attempt < MAX_RETRIES:
                 time.sleep(2 ** (attempt + 1))
 
-    raise MarkingFailure(attempts=MAX_RETRIES + 1, last_exc=_last_exc, last_raw=_last_raw)
+    raise MarkingFailure(attempts=_actual_attempts, last_exc=_last_exc, last_raw=_last_raw)
 
 
 def _fix_mc_marks(result: dict) -> None:
