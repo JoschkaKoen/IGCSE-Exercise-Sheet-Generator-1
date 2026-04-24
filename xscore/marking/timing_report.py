@@ -1,4 +1,4 @@
-"""Steps 23–24 — Timing summary and AI Costs: write 23_timing_summary/timing.json / timing.md and print tables."""
+"""Steps 24–25 — Timing summary and AI Costs: write 24_timing_summary/timing.json / timing.md and print tables."""
 
 from __future__ import annotations
 

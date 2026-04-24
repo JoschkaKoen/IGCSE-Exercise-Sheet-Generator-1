@@ -145,8 +145,6 @@ def build_ai_scaffold(
                 exam_pdf, layout_result
             )
             ok_line(f"{n_physical_pages} physical page(s) → {n_split_pages} sub-pages")
-        else:
-            ok_line("skipped")
             if artifact_dir is not None:
                 try:
                     import shutil
@@ -156,6 +154,8 @@ def build_ai_scaffold(
                     shutil.copy2(str(split_pdf_path), str(dest))
                 except OSError:
                     pass
+        else:
+            ok_line("skipped")
 
         # Save layout artifact immediately — do not wait for exam call to finish
         if artifact_dir is not None:

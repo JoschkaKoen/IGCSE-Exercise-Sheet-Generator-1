@@ -413,7 +413,7 @@ def assign_pages(
     from xscore.shared.terminal_ui import info_line, ok_line, tool_line, format_duration, warn_line
 
     if pages is None:
-        tool_line("pages", f"Rendering pages @ {dpi} DPI …")
+        tool_line("pages", f"Rendering scanned pages @ {dpi} DPI …")
         pages = convert_from_path(str(cleaned_pdf), dpi=dpi, thread_count=os.cpu_count() or 4)
     n_pages = len(pages)
     import math

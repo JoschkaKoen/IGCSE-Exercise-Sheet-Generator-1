@@ -31,11 +31,11 @@ STEP_14_BLANK_PAGES = "14_blank_pages"
 STEP_15_LAYOUT          = "15_detect_exam_layout"
 STEP_17_PARSE_EXAM      = "17_parse_exam_pdf"
 STEP_18_PARSE_SCHEME    = "18_parse_mark_scheme"
-STEP_19_CREATE_REPORT   = "19_create_report"
-STEP_20_BLUEPRINTS      = "20_ai_marking_blueprints"
-STEP_21_AI_MARKING      = "21_ai_marking"
-STEP_22_COMPILE_REPORTS = "22_compile_reports"
-STEP_23_TIMING          = "23_timing_summary"
+STEP_20_CREATE_REPORT   = "20_create_report"
+STEP_21_BLUEPRINTS      = "21_ai_marking_blueprints"
+STEP_22_AI_MARKING      = "22_ai_marking"
+STEP_23_COMPILE_REPORTS = "23_compile_reports"
+STEP_24_TIMING          = "24_timing_summary"
 
 # Path of cleaned scan relative to artifact_dir (updated from "7_cleaned_scan.pdf")
 CLEANED_SCAN_PDF = STEP_07 + "/cleaned_scan.pdf"
@@ -293,23 +293,23 @@ def artifact_mark_scheme_pages_dir(artifact_dir: Path) -> Path:
 
 def artifact_scaffold_xml_path(artifact_dir: Path) -> Path:
     """Merged exam + mark scheme XML scaffold cache."""
-    return artifact_dir / STEP_19_CREATE_REPORT / "report.xml"
+    return artifact_dir / STEP_20_CREATE_REPORT / "report.xml"
 
 
 def artifact_scaffold_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_19_CREATE_REPORT / "report.json"
+    return artifact_dir / STEP_20_CREATE_REPORT / "report.json"
 
 
 def artifact_scaffold_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_19_CREATE_REPORT / "report.md"
+    return artifact_dir / STEP_20_CREATE_REPORT / "report.md"
 
 
 def artifact_short_scaffold_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_19_CREATE_REPORT / "short_report.json"
+    return artifact_dir / STEP_20_CREATE_REPORT / "short_report.json"
 
 
 def artifact_short_scaffold_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_19_CREATE_REPORT / "short_report.md"
+    return artifact_dir / STEP_20_CREATE_REPORT / "short_report.md"
 
 
 # ---------------------------------------------------------------------------
@@ -317,19 +317,19 @@ def artifact_short_scaffold_markdown_path(artifact_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_blueprint_path(artifact_dir: Path, page: int, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_20_BLUEPRINTS / f"blueprint_page_{page}.{fmt}"
+    return artifact_dir / STEP_21_BLUEPRINTS / f"blueprint_page_{page}.{fmt}"
 
 
 def artifact_blueprint_xml_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_20_BLUEPRINTS / f"blueprint_page_{page}.xml"
+    return artifact_dir / STEP_21_BLUEPRINTS / f"blueprint_page_{page}.xml"
 
 
 def artifact_blueprint_json_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_20_BLUEPRINTS / f"blueprint_page_{page}.json"
+    return artifact_dir / STEP_21_BLUEPRINTS / f"blueprint_page_{page}.json"
 
 
 def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_20_BLUEPRINTS / f"blueprint_page_{page}.md"
+    return artifact_dir / STEP_21_BLUEPRINTS / f"blueprint_page_{page}.md"
 
 
 # ---------------------------------------------------------------------------
@@ -338,7 +338,7 @@ def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
 
 def artifact_marking_students_dir(artifact_dir: Path) -> Path:
     """Directory containing per-student marking files."""
-    return artifact_dir / STEP_21_AI_MARKING / "students"
+    return artifact_dir / STEP_22_AI_MARKING / "students"
 
 
 def artifact_marked_path(artifact_dir: Path, student: str, page: int, fmt: str = "yaml") -> Path:
@@ -368,7 +368,7 @@ def artifact_marking_prompt_path(artifact_dir: Path, student: str, page: int) ->
 # ---------------------------------------------------------------------------
 
 def artifact_reports_dir(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_22_COMPILE_REPORTS
+    return artifact_dir / STEP_23_COMPILE_REPORTS
 
 
 def artifact_reports_students_dir(artifact_dir: Path) -> Path:
@@ -417,15 +417,15 @@ def artifact_student_report_pdf_path(artifact_dir: Path, student: str) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_timing_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_23_TIMING / "timing.json"
+    return artifact_dir / STEP_24_TIMING / "timing.json"
 
 
 def artifact_timing_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_23_TIMING / "timing.md"
+    return artifact_dir / STEP_24_TIMING / "timing.md"
 
 
 def artifact_accuracy_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_23_TIMING / "accuracy.json"
+    return artifact_dir / STEP_24_TIMING / "accuracy.json"
 
 
 # ---------------------------------------------------------------------------
@@ -506,8 +506,10 @@ def find_scaffold_cache_file(
     for base in (output_base, "output"):
         ad = exam_artifact_dir(exam_folder, base)
         for p in (
-            artifact_scaffold_xml_path(ad),                   # 19_create_report/report.xml
-            artifact_scaffold_json_path(ad),                  # 19_create_report/report.json
+            artifact_scaffold_xml_path(ad),                   # 20_create_report/report.xml
+            artifact_scaffold_json_path(ad),                  # 20_create_report/report.json
+            ad / "19_create_report" / "report.xml",           # post-step-18-split legacy
+            ad / "19_create_report" / "report.json",          # post-step-18-split legacy
             ad / "18_create_report" / "report.xml",           # post-step-split-refactor legacy
             ad / "18_create_report" / "report.json",          # post-step-split-refactor legacy
             ad / "17_create_report" / "report.xml",           # post-step-16-refactor legacy

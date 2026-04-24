@@ -2,7 +2,7 @@
 """
 xScore.py
 ---------
-Exam scan grading pipeline (steps 1–23) — run from the eXercise project root.
+Exam scan grading pipeline (steps 1–24) — run from the eXercise project root.
 
 Steps:
   1. Parse the natural language prompt (via Kimi).
@@ -22,13 +22,14 @@ Steps:
  15. AI: detect exam layout → 15_detect_exam_layout/.
  16. Cut exam PDF (split multi-up pages) → 15_detect_exam_layout/split_exam.pdf (skipped for 1×1).
  17. AI: parse exam PDF → question hierarchy → 17_parse_exam_pdf/exam_questions.json.
- 18. AI: parse mark scheme → correct answers + criteria → 18_parse_mark_scheme/mark_scheme.json.
- 19. Merge scaffold → 19_create_report/report.json.
- 20. Build per-page AI marking blueprints → 20_ai_marking_blueprints/.
- 21. AI: grade each student page → 21_ai_marking/students/.
- 22. Merge per-page results into student and class reports → 22_compile_reports/.
- 23. Timing summary → 23_timing_summary/.
- 24. AI Costs → 23_timing_summary/ (updates timing.json/md with token usage and cost breakdown).
+ 18. AI: detect mark scheme graphics → 18_parse_mark_scheme/mark_scheme_graphics.json.
+ 19. AI: parse mark scheme → correct answers + criteria → 18_parse_mark_scheme/mark_scheme.json.
+ 20. Merge scaffold → 20_create_report/report.json.
+ 21. Build per-page AI marking blueprints → 21_ai_marking_blueprints/.
+ 22. AI: grade each student page → 22_ai_marking/students/.
+ 23. Merge per-page results into student and class reports → 23_compile_reports/.
+ 24. Timing summary → 24_timing_summary/.
+ 25. AI Costs → 24_timing_summary/ (updates timing.json/md with token usage and cost breakdown).
 
 Usage:
     python xScore.py "grade Space Physics Unit Test"
@@ -200,8 +201,8 @@ def _copy_artifacts(src: Path, dst: Path, from_step: int, blueprint_step: int) -
         "17_parse_exam_pdf/exam_questions.*",
         "17_parse_exam_pdf/exam_input.pdf",
         "18_parse_mark_scheme/mark_scheme.*",
-        "19_create_report/report.*",
-        "19_create_report/short_report.*",
+        "20_create_report/report.*",
+        "20_create_report/short_report.*",
         # Pre-restructure legacy flat paths (backward compatibility)
         "3_students.*",
         "7_cleaned_scan.pdf",
@@ -217,7 +218,7 @@ def _copy_artifacts(src: Path, dst: Path, from_step: int, blueprint_step: int) -
         ]
     if from_step >= blueprint_step + 2:   # from reports — need marking results
         patterns += [
-            "21_ai_marking/students/",
+            "22_ai_marking/students/",
             "students/14_marked_*.*", "students/14_failed_*.*",  # legacy
         ]
     for pat in patterns:
@@ -236,7 +237,8 @@ def _resume_pipeline(ctx: "_Ctx") -> None:
         exam_output_root = Path("output") / "xscore" / ctx.folder.name.replace(" ", "_")
         def _is_valid_run(p: Path) -> bool:
             return (
-                (p / "19_create_report" / "report.xml").exists() or   # current
+                (p / "20_create_report" / "report.xml").exists() or   # current
+                (p / "19_create_report" / "report.xml").exists() or   # post-step-18-split legacy
                 (p / "18_create_report" / "report.xml").exists() or   # post-step-split legacy
                 (p / "17_create_report" / "report.xml").exists() or   # post-step-16 refactor legacy
                 (p / "16_create_report" / "report.xml").exists() or   # pre-step-16 refactor legacy
@@ -255,7 +257,7 @@ def _resume_pipeline(ctx: "_Ctx") -> None:
     ctx.resume_dir = resume_dir
 
     # Validate from_step
-    blueprint_step = 20
+    blueprint_step = 21
     valid_steps = (blueprint_step, blueprint_step + 1, blueprint_step + 2)
     if ctx.from_step not in valid_steps:
         raise SystemExit(
@@ -272,7 +274,7 @@ def _resume_pipeline(ctx: "_Ctx") -> None:
         (resume_dir / "07_deskew" / "cleaned_scan.pdf",          resume_dir / "7_cleaned_scan.pdf"),
         (resume_dir / "03_read_student_list" / "students.json",   resume_dir / "3_students.json"),
         (resume_dir / "11_student_names" / "exam_student_list.json", resume_dir / "8_exam_student_list.json"),
-        (resume_dir / "19_create_report" / "report.xml",          resume_dir / "12_report.json"),
+        (resume_dir / "20_create_report" / "report.xml",          resume_dir / "12_report.json"),
     ]:
         found = _first_existing(new_p, old_p)
         if found:
@@ -281,11 +283,11 @@ def _resume_pipeline(ctx: "_Ctx") -> None:
             required.append(new_p)   # will be reported as missing
 
     if ctx.from_step >= blueprint_step + 1:
-        bp_new = list(resume_dir.glob("20_ai_marking_blueprints/blueprint_page_*.json"))
+        bp_new = list(resume_dir.glob("21_ai_marking_blueprints/blueprint_page_*.json"))
         bp_old = list(resume_dir.glob("18_ai_marking_blueprint_*.json"))
         required += bp_new or bp_old
     if ctx.from_step >= blueprint_step + 2:
-        mk_new = list(resume_dir.glob("21_ai_marking/students/*.yaml"))
+        mk_new = list(resume_dir.glob("22_ai_marking/students/*.yaml"))
         mk_old = list(resume_dir.glob("students/14_marked_*.xml"))
         required += mk_new or mk_old
     missing = [p for p in required if not p.exists()]
@@ -501,7 +503,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             on_complete()
 
     def _scaffold_steps(ctx: _Ctx, *, background: bool = False) -> None:
-        """Steps 15–19: detect layout, cut, exam PDF, mark scheme, report merge."""
+        """Steps 15–20: detect layout, cut, exam PDF, mark scheme graphics, mark scheme, report merge."""
         assert ctx.folder is not None and ctx.artifact_dir is not None
         if ctx.from_step:
             return
@@ -529,7 +531,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         def _on_exam_done(raw_questions: list) -> None:
             ok_line(f"{len(raw_questions)} top-level questions extracted")
             pipeline_step(
-                18, "Parse mark scheme",
+                18, "Detect mark scheme graphics",
                 subtitle="completed in background" if background else None,
             )
             _step_t[0] = time.perf_counter()
@@ -542,11 +544,15 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
                 dur = format_duration(time.perf_counter() - _step_t[0])
                 ok_line(f"{n} graphic{'s' if n != 1 else ''} detected  ·  {dur}")
             _step_t[1] = time.perf_counter()
+            pipeline_step(
+                19, "Parse mark scheme",
+                subtitle="completed in background" if background else None,
+            )
 
         def _on_scheme_done(scheme_questions: list) -> None:
             dur = format_duration(time.perf_counter() - _step_t[1])
             ok_line(f"{len(scheme_questions)} answers in mark scheme  ·  {dur}")
-            pipeline_step(19, "Create report")
+            pipeline_step(20, "Create report")
 
         try:
             ctx.scaffold = build_scaffold(
@@ -911,18 +917,18 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         _scaffold_steps(ctx)
 
     def _step17_blueprints(ctx: _Ctx) -> None:
-        """Step 20 — Build per-page AI marking blueprints (no AI calls)."""
+        """Step 21 — Build per-page AI marking blueprints (no AI calls)."""
         assert ctx.scaffold is not None and ctx.artifact_dir is not None
-        pipeline_step(20, "AI marking blueprints")
+        pipeline_step(21, "AI marking blueprints")
         t0 = time.perf_counter()
         blueprints = build_blueprints(ctx.scaffold, ctx.artifact_dir)
         ok_line(f"{len(blueprints)} page blueprint(s) written")
         ctx.step_timings_marking["blueprints_s"] = time.perf_counter() - t0
 
     def _step18_mark(ctx: _Ctx) -> None:
-        """Step 21 — AI marking: vision calls to fill blueprints for each student page."""
+        """Step 22 — AI marking: vision calls to fill blueprints for each student page."""
         assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
-        pipeline_step(21, "AI marking")
+        pipeline_step(22, "AI marking")
         t0 = time.perf_counter()
         ctx.marking_api_calls = run_ai_marking(ctx, dpi=ctx.instruction.dpi)
         _n_calls = len(ctx.marking_api_calls)
@@ -935,9 +941,9 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.step_timings_marking["marking_s"] = time.perf_counter() - t0
 
     def _step19_reports(ctx: _Ctx) -> None:
-        """Step 22 — Merge per-page results into student + class reports; compile PDFs."""
+        """Step 23 — Merge per-page results into student + class reports; compile PDFs."""
         assert ctx.scaffold is not None and ctx.artifact_dir is not None
-        pipeline_step(22, "Compile reports")
+        pipeline_step(23, "Compile reports")
         t0 = time.perf_counter()
         summaries = compile_reports(ctx)
         _known = [s["percentage"] for s in summaries if s["percentage"] is not None]
@@ -946,9 +952,9 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.step_timings_marking["reports_s"] = time.perf_counter() - t0
 
     def _step21_timing(ctx: _Ctx) -> None:
-        """Step 23 — Print timing summary and evaluate accuracy against ground truth."""
+        """Step 24 — Print timing summary and evaluate accuracy against ground truth."""
         assert ctx.artifact_dir is not None
-        pipeline_step(23, "Timing summary")
+        pipeline_step(24, "Timing summary")
         t0 = time.perf_counter()
 
         if ctx.folder is not None:
@@ -973,9 +979,9 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         print_step_durations(ctx.step_timings_marking, ctx.marking_api_calls)
 
     def _step22_ai_costs(ctx: _Ctx) -> None:
-        """Step 24 — Compute AI token costs and write complete timing report artifacts."""
+        """Step 25 — Compute AI token costs and write complete timing report artifacts."""
         assert ctx.artifact_dir is not None
-        pipeline_step(24, "AI Costs")
+        pipeline_step(25, "AI Costs")
         from eXercise.ai_client import get_run_usage
         from xscore.shared.cost_report import compute_cost
         _run_usage = get_run_usage()
@@ -1006,19 +1012,19 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         _step02_folder(ctx)
         if ctx.stop_after <= 2: raise _EarlyExit()
         _run_geometry_steps(ctx)
-        if ctx.stop_after <= 19: raise _EarlyExit()
+        if ctx.stop_after <= 20: raise _EarlyExit()
         if ctx.cleaned_pdf and ctx.scaffold:
             _step17_blueprints(ctx)
-            if ctx.stop_after <= 20: raise _EarlyExit()
-            _step18_mark(ctx)
             if ctx.stop_after <= 21: raise _EarlyExit()
-            _step19_reports(ctx)
+            _step18_mark(ctx)
             if ctx.stop_after <= 22: raise _EarlyExit()
-            _step21_timing(ctx)
+            _step19_reports(ctx)
             if ctx.stop_after <= 23: raise _EarlyExit()
+            _step21_timing(ctx)
+            if ctx.stop_after <= 24: raise _EarlyExit()
             _step22_ai_costs(ctx)
         elif ctx.cleaned_pdf and not ctx.scaffold:
-            warn_line("Marking skipped — scaffold not available (steps 20–24 omitted).")
+            warn_line("Marking skipped — scaffold not available (steps 21–25 omitted).")
         ok_line("Pipeline complete.")
         ctx.pipeline_completed_ok = True
         if ctx.cleaned_pdf:
