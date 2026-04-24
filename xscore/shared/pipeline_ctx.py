@@ -45,6 +45,7 @@ class _Ctx:
     stop_after: int = 9999                   # --stop-after N; 9999 = run everything
     from_step: int | None = None             # --from-step N; skip steps < N, resume from prior run
     resume_dir: Path | None = None           # --resume-dir PATH; prior artifact dir to resume from
+    geo: dict = field(default_factory=dict)   # scan geometry from step 8; updated by step 11
     b64_future: Any = None                   # Future[dict] set by _kick_off_render_bg after step 10
     accuracy_summary: dict | None = None     # set by step 22; read by step 23 for write_timing_report
 

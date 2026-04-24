@@ -101,7 +101,7 @@ def write_timing_report(
             max((len(f"{d['output_tokens']:,}") for d in breakdown.values()), default=0),
             len("Output"), len(f"{total_output:,}"),
         )
-        _cost_strs = [f"¥{d['cost_rmb']:.4f}" for d in breakdown.values()] + [f"¥{total_cost_rmb:.4f}", "Cost"]
+        _cost_strs = [f"¥{d['cost_rmb']:.1f}" for d in breakdown.values()] + [f"¥{total_cost_rmb:.1f}", "Cost"]
         _cw = max(len(s) for s in _cost_strs)
         _sep = "  " + "─" * (_mw + 3 + _iw + 3 + _ow + 3 + _cw)
 
@@ -113,14 +113,14 @@ def write_timing_report(
         info_line(f"  {'Model':<{_mw}}   {'Input':>{_iw}}   {'Output':>{_ow}}   {'Cost':>{_cw}}")
         info_line(_sep)
         for _model, _data in breakdown.items():
-            _cs = f"¥{_data['cost_rmb']:.4f}"
+            _cs = f"¥{_data['cost_rmb']:.1f}"
             info_line(
                 f"  {_model:<{_mw}}   {_data['input_tokens']:>{_iw},}"
                 f"   {_data['output_tokens']:>{_ow},}   {_cs:>{_cw}}"
             )
         info_line(_sep)
         _hint = "" if total_cost_rmb > 0 else "  (prices not found in AI API costs.xlsx)"
-        _ts = f"¥{total_cost_rmb:.4f}"
+        _ts = f"¥{total_cost_rmb:.1f}"
         info_line(
             f"  {'Total':<{_mw}}   {total_input:>{_iw},}"
             f"   {total_output:>{_ow},}   {_ts:>{_cw}}{_hint}"

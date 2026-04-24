@@ -51,6 +51,7 @@ LaTeX formatting rules for criterion text (block scalars handle backslashes lite
     inline math         → $...$
     Use \\newline for explicit line breaks between prose sentences only.
     NEVER use \\newline immediately after \\begin{{...}} or before \\end{{...}}.
+    NEVER use more than one \\newline in a row.
     List items begin directly with \\item — no \\newline between them.
     Correct: \\begin{{itemize}}\\item first\\item second\\end{{itemize}}
     plain prose and introductory sentences are written verbatim

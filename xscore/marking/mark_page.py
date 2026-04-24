@@ -95,7 +95,7 @@ def _build_marking_system_prompt(
         "% → \\%, _ → \\_. "
         "Use \\newline for line breaks. "
         "Don't use line breaks." 
-        "Write the explanation in short clear and understandable bullet points"
+        "Write the explanation in short clear and understandable bullet points using latex syntax"
         "Do not append a mark tally (e.g. '— 1 mark.') at the end."
     )
 

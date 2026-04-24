@@ -16,21 +16,52 @@ from pathlib import Path
 from typing import Any
 
 from xscore.marking.formats import get_marking_format
-from xscore.shared.exam_paths import (
-    artifact_marked_path,
-    artifact_marking_students_dir,
-    artifact_reports_students_dir,
-    safe_student_name as _safe_name,
-)
 from xscore.marking.report_latex import (
     _latex_escape, _ai_cell, _format_criteria_cell,
     _awarded_tex, _student_report_to_tex, _class_report_to_tex,
 )
+from xscore.shared.exam_paths import (
+    artifact_class_report_combined_pdf_path,
+    artifact_class_report_md_path,
+    artifact_class_report_tex_path,
+    artifact_class_report_xml_path,
+    artifact_marked_path,
+    artifact_marking_students_dir,
+    artifact_reports_students_dir,
+    artifact_student_report_md_path,
+    artifact_student_report_tex_path,
+    artifact_student_report_xml_path,
+    safe_student_name as _safe_name,
+)
+from xscore.shared.terminal_ui import ok_line, warn_line
 
 
 # ---------------------------------------------------------------------------
 # Per-student merge
 # ---------------------------------------------------------------------------
+
+def _resolve_mark_collision(
+    existing: dict, new_q: dict, qnum: str, student: str, page: int
+) -> dict:
+    """Return the winning question dict when the same question appears on multiple pages.
+
+    Always warns; takes the higher mark when both are set.
+    """
+    em = existing.get("assigned_marks")
+    nm = new_q.get("assigned_marks")
+    if em is None and nm is None:
+        warn_line(f"Merged Q{qnum} for {student}: both pages have assigned_marks=None")
+        return existing
+    if em is None:
+        warn_line(f"Merged Q{qnum} for {student}: page {page} = {nm}, earlier = None → keeping {nm}")
+        return new_q.copy()
+    if nm is None:
+        warn_line(f"Merged Q{qnum} for {student}: page {page} = None, earlier = {em} → keeping {em}")
+        return existing
+    winner = new_q if nm > em else existing
+    warn_line(f"Merged Q{qnum} for {student}: page {page} = {nm}, earlier = {em} → keeping {max(em, nm)}")
+    return winner.copy()
+
 
 def _merge_student_pages(
     artifact_dir: Path,
@@ -39,7 +70,7 @@ def _merge_student_pages(
     total_max_marks: int,
     fmt=None,
 ) -> dict:
-    """Load all 14_marked_{student}_{p} files and merge into one student report.
+    """Load all marked files for one student and merge into one report dict.
 
     Cross-page question strategy:
     - If only one page has assigned_marks, use that entry.
@@ -50,7 +81,6 @@ def _merge_student_pages(
     second → "38_2", etc.  Across pages, entries at the same (number, occurrence)
     slot are merged with the higher-marks strategy.
     """
-    import logging
     if fmt is None:
         from xscore.marking.formats.xml_format import XmlMarkingFormat
         fmt = XmlMarkingFormat()
@@ -70,32 +100,9 @@ def _merge_student_pages(
             if key not in merged_questions:
                 merged_questions[key] = q.copy()
             else:
-                from xscore.shared.terminal_ui import warn_line
-                existing_marks = merged_questions[key].get("assigned_marks")
-                new_marks = q.get("assigned_marks")
-                if existing_marks is None and new_marks is None:
-                    warn_line(
-                        f"Merged Q{qnum} for {student_name}: both pages have assigned_marks=None"
-                    )
-                elif existing_marks is None and new_marks is not None:
-                    merged_questions[key] = q.copy()
-                    warn_line(
-                        f"Merged Q{qnum} for {student_name}: page {p} = {new_marks}, "
-                        f"earlier pages = None → keeping {new_marks}"
-                    )
-                elif existing_marks is not None and new_marks is None:
-                    warn_line(
-                        f"Merged Q{qnum} for {student_name}: page {p} = None, "
-                        f"earlier pages = {existing_marks} → keeping {existing_marks}"
-                    )
-                elif existing_marks is not None and new_marks is not None:
-                    if new_marks > existing_marks:
-                        merged_questions[key] = q.copy()
-                    warn_line(
-                        f"Merged Q{qnum} for {student_name}: page {p} = {new_marks}, "
-                        f"earlier pages = {existing_marks} → keeping "
-                        f"{max(existing_marks, new_marks)}"
-                    )
+                merged_questions[key] = _resolve_mark_collision(
+                    merged_questions[key], q, qnum, student_name, p
+                )
 
     questions_list = []
     for (qnum, occ), q_data in merged_questions.items():
@@ -201,8 +208,6 @@ def _class_report_to_md(report: dict) -> str:
 
 def _merge_pdfs(class_pdf: Path, students_dir: Path, output_pdf: Path) -> None:
     """Concatenate the class overview PDF with all student PDFs (alphabetical by name)."""
-    from xscore.shared.terminal_ui import warn_line
-
     def _student_name(p: Path) -> str:
         return p.stem
 
@@ -225,8 +230,6 @@ def _merge_pdfs(class_pdf: Path, students_dir: Path, output_pdf: Path) -> None:
 
 def _compile_tex(tex_path: Path, output_dir: Path) -> None:
     """Compile .tex with xelatex. Warns on failure but does not raise."""
-    from xscore.shared.terminal_ui import warn_line
-
     try:
         result = subprocess.run(
             [
@@ -256,7 +259,6 @@ def _compile_tex(tex_path: Path, output_dir: Path) -> None:
 
 def _derive_student_names(artifact_dir: Path, fmt=None) -> list[str]:
     """Collect unique student names from marked student files, in order."""
-    from xscore.shared.terminal_ui import warn_line
     if fmt is None:
         from xscore.marking.formats.xml_format import XmlMarkingFormat
         fmt = XmlMarkingFormat()
@@ -336,7 +338,6 @@ def _build_all_question_tables(
 
 def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
     """Compute mean assigned_marks per question number across all student reports."""
-    from xscore.shared.terminal_ui import warn_line
     q_totals: dict[str, list[float]] = {}
     failed: list[str] = []
     for f in sorted(artifact_reports_students_dir(artifact_dir).glob("*.xml")):
@@ -430,61 +431,45 @@ def class_report_to_xml(report: dict) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Public entry point
+# compile_reports() helpers
 # ---------------------------------------------------------------------------
 
-def compile_reports(ctx: Any) -> list[dict]:
-    """Merge all per-page results; create student and class reports; compile PDFs.
-
-    Returns a list of per-student summary dicts
-    (keys: name, total_marks, percentage) for use in step 14 timing.
-    """
-    from xscore.shared.exam_paths import (
-        artifact_class_report_combined_pdf_path,
-        artifact_class_report_md_path,
-        artifact_class_report_tex_path,
-        artifact_class_report_xml_path,
-        artifact_student_report_md_path,
-        artifact_student_report_tex_path,
-        artifact_student_report_xml_path,
-    )
-    from xscore.shared.terminal_ui import ok_line
-
-    fmt = get_marking_format()
-    total_max_marks = ctx.scaffold.total_marks
-    student_summaries: list[dict] = []
-    _full_reports: dict[str, dict] = {}
-
-    # Build correct_answer lookup keyed by (possibly _2-suffixed) question number so it
-    # matches the renamed numbers produced by _merge_student_pages.
+def _build_answer_lookup(ctx: Any) -> tuple[dict[str, str], dict[str, str]]:
+    """Build correct_answer and marking_criteria dicts keyed by (possibly _N-suffixed) question number."""
     correct_answers: dict[str, str] = {}
     marking_criteria_by_num: dict[str, str] = {}
-    seen_ca: dict[str, int] = {}
-    for _q in ctx.scaffold.gradable_questions:
-        seen_ca[_q.number] = seen_ca.get(_q.number, 0) + 1
-        _occ = seen_ca[_q.number]
-        _key = _q.number if _occ == 1 else f"{_q.number}_{_occ}"
-        correct_answers[_key] = _q.correct_answer or ""
-        marking_criteria_by_num[_key] = _q.marking_criteria or ""
+    seen: dict[str, int] = {}
+    for q in ctx.scaffold.gradable_questions:
+        seen[q.number] = seen.get(q.number, 0) + 1
+        key = q.number if seen[q.number] == 1 else f"{q.number}_{seen[q.number]}"
+        correct_answers[key] = q.correct_answer or ""
+        marking_criteria_by_num[key] = q.marking_criteria or ""
+    return correct_answers, marking_criteria_by_num
 
-    # Pass 1 — parallel: merge marks and write all data files per student.
-    # Per-question mark totals are accumulated in-memory (avoids a second disk pass).
-    ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
-    artifact_marking_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
-    exam_name = ctx.artifact_dir.parent.name
-    workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
 
+def _pass1_merge_students(
+    ctx: Any,
+    fmt: Any,
+    names: list[str],
+    total_max_marks: int,
+    correct_answers: dict[str, str],
+    marking_criteria_by_num: dict[str, str],
+    workers: int,
+) -> tuple[list[dict], dict[str, dict], dict[str, list[float]]]:
+    """Parallel: merge per-page marks, write XML + MD per student, accumulate q_totals."""
+    student_summaries: list[dict] = []
+    full_reports: dict[str, dict] = {}
+    q_totals: dict[str, list[float]] = {}
     _summaries_lock = threading.Lock()
     _q_totals_lock = threading.Lock()
-    _q_totals: dict[str, list[float]] = {}
 
-    def _process_one_student(name: str) -> None:
+    def _process_one(name: str) -> None:
         report = _merge_student_pages(
             ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks, fmt=fmt
         )
-        for _q in report["questions"]:
-            _q["correct_answer"] = correct_answers.get(str(_q.get("number", "")), "")
-            _q["marking_criteria"] = marking_criteria_by_num.get(str(_q.get("number", "")), "")
+        for q in report["questions"]:
+            q["correct_answer"] = correct_answers.get(str(q.get("number", "")), "")
+            q["marking_criteria"] = marking_criteria_by_num.get(str(q.get("number", "")), "")
 
         artifact_student_report_xml_path(ctx.artifact_dir, name).write_text(
             student_report_to_xml(report), encoding="utf-8"
@@ -494,11 +479,10 @@ def compile_reports(ctx: Any) -> list[dict]:
         )
 
         with _q_totals_lock:
-            for _q in report["questions"]:
-                _am = _q.get("assigned_marks")
-                if _am is not None:
-                    _qnum = str(_q.get("number", ""))
-                    _q_totals.setdefault(_qnum, []).append(float(_am))
+            for q in report["questions"]:
+                am = q.get("assigned_marks")
+                if am is not None:
+                    q_totals.setdefault(str(q.get("number", "")), []).append(float(am))
 
         with _summaries_lock:
             student_summaries.append({
@@ -506,22 +490,20 @@ def compile_reports(ctx: Any) -> list[dict]:
                 "total_marks": report["total_marks"],
                 "percentage": report["percentage"],
             })
-            _full_reports[name] = report
+            full_reports[name] = report
 
-        ok_line(
-            f"{name}: {report['total_marks']}/{total_max_marks} ({_fmt_pct(report['percentage'])})"
-        )
+        ok_line(f"{name}: {report['total_marks']}/{total_max_marks} ({_fmt_pct(report['percentage'])})")
 
-    names = _derive_student_names(ctx.artifact_dir, fmt=fmt)
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        for exc in (f.exception() for f in as_completed(
-            ex.submit(_process_one_student, n) for n in names
-        )):
+        for exc in (f.exception() for f in as_completed(ex.submit(_process_one, n) for n in names)):
             if exc is not None:
                 raise exc
 
-    # Compute grade curve (class average → 80%) then write student .tex files serially.
-    # This must happen after Pass 1 so the class average over all students is known.
+    return student_summaries, full_reports, q_totals
+
+
+def _apply_grade_curve(student_summaries: list[dict]) -> None:
+    """Compute 80%-target curve offset; add curved_pct to each summary dict in place."""
     known_pcts = [s["percentage"] for s in student_summaries if s["percentage"] is not None]
     class_avg = int(round(sum(known_pcts) / len(known_pcts))) if known_pcts else None
     curve_offset = (80 - class_avg) if class_avg is not None else 0
@@ -530,68 +512,111 @@ def compile_reports(ctx: Any) -> list[dict]:
             min(100, max(0, s["percentage"] + curve_offset))
             if s["percentage"] is not None else None
         )
+
+
+def _pass2_write_tex(
+    student_summaries: list[dict],
+    full_reports: dict[str, dict],
+    artifact_dir: Path,
+    exam_name: str,
+    workers: int,
+) -> None:
+    """Write student .tex files serially (curve must be known), then compile in parallel."""
     tex_paths = []
     for s in student_summaries:
-        report = _full_reports[s["name"]]
+        report = full_reports[s["name"]]
         report["curved_pct"] = s["curved_pct"]
-        tex_path = artifact_student_report_tex_path(ctx.artifact_dir, s["name"])
+        tex_path = artifact_student_report_tex_path(artifact_dir, s["name"])
         tex_path.write_text(_student_report_to_tex(report, exam_name=exam_name), encoding="utf-8")
         tex_paths.append(tex_path)
 
-    # Pass 2 — parallel: compile all student .tex files concurrently (each is an independent process)
     with ThreadPoolExecutor(max_workers=workers) as ex:
         list(ex.map(lambda p: _compile_tex(p, p.parent), tex_paths))
 
+
+def _build_class_report(
+    ctx: Any,
+    student_summaries: list[dict],
+    q_totals: dict[str, list[float]],
+    exam_name: str,
+) -> None:
+    """Build and write class XML/MD/TeX/PDF. Runs after both passes."""
+    total_max_marks = ctx.scaffold.total_marks
+    leaf_avgs = {k: round(sum(v) / len(v), 1) for k, v in q_totals.items()}
+    all_avgs, all_max = _build_all_question_tables(
+        getattr(ctx.scaffold, "questions", []), leaf_avgs
+    )
+    known_pcts = [s["percentage"] for s in student_summaries if s["percentage"] is not None]
+    class_avg = int(round(sum(known_pcts) / len(known_pcts))) if known_pcts else None
+    per_question_pct: dict[str, int] = {
+        qnum: int(round(avg / all_max[qnum] * 100))
+        for qnum, avg in all_avgs.items()
+        if all_max.get(qnum, 0) > 0
+    }
+    class_report = {
+        "students": _rank_students(student_summaries),
+        "per_question_averages": all_avgs,
+        "per_question_max_marks": all_max,
+        "per_question_pct_averages": per_question_pct,
+        "class_average_pct": class_avg,
+        "total_max_marks": total_max_marks,
+    }
+    artifact_class_report_xml_path(ctx.artifact_dir).write_text(
+        class_report_to_xml(class_report), encoding="utf-8"
+    )
+    artifact_class_report_md_path(ctx.artifact_dir).write_text(
+        _class_report_to_md(class_report), encoding="utf-8"
+    )
+    tex_path = artifact_class_report_tex_path(ctx.artifact_dir)
+    tex_path.write_text(_class_report_to_tex(class_report, exam_name=exam_name), encoding="utf-8")
+    _compile_tex(tex_path, tex_path.parent)
+    _merge_pdfs(
+        tex_path.with_suffix(".pdf"),
+        artifact_reports_students_dir(ctx.artifact_dir),
+        artifact_class_report_combined_pdf_path(ctx.artifact_dir),
+    )
+
+
+# ---------------------------------------------------------------------------
+# Public entry point
+# ---------------------------------------------------------------------------
+
+def compile_reports(ctx: Any) -> list[dict]:
+    """Merge all per-page results; create student and class reports; compile PDFs.
+
+    Returns a list of per-student summary dicts (keys: name, total_marks, percentage).
+    """
+    fmt = get_marking_format()
+    total_max_marks = ctx.scaffold.total_marks
+    correct_answers, marking_criteria_by_num = _build_answer_lookup(ctx)
+    names = _derive_student_names(ctx.artifact_dir, fmt=fmt)
+    exam_name = ctx.artifact_dir.parent.name
+    workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
+
+    ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
+    artifact_marking_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+    artifact_reports_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+
+    student_summaries, full_reports, q_totals = _pass1_merge_students(
+        ctx, fmt, names, total_max_marks, correct_answers, marking_criteria_by_num, workers
+    )
+    _apply_grade_curve(student_summaries)
+    _pass2_write_tex(student_summaries, full_reports, ctx.artifact_dir, exam_name, workers)
     if student_summaries:
-        leaf_avgs = {k: round(sum(v) / len(v), 1) for k, v in _q_totals.items()}
-        all_avgs, all_max = _build_all_question_tables(
-            getattr(ctx.scaffold, "questions", []), leaf_avgs
-        )
-        per_question_pct: dict[str, int] = {
-            qnum: int(round(avg / all_max[qnum] * 100))
-            for qnum, avg in all_avgs.items()
-            if all_max.get(qnum, 0) > 0
-        }
-        ranked_students = _rank_students(student_summaries)
-        class_report = {
-            "students": ranked_students,
-            "per_question_averages": all_avgs,
-            "per_question_max_marks": all_max,
-            "per_question_pct_averages": per_question_pct,
-            "class_average_pct": class_avg,
-            "total_max_marks": total_max_marks,
-        }
-
-        artifact_class_report_xml_path(ctx.artifact_dir).write_text(
-            class_report_to_xml(class_report), encoding="utf-8"
-        )
-        artifact_class_report_md_path(ctx.artifact_dir).write_text(
-            _class_report_to_md(class_report), encoding="utf-8"
-        )
-        exam_name = ctx.artifact_dir.parent.name
-        tex_path = artifact_class_report_tex_path(ctx.artifact_dir)
-        tex_path.write_text(_class_report_to_tex(class_report, exam_name=exam_name), encoding="utf-8")
-        _compile_tex(tex_path, tex_path.parent)
-        _merge_pdfs(
-            tex_path.with_suffix(".pdf"),
-            artifact_reports_students_dir(ctx.artifact_dir),
-            artifact_class_report_combined_pdf_path(ctx.artifact_dir),
-        )
-
+        _build_class_report(ctx, student_summaries, q_totals, exam_name)
     return student_summaries
 
 
 def load_student_results_from_reports(artifact_dir: Path) -> list:
     """Read all student report XML files and reconstruct StudentResult objects."""
     from xscore.shared.models import StudentResult
-    from xscore.shared.terminal_ui import warn_line
 
     results = []
     failed: list[str] = []
     for f in sorted(artifact_reports_students_dir(artifact_dir).glob("*.xml")):
         try:
             root = ET.parse(str(f)).getroot()
-        except Exception:  # noqa: BLE001
+        except ET.ParseError:
             failed.append(f.name)
             continue
         name = root.get("student_name", "")
