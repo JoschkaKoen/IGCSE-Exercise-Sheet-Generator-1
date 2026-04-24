@@ -37,17 +37,16 @@ def _read_model_config() -> tuple[str, str | None]:
 def _call_gemini_text(user_message: str) -> str:
     """Make a text-only Gemini call and return the raw response string."""
     try:
-        from google import genai as gai
         from google.genai import types as gai_types
     except ImportError:
         raise RuntimeError("google-genai not installed; run: pip install google-genai")
 
-    api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
-    if not api_key:
+    from eXercise.ai_client import make_gemini_native_client
+    client = make_gemini_native_client()
+    if client is None:
         raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
 
     model_name, effort = _read_model_config()
-    client = gai.Client(api_key=api_key)
 
     thinking_map = {"off": 0, "low": 1024, "high": 8192}
     gen_config_kwargs: dict = {"max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS, "response_mime_type": "application/json"}
@@ -167,7 +166,7 @@ def parse_prompt(
     folder_path = str(raw_fp).strip() if raw_fp not in (None, "") else None
 
     force_clean_scan = bool(data.get("force_clean_scan", False))
-    rescaffold = bool(data.get("rescaffold", False))
+    rescaffold = bool(data.get("rescaffold", False))  # TODO: not yet acted on in xScore.py
     no_report = bool(data.get("no_report", False))
 
     _VALID_TASK_TYPES = {"count_marks", "check_mc", "check_answers"}

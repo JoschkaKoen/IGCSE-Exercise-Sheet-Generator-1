@@ -305,14 +305,13 @@ def assign_pages(
     cover_page_mode: bool = False
     cover_ok: dict[int, bool] = {}  # 0-based index → is_cover_page result
 
-    _cover_api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
-    if not _cover_api_key:
+    from eXercise.ai_client import make_gemini_native_client
+    _gai_client = make_gemini_native_client()
+    if _gai_client is None:
         warn_line(
             "GEMINI_API_KEY not set — cover-page detection skipped, running in standard mode"
         )
     else:
-        from google import genai as gai
-        _gai_client = gai.Client(api_key=_cover_api_key)
         _cover_model, _cover_effort = parse_model_effort(
             os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
         )

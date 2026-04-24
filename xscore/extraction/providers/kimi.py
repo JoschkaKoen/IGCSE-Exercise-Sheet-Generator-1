@@ -20,6 +20,7 @@ from xscore.config import (
     apply_kimi_k2_extra,
 )
 from xscore.extraction.images import normalize_extracted_record
+from xscore.shared.response_parsing import parse_json_safe
 from xscore.shared.terminal_ui import api_latency_line, log_ai_response_debug
 
 
@@ -43,46 +44,6 @@ def _filter_schema_fields(data: dict, schema: type[BaseModel]) -> dict:
     return {k: v for k, v in data.items() if k in allowed_fields}
 
 
-def _extract_json_from_text(text: str) -> dict | None:
-    """Extract JSON from text, handling truncation and extra content.
-
-    Tries to find complete JSON object even if response was truncated.
-    """
-    # Marking-side equivalent: marking.ai_helpers.parse_json_safe (returns None on failure).
-    text = text.strip()
-
-    # Try direct parsing first
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        pass
-
-    # Try to find JSON object boundaries
-    try:
-        # Find the first { and last }
-        start = text.find('{')
-        end = text.rfind('}')
-        if start != -1 and end != -1 and end > start:
-            return json.loads(text[start:end+1])
-    except json.JSONDecodeError:
-        pass
-
-    # Try to fix truncated strings by closing open quotes
-    try:
-        # Find unclosed strings and close them
-        fixed = text
-        # Count quotes - if odd, we have an unclosed string
-        if fixed.count('"') % 2 == 1:
-            # Add closing quote and brace
-            fixed = fixed.rstrip() + '"}'
-        # Ensure we end with a closing brace
-        if not fixed.rstrip().endswith('}'):
-            fixed = fixed.rstrip() + '}'
-        return json.loads(fixed)
-    except json.JSONDecodeError:
-        pass
-
-    return None
 
 
 def _failed_record(last_error: Exception | str | None, answer_fields: list[str]) -> dict:
@@ -211,7 +172,7 @@ class KimiProvider:
                     return normalize_extracted_record(data, answer_fields)
                 except json.JSONDecodeError as parse_err:
                     # Try to extract partial JSON
-                    partial_data = _extract_json_from_text(raw)
+                    partial_data = parse_json_safe(raw)
                     if partial_data is not None:
                         # Also filter extra fields from partial data
                         partial_data = _filter_schema_fields(partial_data, schema)

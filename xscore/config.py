@@ -9,7 +9,7 @@ AI provider usage by step (16-step pipeline):
   Steps 1 / 5 / 6 / 7 : Gemini  (GOOGLE_API_KEY or GEMINI_API_KEY)
   Step 8               : Gemini  — name OCR + cover-page detection
   Steps 9–13           : Gemini  — exam/mark-scheme parsing (split or legacy mode)
-  Steps 14–15          : Kimi    — AI marking + report compilation (KIMI_API_KEY)
+  Steps 14–15          : configurable via MARKING_MODEL (default qwen3.6-plus)
 
 How to run (from repo root, with venv activated and dependencies installed):
 
@@ -214,3 +214,19 @@ def pipeline_ai_model_display_name() -> str:
     if low.startswith("gemini-"):
         return "Gemini " + low[7:].replace("-", " ").title()
     return mid
+
+
+# =============================================================================
+# Per-step model defaults (scaffold + marking)
+# Each reads its dedicated env var first, then falls back to AI_DEFAULT_MODEL or
+# a hard-coded default that matches the value in default.env.
+# =============================================================================
+
+_ai_default = os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash")
+
+READ_EXAM_PDF_MODEL: str = os.getenv("READ_EXAM_PDF_MODEL") or _ai_default
+READ_MARK_SCHEME_MODEL: str = os.getenv("READ_MARK_SCHEME_MODEL") or _ai_default
+DETECT_LAYOUT_MODEL: str = os.getenv("DETECT_LAYOUT_MODEL", "gemini-2.5-flash, low")
+DETECT_SCHEME_GRAPHICS_MODEL: str = os.getenv("DETECT_SCHEME_GRAPHICS_MODEL", "gemini-2.5-flash, off")
+
+MARKING_MODEL_DEFAULT: str = os.getenv("MARKING_MODEL", "qwen3.6-plus, low")

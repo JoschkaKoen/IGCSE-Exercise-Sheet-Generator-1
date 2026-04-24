@@ -24,14 +24,14 @@ from typing import Any
 import xml.etree.ElementTree as ET
 
 from eXercise.ai_client import collect_streamed_response
-from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, MARKING_JPEG_QUALITY, MAX_RETRIES
+from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, MARKING_JPEG_QUALITY, MARKING_MODEL_DEFAULT, MAX_RETRIES
 from xscore.marking.blueprints import marked_to_md
 from xscore.shared.exam_paths import artifact_blueprint_xml_path, artifact_marked_failed_path, artifact_marked_md_path, artifact_marked_xml_path, artifact_prompt_path
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, ok_line, warn_line
 
 
-_DEFAULT_MARKING_MODEL = "qwen3.6-plus, low"
+_DEFAULT_MARKING_MODEL = MARKING_MODEL_DEFAULT
 
 
 def filled_to_xml(filled: dict) -> str:
@@ -555,18 +555,16 @@ def _mark_page_pdf(
     Raises MarkingFailure if all retries are exhausted.
     """
     import os
-    from google import genai as gai
     from google.genai import types as gai_types
     from xscore.shared.prompt_logger import save_response
-    from eXercise.ai_client import parse_model_effort
+    from eXercise.ai_client import make_gemini_native_client, parse_model_effort
 
-    _api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
-    if not _api_key:
+    gai_client = make_gemini_native_client()
+    if gai_client is None:
         raise RuntimeError("GEMINI_API_KEY not set — cannot upload multi-page PDF for blank continuation pages")
 
     _model_env = os.environ.get("MARKING_MODEL", "")
     model_id, _ = parse_model_effort(_model_env) if _model_env else ("gemini-2.5-flash", None)
-    gai_client = gai.Client(api_key=_api_key)
 
     system_prompt = (
         "You are marking a student's exam answer. The uploaded PDF contains the exercise page "

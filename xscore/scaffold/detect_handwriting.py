@@ -1,5 +1,7 @@
 """Detect handwriting in yellow margin-strip regions of a deskewed scan PDF.
 
+NOT INVOKED by the main xScore.py pipeline — available for standalone use only.
+
 Step 13 classifies each yellow bbox as containing student handwriting (red overlay)
 or blank (green overlay), producing cleaned_scan_refined_boxes.pdf.
 

@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 import base64
-import json
-import re
 import time
 from typing import Any, Protocol, runtime_checkable
 
@@ -13,6 +11,7 @@ from pathlib import Path
 from xscore.config import MAX_RETRIES, NAME_JPEG_QUALITY, apply_model_extras, resolve_pipeline_ai_model_id
 from xscore.extraction.images import to_jpeg_bytes
 from xscore.shared.prompt_logger import save_prompt, save_response
+from xscore.shared.response_parsing import parse_json_safe  # noqa: F401 — re-exported for callers
 from xscore.shared.terminal_ui import api_latency_line, log_ai_response_debug, warn_line
 
 # Default: JSON object mode. Pass ``response_format=None`` to omit (non-JSON prompts).
@@ -97,55 +96,3 @@ def ai_image_call(
     return ""
 
 
-def parse_json_safe(raw: str) -> dict | None:
-    """Parse JSON from model text; slice object bounds; light truncation repair.
-
-    Returns the parsed dict on success (including an empty ``{}`` if the model
-    genuinely returned one), or ``None`` if the text could not be parsed as a
-    JSON object at all.  Callers should check ``if result is not None`` rather
-    than ``if result`` to avoid treating a valid empty dict as a parse failure.
-    """
-    text = raw.strip()
-    if not text:
-        return None
-
-    def _as_dict(obj: Any) -> dict | None:
-        return obj if isinstance(obj, dict) else None
-
-    try:
-        result = _as_dict(json.loads(text))
-        if result is not None:
-            return result
-    except json.JSONDecodeError:
-        pass
-
-    start, end = text.find("{"), text.rfind("}")
-    if start != -1 and end > start:
-        try:
-            result = _as_dict(json.loads(text[start : end + 1]))
-            if result is not None:
-                return result
-        except json.JSONDecodeError:
-            pass
-
-    try:
-        fixed = text
-        if fixed.count('"') % 2 == 1:
-            fixed = fixed.rstrip() + '"}'
-        if not fixed.rstrip().endswith("}"):
-            fixed = fixed.rstrip() + "}"
-        result = _as_dict(json.loads(fixed))
-        if result is not None:
-            return result
-    except json.JSONDecodeError:
-        pass
-
-    try:
-        cleaned = re.sub(r'[\x00-\x1f]', lambda m: '\\u{:04x}'.format(ord(m.group())), text)
-        result = _as_dict(json.loads(cleaned))
-        if result is not None:
-            return result
-    except json.JSONDecodeError:
-        pass
-
-    return None

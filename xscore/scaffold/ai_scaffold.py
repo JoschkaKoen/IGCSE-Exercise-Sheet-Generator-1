@@ -21,13 +21,19 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from pydantic import BaseModel
 
-from eXercise.ai_client import build_thinking_kwargs, make_ai_client
+from eXercise.ai_client import build_thinking_kwargs, make_ai_client, parse_model_effort
 
 from xscore.shared.exam_paths import (
     artifact_exam_questions_raw_xml_path,
     artifact_exam_questions_xml_path,
     artifact_mark_scheme_xml_path,
     artifact_prompt_path,
+)
+from xscore.config import (
+    DETECT_LAYOUT_MODEL,
+    DETECT_SCHEME_GRAPHICS_MODEL,
+    READ_EXAM_PDF_MODEL,
+    READ_MARK_SCHEME_MODEL,
 )
 from xscore.shared.models import BBox, ExamLayout, McAnswerOption, Question
 from xscore.shared.prompt_logger import save_prompt, save_response
@@ -64,30 +70,23 @@ _SCHEME_GRAPHICS_JSON_SCHEMA: dict = _SchemePageGraphics.model_json_schema()
 
 
 # ---------------------------------------------------------------------------
-# Model config — same pattern as load_student_list.py
+# Model config — read from xscore/config.py constants (defaults match default.env)
 # ---------------------------------------------------------------------------
 
-def _parse_model(raw: str) -> tuple[str, str | None]:
-    if "," in raw:
-        model, effort = raw.split(",", 1)
-        return model.strip(), effort.strip() or None
-    return raw.strip(), None
-
-
 def _exam_pdf_model_config() -> tuple[str, str | None]:
-    return _parse_model(os.getenv("READ_EXAM_PDF_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash")))
+    return parse_model_effort(READ_EXAM_PDF_MODEL)
 
 
 def _mark_scheme_model_config() -> tuple[str, str | None]:
-    return _parse_model(os.getenv("READ_MARK_SCHEME_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash")))
+    return parse_model_effort(READ_MARK_SCHEME_MODEL)
 
 
 def _layout_detect_model_config() -> tuple[str, str | None]:
-    return _parse_model(os.getenv("DETECT_LAYOUT_MODEL", "gemini-2.5-flash, low"))
+    return parse_model_effort(DETECT_LAYOUT_MODEL)
 
 
 def _detect_scheme_graphics_model_config() -> tuple[str, str | None]:
-    return _parse_model(os.getenv("DETECT_SCHEME_GRAPHICS_MODEL", "gemini-2.5-flash, off"))
+    return parse_model_effort(DETECT_SCHEME_GRAPHICS_MODEL)
 
 
 # ---------------------------------------------------------------------------
@@ -824,19 +823,17 @@ def build_ai_scaffold(
         RuntimeError: GOOGLE_API_KEY unset, file upload failed, or Gemini returns non-JSON.
     """
     try:
-        from google import genai as gai
         from google.genai import types as gai_types
     except ImportError:
         raise RuntimeError("google-genai not installed; run: pip install google-genai")
 
-    api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
-    if not api_key:
+    client = make_gemini_native_client()
+    if client is None:
         raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
 
     exam_model, exam_effort = _exam_pdf_model_config()
     scheme_model, scheme_effort = _mark_scheme_model_config()
     graphics_model, graphics_effort = _detect_scheme_graphics_model_config()
-    client = gai.Client(api_key=api_key)
 
     thinking_map = {"off": 0, "low": 1024, "high": 8192}
 

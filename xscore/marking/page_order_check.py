@@ -79,16 +79,14 @@ def check_page_order(
     from xscore.shared.prompt_logger import save_prompt, save_response
     from xscore.shared.exam_paths import artifact_prompt_path
     from google.genai import types as gai_types
-    from google import genai as gai
-
-    _api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
-    if not _api_key:
+    from eXercise.ai_client import make_gemini_native_client
+    _gai = make_gemini_native_client()
+    if _gai is None:
         warn_line("GEMINI_API_KEY not set — page order check skipped")
         return
     model_id, _effort = parse_model_effort(
         os.environ.get("PAGE_ORDER_CHECK_MODEL", "gemini-2.5-flash-lite")
     )
-    _gai = gai.Client(api_key=_api_key)
 
     # ── Extract text ──────────────────────────────────────────────────────────
     exam_texts = _exam_page_texts(exam_pdf)

@@ -265,6 +265,26 @@ def collect_streamed_response(stream: Any) -> str:
     return "".join(parts).strip()
 
 
+def make_gemini_native_client() -> Any:
+    """Return a ``google.genai.Client`` for the Gemini native SDK, or ``None`` if no API key.
+
+    Reads ``GEMINI_API_KEY`` with ``GOOGLE_API_KEY`` as fallback — the same key
+    resolution used by every pipeline call site that needs the native Gemini SDK
+    (scaffold parsing, multi-page PDF upload, etc.).
+
+    Returns ``None`` rather than raising so callers can decide whether the key
+    is required for their specific step.
+    """
+    try:
+        from google import genai as gai
+    except ImportError:
+        return None
+    api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
+    if not api_key:
+        return None
+    return gai.Client(api_key=api_key)
+
+
 def print_streamed_response(
     stream: Any,
     *,

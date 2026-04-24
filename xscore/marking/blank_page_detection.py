@@ -126,19 +126,17 @@ def check_blank_pages(
     is needed.  When False/None (empty exam has no cover), the scan cover page shifts
     all answer pages by +1 relative to the empty exam page numbers.
     """
-    from eXercise.ai_client import parse_model_effort
-    from google import genai as gai
+    from eXercise.ai_client import make_gemini_native_client, parse_model_effort
     from xscore.shared.exam_paths import artifact_prompt_path
     from xscore.shared.terminal_ui import info_line, ok_line, warn_line
 
-    _api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
-    if not _api_key:
+    gai_client = make_gemini_native_client()
+    if gai_client is None:
         warn_line("GEMINI_API_KEY not set — blank page detection skipped")
         return
     model_id, _effort = parse_model_effort(
         os.environ.get("BLANK_PAGE_DETECTION_MODEL", "gemini-2.5-flash-lite")
     )
-    gai_client = gai.Client(api_key=_api_key)
 
     # ── 1. Find blank pages in the empty exam ────────────────────────────────
     import time as _time

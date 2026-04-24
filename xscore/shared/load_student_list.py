@@ -83,16 +83,14 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
     model_name, effort = _read_model_config()
 
     try:
-        from google import genai as gai
         from google.genai import types as gai_types
     except ImportError:
         raise RuntimeError("google-genai not installed; run: pip install google-genai")
 
-    api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
-    if not api_key:
+    from eXercise.ai_client import make_gemini_native_client
+    client = make_gemini_native_client()
+    if client is None:
         raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
-
-    client = gai.Client(api_key=api_key)
 
     thinking_map = {"off": 0, "low": 1024, "high": 8192}
     thinking_cfg = None
