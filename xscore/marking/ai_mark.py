@@ -26,11 +26,13 @@ from xscore.marking.blueprints import marked_to_md
 from xscore.marking.formats import get_marking_format
 from xscore.marking.formats.base import FormatParseError
 from xscore.shared.exam_paths import (
+    artifact_blank_pages_json_path,
     artifact_blueprint_path,
+    artifact_mark_scheme_graphics_dir,
     artifact_marked_failed_path,
     artifact_marked_md_path,
     artifact_marked_path,
-    artifact_prompt_path,
+    artifact_marking_prompt_path,
 )
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, ok_line, warn_line
@@ -56,7 +58,7 @@ def render_pages_b64(
 ) -> dict[tuple[str, int], str]:
     """Render all scan pages to base64 JPEG, parallelised.
 
-    Reads 8_exam_student_list.json directly (same source as run_ai_marking).
+    Reads 10_exam_student_list.json directly (same source as run_ai_marking).
     Each worker opens its own fitz.Document — fitz is not thread-safe.
     Returns {(student_name, page_label): b64_str}.
     """
@@ -260,7 +262,7 @@ def _scheme_graphics_for_page(
 def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
-    Reads page assignments from ``8_exam_student_list.json`` (written by step 8)
+    Reads page assignments from ``10_exam_student_list.json`` (written by step 10)
     so each student's scan pages are determined by name detection, not position.
     Pages are processed in parallel (MARKING_WORKERS env var, default varies with cpu_count).
     *dpi* defaults to ``MARKING_DPI`` when not supplied.
@@ -286,17 +288,17 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     client, model_id, _provider, _effort = result
     _use_stream, _thinking_kw = build_thinking_kwargs(_provider, _effort)
 
-    # Load page assignments produced by step 8 name detection.
+    # Load page assignments produced by step 10 name detection.
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     if not list_path.exists():
         raise FileNotFoundError(
-            f"8_exam_student_list.json not found at {list_path} — run step 8 first"
+            f"10_exam_student_list.json not found at {list_path} — run step 10 first"
         )
     raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
     # Each entry: {"student_name": str, "page_numbers": [int, ...], "confidence": str}
 
-    # Load blank page detection results (written by step 8 blank_page_detection).
-    _blank_json = ctx.artifact_dir / "8_blank_pages.json"
+    # Load blank page detection results (written by step 13 blank_page_detection).
+    _blank_json = artifact_blank_pages_json_path(ctx.artifact_dir)
     # Keys: student_name → set of scan_pages to skip (blank, no handwriting)
     _skip_scan_pages_by_student: dict[str, set[int]] = {}
     # Keys: student_name → {exercise_scan_page → [extra_blank_scan_pages_with_handwriting]}
@@ -339,7 +341,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         )
 
     # Pre-build mark-scheme graphics map: safe_qnum → sorted list of PNG paths
-    _graphics_dir = ctx.artifact_dir / "11_mark_scheme_graphics"
+    _graphics_dir = artifact_mark_scheme_graphics_dir(ctx.artifact_dir, ctx.step_offset)
     _graphics_map: dict[str, list[Path]] = {}
     if _graphics_dir.is_dir():
         _gfx_re = re.compile(r"^\d+_(.+)_(\d+)\.png$")
@@ -415,7 +417,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         blueprint = fmt.deserialize_blueprint(blueprint_str)
 
         t0 = time.perf_counter()
-        prompt_save = artifact_prompt_path(ctx.artifact_dir, f"14_marked_{safe_name}_{p_label}")
+        prompt_save = artifact_marking_prompt_path(ctx.artifact_dir, student_name, p_label, ctx.step_offset)
         try:
             _page_graphics = _scheme_graphics_for_page(blueprint, _graphics_map)
             _use_pdf_path = _provider == "gemini"

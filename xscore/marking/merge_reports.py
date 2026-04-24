@@ -38,6 +38,7 @@ def _merge_student_pages(
     pages_per_student: int,
     total_max_marks: int,
     fmt=None,
+    step_offset: int = 0,
 ) -> dict:
     """Load all 14_marked_{student}_{p} files and merge into one student report.
 
@@ -58,7 +59,7 @@ def _merge_student_pages(
     merged_questions: dict[tuple[str, int], dict] = {}
 
     for p in range(1, pages_per_student + 1):
-        path = artifact_marked_path(artifact_dir, student_name, p, fmt=fmt.artifact_ext())
+        path = artifact_marked_path(artifact_dir, student_name, p, fmt=fmt.artifact_ext(), step_offset=step_offset)
         if not path.is_file():
             continue
         file_occ: dict[str, int] = {}
@@ -204,10 +205,9 @@ def _merge_pdfs(class_pdf: Path, students_dir: Path, output_pdf: Path) -> None:
     from xscore.shared.terminal_ui import warn_line
 
     def _student_name(p: Path) -> str:
-        stem = p.stem  # e.g. "15_student_report_Ashley"
-        return stem.split("_student_report_", 1)[-1] if "_student_report_" in stem else stem
+        return p.stem
 
-    student_pdfs = sorted(students_dir.glob("15_student_report_*.pdf"), key=_student_name)
+    student_pdfs = sorted(students_dir.glob("*.pdf"), key=_student_name)
 
     try:
         from pikepdf import Pdf
@@ -255,8 +255,8 @@ def _compile_tex(tex_path: Path, output_dir: Path) -> None:
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _derive_student_names(artifact_dir: Path, fmt=None) -> list[str]:
-    """Collect unique student names from 14_marked_*_* files, in order."""
+def _derive_student_names(artifact_dir: Path, fmt=None, step_offset: int = 0) -> list[str]:
+    """Collect unique student names from marked student files, in order."""
     from xscore.shared.terminal_ui import warn_line
     if fmt is None:
         from xscore.marking.formats.xml_format import XmlMarkingFormat
@@ -265,7 +265,12 @@ def _derive_student_names(artifact_dir: Path, fmt=None) -> list[str]:
     seen: dict[str, str] = {}   # safe_name → original name
     result: list[str] = []
     failed: list[str] = []
-    for f in sorted(artifact_marking_students_dir(artifact_dir).glob(f"14_marked_*_*.{_ext}")):
+    # New layout: Alice_Smith_page_1.yaml; legacy: 14_marked_Alice_Smith_1.yaml
+    _students_dir = artifact_marking_students_dir(artifact_dir, step_offset)
+    _files = sorted(_students_dir.glob(f"*_page_*.{_ext}"))
+    if not _files:
+        _files = sorted(_students_dir.glob(f"14_marked_*_*.{_ext}"))
+    for f in _files:
         try:
             data = fmt.deserialize_blueprint(f.read_text(encoding="utf-8"))
             name = str(data.get("student_name") or "").strip()
@@ -335,7 +340,7 @@ def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
     from xscore.shared.terminal_ui import warn_line
     q_totals: dict[str, list[float]] = {}
     failed: list[str] = []
-    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("15_student_report_*.xml")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("*.xml")):
         try:
             root = ET.parse(str(f)).getroot()
             for qel in root.findall("question"):
@@ -436,6 +441,7 @@ def compile_reports(ctx: Any) -> list[dict]:
     (keys: name, total_marks, percentage) for use in step 14 timing.
     """
     from xscore.shared.exam_paths import (
+        artifact_class_report_combined_pdf_path,
         artifact_class_report_md_path,
         artifact_class_report_tex_path,
         artifact_class_report_xml_path,
@@ -443,6 +449,7 @@ def compile_reports(ctx: Any) -> list[dict]:
         artifact_student_report_tex_path,
         artifact_student_report_xml_path,
     )
+    _step_offset = getattr(ctx, "step_offset", 0)
     from xscore.shared.terminal_ui import ok_line
 
     fmt = get_marking_format()
@@ -465,7 +472,7 @@ def compile_reports(ctx: Any) -> list[dict]:
     # Pass 1 — parallel: merge marks and write all data files per student.
     # Per-question mark totals are accumulated in-memory (avoids a second disk pass).
     ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
-    artifact_marking_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+    artifact_marking_students_dir(ctx.artifact_dir, _step_offset).mkdir(parents=True, exist_ok=True)
     exam_name = ctx.artifact_dir.parent.name
     workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
 
@@ -475,16 +482,16 @@ def compile_reports(ctx: Any) -> list[dict]:
 
     def _process_one_student(name: str) -> None:
         report = _merge_student_pages(
-            ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks, fmt=fmt
+            ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks, fmt=fmt, step_offset=_step_offset
         )
         for _q in report["questions"]:
             _q["correct_answer"] = correct_answers.get(str(_q.get("number", "")), "")
             _q["marking_criteria"] = marking_criteria_by_num.get(str(_q.get("number", "")), "")
 
-        artifact_student_report_xml_path(ctx.artifact_dir, name).write_text(
+        artifact_student_report_xml_path(ctx.artifact_dir, name, _step_offset).write_text(
             student_report_to_xml(report), encoding="utf-8"
         )
-        artifact_student_report_md_path(ctx.artifact_dir, name).write_text(
+        artifact_student_report_md_path(ctx.artifact_dir, name, _step_offset).write_text(
             _student_report_to_md(report), encoding="utf-8"
         )
 
@@ -507,7 +514,7 @@ def compile_reports(ctx: Any) -> list[dict]:
             f"{name}: {report['total_marks']}/{total_max_marks} ({_fmt_pct(report['percentage'])})"
         )
 
-    names = _derive_student_names(ctx.artifact_dir, fmt=fmt)
+    names = _derive_student_names(ctx.artifact_dir, fmt=fmt, step_offset=_step_offset)
     with ThreadPoolExecutor(max_workers=workers) as ex:
         for exc in (f.exception() for f in as_completed(
             ex.submit(_process_one_student, n) for n in names
@@ -529,7 +536,7 @@ def compile_reports(ctx: Any) -> list[dict]:
     for s in student_summaries:
         report = _full_reports[s["name"]]
         report["curved_pct"] = s["curved_pct"]
-        tex_path = artifact_student_report_tex_path(ctx.artifact_dir, s["name"])
+        tex_path = artifact_student_report_tex_path(ctx.artifact_dir, s["name"], _step_offset)
         tex_path.write_text(_student_report_to_tex(report, exam_name=exam_name), encoding="utf-8")
         tex_paths.append(tex_path)
 
@@ -557,20 +564,20 @@ def compile_reports(ctx: Any) -> list[dict]:
             "total_max_marks": total_max_marks,
         }
 
-        artifact_class_report_xml_path(ctx.artifact_dir).write_text(
+        artifact_class_report_xml_path(ctx.artifact_dir, _step_offset).write_text(
             class_report_to_xml(class_report), encoding="utf-8"
         )
-        artifact_class_report_md_path(ctx.artifact_dir).write_text(
+        artifact_class_report_md_path(ctx.artifact_dir, _step_offset).write_text(
             _class_report_to_md(class_report), encoding="utf-8"
         )
         exam_name = ctx.artifact_dir.parent.name
-        tex_path = artifact_class_report_tex_path(ctx.artifact_dir)
+        tex_path = artifact_class_report_tex_path(ctx.artifact_dir, _step_offset)
         tex_path.write_text(_class_report_to_tex(class_report, exam_name=exam_name), encoding="utf-8")
         _compile_tex(tex_path, tex_path.parent)
         _merge_pdfs(
             tex_path.with_suffix(".pdf"),
-            artifact_reports_students_dir(ctx.artifact_dir),
-            tex_path.parent / "15_class_report_combined.pdf",
+            artifact_reports_students_dir(ctx.artifact_dir, _step_offset),
+            artifact_class_report_combined_pdf_path(ctx.artifact_dir, _step_offset),
         )
 
     return student_summaries
@@ -586,7 +593,7 @@ def load_student_results_from_reports(artifact_dir: Path) -> list:
 
     results = []
     failed: list[str] = []
-    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("15_student_report_*.xml")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("*.xml")):
         try:
             root = ET.parse(str(f)).getroot()
         except Exception:  # noqa: BLE001

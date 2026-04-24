@@ -5,20 +5,26 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-# Phased pipeline artifacts (steps 4–7 scan block).
-MERGED_SCAN_PDF           = "4_merged_scan.pdf"
-SCAN_BLANKS_JSON          = "5_scan_blanks.json"
-SCAN_ROTATED_PDF          = "6_scan_rotated.pdf"
-CLEANED_SCAN_PDF          = "7_cleaned_scan.pdf"
-SCAN_ANCHORS_JSON         = "7_scan_anchors.json"
-SCAN_TRANSFORMS_JSON      = "7_scan_transforms.json"
-SCAN_LINES_REMOVED_PDF    = "7_scan_lines_removed.pdf"
-SCAN_BOXES_PROJECTED_PDF  = "7_scan_boxes_projected.pdf"
-SCAN_BOXES_PROJECTED_JSON = "7_scan_boxes_projected.json"
-SCAN_BOXES_REFINED_PDF    = "7_scan_boxes_refined.pdf"
-SCAN_HANDWRITING_JSON     = "7_scan_handwriting.json"
-SCAN_EXERCISE_BOXES_JSON  = "7_scan_exercise_boxes.json"
-SCAN_EXERCISE_BOXES_PDF   = "7_scan_exercise_boxes.pdf"
+# Step folder names for scan preprocessing (steps 4–7)
+_STEP_04 = "04_merge_duplex_scans"
+_STEP_05 = "05_detect_blank_pages"
+_STEP_06 = "06_autorotate"
+_STEP_07 = "07_deskew"
+
+# File name constants (no longer include the step-number prefix)
+MERGED_SCAN_PDF           = _STEP_04 + "/merged_scan.pdf"
+SCAN_BLANKS_JSON          = _STEP_05 + "/scan_blanks.json"
+SCAN_ROTATED_PDF          = _STEP_06 + "/scan_rotated.pdf"
+CLEANED_SCAN_PDF          = _STEP_07 + "/cleaned_scan.pdf"
+SCAN_ANCHORS_JSON         = _STEP_07 + "/scan_anchors.json"
+SCAN_TRANSFORMS_JSON      = _STEP_07 + "/scan_transforms.json"
+SCAN_LINES_REMOVED_PDF    = _STEP_07 + "/scan_lines_removed.pdf"
+SCAN_BOXES_PROJECTED_PDF  = _STEP_07 + "/scan_boxes_projected.pdf"
+SCAN_BOXES_PROJECTED_JSON = _STEP_07 + "/scan_boxes_projected.json"
+SCAN_BOXES_REFINED_PDF    = _STEP_07 + "/scan_boxes_refined.pdf"
+SCAN_HANDWRITING_JSON     = _STEP_07 + "/scan_handwriting.json"
+SCAN_EXERCISE_BOXES_JSON  = _STEP_07 + "/scan_exercise_boxes.json"
+SCAN_EXERCISE_BOXES_PDF   = _STEP_07 + "/scan_exercise_boxes.pdf"
 
 
 def _scan_phase_paths(artifact_dir: Path) -> dict[str, Path]:
@@ -30,7 +36,7 @@ def _scan_phase_paths(artifact_dir: Path) -> dict[str, Path]:
         "cleaned":                artifact_dir / CLEANED_SCAN_PDF,
         "sidecar":                artifact_dir / SCAN_ANCHORS_JSON,
         "sidecar_legacy":         out.with_name(f"{out.stem}_reflines.json"),  # transient
-        "deskew_tmp":             artifact_dir / f"{out.stem}_deskew_tmp{out.suffix}",   # transient
+        "deskew_tmp":             out.with_name(f"{out.stem}_deskew_tmp{out.suffix}"),  # transient
         "transforms":             artifact_dir / SCAN_TRANSFORMS_JSON,
         "vlines_removed":         artifact_dir / SCAN_LINES_REMOVED_PDF,
         "projected":              artifact_dir / SCAN_BOXES_PROJECTED_PDF,
@@ -259,6 +265,7 @@ def autorotate_phase(
         raise FileNotFoundError(f"Source scan missing: {source}")
 
     out = output_pdf if output_pdf is not None else paths["rotated"]
+    out.parent.mkdir(parents=True, exist_ok=True)
     write_rotated_pdf_after_blanks(
         source,
         out,
@@ -288,6 +295,7 @@ def deskew_phase(
         raise FileNotFoundError(f"Missing rotated scan: {inp}")
 
     out = paths["cleaned"]
+    out.parent.mkdir(parents=True, exist_ok=True)
     tmp_deskew = paths["deskew_tmp"]
     deskew_pdf_raster(
         input_pdf=inp,

@@ -31,7 +31,11 @@ from xscore.scaffold.scaffold_xml import (
     _merge_scheme,
     _norm,
 )
-from xscore.shared.exam_paths import artifact_exam_questions_path, artifact_prompt_path
+from xscore.shared.exam_paths import (
+    artifact_exam_layout_raw_path,
+    artifact_exam_questions_path,
+    artifact_scaffold_prompt_path,
+)
 from xscore.shared.models import ExamLayout, Question
 from xscore.shared.prompt_logger import save_prompt
 
@@ -67,8 +71,8 @@ def build_ai_scaffold(
             merged into the question tree.  Use this to advance the step counter
             to the merge step.  May raise SystemExit(0) to stop before merging.
         artifact_dir: If set, write intermediate JSON + Markdown snapshots:
-            ``9_exam_layout.*`` after layout detection (split mode only),
-            ``10_exam_questions.*`` after call 1, ``11_mark_scheme.*`` after call 2.
+            ``14_exam_layout.*`` after layout detection (split mode only),
+            ``15_exam_questions.*`` after call 1, ``16_mark_scheme.*`` after call 2.
             Saves are best-effort; OSError is silently ignored.
 
     Returns:
@@ -105,7 +109,7 @@ def build_ai_scaffold(
             # Save prompt before API call
             if artifact_dir is not None:
                 save_prompt(
-                    artifact_prompt_path(artifact_dir, "9_detect_layout"),
+                    artifact_scaffold_prompt_path(artifact_dir, "detect_layout", 0),
                     model=layout_model, system=_SYSTEM_LAYOUT,
                     messages=[{"role": "user", "content": _USER_LAYOUT}],
                 )
@@ -117,8 +121,7 @@ def build_ai_scaffold(
             # Save raw AI response immediately (even on failure, if we got a response)
             if artifact_dir is not None and layout_raw_text is not None:
                 try:
-                    from xscore.shared.exam_paths import artifact_exam_layout_json_path
-                    raw_path = artifact_exam_layout_json_path(artifact_dir).parent / "9_exam_layout_raw.json"
+                    raw_path = artifact_exam_layout_raw_path(artifact_dir)
                     raw_path.parent.mkdir(parents=True, exist_ok=True)
                     raw_path.write_text(layout_raw_text, encoding="utf-8")
                 except OSError:
@@ -181,7 +184,9 @@ def build_ai_scaffold(
             if on_cut_complete is not None:
                 on_cut_complete(n_cells == 1)
 
-        # ---- Step 9: exam extraction ----------------------------------------
+        # ---- Step 9/10: exam extraction ----------------------------------------
+        # step_offset=1 when layout detection ran and found a multi-up layout.
+        _effective_step_offset = 1 if (split_subpages and layout_result is not None and layout_result.rows * layout_result.cols > 1) else 0
         actual_exam_pdf = split_pdf_path if split_pdf_path is not None else exam_pdf
         raw_layout: dict = {}
         raw_questions, raw_layout = _do_exam_call(
@@ -194,6 +199,7 @@ def build_ai_scaffold(
             n_split_pages=n_split_pages,
             artifact_dir=artifact_dir,
             fmt=fmt,
+            step_offset=_effective_step_offset,
         )
 
         # Use pre-detected layout (ignore raw_layout from extraction response in split mode).
@@ -207,7 +213,7 @@ def build_ai_scaffold(
         if artifact_dir is not None:
             try:
                 from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
-                p = artifact_exam_questions_path(artifact_dir, fmt=fmt.artifact_ext())
+                p = artifact_exam_questions_path(artifact_dir, fmt=fmt.artifact_ext(), step_offset=_effective_step_offset)
                 p.parent.mkdir(parents=True, exist_ok=True)
                 p.write_text(fmt.serialize_exam(raw_questions, raw_layout), encoding="utf-8")
                 write_raw_exam_markdown(artifact_dir, raw_questions)
@@ -229,6 +235,7 @@ def build_ai_scaffold(
                     scaffold_str=scaffold_str,
                     artifact_dir=artifact_dir,
                     fmt=fmt,
+                    step_offset=_effective_step_offset,
                 )
             except Exception as _exc:
                 import logging as _log

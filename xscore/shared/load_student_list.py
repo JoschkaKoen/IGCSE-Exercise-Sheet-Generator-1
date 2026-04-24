@@ -140,10 +140,10 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
 
     from xscore.shared.terminal_ui import api_latency_line
     if artifact_dir is not None:
-        from xscore.shared.exam_paths import artifact_prompt_path
+        from xscore.shared.exam_paths import artifact_student_list_prompt_path
         from xscore.shared.prompt_logger import save_prompt
         save_prompt(
-            artifact_prompt_path(artifact_dir, "3_student_list"),
+            artifact_student_list_prompt_path(artifact_dir),
             model=model_name,
             messages=[{"role": "user", "content": _prompt_user_text}],
         )

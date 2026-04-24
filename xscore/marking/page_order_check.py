@@ -102,7 +102,11 @@ def check_page_order(
     from xscore.shared.terminal_ui import info_line, ok_line, warn_line
     from eXercise.ai_client import parse_model_effort
     from xscore.shared.prompt_logger import save_prompt, save_response
-    from xscore.shared.exam_paths import artifact_prompt_path
+    from xscore.shared.exam_paths import (
+        artifact_page_order_empty_exam_txt_path,
+        artifact_page_order_prompt_path,
+        artifact_page_order_txt_path,
+    )
     from google.genai import types as gai_types
     from eXercise.ai_client import make_gemini_native_client
     _gai = make_gemini_native_client()
@@ -117,7 +121,9 @@ def check_page_order(
     exam_texts = _exam_page_texts(exam_pdf)
 
     if artifact_dir:
-        (artifact_dir / "8_page_order_empty_exam.txt").write_text(
+        _po_empty = artifact_page_order_empty_exam_txt_path(artifact_dir)
+        _po_empty.parent.mkdir(parents=True, exist_ok=True)
+        _po_empty.write_text(
             _format_text_artifact([(f"Page {i}", t) for i, t in enumerate(exam_texts, 1)]),
             encoding="utf-8",
         )
@@ -135,8 +141,9 @@ def check_page_order(
         students_data.append({"name": a.student_name, "scan_pages": a.page_numbers, "texts": texts})
 
         if artifact_dir:
-            safe_name = a.student_name.replace(" ", "_")
-            (artifact_dir / f"8_page_order_student_{safe_name}.txt").write_text(
+            _po_student = artifact_page_order_txt_path(artifact_dir, a.student_name)
+            _po_student.parent.mkdir(parents=True, exist_ok=True)
+            _po_student.write_text(
                 _format_text_artifact([
                     (f"Position {pos} (scan page {sp})", t)
                     for pos, (sp, t) in enumerate(zip(a.page_numbers, texts), 1)
@@ -146,7 +153,7 @@ def check_page_order(
 
     # ── Call model ────────────────────────────────────────────────────────────
     prompt = _build_prompt(exam_texts, students_data)
-    save_path = artifact_prompt_path(artifact_dir, "8_page_order") if artifact_dir else None
+    save_path = artifact_page_order_prompt_path(artifact_dir) if artifact_dir else None
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
 
     import time as _time

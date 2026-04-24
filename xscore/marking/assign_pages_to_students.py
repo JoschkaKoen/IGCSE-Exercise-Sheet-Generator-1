@@ -33,7 +33,7 @@ from xscore.config import COVER_PAGE_DETECTION_DPI, GEMINI_MAX_OUTPUT_TOKENS, NA
 
 from eXercise.ai_client import is_503_error
 from .ai_helpers import ai_image_call, page_to_jpeg_b64
-from xscore.shared.exam_paths import artifact_prompt_path
+from xscore.shared.exam_paths import artifact_cover_scan_prompt_path, artifact_names_prompt_path
 from xscore.shared.models import PageAssignment
 from xscore.shared.prompt_logger import save_prompt, save_response, save_thinking
 
@@ -374,7 +374,7 @@ def assign_pages(
             os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
         )
 
-        _p1_save = artifact_prompt_path(artifact_dir, "8_cover_p1") if artifact_dir else None
+        _p1_save = artifact_cover_scan_prompt_path(artifact_dir, "cover_p1") if artifact_dir else None
         _t_cover = time.perf_counter()
         page1_is_cover = is_cover_page(cleaned_pdf, 0, _gai_client, _cover_model, prompt_save_path=_p1_save, effort=_cover_effort)
         _cover_elapsed = format_duration(time.perf_counter() - _t_cover)
@@ -391,7 +391,7 @@ def assign_pages(
             ]
 
             def _check_cover(idx: int) -> tuple[int, bool]:
-                save_path = artifact_prompt_path(artifact_dir, f"8_cover_p{idx + 1}") if artifact_dir else None
+                save_path = artifact_cover_scan_prompt_path(artifact_dir, f"cover_p{idx + 1}") if artifact_dir else None
                 return idx, is_cover_page(cleaned_pdf, idx, _gai_client, _cover_model, prompt_save_path=save_path, effort=_cover_effort)
 
             if cover_indices_to_check:
@@ -429,7 +429,7 @@ def assign_pages(
         fraction = name_crop_fraction if name_crop_fraction is not None else _name_crop_fraction(page, dpi)
         crop = _crop_top(page, fraction=fraction)
         img_b64 = page_to_jpeg_b64(crop)
-        save_path = artifact_prompt_path(artifact_dir, f"8_name_{i}") if artifact_dir else None
+        save_path = artifact_names_prompt_path(artifact_dir, f"name_{i}") if artifact_dir else None
         _t0 = time.perf_counter()
         raw = ai_image_call(client, img_b64, prompt, max_tokens=64, model_id=model_id,
                               prompt_save_path=save_path, print_latency=False)

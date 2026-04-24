@@ -94,10 +94,17 @@ def _build_marking_system_prompt(
         "Escape non-math special characters that appear literally in your prose: "
         "% → \\%, _ → \\_. "
         "Use \\newline for line breaks. "
-        "Use \\newline to break into a new paragraph after each idea. "
-        "Break long dense blocks into paragraphs. "
+        "Don't use line breaks." 
+        "Write the explanation in short clear and understandable bullet points"
         "Do not append a mark tally (e.g. '— 1 mark.') at the end."
     )
+
+        # "% → \\%, _ → \\_. "
+        # "Use \\newline for line breaks. "
+        # "Use \\newline to break into a new paragraph after each idea. "
+        # "Break long dense blocks into paragraphs. "
+        # "Do not append a mark tally (e.g. '— 1 mark.') at the end."
+
 
     # --- Section C: output format ---
     system_prompt += fmt.section_C(rows, cols)

@@ -20,6 +20,8 @@ def write_timing_report(
     api_calls: list[dict],
     accuracy_summary: dict | None = None,
     failures: list[dict] | None = None,
+    token_usage: dict | None = None,
+    total_cost_rmb: float = 0.0,
 ) -> None:
     """Write timing artifacts and print a summary to the terminal.
 
@@ -27,12 +29,18 @@ def write_timing_report(
     *api_calls* is the list returned by :func:`run_ai_marking`.
     *accuracy_summary* is the optional dict from :func:`evaluate_results`.
     *failures* is the list of page-level marking failures set on ctx by :func:`run_ai_marking`.
+    *token_usage* maps model name → ``{"input": N, "output": N}`` (from :func:`get_run_usage`).
+    *total_cost_rmb* is the sum of all per-model costs in RMB (from :func:`compute_cost`).
     """
     from xscore.shared.exam_paths import artifact_timing_json_path, artifact_timing_md_path
     from xscore.shared.terminal_ui import format_duration, info_line, warn_line
 
     failures = failures or []
+    token_usage = token_usage or {}
     total = sum(step_durations.values())
+    total_input = sum(v["input"] for v in token_usage.values())
+    total_output = sum(v["output"] for v in token_usage.values())
+
     payload: dict = {
         **{k: round(v, 2) for k, v in step_durations.items()},
         "total_marking_s": round(total, 2),
@@ -40,6 +48,13 @@ def write_timing_report(
         "total_failures": len(failures),
         "api_calls": api_calls,
     }
+    if token_usage:
+        from xscore.shared.cost_report import compute_cost
+        _, breakdown = compute_cost(token_usage)
+        payload["token_usage"] = breakdown
+        payload["total_input_tokens"] = total_input
+        payload["total_output_tokens"] = total_output
+        payload["total_cost_rmb"] = total_cost_rmb
     if failures:
         payload["failures"] = failures
     if accuracy_summary is not None:
@@ -62,6 +77,12 @@ def write_timing_report(
         label = _STEP_LABELS.get(key, key.replace("_s", "").replace("_", " ").title())
         info_line(f"  {label}: {format_duration(val)}")
     info_line(f"  Total: {format_duration(total)}  ·  {len(api_calls)} API calls")
+    if token_usage:
+        _hint = "" if total_cost_rmb > 0 else "  (fill COST_* in default.env)"
+        info_line(
+            f"  Tokens: {total_input:,} in · {total_output:,} out"
+            f"  ·  Estimated cost: ¥{total_cost_rmb:.4f}{_hint}"
+        )
     if failures:
         warn_line(f"  {len(failures)} page(s) failed marking — see 16_timing.md for details")
 
@@ -81,6 +102,21 @@ def _timing_to_md(payload: dict) -> str:
         label = _STEP_LABELS.get(k, k.replace("_s", "").replace("_", " ").title())
         lines.append(f"| {label} | {payload[k]:.1f}s |")
     lines.append(f"| **Total** | **{payload['total_marking_s']:.1f}s** |")
+
+    if payload.get("token_usage"):
+        lines.append("\n## Token Usage & Cost\n")
+        lines.append("| Model | Input tokens | Output tokens | Cost (RMB) |")
+        lines.append("|-------|-------------|--------------|------------|")
+        for model, data in payload["token_usage"].items():
+            lines.append(
+                f"| {model} | {data['input_tokens']:,} | {data['output_tokens']:,}"
+                f" | ¥{data['cost_rmb']:.6f} |"
+            )
+        lines.append(
+            f"| **Total** | **{payload.get('total_input_tokens', 0):,}**"
+            f" | **{payload.get('total_output_tokens', 0):,}**"
+            f" | **¥{payload.get('total_cost_rmb', 0.0):.6f}** |"
+        )
 
     if payload.get("api_calls"):
         lines.append(f"\n**Total API calls: {payload['total_api_calls']}**\n")

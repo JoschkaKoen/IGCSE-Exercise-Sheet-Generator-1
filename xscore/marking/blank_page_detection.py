@@ -35,7 +35,7 @@ def find_blank_exam_pages(
     """One LLM text call to identify blank exam pages. Returns set of 1-based page numbers."""
     from google.genai import types as gai_types
     from xscore.shared.prompt_logger import save_prompt, save_response
-    from xscore.shared.exam_paths import artifact_prompt_path
+    from xscore.shared.exam_paths import artifact_blank_pages_prompt_path
 
     lines = [
         "You are analysing an empty exam paper.",
@@ -57,11 +57,11 @@ def find_blank_exam_pages(
     prompt = "\n".join(lines)
 
     if artifact_dir:
-        (artifact_dir / "8_blank_detection_empty_exam.txt").write_text(
-            prompt, encoding="utf-8"
-        )
+        _det_path = artifact_blank_detection_txt_path(artifact_dir)
+        _det_path.parent.mkdir(parents=True, exist_ok=True)
+        _det_path.write_text(prompt, encoding="utf-8")
 
-    save_path = artifact_prompt_path(artifact_dir, "8_blank_detection_exam") if artifact_dir else None
+    save_path = artifact_blank_pages_prompt_path(artifact_dir, "blank_detection_exam") if artifact_dir else None
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
 
     resp = gai_client.models.generate_content(
@@ -132,7 +132,7 @@ def check_blank_pages(
     empty_exam_has_cover: bool | None = None,
 ) -> None:
     """Detect blank pages in the empty exam, then check each student's blank scan pages
-    for handwriting. Writes ``8_blank_pages.json`` to artifact_dir.
+    for handwriting. Writes ``13_blank_pages.json`` to artifact_dir.
 
     *empty_exam_has_cover* — True when the empty exam's first page is a cover page.
     When True the scan's cover page (p_label=1) maps 1:1 to exam page 1, so no offset
@@ -140,7 +140,12 @@ def check_blank_pages(
     all answer pages by +1 relative to the empty exam page numbers.
     """
     from eXercise.ai_client import make_gemini_native_client, parse_model_effort
-    from xscore.shared.exam_paths import artifact_prompt_path
+    from xscore.shared.exam_paths import (
+        artifact_blank_detection_txt_path,
+        artifact_blank_pages_dir,
+        artifact_blank_pages_json_path,
+        artifact_blank_pages_prompt_path,
+    )
     from xscore.shared.terminal_ui import info_line, ok_line, warn_line
 
     gai_client = make_gemini_native_client()
@@ -162,9 +167,9 @@ def check_blank_pages(
     if not blank_exam_pages:
         ok_line(f"Blank page detection: no blank pages found in empty exam  ·  {detect_dur}s")
         if artifact_dir:
-            (artifact_dir / "8_blank_pages.json").write_text(
-                json.dumps(empty_artifact, indent=2), encoding="utf-8"
-            )
+            _bp_path = artifact_blank_pages_json_path(artifact_dir)
+            _bp_path.parent.mkdir(parents=True, exist_ok=True)
+            _bp_path.write_text(json.dumps(empty_artifact, indent=2), encoding="utf-8")
         return
 
     _blank_pages_found = sorted(blank_exam_pages)
@@ -190,12 +195,12 @@ def check_blank_pages(
         students_out = [{"student_name": a.student_name, "blank_scan_pages": []} for a in page_assignments]
         artifact = {"blank_exam_pages": sorted(blank_exam_pages), "students": students_out}
         if artifact_dir:
-            (artifact_dir / "8_blank_pages.json").write_text(
-                json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8"
-            )
+            _bp_path = artifact_blank_pages_json_path(artifact_dir)
+            _bp_path.parent.mkdir(parents=True, exist_ok=True)
+            _bp_path.write_text(json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8")
         return
 
-    jpeg_dir = artifact_dir / "8_blank_pages" if artifact_dir else None
+    jpeg_dir = artifact_blank_pages_dir(artifact_dir) if artifact_dir else None
     if jpeg_dir:
         jpeg_dir.mkdir(parents=True, exist_ok=True)
 
@@ -209,7 +214,7 @@ def check_blank_pages(
             (jpeg_dir / f"{safe_name}_{exam_page}.jpg").write_bytes(jpeg_bytes)
 
         save_path = (
-            artifact_prompt_path(artifact_dir, f"8_blank_{safe_name}_{exam_page}")
+            artifact_blank_pages_prompt_path(artifact_dir, f"blank_{safe_name}_{exam_page}")
             if artifact_dir else None
         )
         hw = _has_handwriting(gai_client, model_id, jpeg_bytes, save_path)
@@ -262,7 +267,9 @@ def check_blank_pages(
         "students": students_out,
     }
     if artifact_dir:
-        (artifact_dir / "8_blank_pages.json").write_text(
+        _bp_path = artifact_blank_pages_json_path(artifact_dir)
+        _bp_path.parent.mkdir(parents=True, exist_ok=True)
+        _bp_path.write_text(
             json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8"
         )
 

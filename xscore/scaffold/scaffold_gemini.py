@@ -26,9 +26,11 @@ from xscore.scaffold.scaffold_xml import (
 from xscore.shared.exam_paths import (
     artifact_exam_questions_raw_path,
     artifact_exam_questions_raw_xml_path,
+    artifact_mark_scheme_graphics_dir,
+    artifact_mark_scheme_pages_dir,
     artifact_mark_scheme_path,
     artifact_mark_scheme_xml_path,
-    artifact_prompt_path,
+    artifact_scaffold_prompt_path,
 )
 from xscore.shared.prompt_logger import save_prompt, save_response
 from xscore.shared.terminal_ui import (
@@ -124,6 +126,7 @@ def _do_exam_call(
     n_split_pages: int,
     artifact_dir: "Path | None",
     fmt=None,
+    step_offset: int = 0,
 ) -> tuple[list[dict], dict]:
     if fmt is None:
         from xscore.scaffold.formats.xml_format import XmlScaffoldFormat
@@ -205,7 +208,7 @@ def _do_exam_call(
                 raise RuntimeError(f"Exam response empty after retry — {exam_model}")
         if artifact_dir is not None:
             save_prompt(
-                artifact_prompt_path(artifact_dir, "10_exam_questions"),
+                artifact_scaffold_prompt_path(artifact_dir, "exam_questions", step_offset),
                 model=exam_model, system=fmt.system_exam_prompt(),
                 messages=[{
                     "role": "user",
@@ -246,6 +249,7 @@ def _do_scheme_call(
     scaffold_str: str = "",
     artifact_dir: "Path | None",
     fmt=None,
+    step_offset: int = 0,
 ) -> dict:
     # Accept both old (scaffold_xml) and new (scaffold_str) param names for compatibility.
     if not scaffold_str:
@@ -258,7 +262,7 @@ def _do_scheme_call(
     # 1. Extract single-page PDFs from the mark scheme
     _tmp_dir: Path | None = None
     if artifact_dir is not None:
-        pages_dir = artifact_dir / "11_mark_scheme_pages"
+        pages_dir = artifact_mark_scheme_pages_dir(artifact_dir, step_offset)
     else:
         import tempfile
         _tmp_dir = Path(tempfile.mkdtemp())
@@ -370,7 +374,7 @@ def _do_scheme_call(
             _reason = "" if _oa_client is not None else f" ({_finish_reason(resp)})"
             warn_line(f"Mark scheme p{page_num}: empty response{_reason}")
         if artifact_dir is not None:
-            _prompt_path = artifact_prompt_path(artifact_dir, f"11_mark_scheme_p{page_num}")
+            _prompt_path = artifact_scaffold_prompt_path(artifact_dir, f"mark_scheme_p{page_num}", step_offset)
             save_prompt(
                 _prompt_path,
                 model=scheme_model, system=fmt.system_scheme_prompt(),
@@ -441,8 +445,8 @@ def _do_scheme_call(
                 ok_line(f"{format_duration(time.perf_counter() - _t0)}  (scheme graphics p{page_num})")
                 return {"questions": []}
             if artifact_dir is not None:
-                _prompt_path = artifact_prompt_path(
-                    artifact_dir, f"11_mark_scheme_graphics_detect_p{page_num}"
+                _prompt_path = artifact_scaffold_prompt_path(
+                    artifact_dir, f"mark_scheme_graphics_detect_p{page_num}", step_offset
                 )
                 save_prompt(
                     _prompt_path, model=_det_model, system=_gfx_system,
@@ -542,7 +546,7 @@ def _do_scheme_call(
                 _extract_scheme_graphics(
                     result.get("questions", []),
                     marking_scheme_pdf,
-                    artifact_dir / "11_mark_scheme_graphics",
+                    artifact_mark_scheme_graphics_dir(artifact_dir, step_offset),
                     dpi=_graphics_dpi,
                     margin=_graphics_margin,
                 )
