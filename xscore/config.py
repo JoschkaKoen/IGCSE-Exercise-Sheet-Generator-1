@@ -25,7 +25,7 @@ How to run (from repo root, with venv activated and dependencies installed):
     python3 xscore.py "check all multiple choice question answers"
     python3 xscore.py "..." --folder "path/to/exam_folder"
     # Optional CLI (also inferable from prompt JSON): --dpi  --folder
-    #   --force-clean-scan  --rescaffold  --no-report
+    #   --force-clean-scan  --no-report
 
 Tunables below apply to extraction/, the other top-level packages, and xscore.py
 (PIPELINE_*, NAME_*, etc.).

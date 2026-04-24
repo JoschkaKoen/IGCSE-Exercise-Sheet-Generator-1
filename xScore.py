@@ -115,8 +115,133 @@ def parse_args() -> argparse.Namespace:
         metavar="N",
         help="Stop pipeline after step N completes (e.g. 7 to stop after geometry)",
     )
+    parser.add_argument(
+        "--from-step",
+        type=int,
+        default=None,
+        metavar="N",
+        help="Resume from step N using artifacts from a prior run (supported: blueprints, marking, reports step)",
+    )
+    parser.add_argument(
+        "--resume-dir",
+        type=Path,
+        default=None,
+        metavar="PATH",
+        help="Prior artifact dir to resume from (auto-detects latest valid run if omitted)",
+    )
     args = parser.parse_args()
     return args
+
+
+# ---------------------------------------------------------------------------
+# Resume-from-step helpers
+# ---------------------------------------------------------------------------
+
+def _copy_artifacts(src: Path, dst: Path, from_step: int, blueprint_step: int) -> None:
+    """Copy prior-run artifacts needed for resuming from *from_step* into *dst*."""
+    import shutil
+    patterns = [
+        "3_students.*",
+        "7_cleaned_scan.pdf",
+        "8_exam_geometry.*", "8_exam_student_list.*", "8_blank_pages.json",
+        "9_exam_layout.*", "9_exam_input.pdf", "9_split_exam.pdf",
+        "10_exam_questions.*",
+        "11_mark_scheme.*",
+        "12_report.*", "12_short_report.*",
+    ]
+    if from_step >= blueprint_step + 1:   # from marking
+        patterns.append("13_ai_marking_blueprint_*.*")
+    if from_step >= blueprint_step + 2:   # from reports
+        patterns += ["students/14_marked_*.*", "students/14_failed_*.*"]
+    for pat in patterns:
+        for src_file in src.glob(pat):
+            dst_file = dst / src_file.relative_to(src)
+            dst_file.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src_file, dst_file)  # copy2 preserves mtime (scaffold cache validity)
+
+
+def _resume_pipeline(ctx: "_Ctx") -> None:
+    """Bootstrap *ctx* from a prior run's artifacts and set ctx.from_step skip logic."""
+    # Resolve prior run dir
+    resume_dir = ctx.resume_dir
+    if resume_dir is None:
+        assert ctx.folder is not None
+        exam_output_root = Path("output") / "xscore" / ctx.folder.name.replace(" ", "_")
+        candidates = sorted(
+            (p for p in exam_output_root.iterdir()
+             if p.is_dir() and p != ctx.artifact_dir
+             and (p / "12_report.json").exists()),
+            key=lambda p: p.stat().st_mtime, reverse=True,
+        )
+        if not candidates:
+            raise SystemExit(
+                f"No valid prior runs found in {exam_output_root}. Use --resume-dir."
+            )
+        resume_dir = candidates[0]
+    ctx.resume_dir = resume_dir
+
+    # Derive step_offset from prior run (split mode = layout detection artifact present)
+    ctx.step_offset = 1 if (resume_dir / "9_exam_layout.json").exists() else 0
+
+    # Validate from_step
+    blueprint_step = 12 + ctx.step_offset
+    valid_steps = (blueprint_step, blueprint_step + 1, blueprint_step + 2)
+    if ctx.from_step not in valid_steps:
+        raise SystemExit(
+            f"--from-step {ctx.from_step} not supported for this run "
+            f"(use {', '.join(str(s) for s in valid_steps)}: blueprints, marking, reports)."
+        )
+
+    # Validate required artifacts exist
+    required: list[Path] = [
+        resume_dir / "7_cleaned_scan.pdf",
+        resume_dir / "3_students.json",
+        resume_dir / "8_exam_student_list.json",
+        resume_dir / "12_report.json",
+    ]
+    if ctx.from_step >= blueprint_step + 1:
+        required += list(resume_dir.glob("13_ai_marking_blueprint_*.json"))
+    if ctx.from_step >= blueprint_step + 2:
+        required += list(resume_dir.glob("students/14_marked_*.xml"))
+    missing = [p for p in required if not p.exists()]
+    if missing:
+        raise SystemExit(
+            f"Prior run {resume_dir} is missing required artifacts:\n"
+            + "\n".join(f"  {p.name}" for p in missing)
+        )
+
+    # Copy artifacts into new artifact_dir
+    assert ctx.artifact_dir is not None
+    _copy_artifacts(resume_dir, ctx.artifact_dir, ctx.from_step, blueprint_step)
+
+    # Bootstrap ctx fields from copied artifacts
+    from xscore.shared.exam_paths import artifact_exam_student_list_json_path
+    ctx.cleaned_pdf = ctx.artifact_dir / "7_cleaned_scan.pdf"
+    ctx.students = json.loads((ctx.artifact_dir / "3_students.json").read_text())
+
+    page_assignments = json.loads(
+        artifact_exam_student_list_json_path(ctx.artifact_dir).read_text()
+    )
+    ctx.page_assignments = page_assignments
+    ctx.num_students = len(page_assignments)
+    ctx.pages_per_student = max(
+        (len(a["page_numbers"]) for a in page_assignments), default=0
+    )
+
+    geo_path = ctx.artifact_dir / "8_exam_geometry.json"
+    if geo_path.exists():
+        geo = json.loads(geo_path.read_text())
+        ctx.empty_exam_has_cover = geo.get("empty_exam_has_cover")
+        ctx.cover_page_mode = bool(geo.get("cover_page_mode", False))
+
+    # Load scaffold from copied 12_report.json (cache hit guaranteed — copy2 preserves mtime)
+    from xscore.scaffold.generate_scaffold import build_scaffold
+    ctx.scaffold = build_scaffold(
+        ctx.folder, artifact_dir=ctx.artifact_dir, force_rebuild=False
+    )
+
+    from xscore.shared.terminal_ui import ok_line
+    ok_line(f"Resumed from  {resume_dir}  (from-step {ctx.from_step})")
 
 
 # ---------------------------------------------------------------------------
@@ -189,6 +314,8 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         inst = ctx.instruction
 
         ctx.force_clean_scan = ctx.args.force_clean_scan or inst.force_clean_scan
+        if ctx.from_step is None and inst.from_step is not None:
+            ctx.from_step = inst.from_step
 
         task_labels = {
             "check_answers": "Grade answers",
@@ -230,7 +357,9 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             suffix += 1
             ctx.artifact_dir = exam_output_root / f"{ctx.timestamp}_{suffix}"
         ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
-        print(f"Output: {ctx.artifact_dir}")
+        if ctx.from_step:
+            _resume_pipeline(ctx)
+        print(f"  Output: {ctx.artifact_dir}")
         (ctx.artifact_dir / "command.txt").write_text(
             "python " + shlex.join([Path(sys.argv[0]).name] + sys.argv[1:]),
             encoding="utf-8",
@@ -254,6 +383,8 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
 
     def _step03_students(ctx: _Ctx, *, on_header_printed=None, on_complete=None) -> None:
         assert ctx.folder is not None and ctx.artifact_dir is not None
+        if ctx.from_step:
+            return
         pipeline_step(3, "Read student list")
         if on_header_printed is not None:
             on_header_printed()
@@ -268,6 +399,8 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         or 9–11 in legacy mode (9 exam, 10 scheme, 11 merge)."""
         import os as _os
         assert ctx.folder is not None and ctx.artifact_dir is not None
+        if ctx.from_step:
+            return
         t0 = time.perf_counter()
 
         _split = _os.getenv("READ_EXAM_PDF_SPLIT", "1").strip() not in ("0", "false", "no")
@@ -324,6 +457,8 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
     def _scan_phases(ctx: _Ctx) -> None:
         """Steps 4–7: optional duplex merge → blank detection → autorotate → deskew."""
         assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
+        if ctx.from_step:
+            return
         ad = ctx.artifact_dir
         dpi = ctx.instruction.dpi
 
@@ -442,6 +577,8 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
     def _step08_geometry(ctx: _Ctx) -> None:
         """Step 8 — Count scan/exam pages, derive student count, detect cover pages."""
         assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+        if ctx.from_step:
+            return
         pipeline_step(8, "Exam geometry")
         t0 = time.perf_counter()
         exam_pages = ctx.scaffold.page_count if ctx.scaffold else _exam_pdf_page_count(ctx.folder)

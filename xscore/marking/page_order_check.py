@@ -1,11 +1,32 @@
 """Step 8 sub-step: verify that scan pages are in the correct order and content."""
 
 from __future__ import annotations
+
+import json
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, TypedDict
 
 if TYPE_CHECKING:
     from xscore.shared.models import PageAssignment
+
+
+class _PageIssue(TypedDict):
+    position: int
+    scan_page: int
+    expected: str
+    found: str
+    detail: str
+
+
+class _StudentResult(TypedDict):
+    name: str
+    ok: bool
+    issues: list[_PageIssue]
+
+
+class _PageOrderResult(TypedDict):
+    all_ok: bool
+    students: list[_StudentResult]
 
 
 def _exam_page_texts(exam_pdf: Path) -> list[str]:
@@ -59,8 +80,7 @@ def _build_prompt(exam_texts: list[str], students_data: list[dict]) -> str:
     lines += [
         "For each student check that position N matches empty exam page N in content.",
         "OCR may have minor noise — focus on question numbers, instructions, 'BLANK PAGE', section headings.",
-        "",
-        'Return ONLY JSON: {"all_ok": bool, "students": [{"name": str, "ok": bool, "issues": [{"position": int, "scan_page": int, "expected": str, "found": str, "detail": str}]}]}',
+        "Report any mismatches with the position, scan page number, and a brief detail.",
     ]
     return "\n".join(lines)
 
@@ -74,7 +94,6 @@ def check_page_order(
     """Validate page order and content for all students. Raises SystemExit(1) on mismatch."""
     import os
     from xscore.shared.terminal_ui import info_line, ok_line, warn_line
-    from xscore.marking.ai_helpers import parse_json_safe
     from eXercise.ai_client import parse_model_effort
     from xscore.shared.prompt_logger import save_prompt, save_response
     from xscore.shared.exam_paths import artifact_prompt_path
@@ -129,14 +148,21 @@ def check_page_order(
     resp = _gai.models.generate_content(
         model=model_id,
         contents=[gai_types.Part.from_text(text=prompt)],
-        config=gai_types.GenerateContentConfig(max_output_tokens=2048),
+        config=gai_types.GenerateContentConfig(
+            max_output_tokens=2048,
+            response_mime_type="application/json",
+            response_schema=_PageOrderResult,
+        ),
     )
     dur = round(_time.perf_counter() - t0, 1)
     raw = resp.text or ""
     save_response(save_path, raw)
 
     # ── Parse and report ──────────────────────────────────────────────────────
-    data = parse_json_safe(raw) or {}
+    try:
+        data = json.loads(raw) if raw else {}
+    except json.JSONDecodeError:
+        data = {}
     if data.get("all_ok", True):
         ok_line(f"Page order check: all students OK  ·  {dur}s")
         return

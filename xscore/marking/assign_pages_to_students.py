@@ -30,7 +30,9 @@ from typing import Any
 
 from xscore.config import COVER_PAGE_DETECTION_DPI, GEMINI_MAX_OUTPUT_TOKENS, NAME_RECOGNITION_DPI
 
-from .ai_helpers import ai_image_call, page_to_jpeg_b64, parse_json_safe
+import json
+
+from .ai_helpers import ai_image_call, page_to_jpeg_b64
 from xscore.shared.exam_paths import artifact_prompt_path
 from xscore.shared.models import PageAssignment
 from xscore.shared.prompt_logger import save_prompt, save_response, save_thinking
@@ -78,9 +80,7 @@ Here is the text extracted from this exam page:
 
 {text}
 
-Is this page a cover page?
-
-Return ONLY JSON: {{"cover_page": true}} or {{"cover_page": false}}
+Is this page a cover page? Answer true or false.
 """
 
 
@@ -133,6 +133,8 @@ def is_cover_page(
     _budget = _thinking_map.get(effort or "off", 0)
     config = gai_types.GenerateContentConfig(
         max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+        response_mime_type="application/json",
+        response_schema=bool,
         thinking_config=gai_types.ThinkingConfig(
             thinking_budget=_budget,
             include_thoughts=_budget > 0,
@@ -161,7 +163,10 @@ def is_cover_page(
         warn_line(f"[{model_id}] cover page check returned empty response")
     save_thinking(prompt_save_path, thinking_text)
     save_response(prompt_save_path, raw)
-    return bool((parse_json_safe(raw) or {}).get("cover_page", False))
+    try:
+        return bool(json.loads(raw)) if raw else False
+    except (json.JSONDecodeError, ValueError):
+        return False
 
 
 def check_cover_page_text(
@@ -194,6 +199,8 @@ def check_cover_page_text(
     _budget = _thinking_map.get(effort or "off", 0)
     config = gai_types.GenerateContentConfig(
         max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+        response_mime_type="application/json",
+        response_schema=bool,
         thinking_config=gai_types.ThinkingConfig(
             thinking_budget=_budget,
             include_thoughts=_budget > 0,
@@ -222,7 +229,10 @@ def check_cover_page_text(
         warn_line(f"[{model_id}] cover page text check returned empty response")
     save_thinking(prompt_save_path, thinking_text)
     save_response(prompt_save_path, raw)
-    return bool((parse_json_safe(raw) or {}).get("cover_page", False))
+    try:
+        return bool(json.loads(raw)) if raw else False
+    except (json.JSONDecodeError, ValueError):
+        return False
 
 
 def _crop_top(page, fraction: float = 0.15):
@@ -376,7 +386,10 @@ def assign_pages(
         raw = ai_image_call(client, img_b64, prompt, max_tokens=64, model_id=model_id,
                               prompt_save_path=save_path, print_latency=False)
         elapsed = time.perf_counter() - _t0
-        data = parse_json_safe(raw) or {}
+        try:
+            data = json.loads(raw) if raw else {}
+        except json.JSONDecodeError:
+            data = {}
         raw_name = str(data.get("name", "") or "").strip()
         matched_name = fuzzy_match_name(raw_name, students) if raw_name else None
         ok_line(f"Page {i:3d}/{n_pages}: {raw_name!r}  →  {matched_name!r}  ·  {format_duration(elapsed)}")

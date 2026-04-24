@@ -37,8 +37,8 @@ class TaskInstruction:
     # Optional explicit exam folder path (from prompt); lower priority than CLI --folder
     folder_path: str | None = None
     force_clean_scan: bool = False
-    rescaffold: bool = False  # TODO: not yet acted on in xScore.py
     no_report: bool = False
+    from_step: int | None = None
 
 
 @dataclass

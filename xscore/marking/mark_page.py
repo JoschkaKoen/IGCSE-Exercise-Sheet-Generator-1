@@ -104,6 +104,8 @@ def _mark_page(
         "Escape non-math special characters that appear literally in your prose: "
         "% → \\%, _ → \\_, literal ampersand → \\&amp;. "
         "Use \\newline for line breaks. "
+        "Use \\newline to break into a new paragraph after each idea. "
+        "Break long dense blocks into paragraphs. "
         "Do not append a mark tally (e.g. '— 1 mark.') at the end."
     )
 

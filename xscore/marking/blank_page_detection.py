@@ -36,7 +36,6 @@ def find_blank_exam_pages(
     from google.genai import types as gai_types
     from xscore.shared.prompt_logger import save_prompt, save_response
     from xscore.shared.exam_paths import artifact_prompt_path
-    from xscore.marking.ai_helpers import parse_json_safe
 
     lines = [
         "You are analysing an empty exam paper.",
@@ -53,7 +52,7 @@ def find_blank_exam_pages(
         "- May have printed horizontal lines (writing lines for students) — these do NOT",
         "  disqualify a page from being blank",
         "",
-        'Return ONLY JSON: {"blank_pages": [list of 1-based page numbers]}',
+        "Return the list of 1-based page numbers of blank pages.",
     ]
     prompt = "\n".join(lines)
 
@@ -68,13 +67,20 @@ def find_blank_exam_pages(
     resp = gai_client.models.generate_content(
         model=model_id,
         contents=[gai_types.Part.from_text(text=prompt)],
-        config=gai_types.GenerateContentConfig(max_output_tokens=256),
+        config=gai_types.GenerateContentConfig(
+            max_output_tokens=256,
+            response_mime_type="application/json",
+            response_schema=list[int],
+        ),
     )
     raw = resp.text or ""
     save_response(save_path, raw)
 
-    data = parse_json_safe(raw) or {}
-    return set(int(p) for p in data.get("blank_pages", []))
+    try:
+        pages = json.loads(raw) if raw else []
+        return {int(p) for p in (pages if isinstance(pages, list) else [])}
+    except (json.JSONDecodeError, ValueError):
+        return set()
 
 
 def _has_handwriting(
@@ -86,13 +92,11 @@ def _has_handwriting(
     """Vision call: does this blank scan page contain student handwriting?"""
     from google.genai import types as gai_types
     from xscore.shared.prompt_logger import save_prompt, save_response
-    from xscore.marking.ai_helpers import parse_json_safe
 
     prompt_text = (
         "This is a blank exam page. It may have printed horizontal writing lines.\n"
         "Is there any STUDENT HANDWRITING on this page? "
-        "Ignore the printed lines — only count ink written by a student.\n"
-        'Return ONLY JSON: {"has_handwriting": true} or {"has_handwriting": false}'
+        "Ignore the printed lines — only count ink written by a student."
     )
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt_text}])
 
@@ -102,13 +106,19 @@ def _has_handwriting(
             gai_types.Part.from_bytes(data=jpeg_bytes, mime_type="image/jpeg"),
             gai_types.Part.from_text(text=prompt_text),
         ],
-        config=gai_types.GenerateContentConfig(max_output_tokens=32),
+        config=gai_types.GenerateContentConfig(
+            max_output_tokens=32,
+            response_mime_type="application/json",
+            response_schema=bool,
+        ),
     )
     raw = resp.text or ""
     save_response(save_path, raw)
 
-    data = parse_json_safe(raw) or {}
-    return bool(data.get("has_handwriting", False))
+    try:
+        return bool(json.loads(raw)) if raw else False
+    except (json.JSONDecodeError, ValueError):
+        return False
 
 
 def check_blank_pages(
