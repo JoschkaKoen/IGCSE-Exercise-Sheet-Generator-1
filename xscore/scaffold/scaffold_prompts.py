@@ -215,8 +215,8 @@ in the correct order:"), bullet lists, numbered lists, tables, bold text, and an
 mark scheme text. Do not skip any text associated with the question's marking criteria.
 - LaTeX formatting rules for the block:
     bold text           → \\textbf{{...}}
-    unordered lists     → \\begin{{itemize}}\\item ...\\item ...\\end{{itemize}}
-    ordered/numbered lists → \\begin{{enumerate}}\\item ...\\item ...\\end{{enumerate}}
+    unordered lists     → \\begin{{itemize}}\\item first\\item second\\end{{itemize}}
+    ordered/numbered lists → \\begin{{enumerate}}\\item first\\item second\\end{{enumerate}}
     tables              → \\begin{{tabular}}{{col-spec}} cell & cell \\\\ next row \\end{{tabular}} \
 (infer col-spec as l/c/r per column)
     inline math         → $...$
@@ -225,11 +225,16 @@ mark scheme text. Do not skip any text associated with the question's marking cr
                           % → \\%,   $ → \\$,   # → \\#,   _ → \\_,
                           {{ → \\{{,   }} → \\}},   backslash → \\textbackslash{{}},
                           literal ampersand → &amp; (standard XML; \\& for LaTeX is added automatically).
-                          Use \\newline for explicit line breaks between prose sentences.
+                          Use \\newline for explicit line breaks between prose sentences only.
                           NEVER use \\newline immediately after \\begin{{...}} or before \\end{{...}}.
                           List items begin directly with \\item — no \\newline between them.
                           Correct: \\begin{{itemize}}\\item first\\item second\\end{{itemize}}
                           Wrong:   \\begin{{itemize}}\\newline\\item first\\newline\\end{{itemize}}
+    CRITICAL — the entire <criterion> text must be a single unbroken line.
+               No literal newlines (\\n) anywhere inside the criterion — not between list items,
+               not before \\begin{{...}}, not after \\end{{...}}, not anywhere.
+               Wrong: "Any two from:\\n\\begin{{itemize}}\\n\\item To save space\\n\\end{{itemize}}"
+               Right: "Any two from: \\begin{{itemize}}\\item To save space\\item To transmit faster\\end{{itemize}}"
     plain prose and introductory sentences are written verbatim (no special wrapping)
 - For multiple_choice questions: set correct_answer only; no <criterion> children needed
 - Keep every <question> element present — even if marks cannot be found for it
