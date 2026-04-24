@@ -34,3 +34,8 @@ fi
 echo "$(date -Is) updated $OLD_HEAD -> $NEW_HEAD"
 docker compose up -d --build
 echo "$(date -Is) docker compose up -d --build done"
+
+# Prune dangling images and all build cache so disk doesn't fill up over time.
+docker image prune -f
+docker builder prune -af
+echo "$(date -Is) docker prune done"
