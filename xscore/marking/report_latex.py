@@ -45,6 +45,7 @@ def _ai_cell(text: str) -> str:
     result = re.sub(r"(?<=\})\\newline\s*(?=\\begin\{)", "", result)
     result = re.sub(r"(\\begin\{[^}]+\})\s*\\newline\b", r"\1", result)
     result = re.sub(r"(\\end\{[^}]+\})\s*\\newline\b", r"\1 ", result)
+    result = re.sub(r"\\newline\s*(?=\\item\b)", "", result)
     return result
 
 
@@ -105,7 +106,6 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
     rows = []
     for q in report["questions"]:
         qnum = _latex_escape(str(q.get("number", "")).replace("_", "."))
-        qtype = str(q.get("question_type", "")).replace("_", " ").title()
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
@@ -126,12 +126,14 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         reasoning = _ai_cell(str(q.get("explanation") or ""))
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(
-            f"    {qnum} & {qtype} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"
+            f"    {qnum} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"
         )
     rows_str = "\n".join(rows)
+    curved_pct = report.get("curved_pct")
     pct_display = "N/A" if pct is None else f"{pct}\\%"
-    # Column widths fill landscape A4 text width (25.7 cm - ~3 cm separator overhead = 22.7 cm):
-    # p{0.6cm} + p{1.5cm} + p{0.6cm} + p{0.7cm} + p{5.2cm} + p{6.5cm} + p{7.6cm} = 22.7 cm
+    curved_display = "N/A" if curved_pct is None else f"{curved_pct}\\%"
+    # Column widths fill landscape A4 text width (25.7 cm - ~2.5 cm separator overhead = 22.7 cm):
+    # p{0.6cm} + p{0.6cm} + p{0.7cm} + p{5.7cm} + p{7.0cm} + p{8.1cm} = 22.7 cm
     return (
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
@@ -146,19 +148,19 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         "\\geometry{a4paper,landscape,margin=2cm}\n"
         "\\begin{document}\n"
         f"\\section*{{Student Report: {name}{header_extra}}}\n"
-        f"\\textbf{{Total: {total}/{max_m} ({pct_display})}} \\quad "
+        f"\\textbf{{Total: {total}/{max_m} ({pct_display} raw, {curved_display} curved)}} \\quad "
         f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
         "\\vspace{1em}\n\n"
         "{\\small\n"
         "\\renewcommand{\\arraystretch}{1.6}\n"
-        "\\begin{longtable}{L{0.6cm}L{1.5cm}L{0.6cm}L{0.7cm}L{5.2cm}L{6.5cm}L{7.6cm}}\n"
+        "\\begin{longtable}{L{0.6cm}L{0.6cm}L{0.7cm}L{5.7cm}L{7.0cm}L{8.1cm}}\n"
         "\\toprule\n"
-        "\\textbf{Q} & \\textbf{Type} & \\textbf{Max} & \\textbf{Got} & "
+        "\\textbf{Q} & \\textbf{Max} & \\textbf{Got} & "
         "\\textbf{Student Answer} & \\textbf{Expected} & \\textbf{Reasoning} \\\\\n"
         "\\midrule\n"
         "\\endfirsthead\n"
         "\\midrule\n"
-        "\\textbf{Q} & \\textbf{Type} & \\textbf{Max} & \\textbf{Got} & "
+        "\\textbf{Q} & \\textbf{Max} & \\textbf{Got} & "
         "\\textbf{Student Answer} & \\textbf{Expected} & \\textbf{Reasoning} \\\\\n"
         "\\midrule\n"
         "\\endhead\n"
@@ -178,8 +180,9 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
     for s in report["students"]:
         name = _latex_escape(s["name"])
         pct_display = "N/A" if s["percentage"] is None else f"{s['percentage']}\\%"
+        curved_display = "N/A" if s.get("curved_pct") is None else f"{s['curved_pct']}\\%"
         rank_cell = str(s["rank"]) if s.get("rank") is not None else "---"
-        student_rows.append(f"    {rank_cell} & {name} & {s['total_marks']} & {pct_display} \\\\")
+        student_rows.append(f"    {rank_cell} & {name} & {s['total_marks']} & {pct_display} & {curved_display} \\\\")
     student_rows_str = "\n".join(student_rows)
 
     q_max = report.get("per_question_max_marks", {})
@@ -213,13 +216,13 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
         f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
         "\\vspace{1em}\n\n"
         "\\subsection*{Student Rankings}\n"
-        "\\begin{longtable}{rlrl}\n"
+        "\\begin{longtable}{rlrrr}\n"
         "\\toprule\n"
-        "\\textbf{Rank} & \\textbf{Student} & \\textbf{Marks} & \\textbf{Percentage} \\\\\n"
+        "\\textbf{Rank} & \\textbf{Student} & \\textbf{Marks} & \\textbf{Percentage} & \\textbf{Curved} \\\\\n"
         "\\midrule\n"
         "\\endfirsthead\n"
         "\\midrule\n"
-        "\\textbf{Rank} & \\textbf{Student} & \\textbf{Marks} & \\textbf{Percentage} \\\\\n"
+        "\\textbf{Rank} & \\textbf{Student} & \\textbf{Marks} & \\textbf{Percentage} & \\textbf{Curved} \\\\\n"
         "\\midrule\n"
         "\\endhead\n"
         f"{student_rows_str}\n"

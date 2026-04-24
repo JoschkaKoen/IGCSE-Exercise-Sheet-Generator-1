@@ -78,12 +78,15 @@ def _build_prompt(exam_texts: list[str], students_data: list[dict]) -> str:
             lines += [f"  Position {pos} (scan page {scan_p}):", f"  {text or '(no text)'}", ""]
 
     lines += [
-        "For each student check that position N matches empty exam page N in content.",
-        "OCR may have minor noise — focus on question numbers, instructions, 'BLANK PAGE', section headings.",
-        "IMPORTANT: Student answers written in blank answer spaces are NOT page order issues — ignore them completely.",
-        "Only flag a mismatch when printed structural content is wrong: question numbers out of order, "
-        "wrong question text, wrong section headings, or a BLANK PAGE marker where question text is expected.",
-        "Report any mismatches with the position, scan page number, and a brief detail.",
+        "Your task: detect pages that are physically out of order in the student's scan.",
+        "A mismatch means the SEQUENCE of questions is wrong — e.g. the page at position 5 contains",
+        "question 8's text when it should contain question 5's text.",
+        "To detect this: identify the question number(s) and question text visible on each page,",
+        "then check that the sequence in the student scan matches the sequence in the empty exam.",
+        "Both the reference text (PDF heuristic extraction) and the scan text (OCR) are imperfect —",
+        "focus on the identity and order of questions, not exact wording / spelling.",
+        "Ignore all student handwriting, answer variations, and minor OCR noise.",
+        "Only flag when a question clearly belongs to a different position in the exam.",
     ]
     return "\n".join(lines)
 

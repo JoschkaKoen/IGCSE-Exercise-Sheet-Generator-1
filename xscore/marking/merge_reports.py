@@ -131,8 +131,8 @@ def _student_report_to_md(report: dict) -> str:
     lines = [
         f"# Student Report: {name}\n",
         f"**Total: {total}/{max_m} ({_fmt_pct(pct)})**\n",
-        "| Question | Type | Max | Awarded | Student Answer | Correct Answer | Reasoning |",
-        "|----------|------|-----|---------|----------------|----------------|-----------|",
+        "| Question | Max | Awarded | Student Answer | Correct Answer | Reasoning |",
+        "|----------|-----|---------|----------------|----------------|-----------|",
     ]
     for q in report["questions"]:
         answer_raw = str(q.get("student_answer") or "").strip()
@@ -141,9 +141,8 @@ def _student_report_to_md(report: dict) -> str:
         awarded_str = "*?*" if awarded is None else str(awarded)
         correct = str(q.get("correct_answer") or "—").replace("|", "/")
         reasoning = str(q.get("explanation") or "").replace("|", "/")
-        qtype_md = str(q.get("question_type", "")).replace("_", " ").title()
         lines.append(
-            f"| {q.get('number', '')} | {qtype_md} | "
+            f"| {q.get('number', '')} | "
             f"{q.get('max_marks', '')} | {awarded_str} | {answer} | {correct} | {reasoning} |"
         )
     return "\n".join(lines) + "\n"
@@ -449,7 +448,7 @@ def compile_reports(ctx: Any) -> list[dict]:
     fmt = get_marking_format()
     total_max_marks = ctx.scaffold.total_marks
     student_summaries: list[dict] = []
-    tex_paths: list[Path] = []
+    _full_reports: dict[str, dict] = {}
 
     # Build correct_answer lookup keyed by (possibly _2-suffixed) question number so it
     # matches the renamed numbers produced by _merge_student_pages.
@@ -488,8 +487,6 @@ def compile_reports(ctx: Any) -> list[dict]:
         artifact_student_report_md_path(ctx.artifact_dir, name).write_text(
             _student_report_to_md(report), encoding="utf-8"
         )
-        tex_path = artifact_student_report_tex_path(ctx.artifact_dir, name)
-        tex_path.write_text(_student_report_to_tex(report, exam_name=exam_name), encoding="utf-8")
 
         with _q_totals_lock:
             for _q in report["questions"]:
@@ -504,7 +501,7 @@ def compile_reports(ctx: Any) -> list[dict]:
                 "total_marks": report["total_marks"],
                 "percentage": report["percentage"],
             })
-            tex_paths.append(tex_path)
+            _full_reports[name] = report
 
         info_line(
             f"{name}: {report['total_marks']}/{total_max_marks} ({_fmt_pct(report['percentage'])})"
@@ -517,6 +514,24 @@ def compile_reports(ctx: Any) -> list[dict]:
         )):
             if exc is not None:
                 raise exc
+
+    # Compute grade curve (class average → 80%) then write student .tex files serially.
+    # This must happen after Pass 1 so the class average over all students is known.
+    known_pcts = [s["percentage"] for s in student_summaries if s["percentage"] is not None]
+    class_avg = int(round(sum(known_pcts) / len(known_pcts))) if known_pcts else None
+    curve_offset = (80 - class_avg) if class_avg is not None else 0
+    for s in student_summaries:
+        s["curved_pct"] = (
+            min(100, max(0, s["percentage"] + curve_offset))
+            if s["percentage"] is not None else None
+        )
+    tex_paths = []
+    for s in student_summaries:
+        report = _full_reports[s["name"]]
+        report["curved_pct"] = s["curved_pct"]
+        tex_path = artifact_student_report_tex_path(ctx.artifact_dir, s["name"])
+        tex_path.write_text(_student_report_to_tex(report, exam_name=exam_name), encoding="utf-8")
+        tex_paths.append(tex_path)
 
     # Pass 2 — parallel: compile all student .tex files concurrently (each is an independent process)
     with ThreadPoolExecutor(max_workers=workers) as ex:
@@ -532,8 +547,6 @@ def compile_reports(ctx: Any) -> list[dict]:
             for qnum, avg in all_avgs.items()
             if all_max.get(qnum, 0) > 0
         }
-        known_pcts = [s["percentage"] for s in student_summaries if s["percentage"] is not None]
-        class_avg = int(round(sum(known_pcts) / len(known_pcts))) if known_pcts else None
         ranked_students = _rank_students(student_summaries)
         class_report = {
             "students": ranked_students,
