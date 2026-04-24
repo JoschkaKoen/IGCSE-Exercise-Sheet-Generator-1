@@ -47,8 +47,17 @@ def _ai_cell(text: str) -> str:
     XML element text is stored verbatim (no JSON escaping layer), so no
     control-character restoration is needed.  Literal newlines in the text
     are converted to LaTeX line breaks.
+
+    ``\\newline`` immediately before a block-level environment (``\\begin{...}``)
+    is invalid LaTeX and causes "There's no line here to end"; strip those.
     """
-    return text.replace("\n", "\\\\ ")
+    result = text.replace("\n", "\\newline ")
+    # \newline adjacent to block-level environments is invalid LaTeX
+    # ("There's no line here to end") — strip it in both positions.
+    result = re.sub(r"\\newline\s*(?=\\begin\{)", "", result)
+    result = re.sub(r"(?<=\})\\newline\s*(?=\\begin\{)", "", result)
+    result = re.sub(r"(\\end\{[^}]+\})\s*\\newline\b", r"\1 ", result)
+    return result
 
 
 def _format_criteria_cell(raw: str) -> str:
@@ -80,8 +89,6 @@ def _format_criteria_cell(raw: str) -> str:
         segments.append(" / ".join(short_group))
 
     result = "\n".join(segments)
-    if len(result) > 300:
-        result = result[:299] + "…"
     return _ai_cell(result)
 
 

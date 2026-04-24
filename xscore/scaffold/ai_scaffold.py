@@ -250,7 +250,7 @@ mark scheme text. Do not skip any text associated with the question's marking cr
                           % → \\%,   $ → \\$,   # → \\#,   _ → \\_,
                           {{ → \\{{,   }} → \\}},   backslash → \\textbackslash{{}},
                           literal ampersand → \\&amp;  (\\& for LaTeX + &amp; for XML, combined).
-                          Use \\\\ (not a literal newline) for explicit line breaks.
+                          Use \\newline (not a literal newline) for explicit line breaks.
                           Write \\begin{{itemize}}/\\begin{{enumerate}} items inline —
                           no literal newlines between \\begin{{...}}, \\item entries, \\end{{...}}.
     plain prose and introductory sentences are written verbatim (no special wrapping)

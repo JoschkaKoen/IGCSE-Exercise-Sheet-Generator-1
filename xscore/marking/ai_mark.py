@@ -287,7 +287,7 @@ def _mark_page(
         "% → \\%, $ → \\$, # → \\#, _ → \\_, { → \\{, } → \\}, "
         "backslash → \\textbackslash{}, "
         "literal ampersand → \\&amp; (\\& for LaTeX + &amp; for XML, combined). "
-        "Use \\\\ for line breaks; do not include literal newlines.\n"
+        "Use \\newline for line breaks; do not include literal newlines.\n"
         "2. assigned_marks — an integer 0–max_marks.\n"
         "   • Award 1 mark for each criterion the student satisfies, up to max_marks.\n"
         "   • For 'any N from' lists, each listed item is a separate mark point.\n"
@@ -302,7 +302,7 @@ def _mark_page(
         "You can make important words bold using LaTeX syntax \\textbf{word}: only for important words. "
         "Escape non-math special characters that appear literally in your prose: "
         "% → \\%, _ → \\_, literal ampersand → \\&amp;. "
-        "Use \\\\ for line breaks. "
+        "Use \\newline for line breaks. "
         "Do not append a mark tally (e.g. '— 1 mark.') at the end."
     )
 
