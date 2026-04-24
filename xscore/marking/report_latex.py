@@ -34,14 +34,16 @@ def _ai_cell(text: str) -> str:
     control-character restoration is needed.  Literal newlines in the text
     are converted to LaTeX line breaks.
 
-    ``\\newline`` immediately before a block-level environment (``\\begin{...}``)
-    is invalid LaTeX and causes "There's no line here to end"; strip those.
+    ``\\newline`` immediately before or after a block-level environment
+    (``\\begin{...}`` / ``\\end{...}``) is invalid LaTeX and causes
+    "There's no line here to end"; strip those.
     """
     result = text.replace("\n", "\\newline ")
     # \newline adjacent to block-level environments is invalid LaTeX
-    # ("There's no line here to end") — strip it in both positions.
+    # ("There's no line here to end") — strip it in all four positions.
     result = re.sub(r"\\newline\s*(?=\\begin\{)", "", result)
     result = re.sub(r"(?<=\})\\newline\s*(?=\\begin\{)", "", result)
+    result = re.sub(r"(\\begin\{[^}]+\})\s*\\newline\b", r"\1", result)
     result = re.sub(r"(\\end\{[^}]+\})\s*\\newline\b", r"\1 ", result)
     return result
 

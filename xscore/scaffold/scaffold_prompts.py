@@ -224,10 +224,12 @@ mark scheme text. Do not skip any text associated with the question's marking cr
                           Escape characters that appear as literal text (not LaTeX syntax):
                           % → \\%,   $ → \\$,   # → \\#,   _ → \\_,
                           {{ → \\{{,   }} → \\}},   backslash → \\textbackslash{{}},
-                          literal ampersand → \\&amp;  (\\& for LaTeX + &amp; for XML, combined).
-                          Use \\newline (not a literal newline) for explicit line breaks.
-                          Write \\begin{{itemize}}/\\begin{{enumerate}} items inline —
-                          no literal newlines between \\begin{{...}}, \\item entries, \\end{{...}}.
+                          literal ampersand → &amp; (standard XML; \\& for LaTeX is added automatically).
+                          Use \\newline for explicit line breaks between prose sentences.
+                          NEVER use \\newline immediately after \\begin{{...}} or before \\end{{...}}.
+                          List items begin directly with \\item — no \\newline between them.
+                          Correct: \\begin{{itemize}}\\item first\\item second\\end{{itemize}}
+                          Wrong:   \\begin{{itemize}}\\newline\\item first\\newline\\end{{itemize}}
     plain prose and introductory sentences are written verbatim (no special wrapping)
 - For multiple_choice questions: set correct_answer only; no <criterion> children needed
 - Keep every <question> element present — even if marks cannot be found for it
