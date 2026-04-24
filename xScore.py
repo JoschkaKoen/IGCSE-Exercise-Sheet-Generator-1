@@ -47,7 +47,7 @@ from xscore.shared.pipeline_ctx import _Ctx, _EarlyExit
 if TYPE_CHECKING:
     from xscore.shared.models import ExamScaffold, TaskInstruction
 
-__version__ = "0.2"
+__version__ = "0.4"
 
 class _Tee:
     """Duplicate stdout to a log file, stripping ANSI colour codes from the file."""
