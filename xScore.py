@@ -296,7 +296,6 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         format_duration,
         get_console,
         info_line,
-        note_line,
         ok_line,
         pipeline_step,
         warn_line,
@@ -360,7 +359,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
         if ctx.from_step:
             _resume_pipeline(ctx)
-        note_line(f"Output: {ctx.artifact_dir}")
+        ok_line(f"Output: {ctx.artifact_dir}")
         (ctx.artifact_dir / "command.txt").write_text(
             "python " + shlex.join([Path(sys.argv[0]).name] + sys.argv[1:]),
             encoding="utf-8",
