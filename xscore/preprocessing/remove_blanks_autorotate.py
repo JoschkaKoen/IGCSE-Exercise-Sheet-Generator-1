@@ -153,24 +153,26 @@ def detect_blank_page_lists(
             str(input_path), dpi=BLANK_DPI, grayscale=True, thread_count=_tc
         ),
     )
-    total_pages = len(low_res_pages)
-    content_page_nums: list[int] = []
-    blank_page_nums: list[int] = []
+    try:
+        total_pages = len(low_res_pages)
+        content_page_nums: list[int] = []
+        blank_page_nums: list[int] = []
 
-    def _classify(args: tuple[int, Image.Image]) -> tuple[int, bool]:
-        i, page_img = args
-        return i + 1, is_blank_page(page_img, blank_mean, blank_std)
+        def _classify(args: tuple[int, Image.Image]) -> tuple[int, bool]:
+            i, page_img = args
+            return i + 1, is_blank_page(page_img, blank_mean, blank_std)
 
-    workers = min(4, os.cpu_count() or 1)
-    with ThreadPoolExecutor(max_workers=workers) as ex:
-        results = list(ex.map(_classify, enumerate(low_res_pages)))
-    for page_num, blank in results:
-        if blank:
-            blank_page_nums.append(page_num)
-        else:
-            content_page_nums.append(page_num)
-    page_render_sizes: list[tuple[int, int]] = [img.size for img in low_res_pages]
-    del low_res_pages
+        workers = min(4, os.cpu_count() or 1)
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            results = list(ex.map(_classify, enumerate(low_res_pages)))
+        for page_num, blank in results:
+            if blank:
+                blank_page_nums.append(page_num)
+            else:
+                content_page_nums.append(page_num)
+        page_render_sizes: list[tuple[int, int]] = [img.size for img in low_res_pages]
+    finally:
+        del low_res_pages
     return total_pages, content_page_nums, blank_page_nums, page_render_sizes
 
 

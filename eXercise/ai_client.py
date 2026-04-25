@@ -67,33 +67,6 @@ def record_usage(model: str, input_tokens: int, output_tokens: int) -> None:
 
 
 def get_run_usage() -> dict[str, dict[str, int]]:
-    """Return a snapshot of accumulated token counts since last reset."""
-    with _usage_lock:
-        return {m: dict(v) for m, v in _run_usage.items()}
-
-
-def reset_run_usage() -> None:
-    """Clear all accumulated token counts (call at pipeline start)."""
-    with _usage_lock:
-        _run_usage.clear()
-
-# ---------------------------------------------------------------------------
-# Thread-safe token-usage accumulator
-# ---------------------------------------------------------------------------
-
-_usage_lock = threading.Lock()
-_run_usage: dict[str, dict[str, int]] = {}  # model → {"input": N, "output": N}
-
-
-def record_usage(model: str, input_tokens: int, output_tokens: int) -> None:
-    """Accumulate token counts for *model* (thread-safe)."""
-    with _usage_lock:
-        e = _run_usage.setdefault(model, {"input": 0, "output": 0})
-        e["input"] += input_tokens
-        e["output"] += output_tokens
-
-
-def get_run_usage() -> dict[str, dict[str, int]]:
     """Return a snapshot of accumulated token counts since last :func:`reset_run_usage`."""
     with _usage_lock:
         return {m: dict(v) for m, v in _run_usage.items()}
@@ -103,113 +76,6 @@ def reset_run_usage() -> None:
     """Clear all accumulated token counts. Call at pipeline start to isolate runs."""
     with _usage_lock:
         _run_usage.clear()
-
-
-# ---------------------------------------------------------------------------
-# Proxy classes — wrap client factories so every API call auto-records tokens
-# ---------------------------------------------------------------------------
-
-class _UsageTrackingStream:
-    """Wraps a streaming response; records usage from the final no-choices chunk."""
-
-    def __init__(self, stream: Any, model: str) -> None:
-        self._stream = stream
-        self._model = model
-
-    def __iter__(self):  # type: ignore[override]
-        for chunk in self._stream:
-            if not chunk.choices:
-                u = getattr(chunk, "usage", None)
-                if u and self._model:
-                    record_usage(
-                        self._model,
-                        getattr(u, "prompt_tokens", 0) or 0,
-                        getattr(u, "completion_tokens", 0) or 0,
-                    )
-            yield chunk  # yield all chunks — downstream consumers filter as needed
-
-    def __enter__(self) -> "_UsageTrackingStream":
-        if hasattr(self._stream, "__enter__"):
-            self._stream.__enter__()
-        return self
-
-    def __exit__(self, *args: Any) -> Any:
-        if hasattr(self._stream, "__exit__"):
-            return self._stream.__exit__(*args)
-
-
-class _TrackedCompletions:
-    def __init__(self, completions: Any, model: str) -> None:
-        self._c = completions
-        self._model = model
-
-    def create(self, *args: Any, **kwargs: Any) -> Any:
-        is_stream = kwargs.get("stream", False)
-        resp = self._c.create(*args, **kwargs)
-        if is_stream:
-            return _UsageTrackingStream(resp, self._model)
-        u = getattr(resp, "usage", None)
-        if u:
-            record_usage(
-                self._model,
-                getattr(u, "prompt_tokens", 0) or 0,
-                getattr(u, "completion_tokens", 0) or 0,
-            )
-        return resp
-
-    def __getattr__(self, name: str) -> Any:
-        return getattr(self._c, name)
-
-
-class _TrackedChat:
-    def __init__(self, chat: Any, model: str) -> None:
-        self._chat = chat
-        self.completions = _TrackedCompletions(chat.completions, model)
-
-    def __getattr__(self, name: str) -> Any:
-        return getattr(self._chat, name)
-
-
-class _TrackedOpenAIClient:
-    """Thin proxy over OpenAI that records token usage for every completion."""
-
-    def __init__(self, client: Any, model: str) -> None:
-        self._client = client
-        self.chat = _TrackedChat(client.chat, model)
-
-    def __getattr__(self, name: str) -> Any:
-        return getattr(self._client, name)
-
-
-class _TrackedGeminiModels:
-    def __init__(self, models: Any) -> None:
-        self._m = models
-
-    def generate_content(self, *args: Any, **kwargs: Any) -> Any:
-        resp = self._m.generate_content(*args, **kwargs)
-        model = kwargs.get("model") or (args[0] if args else "unknown")
-        um = getattr(resp, "usage_metadata", None)
-        if um:
-            record_usage(
-                str(model),
-                getattr(um, "prompt_token_count", 0) or 0,
-                getattr(um, "candidates_token_count", 0) or 0,
-            )
-        return resp
-
-    def __getattr__(self, name: str) -> Any:
-        return getattr(self._m, name)
-
-
-class _TrackedGeminiClient:
-    """Thin proxy over google.genai.Client that records token usage."""
-
-    def __init__(self, client: Any) -> None:
-        self._client = client
-        self.models = _TrackedGeminiModels(client.models)
-
-    def __getattr__(self, name: str) -> Any:
-        return getattr(self._client, name)
 
 
 @dataclass(frozen=True)
@@ -589,6 +455,7 @@ def print_streamed_response(
     print_content: bool = True,
     indent: str = "  ",
     thinking_out: list | None = None,
+    finish_reason_out: list[str] | None = None,
 ) -> str:
     """Consume a streaming chat completion, print thinking + content live, return content.
 
@@ -600,13 +467,18 @@ def print_streamed_response(
     *stream_thinking* controls whether the actual thinking token text is streamed;
     when False the markers still appear but the content is silent.
     If *thinking_out* is a list, thinking text is appended to it regardless.
+    If *finish_reason_out* is a list, each non-empty ``choice.finish_reason``
+    seen on a chunk is appended to it (the last entry is the final reason).
     """
     content_parts: list[str] = []
     in_thinking = False
     for chunk in stream:
         if not chunk.choices:
             continue
-        delta = chunk.choices[0].delta
+        choice = chunk.choices[0]
+        if finish_reason_out is not None and choice.finish_reason:
+            finish_reason_out.append(choice.finish_reason)
+        delta = choice.delta
 
         thinking_text = getattr(delta, "reasoning_content", None) or ""
         content_text = delta.content or ""

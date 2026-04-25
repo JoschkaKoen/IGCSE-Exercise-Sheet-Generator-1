@@ -58,9 +58,14 @@ def _resolve_mark_collision(
     if nm is None:
         warn_line(f"Merged Q{qnum} for {student}: page {page} = None, earlier = {em} → keeping {em}")
         return existing
-    winner = new_q if nm > em else existing
-    warn_line(f"Merged Q{qnum} for {student}: page {page} = {nm}, earlier = {em} → keeping {max(em, nm)}")
-    return winner.copy()
+    if nm > em:
+        warn_line(f"Merged Q{qnum} for {student}: page {page} = {nm}, earlier = {em} → keeping page {page} ({nm})")
+        return new_q.copy()
+    if nm < em:
+        warn_line(f"Merged Q{qnum} for {student}: page {page} = {nm}, earlier = {em} → keeping earlier ({em})")
+        return existing
+    warn_line(f"Merged Q{qnum} for {student}: page {page} = {nm}, earlier = {em} → tie, keeping earlier page")
+    return existing
 
 
 def _merge_student_pages(

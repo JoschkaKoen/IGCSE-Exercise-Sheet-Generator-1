@@ -38,6 +38,11 @@ def _ai_cell(text: str) -> str:
     (``\\begin{...}`` / ``\\end{...}``) is invalid LaTeX and causes
     "There's no line here to end"; strip those.
     """
+    # Defensive escape for characters AIs commonly miss when they aren't
+    # legitimately part of LaTeX commands. Math ($, \, {, }) is left alone
+    # so the AI can still emit `\frac{1}{2}` etc.
+    text = re.sub(r"(?<!\\)%", r"\\%", text)         # bare % starts a LaTeX comment
+    text = re.sub(r"(?<!\\)&", r"\\&", text)         # bare & ends the tabular cell
     result = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", text)
     result = result.replace("\n", "\\newline ")
     # \newline adjacent to block-level environments is invalid LaTeX
@@ -111,9 +116,12 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
+        # student_answer is the AI's transcription of handwriting — treat as
+        # plain text and escape fully before passing through _ai_cell's
+        # markdown-bold + newline conversions.
         answer = (
             "\\textit{(blank)}" if not answer_raw
-            else _ai_cell(answer_raw)
+            else _ai_cell(_latex_escape(answer_raw))
         )
         correct_raw = str(q.get("correct_answer") or "").strip()
         criteria_raw = str(q.get("marking_criteria") or "").strip()

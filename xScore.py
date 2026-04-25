@@ -2,7 +2,7 @@
 """
 xScore.py
 ---------
-Exam scan grading pipeline (steps 1–24) — run from the eXercise project root.
+Exam scan grading pipeline (steps 1–25) — run from the eXercise project root.
 
 Steps:
   1. Parse the natural language prompt (via Kimi).
@@ -41,6 +41,7 @@ from __future__ import annotations
 import argparse
 import datetime
 import json
+import logging
 import os
 import re
 import shlex
@@ -94,7 +95,7 @@ class _Tee:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="xScore.py",
-        description="Grade an exam scan (steps 1–16).",
+        description="Grade an exam scan (steps 1–25).",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument(
@@ -542,12 +543,16 @@ def _scaffold_steps(ctx: _Ctx, imp: types.SimpleNamespace, *, background: bool =
     _step_t = [0.0, 0.0]  # [t_graphics_start, t_scheme_start]
 
     def _on_layout_done() -> None:
+        if ctx.stop_after <= 15:
+            raise _EarlyExit()
         imp.pipeline_step(
             16, "Cut empty exam",
             subtitle="running in background" if background else None,
         )
 
     def _on_cut_done(skipped: bool) -> None:
+        if ctx.stop_after <= 16:
+            raise _EarlyExit()
         imp.pipeline_step(
             17, "Parse exam PDF",
             subtitle="running in background" if background else None,
@@ -555,6 +560,8 @@ def _scaffold_steps(ctx: _Ctx, imp: types.SimpleNamespace, *, background: bool =
 
     def _on_exam_done(raw_questions: list) -> None:
         imp.ok_line(f"{len(raw_questions)} top-level questions extracted")
+        if ctx.stop_after <= 17:
+            raise _EarlyExit()
         imp.pipeline_step(
             18, "Detect mark scheme graphics",
             subtitle="completed in background" if background else None,
@@ -568,6 +575,8 @@ def _scaffold_steps(ctx: _Ctx, imp: types.SimpleNamespace, *, background: bool =
             n = sum(len(q.get("graphics") or []) for q in graphics_qs)
             dur = imp.format_duration(time.perf_counter() - _step_t[0])
             imp.ok_line(f"{n} graphic{'s' if n != 1 else ''} detected  ·  {dur}")
+        if ctx.stop_after <= 18:
+            raise _EarlyExit()
         _step_t[1] = time.perf_counter()
         imp.pipeline_step(
             19, "Parse mark scheme",
@@ -577,6 +586,8 @@ def _scaffold_steps(ctx: _Ctx, imp: types.SimpleNamespace, *, background: bool =
     def _on_scheme_done(scheme_questions: list) -> None:
         dur = imp.format_duration(time.perf_counter() - _step_t[1])
         imp.ok_line(f"{len(scheme_questions)} answers in mark scheme  ·  {dur}")
+        if ctx.stop_after <= 19:
+            raise _EarlyExit()
         imp.pipeline_step(20, "Create report")
 
     try:
@@ -614,6 +625,8 @@ def _scan_phases(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
         match = imp.merge_duplex_scans_phase(two[0], two[1], ad, force_rebuild=ctx.force_clean_scan)
     else:
         match = imp.find_source_scan_match(ctx.folder, ad, dpi)
+    if ctx.stop_after <= 4:
+        raise _EarlyExit()
 
     from xscore.preprocessing.start_scan import _STEP_05, _STEP_06, _STEP_07
     imp.pipeline_step(5, "Detect blank pages")
@@ -625,6 +638,8 @@ def _scan_phases(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
         json.dumps({"step": 5, "elapsed_s": round(time.perf_counter() - t0_7, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
+    if ctx.stop_after <= 5:
+        raise _EarlyExit()
 
     imp.pipeline_step(6, "Autorotate")
     t0_rot = time.perf_counter()
@@ -636,6 +651,8 @@ def _scan_phases(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
         json.dumps({"step": 6, "elapsed_s": round(elapsed_rot, 3), "status": "ok"}, indent=2),
         encoding="utf-8",
     )
+    if ctx.stop_after <= 6:
+        raise _EarlyExit()
 
     imp.pipeline_step(7, "Deskew")
     t0_9 = time.perf_counter()
@@ -744,26 +761,33 @@ def _step09_cover_detection(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     try:
         from google import genai as gai
         from eXercise.ai_client import parse_model_effort
-        _exam_pdf = imp.find_exam_pdf(ctx.folder)
-        _ec_api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
-        if _ec_api_key:
-            _gai_client_ec = gai.Client(api_key=_ec_api_key)
-            _ec_model, _ec_effort = parse_model_effort(os.environ.get("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash"))
-            _ec_save_dir = imp.artifact_cover_page_dir(ctx.artifact_dir)
-            _ec_save_dir.mkdir(parents=True, exist_ok=True)
-            _ec_save = _ec_save_dir / "cover_empty_exam_prompt.md"
-            _t_ec = time.perf_counter()
-            ctx.empty_exam_has_cover = imp.check_cover_page_text(
-                _exam_pdf, 0, _gai_client_ec, _ec_model,
-                prompt_save_path=_ec_save,
-                effort=_ec_effort,
-            )
-            imp.ok_line(
-                f"Empty exam page 1: {'cover page' if ctx.empty_exam_has_cover else 'no cover page'}"
-                f"  ·  {imp.format_duration(time.perf_counter() - _t_ec)}"
-            )
-    except Exception as _e:
-        imp.warn_line(f"Empty exam cover check skipped: {_e}")
+    except ImportError as _e:
+        imp.warn_line(f"Empty exam cover check skipped — google-genai not installed: {_e}")
+        return
+    _exam_pdf = imp.find_exam_pdf(ctx.folder)
+    _ec_api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
+    if not _ec_api_key:
+        imp.warn_line("Empty exam cover check skipped — no GEMINI_API_KEY")
+        return
+    try:
+        _gai_client_ec = gai.Client(api_key=_ec_api_key)
+        _ec_model, _ec_effort = parse_model_effort(os.environ.get("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash"))
+        _ec_save_dir = imp.artifact_cover_page_dir(ctx.artifact_dir)
+        _ec_save_dir.mkdir(parents=True, exist_ok=True)
+        _ec_save = _ec_save_dir / "cover_empty_exam_prompt.md"
+        _t_ec = time.perf_counter()
+        ctx.empty_exam_has_cover = imp.check_cover_page_text(
+            _exam_pdf, 0, _gai_client_ec, _ec_model,
+            prompt_save_path=_ec_save,
+            effort=_ec_effort,
+        )
+        imp.ok_line(
+            f"Empty exam page 1: {'cover page' if ctx.empty_exam_has_cover else 'no cover page'}"
+            f"  ·  {imp.format_duration(time.perf_counter() - _t_ec)}"
+        )
+    except Exception:
+        logging.exception("step 9 cover detection failed")
+        raise
 
 
 def _step10_cover_scan(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
@@ -934,7 +958,7 @@ def _run_geometry_steps(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     _scaffold_steps(ctx, imp)
 
 
-def _step17_blueprints(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+def _step21_blueprints(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     """Step 21 — Build per-page AI marking blueprints (no AI calls)."""
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
     imp.pipeline_step(21, "AI marking blueprints")
@@ -944,7 +968,7 @@ def _step17_blueprints(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     ctx.step_timings_marking["blueprints_s"] = time.perf_counter() - t0
 
 
-def _step18_mark(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+def _step22_mark(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     """Step 22 — AI marking: vision calls to fill blueprints for each student page."""
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     imp.pipeline_step(22, "AI marking")
@@ -960,7 +984,7 @@ def _step18_mark(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     ctx.step_timings_marking["marking_s"] = time.perf_counter() - t0
 
 
-def _step19_reports(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+def _step23_reports(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     """Step 23 — Merge per-page results into student + class reports; compile PDFs."""
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
     imp.pipeline_step(23, "Compile reports")
@@ -972,7 +996,7 @@ def _step19_reports(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     ctx.step_timings_marking["reports_s"] = time.perf_counter() - t0
 
 
-def _step21_timing(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+def _step24_timing(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     """Step 24 — Print timing summary and evaluate accuracy against ground truth."""
     assert ctx.artifact_dir is not None
     imp.pipeline_step(24, "Timing summary")
@@ -998,7 +1022,7 @@ def _step21_timing(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     imp.print_step_durations(ctx.step_timings_marking, ctx.marking_api_calls)
 
 
-def _step22_ai_costs(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+def _step25_ai_costs(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     """Step 25 — Compute AI token costs and write complete timing report artifacts."""
     assert ctx.artifact_dir is not None
     imp.pipeline_step(25, "AI Costs")
@@ -1036,15 +1060,15 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         _run_geometry_steps(ctx, imp)
         if ctx.stop_after <= 20: raise _EarlyExit()
         if ctx.cleaned_pdf and ctx.scaffold:
-            _step17_blueprints(ctx, imp)
+            _step21_blueprints(ctx, imp)
             if ctx.stop_after <= 21: raise _EarlyExit()
-            _step18_mark(ctx, imp)
+            _step22_mark(ctx, imp)
             if ctx.stop_after <= 22: raise _EarlyExit()
-            _step19_reports(ctx, imp)
+            _step23_reports(ctx, imp)
             if ctx.stop_after <= 23: raise _EarlyExit()
-            _step21_timing(ctx, imp)
+            _step24_timing(ctx, imp)
             if ctx.stop_after <= 24: raise _EarlyExit()
-            _step22_ai_costs(ctx, imp)
+            _step25_ai_costs(ctx, imp)
         elif ctx.cleaned_pdf and not ctx.scaffold:
             imp.warn_line("Marking skipped — scaffold not available (steps 21–25 omitted).")
         imp.ok_line("Pipeline complete.")

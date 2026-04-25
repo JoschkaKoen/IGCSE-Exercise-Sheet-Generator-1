@@ -37,6 +37,7 @@ from xscore.shared.exam_paths import (
     artifact_scaffold_prompt_path,
 )
 from xscore.shared.models import ExamLayout, Question
+from xscore.shared.pipeline_ctx import _EarlyExit
 from xscore.shared.prompt_logger import save_prompt
 
 
@@ -228,6 +229,8 @@ def build_ai_scaffold(
                     fmt=fmt,
                     on_graphics_complete=on_graphics_complete,
                 )
+            except _EarlyExit:
+                raise
             except Exception as _exc:
                 import logging as _log
                 _log.warning("ai_scaffold: mark-scheme extraction failed — %s", _exc)

@@ -157,8 +157,8 @@ def detect_handwriting_in_rects(
     mat = fitz.Matrix(dpi / 72, dpi / 72)
     with fitz.open(str(scan_pdf)) as doc:
         pix = doc[page_idx].get_pixmap(matrix=mat, colorspace=fitz.csRGB)
-
-    img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(pix.height, pix.width, 3)
+    pw, ph = pix.width, pix.height
+    img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(ph, pw, 3).copy()
     pix = None  # release pixmap memory
     img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
@@ -169,8 +169,8 @@ def detect_handwriting_in_rects(
         for i, rect in enumerate(rects):
             x0 = max(0, int(rect.x0 / px_to_pt))
             y0 = max(0, int(rect.y0 / px_to_pt))
-            x1 = min(pix.width,  int(rect.x1 / px_to_pt))
-            y1 = min(pix.height, int(rect.y1 / px_to_pt))
+            x1 = min(pw, int(rect.x1 / px_to_pt))
+            y1 = min(ph, int(rect.y1 / px_to_pt))
             crop = img_bgr[y0:y1, x0:x1]
             if crop.size == 0:
                 continue
@@ -188,8 +188,8 @@ def detect_handwriting_in_rects(
         for i, rect in enumerate(rects):
             x0 = max(0, int(rect.x0 / px_to_pt))
             y0 = max(0, int(rect.y0 / px_to_pt))
-            x1 = min(pix.width, int(rect.x1 / px_to_pt))
-            y1 = min(pix.height, int(rect.y1 / px_to_pt))
+            x1 = min(pw, int(rect.x1 / px_to_pt))
+            y1 = min(ph, int(rect.y1 / px_to_pt))
             crop = img_bgr[y0:y1, x0:x1]
             if crop.size == 0:
                 continue

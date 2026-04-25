@@ -45,6 +45,12 @@ from xscore.marking.mark_page import (
 _DEFAULT_MARKING_MODEL = MARKING_MODEL_DEFAULT
 
 
+def _safe_load_json(path: Path) -> Any:
+    """Read a JSON artifact, surfacing the path on parse failure."""
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as e:
+        raise RuntimeError(f"corrupt artifact {path}: {e}") from e
 
 
 
@@ -67,7 +73,7 @@ def render_pages_b64(
     from xscore.shared.exam_paths import artifact_exam_student_list_json_path
 
     list_path = artifact_exam_student_list_json_path(artifact_dir)
-    raw: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
+    raw: list[dict] = _safe_load_json(list_path)
 
     if instruction is not None:
         sf = instruction.student_filter
@@ -294,7 +300,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         raise FileNotFoundError(
             f"10_exam_student_list.json not found at {list_path} — run step 10 first"
         )
-    raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
+    raw_assignments: list[dict] = _safe_load_json(list_path)
     # Each entry: {"student_name": str, "page_numbers": [int, ...], "confidence": str}
 
     # Load blank page detection results (written by step 13 blank_page_detection).
@@ -304,17 +310,23 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     # Keys: student_name → {exercise_scan_page → [extra_blank_scan_pages_with_handwriting]}
     _extra_by_student: dict[str, dict[int, list[int]]] = {}
     if _blank_json.exists():
-        _bdata = json.loads(_blank_json.read_text(encoding="utf-8"))
+        _bdata = _safe_load_json(_blank_json)
         for _s in _bdata.get("students", []):
             _skip: set[int] = set()
             _extras: dict[int, list[int]] = {}
-            for _bp in _s["blank_scan_pages"]:
-                if not _bp["has_handwriting"]:
-                    _skip.add(_bp["scan_page"])
+            for _bp in _s.get("blank_scan_pages", []):
+                _scan_page = _bp.get("scan_page")
+                if _scan_page is None:
+                    continue
+                if not _bp.get("has_handwriting", False):
+                    _skip.add(_scan_page)
                 elif _bp.get("attach_to_scan_page") is not None:
-                    _extras.setdefault(_bp["attach_to_scan_page"], []).append(_bp["scan_page"])
-            _skip_scan_pages_by_student[_s["student_name"]] = _skip
-            _extra_by_student[_s["student_name"]] = _extras
+                    _extras.setdefault(_bp["attach_to_scan_page"], []).append(_scan_page)
+            _student_name = _s.get("student_name")
+            if _student_name is None:
+                continue
+            _skip_scan_pages_by_student[_student_name] = _skip
+            _extra_by_student[_student_name] = _extras
 
     _instr = getattr(ctx, "instruction", None)
     if _instr is not None:

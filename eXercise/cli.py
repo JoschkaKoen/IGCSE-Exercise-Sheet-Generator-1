@@ -17,18 +17,28 @@ def _parse_question_tokens(tokens: list[str]) -> list[int]:
     """Parse question tokens like ['1', '3-5', '7'] into [1, 3, 4, 5, 7]."""
     requested = []
     for arg in tokens:
+        # Normalise unicode dashes so copy-pasted ranges (e.g. "12–14") work.
+        arg = arg.replace("\u2013", "-").replace("\u2014", "-")
         if "-" in arg and not arg.startswith("-"):
             parts = arg.split("-")
             if len(parts) != 2:
                 print(f"Invalid range: {arg}", file=sys.stderr)
                 sys.exit(1)
-            start, end = int(parts[0]), int(parts[1])
+            try:
+                start, end = int(parts[0]), int(parts[1])
+            except ValueError:
+                print(f"Invalid range '{arg}': both endpoints must be integers", file=sys.stderr)
+                sys.exit(1)
             if start > end:
                 print(f"Invalid range '{arg}': start must be ≤ end", file=sys.stderr)
                 sys.exit(1)
             requested.extend(range(start, end + 1))
         else:
-            requested.append(int(arg))
+            try:
+                requested.append(int(arg))
+            except ValueError:
+                print(f"Invalid question number: {arg}", file=sys.stderr)
+                sys.exit(1)
     return requested
 
 

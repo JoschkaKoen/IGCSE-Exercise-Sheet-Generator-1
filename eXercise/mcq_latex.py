@@ -71,7 +71,7 @@ def _build_answer_table(questions: list[int], answers: dict[int, str]) -> str:
         r"\toprule",
     ]
     for chunk in chunks:
-        cells_list = [f"{q} & {a}" for q, a in chunk]
+        cells_list = [f"{q} & {_latex_escape(a)}" for q, a in chunk]
         missing = pairs_per_row - len(chunk)
         if missing:
             # Rare fallback: span unused columns as one invisible cell so LaTeX
@@ -96,7 +96,7 @@ def build_explanation_latex(
     for q in questions:
         if q not in answers:
             continue
-        ans = answers[q]
+        ans = _latex_escape(answers[q])
         bullets = explanations.get(q)
         items = ""
         non_empty = [b for b in (bullets or []) if b.strip()]

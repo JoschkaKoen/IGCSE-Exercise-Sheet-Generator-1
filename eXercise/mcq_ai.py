@@ -544,10 +544,12 @@ def generate_mcq_explanations(
                 **thinking_kw,
                 **kwargs,
             )
+            finish_out: list[str] = []
             text = print_streamed_response(
-                stream, stream_thinking=stream_thinking, print_content=False, thinking_out=thinking_parts,
+                stream, stream_thinking=stream_thinking, print_content=False,
+                thinking_out=thinking_parts, finish_reason_out=finish_out,
             )
-            return text, "stop" if text else "length"
+            return text, (finish_out[-1] if finish_out else None)
         completion = client.chat.completions.create(
             model=model,
             max_tokens=16384,
