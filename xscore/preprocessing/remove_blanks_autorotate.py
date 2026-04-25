@@ -9,7 +9,7 @@ with the same shape are rare here; use ``SCAN_USE_TESSERACT_ROTATION`` if needed
 Optional Tesseract OSD can add an extra CCW adjustment on top (slow); see
 ``config.SCAN_USE_TESSERACT_ROTATION``.
 
-Used by :mod:`preprocessing.start_scan` before fine deskew. Formerly ``autograder.py``.
+Used by :mod:`preprocessing.coordinator` before fine deskew. Formerly ``autograder.py``.
 """
 
 from __future__ import annotations

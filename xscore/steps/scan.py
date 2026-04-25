@@ -17,7 +17,7 @@ import json
 import time
 
 from xscore.config import ROTATION_ANALYSIS_DPI
-from xscore.preprocessing.start_scan import (
+from xscore.preprocessing.coordinator import (
     _STEP_05,
     _STEP_06,
     _STEP_07,

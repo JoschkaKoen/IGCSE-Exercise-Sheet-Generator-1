@@ -42,7 +42,7 @@ def _scan_page_texts(
 ) -> list[str]:
     import fitz
     from concurrent.futures import ThreadPoolExecutor
-    from xscore.marking.assign_pages_to_students import _get_ocr
+    from xscore.preprocessing.assign_pages_to_students import _get_ocr
 
     def _ocr_one(p: int) -> str:
         with fitz.open(str(scan_pdf)) as doc:

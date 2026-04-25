@@ -17,7 +17,7 @@ import logging
 import os
 import time
 
-from xscore.marking.assign_pages_to_students import (
+from xscore.preprocessing.assign_pages_to_students import (
     assign_pages,
     check_cover_page_text,
     detect_scan_cover_pages,

@@ -36,3 +36,14 @@ logs/
 .idea/
 .vscode/
 .claude/
+
+# Office/LibreOffice lock files
+~$*
+
+# pytest cache
+.pytest_cache/
+
+# Generated test image outputs
+scripts/scheme_graphics_test/pymupdf/
+scripts/scheme_graphics_test/qwen3.6-plus/
+scripts/scheme_graphics_test/gemini-3-flash-preview/

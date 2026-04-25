@@ -34,7 +34,7 @@ def run_full_pipeline(
     Returns (cleaned_pdf, artifact_dir).
     """
     from xscore.marking.ai_mark import run_ai_marking
-    from xscore.marking.assign_pages_to_students import (
+    from xscore.preprocessing.assign_pages_to_students import (
         assign_pages,
         page_assignments_to_json,
         page_assignments_to_md,
@@ -43,9 +43,9 @@ def run_full_pipeline(
     from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
     from xscore.marking.merge_reports import compile_reports
     from xscore.marking.parse_instruction import _heuristic_fallback, parse_prompt
-    from xscore.marking.timing_report import write_timing_report
+    from xscore.shared.timing_report import write_timing_report
     from xscore.config import ROTATION_ANALYSIS_DPI
-    from xscore.preprocessing.start_scan import (
+    from xscore.preprocessing.coordinator import (
         autorotate_phase,
         deskew_phase,
         detect_blank_pages_phase,
@@ -57,8 +57,8 @@ def run_full_pipeline(
     from xscore.shared.exam_paths import (
         artifact_exam_student_list_json_path,
         artifact_exam_student_list_md_path,
-        validate_input_files,
     )
+    from xscore.shared.find_exam_folder import validate_input_files
     from xscore.shared.load_student_list import read_student_list
 
     step_timings: dict[str, float] = {}

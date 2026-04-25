@@ -14,7 +14,7 @@ import sys
 import time
 from pathlib import Path
 
-from xscore.marking.find_exam_folder import find_folder, validate_input_files
+from xscore.shared.find_exam_folder import find_folder, validate_input_files
 from xscore.marking.parse_instruction import parse_prompt
 from xscore.pipeline.resume import copy_input_files, resume_pipeline
 from xscore.shared.exam_paths import artifact_parse_summary_path

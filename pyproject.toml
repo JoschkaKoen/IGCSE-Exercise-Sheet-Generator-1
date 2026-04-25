@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "exercise-xscore"
+version = "0.4.0"
+description = "Exercise sheet generation (eXercise) and exam scan marking (xScore) pipelines, plus a FastAPI web UI."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Joschka" }]
+license = { text = "Proprietary" }
+keywords = ["exam", "marking", "ocr", "ai", "education", "latex"]
+dependencies = [
+    # PDF / image processing
+    "pymupdf>=1.24.0",
+    "Pillow>=10.0.0",
+    "pdf2image>=1.17.0",
+    "pikepdf>=8.0.0",
+    "opencv-python>=4.9.0",
+    "numpy>=1.26.0",
+    # AI clients
+    "openai>=1.40.0",
+    "google-genai>=1.0.0",
+    # OCR
+    "pytesseract>=0.3.10",
+    "rapidocr-onnxruntime>=1.4",
+    # Config / data
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+    "openpyxl>=3.1.0",
+    "rich>=13.0.0",
+    # Web UI
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "jinja2>=3.1.0",
+    "python-multipart>=0.0.9",
+]
+
+[project.scripts]
+# Console entry points installed by ``pip install -e .``
+# (the bare ``eXercise.py`` and ``xScore.py`` scripts at the repo root remain usable
+# via ``python <script>.py`` for callers that don't run ``pip install``.)
+eXercise = "eXercise.cli:main"
+xScore = "xScore:main"
+
+[tool.setuptools.packages.find]
+include = ["eXercise*", "xscore*", "web*"]
+exclude = ["tests*", "scripts*", "logs*", "output*", "exams*", "fonts*", "screenshots*"]
+
+[tool.setuptools]
+# ``xScore.py`` is a top-level script alongside the ``xscore`` package; expose it as
+# a module so the ``xScore`` console script can reference ``xScore:main``.
+py-modules = ["xScore"]
+
+[tool.setuptools.package-data]
+# Ship prompt templates so installed packages can find them at runtime.
+"xscore.prompts" = ["*.md"]
