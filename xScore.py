@@ -2,7 +2,7 @@
 """
 xScore.py
 ---------
-Exam scan grading pipeline (steps 1–25) — run from the eXercise project root.
+Exam scan grading pipeline (steps 1–30) — run from the eXercise project root.
 
 Steps:
   1. Parse the natural language prompt (via Kimi).
@@ -27,9 +27,14 @@ Steps:
  20. Merge scaffold → 20_create_report/report.json.
  21. Build per-page AI marking blueprints → 21_ai_marking_blueprints/.
  22. AI: grade each student page → 22_ai_marking/students/.
- 23. Merge per-page results into student and class reports → 23_compile_reports/.
- 24. Timing summary → 24_timing_summary/.
- 25. AI Costs → 24_timing_summary/ (updates timing.json/md with token usage and cost breakdown).
+ 23. Per-student reports (XML + MD) → 23_student_reports/students/.
+ 24. Class statistics + grade curve → 24_class_stats/class_stats.json.
+ 25. Per-student PDFs (xelatex) → 25_student_pdfs/students/.
+ 26. Class report (XML/MD/TeX/PDF + combined PDF) → 26_class_report/.
+ 27. Review queue (medium/low confidence marks) → 27_review_queue/.
+ 28. Timing summary → 28_timing_summary/timing.json.
+ 29. Accuracy evaluation (no-op when no ground truth) → 29_accuracy/accuracy.json.
+ 30. AI Costs → 30_ai_costs/cost.json + cost.md.
 
 Usage:
     python xScore.py "grade Space Physics Unit Test"
@@ -95,7 +100,7 @@ class _Tee:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="xScore.py",
-        description="Grade an exam scan (steps 1–25).",
+        description="Grade an exam scan (steps 1–30).",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument(
@@ -402,7 +407,15 @@ def _load_imports() -> types.SimpleNamespace:
     from xscore.marking.blueprints import build_blueprints
     from xscore.marking.find_exam_folder import find_folder, validate_input_files
     from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
-    from xscore.marking.merge_reports import compile_reports, load_student_results_from_reports
+    from xscore.marking.merge_reports import (
+        compile_reports,
+        load_student_results_from_reports,
+        step_23_per_student_reports,
+        step_24_class_stats_curve,
+        step_25_per_student_pdfs,
+        step_26_class_report,
+        step_27_review_queue,
+    )
     from xscore.marking.page_order_check import check_page_order
     from xscore.marking.parse_instruction import parse_prompt
     from xscore.marking.timing_report import print_step_durations, write_timing_report
@@ -433,6 +446,8 @@ def _load_imports() -> types.SimpleNamespace:
     from xscore.shared.exam_paths import (
         STEP_07,
         artifact_accuracy_json_path,
+        artifact_cost_json_path,
+        artifact_cost_md_path,
         artifact_cover_page_dir,
         artifact_exam_student_list_json_path,
         artifact_exam_student_list_md_path,
@@ -886,7 +901,6 @@ def _step11_student_names(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
             "AI marking will use the scan-detected list."
         )
     ctx.step_timings_marking["assign_pages_s"] = time.perf_counter() - t0
-    _kick_off_render_bg(ctx, imp)
     imp.ok_line(
         f"{detected} {'student' if detected == 1 else 'students'} detected from scan"
         f"  ·  {answer_pages} answer pages each"
@@ -997,6 +1011,11 @@ def _run_geometry_steps(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
         _step10_cover_scan(ctx, imp)
         if ctx.stop_after <= 10: raise _EarlyExit()
         _step11_student_names(ctx, imp)
+        # Pre-step optimisation: kick off background page rendering while
+        # steps 12–20 run, so step 22 (AI marking) can consume the cached
+        # base64-encoded pages without waiting. Visible side effect, not a
+        # hidden one inside step 11.
+        _kick_off_render_bg(ctx, imp)
         if ctx.stop_after <= 11: raise _EarlyExit()
         _step12_page_count_validation(ctx, imp)
         if ctx.stop_after <= 12: raise _EarlyExit()
@@ -1033,60 +1052,134 @@ def _step22_mark(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     ctx.step_timings_marking["marking_s"] = time.perf_counter() - t0
 
 
-def _step23_reports(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
-    """Step 23 — Merge per-page results into student + class reports; compile PDFs."""
+def _step23_per_student_reports(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+    """Step 23 — Merge per-page marks into per-student XML+MD reports."""
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
-    imp.pipeline_step(23, "Compile reports")
+    imp.pipeline_step(23, "Per-student reports")
     t0 = time.perf_counter()
-    summaries = imp.compile_reports(ctx)
-    _known = [s["percentage"] for s in summaries if s["percentage"] is not None]
-    _avg_str = f"{round(sum(_known) / len(_known), 1)}%" if _known else "N/A"
-    imp.ok_line(f"{len(summaries)} student report(s)  ·  class avg {_avg_str}")
-    ctx.step_timings_marking["reports_s"] = time.perf_counter() - t0
+    imp.step_23_per_student_reports(ctx)
+    n = len(ctx.student_summaries or [])
+    imp.ok_line(f"{n} student report(s)")
+    ctx.step_timings_marking["per_student_reports_s"] = time.perf_counter() - t0
 
 
-def _step24_timing(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
-    """Step 24 — Print timing summary and evaluate accuracy against ground truth."""
+def _step24_class_stats(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+    """Step 24 — Compute class average + 80%-target curve offset."""
     assert ctx.artifact_dir is not None
-    imp.pipeline_step(24, "Timing summary")
+    imp.pipeline_step(24, "Class statistics + curve")
     t0 = time.perf_counter()
+    imp.step_24_class_stats_curve(ctx)
+    summaries = ctx.student_summaries or []
+    known = [s["percentage"] for s in summaries if s["percentage"] is not None]
+    avg_str = f"{round(sum(known) / len(known), 1)}%" if known else "N/A"
+    imp.ok_line(f"Class avg {avg_str}")
+    ctx.step_timings_marking["class_stats_s"] = time.perf_counter() - t0
 
-    if ctx.folder is not None:
-        ground_truth = imp.load_ground_truth(ctx.folder, ctx.scaffold)
-        if ground_truth and ctx.scaffold:
-            student_results = imp.load_student_results_from_reports(ctx.artifact_dir)
-            ctx.accuracy_summary = imp.evaluate_results(student_results, ground_truth, ctx.scaffold)
-            _acc_path = imp.artifact_accuracy_json_path(ctx.artifact_dir)
-            _acc_path.parent.mkdir(parents=True, exist_ok=True)
-            _acc_path.write_text(
-                json.dumps(ctx.accuracy_summary, indent=2, ensure_ascii=False), encoding="utf-8"
-            )
-            imp.info_line(
-                f"Accuracy: {ctx.accuracy_summary['overall_correct']}/"
-                f"{ctx.accuracy_summary['overall_total']} "
-                f"({ctx.accuracy_summary['overall_accuracy_pct']:.1f}%)"
-            )
 
+def _step25_per_student_pdfs(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+    """Step 25 — Write per-student .tex files; compile PDFs in parallel via xelatex."""
+    assert ctx.artifact_dir is not None
+    imp.pipeline_step(25, "Per-student PDFs")
+    t0 = time.perf_counter()
+    imp.step_25_per_student_pdfs(ctx)
+    n = len(ctx.student_summaries or [])
+    imp.ok_line(f"{n} PDF(s) compiled")
+    ctx.step_timings_marking["per_student_pdfs_s"] = time.perf_counter() - t0
+
+
+def _step26_class_report(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+    """Step 26 — Build class XML/MD/TeX/PDF + concat combined PDF (skipped under --student filter)."""
+    assert ctx.artifact_dir is not None
+    imp.pipeline_step(26, "Class report")
+    t0 = time.perf_counter()
+    imp.step_26_class_report(ctx)
+    ctx.step_timings_marking["class_report_s"] = time.perf_counter() - t0
+
+
+def _step27_review_queue(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+    """Step 27 — Emit side-channel review queue for medium/low-confidence marks."""
+    assert ctx.artifact_dir is not None
+    imp.pipeline_step(27, "Review queue")
+    t0 = time.perf_counter()
+    imp.step_27_review_queue(ctx)
+    ctx.step_timings_marking["review_queue_s"] = time.perf_counter() - t0
+
+
+def _step28_timing(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+    """Step 28 — Print step-duration summary and write timing.json (timing only)."""
+    assert ctx.artifact_dir is not None
+    imp.pipeline_step(28, "Timing summary")
+    t0 = time.perf_counter()
     ctx.step_timings_marking["timing_s"] = round(time.perf_counter() - t0, 3)
     imp.print_step_durations(ctx.step_timings_marking, ctx.marking_api_calls)
-
-
-def _step25_ai_costs(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
-    """Step 25 — Compute AI token costs and write complete timing report artifacts."""
-    assert ctx.artifact_dir is not None
-    imp.pipeline_step(25, "AI Costs")
-    _run_usage = imp.get_run_usage()
-    _total_cost, _ = imp.compute_cost(_run_usage)
     imp.write_timing_report(
         ctx.artifact_dir,
         ctx.step_timings_marking,
         ctx.marking_api_calls,
-        accuracy_summary=ctx.accuracy_summary,
         failures=ctx.marking_failures,
-        token_usage=_run_usage,
-        total_cost_rmb=_total_cost,
         print_timing=False,
     )
+
+
+def _step29_accuracy(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+    """Step 29 — Evaluate marking accuracy vs ground truth (no-op when none present)."""
+    assert ctx.artifact_dir is not None
+    imp.pipeline_step(29, "Accuracy evaluation")
+    if ctx.folder is None:
+        imp.info_line("Skipped (no exam folder)")
+        return
+    ground_truth = imp.load_ground_truth(ctx.folder, ctx.scaffold)
+    if not ground_truth or not ctx.scaffold:
+        imp.info_line("Skipped (no ground truth file present)")
+        return
+    student_results = imp.load_student_results_from_reports(ctx.artifact_dir)
+    ctx.accuracy_summary = imp.evaluate_results(student_results, ground_truth, ctx.scaffold)
+    _acc_path = imp.artifact_accuracy_json_path(ctx.artifact_dir)
+    _acc_path.parent.mkdir(parents=True, exist_ok=True)
+    _acc_path.write_text(
+        json.dumps(ctx.accuracy_summary, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    imp.info_line(
+        f"Accuracy: {ctx.accuracy_summary['overall_correct']}/"
+        f"{ctx.accuracy_summary['overall_total']} "
+        f"({ctx.accuracy_summary['overall_accuracy_pct']:.1f}%)"
+    )
+
+
+def _step30_ai_costs(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
+    """Step 30 — Compute AI token costs and write 30_ai_costs/{cost.json, cost.md}."""
+    assert ctx.artifact_dir is not None
+    imp.pipeline_step(30, "AI costs")
+    _run_usage = imp.get_run_usage()
+    _total_cost, _breakdown = imp.compute_cost(_run_usage)
+    _payload = {
+        "token_usage": _breakdown,
+        "total_input_tokens": sum(v["input"] for v in _run_usage.values()),
+        "total_output_tokens": sum(v["output"] for v in _run_usage.values()),
+        "total_cost_rmb": _total_cost,
+    }
+    _cj = imp.artifact_cost_json_path(ctx.artifact_dir)
+    _cj.parent.mkdir(parents=True, exist_ok=True)
+    _cj.write_text(json.dumps(_payload, indent=2, ensure_ascii=False), encoding="utf-8")
+    _md_lines = [
+        "# AI Costs", "",
+        "| Model | Input tokens | Output tokens | Cost (RMB) |",
+        "|-------|--------------|---------------|------------|",
+    ]
+    for _model, _data in _breakdown.items():
+        _md_lines.append(
+            f"| {_model} | {_data['input_tokens']:,} | {_data['output_tokens']:,}"
+            f" | ¥{_data['cost_rmb']:.6f} |"
+        )
+    _md_lines.append(
+        f"| **Total** | **{_payload['total_input_tokens']:,}**"
+        f" | **{_payload['total_output_tokens']:,}**"
+        f" | **¥{_total_cost:.6f}** |"
+    )
+    imp.artifact_cost_md_path(ctx.artifact_dir).write_text(
+        "\n".join(_md_lines) + "\n", encoding="utf-8"
+    )
+    imp.info_line(f"Total: ¥{_total_cost:.1f} across {len(_run_usage)} model(s)")
 
 
 # ---------------------------------------------------------------------------
@@ -1118,13 +1211,23 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             if ctx.stop_after <= 21: raise _EarlyExit()
             _step22_mark(ctx, imp)
             if ctx.stop_after <= 22: raise _EarlyExit()
-            _step23_reports(ctx, imp)
+            _step23_per_student_reports(ctx, imp)
             if ctx.stop_after <= 23: raise _EarlyExit()
-            _step24_timing(ctx, imp)
+            _step24_class_stats(ctx, imp)
             if ctx.stop_after <= 24: raise _EarlyExit()
-            _step25_ai_costs(ctx, imp)
+            _step25_per_student_pdfs(ctx, imp)
+            if ctx.stop_after <= 25: raise _EarlyExit()
+            _step26_class_report(ctx, imp)
+            if ctx.stop_after <= 26: raise _EarlyExit()
+            _step27_review_queue(ctx, imp)
+            if ctx.stop_after <= 27: raise _EarlyExit()
+            _step28_timing(ctx, imp)
+            if ctx.stop_after <= 28: raise _EarlyExit()
+            _step29_accuracy(ctx, imp)
+            if ctx.stop_after <= 29: raise _EarlyExit()
+            _step30_ai_costs(ctx, imp)
         elif ctx.cleaned_pdf and not ctx.scaffold:
-            imp.warn_line("Marking skipped — scaffold not available (steps 21–25 omitted).")
+            imp.warn_line("Marking skipped — scaffold not available (steps 21–30 omitted).")
         imp.ok_line("Pipeline complete.")
         ctx.pipeline_completed_ok = True
         if ctx.cleaned_pdf:

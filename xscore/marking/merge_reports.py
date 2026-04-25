@@ -22,17 +22,21 @@ from xscore.marking.report_latex import (
 )
 from xscore.shared.exam_paths import (
     artifact_class_report_combined_pdf_path,
+    artifact_class_report_dir,
     artifact_class_report_md_path,
     artifact_class_report_tex_path,
     artifact_class_report_xml_path,
+    artifact_class_stats_json_path,
     artifact_marked_path,
     artifact_marking_students_dir,
     artifact_reports_students_dir,
     artifact_review_queue_json_path,
     artifact_review_queue_md_path,
+    artifact_student_pdfs_dir,
     artifact_student_report_md_path,
     artifact_student_report_tex_path,
     artifact_student_report_xml_path,
+    artifact_student_reports_dir,
     safe_student_name as _safe_name,
 )
 from xscore.shared.terminal_ui import ok_line, warn_line
@@ -579,7 +583,7 @@ def _build_class_report(
     _compile_tex(tex_path, tex_path.parent)
     _merge_pdfs(
         tex_path.with_suffix(".pdf"),
-        artifact_reports_students_dir(ctx.artifact_dir),
+        artifact_student_pdfs_dir(ctx.artifact_dir),
         artifact_class_report_combined_pdf_path(ctx.artifact_dir),
     )
 
@@ -676,21 +680,26 @@ def _write_review_queue(full_reports: dict[str, dict], artifact_dir: Path) -> No
     )
 
 
-def compile_reports(ctx: Any) -> list[dict]:
-    """Merge all per-page results; create student and class reports; compile PDFs.
+# ---------------------------------------------------------------------------
+# Step 23 — Per-student reports (XML + MD)
+# ---------------------------------------------------------------------------
 
-    Returns a list of per-student summary dicts (keys: name, total_marks, percentage).
+def step_23_per_student_reports(ctx: Any) -> None:
+    """Merge per-page marking results into per-student XML + MD reports.
+
+    Populates ``ctx.student_summaries``, ``ctx.full_reports``, ``ctx.q_totals``
+    for downstream steps (24–27) to consume.
+
+    Honours ``--student`` CLI filter (lower-case exact match): downstream
+    class-report step (26) is skipped when the filter is active because a
+    one-or-two-student "class" average would be misleading.
     """
     fmt = get_marking_format()
     total_max_marks = ctx.scaffold.total_marks
     correct_answers, marking_criteria_by_num = _build_answer_lookup(ctx)
     names = _derive_student_names(ctx.artifact_dir, fmt=fmt)
-    exam_name = ctx.artifact_dir.parent.name
     workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
 
-    # CLI --student filter (lower-case exact match): narrow names to the subset
-    # the user asked to mark. Class report is also skipped further down — a
-    # one-or-two-student "class" average would be misleading.
     cli_student_filter = getattr(ctx, "student_filter", None)
     if cli_student_filter:
         wanted = set(cli_student_filter)
@@ -698,26 +707,113 @@ def compile_reports(ctx: Any) -> list[dict]:
 
     ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
     artifact_marking_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
-    artifact_reports_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+    artifact_student_reports_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
 
     student_summaries, full_reports, q_totals = _pass1_merge_students(
         ctx, fmt, names, total_max_marks, correct_answers, marking_criteria_by_num, workers
     )
-    _apply_grade_curve(student_summaries)
-    _pass2_write_tex(student_summaries, full_reports, ctx.artifact_dir, exam_name, workers)
-    if student_summaries and not cli_student_filter:
-        _build_class_report(ctx, student_summaries, q_totals, exam_name)
-    elif cli_student_filter:
+    ctx.student_summaries = student_summaries
+    ctx.full_reports = full_reports
+    ctx.q_totals = q_totals
+
+
+# ---------------------------------------------------------------------------
+# Step 24 — Class statistics + grade curve
+# ---------------------------------------------------------------------------
+
+def step_24_class_stats_curve(ctx: Any) -> None:
+    """Compute class average + 80%-target curve offset.
+
+    Mutates ``ctx.student_summaries`` in place to add ``curved_pct`` to each
+    summary, and writes a small ``class_stats.json`` artifact recording the
+    curve offset and class average so step 25 (PDFs) and step 26 (class
+    report) can rely on identical numbers.
+    """
+    summaries = ctx.student_summaries
+    _apply_grade_curve(summaries)
+    known = [s["percentage"] for s in summaries if s["percentage"] is not None]
+    class_avg = int(round(sum(known) / len(known))) if known else None
+    curve_offset = (80 - class_avg) if class_avg is not None else 0
+    p = artifact_class_stats_json_path(ctx.artifact_dir)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(
+        json.dumps({
+            "class_average_pct": class_avg,
+            "curve_offset": curve_offset,
+            "n_students": len(summaries),
+            "n_with_marks": len(known),
+        }, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+# ---------------------------------------------------------------------------
+# Step 25 — Per-student PDFs
+# ---------------------------------------------------------------------------
+
+def step_25_per_student_pdfs(ctx: Any) -> None:
+    """Write per-student .tex files then compile them in parallel via xelatex."""
+    exam_name = ctx.artifact_dir.parent.name
+    workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
+    artifact_student_pdfs_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+    _pass2_write_tex(
+        ctx.student_summaries, ctx.full_reports, ctx.artifact_dir, exam_name, workers
+    )
+
+
+# ---------------------------------------------------------------------------
+# Step 26 — Class report
+# ---------------------------------------------------------------------------
+
+def step_26_class_report(ctx: Any) -> None:
+    """Build & write class XML/MD/TeX/PDF + concat combined PDF.
+
+    Skipped (with a warning) when ``--student`` filter narrowed the run to a
+    subset of students — a one-or-two-student class average is misleading.
+    """
+    cli_student_filter = getattr(ctx, "student_filter", None)
+    if cli_student_filter:
         from xscore.shared.terminal_ui import warn_line
         warn_line(
             "--student filter active — skipping class report (would not be "
             "representative of the full class)."
         )
-    # Side-channel review queue — never blocks, never affects PDFs.
-    # Always emitted (even when empty) so downstream tooling can rely on the
-    # file existing once compile_reports has run.
-    _write_review_queue(full_reports, ctx.artifact_dir)
-    return student_summaries
+        return
+    if not ctx.student_summaries:
+        return
+    exam_name = ctx.artifact_dir.parent.name
+    artifact_class_report_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+    _build_class_report(ctx, ctx.student_summaries, ctx.q_totals, exam_name)
+
+
+# ---------------------------------------------------------------------------
+# Step 27 — Review queue
+# ---------------------------------------------------------------------------
+
+def step_27_review_queue(ctx: Any) -> None:
+    """Emit the side-channel review queue (medium / low confidence marks).
+
+    Always runs, even when no entries are flagged, so downstream tooling can
+    rely on the artifact existing.
+    """
+    _write_review_queue(ctx.full_reports, ctx.artifact_dir)
+
+
+# ---------------------------------------------------------------------------
+# Backward-compat shim: still callable by anything that hasn't migrated.
+# ---------------------------------------------------------------------------
+
+def compile_reports(ctx: Any) -> list[dict]:
+    """Run steps 23–27 in sequence (kept for callers not yet migrated).
+
+    Returns a list of per-student summary dicts (keys: name, total_marks, percentage).
+    """
+    step_23_per_student_reports(ctx)
+    step_24_class_stats_curve(ctx)
+    step_25_per_student_pdfs(ctx)
+    step_26_class_report(ctx)
+    step_27_review_queue(ctx)
+    return ctx.student_summaries or []
 
 
 def load_student_results_from_reports(artifact_dir: Path) -> list:

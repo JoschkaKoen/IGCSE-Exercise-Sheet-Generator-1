@@ -209,15 +209,22 @@ def write_run_manifest(
         for f in (ctx.step_failures or [])
     ]
 
-    # Total cost may already have been written into 24_timing_summary/timing.json
-    # by the cost-report step; surface it in the manifest if available.
+    # Total cost is written by step 30 to 30_ai_costs/cost.json. Surface it in
+    # the manifest if available; fall back to legacy 28_timing_summary/timing.json
+    # location for runs done before the Phase B/D split.
     total_cost_rmb: float | None = None
     try:
-        from xscore.shared.exam_paths import artifact_timing_json_path
-        timing_path = artifact_timing_json_path(ctx.artifact_dir)
-        if timing_path.is_file():
-            data = json.loads(timing_path.read_text(encoding="utf-8"))
-            total_cost_rmb = data.get("total_cost_rmb")
+        from xscore.shared.exam_paths import (
+            artifact_cost_json_path,
+            artifact_timing_json_path,
+        )
+        for _p in (artifact_cost_json_path(ctx.artifact_dir),
+                   artifact_timing_json_path(ctx.artifact_dir)):
+            if _p.is_file():
+                data = json.loads(_p.read_text(encoding="utf-8"))
+                total_cost_rmb = data.get("total_cost_rmb")
+                if total_cost_rmb is not None:
+                    break
     except Exception:
         pass
 

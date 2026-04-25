@@ -36,8 +36,19 @@ STEP_19_PARSE_SCHEME    = "19_parse_mark_scheme"
 STEP_20_CREATE_REPORT   = "20_create_report"
 STEP_21_BLUEPRINTS      = "21_ai_marking_blueprints"
 STEP_22_AI_MARKING      = "22_ai_marking"
-STEP_23_COMPILE_REPORTS = "23_compile_reports"
-STEP_24_TIMING          = "24_timing_summary"
+STEP_23_STUDENT_REPORTS = "23_student_reports"
+STEP_24_CLASS_STATS     = "24_class_stats"
+STEP_25_STUDENT_PDFS    = "25_student_pdfs"
+STEP_26_CLASS_REPORT    = "26_class_report"
+STEP_27_REVIEW_QUEUE    = "27_review_queue"
+STEP_28_TIMING          = "28_timing_summary"
+STEP_29_ACCURACY        = "29_accuracy"
+STEP_30_AI_COSTS        = "30_ai_costs"
+
+# Backwards-compat alias kept for the resume-artifact copier and any
+# external script that references the old umbrella name. Old runs continue
+# to use the legacy "23_compile_reports/" folder; new runs split across 23–27.
+STEP_23_COMPILE_REPORTS = STEP_23_STUDENT_REPORTS
 
 # Path of cleaned scan relative to artifact_dir (updated from "7_cleaned_scan.pdf")
 CLEANED_SCAN_PDF = STEP_07 + "/cleaned_scan.pdf"
@@ -379,37 +390,83 @@ def artifact_marking_prompt_path(artifact_dir: Path, student: str, page: int) ->
 
 
 # ---------------------------------------------------------------------------
-# Step 21 — Compile reports
+# Step 23 — Per-student reports (XML + MD)
 # ---------------------------------------------------------------------------
 
-def artifact_reports_dir(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_23_COMPILE_REPORTS
+def artifact_student_reports_dir(artifact_dir: Path) -> Path:
+    """Directory containing per-student XML + Markdown reports (step 23)."""
+    return artifact_dir / STEP_23_STUDENT_REPORTS / "students"
 
 
-def artifact_reports_students_dir(artifact_dir: Path) -> Path:
-    """Directory containing per-student report files."""
-    return artifact_reports_dir(artifact_dir) / "students"
+def artifact_student_report_xml_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_reports_dir(artifact_dir) / f"{safe_student_name(student)}.xml"
+
+
+def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_reports_dir(artifact_dir) / f"{safe_student_name(student)}.md"
+
+
+# Backward-compat alias for callers that haven't migrated to the new name.
+artifact_reports_students_dir = artifact_student_reports_dir
+
+
+# ---------------------------------------------------------------------------
+# Step 24 — Class statistics + grade curve
+# ---------------------------------------------------------------------------
+
+def artifact_class_stats_json_path(artifact_dir: Path) -> Path:
+    """Step 24: class average + curve offset, written before per-student PDFs."""
+    return artifact_dir / STEP_24_CLASS_STATS / "class_stats.json"
+
+
+# ---------------------------------------------------------------------------
+# Step 25 — Per-student PDFs (TeX + xelatex output)
+# ---------------------------------------------------------------------------
+
+def artifact_student_pdfs_dir(artifact_dir: Path) -> Path:
+    """Directory containing per-student .tex + .pdf files (step 25)."""
+    return artifact_dir / STEP_25_STUDENT_PDFS / "students"
+
+
+def artifact_student_report_tex_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}.tex"
+
+
+def artifact_student_report_pdf_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}.pdf"
+
+
+# ---------------------------------------------------------------------------
+# Step 26 — Class report (XML/MD/TeX/PDF + combined PDF)
+# ---------------------------------------------------------------------------
+
+def artifact_class_report_dir(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_26_CLASS_REPORT
 
 
 def artifact_class_report_xml_path(artifact_dir: Path) -> Path:
-    return artifact_reports_dir(artifact_dir) / "class_report.xml"
+    return artifact_class_report_dir(artifact_dir) / "class_report.xml"
 
 
 def artifact_class_report_md_path(artifact_dir: Path) -> Path:
-    return artifact_reports_dir(artifact_dir) / "class_report.md"
+    return artifact_class_report_dir(artifact_dir) / "class_report.md"
 
 
 def artifact_class_report_tex_path(artifact_dir: Path) -> Path:
-    return artifact_reports_dir(artifact_dir) / "class_report.tex"
+    return artifact_class_report_dir(artifact_dir) / "class_report.tex"
 
 
 def artifact_class_report_pdf_path(artifact_dir: Path) -> Path:
-    return artifact_reports_dir(artifact_dir) / "class_report.pdf"
+    return artifact_class_report_dir(artifact_dir) / "class_report.pdf"
 
 
 def artifact_class_report_combined_pdf_path(artifact_dir: Path) -> Path:
-    return artifact_reports_dir(artifact_dir) / "class_report_combined.pdf"
+    return artifact_class_report_dir(artifact_dir) / "class_report_combined.pdf"
 
+
+# ---------------------------------------------------------------------------
+# Step 27 — Review queue (side-channel artifact for human spot-check)
+# ---------------------------------------------------------------------------
 
 def artifact_review_queue_json_path(artifact_dir: Path) -> Path:
     """Side-channel review queue (medium / low confidence marks).
@@ -417,43 +474,43 @@ def artifact_review_queue_json_path(artifact_dir: Path) -> Path:
     Pure side artifact — never loaded by any pipeline step; intended for manual
     spot-checking by the human marker.
     """
-    return artifact_reports_dir(artifact_dir) / "review_queue.json"
+    return artifact_dir / STEP_27_REVIEW_QUEUE / "review.json"
 
 
 def artifact_review_queue_md_path(artifact_dir: Path) -> Path:
-    return artifact_reports_dir(artifact_dir) / "review_queue.md"
-
-
-def artifact_student_report_xml_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_reports_students_dir(artifact_dir) / f"{safe_student_name(student)}.xml"
-
-
-def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_reports_students_dir(artifact_dir) / f"{safe_student_name(student)}.md"
-
-
-def artifact_student_report_tex_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_reports_students_dir(artifact_dir) / f"{safe_student_name(student)}.tex"
-
-
-def artifact_student_report_pdf_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_reports_students_dir(artifact_dir) / f"{safe_student_name(student)}.pdf"
+    return artifact_dir / STEP_27_REVIEW_QUEUE / "review.md"
 
 
 # ---------------------------------------------------------------------------
-# Step 22 — Timing summary
+# Step 28 — Timing summary (timing only, no accuracy/cost)
 # ---------------------------------------------------------------------------
 
 def artifact_timing_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_24_TIMING / "timing.json"
+    return artifact_dir / STEP_28_TIMING / "timing.json"
 
 
 def artifact_timing_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_24_TIMING / "timing.md"
+    return artifact_dir / STEP_28_TIMING / "timing.md"
 
+
+# ---------------------------------------------------------------------------
+# Step 29 — Accuracy evaluation (only when ground truth present)
+# ---------------------------------------------------------------------------
 
 def artifact_accuracy_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_24_TIMING / "accuracy.json"
+    return artifact_dir / STEP_29_ACCURACY / "accuracy.json"
+
+
+# ---------------------------------------------------------------------------
+# Step 30 — AI costs
+# ---------------------------------------------------------------------------
+
+def artifact_cost_json_path(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_30_AI_COSTS / "cost.json"
+
+
+def artifact_cost_md_path(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_30_AI_COSTS / "cost.md"
 
 
 # ---------------------------------------------------------------------------

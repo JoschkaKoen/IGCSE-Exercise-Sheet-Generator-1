@@ -109,10 +109,19 @@ STEPS: tuple[Step, ...] = (
          writes=("21_ai_marking_blueprints/*",)),
     Step(22, "ai_marking",                 resumable=True,
          writes=("22_ai_marking/*",)),
-    Step(23, "compile_reports",            resumable=True,
-         writes=("23_compile_reports/*",)),
-    Step(24, "timing_summary",             writes=("24_timing_summary/*",)),
-    Step(25, "ai_costs",                   writes=("24_timing_summary/timing.json",)),
+    Step(23, "per_student_reports",        resumable=True,
+         writes=("23_student_reports/*",)),
+    Step(24, "class_stats_curve",          resumable=True,
+         writes=("24_class_stats/*",)),
+    Step(25, "per_student_pdfs",           resumable=True,
+         writes=("25_student_pdfs/*",)),
+    Step(26, "class_report",               resumable=True,
+         writes=("26_class_report/*",)),
+    Step(27, "review_queue",               resumable=True,
+         writes=("27_review_queue/*",)),
+    Step(28, "timing_summary",             writes=("28_timing_summary/*",)),
+    Step(29, "accuracy_evaluation",        writes=("29_accuracy/*",)),
+    Step(30, "ai_costs",                   writes=("30_ai_costs/*",)),
 )
 
 

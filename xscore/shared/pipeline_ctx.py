@@ -61,7 +61,12 @@ class _Ctx:
     student_filter: list[str] | None = None  # --student; restrict marking + reports to these names (lower-case)
     geo: dict[str, Any] = field(default_factory=dict)   # scan geometry from step 8; updated by step 11
     b64_future: "Future[dict[int, str]] | None" = None  # render_pages_b64 submitted by _kick_off_render_bg
-    accuracy_summary: dict[str, Any] | None = None      # set by step 22; read by step 23
+    accuracy_summary: dict[str, Any] | None = None      # set by step 29; read by step 30
+    # --- Cross-step state for steps 23–27 (split out of compile_reports) ---
+    # Set by step 23 (per-student reports), consumed by 24 (curve), 25 (PDFs), 26 (class), 27 (review).
+    student_summaries: list[dict] | None = None
+    full_reports: dict[str, dict] | None = None
+    q_totals: dict[str, list[float]] | None = None
 
     def __post_init__(self) -> None:
         if getattr(self.args, "stop_after", None) is not None:
