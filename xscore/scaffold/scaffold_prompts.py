@@ -91,6 +91,12 @@ _USER_GRAPHICS = _load_prompt("detect_graphics_user")[1]
 _SYSTEM_LAYOUT = _load_prompt("detect_layout_system")[1]
 _USER_LAYOUT = _load_prompt("detect_layout_user")[1]
 
+# Reading-order labels for 4-up subpages, indexed by (row, col).
+_QUAD = {
+    (1, 1): "top-left", (1, 2): "top-right",
+    (2, 1): "bottom-left", (2, 2): "bottom-right",
+}
+
 
 def _build_user_exam_prompt(
     layout_result: "_LayoutDetectSchema | None",
@@ -104,11 +110,6 @@ def _build_user_exam_prompt(
     """
     if layout_result is None:
         return _USER_EXAM
-
-    _QUAD = {
-        (1, 1): "top-left", (1, 2): "top-right",
-        (2, 1): "bottom-left", (2, 2): "bottom-right",
-    }
 
     if is_split:
         rows, cols = layout_result.rows, layout_result.cols

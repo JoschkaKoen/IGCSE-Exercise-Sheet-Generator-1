@@ -9,11 +9,11 @@ falls back to ``{"type": "json_object"}`` if strict is rejected.
 from __future__ import annotations
 
 import json
-import re
 
 from pydantic import BaseModel
 
 from xscore.marking.formats.base import FormatParseError, MarkingFormat
+from xscore.shared.response_parsing import strip_code_fences as _strip_fences  # noqa: F401
 
 
 # ---------------------------------------------------------------------------
@@ -40,12 +40,6 @@ class _MarkingResponse(BaseModel):
 _MARKING_JSON_SCHEMA = _MarkingResponse.model_json_schema()
 
 
-def _strip_fences(raw: str) -> str:
-    raw = raw.strip()
-    if raw.startswith("```"):
-        raw = re.sub(r"^```[^\n]*\n?", "", raw)
-        raw = re.sub(r"\n?```$", "", raw.strip())
-    return raw
 
 
 class JsonMarkingFormat(MarkingFormat):
@@ -159,10 +153,9 @@ class JsonMarkingFormat(MarkingFormat):
                 "subpage_row":   int(q.get("subpage_row", 1)),
                 "subpage_col":   int(q.get("subpage_col", 1)),
                 "assigned_marks": am,
-                "student_answer": str(q.get("student_answer") or ""),
-                "explanation":    str(q.get("explanation") or ""),
+                "student_answer": str(q.get("student_answer") or "").strip(),
+                "explanation":    str(q.get("explanation") or "").strip(),
                 "confidence":     str(q.get("confidence") or "").strip().lower(),
-                "question_text":  str(q.get("text") or ""),
             })
         return result
 

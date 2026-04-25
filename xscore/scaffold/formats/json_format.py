@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import re
 from typing import Literal
 
 from pydantic import BaseModel
@@ -106,12 +105,7 @@ Examples: "\\\\textbf{{word}}", "$v = 2\\\\pi r / T$"
 """
 
 
-def _strip_fences(raw: str) -> str:
-    raw = raw.strip()
-    if raw.startswith("```"):
-        raw = re.sub(r"^```[^\n]*\n?", "", raw)
-        raw = re.sub(r"\n?```$", "", raw.strip())
-    return raw
+from xscore.shared.response_parsing import strip_code_fences as _strip_fences  # noqa: E402
 
 
 class JsonScaffoldFormat(ScaffoldFormat):

@@ -619,3 +619,21 @@ def find_scaffold_cache_file(
         if p.is_file():
             return p
     return None
+
+
+def is_completed_run(run_dir: Path) -> bool:
+    """True iff *run_dir* contains a finished scaffold report from any era.
+
+    Probes the live per-step layout first, then the pre-restructure flat
+    layout. Used by ``--from-step`` to filter "valid prior runs" without
+    each caller maintaining its own legacy probe list.
+    """
+    candidates = (
+        run_dir / "20_create_report" / "report.xml",   # current
+        run_dir / "19_create_report" / "report.xml",   # post-step-18-split legacy
+        run_dir / "18_create_report" / "report.xml",   # post-step-split legacy
+        run_dir / "17_create_report" / "report.xml",   # post-step-16 refactor legacy
+        run_dir / "16_create_report" / "report.xml",   # pre-step-16 refactor legacy
+        run_dir / "12_report.json",                    # pre-restructure legacy
+    )
+    return any(p.exists() for p in candidates)

@@ -6,11 +6,10 @@ so LaTeX content in student_answer and explanation needs no format-level escapin
 
 from __future__ import annotations
 
-import re
-
 import yaml
 
 from xscore.marking.formats.base import FormatParseError, MarkingFormat
+from xscore.shared.response_parsing import strip_code_fences as _strip_fences
 
 
 # ---------------------------------------------------------------------------
@@ -29,14 +28,6 @@ def _str_representer(dumper: yaml.Dumper, data: str) -> yaml.ScalarNode:
 
 
 _MarkingDumper.add_representer(str, _str_representer)
-
-
-def _strip_fences(raw: str) -> str:
-    raw = raw.strip()
-    if raw.startswith("```"):
-        raw = re.sub(r"^```[^\n]*\n?", "", raw)
-        raw = re.sub(r"\n?```$", "", raw.strip())
-    return raw
 
 
 def _build_yaml_blueprint(page_num: int, layout, questions: list[dict]) -> str:
@@ -222,7 +213,6 @@ class YamlMarkingFormat(MarkingFormat):
                 "student_answer": str(q.get("student_answer") or "").strip(),
                 "explanation":    str(q.get("explanation") or "").strip(),
                 "confidence":     str(q.get("confidence") or "").strip().lower(),
-                "question_text":  str(q.get("text") or ""),
             })
         return result
 

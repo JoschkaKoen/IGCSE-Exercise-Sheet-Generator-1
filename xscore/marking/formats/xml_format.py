@@ -98,15 +98,7 @@ class XmlMarkingFormat(MarkingFormat):
 
     def deserialize_blueprint(self, text: str) -> dict:
         from xscore.marking.mark_xml import _blueprint_xml_to_dict
-        result = _blueprint_xml_to_dict(text)
-        try:
-            root = ET.fromstring(text)
-            student_name = root.get("student_name") or ""
-            if student_name:
-                result["student_name"] = student_name
-        except ET.ParseError:
-            pass
-        return result
+        return _blueprint_xml_to_dict(text)
 
     def artifact_ext(self) -> str:
         return "xml"

@@ -37,12 +37,9 @@ class _Ctx:
     # Steps 19–23: AI marking pipeline
     num_students: int = 0
     pages_per_student: int = 0
-    step_timings_marking: dict[str, float] = field(default_factory=dict)
-    # Unified per-step wall-clock timings, populated by
-    # :func:`xscore.shared.pipeline_steps.run_step` once a step has been
-    # migrated out of xScore.py's nested closures into the registry. Empty for
-    # un-migrated steps; consumers should fall back to ``step_timings_marking``
-    # for historical compatibility (see :mod:`xscore.marking.timing_report`).
+    # Per-step wall-clock timings. Written by xScore.py's step bodies and by
+    # :func:`xscore.shared.pipeline_steps.run_step` once steps migrate out of
+    # xScore.py's nested closures into the registry.
     step_timings: dict[str, float] = field(default_factory=dict)
     # Captured exceptions per step (also re-raised by ``run_step``). Used by
     # the run-manifest writer to distinguish "ran but errored" from "did not run".
@@ -70,19 +67,19 @@ class _Ctx:
     q_totals: dict[str, list[float]] | None = None
 
     def __post_init__(self) -> None:
-        if getattr(self.args, "stop_after", None) is not None:
+        # All four fields are guaranteed by parse_args() in xScore.py.
+        if self.args.stop_after is not None:
             self.stop_after = self.args.stop_after
-        if getattr(self.args, "from_step", None) is not None:
+        if self.args.from_step is not None:
             self.from_step = self.args.from_step
-        if getattr(self.args, "resume_dir", None) is not None:
+        if self.args.resume_dir is not None:
             self.resume_dir = self.args.resume_dir
         # --student supports both repeated flags (action="append") and a single
         # comma-separated value (--student "Alice, Bob"). Normalise to lowercase
         # exact-match keys and drop empty entries.
-        raw_students = getattr(self.args, "student", None)
-        if raw_students:
+        if self.args.student:
             names: list[str] = []
-            for entry in raw_students:
+            for entry in self.args.student:
                 for piece in entry.split(","):
                     piece = piece.strip().lower()
                     if piece:

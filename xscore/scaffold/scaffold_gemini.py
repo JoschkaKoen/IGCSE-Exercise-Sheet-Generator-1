@@ -51,15 +51,22 @@ _THINKING_MAP = {"off": 0, "low": 1024, "high": 8192}
 # ---------------------------------------------------------------------------
 
 def _upload_and_poll(client, path: Path, label: str):
-    """Upload *path* to the Gemini Files API, poll until ACTIVE, return the file object."""
+    """Upload *path* to the Gemini Files API, poll until ACTIVE, return the file object.
+
+    Polling cadence is configurable via env vars ``GEMINI_UPLOAD_TIMEOUT_S``
+    (default 360) and ``GEMINI_UPLOAD_POLL_S`` (default 3).
+    """
     f = client.files.upload(file=path)
-    for _ in range(120):  # up to 6 minutes at 3 s intervals
+    _interval = float(os.environ.get("GEMINI_UPLOAD_POLL_S", "3"))
+    _timeout = float(os.environ.get("GEMINI_UPLOAD_TIMEOUT_S", "360"))
+    _max_iters = max(1, int(_timeout / _interval))
+    for _ in range(_max_iters):
         if getattr(f.state, "name", str(f.state)) != "PROCESSING":
             break
-        time.sleep(3)
+        time.sleep(_interval)
         f = client.files.get(name=f.name)
     else:
-        raise TimeoutError(f"Gemini file upload timed out after 6 min ({label}): {f.name}")
+        raise TimeoutError(f"Gemini file upload timed out after {_timeout:.0f}s ({label}): {f.name}")
     state = getattr(f.state, "name", str(f.state))
     if state == "FAILED":
         raise RuntimeError(f"Gemini file processing failed ({label}): {f.name}")
@@ -70,7 +77,7 @@ def _extract_text(resp) -> str:
     """Return resp.text, tolerating None and empty-candidates responses."""
     try:
         return resp.text or ""
-    except Exception:
+    except (AttributeError, ValueError):
         return ""
 
 
@@ -156,6 +163,7 @@ def _do_exam_call(
             for _i in range(_doc.page_count):
                 pix = _doc[_i].get_pixmap(dpi=_dpi)
                 _exam_page_b64s.append(_base64.b64encode(pix.tobytes("png")).decode())
+                pix = None  # release pixmap memory
 
     def _make_exam_call(label: str | None) -> str:
         _t0 = time.perf_counter()
@@ -203,8 +211,8 @@ def _do_exam_call(
                         p = artifact_exam_questions_raw_path(artifact_dir, fmt=fmt.artifact_ext())
                         p.parent.mkdir(parents=True, exist_ok=True)
                         p.write_text("# empty response after retry", encoding="utf-8")
-                    except OSError:
-                        pass
+                    except OSError as e:
+                        warn_line(f"Could not save empty-response stub: {e}")
                 raise RuntimeError(f"Exam response empty after retry — {exam_model}")
         if artifact_dir is not None:
             save_prompt(
@@ -219,8 +227,8 @@ def _do_exam_call(
                 p = artifact_exam_questions_raw_path(artifact_dir, fmt=fmt.artifact_ext())
                 p.parent.mkdir(parents=True, exist_ok=True)
                 p.write_text(raw_exam, encoding="utf-8")
-            except OSError:
-                pass
+            except OSError as e:
+                warn_line(f"Could not save raw exam response: {e}")
         try:
             return fmt.parse_exam_response(raw_exam)
         except Exception as exc:
@@ -286,6 +294,7 @@ def _rasterize_scheme_pages(marking_scheme_pdf: Path, n_pages: int) -> dict[int,
         for _i in range(n_pages):
             pix = _doc_r[_i].get_pixmap(dpi=_gfx_dpi)
             page_pngs[_i + 1] = pix.tobytes("png")
+            pix = None  # release pixmap memory
     return page_pngs
 
 
@@ -332,12 +341,8 @@ def detect_scheme_graphics(
     page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
 
     _gfx_schema_str = json.dumps(_SCHEME_GRAPHICS_JSON_SCHEMA, indent=2)
-    _gfx_system = (
-        "You are a graphic-detection assistant for Cambridge IGCSE mark schemes. "
-        "Respond ONLY with valid JSON matching this schema:\n" + _gfx_schema_str + "\n\n"
-        "Return bounding boxes as [x_min, y_min, x_max, y_max] with integer "
-        "coordinates on a 0–1000 scale (0=top-left, 1000=bottom-right of the image)."
-    )
+    from xscore.prompts.loader import load_prompt as _load_prompt
+    _, _gfx_system = _load_prompt("detect_graphics_system", schema=_gfx_schema_str)
 
     _all_qnums = fmt.extract_question_numbers(scaffold_str)
     _qnum_hint = ", ".join(f'"{n}"' for n in _all_qnums)
@@ -413,7 +418,7 @@ def detect_scheme_graphics(
             ]
         }
 
-    with ThreadPoolExecutor(max_workers=n_pages) as pool:
+    with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("SCHEME_WORKERS", "8")))) as pool:
         graphics_page_results = list(pool.map(_detect_graphics_page, range(1, n_pages + 1)))
 
     _graphics_merged = _merge_scheme_results(graphics_page_results)
@@ -432,8 +437,8 @@ def detect_scheme_graphics(
                 json.dumps(_graphics_merged, ensure_ascii=False, indent=2),
                 encoding="utf-8",
             )
-        except OSError:
-            pass
+        except OSError as e:
+            warn_line(f"Could not save mark-scheme graphics JSON: {e}")
 
     if artifact_dir is not None and _n_graphics:
         _graphics_margin = float(os.environ.get("SCHEME_GRAPHICS_MARGIN", "0.01"))
@@ -513,7 +518,7 @@ def parse_mark_scheme_pages(
             page_num, path = item
             return page_num, _upload_and_poll(client, path, f"scheme p{page_num}")
 
-        with ThreadPoolExecutor(max_workers=n_pages) as pool:
+        with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("SCHEME_WORKERS", "8")))) as pool:
             for page_num, f in pool.map(_upload_page, enumerate(page_paths, 1)):
                 page_uris[page_num] = f.uri
 
@@ -585,7 +590,7 @@ def parse_mark_scheme_pages(
             save_response(_prompt_path, raw or "")
         return fmt.parse_scheme_response(raw or "")
 
-    with ThreadPoolExecutor(max_workers=n_pages) as pool:
+    with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("SCHEME_WORKERS", "8")))) as pool:
         page_results = list(pool.map(_call_page, range(1, n_pages + 1)))
 
     result = _merge_scheme_results(page_results)

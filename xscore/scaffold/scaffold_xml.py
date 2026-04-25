@@ -115,7 +115,7 @@ def _serialize_exam_xml(questions: list[dict], layout: dict) -> str:
     for q in questions:
         _q_el(root, q)
     ET.indent(root)
-    return ET.tostring(root, encoding="unicode", xml_declaration=False)
+    return ET.tostring(root, encoding="unicode")
 
 
 def _save_exam_questions_xml(artifact_dir: Path, raw_questions: list[dict], layout: dict) -> None:
@@ -133,11 +133,8 @@ def _save_exam_questions_xml(artifact_dir: Path, raw_questions: list[dict], layo
 
 def _preprocess_xml(raw: str) -> str:
     """Strip markdown fences and fix unescaped & before XML parsing."""
-    raw = raw.strip()
-    if raw.startswith("```"):
-        raw = re.sub(r"^```[^\n]*\n?", "", raw)
-        raw = re.sub(r"\n?```$", "", raw.strip())
-    return re.sub(r"&(?![a-zA-Z#]\w*;)", "&amp;", raw)
+    from xscore.shared.response_parsing import strip_code_fences
+    return re.sub(r"&(?![a-zA-Z#]\w*;)", "&amp;", strip_code_fences(raw))
 
 
 def _parse_exam_xml(raw: str) -> tuple[list[dict], dict]:
@@ -186,6 +183,11 @@ def _parse_scheme_xml(raw: str) -> dict:
         return {"questions": []}
     questions = []
     for q_el in root.findall("question"):
+        graphics_list = []
+        for g_el in q_el.findall("graphic"):
+            g = _parse_graphic(g_el)
+            if g:
+                graphics_list.append(g)
         questions.append({
             "number":         q_el.get("number", ""),
             "correct_answer": q_el.get("correct_answer") or None,
@@ -193,7 +195,7 @@ def _parse_scheme_xml(raw: str) -> dict:
                 {"mark": c.get("mark", ""), "criterion": (c.text or "").strip()}
                 for c in q_el.findall("criterion")
             ],
-            "graphics": [g for g_el in q_el.findall("graphic") if (g := _parse_graphic(g_el))],
+            "graphics": graphics_list,
         })
     return {"questions": questions}
 

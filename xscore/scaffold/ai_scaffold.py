@@ -99,8 +99,8 @@ def step15_detect_layout(
             raw_path = artifact_exam_layout_raw_path(artifact_dir)
             raw_path.parent.mkdir(parents=True, exist_ok=True)
             raw_path.write_text(layout_raw_text, encoding="utf-8")
-        except OSError:
-            pass
+        except OSError as e:
+            warn_line(f"Could not save raw exam layout: {e}")
 
     n_cells = layout_result.rows * layout_result.cols
     if layout_error is not None:
@@ -164,8 +164,8 @@ def step16_cut_exam_pdf(
                 dest = artifact_split_exam_pdf_path(artifact_dir)
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(str(split_pdf_temp_path), str(dest))
-            except OSError:
-                pass
+            except OSError as e:
+                warn_line(f"Could not copy split exam PDF to artifacts: {e}")
         actual_exam_pdf = split_pdf_temp_path
     else:
         ok_line("Skipped — 1×1 layout, no splitting needed")
@@ -176,8 +176,8 @@ def step16_cut_exam_pdf(
                 dest = artifact_exam_input_pdf_path(artifact_dir)
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(str(exam_pdf), str(dest))
-            except OSError:
-                pass
+            except OSError as e:
+                warn_line(f"Could not copy exam PDF to artifacts: {e}")
         actual_exam_pdf = exam_pdf
 
     # Re-save the step-15 layout artifact with the actual cut counts.
@@ -236,8 +236,8 @@ def step17_parse_exam_pdf(
             p.parent.mkdir(parents=True, exist_ok=True)
             p.write_text(fmt.serialize_exam(raw_questions, raw_layout), encoding="utf-8")
             write_raw_exam_markdown(artifact_dir, raw_questions)
-        except OSError:
-            pass
+        except OSError as e:
+            warn_line(f"Could not save exam questions artifacts: {e}")
 
     ok_line(f"{len(raw_questions)} top-level questions extracted")
     return raw_questions, raw_layout

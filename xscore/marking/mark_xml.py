@@ -106,10 +106,8 @@ def _repair_mismatched_leaf_tags(raw: str) -> str:
 
 def _parse_xml_response(raw: str) -> list[dict]:
     """Parse the AI's XML marking response into a list of question dicts."""
-    raw = raw.strip()
-    if raw.startswith('```'):
-        raw = re.sub(r'^```[^\n]*\n?', '', raw)
-        raw = re.sub(r'\n?```$', '', raw.strip())
+    from xscore.shared.response_parsing import strip_code_fences
+    raw = strip_code_fences(raw)
     # Extract the <marking>…</marking> block, discarding any surrounding
     # reasoning text or stray duplicate </marking> tags the model may emit.
     m = re.search(r'(<marking\b.*?</marking>)', raw, re.DOTALL)
@@ -148,7 +146,6 @@ def _parse_xml_response(raw: str) -> list[dict]:
             'student_answer': (sa_el.text or '').strip() if sa_el is not None else '',
             'explanation':    (re_el.text or '').strip() if re_el is not None else '',
             'confidence':     (cf_el.text or '').strip().lower() if cf_el is not None else '',
-            'question_text':  q.get('question_text', ''),
         })
     return questions
 
@@ -188,8 +185,12 @@ def _blueprint_xml_to_dict(xml_str: str) -> dict:
             "explanation":     (ex_el.text or "").strip() if ex_el is not None else "",
             "confidence":      (cf_el.text or "").strip().lower() if cf_el is not None else "",
         })
-    return {
+    result: dict = {
         "page":     int(root.get("page", 1)),
         "layout":   {"rows": int(root.get("rows", 1)), "cols": int(root.get("cols", 1))},
         "questions": questions,
     }
+    student_name = root.get("student_name") or ""
+    if student_name:
+        result["student_name"] = student_name
+    return result

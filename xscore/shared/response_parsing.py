@@ -7,6 +7,20 @@ import re
 from typing import Any
 
 
+def strip_code_fences(raw: str) -> str:
+    """Strip ``` code fences from a response string.
+
+    Removes one optional leading fence (``` or ```lang) and one optional
+    trailing fence. The fences must be on their own around the content.
+    Idempotent on already-stripped input.
+    """
+    raw = raw.strip()
+    if raw.startswith("```"):
+        raw = re.sub(r"^```[^\n]*\n?", "", raw)
+        raw = re.sub(r"\n?```$", "", raw.strip())
+    return raw
+
+
 def parse_json_safe(raw: str) -> dict | None:
     """Parse JSON from model text; slice object bounds; light truncation repair.
 

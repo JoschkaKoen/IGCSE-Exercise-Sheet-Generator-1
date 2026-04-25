@@ -46,10 +46,14 @@ def _detect_layout(
         )
     cfg = gai_types.GenerateContentConfig(system_instruction=_SYSTEM_LAYOUT, **cfg_kwargs)
 
+    from xscore.shared.terminal_ui import warn_line
+
     raw_text: str | None = None
     t0 = time.perf_counter()
     last_exc: Exception = RuntimeError("no attempts made")
-    for attempt in range(2):  # initial attempt + 1 retry on transient error
+    _MAX_ATTEMPTS = 4  # initial attempt + 3 retries on transient errors (503, RemoteProtocolError)
+    _BACKOFF_S = [1.0, 2.0, 4.0]
+    for attempt in range(_MAX_ATTEMPTS):
         try:
             resp = client.models.generate_content(
                 model=model,
@@ -67,8 +71,13 @@ def _detect_layout(
             raise
         except Exception as exc:
             last_exc = exc
-            if attempt == 0 and is_503_error(exc):
-                time.sleep(0.1)
+            if attempt < _MAX_ATTEMPTS - 1 and is_503_error(exc):
+                _wait = _BACKOFF_S[min(attempt, len(_BACKOFF_S) - 1)]
+                warn_line(
+                    f"Layout detection: transient error ({str(exc).split(chr(10))[0]}) "
+                    f"— retrying in {_wait:.0f}s (attempt {attempt + 2}/{_MAX_ATTEMPTS}) …"
+                )
+                time.sleep(_wait)
             else:
                 break
     elapsed = time.perf_counter() - t0

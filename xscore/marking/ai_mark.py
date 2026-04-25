@@ -15,7 +15,6 @@ import os
 import re
 import threading
 import time
-from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from collections.abc import Callable
@@ -39,7 +38,7 @@ from xscore.shared.terminal_ui import format_duration, get_console, icon, info_l
 
 from xscore.marking.mark_xml import MarkingFailure
 from xscore.marking.mark_page import (
-    _bq_key, _build_marking_system_prompt, _fix_mc_marks, _mark_page, _render_page_b64,
+    _build_marking_system_prompt, _mark_page, _render_page_b64,
 )
 
 _DEFAULT_MARKING_MODEL = MARKING_MODEL_DEFAULT
@@ -187,40 +186,8 @@ def _mark_page_pdf(
             raw = resp.text or ""
             _last_raw = raw
             save_response(prompt_save_path, raw)
-            parsed_questions = fmt.parse_response(raw)
-            result = blueprint.copy()
-            fill_groups: dict[tuple, list] = defaultdict(list)
-            for q in parsed_questions:
-                fill_groups[_bq_key(q)].append(q)
-            fill_group_idx: dict[tuple, int] = defaultdict(int)
-            for bq in result.get("questions", []):
-                grp_key = _bq_key(bq)
-                idx = fill_group_idx[grp_key]
-                fill_group_idx[grp_key] += 1
-                if fill_groups[grp_key] and idx < len(fill_groups[grp_key]):
-                    src_q = fill_groups[grp_key][idx]
-                    bq["student_answer"] = src_q.get("student_answer", "")
-                    bq["assigned_marks"] = src_q.get("assigned_marks", 0)
-                    bq["explanation"] = src_q.get("explanation", "")
-            _fix_mc_marks(result)
-            for bq in result.get("questions", []):
-                if not (bq.get("student_answer") or "").strip() and bq.get("assigned_marks") in (None, 0):
-                    bq["explanation"] = "Blank answer."
-            for bq in result.get("questions", []):
-                max_m = bq.get("max_marks")
-                if max_m is None:
-                    continue
-                m = bq.get("assigned_marks", 0)
-                if not isinstance(m, int) or m < 0 or m > int(max_m):
-                    warn(
-                        f"Marking: Q{bq.get('number')} assigned_marks={m} out of range "
-                        f"[0, {max_m}] — clamping"
-                    )
-                    try:
-                        m_int = int(m)
-                    except (TypeError, ValueError):
-                        m_int = 0
-                    bq["assigned_marks"] = max(0, min(m_int, int(max_m)))
+            from xscore.marking.mark_page import _apply_marking_response
+            result = _apply_marking_response(raw, blueprint, fmt, warn)
             try:
                 gai_client.files.delete(name=uploaded.name)
             except Exception as _del_exc:  # noqa: BLE001
@@ -252,8 +219,14 @@ def _mark_page_pdf(
 def _scheme_graphics_for_page(
     blueprint: dict,
     graphics_map: dict[str, list[Path]],
+    b64_cache: dict[Path, str] | None = None,
 ) -> list[tuple[str, int, str]]:
-    """Return (question_number, ms_page, base64_png) tuples for mark-scheme graphics on this page."""
+    """Return (question_number, ms_page, base64_png) tuples for mark-scheme graphics on this page.
+
+    *b64_cache* is a pre-computed ``{path: base64}`` map so PNG read+encode happens
+    once per file rather than once per (student × page) call. Falls back to live
+    read+encode for paths not in the cache (or when cache is None).
+    """
     out = []
     for q in blueprint.get("questions", []):
         qnum = str(q.get("number", ""))
@@ -261,7 +234,11 @@ def _scheme_graphics_for_page(
         for png_path in graphics_map.get(safe_num, []):
             page_prefix = png_path.name.split("_")[0]
             ms_page = int(page_prefix) if page_prefix.isdigit() else 0
-            out.append((qnum, ms_page, base64.b64encode(png_path.read_bytes()).decode()))
+            if b64_cache is not None and png_path in b64_cache:
+                b64 = b64_cache[png_path]
+            else:
+                b64 = base64.b64encode(png_path.read_bytes()).decode()
+            out.append((qnum, ms_page, b64))
     return out
 
 
@@ -368,27 +345,38 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
 
-    b64_future = getattr(ctx, "b64_future", None)
-    if b64_future is not None:
-        _b64_cache = b64_future.result()   # instant if BG finished; brief wait if not
-        ok_line(f"Pre-rendering done  ·  {len(_b64_cache)} page(s) ready")
-    else:
+    def _render_inline() -> dict[tuple[str, int], str]:
         _total_pages = sum(len(a["page_numbers"]) for a in raw_assignments)
         info_line(f"Rendering {_total_pages} page(s) for {len(raw_assignments)} students at {dpi} DPI …")
-        _b64_cache = render_pages_b64(
+        return render_pages_b64(
             ctx.cleaned_pdf, ctx.artifact_dir, dpi, workers,
             instruction=getattr(ctx, "instruction", None),
         )
 
-    # Pre-build mark-scheme graphics map: safe_qnum → sorted list of PNG paths
+    b64_future = getattr(ctx, "b64_future", None)
+    if b64_future is not None:
+        try:
+            _b64_cache = b64_future.result()   # instant if BG finished; brief wait if not
+            ok_line(f"Pre-rendering done  ·  {len(_b64_cache)} page(s) ready")
+        except Exception as _bg_exc:  # noqa: BLE001 — fall back to inline rendering
+            warn_line(f"Background pre-rendering failed ({_bg_exc}); rendering inline …")
+            _b64_cache = _render_inline()
+    else:
+        _b64_cache = _render_inline()
+
+    # Pre-build mark-scheme graphics map: safe_qnum → sorted list of PNG paths.
+    # Also pre-encode each PNG to base64 once (reused across all student×page calls
+    # via _scheme_graphics_for_page's b64_cache parameter).
     _graphics_dir = artifact_mark_scheme_graphics_dir(ctx.artifact_dir)
     _graphics_map: dict[str, list[Path]] = {}
+    _graphics_b64_cache: dict[Path, str] = {}
     if _graphics_dir.is_dir():
         _gfx_re = re.compile(r"^\d+_(.+)_(\d+)\.png$")
         for _p in sorted(_graphics_dir.glob("*.png")):
             _m = _gfx_re.match(_p.name)
             if _m:
                 _graphics_map.setdefault(_m.group(1), []).append(_p)
+                _graphics_b64_cache[_p] = base64.b64encode(_p.read_bytes()).decode()
         for _v in _graphics_map.values():
             _v.sort()
 
@@ -459,7 +447,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         t0 = time.perf_counter()
         prompt_save = artifact_marking_prompt_path(ctx.artifact_dir, student_name, p_label)
         try:
-            _page_graphics = _scheme_graphics_for_page(blueprint, _graphics_map)
+            _page_graphics = _scheme_graphics_for_page(blueprint, _graphics_map, _graphics_b64_cache)
             _use_pdf_path = _provider == "gemini"
             if _use_pdf_path:
                 import shutil

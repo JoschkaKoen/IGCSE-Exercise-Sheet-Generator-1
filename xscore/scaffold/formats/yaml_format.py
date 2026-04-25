@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import re
 
 import yaml
 
@@ -78,12 +77,7 @@ def _str_representer(dumper: yaml.Dumper, data: str) -> yaml.ScalarNode:
 _ScaffoldDumper.add_representer(str, _str_representer)
 
 
-def _strip_fences(raw: str) -> str:
-    raw = raw.strip()
-    if raw.startswith("```"):
-        raw = re.sub(r"^```[^\n]*\n?", "", raw)
-        raw = re.sub(r"\n?```$", "", raw.strip())
-    return raw
+from xscore.shared.response_parsing import strip_code_fences as _strip_fences  # noqa: E402
 
 
 def _build_user_exam_prompt_yaml(layout_result, is_split: bool, n_split_pages: int) -> str:

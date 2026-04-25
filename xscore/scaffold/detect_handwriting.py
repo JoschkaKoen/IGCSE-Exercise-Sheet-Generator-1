@@ -386,9 +386,8 @@ def write_adjusted_exercise_pdf(
             page_in = doc_in[page_idx]
             mat = fitz.Matrix(dpi / 72, dpi / 72)
             pix = page_in.get_pixmap(matrix=mat, colorspace=fitz.csRGB)
-            img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(
-                pix.height, pix.width, 3
-            )
+            pw, ph = pix.width, pix.height
+            img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(ph, pw, 3)
             pix = None  # release pixmap memory
             img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
@@ -397,8 +396,8 @@ def write_adjusted_exercise_pdf(
                 rx0, ry0, rx1, ry1 = entry["rect"]
                 x0 = max(0, int(rx0 / px_to_pt))
                 y0 = max(0, int(ry0 / px_to_pt))
-                x1 = min(pix.width, int(rx1 / px_to_pt))
-                y1 = min(pix.height, int(ry1 / px_to_pt))
+                x1 = min(pw, int(rx1 / px_to_pt))
+                y1 = min(ph, int(ry1 / px_to_pt))
                 if x1 > x0 and y1 > y0:
                     img_bgr[y0:y1, x0:x1] = _erase_vertical_lines_from_crop(
                         img_bgr[y0:y1, x0:x1]

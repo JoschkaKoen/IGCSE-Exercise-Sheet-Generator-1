@@ -206,42 +206,29 @@ def _copy_input_files(folder: Path, artifact_dir: Path) -> None:
 def _copy_artifacts(src: Path, dst: Path, from_step: int, blueprint_step: int) -> None:
     """Copy prior-run artifacts needed for resuming from *from_step* into *dst*.
 
-    Patterns include both the new per-step folder layout and the pre-restructure
-    flat layout so that resuming from old runs still works.
+    Patterns are derived from ``pipeline_steps.STEPS[*].writes`` for every step
+    *before* *from_step* (those outputs become inputs for the resumed run).
+    Pre-restructure legacy flat paths are appended for backwards-compat with
+    runs created before the per-step folder layout. *blueprint_step* is kept
+    for caller-API compatibility but no longer used internally.
     """
     import shutil
-    patterns = [
-        # New per-step folder paths
-        "03_read_student_list/students.*",
-        "07_deskew/cleaned_scan.pdf",
-        "08_exam_geometry/exam_geometry.*",
-        "11_student_names/exam_student_list.*",
-        "14_blank_pages/blank_pages.json",
-        "15_detect_exam_layout/exam_layout.*",
-        "15_detect_exam_layout/split_exam.pdf",
-        "17_parse_exam_pdf/exam_questions.*",
-        "17_parse_exam_pdf/exam_input.pdf",
-        "18_parse_mark_scheme/mark_scheme.*",
-        "20_create_report/report.*",
-        "20_create_report/short_report.*",
-        # Pre-restructure legacy flat paths (backward compatibility)
+    from xscore.shared.pipeline_steps import STEPS
+
+    # Auto-derived from the registry: every artifact written by a step we'll skip.
+    patterns: list[str] = [g for s in STEPS if s.number < from_step for g in s.writes]
+
+    # Pre-restructure legacy flat paths (backward compatibility with old runs).
+    patterns += [
         "3_students.*",
         "7_cleaned_scan.pdf",
         "8_exam_geometry.*", "8_exam_student_list.*", "8_blank_pages.json",
         "9_exam_layout.*", "9_exam_input.pdf", "9_split_exam.pdf",
         "10_exam_questions.*", "11_mark_scheme.*",
         "12_report.*", "12_short_report.*",
+        "13_ai_marking_blueprint_*.*",
+        "students/14_marked_*.*", "students/14_failed_*.*",
     ]
-    if from_step >= blueprint_step + 1:   # from marking — need blueprints
-        patterns += [
-            f"{blueprint_step:02d}_ai_marking_blueprints/blueprint_page_*.*",
-            "13_ai_marking_blueprint_*.*",   # legacy
-        ]
-    if from_step >= blueprint_step + 2:   # from reports — need marking results
-        patterns += [
-            "22_ai_marking/students/",
-            "students/14_marked_*.*", "students/14_failed_*.*",  # legacy
-        ]
     for pat in patterns:
         for src_file in src.glob(pat):
             dst_file = dst / src_file.relative_to(src)
@@ -255,19 +242,11 @@ def _resume_pipeline(ctx: "_Ctx", imp: "types.SimpleNamespace") -> None:
     resume_dir = ctx.resume_dir
     if resume_dir is None:
         assert ctx.folder is not None
+        from xscore.shared.exam_paths import is_completed_run
         exam_output_root = Path("output") / "xscore" / ctx.folder.name.replace(" ", "_")
-        def _is_valid_run(p: Path) -> bool:
-            return (
-                (p / "20_create_report" / "report.xml").exists() or   # current
-                (p / "19_create_report" / "report.xml").exists() or   # post-step-18-split legacy
-                (p / "18_create_report" / "report.xml").exists() or   # post-step-split legacy
-                (p / "17_create_report" / "report.xml").exists() or   # post-step-16 refactor legacy
-                (p / "16_create_report" / "report.xml").exists() or   # pre-step-16 refactor legacy
-                (p / "12_report.json").exists()                        # pre-restructure legacy
-            )
         candidates = sorted(
             (p for p in exam_output_root.iterdir()
-             if p.is_dir() and p != ctx.artifact_dir and _is_valid_run(p)),
+             if p.is_dir() and p != ctx.artifact_dir and is_completed_run(p)),
             key=lambda p: p.stat().st_mtime, reverse=True,
         )
         if not candidates:
@@ -277,13 +256,14 @@ def _resume_pipeline(ctx: "_Ctx", imp: "types.SimpleNamespace") -> None:
         resume_dir = candidates[0]
     ctx.resume_dir = resume_dir
 
-    # Validate from_step
-    blueprint_step = 21
-    valid_steps = (blueprint_step, blueprint_step + 1, blueprint_step + 2)
+    # Validate from_step against the canonical registry (steps marked resumable=True)
+    from xscore.shared.pipeline_steps import resumable_step_numbers
+    valid_steps = resumable_step_numbers()
+    blueprint_step = valid_steps[0]
     if ctx.from_step not in valid_steps:
         raise SystemExit(
             f"--from-step {ctx.from_step} not supported for this run "
-            f"(use {', '.join(str(s) for s in valid_steps)}: blueprints, marking, reports)."
+            f"(use {', '.join(str(s) for s in valid_steps)})."
         )
 
     # Validate required artifacts exist (check new paths first, then pre-restructure legacy)
@@ -778,6 +758,10 @@ def _kick_off_render_bg(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     """Start parallel page rendering in a background thread right after step 11.
 
     No-op if cleaned_pdf or page_assignments are not yet set.
+
+    NOTE: the outer ``ThreadPoolExecutor(max_workers=1)`` exists only to give us
+    a ``Future`` handle that step 22 can ``.result()`` on. ``render_pages_b64``
+    spawns its own worker pool internally (sized by ``MARKING_WORKERS``).
     """
     if not (ctx.cleaned_pdf and ctx.page_assignments and ctx.artifact_dir):
         return
@@ -807,7 +791,7 @@ def _step08_scan_geometry(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     ctx.num_students = ctx.geo["num_students"]
     ctx.pages_per_student = ctx.geo["pages_per_student"]
     if ctx.geo["roster_mismatch"]:
-        imp.warn_line(
+        imp.info_line(
             f"Roster has {ctx.geo['num_students_roster']} students "
             f"but scan implies {ctx.geo['num_students']}"
         )
@@ -817,7 +801,9 @@ def _step08_scan_geometry(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
         f"·  {ctx.geo['scan_pages']} scan pages total"
     )
     # Write immediately so downstream steps can read even if later steps raise.
-    ctx.geo["cover_page_mode"] = False
+    # NOTE: cover_page_mode is intentionally NOT written here — step 11 finalizes
+    # it after detection and persists then. Writing False here would clobber the
+    # final value if a stale prior-run artifact was read before step 11 ran.
     imp.write_geometry_artifacts(ctx.artifact_dir, ctx.geo)
 
 
@@ -839,7 +825,8 @@ def _step09_cover_detection(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
         return
     try:
         _gai_client_ec = gai.Client(api_key=_ec_api_key)
-        _ec_model, _ec_effort = parse_model_effort(os.environ.get("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash"))
+        from xscore.config import EMPTY_EXAM_COVER_MODEL
+        _ec_model, _ec_effort = parse_model_effort(EMPTY_EXAM_COVER_MODEL)
         _ec_save_dir = imp.artifact_cover_page_dir(ctx.artifact_dir)
         _ec_save_dir.mkdir(parents=True, exist_ok=True)
         _ec_save = _ec_save_dir / "cover_empty_exam_prompt.md"
@@ -904,7 +891,7 @@ def _step11_student_names(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
             f"Name detection found {detected} students; geometry expected {ctx.num_students}. "
             "AI marking will use the scan-detected list."
         )
-    ctx.step_timings_marking["assign_pages_s"] = time.perf_counter() - t0
+    ctx.step_timings["assign_pages_s"] = time.perf_counter() - t0
     imp.ok_line(
         f"{detected} {'student' if detected == 1 else 'students'} detected from scan"
         f"  ·  {answer_pages} answer pages each"
@@ -1039,7 +1026,7 @@ def _step21_blueprints(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     t0 = time.perf_counter()
     blueprints = imp.build_blueprints(ctx.scaffold, ctx.artifact_dir)
     imp.ok_line(f"{len(blueprints)} page blueprint(s) written")
-    ctx.step_timings_marking["blueprints_s"] = time.perf_counter() - t0
+    ctx.step_timings["blueprints_s"] = time.perf_counter() - t0
 
 
 def _step22_mark(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
@@ -1055,7 +1042,7 @@ def _step22_mark(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
         f"{_n_calls}/{_n_total} pages marked"
         + (f"  ·  {_n_failed} failed" if _n_failed else "")
     )
-    ctx.step_timings_marking["marking_s"] = time.perf_counter() - t0
+    ctx.step_timings["marking_s"] = time.perf_counter() - t0
 
 
 def _step23_per_student_reports(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
@@ -1066,7 +1053,7 @@ def _step23_per_student_reports(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     imp.step_23_per_student_reports(ctx)
     n = len(ctx.student_summaries or [])
     imp.ok_line(f"{n} student report" if n == 1 else f"{n} student reports")
-    ctx.step_timings_marking["per_student_reports_s"] = time.perf_counter() - t0
+    ctx.step_timings["per_student_reports_s"] = time.perf_counter() - t0
 
 
 def _step24_class_stats(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
@@ -1084,7 +1071,7 @@ def _step24_class_stats(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
         imp.ok_line("Class avg n/a (single student)")
     else:
         imp.ok_line("Class avg N/A")
-    ctx.step_timings_marking["class_stats_s"] = time.perf_counter() - t0
+    ctx.step_timings["class_stats_s"] = time.perf_counter() - t0
 
 
 def _step25_per_student_pdfs(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
@@ -1095,7 +1082,7 @@ def _step25_per_student_pdfs(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     imp.step_25_per_student_pdfs(ctx)
     n = len(ctx.student_summaries or [])
     imp.ok_line(f"{n} PDF compiled" if n == 1 else f"{n} PDFs compiled")
-    ctx.step_timings_marking["per_student_pdfs_s"] = time.perf_counter() - t0
+    ctx.step_timings["per_student_pdfs_s"] = time.perf_counter() - t0
 
 
 def _step26_class_report(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
@@ -1104,7 +1091,7 @@ def _step26_class_report(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     imp.pipeline_step(26, "Class report")
     t0 = time.perf_counter()
     imp.step_26_class_report(ctx)
-    ctx.step_timings_marking["class_report_s"] = time.perf_counter() - t0
+    ctx.step_timings["class_report_s"] = time.perf_counter() - t0
 
 
 def _step27_review_queue(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
@@ -1113,7 +1100,7 @@ def _step27_review_queue(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     imp.pipeline_step(27, "Review queue")
     t0 = time.perf_counter()
     imp.step_27_review_queue(ctx)
-    ctx.step_timings_marking["review_queue_s"] = time.perf_counter() - t0
+    ctx.step_timings["review_queue_s"] = time.perf_counter() - t0
 
 
 def _step28_timing(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
@@ -1121,14 +1108,14 @@ def _step28_timing(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     assert ctx.artifact_dir is not None
     imp.pipeline_step(28, "Timing summary")
     t0 = time.perf_counter()
-    ctx.step_timings_marking["timing_s"] = round(time.perf_counter() - t0, 3)
+    ctx.step_timings["timing_s"] = round(time.perf_counter() - t0, 3)
     wall_clock_s = time.perf_counter() - ctx.run_started_at if ctx.run_started_at else None
     imp.print_step_durations(
-        ctx.step_timings_marking, ctx.marking_api_calls, wall_clock_s=wall_clock_s
+        ctx.step_timings, ctx.marking_api_calls, wall_clock_s=wall_clock_s
     )
     imp.write_timing_report(
         ctx.artifact_dir,
-        ctx.step_timings_marking,
+        ctx.step_timings,
         ctx.marking_api_calls,
         failures=ctx.marking_failures,
         print_timing=False,
@@ -1210,38 +1197,37 @@ def _print_cost_table(
     total_output: int,
     total_cost: float,
 ) -> None:
-    """Print the per-model cost breakdown as an indented Rich table."""
+    """Print the per-model cost breakdown as a column-aligned info_line block.
+
+    Each row is emitted via info_line so the existing two-space + '›' + two-space
+    indent is preserved (matches the rest of the run output). Rows sort by cost
+    desc; sub-cent values render via _fmt_cost_rmb.
+    """
     if not breakdown:
-        imp.info_line(_fmt_cost_rmb(total_cost) + "  ·  no model usage recorded")
+        imp.info_line(f"API cost: {_fmt_cost_rmb(total_cost)}  ·  no model usage recorded")
         return
-    from rich.padding import Padding
-    from rich.table import Table
-    from xscore.shared.terminal_ui import get_console
+
+    rows = sorted(breakdown.items(), key=lambda kv: kv[1]["cost_rmb"], reverse=True)
+    cost_strs = [_fmt_cost_rmb(d["cost_rmb"]) for _, d in rows] + [_fmt_cost_rmb(total_cost)]
+    in_strs   = [f"{d['input_tokens']:,}"  for _, d in rows] + [f"{total_input:,}"]
+    out_strs  = [f"{d['output_tokens']:,}" for _, d in rows] + [f"{total_output:,}"]
+
+    mw = max((len(m) for m, _ in rows), default=5)
+    mw = max(mw, len("Model"), len("Total"))
+    iw = max(max((len(s) for s in in_strs),  default=0), len("Input"))
+    ow = max(max((len(s) for s in out_strs), default=0), len("Output"))
+    cw = max(max((len(s) for s in cost_strs), default=0), len("Cost"))
+    sep = "─" * (mw + 3 + iw + 3 + ow + 3 + cw)
 
     imp.info_line("API cost:")
-    table = Table(show_header=True, header_style="dim", box=None, pad_edge=False)
-    table.add_column("Model", style="dim", no_wrap=True)
-    table.add_column("Input",  justify="right", style="dim")
-    table.add_column("Output", justify="right", style="dim")
-    table.add_column("Cost",   justify="right", style="dim")
-    for model, data in sorted(
-        breakdown.items(), key=lambda kv: kv[1]["cost_rmb"], reverse=True
-    ):
-        table.add_row(
-            model,
-            f"{data['input_tokens']:,}",
-            f"{data['output_tokens']:,}",
-            _fmt_cost_rmb(data["cost_rmb"]),
-        )
-    table.add_section()
-    table.add_row(
-        "Total",
-        f"{total_input:,}",
-        f"{total_output:,}",
-        _fmt_cost_rmb(total_cost),
-        style="bold dim",
+    imp.info_line(f"  {'Model':<{mw}}   {'Input':>{iw}}   {'Output':>{ow}}   {'Cost':>{cw}}")
+    imp.info_line(f"  {sep}")
+    for (model, data), cs, ins, outs in zip(rows, cost_strs, in_strs, out_strs):
+        imp.info_line(f"  {model:<{mw}}   {ins:>{iw}}   {outs:>{ow}}   {cs:>{cw}}")
+    imp.info_line(f"  {sep}")
+    imp.info_line(
+        f"  {'Total':<{mw}}   {in_strs[-1]:>{iw}}   {out_strs[-1]:>{ow}}   {cost_strs[-1]:>{cw}}"
     )
-    get_console().print(Padding(table, (0, 0, 0, 4)))
 
 
 # ---------------------------------------------------------------------------
