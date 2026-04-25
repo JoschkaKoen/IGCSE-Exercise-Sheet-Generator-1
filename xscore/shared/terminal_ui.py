@@ -8,6 +8,7 @@ from __future__ import annotations
 import logging
 import os
 import sys
+from pathlib import Path
 
 from rich.console import Console
 from rich.progress import ProgressColumn, Task
@@ -280,4 +281,31 @@ def api_latency_line(seconds: float, *, label: str | None = None) -> None:
     dur = format_duration(seconds)
     suffix = f"  ({_escape(label)})" if label else ""
     get_console().print(f"[green]  {icon('ok')}  {dur}{suffix}[/]")
+    sys.stdout.flush()
+
+
+def print_run_footer(
+    *,
+    cleaned_pdf: Path | None,
+    elapsed: float,
+    status: str,
+) -> None:
+    """Visual footer for a finished run — separates closing lines from Step 30.
+
+    *status* is one of ``"ok"`` / ``"early_exit"`` / ``"error"`` / ``"incomplete"``.
+    *cleaned_pdf* is surfaced whenever it exists, regardless of *status* — even
+    a ``--stop-after`` run that produced a cleaned scan benefits from seeing the
+    artifact path.
+    """
+    c = get_console()
+    c.print()
+    c.print(Rule(style="dim"))
+    if cleaned_pdf is not None:
+        note_line(f"Cleaned scan: {cleaned_pdf}")
+    if status == "ok":
+        ok_line(f"Pipeline complete  ·  {format_duration(elapsed)}")
+    elif status == "early_exit":
+        info_line(f"Stopped early  ·  {format_duration(elapsed)}")
+    else:
+        info_line(f"Run · {format_duration(elapsed)}")
     sys.stdout.flush()

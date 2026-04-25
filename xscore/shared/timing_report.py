@@ -64,32 +64,49 @@ def print_step_durations(
     *,
     wall_clock_s: float | None = None,
 ) -> None:
-    """Print the step-duration table to the terminal (no file I/O).
+    """Print the step-duration table as a rich.Table (no file I/O).
 
     Sums every step's elapsed time captured by ``run_step``. When *wall_clock_s*
     is provided, an extra "Wall clock" row reports the full pipeline wall time
     so the user can see how much of it was spent inside step bodies vs.
     overhead/parallel work.
     """
-    from xscore.shared.terminal_ui import format_duration, info_line
+    from rich import box
+    from rich.padding import Padding
+    from rich.table import Table
+
+    from xscore.shared.terminal_ui import format_duration, get_console
+
     total = sum(step_durations.values())
     _vis_steps = [
         (_step_label(k), v)
         for k, v in step_durations.items() if v >= 0.5
     ]
-    _total_label = "Total step time"
-    _wall_label = "Wall clock"
-    _lw = max((len(lbl) for lbl, _ in _vis_steps), default=len(_total_label))
-    _lw = max(_lw, len(_total_label), len(_wall_label))
-    info_line("Step durations:")
+
+    table = Table(
+        title="Step durations",
+        title_justify="left",
+        title_style="dim",
+        box=box.HORIZONTALS,
+        header_style="dim",
+        show_edge=False,
+        pad_edge=False,
+    )
+    table.add_column("Step", justify="left", style="dim")
+    table.add_column("Duration", justify="right", style="dim")
+
     for _lbl, _val in _vis_steps:
-        info_line(f"  {_lbl:<{_lw}}   {format_duration(_val)}")
-    info_line(
-        f"  {_total_label:<{_lw}}   {format_duration(total)}"
-        f"  ·  {len(api_calls)} API calls"
+        table.add_row(_lbl, format_duration(_val))
+
+    table.add_section()
+    table.add_row(
+        "[bold]Total step time[/]",
+        f"[bold]{format_duration(total)}[/]  ·  {len(api_calls)} API calls",
     )
     if wall_clock_s is not None:
-        info_line(f"  {_wall_label:<{_lw}}   {format_duration(wall_clock_s)}")
+        table.add_row("Wall clock", format_duration(wall_clock_s))
+
+    get_console().print(Padding(table, (0, 0, 0, 4)))
 
 
 def write_timing_report(

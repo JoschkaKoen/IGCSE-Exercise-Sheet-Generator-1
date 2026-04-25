@@ -62,7 +62,12 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
     from eXercise.ai_client import reset_run_call_stats, reset_run_usage
     from xscore.shared.pipeline_steps import run_step, step_by_number, wire_step_fns
     from xscore.shared.run_log import write_run_manifest
-    from xscore.shared.terminal_ui import format_duration, get_console, info_line, ok_line, warn_line
+    from xscore.shared.terminal_ui import (
+        get_console,
+        info_line,
+        print_run_footer,
+        warn_line,
+    )
     from xscore.steps.scan import scan_phases
     from xscore.steps.scaffold import scaffold_phase
 
@@ -100,8 +105,6 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
             warn_line("Marking skipped — scaffold not available (steps 21–30 omitted).")
 
         ctx.pipeline_completed_ok = True
-        if ctx.cleaned_pdf:
-            info_line(f"Cleaned scan: {ctx.cleaned_pdf}")
     except _EarlyExit:
         early_exit_seen = True
         info_line(f"Stopped after step {ctx.stop_after}.")
@@ -111,10 +114,6 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
     finally:
         elapsed_total = time.perf_counter() - t0
         if ctx.pipeline_completed_ok:
-            ok_line(f"Pipeline complete  ·  {format_duration(elapsed_total)}")
-        else:
-            info_line(f"Run · {elapsed_total:.1f}s")
-        if ctx.pipeline_completed_ok:
             run_status = "ok"
         elif early_exit_seen:
             run_status = "early_exit"
@@ -122,6 +121,11 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
             run_status = "error"
         else:
             run_status = "incomplete"
+        print_run_footer(
+            cleaned_pdf=ctx.cleaned_pdf,
+            elapsed=elapsed_total,
+            status=run_status,
+        )
         try:
             write_run_manifest(
                 ctx,

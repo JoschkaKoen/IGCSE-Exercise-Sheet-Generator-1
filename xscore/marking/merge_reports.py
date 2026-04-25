@@ -39,8 +39,10 @@ from xscore.shared.exam_paths import (
     artifact_student_pdfs_dir,
     artifact_student_report_md_path,
     artifact_student_report_pdf_portrait_2up_path,
+    artifact_student_report_pdf_portrait_large_path,
     artifact_student_report_pdf_portrait_path,
     artifact_student_report_tex_landscape_path,
+    artifact_student_report_tex_portrait_large_path,
     artifact_student_report_tex_portrait_path,
     artifact_student_report_xml_path,
     artifact_student_reports_dir,
@@ -537,18 +539,19 @@ def _pass2_write_tex(
     exam_name: str,
     workers: int,
 ) -> None:
-    """Write per-student .tex files (landscape + portrait), then compile all in parallel."""
+    """Write per-student .tex files (landscape + portrait + portrait-large), then compile all in parallel."""
     tex_paths: list[Path] = []
     for s in student_summaries:
         report = full_reports[s["name"]]
         report["curved_pct"] = s["curved_pct"]
-        for orientation, path_fn in (
-            ("landscape", artifact_student_report_tex_landscape_path),
-            ("portrait",  artifact_student_report_tex_portrait_path),
+        for orientation, path_fn, font_size in (
+            ("landscape", artifact_student_report_tex_landscape_path,      10),
+            ("portrait",  artifact_student_report_tex_portrait_path,       10),
+            ("portrait",  artifact_student_report_tex_portrait_large_path, 12),
         ):
             tex_path = path_fn(artifact_dir, s["name"])
             tex_path.write_text(
-                _student_report_to_tex(report, exam_name=exam_name, orientation=orientation),
+                _student_report_to_tex(report, exam_name=exam_name, orientation=orientation, font_size=font_size),
                 encoding="utf-8",
             )
             tex_paths.append(tex_path)
@@ -558,7 +561,7 @@ def _pass2_write_tex(
 
     portrait_2up_jobs: list[tuple[Path, Path]] = []
     for s in student_summaries:
-        p_in = artifact_student_report_pdf_portrait_path(artifact_dir, s["name"])
+        p_in = artifact_student_report_pdf_portrait_large_path(artifact_dir, s["name"])
         p_out = artifact_student_report_pdf_portrait_2up_path(artifact_dir, s["name"])
         if p_in.is_file():
             portrait_2up_jobs.append((p_in, p_out))
@@ -637,8 +640,10 @@ def _build_class_report(
 # Side-channel review queue
 # ---------------------------------------------------------------------------
 
-def _write_review_queue(full_reports: dict[str, dict], artifact_dir: Path) -> None:
+def _write_review_queue(full_reports: dict[str, dict], artifact_dir: Path) -> int:
     """Emit a standalone list of marks the AI flagged as medium/low confidence.
+
+    Returns the number of flagged entries (also written to the JSON's ``"total"``).
 
     Pure side artifact: read by humans only, never by any pipeline step.
     Existing student/class reports and PDFs are unaffected by this code path.
@@ -719,6 +724,8 @@ def _write_review_queue(full_reports: dict[str, dict], artifact_dir: Path) -> No
     artifact_review_queue_md_path(artifact_dir).write_text(
         "\n".join(md_lines) + "\n", encoding="utf-8"
     )
+
+    return len(entries)
 
 
 # ---------------------------------------------------------------------------
@@ -806,11 +813,13 @@ def step_25_per_student_pdfs(ctx: Any) -> None:
 # Step 26 — Class report
 # ---------------------------------------------------------------------------
 
-def step_26_class_report(ctx: Any) -> None:
+def step_26_class_report(ctx: Any) -> str:
     """Build & write class XML/MD/TeX/PDF + concat combined PDF.
 
-    Skipped (with a warning) when ``--student`` filter narrowed the run to a
-    subset of students — a one-or-two-student class average is misleading.
+    Returns a discriminator so the wrapper can pick the right summary line:
+    ``"done"`` (work ran), ``"skipped_filter"`` (``--student`` filter active —
+    a warning was already emitted), ``"skipped_empty"`` (no per-student
+    summaries to compile).
     """
     cli_student_filter = getattr(ctx, "student_filter", None)
     if cli_student_filter:
@@ -819,25 +828,26 @@ def step_26_class_report(ctx: Any) -> None:
             "--student filter active — skipping class report (would not be "
             "representative of the full class)."
         )
-        return
+        return "skipped_filter"
     if not ctx.student_summaries:
-        return
+        return "skipped_empty"
     exam_name = ctx.artifact_dir.parent.name
     artifact_class_report_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
     _build_class_report(ctx, ctx.student_summaries, ctx.q_totals, exam_name)
+    return "done"
 
 
 # ---------------------------------------------------------------------------
 # Step 27 — Review queue
 # ---------------------------------------------------------------------------
 
-def step_27_review_queue(ctx: Any) -> None:
+def step_27_review_queue(ctx: Any) -> int:
     """Emit the side-channel review queue (medium / low confidence marks).
 
     Always runs, even when no entries are flagged, so downstream tooling can
-    rely on the artifact existing.
+    rely on the artifact existing. Returns the count of flagged entries.
     """
-    _write_review_queue(ctx.full_reports, ctx.artifact_dir)
+    return _write_review_queue(ctx.full_reports, ctx.artifact_dir)
 
 
 # ---------------------------------------------------------------------------

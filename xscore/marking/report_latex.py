@@ -106,6 +106,7 @@ def _student_report_to_tex(
     report: dict,
     exam_name: str = "",
     orientation: str = "landscape",
+    font_size: int = 10,
 ) -> str:
     import datetime
     name = _latex_escape(report["student_name"])
@@ -154,13 +155,15 @@ def _student_report_to_tex(
     #     = p{0.4} + p{0.4} + p{0.5} + p{3.6} + p{5.0} + p{5.5}
     # Portrait widths × (16.5 / 22.7) ≈ 0.727 of landscape widths.
     if orientation == "portrait":
-        geometry_line = "\\geometry{a4paper,margin=1cm}\n"
+        geometry_line = "\\geometry{a4paper,margin=1cm,footskip=6pt}\n"
         col_spec = "L{0.4cm}L{0.4cm}L{0.5cm}L{3.6cm}L{5cm}L{5.5cm}"
     else:
         geometry_line = "\\geometry{a4paper,landscape,margin=2cm}\n"
         col_spec = "L{0.6cm}L{0.6cm}L{0.7cm}L{5.7cm}L{7.0cm}L{8.1cm}"
+    table_open  = "{\\small\n" if font_size < 12 else ""
+    table_close = "}\n"        if font_size < 12 else ""
     return (
-        "\\documentclass{article}\n"
+        f"\\documentclass[{font_size}pt]{{article}}\n"
         "\\usepackage{fontspec}\n"
         "\\usepackage{amsmath}\n"
         "\\usepackage{amssymb}\n"
@@ -176,7 +179,7 @@ def _student_report_to_tex(
         f"\\textbf{{Total: {total}/{max_m} ({pct_display} raw, {curved_display} curved)}} \\quad "
         f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
         "\\vspace{1em}\n\n"
-        "{\\small\n"
+        f"{table_open}"
         "\\renewcommand{\\arraystretch}{1.6}\n"
         f"\\begin{{longtable}}{{{col_spec}}}\n"
         "\\toprule\n"
@@ -192,7 +195,7 @@ def _student_report_to_tex(
         f"{rows_str}\n"
         "\\bottomrule\n"
         "\\end{longtable}\n"
-        "}\n"
+        f"{table_close}"
         "\\end{document}\n"
     )
 

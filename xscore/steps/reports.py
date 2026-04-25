@@ -16,7 +16,7 @@ from xscore.marking.merge_reports import (
     step_27_review_queue as _impl_27,
 )
 from xscore.shared.pipeline_ctx import _Ctx
-from xscore.shared.terminal_ui import ok_line
+from xscore.shared.terminal_ui import info_line, ok_line
 
 
 def step_23_per_student_reports(ctx: _Ctx) -> None:
@@ -45,14 +45,24 @@ def step_25_per_student_pdfs(ctx: _Ctx) -> None:
     _impl_25(ctx)
     n = len(ctx.student_summaries or [])
     s = "" if n == 1 else "s"
-    ok_line(f"{n} landscape + {n} portrait + {n} 2UP PDF{s} compiled")
+    ok_line(f"{n} landscape + {n} portrait + {n} portrait-large + {n} 2UP PDF{s} compiled")
 
 
 def step_26_class_report(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
-    _impl_26(ctx)
+    result = _impl_26(ctx)
+    if result == "done":
+        n = len(ctx.student_summaries or [])
+        ok_line(f"Class report compiled  ·  {n} student{'s' if n != 1 else ''}")
+    elif result == "skipped_empty":
+        info_line("Skipped — no student summaries to compile")
+    # "skipped_filter": _impl_26 already printed a warn_line; don't double up
 
 
 def step_27_review_queue(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
-    _impl_27(ctx)
+    n = _impl_27(ctx)
+    if n:
+        ok_line(f"{n} mark{'s' if n != 1 else ''} flagged for review")
+    else:
+        ok_line("No marks flagged for review")
