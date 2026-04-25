@@ -142,6 +142,18 @@ def parse_args() -> argparse.Namespace:
         metavar="PATH",
         help="Prior artifact dir to resume from (auto-detects latest valid run if omitted)",
     )
+    parser.add_argument(
+        "--student",
+        action="append",
+        default=None,
+        metavar="NAME",
+        help=(
+            "Mark only the given student (case-insensitive exact match). "
+            "Repeat the flag or pass a comma-separated list to mark a small cohort. "
+            "When set, step 23 emits only the filtered students' reports — the class "
+            "report is skipped."
+        ),
+    )
     args = parser.parse_args()
     return args
 
@@ -1050,8 +1062,13 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
     from eXercise.ai_client import reset_run_usage
     reset_run_usage()
 
+    from xscore.shared.run_log import write_run_manifest
+
     ctx = _Ctx(args=args, timestamp=timestamp)
     t0 = time.perf_counter()
+    started_iso = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds")
+    early_exit_seen = False
+    fatal_exc: BaseException | None = None
     try:
         _step01_parse(ctx, imp)
         if ctx.stop_after <= 1: raise _EarlyExit()
@@ -1076,13 +1093,38 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         if ctx.cleaned_pdf:
             imp.info_line(f"Cleaned scan: {ctx.cleaned_pdf}")
     except _EarlyExit:
+        early_exit_seen = True
         imp.info_line(f"Stopped after step {ctx.stop_after}.")
+    except BaseException as exc:
+        # Capture for the run manifest, then re-raise so the existing failure
+        # path (Tee log + non-zero exit) is unchanged.
+        fatal_exc = exc
+        raise
     finally:
-        t = f"{time.perf_counter() - t0:.1f}s"
+        elapsed_total = time.perf_counter() - t0
+        t = f"{elapsed_total:.1f}s"
         if ctx.pipeline_completed_ok:
             imp.info_line(f"Run · {t} · complete")
         else:
             imp.info_line(f"Run · {t}")
+        # Write run.json manifest — best-effort, never raises into the user.
+        if ctx.pipeline_completed_ok:
+            run_status = "ok"
+        elif early_exit_seen:
+            run_status = "early_exit"
+        elif fatal_exc is not None:
+            run_status = "error"
+        else:
+            run_status = "incomplete"
+        try:
+            write_run_manifest(
+                ctx,
+                status=run_status,
+                timestamp_started=started_iso,
+                duration_s=elapsed_total,
+            )
+        except Exception:
+            pass  # never let manifest writing kill the pipeline
         imp.get_console().print()
         sys.stdout.flush()
 

@@ -78,6 +78,10 @@ def _build_yaml_blueprint(page_num: int, layout, questions: list[dict]) -> str:
             "student_answer": "",
             "assigned_marks": "",
             "explanation": "",
+            # Side-channel confidence (advisory; does NOT influence marks or PDF).
+            # Empty string means the AI did not provide one — downstream readers
+            # treat empty as equivalent to "high".
+            "confidence": "",
         }
         doc["questions"].append(entry)
 
@@ -117,6 +121,7 @@ def _yaml_questions_to_list(data: dict) -> list[dict]:
             "student_answer":   str(q.get("student_answer") or "").strip(),
             "assigned_marks":   am_int,
             "explanation":      str(q.get("explanation") or "").strip(),
+            "confidence":       str(q.get("confidence") or "").strip().lower(),
         })
     return questions
 
@@ -140,8 +145,8 @@ class YamlMarkingFormat(MarkingFormat):
         return (
             "You are an expert exam marker. You will be shown one page of a student's exam paper "
             "and a Blueprint YAML listing every question. The blueprint is a form: each question has "
-            "three empty fields for you to fill in — `student_answer`, `assigned_marks`, and "
-            "`explanation`. Fill every field for every question in the list."
+            "four empty fields for you to fill in — `student_answer`, `assigned_marks`, "
+            "`explanation`, and `confidence`. Fill every field for every question in the list."
         )
 
     def criterion_ref(self) -> str:
@@ -150,12 +155,13 @@ class YamlMarkingFormat(MarkingFormat):
     def section_C(self, rows: int, cols: int) -> str:
         return (
             "\n\nReturn ONLY the filled Blueprint YAML — no markdown fences, no surrounding text. "
-            "Fill in the three empty fields in each question: "
-            "`student_answer`, `assigned_marks`, and `explanation`. "
+            "Fill in the four empty fields in each question: "
+            "`student_answer`, `assigned_marks`, `explanation`, and `confidence`. "
             "Do not change any other content.\n"
             "Use a block scalar (`|`) for `student_answer` and `explanation` "
             "so that LaTeX backslashes and braces are preserved literally.\n"
-            "`assigned_marks` must be a bare integer (not a string)."
+            "`assigned_marks` must be a bare integer (not a string).\n"
+            "`confidence` must be one of `high`, `medium`, or `low` (plain string, no quotes needed)."
         )
 
     def section_D(self) -> str:
@@ -174,8 +180,8 @@ class YamlMarkingFormat(MarkingFormat):
 
     def build_user_text(self, blueprint_str: str) -> str:
         return (
-            "Fill in the three empty fields (`student_answer`, `assigned_marks`, `explanation`) "
-            "for each question:\n"
+            "Fill in the four empty fields (`student_answer`, `assigned_marks`, `explanation`, "
+            "`confidence`) for each question:\n"
             f"{blueprint_str}"
         )
 
@@ -215,6 +221,7 @@ class YamlMarkingFormat(MarkingFormat):
                 "assigned_marks": am_int,
                 "student_answer": str(q.get("student_answer") or "").strip(),
                 "explanation":    str(q.get("explanation") or "").strip(),
+                "confidence":     str(q.get("confidence") or "").strip().lower(),
                 "question_text":  str(q.get("text") or ""),
             })
         return result
@@ -250,6 +257,7 @@ class YamlMarkingFormat(MarkingFormat):
                 "student_answer":   str(q.get("student_answer") or ""),
                 "assigned_marks":   int(am) if am is not None else 0,
                 "explanation":      str(q.get("explanation") or ""),
+                "confidence":       str(q.get("confidence") or ""),
             })
         return yaml.dump(
             doc, Dumper=_MarkingDumper,

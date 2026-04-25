@@ -28,6 +28,8 @@ from xscore.shared.exam_paths import (
     artifact_marked_path,
     artifact_marking_students_dir,
     artifact_reports_students_dir,
+    artifact_review_queue_json_path,
+    artifact_review_queue_md_path,
     artifact_student_report_md_path,
     artifact_student_report_tex_path,
     artifact_student_report_xml_path,
@@ -586,6 +588,94 @@ def _build_class_report(
 # Public entry point
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# Side-channel review queue
+# ---------------------------------------------------------------------------
+
+def _write_review_queue(full_reports: dict[str, dict], artifact_dir: Path) -> None:
+    """Emit a standalone list of marks the AI flagged as medium/low confidence.
+
+    Pure side artifact: read by humans only, never by any pipeline step.
+    Existing student/class reports and PDFs are unaffected by this code path.
+
+    Each entry in the JSON file:
+        {
+          "student": ..., "question": ..., "confidence": "medium" | "low",
+          "assigned_marks": ..., "max_marks": ...,
+          "student_answer": ..., "correct_answer": ...,
+          "explanation": ...    # truncated to ~200 chars for readability
+        }
+
+    Empty / missing confidence is treated as ``"high"`` and excluded.
+    """
+    import json
+
+    entries: list[dict] = []
+    for student_name in sorted(full_reports):
+        report = full_reports[student_name]
+        for q in report.get("questions") or []:
+            conf = (q.get("confidence") or "").strip().lower()
+            if conf in ("", "high"):
+                continue
+            if conf not in ("medium", "low"):
+                # Unknown values still surface — they're an AI mistake worth seeing.
+                pass
+            explanation = str(q.get("explanation") or "")
+            if len(explanation) > 200:
+                explanation = explanation[:200].rstrip() + "…"
+            entries.append({
+                "student":        student_name,
+                "question":       str(q.get("number", "")),
+                "confidence":     conf,
+                "assigned_marks": q.get("assigned_marks"),
+                "max_marks":      q.get("max_marks"),
+                "student_answer": str(q.get("student_answer") or ""),
+                "correct_answer": str(q.get("correct_answer") or ""),
+                "explanation":    explanation,
+            })
+
+    # Sort: low first, then medium; within each, by student then question.
+    _conf_rank = {"low": 0, "medium": 1}
+    entries.sort(key=lambda e: (_conf_rank.get(e["confidence"], 2), e["student"], e["question"]))
+
+    json_path = artifact_review_queue_json_path(artifact_dir)
+    json_path.parent.mkdir(parents=True, exist_ok=True)
+    json_path.write_text(
+        json.dumps({"entries": entries, "total": len(entries)}, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+    # Markdown mirror — quick to skim.
+    md_lines = [
+        "# Review Queue",
+        "",
+        f"**{len(entries)} marks flagged for human review** "
+        "(medium or low confidence; no impact on the marks already awarded).",
+        "",
+    ]
+    if entries:
+        md_lines += [
+            "| Conf | Student | Q | Awarded | Max | Student Answer | Correct | Explanation |",
+            "|------|---------|---|---------|-----|----------------|---------|-------------|",
+        ]
+        for e in entries:
+            sa = (e["student_answer"] or "").replace("|", "/").replace("\n", " ")
+            ca = (e["correct_answer"] or "").replace("|", "/")
+            ex = (e["explanation"] or "").replace("|", "/").replace("\n", " ")
+            am = e["assigned_marks"]
+            am_s = "?" if am is None else str(am)
+            md_lines.append(
+                f"| {e['confidence']} | {e['student']} | {e['question']} | {am_s} | "
+                f"{e['max_marks']} | {sa} | {ca} | {ex} |"
+            )
+    else:
+        md_lines.append("*No medium/low-confidence entries — the AI was confident on every question.*")
+
+    artifact_review_queue_md_path(artifact_dir).write_text(
+        "\n".join(md_lines) + "\n", encoding="utf-8"
+    )
+
+
 def compile_reports(ctx: Any) -> list[dict]:
     """Merge all per-page results; create student and class reports; compile PDFs.
 
@@ -598,6 +688,14 @@ def compile_reports(ctx: Any) -> list[dict]:
     exam_name = ctx.artifact_dir.parent.name
     workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
 
+    # CLI --student filter (lower-case exact match): narrow names to the subset
+    # the user asked to mark. Class report is also skipped further down — a
+    # one-or-two-student "class" average would be misleading.
+    cli_student_filter = getattr(ctx, "student_filter", None)
+    if cli_student_filter:
+        wanted = set(cli_student_filter)
+        names = [n for n in names if n.strip().lower() in wanted]
+
     ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
     artifact_marking_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
     artifact_reports_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
@@ -607,8 +705,18 @@ def compile_reports(ctx: Any) -> list[dict]:
     )
     _apply_grade_curve(student_summaries)
     _pass2_write_tex(student_summaries, full_reports, ctx.artifact_dir, exam_name, workers)
-    if student_summaries:
+    if student_summaries and not cli_student_filter:
         _build_class_report(ctx, student_summaries, q_totals, exam_name)
+    elif cli_student_filter:
+        from xscore.shared.terminal_ui import warn_line
+        warn_line(
+            "--student filter active — skipping class report (would not be "
+            "representative of the full class)."
+        )
+    # Side-channel review queue — never blocks, never affects PDFs.
+    # Always emitted (even when empty) so downstream tooling can rely on the
+    # file existing once compile_reports has run.
+    _write_review_queue(full_reports, ctx.artifact_dir)
     return student_summaries
 
 

@@ -294,6 +294,15 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     client, model_id, _provider, _effort = result
     _use_stream, _thinking_kw = build_thinking_kwargs(_provider, _effort)
 
+    # Resolve the response-cache opt-in once. The user enables it by including
+    # "reuse cache" in the natural-language prompt (parsed in step 1, sets
+    # ctx.instruction.reuse_cache). XSCORE_REUSE_CACHE=1 is also honoured for
+    # ad-hoc testing without re-issuing the prompt.
+    from xscore.shared.response_cache import reuse_cache_enabled
+    _reuse_cache_active = reuse_cache_enabled(ctx)
+    if _reuse_cache_active:
+        info_line("Response cache enabled · step 22 marking calls will check ~/.cache/xscore/responses/")
+
     # Load page assignments produced by step 10 name detection.
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     if not list_path.exists():
@@ -335,6 +344,25 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             raw_assignments = [a for a in raw_assignments if a["student_name"] in sf.names]
         elif sf.mode == "first_n" and sf.n:
             raw_assignments = raw_assignments[: sf.n]
+
+    # CLI-driven --student filter (case-insensitive exact match on student_name).
+    # Layered AFTER the NL-prompt student_filter so both narrow the cohort.
+    cli_filter = getattr(ctx, "student_filter", None)
+    if cli_filter:
+        wanted = set(cli_filter)
+        before = len(raw_assignments)
+        raw_assignments = [
+            a for a in raw_assignments
+            if (a.get("student_name") or "").strip().lower() in wanted
+        ]
+        if not raw_assignments:
+            warn_line(
+                f"--student filter {sorted(wanted)} matched 0 of {before} students — "
+                f"nothing to mark; aborting step 22."
+            )
+            raise SystemExit(2)
+        kept = [a["student_name"] for a in raw_assignments]
+        info_line(f"--student filter active · marking {len(kept)} of {before}: {', '.join(kept)}")
 
     workers = int(os.environ.get("MARKING_WORKERS", str(min(os.cpu_count() or 4, 16))))
     timings_lock = threading.Lock()
@@ -481,6 +509,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     scheme_graphics=_page_graphics,
                     fmt=fmt,
                     extra_b64=extra_b64,
+                    reuse_cache=_reuse_cache_active,
                 )
         except MarkingFailure as mf:
             filled = blueprint.copy()

@@ -37,6 +37,15 @@ class _Ctx:
     num_students: int = 0
     pages_per_student: int = 0
     step_timings_marking: dict[str, float] = field(default_factory=dict)
+    # Unified per-step wall-clock timings, populated by
+    # :func:`xscore.shared.pipeline_steps.run_step` once a step has been
+    # migrated out of xScore.py's nested closures into the registry. Empty for
+    # un-migrated steps; consumers should fall back to ``step_timings_marking``
+    # for historical compatibility (see :mod:`xscore.marking.timing_report`).
+    step_timings: dict[str, float] = field(default_factory=dict)
+    # Captured exceptions per step (also re-raised by ``run_step``). Used by
+    # the run-manifest writer to distinguish "ran but errored" from "did not run".
+    step_failures: list[dict] = field(default_factory=list)
     marking_api_calls: list[dict] = field(default_factory=list)
     marking_failures: list[dict] = field(default_factory=list)
     page_assignments: "list[PageAssignment] | None" = None  # set by step 11
@@ -49,6 +58,7 @@ class _Ctx:
     stop_after: int = 9999                   # --stop-after N; 9999 = run everything
     from_step: int | None = None             # --from-step N; skip steps < N, resume from prior run
     resume_dir: Path | None = None           # --resume-dir PATH; prior artifact dir to resume from
+    student_filter: list[str] | None = None  # --student; restrict marking + reports to these names (lower-case)
     geo: dict[str, Any] = field(default_factory=dict)   # scan geometry from step 8; updated by step 11
     b64_future: "Future[dict[int, str]] | None" = None  # render_pages_b64 submitted by _kick_off_render_bg
     accuracy_summary: dict[str, Any] | None = None      # set by step 22; read by step 23
@@ -60,3 +70,15 @@ class _Ctx:
             self.from_step = self.args.from_step
         if getattr(self.args, "resume_dir", None) is not None:
             self.resume_dir = self.args.resume_dir
+        # --student supports both repeated flags (action="append") and a single
+        # comma-separated value (--student "Alice, Bob"). Normalise to lowercase
+        # exact-match keys and drop empty entries.
+        raw_students = getattr(self.args, "student", None)
+        if raw_students:
+            names: list[str] = []
+            for entry in raw_students:
+                for piece in entry.split(","):
+                    piece = piece.strip().lower()
+                    if piece:
+                        names.append(piece)
+            self.student_filter = names or None

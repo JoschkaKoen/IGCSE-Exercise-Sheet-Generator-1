@@ -5,18 +5,10 @@ IGCSE question-paper extraction: raster regions, layout to PDF, optional mark sc
 Use the CLI via ``python eXercise.py`` or ``python -m eXercise``.
 """
 
-from .labels import (
-    build_exam_header_label,
-    build_exam_header_label_from_paths,
-    exam_label_from_filename,
-    paper_label_from_qp_path,
-)
+from .labels import paper_label_from_qp_path
 from .pipeline import run_extraction, run_extraction_jobs
 
 __all__ = [
-    "build_exam_header_label",
-    "build_exam_header_label_from_paths",
-    "exam_label_from_filename",
     "paper_label_from_qp_path",
     "run_extraction",
     "run_extraction_jobs",

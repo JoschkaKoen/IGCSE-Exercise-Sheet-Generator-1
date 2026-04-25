@@ -39,6 +39,10 @@ class TaskInstruction:
     force_clean_scan: bool = False
     no_report: bool = False
     from_step: int | None = None
+    # Set to True when the user includes a cache opt-in phrase in the NL prompt
+    # (e.g. "grade the exam, reuse cache"). Currently honoured only by step 22
+    # (AI marking) — see :mod:`xscore.shared.response_cache`.
+    reuse_cache: bool = False
 
 
 @dataclass

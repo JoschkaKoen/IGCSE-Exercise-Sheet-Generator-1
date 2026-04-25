@@ -58,6 +58,38 @@ _usage_lock = threading.Lock()
 _run_usage: dict[str, dict[str, int]] = {}  # model → {"input": N, "output": N}
 
 
+# ---------------------------------------------------------------------------
+# Determinism — fixed seed + temperature for reproducible runs
+# ---------------------------------------------------------------------------
+#
+# Both env vars are read fresh on every call so a caller can change them mid-run
+# (e.g. for ad-hoc experiments). Empty / unparseable values disable injection
+# of that param, leaving provider defaults in place.
+#
+# Per-call kwargs always win — passing ``temperature=0.7`` or ``seed=...`` to
+# ``chat.completions.create`` (or supplying a ``config`` with those fields set
+# to a non-None value for native Gemini) is honoured unchanged.
+
+def _read_default_temperature() -> float | None:
+    raw = os.environ.get("AI_TEMPERATURE", "").strip()
+    if not raw:
+        return None
+    try:
+        return float(raw)
+    except ValueError:
+        return None
+
+
+def _read_default_seed() -> int | None:
+    raw = os.environ.get("AI_SEED", "").strip()
+    if not raw:
+        return None
+    try:
+        return int(raw)
+    except ValueError:
+        return None
+
+
 def record_usage(model: str, input_tokens: int, output_tokens: int) -> None:
     """Accumulate token counts for *model* (thread-safe)."""
     with _usage_lock:
@@ -208,11 +240,21 @@ class _UsageTrackingStream:
 
 
 class _TrackedCompletions:
-    def __init__(self, completions: Any, model: str) -> None:
+    def __init__(self, completions: Any, model: str, deterministic: bool = True) -> None:
         self._c = completions
         self._model = model
+        self._deterministic = deterministic
 
     def create(self, *args: Any, **kwargs: Any) -> Any:
+        if self._deterministic:
+            if "temperature" not in kwargs:
+                t = _read_default_temperature()
+                if t is not None:
+                    kwargs["temperature"] = t
+            if "seed" not in kwargs:
+                s = _read_default_seed()
+                if s is not None:
+                    kwargs["seed"] = s
         is_stream = kwargs.get("stream", False)
         resp = self._c.create(*args, **kwargs)
         if is_stream:
@@ -231,30 +273,68 @@ class _TrackedCompletions:
 
 
 class _TrackedChat:
-    def __init__(self, chat: Any, model: str) -> None:
+    def __init__(self, chat: Any, model: str, deterministic: bool = True) -> None:
         self._chat = chat
-        self.completions = _TrackedCompletions(chat.completions, model)
+        self.completions = _TrackedCompletions(chat.completions, model, deterministic=deterministic)
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self._chat, name)
 
 
 class _TrackedOpenAIClient:
-    """Thin proxy over OpenAI that records token usage for every completion."""
+    """Thin proxy over OpenAI that records token usage for every completion.
 
-    def __init__(self, client: Any, model: str) -> None:
+    When ``deterministic=True`` (the default) and a per-call ``temperature`` /
+    ``seed`` is not supplied, ``AI_TEMPERATURE`` / ``AI_SEED`` env vars are
+    injected into ``chat.completions.create``. Pass ``deterministic=False`` to
+    skip injection entirely (use for ad-hoc creative-sampling calls).
+    """
+
+    def __init__(self, client: Any, model: str, deterministic: bool = True) -> None:
         self._client = client
-        self.chat = _TrackedChat(client.chat, model)
+        self.chat = _TrackedChat(client.chat, model, deterministic=deterministic)
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self._client, name)
 
 
 class _TrackedGeminiModels:
-    def __init__(self, models: Any) -> None:
+    def __init__(self, models: Any, deterministic: bool = True) -> None:
         self._m = models
+        self._deterministic = deterministic
+
+    def _apply_deterministic(self, kwargs: dict) -> None:
+        """Inject AI_TEMPERATURE / AI_SEED into the ``config`` kwarg if not set.
+
+        Native Gemini uses ``GenerateContentConfig`` (a Pydantic model) on the
+        ``config`` keyword. If callers pass no config, build one with just
+        temperature/seed; if they pass one, set fields only when currently None.
+        Failures are swallowed — determinism is best-effort, not load-bearing.
+        """
+        if not self._deterministic:
+            return
+        t = _read_default_temperature()
+        s = _read_default_seed()
+        if t is None and s is None:
+            return
+        cfg = kwargs.get("config")
+        try:
+            if cfg is not None:
+                if t is not None and getattr(cfg, "temperature", None) is None:
+                    cfg.temperature = t
+                if s is not None and getattr(cfg, "seed", None) is None:
+                    cfg.seed = s
+            else:
+                from google.genai import types as gtypes  # type: ignore[import-not-found]
+                kwargs["config"] = gtypes.GenerateContentConfig(
+                    temperature=t,
+                    seed=s,
+                )
+        except Exception:
+            pass
 
     def generate_content(self, *args: Any, **kwargs: Any) -> Any:
+        self._apply_deterministic(kwargs)
         resp = self._m.generate_content(*args, **kwargs)
         model = kwargs.get("model") or (args[0] if args else "unknown")
         um = getattr(resp, "usage_metadata", None)
@@ -271,11 +351,16 @@ class _TrackedGeminiModels:
 
 
 class _TrackedGeminiClient:
-    """Thin proxy over google.genai.Client that records token usage."""
+    """Thin proxy over google.genai.Client that records token usage.
 
-    def __init__(self, client: Any) -> None:
+    See :class:`_TrackedOpenAIClient` for the determinism contract — same
+    semantics, different transport (``GenerateContentConfig`` instead of
+    ``chat.completions.create`` kwargs).
+    """
+
+    def __init__(self, client: Any, deterministic: bool = True) -> None:
         self._client = client
-        self.models = _TrackedGeminiModels(client.models)
+        self.models = _TrackedGeminiModels(client.models, deterministic=deterministic)
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self._client, name)
@@ -286,6 +371,7 @@ def make_ai_client(
     model_env: str = "AI_DEFAULT_MODEL",
     legacy_model_env: str = "XAI_MODEL",
     default_model: str | None = None,
+    deterministic: bool = True,
 ) -> tuple[Any, str, str, str | None] | None:
     """Return ``(client, model_name, provider, effort)`` or ``None`` if the API key is missing.
 
@@ -299,6 +385,11 @@ def make_ai_client(
     default_model:
         Model string (optionally with effort suffix) when neither env var is set.
         Defaults to ``AI_DEFAULT_MODEL`` → ``_DEFAULT_MODEL``.
+    deterministic:
+        When True (default), every call through the returned client gets
+        ``temperature`` and ``seed`` injected from ``AI_TEMPERATURE`` /
+        ``AI_SEED`` env vars unless the caller supplied them. Pass False to
+        disable injection (rare — use only when you actively want sampling).
     """
     try:
         from openai import OpenAI
@@ -328,7 +419,7 @@ def make_ai_client(
     except Exception:
         return None
 
-    return _TrackedOpenAIClient(client, model), model, provider, effort
+    return _TrackedOpenAIClient(client, model, deterministic=deterministic), model, provider, effort
 
 
 def strip_json_fences(raw: str) -> str:
@@ -400,7 +491,7 @@ def collect_streamed_response(stream: Any) -> str:
     return "".join(parts).strip()
 
 
-def make_gemini_native_client() -> Any:
+def make_gemini_native_client(*, deterministic: bool = True) -> Any:
     """Return a ``google.genai.Client`` for the Gemini native SDK, or ``None`` if no API key.
 
     Reads ``GEMINI_API_KEY`` with ``GOOGLE_API_KEY`` as fallback — the same key
@@ -409,6 +500,10 @@ def make_gemini_native_client() -> Any:
 
     Returns ``None`` rather than raising so callers can decide whether the key
     is required for their specific step.
+
+    When ``deterministic`` is True (default), ``AI_TEMPERATURE`` and ``AI_SEED``
+    are injected into every ``generate_content`` call's ``GenerateContentConfig``
+    unless the caller already set those fields.
     """
     try:
         from google import genai as gai
@@ -417,7 +512,7 @@ def make_gemini_native_client() -> Any:
     api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
     if not api_key:
         return None
-    return _TrackedGeminiClient(gai.Client(api_key=api_key))
+    return _TrackedGeminiClient(gai.Client(api_key=api_key), deterministic=deterministic)
 
 
 def is_503_error(exc: BaseException) -> bool:

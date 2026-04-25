@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import logging
+
 import fitz
 
 from .config import QR_MARGIN_ZONE_PT, QR_MAX_SIZE_PT
@@ -21,7 +23,6 @@ def collect_qr_image_rects(page: fitz.Page) -> list[fitz.Rect]:
             try:
                 img_rects = page.get_image_rects(xref)
             except Exception as exc:  # noqa: BLE001
-                import logging
                 logging.debug("get_image_rects xref=%s: %s", xref, exc)
                 continue
             for rect in img_rects:
@@ -41,7 +42,6 @@ def collect_qr_image_rects(page: fitz.Page) -> list[fitz.Rect]:
                 if in_margin:
                     rects.append(fitz.Rect(rect))
     except Exception as exc:  # noqa: BLE001
-        import logging
         logging.debug("collect_qr_image_rects failed: %s", exc)
     return rects
 

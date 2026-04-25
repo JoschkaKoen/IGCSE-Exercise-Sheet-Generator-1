@@ -325,26 +325,6 @@ def exam_label_from_filename(filename: str) -> str | None:
     return None
 
 
-def build_exam_header_label_from_paths(paths: list[str | None]) -> str:
-    """Comma-separated labels for distinct exams (e.g. 'w24 21, s23 42')."""
-    seen: set[str] = set()
-    out: list[str] = []
-    for p in paths:
-        if not p:
-            continue
-        lab = exam_label_from_filename(Path(p).name)
-        if lab and lab not in seen:
-            seen.add(lab)
-            out.append(lab)
-    if out:
-        return ", ".join(out)
-    return "Extracted exercises"
-
-
-def build_exam_header_label(question_paper_path: str, mark_scheme_path: str | None) -> str:
-    return build_exam_header_label_from_paths([question_paper_path, mark_scheme_path])
-
-
 def paper_label_from_qp_path(qp_path: str) -> str:
     """Short paper id from the question-paper filename only (e.g. ``w24 21``)."""
     lab = exam_label_from_filename(Path(qp_path).name)

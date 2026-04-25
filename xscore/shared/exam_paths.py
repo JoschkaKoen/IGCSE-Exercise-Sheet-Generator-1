@@ -396,6 +396,19 @@ def artifact_class_report_combined_pdf_path(artifact_dir: Path) -> Path:
     return artifact_reports_dir(artifact_dir) / "class_report_combined.pdf"
 
 
+def artifact_review_queue_json_path(artifact_dir: Path) -> Path:
+    """Side-channel review queue (medium / low confidence marks).
+
+    Pure side artifact — never loaded by any pipeline step; intended for manual
+    spot-checking by the human marker.
+    """
+    return artifact_reports_dir(artifact_dir) / "review_queue.json"
+
+
+def artifact_review_queue_md_path(artifact_dir: Path) -> Path:
+    return artifact_reports_dir(artifact_dir) / "review_queue.md"
+
+
 def artifact_student_report_xml_path(artifact_dir: Path, student: str) -> Path:
     return artifact_reports_students_dir(artifact_dir) / f"{safe_student_name(student)}.xml"
 

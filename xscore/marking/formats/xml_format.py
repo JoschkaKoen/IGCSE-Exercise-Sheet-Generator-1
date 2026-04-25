@@ -32,8 +32,8 @@ class XmlMarkingFormat(MarkingFormat):
         return (
             "You are an expert exam marker. You will be shown one page of a student's exam paper "
             "and a Blueprint XML listing every question. The blueprint is a form: each question has "
-            "three empty fields for you to fill in — <student_answer>, <assigned_marks>, and "
-            "<explanation>. Fill every field for every question in the list."
+            "four empty fields for you to fill in — <student_answer>, <assigned_marks>, "
+            "<explanation>, and <confidence>. Fill every field for every question in the list."
         )
 
     def criterion_ref(self) -> str:
@@ -42,8 +42,8 @@ class XmlMarkingFormat(MarkingFormat):
     def section_C(self, rows: int, cols: int) -> str:
         return (
             "\n\nReturn ONLY the filled Blueprint XML — no markdown fences, no surrounding text. "
-            "Fill in the three empty XML fields in each <question>: "
-            "<student_answer>, <assigned_marks>, and <explanation>. "
+            "Fill in the four empty XML fields in each <question>: "
+            "<student_answer>, <assigned_marks>, <explanation>, and <confidence>. "
             "Do not change any other content.\n"
             "CRITICAL — each element must be closed with its own matching tag. "
             "WRONG: <explanation>text</student_answer>. "
@@ -68,8 +68,8 @@ class XmlMarkingFormat(MarkingFormat):
 
     def build_user_text(self, blueprint_str: str) -> str:
         return (
-            "Fill in the three empty fields for each question "
-            "(<student_answer>, <assigned_marks>, <explanation>):\n"
+            "Fill in the four empty fields for each question "
+            "(<student_answer>, <assigned_marks>, <explanation>, <confidence>):\n"
             f"{blueprint_str}"
         )
 

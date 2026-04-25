@@ -78,7 +78,8 @@ Convert the grading instruction to JSON. Return ONLY the JSON, no explanation.
   "folder_path": null,
   "force_clean_scan": false,
   "no_report": false,
-  "from_step": null
+  "from_step": null,
+  "reuse_cache": false
 }
 
 task_type: count_marks=tally red teacher marks; check_mc=MC only; check_answers=all types.
@@ -89,6 +90,7 @@ Examples: "from ~/Desktop/exams/physics" → folder_path "~/Desktop/exams/physic
 force_clean_scan: true=ignore cache, re-clean ("re-clean", "force deskew").
 no_report: true=skip PDF ("terminal only", "no report").
 from_step: integer step number to resume from ("from step 14", "resume from step 13", "rerun from step 15"); null otherwise.
+reuse_cache: true=use cached AI marking responses from previous identical runs ("reuse cache", "use cache", "from cache"); false otherwise. Default false.
 """
 
 
@@ -170,6 +172,9 @@ def parse_prompt(
         from_step = int(raw_from_step) if raw_from_step not in (None, "") else None
     except (TypeError, ValueError):
         from_step = None
+    # AI-set value takes priority; fall back to the heuristic in case the AI
+    # ignored or omitted the field.
+    reuse_cache = bool(data.get("reuse_cache", instruction.reuse_cache))
 
     _VALID_TASK_TYPES = {"count_marks", "check_mc", "check_answers"}
     raw_task = data.get("task_type", instruction.task_type)
@@ -186,6 +191,7 @@ def parse_prompt(
         force_clean_scan=force_clean_scan,
         no_report=no_report,
         from_step=from_step,
+        reuse_cache=reuse_cache,
     )
 
 
@@ -222,6 +228,15 @@ def _heuristic_fallback(prompt: str, dpi_override: int | None) -> TaskInstructio
     if _fs_m:
         from_step = int(_fs_m.group(1))
 
+    # Cache opt-in phrases — kept narrow so casual mentions of "cache" don't
+    # accidentally enable it.
+    reuse_cache = (
+        "reuse cache" in p
+        or "use cache" in p
+        or "from cache" in p
+        or "cache reuse" in p
+    )
+
     return TaskInstruction(
         task_type=task_type,
         student_filter=student_filter,
@@ -230,4 +245,5 @@ def _heuristic_fallback(prompt: str, dpi_override: int | None) -> TaskInstructio
         force_clean_scan=force_clean,
         no_report="no report" in p or "terminal only" in p,
         from_step=from_step,
+        reuse_cache=reuse_cache,
     )

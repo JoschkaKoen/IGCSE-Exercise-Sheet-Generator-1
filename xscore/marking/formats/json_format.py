@@ -27,6 +27,10 @@ class _QuestionMarking(BaseModel):
     student_answer: str
     assigned_marks: int
     explanation: str
+    # Side-channel confidence — does NOT influence marks or PDF.
+    # Required so strict json_schema validation accepts the field; an empty
+    # string is acceptable and downstream code treats empty as "high".
+    confidence: str = ""
 
 
 class _MarkingResponse(BaseModel):
@@ -70,7 +74,7 @@ class JsonMarkingFormat(MarkingFormat):
             "and a Blueprint JSON listing every question. Your response must match the "
             "response schema: a JSON object with a `questions` array where each entry has "
             "`number`, `subpage_row`, `subpage_col`, `student_answer`, `assigned_marks` (int), "
-            "and `explanation`."
+            "`explanation`, and `confidence`."
         )
 
     def criterion_ref(self) -> str:
@@ -81,7 +85,8 @@ class JsonMarkingFormat(MarkingFormat):
             "\n\nReturn ONLY a JSON object matching the response schema — no markdown fences. "
             "The `questions` array must contain one entry per question with: "
             "`number`, `subpage_row`, `subpage_col`, "
-            "`student_answer` (string), `assigned_marks` (integer), `explanation` (string). "
+            "`student_answer` (string), `assigned_marks` (integer), `explanation` (string), "
+            "`confidence` (string: `high`, `medium`, or `low`). "
             "Do not include any other keys."
         )
 
@@ -101,7 +106,8 @@ class JsonMarkingFormat(MarkingFormat):
     def build_user_text(self, blueprint_str: str) -> str:
         return (
             "Mark each question below. Return JSON matching the schema "
-            "(`student_answer`, `assigned_marks`, `explanation` for each question):\n"
+            "(`student_answer`, `assigned_marks`, `explanation`, `confidence` "
+            "for each question):\n"
             f"{blueprint_str}"
         )
 
@@ -155,6 +161,7 @@ class JsonMarkingFormat(MarkingFormat):
                 "assigned_marks": am,
                 "student_answer": str(q.get("student_answer") or ""),
                 "explanation":    str(q.get("explanation") or ""),
+                "confidence":     str(q.get("confidence") or "").strip().lower(),
                 "question_text":  str(q.get("text") or ""),
             })
         return result
@@ -190,6 +197,7 @@ class JsonMarkingFormat(MarkingFormat):
                 "student_answer":   str(q.get("student_answer") or ""),
                 "assigned_marks":   int(am) if am is not None else 0,
                 "explanation":      str(q.get("explanation") or ""),
+                "confidence":       str(q.get("confidence") or ""),
             })
         return json.dumps(doc, ensure_ascii=False, indent=2)
 
@@ -229,6 +237,7 @@ class JsonMarkingFormat(MarkingFormat):
                 "student_answer":   str(q.get("student_answer") or "").strip(),
                 "assigned_marks":   am_int,
                 "explanation":      str(q.get("explanation") or "").strip(),
+                "confidence":       str(q.get("confidence") or "").strip().lower(),
             })
         result: dict = {
             "page":     int(data.get("page", 1)),

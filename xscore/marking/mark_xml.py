@@ -56,6 +56,12 @@ def filled_to_xml(filled: dict) -> str:
         exp_el = ET.SubElement(qel, "explanation")
         exp_el.text = str(q.get("explanation") or "")
 
+        # Side-channel confidence (advisory; never affects marks or PDF).
+        # Empty string means the AI did not provide a value — downstream
+        # readers treat empty as equivalent to "high".
+        conf_el = ET.SubElement(qel, "confidence")
+        conf_el.text = str(q.get("confidence") or "")
+
     ET.indent(root)
     return ET.tostring(root, encoding="unicode")
 
@@ -75,7 +81,7 @@ def _repair_mismatched_leaf_tags(raw: str) -> str:
     e.g. <explanation>long text</student_answer> → <explanation>long text</explanation>
     Applied per <question> block to avoid cross-question interference.
     """
-    _LEAF = ('student_answer', 'assigned_marks', 'explanation')
+    _LEAF = ('student_answer', 'assigned_marks', 'explanation', 'confidence')
 
     def _fix_within_question(q_text: str) -> str:
         for tag in _LEAF:
@@ -125,6 +131,7 @@ def _parse_xml_response(raw: str) -> list[dict]:
         sa_el = q.find('student_answer')
         am_el = q.find('assigned_marks')
         re_el = q.find('explanation')
+        cf_el = q.find('confidence')
         # assigned_marks: prefer child element (new format), fall back to attribute (legacy)
         if am_el is not None and (am_el.text or '').strip():
             try:
@@ -140,6 +147,7 @@ def _parse_xml_response(raw: str) -> list[dict]:
             'assigned_marks': assigned_marks,
             'student_answer': (sa_el.text or '').strip() if sa_el is not None else '',
             'explanation':    (re_el.text or '').strip() if re_el is not None else '',
+            'confidence':     (cf_el.text or '').strip().lower() if cf_el is not None else '',
             'question_text':  q.get('question_text', ''),
         })
     return questions
@@ -163,6 +171,7 @@ def _blueprint_xml_to_dict(xml_str: str) -> dict:
         sa_el = qel.find("student_answer")
         am_el = qel.find("assigned_marks")
         ex_el = qel.find("explanation")
+        cf_el = qel.find("confidence")
         questions.append({
             "number":          qel.get("number", ""),
             "question_type":   qel.get("type", "short_answer"),
@@ -177,6 +186,7 @@ def _blueprint_xml_to_dict(xml_str: str) -> dict:
             "student_answer":  (sa_el.text or "").strip() if sa_el is not None else "",
             "assigned_marks":  None if am_el is None or not (am_el.text or "").strip() else int(am_el.text),
             "explanation":     (ex_el.text or "").strip() if ex_el is not None else "",
+            "confidence":      (cf_el.text or "").strip().lower() if cf_el is not None else "",
         })
     return {
         "page":     int(root.get("page", 1)),

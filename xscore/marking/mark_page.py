@@ -94,9 +94,18 @@ def _build_marking_system_prompt(
         "Escape non-math special characters that appear literally in your prose: "
         "% → \\%, _ → \\_. "
         "Use \\newline for line breaks. "
-        "Don't use line breaks." 
+        "Don't use line breaks."
         "Write the explanation in short clear and understandable bullet points using latex syntax"
-        "Do not append a mark tally (e.g. '— 1 mark.') at the end."
+        "Do not append a mark tally (e.g. '— 1 mark.') at the end.\n"
+        "   • For multiple_choice questions, leave explanation empty. "
+        "Do not write any reasoning for multiple-choice answers; the field is filled automatically afterwards.\n"
+        "4. confidence — one of `high`, `medium`, `low` (lowercase, no quotes). "
+        "This is an advisory side-channel signal: it is collected for human review but does NOT "
+        "influence the marks awarded.\n"
+        "   • `low` if the handwriting was ambiguous, the rubric was unclear, or you had to guess.\n"
+        "   • `high` if you are certain of both the student's answer and the marks awarded.\n"
+        "   • `medium` otherwise.\n"
+        "   Be honest — flagging uncertainty is more useful than false confidence."
     )
 
         # "% → \\%, _ → \\_. "
@@ -165,11 +174,15 @@ def _mark_page(
     scheme_graphics: list[tuple[str, int, str]] = (),
     fmt: "MarkingFormat | None" = None,
     extra_b64: list[str] = (),
+    reuse_cache: bool = False,
 ) -> dict:
     """Vision call to fill in a marking blueprint for one scan page.
 
     Raises :class:`MarkingFailure` if all attempts are exhausted.
     *extra_b64* — additional continuation-page images appended after the main image.
+    *reuse_cache* — when True, look up the request in
+    :mod:`xscore.shared.response_cache` before calling the API; on miss, store
+    the API response after a successful parse. Default False (no cache).
     """
     if fmt is None:
         from xscore.marking.formats.xml_format import XmlMarkingFormat
@@ -200,6 +213,35 @@ def _mark_page(
 
     save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
 
+    # Optional response cache: only consulted when the user opted in via the
+    # NL prompt ("reuse cache"). Key folds in every input that affects the
+    # response so a stale hit is impossible by construction.
+    _cache_key: str | None = None
+    if reuse_cache:
+        from xscore.shared.response_cache import cache_key as _cache_key_fn, cache_get
+        _extra_hashes = ",".join(extra_b64) + "|" + ",".join(g[2] for g in scheme_graphics)
+        try:
+            _img_bytes = base64.b64decode(b64) if b64 else b""
+        except Exception:
+            _img_bytes = b""
+        _cache_key = _cache_key_fn(
+            model=model_id,
+            system_prompt=system_prompt,
+            user_prompt=user_text,
+            image_bytes=_img_bytes,
+            extra=_extra_hashes,
+        )
+        _hit = cache_get(_cache_key)
+        if _hit is not None:
+            _cached_raw = _hit.get("response", "")
+            if isinstance(_cached_raw, str) and _cached_raw:
+                try:
+                    return _apply_marking_response(_cached_raw, blueprint, fmt, warn)
+                except FormatParseError:
+                    # Cached entry is malformed for the current parser — discard it
+                    # and fall through to a live call.
+                    pass
+
     _last_exc: BaseException = RuntimeError("no attempts made")
     _last_raw: str = ""
     _actual_attempts = 0
@@ -214,59 +256,14 @@ def _mark_page(
                 raw = resp.choices[0].message.content or ""
             _last_raw = raw
             try:
-                parsed_questions = fmt.parse_response(raw)
+                result = _apply_marking_response(raw, blueprint, fmt, warn)
             except FormatParseError as exc:
                 warn(f"Marking parse error — marking aborted ({exc})")
                 _last_exc = exc
                 break
-            result = blueprint.copy()
-            fill_groups: dict[tuple, list] = defaultdict(list)
-            for q in parsed_questions:
-                fill_groups[_bq_key(q)].append(q)
-
-            fill_group_idx: dict[tuple, int] = defaultdict(int)
-            _unfilled = []
-            for bq in result.get("questions", []):
-                key = _bq_key(bq)
-                idx = fill_group_idx[key]
-                fill_group_idx[key] += 1
-                group = fill_groups.get(key, [])
-                if idx < len(group):
-                    fq = group[idx]
-                    bq["student_answer"] = fq['student_answer']
-                    bq["assigned_marks"] = fq['assigned_marks']
-                    bq["explanation"] = fq['explanation']
-                else:
-                    _unfilled.append(bq.get("number"))
-
-            if _unfilled:
-                warn(f"Marking: {len(_unfilled)} blueprint question(s) skipped by AI: {_unfilled}")
-            _unmatched: list[str] = []
-            for key, grp in fill_groups.items():
-                excess = len(grp) - fill_group_idx.get(key, 0)
-                for fq in grp[fill_group_idx.get(key, 0):fill_group_idx.get(key, 0) + max(0, excess)]:
-                    _unmatched.append(fq.get("number") or str(key))
-            if _unmatched:
-                warn(f"Marking: AI returned question(s) with no blueprint match: {_unmatched}")
-            _fix_mc_marks(result)
-            for bq in result.get("questions", []):
-                if not (bq.get("student_answer") or "").strip() and bq.get("assigned_marks") in (None, 0):
-                    bq["explanation"] = "Blank answer."
-            for bq in result.get("questions", []):
-                max_m = bq.get("max_marks")
-                if max_m is None:
-                    continue
-                m = bq.get("assigned_marks", 0)
-                if not isinstance(m, int) or m < 0 or m > int(max_m):
-                    warn(
-                        f"Marking: Q{bq.get('number')} assigned_marks={m} out of range "
-                        f"[0, {max_m}] — clamping"
-                    )
-                    try:
-                        m_int = int(m)
-                    except (TypeError, ValueError):
-                        m_int = 0
-                    bq["assigned_marks"] = max(0, min(m_int, int(max_m)))
+            if reuse_cache and _cache_key is not None:
+                from xscore.shared.response_cache import cache_put
+                cache_put(_cache_key, model=model_id, response=raw)
             return result
         except KeyboardInterrupt:
             raise
@@ -279,6 +276,74 @@ def _mark_page(
                 break
 
     raise MarkingFailure(attempts=_actual_attempts, last_exc=_last_exc, last_raw=_last_raw)
+
+
+def _apply_marking_response(
+    raw: str,
+    blueprint: dict,
+    fmt: "MarkingFormat",
+    warn: Callable[[str], None],
+) -> dict:
+    """Parse a raw marking response and apply it to *blueprint*.
+
+    Used by both the live API path and the cache-hit path so the validation /
+    clamping / MCQ-fix / blank-answer logic runs identically. Raises
+    :class:`FormatParseError` if *raw* is unparseable.
+    """
+    parsed_questions = fmt.parse_response(raw)
+    result = blueprint.copy()
+    fill_groups: dict[tuple, list] = defaultdict(list)
+    for q in parsed_questions:
+        fill_groups[_bq_key(q)].append(q)
+
+    fill_group_idx: dict[tuple, int] = defaultdict(int)
+    _unfilled = []
+    for bq in result.get("questions", []):
+        key = _bq_key(bq)
+        idx = fill_group_idx[key]
+        fill_group_idx[key] += 1
+        group = fill_groups.get(key, [])
+        if idx < len(group):
+            fq = group[idx]
+            bq["student_answer"] = fq['student_answer']
+            bq["assigned_marks"] = fq['assigned_marks']
+            bq["explanation"] = fq['explanation']
+            # `confidence` is optional — present only when item 3 (confidence
+            # side artifact) is in effect AND the AI produced it.
+            if "confidence" in fq:
+                bq["confidence"] = fq["confidence"]
+        else:
+            _unfilled.append(bq.get("number"))
+
+    if _unfilled:
+        warn(f"Marking: {len(_unfilled)} blueprint question(s) skipped by AI: {_unfilled}")
+    _unmatched: list[str] = []
+    for key, grp in fill_groups.items():
+        excess = len(grp) - fill_group_idx.get(key, 0)
+        for fq in grp[fill_group_idx.get(key, 0):fill_group_idx.get(key, 0) + max(0, excess)]:
+            _unmatched.append(fq.get("number") or str(key))
+    if _unmatched:
+        warn(f"Marking: AI returned question(s) with no blueprint match: {_unmatched}")
+    _fix_mc_marks(result)
+    for bq in result.get("questions", []):
+        if not (bq.get("student_answer") or "").strip() and bq.get("assigned_marks") in (None, 0):
+            bq["explanation"] = "Blank answer."
+    for bq in result.get("questions", []):
+        max_m = bq.get("max_marks")
+        if max_m is None:
+            continue
+        m = bq.get("assigned_marks", 0)
+        if not isinstance(m, int) or m < 0 or m > int(max_m):
+            warn(
+                f"Marking: Q{bq.get('number')} assigned_marks={m} out of range "
+                f"[0, {max_m}] — clamping"
+            )
+            try:
+                m_int = int(m)
+            except (TypeError, ValueError):
+                m_int = 0
+            bq["assigned_marks"] = max(0, min(m_int, int(max_m)))
+    return result
 
 
 def _fix_mc_marks(result: dict) -> None:
