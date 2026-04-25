@@ -41,6 +41,9 @@ class _Ctx:
     # :func:`xscore.shared.pipeline_steps.run_step` once steps migrate out of
     # xScore.py's nested closures into the registry.
     step_timings: dict[str, float] = field(default_factory=dict)
+    # Per-step token usage: step_name → model → {"input": N, "output": N}.
+    # Written by run_step as a delta of get_run_usage() across the step body.
+    step_token_usage: dict[str, dict[str, dict[str, int]]] = field(default_factory=dict)
     # Captured exceptions per step (also re-raised by ``run_step``). Used by
     # the run-manifest writer to distinguish "ran but errored" from "did not run".
     step_failures: list[dict] = field(default_factory=list)

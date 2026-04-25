@@ -196,6 +196,30 @@ def max_step_number() -> int:
 # Per-step wrapper
 # ---------------------------------------------------------------------------
 
+def _record_step_token_delta(
+    ctx: "_Ctx",
+    step_name: str,
+    usage_before: dict[str, dict[str, int]],
+) -> None:
+    """Diff get_run_usage() against *usage_before* and store on ctx if non-empty.
+
+    Steps run sequentially (parallelism is contained inside step bodies), so the
+    delta correctly attributes all tokens consumed by this step's API calls.
+    """
+    from eXercise.ai_client import get_run_usage
+
+    after = get_run_usage()
+    delta: dict[str, dict[str, int]] = {}
+    for model, ac in after.items():
+        bc = usage_before.get(model, {"input": 0, "output": 0})
+        di = ac["input"] - bc["input"]
+        do = ac["output"] - bc["output"]
+        if di or do:
+            delta[model] = {"input": di, "output": do}
+    if delta:
+        ctx.step_token_usage[step_name] = delta
+
+
 def run_step(ctx: "_Ctx", step: Step) -> None:
     """Run *step* under the unified guard set.
 
@@ -215,6 +239,7 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
        decide whether to treat it as fatal (most steps) or warn-and-continue
        (steps 9, 13, 14 today).
     """
+    from eXercise.ai_client import get_run_usage
     from xscore.shared.pipeline_ctx import _EarlyExit
     from xscore.shared.run_log import log_step_event
     from xscore.shared.terminal_ui import pipeline_section, pipeline_step
@@ -233,14 +258,17 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
     display = step.title or step.name.replace("_", " ").capitalize()
     pipeline_step(step.number, display)
 
+    usage_before = get_run_usage()
     t0 = time.perf_counter()
     try:
         step.fn(ctx)
     except _EarlyExit:
+        _record_step_token_delta(ctx, step.name, usage_before)
         raise
     except Exception as exc:
         elapsed = time.perf_counter() - t0
         ctx.step_timings[step.name] = elapsed
+        _record_step_token_delta(ctx, step.name, usage_before)
         err_str = f"{type(exc).__name__}: {exc}"
         ctx.step_failures.append({
             "step_number": step.number,
@@ -257,6 +285,7 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
     else:
         elapsed = time.perf_counter() - t0
         ctx.step_timings[step.name] = elapsed
+        _record_step_token_delta(ctx, step.name, usage_before)
         log_step_event(
             ctx,
             step_number=step.number, step_name=step.name,

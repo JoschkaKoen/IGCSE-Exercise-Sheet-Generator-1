@@ -11,6 +11,19 @@ from pathlib import Path
 # Display labels keyed by the canonical step.name from
 # xscore.shared.pipeline_steps.STEPS — written by run_step into ctx.step_timings.
 # Unmapped keys fall back to a humanised version of the snake_case name.
+def _step_label(name: str) -> str:
+    """Format a step row label as ``Step NN — <display label>``.
+
+    Returns the bare display label if *name* isn't in the registry (defensive
+    fallback for legacy keys that haven't migrated yet).
+    """
+    from xscore.shared.pipeline_steps import step_by_name
+
+    label = _STEP_LABELS.get(name, name.replace("_s", "").replace("_", " ").title())
+    s = step_by_name(name)
+    return f"Step {s.number:>2} — {label}" if s else label
+
+
 _STEP_LABELS: dict[str, str] = {
     "parse_grading_instructions":  "Parse instructions",
     "locate_exam_folder":          "Select exam folder",
@@ -61,7 +74,7 @@ def print_step_durations(
     from xscore.shared.terminal_ui import format_duration, info_line
     total = sum(step_durations.values())
     _vis_steps = [
-        (_STEP_LABELS.get(k, k.replace("_s", "").replace("_", " ").title()), v)
+        (_step_label(k), v)
         for k, v in step_durations.items() if v >= 0.5
     ]
     _total_label = "Total step time"
@@ -181,10 +194,9 @@ def write_timing_report(
 
 
 def _timing_to_md(payload: dict) -> str:
-    step_keys = [
-        k for k in payload
-        if k.endswith("_s") and k not in ("total_marking_s",) and not k.startswith("total")
-    ]
+    from xscore.shared.pipeline_steps import step_by_name
+
+    step_keys = [k for k in payload if step_by_name(k) is not None]
     lines = [
         "# Marking Timing\n",
         "## Step Durations\n",
@@ -192,8 +204,7 @@ def _timing_to_md(payload: dict) -> str:
         "|------|----------|",
     ]
     for k in step_keys:
-        label = _STEP_LABELS.get(k, k.replace("_s", "").replace("_", " ").title())
-        lines.append(f"| {label} | {payload[k]:.1f}s |")
+        lines.append(f"| {_step_label(k)} | {payload[k]:.1f}s |")
     lines.append(f"| **Total** | **{payload['total_marking_s']:.1f}s** |")
 
     if payload.get("token_usage"):
