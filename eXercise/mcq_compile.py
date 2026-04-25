@@ -63,9 +63,21 @@ def compile_latex(tex_source: str, output_pdf: Path) -> bool:
                     timeout=90,
                     cwd=str(tmp_path),
                 )
-                if result.returncode != 0 and run == 1:
+                if result.returncode != 0:
+                    # With -halt-on-error, run 1 failure means run 2 will fail the
+                    # same way; bail immediately and write the full log next to
+                    # the (intended) output PDF for debugging.
+                    log_path = output_pdf.with_suffix(".log")
+                    try:
+                        log_path.write_text(result.stdout or "", encoding="utf-8")
+                        log_loc = f" (full log: {log_path})"
+                    except OSError as log_exc:
+                        log_loc = f" (could not write log: {log_exc})"
                     log_snippet = (result.stdout or "")[-1500:]
-                    print(f"  MCQ explanations: pdflatex failed (run {run + 1}):\n{log_snippet}")
+                    print(
+                        f"  MCQ explanations: pdflatex failed (run {run + 1}){log_loc}\n"
+                        f"  …last 1500 chars of stdout:\n{log_snippet}"
+                    )
                     return False
             except subprocess.TimeoutExpired:
                 print("  MCQ explanations: pdflatex timed out.")

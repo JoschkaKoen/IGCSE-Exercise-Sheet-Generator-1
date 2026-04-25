@@ -172,6 +172,34 @@ def parse_model_effort(value: str) -> tuple[str, str | None]:
     return value.strip(), None
 
 
+def resolve_active_model(
+    env_chain: tuple[str, ...] | list[str],
+    default: str | None = None,
+) -> tuple[str, str, str | None]:
+    """Walk *env_chain* (env var names) and return ``(model, provider, effort)``.
+
+    Used when a caller needs to know which provider would be used without actually
+    building a client (e.g. to decide between the Gemini PDF-upload path and the
+    OpenAI-compat path before calling ``make_ai_client``).
+
+    Looks up each env var in order; falls back to *default*, then
+    ``AI_DEFAULT_MODEL``, then the module's ``_DEFAULT_MODEL``.
+    """
+    raw = ""
+    for env_name in env_chain:
+        raw = os.environ.get(env_name, "").strip()
+        if raw:
+            break
+    if not raw:
+        raw = (
+            (default or "").strip()
+            or os.environ.get("AI_DEFAULT_MODEL", "").strip()
+            or _DEFAULT_MODEL
+        )
+    model, effort = parse_model_effort(raw)
+    return model, provider_for_model(model), effort
+
+
 def build_thinking_kwargs(provider: str, effort: str | None) -> tuple[bool, dict]:
     """Return ``(use_stream, extra_kwargs)`` for ``client.chat.completions.create()``.
 
@@ -489,6 +517,28 @@ def collect_streamed_response(stream: Any) -> str:
         if delta.content:
             parts.append(delta.content)
     return "".join(parts).strip()
+
+
+def build_gemini_thinking_config(effort: str | None) -> Any:
+    """Return a ``google.genai.types.ThinkingConfig`` for *effort*.
+
+    Mirrors :func:`build_thinking_kwargs` for the Gemini native SDK path, where
+    the OpenAI-compat ``reasoning_effort`` parameter is replaced by a
+    ``ThinkingConfig`` object on ``GenerateContentConfig``.
+
+    * ``off``  — thinking_budget=0, include_thoughts=False.
+    * ``low``  — budget=1024, include=True.
+    * ``high`` — budget=8192, include=True.
+    * ``None`` — include_thoughts=True (no explicit budget, provider default).
+    """
+    from google.genai import types as gai_types  # noqa: PLC0415
+    if effort == "off":
+        return gai_types.ThinkingConfig(thinking_budget=0, include_thoughts=False)
+    if effort == "low":
+        return gai_types.ThinkingConfig(thinking_budget=1024, include_thoughts=True)
+    if effort == "high":
+        return gai_types.ThinkingConfig(thinking_budget=8192, include_thoughts=True)
+    return gai_types.ThinkingConfig(include_thoughts=True)
 
 
 def make_gemini_native_client(*, deterministic: bool = True) -> Any:

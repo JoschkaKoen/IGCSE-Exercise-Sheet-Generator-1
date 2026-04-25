@@ -11,6 +11,43 @@ from .config import (
     SubjectConfig,
 )
 
+# ---------------------------------------------------------------------------
+# Layout-geometry constants (PDF points)
+# ---------------------------------------------------------------------------
+# Gap between the bottom of a repeated 'Question / Answer / Marks' header text
+# block and the top cell-border of the next data row.  Two values because the
+# physical gap differs by orientation:
+#   landscape — thick gray separator below header text, ~5.64 pt tall
+#   portrait  — thin separator, ~3 pt
+_MS_HEADER_SEP_LANDSCAPE_PT = 5.65
+_MS_HEADER_SEP_PORTRAIT_PT = 3.0
+
+# Question-number text in answer tables sits at x ≤ this value (the leftmost
+# column).  Anything further right is body text or marks-column noise.
+_MS_QUESTION_COL_X_MAX_PT = 110.0
+# Wider clamp used when scanning for table headers (which can be slightly
+# wider than the question-number column).
+_MS_HEADER_TEXT_X_MAX_PT = 120.0
+# Drawings whose x0 is past this point belong to the Marks/Partial-Marks
+# columns (formula bars there can be wider than min_draw_w and would
+# otherwise drag the bottom-of-content estimate downward incorrectly).
+_MS_QA_COLUMN_X_MAX_PT = 300.0
+# Vertical offset (pt) below the page bottom edge used as the universal
+# lower bound for answer-region scanning (avoids the page footer band).
+_MS_PAGE_BOTTOM_MARGIN_PT = 30.0
+# Pages where any text sits above this y are treated as having a header band
+# already accounted for (used in find_ms_answer_regions to skip the very top).
+_MS_TOP_BAND_Y_MAX_PT = 50.0
+
+
+def _header_sep_pt(page) -> float:
+    """Return the header→content separator gap in pt for *page*'s orientation."""
+    return (
+        _MS_HEADER_SEP_LANDSCAPE_PT
+        if page.rect.height < MS_LANDSCAPE_H_THRESHOLD_PT
+        else _MS_HEADER_SEP_PORTRAIT_PT
+    )
+
 
 def _norm_bbox(page, bbox):
     """Transform a raw text bbox to the visual/display coordinate space.
@@ -37,19 +74,23 @@ def _norm_bbox(page, bbox):
     return bbox
 
 
-def detect_landscape_ms_crop_x(doc) -> float | None:
-    """Auto-detect the x-coordinate to crop at for landscape MS pages.
+def _is_landscape_page(page) -> bool:
+    """A page is landscape iff its height is below the orientation threshold."""
+    return page.rect.height < MS_LANDSCAPE_H_THRESHOLD_PT
+
+
+def _detect_ms_crop_x(doc, *, landscape: bool) -> float | None:
+    """Auto-detect the x-coordinate to crop at for MS pages of the given orientation.
 
     Finds the x-position of the Answer/Marks column separator by locating the
     rightmost wide-drawing x1 that lies strictly to the left of the 'Marks'
-    column-header text.  Returns that x + 2 pt (to fully include the border line),
-    or None if detection fails.
+    column-header text.  Returns that x (caller adds any padding), or None if
+    detection fails.  Pages of the opposite orientation are skipped.
     """
-
     for pi in range(len(doc)):
         page = doc[pi]
-        if page.rect.height >= MS_LANDSCAPE_H_THRESHOLD_PT:
-            continue  # skip portrait pages
+        if _is_landscape_page(page) != landscape:
+            continue
         text = page.get_text()
         if "Question" not in text or "Marks" not in text:
             continue
@@ -60,28 +101,16 @@ def detect_landscape_ms_crop_x(doc) -> float | None:
         if crop_x is not None:
             return crop_x
     return None
+
+
+def detect_landscape_ms_crop_x(doc) -> float | None:
+    """Auto-detect the x-coordinate to crop at for landscape MS pages."""
+    return _detect_ms_crop_x(doc, landscape=True)
 
 
 def detect_portrait_ms_crop_x(doc) -> float | None:
-    """Auto-detect the x-coordinate to crop at for portrait MS pages.
-
-    Same logic as ``detect_landscape_ms_crop_x`` but searches portrait pages.
-    """
-
-    for pi in range(len(doc)):
-        page = doc[pi]
-        if page.rect.height < MS_LANDSCAPE_H_THRESHOLD_PT:
-            continue  # skip landscape pages
-        text = page.get_text()
-        if "Question" not in text or "Marks" not in text:
-            continue
-        marks_x = _find_marks_header_x(page)
-        if marks_x is None:
-            continue
-        crop_x = _rightmost_drawing_x1_before(page, marks_x)
-        if crop_x is not None:
-            return crop_x
-    return None
+    """Auto-detect the x-coordinate to crop at for portrait MS pages."""
+    return _detect_ms_crop_x(doc, landscape=False)
 
 
 def _find_marks_header_x(page) -> float | None:
@@ -147,16 +176,16 @@ def _leftmost_drawing_x0(page, marks_x: float) -> float | None:
     return best
 
 
-def detect_landscape_ms_table_left(doc) -> float | None:
-    """Auto-detect the leftmost x of table content on landscape MS pages.
+def _detect_ms_table_left(doc, *, landscape: bool) -> float | None:
+    """Auto-detect the leftmost x of table content for the given orientation.
 
     Returns the x0 of the leftmost wide drawing that is part of the answer
-    table (to the left of the Marks column), minus a small padding.
+    table (to the left of the Marks column).  Pages of the opposite
+    orientation are skipped.
     """
-
     for pi in range(len(doc)):
         page = doc[pi]
-        if page.rect.height >= MS_LANDSCAPE_H_THRESHOLD_PT:
+        if _is_landscape_page(page) != landscape:
             continue
         text = page.get_text()
         if "Question" not in text or "Marks" not in text:
@@ -168,25 +197,16 @@ def detect_landscape_ms_table_left(doc) -> float | None:
         if left_x is not None:
             return left_x
     return None
+
+
+def detect_landscape_ms_table_left(doc) -> float | None:
+    """Auto-detect the leftmost x of table content on landscape MS pages."""
+    return _detect_ms_table_left(doc, landscape=True)
 
 
 def detect_portrait_ms_table_left(doc) -> float | None:
     """Auto-detect the leftmost x of table content on portrait MS pages."""
-
-    for pi in range(len(doc)):
-        page = doc[pi]
-        if page.rect.height < MS_LANDSCAPE_H_THRESHOLD_PT:
-            continue
-        text = page.get_text()
-        if "Question" not in text or "Marks" not in text:
-            continue
-        marks_x = _find_marks_header_x(page)
-        if marks_x is None:
-            continue
-        left_x = _leftmost_drawing_x0(page, marks_x)
-        if left_x is not None:
-            return left_x
-    return None
+    return _detect_ms_table_left(doc, landscape=False)
 
 
 def detect_ms_type(doc):
@@ -198,7 +218,13 @@ def detect_ms_type(doc):
 
 
 def parse_mcq_answers(doc):
-    """Parse MCQ mark scheme: returns dict {question_number: answer_letter}."""
+    """Parse MCQ mark scheme: returns dict {question_number: answer_letter}.
+
+    Rows are bucketed by integer y-position so a question number and its
+    answer letter (rendered with slightly different baselines on the same
+    visual row) group together under the same key.  This relies on Cambridge
+    MCQ rows being well over 1 pt apart vertically (typically ~14 pt).
+    """
     answers = {}
     for page_idx in range(len(doc)):
         page = doc[page_idx]
@@ -545,8 +571,7 @@ def find_ms_answer_regions(doc, requested_questions, cfg: SubjectConfig | None =
 
         first_page = first_entry[1]
         last_page = last_entry[1]
-        is_landscape_page = doc[first_page].rect.height < MS_LANDSCAPE_H_THRESHOLD_PT
-        _sep = 5.65 if is_landscape_page else 3.0
+        _sep = _header_sep_pt(doc[first_page])
         y_start = max(cfg.ms_header_bottom_pt, first_entry[2] - 10)
         _first_page_hdrs = page_header_rows.get(first_page, [])
         y_start = _floor_y_start_below_headers(
@@ -602,7 +627,7 @@ def find_ms_answer_regions(doc, requested_questions, cfg: SubjectConfig | None =
                     on_mid = [e for e in q_entries if e[1] == mid_p]
                     if on_mid:
                         first_y_mid = min(e[2] for e in on_mid)
-                        _mid_sep = 5.65 if doc[mid_p].rect.height < MS_LANDSCAPE_H_THRESHOLD_PT else 3.0
+                        _mid_sep = _header_sep_pt(doc[mid_p])
                         mid_ys = _floor_y_start_below_headers(
                             first_y_mid,
                             mid_ys,
@@ -619,7 +644,7 @@ def find_ms_answer_regions(doc, requested_questions, cfg: SubjectConfig | None =
             on_last = [e for e in q_entries if e[1] == last_page]
             first_on_last = min(e[2] for e in on_last)
             last_ys = _mid_y_start(doc[last_page])
-            _last_sep = 5.65 if doc[last_page].rect.height < MS_LANDSCAPE_H_THRESHOLD_PT else 3.0
+            _last_sep = _header_sep_pt(doc[last_page])
             _last_hdrs = page_header_rows.get(last_page, [])
             last_ys = _floor_y_start_below_headers(
                 first_on_last,

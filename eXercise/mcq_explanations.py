@@ -85,32 +85,22 @@ def _build_mcq_questions_pdf(
     guaranteed to look correct. Includes the paper-number header; no name field.
     Returns the PDF as bytes (a temp file is created and deleted internally).
     """
-    import os as _os
-    import tempfile as _tempfile  # noqa: PLC0415
+    from .output_paths import temp_pdf_path  # noqa: PLC0415
     from .rendering import collect_vector_strips, layout_vector_strips_to_pdf  # noqa: PLC0415
 
     answered_set = set(answered)
     answered_regions = [r for r in regions if r[0] in answered_set]
     strips = collect_vector_strips(qp_doc, answered_regions, is_ms=False, cfg=cfg)
 
-    with _tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
-        tmp_path = f.name
-
-    try:
+    with temp_pdf_path() as tmp_path:
         layout_vector_strips_to_pdf(
             strips,
-            tmp_path,
+            str(tmp_path),
             header_label=paper_label,
             name_field=False,
             page_number_circle=False,
         )
-        with open(tmp_path, "rb") as f:
-            return f.read()
-    finally:
-        try:
-            _os.unlink(tmp_path)
-        except OSError:
-            pass
+        return tmp_path.read_bytes()
 
 
 def prepare_mcq_job_data(
@@ -138,15 +128,10 @@ def prepare_mcq_job_data(
         return None
 
     # Detect provider to choose between Gemini PDF-upload path and OpenAI-compat path.
-    from .ai_client import parse_model_effort, provider_for_model  # noqa: PLC0415
-    _raw_model = (
-        os.environ.get("MCQ_MODEL", "").strip()
-        or os.environ.get("AI_MCQ_MODEL", "").strip()
-        or os.environ.get("AI_DEFAULT_MODEL", "").strip()
-        or "gemini-2.5-flash"
+    from .ai_client import resolve_active_model  # noqa: PLC0415
+    _, _provider, _ = resolve_active_model(
+        ("MCQ_MODEL", "AI_MCQ_MODEL", "AI_DEFAULT_MODEL"),
     )
-    _model_name, _ = parse_model_effort(_raw_model)
-    _provider = provider_for_model(_model_name)
 
     q_texts = extract_mcq_question_texts(qp_doc, regions, qs, cfg)
     missing = [q for q in answered if q not in q_texts]
@@ -231,8 +216,16 @@ def batch_generate_mcq_explanations(
             stream_thinking=stream_thinking,
         )
 
+    # Cap concurrency: one connection per paper hits provider rate limits at scale.
+    # Override with MCQ_BATCH_CONCURRENCY env var if you know the active key tier
+    # supports more.
+    try:
+        cap = max(1, int(os.environ.get("MCQ_BATCH_CONCURRENCY", "4")))
+    except ValueError:
+        cap = 4
+    workers = min(len(papers), cap)
     results: list[dict[int, list[str]]] = [{} for _ in papers]
-    with ThreadPoolExecutor(max_workers=len(papers)) as pool:
+    with ThreadPoolExecutor(max_workers=workers) as pool:
         future_to_idx = {pool.submit(_call_one, p): i for i, p in enumerate(papers)}
         for future in as_completed(future_to_idx):
             idx = future_to_idx[future]

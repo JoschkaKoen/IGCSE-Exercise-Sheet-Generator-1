@@ -76,6 +76,15 @@ _MCQ_AFTER_TITLE_GAP_PT = 2.0
 _MCQ_TITLE_FONT_PT = 11.0
 # Vertical advance for the title row (PDF points).
 _MCQ_TITLE_LINE_PT = 16.0
+# Vertical advance for each answer line.  Used for both layout estimation
+# (create_mcq_answer_strips) and rendering (the MCQ branch in the layout loop)
+# — keep them in sync via this constant.
+_MCQ_LINE_H_PT = 16.0
+# Font sizes used in the MCQ branch of the layout loop.
+_MCQ_BOLD_FS_PT = 14.0
+_MCQ_REG_FS_PT = 11.0
+# Extra advance after a bold MCQ line (matches the visual gap between sections).
+_MCQ_BOLD_EXTRA_ADVANCE_PT = 2.0
 
 def _display_to_mediabox(rect: fitz.Rect, page: fitz.Page) -> fitz.Rect:
     """Convert a display-space rect to mediabox-space (pre-rotation coordinates)."""
@@ -104,7 +113,13 @@ def _display_to_mediabox(rect: fitz.Rect, page: fitz.Page) -> fitz.Rect:
 # derotated copy using MediaBox coordinates + an explicit rotate parameter.
 
 _derotated_cache: dict[tuple[int, int], tuple[fitz.Document, int, int]] = {}
-"""(id(doc), page_idx) → (temp_doc, temp_page_idx, original_rotation)."""
+"""(id(doc), page_idx) → (temp_doc, temp_page_idx, original_rotation).
+
+Intentionally scoped to a single ``layout_vector_strips_to_pdf`` call:
+``clear_derotated_cache()`` is invoked at the end of layout.  ``id(doc)`` is
+stable only within the lifetime of a doc object — do NOT extend the cache
+across calls without switching to a more durable key (e.g. content hash).
+"""
 _derotated_cache_lock = threading.Lock()
 
 
@@ -624,9 +639,6 @@ def layout_vector_strips_to_pdf(
             sh = item.display_h_pt
             if y_cursor + sh > A4_HEIGHT_PT - _MARGIN_PT:
                 current_page, y_cursor = new_page()
-            line_h = 16.0
-            bold_fs = 14.0
-            reg_fs = 11.0
             x_left = 50.0
             for i, (text, is_bold) in enumerate(item.lines):
                 if i == 0 and is_bold:
@@ -640,7 +652,7 @@ def layout_vector_strips_to_pdf(
                     )
                     y_cursor += _MCQ_TITLE_LINE_PT + _MCQ_AFTER_TITLE_GAP_PT
                 else:
-                    fs = bold_fs if is_bold else reg_fs
+                    fs = _MCQ_BOLD_FS_PT if is_bold else _MCQ_REG_FS_PT
                     current_page.insert_text(
                         fitz.Point(x_left, y_cursor + fs),
                         text,
@@ -648,7 +660,7 @@ def layout_vector_strips_to_pdf(
                         color=(0.0, 0.0, 0.0),
                         fontname="hebo" if is_bold else "helv",
                     )
-                    y_cursor += line_h if not is_bold else line_h + 2
+                    y_cursor += _MCQ_LINE_H_PT + (_MCQ_BOLD_EXTRA_ADVANCE_PT if is_bold else 0.0)
             continue
 
         # --- vector content strip ---
@@ -795,12 +807,12 @@ def create_mcq_answer_strips(
     found = [(q, answers[q]) for q in requested_questions if q in answers]
     if not found:
         return []
-    # Estimate height: title row + gap + each answer row (~16pt)
-    line_h = 16.0
+    # Estimate height: title row + gap + each answer row (_MCQ_LINE_H_PT each)
+    # + ~8 pt trailing padding so the block doesn't hug the next strip.
     total_h = (
         _MCQ_TITLE_LINE_PT
         + _MCQ_AFTER_TITLE_GAP_PT
-        + len(found) * line_h
+        + len(found) * _MCQ_LINE_H_PT
         + 8.0
     )
     lines: list[tuple[str, bool]] = [("Multiple Choice Answers", True)]

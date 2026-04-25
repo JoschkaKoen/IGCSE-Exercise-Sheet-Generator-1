@@ -55,6 +55,16 @@ from .env_load import load_project_env
 
 MAX_PAGES = 12  # cap to avoid token overflow
 
+# ---------------------------------------------------------------------------
+# Token budgets (per-request output cap)
+# ---------------------------------------------------------------------------
+
+# Native Gemini PDF-upload path can comfortably emit a longer ranking list.
+_MAX_OUTPUT_TOKENS_RANKING_GEMINI = 32768
+# Vision and text fallback paths use a tighter budget — list is already short
+# (one identifier per line × ~40 questions max).
+_MAX_OUTPUT_TOKENS_RANKING_VISION = 8192
+
 
 def _eprint(msg: str) -> None:
     """Print an error message to stderr — red in a TTY terminal, plain text otherwise."""
@@ -198,21 +208,14 @@ def _rank_exercises_ai_gemini(
         print(f"    {label.capitalize()} PDF ready ({f.name}).")
         ready[label] = f
 
-    # Build thinking config — include_thoughts=True makes thought summaries visible
-    if effort == "off":
-        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=0, include_thoughts=False)
-    elif effort == "low":
-        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=1024, include_thoughts=True)
-    elif effort == "high":
-        thinking_cfg = gai_types.ThinkingConfig(thinking_budget=8192, include_thoughts=True)
-    else:
-        # Default: enable thoughts so they are visible in console
-        thinking_cfg = gai_types.ThinkingConfig(include_thoughts=True)
+    # Build thinking config via shared helper (mirrors mcq_ai.py).
+    from .ai_client import build_gemini_thinking_config  # noqa: PLC0415
+    thinking_cfg = build_gemini_thinking_config(effort)
 
     gen_config = gai_types.GenerateContentConfig(
         system_instruction=_SYSTEM_PROMPT,
         thinking_config=thinking_cfg,
-        max_output_tokens=32768,
+        max_output_tokens=_MAX_OUTPUT_TOKENS_RANKING_GEMINI,
     )
 
     # Build content parts — file parts interleaved with text labels
@@ -230,17 +233,14 @@ def _rank_exercises_ai_gemini(
         )
 
     if save_dir:
-        try:
-            from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
-            _sp(
-                save_dir / "ranking_prompt.json",
-                model=model,
-                system=_SYSTEM_PROMPT,
-                messages=[{"role": "user", "content": f"[PDF: {exercise_pdf.name}]"
-                           + (f" + [answers: {answer_pdf.name}]" if answer_pdf else "")}],
-            )
-        except Exception:
-            pass
+        from .prompt_logger import save_prompt as _sp  # noqa: PLC0415
+        _sp(
+            save_dir / "ranking_prompt.json",
+            model=model,
+            system=_SYSTEM_PROMPT,
+            messages=[{"role": "user", "content": f"[PDF: {exercise_pdf.name}]"
+                       + (f" + [answers: {answer_pdf.name}]" if answer_pdf else "")}],
+        )
 
     print("  Ranking (streaming):", flush=True)
     chunks: list[str] = []
@@ -395,7 +395,7 @@ def _rank_exercises_ai(
                 model=model,
                 messages=messages,
                 stream=True,
-                max_tokens=8192,
+                max_tokens=_MAX_OUTPUT_TOKENS_RANKING_VISION,
                 **thinking_kw,
             )
             return print_streamed_response(
@@ -404,7 +404,7 @@ def _rank_exercises_ai(
         completion = client.chat.completions.create(
             model=model,
             messages=messages,
-            max_tokens=8192,
+            max_tokens=_MAX_OUTPUT_TOKENS_RANKING_VISION,
             **thinking_kw,
         )
         return (completion.choices[0].message.content or "").strip()
@@ -413,16 +413,13 @@ def _rank_exercises_ai(
     try:
         _vision_msgs = _build_vision_messages()
         if save_dir:
-            try:
-                from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
-                _sp(
-                    save_dir / "ranking_prompt.json",
-                    model=model,
-                    system=_SYSTEM_PROMPT,
-                    messages=_vision_msgs[1:],  # skip system message — it's in `system` param
-                )
-            except Exception:
-                pass
+            from .prompt_logger import save_prompt as _sp  # noqa: PLC0415
+            _sp(
+                save_dir / "ranking_prompt.json",
+                model=model,
+                system=_SYSTEM_PROMPT,
+                messages=_vision_msgs[1:],  # skip system message — it's in `system` param
+            )
         raw = _call(_vision_msgs)
     except Exception as exc:
         _eprint(f"  Ranking: vision call failed ({type(exc).__name__}: {exc}); retrying with text.")
@@ -534,9 +531,21 @@ def _compile_ranking_latex(
                     timeout=90,
                     cwd=str(tmp_path),
                 )
-                if result.returncode != 0 and run == 1:
+                if result.returncode != 0:
+                    # With -halt-on-error, run 1 failure means run 2 will fail
+                    # the same way; bail immediately and write the full log
+                    # next to the (intended) output PDF for debugging.
+                    log_path = out_pdf.with_suffix(".log")
+                    try:
+                        log_path.write_text(result.stdout or "", encoding="utf-8")
+                        log_loc = f" (full log: {log_path})"
+                    except OSError as log_exc:
+                        log_loc = f" (could not write log: {log_exc})"
                     log = (result.stdout or "")[-1500:]
-                    _eprint(f"  Ranking: pdflatex failed:\n{log}")
+                    _eprint(
+                        f"  Ranking: pdflatex failed (run {run + 1}){log_loc}\n"
+                        f"  …last 1500 chars of stdout:\n{log}"
+                    )
                     return False
             except subprocess.TimeoutExpired:
                 _eprint("  Ranking: pdflatex timed out.")

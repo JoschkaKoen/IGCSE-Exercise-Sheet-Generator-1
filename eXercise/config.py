@@ -190,17 +190,13 @@ class SubjectConfig:
 # Default config — physics and CS use this unchanged.
 DEFAULT_SUBJECT_CONFIG = SubjectConfig()
 
-# Per-subject overrides.  Mathematics starts with the same defaults; override fields
-# here as bugs are diagnosed and constants are tuned.
+# Per-subject overrides.  Subjects without an entry here get DEFAULT_SUBJECT_CONFIG
+# via get_subject_config (mathematics, biology, chemistry, a_level_computer_science).
 SUBJECT_CONFIG: dict[str, SubjectConfig] = {
     "physics": SubjectConfig(ms_answer_portrait_margin_pt=25.0),
     "computer_science": SubjectConfig(
         ms_answer_landscape_margin_pt=0.0,
     ),
-    "mathematics": DEFAULT_SUBJECT_CONFIG,
-    "biology": DEFAULT_SUBJECT_CONFIG,
-    "chemistry": DEFAULT_SUBJECT_CONFIG,
-    "a_level_computer_science": DEFAULT_SUBJECT_CONFIG,
 }
 
 

@@ -90,6 +90,5 @@ def collect_barcode_text_rects(page: fitz.Page) -> list[fitz.Rect]:
                             x1 + _PAD_X, y1 + _PAD_BOTTOM,
                         ))
     except Exception as exc:  # noqa: BLE001
-        import logging
         logging.debug("collect_barcode_text_rects failed: %s", exc)
     return rects

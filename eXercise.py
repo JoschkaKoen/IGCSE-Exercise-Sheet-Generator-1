@@ -9,17 +9,14 @@ Environment (recommended):
     .venv/bin/pip install -r requirements.txt
     source .venv/bin/activate
 
-    Start the server: 
-    uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
+    Start the server:
     source .venv/bin/activate && uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
-    
+
 Usage:
     python eXercise.py "Winter 2024 Physics paper 21, questions 12–14, include mark scheme"
     python eXercise.py <input_pdf> <output_pdf> <question_numbers...> [--ms <mark_scheme.pdf>]
 
 Web UI (local browser; keep the terminal open while using it):
-    source .venv/bin/activate
-    uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
     source .venv/bin/activate && uvicorn web.app:app --reload --host 127.0.0.1 --port 8001
     # Then open http://127.0.0.1:8001 in a browser (match the --port you use).
     # If binding fails with "Address already in use", try another port (e.g. 8002);

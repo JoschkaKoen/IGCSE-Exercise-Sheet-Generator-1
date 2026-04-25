@@ -29,8 +29,10 @@ STEP_13_PAGE_ORDER  = "13_page_order"
 STEP_14_BLANK_PAGES = "14_blank_pages"
 
 STEP_15_LAYOUT          = "15_detect_exam_layout"
+STEP_16_CUT             = "16_cut_exam"
 STEP_17_PARSE_EXAM      = "17_parse_exam_pdf"
-STEP_18_PARSE_SCHEME    = "18_parse_mark_scheme"
+STEP_18_GRAPHICS        = "18_detect_mark_scheme_graphics"
+STEP_19_PARSE_SCHEME    = "19_parse_mark_scheme"
 STEP_20_CREATE_REPORT   = "20_create_report"
 STEP_21_BLUEPRINTS      = "21_ai_marking_blueprints"
 STEP_22_AI_MARKING      = "22_ai_marking"
@@ -220,12 +222,16 @@ def artifact_exam_layout_raw_path(artifact_dir: Path, fmt: str = "json") -> Path
     return artifact_dir / STEP_15_LAYOUT / f"exam_layout_raw.{fmt}"
 
 
+# ---------------------------------------------------------------------------
+# Step 16 — Cut exam PDF (split multi-up layout into single logical pages)
+# ---------------------------------------------------------------------------
+
 def artifact_split_exam_pdf_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_15_LAYOUT / "split_exam.pdf"
+    return artifact_dir / STEP_16_CUT / "split_exam.pdf"
 
 
 # ---------------------------------------------------------------------------
-# Step 16 — Parse exam PDF
+# Step 17 — Parse exam PDF
 # ---------------------------------------------------------------------------
 
 def artifact_exam_input_pdf_path(artifact_dir: Path) -> Path:
@@ -258,37 +264,46 @@ def artifact_exam_questions_raw_path(artifact_dir: Path, fmt: str = "yaml") -> P
 
 
 # ---------------------------------------------------------------------------
-# Step 17 — Parse mark scheme
+# Step 18 — Detect mark scheme graphics (per-page splits + graphics detection)
 # ---------------------------------------------------------------------------
 
-def artifact_mark_scheme_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_18_PARSE_SCHEME / "mark_scheme.json"
-
-
-def artifact_mark_scheme_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_18_PARSE_SCHEME / "mark_scheme.md"
-
-
-def artifact_mark_scheme_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_18_PARSE_SCHEME / "mark_scheme.xml"
-
-
-def artifact_mark_scheme_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_18_PARSE_SCHEME / f"mark_scheme.{fmt}"
+def artifact_mark_scheme_pages_dir(artifact_dir: Path) -> Path:
+    """Per-page PDFs (one per mark scheme page) — produced by step 18, consumed by step 19."""
+    return artifact_dir / STEP_18_GRAPHICS / "pages"
 
 
 def artifact_mark_scheme_graphics_dir(artifact_dir: Path) -> Path:
     """Directory of images extracted from the mark scheme."""
-    return artifact_dir / STEP_18_PARSE_SCHEME / "mark_scheme_graphics"
+    return artifact_dir / STEP_18_GRAPHICS / "graphics"
 
 
-def artifact_mark_scheme_pages_dir(artifact_dir: Path) -> Path:
-    """Temporary directory used during mark-scheme page rendering (cleaned up afterwards)."""
-    return artifact_dir / STEP_18_PARSE_SCHEME / "mark_scheme_pages"
+def artifact_mark_scheme_graphics_json_path(artifact_dir: Path) -> Path:
+    """Step 18: detected graphics positions per question."""
+    return artifact_dir / STEP_18_GRAPHICS / "mark_scheme_graphics.json"
 
 
 # ---------------------------------------------------------------------------
-# Step 18 — Create report / scaffold cache
+# Step 19 — Parse mark scheme
+# ---------------------------------------------------------------------------
+
+def artifact_mark_scheme_json_path(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_19_PARSE_SCHEME / "mark_scheme.json"
+
+
+def artifact_mark_scheme_markdown_path(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_19_PARSE_SCHEME / "mark_scheme.md"
+
+
+def artifact_mark_scheme_xml_path(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_19_PARSE_SCHEME / "mark_scheme.xml"
+
+
+def artifact_mark_scheme_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
+    return artifact_dir / STEP_19_PARSE_SCHEME / f"mark_scheme.{fmt}"
+
+
+# ---------------------------------------------------------------------------
+# Step 20 — Create report / scaffold cache
 # ---------------------------------------------------------------------------
 
 def artifact_scaffold_xml_path(artifact_dir: Path) -> Path:
@@ -446,16 +461,19 @@ def artifact_accuracy_json_path(artifact_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_scaffold_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Prompt file for scaffold AI calls (layout, exam questions, mark scheme).
+    """Prompt file for scaffold AI calls (layout, exam questions, mark scheme, graphics).
 
     Routes by content of *name* to the appropriate step folder.
     Use content-only names (no step-number prefix), e.g. ``"exam_questions"``,
-    ``"mark_scheme_p1"``, ``"detect_layout"``.
+    ``"mark_scheme_p1"``, ``"detect_layout"``, ``"mark_scheme_graphics_detect_p1"``.
     """
+    # Order matters: check most-specific first (graphics+mark_scheme before plain mark_scheme).
+    if "mark_scheme" in name and "graphics" in name:
+        return artifact_dir / STEP_18_GRAPHICS / f"{name}_prompt.md"
+    if "mark_scheme" in name:
+        return artifact_dir / STEP_19_PARSE_SCHEME / f"{name}_prompt.md"
     if "detect" in name or "layout" in name:
         return artifact_dir / STEP_15_LAYOUT / f"{name}_prompt.md"
-    if "mark_scheme" in name:
-        return artifact_dir / STEP_18_PARSE_SCHEME / f"{name}_prompt.md"
     return artifact_dir / STEP_17_PARSE_EXAM / f"{name}_prompt.md"
 
 

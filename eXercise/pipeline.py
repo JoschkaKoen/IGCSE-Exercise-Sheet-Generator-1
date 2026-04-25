@@ -6,6 +6,7 @@ from __future__ import annotations
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
+import sys
 import time
 
 import fitz
@@ -59,6 +60,7 @@ def merge_mcq_flags_into_overview(
     overview: dict[str, Any],
     jobs: list[dict],
     job_mcq_ms: list[bool],
+    resolved_qs: list[list[int]],
     *,
     use_paper_sublabels: bool,
 ) -> None:
@@ -73,7 +75,8 @@ def merge_mcq_flags_into_overview(
         if j_idx >= len(job_mcq_ms) or not job_mcq_ms[j_idx]:
             continue
         plab = paper_label_from_qp_path(job["input_pdf"])
-        for q in job.get("questions") or []:
+        qs = resolved_qs[j_idx] if j_idx < len(resolved_qs) else []
+        for q in qs or []:
             qn = int(q)
             if use_paper_sublabels:
                 mcq_pairs.add((plab, qn))
@@ -112,17 +115,20 @@ def _run_qp_extraction_phase(
     jobs: list[dict],
     cfg: Any,
     use_paper_sublabels: bool,
-) -> tuple[list[fitz.Document], list[list], list[Strip]]:
+) -> tuple[list[fitz.Document], list[list], list[Strip], list[list[int]]]:
     """Open and extract strips from all question papers in parallel.
 
-    Returns ``(qp_docs, job_regions, all_strips)``.  ``qp_docs[i]`` and
-    ``job_regions[i]`` are always parallel to ``jobs[i]`` even when a paper
-    has no matching questions (empty regions list, no strips added).
+    Returns ``(qp_docs, job_regions, all_strips, resolved_qs)`` — all four
+    lists are parallel to ``jobs``.  ``resolved_qs[i]`` is the concrete
+    integer list (with ``"all"`` already expanded), so downstream phases do
+    not have to touch ``jobs[i]["questions"]``.
     """
-    def _extract_one(args: tuple[int, dict]) -> tuple:
+    def _extract_one(
+        args: tuple[int, dict],
+    ) -> tuple[int, fitz.Document, list, list[Strip], str, list[int]]:
         j_idx, job = args
         ip = job["input_pdf"]
-        paper_lbl = paper_label_from_qp_path(ip)
+        paper_label = paper_label_from_qp_path(ip)
         print(f"\nQuestion paper: {ip}")
         doc = fitz.open(ip)
         print(f"  PDF has {len(doc)} pages")
@@ -132,7 +138,6 @@ def _run_qp_extraction_phase(
         qs = job["questions"]
         if qs == "all":
             qs = found_nums
-            job["questions"] = qs  # safe: each worker only writes its own job entry
         print(f"  Questions: {qs}")
         regions = get_question_regions(doc, positions, qs, cfg)
         if not regions:
@@ -141,7 +146,7 @@ def _run_qp_extraction_phase(
         else:
             print(f"  Extracting {len(regions)} region(s) for questions {sorted(set(r[0] for r in regions))}")
             strips = collect_vector_strips(doc, regions, cfg=cfg)
-        return j_idx, doc, regions, strips, paper_lbl
+        return j_idx, doc, regions, strips, paper_label, qs
 
     with ThreadPoolExecutor(max_workers=max(1, len(jobs))) as ex:
         results = sorted(ex.map(_extract_one, enumerate(jobs)), key=lambda r: r[0])
@@ -149,27 +154,30 @@ def _run_qp_extraction_phase(
     qp_docs: list[fitz.Document] = []
     job_regions: list[list] = []
     all_strips: list[Strip] = []
+    resolved_qs: list[list[int]] = []
 
-    for j_idx, doc, regions, strips, paper_lbl in results:
+    for j_idx, doc, regions, strips, paper_label, qs in results:
         qp_docs.append(doc)
         job_regions.append(regions)
+        resolved_qs.append(qs)
         if not strips:
             continue
         if use_paper_sublabels:
             if all_strips:
                 all_strips.append(GapStrip(height_pt=_QP_INTER_PAPER_GAP_PT))
-            all_strips.append(paper_lbl)
+            all_strips.append(paper_label)
         elif len(jobs) > 1 and all_strips:
             all_strips.append(GapStrip(height_pt=_QP_INTER_PAPER_GAP_PT))
         all_strips.extend(strips)
 
-    return qp_docs, job_regions, all_strips
+    return qp_docs, job_regions, all_strips, resolved_qs
 
 
 def _run_ms_prep_phase(
     jobs: list[dict],
     qp_docs: list[fitz.Document],
     job_regions: list[list],
+    resolved_qs: list[list[int]],
     cfg: Any,
     exam_key: str | None,
     out_path: Path,
@@ -188,9 +196,9 @@ def _run_ms_prep_phase(
         ms_doc = fitz.open(ms)
         ms_type = detect_ms_type(ms_doc)
         print(f"  Type: {ms_type}, {len(ms_doc)} pages")
-        qs = job["questions"]
-        paper_lbl = paper_label_from_qp_path(job["input_pdf"])
-        info: dict = {"doc": ms_doc, "type": ms_type, "qs": qs, "label": paper_lbl}
+        qs = resolved_qs[j_idx]
+        paper_label = paper_label_from_qp_path(job["input_pdf"])
+        info: dict = {"doc": ms_doc, "type": ms_type, "qs": qs, "label": paper_label}
         prepared = None
         if ms_type == "mcq":
             answers = parse_mcq_answers(ms_doc)
@@ -206,7 +214,7 @@ def _run_ms_prep_phase(
                 qs=qs,
                 cfg=cfg,
                 exam_key=exam_key,
-                paper_label=paper_lbl,
+                paper_label=paper_label,
                 expl_pdf_path=expl_pdf_path,
             )
         return j_idx, ms_doc, info, prepared
@@ -256,7 +264,7 @@ def _run_ms_strip_phase(
         ms_doc = info["doc"]
         ms_type = info["type"]
         qs = info["qs"]
-        paper_lbl = info["label"]
+        paper_label = info["label"]
 
         if ms_type == "mcq":
             answers = info["answers"]
@@ -292,7 +300,7 @@ def _run_ms_strip_phase(
         if use_paper_sublabels:
             if all_ms_strips:
                 all_ms_strips.append(GapStrip(height_pt=_MS_INTER_PAPER_GAP_PT))
-            all_ms_strips.append(paper_lbl)
+            all_ms_strips.append(paper_label)
         elif len(jobs) > 1 and all_ms_strips:
             all_ms_strips.append(GapStrip(height_pt=_MS_INTER_PAPER_GAP_PT))
 
@@ -307,7 +315,7 @@ def run_extraction_jobs(
     exam_key: str | None = None,
     *,
     run_ranking: bool = True,
-    step_timings: list | None = None,
+    step_timings: list[tuple[str, float]] | None = None,
 ) -> dict[str, Any]:
     """
     Each job dict: ``input_pdf``, ``questions``, ``mark_scheme_pdf`` (optional path).
@@ -335,9 +343,11 @@ def run_extraction_jobs(
         if step_timings is not None:
             step_timings.append((label, time.monotonic() - t))
 
+    resolved_qs: list[list[int]] = []
+
     try:
         _t = time.monotonic()
-        qp_docs, job_regions, all_strips = _run_qp_extraction_phase(
+        qp_docs, job_regions, all_strips, resolved_qs = _run_qp_extraction_phase(
             jobs, cfg, use_paper_sublabels
         )
         _rec("QP extraction", _t)
@@ -355,7 +365,7 @@ def run_extraction_jobs(
 
         _t = time.monotonic()
         ms_info, mcq_prepared, job_mcq_ms = _run_ms_prep_phase(
-            jobs, qp_docs, job_regions, cfg, exam_key, out_path
+            jobs, qp_docs, job_regions, resolved_qs, cfg, exam_key, out_path
         )
         _rec("MS prep", _t)
         # Collect ms_docs from ms_info for cleanup in finally block
@@ -414,14 +424,15 @@ def run_extraction_jobs(
         for d in qp_docs + ms_docs:
             try:
                 d.close()
-            except Exception:
-                pass
+            except Exception as e:  # noqa: BLE001
+                print(f"  Warning: failed to close {d}: {e}", file=sys.stderr)
 
     overview = build_exercise_overview(exercise_anchors)
     if answer_anchors:
         merge_answer_anchors_into_overview(overview, answer_anchors)
     merge_mcq_flags_into_overview(
-        overview, jobs, job_mcq_ms, use_paper_sublabels=use_paper_sublabels
+        overview, jobs, job_mcq_ms, resolved_qs,
+        use_paper_sublabels=use_paper_sublabels,
     )
     print("\nDone!")
     return overview
@@ -432,7 +443,7 @@ def run_extraction(
     output_pdf: str,
     requested: list,
     ms_pdf: str | None,
-    step_timings: list | None = None,
+    step_timings: list[tuple[str, float]] | None = None,
 ) -> dict:
     return run_extraction_jobs(
         [{"input_pdf": input_pdf, "questions": requested, "mark_scheme_pdf": ms_pdf}],

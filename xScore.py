@@ -20,10 +20,10 @@ Steps:
  13. Page order check → 13_page_order/.
  14. Blank page detection → 14_blank_pages/.
  15. AI: detect exam layout → 15_detect_exam_layout/.
- 16. Cut exam PDF (split multi-up pages) → 15_detect_exam_layout/split_exam.pdf (skipped for 1×1).
+ 16. Cut exam PDF (split multi-up pages) → 16_cut_exam/split_exam.pdf (skipped for 1×1).
  17. AI: parse exam PDF → question hierarchy → 17_parse_exam_pdf/exam_questions.json.
- 18. AI: detect mark scheme graphics → 18_parse_mark_scheme/mark_scheme_graphics.json.
- 19. AI: parse mark scheme → correct answers + criteria → 18_parse_mark_scheme/mark_scheme.json.
+ 18. AI: detect mark scheme graphics → 18_detect_mark_scheme_graphics/mark_scheme_graphics.json.
+ 19. AI: parse mark scheme → correct answers + criteria → 19_parse_mark_scheme/mark_scheme.json.
  20. Merge scaffold → 20_create_report/report.json.
  21. Build per-page AI marking blueprints → 21_ai_marking_blueprints/.
  22. AI: grade each student page → 22_ai_marking/students/.
@@ -414,7 +414,21 @@ def _load_imports() -> types.SimpleNamespace:
         find_two_scan_pdfs,
         merge_duplex_scans_phase,
     )
-    from xscore.scaffold.generate_scaffold import build_scaffold, find_exam_pdf
+    from xscore.scaffold.ai_scaffold import (
+        step15_detect_layout,
+        step16_cut_exam_pdf,
+        step17_parse_exam_pdf,
+        step18_detect_scheme_graphics,
+        step19_parse_mark_scheme,
+        step20_merge_scaffold,
+    )
+    from xscore.scaffold.formats import get_scaffold_format
+    from xscore.scaffold.generate_scaffold import (
+        build_scaffold,
+        find_answer_pdf,
+        find_exam_pdf,
+        finalize_scaffold,
+    )
     from xscore.shared.cost_report import compute_cost
     from xscore.shared.exam_paths import (
         STEP_07,
@@ -437,7 +451,7 @@ def _load_imports() -> types.SimpleNamespace:
         pipeline_step,
         warn_line,
     )
-    from eXercise.ai_client import get_run_usage
+    from eXercise.ai_client import get_run_usage, make_gemini_native_client
     return types.SimpleNamespace(**locals())
 
 
@@ -541,86 +555,109 @@ def _step03_students(
 
 
 def _scaffold_steps(ctx: _Ctx, imp: types.SimpleNamespace, *, background: bool = False) -> None:
-    """Steps 15–20: detect layout, cut, exam PDF, mark scheme graphics, mark scheme, report merge."""
+    """Steps 15–20: detect layout → cut PDF → parse exam → detect graphics → parse scheme → merge.
+
+    Each step prints its own header and writes its own artifact folder. ``ctx.stop_after``
+    stops the run cleanly between any two steps.
+    """
     assert ctx.folder is not None and ctx.artifact_dir is not None
     if ctx.from_step:
         return
     t0 = time.perf_counter()
 
-    imp.pipeline_step(
-        15, "Detect empty exam layout",
-        subtitle="running in background" if background else None,
-    )
-
-    _step_t = [0.0, 0.0]  # [t_graphics_start, t_scheme_start]
-
-    def _on_layout_done() -> None:
-        if ctx.stop_after <= 15:
-            raise _EarlyExit()
-        imp.pipeline_step(
-            16, "Cut empty exam",
-            subtitle="running in background" if background else None,
-        )
-
-    def _on_cut_done(skipped: bool) -> None:
-        if ctx.stop_after <= 16:
-            raise _EarlyExit()
-        imp.pipeline_step(
-            17, "Parse exam PDF",
-            subtitle="running in background" if background else None,
-        )
-
-    def _on_exam_done(raw_questions: list) -> None:
-        imp.ok_line(f"{len(raw_questions)} top-level questions extracted")
-        if ctx.stop_after <= 17:
-            raise _EarlyExit()
-        imp.pipeline_step(
-            18, "Detect mark scheme graphics",
-            subtitle="completed in background" if background else None,
-        )
-        _step_t[0] = time.perf_counter()
-
-    def _on_graphics_done(graphics_qs: "list | None") -> None:
-        if graphics_qs is None:
-            imp.ok_line("Skipped (DETECT_SCHEME_GRAPHICS_MODEL not set)")
-        else:
-            n = sum(len(q.get("graphics") or []) for q in graphics_qs)
-            dur = imp.format_duration(time.perf_counter() - _step_t[0])
-            imp.ok_line(f"{n} graphic{'s' if n != 1 else ''} detected  ·  {dur}")
-        if ctx.stop_after <= 18:
-            raise _EarlyExit()
-        _step_t[1] = time.perf_counter()
-        imp.pipeline_step(
-            19, "Parse mark scheme",
-            subtitle="completed in background" if background else None,
-        )
-
-    def _on_scheme_done(scheme_questions: list) -> None:
-        dur = imp.format_duration(time.perf_counter() - _step_t[1])
-        imp.ok_line(f"{len(scheme_questions)} answers in mark scheme  ·  {dur}")
-        if ctx.stop_after <= 19:
-            raise _EarlyExit()
-        imp.pipeline_step(20, "Create report")
+    fmt = imp.get_scaffold_format()
+    bg_subtitle = "running in background" if background else None
 
     try:
-        ctx.scaffold = imp.build_scaffold(
-            ctx.folder,
-            artifact_dir=ctx.artifact_dir,
-            force_rebuild=True,
-            on_layout_complete=_on_layout_done,
-            on_cut_complete=_on_cut_done,
-            on_exam_complete=_on_exam_done,
-            on_graphics_complete=_on_graphics_done,
-            on_scheme_complete=_on_scheme_done,
-            students=ctx.students,
+        exam_pdf = imp.find_exam_pdf(ctx.folder)
+    except FileNotFoundError as exc:
+        imp.warn_line(f"No exam PDF found — scaffold skipped ({exc})")
+        return
+    answer_pdf = imp.find_answer_pdf(ctx.folder)
+
+    client = imp.make_gemini_native_client()
+    if client is None:
+        raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
+
+    split_pdf_temp_path: Path | None = None
+    try:
+        # Step 15 — detect layout
+        imp.pipeline_step(15, "Detect empty exam layout", subtitle=bg_subtitle)
+        layout_result, layout_elapsed, layout_model = imp.step15_detect_layout(
+            client, exam_pdf, ctx.artifact_dir,
+        )
+        if ctx.stop_after <= 15:
+            raise _EarlyExit()
+
+        # Step 16 — cut exam PDF
+        imp.pipeline_step(16, "Cut empty exam", subtitle=bg_subtitle)
+        actual_exam_pdf, split_pdf_temp_path, _n_phys, n_split = imp.step16_cut_exam_pdf(
+            exam_pdf, layout_result, ctx.artifact_dir,
+            layout_model=layout_model, layout_elapsed=layout_elapsed,
+        )
+        if ctx.stop_after <= 16:
+            raise _EarlyExit()
+
+        # Step 17 — parse exam PDF
+        imp.pipeline_step(17, "Parse exam PDF", subtitle=bg_subtitle)
+        raw_questions, raw_layout = imp.step17_parse_exam_pdf(
+            client, actual_exam_pdf, layout_result,
+            n_split, split_pdf_temp_path, ctx.artifact_dir, fmt=fmt,
+        )
+        if ctx.stop_after <= 17:
+            raise _EarlyExit()
+
+        # Step 18 — detect mark scheme graphics
+        imp.pipeline_step(18, "Detect mark scheme graphics", subtitle=bg_subtitle)
+        _t_gfx = time.perf_counter()
+        graphics_by_qnum, graphics_questions = imp.step18_detect_scheme_graphics(
+            answer_pdf, raw_questions, ctx.artifact_dir, fmt=fmt,
+        )
+        if graphics_questions is None:
+            imp.ok_line("Skipped (DETECT_SCHEME_GRAPHICS_MODEL not set)")
+        else:
+            _n = sum(len(q.get("graphics") or []) for q in graphics_questions)
+            imp.ok_line(
+                f"{_n} graphic{'s' if _n != 1 else ''} detected"
+                f"  ·  {imp.format_duration(time.perf_counter() - _t_gfx)}"
+            )
+        if ctx.stop_after <= 18:
+            raise _EarlyExit()
+
+        # Step 19 — parse mark scheme
+        imp.pipeline_step(19, "Parse mark scheme", subtitle=bg_subtitle)
+        _t_scheme = time.perf_counter()
+        scheme_data = imp.step19_parse_mark_scheme(
+            client, answer_pdf, raw_questions, graphics_by_qnum,
+            ctx.artifact_dir, fmt=fmt,
+        )
+        _scheme_qs = scheme_data.get("questions", []) if isinstance(scheme_data, dict) else []
+        imp.ok_line(
+            f"{len(_scheme_qs)} answers in mark scheme"
+            f"  ·  {imp.format_duration(time.perf_counter() - _t_scheme)}"
+        )
+        if ctx.stop_after <= 19:
+            raise _EarlyExit()
+
+        # Step 20 — merge scaffold + finalize
+        imp.pipeline_step(20, "Create report")
+        questions, layout = imp.step20_merge_scaffold(raw_questions, raw_layout, scheme_data)
+        ctx.scaffold = imp.finalize_scaffold(
+            ctx.folder, exam_pdf, questions, layout,
+            students=ctx.students, artifact_dir=ctx.artifact_dir,
         )
         qs = ctx.scaffold.gradable_questions
         imp.ok_line(
             f"{len(qs)} gradable parts  ·  {ctx.scaffold.total_marks} marks total"
             f"  ·  {imp.format_duration(time.perf_counter() - t0)}"
         )
-    except FileNotFoundError as exc:
-        imp.warn_line(f"No exam PDF found — scaffold skipped ({exc})")
+    finally:
+        # Delete temp split PDF (always, even on early exit or error)
+        if split_pdf_temp_path is not None:
+            try:
+                split_pdf_temp_path.unlink()
+            except OSError:
+                pass
 
 
 def _scan_phases(ctx: _Ctx, imp: types.SimpleNamespace) -> None:

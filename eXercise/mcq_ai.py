@@ -12,6 +12,14 @@ import time
 from typing import Any
 
 # ---------------------------------------------------------------------------
+# Token budgets (per-request output cap)
+# ---------------------------------------------------------------------------
+
+# Chosen to fit ~40 question explanations × 3 bullets, with headroom for
+# reasoning tokens on Gemini thinking models.
+_MAX_OUTPUT_TOKENS_MCQ = 16384
+
+# ---------------------------------------------------------------------------
 # Subject-specific AI prompt fragments
 # ---------------------------------------------------------------------------
 
@@ -117,6 +125,23 @@ def _build_system_prompt(exam_key: str | None, provider: str = "") -> str:
     )
 
 
+def _defang_delimiters(text: str) -> str:
+    """Neuter delimiter strings so source text can't break ``_parse_explanations``.
+
+    The parser splits on ``===Q<num>===`` and on ``\\n---\\n``.  If the source
+    PDF text contains either pattern (rare for Cambridge papers but possible in
+    figure captions), inject a zero-width space inside the marker / replace the
+    bullet bar with em-dashes so the parser cannot mis-segment.  Visually the
+    text reads the same to the model.
+    """
+    # ===Q12=== → ===<ZWSP>Q12=== (re.split treats them as different)
+    text = re.sub(r"===Q(\d)", "===​Q\\1", text)
+    # A line that is exactly --- (the bullet separator inside Q blocks)
+    # → em-dash em-dash em-dash, which does not match the literal "\n---\n" split.
+    text = re.sub(r"(?m)^---$", "———", text)
+    return text
+
+
 def _build_user_message(
     q_texts: dict[int, str],
     answers: dict[int, str],
@@ -127,7 +152,7 @@ def _build_user_message(
         if q not in answers:
             continue
         ans = answers[q]
-        text = q_texts.get(q, "").strip() or "(question text unavailable)"
+        text = _defang_delimiters(q_texts.get(q, "").strip()) or "(question text unavailable)"
         parts.append(f"Q{q} (Answer: {ans})\n{text}")
     return "\n\n".join(parts)
 
@@ -156,7 +181,7 @@ def _build_user_content(
         if q not in answers:
             continue
         ans = answers[q]
-        text = q_texts.get(q, "").strip() or "(question text unavailable)"
+        text = _defang_delimiters(q_texts.get(q, "").strip()) or "(question text unavailable)"
         text_buf.append(f"Q{q} (Answer: {ans})\n{text}")
 
         if q in q_images:
@@ -249,17 +274,14 @@ def _save_mcq_prompt(
     print(f"  Saved MCQ prompt: mcq_expl_prompt.txt")
 
     # JSON version (stripped of images) for machine-readable audit
-    try:
-        from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
-        _sp(
-            Path(save_dir) / "mcq_expl_prompt.json",
-            model="",
-            system=system,
-            messages=[{"role": "user", "content": user_content if isinstance(user_content, str) else
-                       " ".join(p.get("text", "") for p in user_content if isinstance(p, dict) and p.get("type") == "text")}],
-        )
-    except Exception:
-        pass
+    from .prompt_logger import save_prompt as _sp  # noqa: PLC0415
+    _sp(
+        Path(save_dir) / "mcq_expl_prompt.json",
+        model="",
+        system=system,
+        messages=[{"role": "user", "content": user_content if isinstance(user_content, str) else
+                   " ".join(p.get("text", "") for p in user_content if isinstance(p, dict) and p.get("type") == "text")}],
+    )
 
     # Raw extracted question texts
     if q_texts:
@@ -289,9 +311,7 @@ def generate_mcq_explanations_gemini_pdf(
     Returns ``{qnum: [bullet, bullet, bullet]}`` or ``{}`` on any error.
     """
     import os as _os
-    import tempfile
     import time as _time
-    from pathlib import Path as _Path
 
     try:
         from google import genai as gai
@@ -309,20 +329,15 @@ def generate_mcq_explanations_gemini_pdf(
 
     client = gai.Client(api_key=api_key)
 
-    # Write PDF bytes to a temp file for upload, then delete it immediately.
-    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
-        tmp_path = f.name
-        f.write(q_pdf_bytes)
-
+    # Write PDF bytes to a temp file, hand the path to the Gemini SDK, then
+    # let the context manager unlink it.  Using `with` here is safe because
+    # the SDK reads the file synchronously inside `client.files.upload`.
+    from .output_paths import temp_pdf_path  # noqa: PLC0415
     file_obj = None
-    try:
+    with temp_pdf_path() as tmp_path:
+        tmp_path.write_bytes(q_pdf_bytes)
         print("  Uploading MCQ questions PDF to Gemini Files API…", flush=True)
-        file_obj = client.files.upload(file=_Path(tmp_path))
-    finally:
-        try:
-            _os.unlink(tmp_path)
-        except OSError:
-            pass
+        file_obj = client.files.upload(file=tmp_path)
 
     try:
         # Poll until the file is ready.
@@ -364,31 +379,22 @@ def generate_mcq_explanations_gemini_pdf(
                 "\n".join(debug_lines), encoding="utf-8"
             )
             print("  Saved MCQ prompt (PDF path): mcq_expl_prompt_pdf.txt")
-            try:
-                from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
-                _sp(
-                    _P(save_dir) / "mcq_expl_prompt_pdf.json",
-                    model=model,
-                    system=system_prompt,
-                    messages=[{"role": "user", "content": user_text}],
-                )
-            except Exception:
-                pass
+            from .prompt_logger import save_prompt as _sp  # noqa: PLC0415
+            _sp(
+                _P(save_dir) / "mcq_expl_prompt_pdf.json",
+                model=model,
+                system=system_prompt,
+                messages=[{"role": "user", "content": user_text}],
+            )
 
-        # Thinking config — mirror difficulty_ranking.py exactly.
-        if effort == "off":
-            thinking_cfg = gai_types.ThinkingConfig(thinking_budget=0, include_thoughts=False)
-        elif effort == "low":
-            thinking_cfg = gai_types.ThinkingConfig(thinking_budget=1024, include_thoughts=True)
-        elif effort == "high":
-            thinking_cfg = gai_types.ThinkingConfig(thinking_budget=8192, include_thoughts=True)
-        else:
-            thinking_cfg = gai_types.ThinkingConfig(include_thoughts=True)
+        # Thinking config — shared helper, mirrors difficulty_ranking.py.
+        from .ai_client import build_gemini_thinking_config  # noqa: PLC0415
+        thinking_cfg = build_gemini_thinking_config(effort)
 
         gen_config = gai_types.GenerateContentConfig(
             system_instruction=system_prompt,
             thinking_config=thinking_cfg,
-            max_output_tokens=16384,
+            max_output_tokens=_MAX_OUTPUT_TOKENS_MCQ,
         )
 
         _NUDGE = (
@@ -442,8 +448,13 @@ def generate_mcq_explanations_gemini_pdf(
                     print()
 
             except Exception as exc:
-                print(f"  MCQ explanations (PDF): API error on attempt {attempt + 1}: {exc}")
-                if attempt == max_attempts - 1:
+                from .ai_client import is_503_error  # noqa: PLC0415
+                transient = is_503_error(exc)
+                print(
+                    f"  MCQ explanations (PDF): API error on attempt {attempt + 1} "
+                    f"({'transient 503' if transient else type(exc).__name__}): {exc}"
+                )
+                if attempt == max_attempts - 1 or not transient:
                     return {}
                 continue
 
@@ -529,16 +540,16 @@ def generate_mcq_explanations(
     use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
     thinking_parts: list[str] = []
 
-    def _call(**kwargs: Any) -> tuple[str, str | None]:
+    def _call(content: str | list[dict], **kwargs: Any) -> tuple[str, str | None]:
         """Return (content, finish_reason)."""
         msgs = [
             {"role": "system", "content": system},
-            {"role": "user", "content": user_content},
+            {"role": "user", "content": content},
         ]
         if use_stream:
             stream = client.chat.completions.create(
                 model=model,
-                max_tokens=16384,
+                max_tokens=_MAX_OUTPUT_TOKENS_MCQ,
                 messages=msgs,
                 stream=True,
                 **thinking_kw,
@@ -552,7 +563,7 @@ def generate_mcq_explanations(
             return text, (finish_out[-1] if finish_out else None)
         completion = client.chat.completions.create(
             model=model,
-            max_tokens=16384,
+            max_tokens=_MAX_OUTPUT_TOKENS_MCQ,
             messages=msgs,
             **thinking_kw,
             **kwargs,
@@ -562,10 +573,22 @@ def generate_mcq_explanations(
         return text, getattr(choice, "finish_reason", None)
 
     max_attempts = 3
+    nudge = (
+        '\n\nYou MUST use the ===Q<number>=== delimiter format. '
+        'Do NOT use JSON. Separate bullets with --- on its own line.'
+    )
 
     for attempt in range(max_attempts):
+        # Build per-attempt content so retries don't accumulate nudges in user_content.
+        if attempt == 0:
+            attempt_content: str | list[dict] = user_content
+        elif isinstance(user_content, str):
+            attempt_content = user_content + nudge
+        else:
+            attempt_content = user_content + [{"type": "text", "text": nudge}]
+
         try:
-            raw, finish = _call()
+            raw, finish = _call(attempt_content)
             if save_dir is not None:
                 from pathlib import Path as _P  # noqa: PLC0415
                 (_P(save_dir) / "mcq_expl_response.txt").write_text(raw, encoding="utf-8")
@@ -575,8 +598,14 @@ def generate_mcq_explanations(
                         "".join(thinking_parts), encoding="utf-8"
                     )
         except Exception as exc:
-            print(f"  MCQ explanations: API error on attempt {attempt + 1}: {exc}")
-            if attempt == max_attempts - 1:
+            from .ai_client import is_503_error  # noqa: PLC0415
+            transient = is_503_error(exc)
+            print(
+                f"  MCQ explanations: API error on attempt {attempt + 1} "
+                f"({'transient 503' if transient else type(exc).__name__}): {exc}"
+            )
+            # Only retry on known-transient errors; auth / quota / 4xx won't recover.
+            if attempt == max_attempts - 1 or not transient:
                 return {}
             continue
 
@@ -595,13 +624,5 @@ def generate_mcq_explanations(
             print(f"  Raw tail: …{tail}")
         if attempt < max_attempts - 1:
             print("  Retrying…")
-            nudge = (
-                '\n\nYou MUST use the ===Q<number>=== delimiter format. '
-                'Do NOT use JSON. Separate bullets with --- on its own line.'
-            )
-            if isinstance(user_content, str):
-                user_content = user_content + nudge
-            else:
-                user_content = user_content + [{"type": "text", "text": nudge}]
 
     return {}

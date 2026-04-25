@@ -178,13 +178,13 @@ def get_question_regions(doc, positions, requested_questions, cfg: SubjectConfig
     page_content_bottom = cfg.margin_bottom
 
     for qnum in requested_questions:
-        q_entries = [p for p in positions if p[0] == qnum]
+        q_entries = [(i, p) for i, p in enumerate(positions) if p[0] == qnum]
         if not q_entries:
             print(f"  Warning: Question {qnum} not found in PDF, skipping.")
             continue
 
-        q_page, q_y = q_entries[0][1], q_entries[0][2]
-        pos_idx = positions.index(q_entries[0])
+        pos_idx, first_entry = q_entries[0]
+        q_page, q_y = first_entry[1], first_entry[2]
 
         if pos_idx + 1 < len(positions):
             next_q = positions[pos_idx + 1]

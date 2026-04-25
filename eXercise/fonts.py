@@ -2,6 +2,7 @@
 """PIL fonts and drawing the page header band."""
 
 import os
+from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -9,11 +10,20 @@ from .config import EXAM_LABEL_FONT_PT, PROJECT_ROOT
 
 
 def _lm_roman_paths(*, bold: bool) -> list[str]:
-    """Latin Modern Roman (LaTeX ``lmodern`` / Computer Modern successor), bundled + TeX installs."""
+    """Latin Modern Roman (LaTeX ``lmodern`` / Computer Modern successor), bundled + TeX installs.
+
+    Glob TeX Live yearly directories so newer installs (e.g. 2026+) are picked up
+    automatically, with the most recent year tried first.
+    """
     name = "lmroman10-bold.otf" if bold else "lmroman10-regular.otf"
     paths: list[str] = [str(PROJECT_ROOT / "fonts" / name)]
-    for year in ("2025", "2024", "2023", "2022"):
-        paths.append(f"/usr/local/texlive/{year}/texmf-dist/fonts/opentype/public/lm/{name}")
+    texlive_root = Path("/usr/local/texlive")
+    if texlive_root.is_dir():
+        matches = sorted(
+            texlive_root.glob(f"*/texmf-dist/fonts/opentype/public/lm/{name}"),
+            reverse=True,
+        )
+        paths.extend(str(p) for p in matches)
     paths.append(f"/usr/share/texmf/fonts/opentype/public/lm/{name}")
     return paths
 

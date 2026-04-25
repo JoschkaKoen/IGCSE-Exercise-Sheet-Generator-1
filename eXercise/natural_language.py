@@ -96,12 +96,9 @@ def _precheck_instruction(
         {"role": "user", "content": user_block},
     ]
     if save_dir is not None:
-        try:
-            from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
-            _sp(save_dir / "nl_precheck_prompt.json", model=model,
-                system=_PRECHECK_SYSTEM, messages=msgs[1:])
-        except Exception:
-            pass
+        from .prompt_logger import save_prompt as _sp  # noqa: PLC0415
+        _sp(save_dir / "nl_precheck_prompt.json", model=model,
+            system=_PRECHECK_SYSTEM, messages=msgs[1:])
     use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
     _t0 = time.monotonic()
     try:
@@ -144,11 +141,6 @@ def _precheck_instruction(
     )
 
 
-def _load_env():
-    """Load ``default.env`` then ``.env`` (see ``env_load.load_project_env``)."""
-    load_project_env()
-
-
 def _list_pdf_names(exam_root: Path):
     """Return a sorted list of PDF filenames in the given exam directory."""
     if not exam_root.is_dir():
@@ -169,7 +161,7 @@ def resolve_natural_language(
         if on_progress:
             on_progress(msg)
 
-    _load_env()
+    load_project_env()
 
     instruction = sanitize_natural_language_instruction(instruction)
 
@@ -191,6 +183,11 @@ def resolve_natural_language(
     client, model, provider, effort = result
 
     # Precheck uses its own model+effort and its own client (may be a different provider).
+    # Falls back to the main client/model when no precheck-specific env var is set
+    # or the precheck client can't be built.
+    precheck_client, precheck_model, precheck_provider, precheck_effort = (
+        client, model, provider, effort
+    )
     precheck_raw = (
         os.environ.get("AI_PRECHECK_MODEL", "").strip()
         or os.environ.get("XAI_PRECHECK_MODEL", "").strip()
@@ -202,14 +199,6 @@ def resolve_natural_language(
         )
         if precheck_result is not None:
             precheck_client, precheck_model, precheck_provider, precheck_effort = precheck_result
-        else:
-            precheck_client, precheck_model, precheck_provider, precheck_effort = (
-                client, model, provider, effort
-            )
-    else:
-        precheck_client, precheck_model, precheck_provider, precheck_effort = (
-            client, model, provider, effort
-        )
 
     skip_precheck = os.environ.get("NL_SKIP_PRECHECK", "").lower() in ("1", "true", "yes")
     if not skip_precheck:
@@ -281,16 +270,14 @@ def resolve_natural_language(
     ]
 
     if save_dir is not None:
-        try:
-            from xscore.shared.prompt_logger import save_prompt as _sp  # noqa: PLC0415
-            _sp(save_dir / "nl_resolve_prompt.json", model=model,
-                system=system, messages=msgs_nl[1:])
-        except Exception:
-            pass
+        from .prompt_logger import save_prompt as _sp  # noqa: PLC0415
+        _sp(save_dir / "nl_resolve_prompt.json", model=model,
+            system=system, messages=msgs_nl[1:])
 
     emit("Calling language model…")
     use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
     _t0 = time.monotonic()
+    response_format_demoted_err: Exception | None = None
     try:
         if use_stream:
             stream = client.chat.completions.create(
@@ -310,8 +297,13 @@ def resolve_natural_language(
                 )
             except Exception as _rf_err:  # noqa: BLE001
                 # Some providers return HTTP 400 for response_format; retry without it.
-                import logging
-                logging.debug("response_format rejected by %s: %s — retrying without", model, _rf_err)
+                # Track the demotion so a later JSON parse failure can mention it.
+                response_format_demoted_err = _rf_err
+                print(
+                    f"  Warning: {model} rejected response_format=json_object "
+                    f"({type(_rf_err).__name__}); retrying without JSON-mode.",
+                    flush=True,
+                )
                 completion = client.chat.completions.create(
                     model=model,
                     messages=msgs_nl,
@@ -324,7 +316,15 @@ def resolve_natural_language(
     try:
         data = json.loads(strip_json_fences(raw))
     except json.JSONDecodeError:
-        raise NaturalLanguageError(f"Model did not return valid JSON:\n{raw[:2000]}")
+        suffix = ""
+        if response_format_demoted_err is not None:
+            suffix = (
+                f"\n\n(Note: {model} rejected JSON-mode "
+                f"[{type(response_format_demoted_err).__name__}: "
+                f"{response_format_demoted_err}], so the request was retried "
+                "without the json_object response_format.)"
+            )
+        raise NaturalLanguageError(f"Model did not return valid JSON:\n{raw[:2000]}{suffix}")
 
     for key in ("exam", "output_pdf"):
         if key not in data:

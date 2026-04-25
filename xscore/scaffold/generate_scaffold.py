@@ -65,9 +65,13 @@ def find_exam_pdf(folder: Path) -> Path:
     return preferred[0] if preferred else pdfs[0]
 
 
-def _find_answer_pdf(folder: Path) -> Path | None:
+def find_answer_pdf(folder: Path) -> Path | None:
     answer_pdfs = [f for f in folder.glob("*.pdf") if "answer" in f.name.lower()]
     return answer_pdfs[0] if answer_pdfs else None
+
+
+# Backwards-compat alias for any caller still on the old name.
+_find_answer_pdf = find_answer_pdf
 
 
 # ---------------------------------------------------------------------------
@@ -235,7 +239,7 @@ def _source_pdfs(folder: Path, exam_pdf_override: Path | None = None) -> list[Pa
         sources = [exam]
     except FileNotFoundError:
         sources = []
-    ans = _find_answer_pdf(folder)
+    ans = find_answer_pdf(folder)
     if ans is not None:
         sources.append(ans)
     return sources
@@ -572,7 +576,7 @@ def build_scaffold(
     exam_pdf = exam_pdf_override or find_exam_pdf(folder)
 
     from xscore.scaffold.ai_scaffold import build_ai_scaffold
-    ans = _find_answer_pdf(folder)
+    ans = find_answer_pdf(folder)
     questions, layout = build_ai_scaffold(
         exam_pdf, ans,
         on_layout_complete=on_layout_complete,
@@ -582,6 +586,24 @@ def build_scaffold(
         on_scheme_complete=on_scheme_complete,
         artifact_dir=ad,
     )
+    return finalize_scaffold(folder, exam_pdf, questions, layout, students=students, artifact_dir=ad)
+
+
+def finalize_scaffold(
+    folder: Path,
+    exam_pdf: Path,
+    questions: list[Question],
+    layout: ExamLayout,
+    *,
+    students: "list[str] | None" = None,
+    artifact_dir: Path | None = None,
+) -> ExamScaffold:
+    """Step 20 finishing work: mark rollups → page count → ``ExamScaffold`` → cache.
+
+    Splits the post-merge work out of :func:`build_scaffold` so xScore.py can
+    call the six scaffold step functions directly and still produce the cached
+    ``ExamScaffold`` artifact.
+    """
     if not questions:
         raise RuntimeError(
             "No questions extracted from exam PDF. "
@@ -615,6 +637,7 @@ def build_scaffold(
         raw_description=raw_description,
         layout=layout,
     )
+    ad = artifact_dir or exam_artifact_dir(folder)
     _save_cache(ad, scaffold, students)
     _clear_legacy_scaffold_outputs(folder)
     return scaffold
