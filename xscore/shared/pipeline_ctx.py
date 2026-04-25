@@ -78,6 +78,10 @@ class _Ctx:
     student_summaries: list[dict] | None = None
     full_reports: dict[str, dict] | None = None
     q_totals: dict[str, list[float]] | None = None
+    # Failure surfaces for steps 23–27. Populated by step 23 (merge),
+    # surfaced by step wrappers (23, 25), persisted by step 27 (review queue).
+    failed_students: list[dict] = field(default_factory=list)
+    mark_collisions: list[dict] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         # All four fields are guaranteed by parse_args() in xScore.py.

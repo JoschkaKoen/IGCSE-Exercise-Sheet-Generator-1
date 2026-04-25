@@ -1,8 +1,23 @@
-"""LaTeX formatting helpers and serializers for student and class reports."""
+"""LaTeX formatting helpers and serializers for student and class reports.
+
+LaTeX skeletons live as Jinja2 templates in ``./templates/``. This module
+prepares every dynamic value as a Python string (rows, header substrings,
+geometry/column-spec lines) and then substitutes them into the template via
+``<<var>>`` placeholders. No control flow happens inside the templates —
+that keeps Jinja's whitespace handling out of the loop and makes byte-diffs
+against the original f-string serializers easy to reason about.
+
+Jinja delimiters here are ``<< >>`` for variables, ``<% %>`` for blocks,
+``<# #>`` for comments — chosen to avoid clashing with LaTeX braces.
+"""
 
 from __future__ import annotations
 
+import datetime
 import re
+from pathlib import Path
+
+import jinja2
 
 
 _LATEX_MAP = {
@@ -102,13 +117,28 @@ def _awarded_tex(awarded: int | None, max_q: int | str) -> str:
     return str(awarded)
 
 
+# ---------------------------------------------------------------------------
+# Jinja2 environment — non-default delimiters to avoid LaTeX brace clashes.
+# ``keep_trailing_newline=True`` preserves the trailing newline of each
+# template file so output matches the original f-string serializers exactly.
+# ---------------------------------------------------------------------------
+
+_ENV = jinja2.Environment(
+    block_start_string="<%",   block_end_string="%>",
+    variable_start_string="<<", variable_end_string=">>",
+    comment_start_string="<#", comment_end_string="#>",
+    loader=jinja2.FileSystemLoader(Path(__file__).parent / "templates"),
+    keep_trailing_newline=True,
+    autoescape=False,
+)
+
+
 def _student_report_to_tex(
     report: dict,
     exam_name: str = "",
     orientation: str = "landscape",
     font_size: int = 10,
 ) -> str:
-    import datetime
     name = _latex_escape(report["student_name"])
     total = report["total_marks"]
     max_m = report["max_marks"]
@@ -162,46 +192,24 @@ def _student_report_to_tex(
         col_spec = "L{0.6cm}L{0.6cm}L{0.7cm}L{5.7cm}L{7.0cm}L{8.1cm}"
     table_open  = "{\\small\n" if font_size < 12 else ""
     table_close = "}\n"        if font_size < 12 else ""
-    return (
-        f"\\documentclass[{font_size}pt]{{article}}\n"
-        "\\usepackage{fontspec}\n"
-        "\\usepackage{amsmath}\n"
-        "\\usepackage{amssymb}\n"
-        "\\usepackage{booktabs}\n"
-        "\\usepackage{longtable}\n"
-        "\\usepackage{geometry}\n"
-        "\\usepackage{xcolor}\n"
-        "\\usepackage{array}\n"
-        "\\newcolumntype{L}[1]{>{\\raggedright\\arraybackslash}p{#1}}\n"
-        f"{geometry_line}"
-        "\\begin{document}\n"
-        f"\\section*{{Student Report: {name}{header_extra}}}\n"
-        f"\\textbf{{Total: {total}/{max_m} ({pct_display} raw, {curved_display} curved)}} \\quad "
-        f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
-        "\\vspace{1em}\n\n"
-        f"{table_open}"
-        "\\renewcommand{\\arraystretch}{1.6}\n"
-        f"\\begin{{longtable}}{{{col_spec}}}\n"
-        "\\toprule\n"
-        "\\textbf{Q} & \\textbf{Max} & \\textbf{Got} & "
-        "\\textbf{Student Answer} & \\textbf{Expected} & \\textbf{Reasoning} \\\\\n"
-        "\\midrule\n"
-        "\\endfirsthead\n"
-        "\\midrule\n"
-        "\\textbf{Q} & \\textbf{Max} & \\textbf{Got} & "
-        "\\textbf{Student Answer} & \\textbf{Expected} & \\textbf{Reasoning} \\\\\n"
-        "\\midrule\n"
-        "\\endhead\n"
-        f"{rows_str}\n"
-        "\\bottomrule\n"
-        "\\end{longtable}\n"
-        f"{table_close}"
-        "\\end{document}\n"
+    return _ENV.get_template("student_report.tex.j2").render(
+        font_size=font_size,
+        geometry_line=geometry_line,
+        name=name,
+        header_extra=header_extra,
+        total=total,
+        max_m=max_m,
+        pct_display=pct_display,
+        curved_display=curved_display,
+        date_str=date_str,
+        table_open=table_open,
+        col_spec=col_spec,
+        rows_str=rows_str,
+        table_close=table_close,
     )
 
 
 def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
-    import datetime
     header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
     date_str = datetime.date.today().isoformat()
     student_rows = []
@@ -227,47 +235,18 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
         )
     q_rows_str = "\n".join(q_rows)
 
-    return (
-        "\\documentclass{article}\n"
-        "\\usepackage{fontspec}\n"
-        "\\usepackage{amsmath}\n"
-        "\\usepackage{amssymb}\n"
-        "\\usepackage{booktabs}\n"
-        "\\usepackage{longtable}\n"
-        "\\usepackage{geometry}\n"
-        "\\usepackage{xcolor}\n"
-        "\\geometry{a4paper,margin=2cm}\n"
-        "\\begin{document}\n"
-        f"\\section*{{Class Report{header_extra}}}\n"
-        f"\\textbf{{Class average: {'N/A' if report['class_average_pct'] is None else str(report['class_average_pct']) + '\\%'}}} \\quad\n"
-        f"\\textbf{{Max marks: {report['total_max_marks']}}} \\quad\n"
-        f"\\textcolor{{gray}}{{\\small {date_str}}}\n"
-        "\\vspace{1em}\n\n"
-        "\\subsection*{Student Rankings}\n"
-        "\\begin{longtable}{rlrrr}\n"
-        "\\toprule\n"
-        "\\textbf{Rank} & \\textbf{Student} & \\textbf{Marks} & \\textbf{Percentage} & \\textbf{Curved} \\\\\n"
-        "\\midrule\n"
-        "\\endfirsthead\n"
-        "\\midrule\n"
-        "\\textbf{Rank} & \\textbf{Student} & \\textbf{Marks} & \\textbf{Percentage} & \\textbf{Curved} \\\\\n"
-        "\\midrule\n"
-        "\\endhead\n"
-        f"{student_rows_str}\n"
-        "\\bottomrule\n"
-        "\\end{longtable}\n\n"
-        "\\subsection*{Exercise Rankings (hardest first)}\n"
-        "\\begin{longtable}{lrrr}\n"
-        "\\toprule\n"
-        "\\textbf{Question} & \\textbf{Max} & \\textbf{Class Avg} & \\textbf{Class Avg \\%} \\\\\n"
-        "\\midrule\n"
-        "\\endfirsthead\n"
-        "\\midrule\n"
-        "\\textbf{Question} & \\textbf{Max} & \\textbf{Class Avg} & \\textbf{Class Avg \\%} \\\\\n"
-        "\\midrule\n"
-        "\\endhead\n"
-        f"{q_rows_str}\n"
-        "\\bottomrule\n"
-        "\\end{longtable}\n"
-        "\\end{document}\n"
+    class_avg_display = (
+        "N/A" if report["class_average_pct"] is None
+        else f"{report['class_average_pct']}\\%"
+    )
+
+    return _ENV.get_template("class_report.tex.j2").render(
+        header_extra=header_extra,
+        class_avg_display=class_avg_display,
+        total_max_marks=report["total_max_marks"],
+        date_str=date_str,
+        student_rows_str=student_rows_str,
+        q_rows_str=q_rows_str,
+        histogram_path=report.get("histogram_path"),
+        difficulty_path=report.get("difficulty_path"),
     )

@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{fontspec}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{float}
+\geometry{a4paper,margin=2cm}
+\begin{document}
+\section*{Class Report<<header_extra>>}
+\textbf{Class average: <<class_avg_display>>} \quad
+\textbf{Max marks: <<total_max_marks>>} \quad
+\textcolor{gray}{\small <<date_str>>}
+\vspace{1em}
+
+<%- if histogram_path %>
+\subsection*{Grade distribution}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{<<histogram_path>>}
+\end{figure}
+
+<%- endif %>
+<%- if difficulty_path %>
+\subsection*{Question difficulty}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{<<difficulty_path>>}
+\end{figure}
+
+<%- endif %>
+\subsection*{Student Rankings}
+\begin{longtable}{rlrrr}
+\toprule
+\textbf{Rank} & \textbf{Student} & \textbf{Marks} & \textbf{Percentage} & \textbf{Curved} \\
+\midrule
+\endfirsthead
+\midrule
+\textbf{Rank} & \textbf{Student} & \textbf{Marks} & \textbf{Percentage} & \textbf{Curved} \\
+\midrule
+\endhead
+<<student_rows_str>>
+\bottomrule
+\end{longtable}
+
+\subsection*{Exercise Rankings (hardest first)}
+\begin{longtable}{lrrr}
+\toprule
+\textbf{Question} & \textbf{Max} & \textbf{Class Avg} & \textbf{Class Avg \%} \\
+\midrule
+\endfirsthead
+\midrule
+\textbf{Question} & \textbf{Max} & \textbf{Class Avg} & \textbf{Class Avg \%} \\
+\midrule
+\endhead
+<<q_rows_str>>
+\bottomrule
+\end{longtable}
+\end{document}

@@ -22,6 +22,8 @@ from xscore.marking.report_latex import (
     _awarded_tex, _student_report_to_tex, _class_report_to_tex,
 )
 from xscore.shared.exam_paths import (
+    artifact_class_grade_histogram_path,
+    artifact_class_question_difficulty_path,
     artifact_class_report_combined_landscape_pdf_path,
     artifact_class_report_combined_portrait_2up_pdf_path,
     artifact_class_report_combined_portrait_pdf_path,
@@ -53,34 +55,82 @@ from xscore.shared.terminal_ui import ok_line, warn_line
 
 
 # ---------------------------------------------------------------------------
+# Env-var knobs (see default.env "Phase 8 — Reports" section)
+# ---------------------------------------------------------------------------
+
+def _grade_curve_target() -> int:
+    """Read GRADE_CURVE_TARGET (default 80). Used by step 24's curve."""
+    raw = os.environ.get("GRADE_CURVE_TARGET", "80")
+    try:
+        return int(raw)
+    except ValueError:
+        warn_line(f"Invalid GRADE_CURVE_TARGET={raw!r} — using default 80")
+        return 80
+
+
+def _xelatex_timeout() -> int:
+    """Read XELATEX_TIMEOUT in seconds (default 60). Used by _compile_tex."""
+    raw = os.environ.get("XELATEX_TIMEOUT", "60")
+    try:
+        return max(1, int(raw))
+    except ValueError:
+        warn_line(f"Invalid XELATEX_TIMEOUT={raw!r} — using default 60s")
+        return 60
+
+
+# ---------------------------------------------------------------------------
 # Per-student merge
 # ---------------------------------------------------------------------------
 
 def _resolve_mark_collision(
-    existing: dict, new_q: dict, qnum: str, student: str, page: int
+    existing: dict, new_q: dict, qnum: str, student: str, page: int,
+    collisions: list[dict] | None = None,
+    collisions_lock: "threading.Lock | None" = None,
 ) -> dict:
     """Return the winning question dict when the same question appears on multiple pages.
 
-    Always warns; takes the higher mark when both are set.
+    Always warns; takes the higher mark when both are set. If a ``collisions``
+    accumulator and lock are provided, also records the collision for the
+    review queue (step 27).
     """
     em = existing.get("assigned_marks")
     nm = new_q.get("assigned_marks")
+
+    def _record(winner: str) -> None:
+        if collisions is None or collisions_lock is None:
+            return
+        with collisions_lock:
+            collisions.append({
+                "student":       student,
+                "question":      qnum,
+                "page":          page,
+                "earlier_marks": em,
+                "page_marks":    nm,
+                "winner":        winner,
+            })
+
     if em is None and nm is None:
         warn_line(f"Merged Q{qnum} for {student}: both pages have assigned_marks=None")
+        _record("both_none")
         return existing
     if em is None:
         warn_line(f"Merged Q{qnum} for {student}: page {page} = {nm}, earlier = None → keeping {nm}")
+        _record("page_only")
         return new_q.copy()
     if nm is None:
         warn_line(f"Merged Q{qnum} for {student}: page {page} = None, earlier = {em} → keeping {em}")
+        _record("earlier_only")
         return existing
     if nm > em:
         warn_line(f"Merged Q{qnum} for {student}: page {page} = {nm}, earlier = {em} → keeping page {page} ({nm})")
+        _record("page")
         return new_q.copy()
     if nm < em:
         warn_line(f"Merged Q{qnum} for {student}: page {page} = {nm}, earlier = {em} → keeping earlier ({em})")
+        _record("earlier")
         return existing
     warn_line(f"Merged Q{qnum} for {student}: page {page} = {nm}, earlier = {em} → tie, keeping earlier page")
+    _record("tie")
     return existing
 
 
@@ -90,6 +140,8 @@ def _merge_student_pages(
     pages_per_student: int,
     total_max_marks: int,
     fmt=None,
+    collisions: list[dict] | None = None,
+    collisions_lock: "threading.Lock | None" = None,
 ) -> dict:
     """Load all marked files for one student and merge into one report dict.
 
@@ -101,6 +153,9 @@ def _merge_student_pages(
     numbered "38") are kept as separate entries: first occurrence → "38",
     second → "38_2", etc.  Across pages, entries at the same (number, occurrence)
     slot are merged with the higher-marks strategy.
+
+    If ``collisions`` and ``collisions_lock`` are provided, cross-page mark
+    collisions are recorded for the review queue (step 27).
     """
     if fmt is None:
         from xscore.marking.formats.xml_format import XmlMarkingFormat
@@ -122,7 +177,8 @@ def _merge_student_pages(
                 merged_questions[key] = q.copy()
             else:
                 merged_questions[key] = _resolve_mark_collision(
-                    merged_questions[key], q, qnum, student_name, p
+                    merged_questions[key], q, qnum, student_name, p,
+                    collisions=collisions, collisions_lock=collisions_lock,
                 )
 
     questions_list = []
@@ -257,7 +313,7 @@ def _compile_tex(tex_path: Path, output_dir: Path) -> None:
                 str(tex_path),
             ],
             capture_output=True,
-            timeout=60,
+            timeout=_xelatex_timeout(),
         )
         if result.returncode != 0:
             warn_line(
@@ -473,17 +529,26 @@ def _pass1_merge_students(
     correct_answers: dict[str, str],
     marking_criteria_by_num: dict[str, str],
     workers: int,
-) -> tuple[list[dict], dict[str, dict], dict[str, list[float]]]:
-    """Parallel: merge per-page marks, write XML + MD per student, accumulate q_totals."""
+) -> tuple[list[dict], dict[str, dict], dict[str, list[float]], list[dict], list[dict]]:
+    """Parallel: merge per-page marks, write XML + MD per student, accumulate q_totals.
+
+    Returns (student_summaries, full_reports, q_totals, failed, collisions).
+    Per-student failures are collected into ``failed`` and the run continues —
+    one bad student does not block the rest. ``collisions`` records cross-page
+    mark conflicts for the review queue.
+    """
     student_summaries: list[dict] = []
     full_reports: dict[str, dict] = {}
     q_totals: dict[str, list[float]] = {}
+    collisions: list[dict] = []
     _summaries_lock = threading.Lock()
     _q_totals_lock = threading.Lock()
+    _collisions_lock = threading.Lock()
 
     def _process_one(name: str) -> None:
         report = _merge_student_pages(
-            ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks, fmt=fmt
+            ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks, fmt=fmt,
+            collisions=collisions, collisions_lock=_collisions_lock,
         )
         for q in report["questions"]:
             q["correct_answer"] = correct_answers.get(str(q.get("number", "")), "")
@@ -512,19 +577,31 @@ def _pass1_merge_students(
 
         ok_line(f"{name}: {report['total_marks']}/{total_max_marks} ({_fmt_pct(report['percentage'])})")
 
+    failed: list[dict] = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        for exc in (f.exception() for f in as_completed(ex.submit(_process_one, n) for n in names)):
+        submitted = [(name, ex.submit(_process_one, name)) for name in names]
+        for name, fut in submitted:
+            exc = fut.exception()
             if exc is not None:
-                raise exc
+                failed.append({
+                    "name":          name,
+                    "error_type":    type(exc).__name__,
+                    "error_message": str(exc),
+                })
+                warn_line(f"merge failed for {name}: {type(exc).__name__}: {exc}")
 
-    return student_summaries, full_reports, q_totals
+    return student_summaries, full_reports, q_totals, failed, collisions
 
 
 def _apply_grade_curve(student_summaries: list[dict]) -> None:
-    """Compute 80%-target curve offset; add curved_pct to each summary dict in place."""
+    """Compute curve offset (target − class_avg); add curved_pct to each summary in place.
+
+    Target is configurable via ``GRADE_CURVE_TARGET`` (default 80).
+    """
     known_pcts = [s["percentage"] for s in student_summaries if s["percentage"] is not None]
     class_avg = int(round(sum(known_pcts) / len(known_pcts))) if known_pcts else None
-    curve_offset = (80 - class_avg) if class_avg is not None else 0
+    target = _grade_curve_target()
+    curve_offset = (target - class_avg) if class_avg is not None else 0
     for s in student_summaries:
         s["curved_pct"] = (
             min(100, max(0, s["percentage"] + curve_offset))
@@ -589,6 +666,37 @@ def _build_class_report(
         for qnum, avg in all_avgs.items()
         if all_max.get(qnum, 0) > 0
     }
+    # Leaf-only percentages for the difficulty chart (parents would double-count).
+    leaf_pct: dict[str, int] = {
+        qnum: int(round(avg / all_max[qnum] * 100))
+        for qnum, avg in leaf_avgs.items()
+        if all_max.get(qnum, 0) > 0
+    }
+    # Charts are best-effort: if matplotlib isn't installed the LaTeX block
+    # for the figure stays empty (template uses ``<% if histogram_path %>``).
+    histogram_path: str | None = None
+    difficulty_path: str | None = None
+    try:
+        from xscore.marking.class_charts import (
+            render_grade_histogram, render_question_difficulty,
+        )
+        h = render_grade_histogram(
+            student_summaries,
+            artifact_class_grade_histogram_path(ctx.artifact_dir),
+        )
+        if h is not None:
+            histogram_path = str(h)
+        d = render_question_difficulty(
+            leaf_pct, all_max,
+            artifact_class_question_difficulty_path(ctx.artifact_dir),
+        )
+        if d is not None:
+            difficulty_path = str(d)
+    except ImportError:
+        warn_line("matplotlib not installed — class report figures skipped")
+    except Exception as exc:  # noqa: BLE001
+        warn_line(f"class chart rendering failed: {type(exc).__name__}: {exc}")
+
     class_report = {
         "students": _rank_students(student_summaries),
         "per_question_averages": all_avgs,
@@ -596,6 +704,8 @@ def _build_class_report(
         "per_question_pct_averages": per_question_pct,
         "class_average_pct": class_avg,
         "total_max_marks": total_max_marks,
+        "histogram_path": histogram_path,
+        "difficulty_path": difficulty_path,
     }
     artifact_class_report_xml_path(ctx.artifact_dir).write_text(
         class_report_to_xml(class_report), encoding="utf-8"
@@ -640,10 +750,16 @@ def _build_class_report(
 # Side-channel review queue
 # ---------------------------------------------------------------------------
 
-def _write_review_queue(full_reports: dict[str, dict], artifact_dir: Path) -> int:
+def _write_review_queue(
+    full_reports: dict[str, dict],
+    artifact_dir: Path,
+    collisions: list[dict] | None = None,
+) -> int:
     """Emit a standalone list of marks the AI flagged as medium/low confidence.
 
-    Returns the number of flagged entries (also written to the JSON's ``"total"``).
+    Returns the number of flagged confidence entries (also written to the
+    JSON's ``"total"``). Cross-page mark collisions, if any, are appended to
+    the same artifacts under ``"collisions"`` / ``"collisions_total"``.
 
     Pure side artifact: read by humans only, never by any pipeline step.
     Existing student/class reports and PDFs are unaffected by this code path.
@@ -688,10 +804,18 @@ def _write_review_queue(full_reports: dict[str, dict], artifact_dir: Path) -> in
     _conf_rank = {"low": 0, "medium": 1}
     entries.sort(key=lambda e: (_conf_rank.get(e["confidence"], 2), e["student"], e["question"]))
 
+    coll = list(collisions or [])
+    coll.sort(key=lambda c: (c.get("student", ""), str(c.get("question", "")), c.get("page", 0)))
+
     json_path = artifact_review_queue_json_path(artifact_dir)
     json_path.parent.mkdir(parents=True, exist_ok=True)
     json_path.write_text(
-        json.dumps({"entries": entries, "total": len(entries)}, ensure_ascii=False, indent=2),
+        json.dumps({
+            "entries":          entries,
+            "total":            len(entries),
+            "collisions":       coll,
+            "collisions_total": len(coll),
+        }, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
 
@@ -720,6 +844,22 @@ def _write_review_queue(full_reports: dict[str, dict], artifact_dir: Path) -> in
             )
     else:
         md_lines.append("*No medium/low-confidence entries — the AI was confident on every question.*")
+
+    if coll:
+        md_lines += [
+            "",
+            "## Cross-page collisions",
+            "",
+            f"**{len(coll)} cross-page mark collision(s)** — same question scored on multiple pages.",
+            "",
+            "| Student | Q | Page | Earlier | Page | Winner |",
+            "|---------|---|------|---------|------|--------|",
+        ]
+        for c in coll:
+            md_lines.append(
+                f"| {c['student']} | {c['question']} | {c['page']} | "
+                f"{c['earlier_marks']} | {c['page_marks']} | {c['winner']} |"
+            )
 
     artifact_review_queue_md_path(artifact_dir).write_text(
         "\n".join(md_lines) + "\n", encoding="utf-8"
@@ -757,12 +897,14 @@ def step_23_per_student_reports(ctx: Any) -> None:
     artifact_marking_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
     artifact_student_reports_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
 
-    student_summaries, full_reports, q_totals = _pass1_merge_students(
+    student_summaries, full_reports, q_totals, failed, collisions = _pass1_merge_students(
         ctx, fmt, names, total_max_marks, correct_answers, marking_criteria_by_num, workers
     )
     ctx.student_summaries = student_summaries
     ctx.full_reports = full_reports
     ctx.q_totals = q_totals
+    ctx.failed_students = failed
+    ctx.mark_collisions = collisions
 
 
 # ---------------------------------------------------------------------------
@@ -770,24 +912,27 @@ def step_23_per_student_reports(ctx: Any) -> None:
 # ---------------------------------------------------------------------------
 
 def step_24_class_stats_curve(ctx: Any) -> None:
-    """Compute class average + 80%-target curve offset.
+    """Compute class average + grade-curve offset (target configurable via env).
 
     Mutates ``ctx.student_summaries`` in place to add ``curved_pct`` to each
     summary, and writes a small ``class_stats.json`` artifact recording the
-    curve offset and class average so step 25 (PDFs) and step 26 (class
-    report) can rely on identical numbers.
+    curve target/offset and class average so step 25 (PDFs) and step 26 (class
+    report) can rely on identical numbers. Target defaults to 80, override via
+    ``GRADE_CURVE_TARGET``.
     """
     summaries = ctx.student_summaries
     _apply_grade_curve(summaries)
     known = [s["percentage"] for s in summaries if s["percentage"] is not None]
     class_avg = int(round(sum(known) / len(known))) if known else None
-    curve_offset = (80 - class_avg) if class_avg is not None else 0
+    target = _grade_curve_target()
+    curve_offset = (target - class_avg) if class_avg is not None else 0
     p = artifact_class_stats_json_path(ctx.artifact_dir)
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(
         json.dumps({
             "class_average_pct": class_avg,
             "curve_offset": curve_offset,
+            "curve_target": target,
             "n_students": len(summaries),
             "n_with_marks": len(known),
         }, ensure_ascii=False, indent=2),
@@ -842,12 +987,17 @@ def step_26_class_report(ctx: Any) -> str:
 # ---------------------------------------------------------------------------
 
 def step_27_review_queue(ctx: Any) -> int:
-    """Emit the side-channel review queue (medium / low confidence marks).
+    """Emit the side-channel review queue (medium / low confidence marks + collisions).
 
     Always runs, even when no entries are flagged, so downstream tooling can
     rely on the artifact existing. Returns the count of flagged entries.
+    Cross-page mark collisions captured by step 23 are appended to the same
+    artifact under ``"collisions"``.
     """
-    return _write_review_queue(ctx.full_reports, ctx.artifact_dir)
+    return _write_review_queue(
+        ctx.full_reports, ctx.artifact_dir,
+        collisions=getattr(ctx, "mark_collisions", None) or None,
+    )
 
 
 # ---------------------------------------------------------------------------

@@ -15,8 +15,14 @@ from xscore.marking.merge_reports import (
     step_26_class_report as _impl_26,
     step_27_review_queue as _impl_27,
 )
+from xscore.shared.path_builders import (
+    artifact_student_report_pdf_landscape_path,
+    artifact_student_report_pdf_portrait_2up_path,
+    artifact_student_report_pdf_portrait_large_path,
+    artifact_student_report_pdf_portrait_path,
+)
 from xscore.shared.pipeline_ctx import _Ctx
-from xscore.shared.terminal_ui import info_line, ok_line
+from xscore.shared.terminal_ui import info_line, ok_line, warn_line
 
 
 def step_23_per_student_reports(ctx: _Ctx) -> None:
@@ -24,6 +30,9 @@ def step_23_per_student_reports(ctx: _Ctx) -> None:
     _impl_23(ctx)
     n = len(ctx.student_summaries or [])
     ok_line(f"{n} student report" if n == 1 else f"{n} student reports")
+    if ctx.failed_students:
+        names = ", ".join(s["name"] for s in ctx.failed_students)
+        warn_line(f"{len(ctx.failed_students)} student(s) failed to merge: {names}")
 
 
 def step_24_class_stats(ctx: _Ctx) -> None:
@@ -46,6 +55,24 @@ def step_25_per_student_pdfs(ctx: _Ctx) -> None:
     n = len(ctx.student_summaries or [])
     s = "" if n == 1 else "s"
     ok_line(f"{n} landscape + {n} portrait + {n} portrait-large + {n} 2UP PDF{s} compiled")
+    # Post-check expected outputs: every student should have all 4 PDF variants.
+    # Catches both xelatex non-zero exits and "exited 0 but produced no PDF" cases.
+    pdf_path_fns = (
+        artifact_student_report_pdf_landscape_path,
+        artifact_student_report_pdf_portrait_path,
+        artifact_student_report_pdf_portrait_large_path,
+        artifact_student_report_pdf_portrait_2up_path,
+    )
+    students_missing: list[str] = []
+    for summary in ctx.student_summaries or []:
+        name = summary["name"]
+        if any(not fn(ctx.artifact_dir, name).is_file() for fn in pdf_path_fns):
+            students_missing.append(name)
+    if students_missing:
+        warn_line(
+            f"{len(students_missing)} student(s) missing one or more PDFs: "
+            + ", ".join(students_missing)
+        )
 
 
 def step_26_class_report(ctx: _Ctx) -> None:

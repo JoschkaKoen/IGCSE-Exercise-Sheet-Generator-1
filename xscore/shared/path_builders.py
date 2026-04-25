@@ -487,6 +487,16 @@ def artifact_class_report_combined_portrait_2up_pdf_path(artifact_dir: Path) -> 
     return artifact_class_report_dir(artifact_dir) / "class_report_combined_portrait_2up.pdf"
 
 
+def artifact_class_grade_histogram_path(artifact_dir: Path) -> Path:
+    """Grade-distribution histogram PNG embedded in the class report (step 26)."""
+    return artifact_class_report_dir(artifact_dir) / "grade_histogram.png"
+
+
+def artifact_class_question_difficulty_path(artifact_dir: Path) -> Path:
+    """Per-question difficulty bar chart PNG embedded in the class report (step 26)."""
+    return artifact_class_report_dir(artifact_dir) / "question_difficulty.png"
+
+
 # ---------------------------------------------------------------------------
 # Step 27 — Review queue (side-channel artifact for human spot-check)
 # ---------------------------------------------------------------------------
