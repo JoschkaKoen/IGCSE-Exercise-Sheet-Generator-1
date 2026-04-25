@@ -18,7 +18,7 @@ from xscore.shared.exam_paths import (
 from xscore.shared.load_ground_truth import evaluate_results, load_ground_truth
 from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.pipeline_steps import step_by_name
-from xscore.shared.terminal_ui import info_line
+from xscore.shared.terminal_ui import format_duration, info_line
 
 
 def step_28_timing(ctx: _Ctx) -> None:
@@ -61,18 +61,27 @@ def step_29_accuracy(ctx: _Ctx) -> None:
 
 def _build_per_step_breakdown(
     step_token_usage: dict[str, dict[str, dict[str, int]]],
+    step_call_stats: dict[str, dict[str, dict[str, float]]],
 ) -> dict[str, dict]:
-    """Convert ctx.step_token_usage into a per-step cost breakdown.
+    """Convert ctx.step_token_usage + ctx.step_call_stats into a per-step cost breakdown.
 
     Returns ``step_name → {step_number, step_label, models}`` where ``models``
-    has the same shape as the per-model dict from :func:`compute_cost`.
-    Steps with no usage are omitted.
+    has the same shape as the per-model dict from :func:`compute_cost`, with
+    ``calls`` (int) and ``avg_duration_s`` (float) attached to each per-model
+    entry. Steps with no usage are omitted.
     """
     out: dict[str, dict] = {}
     for step_name, per_model in step_token_usage.items():
         if not per_model:
             continue
         _, models = compute_cost(per_model)
+        per_model_calls = step_call_stats.get(step_name, {})
+        for model, data in models.items():
+            cs = per_model_calls.get(model, {"calls": 0.0, "total_duration_s": 0.0})
+            data["calls"] = int(cs["calls"])
+            data["avg_duration_s"] = (
+                cs["total_duration_s"] / cs["calls"] if cs["calls"] else 0.0
+            )
         s = step_by_name(step_name)
         out[step_name] = {
             "step_number": s.number if s else 0,
@@ -86,7 +95,7 @@ def step_30_costs(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
     run_usage = get_run_usage()
     total_cost, breakdown = compute_cost(run_usage)
-    per_step_breakdown = _build_per_step_breakdown(ctx.step_token_usage)
+    per_step_breakdown = _build_per_step_breakdown(ctx.step_token_usage, ctx.step_call_stats)
     payload = {
         "token_usage": breakdown,
         "total_input_tokens": sum(v["input"] for v in run_usage.values()),
@@ -116,8 +125,8 @@ def step_30_costs(ctx: _Ctx) -> None:
         md_lines.append("")
         md_lines.append("## Cost by step")
         md_lines.append("")
-        md_lines.append("| Step | Model | Input tokens | Output tokens | Cost (RMB) |")
-        md_lines.append("|------|-------|--------------|---------------|------------|")
+        md_lines.append("| Step | Model | Input tokens | Output tokens | Calls | Avg time | Cost (RMB) |")
+        md_lines.append("|------|-------|--------------|---------------|-------|----------|------------|")
         for entry in sorted(per_step_breakdown.values(), key=lambda e: e["step_number"]):
             sorted_models = sorted(
                 entry["models"].items(),
@@ -129,7 +138,10 @@ def step_30_costs(ctx: _Ctx) -> None:
                 step_cell = entry["step_label"] if first else ""
                 md_lines.append(
                     f"| {step_cell} | {model} | {data['input_tokens']:,}"
-                    f" | {data['output_tokens']:,} | ¥{data['cost_rmb']:.6f} |"
+                    f" | {data['output_tokens']:,}"
+                    f" | {data['calls']}"
+                    f" | {format_duration(data['avg_duration_s'])}"
+                    f" | ¥{data['cost_rmb']:.6f} |"
                 )
                 first = False
     artifact_cost_md_path(ctx.artifact_dir).write_text(

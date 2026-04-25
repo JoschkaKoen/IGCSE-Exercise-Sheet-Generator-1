@@ -150,14 +150,12 @@ def _student_report_to_tex(
     # \tabcolsep separator overhead across 6 columns:
     #   landscape A4 (25.7 cm text - 2.5 cm overhead) → ~22.7 cm column budget
     #     = p{0.6} + p{0.6} + p{0.7} + p{5.7} + p{7.0} + p{8.1}
-    #   portrait  A4 (17.0 cm text - 2.5 cm overhead) → ~14.5 cm column budget
-    #     = p{0.4} + p{0.4} + p{0.5} + p{3.6} + p{4.5} + p{5.1}
-    # Portrait widths are the landscape widths × (14.5 / 22.7) ≈ 0.639,
-    # rounded to one decimal — preserves the prose-column ratio so wrapping
-    # behaviour is proportionally similar.
+    #   portrait  A4 (19.0 cm text - 2.5 cm overhead) → ~16.5 cm column budget
+    #     = p{0.4} + p{0.4} + p{0.5} + p{3.6} + p{5.0} + p{5.5}
+    # Portrait widths × (16.5 / 22.7) ≈ 0.727 of landscape widths.
     if orientation == "portrait":
-        geometry_line = "\\geometry{a4paper,margin=2cm}\n"
-        col_spec = "L{0.4cm}L{0.4cm}L{0.5cm}L{3.6cm}L{4.5cm}L{5.1cm}"
+        geometry_line = "\\geometry{a4paper,margin=1cm}\n"
+        col_spec = "L{0.4cm}L{0.4cm}L{0.5cm}L{3.6cm}L{5cm}L{5.5cm}"
     else:
         geometry_line = "\\geometry{a4paper,landscape,margin=2cm}\n"
         col_spec = "L{0.6cm}L{0.6cm}L{0.7cm}L{5.7cm}L{7.0cm}L{8.1cm}"

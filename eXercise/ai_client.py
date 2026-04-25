@@ -47,15 +47,17 @@ from __future__ import annotations
 
 import os
 import threading
+import time
 from dataclasses import dataclass
 from typing import Any
 
 # ---------------------------------------------------------------------------
-# Thread-safe token-usage accumulator
+# Thread-safe token-usage + call-stats accumulators
 # ---------------------------------------------------------------------------
 
 _usage_lock = threading.Lock()
 _run_usage: dict[str, dict[str, int]] = {}  # model → {"input": N, "output": N}
+_run_call_stats: dict[str, dict[str, float]] = {}  # model → {"calls": N, "total_duration_s": F}
 
 
 # ---------------------------------------------------------------------------
@@ -108,6 +110,30 @@ def reset_run_usage() -> None:
     """Clear all accumulated token counts. Call at pipeline start to isolate runs."""
     with _usage_lock:
         _run_usage.clear()
+
+
+def record_call(model: str, duration_s: float) -> None:
+    """Accumulate one successful API call for *model* (thread-safe).
+
+    Failed attempts are not counted — retry wall-time appears in per-step
+    timings (step 28), so per-call averages stay meaningful.
+    """
+    with _usage_lock:
+        e = _run_call_stats.setdefault(model, {"calls": 0.0, "total_duration_s": 0.0})
+        e["calls"] += 1
+        e["total_duration_s"] += duration_s
+
+
+def get_run_call_stats() -> dict[str, dict[str, float]]:
+    """Return a snapshot of accumulated call stats since last :func:`reset_run_call_stats`."""
+    with _usage_lock:
+        return {m: dict(v) for m, v in _run_call_stats.items()}
+
+
+def reset_run_call_stats() -> None:
+    """Clear all accumulated call stats. Call at pipeline start to isolate runs."""
+    with _usage_lock:
+        _run_call_stats.clear()
 
 
 @dataclass(frozen=True)
@@ -288,15 +314,17 @@ def build_completion_kwargs(
 # ---------------------------------------------------------------------------
 
 class _UsageTrackingStream:
-    """Wraps a streaming completion; records usage from the final no-choices chunk."""
+    """Wraps a streaming completion; records usage + call duration from the final no-choices chunk."""
 
-    def __init__(self, stream: Any, model: str) -> None:
+    def __init__(self, stream: Any, model: str, t0: float | None = None) -> None:
         self._stream = stream
         self._model = model
+        self._t0 = t0
+        self._recorded = False
 
     def __iter__(self):
         for chunk in self._stream:
-            if not chunk.choices:
+            if not chunk.choices and not self._recorded:
                 u = getattr(chunk, "usage", None)
                 if u and self._model:
                     record_usage(
@@ -304,6 +332,9 @@ class _UsageTrackingStream:
                         getattr(u, "prompt_tokens", 0) or 0,
                         getattr(u, "completion_tokens", 0) or 0,
                     )
+                    if self._t0 is not None:
+                        record_call(self._model, time.perf_counter() - self._t0)
+                    self._recorded = True
             yield chunk
 
     def __enter__(self) -> "_UsageTrackingStream":
@@ -333,9 +364,10 @@ class _TrackedCompletions:
                 if s is not None:
                     kwargs["seed"] = s
         is_stream = kwargs.get("stream", False)
+        t0 = time.perf_counter()
         resp = self._c.create(*args, **kwargs)
         if is_stream:
-            return _UsageTrackingStream(resp, self._model)
+            return _UsageTrackingStream(resp, self._model, t0)
         u = getattr(resp, "usage", None)
         if u:
             record_usage(
@@ -343,6 +375,7 @@ class _TrackedCompletions:
                 getattr(u, "prompt_tokens", 0) or 0,
                 getattr(u, "completion_tokens", 0) or 0,
             )
+            record_call(self._model, time.perf_counter() - t0)
         return resp
 
     def __getattr__(self, name: str) -> Any:
@@ -412,6 +445,7 @@ class _TrackedGeminiModels:
 
     def generate_content(self, *args: Any, **kwargs: Any) -> Any:
         self._apply_deterministic(kwargs)
+        t0 = time.perf_counter()
         resp = self._m.generate_content(*args, **kwargs)
         model = kwargs.get("model") or (args[0] if args else "unknown")
         um = getattr(resp, "usage_metadata", None)
@@ -421,6 +455,7 @@ class _TrackedGeminiModels:
                 getattr(um, "prompt_token_count", 0) or 0,
                 getattr(um, "candidates_token_count", 0) or 0,
             )
+            record_call(str(model), time.perf_counter() - t0)
         return resp
 
     def __getattr__(self, name: str) -> Any:

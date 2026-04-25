@@ -44,6 +44,9 @@ class _Ctx:
     # Per-step token usage: step_name → model → {"input": N, "output": N}.
     # Written by run_step as a delta of get_run_usage() across the step body.
     step_token_usage: dict[str, dict[str, dict[str, int]]] = field(default_factory=dict)
+    # Per-step API call stats: step_name → model → {"calls": N, "total_duration_s": F}.
+    # Written by run_step as a delta of get_run_call_stats() across the step body.
+    step_call_stats: dict[str, dict[str, dict[str, float]]] = field(default_factory=dict)
     # Captured exceptions per step (also re-raised by ``run_step``). Used by
     # the run-manifest writer to distinguish "ran but errored" from "did not run".
     step_failures: list[dict] = field(default_factory=list)

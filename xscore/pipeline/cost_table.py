@@ -55,19 +55,20 @@ def print_per_step_cost_table(per_step_breakdown: dict) -> None:
 
     *per_step_breakdown* is the dict produced by ``build_per_step_breakdown``:
     ``step_name → {step_number, step_label, models}`` where ``models`` is a
-    per-model dict shaped like the breakdown returned by ``compute_cost``.
+    per-model dict shaped like the breakdown returned by ``compute_cost``,
+    extended with ``calls`` (int) and ``avg_duration_s`` (float).
 
     Steps render in ascending step-number order; within a step, models render
     in cost-descending order. The "Step" column repeats only on the first row
     of each step group to reduce visual noise.
     """
-    from xscore.shared.terminal_ui import info_line
+    from xscore.shared.terminal_ui import format_duration, info_line
 
     if not per_step_breakdown:
         return
 
-    # Flatten into (step_label, model, ins, outs, cost_str, cost_rmb) rows.
-    rows: list[tuple[str, str, str, str, str]] = []
+    # Flatten into (step_label, model, ins, outs, calls, avg_time, cost_str) rows.
+    rows: list[tuple[str, str, str, str, str, str, str]] = []
     for entry in sorted(per_step_breakdown.values(), key=lambda e: e["step_number"]):
         models = sorted(
             entry["models"].items(), key=lambda kv: kv[1]["cost_rmb"], reverse=True
@@ -79,6 +80,8 @@ def print_per_step_cost_table(per_step_breakdown: dict) -> None:
                 model,
                 f"{data['input_tokens']:,}",
                 f"{data['output_tokens']:,}",
+                f"{data['calls']}",
+                format_duration(data["avg_duration_s"]),
                 fmt_cost_rmb(data["cost_rmb"]),
             ))
             first = False
@@ -91,19 +94,25 @@ def print_per_step_cost_table(per_step_breakdown: dict) -> None:
     iw = max(iw, len("Input"))
     ow = max((len(r[3]) for r in rows), default=0)
     ow = max(ow, len("Output"))
-    cw = max((len(r[4]) for r in rows), default=0)
+    nw = max((len(r[4]) for r in rows), default=0)
+    nw = max(nw, len("Calls"))
+    aw = max((len(r[5]) for r in rows), default=0)
+    aw = max(aw, len("Avg time"))
+    cw = max((len(r[6]) for r in rows), default=0)
     cw = max(cw, len("Cost"))
-    sep = "─" * (sw + 3 + mw + 3 + iw + 3 + ow + 3 + cw)
+    sep = "─" * (sw + 3 + mw + 3 + iw + 3 + ow + 3 + nw + 3 + aw + 3 + cw)
 
     info_line("")
     info_line("Cost by step:")
     info_line(
         f"  {'Step':<{sw}}   {'Model':<{mw}}   {'Input':>{iw}}"
-        f"   {'Output':>{ow}}   {'Cost':>{cw}}"
+        f"   {'Output':>{ow}}   {'Calls':>{nw}}   {'Avg time':>{aw}}"
+        f"   {'Cost':>{cw}}"
     )
     info_line(f"  {sep}")
-    for step_label, model, ins, outs, cs in rows:
+    for step_label, model, ins, outs, calls, avg_t, cs in rows:
         info_line(
             f"  {step_label:<{sw}}   {model:<{mw}}   {ins:>{iw}}"
-            f"   {outs:>{ow}}   {cs:>{cw}}"
+            f"   {outs:>{ow}}   {calls:>{nw}}   {avg_t:>{aw}}"
+            f"   {cs:>{cw}}"
         )

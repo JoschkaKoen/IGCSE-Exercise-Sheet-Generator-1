@@ -57,7 +57,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
 
 def run_pipeline(args: argparse.Namespace, timestamp: str) -> None:
     """Orchestrate the full 30-step pipeline."""
-    from eXercise.ai_client import reset_run_usage
+    from eXercise.ai_client import reset_run_call_stats, reset_run_usage
     from xscore.shared.pipeline_steps import run_step, step_by_number, wire_step_fns
     from xscore.shared.run_log import write_run_manifest
     from xscore.shared.terminal_ui import format_duration, get_console, info_line, ok_line, warn_line
@@ -66,6 +66,7 @@ def run_pipeline(args: argparse.Namespace, timestamp: str) -> None:
 
     wire_step_fns()
     reset_run_usage()
+    reset_run_call_stats()
 
     ctx = _Ctx(args=args, timestamp=timestamp)
     t0 = time.perf_counter()

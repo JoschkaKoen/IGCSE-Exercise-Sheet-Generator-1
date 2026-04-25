@@ -48,6 +48,15 @@ _SWEEP_FINE_HALF = 0.15     # deg — fine window ± this around coarse best (co
 _MIN_APPLY_DEG = 0.02       # skip warp if cumulative angle below this (sub-pixel anyway)
 _REFINE_MAX_ITERS = 5       # iterative-refinement cap (1–2 typical, 5 covers worst case)
 
+# Writing-line (dotted answer-line) detection — primary deskew signal
+_WL_CLOSE_PX = 15           # px — horizontal closing kernel; bridges gaps between dots
+_WL_OPEN_FRAC = 0.08        # fraction of image width — opening kernel keeps only writing-line-length structures
+_WL_OPEN_MIN_PX = 200       # px — floor on opening kernel width
+_WL_MIN_WIDTH_FRAC = 0.30   # blob must span ≥ this fraction of image width
+_WL_MAX_HEIGHT_PX = 30      # blob bounding-box height must be ≤ this (writing lines are thin)
+_WL_MIN_PIXELS = 50         # blob must contain at least this many ink pixels (for fitLine reliability)
+_WL_MIN_LINES = 3           # need at least this many detected lines for the angle to be trusted
+
 # A3/A4 classifier: A4 portrait height ≈ 11.69×DPI, A3 portrait ≈ 16.54×DPI.
 # Midpoint 14.1×DPI works at any configured DPI, not just 300.
 _A3_HEIGHT_THRESHOLD_FACTOR = 14.1
@@ -189,30 +198,109 @@ def _warp(gray: np.ndarray, angle: float) -> np.ndarray:
     )
 
 
-def iterative_deskew_angle(gray: np.ndarray) -> tuple[float, int]:
-    """Refine the skew angle by re-measuring after a probe rotation.
+def detect_writing_line_angle(gray: np.ndarray) -> tuple[float | None, int]:
+    """Detect the median angle (deg from horizontal) of dotted writing lines.
 
-    Single-shot :func:`get_deskew_angle` is deterministic but biased by
-    ~0.1–0.2° on some pages because the projection-variance landscape has
-    competing local maxima.  Each iteration measures the residual on a fresh
-    warp from the *original* image (never compounding warps — that introduces
-    interpolation noise that destabilises convergence) and accumulates the
-    correction in ``total``.
+    The exam pages have dotted horizontal lines that students write on.  These
+    are physically printed on the paper, so they rotate exactly with the page —
+    far more reliable than projection variance, which can be fooled by
+    axis-aligned artifacts on pages with little text.
 
-    Returns ``(total_angle, iterations_consumed)``.  ``iterations_consumed``
-    is the number of corrections that contributed to ``total``; ``0`` means
-    the first probe was already inside ``_MIN_APPLY_DEG`` and no warp is
-    needed.
+    Strategy:
+      1. Otsu threshold (inverted: ink = 1).
+      2. Horizontal morphological *closing* with a small kernel to bridge the
+         gaps between dots, fusing each dotted line into a continuous segment.
+      3. Horizontal *opening* with a long kernel to keep only writing-line-
+         length structures (drops body text, tables, vertical strokes, etc.).
+      4. Connected-component analysis: keep only blobs that span a large
+         fraction of the page width and stay thin.
+      5. ``cv2.fitLine`` on each blob's pixels → angle from horizontal.
+      6. Median of valid angles.
+
+    Returns ``(median_angle_deg, n_lines)``.  ``median_angle_deg`` is ``None``
+    if no lines were detected; ``n_lines`` is the count.  Angle convention
+    matches :func:`deskew_image` — apply ``+median`` to straighten the page.
     """
+    h, w = gray.shape[:2]
+    _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+
+    close_k = cv2.getStructuringElement(cv2.MORPH_RECT, (_WL_CLOSE_PX, 1))
+    closed = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, close_k)
+
+    open_w = max(_WL_OPEN_MIN_PX, int(_WL_OPEN_FRAC * w))
+    open_k = cv2.getStructuringElement(cv2.MORPH_RECT, (open_w, 1))
+    opened = cv2.morphologyEx(closed, cv2.MORPH_OPEN, open_k)
+
+    n_lab, labels, stats, _ = cv2.connectedComponentsWithStats(opened, connectivity=8)
+    angles: list[float] = []
+    for k in range(1, n_lab):
+        _x, _y, ww, hh, _area = stats[k]
+        if ww < _WL_MIN_WIDTH_FRAC * w or hh > _WL_MAX_HEIGHT_PX:
+            continue
+        ys, xs = np.where(labels == k)
+        if len(xs) < _WL_MIN_PIXELS:
+            continue
+        pts = np.column_stack([xs, ys]).astype(np.float32)
+        vx, vy, _x0, _y0 = cv2.fitLine(pts, cv2.DIST_L2, 0, 0.01, 0.01).ravel()
+        ang = float(np.degrees(np.arctan2(vy, vx)))
+        # Normalize to (-90, 90]
+        if ang > 90:
+            ang -= 180
+        elif ang <= -90:
+            ang += 180
+        angles.append(ang)
+    if not angles:
+        return None, 0
+    return float(np.median(angles)), len(angles)
+
+
+def iterative_deskew_angle(gray: np.ndarray) -> tuple[float, int, str]:
+    """Refine the skew angle iteratively, preferring writing-line detection.
+
+    Tries dotted-writing-line detection first (see
+    :func:`detect_writing_line_angle`) — it directly measures the angle of
+    physically-printed horizontal lines and is robust on pages where
+    projection variance fails (e.g., minimal text content, JPEG block
+    artifacts dominating the variance landscape).  Falls back to
+    iterative projection variance via :func:`get_deskew_angle` when fewer
+    than ``_WL_MIN_LINES`` writing lines are detected on the original
+    image (e.g., cover/instruction pages with no answer area).
+
+    Each iteration warps the *original* image by the running ``total``
+    (never compounding warps — that introduces interpolation noise that
+    destabilises convergence), measures residual, and accumulates.
+
+    Returns ``(total_angle, iterations_consumed, method)`` where ``method``
+    is ``"wl"`` (writing lines) or ``"proj"`` (projection variance fallback).
+    """
+    # First-pass writing-line check: only commit to writing-line iteration
+    # if the original image yields enough detected lines.
+    _, n_first = detect_writing_line_angle(gray)
+    if n_first >= _WL_MIN_LINES:
+        total = 0.0
+        cur = gray
+        for it in range(_REFINE_MAX_ITERS):
+            a, n = detect_writing_line_angle(cur)
+            if a is None or n < _WL_MIN_LINES:
+                # Lost the line signal mid-iteration — keep the running total
+                # we've already accumulated rather than discarding it.
+                return total, it, "wl"
+            if abs(a) < _MIN_APPLY_DEG:
+                return total, it, "wl"
+            total += a
+            cur = _warp(gray, total)
+        return total, _REFINE_MAX_ITERS, "wl"
+
+    # Fallback: iterative projection variance.
     total = 0.0
     cur = gray
     for it in range(_REFINE_MAX_ITERS):
         a = get_deskew_angle(cur)
         if abs(a) < _MIN_APPLY_DEG:
-            return total, it
+            return total, it, "proj"
         total += a
         cur = _warp(gray, total)
-    return total, _REFINE_MAX_ITERS
+    return total, _REFINE_MAX_ITERS, "proj"
 
 
 def deskew_image(gray: np.ndarray, angle: float) -> np.ndarray:
@@ -464,7 +552,10 @@ def detect_igcse_anchors(
 
 def deskew_page_halves(
     page_gray: np.ndarray,
-) -> tuple[np.ndarray, float, float, list[ReferenceLine], list[ReferenceLine], int, int]:
+) -> tuple[
+    np.ndarray, float, float, list[ReferenceLine], list[ReferenceLine],
+    int, int, str, str,
+]:
     """Split *page_gray* at the vertical midpoint, deskew each half separately.
 
     After deskew, optionally runs :func:`detect_reference_lines` on each half
@@ -472,7 +563,7 @@ def deskew_page_halves(
 
     Returns:
         (deskewed_full_page, top_angle, bot_angle, top_lines, bot_lines,
-         top_iters, bot_iters)
+         top_iters, bot_iters, top_method, bot_method)
     """
     from xscore.config import DESKEW_DETECT_REFERENCE_LINES
 
@@ -482,10 +573,10 @@ def deskew_page_halves(
     top = page_gray[:mid, :]
     bot = page_gray[mid:, :]
 
-    # 1) Estimate rotation per half via iterative refinement (projection
-    #    variance — not ruling-line geometry).
-    top_angle, top_iters = iterative_deskew_angle(top)
-    bot_angle, bot_iters = iterative_deskew_angle(bot)
+    # 1) Estimate rotation per half (writing-line detection preferred,
+    #    projection-variance fallback — see iterative_deskew_angle).
+    top_angle, top_iters, top_method = iterative_deskew_angle(top)
+    bot_angle, bot_iters, bot_method = iterative_deskew_angle(bot)
 
     # 2) Apply angular deskew before any morphological ruling-line detection.
     top_fixed = deskew_image(top, top_angle)
@@ -500,21 +591,26 @@ def deskew_page_halves(
         bot_lines = []
 
     return (np.vstack([top_fixed, bot_fixed]),
-            top_angle, bot_angle, top_lines, bot_lines, top_iters, bot_iters)
+            top_angle, bot_angle, top_lines, bot_lines,
+            top_iters, bot_iters, top_method, bot_method)
 
 
 def deskew_whole_page(
     page_gray: np.ndarray,
-) -> tuple[np.ndarray, float, float, list[ReferenceLine], list[ReferenceLine], int, int]:
+) -> tuple[
+    np.ndarray, float, float, list[ReferenceLine], list[ReferenceLine],
+    int, int, str, str,
+]:
     """Deskew *page_gray* as a single unit — A4 page mode.
 
     Unlike :func:`deskew_page_halves`, one angle is estimated over the full
     page and one rotation is applied.  ``bot_angle`` is always ``0.0``,
-    ``bot_iters`` is always ``0``, and both reference-line lists are empty.
+    ``bot_iters`` is always ``0``, ``bot_method`` is always ``""``, and both
+    reference-line lists are empty.
     """
-    angle, iters = iterative_deskew_angle(page_gray)
+    angle, iters, method = iterative_deskew_angle(page_gray)
     fixed = deskew_image(page_gray, angle)
-    return fixed, angle, 0.0, [], [], iters, 0
+    return fixed, angle, 0.0, [], [], iters, 0, method, ""
 
 
 # ---------------------------------------------------------------------------
@@ -522,29 +618,29 @@ def deskew_whole_page(
 # ---------------------------------------------------------------------------
 
 _PageResult = tuple[
-    Image.Image, float, float, list[ReferenceLine], list[ReferenceLine], int, int
+    Image.Image, float, float, list[ReferenceLine], list[ReferenceLine],
+    int, int, str, str,
 ]
 
 
 def _process_page(
     args: tuple,
 ) -> tuple[
-    int, Image.Image, float, float, list[ReferenceLine], list[ReferenceLine], int, int
+    int, Image.Image, float, float, list[ReferenceLine], list[ReferenceLine],
+    int, int, str, str,
 ]:
     """Worker: deskew a single page and detect reference lines."""
     page_idx, pil_img, dpi = args
     gray = np.array(pil_img.convert("L"))
     if pil_img.height > _A3_HEIGHT_THRESHOLD_FACTOR * dpi:
-        fixed_gray, top_angle, bot_angle, top_lines, bot_lines, top_iters, bot_iters = (
-            deskew_page_halves(gray)
-        )
+        (fixed_gray, top_angle, bot_angle, top_lines, bot_lines,
+         top_iters, bot_iters, top_method, bot_method) = deskew_page_halves(gray)
     else:
-        fixed_gray, top_angle, bot_angle, top_lines, bot_lines, top_iters, bot_iters = (
-            deskew_whole_page(gray)
-        )
+        (fixed_gray, top_angle, bot_angle, top_lines, bot_lines,
+         top_iters, bot_iters, top_method, bot_method) = deskew_whole_page(gray)
     fixed_pil = Image.fromarray(fixed_gray, mode="L")
     return (page_idx, fixed_pil, top_angle, bot_angle,
-            top_lines, bot_lines, top_iters, bot_iters)
+            top_lines, bot_lines, top_iters, bot_iters, top_method, bot_method)
 
 
 def _lines_str(lines: list[ReferenceLine]) -> str:
@@ -716,25 +812,29 @@ def deskew_pdf_raster(
         }
         for fut in as_completed(futures):
             (page_idx, fixed_pil, top_angle, bot_angle,
-             top_lines, bot_lines, top_iters, bot_iters) = fut.result()
+             top_lines, bot_lines,
+             top_iters, bot_iters, top_method, bot_method) = fut.result()
             results[page_idx] = (
                 fixed_pil, top_angle, bot_angle, top_lines, bot_lines,
-                top_iters, bot_iters,
+                top_iters, bot_iters, top_method, bot_method,
             )
     angle_elapsed = time.perf_counter() - t_angle
 
-    # Per-page angle log (in page order). `(Ni)` is the number of refinement
-    # iterations consumed; 0 means no warp was needed.
+    # Per-page angle log (in page order). `(Ni,method)` shows the number of
+    # refinement iterations and which signal was used: "wl" (writing lines,
+    # the primary path) or "proj" (projection-variance fallback for pages
+    # without detectable answer-line structure).
     for i in range(n):
-        _, top_angle, bot_angle, _, _, top_iters, bot_iters = results[i]
+        (_, top_angle, bot_angle, _, _,
+         top_iters, bot_iters, top_method, bot_method) = results[i]
         is_a3 = pages[i].height > _A3_HEIGHT_THRESHOLD_FACTOR * dpi
         if is_a3:
             info_line(
-                f"Page {i+1:>2} · top {top_angle:+.2f}° ({top_iters}i)  "
-                f"bot {bot_angle:+.2f}° ({bot_iters}i)"
+                f"Page {i+1:>2} · top {top_angle:+.2f}° ({top_iters}i,{top_method})  "
+                f"bot {bot_angle:+.2f}° ({bot_iters}i,{bot_method})"
             )
         else:
-            info_line(f"Page {i+1:>2} · {top_angle:+.2f}° ({top_iters}i)")
+            info_line(f"Page {i+1:>2} · {top_angle:+.2f}° ({top_iters}i,{top_method})")
     ok_line(f"Correcting angles · {format_duration(angle_elapsed)}")
 
     # Build sidecar JSON only when an explicit path is requested.
@@ -748,7 +848,7 @@ def deskew_pdf_raster(
         }
         reflines_data: list[dict] = []
         for i in range(n):
-            _, _, _, top_lines, bot_lines, _, _ = results[i]
+            _, _, _, top_lines, bot_lines, _, _, _, _ = results[i]
             reflines_data.append({
                 "page": i + 1,
                 "top": [asdict(ln) for ln in top_lines],
