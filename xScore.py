@@ -55,7 +55,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-__version__ = "0.4"
+__version__ = "0.5"
 
 
 class _Tee:
