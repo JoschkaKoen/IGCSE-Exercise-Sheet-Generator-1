@@ -14,8 +14,8 @@ from pathlib import Path
 from google.genai import types as gai_types
 
 from eXercise.ai_client import (
+    build_completion_kwargs,
     build_gemini_thinking_config,
-    build_thinking_kwargs,
     collect_streamed_response,
     make_ai_client,
 )
@@ -150,7 +150,9 @@ def _do_exam_call(
         if _oa_result is None:
             raise RuntimeError(f"No API key set for exam model {exam_model!r}")
         _oa_client, _, _oa_provider, _, _ = _oa_result
-        _oa_use_stream, _oa_thinking_kw = build_thinking_kwargs(_oa_provider, exam_thinking)
+        _oa_use_stream, _oa_thinking_kw = build_completion_kwargs(
+            _oa_provider, exam_thinking, exam_max_tokens
+        )
 
     # Gemini: upload PDF.  Qwen: rasterize all pages to PNG (300 DPI by default).
     exam_file = None
@@ -352,8 +354,10 @@ def detect_scheme_graphics(
     _all_qnums = fmt.extract_question_numbers(scaffold_str)
     _qnum_hint = ", ".join(f'"{n}"' for n in _all_qnums)
 
-    _det_client, _det_model, _det_provider, _det_thinking, _ = _gfx_client_result
-    _, _det_thinking_kw = build_thinking_kwargs(_det_provider, _det_thinking)
+    _det_client, _det_model, _det_provider, _det_thinking, _det_max_tok = _gfx_client_result
+    _, _det_thinking_kw = build_completion_kwargs(
+        _det_provider, _det_thinking, _det_max_tok
+    )
     info_line(f"Detecting graphics ({_det_model}) …")
 
     def _detect_graphics_page(page_num: int) -> dict:
@@ -513,7 +517,9 @@ def parse_mark_scheme_pages(
         if _oa_result is None:
             raise RuntimeError(f"No API key set for mark scheme model {scheme_model!r}")
         _oa_client, _, _oa_provider, _, _ = _oa_result
-        _oa_use_stream, _oa_thinking_kw = build_thinking_kwargs(_oa_provider, scheme_thinking)
+        _oa_use_stream, _oa_thinking_kw = build_completion_kwargs(
+            _oa_provider, scheme_thinking, scheme_max_tokens
+        )
         page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
 
     page_uris: dict[int, str] = {}

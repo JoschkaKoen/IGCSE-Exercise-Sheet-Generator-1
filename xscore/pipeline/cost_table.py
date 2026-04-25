@@ -4,9 +4,9 @@ from __future__ import annotations
 
 
 def fmt_cost_rmb(x: float) -> str:
-    if 0 < x < 0.05:
-        return "< ¥0.1"
-    return f"¥{x:.1f}"
+    if 0 < x < 0.005:
+        return "< ¥0.01"
+    return f"¥{x:.2f}"
 
 
 def print_cost_table(

@@ -135,6 +135,6 @@ def step_30_costs(ctx: _Ctx) -> None:
     artifact_cost_md_path(ctx.artifact_dir).write_text(
         "\n".join(md_lines) + "\n", encoding="utf-8"
     )
+    print_per_step_cost_table(per_step_breakdown)
     print_cost_table(breakdown, payload["total_input_tokens"],
                      payload["total_output_tokens"], total_cost)
-    print_per_step_cost_table(per_step_breakdown)

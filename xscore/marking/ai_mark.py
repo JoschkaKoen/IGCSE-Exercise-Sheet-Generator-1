@@ -261,7 +261,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
 
     import fitz
 
-    from eXercise.ai_client import make_ai_client, build_thinking_kwargs
+    from eXercise.ai_client import make_ai_client, build_completion_kwargs
     from xscore.shared.exam_paths import artifact_exam_student_list_json_path
 
     fmt = get_marking_format()
@@ -272,8 +272,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             "MARKING_MODEL client could not be created — "
             "check DASHSCOPE_API_KEY / GEMINI_API_KEY in .env"
         )
-    client, model_id, _provider, _thinking, _max_tok = result
-    _use_stream, _thinking_kw = build_thinking_kwargs(_provider, _thinking)
+    client, model_id, _provider, _thinking, max_tok = result
+    _use_stream, _thinking_kw = build_completion_kwargs(_provider, _thinking, max_tok)
 
     # Resolve the response-cache opt-in once. The user enables it by including
     # "reuse cache" in the natural-language prompt (parsed in step 1, sets

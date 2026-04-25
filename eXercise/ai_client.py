@@ -228,8 +228,10 @@ def build_thinking_kwargs(
               ``0`` → ``"none"``. ``1..1024`` → ``"low"``. ``>1024`` → ``"high"``.
               ``None`` (caller didn't specify) = provider default (no param);
               streams to show live output.
-    Qwen    — thinking is binary. Any positive value enables it (forces stream);
-              ``0`` or ``None`` disables it (non-streaming).
+    Qwen    — ``0`` or ``None`` disables thinking (non-streaming). Any positive
+              value enables thinking (forces stream); use
+              :func:`build_completion_kwargs` to also pass the integer through
+              as Dashscope's ``thinking_budget``.
     Grok    — silently ignored; always non-streaming.
     """
     if provider == "gemini":
@@ -248,6 +250,37 @@ def build_thinking_kwargs(
 
     # grok or unknown — no thinking params
     return False, {}
+
+
+def build_completion_kwargs(
+    provider: str,
+    thinking_tokens: int | None,
+    max_tokens: int | None,
+) -> tuple[bool, dict]:
+    """Return ``(use_stream, kwargs)`` for ``client.chat.completions.create()``.
+
+    Superset of :func:`build_thinking_kwargs` that also threads:
+
+    * ``max_tokens`` — when not None, becomes the ``max_tokens=`` API param.
+    * ``thinking_budget`` for Qwen — when thinking is on, the integer value is
+      added inside ``extra_body`` alongside ``enable_thinking``. Other
+      providers ignore it.
+
+    Drop-in for ``build_thinking_kwargs``: callers spread the kwargs the same
+    way (``client.chat.completions.create(**kwargs)``).
+    """
+    use_stream, kw = build_thinking_kwargs(provider, thinking_tokens)
+    if max_tokens is not None:
+        kw = {**kw, "max_tokens": max_tokens}
+    if (
+        provider == "qwen"
+        and thinking_tokens is not None
+        and thinking_tokens > 0
+    ):
+        eb = dict(kw.get("extra_body") or {})
+        eb["thinking_budget"] = int(thinking_tokens)
+        kw = {**kw, "extra_body": eb}
+    return use_stream, kw
 
 
 # ---------------------------------------------------------------------------

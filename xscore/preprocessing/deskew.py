@@ -43,11 +43,10 @@ from xscore.config import PIPELINE_DEFAULT_DPI
 _SWEEP_MIN = -3.0           # deg
 _SWEEP_MAX = 3.0            # deg
 _SWEEP_STEP = 0.01          # deg — fine pass only (full-resolution thresh)
-_SWEEP_PROXY_SCALE = 4      # linear downsample for coarse pass only (4× → 16× fewer pixels/warp)
-_SWEEP_COARSE_STEP = 0.1    # deg — coarse pass (safe on proxy; geometric res ~0.26° at 4×)
+_SWEEP_COARSE_STEP = 0.1    # deg — coarse pass
 _SWEEP_FINE_HALF = 0.15     # deg — fine window ± this around coarse best (covers grid error)
-_MIN_PROXY_DIM = 80         # px — if proxy smaller, run coarse sweep on full-res thresh instead
-_MIN_ABS_DEG = 0.05         # skip warp if detected angle is below this
+_MIN_APPLY_DEG = 0.02       # skip warp if cumulative angle below this (sub-pixel anyway)
+_REFINE_MAX_ITERS = 5       # iterative-refinement cap (1–2 typical, 5 covers worst case)
 
 # A3/A4 classifier: A4 portrait height ≈ 11.69×DPI, A3 portrait ≈ 16.54×DPI.
 # Midpoint 14.1×DPI works at any configured DPI, not just 300.
@@ -174,14 +173,12 @@ def get_deskew_angle(gray: np.ndarray) -> float:
 # Angle application
 # ---------------------------------------------------------------------------
 
-def deskew_image(gray: np.ndarray, angle: float) -> np.ndarray:
-    """Rotate *gray* by *angle* degrees (positive = CCW) at full resolution.
+def _warp(gray: np.ndarray, angle: float) -> np.ndarray:
+    """Bicubic rotation with white border fill — applied unconditionally.
 
-    Uses bicubic interpolation with white (255) border fill.
-    Returns the original array unchanged if ``abs(angle) < _MIN_ABS_DEG``.
+    Used by both the iterative probe loop (where we need the warp every time,
+    even for tiny angles) and by :func:`deskew_image` (with a guard upstream).
     """
-    if abs(angle) < _MIN_ABS_DEG:
-        return gray
     h, w = gray.shape[:2]
     M = cv2.getRotationMatrix2D((w / 2, h / 2), angle, 1.0)
     return cv2.warpAffine(
@@ -190,6 +187,43 @@ def deskew_image(gray: np.ndarray, angle: float) -> np.ndarray:
         borderMode=cv2.BORDER_CONSTANT,
         borderValue=255,
     )
+
+
+def iterative_deskew_angle(gray: np.ndarray) -> tuple[float, int]:
+    """Refine the skew angle by re-measuring after a probe rotation.
+
+    Single-shot :func:`get_deskew_angle` is deterministic but biased by
+    ~0.1–0.2° on some pages because the projection-variance landscape has
+    competing local maxima.  Each iteration measures the residual on a fresh
+    warp from the *original* image (never compounding warps — that introduces
+    interpolation noise that destabilises convergence) and accumulates the
+    correction in ``total``.
+
+    Returns ``(total_angle, iterations_consumed)``.  ``iterations_consumed``
+    is the number of corrections that contributed to ``total``; ``0`` means
+    the first probe was already inside ``_MIN_APPLY_DEG`` and no warp is
+    needed.
+    """
+    total = 0.0
+    cur = gray
+    for it in range(_REFINE_MAX_ITERS):
+        a = get_deskew_angle(cur)
+        if abs(a) < _MIN_APPLY_DEG:
+            return total, it
+        total += a
+        cur = _warp(gray, total)
+    return total, _REFINE_MAX_ITERS
+
+
+def deskew_image(gray: np.ndarray, angle: float) -> np.ndarray:
+    """Rotate *gray* by *angle* degrees (positive = CCW) at full resolution.
+
+    Uses bicubic interpolation with white (255) border fill.
+    Returns the original array unchanged if ``abs(angle) < _MIN_APPLY_DEG``.
+    """
+    if abs(angle) < _MIN_APPLY_DEG:
+        return gray
+    return _warp(gray, angle)
 
 
 # ---------------------------------------------------------------------------
@@ -430,14 +464,15 @@ def detect_igcse_anchors(
 
 def deskew_page_halves(
     page_gray: np.ndarray,
-) -> tuple[np.ndarray, float, float, list[ReferenceLine], list[ReferenceLine]]:
+) -> tuple[np.ndarray, float, float, list[ReferenceLine], list[ReferenceLine], int, int]:
     """Split *page_gray* at the vertical midpoint, deskew each half separately.
 
     After deskew, optionally runs :func:`detect_reference_lines` on each half
     (see ``config.DESKEW_DETECT_REFERENCE_LINES``; default off).
 
     Returns:
-        (deskewed_full_page, top_angle, bot_angle, top_lines, bot_lines)
+        (deskewed_full_page, top_angle, bot_angle, top_lines, bot_lines,
+         top_iters, bot_iters)
     """
     from xscore.config import DESKEW_DETECT_REFERENCE_LINES
 
@@ -447,9 +482,10 @@ def deskew_page_halves(
     top = page_gray[:mid, :]
     bot = page_gray[mid:, :]
 
-    # 1) Estimate rotation per half (projection variance — not ruling-line geometry).
-    top_angle = get_deskew_angle(top)
-    bot_angle = get_deskew_angle(bot)
+    # 1) Estimate rotation per half via iterative refinement (projection
+    #    variance — not ruling-line geometry).
+    top_angle, top_iters = iterative_deskew_angle(top)
+    bot_angle, bot_iters = iterative_deskew_angle(bot)
 
     # 2) Apply angular deskew before any morphological ruling-line detection.
     top_fixed = deskew_image(top, top_angle)
@@ -463,42 +499,52 @@ def deskew_page_halves(
         top_lines = []
         bot_lines = []
 
-    return np.vstack([top_fixed, bot_fixed]), top_angle, bot_angle, top_lines, bot_lines
+    return (np.vstack([top_fixed, bot_fixed]),
+            top_angle, bot_angle, top_lines, bot_lines, top_iters, bot_iters)
 
 
 def deskew_whole_page(
     page_gray: np.ndarray,
-) -> tuple[np.ndarray, float, float, list[ReferenceLine], list[ReferenceLine]]:
+) -> tuple[np.ndarray, float, float, list[ReferenceLine], list[ReferenceLine], int, int]:
     """Deskew *page_gray* as a single unit — A4 page mode.
 
     Unlike :func:`deskew_page_halves`, one angle is estimated over the full
-    page and one rotation is applied.  ``bot_angle`` is always ``0.0`` and
-    both reference-line lists are empty.
+    page and one rotation is applied.  ``bot_angle`` is always ``0.0``,
+    ``bot_iters`` is always ``0``, and both reference-line lists are empty.
     """
-    angle = get_deskew_angle(page_gray)
+    angle, iters = iterative_deskew_angle(page_gray)
     fixed = deskew_image(page_gray, angle)
-    return fixed, angle, 0.0, [], []
+    return fixed, angle, 0.0, [], [], iters, 0
 
 
 # ---------------------------------------------------------------------------
 # Full PDF pipeline
 # ---------------------------------------------------------------------------
 
-_PageResult = tuple[Image.Image, float, float, list[ReferenceLine], list[ReferenceLine]]
+_PageResult = tuple[
+    Image.Image, float, float, list[ReferenceLine], list[ReferenceLine], int, int
+]
 
 
 def _process_page(
     args: tuple,
-) -> tuple[int, Image.Image, float, float, list[ReferenceLine], list[ReferenceLine]]:
+) -> tuple[
+    int, Image.Image, float, float, list[ReferenceLine], list[ReferenceLine], int, int
+]:
     """Worker: deskew a single page and detect reference lines."""
     page_idx, pil_img, dpi = args
     gray = np.array(pil_img.convert("L"))
     if pil_img.height > _A3_HEIGHT_THRESHOLD_FACTOR * dpi:
-        fixed_gray, top_angle, bot_angle, top_lines, bot_lines = deskew_page_halves(gray)
+        fixed_gray, top_angle, bot_angle, top_lines, bot_lines, top_iters, bot_iters = (
+            deskew_page_halves(gray)
+        )
     else:
-        fixed_gray, top_angle, bot_angle, top_lines, bot_lines = deskew_whole_page(gray)
+        fixed_gray, top_angle, bot_angle, top_lines, bot_lines, top_iters, bot_iters = (
+            deskew_whole_page(gray)
+        )
     fixed_pil = Image.fromarray(fixed_gray, mode="L")
-    return page_idx, fixed_pil, top_angle, bot_angle, top_lines, bot_lines
+    return (page_idx, fixed_pil, top_angle, bot_angle,
+            top_lines, bot_lines, top_iters, bot_iters)
 
 
 def _lines_str(lines: list[ReferenceLine]) -> str:
@@ -647,7 +693,7 @@ def deskew_pdf_raster(
             "then Path.replace() if you need to update the original path."
         )
 
-    from xscore.shared.terminal_ui import format_duration, ok_line
+    from xscore.shared.terminal_ui import format_duration, info_line, ok_line
     _pdf_kw = dict(
         dpi=dpi,
         grayscale=True,
@@ -669,9 +715,27 @@ def deskew_pdf_raster(
             for i in range(n)
         }
         for fut in as_completed(futures):
-            page_idx, fixed_pil, top_angle, bot_angle, top_lines, bot_lines = fut.result()
-            results[page_idx] = (fixed_pil, top_angle, bot_angle, top_lines, bot_lines)
-    ok_line(f"Correcting angles · {format_duration(time.perf_counter() - t_angle)}")
+            (page_idx, fixed_pil, top_angle, bot_angle,
+             top_lines, bot_lines, top_iters, bot_iters) = fut.result()
+            results[page_idx] = (
+                fixed_pil, top_angle, bot_angle, top_lines, bot_lines,
+                top_iters, bot_iters,
+            )
+    angle_elapsed = time.perf_counter() - t_angle
+
+    # Per-page angle log (in page order). `(Ni)` is the number of refinement
+    # iterations consumed; 0 means no warp was needed.
+    for i in range(n):
+        _, top_angle, bot_angle, _, _, top_iters, bot_iters = results[i]
+        is_a3 = pages[i].height > _A3_HEIGHT_THRESHOLD_FACTOR * dpi
+        if is_a3:
+            info_line(
+                f"Page {i+1:>2} · top {top_angle:+.2f}° ({top_iters}i)  "
+                f"bot {bot_angle:+.2f}° ({bot_iters}i)"
+            )
+        else:
+            info_line(f"Page {i+1:>2} · {top_angle:+.2f}° ({top_iters}i)")
+    ok_line(f"Correcting angles · {format_duration(angle_elapsed)}")
 
     # Build sidecar JSON only when an explicit path is requested.
     # (Step 8 anchor detection is not part of the current pipeline.)
@@ -684,7 +748,7 @@ def deskew_pdf_raster(
         }
         reflines_data: list[dict] = []
         for i in range(n):
-            _, _, _, top_lines, bot_lines = results[i]
+            _, _, _, top_lines, bot_lines, _, _ = results[i]
             reflines_data.append({
                 "page": i + 1,
                 "top": [asdict(ln) for ln in top_lines],
