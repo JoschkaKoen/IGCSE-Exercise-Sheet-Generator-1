@@ -45,7 +45,7 @@ try:
 except ImportError:
     _AI_OK = False
 
-    def build_thinking_kwargs(provider: str, effort: str | None) -> tuple[bool, dict]:  # type: ignore[misc]
+    def build_thinking_kwargs(provider: str, thinking_tokens: int | None) -> tuple[bool, dict]:  # type: ignore[misc]
         return False, {}
 
     def collect_streamed_response(stream: Any) -> str:  # type: ignore[misc]
@@ -54,16 +54,6 @@ except ImportError:
 from .env_load import load_project_env
 
 MAX_PAGES = 12  # cap to avoid token overflow
-
-# ---------------------------------------------------------------------------
-# Token budgets (per-request output cap)
-# ---------------------------------------------------------------------------
-
-# Native Gemini PDF-upload path can comfortably emit a longer ranking list.
-_MAX_OUTPUT_TOKENS_RANKING_GEMINI = 32768
-# Vision and text fallback paths use a tighter budget — list is already short
-# (one identifier per line × ~40 questions max).
-_MAX_OUTPUT_TOKENS_RANKING_VISION = 8192
 
 
 def _eprint(msg: str) -> None:
@@ -160,7 +150,8 @@ def _rank_exercises_ai_gemini(
     exercise_pdf: Path,
     answer_pdf: Path | None,
     model: str,
-    effort: str | None,
+    thinking_tokens: int | None,
+    max_tokens: int | None,
     save_dir: Path | None = None,
     stream_thinking: bool = True,
 ) -> list[str]:
@@ -210,12 +201,12 @@ def _rank_exercises_ai_gemini(
 
     # Build thinking config via shared helper (mirrors mcq_ai.py).
     from .ai_client import build_gemini_thinking_config  # noqa: PLC0415
-    thinking_cfg = build_gemini_thinking_config(effort)
+    thinking_cfg = build_gemini_thinking_config(thinking_tokens)
 
     gen_config = gai_types.GenerateContentConfig(
         system_instruction=_SYSTEM_PROMPT,
         thinking_config=thinking_cfg,
-        max_output_tokens=_MAX_OUTPUT_TOKENS_RANKING_GEMINI,
+        max_output_tokens=max_tokens or 32768,
     )
 
     # Build content parts — file parts interleaved with text labels
@@ -324,14 +315,17 @@ def _rank_exercises_ai(
         _eprint("  Ranking: no API key set for ranking model; skipping.")
         return []
 
-    client, model, provider, effort = result
-    effort_label = f", thinking={effort}" if effort else ""
+    client, model, provider, thinking_tokens, max_tokens = result
+    effort_label = f", thinking_tokens={thinking_tokens}" if thinking_tokens is not None else ""
     print(f"  Model: {model}{effort_label}")
 
     # Native Gemini path: upload PDFs directly — no image rendering needed
     if provider == "gemini":
         try:
-            ranking = _rank_exercises_ai_gemini(exercise_pdf, answer_pdf, model, effort, save_dir=save_dir, stream_thinking=stream_thinking)
+            ranking = _rank_exercises_ai_gemini(
+                exercise_pdf, answer_pdf, model, thinking_tokens, max_tokens,
+                save_dir=save_dir, stream_thinking=stream_thinking,
+            )
             print(f"  Ranked {len(ranking)} question part(s).")
             return ranking
         except Exception as exc:
@@ -387,15 +381,17 @@ def _rank_exercises_ai(
 
     ranking_thinking: list[str] = []
 
+    _vision_max_tokens = max_tokens or 8192
+
     def _call(messages: list[dict]) -> str:
-        use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
+        use_stream, thinking_kw = build_thinking_kwargs(provider, thinking_tokens)
         print("  Waiting for AI response…", flush=True)
         if use_stream:
             stream = client.chat.completions.create(
                 model=model,
                 messages=messages,
                 stream=True,
-                max_tokens=_MAX_OUTPUT_TOKENS_RANKING_VISION,
+                max_tokens=_vision_max_tokens,
                 **thinking_kw,
             )
             return print_streamed_response(
@@ -404,7 +400,7 @@ def _rank_exercises_ai(
         completion = client.chat.completions.create(
             model=model,
             messages=messages,
-            max_tokens=_MAX_OUTPUT_TOKENS_RANKING_VISION,
+            max_tokens=_vision_max_tokens,
             **thinking_kw,
         )
         return (completion.choices[0].message.content or "").strip()

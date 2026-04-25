@@ -157,26 +157,39 @@ def provider_for_model(model: str) -> str:
     return "gemini"
 
 
-def parse_model_effort(value: str) -> tuple[str, str | None]:
-    """Split ``"model-name, effort"`` into ``(model, effort)``.
+_LEGACY_EFFORT = {"off": 0, "low": 1024, "high": 8192}
 
-    If no comma is present, effort is ``None`` (provider default).
-    Accepted effort values: ``"off"``, ``"low"``, ``"high"``.
+
+def parse_model_spec(value: str) -> tuple[str, int | None, int | None]:
+    """Parse ``"<model>[, <thinking_tokens>][, <max_output_tokens>]"``.
+
+    Returns ``(model, thinking_tokens, max_tokens)``. ``None`` for either budget
+    means "caller did not specify — use the code fallback". ``0`` for thinking
+    means "explicitly off". Legacy ``off``/``low``/``high`` strings parse to
+    ``0``/``1024``/``8192`` for back-compat with the previous two-position
+    syntax. Unrecognised tokens are silently skipped.
     """
-    if "," in value:
-        model_part, effort_part = value.split(",", 1)
-        effort = effort_part.strip().lower() or None
-        if effort not in ("off", "low", "high"):
-            effort = None
-        return model_part.strip(), effort
-    return value.strip(), None
+    parts = [p.strip() for p in value.split(",")]
+    model = parts[0]
+    nums: list[int] = []
+    for p in parts[1:]:
+        if not p:
+            continue
+        low = p.lower()
+        if low in _LEGACY_EFFORT:
+            nums.append(_LEGACY_EFFORT[low])
+        elif p.lstrip("-").isdigit():
+            nums.append(int(p))
+    thinking = nums[0] if len(nums) >= 1 else None
+    max_tokens = nums[1] if len(nums) >= 2 else None
+    return model, thinking, max_tokens
 
 
 def resolve_active_model(
     env_chain: tuple[str, ...] | list[str],
     default: str | None = None,
-) -> tuple[str, str, str | None]:
-    """Walk *env_chain* (env var names) and return ``(model, provider, effort)``.
+) -> tuple[str, str, int | None]:
+    """Walk *env_chain* (env var names) and return ``(model, provider, thinking_tokens)``.
 
     Used when a caller needs to know which provider would be used without actually
     building a client (e.g. to decide between the Gemini PDF-upload path and the
@@ -196,37 +209,40 @@ def resolve_active_model(
             or os.environ.get("AI_DEFAULT_MODEL", "").strip()
             or _DEFAULT_MODEL
         )
-    model, effort = parse_model_effort(raw)
-    return model, provider_for_model(model), effort
+    model, thinking, _ = parse_model_spec(raw)
+    return model, provider_for_model(model), thinking
 
 
-def build_thinking_kwargs(provider: str, effort: str | None) -> tuple[bool, dict]:
+def build_thinking_kwargs(
+    provider: str, thinking_tokens: int | None
+) -> tuple[bool, dict]:
     """Return ``(use_stream, extra_kwargs)`` for ``client.chat.completions.create()``.
 
     The caller should pass ``**extra_kwargs`` to ``create()`` and, when
     ``use_stream`` is True, consume the response with
     ``collect_streamed_response()`` instead of reading ``message.content``.
 
-    Effort mapping
-    --------------
-    Gemini  — ``reasoning_effort="none/low/high"`` top-level param.
-              ``off`` maps to ``"none"``.  ``None`` = provider default (no param).
-              Streams when thinking is active so output is visible live.
-    Qwen    — ``extra_body={"enable_thinking": True/False}`` + streaming when on.
-              ``off`` disables thinking and switches to non-streaming mode.
-    Grok    — effort is silently ignored; always non-streaming.
+    Mapping (integer thinking budget → provider param)
+    --------------------------------------------------
+    Gemini  — OpenAI-compat ``reasoning_effort`` accepts {none, low, high} only.
+              ``0`` → ``"none"``. ``1..1024`` → ``"low"``. ``>1024`` → ``"high"``.
+              ``None`` (caller didn't specify) = provider default (no param);
+              streams to show live output.
+    Qwen    — thinking is binary. Any positive value enables it (forces stream);
+              ``0`` or ``None`` disables it (non-streaming).
+    Grok    — silently ignored; always non-streaming.
     """
     if provider == "gemini":
-        if effort == "off":
+        if thinking_tokens is None:
+            # Provider default — stream to show live output
+            return True, {}
+        if thinking_tokens == 0:
             return False, {"reasoning_effort": "none"}
-        if effort in ("low", "high"):
-            # Stream so thinking + content are visible live in the terminal
-            return True, {"reasoning_effort": effort}
-        # effort is None (provider default) — stream to show live output
-        return True, {}
+        effort = "low" if thinking_tokens <= 1024 else "high"
+        return True, {"reasoning_effort": effort}
 
     if provider == "qwen":
-        if effort == "off":
+        if thinking_tokens is None or thinking_tokens == 0:
             return False, {"extra_body": {"enable_thinking": False}}
         return True, {"extra_body": {"enable_thinking": True}}
 
@@ -400,24 +416,29 @@ def make_ai_client(
     legacy_model_env: str = "XAI_MODEL",
     default_model: str | None = None,
     deterministic: bool = True,
-) -> tuple[Any, str, str, str | None] | None:
-    """Return ``(client, model_name, provider, effort)`` or ``None`` if the API key is missing.
+) -> tuple[Any, str, str, int | None, int | None] | None:
+    """Return ``(client, model, provider, thinking_tokens, max_tokens)`` or ``None``.
+
+    Returns ``None`` when the required API key is missing.
 
     Parameters
     ----------
     model_env:
-        Primary env var for the model (e.g. ``"NL_MODEL"``).  May contain a
-        thinking-effort suffix: ``"gemini-2.5-flash, low"``.
+        Primary env var for the model (e.g. ``"NL_MODEL"``). May contain a
+        ``, <thinking_tokens>[, <max_output_tokens>]`` suffix.
     legacy_model_env:
         Fallback env var if *model_env* is unset (e.g. ``"AI_DEFAULT_MODEL"``).
     default_model:
-        Model string (optionally with effort suffix) when neither env var is set.
-        Defaults to ``AI_DEFAULT_MODEL`` → ``_DEFAULT_MODEL``.
+        Model string (optionally with budget suffixes) when neither env var is
+        set. Defaults to ``AI_DEFAULT_MODEL`` → ``_DEFAULT_MODEL``.
     deterministic:
         When True (default), every call through the returned client gets
         ``temperature`` and ``seed`` injected from ``AI_TEMPERATURE`` /
         ``AI_SEED`` env vars unless the caller supplied them. Pass False to
         disable injection (rare — use only when you actively want sampling).
+
+    Returned ``thinking_tokens`` / ``max_tokens`` are ``None`` when the env
+    string didn't specify them — callers should fall back to their own default.
     """
     try:
         from openai import OpenAI
@@ -432,7 +453,7 @@ def make_ai_client(
         or _DEFAULT_MODEL
     )
 
-    model, effort = parse_model_effort(raw)
+    model, thinking_tokens, max_tokens = parse_model_spec(raw)
     provider = provider_for_model(model)
     pdef = next((p for p in _PROVIDER_REGISTRY if p.name == provider), _PROVIDER_REGISTRY[0])
 
@@ -447,7 +468,13 @@ def make_ai_client(
     except Exception:
         return None
 
-    return _TrackedOpenAIClient(client, model, deterministic=deterministic), model, provider, effort
+    return (
+        _TrackedOpenAIClient(client, model, deterministic=deterministic),
+        model,
+        provider,
+        thinking_tokens,
+        max_tokens,
+    )
 
 
 def strip_json_fences(raw: str) -> str:
@@ -519,26 +546,25 @@ def collect_streamed_response(stream: Any) -> str:
     return "".join(parts).strip()
 
 
-def build_gemini_thinking_config(effort: str | None) -> Any:
-    """Return a ``google.genai.types.ThinkingConfig`` for *effort*.
+def build_gemini_thinking_config(thinking_tokens: int | None) -> Any:
+    """Return a ``google.genai.types.ThinkingConfig`` for *thinking_tokens*.
 
-    Mirrors :func:`build_thinking_kwargs` for the Gemini native SDK path, where
-    the OpenAI-compat ``reasoning_effort`` parameter is replaced by a
-    ``ThinkingConfig`` object on ``GenerateContentConfig``.
+    Native Gemini SDK accepts arbitrary integer ``thinking_budget`` values, so
+    this is a direct pass-through (unlike :func:`build_thinking_kwargs` which
+    has to bucket the integer for the OpenAI-compat ``reasoning_effort`` enum).
 
-    * ``off``  — thinking_budget=0, include_thoughts=False.
-    * ``low``  — budget=1024, include=True.
-    * ``high`` — budget=8192, include=True.
-    * ``None`` — include_thoughts=True (no explicit budget, provider default).
+    * ``None`` — provider default (``include_thoughts=True``, no explicit budget).
+    * ``0``    — thinking off (``thinking_budget=0``, ``include_thoughts=False``).
+    * ``N>0``  — explicit budget of ``N`` tokens, thoughts included.
     """
     from google.genai import types as gai_types  # noqa: PLC0415
-    if effort == "off":
+    if thinking_tokens is None:
+        return gai_types.ThinkingConfig(include_thoughts=True)
+    if thinking_tokens == 0:
         return gai_types.ThinkingConfig(thinking_budget=0, include_thoughts=False)
-    if effort == "low":
-        return gai_types.ThinkingConfig(thinking_budget=1024, include_thoughts=True)
-    if effort == "high":
-        return gai_types.ThinkingConfig(thinking_budget=8192, include_thoughts=True)
-    return gai_types.ThinkingConfig(include_thoughts=True)
+    return gai_types.ThinkingConfig(
+        thinking_budget=thinking_tokens, include_thoughts=True
+    )
 
 
 def make_gemini_native_client(*, deterministic: bool = True) -> Any:

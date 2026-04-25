@@ -25,7 +25,7 @@ from typing import Any
 from xscore.config import COVER_PAGE_DETECTION_DPI, GEMINI_MAX_OUTPUT_TOKENS, NAME_RECOGNITION_DPI
 
 from eXercise.ai_client import is_503_error
-from .ai_helpers import ai_image_call, page_to_jpeg_b64
+from xscore.marking.ai_helpers import ai_image_call, page_to_jpeg_b64
 from xscore.shared.exam_paths import artifact_cover_scan_prompt_path, artifact_names_prompt_path
 from xscore.shared.models import PageAssignment
 from xscore.shared.prompt_logger import save_prompt, save_response, save_thinking
@@ -133,7 +133,8 @@ def is_cover_page(
     model_id: str,
     *,
     prompt_save_path: Path | None = None,
-    effort: str | None = None,
+    thinking_tokens: int | None = None,
+    max_tokens: int | None = None,
 ) -> bool:
     """Cover-page detection for scanned pages via OCR + text-only AI call.
 
@@ -160,16 +161,12 @@ def is_cover_page(
     save_prompt(prompt_save_path, model=model_id,
                 messages=[{"role": "user", "content": prompt}])
 
-    _thinking_map = {"off": 0, "low": 1024, "high": 8192}
-    _budget = _thinking_map.get(effort or "off", 0)
+    from eXercise.ai_client import build_gemini_thinking_config
     config = gai_types.GenerateContentConfig(
-        max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+        max_output_tokens=max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
         response_mime_type="application/json",
         response_schema=bool,
-        thinking_config=gai_types.ThinkingConfig(
-            thinking_budget=_budget,
-            include_thoughts=_budget > 0,
-        ),
+        thinking_config=build_gemini_thinking_config(thinking_tokens),
     )
     resp = gai_client.models.generate_content(
         model=model_id,
@@ -207,7 +204,8 @@ def check_cover_page_text(
     model_id: str,
     *,
     prompt_save_path: Path | None = None,
-    effort: str | None = None,
+    thinking_tokens: int | None = None,
+    max_tokens: int | None = None,
 ) -> bool:
     """Cover-page detection for vector PDFs via text extraction (no vision).
 
@@ -226,16 +224,12 @@ def check_cover_page_text(
     save_prompt(prompt_save_path, model=model_id,
                 messages=[{"role": "user", "content": prompt}])
 
-    _thinking_map = {"off": 0, "low": 1024, "high": 8192}
-    _budget = _thinking_map.get(effort or "off", 0)
+    from eXercise.ai_client import build_gemini_thinking_config
     config = gai_types.GenerateContentConfig(
-        max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+        max_output_tokens=max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
         response_mime_type="application/json",
         response_schema=bool,
-        thinking_config=gai_types.ThinkingConfig(
-            thinking_budget=_budget,
-            include_thoughts=_budget > 0,
-        ),
+        thinking_config=build_gemini_thinking_config(thinking_tokens),
     )
     for _attempt in range(2):  # initial attempt + 1 retry on 503
         try:
@@ -315,7 +309,7 @@ def detect_scan_cover_pages(
     """
     import math
     import fitz
-    from eXercise.ai_client import make_gemini_native_client, parse_model_effort
+    from eXercise.ai_client import make_gemini_native_client, parse_model_spec
     from xscore.shared.terminal_ui import ok_line, warn_line, format_duration
 
     cover_page_mode: bool = False
@@ -329,12 +323,16 @@ def detect_scan_cover_pages(
     n_pages = fitz.open(str(cleaned_pdf)).page_count
     n_blocks = math.ceil(n_pages / pages_per_student)
 
-    _cover_model, _cover_effort = parse_model_effort(
+    _cover_model, _cover_thinking, _cover_max_tokens = parse_model_spec(
         os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
     )
     _p1_save = artifact_cover_scan_prompt_path(artifact_dir, "cover_p1") if artifact_dir else None
     _t_cover = time.perf_counter()
-    page1_is_cover = is_cover_page(cleaned_pdf, 0, _gai_client, _cover_model, prompt_save_path=_p1_save, effort=_cover_effort)
+    page1_is_cover = is_cover_page(
+        cleaned_pdf, 0, _gai_client, _cover_model,
+        prompt_save_path=_p1_save,
+        thinking_tokens=_cover_thinking, max_tokens=_cover_max_tokens,
+    )
     _cover_elapsed = format_duration(time.perf_counter() - _t_cover)
     cover_page_mode = page1_is_cover
 
@@ -345,7 +343,11 @@ def detect_scan_cover_pages(
 
         def _check_cover(idx: int) -> tuple[int, bool]:
             save_path = artifact_cover_scan_prompt_path(artifact_dir, f"cover_p{idx + 1}") if artifact_dir else None
-            return idx, is_cover_page(cleaned_pdf, idx, _gai_client, _cover_model, prompt_save_path=save_path, effort=_cover_effort)
+            return idx, is_cover_page(
+                cleaned_pdf, idx, _gai_client, _cover_model,
+                prompt_save_path=save_path,
+                thinking_tokens=_cover_thinking, max_tokens=_cover_max_tokens,
+            )
 
         if cover_indices_to_check:
             _cover_workers = min(len(cover_indices_to_check), 8)
@@ -401,14 +403,14 @@ def assign_pages(
     """
     from xscore.extraction.ground_truth import fuzzy_match_name
     from pdf2image import convert_from_path
-    from eXercise.ai_client import make_ai_client, parse_model_effort
+    from eXercise.ai_client import make_ai_client
 
     ai_result = make_ai_client(model_env="NAME_DETECTION_MODEL", default_model="gemini-2.5-flash")
     if ai_result is None:
         raise RuntimeError(
             "NAME_DETECTION_MODEL client could not be created — check API key in .env"
         )
-    client, model_id, _provider, _effort = ai_result
+    client, model_id, _provider, _thinking, _max_tok = ai_result
 
     from xscore.shared.terminal_ui import info_line, ok_line, tool_line, format_duration, warn_line
 
@@ -436,8 +438,11 @@ def assign_pages(
         img_b64 = page_to_jpeg_b64(crop)
         save_path = artifact_names_prompt_path(artifact_dir, f"name_{i}") if artifact_dir else None
         _t0 = time.perf_counter()
-        raw = ai_image_call(client, img_b64, prompt, max_tokens=64, model_id=model_id,
-                              prompt_save_path=save_path, print_latency=False)
+        raw = ai_image_call(
+            client, img_b64, prompt, max_tokens=(_max_tok or 64),
+            model_id=model_id, provider=_provider, thinking_tokens=_thinking,
+            prompt_save_path=save_path, print_latency=False,
+        )
         elapsed = time.perf_counter() - _t0
         try:
             data = json.loads(raw) if raw else {}

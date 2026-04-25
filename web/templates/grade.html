@@ -5,7 +5,8 @@
 {% block title %}Grade — eXercise{% endblock %}
 
 {% block content %}
-<section id="grade-page" class="mx-auto max-w-6xl">
+<section id="grade-page" class="mx-auto max-w-6xl"
+         data-grade-unlocked="{{ 'true' if grade_unlocked else 'false' }}">
 
   <!-- Hero -->
   <div class="flex justify-center">
@@ -92,6 +93,54 @@
 
     </div>
 
+    <!-- Optional grading instructions + quick-fill examples -->
+    <div class="mt-5">
+      <div class="flex items-baseline justify-between mb-2">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400/70">
+          Instructions <span class="text-slate-500/60 font-normal normal-case tracking-normal">(optional)</span>
+        </p>
+        <p class="text-[0.68rem] text-slate-500/70">Override DPI, filter students, change marking style</p>
+      </div>
+      <textarea id="grade-prompt" name="prompt" rows="3" maxlength="4000"
+                class="w-full resize-y rounded-xl border border-white/[0.09] bg-slate-950/80
+                       px-3.5 py-3 text-[0.88rem] leading-relaxed text-slate-100
+                       placeholder:text-slate-400/85 shadow-inner shadow-black/30
+                       focus:border-emerald-500/40 focus:outline-none focus:ring-2 focus:ring-emerald-500/15
+                       transition-colors"
+                placeholder="e.g. grade Space Physics Unit Test at 300 DPI"></textarea>
+
+      <div class="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <button type="button"
+                class="grade-quick-fill group rounded-xl border border-emerald-500/20 bg-emerald-500/[0.04] px-3 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-400/40 hover:bg-emerald-500/[0.08] hover:shadow-[0_10px_28px_-10px_rgba(16,185,129,0.40)]"
+                data-prompt="grade Space Physics Unit Test">
+          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-emerald-300">Baseline</span>
+          <span class="block text-[0.68rem] leading-snug text-emerald-300/70">Default settings</span>
+          <span class="block text-[0.65rem] leading-snug text-emerald-300/45">Quick start</span>
+        </button>
+        <button type="button"
+                class="grade-quick-fill group rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] px-3 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-400/40 hover:bg-cyan-500/[0.08] hover:shadow-[0_10px_28px_-10px_rgba(6,182,212,0.40)]"
+                data-prompt="grade Space Physics Unit Test at 300 DPI">
+          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-cyan-300">DPI override</span>
+          <span class="block text-[0.68rem] leading-snug text-cyan-300/70">Higher resolution</span>
+          <span class="block text-[0.65rem] leading-snug text-cyan-300/45">300 DPI</span>
+        </button>
+        <button type="button"
+                class="grade-quick-fill group rounded-xl border border-amber-500/20 bg-amber-500/[0.04] px-3 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-400/40 hover:bg-amber-500/[0.08] hover:shadow-[0_10px_28px_-10px_rgba(245,158,11,0.40)]"
+                data-prompt="grade and only mark Yuze, Simon and Linus">
+          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-amber-300">Student filter</span>
+          <span class="block text-[0.68rem] leading-snug text-amber-300/70">Only specific students</span>
+          <span class="block text-[0.65rem] leading-snug text-amber-300/45">3 students</span>
+        </button>
+        <button type="button"
+                class="grade-quick-fill group rounded-xl border border-violet-500/20 bg-violet-500/[0.04] px-3 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-violet-400/40 hover:bg-violet-500/[0.08] hover:shadow-[0_10px_28px_-10px_rgba(139,92,246,0.40)]"
+                data-prompt="grade with strict marking and detailed per-question feedback">
+          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-violet-300">Strict marking</span>
+          <span class="block text-[0.68rem] leading-snug text-violet-300/70">Detailed feedback</span>
+          <span class="block text-[0.65rem] leading-snug text-violet-300/45">Per-question</span>
+        </button>
+      </div>
+    </div>
+
 
 <div class="mt-5 flex items-center gap-4">
       <button type="submit" id="grade-btn"
@@ -142,15 +191,55 @@
     </div>
   </div>
 
+  <!-- First-visit access gate (hidden once esg_grade_auth cookie is set) -->
+  <div class="site-auth-overlay hidden" id="grade-gate-overlay" role="dialog" aria-modal="true" aria-labelledby="grade-gate-title">
+    <div class="site-auth-panel gen-surface glass-panel form-glow rounded-2xl p-6 sm:p-7 shadow-2xl">
+      <h2 id="grade-gate-title" class="font-display text-lg font-semibold tracking-tight text-white sm:text-xl">Enter access code</h2>
+      <p class="mt-2 text-sm leading-relaxed text-slate-400">First-time access to the grading tool.</p>
+      <form id="grade-gate-form" class="mt-5 flex flex-col gap-3" autocomplete="off">
+        <label for="grade-gate-input" class="sr-only">Access code</label>
+        <input id="grade-gate-input" name="code" type="password" autocomplete="off" required maxlength="64"
+               class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 text-sm tracking-wide text-slate-100
+                      placeholder:text-slate-500 shadow-inner shadow-black/40
+                      focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20" />
+        <p id="grade-gate-err" class="hidden text-sm text-red-300" role="alert"></p>
+        <button type="submit" id="grade-gate-submit"
+                class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-6 py-2.5 text-sm font-semibold text-white">
+          Continue
+        </button>
+      </form>
+    </div>
+  </div>
+
 </section>
 
 <script>
 (function () {
+  function truncateFilename(s, max) {
+    if (s.length <= max) return s;
+    var dot = s.lastIndexOf('.');
+    if (dot < 0 || dot >= s.length - 1) return s.substring(0, max - 1) + '…';
+    var ext = s.substring(dot);
+    var keep = max - ext.length - 1;
+    if (keep < 4) return s.substring(0, max - 1) + '…';
+    return s.substring(0, keep) + '…' + ext;
+  }
+
+  function formatSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    var kb = bytes / 1024;
+    if (kb < 1024) return kb.toFixed(0) + ' KB';
+    var mb = kb / 1024;
+    if (mb < 100) return mb.toFixed(1) + ' MB';
+    return mb.toFixed(0) + ' MB';
+  }
+
   document.querySelectorAll('.drop-zone').forEach(function (zone) {
     var input = zone.querySelector('input[type="file"]');
     var pill  = zone.querySelector('.drop-zone-pill');
     var desc  = zone.querySelector('.drop-zone-desc');
     var counter = 0;
+    var originalDesc = desc ? desc.innerHTML : '';
 
     zone.addEventListener('dragenter', function (e) {
       e.preventDefault();
@@ -172,12 +261,15 @@
       if (!files || files.length === 0) {
         zone.classList.remove('has-file');
         pill.textContent = 'Browse files';
+        desc.innerHTML = originalDesc;
         return;
       }
       zone.classList.add('has-file');
-      desc.textContent = files.length === 1
-        ? files[0].name
-        : files.length + ' files selected';
+      if (files.length === 1) {
+        desc.textContent = truncateFilename(files[0].name, 28) + ' · ' + formatSize(files[0].size);
+      } else {
+        desc.textContent = files.length + ' files selected';
+      }
       pill.textContent = 'Change file';
     });
   });
@@ -190,19 +282,129 @@
 </style>
 <script>
 (function () {
-  var form    = document.getElementById('grade-form');
-  var btn     = document.getElementById('grade-btn');
-  var btnSpan = btn ? btn.querySelector('span') : null;
+  var form       = document.getElementById('grade-form');
+  var btn        = document.getElementById('grade-btn');
+  var btnSpan    = btn ? btn.querySelector('span') : null;
+  var promptEl   = document.getElementById('grade-prompt');
 
-  /* ── Status panel ─────────────────────────────────────────────────────── */
-  var statusBox = null;
+  /* ── First-visit access gate ─────────────────────────────────────────── */
+  var gradePage   = document.getElementById('grade-page');
+  var gateOverlay = document.getElementById('grade-gate-overlay');
+  var gateForm    = document.getElementById('grade-gate-form');
+  var gateInput   = document.getElementById('grade-gate-input');
+  var gateErr     = document.getElementById('grade-gate-err');
+  var gateSubmit  = document.getElementById('grade-gate-submit');
+  var unlocked    = !!(gradePage && gradePage.dataset.gradeUnlocked === 'true');
+
+  function showGate() {
+    if (!gateOverlay) return;
+    gateOverlay.classList.remove('hidden');
+    if (gateInput) {
+      gateInput.value = '';
+      setTimeout(function () { gateInput.focus(); }, 30);
+    }
+    if (gateErr) gateErr.classList.add('hidden');
+  }
+  function hideGate() {
+    if (gateOverlay) gateOverlay.classList.add('hidden');
+  }
+  function requireUnlock(e) {
+    if (unlocked) return true;
+    if (e) {
+      if (typeof e.preventDefault === 'function') e.preventDefault();
+      if (typeof e.stopPropagation === 'function') e.stopPropagation();
+    }
+    showGate();
+    return false;
+  }
+
+  if (gateForm && gateInput) {
+    gateForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (gateSubmit) gateSubmit.disabled = true;
+      if (gateErr) gateErr.classList.add('hidden');
+      fetch('/api/grade/auth', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: gateInput.value })
+      })
+        .then(function (r) {
+          if (r.status === 200) { return null; }
+          if (r.status === 429) throw new Error('Too many attempts. Wait a minute and try again.');
+          if (r.status === 401) throw new Error('Wrong code.');
+          throw new Error('Could not verify code (HTTP ' + r.status + ').');
+        })
+        .then(function () {
+          unlocked = true;
+          if (gradePage) gradePage.dataset.gradeUnlocked = 'true';
+          hideGate();
+        })
+        .catch(function (err) {
+          if (gateErr) {
+            gateErr.textContent = err.message || String(err);
+            gateErr.classList.remove('hidden');
+          }
+          if (gateInput) { gateInput.focus(); gateInput.select(); }
+        })
+        .finally(function () {
+          if (gateSubmit) gateSubmit.disabled = false;
+        });
+    });
+  }
+
+  /* Trigger the gate on first interaction (focus prompt, click upload, click Grade). */
+  if (promptEl) {
+    promptEl.addEventListener('focus', function (e) { requireUnlock(e); });
+  }
+  /* The label is the click target — the file input sits on top with opacity:0,
+     so we attach in capture phase to the label and bail before the picker opens. */
+  document.querySelectorAll('#grade-form label.drop-zone').forEach(function (lbl) {
+    lbl.addEventListener('click', function (e) { requireUnlock(e); }, true);
+  });
+
+  /* Quick-fill examples → fill the prompt textarea and focus it. */
+  document.querySelectorAll('.grade-quick-fill').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (!promptEl) return;
+      promptEl.value = b.getAttribute('data-prompt') || '';
+      promptEl.focus();
+    });
+  });
+
+  /* ── Status panel skeleton (built once, regions updated independently) ─ */
+  var statusBox    = null;
+  var statusHeader = null;
+  var stepsList    = null;
+  var termHeader   = null;
+  var terminalEl   = null;
+  var resultEl     = null;
+  var stickToBottom = true;
 
   function getOrCreateStatusBox() {
     if (!statusBox) {
       statusBox = document.createElement('div');
       statusBox.id = 'grade-status';
       statusBox.className = 'mt-5 rounded-xl border border-white/[0.09] bg-slate-950/80 px-4 py-4';
+      statusBox.innerHTML =
+        '<p id="grade-status-header" class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400/60 mb-3">Pipeline progress</p>' +
+        '<ul id="grade-steps-list" class="space-y-0"></ul>' +
+        '<p id="grade-terminal-header" class="hidden text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-slate-400/55 mt-4 mb-2">Terminal output</p>' +
+        '<pre id="grade-terminal" class="hidden mt-0 max-h-[28rem] overflow-y-auto rounded-lg border border-white/[0.06] bg-slate-950/95 px-3.5 py-2.5 text-[0.74rem] leading-[1.55] font-mono whitespace-pre-wrap break-words text-slate-300"></pre>' +
+        '<div id="grade-result"></div>';
       form.parentNode.insertBefore(statusBox, form.nextSibling);
+
+      statusHeader = statusBox.querySelector('#grade-status-header');
+      stepsList    = statusBox.querySelector('#grade-steps-list');
+      termHeader   = statusBox.querySelector('#grade-terminal-header');
+      terminalEl   = statusBox.querySelector('#grade-terminal');
+      resultEl     = statusBox.querySelector('#grade-result');
+
+      terminalEl.addEventListener('scroll', function () {
+        var threshold = 24;
+        stickToBottom =
+          (terminalEl.scrollHeight - terminalEl.scrollTop - terminalEl.clientHeight) < threshold;
+      });
     }
     return statusBox;
   }
@@ -230,14 +432,9 @@
     return ICON_PENDING;
   }
 
-  /* ── Render step list ─────────────────────────────────────────────────── */
-  function renderSteps(steps, logLine) {
-    var box = getOrCreateStatusBox();
-    var activeStep = null;
-    for (var i = 0; i < steps.length; i++) {
-      if (steps[i].status === 'running') { activeStep = steps[i]; break; }
-    }
-
+  /* ── Render step list (updates only #grade-steps-list) ────────────────── */
+  function renderSteps(steps) {
+    getOrCreateStatusBox();
     var rows = '';
     for (var j = 0; j < steps.length; j++) {
       var s = steps[j];
@@ -254,17 +451,63 @@
         '<span class="flex-1 text-[0.82rem] ' + nameClass + '">' + esc(s.name) + '</span>' +
         elapsed +
         '</li>';
-      if (activeStep && s.num === activeStep.num && logLine) {
-        rows += '<li class="pl-10 pb-1"><p class="text-[0.75rem] text-slate-400/80 font-mono break-all leading-snug">' + esc(logLine) + '</p></li>';
-      }
     }
-
-    box.innerHTML =
-      '<p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400/60 mb-3">Pipeline progress</p>' +
-      '<ul class="space-y-0">' + rows + '</ul>';
+    stepsList.innerHTML = rows;
   }
 
-  /* ── Download buttons ─────────────────────────────────────────────────── */
+  /* ── Terminal renderer (color-codes by leading icon) ──────────────────── */
+  /* Match leading whitespace + icon (▸ ✓ ✗ ⚠ › ─ ✨). */
+  var ICON_RE = /^(\s*)([▸✓✗⚠›─✨])/;
+  var ICON_CLASS = {
+    '▸': 'text-cyan-300 font-semibold',          /* ▸ step header */
+    '✓': 'text-emerald-400',                      /* ✓ ok */
+    '✗': 'text-red-400',                          /* ✗ err (rare) */
+    '⚠': 'text-amber-300',                        /* ⚠ warn */
+    '›': 'text-slate-400',                        /* › info / dim */
+    '✨': 'text-cyan-200 font-semibold'            /* ✨ banner */
+  };
+
+  function classifyLine(raw) {
+    if (!raw) return { html: '<span>&nbsp;</span>', divider: false };
+    /* Section divider: a line dominated by box-drawing horizontal "─" chars. */
+    var trimmed = raw.replace(/^\s+|\s+$/g, '');
+    if (trimmed.length >= 6) {
+      var dashCount = (trimmed.match(/─/g) || []).length;
+      if (dashCount >= Math.max(6, Math.floor(trimmed.length * 0.4))) {
+        var label = trimmed.replace(/─+/g, ' ').replace(/\s+/g, ' ').trim();
+        return {
+          html: '<div class="my-2 flex items-center gap-3 text-slate-500/80">' +
+            '<span class="h-px flex-1 bg-white/[0.10]"></span>' +
+            '<span class="text-[0.65rem] font-semibold uppercase tracking-[0.20em]">' + esc(label) + '</span>' +
+            '<span class="h-px flex-1 bg-white/[0.10]"></span>' +
+            '</div>',
+          divider: true
+        };
+      }
+    }
+    var m = ICON_RE.exec(raw);
+    var cls = m ? (ICON_CLASS[m[2]] || 'text-slate-300') : 'text-slate-300';
+    return { html: '<div class="' + cls + '">' + esc(raw) + '</div>', divider: false };
+  }
+
+  function appendTerminalLines(lines) {
+    if (!lines || !lines.length) return;
+    getOrCreateStatusBox();
+    if (terminalEl.classList.contains('hidden')) {
+      terminalEl.classList.remove('hidden');
+      termHeader.classList.remove('hidden');
+    }
+    var chunk = '';
+    for (var i = 0; i < lines.length; i++) {
+      chunk += classifyLine(lines[i]).html;
+    }
+    terminalEl.insertAdjacentHTML('beforeend', chunk);
+    if (stickToBottom) {
+      terminalEl.scrollTop = terminalEl.scrollHeight;
+    }
+  }
+
+  /* ── Result region (download buttons / error) ─────────────────────────── */
   function dlBtn(href, label) {
     return '<a href="' + href + '" download ' +
       'class="inline-flex items-center gap-2 rounded-lg bg-emerald-500/15 px-4 py-2 text-sm font-semibold text-emerald-300 ring-1 ring-emerald-500/25 hover:bg-emerald-500/25 transition-colors">' +
@@ -274,22 +517,48 @@
   }
 
   function setDone(data) {
-    var box = getOrCreateStatusBox();
+    getOrCreateStatusBox();
     var btns = dlBtn(data.download_url, 'Download cleaned scan');
     if (data.answers_url) {
       btns += ' ' + dlBtn(data.answers_url, 'Download class report PDF');
     }
-    box.innerHTML +=
+    resultEl.innerHTML =
       '<p class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-400/75 mt-4 mb-2">Complete</p>' +
       '<div class="flex flex-wrap gap-3">' + btns + '</div>';
   }
 
   function setError(msg) {
-    var box = getOrCreateStatusBox();
-    box.className = 'mt-5 rounded-xl border border-red-500/20 bg-slate-950/80 px-4 py-4';
-    box.innerHTML =
-      '<p class="text-xs font-semibold uppercase tracking-[0.18em] text-red-400/80 mb-2">Failed</p>' +
-      '<p class="text-[0.82rem] leading-relaxed text-red-300/90 break-all">' + esc(msg) + '</p>';
+    getOrCreateStatusBox();
+    statusBox.className = 'mt-5 rounded-xl border border-red-500/20 bg-slate-950/80 px-4 py-4';
+    statusHeader.textContent = 'Failed';
+    statusHeader.className = 'text-xs font-semibold uppercase tracking-[0.18em] text-red-400/80 mb-2';
+    resultEl.innerHTML =
+      '<p class="mt-2 text-[0.82rem] leading-relaxed text-red-300/90 break-all">' + esc(msg) + '</p>';
+  }
+
+  function appendInlineError(msg) {
+    getOrCreateStatusBox();
+    resultEl.innerHTML +=
+      '<p class="text-xs font-semibold uppercase tracking-[0.18em] text-red-400/80 mt-4 mb-1">Error</p>' +
+      '<p class="text-[0.82rem] text-red-300/90 break-all">' + esc(msg) + '</p>';
+  }
+
+  function setUploadingHeader() {
+    getOrCreateStatusBox();
+    statusHeader.textContent = 'Uploading files…';
+    /* Reset any prior error styling on retry. */
+    statusBox.className = 'mt-5 rounded-xl border border-white/[0.09] bg-slate-950/80 px-4 py-4';
+    statusHeader.className = 'text-xs font-semibold uppercase tracking-[0.18em] text-slate-400/60 mb-3';
+    stepsList.innerHTML = '';
+    terminalEl.innerHTML = '';
+    terminalEl.classList.add('hidden');
+    termHeader.classList.add('hidden');
+    resultEl.innerHTML = '';
+    stickToBottom = true;
+  }
+
+  function setRunningHeader() {
+    if (statusHeader) statusHeader.textContent = 'Pipeline progress';
   }
 
   /* ── Polling ──────────────────────────────────────────────────────────── */
@@ -299,6 +568,8 @@
   function startPolling(jobId) {
     var pollCount = 0;
     var networkErrors = 0;
+    var logOffset = 0;
+    var headerSwitched = false;
 
     function poll() {
       pollCount++;
@@ -310,12 +581,22 @@
         setError('Timed out waiting for result after 30 minutes.');
         return;
       }
-      fetch('/api/jobs/' + jobId, { headers: { 'Cache-Control': 'no-cache' } })
+      fetch('/api/jobs/' + jobId + '?since=' + logOffset, { headers: { 'Cache-Control': 'no-cache' } })
         .then(function (r) { return r.json(); })
         .then(function (data) {
           networkErrors = 0;
+          if (!headerSwitched && data.steps && data.steps.length) {
+            setRunningHeader();
+            headerSwitched = true;
+          }
           if (data.steps && data.steps.length) {
-            renderSteps(data.steps, data.log_line);
+            renderSteps(data.steps);
+          }
+          if (data.log_lines && data.log_lines.length) {
+            appendTerminalLines(data.log_lines);
+          }
+          if (typeof data.log_offset === 'number') {
+            logOffset = data.log_offset;
           }
           if (data.status === 'done') {
             clearInterval(pollTimer);
@@ -331,10 +612,7 @@
             if (!data.steps || !data.steps.length) {
               setError(data.error || 'Unknown error');
             } else {
-              var box = getOrCreateStatusBox();
-              box.innerHTML +=
-                '<p class="text-xs font-semibold uppercase tracking-[0.18em] text-red-400/80 mt-4 mb-1">Error</p>' +
-                '<p class="text-[0.82rem] text-red-300/90 break-all">' + esc(data.error) + '</p>';
+              appendInlineError(data.error || 'Unknown error');
             }
           }
         })
@@ -358,6 +636,7 @@
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (!requireUnlock()) return;
 
       var scanInput   = form.querySelector('input[name="exam_scans"]');
       var rosterInput = form.querySelector('input[name="student_list"]');
@@ -383,8 +662,7 @@
 
       btn.disabled = true;
       if (btnSpan) btnSpan.textContent = 'Running…';
-      getOrCreateStatusBox().innerHTML =
-        '<p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400/60 mb-2">Uploading files…</p>';
+      setUploadingHeader();
 
       fetch('/api/grade/jobs', { method: 'POST', body: new FormData(form) })
         .then(function (r) {

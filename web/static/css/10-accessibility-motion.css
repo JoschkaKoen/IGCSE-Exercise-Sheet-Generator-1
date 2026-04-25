@@ -69,4 +69,17 @@
 
   /* Library h1 shimmer: disable */
   #lib-hero h1.font-display { animation: none; }
+
+  /* Icon settle: disable spring overshoot, keep icon at final scale */
+  body:not(.page-entered) #generate-workspace:not(.preview-mode)
+    .hero-collapse.mt-14 .feature-card > div:first-child,
+  body:not(.page-entered) #grade-page .mt-10 .feature-card > div:first-child {
+    animation: none;
+  }
+
+  /* PDF tab panel switch: jump instantly instead of fading */
+  .pdf-tab-panel,
+  .pdf-tab-panel.is-active {
+    transition-duration: 0.01ms;
+  }
 }

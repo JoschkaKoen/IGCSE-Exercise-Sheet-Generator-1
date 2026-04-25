@@ -64,7 +64,7 @@ def step_09_cover_empty(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None and ctx.folder is not None
     try:
         from google import genai as gai
-        from eXercise.ai_client import parse_model_effort
+        from eXercise.ai_client import parse_model_spec
     except ImportError as exc:
         warn_line(f"Empty exam cover check skipped — google-genai not installed: {exc}")
         return
@@ -76,7 +76,7 @@ def step_09_cover_empty(ctx: _Ctx) -> None:
     try:
         gai_client = gai.Client(api_key=api_key)
         from xscore.config import EMPTY_EXAM_COVER_MODEL
-        model, effort = parse_model_effort(EMPTY_EXAM_COVER_MODEL)
+        model, thinking_tokens, max_tokens = parse_model_spec(EMPTY_EXAM_COVER_MODEL)
         save_dir = artifact_cover_page_dir(ctx.artifact_dir)
         save_dir.mkdir(parents=True, exist_ok=True)
         save = save_dir / "cover_empty_exam_prompt.md"
@@ -84,7 +84,8 @@ def step_09_cover_empty(ctx: _Ctx) -> None:
         ctx.empty_exam_has_cover = check_cover_page_text(
             exam_pdf, 0, gai_client, model,
             prompt_save_path=save,
-            effort=effort,
+            thinking_tokens=thinking_tokens,
+            max_tokens=max_tokens,
         )
         ok_line(
             f"Empty exam page 1: {'cover page' if ctx.empty_exam_has_cover else 'no cover page'}"

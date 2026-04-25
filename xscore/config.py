@@ -187,45 +187,6 @@ def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = 
         kwargs["extra_body"] = {"thinking": {"type": "enabled" if thinking else "disabled"}}
 
 
-def apply_model_extras(model: str, kwargs: dict[str, Any], *, thinking: bool = False) -> None:
-    """Set model-specific extras for the non-streaming ai_helpers calls.
-
-    - Kimi-k2: ``extra_body.thinking`` via :func:`apply_kimi_k2_extra`.
-    - Qwen: ``extra_body.enable_thinking=False`` (non-streaming helpers cannot
-      consume streaming thinking).  The *thinking* argument is ignored for Qwen.
-    - Gemini: ``reasoning_effort="none"`` — disables thinking so ``max_tokens``
-      is the actual output budget, not shared with thinking tokens.
-    - Other models (Grok, …): no-op.
-    """
-    apply_kimi_k2_extra(model, kwargs, thinking=thinking)
-    if model.startswith("qwen"):
-        kwargs["extra_body"] = {"enable_thinking": False}
-    if model.startswith("gemini"):
-        kwargs["reasoning_effort"] = "none"
-
-
-def resolve_pipeline_ai_model_id() -> str:
-    """Return the pipeline model id (``PIPELINE_AI_MODEL`` env var, default ``kimi-k2.5``)."""
-    v = os.getenv("PIPELINE_AI_MODEL", "kimi-k2.5")
-    return v.strip() if v.strip() else "kimi-k2.5"
-
-
-def pipeline_ai_model_display_name() -> str:
-    """Human-readable label for terminal messages (tracks ``resolve_pipeline_ai_model_id()``)."""
-    mid = resolve_pipeline_ai_model_id()
-    low = mid.strip().lower()
-    if low == "kimi-k2.5":
-        return "Kimi K2.5"
-    if low == "kimi-k2":
-        return "Kimi K2"
-    if low.startswith("kimi-"):
-        rest = low[5:].replace("-", " ")
-        return "Kimi " + rest.upper()
-    if low.startswith("gemini-"):
-        return "Gemini " + low[7:].replace("-", " ").title()
-    return mid
-
-
 # =============================================================================
 # Per-step model defaults (scaffold + marking)
 # Each reads its dedicated env var first, then falls back to AI_DEFAULT_MODEL or

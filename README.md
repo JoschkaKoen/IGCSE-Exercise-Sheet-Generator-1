@@ -140,9 +140,9 @@ flowchart TD
         direction TB
         s15["Step 15 — Detect empty exam layout\n(Gemini · DETECT_LAYOUT_MODEL)"]
         s16["Step 16 — Cut empty exam\n(1×1 → skipped · multi-up → split sub-pages)"]
-        s17["Step 17 — Parse exam PDF\n(READ_EXAM_PDF_MODEL)"]
-        s18["Step 18 — Detect mark scheme graphics\n(DETECT_SCHEME_GRAPHICS_MODEL)"]
-        s19["Step 19 — Parse mark scheme\n(READ_MARK_SCHEME_MODEL)"]
+        s17["Step 17 — Parse exam PDF\n(READ_EXAM_PDF_MODEL)\n(Gemini: native PDF · Qwen: per-page PNG)"]
+        s18["Step 18 — Detect mark scheme graphics\n(DETECT_SCHEME_GRAPHICS_MODEL)\n(PNG only — bbox frame requires raster)"]
+        s19["Step 19 — Parse mark scheme\n(READ_MARK_SCHEME_MODEL)\n(Gemini: native PDF · Qwen: per-page PNG)"]
         s20["Step 20 — Merge report"]
         s15 --> s16 --> s17 --> s18 --> s19 --> s20
     end
@@ -150,7 +150,7 @@ flowchart TD
     subgraph marking ["AI marking"]
         direction TB
         s21["Step 21 — Marking blueprints\n(per-page XML templates from scaffold)"]
-        s22["Step 22 — AI marking\n(MARKING_MODEL · one API call per student page · parallel)"]
+        s22["Step 22 — AI marking\n(MARKING_MODEL · one API call per student page · parallel)\n(Gemini: native PDF · Qwen: per-page JPEG)"]
         s23["Step 23 — Compile reports\n(per-student PDF + class PDF\n· xelatex · MARKING_WORKERS)"]
         s24["Step 24 — Timing summary"]
         s25["Step 25 — AI Costs"]
@@ -210,16 +210,16 @@ flowchart TD
         direction TB
         s15["Step 15 — Detect empty exam layout\n(Gemini · DETECT_LAYOUT_MODEL)"]
         s16["Step 16 — Cut empty exam\n(1×1 → skipped · multi-up → split sub-pages)"]
-        s17["Step 17 — Parse exam PDF\n(READ_EXAM_PDF_MODEL)"]
-        s18["Step 18 — Detect mark scheme graphics\n(DETECT_SCHEME_GRAPHICS_MODEL)"]
-        s19["Step 19 — Parse mark scheme\n(READ_MARK_SCHEME_MODEL)"]
+        s17["Step 17 — Parse exam PDF\n(READ_EXAM_PDF_MODEL)\n(Gemini: native PDF · Qwen: per-page PNG)"]
+        s18["Step 18 — Detect mark scheme graphics\n(DETECT_SCHEME_GRAPHICS_MODEL)\n(PNG only — bbox frame requires raster)"]
+        s19["Step 19 — Parse mark scheme\n(READ_MARK_SCHEME_MODEL)\n(Gemini: native PDF · Qwen: per-page PNG)"]
         s20["Step 20 — Merge scaffold"]
         s15 --> s16 --> s17 --> s18 --> s19 --> s20
     end
 
     s20 --> s21["Step 21 — Marking blueprints"]
     bg -.->|"images ready"| s22
-    s21 --> s22["Step 22 — AI marking\n(MARKING_WORKERS threads\n· one per student page)"]
+    s21 --> s22["Step 22 — AI marking\n(MARKING_WORKERS threads\n· one per student page)\n(Gemini: native PDF · Qwen: per-page JPEG)"]
     s22 --> s23["Step 23 — Compile reports\n(MARKING_WORKERS\n· parallel xelatex)"]
     s23 --> s24["Step 24 — Timing summary"]
     s24 --> s25["Step 25 — AI Costs"]
@@ -290,8 +290,8 @@ The **Grade** page depends on the `xscore` package (not in `requirements.txt`) a
 | | |
 |---|---|
 | `xscore` | Install separately if you want the scan-cleaning and AI-marking pipeline |
-| `GEMINI_API_KEY` | Steps 1, 3, 9–15, 17, 19 — prompt parsing, roster reading, cover detection, name detection, layout detection, exam and mark-scheme parsing (`GOOGLE_API_KEY` accepted as fallback) |
-| `DASHSCOPE_API_KEY` | Steps 18, 22 — mark scheme graphics detection and AI marking via Qwen vision model |
+| `GEMINI_API_KEY` | Required for any step whose model is a Gemini model (`GOOGLE_API_KEY` accepted as fallback). With the shipped defaults that's steps 1, 3, 9, 10, 12, 13, 14, 15, 17, 19. Steps 18 and 22 also require Gemini if their `*_MODEL` is set to a Gemini model. |
+| `DASHSCOPE_API_KEY` | Required for any step whose model is a Qwen model (DashScope). With the shipped defaults that's step 11 (name detection), step 18 (mark-scheme graphics), and step 22 (AI marking). Switch any of these to Gemini in `default.env` and the key becomes optional. |
 
 If `xscore` is not installed, the rest of the app runs normally — only `/grade` will return errors.
 
@@ -331,37 +331,67 @@ The app uses the OpenAI Python client against each vendor's **OpenAI-compatible*
 
 Copy [`.env.example`](.env.example) to `.env` and fill in the keys you need.
 
-### Models and "thinking" (non-secrets → `default.env`)
+### Models, thinking, and token budgets (non-secrets → `default.env`)
 
-- **`AI_DEFAULT_MODEL`** — fallback model (and optional thinking suffix) when a per-task variable is unset.
-- **Per task** — each can override the default:
+Every model env var follows the same one-line format:
+
+```
+<model>[, <thinking_tokens>][, <max_output_tokens>]
+```
+
+Both budgets are integers; omit either to use the code fallback. The **provider is inferred from the model-name prefix** (`gemini-*`, `qwen*`, `grok-*`) — no separate provider switch.
+
+```env
+MARKING_MODEL=qwen3.6-plus, 0, 64000          # Qwen, thinking off, 64k output
+RANKING_MODEL=gemini-2.5-pro, 8192, 32768     # Gemini, deep thinking, 32k output
+NAME_DETECTION_MODEL=qwen3.6-plus, 0, 64      # tight 64-token cap for name OCR
+NL_MODEL=gemini-3.1-flash-lite-preview, 1024  # max_tokens omitted → fallback
+```
+
+Legacy `, off` / `, low` / `, high` strings still parse for back-compat (mapped to `0` / `1024` / `8192`).
+
+**`thinking_tokens` semantics**
+
+| Provider | Behaviour |
+|---|---|
+| Gemini (native PDF / generate_content_stream) | Any non-negative integer is passed through as `thinking_budget`. Recommended: `0` off, `1024` light, `4096` moderate, `8192` deep, `16384+` very deep (Gemini 3/3.1 only). |
+| Gemini (OpenAI-compat / chat.completions) | Bucketed to `none/low/high`: `0` → `none`, `1-1024` → `low`, `1025+` → `high`. The OpenAI-compat reasoning_effort enum doesn't accept arbitrary integers. |
+| Qwen | Binary — any positive value enables thinking (forces streaming). `0` disables it (non-streaming, JSON-friendly). |
+| Grok | Ignored. |
+
+**`max_output_tokens` rules of thumb**
+
+| Range | Use case |
+|---|---|
+| 16–256 | single-field classification (yes/no, name extraction) |
+| 1024–4096 | small JSON config / decision output |
+| 8192–16384 | medium generation (MCQ explanations, page-order check) |
+| 32768–64000 | long-form (mark scheme parsing, scaffold, marking) |
+
+**Per-task model variables**
 
 | Variable | Role |
 |----------|------|
+| `AI_DEFAULT_MODEL` | Fallback for any task whose own var is unset |
 | `AI_PRECHECK_MODEL` | Fast validation before the main NL call |
 | `NL_MODEL` | Prompt interpretation (subject, papers, questions) |
-| `MCQ_MODEL` | MCQ explanation generation |
-| `RANKING_MODEL` | Difficulty ranking job (questions ranked hardest to easiest) |
+| `MCQ_MODEL` | MCQ explanation generation (Gemini gets native PDF upload) |
+| `RANKING_MODEL` | Difficulty ranking (Gemini gets native PDF upload) |
 | `INTERPRET_PROMPT_MODEL` | xScore step 1 — parse grading prompt |
 | `READ_STUDENT_LIST_MODEL` | xScore step 3 — parse student roster files (PDF, Excel, CSV) |
-| `EMPTY_EXAM_COVER_MODEL` | xScore step 9 — checks page 1 of the empty exam PDF for a cover page (informational; sets `empty_exam_has_cover` for blank-page detection) |
-| `COVER_PAGE_DETECTION_MODEL` | xScore step 10 — checks page 1 of the scan to determine cover-page mode; result is authoritative and drives all downstream logic |
-| `DETECT_LAYOUT_MODEL` | xScore step 15 — detect printing layout (1×1, 2-up, 4-up) and split multi-up exam PDFs |
-| `READ_EXAM_PDF_MODEL` | xScore step 16 — extract question hierarchy from the (split) exam PDF |
-| `READ_MARK_SCHEME_MODEL` | xScore step 17 — extract answers and criteria from mark scheme |
-| `MARKING_MODEL` | xScore step 20 — vision model for AI marking; requires `DASHSCOPE_API_KEY` (Qwen) or `GEMINI_API_KEY`; use `, off` to disable thinking (required for non-streaming JSON output) |
-| `MARKING_WORKERS` | Parallel workers for step 20 (AI marking) and step 21 (xelatex compiles); default `4` |
+| `EMPTY_EXAM_COVER_MODEL` | xScore step 9 — informational text-based cover-page check on the empty exam |
+| `COVER_PAGE_DETECTION_MODEL` | xScore step 10 — authoritative cover-page check on scan page 1 |
+| `NAME_DETECTION_MODEL` | xScore step 11 — student-name OCR. **Must use `thinking_tokens=0`** — runs through a non-streaming helper that raises if thinking is on. |
+| `PAGE_ORDER_CHECK_MODEL` | xScore step 13 — verifies scan-page order matches the empty exam |
+| `BLANK_PAGE_DETECTION_MODEL` | xScore step 14 — identifies blank exam pages and handwriting (the binary handwriting check uses a fixed 32-token cap) |
+| `DETECT_LAYOUT_MODEL` | xScore step 15 — detect printing layout (1×1, 2-up, 4-up) |
+| `READ_EXAM_PDF_MODEL` | xScore step 17 — extract question hierarchy. Gemini → native PDF upload; Qwen → per-page PNG. |
+| `DETECT_SCHEME_GRAPHICS_MODEL` | xScore step 18 — graphics detection. **PNG-only for all providers** (the bbox frame requires a known raster). |
+| `READ_MARK_SCHEME_MODEL` | xScore step 19 — parse mark scheme. Gemini → native PDF; Qwen → per-page PNG. |
+| `MARKING_MODEL` | xScore step 22 — vision model for AI marking. Gemini → native PDF; Qwen → per-page JPEG. Any thinking budget works (the call streams when thinking is on). |
+| `MARKING_WORKERS` | Parallel workers for step 22 (AI marking) and step 23 (xelatex compiles); default scales with `cpu_count` |
 
-**Optional thinking suffix:** add `, off`, `, low`, or `, high` after the model name:
-
-```env
-NL_MODEL=gemini-2.5-flash, low
-AI_PRECHECK_MODEL=gemini-2.5-flash-lite, off
-```
-
-Omit the suffix to use the provider's default reasoning behaviour. **Gemini** maps `off` / `low` / `high` to API `reasoning_effort`. **Qwen** uses `off` vs on. **Grok** ignores the suffix.
-
-Full model lists and notes (e.g. which Gemini tiers always use thinking) are in [`default.env`](default.env).
+Full model lists and recommended preset values are in [`default.env`](default.env).
 
 ### Other LLM-related flags
 
@@ -426,7 +456,7 @@ Three pages are available:
 | Page | Path | Purpose |
 |------|------|---------|
 | **Generate** | `/` | Build exercise sheets (natural language or legacy); PDF preview with tabs (exercise, answers, 2-up, 4-up, ranking), Ctrl-wheel zoom, and jump-to-question overview. |
-| **Grade** | `/grade` | Upload student scan PDF, exam PDF, mark scheme, and optional roster; runs the full 23-step pipeline and returns a cleaned PDF plus per-student and class mark reports. Requires `xscore`, `GEMINI_API_KEY`, and `DASHSCOPE_API_KEY`. |
+| **Grade** | `/grade` | Upload student scan PDF, exam PDF, mark scheme, and optional roster; runs the full 25-step pipeline and returns a cleaned PDF plus per-student and class mark reports. Requires `xscore` plus the API keys for whichever providers your `*_MODEL` env vars resolve to (typically `GEMINI_API_KEY` and `DASHSCOPE_API_KEY`). |
 | **Library** | `/library` | Browse and download the bundled Cambridge IGCSE papers by subject, year, and session. |
 
 ### Programmatic

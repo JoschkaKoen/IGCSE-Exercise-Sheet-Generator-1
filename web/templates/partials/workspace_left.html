@@ -37,6 +37,7 @@
   <div class="form-result-row">
   <!-- Form -->
   <form id="gen-form" class="gen-surface glass-panel form-glow rounded-2xl p-5 sm:p-6">
+    <div class="relative">
     <textarea
       id="prompt"
       name="prompt"
@@ -51,6 +52,12 @@
              transition-colors"
       placeholder="e.g. Physics: Ex. 1–9 from w24 22 and Ex. 5–7 from s24 21"
     ></textarea>
+    <span id="prompt-char-counter"
+          class="pointer-events-none absolute right-3 bottom-3 rounded-md bg-slate-950/85 backdrop-blur-sm
+                 px-1.5 py-0.5 text-[0.68rem] tabular-nums text-slate-400/70 opacity-0
+                 transition-opacity duration-200"
+          aria-live="polite"></span>
+    </div>
 
     <div class="hero-collapse mt-3.5">
     <!-- Example prompts (fill textarea on click) -->
@@ -140,7 +147,7 @@
           <span class="gen-spinner-ring gen-spinner-ring--2"></span>
           <span class="gen-spinner-dot"></span>
         </span>
-        <span id="job-log-line" class="min-w-0 flex-1 truncate font-mono text-xs text-slate-400"></span>
+        <span id="job-log-line" class="min-w-0 flex-1 truncate font-mono text-[0.82rem] text-slate-300/90"></span>
       </div>
       <span class="kbd-hint" aria-hidden="true"></span>
     </div>

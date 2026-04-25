@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel
 
-from eXercise.ai_client import parse_model_effort
+from eXercise.ai_client import parse_model_spec
 from xscore.config import (
     DETECT_LAYOUT_MODEL,
     DETECT_SCHEME_GRAPHICS_MODEL,
@@ -55,20 +55,20 @@ _SCHEME_GRAPHICS_JSON_SCHEMA: dict = _SchemePageGraphics.model_json_schema()
 # Model config — read from xscore/config.py constants (defaults match default.env)
 # ---------------------------------------------------------------------------
 
-def _exam_pdf_model_config() -> tuple[str, str | None]:
-    return parse_model_effort(READ_EXAM_PDF_MODEL)
+def _exam_pdf_model_config() -> tuple[str, int | None, int | None]:
+    return parse_model_spec(READ_EXAM_PDF_MODEL)
 
 
-def _mark_scheme_model_config() -> tuple[str, str | None]:
-    return parse_model_effort(READ_MARK_SCHEME_MODEL)
+def _mark_scheme_model_config() -> tuple[str, int | None, int | None]:
+    return parse_model_spec(READ_MARK_SCHEME_MODEL)
 
 
-def _layout_detect_model_config() -> tuple[str, str | None]:
-    return parse_model_effort(DETECT_LAYOUT_MODEL)
+def _layout_detect_model_config() -> tuple[str, int | None, int | None]:
+    return parse_model_spec(DETECT_LAYOUT_MODEL)
 
 
-def _detect_scheme_graphics_model_config() -> tuple[str, str | None]:
-    return parse_model_effort(DETECT_SCHEME_GRAPHICS_MODEL)
+def _detect_scheme_graphics_model_config() -> tuple[str, int | None, int | None]:
+    return parse_model_spec(DETECT_SCHEME_GRAPHICS_MODEL)
 
 
 # ---------------------------------------------------------------------------

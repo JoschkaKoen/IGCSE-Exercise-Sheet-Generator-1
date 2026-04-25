@@ -13,11 +13,13 @@ import datetime
 import io
 import logging
 import os
+import re
+import sys
 import threading
 import zipfile
 from pathlib import Path
 
-from fastapi import FastAPI, File, Form, HTTPException, Query, Request, UploadFile
+from fastapi import Depends, FastAPI, File, Form, HTTPException, Query, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -37,6 +39,14 @@ from .auth_gate import (
     parse_ask_login_mode,
     parse_login_disabled,
     request_is_authenticated,
+)
+from .grade_auth import (
+    EXPECTED_GRADE_CODE,
+    apply_grade_cookie,
+    codes_equal as grade_codes_equal,
+    enforce_grade_rate_limit,
+    is_grade_unlocked,
+    require_grade_unlock,
 )
 from .grade_service import run_full_pipeline_logged
 from .jobs import JobRecord, JobStatus, JobStore
@@ -112,7 +122,7 @@ async def site_access_gate(request: Request, call_next):
         request.state.ask_login_mode = parse_ask_login_mode(request)
 
     path = request.url.path
-    if path.startswith("/api/") and path != "/api/auth/login":
+    if path.startswith("/api/") and path not in ("/api/auth/login", "/api/grade/auth"):
         if not login_disabled and not request.state.site_auth_ok:
             return JSONResponse(
                 status_code=401,
@@ -134,6 +144,10 @@ class CreateJobBody(BaseModel):
 
 
 class SiteLoginBody(BaseModel):
+    code: str = Field(..., min_length=1, max_length=64)
+
+
+class GradeAuthBody(BaseModel):
     code: str = Field(..., min_length=1, max_length=64)
 
 
@@ -253,6 +267,22 @@ async def site_login(request: Request, body: SiteLoginBody) -> JSONResponse:
     return response
 
 
+@app.post("/api/grade/auth")
+async def grade_auth_login(request: Request, body: GradeAuthBody) -> JSONResponse:
+    """Set the grade-page signed cookie after valid code (separate from site auth)."""
+    xff = request.headers.get("x-forwarded-for", "")
+    client_ip = xff.split(",")[0].strip() if xff else (request.client.host if request.client else "")
+    await enforce_grade_rate_limit(client_ip)
+    if not grade_codes_equal(body.code, EXPECTED_GRADE_CODE):
+        raise HTTPException(status_code=401, detail="Wrong code")
+    response = JSONResponse(
+        {"ok": True},
+        headers={"Cache-Control": "no-store, no-cache", "Pragma": "no-cache"},
+    )
+    apply_grade_cookie(response, request)
+    return response
+
+
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request) -> HTMLResponse:
     return TEMPLATES.TemplateResponse(
@@ -268,7 +298,7 @@ async def grade_page(request: Request) -> HTMLResponse:
     return TEMPLATES.TemplateResponse(
         request,
         "grade.html",
-        _template_ctx(request),
+        _template_ctx(request, grade_unlocked=is_grade_unlocked(request)),
         headers=_HTML_NO_CACHE,
     )
 
@@ -298,17 +328,34 @@ async def create_job(body: CreateJobBody) -> dict[str, str]:
     return {"id": job.id}
 
 
+_LOG_LINES_PER_RESPONSE_CAP = 2000
+
+
 @app.get("/api/jobs/{job_id}")
-async def job_status(request: Request, job_id: str) -> JSONResponse:
-    """Job status for polling; ``log_line`` is updated live (avoid caching in the browser)."""
+async def job_status(
+    request: Request,
+    job_id: str,
+    since: int = Query(0, ge=0),
+) -> JSONResponse:
+    """Job status for polling; ``log_line`` is updated live (avoid caching in the browser).
+
+    ``?since=N`` returns ``log_lines`` after index N (capped at
+    ``_LOG_LINES_PER_RESPONSE_CAP`` per response). ``log_offset`` is the index
+    the client should send back as ``?since=`` on its next poll.
+    """
     rec = store.get(job_id)
     if rec is None:
         raise HTTPException(status_code=404, detail="Job not found")
     base = str(request.base_url).rstrip("/")
+    total_lines = len(rec.log_lines)
+    start = min(since, total_lines)
+    end = min(start + _LOG_LINES_PER_RESPONSE_CAP, total_lines)
     out: dict = {
         "status": rec.status,
         "error": rec.error,
         "log_line": rec.log_line or "",
+        "log_lines": rec.log_lines[start:end],
+        "log_offset": end,
         "steps": [
             {"num": s.num, "name": s.name, "status": s.status, "elapsed_s": s.elapsed_s}
             for s in rec.steps
@@ -456,6 +503,85 @@ async def library_file(subject: str, filename: str) -> FileResponse:
 
 _GRADE_UPLOADS_ROOT = Path(__file__).parent.parent / "output" / "xscore" / "grade_uploads"
 
+# ANSI CSI + OSC strippers — mirrors xScore.py:_Tee for the captured-stream path.
+_ANSI_CSI_RE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
+_ANSI_OSC_RE = re.compile(r"\x1b\][^\x07]*\x07")
+
+
+class _StdoutTee:
+    """Mirror writes to the original stdout AND emit completed lines to a callback.
+
+    Carries a ``_log = True`` marker attribute so ``xscore/marking/ai_mark.py``
+    auto-disables ``rich.live.Live`` (no in-place cursor updates we'd have to
+    re-strip later).
+    """
+
+    _log = True  # marker for ai_mark.py's `not hasattr(sys.stdout, '_log')` check
+
+    def __init__(self, real_stdout, on_line):
+        self._real = real_stdout
+        self._on_line = on_line
+        self._buf = ""
+
+    def write(self, text: str) -> int:
+        if not isinstance(text, str):
+            text = str(text)
+        try:
+            n = self._real.write(text)
+        except Exception:
+            n = len(text)
+        self._buf += text
+        if "\n" in self._buf:
+            parts = self._buf.split("\n")
+            self._buf = parts[-1]
+            for line in parts[:-1]:
+                self._emit(line)
+        return n if n is not None else len(text)
+
+    def flush(self) -> None:
+        try:
+            self._real.flush()
+        except Exception:
+            pass
+        if self._buf:
+            self._emit(self._buf)
+            self._buf = ""
+
+    def _emit(self, line: str) -> None:
+        clean = _ANSI_OSC_RE.sub("", _ANSI_CSI_RE.sub("", line)).rstrip("\r")
+        if clean.strip() or line.strip() == "":
+            try:
+                self._on_line(clean)
+            except Exception:
+                pass
+
+    def isatty(self) -> bool:  # pragma: no cover — explicit so Rich sees non-TTY
+        return False
+
+    def __getattr__(self, name):
+        # Forward anything else (e.g., .encoding) to the original stdout.
+        return getattr(self._real, name)
+
+
+def _run_with_capture(folder, prompt, on_line, on_step, on_capture):
+    """Run the pipeline with stdout teed into ``on_capture`` for the duration.
+
+    Single-user assumption: ``sys.stdout`` is module-level, so this is safe
+    only because ``JobStore`` is documented single-user (see ``web/jobs.py``).
+    Concurrent grade jobs would race on the global stdout slot.
+    """
+    real_stdout = sys.stdout
+    tee = _StdoutTee(real_stdout, on_capture)
+    sys.stdout = tee
+    try:
+        return run_full_pipeline_logged(folder, prompt, on_line, on_step)
+    finally:
+        try:
+            tee.flush()
+        finally:
+            sys.stdout = real_stdout
+
+
 _GRADE_STEPS = [
     (1,  "Parse grading instructions"),
     (2,  "Folder from upload"),
@@ -494,9 +620,12 @@ async def _run_grade_job(
         elif event == "failed":
             store.step_failed(job_id, num, elapsed_s or 0.0)
 
+    def on_capture(line: str) -> None:
+        store.append_log_line(job_id, line)
+
     try:
         cleaned_pdf, artifact_dir = await asyncio.to_thread(
-            run_full_pipeline_logged, folder, prompt, on_line, on_step
+            _run_with_capture, folder, prompt, on_line, on_step, on_capture
         )
         from xscore.shared.exam_paths import artifact_class_report_pdf_path
         class_report_pdf = artifact_class_report_pdf_path(artifact_dir)
@@ -517,6 +646,7 @@ async def create_grade_job(
     empty_exam: UploadFile = File(...),
     answer_sheet: UploadFile = File(...),
     prompt: str | None = Form(None),
+    _gate: None = Depends(require_grade_unlock),
 ) -> dict[str, str]:
     """Accept uploaded exam files, save them, and launch an xScore pipeline job."""
     ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")

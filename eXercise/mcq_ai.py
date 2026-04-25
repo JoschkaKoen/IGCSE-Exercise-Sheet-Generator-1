@@ -12,14 +12,6 @@ import time
 from typing import Any
 
 # ---------------------------------------------------------------------------
-# Token budgets (per-request output cap)
-# ---------------------------------------------------------------------------
-
-# Chosen to fit ~40 question explanations × 3 bullets, with headroom for
-# reasoning tokens on Gemini thinking models.
-_MAX_OUTPUT_TOKENS_MCQ = 16384
-
-# ---------------------------------------------------------------------------
 # Subject-specific AI prompt fragments
 # ---------------------------------------------------------------------------
 
@@ -298,7 +290,8 @@ def generate_mcq_explanations_gemini_pdf(
     questions: list[int],
     exam_key: str | None,
     model: str,
-    effort: str | None = None,
+    thinking_tokens: int | None = None,
+    max_tokens: int | None = None,
     save_dir: Any | None = None,
     stream_thinking: bool = True,
 ) -> dict[int, list[str]]:
@@ -389,12 +382,12 @@ def generate_mcq_explanations_gemini_pdf(
 
         # Thinking config — shared helper, mirrors difficulty_ranking.py.
         from .ai_client import build_gemini_thinking_config  # noqa: PLC0415
-        thinking_cfg = build_gemini_thinking_config(effort)
+        thinking_cfg = build_gemini_thinking_config(thinking_tokens)
 
         gen_config = gai_types.GenerateContentConfig(
             system_instruction=system_prompt,
             thinking_config=thinking_cfg,
-            max_output_tokens=_MAX_OUTPUT_TOKENS_MCQ,
+            max_output_tokens=max_tokens or 16384,
         )
 
         _NUDGE = (
@@ -498,7 +491,8 @@ def generate_mcq_explanations(
     exam_key: str | None,
     q_images: dict[int, str] | None = None,
     provider: str = "",
-    effort: str | None = None,
+    thinking_tokens: int | None = None,
+    max_tokens: int | None = None,
     save_dir: Any | None = None,  # Path | None — avoid import at module level
     q_pdf_bytes: bytes | None = None,
     stream_thinking: bool = True,
@@ -524,7 +518,8 @@ def generate_mcq_explanations(
             questions=questions_with_answers,
             exam_key=exam_key,
             model=model,
-            effort=effort,
+            thinking_tokens=thinking_tokens,
+            max_tokens=max_tokens,
             save_dir=save_dir,
             stream_thinking=stream_thinking,
         )
@@ -537,7 +532,8 @@ def generate_mcq_explanations(
     if save_dir is not None:
         _save_mcq_prompt(save_dir, system, user_content, exam_key, q_texts=q_texts)
 
-    use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
+    use_stream, thinking_kw = build_thinking_kwargs(provider, thinking_tokens)
+    _max_tokens_resolved = max_tokens or 16384
     thinking_parts: list[str] = []
 
     def _call(content: str | list[dict], **kwargs: Any) -> tuple[str, str | None]:
@@ -549,7 +545,7 @@ def generate_mcq_explanations(
         if use_stream:
             stream = client.chat.completions.create(
                 model=model,
-                max_tokens=_MAX_OUTPUT_TOKENS_MCQ,
+                max_tokens=_max_tokens_resolved,
                 messages=msgs,
                 stream=True,
                 **thinking_kw,
@@ -563,7 +559,7 @@ def generate_mcq_explanations(
             return text, (finish_out[-1] if finish_out else None)
         completion = client.chat.completions.create(
             model=model,
-            max_tokens=_MAX_OUTPUT_TOKENS_MCQ,
+            max_tokens=_max_tokens_resolved,
             messages=msgs,
             **thinking_kw,
             **kwargs,

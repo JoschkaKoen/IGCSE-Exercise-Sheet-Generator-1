@@ -193,7 +193,7 @@ def batch_generate_mcq_explanations(
     client_model = _load_ai_client()
     if client_model is None:
         return [{} for _ in papers]
-    client, model, provider, effort = client_model
+    client, model, provider, thinking_tokens, max_tokens = client_model
 
     total_qs = sum(len(p.answered) for p in papers)
     print(
@@ -210,7 +210,8 @@ def batch_generate_mcq_explanations(
             paper.q_texts, paper.answers, paper.answered, paper.exam_key,
             q_images=paper.q_images,
             provider=provider,
-            effort=effort,
+            thinking_tokens=thinking_tokens,
+            max_tokens=max_tokens,
             save_dir=_debug_dir,
             q_pdf_bytes=paper.q_pdf_bytes,
             stream_thinking=stream_thinking,
@@ -277,7 +278,7 @@ def finalize_mcq_explanation_strips(
 
 
 def _load_ai_client() -> tuple[Any, str, str, str | None] | None:
-    """Load LLM client from environment; return (client, model, provider, effort) or None."""
+    """Load LLM client from environment; return 5-tuple from make_ai_client or None."""
     if not _AI_CLIENT_AVAILABLE or make_ai_client is None:
         print("  MCQ explanations: ai_client module unavailable.")
         return None

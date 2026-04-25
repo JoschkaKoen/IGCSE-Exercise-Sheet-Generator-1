@@ -15,12 +15,10 @@ _PROMPT = (
 )
 
 
-def _read_model_config() -> tuple[str, str | None]:
+def _read_model_config() -> tuple[str, int | None, int | None]:
+    from eXercise.ai_client import parse_model_spec
     raw = os.getenv("READ_STUDENT_LIST_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash"))
-    if "," in raw:
-        model, effort = raw.split(",", 1)
-        return model.strip(), effort.strip() or None
-    return raw.strip(), None
+    return parse_model_spec(raw)
 
 
 _SHEET_KEYWORDS = ["student list", "student", "roster", "class list", "participants", "names"]
@@ -80,33 +78,25 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
     target = preferred[0] if preferred else candidates[0]
     ext = target.suffix.lower()
 
-    model_name, effort = _read_model_config()
+    model_name, thinking_tokens, max_tokens = _read_model_config()
 
     try:
         from google.genai import types as gai_types
     except ImportError:
         raise RuntimeError("google-genai not installed; run: pip install google-genai")
 
-    from eXercise.ai_client import make_gemini_native_client
+    from eXercise.ai_client import build_gemini_thinking_config, make_gemini_native_client
     client = make_gemini_native_client()
     if client is None:
         raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
 
-    thinking_map = {"off": 0, "low": 1024, "high": 8192}
-    thinking_cfg = None
-    if effort in thinking_map:
-        thinking_cfg = gai_types.ThinkingConfig(
-            thinking_budget=thinking_map[effort],
-            include_thoughts=False,
-        )
-
     gen_config_kwargs: dict = {
-        "max_output_tokens": 2048,
+        "max_output_tokens": max_tokens or 2048,
         "response_mime_type": "application/json",
         "response_schema": list[str],
     }
-    if thinking_cfg:
-        gen_config_kwargs["thinking_config"] = thinking_cfg
+    if thinking_tokens is not None:
+        gen_config_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
     gen_config = gai_types.GenerateContentConfig(**gen_config_kwargs)
 
     _prompt_user_text = ""

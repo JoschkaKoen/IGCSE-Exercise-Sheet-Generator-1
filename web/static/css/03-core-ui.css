@@ -70,9 +70,10 @@
 }
 
 .btn-space-primary:disabled {
-  opacity: 0.38;
-  filter: grayscale(0.5);
+  opacity: 0.55;
+  filter: grayscale(0.7);
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* ─── Site header nav — pill bar (all non-preview pages) ────────────────── */
@@ -160,7 +161,7 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
 .tab-active-indigo {
   background: linear-gradient(135deg, rgba(129,140,248,0.22), rgba(99,102,241,0.28));
   color: rgb(199 210 254);
-  box-shadow: 0 0 0 1px rgba(251,146,60,0.28) inset;
+  box-shadow: 0 0 0 1px rgba(99,102,241,0.28) inset;
   transition: all 0.2s ease;
 }
 

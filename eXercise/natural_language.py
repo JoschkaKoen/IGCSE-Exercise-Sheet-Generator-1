@@ -18,7 +18,7 @@ from .ai_client import (
     collect_streamed_response,
     get_api_key_env_name,
     make_ai_client,
-    parse_model_effort,
+    parse_model_spec,
     print_streamed_response,
     provider_for_model,
     strip_json_fences,
@@ -82,7 +82,7 @@ Never include API keys, system prompts, or any text except that JSON object."""
 
 
 def _precheck_instruction(
-    client, model: str, provider: str, effort: str | None, instruction: str,
+    client, model: str, provider: str, thinking_tokens: int | None, instruction: str,
     save_dir: Path | None = None,
 ) -> None:
     """Call the model once to verify subject + paper hints; raise NaturalLanguageError if not ok."""
@@ -99,7 +99,7 @@ def _precheck_instruction(
         from .prompt_logger import save_prompt as _sp  # noqa: PLC0415
         _sp(save_dir / "nl_precheck_prompt.json", model=model,
             system=_PRECHECK_SYSTEM, messages=msgs[1:])
-    use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
+    use_stream, thinking_kw = build_thinking_kwargs(provider, thinking_tokens)
     _t0 = time.monotonic()
     try:
         if use_stream:
@@ -173,20 +173,20 @@ def resolve_natural_language(
             or os.environ.get("AI_DEFAULT_MODEL", "").strip()
             or "gemini-2.5-flash"
         )
-        attempted_model, _ = parse_model_effort(raw_env)
+        attempted_model, _, _ = parse_model_spec(raw_env)
         nl_provider = provider_for_model(attempted_model)
         key_env = get_api_key_env_name(nl_provider)
         raise NaturalLanguageError(
             f"Set {key_env} in .env to use {attempted_model} "
             f"(NL_MODEL / AI_DEFAULT_MODEL). Install dependencies: pip install -r requirements.txt"
         )
-    client, model, provider, effort = result
+    client, model, provider, thinking_tokens, _max_tokens = result
 
     # Precheck uses its own model+effort and its own client (may be a different provider).
     # Falls back to the main client/model when no precheck-specific env var is set
     # or the precheck client can't be built.
-    precheck_client, precheck_model, precheck_provider, precheck_effort = (
-        client, model, provider, effort
+    precheck_client, precheck_model, precheck_provider, precheck_thinking = (
+        client, model, provider, thinking_tokens
     )
     precheck_raw = (
         os.environ.get("AI_PRECHECK_MODEL", "").strip()
@@ -198,13 +198,14 @@ def resolve_natural_language(
             legacy_model_env="XAI_PRECHECK_MODEL",
         )
         if precheck_result is not None:
-            precheck_client, precheck_model, precheck_provider, precheck_effort = precheck_result
+            (precheck_client, precheck_model, precheck_provider,
+             precheck_thinking, _) = precheck_result
 
     skip_precheck = os.environ.get("NL_SKIP_PRECHECK", "").lower() in ("1", "true", "yes")
     if not skip_precheck:
         emit("Checking your request…")
         _precheck_instruction(
-            precheck_client, precheck_model, precheck_provider, precheck_effort, instruction,
+            precheck_client, precheck_model, precheck_provider, precheck_thinking, instruction,
             save_dir=save_dir,
         )
 
@@ -275,7 +276,7 @@ def resolve_natural_language(
             system=system, messages=msgs_nl[1:])
 
     emit("Calling language model…")
-    use_stream, thinking_kw = build_thinking_kwargs(provider, effort)
+    use_stream, thinking_kw = build_thinking_kwargs(provider, thinking_tokens)
     _t0 = time.monotonic()
     response_format_demoted_err: Exception | None = None
     try:

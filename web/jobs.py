@@ -48,6 +48,7 @@ class JobRecord:
     ranking_status: JobStatus = JobStatus.PENDING
     ranking_log_line: str = ""
     log_line: str = ""
+    log_lines: list[str] = field(default_factory=list)
     overview: dict[str, Any] | None = None
     steps: list[StepRecord] = field(default_factory=list)
     created_at: datetime.datetime = field(default_factory=datetime.datetime.now)
@@ -78,7 +79,11 @@ class JobStore:
         """Return a snapshot of the job record (not the live mutable object)."""
         with self._lock:
             j = self._jobs.get(job_id)
-            return dataclasses.replace(j) if j is not None else None
+            if j is None:
+                return None
+            # dataclasses.replace is shallow — copy log_lines so callers don't
+            # walk a list being appended to from the worker thread.
+            return dataclasses.replace(j, log_lines=list(j.log_lines))
 
     def set_status(self, job_id: str, status: JobStatus) -> None:
         with self._lock:
@@ -91,6 +96,25 @@ class JobStore:
             j = self._jobs.get(job_id)
             if j:
                 j.log_line = line[:800] if line else ""
+
+    _LOG_LINES_SOFT_CAP = 5000
+
+    def append_log_line(self, job_id: str, line: str) -> None:
+        """Append a captured stdout line to the job's scrollback buffer.
+
+        Soft-caps at ``_LOG_LINES_SOFT_CAP`` entries (drops oldest) so a runaway
+        producer can't blow up memory.
+        """
+        if not line:
+            return
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if not j:
+                return
+            j.log_lines.append(line[:2000])
+            overflow = len(j.log_lines) - self._LOG_LINES_SOFT_CAP
+            if overflow > 0:
+                del j.log_lines[:overflow]
 
     def set_ranking_log_line(self, job_id: str, line: str) -> None:
         with self._lock:

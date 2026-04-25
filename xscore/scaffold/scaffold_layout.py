@@ -16,7 +16,9 @@ from xscore.scaffold.scaffold_prompts import (
 
 
 def _detect_layout(
-    client, exam_pdf: Path, model: str, effort: "str | None" = None
+    client, exam_pdf: Path, model: str,
+    thinking_tokens: int | None = None,
+    max_tokens: int | None = None,
 ) -> tuple["_LayoutDetectSchema", float, "str | None", "str | None"]:
     """Cheap layout detection: render first page as JPEG, ask Gemini for rows/cols/order.
 
@@ -26,6 +28,7 @@ def _detect_layout(
     may still be set if the API succeeded but JSON parsing failed.
     """
     from google.genai import types as gai_types
+    from eXercise.ai_client import build_gemini_thinking_config
     import fitz
 
     with fitz.open(str(exam_pdf)) as doc:
@@ -33,17 +36,13 @@ def _detect_layout(
     img_bytes = pix.tobytes("jpeg")
 
     from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
-    _thinking_map = {"off": 0, "low": 1024, "high": 8192}
     cfg_kwargs: dict = {
-        "max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS,
+        "max_output_tokens": max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
         "response_mime_type": "application/json",
         "response_json_schema": _LAYOUT_DETECT_JSON_SCHEMA,
     }
-    if effort in _thinking_map:
-        cfg_kwargs["thinking_config"] = gai_types.ThinkingConfig(
-            thinking_budget=_thinking_map[effort],
-            include_thoughts=False,
-        )
+    if thinking_tokens is not None:
+        cfg_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
     cfg = gai_types.GenerateContentConfig(system_instruction=_SYSTEM_LAYOUT, **cfg_kwargs)
 
     from xscore.shared.terminal_ui import warn_line

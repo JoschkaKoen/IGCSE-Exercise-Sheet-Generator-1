@@ -25,12 +25,10 @@ _PATH_RE = re.compile(
 _DEFAULT_MODEL = "gemini-2.5-flash"  # also set as INTERPRET_PROMPT_MODEL in default.env
 
 
-def _read_model_config() -> tuple[str, str | None]:
+def _read_model_config() -> tuple[str, int | None, int | None]:
+    from eXercise.ai_client import parse_model_spec
     raw = os.getenv("INTERPRET_PROMPT_MODEL") or os.getenv("AI_DEFAULT_MODEL") or _DEFAULT_MODEL
-    if "," in raw:
-        model, effort = raw.split(",", 1)
-        return model.strip(), effort.strip() or None
-    return raw.strip(), None
+    return parse_model_spec(raw)
 
 
 def _call_gemini_text(user_message: str) -> str:
@@ -40,20 +38,19 @@ def _call_gemini_text(user_message: str) -> str:
     except ImportError:
         raise RuntimeError("google-genai not installed; run: pip install google-genai")
 
-    from eXercise.ai_client import make_gemini_native_client
+    from eXercise.ai_client import build_gemini_thinking_config, make_gemini_native_client
     client = make_gemini_native_client()
     if client is None:
         raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
 
-    model_name, effort = _read_model_config()
+    model_name, thinking_tokens, max_tokens = _read_model_config()
 
-    thinking_map = {"off": 0, "low": 1024, "high": 8192}
-    gen_config_kwargs: dict = {"max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS, "response_mime_type": "application/json"}
-    if effort in thinking_map:
-        gen_config_kwargs["thinking_config"] = gai_types.ThinkingConfig(
-            thinking_budget=thinking_map[effort],
-            include_thoughts=False,
-        )
+    gen_config_kwargs: dict = {
+        "max_output_tokens": max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
+        "response_mime_type": "application/json",
+    }
+    if thinking_tokens is not None:
+        gen_config_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
 
     _t0 = time.perf_counter()
     response = client.models.generate_content(

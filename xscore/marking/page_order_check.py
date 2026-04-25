@@ -100,7 +100,11 @@ def check_page_order(
     """Validate page order and content for all students. Raises SystemExit(1) on mismatch."""
     import os
     from xscore.shared.terminal_ui import info_line, ok_line, warn_line
-    from eXercise.ai_client import parse_model_effort
+    from eXercise.ai_client import (
+        build_gemini_thinking_config,
+        make_gemini_native_client,
+        parse_model_spec,
+    )
     from xscore.shared.prompt_logger import save_prompt, save_response
     from xscore.shared.exam_paths import (
         artifact_page_order_empty_exam_txt_path,
@@ -108,12 +112,11 @@ def check_page_order(
         artifact_page_order_txt_path,
     )
     from google.genai import types as gai_types
-    from eXercise.ai_client import make_gemini_native_client
     _gai = make_gemini_native_client()
     if _gai is None:
         warn_line("GEMINI_API_KEY not set — page order check skipped")
         return
-    model_id, _effort = parse_model_effort(
+    model_id, _thinking, _max_tok = parse_model_spec(
         os.environ.get("PAGE_ORDER_CHECK_MODEL", "gemini-2.5-flash-lite")
     )
 
@@ -158,14 +161,17 @@ def check_page_order(
 
     import time as _time
     t0 = _time.perf_counter()
+    _cfg_kwargs: dict = {
+        "max_output_tokens": _max_tok or 2048,
+        "response_mime_type": "application/json",
+        "response_schema": _PageOrderResult,
+    }
+    if _thinking is not None:
+        _cfg_kwargs["thinking_config"] = build_gemini_thinking_config(_thinking)
     resp = _gai.models.generate_content(
         model=model_id,
         contents=[gai_types.Part.from_text(text=prompt)],
-        config=gai_types.GenerateContentConfig(
-            max_output_tokens=2048,
-            response_mime_type="application/json",
-            response_schema=_PageOrderResult,
-        ),
+        config=gai_types.GenerateContentConfig(**_cfg_kwargs),
     )
     dur = round(_time.perf_counter() - t0, 1)
     raw = resp.text or ""

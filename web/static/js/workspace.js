@@ -565,10 +565,41 @@ if (promptEl && form) {
   });
 }
 
+// ─── Prompt char counter (fades in past 50% of maxlength) ────────────────────
+(function () {
+  if (!promptEl) return;
+  const counter = document.getElementById('prompt-char-counter');
+  if (!counter) return;
+  const max = parseInt(promptEl.getAttribute('maxlength') || '12000', 10);
+  const showAt = Math.floor(max * 0.5);
+  const amberAt = Math.floor(max * 0.9);
+  const colorClasses = ['text-slate-400/70', 'text-amber-300/85', 'text-red-400'];
+  function setColor(cls) {
+    colorClasses.forEach(function (c) { counter.classList.remove(c); });
+    counter.classList.add(cls);
+  }
+  function update() {
+    const n = promptEl.value.length;
+    counter.textContent = n.toLocaleString() + ' / ' + max.toLocaleString();
+    counter.classList.toggle('opacity-0', n < showAt);
+    if (n >= max) setColor('text-red-400');
+    else if (n >= amberAt) setColor('text-amber-300/85');
+    else setColor('text-slate-400/70');
+  }
+  promptEl.addEventListener('input', update);
+  update();
+}());
+
 document.querySelectorAll('.quick-fill').forEach(function (btn) {
   btn.addEventListener('click', function () {
     promptEl.value = btn.getAttribute('data-prompt');
     promptEl.focus();
+    btn.classList.remove('quick-fill-just-clicked');
+    void btn.offsetWidth; // restart animation if class re-added immediately
+    btn.classList.add('quick-fill-just-clicked');
+    setTimeout(function () {
+      btn.classList.remove('quick-fill-just-clicked');
+    }, 400);
   });
 });
 

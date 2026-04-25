@@ -81,7 +81,7 @@ def step15_detect_layout(
     ``exam_layout.{xml,md}`` (the latter without cut info; step 16 re-saves
     with actual ``n_physical_pages`` / ``n_split_pages``).
     """
-    layout_model, layout_effort = _layout_detect_model_config()
+    layout_model, layout_thinking, layout_max_tokens = _layout_detect_model_config()
 
     if artifact_dir is not None:
         save_prompt(
@@ -91,7 +91,8 @@ def step15_detect_layout(
         )
 
     layout_result, layout_elapsed, layout_raw_text, layout_error = _detect_layout(
-        client, exam_pdf, layout_model, layout_effort
+        client, exam_pdf, layout_model,
+        thinking_tokens=layout_thinking, max_tokens=layout_max_tokens,
     )
 
     if artifact_dir is not None and layout_raw_text is not None:
@@ -211,12 +212,13 @@ def step17_parse_exam_pdf(
     """
     if fmt is None:
         fmt = get_scaffold_format()
-    exam_model, exam_effort = _exam_pdf_model_config()
+    exam_model, exam_thinking, exam_max_tokens = _exam_pdf_model_config()
 
     raw_questions, raw_layout = _do_exam_call(
         client,
         exam_model,
-        exam_effort,
+        exam_thinking,
+        exam_max_tokens,
         actual_exam_pdf=actual_exam_pdf,
         layout_result=layout_result,
         split_pdf_path=split_pdf_path,
@@ -301,14 +303,15 @@ def step19_parse_mark_scheme(
     if marking_scheme_pdf is None:
         return {"questions": []}
 
-    scheme_model, scheme_effort = _mark_scheme_model_config()
+    scheme_model, scheme_thinking, scheme_max_tokens = _mark_scheme_model_config()
     scaffold_str = fmt.build_scheme_scaffold(raw_questions)
 
     try:
         return parse_mark_scheme_pages(
             client,
             scheme_model,
-            scheme_effort,
+            scheme_thinking,
+            scheme_max_tokens,
             marking_scheme_pdf=marking_scheme_pdf,
             scaffold_str=scaffold_str,
             graphics_by_qnum=graphics_by_qnum,

@@ -31,9 +31,13 @@ def find_blank_exam_pages(
     gai_client,
     model_id: str,
     artifact_dir: Path | None,
+    *,
+    thinking_tokens: int | None = None,
+    max_tokens: int | None = None,
 ) -> set[int]:
     """One LLM text call to identify blank exam pages. Returns set of 1-based page numbers."""
     from google.genai import types as gai_types
+    from eXercise.ai_client import build_gemini_thinking_config
     from xscore.shared.prompt_logger import save_prompt, save_response
     from xscore.shared.exam_paths import artifact_blank_detection_txt_path, artifact_blank_pages_prompt_path
 
@@ -64,14 +68,17 @@ def find_blank_exam_pages(
     save_path = artifact_blank_pages_prompt_path(artifact_dir, "blank_detection_exam") if artifact_dir else None
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
 
+    _cfg_kwargs: dict = {
+        "max_output_tokens": max_tokens or 256,
+        "response_mime_type": "application/json",
+        "response_schema": list[int],
+    }
+    if thinking_tokens is not None:
+        _cfg_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
     resp = gai_client.models.generate_content(
         model=model_id,
         contents=[gai_types.Part.from_text(text=prompt)],
-        config=gai_types.GenerateContentConfig(
-            max_output_tokens=256,
-            response_mime_type="application/json",
-            response_schema=list[int],
-        ),
+        config=gai_types.GenerateContentConfig(**_cfg_kwargs),
     )
     raw = resp.text or ""
     save_response(save_path, raw)
@@ -139,7 +146,7 @@ def check_blank_pages(
     is needed.  When False/None (empty exam has no cover), the scan cover page shifts
     all answer pages by +1 relative to the empty exam page numbers.
     """
-    from eXercise.ai_client import make_gemini_native_client, parse_model_effort
+    from eXercise.ai_client import make_gemini_native_client, parse_model_spec
     from xscore.shared.exam_paths import (
         artifact_blank_detection_txt_path,
         artifact_blank_pages_dir,
@@ -152,7 +159,7 @@ def check_blank_pages(
     if gai_client is None:
         warn_line("GEMINI_API_KEY not set — blank page detection skipped")
         return
-    model_id, _effort = parse_model_effort(
+    model_id, _thinking, _max_tok = parse_model_spec(
         os.environ.get("BLANK_PAGE_DETECTION_MODEL", "gemini-2.5-flash-lite")
     )
 
@@ -160,7 +167,10 @@ def check_blank_pages(
     import time as _time
     exam_texts = _exam_page_texts(exam_pdf)
     t0 = _time.perf_counter()
-    blank_exam_pages = find_blank_exam_pages(exam_texts, gai_client, model_id, artifact_dir)
+    blank_exam_pages = find_blank_exam_pages(
+        exam_texts, gai_client, model_id, artifact_dir,
+        thinking_tokens=_thinking, max_tokens=_max_tok,
+    )
     detect_dur = round(_time.perf_counter() - t0, 1)
 
     empty_artifact = {"blank_exam_pages": [], "students": []}

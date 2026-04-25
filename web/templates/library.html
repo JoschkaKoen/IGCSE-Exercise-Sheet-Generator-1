@@ -83,6 +83,8 @@
     {% endfor %}
   </div>
   {% endfor %}
+  <p class="lib-empty-search hidden rounded-2xl border border-dashed border-white/10 py-16 text-center text-sm text-slate-500"
+     role="status" aria-live="polite"></p>
   {% endif %}
 </div>
 {% endmacro %}
@@ -307,6 +309,19 @@ function filterCards() {
     });
     yg.classList.toggle('hidden', !any);
   });
+  // Empty-search state: show only when a non-empty query yields zero visible cards.
+  var emptyEl = grid.querySelector('.lib-empty-search');
+  if (emptyEl) {
+    var anyVisible = Array.prototype.some.call(grid.querySelectorAll('article.lib-card'), function (c) {
+      return !c.classList.contains('hidden');
+    });
+    if (raw.length > 0 && !anyVisible) {
+      emptyEl.textContent = 'No papers match \u201c' + (search.value || '').trim() + '\u201d. Try fewer words.';
+      emptyEl.classList.remove('hidden');
+    } else {
+      emptyEl.classList.add('hidden');
+    }
+  }
 }
 
 // ── Deferred subject grid builder ─────────────────────────────────────────
@@ -384,6 +399,12 @@ function buildSubjectGrid(tab) {
     frag.appendChild(yg);
   });
   tab.grid.appendChild(frag);
+  // Empty-search state node (mirrors the macro's server-rendered <p>)
+  var emptyEl = document.createElement('p');
+  emptyEl.className = 'lib-empty-search hidden rounded-2xl border border-dashed border-white/10 py-16 text-center text-sm text-slate-500';
+  emptyEl.setAttribute('role', 'status');
+  emptyEl.setAttribute('aria-live', 'polite');
+  tab.grid.appendChild(emptyEl);
   // Attach click listeners to newly built cards (mirrors the physics server-rendered listener)
   tab.grid.querySelectorAll('article.lib-card').forEach(function (card) {
     card.addEventListener('click', function (e) {

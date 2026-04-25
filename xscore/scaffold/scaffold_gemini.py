@@ -13,7 +13,12 @@ from pathlib import Path
 
 from google.genai import types as gai_types
 
-from eXercise.ai_client import build_thinking_kwargs, collect_streamed_response, make_ai_client
+from eXercise.ai_client import (
+    build_gemini_thinking_config,
+    build_thinking_kwargs,
+    collect_streamed_response,
+    make_ai_client,
+)
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.scaffold.scaffold_prompts import (
     _SCHEME_GRAPHICS_JSON_SCHEMA,
@@ -41,9 +46,6 @@ from xscore.shared.terminal_ui import (
     ok_line,
     warn_line,
 )
-
-
-_THINKING_MAP = {"off": 0, "low": 1024, "high": 8192}
 
 
 # ---------------------------------------------------------------------------
@@ -100,22 +102,20 @@ def _finish_reason(resp) -> str:
 # ---------------------------------------------------------------------------
 
 def _make_gen_config(
-    effort: str | None, system: str,
+    thinking_tokens: int | None, system: str,
     schema: dict | None = None,
     pydantic_schema=None,
+    max_tokens: int | None = None,
 ) -> "gai_types.GenerateContentConfig":
-    cfg: dict = {"max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS}
+    cfg: dict = {"max_output_tokens": max_tokens or GEMINI_MAX_OUTPUT_TOKENS}
     if pydantic_schema is not None:
         cfg["response_mime_type"] = "application/json"
         cfg["response_schema"] = pydantic_schema
     elif schema is not None:
         cfg["response_mime_type"] = "application/json"
         cfg["response_json_schema"] = schema
-    if effort in _THINKING_MAP:
-        cfg["thinking_config"] = gai_types.ThinkingConfig(
-            thinking_budget=_THINKING_MAP[effort],
-            include_thoughts=False,
-        )
+    if thinking_tokens is not None:
+        cfg["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
     return gai_types.GenerateContentConfig(system_instruction=system, **cfg)
 
 
@@ -126,7 +126,8 @@ def _make_gen_config(
 def _do_exam_call(
     client,
     exam_model: str,
-    exam_effort: str | None,
+    exam_thinking: int | None,
+    exam_max_tokens: int | None,
     *,
     actual_exam_pdf: Path,
     layout_result,
@@ -148,8 +149,8 @@ def _do_exam_call(
         _oa_result = make_ai_client(model_env="READ_EXAM_PDF_MODEL")
         if _oa_result is None:
             raise RuntimeError(f"No API key set for exam model {exam_model!r}")
-        _oa_client, _, _oa_provider, _ = _oa_result
-        _oa_use_stream, _oa_thinking_kw = build_thinking_kwargs(_oa_provider, exam_effort or "off")
+        _oa_client, _, _oa_provider, _, _ = _oa_result
+        _oa_use_stream, _oa_thinking_kw = build_thinking_kwargs(_oa_provider, exam_thinking)
 
     # Gemini: upload PDF.  Qwen: rasterize all pages to PNG (300 DPI by default).
     exam_file = None
@@ -194,7 +195,11 @@ def _do_exam_call(
                     gai_types.Part.from_uri(file_uri=exam_file.uri, mime_type="application/pdf"),
                     gai_types.Part.from_text(text=user_exam),
                 ],
-                config=_make_gen_config(exam_effort, fmt.system_exam_prompt(), pydantic_schema=fmt.pydantic_schema_exam()),
+                config=_make_gen_config(
+                    exam_thinking, fmt.system_exam_prompt(),
+                    pydantic_schema=fmt.pydantic_schema_exam(),
+                    max_tokens=exam_max_tokens,
+                ),
             )
             raw = _extract_text(resp)
         api_latency_line(time.perf_counter() - _t0, label=label)
@@ -347,8 +352,8 @@ def detect_scheme_graphics(
     _all_qnums = fmt.extract_question_numbers(scaffold_str)
     _qnum_hint = ", ".join(f'"{n}"' for n in _all_qnums)
 
-    _det_client, _det_model, _det_provider, _ = _gfx_client_result
-    _, _det_thinking_kw = build_thinking_kwargs(_det_provider, "off")
+    _det_client, _det_model, _det_provider, _det_thinking, _ = _gfx_client_result
+    _, _det_thinking_kw = build_thinking_kwargs(_det_provider, _det_thinking)
     info_line(f"Detecting graphics ({_det_model}) …")
 
     def _detect_graphics_page(page_num: int) -> dict:
@@ -464,7 +469,8 @@ def detect_scheme_graphics(
 def parse_mark_scheme_pages(
     client,
     scheme_model: str,
-    scheme_effort: str | None,
+    scheme_thinking: int | None,
+    scheme_max_tokens: int | None,
     *,
     marking_scheme_pdf: Path,
     scaffold_str: str,
@@ -506,8 +512,8 @@ def parse_mark_scheme_pages(
         _oa_result = make_ai_client(model_env="READ_MARK_SCHEME_MODEL")
         if _oa_result is None:
             raise RuntimeError(f"No API key set for mark scheme model {scheme_model!r}")
-        _oa_client, _, _oa_provider, _ = _oa_result
-        _oa_use_stream, _oa_thinking_kw = build_thinking_kwargs(_oa_provider, scheme_effort or "off")
+        _oa_client, _, _oa_provider, _, _ = _oa_result
+        _oa_use_stream, _oa_thinking_kw = build_thinking_kwargs(_oa_provider, scheme_thinking)
         page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
 
     page_uris: dict[int, str] = {}
@@ -562,8 +568,9 @@ def parse_mark_scheme_pages(
                         gai_types.Part.from_text(text=user_msg),
                     ],
                     config=_make_gen_config(
-                        scheme_effort, fmt.system_scheme_prompt(),
+                        scheme_thinking, fmt.system_scheme_prompt(),
                         pydantic_schema=fmt.pydantic_schema_scheme(),
+                        max_tokens=scheme_max_tokens,
                     ),
                 )
                 ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")

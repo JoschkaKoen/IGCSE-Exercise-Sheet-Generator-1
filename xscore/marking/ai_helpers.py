@@ -8,8 +8,8 @@ from typing import Any, Protocol, runtime_checkable
 
 from pathlib import Path
 
-from eXercise.ai_client import is_503_error
-from xscore.config import NAME_JPEG_QUALITY, apply_model_extras, resolve_pipeline_ai_model_id
+from eXercise.ai_client import build_thinking_kwargs, is_503_error
+from xscore.config import NAME_JPEG_QUALITY
 from xscore.extraction.images import to_jpeg_bytes
 from xscore.shared.prompt_logger import save_prompt, save_response
 from xscore.shared.response_parsing import parse_json_safe  # noqa: F401 — re-exported for callers
@@ -38,20 +38,22 @@ def ai_image_call(
     *,
     max_tokens: int = 128,
     response_format: Any = _USE_DEFAULT_JSON_OBJECT,
-    model_id: str | None = None,
+    model_id: str,
+    provider: str | None = None,
+    thinking_tokens: int | None = None,
     prompt_save_path: Path | None = None,
     print_latency: bool = True,
 ) -> str:
-    """Vision call with retries. Uses :func:`resolve_pipeline_ai_model_id`.
+    """Non-streaming vision call with retries.
 
-    Pass *model_id* to override the global ``PIPELINE_AI_MODEL`` for this call
-    (used by name-detection to honour ``NAME_DETECTION_MODEL`` independently).
+    *thinking_tokens* must be 0 (or None) for non-Grok providers — this helper
+    cannot consume streaming responses. Pass non-zero thinking and the call
+    raises a ``RuntimeError`` naming the env var to fix.
 
     Retries once on 503 after 0.1 s; all other errors fail immediately.
     """
-    model = model_id if model_id is not None else resolve_pipeline_ai_model_id()
     create_kwargs: dict[str, Any] = dict(
-        model=model,
+        model=model_id,
         messages=[
             {
                 "role": "user",
@@ -66,13 +68,22 @@ def ai_image_call(
         ],
         max_tokens=max_tokens,
     )
-    apply_model_extras(model, create_kwargs, thinking=False)
+    if provider is not None:
+        use_stream, thinking_kw = build_thinking_kwargs(provider, thinking_tokens)
+        if use_stream:
+            raise RuntimeError(
+                f"ai_image_call cannot stream — set thinking_tokens=0 for {provider} "
+                f"(got thinking_tokens={thinking_tokens!r}). "
+                f"This helper is non-streaming; the caller must pick a model "
+                f"line whose thinking budget is 0 (e.g. NAME_DETECTION_MODEL=qwen3.6-plus, 0, 64)."
+            )
+        create_kwargs.update(thinking_kw)
     if response_format is _USE_DEFAULT_JSON_OBJECT:
         create_kwargs["response_format"] = {"type": "json_object"}
     elif response_format is not None:
         create_kwargs["response_format"] = response_format
 
-    save_prompt(prompt_save_path, model=model, messages=create_kwargs["messages"])
+    save_prompt(prompt_save_path, model=model_id, messages=create_kwargs["messages"])
 
     for attempt in range(2):  # initial attempt + 1 retry on 503
         try:
@@ -82,8 +93,8 @@ def ai_image_call(
                 api_latency_line(time.perf_counter() - _t0)
             raw = resp.choices[0].message.content or ""
             if not raw:
-                warn_line(f"[{model}] returned empty content — check thinking/token budget")
-            log_ai_response_debug("ai_image", model, raw)
+                warn_line(f"[{model_id}] returned empty content — check thinking/token budget")
+            log_ai_response_debug("ai_image", model_id, raw)
             save_response(prompt_save_path, raw)
             return raw
         except KeyboardInterrupt:

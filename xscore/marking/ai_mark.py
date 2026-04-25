@@ -125,7 +125,12 @@ def _mark_page_pdf(
     import os
     from google.genai import types as gai_types
     from xscore.shared.prompt_logger import save_response
-    from eXercise.ai_client import make_gemini_native_client, parse_model_effort, is_503_error
+    from eXercise.ai_client import (
+        build_gemini_thinking_config,
+        is_503_error,
+        make_gemini_native_client,
+        parse_model_spec,
+    )
 
     if fmt is None:
         from xscore.marking.formats.xml_format import XmlMarkingFormat
@@ -136,7 +141,10 @@ def _mark_page_pdf(
         raise RuntimeError("GEMINI_API_KEY not set — required for Gemini MARKING_MODEL")
 
     _model_env = os.environ.get("MARKING_MODEL", "")
-    model_id, _effort = parse_model_effort(_model_env) if _model_env else ("gemini-2.5-flash", None)
+    if _model_env:
+        model_id, _thinking, _max_tok = parse_model_spec(_model_env)
+    else:
+        model_id, _thinking, _max_tok = ("gemini-2.5-flash", None, None)
 
     system_prompt = _build_marking_system_prompt(
         blueprint, scheme_graphics, has_continuation=has_continuation, fmt=fmt
@@ -145,17 +153,13 @@ def _mark_page_pdf(
     save_prompt(prompt_save_path, model=model_id, system=system_prompt,
                 messages=[{"role": "user", "content": user_text}])
 
-    _THINKING_MAP = {"off": 0, "low": 1024, "high": 8192}
     cfg: dict = {
         "system_instruction": system_prompt,
-        "max_output_tokens": GEMINI_MAX_OUTPUT_TOKENS,
+        "max_output_tokens": _max_tok or GEMINI_MAX_OUTPUT_TOKENS,
     }
     cfg.update(fmt.api_extra_kwargs(model_id))
-    if _effort in _THINKING_MAP:
-        cfg["thinking_config"] = gai_types.ThinkingConfig(
-            thinking_budget=_THINKING_MAP[_effort],
-            include_thoughts=False,
-        )
+    if _thinking is not None:
+        cfg["thinking_config"] = build_gemini_thinking_config(_thinking)
     config = gai_types.GenerateContentConfig(**cfg)
 
     _last_exc: BaseException = RuntimeError("no attempts made")
@@ -268,8 +272,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             "MARKING_MODEL client could not be created — "
             "check DASHSCOPE_API_KEY / GEMINI_API_KEY in .env"
         )
-    client, model_id, _provider, _effort = result
-    _use_stream, _thinking_kw = build_thinking_kwargs(_provider, _effort)
+    client, model_id, _provider, _thinking, _max_tok = result
+    _use_stream, _thinking_kw = build_thinking_kwargs(_provider, _thinking)
 
     # Resolve the response-cache opt-in once. The user enables it by including
     # "reuse cache" in the natural-language prompt (parsed in step 1, sets
