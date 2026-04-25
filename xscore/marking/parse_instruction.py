@@ -114,7 +114,9 @@ Convert the grading instruction to JSON. Return ONLY the JSON, no explanation.
   "force_clean_scan": false,
   "no_report": false,
   "from_step": null,
-  "reuse_cache": false
+  "reuse_cache": false,
+  "curved_grade_override": null,
+  "curved_grade_visible": null
 }
 
 task_type: count_marks=tally red teacher marks; check_mc=MC only; check_answers=all types.
@@ -126,6 +128,8 @@ force_clean_scan: true=ignore cache, re-clean ("re-clean", "force deskew").
 no_report: true=skip PDF ("terminal only", "no report").
 from_step: integer step number to resume from ("from step 14", "resume from step 13", "rerun from step 15"); null otherwise.
 reuse_cache: true=use cached AI marking responses from previous identical runs ("reuse cache", "use cache", "from cache"); false otherwise. Default false.
+curved_grade_override: integer 0–100 to override the grade-curve target ("curve at 70", "target 75%", "curve to 80"); null if the user did not specify a target.
+curved_grade_visible: false if the user wants the curved percentage hidden from per-student PDFs ("hide curve from students", "don't show curve on student reports", "no curve on student PDFs"); true if the user explicitly asks to show it; null if the user did not mention it.
 """
 
 
@@ -211,6 +215,31 @@ def parse_prompt(
     # ignored or omitted the field.
     reuse_cache = bool(data.get("reuse_cache", instruction.reuse_cache))
 
+    if "curved_grade_override" in data:
+        raw_curve = data.get("curved_grade_override")
+        try:
+            curved_grade_override = (
+                int(raw_curve) if raw_curve not in (None, "") else None
+            )
+        except (TypeError, ValueError):
+            curved_grade_override = None
+        if curved_grade_override is not None and not (0 <= curved_grade_override <= 100):
+            info_line(
+                f"AI returned out-of-range curved_grade_override={curved_grade_override} — ignoring"
+            )
+            curved_grade_override = None
+    else:
+        curved_grade_override = instruction.curved_grade_override
+
+    if "curved_grade_visible" in data:
+        raw_vis = data.get("curved_grade_visible")
+        if raw_vis is None:
+            curved_grade_visible: bool | None = None
+        else:
+            curved_grade_visible = bool(raw_vis)
+    else:
+        curved_grade_visible = instruction.curved_grade_visible
+
     _VALID_TASK_TYPES = {"count_marks", "check_mc", "check_answers"}
     raw_task = data.get("task_type", instruction.task_type)
     if raw_task not in _VALID_TASK_TYPES:
@@ -227,6 +256,8 @@ def parse_prompt(
         no_report=no_report,
         from_step=from_step,
         reuse_cache=reuse_cache,
+        curved_grade_override=curved_grade_override,
+        curved_grade_visible=curved_grade_visible,
     )
 
 
@@ -272,6 +303,27 @@ def _heuristic_fallback(prompt: str, dpi_override: int | None) -> TaskInstructio
         or "cache reuse" in p
     )
 
+    # Grade-curve controls. Both stay None unless the prompt explicitly asks
+    # for an override — None means "fall back to env var" downstream.
+    curved_grade_override: int | None = None
+    cm = re.search(r"\bcurve\s*(?:at|to|of|target|=)?\s*(\d{1,3})\b", p)
+    if cm is None:
+        cm = re.search(r"\btarget\s*(\d{1,3})\b", p)
+    if cm is not None:
+        v = int(cm.group(1))
+        if 0 <= v <= 100:
+            curved_grade_override = v
+
+    curved_grade_visible: bool | None = None
+    if (
+        "hide curve" in p
+        or "no curve on student" in p
+        or "without curve on student" in p
+        or "don't show curve" in p
+        or "do not show curve" in p
+    ):
+        curved_grade_visible = False
+
     return TaskInstruction(
         task_type=task_type,
         student_filter=student_filter,
@@ -281,4 +333,6 @@ def _heuristic_fallback(prompt: str, dpi_override: int | None) -> TaskInstructio
         no_report="no report" in p or "terminal only" in p,
         from_step=from_step,
         reuse_cache=reuse_cache,
+        curved_grade_override=curved_grade_override,
+        curved_grade_visible=curved_grade_visible,
     )

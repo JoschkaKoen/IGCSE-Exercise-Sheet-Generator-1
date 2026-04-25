@@ -138,6 +138,7 @@ def _student_report_to_tex(
     exam_name: str = "",
     orientation: str = "landscape",
     font_size: int = 10,
+    show_curved_grade: bool = True,
 ) -> str:
     name = _latex_escape(report["student_name"])
     total = report["total_marks"]
@@ -177,6 +178,14 @@ def _student_report_to_tex(
     curved_pct = report.get("curved_pct")
     pct_display = "N/A" if pct is None else f"{pct}\\%"
     curved_display = "N/A" if curved_pct is None else f"{curved_pct}\\%"
+    # Header summary: "X% raw, Y% curved" by default, or just "X%" when the
+    # curved grade is hidden (env CURVED_GRADE_VISIBLE=false or prompt
+    # "hide curve from students").
+    summary_text = (
+        f"{pct_display} raw, {curved_display} curved"
+        if show_curved_grade
+        else pct_display
+    )
     # Column widths fill the available text width minus ~2.5 cm of
     # \tabcolsep separator overhead across 6 columns:
     #   landscape A4 (25.7 cm text - 2.5 cm overhead) → ~22.7 cm column budget
@@ -199,8 +208,7 @@ def _student_report_to_tex(
         header_extra=header_extra,
         total=total,
         max_m=max_m,
-        pct_display=pct_display,
-        curved_display=curved_display,
+        summary_text=summary_text,
         date_str=date_str,
         table_open=table_open,
         col_spec=col_spec,
