@@ -463,6 +463,7 @@ def _load_imports() -> types.SimpleNamespace:
         get_console,
         info_line,
         ok_line,
+        pipeline_section,
         pipeline_step,
         warn_line,
     )
@@ -596,6 +597,8 @@ def _scaffold_steps(ctx: _Ctx, imp: types.SimpleNamespace, *, background: bool =
 
     split_pdf_temp_path: Path | None = None
     try:
+        if not background:
+            imp.pipeline_section("Exam & mark scheme parsing")
         # Step 15 — detect layout
         imp.pipeline_step(15, "Detect empty exam layout", subtitle=bg_subtitle)
         layout_result, layout_elapsed, layout_model = imp.step15_detect_layout(
@@ -804,12 +807,13 @@ def _step08_scan_geometry(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     ctx.num_students = ctx.geo["num_students"]
     ctx.pages_per_student = ctx.geo["pages_per_student"]
     if ctx.geo["roster_mismatch"]:
-        imp.info_line(
+        imp.warn_line(
             f"Roster has {ctx.geo['num_students_roster']} students "
             f"but scan implies {ctx.geo['num_students']}"
         )
+    _stu_word = "student" if ctx.num_students == 1 else "students"
     imp.ok_line(
-        f"{ctx.num_students} students  ·  {ctx.pages_per_student} pages each  "
+        f"{ctx.num_students} {_stu_word}  ·  {ctx.pages_per_student} pages each  "
         f"·  {ctx.geo['scan_pages']} scan pages total"
     )
     # Write immediately so downstream steps can read even if later steps raise.
@@ -956,7 +960,8 @@ def _step12_page_count_validation(ctx: _Ctx, imp: types.SimpleNamespace) -> None
         raise SystemExit(1)
     _cover = any(a.cover_page_number is not None for a in ctx.page_assignments)
     n = len(ctx.page_assignments)
-    per_str = f"cover + {ctx.geo['exam_pages']} answer" if _cover else f"{ctx.geo['exam_pages']} pages"
+    _pps = ctx.geo["pages_per_student"]
+    per_str = f"cover + {_pps - 1} answer" if _cover else f"{_pps} pages"
     imp.ok_line(f"Page counts valid  ·  {n} × ({per_str}) = {ctx.geo['scan_pages']} total")
 
 
@@ -1004,6 +1009,7 @@ def _run_geometry_steps(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     _scan_phases(ctx, imp)
     if ctx.stop_after <= 7: raise _EarlyExit()
     if ctx.cleaned_pdf:
+        imp.pipeline_section("Geometry & validation")
         _step08_scan_geometry(ctx, imp)
         if ctx.stop_after <= 8: raise _EarlyExit()
         _step09_cover_detection(ctx, imp)
@@ -1059,7 +1065,7 @@ def _step23_per_student_reports(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     t0 = time.perf_counter()
     imp.step_23_per_student_reports(ctx)
     n = len(ctx.student_summaries or [])
-    imp.ok_line(f"{n} student report(s)")
+    imp.ok_line(f"{n} student report" if n == 1 else f"{n} student reports")
     ctx.step_timings_marking["per_student_reports_s"] = time.perf_counter() - t0
 
 
@@ -1071,8 +1077,13 @@ def _step24_class_stats(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     imp.step_24_class_stats_curve(ctx)
     summaries = ctx.student_summaries or []
     known = [s["percentage"] for s in summaries if s["percentage"] is not None]
-    avg_str = f"{round(sum(known) / len(known), 1)}%" if known else "N/A"
-    imp.ok_line(f"Class avg {avg_str}")
+    if len(known) >= 2:
+        avg_str = f"{round(sum(known) / len(known), 1)}%"
+        imp.ok_line(f"Class avg {avg_str}")
+    elif len(known) == 1:
+        imp.ok_line("Class avg n/a (single student)")
+    else:
+        imp.ok_line("Class avg N/A")
     ctx.step_timings_marking["class_stats_s"] = time.perf_counter() - t0
 
 
@@ -1083,7 +1094,7 @@ def _step25_per_student_pdfs(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     t0 = time.perf_counter()
     imp.step_25_per_student_pdfs(ctx)
     n = len(ctx.student_summaries or [])
-    imp.ok_line(f"{n} PDF(s) compiled")
+    imp.ok_line(f"{n} PDF compiled" if n == 1 else f"{n} PDFs compiled")
     ctx.step_timings_marking["per_student_pdfs_s"] = time.perf_counter() - t0
 
 
@@ -1111,7 +1122,10 @@ def _step28_timing(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     imp.pipeline_step(28, "Timing summary")
     t0 = time.perf_counter()
     ctx.step_timings_marking["timing_s"] = round(time.perf_counter() - t0, 3)
-    imp.print_step_durations(ctx.step_timings_marking, ctx.marking_api_calls)
+    wall_clock_s = time.perf_counter() - ctx.run_started_at if ctx.run_started_at else None
+    imp.print_step_durations(
+        ctx.step_timings_marking, ctx.marking_api_calls, wall_clock_s=wall_clock_s
+    )
     imp.write_timing_report(
         ctx.artifact_dir,
         ctx.step_timings_marking,
@@ -1126,11 +1140,11 @@ def _step29_accuracy(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     assert ctx.artifact_dir is not None
     imp.pipeline_step(29, "Accuracy evaluation")
     if ctx.folder is None:
-        imp.info_line("Skipped (no exam folder)")
+        imp.info_line("Skipped — no exam folder")
         return
     ground_truth = imp.load_ground_truth(ctx.folder, ctx.scaffold)
     if not ground_truth or not ctx.scaffold:
-        imp.info_line("Skipped (no ground truth file present)")
+        imp.info_line("Skipped — no ground truth file")
         return
     student_results = imp.load_student_results_from_reports(ctx.artifact_dir)
     ctx.accuracy_summary = imp.evaluate_results(student_results, ground_truth, ctx.scaffold)
@@ -1179,7 +1193,55 @@ def _step30_ai_costs(ctx: _Ctx, imp: types.SimpleNamespace) -> None:
     imp.artifact_cost_md_path(ctx.artifact_dir).write_text(
         "\n".join(_md_lines) + "\n", encoding="utf-8"
     )
-    imp.info_line(f"Total: ¥{_total_cost:.1f} across {len(_run_usage)} model(s)")
+    _print_cost_table(imp, _breakdown, _payload["total_input_tokens"],
+                      _payload["total_output_tokens"], _total_cost)
+
+
+def _fmt_cost_rmb(x: float) -> str:
+    if 0 < x < 0.005:
+        return "< ¥0.01"
+    return f"¥{x:.2f}"
+
+
+def _print_cost_table(
+    imp: types.SimpleNamespace,
+    breakdown: dict,
+    total_input: int,
+    total_output: int,
+    total_cost: float,
+) -> None:
+    """Print the per-model cost breakdown as an indented Rich table."""
+    if not breakdown:
+        imp.info_line(_fmt_cost_rmb(total_cost) + "  ·  no model usage recorded")
+        return
+    from rich.padding import Padding
+    from rich.table import Table
+    from xscore.shared.terminal_ui import get_console
+
+    imp.info_line("API cost:")
+    table = Table(show_header=True, header_style="dim", box=None, pad_edge=False)
+    table.add_column("Model", style="dim", no_wrap=True)
+    table.add_column("Input",  justify="right", style="dim")
+    table.add_column("Output", justify="right", style="dim")
+    table.add_column("Cost",   justify="right", style="dim")
+    for model, data in sorted(
+        breakdown.items(), key=lambda kv: kv[1]["cost_rmb"], reverse=True
+    ):
+        table.add_row(
+            model,
+            f"{data['input_tokens']:,}",
+            f"{data['output_tokens']:,}",
+            _fmt_cost_rmb(data["cost_rmb"]),
+        )
+    table.add_section()
+    table.add_row(
+        "Total",
+        f"{total_input:,}",
+        f"{total_output:,}",
+        _fmt_cost_rmb(total_cost),
+        style="bold dim",
+    )
+    get_console().print(Padding(table, (0, 0, 0, 4)))
 
 
 # ---------------------------------------------------------------------------
@@ -1196,6 +1258,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
 
     ctx = _Ctx(args=args, timestamp=timestamp)
     t0 = time.perf_counter()
+    ctx.run_started_at = t0
     started_iso = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds")
     early_exit_seen = False
     fatal_exc: BaseException | None = None
@@ -1207,10 +1270,12 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         _run_geometry_steps(ctx, imp)
         if ctx.stop_after <= 20: raise _EarlyExit()
         if ctx.cleaned_pdf and ctx.scaffold:
+            imp.pipeline_section("AI marking")
             _step21_blueprints(ctx, imp)
             if ctx.stop_after <= 21: raise _EarlyExit()
             _step22_mark(ctx, imp)
             if ctx.stop_after <= 22: raise _EarlyExit()
+            imp.pipeline_section("Reports & PDFs")
             _step23_per_student_reports(ctx, imp)
             if ctx.stop_after <= 23: raise _EarlyExit()
             _step24_class_stats(ctx, imp)
@@ -1221,6 +1286,7 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             if ctx.stop_after <= 26: raise _EarlyExit()
             _step27_review_queue(ctx, imp)
             if ctx.stop_after <= 27: raise _EarlyExit()
+            imp.pipeline_section("Summary")
             _step28_timing(ctx, imp)
             if ctx.stop_after <= 28: raise _EarlyExit()
             _step29_accuracy(ctx, imp)
@@ -1228,7 +1294,6 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
             _step30_ai_costs(ctx, imp)
         elif ctx.cleaned_pdf and not ctx.scaffold:
             imp.warn_line("Marking skipped — scaffold not available (steps 21–30 omitted).")
-        imp.ok_line("Pipeline complete.")
         ctx.pipeline_completed_ok = True
         if ctx.cleaned_pdf:
             imp.info_line(f"Cleaned scan: {ctx.cleaned_pdf}")
@@ -1242,11 +1307,10 @@ def _run(args: argparse.Namespace, timestamp: str) -> None:
         raise
     finally:
         elapsed_total = time.perf_counter() - t0
-        t = f"{elapsed_total:.1f}s"
         if ctx.pipeline_completed_ok:
-            imp.info_line(f"Run · {t} · complete")
+            imp.ok_line(f"Pipeline complete  ·  {imp.format_duration(elapsed_total)}")
         else:
-            imp.info_line(f"Run · {t}")
+            imp.info_line(f"Run · {elapsed_total:.1f}s")
         # Write run.json manifest — best-effort, never raises into the user.
         if ctx.pipeline_completed_ok:
             run_status = "ok"

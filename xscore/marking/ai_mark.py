@@ -447,7 +447,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         with _display_lock:
             _student_lines[key] = (
                 f"[dim]  {icon('info')}  Student '{student_name}'"
-                f" · page {p_label}/{_total_pages}[/]"
+                f" · scan page {p_label}/{_total_pages}[/]"
             )
             if _use_live:
                 live.update(_render())
@@ -531,7 +531,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             with _display_lock:
                 _student_lines[key] = (
                     f"[red]  {icon('warn')}  Student '{student_name}'"
-                    f" · page {p_label}/{_total_pages}  ·  FAILED[/]"
+                    f" · scan page {p_label}/{_total_pages}  ·  FAILED[/]"
                 )
                 if _use_live:
                     live.update(_render())
@@ -548,7 +548,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         with _display_lock:
             _student_lines[key] = (
                 f"[green]  {icon('ok')}  Student '{student_name}'"
-                f" · page {p_label}/{_total_pages}  ·  {format_duration(mark_dur)}{_graphic_note}[/]"
+                f" · scan page {p_label}/{_total_pages}  ·  {format_duration(mark_dur)}{_graphic_note}[/]"
             )
             if _use_live:
                 live.update(_render())

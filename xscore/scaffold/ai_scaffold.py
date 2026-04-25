@@ -168,7 +168,7 @@ def step16_cut_exam_pdf(
                 pass
         actual_exam_pdf = split_pdf_temp_path
     else:
-        ok_line("skipped")
+        ok_line("Skipped — 1×1 layout, no splitting needed")
         # In 1×1 mode no split PDF is produced; copy the original so the artifact
         # directory always contains the PDF sent to Gemini.
         if artifact_dir is not None:

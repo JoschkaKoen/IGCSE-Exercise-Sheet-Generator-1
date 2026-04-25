@@ -33,6 +33,7 @@ class _Ctx:
     scaffold: "ExamScaffold | None" = None
     cleaned_pdf: Path | None = None
     pipeline_completed_ok: bool = False
+    run_started_at: float = 0.0  # perf_counter() set in _run; consumed by step 28 wall-clock row
     # Steps 19–23: AI marking pipeline
     num_students: int = 0
     pages_per_student: int = 0

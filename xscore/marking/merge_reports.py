@@ -6,6 +6,7 @@ xelatex is used for compilation; a warning is printed if it is not installed.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import subprocess

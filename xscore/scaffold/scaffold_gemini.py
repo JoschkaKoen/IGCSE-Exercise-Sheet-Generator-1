@@ -157,7 +157,7 @@ def _do_exam_call(
                 pix = _doc[_i].get_pixmap(dpi=_dpi)
                 _exam_page_b64s.append(_base64.b64encode(pix.tobytes("png")).decode())
 
-    def _make_exam_call(label: str) -> str:
+    def _make_exam_call(label: str | None) -> str:
         _t0 = time.perf_counter()
         if _oa_client is not None:
             _content = [
@@ -193,7 +193,7 @@ def _do_exam_call(
         return raw
 
     try:
-        raw_exam = _make_exam_call("exam")
+        raw_exam = _make_exam_call(None)
         if not raw_exam:
             warn_line("Exam API: empty response — retrying once …")
             raw_exam = _make_exam_call("exam retry")

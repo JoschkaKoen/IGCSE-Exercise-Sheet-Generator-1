@@ -9,28 +9,50 @@ import json
 from pathlib import Path
 
 _STEP_LABELS: dict[str, str] = {
-    "assign_pages_s": "Assign pages (step 8)",
-    "blueprints_s":   "Blueprints",
-    "marking_s":      "AI marking",
-    "reports_s":      "Reports",
-    "timing_s":       "Overhead",
+    "assign_pages_s":         "Assign pages (step 8)",
+    "blueprints_s":           "Blueprints",
+    "marking_s":              "AI marking",
+    "reports_s":              "Reports",
+    "per_student_reports_s":  "Per-student reports",
+    "class_stats_s":          "Class statistics",
+    "per_student_pdfs_s":     "Per-student PDFs",
+    "class_report_s":         "Class report",
+    "review_queue_s":         "Review queue",
+    "timing_s":               "Overhead",
 }
 
 
-def print_step_durations(step_durations: dict[str, float], api_calls: list[dict]) -> None:
-    """Print the step-duration table to the terminal (no file I/O)."""
+def print_step_durations(
+    step_durations: dict[str, float],
+    api_calls: list[dict],
+    *,
+    wall_clock_s: float | None = None,
+) -> None:
+    """Print the step-duration table to the terminal (no file I/O).
+
+    The "AI marking subtotal" only sums tracked marking steps. When
+    *wall_clock_s* is provided, an extra "Wall clock" row reports the full
+    pipeline wall time so the user can see what the subtotal omits.
+    """
     from xscore.shared.terminal_ui import format_duration, info_line
     total = sum(step_durations.values())
     _vis_steps = [
         (_STEP_LABELS.get(k, k.replace("_s", "").replace("_", " ").title()), v)
         for k, v in step_durations.items() if v >= 0.5
     ]
-    _lw = max((len(lbl) for lbl, _ in _vis_steps), default=5)
-    _lw = max(_lw, len("Total"))
+    _subtotal_label = "AI marking subtotal"
+    _wall_label = "Wall clock"
+    _lw = max((len(lbl) for lbl, _ in _vis_steps), default=len(_subtotal_label))
+    _lw = max(_lw, len(_subtotal_label), len(_wall_label))
     info_line("Step durations:")
     for _lbl, _val in _vis_steps:
         info_line(f"  {_lbl:<{_lw}}   {format_duration(_val)}")
-    info_line(f"  {'Total':<{_lw}}   {format_duration(total)}  ·  {len(api_calls)} API calls")
+    info_line(
+        f"  {_subtotal_label:<{_lw}}   {format_duration(total)}"
+        f"  ·  {len(api_calls)} API calls"
+    )
+    if wall_clock_s is not None:
+        info_line(f"  {_wall_label:<{_lw}}   {format_duration(wall_clock_s)}")
 
 
 def write_timing_report(

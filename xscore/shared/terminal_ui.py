@@ -11,6 +11,7 @@ import sys
 
 from rich.console import Console
 from rich.progress import ProgressColumn, Task
+from rich.rule import Rule
 from rich.text import Text
 
 # Legacy ANSI constants (some callers still pass these to :func:`paint`)
@@ -198,6 +199,14 @@ def pipeline_step(
     c.print(f"[bold cyan]{label}[/]")
     if subtitle:
         c.print(f"[dim]  {icon('info')}  {subtitle}[/]")
+    sys.stdout.flush()
+
+
+def pipeline_section(title: str) -> None:
+    """Print a left-aligned section divider above a group of pipeline steps."""
+    c = get_console()
+    c.print()
+    c.print(Rule(f"[dim bold]{title}[/]", style="dim", align="left"))
     sys.stdout.flush()
 
 
