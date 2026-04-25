@@ -58,8 +58,15 @@ class _Ctx:
     resume_dir: Path | None = None           # --resume-dir PATH; prior artifact dir to resume from
     student_filter: list[str] | None = None  # --student; restrict marking + reports to these names (lower-case)
     geo: dict[str, Any] = field(default_factory=dict)   # scan geometry from step 8; updated by step 11
-    b64_future: "Future[dict[int, str]] | None" = None  # render_pages_b64 submitted by _kick_off_render_bg
+    b64_future: "Future[dict[int, str]] | None" = None  # render_pages_b64 submitted by kick_off_render_bg
     accuracy_summary: dict[str, Any] | None = None      # set by step 29; read by step 30
+    scan_match: Path | None = None                      # set by step 4 (or scan_phases single-PDF branch),
+                                                        # read by step 5
+    scaffold_state: dict[str, Any] = field(default_factory=dict)
+    # transient store for steps 15–20 shared locals so individual step bodies stay focused.
+    # Holds keys like exam_pdf, answer_pdf, client, fmt, layout_result, layout_elapsed,
+    # layout_model, actual_exam_pdf, split_pdf_temp_path, n_split, raw_questions,
+    # raw_layout, graphics_by_qnum, scheme_data. Cleared by scaffold_phase finally.
     # --- Cross-step state for steps 23–27 (split out of compile_reports) ---
     # Set by step 23 (per-student reports), consumed by 24 (curve), 25 (PDFs), 26 (class), 27 (review).
     student_summaries: list[dict] | None = None

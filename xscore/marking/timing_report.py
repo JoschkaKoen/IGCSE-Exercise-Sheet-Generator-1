@@ -8,17 +8,40 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+# Display labels keyed by the canonical step.name from
+# xscore.shared.pipeline_steps.STEPS — written by run_step into ctx.step_timings.
+# Unmapped keys fall back to a humanised version of the snake_case name.
 _STEP_LABELS: dict[str, str] = {
-    "assign_pages_s":         "Assign pages (step 8)",
-    "blueprints_s":           "Blueprints",
-    "marking_s":              "AI marking",
-    "reports_s":              "Reports",
-    "per_student_reports_s":  "Per-student reports",
-    "class_stats_s":          "Class statistics",
-    "per_student_pdfs_s":     "Per-student PDFs",
-    "class_report_s":         "Class report",
-    "review_queue_s":         "Review queue",
-    "timing_s":               "Overhead",
+    "parse_grading_instructions":  "Parse instructions",
+    "locate_exam_folder":          "Select exam folder",
+    "read_student_list":           "Read student list",
+    "merge_duplex_scan_halves":    "Merge duplex scans",
+    "detect_blank_pages":          "Detect blank pages",
+    "autorotate":                  "Autorotate",
+    "deskew":                      "Deskew",
+    "exam_geometry":               "Scan geometry",
+    "cover_page_empty_exam":       "Cover page (empty exam)",
+    "cover_page_scan":             "Cover page (scan)",
+    "student_names":               "Student names",
+    "page_count_validation":       "Page count validation",
+    "page_order_check":            "Page order",
+    "blank_page_detection":        "Blank pages",
+    "detect_exam_layout":          "Detect exam layout",
+    "cut_exam_pdf":                "Cut exam PDF",
+    "parse_exam_pdf":              "Parse exam PDF",
+    "detect_mark_scheme_graphics": "Mark scheme graphics",
+    "parse_mark_scheme":           "Parse mark scheme",
+    "create_report":               "Create report",
+    "ai_marking_blueprints":       "Blueprints",
+    "ai_marking":                  "AI marking",
+    "per_student_reports":         "Per-student reports",
+    "class_stats_curve":           "Class statistics",
+    "per_student_pdfs":            "Per-student PDFs",
+    "class_report":                "Class report",
+    "review_queue":                "Review queue",
+    "timing_summary":              "Timing summary",
+    "accuracy_evaluation":         "Accuracy evaluation",
+    "ai_costs":                    "AI costs",
 }
 
 
@@ -30,9 +53,10 @@ def print_step_durations(
 ) -> None:
     """Print the step-duration table to the terminal (no file I/O).
 
-    The "AI marking subtotal" only sums tracked marking steps. When
-    *wall_clock_s* is provided, an extra "Wall clock" row reports the full
-    pipeline wall time so the user can see what the subtotal omits.
+    Sums every step's elapsed time captured by ``run_step``. When *wall_clock_s*
+    is provided, an extra "Wall clock" row reports the full pipeline wall time
+    so the user can see how much of it was spent inside step bodies vs.
+    overhead/parallel work.
     """
     from xscore.shared.terminal_ui import format_duration, info_line
     total = sum(step_durations.values())
@@ -40,15 +64,15 @@ def print_step_durations(
         (_STEP_LABELS.get(k, k.replace("_s", "").replace("_", " ").title()), v)
         for k, v in step_durations.items() if v >= 0.5
     ]
-    _subtotal_label = "AI marking subtotal"
+    _total_label = "Total step time"
     _wall_label = "Wall clock"
-    _lw = max((len(lbl) for lbl, _ in _vis_steps), default=len(_subtotal_label))
-    _lw = max(_lw, len(_subtotal_label), len(_wall_label))
+    _lw = max((len(lbl) for lbl, _ in _vis_steps), default=len(_total_label))
+    _lw = max(_lw, len(_total_label), len(_wall_label))
     info_line("Step durations:")
     for _lbl, _val in _vis_steps:
         info_line(f"  {_lbl:<{_lw}}   {format_duration(_val)}")
     info_line(
-        f"  {_subtotal_label:<{_lw}}   {format_duration(total)}"
+        f"  {_total_label:<{_lw}}   {format_duration(total)}"
         f"  ·  {len(api_calls)} API calls"
     )
     if wall_clock_s is not None:
@@ -67,7 +91,9 @@ def write_timing_report(
 ) -> None:
     """Write timing artifacts and print a summary to the terminal.
 
-    *step_durations* keys are semantic names like ``"marking_s"``, ``"reports_s"`` etc.
+    *step_durations* keys are canonical step names from the registry
+    (e.g. ``"ai_marking"``, ``"per_student_reports"``) written by
+    :func:`xscore.shared.pipeline_steps.run_step`.
     *api_calls* is the list returned by :func:`run_ai_marking`.
     *accuracy_summary* is the optional dict from :func:`evaluate_results`.
     *failures* is the list of page-level marking failures set on ctx by :func:`run_ai_marking`.

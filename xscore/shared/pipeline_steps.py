@@ -65,6 +65,17 @@ class Step:
         Globs (relative to ``ctx.artifact_dir``) the step writes — informational
         only; used by the resume-artifact copier and (eventually) by the
         run-log writer to record what the step produced.
+    title:
+        User-facing display string passed to ``pipeline_step``. Falls back to
+        a humanised version of ``name`` if empty.
+    section:
+        If set, ``run_step`` prints ``pipeline_section(section)`` immediately
+        before this step's header — used to mark phase boundaries (geometry,
+        scaffold, marking, reports, summary).
+    bootstrap:
+        If True, this step runs unconditionally regardless of ``ctx.from_step``.
+        Steps 1 and 2 carry this flag so resume can bootstrap ``ctx.instruction``,
+        ``ctx.folder``, ``ctx.artifact_dir`` before later steps short-circuit.
     """
 
     number: int
@@ -72,6 +83,9 @@ class Step:
     fn: Callable[["_Ctx"], None] = _unmigrated
     resumable: bool = False
     writes: tuple[str, ...] = field(default_factory=tuple)
+    title: str = ""
+    section: str | None = None
+    bootstrap: bool = False
 
 
 # ---------------------------------------------------------------------------
@@ -85,43 +99,73 @@ class Step:
 # folders today; they're transparent operations on the scan PDF).
 
 STEPS: tuple[Step, ...] = (
-    Step(1,  "parse_grading_instructions", writes=("01_parse_grading_instructions/*",)),
-    Step(2,  "locate_exam_folder"),
-    Step(3,  "read_student_list",          writes=("03_read_student_list/*",)),
-    Step(4,  "merge_duplex_scan_halves"),
-    Step(5,  "detect_blank_pages",         writes=("05_detect_blank_pages/*",)),
-    Step(6,  "autorotate",                 writes=("06_autorotate/*",)),
-    Step(7,  "deskew",                     writes=("07_deskew/*",)),
-    Step(8,  "exam_geometry",              writes=("08_exam_geometry/*",)),
-    Step(9,  "cover_page_empty_exam",      writes=("09_cover_page/*",)),
-    Step(10, "cover_page_scan",            writes=("10_cover_page_scan/*",)),
-    Step(11, "student_names",              writes=("11_student_names/*",)),
-    Step(12, "page_count_validation"),
-    Step(13, "page_order_check",           writes=("13_page_order/*",)),
-    Step(14, "blank_page_detection",       writes=("14_blank_pages/*",)),
-    Step(15, "detect_exam_layout",         writes=("15_detect_exam_layout/*",)),
-    Step(16, "cut_exam_pdf",               writes=("16_cut_exam/*",)),
-    Step(17, "parse_exam_pdf",             writes=("17_parse_exam_pdf/*",)),
-    Step(18, "detect_mark_scheme_graphics",writes=("18_detect_mark_scheme_graphics/*",)),
-    Step(19, "parse_mark_scheme",          writes=("19_parse_mark_scheme/*",)),
-    Step(20, "create_report",              writes=("20_create_report/*",)),
+    Step(1,  "parse_grading_instructions", writes=("01_parse_grading_instructions/*",),
+         title="AI API call — Parse grading instructions", bootstrap=True),
+    Step(2,  "locate_exam_folder",
+         title="Select exam folder", bootstrap=True),
+    Step(3,  "read_student_list",          writes=("03_read_student_list/*",),
+         title="Read student list"),
+    Step(4,  "merge_duplex_scan_halves",
+         title="Merge duplex scans"),
+    Step(5,  "detect_blank_pages",         writes=("05_detect_blank_pages/*",),
+         title="Detect blank pages"),
+    Step(6,  "autorotate",                 writes=("06_autorotate/*",),
+         title="Autorotate"),
+    Step(7,  "deskew",                     writes=("07_deskew/*",),
+         title="Deskew"),
+    Step(8,  "exam_geometry",              writes=("08_exam_geometry/*",),
+         title="Scan geometry", section="Geometry & validation"),
+    Step(9,  "cover_page_empty_exam",      writes=("09_cover_page/*",),
+         title="Cover page"),
+    Step(10, "cover_page_scan",            writes=("10_cover_page_scan/*",),
+         title="Cover page detection (scan)"),
+    Step(11, "student_names",              writes=("11_student_names/*",),
+         title="Student names"),
+    Step(12, "page_count_validation",
+         title="Page count validation"),
+    Step(13, "page_order_check",           writes=("13_page_order/*",),
+         title="Page order"),
+    Step(14, "blank_page_detection",       writes=("14_blank_pages/*",),
+         title="Blank pages"),
+    Step(15, "detect_exam_layout",         writes=("15_detect_exam_layout/*",),
+         title="Detect empty exam layout", section="Exam & mark scheme parsing"),
+    Step(16, "cut_exam_pdf",               writes=("16_cut_exam/*",),
+         title="Cut empty exam"),
+    Step(17, "parse_exam_pdf",             writes=("17_parse_exam_pdf/*",),
+         title="Parse exam PDF"),
+    Step(18, "detect_mark_scheme_graphics",writes=("18_detect_mark_scheme_graphics/*",),
+         title="Detect mark scheme graphics"),
+    Step(19, "parse_mark_scheme",          writes=("19_parse_mark_scheme/*",),
+         title="Parse mark scheme"),
+    Step(20, "create_report",              writes=("20_create_report/*",),
+         title="Create report"),
     Step(21, "ai_marking_blueprints",      resumable=True,
-         writes=("21_ai_marking_blueprints/*",)),
+         writes=("21_ai_marking_blueprints/*",),
+         title="AI marking blueprints", section="AI marking"),
     Step(22, "ai_marking",                 resumable=True,
-         writes=("22_ai_marking/*",)),
+         writes=("22_ai_marking/*",),
+         title="AI marking"),
     Step(23, "per_student_reports",        resumable=True,
-         writes=("23_student_reports/*",)),
+         writes=("23_student_reports/*",),
+         title="Per-student reports", section="Reports & PDFs"),
     Step(24, "class_stats_curve",          resumable=True,
-         writes=("24_class_stats/*",)),
+         writes=("24_class_stats/*",),
+         title="Class statistics + curve"),
     Step(25, "per_student_pdfs",           resumable=True,
-         writes=("25_student_pdfs/*",)),
+         writes=("25_student_pdfs/*",),
+         title="Per-student PDFs"),
     Step(26, "class_report",               resumable=True,
-         writes=("26_class_report/*",)),
+         writes=("26_class_report/*",),
+         title="Class report"),
     Step(27, "review_queue",               resumable=True,
-         writes=("27_review_queue/*",)),
-    Step(28, "timing_summary",             writes=("28_timing_summary/*",)),
-    Step(29, "accuracy_evaluation",        writes=("29_accuracy/*",)),
-    Step(30, "ai_costs",                   writes=("30_ai_costs/*",)),
+         writes=("27_review_queue/*",),
+         title="Review queue"),
+    Step(28, "timing_summary",             writes=("28_timing_summary/*",),
+         title="Timing summary", section="Summary"),
+    Step(29, "accuracy_evaluation",        writes=("29_accuracy/*",),
+         title="Accuracy evaluation"),
+    Step(30, "ai_costs",                   writes=("30_ai_costs/*",),
+         title="AI costs"),
 )
 
 
@@ -157,8 +201,11 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
 
     Responsibilities (kept in one place so individual steps don't duplicate them):
 
-    1. Skip if ``ctx.from_step > step.number`` (resume past this step).
-    2. Print the step header via ``terminal_ui.pipeline_step``.
+    1. Skip if ``ctx.from_step > step.number`` (resume past this step), unless
+       ``step.bootstrap`` is True (steps 1–2 must always run to bootstrap ctx).
+    2. Print the section header (via ``pipeline_section``) when ``step.section`` is set,
+       then the step header via ``terminal_ui.pipeline_step`` (using ``step.title`` if
+       set, else a humanised ``step.name``).
     3. Time the body with ``time.perf_counter`` and store under
        ``ctx.step_timings[step.name]``.
     4. Honour ``ctx.stop_after``: raise :class:`_EarlyExit` after a step whose
@@ -170,17 +217,21 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
     """
     from xscore.shared.pipeline_ctx import _EarlyExit
     from xscore.shared.run_log import log_step_event
-    from xscore.shared.terminal_ui import pipeline_step
+    from xscore.shared.terminal_ui import pipeline_section, pipeline_step
 
-    # --- skip-if-resumed ---
-    if ctx.from_step is not None and step.number < ctx.from_step:
+    # --- skip-if-resumed (bootstrap steps run regardless) ---
+    if (ctx.from_step is not None and step.number < ctx.from_step
+            and not step.bootstrap):
         return
 
     # --- stop-after (run > stop_after means skip outright) ---
     if step.number > ctx.stop_after:
         raise _EarlyExit()
 
-    pipeline_step(step.number, step.name)
+    if step.section is not None:
+        pipeline_section(step.section)
+    display = step.title or step.name.replace("_", " ").capitalize()
+    pipeline_step(step.number, display)
 
     t0 = time.perf_counter()
     try:
@@ -215,3 +266,89 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
     # If this step IS the stop_after sentinel, end the run cleanly.
     if step.number == ctx.stop_after:
         raise _EarlyExit()
+
+
+# ---------------------------------------------------------------------------
+# Step-fn wiring
+# ---------------------------------------------------------------------------
+
+def wire_step_fns() -> None:
+    """Replace ``_unmigrated`` stubs with real step bodies.
+
+    Called once at startup by ``xscore.pipeline.runner.run_pipeline`` after
+    ``load_dotenv`` has populated env vars. Idempotent — safe to call again.
+
+    Step modules are imported lazily here so importing :mod:`pipeline_steps`
+    for ``STEPS[*].writes`` introspection (e.g. from ``resume.py``) does not
+    pull in the entire pipeline at module-load time.
+
+    Phase modules that don't exist yet are silently skipped so the migration
+    can roll out one phase at a time without breaking the orchestrator.
+    """
+    global STEPS
+    import importlib
+    from dataclasses import replace
+
+    # Each phase module → (module_name, mapping of step name → attribute)
+    phase_specs: tuple[tuple[str, dict[str, str]], ...] = (
+        ("xscore.steps.prelude", {
+            "parse_grading_instructions":   "step_01_parse",
+            "locate_exam_folder":           "step_02_folder",
+        }),
+        ("xscore.steps.scan", {
+            "read_student_list":            "step_03_students",
+            "merge_duplex_scan_halves":     "step_04_merge",
+            "detect_blank_pages":           "step_05_blanks",
+            "autorotate":                   "step_06_rotate",
+            "deskew":                       "step_07_deskew",
+        }),
+        ("xscore.steps.geometry", {
+            "exam_geometry":                "step_08_geometry",
+            "cover_page_empty_exam":        "step_09_cover_empty",
+            "cover_page_scan":              "step_10_cover_scan",
+            "student_names":                "step_11_student_names",
+            "page_count_validation":        "step_12_page_count",
+            "page_order_check":             "step_13_page_order",
+            "blank_page_detection":         "step_14_blank_pages",
+        }),
+        ("xscore.steps.scaffold", {
+            "detect_exam_layout":           "step_15_layout",
+            "cut_exam_pdf":                 "step_16_cut",
+            "parse_exam_pdf":               "step_17_parse_exam",
+            "detect_mark_scheme_graphics":  "step_18_scheme_graphics",
+            "parse_mark_scheme":            "step_19_parse_scheme",
+            "create_report":                "step_20_create_report",
+        }),
+        ("xscore.steps.marking", {
+            "ai_marking_blueprints":        "step_21_blueprints",
+            "ai_marking":                   "step_22_mark",
+        }),
+        ("xscore.steps.reports", {
+            "per_student_reports":          "step_23_per_student_reports",
+            "class_stats_curve":            "step_24_class_stats",
+            "per_student_pdfs":             "step_25_per_student_pdfs",
+            "class_report":                 "step_26_class_report",
+            "review_queue":                 "step_27_review_queue",
+        }),
+        ("xscore.steps.summary", {
+            "timing_summary":               "step_28_timing",
+            "accuracy_evaluation":          "step_29_accuracy",
+            "ai_costs":                     "step_30_costs",
+        }),
+    )
+
+    fns: dict[str, Callable[["_Ctx"], None]] = {}
+    for module_name, mapping in phase_specs:
+        try:
+            mod = importlib.import_module(module_name)
+        except ImportError:
+            continue   # phase not yet migrated — leave _unmigrated stubs in place
+        for step_name, attr in mapping.items():
+            fn = getattr(mod, attr, None)
+            if fn is not None:
+                fns[step_name] = fn
+
+    STEPS = tuple(
+        replace(s, fn=fns[s.name]) if s.fn is _unmigrated and s.name in fns else s
+        for s in STEPS
+    )
