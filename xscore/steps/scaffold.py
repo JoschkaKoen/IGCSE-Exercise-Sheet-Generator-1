@@ -31,12 +31,18 @@ from xscore.scaffold.generate_scaffold import (
     find_exam_pdf,
     finalize_scaffold,
 )
+from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.pipeline_steps import run_step, step_by_number
-from xscore.shared.terminal_ui import format_duration, ok_line, warn_line
+from xscore.shared.terminal_ui import announce_step_model, format_duration, ok_line, warn_line
 
 
 def step_15_layout(ctx: _Ctx) -> None:
+    announce_step_model(
+        model_env="DETECT_LAYOUT_MODEL",
+        default_model="gemini-2.5-flash, low",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
     state = ctx.scaffold_state
     layout_result, layout_elapsed, layout_model = step15_detect_layout(
         state["client"], state["exam_pdf"], ctx.artifact_dir,
@@ -58,6 +64,11 @@ def step_16_cut(ctx: _Ctx) -> None:
 
 
 def step_17_parse_exam(ctx: _Ctx) -> None:
+    announce_step_model(
+        model_env="READ_EXAM_PDF_MODEL",
+        legacy_model_env="AI_DEFAULT_MODEL",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
     state = ctx.scaffold_state
     raw_questions, raw_layout = step17_parse_exam_pdf(
         state["client"], state["actual_exam_pdf"], state["layout_result"],
@@ -69,6 +80,11 @@ def step_17_parse_exam(ctx: _Ctx) -> None:
 
 
 def step_18_scheme_graphics(ctx: _Ctx) -> None:
+    announce_step_model(
+        model_env="DETECT_SCHEME_GRAPHICS_MODEL",
+        default_model="gemini-2.5-flash, off",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
     graphics_by_qnum, graphics_questions = step18_detect_scheme_graphics(
@@ -87,6 +103,11 @@ def step_18_scheme_graphics(ctx: _Ctx) -> None:
 
 
 def step_19_parse_scheme(ctx: _Ctx) -> None:
+    announce_step_model(
+        model_env="READ_MARK_SCHEME_MODEL",
+        legacy_model_env="AI_DEFAULT_MODEL",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
     scheme_data = step19_parse_mark_scheme(

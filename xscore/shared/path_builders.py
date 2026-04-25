@@ -435,6 +435,10 @@ def artifact_student_report_pdf_portrait_path(artifact_dir: Path, student: str) 
     return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_portrait.pdf"
 
 
+def artifact_student_report_pdf_portrait_2up_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_portrait_2up.pdf"
+
+
 # ---------------------------------------------------------------------------
 # Step 26 — Class report (XML/MD/TeX/PDF + combined PDF)
 # ---------------------------------------------------------------------------
@@ -465,6 +469,14 @@ def artifact_class_report_combined_landscape_pdf_path(artifact_dir: Path) -> Pat
 
 def artifact_class_report_combined_portrait_pdf_path(artifact_dir: Path) -> Path:
     return artifact_class_report_dir(artifact_dir) / "class_report_combined_portrait.pdf"
+
+
+def artifact_class_report_pdf_2up_path(artifact_dir: Path) -> Path:
+    return artifact_class_report_dir(artifact_dir) / "class_report_2up.pdf"
+
+
+def artifact_class_report_combined_portrait_2up_pdf_path(artifact_dir: Path) -> Path:
+    return artifact_class_report_dir(artifact_dir) / "class_report_combined_portrait_2up.pdf"
 
 
 # ---------------------------------------------------------------------------

@@ -23,9 +23,11 @@ from xscore.marking.report_latex import (
 )
 from xscore.shared.exam_paths import (
     artifact_class_report_combined_landscape_pdf_path,
+    artifact_class_report_combined_portrait_2up_pdf_path,
     artifact_class_report_combined_portrait_pdf_path,
     artifact_class_report_dir,
     artifact_class_report_md_path,
+    artifact_class_report_pdf_2up_path,
     artifact_class_report_tex_path,
     artifact_class_report_xml_path,
     artifact_class_stats_json_path,
@@ -36,12 +38,15 @@ from xscore.shared.exam_paths import (
     artifact_review_queue_md_path,
     artifact_student_pdfs_dir,
     artifact_student_report_md_path,
+    artifact_student_report_pdf_portrait_2up_path,
+    artifact_student_report_pdf_portrait_path,
     artifact_student_report_tex_landscape_path,
     artifact_student_report_tex_portrait_path,
     artifact_student_report_xml_path,
     artifact_student_reports_dir,
     safe_student_name as _safe_name,
 )
+from eXercise.pdfjam_post import make_2up_landscape_pdf
 from xscore.shared.terminal_ui import ok_line, warn_line
 
 
@@ -551,6 +556,16 @@ def _pass2_write_tex(
     with ThreadPoolExecutor(max_workers=workers) as ex:
         list(ex.map(lambda p: _compile_tex(p, p.parent), tex_paths))
 
+    portrait_2up_jobs: list[tuple[Path, Path]] = []
+    for s in student_summaries:
+        p_in = artifact_student_report_pdf_portrait_path(artifact_dir, s["name"])
+        p_out = artifact_student_report_pdf_portrait_2up_path(artifact_dir, s["name"])
+        if p_in.is_file():
+            portrait_2up_jobs.append((p_in, p_out))
+    if portrait_2up_jobs:
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            list(ex.map(lambda j: make_2up_landscape_pdf(j[0], j[1]), portrait_2up_jobs))
+
 
 def _build_class_report(
     ctx: Any,
@@ -600,6 +615,18 @@ def _build_class_report(
         artifact_class_report_combined_portrait_pdf_path(ctx.artifact_dir),
         suffix="portrait",
     )
+
+    class_pdf_path = tex_path.with_suffix(".pdf")
+    class_2up_path = artifact_class_report_pdf_2up_path(ctx.artifact_dir)
+    if class_pdf_path.is_file():
+        make_2up_landscape_pdf(class_pdf_path, class_2up_path)
+    if class_2up_path.is_file():
+        _merge_pdfs(
+            class_2up_path,
+            artifact_student_pdfs_dir(ctx.artifact_dir),
+            artifact_class_report_combined_portrait_2up_pdf_path(ctx.artifact_dir),
+            suffix="portrait_2up",
+        )
 
 
 # ---------------------------------------------------------------------------

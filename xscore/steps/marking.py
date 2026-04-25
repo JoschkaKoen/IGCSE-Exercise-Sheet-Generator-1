@@ -6,10 +6,11 @@ Timing is captured by ``run_step`` under the canonical keys
 
 from __future__ import annotations
 
+from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, MARKING_MODEL_DEFAULT
 from xscore.marking.ai_mark import run_ai_marking
 from xscore.marking.blueprints import build_blueprints
 from xscore.shared.pipeline_ctx import _Ctx
-from xscore.shared.terminal_ui import ok_line
+from xscore.shared.terminal_ui import announce_step_model, ok_line
 
 
 def step_21_blueprints(ctx: _Ctx) -> None:
@@ -20,6 +21,11 @@ def step_21_blueprints(ctx: _Ctx) -> None:
 
 def step_22_mark(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    announce_step_model(
+        model_env="MARKING_MODEL",
+        default_model=MARKING_MODEL_DEFAULT,
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
     ctx.marking_api_calls = run_ai_marking(ctx, dpi=ctx.instruction.dpi)
     n_calls = len(ctx.marking_api_calls)
     n_failed = len(ctx.marking_failures)

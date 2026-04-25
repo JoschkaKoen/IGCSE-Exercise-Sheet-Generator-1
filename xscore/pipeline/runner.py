@@ -17,9 +17,11 @@ from __future__ import annotations
 import argparse
 import datetime
 import os
+import shutil
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 
 from xscore.shared.pipeline_ctx import _Ctx, _EarlyExit
 
@@ -55,7 +57,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
     pool.shutdown(wait=False)
 
 
-def run_pipeline(args: argparse.Namespace, timestamp: str) -> None:
+def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | None = None) -> None:
     """Orchestrate the full 30-step pipeline."""
     from eXercise.ai_client import reset_run_call_stats, reset_run_usage
     from xscore.shared.pipeline_steps import run_step, step_by_number, wire_step_fns
@@ -131,3 +133,8 @@ def run_pipeline(args: argparse.Namespace, timestamp: str) -> None:
             pass  # never let manifest writing kill the pipeline
         get_console().print()
         sys.stdout.flush()
+        try:
+            if log_path and ctx.artifact_dir and log_path.exists():
+                shutil.copy2(log_path, ctx.artifact_dir / "pipeline.log")
+        except Exception:
+            pass

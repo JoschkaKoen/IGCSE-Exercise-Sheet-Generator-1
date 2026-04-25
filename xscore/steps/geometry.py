@@ -34,8 +34,15 @@ from xscore.shared.exam_paths import (
     artifact_exam_student_list_json_path,
     artifact_exam_student_list_md_path,
 )
+from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.shared.pipeline_ctx import _Ctx
-from xscore.shared.terminal_ui import format_duration, info_line, ok_line, warn_line
+from xscore.shared.terminal_ui import (
+    announce_step_model,
+    format_duration,
+    info_line,
+    ok_line,
+    warn_line,
+)
 
 
 def step_08_geometry(ctx: _Ctx) -> None:
@@ -62,6 +69,11 @@ def step_08_geometry(ctx: _Ctx) -> None:
 
 def step_09_cover_empty(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None and ctx.folder is not None
+    announce_step_model(
+        model_env="EMPTY_EXAM_COVER_MODEL",
+        default_model="gemini-2.5-flash",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
     from eXercise.ai_client import parse_model_spec
     exam_pdf = find_exam_pdf(ctx.folder)
     from xscore.config import EMPTY_EXAM_COVER_MODEL
@@ -101,6 +113,11 @@ def step_09_cover_empty(ctx: _Ctx) -> None:
 
 def step_10_cover_scan(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    announce_step_model(
+        model_env="COVER_PAGE_DETECTION_MODEL",
+        default_model="gemini-2.5-flash",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
     cover_page_mode, _cover_ok = detect_scan_cover_pages(
         ctx.cleaned_pdf,
         ctx.pages_per_student,
@@ -111,6 +128,11 @@ def step_10_cover_scan(ctx: _Ctx) -> None:
 
 def step_11_student_names(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    announce_step_model(
+        model_env="NAME_DETECTION_MODEL",
+        default_model="gemini-2.5-flash",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
     t0 = time.perf_counter()
     ctx.page_assignments = assign_pages(
         ctx.cleaned_pdf,
@@ -194,6 +216,11 @@ def step_12_page_count(ctx: _Ctx) -> None:
 
 def step_13_page_order(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
+    announce_step_model(
+        model_env="PAGE_ORDER_CHECK_MODEL",
+        legacy_model_env="AI_DEFAULT_MODEL",
+        default_max_tokens=2048,
+    )
     try:
         check_page_order(
             find_exam_pdf(ctx.folder),
@@ -209,6 +236,11 @@ def step_13_page_order(ctx: _Ctx) -> None:
 
 def step_14_blank_pages(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
+    announce_step_model(
+        model_env="BLANK_PAGE_DETECTION_MODEL",
+        legacy_model_env="AI_DEFAULT_MODEL",
+        default_max_tokens=256,
+    )
     try:
         check_blank_pages(
             find_exam_pdf(ctx.folder),

@@ -44,7 +44,8 @@ def step_25_per_student_pdfs(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
     _impl_25(ctx)
     n = len(ctx.student_summaries or [])
-    ok_line(f"{n} landscape + {n} portrait PDF{'s' if n != 1 else ''} compiled")
+    s = "" if n == 1 else "s"
+    ok_line(f"{n} landscape + {n} portrait + {n} 2UP PDF{s} compiled")
 
 
 def step_26_class_report(ctx: _Ctx) -> None:

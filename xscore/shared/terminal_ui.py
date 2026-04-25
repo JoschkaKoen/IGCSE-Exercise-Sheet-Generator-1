@@ -214,6 +214,40 @@ def info_line(message: str, *, key: str = "info") -> None:
     get_console().print(f"[dim]  {icon(key)}  {message}[/]")
 
 
+def announce_step_model(
+    *,
+    model_env: str,
+    legacy_model_env: str | None = None,
+    default_model: str | None = None,
+    default_max_tokens: int | None = None,
+) -> None:
+    """Resolve the env-var chain that ``make_ai_client`` would resolve, then
+    print the chosen model via :func:`info_line`.
+
+    Mirrors the resolution order in :func:`eXercise.ai_client.make_ai_client`
+    so the announced model matches the one the leaf function will actually
+    use. *default_max_tokens* is the leaf's fallback used when the env spec
+    doesn't specify a max_tokens budget — passed through to the announcement
+    so the output token count is always visible.
+
+    Does NOT call ``make_ai_client`` (no client construction, no API-key
+    check, no side effects) — only resolves the model name string, so it can
+    run safely even when API keys are missing.
+    """
+    from eXercise.ai_client import format_model_announcement, parse_model_spec
+    raw = (
+        os.environ.get(model_env, "").strip()
+        or (os.environ.get(legacy_model_env, "").strip() if legacy_model_env else "")
+        or (default_model or "").strip()
+        or os.environ.get("AI_DEFAULT_MODEL", "").strip()
+    )
+    if not raw:
+        return
+    model, thinking_tokens, max_tokens = parse_model_spec(raw)
+    effective_max = max_tokens if max_tokens is not None else default_max_tokens
+    info_line(format_model_announcement(model, thinking_tokens, effective_max))
+
+
 def ok_line(message: str) -> None:
     get_console().print(f"[green]  {icon('ok')}  {message}[/]")
     sys.stdout.flush()

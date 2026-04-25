@@ -211,6 +211,25 @@ def parse_model_spec(value: str) -> tuple[str, int | None, int | None]:
     return model, thinking, max_tokens
 
 
+def format_model_announcement(
+    model: str,
+    thinking_tokens: int | None = None,
+    max_tokens: int | None = None,
+) -> str:
+    """Return the canonical 'Model: <name>[, thinking_tokens=N][, max_tokens=N]' string.
+
+    Each budget is included only when not None — callers that want the output
+    token count to always appear should substitute their leaf's effective
+    fallback for *max_tokens* before calling.
+    """
+    parts = [model]
+    if thinking_tokens is not None:
+        parts.append(f"thinking_tokens={thinking_tokens}")
+    if max_tokens is not None:
+        parts.append(f"max_tokens={max_tokens}")
+    return f"Model: {', '.join(parts)}"
+
+
 def resolve_active_model(
     env_chain: tuple[str, ...] | list[str],
     default: str | None = None,

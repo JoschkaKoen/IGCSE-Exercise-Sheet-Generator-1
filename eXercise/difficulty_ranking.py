@@ -38,6 +38,7 @@ try:
     from .ai_client import (
         build_thinking_kwargs,
         collect_streamed_response,
+        format_model_announcement,
         make_ai_client,
         print_streamed_response,
     )
@@ -316,8 +317,8 @@ def _rank_exercises_ai(
         return []
 
     client, model, provider, thinking_tokens, max_tokens = result
-    effort_label = f", thinking_tokens={thinking_tokens}" if thinking_tokens is not None else ""
-    print(f"  Model: {model}{effort_label}")
+    eff_max = max_tokens if max_tokens is not None else 32768
+    print(f"  {format_model_announcement(model, thinking_tokens, eff_max)}")
 
     # Native Gemini path: upload PDFs directly — no image rendering needed
     if provider == "gemini":

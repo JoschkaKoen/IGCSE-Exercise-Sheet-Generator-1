@@ -29,9 +29,10 @@ if TYPE_CHECKING:
     from .rendering import VectorStrip
 
 try:
-    from .ai_client import make_ai_client
+    from .ai_client import format_model_announcement, make_ai_client
     _AI_CLIENT_AVAILABLE = True
 except ImportError:
+    format_model_announcement = None  # type: ignore[assignment]
     make_ai_client = None  # type: ignore[assignment]
     _AI_CLIENT_AVAILABLE = False
 
@@ -294,6 +295,9 @@ def _load_ai_client() -> tuple[Any, str, str, str | None] | None:
     if result is None:
         print("  MCQ explanations: no API key set for active model; skipping AI explanations.")
         return None
+    _client, _model, _provider, _thinking, _max_tokens = result
+    eff_max = _max_tokens if _max_tokens is not None else 16384
+    print(f"  {format_model_announcement(_model, _thinking, eff_max)}")
     return result
 
 

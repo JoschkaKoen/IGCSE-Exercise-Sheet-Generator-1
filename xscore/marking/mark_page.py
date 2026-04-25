@@ -22,12 +22,24 @@ from xscore.shared.terminal_ui import warn_line
 def _render_page_b64(doc: Any, page_idx: int, dpi: int = 300) -> str:
     """Render a fitz Document page at *page_idx* as base64 JPEG.
 
-    The document must be already open; the caller owns its lifecycle.
-    Default DPI matches MARKING_DPI (300); override via the dpi parameter.
+    Fast path: cleaned_scan.pdf (built by deskew_pdf_raster) embeds exactly one
+    full-page JPEG per page at the source DPI. When that matches the requested
+    DPI within 5 %, return the embedded bytes verbatim — no decode, no raster,
+    no re-encode. Slow path (foreign PDFs / explicit DPI override): rasterize
+    at *dpi* and JPEG-encode at MARKING_JPEG_QUALITY (which is therefore a
+    no-op on the fast path).
     """
     import fitz
+    page = doc[page_idx]
+    imgs = page.get_images(full=True)
+    if len(imgs) == 1:
+        info = doc.extract_image(imgs[0][0])
+        if info.get("ext") == "jpeg":
+            implied_dpi = info["width"] / (page.rect.width / 72)
+            if abs(implied_dpi - dpi) / dpi < 0.05:
+                return base64.b64encode(info["image"]).decode()
     mat = fitz.Matrix(dpi / 72, dpi / 72)
-    pix = doc[page_idx].get_pixmap(matrix=mat, colorspace=fitz.csRGB)
+    pix = page.get_pixmap(matrix=mat, colorspace=fitz.csRGB)
     return base64.b64encode(pix.tobytes("jpeg", jpg_quality=MARKING_JPEG_QUALITY)).decode()
 
 

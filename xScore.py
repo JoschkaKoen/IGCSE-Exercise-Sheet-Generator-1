@@ -176,7 +176,7 @@ def main() -> None:
     )
     try:
         from xscore.pipeline.runner import run_pipeline
-        run_pipeline(args, timestamp)
+        run_pipeline(args, timestamp, log_path=log_path)
     finally:
         tee.flush()
         tee.close()

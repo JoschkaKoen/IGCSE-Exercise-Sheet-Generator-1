@@ -16,6 +16,7 @@ from pathlib import Path
 from .ai_client import (
     build_completion_kwargs,
     collect_streamed_response,
+    format_model_announcement,
     get_api_key_env_name,
     make_ai_client,
     parse_model_spec,
@@ -182,6 +183,7 @@ def resolve_natural_language(
             f"(NL_MODEL / AI_DEFAULT_MODEL). Install dependencies: pip install -r requirements.txt"
         )
     client, model, provider, thinking_tokens, max_tokens = result
+    print(f"  {format_model_announcement(model, thinking_tokens, max_tokens)}")
 
     # Precheck uses its own model+effort and its own client (may be a different provider).
     # Falls back to the main client/model when no precheck-specific env var is set
@@ -201,6 +203,10 @@ def resolve_natural_language(
         if precheck_result is not None:
             (precheck_client, precheck_model, precheck_provider,
              precheck_thinking, precheck_max_tokens) = precheck_result
+            print(
+                f"  Precheck "
+                f"{format_model_announcement(precheck_model, precheck_thinking, precheck_max_tokens)}"
+            )
 
     skip_precheck = os.environ.get("NL_SKIP_PRECHECK", "").lower() in ("1", "true", "yes")
     if not skip_precheck:

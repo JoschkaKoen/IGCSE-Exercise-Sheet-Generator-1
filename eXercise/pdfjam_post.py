@@ -23,6 +23,87 @@ _NF_LINE_W  = 0.5     # stroke width in 1-up (scaled with the sub-page below)
 _SEP_LINE_W = 1.0
 
 
+def _draw_nup_separators(pdf_path: Path, cols: int, rows: int) -> None:
+    """Draw thin black separator lines between sub-pages on every page.
+
+    Generic — no IGCSE-specific touch-ups. Used by ``make_2up_landscape_pdf``
+    to give the imposed PDF a clean visual divider down the middle of each
+    landscape sheet.
+    """
+    try:
+        import fitz  # PyMuPDF — available in the project venv
+    except ImportError:
+        return
+
+    doc = fitz.open(str(pdf_path))
+    for pg in doc:
+        pw = pg.rect.width
+        ph = pg.rect.height
+        slot_w = pw / cols
+        slot_h = ph / rows
+        half = _SEP_LINE_W / 2
+        for c in range(1, cols):
+            x = c * slot_w
+            pg.draw_rect(fitz.Rect(x - half, 0, x + half, ph),
+                         fill=(0, 0, 0), color=None, width=0)
+        for r in range(1, rows):
+            y = r * slot_h
+            pg.draw_rect(fitz.Rect(0, y - half, pw, y + half),
+                         fill=(0, 0, 0), color=None, width=0)
+    doc.save(str(pdf_path), incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
+    doc.close()
+
+
+def make_2up_landscape_pdf(
+    input_pdf: Path | str,
+    output_pdf: Path | str | None = None,
+    *,
+    draw_separators: bool = True,
+) -> Path | None:
+    """Produce a 2-up landscape A4 PDF from a portrait A4 input.
+
+    If ``output_pdf`` is None, writes ``<input_stem>_2up.pdf`` next to the
+    input. Returns the output path on success, or None if pdfjam is missing
+    or fails. Optionally draws thin separator lines between sub-pages.
+
+    Generic helper — no IGCSE-specific post-processing — safe for arbitrary
+    portrait PDFs (e.g. xscore student reports).
+    """
+    inp = Path(input_pdf)
+    if not inp.is_file():
+        return None
+
+    pdfjam = shutil.which("pdfjam")
+    if not pdfjam:
+        print("  pdfjam not found on PATH; skipping 2-up landscape variant.")
+        return None
+
+    out = (Path(output_pdf) if output_pdf is not None
+           else inp.parent / f"{inp.stem}_2up{inp.suffix}")
+
+    try:
+        subprocess.run(
+            [pdfjam, "--nup", "2x1", "--landscape", "--paper", "a4paper",
+             "--frame", "false", "--scale", "1.0",
+             "--outfile", str(out), str(inp)],
+            check=True, capture_output=True, text=True,
+        )
+    except FileNotFoundError:
+        print("  Warning: pdfjam 2-up landscape: pdfjam executable disappeared.")
+        return None
+    except subprocess.CalledProcessError as e:
+        err = (e.stderr or e.stdout or str(e))[:500]
+        print(f"  Warning: pdfjam 2-up landscape failed ({e.returncode}): {err.strip()}")
+        return None
+
+    if not out.is_file():
+        return None
+
+    if draw_separators:
+        _draw_nup_separators(out, cols=2, rows=1)
+    return out
+
+
 def _fix_nup_name_fields(pdf_path: Path, cols: int, rows: int) -> None:
     """Remove duplicate name fields, restore the IGCSE line, and draw sub-page separators.
 

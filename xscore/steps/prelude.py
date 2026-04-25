@@ -14,15 +14,22 @@ import sys
 import time
 from pathlib import Path
 
+from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.shared.find_exam_folder import find_folder, validate_input_files
 from xscore.marking.parse_instruction import parse_prompt
 from xscore.pipeline.resume import copy_input_files, resume_pipeline
 from xscore.shared.exam_paths import artifact_parse_summary_path
 from xscore.shared.pipeline_ctx import _Ctx
-from xscore.shared.terminal_ui import format_duration, ok_line
+from xscore.shared.terminal_ui import announce_step_model, format_duration, ok_line
 
 
 def step_01_parse(ctx: _Ctx) -> None:
+    announce_step_model(
+        model_env="INTERPRET_PROMPT_MODEL",
+        legacy_model_env="AI_DEFAULT_MODEL",
+        default_model="gemini-2.5-flash",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
     t0 = time.perf_counter()
     ctx.instruction = parse_prompt(ctx.args.prompt, dpi_override=ctx.args.dpi)
     ctx.parse_elapsed = time.perf_counter() - t0

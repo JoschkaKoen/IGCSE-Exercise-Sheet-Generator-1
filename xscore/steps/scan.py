@@ -32,11 +32,16 @@ from xscore.shared.load_student_list import read_student_list
 from xscore.shared.pipeline_ctx import _Ctx, _EarlyExit
 from xscore.shared.pipeline_steps import run_step, step_by_number
 from xscore.shared.student_artifacts import write_student_artifacts
-from xscore.shared.terminal_ui import ok_line
+from xscore.shared.terminal_ui import announce_step_model, ok_line
 
 
 def step_03_students(ctx: _Ctx) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None
+    announce_step_model(
+        model_env="READ_STUDENT_LIST_MODEL",
+        legacy_model_env="AI_DEFAULT_MODEL",
+        default_max_tokens=2048,
+    )
     ctx.students = read_student_list(ctx.folder, ctx.artifact_dir)
     ok_line(f"{len(ctx.students)} students on the roster")
     write_student_artifacts(ctx.artifact_dir, ctx.students)
