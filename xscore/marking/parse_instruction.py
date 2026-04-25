@@ -31,37 +31,75 @@ def _read_model_config() -> tuple[str, int | None, int | None]:
     return parse_model_spec(raw)
 
 
-def _call_gemini_text(user_message: str) -> str:
-    """Make a text-only Gemini call and return the raw response string."""
-    try:
-        from google.genai import types as gai_types
-    except ImportError:
-        raise RuntimeError("google-genai not installed; run: pip install google-genai")
+def _call_text(user_message: str) -> str:
+    """Make a text-only call (any provider) and return the raw response string.
 
-    from eXercise.ai_client import build_gemini_thinking_config, make_gemini_native_client
-    client = make_gemini_native_client()
-    if client is None:
-        raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
-
+    Routes by model name: Gemini → native SDK; Qwen/Grok → OpenAI-compat.
+    """
     model_name, thinking_tokens, max_tokens = _read_model_config()
 
-    gen_config_kwargs: dict = {
-        "max_output_tokens": max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
-        "response_mime_type": "application/json",
-    }
-    if thinking_tokens is not None:
-        gen_config_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
+    if model_name.startswith("gemini"):
+        try:
+            from google.genai import types as gai_types
+        except ImportError:
+            raise RuntimeError("google-genai not installed; run: pip install google-genai")
+        from eXercise.ai_client import build_gemini_thinking_config, make_gemini_native_client
+        client = make_gemini_native_client()
+        if client is None:
+            raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
+        gen_config_kwargs: dict = {
+            "max_output_tokens": max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
+            "response_mime_type": "application/json",
+        }
+        if thinking_tokens is not None:
+            gen_config_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
+        response = client.models.generate_content(
+            model=model_name,
+            contents=user_message,
+            config=gai_types.GenerateContentConfig(
+                system_instruction=_SYSTEM_PROMPT,
+                **gen_config_kwargs,
+            ),
+        )
+        return response.text or ""
 
-    _t0 = time.perf_counter()
-    response = client.models.generate_content(
-        model=model_name,
-        contents=user_message,
-        config=gai_types.GenerateContentConfig(
-            system_instruction=_SYSTEM_PROMPT,
-            **gen_config_kwargs,
-        ),
+    # OpenAI-compat path (Qwen, Grok, …)
+    from eXercise.ai_client import (
+        build_completion_kwargs,
+        collect_streamed_response,
+        make_ai_client,
+        provider_for_model,
     )
-    return response.text or ""
+    result = make_ai_client(model_env="INTERPRET_PROMPT_MODEL")
+    if result is None:
+        raise RuntimeError(
+            f"INTERPRET_PROMPT_MODEL={model_name} requires the API key for "
+            f"provider '{provider_for_model(model_name)}' in .env"
+        )
+    client, _, provider, _, _ = result
+    use_stream, kw = build_completion_kwargs(provider, thinking_tokens, max_tokens)
+    msgs = [
+        {"role": "system", "content": _SYSTEM_PROMPT},
+        {"role": "user", "content": user_message},
+    ]
+    if use_stream:
+        # Some providers reject response_format with stream=True — omit it
+        # on the streaming branch; the prompt itself enforces JSON output.
+        stream = client.chat.completions.create(
+            model=model_name, messages=msgs, stream=True, **kw,
+        )
+        return collect_streamed_response(stream)
+    try:
+        resp = client.chat.completions.create(
+            model=model_name, messages=msgs,
+            response_format={"type": "json_object"}, **kw,
+        )
+    except Exception:
+        # Provider may reject response_format=json_object — retry without it.
+        resp = client.chat.completions.create(
+            model=model_name, messages=msgs, **kw,
+        )
+    return resp.choices[0].message.content or ""
 
 
 _SYSTEM_PROMPT = """\
@@ -105,7 +143,7 @@ def parse_prompt(
     instruction = _heuristic_fallback(prompt, dpi_override)
 
     try:
-        raw = _call_gemini_text(prompt)
+        raw = _call_text(prompt)
     except Exception as exc:  # noqa: BLE001
         warn_line(f"Prompt parse API error ({exc}) — using heuristic parse.")
         return instruction

@@ -100,22 +100,13 @@ def check_page_order(
     """Validate page order and content for all students. Raises SystemExit(1) on mismatch."""
     import os
     from xscore.shared.terminal_ui import info_line, ok_line, warn_line
-    from eXercise.ai_client import (
-        build_gemini_thinking_config,
-        make_gemini_native_client,
-        parse_model_spec,
-    )
+    from eXercise.ai_client import parse_model_spec
     from xscore.shared.prompt_logger import save_prompt, save_response
     from xscore.shared.exam_paths import (
         artifact_page_order_empty_exam_txt_path,
         artifact_page_order_prompt_path,
         artifact_page_order_txt_path,
     )
-    from google.genai import types as gai_types
-    _gai = make_gemini_native_client()
-    if _gai is None:
-        warn_line("GEMINI_API_KEY not set — page order check skipped")
-        return
     model_id, _thinking, _max_tok = parse_model_spec(
         os.environ.get("PAGE_ORDER_CHECK_MODEL", "gemini-2.5-flash-lite")
     )
@@ -161,20 +152,68 @@ def check_page_order(
 
     import time as _time
     t0 = _time.perf_counter()
-    _cfg_kwargs: dict = {
-        "max_output_tokens": _max_tok or 2048,
-        "response_mime_type": "application/json",
-        "response_schema": _PageOrderResult,
-    }
-    if _thinking is not None:
-        _cfg_kwargs["thinking_config"] = build_gemini_thinking_config(_thinking)
-    resp = _gai.models.generate_content(
-        model=model_id,
-        contents=[gai_types.Part.from_text(text=prompt)],
-        config=gai_types.GenerateContentConfig(**_cfg_kwargs),
-    )
+
+    if model_id.startswith("gemini"):
+        from eXercise.ai_client import build_gemini_thinking_config, make_gemini_native_client
+        from google.genai import types as gai_types
+        _gai = make_gemini_native_client()
+        if _gai is None:
+            warn_line("GEMINI_API_KEY not set — page order check skipped")
+            return
+        _cfg_kwargs: dict = {
+            "max_output_tokens": _max_tok or 2048,
+            "response_mime_type": "application/json",
+            "response_schema": _PageOrderResult,
+        }
+        if _thinking is not None:
+            _cfg_kwargs["thinking_config"] = build_gemini_thinking_config(_thinking)
+        resp = _gai.models.generate_content(
+            model=model_id,
+            contents=[gai_types.Part.from_text(text=prompt)],
+            config=gai_types.GenerateContentConfig(**_cfg_kwargs),
+        )
+        raw = resp.text or ""
+    else:
+        from eXercise.ai_client import (
+            build_completion_kwargs,
+            collect_streamed_response,
+            make_ai_client,
+        )
+        _result = make_ai_client(model_env="PAGE_ORDER_CHECK_MODEL")
+        if _result is None:
+            warn_line(
+                f"PAGE_ORDER_CHECK_MODEL={model_id} requires API key for its provider — "
+                f"page order check skipped"
+            )
+            return
+        _oa_client, _, _provider, _, _ = _result
+        _use_stream, _kw = build_completion_kwargs(_provider, _thinking, _max_tok or 2048)
+        # OA mode lacks Gemini's typed schema; encode shape in the prompt.
+        _oa_prompt = prompt + (
+            "\n\nReturn a JSON object with this shape:"
+            '\n{"all_ok": <bool>, "students": [{"name": <str>, "ok": <bool>,'
+            ' "issues": [{"position": <int>, "scan_page": <int>, "expected": <str>,'
+            ' "found": <str>, "detail": <str>}]}]}'
+        )
+        _msgs = [{"role": "user", "content": _oa_prompt}]
+        if _use_stream:
+            _stream = _oa_client.chat.completions.create(
+                model=model_id, messages=_msgs, stream=True, **_kw,
+            )
+            raw = collect_streamed_response(_stream)
+        else:
+            try:
+                _resp = _oa_client.chat.completions.create(
+                    model=model_id, messages=_msgs,
+                    response_format={"type": "json_object"}, **_kw,
+                )
+            except Exception:
+                _resp = _oa_client.chat.completions.create(
+                    model=model_id, messages=_msgs, **_kw,
+                )
+            raw = _resp.choices[0].message.content or ""
+
     dur = round(_time.perf_counter() - t0, 1)
-    raw = resp.text or ""
     save_response(save_path, raw)
 
     # ── Parse and report ──────────────────────────────────────────────────────

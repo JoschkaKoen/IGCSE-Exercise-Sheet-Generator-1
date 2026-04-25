@@ -20,65 +20,148 @@ def _detect_layout(
     thinking_tokens: int | None = None,
     max_tokens: int | None = None,
 ) -> tuple["_LayoutDetectSchema", float, "str | None", "str | None"]:
-    """Cheap layout detection: render first page as JPEG, ask Gemini for rows/cols/order.
+    """Cheap layout detection: render first page as JPEG, ask the model for rows/cols/order.
+
+    Routes to the right provider based on *model*; *client* is used only on the
+    Gemini branch (Qwen/Grok build their own OpenAI-compat client internally).
 
     Returns (result, elapsed_s, raw_response_text, error_summary).
     On success: error_summary is None.
     On failure: falls back to 1×1; error_summary is a one-line description; raw_response_text
     may still be set if the API succeeded but JSON parsing failed.
     """
-    from google.genai import types as gai_types
-    from eXercise.ai_client import build_gemini_thinking_config
     import fitz
 
     with fitz.open(str(exam_pdf)) as doc:
         pix = doc[0].get_pixmap(matrix=fitz.Matrix(1.0, 1.0))  # 72 DPI
     img_bytes = pix.tobytes("jpeg")
 
-    from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
-    cfg_kwargs: dict = {
-        "max_output_tokens": max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
-        "response_mime_type": "application/json",
-        "response_json_schema": _LAYOUT_DETECT_JSON_SCHEMA,
-    }
-    if thinking_tokens is not None:
-        cfg_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
-    cfg = gai_types.GenerateContentConfig(system_instruction=_SYSTEM_LAYOUT, **cfg_kwargs)
-
     from xscore.shared.terminal_ui import warn_line
+    from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 
     raw_text: str | None = None
     t0 = time.perf_counter()
     last_exc: Exception = RuntimeError("no attempts made")
-    _MAX_ATTEMPTS = 4  # initial attempt + 3 retries on transient errors (503, RemoteProtocolError)
+    _MAX_ATTEMPTS = 4  # initial attempt + 3 retries on transient errors
     _BACKOFF_S = [1.0, 2.0, 4.0]
-    for attempt in range(_MAX_ATTEMPTS):
-        try:
-            resp = client.models.generate_content(
-                model=model,
-                contents=[
-                    gai_types.Part.from_bytes(data=img_bytes, mime_type="image/jpeg"),
-                    gai_types.Part.from_text(text=_USER_LAYOUT),
-                ],
-                config=cfg,
-            )
-            elapsed = time.perf_counter() - t0
-            raw_text = resp.text
-            result = _LayoutDetectSchema.model_validate_json(raw_text)
-            return result, elapsed, raw_text, None
-        except KeyboardInterrupt:
-            raise
-        except Exception as exc:
-            last_exc = exc
-            if attempt < _MAX_ATTEMPTS - 1 and is_503_error(exc):
-                _wait = _BACKOFF_S[min(attempt, len(_BACKOFF_S) - 1)]
-                warn_line(
-                    f"Layout detection: transient error ({str(exc).split(chr(10))[0]}) "
-                    f"— retrying in {_wait:.0f}s (attempt {attempt + 2}/{_MAX_ATTEMPTS}) …"
+
+    if model.startswith("gemini"):
+        from google.genai import types as gai_types
+        from eXercise.ai_client import build_gemini_thinking_config
+        cfg_kwargs: dict = {
+            "max_output_tokens": max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
+            "response_mime_type": "application/json",
+            "response_json_schema": _LAYOUT_DETECT_JSON_SCHEMA,
+        }
+        if thinking_tokens is not None:
+            cfg_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
+        cfg = gai_types.GenerateContentConfig(system_instruction=_SYSTEM_LAYOUT, **cfg_kwargs)
+
+        for attempt in range(_MAX_ATTEMPTS):
+            try:
+                resp = client.models.generate_content(
+                    model=model,
+                    contents=[
+                        gai_types.Part.from_bytes(data=img_bytes, mime_type="image/jpeg"),
+                        gai_types.Part.from_text(text=_USER_LAYOUT),
+                    ],
+                    config=cfg,
                 )
-                time.sleep(_wait)
-            else:
-                break
+                elapsed = time.perf_counter() - t0
+                raw_text = resp.text
+                result = _LayoutDetectSchema.model_validate_json(raw_text)
+                return result, elapsed, raw_text, None
+            except KeyboardInterrupt:
+                raise
+            except Exception as exc:
+                last_exc = exc
+                if attempt < _MAX_ATTEMPTS - 1 and is_503_error(exc):
+                    _wait = _BACKOFF_S[min(attempt, len(_BACKOFF_S) - 1)]
+                    warn_line(
+                        f"Layout detection: transient error ({str(exc).split(chr(10))[0]}) "
+                        f"— retrying in {_wait:.0f}s (attempt {attempt + 2}/{_MAX_ATTEMPTS}) …"
+                    )
+                    time.sleep(_wait)
+                else:
+                    break
+    else:
+        # OpenAI-compat path (Qwen, Grok, …)
+        import base64 as _base64
+        from eXercise.ai_client import (
+            build_completion_kwargs,
+            collect_streamed_response,
+            make_ai_client,
+        )
+        _result = make_ai_client(model_env="DETECT_LAYOUT_MODEL")
+        if _result is None:
+            elapsed = time.perf_counter() - t0
+            return (
+                _LayoutDetectSchema(rows=1, cols=1, reading_order=[]),
+                elapsed, None,
+                f"DETECT_LAYOUT_MODEL={model} requires API key for its provider",
+            )
+        _oa_client, _, _provider, _, _ = _result
+        _use_stream, _kw = build_completion_kwargs(
+            _provider, thinking_tokens, max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
+        )
+        _b64 = _base64.b64encode(img_bytes).decode()
+        _msgs = [
+            {"role": "system", "content": _SYSTEM_LAYOUT},
+            {"role": "user", "content": [
+                {"type": "text", "text": _USER_LAYOUT},
+                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{_b64}"}},
+            ]},
+        ]
+        # Strict json_schema where the provider supports it; fall back to json_object.
+        _strict_rf = {
+            "type": "json_schema",
+            "json_schema": {
+                "name": "layout",
+                "schema": _LAYOUT_DETECT_JSON_SCHEMA,
+                "strict": True,
+            },
+        }
+        for attempt in range(_MAX_ATTEMPTS):
+            try:
+                if _use_stream:
+                    _stream = _oa_client.chat.completions.create(
+                        model=model, messages=_msgs, stream=True, **_kw,
+                    )
+                    raw_text = collect_streamed_response(_stream)
+                else:
+                    try:
+                        _resp = _oa_client.chat.completions.create(
+                            model=model, messages=_msgs,
+                            response_format=_strict_rf, **_kw,
+                        )
+                    except Exception:
+                        try:
+                            _resp = _oa_client.chat.completions.create(
+                                model=model, messages=_msgs,
+                                response_format={"type": "json_object"}, **_kw,
+                            )
+                        except Exception:
+                            _resp = _oa_client.chat.completions.create(
+                                model=model, messages=_msgs, **_kw,
+                            )
+                    raw_text = _resp.choices[0].message.content or ""
+                elapsed = time.perf_counter() - t0
+                result = _LayoutDetectSchema.model_validate_json(raw_text)
+                return result, elapsed, raw_text, None
+            except KeyboardInterrupt:
+                raise
+            except Exception as exc:
+                last_exc = exc
+                if attempt < _MAX_ATTEMPTS - 1 and is_503_error(exc):
+                    _wait = _BACKOFF_S[min(attempt, len(_BACKOFF_S) - 1)]
+                    warn_line(
+                        f"Layout detection: transient error ({str(exc).split(chr(10))[0]}) "
+                        f"— retrying in {_wait:.0f}s (attempt {attempt + 2}/{_MAX_ATTEMPTS}) …"
+                    )
+                    time.sleep(_wait)
+                else:
+                    break
+
     elapsed = time.perf_counter() - t0
     err_summary = str(last_exc).split("\n")[0]
     return _LayoutDetectSchema(rows=1, cols=1, reading_order=[]), elapsed, raw_text, err_summary

@@ -140,10 +140,10 @@ def is_cover_page(
 
     Renders the page to a grayscale pixmap, runs RapidOCR to extract printed
     text (conf > 0.8 filters out handwriting), then sends the text to the model.
-    No temp file, no Gemini Files API upload.
+    No temp file, no Gemini Files API upload. Routes to the right provider based
+    on the resolved model name; *gai_client* is used only on the Gemini branch.
     """
     import fitz
-    from google.genai import types as gai_types
     from xscore.shared.terminal_ui import warn_line
 
     with fitz.open(str(pdf_path)) as doc:
@@ -161,40 +161,90 @@ def is_cover_page(
     save_prompt(prompt_save_path, model=model_id,
                 messages=[{"role": "user", "content": prompt}])
 
-    from eXercise.ai_client import build_gemini_thinking_config
-    config = gai_types.GenerateContentConfig(
-        max_output_tokens=max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
-        response_mime_type="application/json",
-        response_schema=bool,
-        thinking_config=build_gemini_thinking_config(thinking_tokens),
-    )
-    resp = gai_client.models.generate_content(
-        model=model_id,
-        contents=[gai_types.Part.from_text(text=prompt)],
-        config=config,
-    )
-
-    thinking_parts: list[str] = []
-    answer_parts: list[str] = []
-    for candidate in (resp.candidates or []):
-        for part in getattr(candidate.content, "parts", None) or []:
-            text = part.text or ""
-            if getattr(part, "thought", False):
-                thinking_parts.append(text)
-            else:
-                answer_parts.append(text)
-
-    thinking_text = "".join(thinking_parts)
-    raw = "".join(answer_parts) or resp.text or ""
+    thinking_text = ""
+    if model_id.startswith("gemini"):
+        from google.genai import types as gai_types
+        from eXercise.ai_client import build_gemini_thinking_config
+        config = gai_types.GenerateContentConfig(
+            max_output_tokens=max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
+            response_mime_type="application/json",
+            response_schema=bool,
+            thinking_config=build_gemini_thinking_config(thinking_tokens),
+        )
+        resp = gai_client.models.generate_content(
+            model=model_id,
+            contents=[gai_types.Part.from_text(text=prompt)],
+            config=config,
+        )
+        thinking_parts: list[str] = []
+        answer_parts: list[str] = []
+        for candidate in (resp.candidates or []):
+            for part in getattr(candidate.content, "parts", None) or []:
+                text = part.text or ""
+                if getattr(part, "thought", False):
+                    thinking_parts.append(text)
+                else:
+                    answer_parts.append(text)
+        thinking_text = "".join(thinking_parts)
+        raw = "".join(answer_parts) or resp.text or ""
+    else:
+        from eXercise.ai_client import (
+            build_completion_kwargs,
+            collect_streamed_response,
+            make_ai_client,
+        )
+        _result = make_ai_client(model_env="COVER_PAGE_DETECTION_MODEL")
+        if _result is None:
+            warn_line(
+                f"COVER_PAGE_DETECTION_MODEL={model_id} requires API key — "
+                f"treating page as non-cover"
+            )
+            return False
+        _oa_client, _, _provider, _, _ = _result
+        _use_stream, _kw = build_completion_kwargs(_provider, thinking_tokens, max_tokens)
+        _oa_prompt = prompt + '\n\nReturn JSON only with this shape: {"answer": <bool>}'
+        _msgs = [{"role": "user", "content": _oa_prompt}]
+        if _use_stream:
+            _stream = _oa_client.chat.completions.create(
+                model=model_id, messages=_msgs, stream=True, **_kw,
+            )
+            raw = collect_streamed_response(_stream)
+        else:
+            try:
+                _resp = _oa_client.chat.completions.create(
+                    model=model_id, messages=_msgs,
+                    response_format={"type": "json_object"}, **_kw,
+                )
+            except Exception:
+                _resp = _oa_client.chat.completions.create(
+                    model=model_id, messages=_msgs, **_kw,
+                )
+            raw = _resp.choices[0].message.content or ""
 
     if not raw:
         warn_line(f"[{model_id}] cover page check returned empty response")
     save_thinking(prompt_save_path, thinking_text)
     save_response(prompt_save_path, raw)
+    return _parse_cover_bool(raw)
+
+
+def _parse_cover_bool(raw: str) -> bool:
+    """Parse the model response for cover-page detection.
+
+    Tolerates both Gemini's bare ``true``/``false`` (from ``response_schema=bool``)
+    and the OpenAI-compat ``{"answer": <bool>}`` shape.
+    """
+    if not raw:
+        return False
     try:
-        return bool(json.loads(raw)) if raw else False
+        data = json.loads(raw)
     except (json.JSONDecodeError, ValueError):
         return False
+    if isinstance(data, bool):
+        return data
+    if isinstance(data, dict):
+        return bool(data.get("answer", data.get("is_cover_page", False)))
+    return False
 
 
 def check_cover_page_text(
@@ -210,10 +260,11 @@ def check_cover_page_text(
     """Cover-page detection for vector PDFs via text extraction (no vision).
 
     Extracts page text with fitz and sends it as a plain-text prompt.
-    No temp file, no Gemini Files API upload needed.
+    No temp file, no Gemini Files API upload needed. Routes to the right
+    provider based on the resolved model name; *gai_client* is used only on
+    the Gemini branch.
     """
     import fitz
-    from google.genai import types as gai_types
     from xscore.shared.terminal_ui import warn_line
 
     with fitz.open(str(pdf_path)) as doc:
@@ -224,50 +275,91 @@ def check_cover_page_text(
     save_prompt(prompt_save_path, model=model_id,
                 messages=[{"role": "user", "content": prompt}])
 
-    from eXercise.ai_client import build_gemini_thinking_config
-    config = gai_types.GenerateContentConfig(
-        max_output_tokens=max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
-        response_mime_type="application/json",
-        response_schema=bool,
-        thinking_config=build_gemini_thinking_config(thinking_tokens),
-    )
-    for _attempt in range(2):  # initial attempt + 1 retry on 503
-        try:
-            resp = gai_client.models.generate_content(
-                model=model_id,
-                contents=[gai_types.Part.from_text(text=prompt)],
-                config=config,
-            )
-            break
-        except KeyboardInterrupt:
-            raise
-        except Exception as _exc:
-            if _attempt == 0 and is_503_error(_exc):
-                time.sleep(0.1)
-            else:
+    thinking_text = ""
+    if model_id.startswith("gemini"):
+        from google.genai import types as gai_types
+        from eXercise.ai_client import build_gemini_thinking_config
+        config = gai_types.GenerateContentConfig(
+            max_output_tokens=max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
+            response_mime_type="application/json",
+            response_schema=bool,
+            thinking_config=build_gemini_thinking_config(thinking_tokens),
+        )
+        for _attempt in range(2):  # initial attempt + 1 retry on 503
+            try:
+                resp = gai_client.models.generate_content(
+                    model=model_id,
+                    contents=[gai_types.Part.from_text(text=prompt)],
+                    config=config,
+                )
+                break
+            except KeyboardInterrupt:
                 raise
-
-    thinking_parts: list[str] = []
-    answer_parts: list[str] = []
-    for candidate in (resp.candidates or []):
-        for part in getattr(candidate.content, "parts", None) or []:
-            text = part.text or ""
-            if getattr(part, "thought", False):
-                thinking_parts.append(text)
-            else:
-                answer_parts.append(text)
-
-    thinking_text = "".join(thinking_parts)
-    raw = "".join(answer_parts) or resp.text or ""
+            except Exception as _exc:
+                if _attempt == 0 and is_503_error(_exc):
+                    time.sleep(0.1)
+                else:
+                    raise
+        thinking_parts: list[str] = []
+        answer_parts: list[str] = []
+        for candidate in (resp.candidates or []):
+            for part in getattr(candidate.content, "parts", None) or []:
+                text = part.text or ""
+                if getattr(part, "thought", False):
+                    thinking_parts.append(text)
+                else:
+                    answer_parts.append(text)
+        thinking_text = "".join(thinking_parts)
+        raw = "".join(answer_parts) or resp.text or ""
+    else:
+        from eXercise.ai_client import (
+            build_completion_kwargs,
+            collect_streamed_response,
+            make_ai_client,
+        )
+        _result = make_ai_client(model_env="EMPTY_EXAM_COVER_MODEL")
+        if _result is None:
+            warn_line(
+                f"EMPTY_EXAM_COVER_MODEL={model_id} requires API key — "
+                f"treating page as non-cover"
+            )
+            return False
+        _oa_client, _, _provider, _, _ = _result
+        _use_stream, _kw = build_completion_kwargs(_provider, thinking_tokens, max_tokens)
+        _oa_prompt = prompt + '\n\nReturn JSON only with this shape: {"answer": <bool>}'
+        _msgs = [{"role": "user", "content": _oa_prompt}]
+        for _attempt in range(2):  # initial attempt + 1 retry on 503
+            try:
+                if _use_stream:
+                    _stream = _oa_client.chat.completions.create(
+                        model=model_id, messages=_msgs, stream=True, **_kw,
+                    )
+                    raw = collect_streamed_response(_stream)
+                else:
+                    try:
+                        _resp = _oa_client.chat.completions.create(
+                            model=model_id, messages=_msgs,
+                            response_format={"type": "json_object"}, **_kw,
+                        )
+                    except Exception:
+                        _resp = _oa_client.chat.completions.create(
+                            model=model_id, messages=_msgs, **_kw,
+                        )
+                    raw = _resp.choices[0].message.content or ""
+                break
+            except KeyboardInterrupt:
+                raise
+            except Exception as _exc:
+                if _attempt == 0 and is_503_error(_exc):
+                    time.sleep(0.1)
+                else:
+                    raise
 
     if not raw:
         warn_line(f"[{model_id}] cover page text check returned empty response")
     save_thinking(prompt_save_path, thinking_text)
     save_response(prompt_save_path, raw)
-    try:
-        return bool(json.loads(raw)) if raw else False
-    except (json.JSONDecodeError, ValueError):
-        return False
+    return _parse_cover_bool(raw)
 
 
 def _crop_top(page, fraction: float = 0.15):
@@ -315,17 +407,23 @@ def detect_scan_cover_pages(
     cover_page_mode: bool = False
     cover_ok: dict[int, bool] = {}
 
-    _gai_client = make_gemini_native_client()
-    if _gai_client is None:
-        warn_line("GEMINI_API_KEY not set — cover-page detection skipped, running in standard mode")
-        return cover_page_mode, cover_ok
-
-    n_pages = fitz.open(str(cleaned_pdf)).page_count
-    n_blocks = math.ceil(n_pages / pages_per_student)
-
+    # Resolve the model first; only the Gemini branch needs a Gemini client.
     _cover_model, _cover_thinking, _cover_max_tokens = parse_model_spec(
         os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
     )
+    if _cover_model.startswith("gemini"):
+        _gai_client = make_gemini_native_client()
+        if _gai_client is None:
+            warn_line(
+                "GEMINI_API_KEY not set — cover-page detection skipped, running in standard mode"
+            )
+            return cover_page_mode, cover_ok
+    else:
+        # Non-Gemini model: is_cover_page builds its own OpenAI-compat client.
+        _gai_client = None
+
+    n_pages = fitz.open(str(cleaned_pdf)).page_count
+    n_blocks = math.ceil(n_pages / pages_per_student)
     _p1_save = artifact_cover_scan_prompt_path(artifact_dir, "cover_p1") if artifact_dir else None
     _t_cover = time.perf_counter()
     page1_is_cover = is_cover_page(

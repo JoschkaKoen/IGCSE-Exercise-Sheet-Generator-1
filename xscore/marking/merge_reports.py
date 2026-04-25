@@ -22,7 +22,8 @@ from xscore.marking.report_latex import (
     _awarded_tex, _student_report_to_tex, _class_report_to_tex,
 )
 from xscore.shared.exam_paths import (
-    artifact_class_report_combined_pdf_path,
+    artifact_class_report_combined_landscape_pdf_path,
+    artifact_class_report_combined_portrait_pdf_path,
     artifact_class_report_dir,
     artifact_class_report_md_path,
     artifact_class_report_tex_path,
@@ -35,7 +36,8 @@ from xscore.shared.exam_paths import (
     artifact_review_queue_md_path,
     artifact_student_pdfs_dir,
     artifact_student_report_md_path,
-    artifact_student_report_tex_path,
+    artifact_student_report_tex_landscape_path,
+    artifact_student_report_tex_portrait_path,
     artifact_student_report_xml_path,
     artifact_student_reports_dir,
     safe_student_name as _safe_name,
@@ -218,12 +220,9 @@ def _class_report_to_md(report: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
-def _merge_pdfs(class_pdf: Path, students_dir: Path, output_pdf: Path) -> None:
-    """Concatenate the class overview PDF with all student PDFs (alphabetical by name)."""
-    def _student_name(p: Path) -> str:
-        return p.stem
-
-    student_pdfs = sorted(students_dir.glob("*.pdf"), key=_student_name)
+def _merge_pdfs(class_pdf: Path, students_dir: Path, output_pdf: Path, suffix: str) -> None:
+    """Concatenate the class overview PDF with student PDFs matching ``*_<suffix>.pdf``."""
+    student_pdfs = sorted(students_dir.glob(f"*_{suffix}.pdf"), key=lambda p: p.stem)
 
     try:
         from pikepdf import Pdf
@@ -533,14 +532,21 @@ def _pass2_write_tex(
     exam_name: str,
     workers: int,
 ) -> None:
-    """Write student .tex files serially (curve must be known), then compile in parallel."""
-    tex_paths = []
+    """Write per-student .tex files (landscape + portrait), then compile all in parallel."""
+    tex_paths: list[Path] = []
     for s in student_summaries:
         report = full_reports[s["name"]]
         report["curved_pct"] = s["curved_pct"]
-        tex_path = artifact_student_report_tex_path(artifact_dir, s["name"])
-        tex_path.write_text(_student_report_to_tex(report, exam_name=exam_name), encoding="utf-8")
-        tex_paths.append(tex_path)
+        for orientation, path_fn in (
+            ("landscape", artifact_student_report_tex_landscape_path),
+            ("portrait",  artifact_student_report_tex_portrait_path),
+        ):
+            tex_path = path_fn(artifact_dir, s["name"])
+            tex_path.write_text(
+                _student_report_to_tex(report, exam_name=exam_name, orientation=orientation),
+                encoding="utf-8",
+            )
+            tex_paths.append(tex_path)
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
         list(ex.map(lambda p: _compile_tex(p, p.parent), tex_paths))
@@ -585,7 +591,14 @@ def _build_class_report(
     _merge_pdfs(
         tex_path.with_suffix(".pdf"),
         artifact_student_pdfs_dir(ctx.artifact_dir),
-        artifact_class_report_combined_pdf_path(ctx.artifact_dir),
+        artifact_class_report_combined_landscape_pdf_path(ctx.artifact_dir),
+        suffix="landscape",
+    )
+    _merge_pdfs(
+        tex_path.with_suffix(".pdf"),
+        artifact_student_pdfs_dir(ctx.artifact_dir),
+        artifact_class_report_combined_portrait_pdf_path(ctx.artifact_dir),
+        suffix="portrait",
     )
 
 

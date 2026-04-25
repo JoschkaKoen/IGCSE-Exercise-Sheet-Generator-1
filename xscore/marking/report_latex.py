@@ -102,7 +102,11 @@ def _awarded_tex(awarded: int | None, max_q: int | str) -> str:
     return str(awarded)
 
 
-def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
+def _student_report_to_tex(
+    report: dict,
+    exam_name: str = "",
+    orientation: str = "landscape",
+) -> str:
     import datetime
     name = _latex_escape(report["student_name"])
     total = report["total_marks"]
@@ -142,8 +146,21 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
     curved_pct = report.get("curved_pct")
     pct_display = "N/A" if pct is None else f"{pct}\\%"
     curved_display = "N/A" if curved_pct is None else f"{curved_pct}\\%"
-    # Column widths fill landscape A4 text width (25.7 cm - ~2.5 cm separator overhead = 22.7 cm):
-    # p{0.6cm} + p{0.6cm} + p{0.7cm} + p{5.7cm} + p{7.0cm} + p{8.1cm} = 22.7 cm
+    # Column widths fill the available text width minus ~2.5 cm of
+    # \tabcolsep separator overhead across 6 columns:
+    #   landscape A4 (25.7 cm text - 2.5 cm overhead) → ~22.7 cm column budget
+    #     = p{0.6} + p{0.6} + p{0.7} + p{5.7} + p{7.0} + p{8.1}
+    #   portrait  A4 (17.0 cm text - 2.5 cm overhead) → ~14.5 cm column budget
+    #     = p{0.4} + p{0.4} + p{0.5} + p{3.6} + p{4.5} + p{5.1}
+    # Portrait widths are the landscape widths × (14.5 / 22.7) ≈ 0.639,
+    # rounded to one decimal — preserves the prose-column ratio so wrapping
+    # behaviour is proportionally similar.
+    if orientation == "portrait":
+        geometry_line = "\\geometry{a4paper,margin=2cm}\n"
+        col_spec = "L{0.4cm}L{0.4cm}L{0.5cm}L{3.6cm}L{4.5cm}L{5.1cm}"
+    else:
+        geometry_line = "\\geometry{a4paper,landscape,margin=2cm}\n"
+        col_spec = "L{0.6cm}L{0.6cm}L{0.7cm}L{5.7cm}L{7.0cm}L{8.1cm}"
     return (
         "\\documentclass{article}\n"
         "\\usepackage{fontspec}\n"
@@ -155,7 +172,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         "\\usepackage{xcolor}\n"
         "\\usepackage{array}\n"
         "\\newcolumntype{L}[1]{>{\\raggedright\\arraybackslash}p{#1}}\n"
-        "\\geometry{a4paper,landscape,margin=2cm}\n"
+        f"{geometry_line}"
         "\\begin{document}\n"
         f"\\section*{{Student Report: {name}{header_extra}}}\n"
         f"\\textbf{{Total: {total}/{max_m} ({pct_display} raw, {curved_display} curved)}} \\quad "
@@ -163,7 +180,7 @@ def _student_report_to_tex(report: dict, exam_name: str = "") -> str:
         "\\vspace{1em}\n\n"
         "{\\small\n"
         "\\renewcommand{\\arraystretch}{1.6}\n"
-        "\\begin{longtable}{L{0.6cm}L{0.6cm}L{0.7cm}L{5.7cm}L{7.0cm}L{8.1cm}}\n"
+        f"\\begin{{longtable}}{{{col_spec}}}\n"
         "\\toprule\n"
         "\\textbf{Q} & \\textbf{Max} & \\textbf{Got} & "
         "\\textbf{Student Answer} & \\textbf{Expected} & \\textbf{Reasoning} \\\\\n"

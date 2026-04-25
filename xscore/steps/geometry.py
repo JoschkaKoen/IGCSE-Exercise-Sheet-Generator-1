@@ -62,21 +62,24 @@ def step_08_geometry(ctx: _Ctx) -> None:
 
 def step_09_cover_empty(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None and ctx.folder is not None
-    try:
-        from google import genai as gai
-        from eXercise.ai_client import parse_model_spec
-    except ImportError as exc:
-        warn_line(f"Empty exam cover check skipped — google-genai not installed: {exc}")
-        return
+    from eXercise.ai_client import parse_model_spec
     exam_pdf = find_exam_pdf(ctx.folder)
-    api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
-    if not api_key:
-        warn_line("Empty exam cover check skipped — no GEMINI_API_KEY")
-        return
-    try:
+    from xscore.config import EMPTY_EXAM_COVER_MODEL
+    model, thinking_tokens, max_tokens = parse_model_spec(EMPTY_EXAM_COVER_MODEL)
+    # Only the Gemini branch needs a Gemini client; check_cover_page_text routes internally.
+    gai_client = None
+    if model.startswith("gemini"):
+        try:
+            from google import genai as gai
+        except ImportError as exc:
+            warn_line(f"Empty exam cover check skipped — google-genai not installed: {exc}")
+            return
+        api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
+        if not api_key:
+            warn_line("Empty exam cover check skipped — no GEMINI_API_KEY")
+            return
         gai_client = gai.Client(api_key=api_key)
-        from xscore.config import EMPTY_EXAM_COVER_MODEL
-        model, thinking_tokens, max_tokens = parse_model_spec(EMPTY_EXAM_COVER_MODEL)
+    try:
         save_dir = artifact_cover_page_dir(ctx.artifact_dir)
         save_dir.mkdir(parents=True, exist_ok=True)
         save = save_dir / "cover_empty_exam_prompt.md"

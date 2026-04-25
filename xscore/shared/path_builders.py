@@ -419,12 +419,20 @@ def artifact_student_pdfs_dir(artifact_dir: Path) -> Path:
     return artifact_dir / STEP_25_STUDENT_PDFS / "students"
 
 
-def artifact_student_report_tex_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}.tex"
+def artifact_student_report_tex_landscape_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_landscape.tex"
 
 
-def artifact_student_report_pdf_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}.pdf"
+def artifact_student_report_pdf_landscape_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_landscape.pdf"
+
+
+def artifact_student_report_tex_portrait_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_portrait.tex"
+
+
+def artifact_student_report_pdf_portrait_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_portrait.pdf"
 
 
 # ---------------------------------------------------------------------------
@@ -451,8 +459,12 @@ def artifact_class_report_pdf_path(artifact_dir: Path) -> Path:
     return artifact_class_report_dir(artifact_dir) / "class_report.pdf"
 
 
-def artifact_class_report_combined_pdf_path(artifact_dir: Path) -> Path:
-    return artifact_class_report_dir(artifact_dir) / "class_report_combined.pdf"
+def artifact_class_report_combined_landscape_pdf_path(artifact_dir: Path) -> Path:
+    return artifact_class_report_dir(artifact_dir) / "class_report_combined_landscape.pdf"
+
+
+def artifact_class_report_combined_portrait_pdf_path(artifact_dir: Path) -> Path:
+    return artifact_class_report_dir(artifact_dir) / "class_report_combined_portrait.pdf"
 
 
 # ---------------------------------------------------------------------------
