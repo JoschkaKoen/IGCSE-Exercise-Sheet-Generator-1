@@ -221,7 +221,7 @@ def write_run_manifest(
         for f in (ctx.step_failures or [])
     ]
 
-    # Total cost is written by step 30 to 30_ai_costs/cost.json. Surface it in
+    # Total cost is written by step 32 to 32_ai_costs/cost.json. Surface it in
     # the manifest if available; fall back to legacy 28_timing_summary/timing.json
     # location for runs done before the Phase B/D split.
     total_cost_rmb: float | None = None

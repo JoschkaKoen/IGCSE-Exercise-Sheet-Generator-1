@@ -60,7 +60,7 @@ class Step:
         ``fn=_unmigrated``.
     resumable:
         True iff a prior run's artifacts can be reused starting from this step.
-        Today only blueprints (21), marking (22), and reports (23) qualify.
+        Today only blueprints (23), marking (24), and reports (25) qualify.
     writes:
         Globs (relative to ``ctx.artifact_dir``) the step writes — informational
         only; used by the resume-artifact copier and (eventually) by the
@@ -94,25 +94,25 @@ class Step:
 #
 # Order matters — consumers iterate this list to determine pipeline ordering.
 # Numbers are kept aligned with the artifact-folder prefixes in
-# `xscore/shared/exam_paths.py` (STEP_01, STEP_03, …, STEP_24). Gaps in the
-# numbering reflect the live pipeline (steps 2 and 4 don't have artifact
+# `xscore/shared/exam_paths.py` (STEP_01, STEP_03, …, STEP_32). Gaps in the
+# numbering reflect the live pipeline (steps 2, 4, and 12 don't have artifact
 # folders today; they're transparent operations on the scan PDF).
 
 STEPS: tuple[Step, ...] = (
     Step(1,  "parse_grading_instructions", writes=("01_parse_grading_instructions/*",),
-         title="Interpret prompt", bootstrap=True),
+         title="Interpret prompt", section="Setup", bootstrap=True),
     Step(2,  "locate_exam_folder",
          title="Select exam folder", bootstrap=True),
     Step(3,  "read_student_list",          writes=("03_read_student_list/*",),
          title="Read student list"),
     Step(4,  "merge_duplex_scan_halves",
-         title="Merge duplex scans"),
+         title="Merge duplex scans", section="Scan cleaning"),
     Step(5,  "detect_blank_pages",         writes=("05_detect_blank_pages/*",),
-         title="Detect blank pages in scanned exam"),
+         title="Detect white pages in scanned exam"),
     Step(6,  "autorotate",                 writes=("06_autorotate/*",),
          title="Autorotate scanned exam pages"),
     Step(7,  "deskew",                     writes=("07_deskew/*",),
-         title="Deskew scan pages"),
+         title="Deskew scanned pages"),
     Step(8,  "exam_geometry",              writes=("08_exam_geometry/*",),
          title="Detect empty exam geometry", section="Geometry & validation"),
     Step(9,  "cover_page_empty_exam",      writes=("09_cover_page/*",),
@@ -137,36 +137,38 @@ STEPS: tuple[Step, ...] = (
          title="Parse empty exam PDF"),
     Step(19, "detect_mark_scheme_graphics",writes=("19_detect_mark_scheme_graphics/*",),
          title="Detect mark scheme graphics"),
-    Step(20, "parse_mark_scheme",          writes=("20_parse_mark_scheme/*",),
+    Step(20, "assign_scheme_questions",    writes=("20_assign_scheme_questions/*",),
+         title="Assign questions to mark scheme pages"),
+    Step(21, "parse_mark_scheme",          writes=("21_parse_mark_scheme/*",),
          title="Parse mark scheme"),
-    Step(21, "create_report",              writes=("21_create_report/*",),
+    Step(22, "create_report",              writes=("22_create_report/*",),
          title="Build grading scaffold"),
-    Step(22, "ai_marking_blueprints",      resumable=True,
-         writes=("22_ai_marking_blueprints/*",),
+    Step(23, "ai_marking_blueprints",      resumable=True,
+         writes=("23_ai_marking_blueprints/*",),
          title="Build AI marking blueprints", section="AI marking"),
-    Step(23, "ai_marking",                 resumable=True,
-         writes=("23_ai_marking/*",),
+    Step(24, "ai_marking",                 resumable=True,
+         writes=("24_ai_marking/*",),
          title="Run AI marking"),
-    Step(24, "per_student_reports",        resumable=True,
-         writes=("24_student_reports/*",),
+    Step(25, "per_student_reports",        resumable=True,
+         writes=("25_student_reports/*",),
          title="Fuse AI marking output to student reports", section="Reports & PDFs"),
-    Step(25, "class_stats_curve",          resumable=True,
-         writes=("25_class_stats/*",),
+    Step(26, "class_stats_curve",          resumable=True,
+         writes=("26_class_stats/*",),
          title="Compute class statistics + curve"),
-    Step(26, "per_student_pdfs",           resumable=True,
-         writes=("26_student_pdfs/*",),
+    Step(27, "per_student_pdfs",           resumable=True,
+         writes=("27_student_pdfs/*",),
          title="Generate per-student reports (landscape + portrait + 2UP)"),
-    Step(27, "class_report",               resumable=True,
-         writes=("27_class_report/*",),
+    Step(28, "class_report",               resumable=True,
+         writes=("28_class_report/*",),
          title="Generate class report"),
-    Step(28, "review_queue",               resumable=True,
-         writes=("28_review_queue/*",),
+    Step(29, "review_queue",               resumable=True,
+         writes=("29_review_queue/*",),
          title="Build review queue"),
-    Step(29, "timing_summary",             writes=("29_timing_summary/*",),
+    Step(30, "timing_summary",             writes=("30_timing_summary/*",),
          title="Summarise step timings", section="Summary"),
-    Step(30, "accuracy_evaluation",        writes=("30_accuracy/*",),
+    Step(31, "accuracy_evaluation",        writes=("31_accuracy/*",),
          title="Evaluate marking accuracy"),
-    Step(31, "ai_costs",                   writes=("31_ai_costs/*",),
+    Step(32, "ai_costs",                   writes=("32_ai_costs/*",),
          title="Summarise AI costs"),
 )
 
@@ -376,24 +378,25 @@ def wire_step_fns() -> None:
             "cut_exam_pdf":                 "step_17_cut",
             "parse_exam_pdf":               "step_18_parse_exam",
             "detect_mark_scheme_graphics":  "step_19_scheme_graphics",
-            "parse_mark_scheme":            "step_20_parse_scheme",
-            "create_report":                "step_21_create_report",
+            "assign_scheme_questions":      "step_20_assign_questions",
+            "parse_mark_scheme":            "step_21_parse_scheme",
+            "create_report":                "step_22_create_report",
         }),
         ("xscore.steps.marking", {
-            "ai_marking_blueprints":        "step_22_blueprints",
-            "ai_marking":                   "step_23_mark",
+            "ai_marking_blueprints":        "step_23_blueprints",
+            "ai_marking":                   "step_24_mark",
         }),
         ("xscore.steps.reports", {
-            "per_student_reports":          "step_24_per_student_reports",
-            "class_stats_curve":            "step_25_class_stats",
-            "per_student_pdfs":             "step_26_per_student_pdfs",
-            "class_report":                 "step_27_class_report",
-            "review_queue":                 "step_28_review_queue",
+            "per_student_reports":          "step_25_per_student_reports",
+            "class_stats_curve":            "step_26_class_stats",
+            "per_student_pdfs":             "step_27_per_student_pdfs",
+            "class_report":                 "step_28_class_report",
+            "review_queue":                 "step_29_review_queue",
         }),
         ("xscore.steps.summary", {
-            "timing_summary":               "step_29_timing",
-            "accuracy_evaluation":          "step_30_accuracy",
-            "ai_costs":                     "step_31_costs",
+            "timing_summary":               "step_30_timing",
+            "accuracy_evaluation":          "step_31_accuracy",
+            "ai_costs":                     "step_32_costs",
         }),
     )
 

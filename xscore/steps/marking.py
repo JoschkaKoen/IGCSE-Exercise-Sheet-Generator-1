@@ -1,4 +1,4 @@
-"""Steps 22–23: build per-page marking blueprints, then run AI vision marking.
+"""Steps 23–24: build per-page marking blueprints, then run AI vision marking.
 
 Timing is captured by ``run_step`` under the canonical keys
 ``ai_marking_blueprints`` and ``ai_marking`` — no per-step ``t0`` needed.
@@ -13,13 +13,13 @@ from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.terminal_ui import announce_step_model, ok_line
 
 
-def step_22_blueprints(ctx: _Ctx) -> None:
+def step_23_blueprints(ctx: _Ctx) -> None:
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
     blueprints = build_blueprints(ctx.scaffold, ctx.artifact_dir)
     ok_line(f"{len(blueprints)} page blueprint(s) written")
 
 
-def step_23_mark(ctx: _Ctx) -> None:
+def step_24_mark(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     announce_step_model(
         model_env="MARKING_MODEL",

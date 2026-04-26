@@ -53,10 +53,22 @@ def step_08_geometry(ctx: _Ctx) -> None:
     ctx.num_students = ctx.geo["num_students"]
     ctx.pages_per_student = ctx.geo["pages_per_student"]
     if ctx.geo["roster_mismatch"]:
-        info_line(
-            f"Roster has {ctx.geo['num_students_roster']} students "
-            f"but scan implies {ctx.geo['num_students']}"
-        )
+        n_roster = ctx.geo["num_students_roster"]
+        n_scan = ctx.geo["num_students"]
+        info_line(f"{n_roster} students in the roster")
+        info_line(f"{n_scan} {'student' if n_scan == 1 else 'students'} in the scanned exam")
+        if n_scan < n_roster:
+            n_absent = n_roster - n_scan
+            info_line(
+                f"{n_absent} {'student' if n_absent == 1 else 'students'} "
+                "sick / did not attend the exam"
+            )
+        else:
+            n_extra = n_scan - n_roster
+            info_line(
+                f"{n_extra} {'student' if n_extra == 1 else 'students'} "
+                "in the scan not on the roster"
+            )
     stu_word = "student" if ctx.num_students == 1 else "students"
     ok_line(
         f"{ctx.num_students} {stu_word}  ·  {ctx.pages_per_student} pages each  "

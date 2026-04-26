@@ -1,19 +1,20 @@
-"""AI-based exam scaffold — six step functions for steps 16–21 of the pipeline.
+"""AI-based exam scaffold — seven step functions for steps 16–22 of the pipeline.
 
 Each step is independently callable with explicit inputs/outputs and writes its
 artifacts to its own numbered folder under ``artifact_dir``:
 
-    step16_detect_layout          → 16_detect_exam_layout/
-    step17_cut_exam_pdf           → 17_cut_exam/
-    step18_parse_exam_pdf         → 18_parse_exam_pdf/
-    step19_detect_scheme_graphics → 19_detect_mark_scheme_graphics/
-    step20_parse_mark_scheme      → 20_parse_mark_scheme/
-    step21_merge_scaffold         → 21_create_report/  (via build_scaffold cache)
+    step16_detect_layout            → 16_detect_exam_layout/
+    step17_cut_exam_pdf             → 17_cut_exam/
+    step18_parse_exam_pdf           → 18_parse_exam_pdf/
+    step19_detect_scheme_graphics   → 19_detect_mark_scheme_graphics/
+    step20_assign_scheme_questions  → 20_assign_scheme_questions/
+    step21_parse_mark_scheme        → 21_parse_mark_scheme/
+    step22_merge_scaffold           → 22_create_report/  (via build_scaffold cache)
 
-``build_ai_scaffold`` is kept as a thin orchestrator that calls the six step
+``build_ai_scaffold`` is kept as a thin orchestrator that calls the step
 functions in sequence with the original ``on_*_complete`` callbacks for
 backward compatibility (``generate_scaffold.build_scaffold`` and the web
-service still use it). xScore.py's pipeline calls the six functions directly.
+service still use it). xScore.py's pipeline calls the step functions directly.
 """
 
 from __future__ import annotations
@@ -30,6 +31,7 @@ from eXercise.ai_client import make_gemini_native_client
 from xscore.scaffold.formats import get_scaffold_format
 from xscore.scaffold.scaffold_gemini import (
     _do_exam_call,
+    assign_questions_to_pages,
     detect_scheme_graphics,
     parse_mark_scheme_pages,
 )
@@ -283,23 +285,57 @@ def step19_detect_scheme_graphics(
 
 
 # ---------------------------------------------------------------------------
-# Step 20 — Parse mark scheme
+# Step 20 — Assign questions to mark scheme pages
 # ---------------------------------------------------------------------------
 
-def step20_parse_mark_scheme(
+def step20_assign_scheme_questions(
+    client,
+    marking_scheme_pdf: "Path | None",
+    raw_questions: list[dict],
+    artifact_dir: "Path | None",
+) -> dict[int, list[str]]:
+    """Identify which question numbers' criteria appear on each mark scheme page.
+
+    Returns ``{page_num: [qnum, ...]}``. Empty dict when *marking_scheme_pdf*
+    is None, the model env var is unset, or the call fails — step 21 then
+    falls back to its full-scaffold behavior.
+    """
+    if marking_scheme_pdf is None:
+        return {}
+    try:
+        return assign_questions_to_pages(
+            client, marking_scheme_pdf, raw_questions, artifact_dir,
+        )
+    except Exception as exc:
+        import logging as _log
+        _log.warning("ai_scaffold: question-assignment failed — %s", exc)
+        warn_line(f"Question-assignment failed — falling back to full scaffold\n    {exc}")
+        return {}
+
+
+# ---------------------------------------------------------------------------
+# Step 21 — Parse mark scheme
+# ---------------------------------------------------------------------------
+
+def step21_parse_mark_scheme(
     client,
     marking_scheme_pdf: "Path | None",
     raw_questions: list[dict],
     graphics_by_qnum: "dict[str, list] | None",
+    questions_per_page: "dict[int, list[str]] | None",
     artifact_dir: "Path | None",
     *,
     fmt=None,
 ) -> dict:
     """Parse the mark scheme into ``{questions: [{number, correct_answer, mark_scheme, ...}]}``.
 
-    Reads per-page PDFs from step 18's pages dir; falls back to splitting the
-    PDF if step 18 was skipped. Returns ``{"questions": []}`` when
-    *marking_scheme_pdf* is None or the call fails.
+    Reads per-page PDFs from step 19's pages dir; falls back to splitting the
+    PDF if step 19 was skipped. Uses *questions_per_page* (from step 20) to
+    send only the relevant question entries to the AI per page; falls back
+    to the full scaffold for any page missing from the mapping.
+
+    Returns ``{"questions": []}`` when *marking_scheme_pdf* is None or the
+    call fails.
     """
     if fmt is None:
         fmt = get_scaffold_format()
@@ -308,7 +344,6 @@ def step20_parse_mark_scheme(
         return {"questions": []}
 
     scheme_model, scheme_thinking, scheme_max_tokens = _mark_scheme_model_config()
-    scaffold_str = fmt.build_scheme_scaffold(raw_questions)
 
     try:
         return parse_mark_scheme_pages(
@@ -317,7 +352,8 @@ def step20_parse_mark_scheme(
             scheme_thinking,
             scheme_max_tokens,
             marking_scheme_pdf=marking_scheme_pdf,
-            scaffold_str=scaffold_str,
+            raw_questions=raw_questions,
+            questions_per_page=questions_per_page,
             graphics_by_qnum=graphics_by_qnum,
             artifact_dir=artifact_dir,
             fmt=fmt,
@@ -330,10 +366,10 @@ def step20_parse_mark_scheme(
 
 
 # ---------------------------------------------------------------------------
-# Step 21 — Merge scaffold
+# Step 22 — Merge scaffold
 # ---------------------------------------------------------------------------
 
-def step21_merge_scaffold(
+def step22_merge_scaffold(
     raw_questions: list[dict],
     raw_layout: dict,
     scheme_data: dict,
@@ -485,16 +521,21 @@ def build_ai_scaffold(
         if on_graphics_complete is not None:
             on_graphics_complete(graphics_questions)
 
-        # Step 20 — parse mark scheme
-        scheme_data = step20_parse_mark_scheme(
+        # Step 20 — assign questions to mark scheme pages
+        questions_per_page = step20_assign_scheme_questions(
+            client, marking_scheme_pdf, raw_questions, artifact_dir,
+        )
+
+        # Step 21 — parse mark scheme (filtered per page by step 20's mapping)
+        scheme_data = step21_parse_mark_scheme(
             client, marking_scheme_pdf, raw_questions,
-            graphics_by_qnum, artifact_dir, fmt=fmt,
+            graphics_by_qnum, questions_per_page, artifact_dir, fmt=fmt,
         )
         if on_scheme_complete is not None and isinstance(scheme_data.get("questions"), list):
             on_scheme_complete(scheme_data["questions"])
 
-        # Step 21 — merge scaffold
-        return step21_merge_scaffold(raw_questions, raw_layout, scheme_data)
+        # Step 22 — merge scaffold
+        return step22_merge_scaffold(raw_questions, raw_layout, scheme_data)
     finally:
         # Delete temp split PDF (always, even if upload or inference failed)
         if split_pdf_temp_path is not None:

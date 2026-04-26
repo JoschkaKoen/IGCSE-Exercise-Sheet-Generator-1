@@ -2,7 +2,7 @@
 """
 xScore.py
 ---------
-Exam scan grading pipeline (steps 1–31) — run from the eXercise project root.
+Exam scan grading pipeline (steps 1–32) — run from the eXercise project root.
 
 Steps:
   1. Parse the natural language prompt (via Kimi).
@@ -24,18 +24,19 @@ Steps:
  17. Cut exam PDF (split multi-up pages) → 17_cut_exam/split_exam.pdf (skipped for 1×1).
  18. AI: parse exam PDF → question hierarchy → 18_parse_exam_pdf/exam_questions.json.
  19. AI: detect mark scheme graphics → 19_detect_mark_scheme_graphics/mark_scheme_graphics.json.
- 20. AI: parse mark scheme → correct answers + criteria → 20_parse_mark_scheme/mark_scheme.json.
- 21. Merge scaffold → 21_create_report/report.json.
- 22. Build per-page AI marking blueprints → 22_ai_marking_blueprints/.
- 23. AI: grade each student page → 23_ai_marking/students/.
- 24. Per-student reports (XML + MD) → 24_student_reports/students/.
- 25. Class statistics + grade curve → 25_class_stats/class_stats.json.
- 26. Per-student PDFs (xelatex) → 26_student_pdfs/students/.
- 27. Class report (XML/MD/TeX/PDF + combined PDF) → 27_class_report/.
- 28. Review queue (medium/low confidence marks) → 28_review_queue/.
- 29. Timing summary → 29_timing_summary/timing.json.
- 30. Accuracy evaluation (no-op when no ground truth) → 30_accuracy/accuracy.json.
- 31. AI Costs → 31_ai_costs/cost.json + cost.md.
+ 20. AI: assign questions to mark scheme pages → 20_assign_scheme_questions/questions_per_page.json.
+ 21. AI: parse mark scheme → correct answers + criteria → 21_parse_mark_scheme/mark_scheme.json.
+ 22. Merge scaffold → 22_create_report/report.json.
+ 23. Build per-page AI marking blueprints → 23_ai_marking_blueprints/.
+ 24. AI: grade each student page → 24_ai_marking/students/.
+ 25. Per-student reports (XML + MD) → 25_student_reports/students/.
+ 26. Class statistics + grade curve → 26_class_stats/class_stats.json.
+ 27. Per-student PDFs (xelatex) → 27_student_pdfs/students/.
+ 28. Class report (XML/MD/TeX/PDF + combined PDF) → 28_class_report/.
+ 29. Review queue (medium/low confidence marks) → 29_review_queue/.
+ 30. Timing summary → 30_timing_summary/timing.json.
+ 31. Accuracy evaluation (no-op when no ground truth) → 31_accuracy/accuracy.json.
+ 32. AI Costs → 32_ai_costs/cost.json + cost.md.
 
 Step bodies live in xscore/steps/, orchestration in xscore/pipeline/runner.py.
 This file is the entry point: argparse, _Tee log mirror, banner, dispatch.
@@ -92,7 +93,7 @@ class _Tee:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="xScore.py",
-        description="Grade an exam scan (steps 1–31).",
+        description="Grade an exam scan (steps 1–32).",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument(
@@ -147,7 +148,7 @@ def parse_args() -> argparse.Namespace:
         help=(
             "Mark only the given student (case-insensitive exact match). "
             "Repeat the flag or pass a comma-separated list to mark a small cohort. "
-            "When set, step 23 emits only the filtered students' reports — the class "
+            "When set, step 24 emits only the filtered students' reports — the class "
             "report is skipped."
         ),
     )

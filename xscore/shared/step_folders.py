@@ -29,24 +29,25 @@ STEP_15_HANDWRITING     = "15_student_handwriting"
 STEP_16_LAYOUT          = "16_detect_exam_layout"
 STEP_17_CUT             = "17_cut_exam"
 STEP_18_PARSE_EXAM      = "18_parse_exam_pdf"
-STEP_19_GRAPHICS        = "19_detect_mark_scheme_graphics"
-STEP_20_PARSE_SCHEME    = "20_parse_mark_scheme"
-STEP_21_CREATE_REPORT   = "21_create_report"
-STEP_22_BLUEPRINTS      = "22_ai_marking_blueprints"
-STEP_23_AI_MARKING      = "23_ai_marking"
-STEP_24_STUDENT_REPORTS = "24_student_reports"
-STEP_25_CLASS_STATS     = "25_class_stats"
-STEP_26_STUDENT_PDFS    = "26_student_pdfs"
-STEP_27_CLASS_REPORT    = "27_class_report"
-STEP_28_REVIEW_QUEUE    = "28_review_queue"
-STEP_29_TIMING          = "29_timing_summary"
-STEP_30_ACCURACY        = "30_accuracy"
-STEP_31_AI_COSTS        = "31_ai_costs"
+STEP_19_GRAPHICS         = "19_detect_mark_scheme_graphics"
+STEP_20_ASSIGN_QUESTIONS = "20_assign_scheme_questions"
+STEP_21_PARSE_SCHEME     = "21_parse_mark_scheme"
+STEP_22_CREATE_REPORT    = "22_create_report"
+STEP_23_BLUEPRINTS       = "23_ai_marking_blueprints"
+STEP_24_AI_MARKING       = "24_ai_marking"
+STEP_25_STUDENT_REPORTS  = "25_student_reports"
+STEP_26_CLASS_STATS      = "26_class_stats"
+STEP_27_STUDENT_PDFS     = "27_student_pdfs"
+STEP_28_CLASS_REPORT     = "28_class_report"
+STEP_29_REVIEW_QUEUE     = "29_review_queue"
+STEP_30_TIMING           = "30_timing_summary"
+STEP_31_ACCURACY         = "31_accuracy"
+STEP_32_AI_COSTS         = "32_ai_costs"
 
 # Backwards-compat alias kept for the resume-artifact copier and any
 # external script that references the old umbrella name. Old runs continue
-# to use the legacy "23_compile_reports/" folder; new runs split across 24–28.
-STEP_24_COMPILE_REPORTS = STEP_24_STUDENT_REPORTS
+# to use the legacy "23_compile_reports/" folder; new runs split across 25–29.
+STEP_25_COMPILE_REPORTS = STEP_25_STUDENT_REPORTS
 
 # Path of cleaned scan relative to artifact_dir (updated from "7_cleaned_scan.pdf")
 CLEANED_SCAN_PDF = STEP_07 + "/cleaned_scan.pdf"

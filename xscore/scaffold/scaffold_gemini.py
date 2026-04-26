@@ -29,6 +29,7 @@ from xscore.scaffold.scaffold_xml import (
     _extract_scheme_graphics,
     _merge_scheme_results,
 )
+from xscore.prompts.loader import load_prompt
 from xscore.shared.exam_paths import (
     artifact_exam_questions_raw_path,
     artifact_exam_questions_raw_xml_path,
@@ -37,6 +38,7 @@ from xscore.shared.exam_paths import (
     artifact_mark_scheme_pages_dir,
     artifact_mark_scheme_path,
     artifact_mark_scheme_xml_path,
+    artifact_questions_per_page_path,
     artifact_scaffold_prompt_path,
 )
 from xscore.shared.prompt_logger import save_prompt, save_response
@@ -312,6 +314,65 @@ def _rasterize_scheme_pages(marking_scheme_pdf: Path, n_pages: int) -> dict[int,
     return page_pngs
 
 
+def _ensure_scheme_pages(
+    marking_scheme_pdf: Path, artifact_dir: "Path | None",
+) -> tuple[int, list[Path], "Path | None"]:
+    """Reuse step-19 per-page splits if present on disk; otherwise create them.
+
+    Returns ``(n_pages, page_paths, tmp_dir)`` matching ``split_mark_scheme_into_pages``.
+    Caller cleans up ``tmp_dir`` (non-None only when ``artifact_dir`` is None).
+    """
+    if artifact_dir is not None:
+        pages_dir = artifact_mark_scheme_pages_dir(artifact_dir)
+        if pages_dir.is_dir():
+            page_paths = sorted(
+                pages_dir.glob("page_*.pdf"),
+                key=lambda p: int(re.search(r"page_(\d+)\.pdf$", p.name).group(1)),
+            )
+            if page_paths:
+                return len(page_paths), page_paths, None
+    return split_mark_scheme_into_pages(marking_scheme_pdf, artifact_dir)
+
+
+def _collect_qnums(raw_questions: list[dict]) -> list[str]:
+    """Walk *raw_questions* recursively, return ordered unique question numbers
+    (top-level + nested subquestions). Preserves first-seen order."""
+    seen: dict[str, None] = {}
+
+    def visit(node: dict) -> None:
+        n = str(node.get("number", "")).strip()
+        if n and n not in seen:
+            seen[n] = None
+        for sub in (node.get("subquestions") or []):
+            visit(sub)
+
+    for q in raw_questions:
+        visit(q)
+    return list(seen.keys())
+
+
+def _filter_questions_by_qnums(
+    raw_questions: list[dict], allowed: set[str],
+) -> list[dict]:
+    """Walk *raw_questions* recursively, keep only nodes whose ``number`` is in
+    *allowed*. Returns a flat list — ``build_scheme_scaffold`` flattens via
+    ``_visit`` anyway, so flattening here is consistent. Subquestions are
+    detached (the caller wants per-question entries, not a parent skeleton)."""
+    out: list[dict] = []
+
+    def visit(node: dict) -> None:
+        if str(node.get("number", "")) in allowed:
+            shallow = {k: v for k, v in node.items() if k != "subquestions"}
+            shallow["subquestions"] = []
+            out.append(shallow)
+        for sub in (node.get("subquestions") or []):
+            visit(sub)
+
+    for q in raw_questions:
+        visit(q)
+    return out
+
+
 # ---------------------------------------------------------------------------
 # Step 18 — Detect mark scheme graphics
 # ---------------------------------------------------------------------------
@@ -477,7 +538,168 @@ def detect_scheme_graphics(
 
 
 # ---------------------------------------------------------------------------
-# Step 19 — Parse mark scheme
+# Step 20 — Assign questions to mark scheme pages (cheap per-page vision call)
+# ---------------------------------------------------------------------------
+
+def assign_questions_to_pages(
+    client,
+    marking_scheme_pdf: Path,
+    raw_questions: list[dict],
+    artifact_dir: "Path | None",
+) -> dict[int, list[str]]:
+    """For each mark scheme page, ask a cheap vision model which question
+    numbers' marking criteria appear on it.
+
+    Returns ``{page_num: [qnum, ...]}``. Empty dict when the model env var is
+    unset, no question numbers are available, or the call fails — the caller
+    (step 21) then falls back to its full-scaffold behavior.
+
+    Provider routing (auto-detected from ``ASSIGN_SCHEME_QUESTIONS_MODEL``):
+      * ``gemini*``  → upload per-page PDFs via ``_upload_and_poll``, call
+        ``client.models.generate_content`` with ``response_mime_type='application/json'``.
+      * everything else → rasterize PNGs, call ``chat.completions.create`` on
+        an OpenAI-compatible client with ``response_format={"type": "json_object"}``.
+    """
+    _result = make_ai_client(model_env="ASSIGN_SCHEME_QUESTIONS_MODEL")
+    if _result is None:
+        info_line("Skipped (ASSIGN_SCHEME_QUESTIONS_MODEL not set)")
+        return {}
+    _oa_client_aux, model, provider, thinking, max_tokens = _result
+
+    qnums = _collect_qnums(raw_questions)
+    if not qnums:
+        info_line("Skipped (no question numbers from step 18)")
+        return {}
+    allowed = set(qnums)
+
+    n_pages, page_paths, _tmp_dir = _ensure_scheme_pages(marking_scheme_pdf, artifact_dir)
+
+    _, system_msg = load_prompt("assign_scheme_questions", section="system")
+    _, user_msg = load_prompt(
+        "assign_scheme_questions", section="user",
+        question_numbers=", ".join(f'"{q}"' for q in qnums),
+    )
+
+    use_gemini = model.startswith("gemini")
+    page_pngs: dict[int, bytes] = {}
+    page_uris: dict[int, str] = {}
+    _oa_thinking_kw: dict = {}
+
+    info_line(f"Assigning questions to {n_pages} page(s) ({model}) …")
+
+    if use_gemini:
+        def _upload_page(item: tuple[int, Path]):
+            pn, path = item
+            return pn, _upload_and_poll(client, path, f"assign p{pn}")
+        with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("ASSIGN_SCHEME_QUESTIONS_WORKERS", "500")))) as pool:
+            for pn, f in pool.map(_upload_page, enumerate(page_paths, 1)):
+                page_uris[pn] = f.uri
+    else:
+        page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
+        _, _oa_thinking_kw = build_completion_kwargs(provider, thinking, max_tokens)
+
+    def _assign_page(page_num: int) -> tuple[int, list[str]]:
+        _t0 = time.perf_counter()
+        thinking_text = ""
+        try:
+            if use_gemini:
+                resp = client.models.generate_content(
+                    model=model,
+                    contents=[
+                        gai_types.Part.from_uri(
+                            file_uri=page_uris[page_num], mime_type="application/pdf"
+                        ),
+                        gai_types.Part.from_text(text=user_msg),
+                    ],
+                    config=_make_gen_config(
+                        thinking, system_msg,
+                        schema={
+                            "type": "object",
+                            "properties": {
+                                "questions": {"type": "array", "items": {"type": "string"}}
+                            },
+                            "required": ["questions"],
+                        },
+                        max_tokens=max_tokens,
+                    ),
+                )
+                raw, thinking_text = split_gemini_response(resp)
+            else:
+                b64 = _base64.b64encode(page_pngs[page_num]).decode()
+                kwargs: dict = dict(
+                    model=model,
+                    messages=[
+                        {"role": "system", "content": system_msg},
+                        {"role": "user", "content": [
+                            {"type": "image_url",
+                             "image_url": {"url": f"data:image/png;base64,{b64}"}},
+                            {"type": "text", "text": user_msg},
+                        ]},
+                    ],
+                    response_format={"type": "json_object"},
+                )
+                kwargs.update(_oa_thinking_kw)
+                resp = _oa_client_aux.chat.completions.create(**kwargs)
+                raw = resp.choices[0].message.content or '{"questions":[]}'
+                thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
+        except Exception as _exc:
+            warn_line(
+                f"Assign questions p{page_num}: API error  ·  "
+                f"{format_duration(time.perf_counter() - _t0)}  —  {_exc}"
+            )
+            return page_num, []
+
+        if artifact_dir is not None:
+            _prompt_path = artifact_scaffold_prompt_path(
+                artifact_dir, f"assign_scheme_questions_p{page_num}"
+            )
+            save_prompt(
+                _prompt_path, model=model, system=system_msg,
+                messages=[{
+                    "role": "user",
+                    "content": f"[{'PDF' if use_gemini else 'PNG'}: p{page_num}]\n\n{user_msg}",
+                }],
+            )
+            save_response(_prompt_path, raw or "", thinking=thinking_text)
+
+        try:
+            data = json.loads(raw)
+        except (json.JSONDecodeError, TypeError):
+            ok_line(f"p{page_num}  ·  parse error  ·  {format_duration(time.perf_counter() - _t0)}")
+            return page_num, []
+        result = [str(q) for q in (data.get("questions") or []) if str(q) in allowed]
+        _qs_str = (", ".join(f"q{q}" for q in result)) if result else "—"
+        ok_line(f"p{page_num}  ·  {_qs_str}  ·  {format_duration(time.perf_counter() - _t0)}")
+        return page_num, result
+
+    with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("ASSIGN_SCHEME_QUESTIONS_WORKERS", "500")))) as pool:
+        pairs = list(pool.map(_assign_page, range(1, n_pages + 1)))
+
+    mapping: dict[int, list[str]] = {pn: qs for pn, qs in pairs}
+
+    if artifact_dir is not None:
+        try:
+            p = artifact_questions_per_page_path(artifact_dir)
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(
+                json.dumps(
+                    {str(k): v for k, v in sorted(mapping.items())},
+                    ensure_ascii=False, indent=2,
+                ),
+                encoding="utf-8",
+            )
+        except OSError as e:
+            warn_line(f"Could not save questions_per_page.json: {e}")
+
+    if _tmp_dir is not None:
+        import shutil
+        shutil.rmtree(_tmp_dir, ignore_errors=True)
+
+    return mapping
+
+
+# ---------------------------------------------------------------------------
+# Step 21 — Parse mark scheme
 # ---------------------------------------------------------------------------
 
 def parse_mark_scheme_pages(
@@ -487,35 +709,43 @@ def parse_mark_scheme_pages(
     scheme_max_tokens: int | None,
     *,
     marking_scheme_pdf: Path,
-    scaffold_str: str,
+    raw_questions: list[dict],
+    questions_per_page: "dict[int, list[str]] | None" = None,
     graphics_by_qnum: "dict[str, list] | None" = None,
     artifact_dir: "Path | None",
     fmt=None,
 ) -> dict:
     """Parse the mark scheme via Gemini (or OpenAI-compatible client) page by page.
 
-    Reads per-page PDFs from step 18's pages dir; falls back to splitting the
-    PDF if that dir doesn't exist (allows running step 19 in isolation).
-    Attaches ``graphics_by_qnum`` (from step 18) onto matching scheme entries.
+    Reads per-page PDFs from step 19's pages dir; falls back to splitting the
+    PDF if that dir doesn't exist (allows running step 21 in isolation).
+    Uses *questions_per_page* (from step 20) to send only the relevant
+    question entries to the AI per page; falls back to the full scaffold for
+    any page missing from the mapping. Empty mapping for a page → no API call.
+    Attaches ``graphics_by_qnum`` (from step 19) onto matching scheme entries.
     """
     if fmt is None:
         from xscore.scaffold.formats.xml_format import XmlScaffoldFormat
         fmt = XmlScaffoldFormat()
 
-    # Reuse step-18 per-page splits if they're already on disk; otherwise create them.
-    _tmp_dir: Path | None = None
-    page_paths: list[Path] = []
-    n_pages = 0
-    if artifact_dir is not None:
-        pages_dir = artifact_mark_scheme_pages_dir(artifact_dir)
-        if pages_dir.is_dir():
-            page_paths = sorted(
-                pages_dir.glob("page_*.pdf"),
-                key=lambda p: int(re.search(r"page_(\d+)\.pdf$", p.name).group(1)),
-            )
-            n_pages = len(page_paths)
-    if not page_paths:
-        n_pages, page_paths, _tmp_dir = split_mark_scheme_into_pages(marking_scheme_pdf, artifact_dir)
+    n_pages, page_paths, _tmp_dir = _ensure_scheme_pages(marking_scheme_pdf, artifact_dir)
+
+    # Lazy fallback scaffold — built only when a page has no per-page mapping.
+    _full_scaffold_str: str | None = None
+
+    def _scaffold_for_page(page_num: int) -> tuple[str, bool]:
+        """Return ``(scaffold_str, is_filtered)`` for *page_num*. Empty filtered
+        list signals "no questions on this page" — caller skips the API call."""
+        nonlocal _full_scaffold_str
+        if questions_per_page is not None and page_num in questions_per_page:
+            qnums = questions_per_page[page_num]
+            if not qnums:
+                return "", True  # signal "skip"
+            filtered = _filter_questions_by_qnums(raw_questions, set(qnums))
+            return fmt.build_scheme_scaffold(filtered), True
+        if _full_scaffold_str is None:
+            _full_scaffold_str = fmt.build_scheme_scaffold(raw_questions)
+        return _full_scaffold_str, False
 
     # OpenAI-compatible client path requires PNGs — only rasterize when needed.
     _oa_client = None
@@ -545,6 +775,10 @@ def parse_mark_scheme_pages(
                 page_uris[page_num] = f.uri
 
     def _call_page(page_num: int) -> dict:
+        scaffold_str, _is_filtered = _scaffold_for_page(page_num)
+        if _is_filtered and not scaffold_str:
+            ok_line(f"p{page_num}  ·  no questions assigned — skipped")
+            return {"questions": []}
         _input_label = "image" if _oa_client is not None else "PDF"
         user_msg = fmt.build_scheme_user_msg(scaffold_str, page_num, n_pages, input_label=_input_label)
         _t0 = time.perf_counter()

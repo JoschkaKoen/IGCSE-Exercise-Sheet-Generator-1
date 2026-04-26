@@ -5,15 +5,17 @@ config.py
 Configuration for xScore. Edit values here or set the noted environment
 variables. See README.md for full detail.
 
-AI provider usage by step (live 30-step pipeline; see ``xscore.shared.pipeline_steps.STEPS``):
-  Step 1               : KIMI_API_KEY  — natural-language prompt parsing
-  Step 9               : Gemini        — empty-exam cover-page check
-  Step 10              : Gemini        — scan cover-page detection
-  Step 11              : configurable  — student-name OCR (NAME_DETECTION_MODEL)
-  Steps 15 / 17 / 18 / 19: configurable — exam/mark-scheme parsing
-                          (DETECT_LAYOUT_MODEL, READ_EXAM_PDF_MODEL,
-                           DETECT_SCHEME_GRAPHICS_MODEL, READ_MARK_SCHEME_MODEL)
-  Step 23              : configurable  — AI marking (MARKING_MODEL)
+AI provider usage by step (live 32-step pipeline; see ``xscore.shared.pipeline_steps.STEPS``):
+  Step 1                  : KIMI_API_KEY  — natural-language prompt parsing
+  Step 9                  : Gemini        — empty-exam cover-page check
+  Step 10                 : Gemini        — scan cover-page detection
+  Step 11                 : configurable  — student-name OCR (NAME_DETECTION_MODEL)
+  Steps 16 / 18 / 19 / 20 / 21 : configurable — exam/mark-scheme parsing
+                            (DETECT_LAYOUT_MODEL, READ_EXAM_PDF_MODEL,
+                             DETECT_SCHEME_GRAPHICS_MODEL,
+                             ASSIGN_SCHEME_QUESTIONS_MODEL,
+                             READ_MARK_SCHEME_MODEL)
+  Step 24                 : configurable  — AI marking (MARKING_MODEL)
 
 How to run (from repo root, with venv activated and dependencies installed):
 

@@ -6,10 +6,10 @@ skip-if-resumed / stop-after / timing / error capture / run-log emission),
 with explicit carve-outs for:
 
 - ``scan_phases`` (steps 4–7, where step 4 is conditional on a duplex match)
-- ``scaffold_phase`` (steps 16–21, where a temp split PDF must be cleaned in finally)
-- ``kick_off_render_bg`` between steps 11 and 12 (pre-render scan pages so step 23
+- ``scaffold_phase`` (steps 16–22, where a temp split PDF must be cleaned in finally)
+- ``kick_off_render_bg`` between steps 11 and 12 (pre-render scan pages so step 24
   can consume them without waiting)
-- The ``ctx.cleaned_pdf and ctx.scaffold`` gate on steps 22–31
+- The ``ctx.cleaned_pdf and ctx.scaffold`` gate on steps 23–32
 """
 
 from __future__ import annotations
@@ -32,7 +32,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
     No-op if cleaned_pdf or page_assignments are not yet set.
 
     The outer ``ThreadPoolExecutor(max_workers=1)`` exists only to give us a
-    ``Future`` handle that step 23 can ``.result()`` on. ``render_pages_b64``
+    ``Future`` handle that step 24 can ``.result()`` on. ``render_pages_b64``
     spawns its own worker pool internally (sized by ``MARKING_WORKERS``).
     """
     if not (ctx.cleaned_pdf and ctx.page_assignments and ctx.artifact_dir):
@@ -58,7 +58,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
 
 
 def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | None = None) -> None:
-    """Orchestrate the full 30-step pipeline."""
+    """Orchestrate the full 32-step pipeline."""
     from eXercise.ai_client import reset_run_call_stats, reset_run_usage
     from xscore.shared.pipeline_steps import run_step, step_by_number, wire_step_fns
     from xscore.shared.run_log import write_run_manifest
@@ -96,13 +96,13 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
             for n in (12, 13, 14, 15):
                 run_step(ctx, step_by_number(n))
 
-        scaffold_phase(ctx)                               # 16–21 with finally cleanup
+        scaffold_phase(ctx)                               # 16–22 with finally cleanup
 
         if ctx.cleaned_pdf and ctx.scaffold:
-            for n in range(22, 32):
+            for n in range(23, 33):
                 run_step(ctx, step_by_number(n))
         elif ctx.cleaned_pdf and not ctx.scaffold:
-            warn_line("Marking skipped — scaffold not available (steps 22–31 omitted).")
+            warn_line("Marking skipped — scaffold not available (steps 23–32 omitted).")
 
         ctx.pipeline_completed_ok = True
     except _EarlyExit:

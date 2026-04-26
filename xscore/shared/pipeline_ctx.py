@@ -33,8 +33,8 @@ class _Ctx:
     scaffold: "ExamScaffold | None" = None
     cleaned_pdf: Path | None = None
     pipeline_completed_ok: bool = False
-    run_started_at: float = 0.0  # perf_counter() set in _run; consumed by step 29 wall-clock row
-    # Steps 22–23: AI marking pipeline
+    run_started_at: float = 0.0  # perf_counter() set in _run; consumed by step 30 wall-clock row
+    # Steps 23–24: AI marking pipeline
     num_students: int = 0
     pages_per_student: int = 0
     # Per-step wall-clock timings. Written by xScore.py's step bodies and by
@@ -65,21 +65,22 @@ class _Ctx:
     student_filter: list[str] | None = None  # --student; restrict marking + reports to these names (lower-case)
     geo: dict[str, Any] = field(default_factory=dict)   # scan geometry from step 8; updated by step 11
     b64_future: "Future[dict[int, str]] | None" = None  # render_pages_b64 submitted by kick_off_render_bg
-    accuracy_summary: dict[str, Any] | None = None      # set by step 30; read by step 31
+    accuracy_summary: dict[str, Any] | None = None      # set by step 31; read by step 32
     scan_match: Path | None = None                      # set by step 4 (or scan_phases single-PDF branch),
                                                         # read by step 5
     scaffold_state: dict[str, Any] = field(default_factory=dict)
-    # transient store for steps 16–21 shared locals so individual step bodies stay focused.
+    # transient store for steps 16–22 shared locals so individual step bodies stay focused.
     # Holds keys like exam_pdf, answer_pdf, client, fmt, layout_result, layout_elapsed,
     # layout_model, actual_exam_pdf, split_pdf_temp_path, n_split, raw_questions,
-    # raw_layout, graphics_by_qnum, scheme_data. Cleared by scaffold_phase finally.
-    # --- Cross-step state for steps 24–28 (split out of compile_reports) ---
-    # Set by step 24 (per-student reports), consumed by 25 (curve), 26 (PDFs), 27 (class), 28 (review).
+    # raw_layout, graphics_by_qnum, questions_per_page, scheme_data. Cleared by
+    # scaffold_phase finally.
+    # --- Cross-step state for steps 25–29 (split out of compile_reports) ---
+    # Set by step 25 (per-student reports), consumed by 26 (curve), 27 (PDFs), 28 (class), 29 (review).
     student_summaries: list[dict] | None = None
     full_reports: dict[str, dict] | None = None
     q_totals: dict[str, list[float]] | None = None
-    # Failure surfaces for steps 24–28. Populated by step 24 (merge),
-    # surfaced by step wrappers (24, 26), persisted by step 28 (review queue).
+    # Failure surfaces for steps 25–29. Populated by step 25 (merge),
+    # surfaced by step wrappers (25, 27), persisted by step 29 (review queue).
     failed_students: list[dict] = field(default_factory=list)
     mark_collisions: list[dict] = field(default_factory=list)
 

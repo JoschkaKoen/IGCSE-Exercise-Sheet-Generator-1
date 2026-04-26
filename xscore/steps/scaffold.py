@@ -1,13 +1,14 @@
-"""Steps 16–21: scaffold building (layout, cut, parse, scheme graphics, merge).
+"""Steps 16–22: scaffold building (layout, cut, parse, scheme graphics, assign,
+merge).
 
-Steps 16–21 share local state (exam_pdf, client, layout_result, raw_questions,
+Steps 16–22 share local state (exam_pdf, client, layout_result, raw_questions,
 …) so each step writes/reads ``ctx.scaffold_state`` rather than receiving these
 through individual ``_Ctx`` fields. ``scaffold_phase`` is the orchestrator
 that:
 
 1. Looks up the exam/answer PDFs and Gemini client (skipping the whole phase
    when no exam PDF is found).
-2. Calls ``run_step`` for each of 16–21 so each gets timing/error capture.
+2. Calls ``run_step`` for each of 16–22 so each gets timing/error capture.
 3. In a ``finally``, deletes the temp split PDF created by step 17 and
    consumed by step 18. Always runs, even on ``_EarlyExit``.
 """
@@ -22,8 +23,9 @@ from xscore.scaffold.ai_scaffold import (
     step17_cut_exam_pdf,
     step18_parse_exam_pdf,
     step19_detect_scheme_graphics,
-    step20_parse_mark_scheme,
-    step21_merge_scaffold,
+    step20_assign_scheme_questions,
+    step21_parse_mark_scheme,
+    step22_merge_scaffold,
 )
 from xscore.scaffold.formats import get_scaffold_format
 from xscore.scaffold.generate_scaffold import (
@@ -102,7 +104,32 @@ def step_19_scheme_graphics(ctx: _Ctx) -> None:
         )
 
 
-def step_20_parse_scheme(ctx: _Ctx) -> None:
+def step_20_assign_questions(ctx: _Ctx) -> None:
+    announce_step_model(
+        model_env="ASSIGN_SCHEME_QUESTIONS_MODEL",
+        default_model="gemini-2.5-flash, off",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
+    state = ctx.scaffold_state
+    t0 = time.perf_counter()
+    if state["answer_pdf"] is None:
+        ok_line("Skipped (no mark scheme PDF)")
+        state["questions_per_page"] = {}
+        return
+    mapping = step20_assign_scheme_questions(
+        state["client"], state["answer_pdf"], state["raw_questions"], ctx.artifact_dir,
+    )
+    state["questions_per_page"] = mapping
+    n_pages = len(mapping)
+    n_qs = sum(len(v) for v in mapping.values())
+    if n_pages:
+        ok_line(
+            f"{n_qs} question(s) mapped across {n_pages} page(s)"
+            f"  ·  {format_duration(time.perf_counter() - t0)}"
+        )
+
+
+def step_21_parse_scheme(ctx: _Ctx) -> None:
     announce_step_model(
         model_env="READ_MARK_SCHEME_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
@@ -110,9 +137,10 @@ def step_20_parse_scheme(ctx: _Ctx) -> None:
     )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
-    scheme_data = step20_parse_mark_scheme(
+    scheme_data = step21_parse_mark_scheme(
         state["client"], state["answer_pdf"], state["raw_questions"],
-        state["graphics_by_qnum"], ctx.artifact_dir, fmt=state["fmt"],
+        state["graphics_by_qnum"], state.get("questions_per_page"),
+        ctx.artifact_dir, fmt=state["fmt"],
     )
     state["scheme_data"] = scheme_data
     scheme_qs = scheme_data.get("questions", []) if isinstance(scheme_data, dict) else []
@@ -122,10 +150,10 @@ def step_20_parse_scheme(ctx: _Ctx) -> None:
     )
 
 
-def step_21_create_report(ctx: _Ctx) -> None:
+def step_22_create_report(ctx: _Ctx) -> None:
     state = ctx.scaffold_state
-    t0 = state.get("phase_t0", time.perf_counter())
-    questions, layout = step21_merge_scaffold(
+    t0 = time.perf_counter()
+    questions, layout = step22_merge_scaffold(
         state["raw_questions"], state["raw_layout"], state["scheme_data"],
     )
     ctx.scaffold = finalize_scaffold(
@@ -140,7 +168,7 @@ def step_21_create_report(ctx: _Ctx) -> None:
 
 
 def scaffold_phase(ctx: _Ctx) -> None:
-    """Steps 16–21 with shared-locals + temp-PDF cleanup.
+    """Steps 16–22 with shared-locals + temp-PDF cleanup.
 
     Skipped entirely when resuming (``ctx.from_step`` set). Aborts cleanly if
     no exam PDF is found. Cleanup runs even on ``_EarlyExit`` from
@@ -172,7 +200,7 @@ def scaffold_phase(ctx: _Ctx) -> None:
     })
 
     try:
-        for n in range(16, 22):
+        for n in range(16, 23):
             run_step(ctx, step_by_number(n))
     finally:
         sp: Path | None = ctx.scaffold_state.get("split_pdf_temp_path")
