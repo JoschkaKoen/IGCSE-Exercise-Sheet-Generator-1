@@ -196,6 +196,40 @@ flowchart TD
     bg -.->|images ready| s22
 ```
 
+Same pipeline as a flat sequence — step-by-step from 1 to 30:
+
+```mermaid
+flowchart TD
+    subgraph setup["Setup (1–3)"]
+        s1["1 — Interpret prompt"] --> s2["2 — Select exam folder"] --> s3["3 — Read student list"]
+    end
+    subgraph scan["Scan cleaning (4–7)"]
+        s4["4 — Merge duplex scans"] --> s5["5 — Detect blank pages"] --> s6["6 — Autorotate"] --> s7["7 — Deskew"]
+    end
+    subgraph geometry["Geometry & validation (8–14)"]
+        s8["8 — Exam geometry"] --> s9["9 — Cover page (empty exam)"] --> s10["10 — Cover pages (scan)"] --> s11["11 — Student names"] --> s12["12 — Page count check"] --> s13["13 — Page order check"] --> s14["14 — Blank pages (empty exam)"]
+    end
+    subgraph scaffold["Exam scaffold (15–20)"]
+        s15["15 — Detect exam layout"] --> s16["16 — Cut empty exam"] --> s17["17 — Parse empty exam PDF"] --> s18["18 — Mark scheme graphics"] --> s19["19 — Parse mark scheme"] --> s20["20 — Build grading scaffold"]
+    end
+    subgraph marking["AI marking (21–22)"]
+        s21["21 — Build marking blueprints"] --> s22["22 — Run AI marking"]
+    end
+    subgraph reports["Reports (23–27)"]
+        s23["23 — Fuse marks to reports"] --> s24["24 — Class stats & curve"] --> s25["25 — Per-student PDFs"] --> s26["26 — Class report"] --> s27["27 — Review queue"]
+    end
+    subgraph summary["Summary (28–30)"]
+        s28["28 — Timing summary"] --> s29["29 — Accuracy evaluation"] --> s30["30 — AI cost summary"]
+    end
+
+    s3 --> s4
+    s7 --> s8
+    s14 --> s15
+    s20 --> s21
+    s22 --> s23
+    s27 --> s28
+```
+
 **Steps (1–30):**
 
 - 1 — Interpret prompt
@@ -233,8 +267,7 @@ The pipeline is **sequential at the orchestration level**. The only true concurr
 
 Each run writes one folder per step under `output/xscore/<exam>/<timestamp>/`, named `NN_step_name/` (e.g. `07_deskew/`, `22_ai_marking/`). This layout is what `--resume-dir` reads from — see [Usage](#usage) for partial-run flags.
 
-<details>
-<summary><strong>Per-step details (1–30)</strong></summary>
+### Per-step details (1–30)
 
 | Step | Description |
 |------|-------------|
@@ -268,8 +301,6 @@ Each run writes one folder per step under `output/xscore/<exam>/<timestamp>/`, n
 | **28** | • Wall-clock durations per pipeline phase + API call counts<br>• Writes `28_timing_summary/timing.json` and `timing.md` |
 | **29** | • Evaluates marking accuracy against ground truth when present<br>• Writes `29_accuracy/accuracy.json` |
 | **30** | • Computes token counts and RMB cost per model from `AI API costs.xlsx`<br>• Writes `30_ai_costs/` with the per-model cost breakdown |
-
-</details>
 
 ---
 
