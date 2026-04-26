@@ -322,28 +322,18 @@ def generate_mcq_explanations_gemini_pdf(
 
     client = gai.Client(api_key=api_key)
 
-    # Write PDF bytes to a temp file, hand the path to the Gemini SDK, then
-    # let the context manager unlink it.  Using `with` here is safe because
-    # the SDK reads the file synchronously inside `client.files.upload`.
+    # Inline the PDF bytes via gemini_pdf_part. Writes to a temp file because
+    # the helper takes a Path; the temp file is unlinked as soon as we have
+    # the Part (which captures the bytes for the inline path, or the URI for
+    # the >18 MB upload fallback).
+    from .ai_client import gemini_pdf_part  # noqa: PLC0415
     from .output_paths import temp_pdf_path  # noqa: PLC0415
-    file_obj = None
+    print("  Reading MCQ questions PDF for Gemini call…", flush=True)
     with temp_pdf_path() as tmp_path:
         tmp_path.write_bytes(q_pdf_bytes)
-        print("  Uploading MCQ questions PDF to Gemini Files API…", flush=True)
-        file_obj = client.files.upload(file=tmp_path)
+        pdf_part = gemini_pdf_part(client, tmp_path, label="mcq questions")
 
     try:
-        # Poll until the file is ready.
-        while getattr(file_obj.state, "name", str(file_obj.state)) == "PROCESSING":
-            print("    Waiting for PDF to be processed…", flush=True)
-            _time.sleep(2)
-            file_obj = client.files.get(name=file_obj.name)
-        state = getattr(file_obj.state, "name", str(file_obj.state))
-        if state == "FAILED":
-            print("  MCQ explanations (PDF): Gemini file processing failed; falling back.")
-            return {}
-        print(f"    PDF ready ({file_obj.name}).")
-
         system_prompt = _build_system_prompt(exam_key, provider="gemini")
 
         def _build_pdf_user_text(nudge: str = "") -> str:
@@ -366,7 +356,7 @@ def generate_mcq_explanations_gemini_pdf(
             debug_lines = [
                 "=== SYSTEM PROMPT ===", system_prompt, "",
                 "=== USER TEXT ===", user_text, "",
-                f"=== PDF: {len(q_pdf_bytes):,} bytes uploaded as {file_obj.name} ===",
+                f"=== PDF: {len(q_pdf_bytes):,} bytes (inline) ===",
             ]
             (_P(save_dir) / "mcq_expl_prompt_pdf.txt").write_text(
                 "\n".join(debug_lines), encoding="utf-8"
@@ -399,7 +389,7 @@ def generate_mcq_explanations_gemini_pdf(
         for attempt in range(max_attempts):
             cur_user_text = _build_pdf_user_text(_NUDGE if attempt > 0 else "")
             contents = [
-                gai_types.Part.from_uri(file_uri=file_obj.uri, mime_type="application/pdf"),
+                pdf_part,
                 gai_types.Part.from_text(text=cur_user_text),
             ]
 
@@ -475,11 +465,9 @@ def generate_mcq_explanations_gemini_pdf(
         return {}
 
     finally:
-        if file_obj is not None:
-            try:
-                client.files.delete(name=file_obj.name)
-            except Exception:
-                pass
+        # Inline path: nothing to clean up. >18 MB fallback uploads auto-expire
+        # after 48 h via Gemini policy.
+        pass
 
 
 def generate_mcq_explanations(

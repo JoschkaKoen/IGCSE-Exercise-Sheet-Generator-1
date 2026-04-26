@@ -173,35 +173,16 @@ def _rank_exercises_ai_gemini(
 
     client = gai.Client(api_key=api_key)
 
-    # Upload both PDFs in parallel
-    pdfs_to_upload: list[tuple[str, Path]] = [("exercise", exercise_pdf)]
-    if answer_pdf and answer_pdf.exists():
-        pdfs_to_upload.append(("answers", answer_pdf))
+    # Inline both PDFs via gemini_pdf_part — no upload pool, no polling.
+    from .ai_client import build_gemini_thinking_config, gemini_pdf_part  # noqa: PLC0415
 
-    print(f"  Uploading {len(pdfs_to_upload)} PDF(s) to Gemini Files API…", flush=True)
+    print(f"  Reading PDF(s) for Gemini call…", flush=True)
+    exercise_part = gemini_pdf_part(client, exercise_pdf, label="exercise")
+    answers_part = (
+        gemini_pdf_part(client, answer_pdf, label="answers")
+        if (answer_pdf and answer_pdf.exists()) else None
+    )
 
-    def _upload(item: tuple[str, Path]):
-        label, path = item
-        return label, client.files.upload(file=path)
-
-    with ThreadPoolExecutor(max_workers=2) as pool:
-        uploaded: list[tuple[str, object]] = list(pool.map(_upload, pdfs_to_upload))
-
-    # Poll each file until ACTIVE
-    ready: dict[str, object] = {}
-    for label, f in uploaded:
-        while getattr(f.state, "name", str(f.state)) == "PROCESSING":
-            print(f"    Waiting for {label} PDF…", flush=True)
-            time.sleep(3)
-            f = client.files.get(name=f.name)
-        state = getattr(f.state, "name", str(f.state))
-        if state == "FAILED":
-            raise RuntimeError(f"Gemini file processing failed ({label}): {f.name}")
-        print(f"    {label.capitalize()} PDF ready ({f.name}).")
-        ready[label] = f
-
-    # Build thinking config via shared helper (mirrors mcq_ai.py).
-    from .ai_client import build_gemini_thinking_config  # noqa: PLC0415
     thinking_cfg = build_gemini_thinking_config(thinking_tokens)
 
     gen_config = gai_types.GenerateContentConfig(
@@ -211,18 +192,15 @@ def _rank_exercises_ai_gemini(
     )
 
     # Build content parts — file parts interleaved with text labels
-    parts: list = [
-        gai_types.Part.from_uri(file_uri=ready["exercise"].uri, mime_type="application/pdf"),
-    ]
-    if "answers" in ready:
-        parts = (
-            [gai_types.Part.from_text(text="=== EXERCISE SHEET ===")]
-            + parts
-            + [
-                gai_types.Part.from_text(text="=== ANSWER SHEET ==="),
-                gai_types.Part.from_uri(file_uri=ready["answers"].uri, mime_type="application/pdf"),
-            ]
-        )
+    if answers_part is not None:
+        parts: list = [
+            gai_types.Part.from_text(text="=== EXERCISE SHEET ==="),
+            exercise_part,
+            gai_types.Part.from_text(text="=== ANSWER SHEET ==="),
+            answers_part,
+        ]
+    else:
+        parts = [exercise_part]
 
     if save_dir:
         from .prompt_logger import save_prompt as _sp  # noqa: PLC0415
@@ -266,12 +244,9 @@ def _rank_exercises_ai_gemini(
         if in_thinking:
             print()
     finally:
-        # Delete uploaded files (auto-expire after 48h anyway)
-        for label, f in ready.items():
-            try:
-                client.files.delete(name=f.name)
-            except Exception:
-                pass
+        # Inline PDFs: nothing to clean up. >18 MB fallback uploads auto-expire
+        # after 48 h via Gemini policy.
+        pass
 
     raw = "".join(chunks)
     if save_dir:

@@ -127,6 +127,7 @@ def _mark_page_pdf(
     from xscore.shared.prompt_logger import save_response
     from eXercise.ai_client import (
         build_gemini_thinking_config,
+        gemini_pdf_part,
         is_503_error,
         make_gemini_native_client,
         parse_model_spec,
@@ -166,17 +167,12 @@ def _mark_page_pdf(
     _last_exc: BaseException = RuntimeError("no attempts made")
     _last_raw: str = ""
     _actual_attempts = 0
-    uploaded = None
+    pdf_part = gemini_pdf_part(gai_client, pdf_path, label="marking")
     for attempt in range(2):  # initial attempt + 1 retry on 503
         _actual_attempts += 1
         try:
-            if uploaded is None:
-                uploaded = gai_client.files.upload(
-                    file=pdf_path,
-                    config=gai_types.UploadFileConfig(mime_type="application/pdf"),
-                )
             contents = [
-                gai_types.Part.from_uri(file_uri=uploaded.uri, mime_type="application/pdf"),
+                pdf_part,
                 gai_types.Part.from_text(text=user_text),
             ]
             for _, _, g_b64 in scheme_graphics:
@@ -193,10 +189,6 @@ def _mark_page_pdf(
             save_response(prompt_save_path, raw)
             from xscore.marking.mark_page import _apply_marking_response
             result = _apply_marking_response(raw, blueprint, fmt, warn)
-            try:
-                gai_client.files.delete(name=uploaded.name)
-            except Exception as _del_exc:  # noqa: BLE001
-                warn(f"Gemini file cleanup failed (file may remain in storage): {_del_exc}")
             return result
         except FormatParseError as exc:
             warn(f"Marking parse error (PDF upload path) — marking aborted ({exc})")
@@ -211,11 +203,6 @@ def _mark_page_pdf(
                 time.sleep(0.1)
             else:
                 break
-    if uploaded is not None:
-        try:
-            gai_client.files.delete(name=uploaded.name)
-        except Exception as _del_exc:  # noqa: BLE001
-            warn(f"Gemini file cleanup failed after all retries (file may remain in storage): {_del_exc}")
     raise MarkingFailure(
         attempts=_actual_attempts, last_exc=_last_exc, last_raw=_last_raw
     )

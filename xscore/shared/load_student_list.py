@@ -109,7 +109,7 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
             from google.genai import types as gai_types
         except ImportError:
             raise RuntimeError("google-genai not installed; run: pip install google-genai")
-        from eXercise.ai_client import build_gemini_thinking_config, make_gemini_native_client
+        from eXercise.ai_client import build_gemini_thinking_config, gemini_pdf_part, make_gemini_native_client
         client = make_gemini_native_client()
         if client is None:
             raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
@@ -129,21 +129,9 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
             _prompt_user_text = _PROMPT + "\n\n" + csv_text
             contents = [_prompt_user_text]
         else:  # .pdf
-            uploaded = client.files.upload(file=target)
-            for _ in range(180):  # up to 6 minutes at 2 s intervals
-                if getattr(uploaded.state, "name", str(uploaded.state)) != "PROCESSING":
-                    break
-                time.sleep(2)
-                uploaded = client.files.get(name=uploaded.name)
-            else:
-                raise TimeoutError(
-                    f"Gemini file upload timed out after 6 min: {uploaded.name}"
-                )
-            if getattr(uploaded.state, "name", str(uploaded.state)) == "FAILED":
-                raise RuntimeError(f"Gemini file processing failed: {uploaded.name}")
             _prompt_user_text = _PROMPT
             contents = [
-                gai_types.Part.from_uri(file_uri=uploaded.uri, mime_type="application/pdf"),
+                gemini_pdf_part(client, target, label="student list"),
                 gai_types.Part.from_text(text=_PROMPT),
             ]
 

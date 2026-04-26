@@ -705,6 +705,47 @@ def make_gemini_native_client(*, deterministic: bool = True) -> Any:
     return _TrackedGeminiClient(gai.Client(api_key=api_key), deterministic=deterministic)
 
 
+_GEMINI_INLINE_PDF_LIMIT = 18 * 1024 * 1024  # 18 MB; Gemini's hard inline cap is ~20 MB
+
+
+def gemini_pdf_part(client: Any, path: "Path", *, label: str = "pdf") -> Any:
+    """Return a Gemini ``Part`` for the PDF at *path*.
+
+    Inlines the bytes via ``Part.from_bytes`` for files ≤ 18 MB (the common case
+    in this repo — exam pages, mark scheme splits, student rosters all fit).
+    Falls back to ``client.files.upload`` + ``Part.from_uri`` for larger PDFs.
+
+    Replaces the per-caller upload+poll dance that used to be scattered
+    across scaffold_gemini, ai_mark, load_student_list, mcq_ai, and
+    difficulty_ranking. The Files API path is preserved here for the rare
+    >18 MB case (e.g. duplex student scans). For inline calls there is nothing
+    to clean up afterwards; for the upload fallback, files auto-expire after
+    48 h via Gemini policy.
+    """
+    from pathlib import Path
+    from google.genai import types as gai_types
+
+    if not isinstance(path, Path):
+        path = Path(path)
+    data = path.read_bytes()
+    if len(data) <= _GEMINI_INLINE_PDF_LIMIT:
+        return gai_types.Part.from_bytes(data=data, mime_type="application/pdf")
+
+    interval = float(os.environ.get("GEMINI_UPLOAD_POLL_S", "3"))
+    timeout = float(os.environ.get("GEMINI_UPLOAD_TIMEOUT_S", "360"))
+    f = client.files.upload(file=path)
+    deadline = time.monotonic() + timeout
+    while getattr(f.state, "name", str(f.state)) == "PROCESSING":
+        if time.monotonic() >= deadline:
+            raise TimeoutError(f"Gemini file upload timed out ({label}): {f.name}")
+        time.sleep(interval)
+        f = client.files.get(name=f.name)
+    state = getattr(f.state, "name", str(f.state))
+    if state == "FAILED":
+        raise RuntimeError(f"Gemini file processing failed ({label}): {f.name}")
+    return gai_types.Part.from_uri(file_uri=f.uri, mime_type="application/pdf")
+
+
 def is_503_error(exc: BaseException) -> bool:
     """Return True if exc is a transient server error worth retrying.
 

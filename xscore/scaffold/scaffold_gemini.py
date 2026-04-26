@@ -17,6 +17,7 @@ from eXercise.ai_client import (
     build_completion_kwargs,
     build_gemini_thinking_config,
     collect_streamed_response,
+    gemini_pdf_part,
     make_ai_client,
     split_gemini_response,
 )
@@ -49,33 +50,6 @@ from xscore.shared.terminal_ui import (
     ok_line,
     warn_line,
 )
-
-
-# ---------------------------------------------------------------------------
-# Upload helpers
-# ---------------------------------------------------------------------------
-
-def _upload_and_poll(client, path: Path, label: str):
-    """Upload *path* to the Gemini Files API, poll until ACTIVE, return the file object.
-
-    Polling cadence is configurable via env vars ``GEMINI_UPLOAD_TIMEOUT_S``
-    (default 360) and ``GEMINI_UPLOAD_POLL_S`` (default 3).
-    """
-    f = client.files.upload(file=path)
-    _interval = float(os.environ.get("GEMINI_UPLOAD_POLL_S", "3"))
-    _timeout = float(os.environ.get("GEMINI_UPLOAD_TIMEOUT_S", "360"))
-    _max_iters = max(1, int(_timeout / _interval))
-    for _ in range(_max_iters):
-        if getattr(f.state, "name", str(f.state)) != "PROCESSING":
-            break
-        time.sleep(_interval)
-        f = client.files.get(name=f.name)
-    else:
-        raise TimeoutError(f"Gemini file upload timed out after {_timeout:.0f}s ({label}): {f.name}")
-    state = getattr(f.state, "name", str(f.state))
-    if state == "FAILED":
-        raise RuntimeError(f"Gemini file processing failed ({label}): {f.name}")
-    return f
 
 
 def _extract_text(resp) -> str:
@@ -157,11 +131,11 @@ def _do_exam_call(
             _oa_provider, exam_thinking, exam_max_tokens
         )
 
-    # Gemini: upload PDF.  Qwen: rasterize all pages to PNG (300 DPI by default).
-    exam_file = None
+    # Gemini: inline PDF bytes via gemini_pdf_part.  Qwen: rasterize all pages to PNG (300 DPI by default).
+    exam_pdf_part = None
     _exam_page_b64s: list[str] = []
     if _oa_client is None:
-        exam_file = _upload_and_poll(client, actual_exam_pdf, "exam")
+        exam_pdf_part = gemini_pdf_part(client, actual_exam_pdf, label="exam")
     else:
         import fitz as _fitz
         _dpi = int(os.environ.get("READ_EXAM_PDF_DPI", "300"))
@@ -201,7 +175,7 @@ def _do_exam_call(
             resp = client.models.generate_content(
                 model=exam_model,
                 contents=[
-                    gai_types.Part.from_uri(file_uri=exam_file.uri, mime_type="application/pdf"),
+                    exam_pdf_part,
                     gai_types.Part.from_text(text=user_exam),
                 ],
                 config=_make_gen_config(
@@ -252,11 +226,9 @@ def _do_exam_call(
                 f"Exam response failed parsing: {exc}: {raw_exam[:300]!r}"
             )
     finally:
-        if exam_file is not None:
-            try:
-                client.files.delete(name=exam_file.name)
-            except Exception:
-                pass
+        # Inline PDF path: nothing to clean up. Files-API fallback (>18 MB)
+        # auto-expires server-side after 48 h.
+        pass
 
 
 # ---------------------------------------------------------------------------
@@ -349,6 +321,31 @@ def _collect_qnums(raw_questions: list[dict]) -> list[str]:
     for q in raw_questions:
         visit(q)
     return list(seen.keys())
+
+
+def _leaf_qnums(raw_questions: list[dict]) -> list[str]:
+    """Return question numbers for leaves only (nodes with no subquestions).
+
+    These are the questions we expect the mark scheme to actually contain
+    content for — parents of subquestions ("2" with children "2a", "2b")
+    typically have no own criteria and are deliberately left empty by the AI.
+    Used to scope the "no content extracted" warning to actionable misses.
+    """
+    out: list[str] = []
+
+    def visit(node: dict) -> None:
+        subs = node.get("subquestions") or []
+        if subs:
+            for sub in subs:
+                visit(sub)
+        else:
+            n = str(node.get("number", "")).strip()
+            if n:
+                out.append(n)
+
+    for q in raw_questions:
+        visit(q)
+    return out
 
 
 def _filter_questions_by_qnums(
@@ -555,7 +552,7 @@ def assign_questions_to_pages(
     (step 21) then falls back to its full-scaffold behavior.
 
     Provider routing (auto-detected from ``ASSIGN_SCHEME_QUESTIONS_MODEL``):
-      * ``gemini*``  → upload per-page PDFs via ``_upload_and_poll``, call
+      * ``gemini*``  → inline per-page PDFs via ``gemini_pdf_part``, call
         ``client.models.generate_content`` with ``response_mime_type='application/json'``.
       * everything else → rasterize PNGs, call ``chat.completions.create`` on
         an OpenAI-compatible client with ``response_format={"type": "json_object"}``.
@@ -582,21 +579,15 @@ def assign_questions_to_pages(
 
     use_gemini = model.startswith("gemini")
     page_pngs: dict[int, bytes] = {}
-    page_uris: dict[int, str] = {}
     _oa_thinking_kw: dict = {}
 
     info_line(f"Assigning questions to {n_pages} page(s) ({model}) …")
 
-    if use_gemini:
-        def _upload_page(item: tuple[int, Path]):
-            pn, path = item
-            return pn, _upload_and_poll(client, path, f"assign p{pn}")
-        with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("ASSIGN_SCHEME_QUESTIONS_WORKERS", "500")))) as pool:
-            for pn, f in pool.map(_upload_page, enumerate(page_paths, 1)):
-                page_uris[pn] = f.uri
-    else:
+    if not use_gemini:
         page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
         _, _oa_thinking_kw = build_completion_kwargs(provider, thinking, max_tokens)
+
+    page_path_by_num: dict[int, Path] = {pn: p for pn, p in enumerate(page_paths, 1)}
 
     def _assign_page(page_num: int) -> tuple[int, list[str]]:
         _t0 = time.perf_counter()
@@ -606,9 +597,7 @@ def assign_questions_to_pages(
                 resp = client.models.generate_content(
                     model=model,
                     contents=[
-                        gai_types.Part.from_uri(
-                            file_uri=page_uris[page_num], mime_type="application/pdf"
-                        ),
+                        gemini_pdf_part(client, page_path_by_num[page_num], label=f"assign p{page_num}"),
                         gai_types.Part.from_text(text=user_msg),
                     ],
                     config=_make_gen_config(
@@ -676,6 +665,19 @@ def assign_questions_to_pages(
         pairs = list(pool.map(_assign_page, range(1, n_pages + 1)))
 
     mapping: dict[int, list[str]] = {pn: qs for pn, qs in pairs}
+
+    # Warn about leaf questions the AI never assigned to any page — step 21
+    # will skip these, so the final mark scheme will have no criteria for them.
+    _assigned: set[str] = set()
+    for _qs in mapping.values():
+        _assigned.update(_qs)
+    _missing = [q for q in _leaf_qnums(raw_questions) if q not in _assigned]
+    if _missing:
+        warn_line(
+            f"Mark scheme: {len(_missing)} question(s) not assigned to any page "
+            f"(step 21 will skip them): "
+            + ", ".join(f"q{q}" for q in _missing)
+        )
 
     if artifact_dir is not None:
         try:
@@ -762,17 +764,9 @@ def parse_mark_scheme_pages(
         )
         page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
 
-    page_uris: dict[int, str] = {}
-    if _oa_client is None:
-        info_line(f"Uploading {n_pages} page(s) …")
-
-        def _upload_page(item: tuple[int, Path]):
-            page_num, path = item
-            return page_num, _upload_and_poll(client, path, f"scheme p{page_num}")
-
-        with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("PARSE_SCHEME_WORKERS", "500")))) as pool:
-            for page_num, f in pool.map(_upload_page, enumerate(page_paths, 1)):
-                page_uris[page_num] = f.uri
+    # Gemini path inlines per-page PDFs via gemini_pdf_part inside the worker
+    # (no upload pool needed). Build a quick lookup of page_num → Path.
+    page_path_by_num: dict[int, Path] = {pn: p for pn, p in enumerate(page_paths, 1)}
 
     def _call_page(page_num: int) -> dict:
         scaffold_str, _is_filtered = _scaffold_for_page(page_num)
@@ -812,12 +806,13 @@ def parse_mark_scheme_pages(
                     thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
                 ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
             else:
-                # Gemini native path
+                # Gemini native path — inline PDF bytes per page
                 resp = client.models.generate_content(
                     model=scheme_model,
                     contents=[
-                        gai_types.Part.from_uri(
-                            file_uri=page_uris[page_num], mime_type="application/pdf"
+                        gemini_pdf_part(
+                            client, page_path_by_num[page_num],
+                            label=f"scheme p{page_num}",
                         ),
                         gai_types.Part.from_text(text=user_msg),
                     ],
@@ -855,6 +850,28 @@ def parse_mark_scheme_pages(
         page_results = list(pool.map(_call_page, range(1, n_pages + 1)))
 
     result = _merge_scheme_results(page_results)
+
+    # Warn about leaf questions we expected the AI to extract content for but
+    # got an empty response back (no correct_answer AND no criteria).
+    # Scoping: when step 20 produced a per-page mapping, expect only its union;
+    # otherwise expect every leaf in raw_questions (full-scaffold fallback path).
+    if questions_per_page:
+        _expected: set[str] = set()
+        for _qs in questions_per_page.values():
+            _expected.update(_qs)
+    else:
+        _expected = set(_leaf_qnums(raw_questions))
+    _with_content = {
+        str(_q.get("number", "")).strip()
+        for _q in result.get("questions", [])
+        if (_q.get("correct_answer") or "").strip() or (_q.get("mark_scheme") or [])
+    }
+    _missing_content = sorted(_expected - _with_content)
+    if _missing_content:
+        warn_line(
+            f"Mark scheme: no content extracted for {len(_missing_content)} question(s): "
+            + ", ".join(f"q{q}" for q in _missing_content)
+        )
 
     # Attach graphics positions from step 18 onto matching scheme entries.
     if graphics_by_qnum:
