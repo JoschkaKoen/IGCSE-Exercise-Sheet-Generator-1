@@ -129,17 +129,17 @@ def resume_pipeline(ctx: "_Ctx") -> None:
         (resume_dir / "07_deskew" / "cleaned_scan.pdf",          resume_dir / "7_cleaned_scan.pdf"),
         (resume_dir / "03_read_student_list" / "students.json",  resume_dir / "3_students.json"),
         (resume_dir / "11_student_names" / "exam_student_list.json", resume_dir / "8_exam_student_list.json"),
-        (resume_dir / "20_create_report" / "report.xml",         resume_dir / "12_report.json"),
+        (resume_dir / "21_create_report" / "report.xml",         resume_dir / "12_report.json"),
     ]:
         found = _first_existing(new_p, old_p)
         required.append(found if found else new_p)
 
     if ctx.from_step >= blueprint_step + 1:
-        bp_new = list(resume_dir.glob("21_ai_marking_blueprints/blueprint_page_*.json"))
+        bp_new = list(resume_dir.glob("22_ai_marking_blueprints/blueprint_page_*.json"))
         bp_old = list(resume_dir.glob("18_ai_marking_blueprint_*.json"))
         required += bp_new or bp_old
     if ctx.from_step >= blueprint_step + 2:
-        mk_new = list(resume_dir.glob("22_ai_marking/students/*.yaml"))
+        mk_new = list(resume_dir.glob("23_ai_marking/students/*.yaml"))
         mk_old = list(resume_dir.glob("students/14_marked_*.xml"))
         required += mk_new or mk_old
     missing = [p for p in required if not p.exists()]

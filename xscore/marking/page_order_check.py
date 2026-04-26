@@ -135,7 +135,7 @@ def _build_client_state(model_id: str) -> _ClientState | str:
             return "GEMINI_API_KEY not set"
         return _ClientState(gai=gai, oa=None, provider="gemini")
     from eXercise.ai_client import make_ai_client
-    result = make_ai_client(model_env="PAGE_ORDER_CHECK_MODEL")
+    result = make_ai_client(model_env="", default_model=model_id)
     if result is None:
         return f"PAGE_ORDER_CHECK_MODEL={model_id} requires API key for its provider"
     oa, _, provider, _, _ = result
@@ -324,7 +324,7 @@ def check_page_order(
     from xscore.shared.prompt_logger import save_prompt, save_response
 
     model_id, thinking, max_tok = parse_model_spec(
-        os.environ.get("PAGE_ORDER_CHECK_MODEL", "gemini-2.5-flash-lite")
+        os.environ.get("PAGE_ORDER_CHECK_MODEL", "qwen3.6-flash, 0, 2048")
     )
 
     # ── Empty exam baseline (with image-PDF guard) ────────────────────────

@@ -40,10 +40,10 @@ class TaskInstruction:
     no_report: bool = False
     from_step: int | None = None
     # Set to True when the user includes a cache opt-in phrase in the NL prompt
-    # (e.g. "grade the exam, reuse cache"). Currently honoured only by step 22
+    # (e.g. "grade the exam, reuse cache"). Currently honoured only by step 23
     # (AI marking) — see :mod:`xscore.shared.response_cache`.
     reuse_cache: bool = False
-    # Grade-curve controls (steps 24/25). Both default to ``None`` meaning
+    # Grade-curve controls (steps 25/26). Both default to ``None`` meaning
     # "prompt did not specify, fall back to env var":
     #   - ``GRADE_CURVE_TARGET``  (env, default 80) ← curved_grade_override
     #   - ``CURVED_GRADE_VISIBLE`` (env, default true) ← curved_grade_visible

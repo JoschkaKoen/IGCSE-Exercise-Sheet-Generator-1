@@ -1,4 +1,4 @@
-"""Opt-in response cache for AI marking calls (step 22 only).
+"""Opt-in response cache for AI marking calls (step 23 only).
 
 Activated by ``ctx.instruction.reuse_cache == True``, which is set when the
 user includes "reuse cache" / "use cache" in the natural-language prompt

@@ -173,7 +173,7 @@ def find_blank_exam_pages(
         lines += [f"Page {i}:", text or "(no printed text)", ""]
     lines += [
         "Identify all BLANK pages. A blank page:",
-        "- Contains the words \"BLANK PAGE\"",
+        "- May contain the words \"BLANK PAGE\"",
         "- Has NO exercise instructions or question text",
         "- May have printed horizontal lines (writing lines for students) — these do NOT",
         "  disqualify a page from being blank",

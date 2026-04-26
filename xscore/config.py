@@ -13,7 +13,7 @@ AI provider usage by step (live 30-step pipeline; see ``xscore.shared.pipeline_s
   Steps 15 / 17 / 18 / 19: configurable — exam/mark-scheme parsing
                           (DETECT_LAYOUT_MODEL, READ_EXAM_PDF_MODEL,
                            DETECT_SCHEME_GRAPHICS_MODEL, READ_MARK_SCHEME_MODEL)
-  Step 22              : configurable  — AI marking (MARKING_MODEL)
+  Step 23              : configurable  — AI marking (MARKING_MODEL)
 
 How to run (from repo root, with venv activated and dependencies installed):
 
@@ -176,7 +176,7 @@ COVER_PAGE_DETECTION_DPI: int = int(os.getenv("COVER_PAGE_DETECTION_DPI", "150")
 NAME_RECOGNITION_DPI: int = int(os.getenv("NAME_RECOGNITION_DPI", "300"))
 NAME_JPEG_QUALITY: int = int(os.getenv("NAME_JPEG_QUALITY", "85"))
 
-# Step 22: full scan page sent to vision API for marking.
+# Step 23: full scan page sent to vision API for marking.
 MARKING_DPI: int = int(os.getenv("MARKING_DPI", "300"))
 MARKING_JPEG_QUALITY: int = int(os.getenv("MARKING_JPEG_QUALITY", "90"))
 

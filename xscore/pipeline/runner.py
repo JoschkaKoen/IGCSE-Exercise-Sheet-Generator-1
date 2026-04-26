@@ -32,7 +32,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
     No-op if cleaned_pdf or page_assignments are not yet set.
 
     The outer ``ThreadPoolExecutor(max_workers=1)`` exists only to give us a
-    ``Future`` handle that step 22 can ``.result()`` on. ``render_pages_b64``
+    ``Future`` handle that step 23 can ``.result()`` on. ``render_pages_b64``
     spawns its own worker pool internally (sized by ``MARKING_WORKERS``).
     """
     if not (ctx.cleaned_pdf and ctx.page_assignments and ctx.artifact_dir):

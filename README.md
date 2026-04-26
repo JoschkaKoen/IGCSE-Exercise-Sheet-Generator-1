@@ -137,7 +137,7 @@ flowchart TD
         s5 --> s6 --> s7
     end
 
-    subgraph geometry ["Exam geometry (steps 8–14)"]
+    subgraph geometry ["Exam geometry (steps 8–15)"]
         direction TB
         s8["Step 8 —\nDetect empty\nexam geometry\n(scan÷exam pages →\nnum_students ·\nroster cross-check)"]
         s9["Step 9 —\nDetect cover page\nin empty exam\n(EMPTY_EXAM_COVER_MODEL)"]
@@ -145,44 +145,45 @@ flowchart TD
         s11["Step 11 —\nDetect student names\n(NAME_DETECTION_MODEL\n· parallel)"]
         s12["Step 12 —\nCheck number of pages\nper student\n(abort if mismatch)"]
         s13["Step 13 —\nCheck page order\n(PAGE_ORDER_CHECK_MODEL)"]
-        s14["Step 14 —\nDetect blank pages\nin empty exam\n(BLANK_PAGE_DETECTION_MODEL)"]
-        s8 --> s9 --> s10 --> s11 --> s12 --> s13 --> s14
+        s14["Step 14 —\nDetect blank pages\nin empty exam\n(text only ·\n14_EXAM_BLANK_DETECTION_MODEL)"]
+        s15["Step 15 —\nCheck student handwriting\non blank pages\n(vision · parallel ·\n15_HANDWRITING_CHECK_MODEL)"]
+        s8 --> s9 --> s10 --> s11 --> s12 --> s13 --> s14 --> s15
     end
 
-    subgraph scaffold ["Exam scaffold (steps 15–20)"]
+    subgraph scaffold ["Exam scaffold (steps 16–21)"]
         direction TB
-        s15["Step 15 —\nDetect empty\nexam layout\n(DETECT_LAYOUT_MODEL)"]
-        s16["Step 16 —\nCut empty exam\n(1×1 → skipped ·\nmulti-up →\nsplit sub-pages)"]
-        s17["Step 17 —\nParse empty exam PDF\n(READ_EXAM_PDF_MODEL)\n(Gemini: native PDF\n· Qwen: per-page PNG)"]
-        s18["Step 18 —\nDetect mark scheme\ngraphics\n(DETECT_SCHEME_GRAPHICS_MODEL\n· PNG only)"]
-        s19["Step 19 —\nParse mark scheme\n(READ_MARK_SCHEME_MODEL)\n(Gemini: native PDF\n· Qwen: per-page PNG)"]
-        s20["Step 20 —\nBuild grading\nscaffold\n(merges question tree\n+ mark scheme)"]
-        s15 --> s16 --> s17 --> s18 --> s19 --> s20
+        s16["Step 16 —\nDetect empty\nexam layout\n(DETECT_LAYOUT_MODEL)"]
+        s17["Step 17 —\nCut empty exam\n(1×1 → skipped ·\nmulti-up →\nsplit sub-pages)"]
+        s18["Step 18 —\nParse empty exam PDF\n(READ_EXAM_PDF_MODEL)\n(Gemini: native PDF\n· Qwen: per-page PNG)"]
+        s19["Step 19 —\nDetect mark scheme\ngraphics\n(DETECT_SCHEME_GRAPHICS_MODEL\n· PNG only)"]
+        s20["Step 20 —\nParse mark scheme\n(READ_MARK_SCHEME_MODEL)\n(Gemini: native PDF\n· Qwen: per-page PNG)"]
+        s21["Step 21 —\nBuild grading\nscaffold\n(merges question tree\n+ mark scheme)"]
+        s16 --> s17 --> s18 --> s19 --> s20 --> s21
     end
 
-    subgraph marking ["AI marking (steps 21–22)"]
+    subgraph marking ["AI marking (steps 22–23)"]
         direction TB
-        s21["Step 21 —\nBuild AI marking\nblueprints\n(per-page templates\nfrom scaffold)"]
-        s22["Step 22 —\nRun AI marking\n(MARKING_MODEL ·\nMARKING_WORKERS\nparallel)\n(Gemini: native PDF\n· Qwen: per-page JPEG)"]
-        s21 --> s22
+        s22["Step 22 —\nBuild AI marking\nblueprints\n(per-page templates\nfrom scaffold)"]
+        s23["Step 23 —\nRun AI marking\n(MARKING_MODEL ·\nMARKING_WORKERS\nparallel)\n(Gemini: native PDF\n· Qwen: per-page JPEG)"]
+        s22 --> s23
     end
 
-    subgraph reports ["Reports (steps 23–27)"]
+    subgraph reports ["Reports (steps 24–28)"]
         direction TB
-        s23["Step 23 —\nFuse AI marking\noutput to\nstudent reports\n(merge per-page marks\n· cross-page max)"]
-        s24["Step 24 —\nCompute class\nstatistics + curve\n(per-question averages\n· grade distribution)"]
-        s25["Step 25 —\nGenerate per-student\nreports\n(landscape + portrait\n+ 2UP · xelatex ·\nMARKING_WORKERS\nparallel)"]
-        s26["Step 26 —\nGenerate class report"]
-        s27["Step 27 —\nBuild review queue\n(low-confidence marks\nfor manual review)"]
-        s23 --> s24 --> s25 --> s26 --> s27
+        s24["Step 24 —\nFuse AI marking\noutput to\nstudent reports\n(merge per-page marks\n· cross-page max)"]
+        s25["Step 25 —\nCompute class\nstatistics + curve\n(per-question averages\n· grade distribution)"]
+        s26["Step 26 —\nGenerate per-student\nreports\n(landscape + portrait\n+ 2UP · xelatex ·\nMARKING_WORKERS\nparallel)"]
+        s27["Step 27 —\nGenerate class report"]
+        s28["Step 28 —\nBuild review queue\n(low-confidence marks\nfor manual review)"]
+        s24 --> s25 --> s26 --> s27 --> s28
     end
 
-    subgraph summary ["Summary (steps 28–30)"]
+    subgraph summary ["Summary (steps 29–31)"]
         direction TB
-        s28["Step 28 —\nSummarise step\ntimings\n(wall-clock per phase\n· API call counts)"]
-        s29["Step 29 —\nEvaluate marking\naccuracy\n(vs ground truth\nif available)"]
-        s30["Step 30 —\nSummarise AI costs\n(token counts ·\nRMB cost per model)"]
-        s28 --> s29 --> s30
+        s29["Step 29 —\nSummarise step\ntimings\n(wall-clock per phase\n· API call counts)"]
+        s30["Step 30 —\nEvaluate marking\naccuracy\n(vs ground truth\nif available)"]
+        s31["Step 31 —\nSummarise AI costs\n(token counts ·\nRMB cost per model)"]
+        s29 --> s30 --> s31
     end
 
     bg["Pre-render scan pages\n(background thread ·\nMARKING_WORKERS)"]
@@ -193,10 +194,10 @@ flowchart TD
     routeCond -->|web| s3
     s3 --> cleaning --> geometry --> scaffold --> marking --> reports --> summary
     s11 -.->|kicks off| bg
-    bg -.->|images ready| s22
+    bg -.->|images ready| s23
 ```
 
-Same pipeline as a flat sequence — step-by-step from 1 to 30:
+Same pipeline as a flat sequence — step-by-step from 1 to 31:
 
 ```mermaid
 flowchart TD
@@ -206,31 +207,31 @@ flowchart TD
     subgraph scan["Scan cleaning (4–7)"]
         s4["4 — Merge duplex scans"] --> s5["5 — Detect blank pages"] --> s6["6 — Autorotate"] --> s7["7 — Deskew"]
     end
-    subgraph geometry["Geometry & validation (8–14)"]
-        s8["8 — Exam geometry"] --> s9["9 — Cover page (empty exam)"] --> s10["10 — Cover pages (scan)"] --> s11["11 — Student names"] --> s12["12 — Page count check"] --> s13["13 — Page order check"] --> s14["14 — Blank pages (empty exam)"]
+    subgraph geometry["Geometry & validation (8–15)"]
+        s8["8 — Exam geometry"] --> s9["9 — Cover page (empty exam)"] --> s10["10 — Cover pages (scan)"] --> s11["11 — Student names"] --> s12["12 — Page count check"] --> s13["13 — Page order check"] --> s14["14 — Blank pages (empty exam)"] --> s15["15 — Student handwriting check"]
     end
-    subgraph scaffold["Exam scaffold (15–20)"]
-        s15["15 — Detect exam layout"] --> s16["16 — Cut empty exam"] --> s17["17 — Parse empty exam PDF"] --> s18["18 — Mark scheme graphics"] --> s19["19 — Parse mark scheme"] --> s20["20 — Build grading scaffold"]
+    subgraph scaffold["Exam scaffold (16–21)"]
+        s16["16 — Detect exam layout"] --> s17["17 — Cut empty exam"] --> s18["18 — Parse empty exam PDF"] --> s19["19 — Mark scheme graphics"] --> s20["20 — Parse mark scheme"] --> s21["21 — Build grading scaffold"]
     end
-    subgraph marking["AI marking (21–22)"]
-        s21["21 — Build marking blueprints"] --> s22["22 — Run AI marking"]
+    subgraph marking["AI marking (22–23)"]
+        s22["22 — Build marking blueprints"] --> s23["23 — Run AI marking"]
     end
-    subgraph reports["Reports (23–27)"]
-        s23["23 — Fuse marks to reports"] --> s24["24 — Class stats & curve"] --> s25["25 — Per-student PDFs"] --> s26["26 — Class report"] --> s27["27 — Review queue"]
+    subgraph reports["Reports (24–28)"]
+        s24["24 — Fuse marks to reports"] --> s25["25 — Class stats & curve"] --> s26["26 — Per-student PDFs"] --> s27["27 — Class report"] --> s28["28 — Review queue"]
     end
-    subgraph summary["Summary (28–30)"]
-        s28["28 — Timing summary"] --> s29["29 — Accuracy evaluation"] --> s30["30 — AI cost summary"]
+    subgraph summary["Summary (29–31)"]
+        s29["29 — Timing summary"] --> s30["30 — Accuracy evaluation"] --> s31["31 — AI cost summary"]
     end
 
     s3 --> s4
     s7 --> s8
-    s14 --> s15
-    s20 --> s21
-    s22 --> s23
-    s27 --> s28
+    s15 --> s16
+    s21 --> s22
+    s23 --> s24
+    s28 --> s29
 ```
 
-**Steps (1–30):**
+**Steps (1–31):**
 
 - 1 — Interpret prompt
 - 2 — Select exam folder
@@ -245,29 +246,30 @@ flowchart TD
 - 11 — Detect student names
 - 12 — Check number of pages per student
 - 13 — Check page order
-- 14 — Detect blank pages in empty exam
-- 15 — Detect empty exam layout
-- 16 — Cut empty exam
-- 17 — Parse empty exam PDF
-- 18 — Detect mark scheme graphics
-- 19 — Parse mark scheme
-- 20 — Build grading scaffold
-- 21 — Build AI marking blueprints
-- 22 — Run AI marking
-- 23 — Fuse AI marking output to student reports
-- 24 — Compute class statistics + curve
-- 25 — Generate per-student reports (landscape + portrait + 2UP)
-- 26 — Generate class report
-- 27 — Build review queue
-- 28 — Summarise step timings
-- 29 — Evaluate marking accuracy
-- 30 — Summarise AI costs
+- 14 — Detect blank pages in empty exam (text only)
+- 15 — Check student handwriting on blank pages (vision)
+- 16 — Detect empty exam layout
+- 17 — Cut empty exam
+- 18 — Parse empty exam PDF
+- 19 — Detect mark scheme graphics
+- 20 — Parse mark scheme
+- 21 — Build grading scaffold
+- 22 — Build AI marking blueprints
+- 23 — Run AI marking
+- 24 — Fuse AI marking output to student reports
+- 25 — Compute class statistics + curve
+- 26 — Generate per-student reports (landscape + portrait + 2UP)
+- 27 — Generate class report
+- 28 — Build review queue
+- 29 — Summarise step timings
+- 30 — Evaluate marking accuracy
+- 31 — Summarise AI costs
 
-The pipeline is **sequential at the orchestration level**. The only true concurrency is (a) a background thread that pre-renders all scan pages to JPEG starting just after step 11 — so step 22 doesn't block on rasterisation — and (b) `MARKING_WORKERS` parallelism *inside* steps 22 (one API call per student page) and 25 (one xelatex process per student PDF).
+The pipeline is **sequential at the orchestration level**. The only true concurrency is (a) a background thread that pre-renders all scan pages to JPEG starting just after step 11 — so step 23 doesn't block on rasterisation — and (b) `MARKING_WORKERS` parallelism *inside* steps 23 (one API call per student page) and 26 (one xelatex process per student PDF).
 
-Each run writes one folder per step under `output/xscore/<exam>/<timestamp>/`, named `NN_step_name/` (e.g. `07_deskew/`, `22_ai_marking/`). This layout is what `--resume-dir` reads from — see [Usage](#usage) for partial-run flags.
+Each run writes one folder per step under `output/xscore/<exam>/<timestamp>/`, named `NN_step_name/` (e.g. `07_deskew/`, `23_ai_marking/`). This layout is what `--resume-dir` reads from — see [Usage](#usage) for partial-run flags.
 
-### Per-step details (1–30)
+### Per-step details (1–31)
 
 | Step | Description |
 |------|-------------|
@@ -284,23 +286,24 @@ Each run writes one folder per step under `output/xscore/<exam>/<timestamp>/`, n
 | **11** | • Renders scan pages at `NAME_RECOGNITION_DPI` (300 DPI)<br>• Detects student names on the first scan page of each student block (`NAME_DETECTION_MODEL`)<br>• Fuzzy-matches names against the roster<br>• Writes `11_student_names/exam_student_list.json` / `.md`<br>• Immediately starts pre-rendering all scan pages to JPEG in a background thread |
 | **12** | • Validates each student's page count against the expected `exam_pages (+ 1 cover)`<br>• Aborts with `SystemExit(1)` on mismatch, printing a per-student breakdown |
 | **13** | • Verifies printed question text on each scan page is in the correct order (`PAGE_ORDER_CHECK_MODEL`)<br>• Non-fatal: exceptions are caught and logged<br>• Writes text artifacts to `13_page_order/` |
-| **14** | • Identifies blank exam pages (no question text)<br>• Checks each corresponding student scan page for handwriting (`BLANK_PAGE_DETECTION_MODEL`)<br>• Pages with no handwriting are flagged as skip pages in the marking blueprint<br>• Non-fatal; writes `14_blank_pages/blank_pages.json` and per-page JPEG images |
-| **15** | • AI vision call detects the printing layout of the exam PDF (1×1, 2-up, 4-up) (`DETECT_LAYOUT_MODEL`)<br>• Writes `15_detect_exam_layout/exam_layout.json` + `.md` |
-| **16** | • Pure geometry step — no AI call<br>• 1×1 layout: prints "skipped" and continues immediately<br>• Multi-up: crops and reassembles each physical page into one PDF page per sub-page in reading order<br>• Split PDF saved to `16_cut_exam/split_exam.pdf` |
-| **17** | • Reads the exam PDF and extracts every question and sub-question<br>• Returns number, type, marks, page, subpage position, and answer options<br>• Writes `17_parse_exam_pdf/exam_questions.json` + `.md`<br>• Configure with `READ_EXAM_PDF_MODEL` (Gemini or Qwen) |
-| **18** | • Detects graphics (diagrams, tables) on each mark scheme page; crops bounding boxes to `18_detect_mark_scheme_graphics/` (`DETECT_SCHEME_GRAPHICS_MODEL`; skipped when not set) |
-| **19** | • Reads the mark scheme and returns correct answers and marking criteria (`READ_MARK_SCHEME_MODEL`)<br>• Exam question structure from step 17 is embedded in the prompt for answer-to-question matching<br>• Writes `19_parse_mark_scheme/mark_scheme.json` + `.md` |
-| **20** | • Merges the exam question tree with mark scheme annotations<br>• Writes `20_create_report/report.json` / `.xml` + `.md` and `short_report.*`<br>• Runs even without a mark scheme (exam-only report)<br>• Drives the marking blueprints and AI marking |
-| **21** | • Extracts leaf questions from the scaffold for each exam page<br>• Writes per-page blueprints to `21_ai_marking_blueprints/blueprint_page_N.*`<br>• Includes subpage coordinates and page layout for the vision model |
-| **22** | • Sends each student's scan pages to the vision model (one API call per page)<br>• Page images pre-rendered after step 11 — no rendering wait at API call time<br>• Model fills in `student_answer`, `assigned_marks`, and `explanation` for every question<br>• All pages run in parallel (`MARKING_WORKERS` threads); results written to `22_ai_marking/students/`<br>• Requires `DASHSCOPE_API_KEY` (or the provider matching `MARKING_MODEL`) |
-| **23** | • Merges per-page results into one record per student (cross-page questions: takes max marks)<br>• Writes `.json` and `.md` per student to `23_student_reports/students/`<br>• No PDF compile yet — that's step 25 |
-| **24** | • Aggregates per-question averages across the class and produces a grade-distribution curve<br>• Writes `24_class_stats/class_stats.json` and `.md` |
-| **25** | • Compiles each per-student report to PDF via `xelatex`<br>• Runs in parallel (`MARKING_WORKERS` processes); requires `xelatex`<br>• Outputs to `25_student_pdfs/` |
-| **26** | • Compiles the class-wide PDF (per-question averages, grade curve, combined student marks)<br>• Writes `26_class_report/class_report.pdf` |
-| **27** | • Extracts low-confidence or flagged marks into a manual-review queue<br>• Writes `27_review_queue/review.json` and `.md` |
-| **28** | • Wall-clock durations per pipeline phase + API call counts<br>• Writes `28_timing_summary/timing.json` and `timing.md` |
-| **29** | • Evaluates marking accuracy against ground truth when present<br>• Writes `29_accuracy/accuracy.json` |
-| **30** | • Computes token counts and RMB cost per model from `AI API costs.xlsx`<br>• Writes `30_ai_costs/` with the per-model cost breakdown |
+| **14** | • Text-only LLM call: identifies blank exam pages in the empty exam PDF (no question text — only writing lines or "BLANK PAGE" heading)<br>• Configure with `14_EXAM_BLANK_DETECTION_MODEL`<br>• Non-fatal; writes `14_exam_blank_detection/blank_exam_pages.json` |
+| **15** | • Vision LLM call per (student × blank exam page): checks the corresponding student scan page for handwriting<br>• Pages with no handwriting are flagged as skip pages in the marking blueprint; inconclusive pages are surfaced separately and excluded from skip<br>• Configure with `15_HANDWRITING_CHECK_MODEL` (parallel; reads step 14's artifact)<br>• Non-fatal; writes `15_student_handwriting/handwriting.json` and per-page JPEG images |
+| **16** | • AI vision call detects the printing layout of the exam PDF (1×1, 2-up, 4-up) (`DETECT_LAYOUT_MODEL`)<br>• Writes `16_detect_exam_layout/exam_layout.json` + `.md` |
+| **17** | • Pure geometry step — no AI call<br>• 1×1 layout: prints "skipped" and continues immediately<br>• Multi-up: crops and reassembles each physical page into one PDF page per sub-page in reading order<br>• Split PDF saved to `17_cut_exam/split_exam.pdf` |
+| **18** | • Reads the exam PDF and extracts every question and sub-question<br>• Returns number, type, marks, page, subpage position, and answer options<br>• Writes `18_parse_exam_pdf/exam_questions.json` + `.md`<br>• Configure with `READ_EXAM_PDF_MODEL` (Gemini or Qwen) |
+| **19** | • Detects graphics (diagrams, tables) on each mark scheme page; crops bounding boxes to `19_detect_mark_scheme_graphics/` (`DETECT_SCHEME_GRAPHICS_MODEL`; skipped when not set) |
+| **20** | • Reads the mark scheme and returns correct answers and marking criteria (`READ_MARK_SCHEME_MODEL`)<br>• Exam question structure from step 18 is embedded in the prompt for answer-to-question matching<br>• Writes `20_parse_mark_scheme/mark_scheme.json` + `.md` |
+| **21** | • Merges the exam question tree with mark scheme annotations<br>• Writes `21_create_report/report.json` / `.xml` + `.md` and `short_report.*`<br>• Runs even without a mark scheme (exam-only report)<br>• Drives the marking blueprints and AI marking |
+| **22** | • Extracts leaf questions from the scaffold for each exam page<br>• Writes per-page blueprints to `22_ai_marking_blueprints/blueprint_page_N.*`<br>• Includes subpage coordinates and page layout for the vision model |
+| **23** | • Sends each student's scan pages to the vision model (one API call per page)<br>• Page images pre-rendered after step 11 — no rendering wait at API call time<br>• Model fills in `student_answer`, `assigned_marks`, and `explanation` for every question<br>• All pages run in parallel (`MARKING_WORKERS` threads); results written to `23_ai_marking/students/`<br>• Requires `DASHSCOPE_API_KEY` (or the provider matching `MARKING_MODEL`) |
+| **24** | • Merges per-page results into one record per student (cross-page questions: takes max marks)<br>• Writes `.json` and `.md` per student to `24_student_reports/students/`<br>• No PDF compile yet — that's step 26 |
+| **25** | • Aggregates per-question averages across the class and produces a grade-distribution curve<br>• Writes `25_class_stats/class_stats.json` and `.md` |
+| **26** | • Compiles each per-student report to PDF via `xelatex`<br>• Runs in parallel (`MARKING_WORKERS` processes); requires `xelatex`<br>• Outputs to `26_student_pdfs/` |
+| **27** | • Compiles the class-wide PDF (per-question averages, grade curve, combined student marks)<br>• Writes `27_class_report/class_report.pdf` |
+| **28** | • Extracts low-confidence or flagged marks into a manual-review queue<br>• Writes `28_review_queue/review.json` and `.md` |
+| **29** | • Wall-clock durations per pipeline phase + API call counts<br>• Writes `29_timing_summary/timing.json` and `timing.md` |
+| **30** | • Evaluates marking accuracy against ground truth when present<br>• Writes `30_accuracy/accuracy.json` |
+| **31** | • Computes token counts and RMB cost per model from `AI API costs.xlsx`<br>• Writes `31_ai_costs/` with the per-model cost breakdown |
 
 ---
 
@@ -339,8 +342,8 @@ The **Grade** page depends on the `xscore` package (not in `requirements.txt`) a
 | | |
 |---|---|
 | `xscore` | Install separately if you want the scan-cleaning and AI-marking pipeline |
-| `GEMINI_API_KEY` | Required for any step whose model is a Gemini model (`GOOGLE_API_KEY` accepted as fallback). With the shipped defaults that's steps 1, 3, 9, 10, 13, 14, 15, 17, 19. Steps 18 and 22 also require Gemini if their `*_MODEL` is set to a Gemini model. |
-| `DASHSCOPE_API_KEY` | Required for any step whose model is a Qwen model (DashScope). With the shipped defaults that's step 11 (name detection), step 18 (mark-scheme graphics), and step 22 (AI marking). Switch any of these to Gemini in `default.env` and the key becomes optional. |
+| `GEMINI_API_KEY` | Required for any step whose model is a Gemini model (`GOOGLE_API_KEY` accepted as fallback). With the shipped defaults that's steps 18 (parse exam PDF) and 20 (parse mark scheme). Other steps fall back to Gemini if their `*_MODEL` env var is set to a Gemini model. |
+| `DASHSCOPE_API_KEY` | Required for any step whose model is a Qwen model (DashScope). With the shipped defaults that's steps 1, 3, 9, 10, 11, 13, 14, 15, 16, 19, and 23. Switch any of these to Gemini in `default.env` and the key becomes optional. |
 
 If `xscore` is not installed, the rest of the app runs normally — only `/grade` will return errors.
 
@@ -404,7 +407,7 @@ Three pages are available:
 | Page | Path | Purpose |
 |------|------|---------|
 | **Generate** | `/` | Build exercise sheets (natural language or legacy); PDF preview with tabs (exercise, answers, 2-up, 4-up, ranking), Ctrl-wheel zoom, and jump-to-question overview. |
-| **Grade** | `/grade` | Upload student scan PDF, exam PDF, mark scheme, and optional roster. Runs the **web subset** of the xScore pipeline — 15 stages condensed from the 30 terminal steps (skips terminal-only stages like fuzzy folder lookup and accuracy evaluation). Returns a cleaned PDF plus per-student and class mark reports. Requires `xscore` plus the API keys for whichever providers your `*_MODEL` env vars resolve to (typically `GEMINI_API_KEY` and `DASHSCOPE_API_KEY`). |
+| **Grade** | `/grade` | Upload student scan PDF, exam PDF, mark scheme, and optional roster. Runs the **web subset** of the xScore pipeline — 15 stages condensed from the 31 terminal steps (skips terminal-only stages like fuzzy folder lookup and accuracy evaluation). Returns a cleaned PDF plus per-student and class mark reports. Requires `xscore` plus the API keys for whichever providers your `*_MODEL` env vars resolve to (typically `GEMINI_API_KEY` and `DASHSCOPE_API_KEY`). |
 | **Library** | `/library` | Browse and download the bundled Cambridge IGCSE papers by subject, year, and session. |
 
 ### Programmatic
@@ -494,13 +497,14 @@ Legacy `, off` / `, low` / `, high` strings still parse for back-compat (mapped 
 | `COVER_PAGE_DETECTION_MODEL` | xScore step 10 — authoritative cover-page check on scan page 1 |
 | `NAME_DETECTION_MODEL` | xScore step 11 — student-name OCR. **Must use `thinking_tokens=0`** — runs through a non-streaming helper that raises if thinking is on. |
 | `PAGE_ORDER_CHECK_MODEL` | xScore step 13 — verifies scan-page order matches the empty exam |
-| `BLANK_PAGE_DETECTION_MODEL` | xScore step 14 — identifies blank exam pages and handwriting (the binary handwriting check uses a fixed 32-token cap) |
-| `DETECT_LAYOUT_MODEL` | xScore step 15 — detect printing layout (1×1, 2-up, 4-up) |
-| `READ_EXAM_PDF_MODEL` | xScore step 17 — extract question hierarchy. Gemini → native PDF upload; Qwen → per-page PNG. |
-| `DETECT_SCHEME_GRAPHICS_MODEL` | xScore step 18 — graphics detection. **PNG-only for all providers** (the bbox frame requires a known raster). |
-| `READ_MARK_SCHEME_MODEL` | xScore step 19 — parse mark scheme. Gemini → native PDF; Qwen → per-page PNG. |
-| `MARKING_MODEL` | xScore step 22 — vision model for AI marking. Gemini → native PDF; Qwen → per-page JPEG. Any thinking budget works (the call streams when thinking is on). |
-| `MARKING_WORKERS` | Parallel workers for step 22 (AI marking) and step 25 (per-student PDF compile). Default `min(cpu_count, 16)`; the shipped `default.env` overrides to `100` for high-throughput hosts. |
+| `14_EXAM_BLANK_DETECTION_MODEL` | xScore step 14 — text-only LLM that identifies blank pages in the empty exam PDF |
+| `15_HANDWRITING_CHECK_MODEL` | xScore step 15 — vision LLM that checks each (student × blank exam page) for handwriting (fixed 32-token cap) |
+| `DETECT_LAYOUT_MODEL` | xScore step 16 — detect printing layout (1×1, 2-up, 4-up) |
+| `READ_EXAM_PDF_MODEL` | xScore step 18 — extract question hierarchy. Gemini → native PDF upload; Qwen → per-page PNG. |
+| `DETECT_SCHEME_GRAPHICS_MODEL` | xScore step 19 — graphics detection. **PNG-only for all providers** (the bbox frame requires a known raster). |
+| `READ_MARK_SCHEME_MODEL` | xScore step 20 — parse mark scheme. Gemini → native PDF; Qwen → per-page PNG. |
+| `MARKING_MODEL` | xScore step 23 — vision model for AI marking. Gemini → native PDF; Qwen → per-page JPEG. Any thinking budget works (the call streams when thinking is on). |
+| `MARKING_WORKERS` | Parallel workers for step 23 (AI marking) and step 26 (per-student PDF compile). Default `min(cpu_count, 16)`; the shipped `default.env` overrides to `100` for high-throughput hosts. |
 
 Full model lists and recommended preset values are in [`default.env`](default.env).
 
@@ -569,17 +573,17 @@ The two pipelines write to separate sub-folders under `output/`:
 |------|------|
 | `eXercise.py` | eXercise CLI entry |
 | `eXercise/` | Config, NL resolver, MCQ explanations, difficulty ranking, PDF layout. Also hosts shared infra (`ai_client`, `prompt_logger`, `env_load`, `config`, `fonts`) used by both pipelines. |
-| `xScore.py` | xScore pipeline entry (steps 1–30) |
+| `xScore.py` | xScore pipeline entry (steps 1–31) |
 | `xscore/pipeline/` | Orchestration (`runner.py`) — wires the steps together and owns the page-render background thread. |
-| `xscore/steps/` | Phase modules: `prelude.py` (1–2), `scan.py` (3–7), `geometry.py` (8–14), `scaffold.py` (15–20), `marking.py` (21–22), `reports.py` (23–27), `summary.py` (28–30). |
-| `xscore/shared/` | `pipeline_steps.py` (the canonical 30-step registry), exam path helpers, terminal UI, run log. |
+| `xscore/steps/` | Phase modules: `prelude.py` (1–2), `scan.py` (3–7), `geometry.py` (8–15), `scaffold.py` (16–21), `marking.py` (22–23), `reports.py` (24–28), `summary.py` (29–31). |
+| `xscore/shared/` | `pipeline_steps.py` (the canonical 31-step registry), exam path helpers, terminal UI, run log. |
 | `xscore/marking/` | Marking-side library code: blueprint generation, AI mark calls, report merging. |
 | `xscore/scaffold/` | Scaffold-side library code: layout detection, exam-PDF parsing, mark-scheme parsing. |
 | `xscore/preprocessing/` | Scan-cleaning library code: blank detection, rotation, deskew. |
 | `xscore/extraction/` | Provider adapters and image helpers (Gemini, Kimi, JPEG/PNG renderers). |
 | `xscore/prompts/` | `.md` prompt templates loaded by `prompts/loader.py`. |
 | `web/app.py` | FastAPI routes and job store |
-| `web/grade_service.py` | Web-facing wrapper for the xScore pipeline (15-stage subset of the terminal pipeline) |
+| `web/grade_service.py` | Web-facing wrapper for the xScore pipeline (15-stage subset of the 31-step terminal pipeline) |
 | `web/templates/` | Jinja2 HTML pages (Generate, Grade, Library) |
 | `web/static/` | CSS + JS (PDF preview, zoom, tabs, download-all) |
 | `exams/` | Bundled QP/MS PDFs for NL mode |

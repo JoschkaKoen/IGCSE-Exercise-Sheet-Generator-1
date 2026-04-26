@@ -503,12 +503,12 @@ def artifact_class_report_combined_portrait_2up_pdf_path(artifact_dir: Path) -> 
 
 
 def artifact_class_grade_histogram_path(artifact_dir: Path) -> Path:
-    """Grade-distribution histogram PNG embedded in the class report (step 26)."""
+    """Grade-distribution histogram PNG embedded in the class report (step 27)."""
     return artifact_class_report_dir(artifact_dir) / "grade_histogram.png"
 
 
 def artifact_class_question_difficulty_path(artifact_dir: Path) -> Path:
-    """Per-question difficulty bar chart PNG embedded in the class report (step 26)."""
+    """Per-question difficulty bar chart PNG embedded in the class report (step 27)."""
     return artifact_class_report_dir(artifact_dir) / "question_difficulty.png"
 
 

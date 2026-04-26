@@ -1,4 +1,4 @@
-"""Steps 28–30: timing summary, accuracy evaluation, AI cost report."""
+"""Steps 29–31: timing summary, accuracy evaluation, AI cost report."""
 
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ from xscore.shared.pipeline_steps import step_by_name
 from xscore.shared.terminal_ui import format_duration, info_line
 
 
-def step_28_timing(ctx: _Ctx) -> None:
+def step_29_timing(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
     wall_clock_s = time.perf_counter() - ctx.run_started_at if ctx.run_started_at else None
     print_step_durations(
@@ -36,7 +36,7 @@ def step_28_timing(ctx: _Ctx) -> None:
     )
 
 
-def step_29_accuracy(ctx: _Ctx) -> None:
+def step_30_accuracy(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
     if ctx.folder is None:
         info_line("Skipped — no exam folder")
@@ -91,7 +91,7 @@ def _build_per_step_breakdown(
     return out
 
 
-def step_30_costs(ctx: _Ctx) -> None:
+def step_31_costs(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
     run_usage = get_run_usage()
     total_cost, breakdown = compute_cost(run_usage)
