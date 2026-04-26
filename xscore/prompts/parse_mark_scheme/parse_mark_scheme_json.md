@@ -18,3 +18,4 @@ $scaffold
 
 LaTeX in criterion strings: use \\ for backslash in JSON strings.
 Examples: "\\textbf{word}", "$v = 2\\pi r / T$"
+Inline code: "\\texttt{...}". Multi-line code: "\\begin{alltt}...\\end{alltt}" (do not use \\textbf for code).

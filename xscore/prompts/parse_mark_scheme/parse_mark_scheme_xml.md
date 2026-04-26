@@ -23,6 +23,8 @@ For each <question>:
     unordered lists     → \begin{itemize}\item first\item second\end{itemize}
     ordered/numbered lists → \begin{enumerate}\item first\item second\end{enumerate}
     tables              → \begin{tabular}{col-spec} cell & cell \\ next row \end{tabular} (infer col-spec as l/c/r per column)
+    inline code         → \texttt{...}      (variables, function calls, code keywords)
+    multi-line code     → \begin{alltt}...\end{alltt}   (preserves whitespace; do NOT use \textbf for code)
     inline math         → $...$
     output contract     → your text is placed verbatim into LaTeX table cells (p{} columns).
                           Escape characters that appear as literal text (not LaTeX syntax):

@@ -25,6 +25,8 @@ LaTeX formatting rules for criterion text (block scalars handle backslashes lite
     unordered lists     → \begin{itemize}\item first\item second\end{itemize}
     ordered/numbered lists → \begin{enumerate}\item first\item second\end{enumerate}
     tables              → \begin{tabular}{col-spec} cell & cell \\\ next row \end{tabular}
+    inline code         → \texttt{...}      (variables, function calls, code keywords)
+    multi-line code     → \begin{alltt}...\end{alltt}   (preserves whitespace; do NOT use \textbf for code)
     inline math         → $...$
     Use \newline for explicit line breaks between prose sentences only.
     NEVER use \newline immediately after \begin{...} or before \end{...}.
