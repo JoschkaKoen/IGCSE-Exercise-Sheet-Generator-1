@@ -54,13 +54,13 @@ _LOG_FILE_NAME = "run.log.jsonl"
 _MANIFEST_FILE_NAME = "run.json"
 _CONFIG_KEYS_TO_SNAPSHOT = (
     "AI_DEFAULT_MODEL",
-    "AI_TEMPERATURE",
-    "AI_SEED",
-    "AI_OUTPUT_FORMAT",
-    "MARKING_MODEL",
-    "MARKING_DPI",
-    "MARKING_WORKERS",
-    "PIPELINE_DEFAULT_DPI",
+    "ALL_AI_TEMPERATURE",
+    "ALL_AI_SEED",
+    "ALL_AI_OUTPUT_FORMAT",
+    "22_MARKING_MODEL",
+    "22_MARKING_DPI",
+    "22_MARKING_WORKERS",
+    "07_PIPELINE_DEFAULT_DPI",
     "EXAM_PROFILE",
 )
 
@@ -165,7 +165,7 @@ def _config_snapshot() -> dict[str, str]:
 
 
 def _coerce_temperature() -> float | None:
-    raw = os.environ.get("AI_TEMPERATURE", "").strip()
+    raw = os.environ.get("ALL_AI_TEMPERATURE", "").strip()
     if not raw:
         return None
     try:
@@ -175,7 +175,7 @@ def _coerce_temperature() -> float | None:
 
 
 def _coerce_seed() -> int | None:
-    raw = os.environ.get("AI_SEED", "").strip()
+    raw = os.environ.get("ALL_AI_SEED", "").strip()
     if not raw:
         return None
     try:

@@ -75,7 +75,7 @@ def ai_image_call(
                 f"ai_image_call cannot stream — set thinking_tokens=0 for {provider} "
                 f"(got thinking_tokens={thinking_tokens!r}). "
                 f"This helper is non-streaming; the caller must pick a model "
-                f"line whose thinking budget is 0 (e.g. NAME_DETECTION_MODEL=qwen3.6-plus, 0, 64)."
+                f"line whose thinking budget is 0 (e.g. 11_NAME_DETECTION_MODEL=qwen3.6-plus, 0, 64)."
             )
         create_kwargs.update(thinking_kw)
     if response_format is _USE_DEFAULT_JSON_OBJECT:

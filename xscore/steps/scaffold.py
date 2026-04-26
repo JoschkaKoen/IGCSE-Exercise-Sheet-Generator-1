@@ -39,7 +39,7 @@ from xscore.shared.terminal_ui import announce_step_model, format_duration, ok_l
 
 def step_15_layout(ctx: _Ctx) -> None:
     announce_step_model(
-        model_env="DETECT_LAYOUT_MODEL",
+        model_env="15_DETECT_LAYOUT_MODEL",
         default_model="gemini-2.5-flash, low",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
@@ -65,7 +65,7 @@ def step_16_cut(ctx: _Ctx) -> None:
 
 def step_17_parse_exam(ctx: _Ctx) -> None:
     announce_step_model(
-        model_env="READ_EXAM_PDF_MODEL",
+        model_env="17_READ_EXAM_PDF_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
@@ -81,7 +81,7 @@ def step_17_parse_exam(ctx: _Ctx) -> None:
 
 def step_18_scheme_graphics(ctx: _Ctx) -> None:
     announce_step_model(
-        model_env="DETECT_SCHEME_GRAPHICS_MODEL",
+        model_env="18_DETECT_SCHEME_GRAPHICS_MODEL",
         default_model="gemini-2.5-flash, off",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
@@ -93,7 +93,7 @@ def step_18_scheme_graphics(ctx: _Ctx) -> None:
     )
     state["graphics_by_qnum"] = graphics_by_qnum
     if graphics_questions is None:
-        ok_line("Skipped (DETECT_SCHEME_GRAPHICS_MODEL not set)")
+        ok_line("Skipped (18_DETECT_SCHEME_GRAPHICS_MODEL not set)")
     else:
         n = sum(len(q.get("graphics") or []) for q in graphics_questions)
         ok_line(
@@ -104,7 +104,7 @@ def step_18_scheme_graphics(ctx: _Ctx) -> None:
 
 def step_19_parse_scheme(ctx: _Ctx) -> None:
     announce_step_model(
-        model_env="READ_MARK_SCHEME_MODEL",
+        model_env="19_READ_MARK_SCHEME_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )

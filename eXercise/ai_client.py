@@ -73,7 +73,7 @@ _run_call_stats: dict[str, dict[str, float]] = {}  # model → {"calls": N, "tot
 # to a non-None value for native Gemini) is honoured unchanged.
 
 def _read_default_temperature() -> float | None:
-    raw = os.environ.get("AI_TEMPERATURE", "").strip()
+    raw = os.environ.get("ALL_AI_TEMPERATURE", "").strip()
     if not raw:
         return None
     try:
@@ -83,7 +83,7 @@ def _read_default_temperature() -> float | None:
 
 
 def _read_default_seed() -> int | None:
-    raw = os.environ.get("AI_SEED", "").strip()
+    raw = os.environ.get("ALL_AI_SEED", "").strip()
     if not raw:
         return None
     try:
@@ -414,7 +414,7 @@ class _TrackedOpenAIClient:
     """Thin proxy over OpenAI that records token usage for every completion.
 
     When ``deterministic=True`` (the default) and a per-call ``temperature`` /
-    ``seed`` is not supplied, ``AI_TEMPERATURE`` / ``AI_SEED`` env vars are
+    ``seed`` is not supplied, ``ALL_AI_TEMPERATURE`` / ``ALL_AI_SEED`` env vars are
     injected into ``chat.completions.create``. Pass ``deterministic=False`` to
     skip injection entirely (use for ad-hoc creative-sampling calls).
     """
@@ -433,7 +433,7 @@ class _TrackedGeminiModels:
         self._deterministic = deterministic
 
     def _apply_deterministic(self, kwargs: dict) -> None:
-        """Inject AI_TEMPERATURE / AI_SEED into the ``config`` kwarg if not set.
+        """Inject ALL_AI_TEMPERATURE / ALL_AI_SEED into the ``config`` kwarg if not set.
 
         Native Gemini uses ``GenerateContentConfig`` (a Pydantic model) on the
         ``config`` keyword. If callers pass no config, build one with just
@@ -520,8 +520,8 @@ def make_ai_client(
         set. Defaults to ``AI_DEFAULT_MODEL`` → ``_DEFAULT_MODEL``.
     deterministic:
         When True (default), every call through the returned client gets
-        ``temperature`` and ``seed`` injected from ``AI_TEMPERATURE`` /
-        ``AI_SEED`` env vars unless the caller supplied them. Pass False to
+        ``temperature`` and ``seed`` injected from ``ALL_AI_TEMPERATURE`` /
+        ``ALL_AI_SEED`` env vars unless the caller supplied them. Pass False to
         disable injection (rare — use only when you actively want sampling).
 
     Returned ``thinking_tokens`` / ``max_tokens`` are ``None`` when the env
@@ -664,7 +664,7 @@ def make_gemini_native_client(*, deterministic: bool = True) -> Any:
     Returns ``None`` rather than raising so callers can decide whether the key
     is required for their specific step.
 
-    When ``deterministic`` is True (default), ``AI_TEMPERATURE`` and ``AI_SEED``
+    When ``deterministic`` is True (default), ``ALL_AI_TEMPERATURE`` and ``ALL_AI_SEED``
     are injected into every ``generate_content`` call's ``GenerateContentConfig``
     unless the caller already set those fields.
     """

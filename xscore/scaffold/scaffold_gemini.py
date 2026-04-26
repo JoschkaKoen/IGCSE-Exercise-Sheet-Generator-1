@@ -146,7 +146,7 @@ def _do_exam_call(
     _oa_use_stream = False
     _oa_thinking_kw: dict = {}
     if not exam_model.startswith("gemini"):
-        _oa_result = make_ai_client(model_env="READ_EXAM_PDF_MODEL")
+        _oa_result = make_ai_client(model_env="17_READ_EXAM_PDF_MODEL")
         if _oa_result is None:
             raise RuntimeError(f"No API key set for exam model {exam_model!r}")
         _oa_client, _, _oa_provider, _, _ = _oa_result
@@ -293,9 +293,9 @@ def split_mark_scheme_into_pages(
 
 
 def _rasterize_scheme_pages(marking_scheme_pdf: Path, n_pages: int) -> dict[int, bytes]:
-    """Rasterize each mark scheme page to PNG (DPI controlled by MARK_SCHEME_GRAPHICS_DPI)."""
+    """Rasterize each mark scheme page to PNG (DPI controlled by 18_MARK_SCHEME_GRAPHICS_DPI)."""
     import fitz
-    _gfx_dpi = int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300"))
+    _gfx_dpi = int(os.environ.get("18_MARK_SCHEME_GRAPHICS_DPI", "300"))
     page_pngs: dict[int, bytes] = {}
     with fitz.open(str(marking_scheme_pdf)) as _doc_r:
         for _i in range(n_pages):
@@ -338,7 +338,7 @@ def detect_scheme_graphics(
 
     n_pages, page_paths, _tmp_dir = split_mark_scheme_into_pages(marking_scheme_pdf, artifact_dir)
 
-    _gfx_client_result = make_ai_client(model_env="DETECT_SCHEME_GRAPHICS_MODEL")
+    _gfx_client_result = make_ai_client(model_env="18_DETECT_SCHEME_GRAPHICS_MODEL")
     if _gfx_client_result is None:
         if _tmp_dir is not None:
             import shutil
@@ -450,8 +450,8 @@ def detect_scheme_graphics(
             warn_line(f"Could not save mark-scheme graphics JSON: {e}")
 
     if artifact_dir is not None and _n_graphics:
-        _graphics_margin = float(os.environ.get("SCHEME_GRAPHICS_MARGIN", "0.01"))
-        _gfx_dpi = int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300"))
+        _graphics_margin = float(os.environ.get("18_SCHEME_GRAPHICS_MARGIN", "0.01"))
+        _gfx_dpi = int(os.environ.get("18_MARK_SCHEME_GRAPHICS_DPI", "300"))
         try:
             _extract_scheme_graphics(
                 _graphics_merged.get("questions", []),
@@ -513,7 +513,7 @@ def parse_mark_scheme_pages(
     _oa_thinking_kw: dict = {}
     page_pngs: dict[int, bytes] = {}
     if not scheme_model.startswith("gemini"):
-        _oa_result = make_ai_client(model_env="READ_MARK_SCHEME_MODEL")
+        _oa_result = make_ai_client(model_env="19_READ_MARK_SCHEME_MODEL")
         if _oa_result is None:
             raise RuntimeError(f"No API key set for mark scheme model {scheme_model!r}")
         _oa_client, _, _oa_provider, _, _ = _oa_result

@@ -67,9 +67,9 @@ def _build_client_state(model_id: str) -> _ClientState | str:
             return "GEMINI_API_KEY not set"
         return _ClientState(gai=gai, oa=None, provider="gemini")
     from eXercise.ai_client import make_ai_client
-    result = make_ai_client(model_env="BLANK_PAGE_DETECTION_MODEL")
+    result = make_ai_client(model_env="14_BLANK_PAGE_DETECTION_MODEL")
     if result is None:
-        return f"BLANK_PAGE_DETECTION_MODEL={model_id} requires API key for its provider"
+        return f"14_BLANK_PAGE_DETECTION_MODEL={model_id} requires API key for its provider"
     oa, _, provider, _, _ = result
     return _ClientState(gai=None, oa=oa, provider=provider)
 
@@ -343,7 +343,7 @@ def check_blank_pages(
     )
 
     model_id, thinking, max_tok = parse_model_spec(
-        os.environ.get("BLANK_PAGE_DETECTION_MODEL", "gemini-2.5-flash-lite")
+        os.environ.get("14_BLANK_PAGE_DETECTION_MODEL", "gemini-2.5-flash-lite")
     )
 
     client_or_err = _build_client_state(model_id)

@@ -46,7 +46,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
     total_pages = sum(len(a.page_numbers) for a in ctx.page_assignments)
     workers = min(
         total_pages,
-        int(os.environ.get("MARKING_WORKERS", str(min(os.cpu_count() or 4, 16)))),
+        int(os.environ.get("22_MARKING_WORKERS", str(min(os.cpu_count() or 4, 16)))),
     )
     info_line(f"Pre-rendering {total_pages} page(s) in background ({workers} threads, {dpi} DPI) …")
     pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="render_bg")

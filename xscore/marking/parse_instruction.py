@@ -22,12 +22,12 @@ _PATH_RE = re.compile(
     r"|(?<!\S)((?:/|~)[^\s,;.!?]+)"       # bare path (no trailing punctuation)
 )
 
-_DEFAULT_MODEL = "gemini-2.5-flash"  # also set as INTERPRET_PROMPT_MODEL in default.env
+_DEFAULT_MODEL = "gemini-2.5-flash"  # also set as 01_INTERPRET_PROMPT_MODEL in default.env
 
 
 def _read_model_config() -> tuple[str, int | None, int | None]:
     from eXercise.ai_client import parse_model_spec
-    raw = os.getenv("INTERPRET_PROMPT_MODEL") or os.getenv("AI_DEFAULT_MODEL") or _DEFAULT_MODEL
+    raw = os.getenv("01_INTERPRET_PROMPT_MODEL") or os.getenv("AI_DEFAULT_MODEL") or _DEFAULT_MODEL
     return parse_model_spec(raw)
 
 
@@ -70,10 +70,10 @@ def _call_text(user_message: str) -> str:
         make_ai_client,
         provider_for_model,
     )
-    result = make_ai_client(model_env="INTERPRET_PROMPT_MODEL")
+    result = make_ai_client(model_env="01_INTERPRET_PROMPT_MODEL")
     if result is None:
         raise RuntimeError(
-            f"INTERPRET_PROMPT_MODEL={model_name} requires the API key for "
+            f"01_INTERPRET_PROMPT_MODEL={model_name} requires the API key for "
             f"provider '{provider_for_model(model_name)}' in .env"
         )
     client, _, provider, _, _ = result

@@ -18,7 +18,7 @@ class OutputFormat(Enum):
 
 
 def get_output_format() -> OutputFormat:
-    val = os.getenv("AI_OUTPUT_FORMAT", "yaml").strip().lower()
+    val = os.getenv("ALL_AI_OUTPUT_FORMAT", "yaml").strip().lower()
     try:
         return OutputFormat(val)
     except ValueError:

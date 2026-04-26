@@ -71,7 +71,7 @@ def step_08_geometry(ctx: _Ctx) -> None:
 def step_09_cover_empty(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None and ctx.folder is not None
     announce_step_model(
-        model_env="EMPTY_EXAM_COVER_MODEL",
+        model_env="09_EMPTY_EXAM_COVER_MODEL",
         default_model="gemini-2.5-flash",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
@@ -115,7 +115,7 @@ def step_09_cover_empty(ctx: _Ctx) -> None:
 def step_10_cover_scan(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     announce_step_model(
-        model_env="COVER_PAGE_DETECTION_MODEL",
+        model_env="10_COVER_PAGE_DETECTION_MODEL",
         default_model="gemini-2.5-flash",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
@@ -130,7 +130,7 @@ def step_10_cover_scan(ctx: _Ctx) -> None:
 def step_11_student_names(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     announce_step_model(
-        model_env="NAME_DETECTION_MODEL",
+        model_env="11_NAME_DETECTION_MODEL",
         default_model="gemini-2.5-flash",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
@@ -218,7 +218,7 @@ def step_12_page_count(ctx: _Ctx) -> None:
 def step_13_page_order(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
     announce_step_model(
-        model_env="PAGE_ORDER_CHECK_MODEL",
+        model_env="13_PAGE_ORDER_CHECK_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=2048,
     )
@@ -242,16 +242,16 @@ def step_13_page_order(ctx: _Ctx) -> None:
     warn_line(
         "Page order check INCONCLUSIVE — pipeline did NOT verify page order:\n"
         f"  {msg}\n"
-        "  Set PAGE_ORDER_CHECK_STRICT=1 to fail-fast on inconclusive checks."
+        "  Set 13_PAGE_ORDER_CHECK_STRICT=1 to fail-fast on inconclusive checks."
     )
-    if os.environ.get("PAGE_ORDER_CHECK_STRICT", "0") == "1":
+    if os.environ.get("13_PAGE_ORDER_CHECK_STRICT", "0") == "1":
         raise SystemExit(1)
 
 
 def step_14_blank_pages(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
     announce_step_model(
-        model_env="BLANK_PAGE_DETECTION_MODEL",
+        model_env="14_BLANK_PAGE_DETECTION_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=256,
     )
@@ -272,7 +272,7 @@ def step_14_blank_pages(ctx: _Ctx) -> None:
     warn_line(
         "Blank page detection INCONCLUSIVE — pipeline did NOT verify all blank pages:\n"
         f"  {msg}\n"
-        "  Set BLANK_PAGE_DETECTION_STRICT=1 to fail-fast on inconclusive checks."
+        "  Set 14_BLANK_PAGE_DETECTION_STRICT=1 to fail-fast on inconclusive checks."
     )
-    if os.environ.get("BLANK_PAGE_DETECTION_STRICT", "0") == "1":
+    if os.environ.get("14_BLANK_PAGE_DETECTION_STRICT", "0") == "1":
         raise SystemExit(1)
