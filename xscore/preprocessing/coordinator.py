@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import re
 import shutil
 from pathlib import Path
+
+_NUMBERED_RE = re.compile(r"^scan[\s_\-]*(\d+)\b", re.IGNORECASE)
 
 # Step folder names for scan preprocessing (steps 4–7)
 _STEP_04 = "04_merge_duplex_scans"
@@ -83,37 +86,71 @@ def find_source_scan_match(
     )
 
 
-def find_two_scan_pdfs(folder: Path, artifact_dir: Path) -> tuple[Path, Path] | None:
-    """Return (scan1, scan2) sorted by mtime if exactly 2 scan PDFs exist, else None.
+def find_scan_pairs(folder: Path, artifact_dir: Path) -> list[tuple[Path, Path]] | None:
+    """Return [(front, back), ...] ordered by index, or None if no numbered scans.
 
-    scan1 is the older file (fronts, scanned first).
-    scan2 is the newer file (backs, scanned after flipping the stack).
+    A scan PDF is a numbered duplex member iff its filename matches
+    ``^scan[\\s_-]*(\\d+)\\b`` (case-insensitive) and contains neither ``"dpi"``
+    nor ``"cleaned"``. Odd indices are fronts, even indices are backs scanned
+    after the stack was flipped; consecutive odd/even form one duplex pair.
+
+    Raises ValueError on validation failure (gap, odd count, duplicate index,
+    indices not starting at 1) — never silently drops files.
     """
     merged_out = artifact_dir / MERGED_SCAN_PDF
-    scans = [
-        f for f in folder.glob("*.pdf")
-        if "scan" in f.name.lower()
-        and "cleaned" not in f.name.lower()
-        and f.resolve() != merged_out.resolve()
-    ]
-    if len(scans) != 2:
+    indexed: dict[int, Path] = {}
+    for f in folder.glob("*.pdf"):
+        name_lower = f.name.lower()
+        if "dpi" in name_lower or "cleaned" in name_lower:
+            continue
+        if f.resolve() == merged_out.resolve():
+            continue
+        m = _NUMBERED_RE.match(f.name)
+        if not m:
+            continue
+        idx = int(m.group(1))
+        if idx in indexed:
+            raise ValueError(
+                f"Duplicate scan index {idx}: {indexed[idx].name} and {f.name} "
+                f"both extract index {idx}. Rename one so each pair index is unique."
+            )
+        indexed[idx] = f
+
+    if not indexed:
         return None
-    scans.sort(key=lambda p: p.stat().st_mtime)
-    return scans[0], scans[1]
+
+    found = sorted(indexed.keys())
+    expected = list(range(1, len(found) + 1))
+    if found != expected:
+        listing = ", ".join(p.name for _, p in sorted(indexed.items()))
+        raise ValueError(
+            f"Numbered scans must form a contiguous sequence 1..N; got indices {found} "
+            f"from files [{listing}]. Expected {expected}."
+        )
+    if len(found) % 2:
+        listing = ", ".join(p.name for _, p in sorted(indexed.items()))
+        raise ValueError(
+            f"Numbered scans must come in front+back pairs (even count); got {len(found)} "
+            f"files [{listing}]. Each odd index needs a matching even successor."
+        )
+
+    return [(indexed[i], indexed[i + 1]) for i in range(1, len(found), 2)]
 
 
 def merge_duplex_scans_phase(
-    scan1: Path,
-    scan2: Path,
+    pairs: list[tuple[Path, Path]],
     artifact_dir: Path,
     *,
     force_rebuild: bool = False,
 ) -> Path:
-    """Step 4: interleave front and back single-sided scans into one double-sided PDF.
+    """Step 4: interleave each duplex pair and concatenate all pairs into one PDF.
 
-    scan1 pages are fronts in order [p1, p3, p5, ...].
-    scan2 pages are backs in reverse order [p2N, p2N-2, ..., p2] (stack was flipped).
-    Output interleaves them: [p1, p2, p3, p4, ...].
+    Within each pair, the front PDF's pages are in order [p1, p3, p5, ...] and
+    the back PDF's pages are in reverse order [p2N, p2N-2, ..., p2] (the stack
+    was flipped before the back pass). They interleave to [p1, p2, p3, p4, ...].
+
+    With multiple pairs, each pair is interleaved on its own and the resulting
+    runs are concatenated in pair order.
     """
     import fitz
     from xscore.shared.terminal_ui import ok_line, warn_line
@@ -123,27 +160,38 @@ def merge_duplex_scans_phase(
         ok_line(f"Using cached {out.name}")
         return out
 
-    doc1 = fitz.open(str(scan1))
-    doc2 = fitz.open(str(scan2))
-    n1, n2 = len(doc1), len(doc2)
-    if n1 != n2:
-        warn_line(
-            f"Page count mismatch: {scan1.name}={n1}, {scan2.name}={n2}; "
-            f"pairing first {min(n1, n2)} from each"
-        )
-    n = min(n1, n2)
-
     merged = fitz.open()
-    for i in range(n):
-        merged.insert_pdf(doc1, from_page=i, to_page=i)
-        merged.insert_pdf(doc2, from_page=n2 - 1 - i, to_page=n2 - 1 - i)
+    total_pages = 0
+    pair_descriptions: list[str] = []
+
+    for front, back in pairs:
+        doc_f = fitz.open(str(front))
+        doc_b = fitz.open(str(back))
+        nf, nb = len(doc_f), len(doc_b)
+        if nf != nb:
+            warn_line(
+                f"Page count mismatch: {front.name}={nf}, {back.name}={nb}; "
+                f"pairing first {min(nf, nb)} from each"
+            )
+        n = min(nf, nb)
+        for i in range(n):
+            merged.insert_pdf(doc_f, from_page=i, to_page=i)
+            merged.insert_pdf(doc_b, from_page=nb - 1 - i, to_page=nb - 1 - i)
+        total_pages += n * 2
+        pair_descriptions.append(f"{front.name}+{back.name}")
+        doc_f.close()
+        doc_b.close()
 
     out.parent.mkdir(parents=True, exist_ok=True)
     merged.save(str(out))
     merged.close()
-    doc1.close()
-    doc2.close()
-    ok_line(f"{n * 2} pages merged  ·  {scan1.name} + {scan2.name}")
+    if len(pairs) == 1:
+        ok_line(f"{total_pages} pages merged  ·  {pair_descriptions[0]}")
+    else:
+        ok_line(
+            f"{total_pages} pages merged  ·  {len(pairs)} pairs "
+            f"({', '.join(pair_descriptions)})"
+        )
     return out
 
 

@@ -77,10 +77,10 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
 
     Raises FileNotFoundError if no student list file is found.
     """
-    candidates = list(folder.glob("StudentList.*"))
+    candidates = [c for c in folder.glob("StudentList.*") if c.is_file()]
     if not candidates:
         for pat in ("*[Ss]tudent*", "*[Rr]oster*"):
-            candidates = list(folder.glob(pat))
+            candidates = [c for c in folder.glob(pat) if c.is_file()]
             if candidates:
                 break
     if not candidates:

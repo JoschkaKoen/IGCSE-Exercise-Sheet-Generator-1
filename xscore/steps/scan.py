@@ -1,10 +1,12 @@
 """Steps 3–7: roster, optional duplex merge, blank detection, autorotate, deskew.
 
-Step 4 is conditional on whether the scan folder contains a duplex pair
-(``find_two_scan_pdfs``). The single-PDF branch is silent — no header, no
-run-log entry, no summary.json. The conditional dispatch lives in
-``scan_phases``; the runner calls that helper rather than looping over steps
-4–7 individually.
+Step 4 is conditional on whether the scan folder contains numbered duplex
+pairs (``find_scan_pairs``). One pair (scan1+scan2) or many (scan1+scan2,
+scan3+scan4, ...) all flow through the same merge into one ``merged_scan.pdf``.
+The single-PDF branch (no numbered files; falls through to
+``find_source_scan_match``) is silent — no header, no run-log entry, no
+summary.json. The conditional dispatch lives in ``scan_phases``; the runner
+calls that helper rather than looping over steps 4–7 individually.
 
 Steps 5, 6, 7 each write a per-step ``summary.json`` whose ``elapsed_s`` field
 is captured locally (run_step's outer timing only becomes available *after*
@@ -24,8 +26,8 @@ from xscore.preprocessing.coordinator import (
     autorotate_phase,
     deskew_phase,
     detect_blank_pages_phase,
+    find_scan_pairs,
     find_source_scan_match,
-    find_two_scan_pdfs,
     merge_duplex_scans_phase,
 )
 from xscore.shared.load_student_list import read_student_list
@@ -48,12 +50,12 @@ def step_03_students(ctx: _Ctx) -> None:
 
 
 def step_04_merge(ctx: _Ctx) -> None:
-    """Duplex merge — only invoked when find_two_scan_pdfs returns a pair."""
+    """Duplex merge — only invoked when find_scan_pairs returns at least one pair."""
     assert ctx.folder is not None and ctx.artifact_dir is not None
-    two = find_two_scan_pdfs(ctx.folder, ctx.artifact_dir)
-    assert two is not None, "step_04_merge invoked without a duplex pair"
+    pairs = find_scan_pairs(ctx.folder, ctx.artifact_dir)
+    assert pairs, "step_04_merge invoked without any duplex pairs"
     ctx.scan_match = merge_duplex_scans_phase(
-        two[0], two[1], ctx.artifact_dir, force_rebuild=ctx.force_clean_scan
+        pairs, ctx.artifact_dir, force_rebuild=ctx.force_clean_scan
     )
 
 
@@ -97,7 +99,7 @@ def step_07_deskew(ctx: _Ctx) -> None:
 
 
 def scan_phases(ctx: _Ctx) -> None:
-    """Steps 4–7. Step 4 is conditional on a duplex match.
+    """Steps 4–7. Step 4 is conditional on numbered duplex scans being present.
 
     Skipped entirely when resuming (``ctx.from_step`` set). For single-PDF
     runs, ``find_source_scan_match`` is invoked silently (no header, no
@@ -107,7 +109,7 @@ def scan_phases(ctx: _Ctx) -> None:
     if ctx.from_step:
         return
 
-    if find_two_scan_pdfs(ctx.folder, ctx.artifact_dir) is not None:
+    if find_scan_pairs(ctx.folder, ctx.artifact_dir) is not None:
         run_step(ctx, step_by_number(4))
     else:
         ctx.scan_match = find_source_scan_match(

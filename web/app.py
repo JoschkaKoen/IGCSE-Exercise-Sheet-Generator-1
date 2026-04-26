@@ -639,16 +639,26 @@ async def _run_grade_job(
         store.fail(job_id, f"Pipeline error: {e}")
 
 
+_SCAN_NUMBERED_RE = re.compile(r"^scan[\s_\-]*(\d+)\b", re.IGNORECASE)
+
+
 @app.post("/api/grade/jobs")
 async def create_grade_job(
-    exam_scans: UploadFile = File(...),
+    exam_scans: list[UploadFile] = File(...),
     student_list: UploadFile = File(...),
     empty_exam: UploadFile = File(...),
     answer_sheet: UploadFile = File(...),
     prompt: str | None = Form(None),
     _gate: None = Depends(require_grade_unlock),
 ) -> dict[str, str]:
-    """Accept uploaded exam files, save them, and launch an xScore pipeline job."""
+    """Accept uploaded exam files, save them, and launch an xScore pipeline job.
+
+    *exam_scans* accepts either a single PDF (saved as ``scan.pdf`` for the
+    single-PDF / DPI-keyed pipeline branch) or multiple PDFs whose original
+    filenames must each match ``scan{N}`` with optional separator (``scan1.pdf``,
+    ``scan 2.pdf``, ``scan_3.pdf``, ``scan-4.pdf``, ...). Each numbered file is
+    saved canonically as ``scan{N}.pdf``.
+    """
     ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     # 8 random bytes = 2^64 space; retry on collision (astronomically rare)
     for _ in range(5):
@@ -686,9 +696,35 @@ async def create_grade_job(
             chunks.append(chunk)
         return b"".join(chunks)
 
-    # Save required files
-    scan_path = folder / "scan.pdf"
-    scan_path.write_bytes(await _read_limited(exam_scans, "exam_scans"))
+    # Save required files — single PDF stays as scan.pdf (single-PDF mode);
+    # multiple PDFs require numbered names and are saved canonically as scanN.pdf.
+    if len(exam_scans) == 1:
+        (folder / "scan.pdf").write_bytes(await _read_limited(exam_scans[0], "exam_scans"))
+    else:
+        parsed: list[tuple[int, UploadFile]] = []
+        for upload in exam_scans:
+            m = _SCAN_NUMBERED_RE.match(upload.filename or "")
+            if not m:
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        f"Multi-file scan upload requires every file to be named "
+                        f"scan1.pdf, scan2.pdf, ... (separators allowed: scan_1.pdf, "
+                        f"scan-1.pdf, 'scan 1.pdf'). Got: {upload.filename!r}."
+                    ),
+                )
+            parsed.append((int(m.group(1)), upload))
+        seen: set[int] = set()
+        for idx, upload in parsed:
+            if idx in seen:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Duplicate scan index {idx} in upload (two files map to scan{idx}.pdf).",
+                )
+            seen.add(idx)
+            (folder / f"scan{idx}.pdf").write_bytes(
+                await _read_limited(upload, f"exam_scans[{upload.filename}]")
+            )
 
     sl_suffix = Path(student_list.filename or "StudentList.xlsx").suffix or ".xlsx"
     sl_path = folder / f"StudentList{sl_suffix}"

@@ -42,6 +42,22 @@ def _latex_escape(text: str) -> str:
     return _LATEX_RE.sub(lambda m: _LATEX_MAP[m.group()], text)
 
 
+_TABULAR_RE = re.compile(r"(\\begin\{tabular\*?\}.*?\\end\{tabular\*?\})", re.DOTALL)
+
+
+def _escape_bare_amp_outside_tabular(text: str) -> str:
+    """Escape bare ``&`` to ``\\&`` everywhere except inside
+    ``\\begin{tabular}…\\end{tabular}``, where ``&`` is the column separator."""
+    parts = _TABULAR_RE.split(text)
+    out = []
+    for seg in parts:
+        if seg.startswith(r"\begin{tabular"):
+            out.append(seg)
+        else:
+            out.append(re.sub(r"(?<!\\)&", r"\\&", seg))
+    return "".join(out)
+
+
 def _ai_cell(text: str) -> str:
     """Prepare AI-generated LaTeX text for a p{} table cell.
 
@@ -57,7 +73,7 @@ def _ai_cell(text: str) -> str:
     # legitimately part of LaTeX commands. Math ($, \, {, }) is left alone
     # so the AI can still emit `\frac{1}{2}` etc.
     text = re.sub(r"(?<!\\)%", r"\\%", text)         # bare % starts a LaTeX comment
-    text = re.sub(r"(?<!\\)&", r"\\&", text)         # bare & ends the tabular cell
+    text = _escape_bare_amp_outside_tabular(text)    # preserve & inside \begin{tabular}
     result = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", text)
     result = result.replace("\n", "\\newline ")
     # \newline adjacent to block-level environments is invalid LaTeX
@@ -152,12 +168,9 @@ def _student_report_to_tex(
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
-        # student_answer is the AI's transcription of handwriting — treat as
-        # plain text and escape fully before passing through _ai_cell's
-        # markdown-bold + newline conversions.
         answer = (
             "\\textit{(blank)}" if not answer_raw
-            else _ai_cell(_latex_escape(answer_raw))
+            else _ai_cell(answer_raw)
         )
         correct_raw = str(q.get("correct_answer") or "").strip()
         criteria_raw = str(q.get("marking_criteria") or "").strip()

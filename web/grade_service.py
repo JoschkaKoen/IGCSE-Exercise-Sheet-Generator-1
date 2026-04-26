@@ -51,8 +51,8 @@ def run_full_pipeline(
         autorotate_phase,
         deskew_phase,
         detect_blank_pages_phase,
+        find_scan_pairs,
         find_source_scan_match,
-        find_two_scan_pdfs,
         merge_duplex_scans_phase,
     )
     from xscore.scaffold.generate_scaffold import build_scaffold
@@ -139,15 +139,15 @@ def run_full_pipeline(
     empty_exam_path = folder / "empty_exam.pdf"
     scaffold = None
 
-    two = find_two_scan_pdfs(folder, artifact_dir)
-    if two is not None:
-        on_line("Step 4 — Merging duplex scans…")
+    pairs = find_scan_pairs(folder, artifact_dir)
+    if pairs is not None:
+        on_line(f"Step 4 — Merging {len(pairs)} duplex pair(s)…")
 
         def _merge() -> Path:
-            return merge_duplex_scans_phase(two[0], two[1], artifact_dir, force_rebuild=True)
+            return merge_duplex_scans_phase(pairs, artifact_dir, force_rebuild=True)
 
         source_scan = _step(4, _merge)
-        on_line("Step 4 — Duplex scans merged.")
+        on_line(f"Step 4 — {len(pairs)} duplex pair(s) merged.")
     else:
         source_scan = find_source_scan_match(folder, artifact_dir, effective_dpi)
 

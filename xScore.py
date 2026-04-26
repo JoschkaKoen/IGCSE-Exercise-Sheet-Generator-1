@@ -8,7 +8,7 @@ Steps:
   1. Parse the natural language prompt (via Kimi).
   2. Locate the exam folder.
   3. Read the student roster from StudentList.xlsx.
-  4. Merge duplex scan halves into one PDF (only when two scan files are found).
+  4. Merge duplex scan pairs (scan1+scan2, scan3+scan4, ...) into one PDF when numbered scans are present.
   5. Detect blank scan pages.
   6. Autorotate (remove blanks, apply /Rotate metadata).
   7. Deskew (small-angle per-half correction) → 07_deskew/cleaned_scan.pdf.

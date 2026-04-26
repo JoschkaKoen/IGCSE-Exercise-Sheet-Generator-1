@@ -94,7 +94,7 @@ def validate_input_files(folder: Path) -> None:
         if "scan" in f.name.lower() and "cleaned" not in f.name.lower()
     ]
     if not scans:
-        missing.append("scan PDF  (e.g. scan.pdf)")
+        missing.append("scan PDF  (e.g. scan.pdf, or scan1.pdf + scan2.pdf for duplex)")
 
     _roster = list(folder.glob("StudentList.*"))
     if not _roster:

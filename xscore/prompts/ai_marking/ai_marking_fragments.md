@@ -11,10 +11,10 @@ Fill each field as follows:
    • calculation: transcribe the student's full working and final answer verbatim.
    • all other types: copy the student's written answer verbatim. Mark unreadable words with [?].
    The output is placed verbatim in a LaTeX document. Escape characters that appear literally in the student's answer: % → \%, $ → \$, # → \#, _ → \_, { → \{, } → \}, backslash → \textbackslash{}. Use \newline for line breaks; do not include literal newlines.
-2. assigned_marks — an integer 0–max_marks.
-   • Award 1 mark for each criterion the student satisfies, up to max_marks.
-   • For 'any N from' lists, each listed item is a separate mark point.
-   • If ${criterion_ref} are absent or empty, use the correct_answer field and good judgement to assess the student's answer; accept semantically equivalent answers, not only verbatim matches.
+2. assigned_marks — an integer 0–max_marks. Use professional judgement, not literal matching:
+   • Award marks when the student's answer is plausible and demonstrates understanding of the question. Accept semantically equivalent or closely related answers, not only verbatim matches; if the student presents a correct solution that is not listed in ${criterion_ref}, award the marks.
+   • Award no marks when the answer is factually wrong, off-topic, or shows no understanding of the question.
+   • For 'any N from' lists, count one mark per distinct, reasonable item the student gives, up to max_marks. The listed criteria are guidance, not an exhaustive list of acceptable answers.
    • For multiple_choice: compare student_answer to correct_answer; award max_marks if they match, 0 otherwise.
 3. explanation: clear, easy to understand, short, simple english. Avoid difficult English words (non native, high school english speakers). Address the student directly using 'you'. You can make important words bold using LaTeX syntax \textbf{word}: only for important words. NEVER use markdown bold **word** — it breaks the PDF renderer. Escape non-math special characters that appear literally in your prose: % → \%, _ → \_. Use \newline for line breaks. Write the explanation in short clear and understandable bullet points using latex syntax. Do not append a mark tally (e.g. '— 1 mark.') at the end.
    • For multiple_choice questions, leave explanation empty. Do not write any reasoning for multiple-choice answers; the field is filled automatically afterwards.
