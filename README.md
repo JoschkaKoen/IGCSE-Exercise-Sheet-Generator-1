@@ -234,7 +234,7 @@ flowchart TD
 
 **Steps (1–32):**
 
-**Setup (1–3)**
+**Prompt, folder & roster (1–3)**
 - 1 — Interpret prompt
 - 2 — Select exam folder
 - 3 — Read student list
@@ -288,7 +288,7 @@ Each run writes one folder per step under `output/xscore/<exam>/<timestamp>/`, n
 
 ### Per-step details (1–32)
 
-#### Setup (1–3)
+#### Prompt, folder & roster (1–3)
 
 | Step | Description |
 |------|-------------|

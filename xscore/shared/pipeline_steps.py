@@ -100,7 +100,7 @@ class Step:
 
 STEPS: tuple[Step, ...] = (
     Step(1,  "parse_grading_instructions", writes=("01_parse_grading_instructions/*",),
-         title="Interpret prompt", section="Setup", bootstrap=True),
+         title="Interpret prompt", section="Prompt, folder & roster", bootstrap=True),
     Step(2,  "locate_exam_folder",
          title="Select exam folder", bootstrap=True),
     Step(3,  "read_student_list",          writes=("03_read_student_list/*",),

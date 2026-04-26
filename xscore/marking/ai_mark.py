@@ -34,7 +34,7 @@ from xscore.shared.exam_paths import (
     artifact_marking_prompt_path,
 )
 from xscore.shared.prompt_logger import save_prompt
-from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, ok_line, warn_line
+from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, warn_line
 
 from xscore.marking.mark_xml import MarkingFailure
 from xscore.marking.mark_page import (
@@ -348,10 +348,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     b64_future = getattr(ctx, "b64_future", None)
     if b64_future is not None:
         try:
-            _b64_cache = b64_future.result()   # instant if BG finished; brief wait if not
-            ok_line(f"Pre-rendering done  ·  {len(_b64_cache)} page(s) ready")
-        except Exception as _bg_exc:  # noqa: BLE001 — fall back to inline rendering
-            warn_line(f"Background pre-rendering failed ({_bg_exc}); rendering inline …")
+            _b64_cache = b64_future.result()  # callback already announced success/failure
+        except Exception:  # noqa: BLE001 — callback already warned; fall back to inline
             _b64_cache = _render_inline()
     else:
         _b64_cache = _render_inline()

@@ -855,12 +855,18 @@ def parse_mark_scheme_pages(
     # got an empty response back (no correct_answer AND no criteria).
     # Scoping: when step 20 produced a per-page mapping, expect only its union;
     # otherwise expect every leaf in raw_questions (full-scaffold fallback path).
+    # Always intersect with leaves — parent questions (those with subquestions)
+    # structurally have no own criteria in Cambridge mark schemes, so step 20
+    # listing them (it sometimes over-generalises from seeing children) is not
+    # an actionable miss for step 21.
+    _leaves = set(_leaf_qnums(raw_questions))
     if questions_per_page:
         _expected: set[str] = set()
         for _qs in questions_per_page.values():
             _expected.update(_qs)
+        _expected &= _leaves
     else:
-        _expected = set(_leaf_qnums(raw_questions))
+        _expected = _leaves
     _with_content = {
         str(_q.get("number", "")).strip()
         for _q in result.get("questions", [])

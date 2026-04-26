@@ -39,7 +39,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
         return
     from xscore.config import MARKING_DPI
     from xscore.marking.ai_mark import render_pages_b64
-    from xscore.shared.terminal_ui import info_line
+    from xscore.shared.terminal_ui import format_duration, info_line, ok_line, warn_line
 
     instr = getattr(ctx, "instruction", None)
     dpi = getattr(instr, "dpi", None) or MARKING_DPI
@@ -50,10 +50,31 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
     )
     info_line(f"Pre-rendering {total_pages} page(s) in background ({workers} threads, {dpi} DPI) …")
     pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="render_bg")
-    ctx.b64_future = pool.submit(
+    t_start = time.perf_counter()
+    fut = pool.submit(
         render_pages_b64, ctx.cleaned_pdf, ctx.artifact_dir, dpi, workers,
         instruction=instr,
     )
+
+    def _on_done(f) -> None:
+        elapsed = time.perf_counter() - t_start
+        try:
+            cache = f.result()
+            ok_line(f"Pre-rendering done  ·  {len(cache)} page(s) ready  ·  {format_duration(elapsed)}")
+        except Exception as exc:  # noqa: BLE001
+            try:
+                warn_line(
+                    f"Background pre-rendering failed ({exc}) after {format_duration(elapsed)} "
+                    f"— will render inline at step 24"
+                )
+            except Exception:
+                pass
+
+    try:
+        fut.add_done_callback(_on_done)
+    except Exception:
+        pass
+    ctx.b64_future = fut
     pool.shutdown(wait=False)
 
 
