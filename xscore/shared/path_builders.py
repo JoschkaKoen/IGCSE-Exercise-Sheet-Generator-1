@@ -169,9 +169,9 @@ def artifact_page_order_txt_path(artifact_dir: Path, student: str) -> Path:
     return artifact_dir / STEP_13_PAGE_ORDER / f"page_order_{safe_student_name(student)}.txt"
 
 
-def artifact_page_order_prompt_path(artifact_dir: Path) -> Path:
-    """Step 13: prompt file for page-order AI call."""
-    return artifact_dir / STEP_13_PAGE_ORDER / "page_order_prompt.md"
+def artifact_page_order_prompt_path(artifact_dir: Path, student: str) -> Path:
+    """Step 13: per-student prompt file for page-order AI call."""
+    return artifact_dir / STEP_13_PAGE_ORDER / f"page_order_{safe_student_name(student)}_prompt.md"
 
 
 def artifact_page_order_empty_exam_txt_path(artifact_dir: Path) -> Path:

@@ -107,6 +107,13 @@ SCAN_USE_TESSERACT_ROTATION: bool = _scan_tess_rot in ("1", "true", "yes", "on")
 _deskew_refl = os.getenv("XSCORE_DESKEW_REFERENCE_LINES", "").strip().lower()
 DESKEW_DETECT_REFERENCE_LINES: bool = _deskew_refl in ("1", "true", "yes", "on")
 
+try:
+    DESKEW_ACCURACY: float = float(os.getenv("DESKEW_ACCURACY", "0.01"))
+except ValueError as _e:
+    raise RuntimeError(
+        f"DESKEW_ACCURACY must be a number; got: {os.getenv('DESKEW_ACCURACY')!r}"
+    ) from _e
+
 # =============================================================================
 # Ensemble Configuration  (xscore/extraction/ benchmarking only — not the grading pipeline)
 # =============================================================================

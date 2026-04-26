@@ -1,33 +1,40 @@
-"""Step 12 sub-step: verify that scan pages are in the correct order and content."""
+"""Step 13: per-student page-order check (parallel calls vs empty-exam baseline).
+
+The dispatcher in ``xscore/steps/geometry.py`` is the single policy layer:
+this module returns ``(PageOrderStatus, message)`` and never calls SystemExit
+or prints. INCONCLUSIVE covers every path that today silently fails open
+(parse error, missing creds, API exception, image-only exam PDF, model
+omitting students from the response).
+"""
 
 from __future__ import annotations
 
 import json
+import os
+import time
+from concurrent.futures import ThreadPoolExecutor
+from enum import Enum
 from pathlib import Path
-from typing import TYPE_CHECKING, TypedDict
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from xscore.shared.models import PageAssignment
 
 
-class _PageIssue(TypedDict):
-    position: int
-    scan_page: int
-    expected: str
-    found: str
-    detail: str
+class PageOrderStatus(Enum):
+    PASSED = "PASSED"
+    MISMATCH_FOUND = "MISMATCH_FOUND"
+    INCONCLUSIVE = "INCONCLUSIVE"
 
 
-class _StudentResult(TypedDict):
-    name: str
-    ok: bool
-    issues: list[_PageIssue]
+_MAX_ATTEMPTS = 2
+_RETRY_SLEEP_S = 2.0
+_OCR_CONF_THRESHOLD = 0.8
+_OCR_LOW_KEPT_RATIO = 0.3
+_OCR_BAD_PAGE_FRACTION = 0.5
 
 
-class _PageOrderResult(TypedDict):
-    all_ok: bool
-    students: list[_StudentResult]
-
+# ─────────── OCR + text extraction ───────────────────────────────────────────
 
 def _exam_page_texts(exam_pdf: Path) -> list[str]:
     import fitz
@@ -39,18 +46,26 @@ def _scan_page_texts(
     scan_pdf: Path,
     page_nums: list[int],  # 1-based
     dpi: int = 150,
-) -> list[str]:
+) -> list[tuple[str, int, int]]:
+    """OCR each page; return (joined_text, kept_words, total_words) per page.
+
+    ``kept_words`` is the count after the confidence filter
+    (``> _OCR_CONF_THRESHOLD``); ``total_words`` is the unfiltered count.
+    """
     import fitz
-    from concurrent.futures import ThreadPoolExecutor
     from xscore.preprocessing.assign_pages_to_students import _get_ocr
 
-    def _ocr_one(p: int) -> str:
+    def _ocr_one(p: int) -> tuple[str, int, int]:
         with fitz.open(str(scan_pdf)) as doc:
             pix = doc[p - 1].get_pixmap(dpi=dpi, colorspace=fitz.csGRAY)
         ocr_out, _ = _get_ocr()(pix.tobytes("png"))
-        return "\n".join(t for _, t, c in (ocr_out or []) if float(c) > 0.8)
+        items = list(ocr_out or [])
+        total = len(items)
+        kept = [t for _, t, c in items if float(c) > _OCR_CONF_THRESHOLD]
+        return "\n".join(kept), len(kept), total
 
-    with ThreadPoolExecutor(max_workers=min(len(page_nums), 8)) as ex:
+    workers = min(len(page_nums), 8) or 1
+    with ThreadPoolExecutor(max_workers=workers) as ex:
         return list(ex.map(_ocr_one, page_nums))
 
 
@@ -61,9 +76,11 @@ def _format_text_artifact(sections: list[tuple[str, str]]) -> str:
     return "\n\n".join(parts)
 
 
-def _build_prompt(exam_texts: list[str], students_data: list[dict]) -> str:
+# ─────────── Prompt construction ─────────────────────────────────────────────
+
+def _build_per_student_prompt(exam_texts: list[str], student_data: dict) -> str:
     lines = [
-        "You are verifying that each student's scanned exam pages are in the correct order",
+        "You are verifying that one student's scanned exam pages are in the correct order",
         "and contain the correct content.",
         "",
         f"EMPTY EXAM PAGES (exact printed text, {len(exam_texts)} pages):",
@@ -71,171 +88,318 @@ def _build_prompt(exam_texts: list[str], students_data: list[dict]) -> str:
     for i, text in enumerate(exam_texts, 1):
         lines += [f"Page {i}:", text or "(no printed text)", ""]
 
-    lines += ["", "STUDENT SCANS (OCR of printed text only, handwriting excluded):"]
-    for s in students_data:
-        lines.append(f"Student: {s['name']}")
-        for pos, (scan_p, text) in enumerate(zip(s["scan_pages"], s["texts"]), 1):
-            lines += [f"  Position {pos} (scan page {scan_p}):", f"  {text or '(no text)'}", ""]
+    lines += ["", f"STUDENT SCAN — {student_data['name']} (OCR of printed text only, handwriting excluded):"]
+    for pos, (scan_p, text) in enumerate(zip(student_data["scan_pages"], student_data["texts"]), 1):
+        lines += [f"  Position {pos} (scan page {scan_p}):", f"  {text or '(no text)'}", ""]
 
     lines += [
-        "Your task: detect pages that are physically out of order in the student's scan.",
-        "A mismatch means the SEQUENCE of questions is wrong — e.g. the page at position 5 contains",
-        "question 8's text when it should contain question 5's text.",
+        "Your task: detect pages that are physically out of order in this student's scan.",
+        "A mismatch means the SEQUENCE of questions is wrong — e.g. the page at position 5",
+        "contains question 8's text when it should contain question 5's text.",
         "To detect this: identify the question number(s) and question text visible on each page,",
         "then check that the sequence in the student scan matches the sequence in the empty exam.",
         "Both the reference text (PDF heuristic extraction) and the scan text (OCR) are imperfect —",
         "focus on the identity and order of questions, not exact wording / spelling.",
         "Ignore all student handwriting, answer variations, and minor OCR noise.",
         "Only flag when a question clearly belongs to a different position in the exam.",
+        "",
+        'Return JSON ONLY with this shape:',
+        '{"ok": <bool>, "issues": [{"position": <int>, "scan_page": <int>,'
+        ' "expected": <str>, "found": <str>, "detail": <str>}]}',
+        "When ok=true, issues MUST be []. When ok=false, list each problem page in issues.",
     ]
     return "\n".join(lines)
 
+
+# ─────────── Model client (built once, shared by per-student calls) ──────────
+
+class _ClientState:
+    """Holds whichever model client is appropriate for ``model_id``.
+
+    Built once before the parallel per-student loop so we don't re-init the
+    client (and re-validate creds) per student × per retry attempt.
+    """
+
+    def __init__(self, gai: Any, oa: Any, provider: str | None) -> None:
+        self.gai = gai
+        self.oa = oa
+        self.provider = provider
+
+
+def _build_client_state(model_id: str) -> _ClientState | str:
+    """Return ``_ClientState`` on success, or a human-readable error message string."""
+    if model_id.startswith("gemini"):
+        from eXercise.ai_client import make_gemini_native_client
+        gai = make_gemini_native_client()
+        if gai is None:
+            return "GEMINI_API_KEY not set"
+        return _ClientState(gai=gai, oa=None, provider="gemini")
+    from eXercise.ai_client import make_ai_client
+    result = make_ai_client(model_env="PAGE_ORDER_CHECK_MODEL")
+    if result is None:
+        return f"PAGE_ORDER_CHECK_MODEL={model_id} requires API key for its provider"
+    oa, _, provider, _, _ = result
+    return _ClientState(gai=None, oa=oa, provider=provider)
+
+
+def _call_gemini(state: _ClientState, prompt: str, model_id: str, thinking: int | None, max_tok: int | None) -> str:
+    from eXercise.ai_client import build_gemini_thinking_config
+    from google.genai import types as gai_types
+    cfg_kwargs: dict = {
+        "max_output_tokens": max_tok or 2048,
+        "response_mime_type": "application/json",
+    }
+    if thinking is not None:
+        cfg_kwargs["thinking_config"] = build_gemini_thinking_config(thinking)
+    resp = state.gai.models.generate_content(
+        model=model_id,
+        contents=[gai_types.Part.from_text(text=prompt)],
+        config=gai_types.GenerateContentConfig(**cfg_kwargs),
+    )
+    return resp.text or ""
+
+
+def _call_openai_compat(state: _ClientState, prompt: str, model_id: str, thinking: int | None, max_tok: int | None) -> str:
+    from eXercise.ai_client import build_completion_kwargs, collect_streamed_response
+    use_stream, kw = build_completion_kwargs(state.provider, thinking, max_tok or 2048)
+    msgs = [{"role": "user", "content": prompt}]
+    if use_stream:
+        stream = state.oa.chat.completions.create(model=model_id, messages=msgs, stream=True, **kw)
+        return collect_streamed_response(stream)
+    try:
+        resp = state.oa.chat.completions.create(
+            model=model_id, messages=msgs,
+            response_format={"type": "json_object"}, **kw,
+        )
+    except Exception:  # noqa: BLE001
+        resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw)
+    return resp.choices[0].message.content or ""
+
+
+def _call_model_with_retry(
+    state: _ClientState,
+    prompt: str,
+    model_id: str,
+    thinking: int | None,
+    max_tok: int | None,
+) -> tuple[str, str | None]:
+    """Return ``(raw_text, error_message)``. ``raw_text`` is "" on permanent failure."""
+    last_exc: str | None = None
+    for attempt in range(_MAX_ATTEMPTS):
+        try:
+            if model_id.startswith("gemini"):
+                return _call_gemini(state, prompt, model_id, thinking, max_tok), None
+            return _call_openai_compat(state, prompt, model_id, thinking, max_tok), None
+        except Exception as exc:  # noqa: BLE001
+            last_exc = f"{type(exc).__name__}: {exc}"
+            if attempt + 1 < _MAX_ATTEMPTS:
+                time.sleep(_RETRY_SLEEP_S)
+    return "", last_exc
+
+
+# ─────────── Response validation ─────────────────────────────────────────────
+
+def _validate_per_student_response(raw: str) -> tuple[PageOrderStatus, str | None, list | None]:
+    """Returns (status, message, issues_list_or_None)."""
+    if not raw:
+        return PageOrderStatus.INCONCLUSIVE, "empty response from model", None
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        return PageOrderStatus.INCONCLUSIVE, f"JSON parse failed: {exc}", None
+    if not isinstance(data, dict):
+        return PageOrderStatus.INCONCLUSIVE, "response is not a JSON object", None
+    ok = data.get("ok")
+    if not isinstance(ok, bool):
+        return PageOrderStatus.INCONCLUSIVE, "missing or non-bool 'ok' field", None
+    if ok:
+        return PageOrderStatus.PASSED, None, []
+    issues = data.get("issues")
+    if not isinstance(issues, list):
+        return PageOrderStatus.INCONCLUSIVE, "ok=False but 'issues' is missing or not a list", None
+    valid: list = []
+    for it in issues:
+        if not isinstance(it, dict):
+            continue
+        try:
+            pos = int(it.get("position"))
+            scan = int(it.get("scan_page"))
+        except (TypeError, ValueError):
+            continue
+        valid.append({
+            "position": pos,
+            "scan_page": scan,
+            "expected": str(it.get("expected", "?")),
+            "found": str(it.get("found", "?")),
+            "detail": str(it.get("detail", "")),
+        })
+    if not valid:
+        return PageOrderStatus.INCONCLUSIVE, "ok=False but every issue is malformed", None
+    return PageOrderStatus.MISMATCH_FOUND, None, valid
+
+
+# ─────────── Aggregation ─────────────────────────────────────────────────────
+
+_PerStudentResult = tuple[str, PageOrderStatus, str | None, list | None]
+
+
+def _aggregate(
+    results: list[_PerStudentResult],
+    ocr_warning: str | None,
+) -> tuple[PageOrderStatus, str | None]:
+    n = len(results)
+    mismatches = [
+        (name, issues)
+        for name, status, _, issues in results
+        if status == PageOrderStatus.MISMATCH_FOUND
+    ]
+    inconclusives = [
+        (name, msg)
+        for name, status, msg, _ in results
+        if status == PageOrderStatus.INCONCLUSIVE
+    ]
+    if mismatches:
+        lines = ["Scan page order / content mismatch:", ""]
+        for name, issues in mismatches:
+            lines.append(f"  {name}:")
+            for issue in issues or []:
+                lines.append(
+                    f"    Position {issue['position']} (scan page {issue['scan_page']}): "
+                    f"{issue['detail']}  —  expected: {issue['expected']} / found: {issue['found']}"
+                )
+        if inconclusives:
+            lines += ["", "  Could not verify (model failed):"]
+            for name, msg in inconclusives:
+                lines.append(f"    {name}: {msg}")
+        if ocr_warning:
+            lines += ["", f"  {ocr_warning}"]
+        lines += ["", "  Re-scan the affected booklet(s) in the correct page order and re-run."]
+        return PageOrderStatus.MISMATCH_FOUND, "\n".join(lines)
+    if inconclusives:
+        verified = n - len(inconclusives)
+        lines = [f"Verified {verified}/{n} students; could not verify:"]
+        for name, msg in inconclusives:
+            lines.append(f"    {name}: {msg}")
+        if ocr_warning:
+            lines += ["", f"  {ocr_warning}"]
+        return PageOrderStatus.INCONCLUSIVE, "\n".join(lines)
+    return PageOrderStatus.PASSED, None
+
+
+def _ocr_quality_summary(students_data: list[dict]) -> str | None:
+    bad = 0
+    total = 0
+    for sd in students_data:
+        for kept, all_n in sd.get("ocr_stats", []):
+            total += 1
+            if all_n == 0 or (kept / all_n) < _OCR_LOW_KEPT_RATIO:
+                bad += 1
+    if total > 0 and bad / total > _OCR_BAD_PAGE_FRACTION:
+        return (
+            f"page-order OCR: {bad}/{total} pages have <{int(_OCR_LOW_KEPT_RATIO * 100)}%"
+            " high-confidence words — check may be unreliable"
+        )
+    return None
+
+
+# ─────────── Main entry ──────────────────────────────────────────────────────
 
 def check_page_order(
     exam_pdf: Path,
     scan_pdf: Path,
     page_assignments: list["PageAssignment"],
     artifact_dir: Path | None = None,
-) -> None:
-    """Validate page order and content for all students. Raises SystemExit(1) on mismatch."""
-    import os
-    from xscore.shared.terminal_ui import info_line, ok_line, warn_line
+) -> tuple[PageOrderStatus, str | None]:
+    """Validate page order and content for all students, in parallel per student.
+
+    Returns ``(status, message)``. The dispatcher in ``geometry.py`` is the
+    single policy layer; this function never calls SystemExit and never prints.
+    """
     from eXercise.ai_client import parse_model_spec
-    from xscore.shared.prompt_logger import save_prompt, save_response
     from xscore.shared.exam_paths import (
         artifact_page_order_empty_exam_txt_path,
         artifact_page_order_prompt_path,
         artifact_page_order_txt_path,
     )
-    model_id, _thinking, _max_tok = parse_model_spec(
+    from xscore.shared.prompt_logger import save_prompt, save_response
+
+    model_id, thinking, max_tok = parse_model_spec(
         os.environ.get("PAGE_ORDER_CHECK_MODEL", "gemini-2.5-flash-lite")
     )
 
-    # ── Extract text ──────────────────────────────────────────────────────────
+    # ── Empty exam baseline (with image-PDF guard) ────────────────────────
     exam_texts = _exam_page_texts(exam_pdf)
+    if sum(len(t) for t in exam_texts) < 100:
+        return (
+            PageOrderStatus.INCONCLUSIVE,
+            "empty exam PDF has no extractable text layer; "
+            "export the empty exam with a text layer or skip step 13",
+        )
 
     if artifact_dir:
-        _po_empty = artifact_page_order_empty_exam_txt_path(artifact_dir)
-        _po_empty.parent.mkdir(parents=True, exist_ok=True)
-        _po_empty.write_text(
+        po_empty = artifact_page_order_empty_exam_txt_path(artifact_dir)
+        po_empty.parent.mkdir(parents=True, exist_ok=True)
+        po_empty.write_text(
             _format_text_artifact([(f"Page {i}", t) for i, t in enumerate(exam_texts, 1)]),
             encoding="utf-8",
         )
 
-    # Collect all scan pages from all students at once, OCR in one parallel batch.
+    # ── Build the model client once ───────────────────────────────────────
+    client_or_err = _build_client_state(model_id)
+    if isinstance(client_or_err, str):
+        return PageOrderStatus.INCONCLUSIVE, client_or_err
+    client_state = client_or_err
+
+    # ── OCR all scan pages once, in parallel ──────────────────────────────
     all_page_nums: list[int] = []
     for a in page_assignments:
         all_page_nums.extend(a.page_numbers)
-    all_texts = _scan_page_texts(scan_pdf, all_page_nums)
-    page_text_map: dict[int, str] = dict(zip(all_page_nums, all_texts))
+    ocr_results = _scan_page_texts(scan_pdf, all_page_nums)
+    page_text_map: dict[int, tuple[str, int, int]] = dict(zip(all_page_nums, ocr_results))
 
-    students_data = []
+    students_data: list[dict] = []
     for a in page_assignments:
-        texts = [page_text_map[p] for p in a.page_numbers]
-        students_data.append({"name": a.student_name, "scan_pages": a.page_numbers, "texts": texts})
-
+        triples = [page_text_map[p] for p in a.page_numbers]
+        texts = [t for t, _, _ in triples]
+        ocr_stats = [(k, n) for _, k, n in triples]
+        students_data.append({
+            "name": a.student_name,
+            "scan_pages": a.page_numbers,
+            "texts": texts,
+            "ocr_stats": ocr_stats,
+        })
         if artifact_dir:
-            _po_student = artifact_page_order_txt_path(artifact_dir, a.student_name)
-            _po_student.parent.mkdir(parents=True, exist_ok=True)
-            _po_student.write_text(
+            po_student = artifact_page_order_txt_path(artifact_dir, a.student_name)
+            po_student.parent.mkdir(parents=True, exist_ok=True)
+            po_student.write_text(
                 _format_text_artifact([
-                    (f"Position {pos} (scan page {sp})", t)
-                    for pos, (sp, t) in enumerate(zip(a.page_numbers, texts), 1)
+                    (f"Position {pos} (scan page {sp}, OCR: {k}/{n} high-conf words)", t)
+                    for pos, (sp, t, (k, n)) in enumerate(
+                        zip(a.page_numbers, texts, ocr_stats), 1
+                    )
                 ]),
                 encoding="utf-8",
             )
 
-    # ── Call model ────────────────────────────────────────────────────────────
-    prompt = _build_prompt(exam_texts, students_data)
-    save_path = artifact_page_order_prompt_path(artifact_dir) if artifact_dir else None
-    save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
-
-    import time as _time
-    t0 = _time.perf_counter()
-
-    if model_id.startswith("gemini"):
-        from eXercise.ai_client import build_gemini_thinking_config, make_gemini_native_client
-        from google.genai import types as gai_types
-        _gai = make_gemini_native_client()
-        if _gai is None:
-            warn_line("GEMINI_API_KEY not set — page order check skipped")
-            return
-        _cfg_kwargs: dict = {
-            "max_output_tokens": _max_tok or 2048,
-            "response_mime_type": "application/json",
-            "response_schema": _PageOrderResult,
-        }
-        if _thinking is not None:
-            _cfg_kwargs["thinking_config"] = build_gemini_thinking_config(_thinking)
-        resp = _gai.models.generate_content(
-            model=model_id,
-            contents=[gai_types.Part.from_text(text=prompt)],
-            config=gai_types.GenerateContentConfig(**_cfg_kwargs),
+    # ── Per-student model calls in parallel ───────────────────────────────
+    def _check_one(sd: dict) -> _PerStudentResult:
+        prompt = _build_per_student_prompt(exam_texts, sd)
+        save_path = (
+            artifact_page_order_prompt_path(artifact_dir, sd["name"])
+            if artifact_dir else None
         )
-        raw = resp.text or ""
-    else:
-        from eXercise.ai_client import (
-            build_completion_kwargs,
-            collect_streamed_response,
-            make_ai_client,
-        )
-        _result = make_ai_client(model_env="PAGE_ORDER_CHECK_MODEL")
-        if _result is None:
-            warn_line(
-                f"PAGE_ORDER_CHECK_MODEL={model_id} requires API key for its provider — "
-                f"page order check skipped"
-            )
-            return
-        _oa_client, _, _provider, _, _ = _result
-        _use_stream, _kw = build_completion_kwargs(_provider, _thinking, _max_tok or 2048)
-        # OA mode lacks Gemini's typed schema; encode shape in the prompt.
-        _oa_prompt = prompt + (
-            "\n\nReturn a JSON object with this shape:"
-            '\n{"all_ok": <bool>, "students": [{"name": <str>, "ok": <bool>,'
-            ' "issues": [{"position": <int>, "scan_page": <int>, "expected": <str>,'
-            ' "found": <str>, "detail": <str>}]}]}'
-        )
-        _msgs = [{"role": "user", "content": _oa_prompt}]
-        if _use_stream:
-            _stream = _oa_client.chat.completions.create(
-                model=model_id, messages=_msgs, stream=True, **_kw,
-            )
-            raw = collect_streamed_response(_stream)
-        else:
-            try:
-                _resp = _oa_client.chat.completions.create(
-                    model=model_id, messages=_msgs,
-                    response_format={"type": "json_object"}, **_kw,
-                )
-            except Exception:
-                _resp = _oa_client.chat.completions.create(
-                    model=model_id, messages=_msgs, **_kw,
-                )
-            raw = _resp.choices[0].message.content or ""
+        save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
+        raw, err = _call_model_with_retry(client_state, prompt, model_id, thinking, max_tok)
+        if save_path is not None and raw:
+            save_response(save_path, raw)
+        if not raw:
+            reason = f"model call failed: {err}" if err else "model returned empty response"
+            return sd["name"], PageOrderStatus.INCONCLUSIVE, reason, None
+        status, msg, issues = _validate_per_student_response(raw)
+        return sd["name"], status, msg, issues
 
-    dur = round(_time.perf_counter() - t0, 1)
-    save_response(save_path, raw)
+    workers = min(len(students_data), 8) or 1
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        results = list(ex.map(_check_one, students_data))
 
-    # ── Parse and report ──────────────────────────────────────────────────────
-    try:
-        data = json.loads(raw) if raw else {}
-    except json.JSONDecodeError:
-        data = {}
-    if data.get("all_ok", True):
-        ok_line(f"Page order check: all students OK  ·  {dur}s")
-        return
-
-    error_lines = ["Scan page order / content mismatch:", ""]
-    for s in data.get("students", []):
-        if s.get("ok", True) or not s.get("issues"):
-            continue
-        error_lines.append(f"  {s['name']}:")
-        for issue in s["issues"]:
-            error_lines.append(
-                f"    Position {issue.get('position')} (scan page {issue.get('scan_page')}): "
-                f"{issue.get('detail', '')}  —  "
-                f"expected: {issue.get('expected', '?')} / found: {issue.get('found', '?')}"
-            )
-    error_lines += ["", "  Re-scan the affected booklet(s) in the correct page order and re-run."]
-    warn_line("\n".join(error_lines))
-    raise SystemExit(1)
+    return _aggregate(results, _ocr_quality_summary(students_data))

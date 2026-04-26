@@ -3,9 +3,10 @@
 Step 11 keeps a named ``assign_pages_s`` sub-timing for the timing report
 (in addition to the canonical ``student_names`` timing run_step writes).
 
-Steps 13 and 14 catch their own exceptions and warn-and-continue — the
-``try/except SystemExit/Exception`` pattern stays inside the body so
-``run_step`` only sees an exception escape on truly unrecoverable failures.
+Steps 13 and 14 return ``(status, message)`` from their helpers; the
+dispatchers below own the policy. INCONCLUSIVE → loud warn + continue
+(or ``SystemExit(1)`` when the per-step ``*_STRICT=1`` env var is set).
+MISMATCH_FOUND in step 13 still raises ``SystemExit(1)``.
 
 Step 12 raises ``SystemExit(1)`` on page-count mismatch — ``run_step``
 re-raises after capture, so the process still terminates as today.
@@ -221,17 +222,30 @@ def step_13_page_order(ctx: _Ctx) -> None:
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=2048,
     )
-    try:
-        check_page_order(
-            find_exam_pdf(ctx.folder),
-            ctx.cleaned_pdf,
-            ctx.page_assignments,
-            artifact_dir=ctx.artifact_dir,
-        )
-    except SystemExit:
-        raise
-    except Exception as exc:
-        warn_line(f"Page order check skipped: {exc}")
+    from xscore.marking.page_order_check import PageOrderStatus
+    t0 = time.perf_counter()
+    status, msg = check_page_order(
+        find_exam_pdf(ctx.folder),
+        ctx.cleaned_pdf,
+        ctx.page_assignments,
+        artifact_dir=ctx.artifact_dir,
+    )
+    dur = format_duration(time.perf_counter() - t0)
+    n = len(ctx.page_assignments)
+    if status is PageOrderStatus.PASSED:
+        ok_line(f"Page order check: {n}/{n} students OK  ·  {dur}")
+        return
+    if status is PageOrderStatus.MISMATCH_FOUND:
+        warn_line(msg or "Page order mismatch detected.")
+        raise SystemExit(1)
+    # INCONCLUSIVE
+    warn_line(
+        "Page order check INCONCLUSIVE — pipeline did NOT verify page order:\n"
+        f"  {msg}\n"
+        "  Set PAGE_ORDER_CHECK_STRICT=1 to fail-fast on inconclusive checks."
+    )
+    if os.environ.get("PAGE_ORDER_CHECK_STRICT", "0") == "1":
+        raise SystemExit(1)
 
 
 def step_14_blank_pages(ctx: _Ctx) -> None:
@@ -241,15 +255,24 @@ def step_14_blank_pages(ctx: _Ctx) -> None:
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=256,
     )
-    try:
-        check_blank_pages(
-            find_exam_pdf(ctx.folder),
-            ctx.cleaned_pdf,
-            ctx.page_assignments,
-            ctx.artifact_dir,
-            empty_exam_has_cover=bool(ctx.empty_exam_has_cover),
-        )
-    except SystemExit:
-        raise
-    except Exception as exc:
-        warn_line(f"Blank page detection skipped: {exc}")
+    from xscore.marking.blank_page_detection import BlankCheckStatus
+    t0 = time.perf_counter()
+    status, msg = check_blank_pages(
+        find_exam_pdf(ctx.folder),
+        ctx.cleaned_pdf,
+        ctx.page_assignments,
+        ctx.artifact_dir,
+        empty_exam_has_cover=bool(ctx.empty_exam_has_cover),
+    )
+    dur = format_duration(time.perf_counter() - t0)
+    if status is BlankCheckStatus.PASSED:
+        ok_line(f"Blank page detection: {msg}  ·  {dur}")
+        return
+    # INCONCLUSIVE
+    warn_line(
+        "Blank page detection INCONCLUSIVE — pipeline did NOT verify all blank pages:\n"
+        f"  {msg}\n"
+        "  Set BLANK_PAGE_DETECTION_STRICT=1 to fail-fast on inconclusive checks."
+    )
+    if os.environ.get("BLANK_PAGE_DETECTION_STRICT", "0") == "1":
+        raise SystemExit(1)
