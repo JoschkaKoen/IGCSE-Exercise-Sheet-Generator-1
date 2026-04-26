@@ -8,7 +8,8 @@ from typing import Any, Protocol, runtime_checkable
 
 from pathlib import Path
 
-from eXercise.ai_client import build_thinking_kwargs, is_503_error
+from eXercise.ai_client import build_thinking_kwargs
+from eXercise.api_retry import retry_api_call
 from xscore.config import NAME_JPEG_QUALITY
 from xscore.extraction.images import to_jpeg_bytes
 from xscore.shared.prompt_logger import save_prompt, save_response
@@ -85,27 +86,24 @@ def ai_image_call(
 
     save_prompt(prompt_save_path, model=model_id, messages=create_kwargs["messages"])
 
-    for attempt in range(2):  # initial attempt + 1 retry on 503
-        try:
-            _t0 = time.perf_counter()
-            resp = client.chat.completions.create(**create_kwargs)
-            if print_latency:
-                api_latency_line(time.perf_counter() - _t0)
-            raw = resp.choices[0].message.content or ""
-            if not raw:
-                warn_line(f"[{model_id}] returned empty content — check thinking/token budget")
-            log_ai_response_debug("ai_image", model_id, raw)
-            thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
-            save_response(prompt_save_path, raw, thinking=thinking_text)
-            return raw
-        except KeyboardInterrupt:
-            raise
-        except Exception as exc:
-            warn_line(f"API error (attempt {attempt + 1}/2): {exc}")
-            if attempt == 0 and is_503_error(exc):
-                time.sleep(0.1)
-            else:
-                break
-    return ""
+    def _do_call() -> tuple[str, str]:
+        _resp = client.chat.completions.create(**create_kwargs)
+        return (
+            _resp.choices[0].message.content or "",
+            getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+        )
+
+    _t0 = time.perf_counter()
+    try:
+        raw, thinking_text = retry_api_call(_do_call, label=f"AI image ({model_id})")
+    except Exception:
+        return ""
+    if print_latency:
+        api_latency_line(time.perf_counter() - _t0)
+    if not raw:
+        warn_line(f"[{model_id}] returned empty content — check thinking/token budget")
+    log_ai_response_debug("ai_image", model_id, raw)
+    save_response(prompt_save_path, raw, thinking=thinking_text)
+    return raw
 
 

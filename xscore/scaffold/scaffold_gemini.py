@@ -21,6 +21,7 @@ from eXercise.ai_client import (
     make_ai_client,
     split_gemini_response,
 )
+from eXercise.api_retry import retry_api_call
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.scaffold.scaffold_prompts import (
     _SCHEME_GRAPHICS_JSON_SCHEMA,
@@ -146,33 +147,34 @@ def _do_exam_call(
                 pix = None  # release pixmap memory
 
     def _make_exam_call(label: str | None) -> tuple[str, str]:
-        _t0 = time.perf_counter()
-        thinking_text = ""
-        if _oa_client is not None:
-            _content = [
-                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}
-                for b64 in _exam_page_b64s
-            ]
-            _content.append({"type": "text", "text": user_exam})
-            kwargs: dict = dict(
-                model=exam_model,
-                messages=[
-                    {"role": "system", "content": fmt.system_exam_prompt()},
-                    {"role": "user", "content": _content},
-                ],
-            )
-            kwargs.update(_oa_thinking_kw)
-            if _oa_use_stream:
-                _th: list[str] = []
-                stream = _oa_client.chat.completions.create(**kwargs, stream=True)
-                raw = collect_streamed_response(stream, thinking_out=_th)
-                thinking_text = "".join(_th)
-            else:
-                resp = _oa_client.chat.completions.create(**kwargs)
-                raw = resp.choices[0].message.content or ""
-                thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
-        else:
-            resp = client.models.generate_content(
+        def _do_call() -> tuple[str, str]:
+            if _oa_client is not None:
+                _content = [
+                    {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}
+                    for b64 in _exam_page_b64s
+                ]
+                _content.append({"type": "text", "text": user_exam})
+                kwargs: dict = dict(
+                    model=exam_model,
+                    messages=[
+                        {"role": "system", "content": fmt.system_exam_prompt()},
+                        {"role": "user", "content": _content},
+                    ],
+                )
+                kwargs.update(_oa_thinking_kw)
+                if _oa_use_stream:
+                    _th: list[str] = []
+                    # Stream consumed *inside* the closure so a mid-stream SSL EOF
+                    # triggers a retry rather than returning a partial response.
+                    stream = _oa_client.chat.completions.create(**kwargs, stream=True)
+                    _raw = collect_streamed_response(stream, thinking_out=_th)
+                    return _raw, "".join(_th)
+                _resp = _oa_client.chat.completions.create(**kwargs)
+                return (
+                    _resp.choices[0].message.content or "",
+                    getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+                )
+            _resp = client.models.generate_content(
                 model=exam_model,
                 contents=[
                     exam_pdf_part,
@@ -184,7 +186,13 @@ def _do_exam_call(
                     max_tokens=exam_max_tokens,
                 ),
             )
-            raw, thinking_text = split_gemini_response(resp)
+            _raw, _th = split_gemini_response(_resp)
+            return _raw, _th
+
+        _t0 = time.perf_counter()
+        raw, thinking_text = retry_api_call(
+            _do_call, label=f"Exam{f' ({label})' if label else ''}",
+        )
         api_latency_line(time.perf_counter() - _t0, label=label)
         return raw, thinking_text
 
@@ -435,8 +443,9 @@ def detect_scheme_graphics(
             "Return exactly one of these as the question_number for each graphic.\n\n"
         ) if _qnum_hint else ""
         _user_msg = _hint + _USER_GRAPHICS
-        try:
-            resp = _det_client.chat.completions.create(
+
+        def _do_call() -> tuple[str, str]:
+            _resp = _det_client.chat.completions.create(
                 model=_det_model,
                 messages=[
                     {"role": "system", "content": _gfx_system},
@@ -449,11 +458,18 @@ def detect_scheme_graphics(
                 response_format={"type": "json_object"},
                 **_det_thinking_kw,
             )
-            raw = resp.choices[0].message.content or '{"graphics":[]}'
-            _thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
+            return (
+                _resp.choices[0].message.content or '{"graphics":[]}',
+                getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+            )
+
+        try:
+            raw, _thinking_text = retry_api_call(
+                _do_call, label=f"Scheme graphics p{page_num}",
+            )
         except Exception as _exc:
             warn_line(
-                f"Scheme graphics p{page_num}: API error  ·  "
+                f"Scheme graphics p{page_num}: giving up after retries  ·  "
                 f"{format_duration(time.perf_counter() - _t0)}  —  {_exc}"
             )
             return {"questions": []}
@@ -590,11 +606,9 @@ def assign_questions_to_pages(
     page_path_by_num: dict[int, Path] = {pn: p for pn, p in enumerate(page_paths, 1)}
 
     def _assign_page(page_num: int) -> tuple[int, list[str]]:
-        _t0 = time.perf_counter()
-        thinking_text = ""
-        try:
+        def _do_call() -> tuple[str, str]:
             if use_gemini:
-                resp = client.models.generate_content(
+                _resp = client.models.generate_content(
                     model=model,
                     contents=[
                         gemini_pdf_part(client, page_path_by_num[page_num], label=f"assign p{page_num}"),
@@ -612,28 +626,36 @@ def assign_questions_to_pages(
                         max_tokens=max_tokens,
                     ),
                 )
-                raw, thinking_text = split_gemini_response(resp)
-            else:
-                b64 = _base64.b64encode(page_pngs[page_num]).decode()
-                kwargs: dict = dict(
-                    model=model,
-                    messages=[
-                        {"role": "system", "content": system_msg},
-                        {"role": "user", "content": [
-                            {"type": "image_url",
-                             "image_url": {"url": f"data:image/png;base64,{b64}"}},
-                            {"type": "text", "text": user_msg},
-                        ]},
-                    ],
-                    response_format={"type": "json_object"},
-                )
-                kwargs.update(_oa_thinking_kw)
-                resp = _oa_client_aux.chat.completions.create(**kwargs)
-                raw = resp.choices[0].message.content or '{"questions":[]}'
-                thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
+                _raw, _th = split_gemini_response(_resp)
+                return _raw, _th
+            b64 = _base64.b64encode(page_pngs[page_num]).decode()
+            kwargs: dict = dict(
+                model=model,
+                messages=[
+                    {"role": "system", "content": system_msg},
+                    {"role": "user", "content": [
+                        {"type": "image_url",
+                         "image_url": {"url": f"data:image/png;base64,{b64}"}},
+                        {"type": "text", "text": user_msg},
+                    ]},
+                ],
+                response_format={"type": "json_object"},
+            )
+            kwargs.update(_oa_thinking_kw)
+            _resp = _oa_client_aux.chat.completions.create(**kwargs)
+            return (
+                _resp.choices[0].message.content or '{"questions":[]}',
+                getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+            )
+
+        _t0 = time.perf_counter()
+        try:
+            raw, thinking_text = retry_api_call(
+                _do_call, label=f"Assign questions p{page_num}",
+            )
         except Exception as _exc:
             warn_line(
-                f"Assign questions p{page_num}: API error  ·  "
+                f"Assign questions p{page_num}: giving up after retries  ·  "
                 f"{format_duration(time.perf_counter() - _t0)}  —  {_exc}"
             )
             return page_num, []
@@ -775,9 +797,9 @@ def parse_mark_scheme_pages(
             return {"questions": []}
         _input_label = "image" if _oa_client is not None else "PDF"
         user_msg = fmt.build_scheme_user_msg(scaffold_str, page_num, n_pages, input_label=_input_label)
-        _t0 = time.perf_counter()
-        thinking_text = ""
-        try:
+        resp_for_finish: object | None = None
+
+        def _do_call() -> tuple[str, str, object | None]:
             if _oa_client is not None:
                 # OpenAI-compatible path (Qwen, Grok, etc.)
                 # PNG from page_pngs: 300 DPI lossless — preserves fine mark-scheme text
@@ -797,41 +819,52 @@ def parse_mark_scheme_pages(
                 kwargs.update(fmt.scheme_oa_extra_kwargs())
                 if _oa_use_stream:
                     _th: list[str] = []
+                    # Stream consumed *inside* the closure so a mid-stream SSL EOF
+                    # triggers a retry rather than returning a partial response.
                     stream = _oa_client.chat.completions.create(**kwargs, stream=True)
-                    raw = collect_streamed_response(stream, thinking_out=_th)
-                    thinking_text = "".join(_th)
-                else:
-                    resp = _oa_client.chat.completions.create(**kwargs)
-                    raw = resp.choices[0].message.content or ""
-                    thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
-                ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
-            else:
-                # Gemini native path — inline PDF bytes per page
-                resp = client.models.generate_content(
-                    model=scheme_model,
-                    contents=[
-                        gemini_pdf_part(
-                            client, page_path_by_num[page_num],
-                            label=f"scheme p{page_num}",
-                        ),
-                        gai_types.Part.from_text(text=user_msg),
-                    ],
-                    config=_make_gen_config(
-                        scheme_thinking, fmt.system_scheme_prompt(),
-                        pydantic_schema=fmt.pydantic_schema_scheme(),
-                        max_tokens=scheme_max_tokens,
-                    ),
+                    _raw = collect_streamed_response(stream, thinking_out=_th)
+                    return _raw, "".join(_th), None
+                _resp = _oa_client.chat.completions.create(**kwargs)
+                return (
+                    _resp.choices[0].message.content or "",
+                    getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+                    None,
                 )
-                ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
-                raw, thinking_text = split_gemini_response(resp)
+            # Gemini native path — inline PDF bytes per page
+            _resp = client.models.generate_content(
+                model=scheme_model,
+                contents=[
+                    gemini_pdf_part(
+                        client, page_path_by_num[page_num],
+                        label=f"scheme p{page_num}",
+                    ),
+                    gai_types.Part.from_text(text=user_msg),
+                ],
+                config=_make_gen_config(
+                    scheme_thinking, fmt.system_scheme_prompt(),
+                    pydantic_schema=fmt.pydantic_schema_scheme(),
+                    max_tokens=scheme_max_tokens,
+                ),
+            )
+            _raw, _th = split_gemini_response(_resp)
+            return _raw, _th, _resp
+
+        _t0 = time.perf_counter()
+        try:
+            raw, thinking_text, resp_for_finish = retry_api_call(
+                _do_call, label=f"Mark scheme p{page_num}",
+            )
+            ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
         except Exception as _exc:
+            # All attempts exhausted — degrade to empty page so the rest of the
+            # mark scheme can still be assembled.
             warn_line(
-                f"Mark scheme p{page_num}: API error  ·  "
+                f"Mark scheme p{page_num}: giving up after retries  ·  "
                 f"{format_duration(time.perf_counter() - _t0)}  —  {_exc}"
             )
             return {"questions": []}
         if not raw:
-            _reason = "" if _oa_client is not None else f" ({_finish_reason(resp)})"
+            _reason = "" if _oa_client is not None else f" ({_finish_reason(resp_for_finish)})"
             warn_line(f"Mark scheme p{page_num}: empty response{_reason}")
         if artifact_dir is not None:
             _prompt_path = artifact_scaffold_prompt_path(artifact_dir, f"mark_scheme_p{page_num}")

@@ -116,8 +116,6 @@ class KimiProvider:
         answer_fields: list[str],
         prompt_save_dir: Path | None = None,
     ) -> dict:
-        last_error: Exception | None = None
-        backoff = RETRY_BACKOFF_S
         image_b64 = base64.b64encode(image_bytes).decode("utf-8")
 
         if prompt_save_dir is not None:
@@ -134,77 +132,63 @@ class KimiProvider:
         # Retries: first sleep is RETRY_BACKOFF_S (default 1s), then doubling. The marking
         # pipeline uses 2**attempt seconds (2s, 4s) — intentional; see marking/kimi_helpers.
 
-        for attempt in range(MAX_RETRIES + 1):
+        from eXercise.api_retry import retry_api_call
+
+        def _do_call() -> dict:
+            kwargs: dict = dict(
+                model=AI_MODEL,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": prompt},
+                            {
+                                "type": "image_url",
+                                "image_url": {"url": f"data:image/jpeg;base64,{image_b64}"},
+                            },
+                        ],
+                    }
+                ],
+                max_tokens=KIMI_MAX_TOKENS,
+                response_format={"type": "json_object"},
+            )
+            apply_kimi_k2_extra(AI_MODEL, kwargs, thinking=False)
+            _t0 = time.perf_counter()
+            response = client.chat.completions.create(**kwargs)
+            api_latency_line(time.perf_counter() - _t0)
+            raw = response.choices[0].message.content or ""
+            log_ai_response_debug("kimi_extract", AI_MODEL, raw)
             try:
-                kwargs: dict = dict(
-                    model=AI_MODEL,
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": [
-                                {"type": "text", "text": prompt},
-                                {
-                                    "type": "image_url",
-                                    "image_url": {"url": f"data:image/jpeg;base64,{image_b64}"},
-                                },
-                            ],
-                        }
-                    ],
-                    max_tokens=KIMI_MAX_TOKENS,
-                    response_format={"type": "json_object"},
-                )
-                apply_kimi_k2_extra(AI_MODEL, kwargs, thinking=False)
-                _t0 = time.perf_counter()
-                response = client.chat.completions.create(**kwargs)
-                api_latency_line(time.perf_counter() - _t0)
-                raw = response.choices[0].message.content or ""
-                log_ai_response_debug("kimi_extract", AI_MODEL, raw)
+                data = json.loads(raw)
+                data = _filter_schema_fields(data, schema)
                 try:
-                    data = json.loads(raw)
-                    # Filter out extra fields Kimi might add (notes, overall_confidence, etc.)
-                    data = _filter_schema_fields(data, schema)
+                    schema.model_validate(data)
+                except ValidationError as val_err:
+                    raise RuntimeError(
+                        f"Kimi response failed schema validation for page {page_num}: {val_err}"
+                    ) from val_err
+                return normalize_extracted_record(data, answer_fields)
+            except json.JSONDecodeError as parse_err:
+                partial_data = parse_json_safe(raw)
+                if partial_data is not None:
+                    partial_data = _filter_schema_fields(partial_data, schema)
                     try:
-                        schema.model_validate(data)
+                        schema.model_validate(partial_data)
                     except ValidationError as val_err:
                         raise RuntimeError(
-                            f"Kimi response failed schema validation for page {page_num}: {val_err}"
+                            f"Kimi partial response failed schema validation for page {page_num}: {val_err}"
                         ) from val_err
-                    return normalize_extracted_record(data, answer_fields)
-                except json.JSONDecodeError as parse_err:
-                    # Try to extract partial JSON
-                    partial_data = parse_json_safe(raw)
-                    if partial_data is not None:
-                        # Also filter extra fields from partial data
-                        partial_data = _filter_schema_fields(partial_data, schema)
-                        try:
-                            schema.model_validate(partial_data)
-                        except ValidationError as val_err:
-                            raise RuntimeError(
-                                f"Kimi partial response failed schema validation for page {page_num}: {val_err}"
-                            ) from val_err
-                        return normalize_extracted_record(partial_data, answer_fields)
+                    return normalize_extracted_record(partial_data, answer_fields)
+                raise RuntimeError(f"Unparseable Kimi response for page {page_num}") from parse_err
 
-                    raise RuntimeError(f"Unparseable Kimi response for page {page_num}") from parse_err
-
-            except Exception as e:
-                try:
-                    from xscore.shared.terminal_ui import warn_line
-
-                    warn_line(
-                        f"Kimi API error (attempt {attempt + 1}/{MAX_RETRIES + 1}): {e}"
-                    )
-                except Exception:
-                    print(f"Kimi API error (attempt {attempt + 1}/{MAX_RETRIES + 1}): {e}")
-                last_error = e
-
-            if attempt < MAX_RETRIES:
-                try:
-                    from xscore.shared.terminal_ui import info_line
-
-                    info_line(f"Retrying in {backoff}s…")
-                except Exception:
-                    print(f"Retrying in {backoff}s…")
-                time.sleep(backoff)
-                backoff *= 2
-
-        return _failed_record(last_error, answer_fields)
+        try:
+            return retry_api_call(
+                _do_call,
+                label=f"Kimi extract p{page_num}",
+                max_attempts=MAX_RETRIES + 1,
+                base_sleep=RETRY_BACKOFF_S,
+                backoff_factor=2.0,
+                jitter=0.0,
+            )
+        except Exception as e:
+            return _failed_record(e, answer_fields)

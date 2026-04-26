@@ -36,6 +36,7 @@ def run_full_pipeline(
     from xscore.marking.ai_mark import run_ai_marking
     from xscore.preprocessing.assign_pages_to_students import (
         assign_pages,
+        detect_first_page_cover,
         page_assignments_to_json,
         page_assignments_to_md,
     )
@@ -193,15 +194,16 @@ def run_full_pipeline(
 
     exam_pages = _empty_exam_page_count()
 
-    def _geometry() -> dict:
-        geo = compute_geometry(cleaned_pdf, exam_pages, students)
+    def _geometry(scan_has_cover: bool) -> dict:
+        geo = compute_geometry(cleaned_pdf, exam_pages, scan_has_cover, students)
         write_geometry_artifacts(artifact_dir, geo)
         return geo
 
     t8 = time.perf_counter()
     on_step(8, "running", None)
     try:
-        geo = _geometry()
+        scan_has_cover = detect_first_page_cover(cleaned_pdf, artifact_dir=artifact_dir)
+        geo = _geometry(scan_has_cover)
         pages_per_student: int = geo["pages_per_student"]
         num_students: int = geo["num_students"]
 
@@ -210,6 +212,7 @@ def run_full_pipeline(
             students,
             pages_per_student=pages_per_student,
             artifact_dir=artifact_dir,
+            cover_page_mode=scan_has_cover,
         )
         artifact_exam_student_list_json_path(artifact_dir).write_text(
             page_assignments_to_json(page_assignments), encoding="utf-8"

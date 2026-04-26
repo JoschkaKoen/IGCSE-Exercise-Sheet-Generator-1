@@ -6,7 +6,7 @@ import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from eXercise.ai_client import is_503_error
+from eXercise.api_retry import retry_api_call
 from xscore.scaffold.scaffold_prompts import (
     _LAYOUT_DETECT_JSON_SCHEMA,
     _LayoutDetectSchema,
@@ -36,15 +36,12 @@ def _detect_layout(
         pix = doc[0].get_pixmap(matrix=fitz.Matrix(1.0, 1.0))  # 72 DPI
     img_bytes = pix.tobytes("jpeg")
 
-    from xscore.shared.terminal_ui import warn_line
     from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 
     raw_text: str | None = None
     thinking_text: str = ""
     t0 = time.perf_counter()
     last_exc: Exception = RuntimeError("no attempts made")
-    _MAX_ATTEMPTS = 4  # initial attempt + 3 retries on transient errors
-    _BACKOFF_S = [1.0, 2.0, 4.0]
 
     if model.startswith("gemini"):
         from google.genai import types as gai_types
@@ -58,33 +55,26 @@ def _detect_layout(
             cfg_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
         cfg = gai_types.GenerateContentConfig(system_instruction=_SYSTEM_LAYOUT, **cfg_kwargs)
 
-        for attempt in range(_MAX_ATTEMPTS):
-            try:
-                resp = client.models.generate_content(
-                    model=model,
-                    contents=[
-                        gai_types.Part.from_bytes(data=img_bytes, mime_type="image/jpeg"),
-                        gai_types.Part.from_text(text=_USER_LAYOUT),
-                    ],
-                    config=cfg,
-                )
-                elapsed = time.perf_counter() - t0
-                raw_text, thinking_text = split_gemini_response(resp)
-                result = _LayoutDetectSchema.model_validate_json(raw_text)
-                return result, elapsed, raw_text, thinking_text, None
-            except KeyboardInterrupt:
-                raise
-            except Exception as exc:
-                last_exc = exc
-                if attempt < _MAX_ATTEMPTS - 1 and is_503_error(exc):
-                    _wait = _BACKOFF_S[min(attempt, len(_BACKOFF_S) - 1)]
-                    warn_line(
-                        f"Layout detection: transient error ({str(exc).split(chr(10))[0]}) "
-                        f"— retrying in {_wait:.0f}s (attempt {attempt + 2}/{_MAX_ATTEMPTS}) …"
-                    )
-                    time.sleep(_wait)
-                else:
-                    break
+        def _do_gemini() -> tuple[str | None, str, "_LayoutDetectSchema"]:
+            _resp = client.models.generate_content(
+                model=model,
+                contents=[
+                    gai_types.Part.from_bytes(data=img_bytes, mime_type="image/jpeg"),
+                    gai_types.Part.from_text(text=_USER_LAYOUT),
+                ],
+                config=cfg,
+            )
+            _raw, _th = split_gemini_response(_resp)
+            return _raw, _th, _LayoutDetectSchema.model_validate_json(_raw)
+
+        try:
+            raw_text, thinking_text, result = retry_api_call(
+                _do_gemini, label="Layout detection",
+            )
+            elapsed = time.perf_counter() - t0
+            return result, elapsed, raw_text, thinking_text, None
+        except Exception as exc:
+            last_exc = exc
     else:
         # OpenAI-compat path (Qwen, Grok, …)
         import base64 as _base64
@@ -113,7 +103,6 @@ def _detect_layout(
                 {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{_b64}"}},
             ]},
         ]
-        # Strict json_schema where the provider supports it; fall back to json_object.
         _strict_rf = {
             "type": "json_schema",
             "json_schema": {
@@ -122,49 +111,54 @@ def _detect_layout(
                 "strict": True,
             },
         }
-        for attempt in range(_MAX_ATTEMPTS):
+
+        def _do_oa(rf: dict | None) -> tuple[str, str]:
+            if _use_stream:
+                _th: list[str] = []
+                _stream = _oa_client.chat.completions.create(
+                    model=model, messages=_msgs, stream=True, **_kw,
+                )
+                _raw = collect_streamed_response(_stream, thinking_out=_th)
+                return _raw, "".join(_th)
+            extra = {"response_format": rf} if rf is not None else {}
+            _resp = _oa_client.chat.completions.create(
+                model=model, messages=_msgs, **extra, **_kw,
+            )
+            return (
+                _resp.choices[0].message.content or "",
+                getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+            )
+
+        # Try strict json_schema → json_object → plain. Each format gets its
+        # own retry budget; format-rejection (4xx) cascades to the next format.
+        try:
+            raw_text, thinking_text = retry_api_call(
+                lambda: _do_oa(_strict_rf), label="Layout detection (json_schema)",
+            )
+        except Exception as exc:
+            last_exc = exc
             try:
-                if _use_stream:
-                    _th: list[str] = []
-                    _stream = _oa_client.chat.completions.create(
-                        model=model, messages=_msgs, stream=True, **_kw,
+                raw_text, thinking_text = retry_api_call(
+                    lambda: _do_oa({"type": "json_object"}),
+                    label="Layout detection (json_object)",
+                )
+            except Exception as exc2:
+                last_exc = exc2
+                try:
+                    raw_text, thinking_text = retry_api_call(
+                        lambda: _do_oa(None), label="Layout detection (plain)",
                     )
-                    raw_text = collect_streamed_response(_stream, thinking_out=_th)
-                    thinking_text = "".join(_th)
-                else:
-                    try:
-                        _resp = _oa_client.chat.completions.create(
-                            model=model, messages=_msgs,
-                            response_format=_strict_rf, **_kw,
-                        )
-                    except Exception:
-                        try:
-                            _resp = _oa_client.chat.completions.create(
-                                model=model, messages=_msgs,
-                                response_format={"type": "json_object"}, **_kw,
-                            )
-                        except Exception:
-                            _resp = _oa_client.chat.completions.create(
-                                model=model, messages=_msgs, **_kw,
-                            )
-                    raw_text = _resp.choices[0].message.content or ""
-                    thinking_text = getattr(_resp.choices[0].message, "reasoning_content", "") or ""
-                elapsed = time.perf_counter() - t0
+                except Exception as exc3:
+                    last_exc = exc3
+                    raw_text, thinking_text = "", ""
+
+        if raw_text:
+            try:
                 result = _LayoutDetectSchema.model_validate_json(raw_text)
+                elapsed = time.perf_counter() - t0
                 return result, elapsed, raw_text, thinking_text, None
-            except KeyboardInterrupt:
-                raise
             except Exception as exc:
                 last_exc = exc
-                if attempt < _MAX_ATTEMPTS - 1 and is_503_error(exc):
-                    _wait = _BACKOFF_S[min(attempt, len(_BACKOFF_S) - 1)]
-                    warn_line(
-                        f"Layout detection: transient error ({str(exc).split(chr(10))[0]}) "
-                        f"— retrying in {_wait:.0f}s (attempt {attempt + 2}/{_MAX_ATTEMPTS}) …"
-                    )
-                    time.sleep(_wait)
-                else:
-                    break
 
     elapsed = time.perf_counter() - t0
     err_summary = str(last_exc).split("\n")[0]

@@ -27,8 +27,6 @@ class PageOrderStatus(Enum):
     INCONCLUSIVE = "INCONCLUSIVE"
 
 
-_MAX_ATTEMPTS = 2
-_RETRY_SLEEP_S = 2.0
 _OCR_CONF_THRESHOLD = 0.8
 _OCR_LOW_KEPT_RATIO = 0.3
 _OCR_BAD_PAGE_FRACTION = 0.5
@@ -180,19 +178,18 @@ def _call_model_with_retry(
     max_tok: int | None,
 ) -> tuple[str, str, str | None]:
     """Return ``(raw_text, thinking_text, error_message)``. ``raw_text`` is "" on permanent failure."""
-    last_exc: str | None = None
-    for attempt in range(_MAX_ATTEMPTS):
-        try:
-            if model_id.startswith("gemini"):
-                raw, thinking_text = _call_gemini(state, prompt, model_id, thinking, max_tok)
-            else:
-                raw, thinking_text = _call_openai_compat(state, prompt, model_id, thinking, max_tok)
-            return raw, thinking_text, None
-        except Exception as exc:  # noqa: BLE001
-            last_exc = f"{type(exc).__name__}: {exc}"
-            if attempt + 1 < _MAX_ATTEMPTS:
-                time.sleep(_RETRY_SLEEP_S)
-    return "", "", last_exc
+    from eXercise.api_retry import retry_api_call
+
+    def _do_call() -> tuple[str, str]:
+        if model_id.startswith("gemini"):
+            return _call_gemini(state, prompt, model_id, thinking, max_tok)
+        return _call_openai_compat(state, prompt, model_id, thinking, max_tok)
+
+    try:
+        raw, thinking_text = retry_api_call(_do_call, label=f"Page order check ({model_id})")
+        return raw, thinking_text, None
+    except Exception as exc:
+        return "", "", f"{type(exc).__name__}: {exc}"
 
 
 # ─────────── Response validation ─────────────────────────────────────────────

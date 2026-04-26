@@ -39,6 +39,8 @@ def _call_text(user_message: str) -> str:
     """
     model_name, thinking_tokens, max_tokens = _read_model_config()
 
+    from eXercise.api_retry import retry_api_call
+
     if model_name.startswith("gemini"):
         try:
             from google.genai import types as gai_types
@@ -54,15 +56,19 @@ def _call_text(user_message: str) -> str:
         }
         if thinking_tokens is not None:
             gen_config_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
-        response = client.models.generate_content(
-            model=model_name,
-            contents=user_message,
-            config=gai_types.GenerateContentConfig(
-                system_instruction=_SYSTEM_PROMPT,
-                **gen_config_kwargs,
-            ),
-        )
-        return response.text or ""
+
+        def _do_gemini() -> str:
+            _resp = client.models.generate_content(
+                model=model_name,
+                contents=user_message,
+                config=gai_types.GenerateContentConfig(
+                    system_instruction=_SYSTEM_PROMPT,
+                    **gen_config_kwargs,
+                ),
+            )
+            return _resp.text or ""
+
+        return retry_api_call(_do_gemini, label="Parse instruction")
 
     # OpenAI-compat path (Qwen, Grok, …)
     from eXercise.ai_client import (
@@ -84,23 +90,35 @@ def _call_text(user_message: str) -> str:
         {"role": "user", "content": user_message},
     ]
     if use_stream:
-        # Some providers reject response_format with stream=True — omit it
-        # on the streaming branch; the prompt itself enforces JSON output.
-        stream = client.chat.completions.create(
-            model=model_name, messages=msgs, stream=True, **kw,
-        )
-        return collect_streamed_response(stream)
-    try:
-        resp = client.chat.completions.create(
+        def _do_stream() -> str:
+            # Some providers reject response_format with stream=True — omit it
+            # on the streaming branch; the prompt itself enforces JSON output.
+            # Stream consumed inside the closure so a mid-stream failure retries.
+            _stream = client.chat.completions.create(
+                model=model_name, messages=msgs, stream=True, **kw,
+            )
+            return collect_streamed_response(_stream)
+
+        return retry_api_call(_do_stream, label="Parse instruction (stream)")
+
+    def _do_json() -> str:
+        _resp = client.chat.completions.create(
             model=model_name, messages=msgs,
             response_format={"type": "json_object"}, **kw,
         )
-    except Exception:
-        # Provider may reject response_format=json_object — retry without it.
-        resp = client.chat.completions.create(
+        return _resp.choices[0].message.content or ""
+
+    def _do_plain() -> str:
+        _resp = client.chat.completions.create(
             model=model_name, messages=msgs, **kw,
         )
-    return resp.choices[0].message.content or ""
+        return _resp.choices[0].message.content or ""
+
+    try:
+        return retry_api_call(_do_json, label="Parse instruction (json)")
+    except Exception:
+        # Provider may reject response_format=json_object — fall through to plain.
+        return retry_api_call(_do_plain, label="Parse instruction (plain)")
 
 
 _SYSTEM_PROMPT = load_prompt("parse_grading_instructions")[1]

@@ -1,8 +1,11 @@
 """Assign PDF pages to students by reading names from the top of each page.
 
-Steps 10–11 of the pipeline:
-- Step 10: ``detect_scan_cover_pages`` — checks whether the scan uses a cover-page layout.
-- Step 11: ``assign_pages`` — renders pages, reads student names, groups into blocks.
+Steps 9, 11, and 12 of the pipeline:
+- Step  9: ``detect_first_page_cover`` — checks scan page 1 for a cover page.
+- Step 11: ``verify_cover_positions`` — verifies covers on remaining students
+  in parallel (only runs when step 9 said yes).
+- Step 12: ``assign_pages`` — renders pages, reads student names, groups
+  into blocks of ``pages_per_student``.
 
 Name detection model: ``NAME_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
 Cover detection model: ``COVER_PAGE_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
@@ -24,10 +27,14 @@ from typing import Any
 
 from xscore.config import COVER_PAGE_DETECTION_DPI, GEMINI_MAX_OUTPUT_TOKENS, NAME_RECOGNITION_DPI
 
-from eXercise.ai_client import is_503_error
+from eXercise.api_retry import retry_api_call
 from xscore.marking.ai_helpers import ai_image_call, page_to_jpeg_b64
 from xscore.prompts.loader import load_prompt
-from xscore.shared.exam_paths import artifact_cover_scan_prompt_path, artifact_names_prompt_path
+from xscore.shared.exam_paths import (
+    artifact_cover_scan_prompt_path,
+    artifact_cover_verify_prompt_path,
+    artifact_names_prompt_path,
+)
 from xscore.shared.models import PageAssignment
 from xscore.shared.prompt_logger import save_prompt, save_response
 
@@ -209,21 +216,14 @@ def check_cover_page_text(
             response_schema=bool,
             thinking_config=build_gemini_thinking_config(thinking_tokens),
         )
-        for _attempt in range(2):  # initial attempt + 1 retry on 503
-            try:
-                resp = gai_client.models.generate_content(
-                    model=model_id,
-                    contents=[gai_types.Part.from_text(text=prompt)],
-                    config=config,
-                )
-                break
-            except KeyboardInterrupt:
-                raise
-            except Exception as _exc:
-                if _attempt == 0 and is_503_error(_exc):
-                    time.sleep(0.1)
-                else:
-                    raise
+        resp = retry_api_call(
+            lambda: gai_client.models.generate_content(
+                model=model_id,
+                contents=[gai_types.Part.from_text(text=prompt)],
+                config=config,
+            ),
+            label=f"Cover page check ({model_id})",
+        )
         thinking_parts: list[str] = []
         answer_parts: list[str] = []
         for candidate in (resp.candidates or []):
@@ -252,35 +252,46 @@ def check_cover_page_text(
         _use_stream, _kw = build_completion_kwargs(_provider, thinking_tokens, max_tokens)
         _oa_prompt = prompt + '\n\nReturn JSON only with this shape: {"answer": <bool>}'
         _msgs = [{"role": "user", "content": _oa_prompt}]
-        for _attempt in range(2):  # initial attempt + 1 retry on 503
+        if _use_stream:
+            def _do_stream() -> tuple[str, str]:
+                _th: list[str] = []
+                _stream = _oa_client.chat.completions.create(
+                    model=model_id, messages=_msgs, stream=True, **_kw,
+                )
+                _raw = collect_streamed_response(_stream, thinking_out=_th)
+                return _raw, "".join(_th)
+
+            raw, thinking_text = retry_api_call(
+                _do_stream, label=f"Cover page check ({model_id}, stream)",
+            )
+        else:
+            def _do_json() -> tuple[str, str]:
+                _resp = _oa_client.chat.completions.create(
+                    model=model_id, messages=_msgs,
+                    response_format={"type": "json_object"}, **_kw,
+                )
+                return (
+                    _resp.choices[0].message.content or "",
+                    getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+                )
+
+            def _do_plain() -> tuple[str, str]:
+                _resp = _oa_client.chat.completions.create(
+                    model=model_id, messages=_msgs, **_kw,
+                )
+                return (
+                    _resp.choices[0].message.content or "",
+                    getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+                )
+
             try:
-                if _use_stream:
-                    _th: list[str] = []
-                    _stream = _oa_client.chat.completions.create(
-                        model=model_id, messages=_msgs, stream=True, **_kw,
-                    )
-                    raw = collect_streamed_response(_stream, thinking_out=_th)
-                    thinking_text = "".join(_th)
-                else:
-                    try:
-                        _resp = _oa_client.chat.completions.create(
-                            model=model_id, messages=_msgs,
-                            response_format={"type": "json_object"}, **_kw,
-                        )
-                    except Exception:
-                        _resp = _oa_client.chat.completions.create(
-                            model=model_id, messages=_msgs, **_kw,
-                        )
-                    raw = _resp.choices[0].message.content or ""
-                    thinking_text = getattr(_resp.choices[0].message, "reasoning_content", "") or ""
-                break
-            except KeyboardInterrupt:
-                raise
-            except Exception as _exc:
-                if _attempt == 0 and is_503_error(_exc):
-                    time.sleep(0.1)
-                else:
-                    raise
+                raw, thinking_text = retry_api_call(
+                    _do_json, label=f"Cover page check ({model_id}, json)",
+                )
+            except Exception:
+                raw, thinking_text = retry_api_call(
+                    _do_plain, label=f"Cover page check ({model_id}, plain)",
+                )
 
     if not raw:
         warn_line(f"[{model_id}] cover page text check returned empty response")
@@ -313,91 +324,106 @@ def _name_crop_fraction(page: Any, dpi: int) -> float:
     return _NAME_CROP_FRACTION_A3 if long_side_mm > _A3_LONG_SIDE_THRESHOLD_MM else _NAME_CROP_FRACTION_A4
 
 
-def detect_scan_cover_pages(
+def detect_first_page_cover(
     cleaned_pdf: Path,
-    pages_per_student: int,
     *,
     artifact_dir: Path | None = None,
-) -> tuple[bool, dict[int, bool]]:
-    """Detect whether the scanned exam uses a cover-page layout (Step 10).
+) -> bool:
+    """Step 9 — Check whether scan page 1 is a cover page.
 
-    Returns (cover_page_mode, cover_ok):
-    - cover_page_mode: True when scan page 1 is a cover page
-    - cover_ok: 0-based page index → is_cover_page result (populated only when cover_page_mode)
+    Returns True if the first scan page looks like a cover page (and the
+    scan therefore uses cover-page mode). Returns False if not, or if API
+    access is unavailable (treated as standard mode).
     """
-    import math
-    import fitz
     from eXercise.ai_client import make_gemini_native_client, parse_model_spec
     from xscore.shared.terminal_ui import ok_line, warn_line, format_duration
 
-    cover_page_mode: bool = False
-    cover_ok: dict[int, bool] = {}
-
-    # Resolve the model first; only the Gemini branch needs a Gemini client.
-    _cover_model, _cover_thinking, _cover_max_tokens = parse_model_spec(
+    model, thinking, max_tokens = parse_model_spec(
         os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
     )
-    if _cover_model.startswith("gemini"):
-        _gai_client = make_gemini_native_client()
-        if _gai_client is None:
+    if model.startswith("gemini"):
+        gai_client = make_gemini_native_client()
+        if gai_client is None:
             warn_line(
                 "GEMINI_API_KEY not set — cover-page detection skipped, running in standard mode"
             )
-            return cover_page_mode, cover_ok
+            return False
     else:
-        # Non-Gemini model: is_cover_page builds its own OpenAI-compat client.
-        _gai_client = None
+        gai_client = None
 
-    n_pages = fitz.open(str(cleaned_pdf)).page_count
-    n_blocks = math.ceil(n_pages / pages_per_student)
-    _p1_save = artifact_cover_scan_prompt_path(artifact_dir, "cover_p1") if artifact_dir else None
-    _t_cover = time.perf_counter()
+    save_path = artifact_cover_scan_prompt_path(artifact_dir, "cover_p1") if artifact_dir else None
+    t0 = time.perf_counter()
     page1_is_cover = is_cover_page(
-        cleaned_pdf, 0, _gai_client, _cover_model,
-        prompt_save_path=_p1_save,
-        thinking_tokens=_cover_thinking, max_tokens=_cover_max_tokens,
+        cleaned_pdf, 0, gai_client, model,
+        prompt_save_path=save_path,
+        thinking_tokens=thinking, max_tokens=max_tokens,
     )
-    _cover_elapsed = format_duration(time.perf_counter() - _t_cover)
-    cover_page_mode = page1_is_cover
-
-    if cover_page_mode:
-        ok_line(f"Scan page 1: cover page — cover-page mode active  ·  {_cover_elapsed}")
-        cover_ok[0] = page1_is_cover
-        cover_indices_to_check = [b * pages_per_student for b in range(1, n_blocks)]
-
-        def _check_cover(idx: int) -> tuple[int, bool]:
-            save_path = artifact_cover_scan_prompt_path(artifact_dir, f"cover_p{idx + 1}") if artifact_dir else None
-            return idx, is_cover_page(
-                cleaned_pdf, idx, _gai_client, _cover_model,
-                prompt_save_path=save_path,
-                thinking_tokens=_cover_thinking, max_tokens=_cover_max_tokens,
-            )
-
-        if cover_indices_to_check:
-            _cover_workers = min(
-                len(cover_indices_to_check),
-                int(os.environ.get("COVER_PAGE_WORKERS", "500")),
-            )
-            _t_verify = time.perf_counter()
-            with ThreadPoolExecutor(max_workers=_cover_workers) as ex:
-                for _idx, _ok in ex.map(_check_cover, cover_indices_to_check):
-                    cover_ok[_idx] = _ok
-            ok_line(
-                f"Verified {len(cover_indices_to_check)} cover position(s)"
-                f"  ·  {format_duration(time.perf_counter() - _t_verify)}"
-            )
-
-        for b in range(n_blocks):
-            idx = b * pages_per_student
-            if not cover_ok.get(idx, False):
-                warn_line(
-                    f"Block {b + 1} (scan page {idx + 1}): expected a cover page "
-                    f"but this page doesn't look like one — check scan quality"
-                )
+    elapsed = format_duration(time.perf_counter() - t0)
+    if page1_is_cover:
+        ok_line(f"Scan page 1: cover page — cover-page mode active  ·  {elapsed}")
     else:
-        ok_line(f"Scan page 1: no cover page — standard mode  ·  {_cover_elapsed}")
+        ok_line(f"Scan page 1: no cover page — standard mode  ·  {elapsed}")
+    return page1_is_cover
 
-    return cover_page_mode, cover_ok
+
+def verify_cover_positions(
+    cleaned_pdf: Path,
+    pages_per_student: int,
+    num_students: int,
+    *,
+    artifact_dir: Path | None = None,
+) -> dict[int, bool]:
+    """Step 11 — Verify cover-page positions for students 2..N.
+
+    Called when ``detect_first_page_cover`` returned True. Checks each
+    expected cover position in parallel and returns a dict mapping 0-based
+    page index → is_cover bool (page 0 is included as True for completeness).
+    The caller decides what to do with mismatches (warn or fail under STRICT).
+    """
+    from eXercise.ai_client import make_gemini_native_client, parse_model_spec
+    from xscore.shared.terminal_ui import ok_line, warn_line, format_duration
+
+    cover_ok: dict[int, bool] = {0: True}
+
+    model, thinking, max_tokens = parse_model_spec(
+        os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
+    )
+    if model.startswith("gemini"):
+        gai_client = make_gemini_native_client()
+        if gai_client is None:
+            warn_line("GEMINI_API_KEY not set — cover-page verification skipped")
+            return cover_ok
+    else:
+        gai_client = None
+
+    cover_indices = [b * pages_per_student for b in range(1, num_students)]
+    if not cover_indices:
+        return cover_ok
+
+    def _check(idx: int) -> tuple[int, bool]:
+        save_path = (
+            artifact_cover_verify_prompt_path(artifact_dir, f"cover_p{idx + 1}")
+            if artifact_dir else None
+        )
+        return idx, is_cover_page(
+            cleaned_pdf, idx, gai_client, model,
+            prompt_save_path=save_path,
+            thinking_tokens=thinking, max_tokens=max_tokens,
+        )
+
+    workers = min(
+        len(cover_indices),
+        int(os.environ.get("COVER_PAGE_WORKERS", "500")),
+    )
+    t0 = time.perf_counter()
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        for idx, ok in ex.map(_check, cover_indices):
+            cover_ok[idx] = ok
+    ok_line(
+        f"Verified {len(cover_indices)} cover position(s)"
+        f"  ·  {format_duration(time.perf_counter() - t0)}"
+    )
+    return cover_ok
 
 
 def assign_pages(
@@ -411,16 +437,17 @@ def assign_pages(
     artifact_dir: Path | None = None,
     cover_page_mode: bool = False,
 ) -> list[PageAssignment]:
-    """Return one ``PageAssignment`` per student block (Step 11).
+    """Return one ``PageAssignment`` per student block (Step 12).
 
     Pages are grouped into fixed blocks of *pages_per_student* (as determined
-    by exam geometry). The name is read from the first page of each block.
-    Blocks with no detectable name are recorded as ``Unknown_N`` with
-    ``confidence="low"`` instead of being merged into a neighbouring student.
+    by exam geometry in step 10). The name is read from the first page of
+    each block. Blocks with no detectable name are recorded as ``Unknown_N``
+    with ``confidence="low"`` instead of being merged into a neighbouring
+    student.
 
-    Cover-page detection is performed separately in Step 10 via
-    ``detect_scan_cover_pages``; pass the results via *cover_page_mode* and
-    *cover_ok* to skip re-detection.
+    Cover-page detection is performed earlier (step 9 ``detect_first_page_cover``
+    and step 11 ``verify_cover_positions``); ``cover_page_mode`` is final by
+    the time this runs.
 
     *name_crop_fraction*: fraction of page height to crop for name detection.
     ``None`` (default) auto-detects A4 (top half, 0.5) vs A3 (top third, 1/3)

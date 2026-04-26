@@ -125,14 +125,16 @@ def resume_pipeline(ctx: "_Ctx") -> None:
         return next((p for p in paths if p.exists()), None)
 
     required: list[Path] = []
-    for new_p, old_p in [
+    for paths in [
         (resume_dir / "07_deskew" / "cleaned_scan.pdf",          resume_dir / "7_cleaned_scan.pdf"),
         (resume_dir / "03_read_student_list" / "students.json",  resume_dir / "3_students.json"),
-        (resume_dir / "11_student_names" / "exam_student_list.json", resume_dir / "8_exam_student_list.json"),
+        (resume_dir / "12_student_names" / "exam_student_list.json",
+         resume_dir / "11_student_names" / "exam_student_list.json",
+         resume_dir / "8_exam_student_list.json"),
         (resume_dir / "21_create_report" / "report.xml",         resume_dir / "12_report.json"),
     ]:
-        found = _first_existing(new_p, old_p)
-        required.append(found if found else new_p)
+        found = _first_existing(*paths)
+        required.append(found if found else paths[0])
 
     if ctx.from_step >= blueprint_step + 1:
         bp_new = list(resume_dir.glob("22_ai_marking_blueprints/blueprint_page_*.json"))
@@ -163,6 +165,8 @@ def resume_pipeline(ctx: "_Ctx") -> None:
 
     student_list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     if not student_list_path.exists():
+        student_list_path = ctx.artifact_dir / "11_student_names" / "exam_student_list.json"
+    if not student_list_path.exists():
         student_list_path = ctx.artifact_dir / "10_student_names" / "exam_student_list.json"
     if not student_list_path.exists():
         student_list_path = ctx.artifact_dir / "10_exam_student_list.json"
@@ -184,6 +188,8 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     )
 
     geo_path = artifact_geometry_json_path(ctx.artifact_dir)
+    if not geo_path.exists():
+        geo_path = ctx.artifact_dir / "08_exam_geometry" / "exam_geometry.json"
     if not geo_path.exists():
         geo_path = ctx.artifact_dir / "8_exam_geometry.json"
     if geo_path.exists():

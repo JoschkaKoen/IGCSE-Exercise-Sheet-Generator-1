@@ -10,7 +10,8 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
-from eXercise.ai_client import collect_streamed_response, is_503_error
+from eXercise.ai_client import collect_streamed_response
+from eXercise.api_retry import retry_api_call
 from xscore.config import MARKING_JPEG_QUALITY
 from xscore.marking.formats.base import FormatParseError, MarkingFormat
 from xscore.marking.mark_xml import MarkingFailure
@@ -202,40 +203,30 @@ def _mark_page(
                     # and fall through to a live call.
                     pass
 
-    _last_exc: BaseException = RuntimeError("no attempts made")
-    _last_raw: str = ""
-    _actual_attempts = 0
-    for attempt in range(2):  # initial attempt + 1 retry on 503
-        _actual_attempts += 1
-        try:
-            if use_stream:
-                stream = client.chat.completions.create(**kwargs, stream=True)
-                raw = collect_streamed_response(stream)
-            else:
-                resp = client.chat.completions.create(**kwargs)
-                raw = resp.choices[0].message.content or ""
-            _last_raw = raw
-            try:
-                result = _apply_marking_response(raw, blueprint, fmt, warn)
-            except FormatParseError as exc:
-                warn(f"Marking parse error — marking aborted ({exc})")
-                _last_exc = exc
-                break
-            if reuse_cache and _cache_key is not None:
-                from xscore.shared.response_cache import cache_put
-                cache_put(_cache_key, model=model_id, response=raw)
-            return result
-        except KeyboardInterrupt:
-            raise
-        except Exception as exc:  # noqa: BLE001
-            _last_exc = exc
-            if attempt == 0 and is_503_error(exc):
-                warn("Marking error (503) — retrying in 0.1 s")
-                time.sleep(0.1)
-            else:
-                break
+    def _do_call() -> str:
+        if use_stream:
+            # Stream consumed inside the closure so a mid-stream failure retries.
+            _stream = client.chat.completions.create(**kwargs, stream=True)
+            return collect_streamed_response(_stream)
+        _resp = client.chat.completions.create(**kwargs)
+        return _resp.choices[0].message.content or ""
 
-    raise MarkingFailure(attempts=_actual_attempts, last_exc=_last_exc, last_raw=_last_raw)
+    _last_raw: str = ""
+    try:
+        raw = retry_api_call(_do_call, label=f"Marking ({model_id})")
+        _last_raw = raw
+        result = _apply_marking_response(raw, blueprint, fmt, warn)
+        if reuse_cache and _cache_key is not None:
+            from xscore.shared.response_cache import cache_put
+            cache_put(_cache_key, model=model_id, response=raw)
+        return result
+    except FormatParseError as exc:
+        warn(f"Marking parse error — marking aborted ({exc})")
+        raise MarkingFailure(attempts=1, last_exc=exc, last_raw=_last_raw)
+    except KeyboardInterrupt:
+        raise
+    except Exception as exc:
+        raise MarkingFailure(attempts=1, last_exc=exc, last_raw=_last_raw)
 
 
 def _apply_marking_response(

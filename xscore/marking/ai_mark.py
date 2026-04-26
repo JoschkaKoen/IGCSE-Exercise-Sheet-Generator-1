@@ -128,10 +128,10 @@ def _mark_page_pdf(
     from eXercise.ai_client import (
         build_gemini_thinking_config,
         gemini_pdf_part,
-        is_503_error,
         make_gemini_native_client,
         parse_model_spec,
     )
+    from eXercise.api_retry import retry_api_call
 
     if fmt is None:
         from xscore.marking.formats.xml_format import XmlMarkingFormat
@@ -164,48 +164,38 @@ def _mark_page_pdf(
         cfg["thinking_config"] = build_gemini_thinking_config(_thinking)
     config = gai_types.GenerateContentConfig(**cfg)
 
-    _last_exc: BaseException = RuntimeError("no attempts made")
-    _last_raw: str = ""
-    _actual_attempts = 0
     pdf_part = gemini_pdf_part(gai_client, pdf_path, label="marking")
-    for attempt in range(2):  # initial attempt + 1 retry on 503
-        _actual_attempts += 1
-        try:
-            contents = [
-                pdf_part,
-                gai_types.Part.from_text(text=user_text),
-            ]
-            for _, _, g_b64 in scheme_graphics:
-                contents.append(
-                    gai_types.Part.from_bytes(
-                        data=base64.b64decode(g_b64), mime_type="image/png"
-                    )
+
+    def _do_call() -> str:
+        contents = [
+            pdf_part,
+            gai_types.Part.from_text(text=user_text),
+        ]
+        for _, _, g_b64 in scheme_graphics:
+            contents.append(
+                gai_types.Part.from_bytes(
+                    data=base64.b64decode(g_b64), mime_type="image/png"
                 )
-            resp = gai_client.models.generate_content(
-                model=model_id, contents=contents, config=config,
             )
-            raw = resp.text or ""
-            _last_raw = raw
-            save_response(prompt_save_path, raw)
-            from xscore.marking.mark_page import _apply_marking_response
-            result = _apply_marking_response(raw, blueprint, fmt, warn)
-            return result
-        except FormatParseError as exc:
-            warn(f"Marking parse error (PDF upload path) — marking aborted ({exc})")
-            _last_exc = exc
-            break
-        except KeyboardInterrupt:
-            raise
-        except Exception as exc:  # noqa: BLE001
-            warn(f"Gemini error (attempt {_actual_attempts}): {exc}")
-            _last_exc = exc
-            if attempt == 0 and is_503_error(exc):
-                time.sleep(0.1)
-            else:
-                break
-    raise MarkingFailure(
-        attempts=_actual_attempts, last_exc=_last_exc, last_raw=_last_raw
-    )
+        _resp = gai_client.models.generate_content(
+            model=model_id, contents=contents, config=config,
+        )
+        return _resp.text or ""
+
+    _last_raw: str = ""
+    try:
+        raw = retry_api_call(_do_call, label="Marking PDF")
+        _last_raw = raw
+        save_response(prompt_save_path, raw)
+        from xscore.marking.mark_page import _apply_marking_response
+        return _apply_marking_response(raw, blueprint, fmt, warn)
+    except FormatParseError as exc:
+        warn(f"Marking parse error (PDF upload path) — marking aborted ({exc})")
+        raise MarkingFailure(attempts=1, last_exc=exc, last_raw=_last_raw)
+    except KeyboardInterrupt:
+        raise
+    except Exception as exc:
+        raise MarkingFailure(attempts=1, last_exc=exc, last_raw=_last_raw)
 
 
 def _scheme_graphics_for_page(

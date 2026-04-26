@@ -137,16 +137,16 @@ flowchart TD
         s5 --> s6 --> s7
     end
 
-    subgraph geometry ["Exam geometry (steps 8–15)"]
+    subgraph geometry ["Geometry & validation (steps 8–15)"]
         direction TB
-        s8["Step 8 —\nDetect empty\nexam geometry\n(scan÷exam pages →\nnum_students ·\nroster cross-check)"]
-        s9["Step 9 —\nDetect cover page\nin empty exam\n(EMPTY_EXAM_COVER_MODEL)"]
-        s10["Step 10 —\nDetect cover pages\nin scanned exam\n(COVER_PAGE_DETECTION_MODEL)"]
-        s11["Step 11 —\nDetect student names\n(NAME_DETECTION_MODEL\n· parallel)"]
-        s12["Step 12 —\nCheck number of pages\nper student\n(abort if mismatch)"]
+        s8["Step 8 —\nDetect cover page\nin empty exam\n(EMPTY_EXAM_COVER_MODEL)"]
+        s9["Step 9 —\nDetect cover page\nin scanned exam\n(page 1 only ·\nCOVER_PAGE_DETECTION_MODEL)"]
+        s10["Step 10 —\nCalculate pages\nper student\n(scan÷exam pages →\nnum_students ·\nabort on mismatch)"]
+        s11["Step 11 —\nVerify cover pages\non remaining students\n(parallel ·\nCOVER_PAGE_DETECTION_MODEL)"]
+        s12["Step 12 —\nDetect student names\n(NAME_DETECTION_MODEL\n· parallel)"]
         s13["Step 13 —\nCheck page order\n(PAGE_ORDER_CHECK_MODEL)"]
-        s14["Step 14 —\nDetect blank pages\nin empty exam\n(text only ·\n14_EXAM_BLANK_DETECTION_MODEL)"]
-        s15["Step 15 —\nCheck student handwriting\non blank pages\n(vision · parallel ·\n15_HANDWRITING_CHECK_MODEL)"]
+        s14["Step 14 —\nDetect blank pages\nin empty exam\n(text only ·\nEXAM_BLANK_DETECTION_MODEL)"]
+        s15["Step 15 —\nCheck student handwriting\non blank pages\n(vision · parallel ·\nHANDWRITING_CHECK_MODEL)"]
         s8 --> s9 --> s10 --> s11 --> s12 --> s13 --> s14 --> s15
     end
 
@@ -246,11 +246,11 @@ flowchart TD
 - 7 — Deskew scanned pages
 
 **Geometry & validation (8–15)**
-- 8 — Detect empty exam geometry
-- 9 — Detect cover page in empty exam
-- 10 — Detect cover pages in scanned exam
-- 11 — Detect student names
-- 12 — Check number of pages per student
+- 8 — Detect cover page in empty exam
+- 9 — Detect cover page in scanned exam
+- 10 — Calculate number of scanned exam pages per student
+- 11 — Verify cover pages on remaining students
+- 12 — Detect student names
 - 13 — Check page order
 - 14 — Detect blank pages in empty exam (text only)
 - 15 — Check student handwriting on blank pages (vision)
@@ -280,7 +280,7 @@ flowchart TD
 - 31 — Evaluate marking accuracy
 - 32 — Summarise AI costs
 
-The pipeline is **sequential at the orchestration level**. The only true concurrency is (a) a background thread that pre-renders all scan pages to JPEG starting just after step 11 — so step 24 doesn't block on rasterisation — (b) `MARKING_WORKERS` parallelism *inside* steps 24 (one API call per student page) and 27 (one xelatex process per student PDF), and (c) per-step `*_WORKERS` env vars for the parallel sites in steps 10, 13, 15, 19, 20, and 21 (each fans out one task per LLM call on a `ThreadPoolExecutor`; defaults are uncapped via `default.env`).
+The pipeline is **sequential at the orchestration level**. The only true concurrency is (a) a background thread that pre-renders all scan pages to JPEG starting just after step 12 — so step 24 doesn't block on rasterisation — (b) `MARKING_WORKERS` parallelism *inside* steps 24 (one API call per student page) and 27 (one xelatex process per student PDF), and (c) per-step `*_WORKERS` env vars for the parallel sites in steps 11, 12, 13, 15, 19, 20, and 21 (each fans out one task per LLM call on a `ThreadPoolExecutor`; defaults are uncapped via `default.env`).
 
 **Blank-page data flow (steps 14 → 15 → 24).** Step 14 identifies which exam pages are blank; only step 15 reads that artifact. Step 15 then runs a per-student vision check on each scan page that corresponds to a blank exam page and records, per student, which scan pages have handwriting (and which were inconclusive). Step 24 (AI marking) reads only step 15's `handwriting.json`: scan pages flagged no-handwriting are dropped from the marking work (no API call), and scan pages flagged with handwriting + an `attach_to_scan_page` link are appended as continuation images on the parent page's API call. Steps 16–23 do not touch either artifact.
 
@@ -309,11 +309,11 @@ Each run writes one folder per step under `output/xscore/<exam>/<timestamp>/`, n
 
 | Step | Description |
 |------|-------------|
-| **8 — Detect empty exam geometry** | • `scan_pages ÷ exam_pages` computes `num_students`<br>• Cross-checked against the roster; mismatch is a warning, not an error<br>• Writes `08_exam_geometry/exam_geometry.json` |
-| **9 — Detect cover page in empty exam** | • Checks page 1 of the empty exam PDF for a cover page (`EMPTY_EXAM_COVER_MODEL`)<br>• Informational; sets `empty_exam_has_cover` for blank-page detection<br>• Non-fatal: network errors are logged; pipeline continues<br>• Writes prompt artifacts to `09_cover_page/` |
-| **10 — Detect cover pages in scanned exam** | • Checks scan page 1 for a cover page (`COVER_PAGE_DETECTION_MODEL`); if detected, verifies each expected cover position in parallel<br>• Result is authoritative and drives cover-page mode in all downstream steps<br>• Non-fatal: if `GEMINI_API_KEY` is not set, detection is skipped (standard mode assumed)<br>• Writes prompt artifacts to `10_cover_page_scan/` |
-| **11 — Detect student names** | • Renders scan pages at `NAME_RECOGNITION_DPI` (300 DPI)<br>• Detects student names on the first scan page of each student block (`NAME_DETECTION_MODEL`)<br>• Fuzzy-matches names against the roster<br>• Writes `11_student_names/exam_student_list.json` / `.md`<br>• Immediately starts pre-rendering all scan pages to JPEG in a background thread |
-| **12 — Check number of pages per student** | • Validates each student's page count against the expected `exam_pages (+ 1 cover)`<br>• Aborts with `SystemExit(1)` on mismatch, printing a per-student breakdown |
+| **8 — Detect cover page in empty exam** | • Checks page 1 of the empty exam PDF for a cover page (`EMPTY_EXAM_COVER_MODEL`)<br>• Informational; sets `empty_exam_has_cover` for blank-page detection in step 15<br>• Non-fatal: network errors are logged; pipeline continues<br>• Writes prompt artifacts to `08_cover_page_empty/` |
+| **9 — Detect cover page in scanned exam** | • Checks scan page 1 only for a cover page (`COVER_PAGE_DETECTION_MODEL`)<br>• Sets `cover_page_mode` — final after this step; drives `pages_per_student` in step 10<br>• Non-fatal: if `GEMINI_API_KEY` is not set, detection is skipped (standard mode assumed)<br>• Writes prompt artifacts to `09_cover_page_scan/` |
+| **10 — Calculate number of scanned exam pages per student** | • Deterministic arithmetic: `pages_per_student = exam_pages + (1 if cover_page_mode else 0)`<br>• Aborts with `SystemExit(1)` if `scan_pages` is not an exact multiple of `pages_per_student` — re-scan the missing/extra page(s) and re-run<br>• Cross-checks against the roster; mismatch is a warning, not an error<br>• Writes `10_exam_geometry/exam_geometry.json` |
+| **11 — Verify cover pages on remaining students** | • Only runs when `cover_page_mode` is on<br>• Parallel cover-page check at every expected cover position (positions `pps`, `2·pps`, …)<br>• Non-fatal by default; set `COVER_PAGE_VERIFY_STRICT=1` to fail-fast on mismatch<br>• Writes `11_cover_page_verify/cover_ok.json` |
+| **12 — Detect student names** | • Renders scan pages at `NAME_RECOGNITION_DPI` (300 DPI)<br>• Detects student names on the first scan page of each student block (`NAME_DETECTION_MODEL`)<br>• Fuzzy-matches names against the roster<br>• Writes `12_student_names/exam_student_list.json` / `.md`<br>• Immediately starts pre-rendering all scan pages to JPEG in a background thread |
 | **13 — Check page order** | • Verifies printed question text on each scan page is in the correct order (`PAGE_ORDER_CHECK_MODEL`)<br>• Non-fatal: exceptions are caught and logged<br>• Writes text artifacts to `13_page_order/` |
 | **14 — Detect blank pages in empty exam** | • Text-only LLM call: identifies blank exam pages in the empty exam PDF (no question text — only writing lines or "BLANK PAGE" heading)<br>• Configure with `14_EXAM_BLANK_DETECTION_MODEL`<br>• Non-fatal; writes `14_exam_blank_detection/blank_exam_pages.json` |
 | **15 — Check student handwriting on blank pages** | • Vision LLM call per (student × blank exam page): checks the corresponding student scan page for handwriting<br>• Reads step 14's `blank_exam_pages.json`; runs the per-task vision calls on a `ThreadPoolExecutor` (worker count from `HANDWRITING_WORKERS`, default 500)<br>• Pages with no handwriting are flagged as skip pages and consumed by step 24; inconclusive pages are surfaced separately and excluded from skip<br>• Configure with `HANDWRITING_CHECK_MODEL`<br>• Non-fatal; writes `15_student_handwriting/handwriting.json` and per-page JPEG images |
@@ -335,13 +335,13 @@ Each run writes one folder per step under `output/xscore/<exam>/<timestamp>/`, n
 | Step | Description |
 |------|-------------|
 | **23 — Build AI marking blueprints** | • Extracts leaf questions from the scaffold for each exam page<br>• Writes per-page blueprints to `23_ai_marking_blueprints/blueprint_page_N.*`<br>• Includes subpage coordinates and page layout for the vision model |
-| **24 — Run AI marking** | • Sends each student's scan pages to the vision model (one API call per page)<br>• Page images pre-rendered after step 11 — no rendering wait at API call time<br>• Model fills in `student_answer`, `assigned_marks`, and `explanation` for every question<br>• All pages run in parallel (`MARKING_WORKERS` threads); results written to `24_ai_marking/students/`<br>• Requires `DASHSCOPE_API_KEY` (or the provider matching `MARKING_MODEL`) |
+| **24 — Run AI marking** | • Sends each student's scan pages to the vision model (one API call per page)<br>• Page images pre-rendered after step 12 — no rendering wait at API call time<br>• Model fills in `student_answer`, `assigned_marks`, and `explanation` for every question<br>• All pages run in parallel (`MARKING_WORKERS` threads); results written to `24_ai_marking/students/`<br>• Requires `DASHSCOPE_API_KEY` (or the provider matching `MARKING_MODEL`) |
 
 #### Reports (25–29)
 
 | Step | Description |
 |------|-------------|
-| **25 — Fuse AI marking output to student reports** | • Merges per-page results into one record per student (cross-page questions: takes max marks)<br>• Writes `.json` and `.md` per student to `25_student_reports/students/`<br>• No PDF compile yet — that's step 27 |
+| **25 — Fuse AI marking output to student reports** | • Merges per-page results into one record per student (cross-page questions: takes max marks)<br>• Writes `.xml` and `.md` per student to `25_student_report_preparation/<student>/`<br>• No PDF compile yet — that's step 27 |
 | **26 — Compute class statistics + curve** | • Aggregates per-question averages across the class and produces a grade-distribution curve<br>• Writes `26_class_stats/class_stats.json` and `.md` |
 | **27 — Generate per-student reports (landscape + portrait + 2UP)** | • Compiles each per-student report to PDF via `xelatex`<br>• Runs in parallel (`MARKING_WORKERS` processes); requires `xelatex`<br>• Outputs to `27_student_pdfs/` |
 | **28 — Generate class report** | • Compiles the class-wide PDF (per-question averages, grade curve, combined student marks)<br>• Writes `28_class_report/class_report.pdf` |
@@ -543,9 +543,9 @@ Legacy `, off` / `, low` / `, high` strings still parse for back-compat (mapped 
 | `RANKING_MODEL` | Difficulty ranking (Gemini gets native PDF upload) |
 | `INTERPRET_PROMPT_MODEL` | xScore step 1 — parse grading prompt |
 | `READ_STUDENT_LIST_MODEL` | xScore step 3 — parse student roster files (PDF, Excel, CSV) |
-| `EMPTY_EXAM_COVER_MODEL` | xScore step 9 — informational text-based cover-page check on the empty exam |
-| `COVER_PAGE_DETECTION_MODEL` | xScore step 10 — authoritative cover-page check on scan page 1 |
-| `NAME_DETECTION_MODEL` | xScore step 11 — student-name OCR. **Must use `thinking_tokens=0`** — runs through a non-streaming helper that raises if thinking is on. |
+| `EMPTY_EXAM_COVER_MODEL` | xScore step 8 — informational text-based cover-page check on the empty exam |
+| `COVER_PAGE_DETECTION_MODEL` | xScore steps 9 & 11 — cover-page check on scan page 1 (step 9), then per-position verification (step 11) |
+| `NAME_DETECTION_MODEL` | xScore step 12 — student-name OCR. **Must use `thinking_tokens=0`** — runs through a non-streaming helper that raises if thinking is on. |
 | `PAGE_ORDER_CHECK_MODEL` | xScore step 13 — verifies scan-page order matches the empty exam |
 | `EXAM_BLANK_DETECTION_MODEL` | xScore step 14 — text-only LLM that identifies blank pages in the empty exam PDF |
 | `HANDWRITING_CHECK_MODEL` | xScore step 15 — vision LLM that checks each (student × blank exam page) for handwriting (fixed 32-token cap) |
@@ -555,8 +555,8 @@ Legacy `, off` / `, low` / `, high` strings still parse for back-compat (mapped 
 | `ASSIGN_SCHEME_QUESTIONS_MODEL` | xScore step 20 — cheap per-page vision call that lists which question numbers' criteria appear on each mark scheme page. Gemini → native PDF; Qwen → per-page PNG. Skipped when unset → step 21 sends the full scaffold per page (legacy behaviour). |
 | `READ_MARK_SCHEME_MODEL` | xScore step 21 — parse mark scheme. Gemini → native PDF; Qwen → per-page PNG. |
 | `MARKING_MODEL` | xScore step 24 — vision model for AI marking. Gemini → native PDF; Qwen → per-page JPEG. Any thinking budget works (the call streams when thinking is on). |
-| `NAME_WORKERS` | xScore step 11 — parallel workers for student-name OCR (one per student block). Shipped `default.env` value: `500`. |
-| `COVER_PAGE_WORKERS` | xScore step 10 — parallel cover-page vision checks (one per detected scan-block cover). Shipped `default.env` value: `500`. |
+| `NAME_WORKERS` | xScore step 12 — parallel workers for student-name OCR (one per student block). Shipped `default.env` value: `500`. |
+| `COVER_PAGE_WORKERS` | xScore step 11 — parallel cover-page vision checks (one per remaining scan-block cover). Shipped `default.env` value: `500`. |
 | `PAGE_ORDER_WORKERS` | xScore step 13 — parallel OCR + per-student page-order checks (covers both parallel sites in the step). Shipped `default.env` value: `500`. |
 | `HANDWRITING_WORKERS` | xScore step 15 — parallel handwriting vision checks (one per student × blank exam page). Shipped `default.env` value: `500`. |
 | `SCHEME_GRAPHICS_WORKERS` | xScore step 19 — parallel mark-scheme graphics-detection vision calls (one per scheme page). Shipped `default.env` value: `500`. |

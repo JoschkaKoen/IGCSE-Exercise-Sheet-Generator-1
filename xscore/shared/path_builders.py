@@ -20,10 +20,11 @@ from xscore.shared.step_folders import (
     STEP_05,
     STEP_06,
     STEP_07,
-    STEP_08,
-    STEP_09_COVER,
-    STEP_10_COVER_SCAN,
-    STEP_11_NAMES,
+    STEP_08_COVER_EMPTY,
+    STEP_09_COVER_SCAN,
+    STEP_10_GEOMETRY,
+    STEP_11_COVER_VERIFY,
+    STEP_12_NAMES,
     STEP_13_PAGE_ORDER,
     STEP_14_EXAM_BLANK,
     STEP_15_HANDWRITING,
@@ -111,55 +112,69 @@ def artifact_student_list_prompt_path(artifact_dir: Path) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# Step 8 — Scan geometry
-# ---------------------------------------------------------------------------
-
-def artifact_geometry_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_08 / "exam_geometry.json"
-
-
-def artifact_geometry_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_08 / "exam_geometry.md"
-
-
-def artifact_geometry_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Step 8: prompt file for geometry AI calls."""
-    return artifact_dir / STEP_08 / f"{name}_prompt.md"
-
-
-# ---------------------------------------------------------------------------
-# Step 9 — Cover page detection
+# Step 8 — Cover page detection (empty exam)
 # ---------------------------------------------------------------------------
 
 def artifact_cover_page_dir(artifact_dir: Path) -> Path:
-    """Step 9: directory for empty-exam cover-page detection artifacts."""
-    return artifact_dir / STEP_09_COVER
+    """Step 8: directory for empty-exam cover-page detection artifacts."""
+    return artifact_dir / STEP_08_COVER_EMPTY
 
 
 # ---------------------------------------------------------------------------
-# Step 10 — Cover page detection (scan)
+# Step 9 — Cover page detection (scan, first page only)
 # ---------------------------------------------------------------------------
 
 def artifact_cover_scan_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Step 10: prompt file for scan cover-page detection AI calls."""
-    return artifact_dir / STEP_10_COVER_SCAN / f"{name}_prompt.md"
+    """Step 9: prompt file for scan first-page cover detection."""
+    return artifact_dir / STEP_09_COVER_SCAN / f"{name}_prompt.md"
 
 
 # ---------------------------------------------------------------------------
-# Step 11 — Student names
+# Step 10 — Scan geometry (pages per student)
+# ---------------------------------------------------------------------------
+
+def artifact_geometry_json_path(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_10_GEOMETRY / "exam_geometry.json"
+
+
+def artifact_geometry_md_path(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_10_GEOMETRY / "exam_geometry.md"
+
+
+def artifact_geometry_prompt_path(artifact_dir: Path, name: str) -> Path:
+    """Step 10: prompt file for geometry AI calls."""
+    return artifact_dir / STEP_10_GEOMETRY / f"{name}_prompt.md"
+
+
+# ---------------------------------------------------------------------------
+# Step 11 — Cover page verification (remaining students)
+# ---------------------------------------------------------------------------
+
+def artifact_cover_verify_prompt_path(artifact_dir: Path, name: str) -> Path:
+    """Step 11: prompt file for per-position cover verification calls."""
+    return artifact_dir / STEP_11_COVER_VERIFY / f"{name}_prompt.md"
+
+
+def artifact_cover_verify_json_path(artifact_dir: Path) -> Path:
+    """Step 11: per-position cover_ok dict persisted as JSON."""
+    return artifact_dir / STEP_11_COVER_VERIFY / "cover_ok.json"
+
+
+# ---------------------------------------------------------------------------
+# Step 12 — Student names
 # ---------------------------------------------------------------------------
 
 def artifact_exam_student_list_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_11_NAMES / "exam_student_list.json"
+    return artifact_dir / STEP_12_NAMES / "exam_student_list.json"
 
 
 def artifact_exam_student_list_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_11_NAMES / "exam_student_list.md"
+    return artifact_dir / STEP_12_NAMES / "exam_student_list.md"
 
 
 def artifact_names_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Step 11: prompt file for name-detection AI calls (one per scan page)."""
-    return artifact_dir / STEP_11_NAMES / "names" / f"{name}_prompt.md"
+    """Step 12: prompt file for name-detection AI calls (one per scan page)."""
+    return artifact_dir / STEP_12_NAMES / "names" / f"{name}_prompt.md"
 
 
 # ---------------------------------------------------------------------------
@@ -411,16 +426,21 @@ def artifact_marking_prompt_path(artifact_dir: Path, student: str, page: int) ->
 # ---------------------------------------------------------------------------
 
 def artifact_student_reports_dir(artifact_dir: Path) -> Path:
-    """Directory containing per-student XML + Markdown reports (step 25)."""
-    return artifact_dir / STEP_25_STUDENT_REPORTS / "students"
+    """Parent directory holding per-student report subfolders (step 25)."""
+    return artifact_dir / STEP_25_STUDENT_REPORTS
+
+
+def artifact_student_report_dir(artifact_dir: Path, student: str) -> Path:
+    """Per-student subfolder for XML + Markdown reports (step 25)."""
+    return artifact_student_reports_dir(artifact_dir) / safe_student_name(student)
 
 
 def artifact_student_report_xml_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_reports_dir(artifact_dir) / f"{safe_student_name(student)}.xml"
+    return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}.xml"
 
 
 def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_reports_dir(artifact_dir) / f"{safe_student_name(student)}.md"
+    return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}.md"
 
 
 # Backward-compat alias for callers that haven't migrated to the new name.
@@ -441,36 +461,41 @@ def artifact_class_stats_json_path(artifact_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_student_pdfs_dir(artifact_dir: Path) -> Path:
-    """Directory containing per-student .tex + .pdf files (step 27)."""
-    return artifact_dir / STEP_27_STUDENT_PDFS / "students"
+    """Parent directory holding per-student PDF subfolders (step 27)."""
+    return artifact_dir / STEP_27_STUDENT_PDFS
+
+
+def artifact_student_pdf_dir(artifact_dir: Path, student: str) -> Path:
+    """Per-student subfolder for .tex + .pdf files (step 27)."""
+    return artifact_student_pdfs_dir(artifact_dir) / safe_student_name(student)
 
 
 def artifact_student_report_tex_landscape_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_landscape.tex"
+    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_landscape.tex"
 
 
 def artifact_student_report_pdf_landscape_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_landscape.pdf"
+    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_landscape.pdf"
 
 
 def artifact_student_report_tex_portrait_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_portrait.tex"
+    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait.tex"
 
 
 def artifact_student_report_pdf_portrait_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_portrait.pdf"
+    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait.pdf"
 
 
 def artifact_student_report_pdf_portrait_2up_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_portrait_2up.pdf"
+    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait_2up.pdf"
 
 
 def artifact_student_report_tex_portrait_large_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_portrait_large.tex"
+    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait_large.tex"
 
 
 def artifact_student_report_pdf_portrait_large_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdfs_dir(artifact_dir) / f"{safe_student_name(student)}_portrait_large.pdf"
+    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait_large.pdf"
 
 
 # ---------------------------------------------------------------------------

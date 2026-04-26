@@ -95,7 +95,7 @@ class Step:
 # Order matters — consumers iterate this list to determine pipeline ordering.
 # Numbers are kept aligned with the artifact-folder prefixes in
 # `xscore/shared/exam_paths.py` (STEP_01, STEP_03, …, STEP_32). Gaps in the
-# numbering reflect the live pipeline (steps 2, 4, and 12 don't have artifact
+# numbering reflect the live pipeline (steps 2 and 4 don't have artifact
 # folders today; they're transparent operations on the scan PDF).
 
 STEPS: tuple[Step, ...] = (
@@ -113,16 +113,16 @@ STEPS: tuple[Step, ...] = (
          title="Autorotate scanned exam pages"),
     Step(7,  "deskew",                     writes=("07_deskew/*",),
          title="Deskew scanned pages"),
-    Step(8,  "exam_geometry",              writes=("08_exam_geometry/*",),
-         title="Detect empty exam geometry", section="Geometry & validation"),
-    Step(9,  "cover_page_empty_exam",      writes=("09_cover_page/*",),
-         title="Detect cover page in empty exam"),
-    Step(10, "cover_page_scan",            writes=("10_cover_page_scan/*",),
-         title="Detect cover pages in scanned exam"),
-    Step(11, "student_names",              writes=("11_student_names/*",),
+    Step(8,  "cover_page_empty_exam",      writes=("08_cover_page_empty/*",),
+         title="Detect cover page in empty exam", section="Geometry & validation"),
+    Step(9,  "cover_page_scan_first",      writes=("09_cover_page_scan/*",),
+         title="Detect cover page in scanned exam"),
+    Step(10, "exam_geometry",              writes=("10_exam_geometry/*",),
+         title="Calculate number of scanned exam pages per student"),
+    Step(11, "cover_page_verify",          writes=("11_cover_page_verify/*",),
+         title="Verify cover pages on remaining students"),
+    Step(12, "student_names",              writes=("12_student_names/*",),
          title="Detect student names"),
-    Step(12, "page_count_validation",
-         title="Check number of pages per student"),
     Step(13, "page_order_check",           writes=("13_page_order/*",),
          title="Check page order"),
     Step(14, "exam_blank_detection",        writes=("14_exam_blank_detection/*",),
@@ -150,7 +150,7 @@ STEPS: tuple[Step, ...] = (
          writes=("24_ai_marking/*",),
          title="Run AI marking"),
     Step(25, "per_student_reports",        resumable=True,
-         writes=("25_student_reports/*",),
+         writes=("25_student_report_preparation/*",),
          title="Fuse AI marking output to student reports", section="Reports & PDFs"),
     Step(26, "class_stats_curve",          resumable=True,
          writes=("26_class_stats/*",),
@@ -364,11 +364,11 @@ def wire_step_fns() -> None:
             "deskew":                       "step_07_deskew",
         }),
         ("xscore.steps.geometry", {
-            "exam_geometry":                "step_08_geometry",
-            "cover_page_empty_exam":        "step_09_cover_empty",
-            "cover_page_scan":              "step_10_cover_scan",
-            "student_names":                "step_11_student_names",
-            "page_count_validation":        "step_12_page_count",
+            "cover_page_empty_exam":        "step_08_cover_empty",
+            "cover_page_scan_first":        "step_09_cover_scan_first",
+            "exam_geometry":                "step_10_geometry",
+            "cover_page_verify":            "step_11_cover_verify",
+            "student_names":                "step_12_student_names",
             "page_order_check":             "step_13_page_order",
             "exam_blank_detection":         "step_14_exam_blank",
             "student_handwriting_check":    "step_15_handwriting",

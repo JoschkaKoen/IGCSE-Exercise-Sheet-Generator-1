@@ -71,8 +71,6 @@ class GeminiProvider:
     ) -> dict:
         from google import genai
         from google.genai import types
-        last_error: Exception | None = None
-        backoff = RETRY_BACKOFF_S
 
         if prompt_save_dir is not None:
             from xscore.shared.prompt_logger import save_prompt
@@ -89,58 +87,56 @@ class GeminiProvider:
             response_schema=schema,
         )
 
-        for attempt in range(MAX_RETRIES + 1):
+        from eXercise.api_retry import retry_api_call
+
+        def _do_call() -> dict:
+            _t0 = time.perf_counter()
+            response = client.models.generate_content(
+                model=AI_MODEL,
+                contents=[
+                    types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg"),
+                    prompt,
+                ],
+                config=gen_config,
+            )
+            from xscore.shared.terminal_ui import api_latency_line
+            api_latency_line(time.perf_counter() - _t0)
             try:
-                _t0 = time.perf_counter()
-                response = client.models.generate_content(
-                    model=AI_MODEL,
-                    contents=[
-                        types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg"),
-                        prompt,
-                    ],
-                    config=gen_config,
+                finish_reason = response.candidates[0].finish_reason
+            except (IndexError, AttributeError):
+                finish_reason = "unknown"
+            if response.parsed:
+                return normalize_extracted_record(response.parsed.model_dump(), answer_fields)
+            raw = response.text or ""
+            from rich.panel import Panel
+
+            from xscore.shared.terminal_ui import get_console
+
+            get_console().print(
+                Panel(
+                    f"finish_reason={finish_reason}\n\n{raw}",
+                    title=f"[DEBUG] full response ({len(raw)} chars)",
+                    border_style="dim",
                 )
-                from xscore.shared.terminal_ui import api_latency_line
-                api_latency_line(time.perf_counter() - _t0)
-                try:
-                    finish_reason = response.candidates[0].finish_reason
-                except (IndexError, AttributeError):
-                    finish_reason = "unknown"
-                if response.parsed:
-                    return normalize_extracted_record(response.parsed.model_dump(), answer_fields)
-                raw = response.text or ""
-                from rich.panel import Panel
+            )
+            try:
+                return normalize_extracted_record(json.loads(raw), answer_fields)
+            except (json.JSONDecodeError, ValueError) as parse_err:
+                raise RuntimeError(
+                    f"Unparseable response for page {page_num} (finish_reason={finish_reason})"
+                ) from parse_err
 
-                from xscore.shared.terminal_ui import get_console
-
-                get_console().print(
-                    Panel(
-                        f"finish_reason={finish_reason}\n\n{raw}",
-                        title=f"[DEBUG] full response ({len(raw)} chars)",
-                        border_style="dim",
-                    )
-                )
-                try:
-                    return normalize_extracted_record(json.loads(raw), answer_fields)
-                except (json.JSONDecodeError, ValueError) as parse_err:
-                    raise RuntimeError(
-                        f"Unparseable response for page {page_num} (finish_reason={finish_reason})"
-                    ) from parse_err
-
-            except Exception as e:
-                from xscore.shared.terminal_ui import warn_line
-
-                warn_line(f"Gemini API error (attempt {attempt + 1}/{MAX_RETRIES + 1}): {e}")
-                last_error = e
-
-            if attempt < MAX_RETRIES:
-                from xscore.shared.terminal_ui import info_line
-
-                info_line(f"Retrying in {backoff}s…")
-                time.sleep(backoff)
-                backoff *= 2
-
-        return _failed_record(last_error, answer_fields)
+        try:
+            return retry_api_call(
+                _do_call,
+                label=f"Gemini extract p{page_num}",
+                max_attempts=MAX_RETRIES + 1,
+                base_sleep=RETRY_BACKOFF_S,
+                backoff_factor=2.0,
+                jitter=0.0,
+            )
+        except Exception as e:
+            return _failed_record(e, answer_fields)
 
     def _ensemble(
         self,

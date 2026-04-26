@@ -38,7 +38,9 @@ from xscore.shared.exam_paths import (
     artifact_reports_students_dir,
     artifact_review_queue_json_path,
     artifact_review_queue_md_path,
+    artifact_student_pdf_dir,
     artifact_student_pdfs_dir,
+    artifact_student_report_dir,
     artifact_student_report_md_path,
     artifact_student_report_pdf_portrait_2up_path,
     artifact_student_report_pdf_portrait_large_path,
@@ -326,8 +328,8 @@ def _class_report_to_md(report: dict) -> str:
 
 
 def _merge_pdfs(class_pdf: Path, students_dir: Path, output_pdf: Path, suffix: str) -> None:
-    """Concatenate the class overview PDF with student PDFs matching ``*_<suffix>.pdf``."""
-    student_pdfs = sorted(students_dir.glob(f"*_{suffix}.pdf"), key=lambda p: p.stem)
+    """Concatenate the class overview PDF with student PDFs matching ``*/*_<suffix>.pdf``."""
+    student_pdfs = sorted(students_dir.glob(f"*/*_{suffix}.pdf"), key=lambda p: p.stem)
 
     try:
         from pikepdf import Pdf
@@ -456,7 +458,7 @@ def _compute_per_question_averages(artifact_dir: Path) -> dict[str, float]:
     """Compute mean assigned_marks per question number across all student reports."""
     q_totals: dict[str, list[float]] = {}
     failed: list[str] = []
-    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("*.xml")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("*/*.xml")):
         try:
             root = ET.parse(str(f)).getroot()
             for qel in root.findall("question"):
@@ -596,6 +598,7 @@ def _pass1_merge_students(
             q["correct_answer"] = correct_answers.get(str(q.get("number", "")), "")
             q["marking_criteria"] = marking_criteria_by_num.get(str(q.get("number", "")), "")
 
+        artifact_student_report_dir(ctx.artifact_dir, name).mkdir(parents=True, exist_ok=True)
         artifact_student_report_xml_path(ctx.artifact_dir, name).write_text(
             student_report_to_xml(report), encoding="utf-8"
         )
@@ -660,6 +663,7 @@ def _pass2_write_tex(
     for s in student_summaries:
         report = full_reports[s["name"]]
         report["curved_pct"] = s["curved_pct"]
+        artifact_student_pdf_dir(artifact_dir, s["name"]).mkdir(parents=True, exist_ok=True)
         for orientation, path_fn, font_size in (
             ("landscape", artifact_student_report_tex_landscape_path,      10),
             ("portrait",  artifact_student_report_tex_portrait_path,       10),
@@ -1072,7 +1076,7 @@ def load_student_results_from_reports(artifact_dir: Path) -> list:
 
     results = []
     failed: list[str] = []
-    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("*.xml")):
+    for f in sorted(artifact_reports_students_dir(artifact_dir).glob("*/*.xml")):
         try:
             root = ET.parse(str(f)).getroot()
         except ET.ParseError:

@@ -37,8 +37,7 @@ class BlankCheckStatus(Enum):
     INCONCLUSIVE = "INCONCLUSIVE"
 
 
-_MAX_ATTEMPTS = 2
-_RETRY_SLEEP_S = 2.0
+from eXercise.api_retry import retry_api_call
 
 
 # ─────────── Text + image extraction ─────────────────────────────────────────
@@ -190,17 +189,13 @@ def find_blank_exam_pages(
     )
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
 
-    raw = ""
-    thinking_text = ""
-    for attempt in range(_MAX_ATTEMPTS):
-        try:
-            raw, thinking_text = _call_blank_detection(state, prompt, model_id, thinking_tokens, max_tokens)
-            break
-        except Exception:  # noqa: BLE001
-            if attempt + 1 < _MAX_ATTEMPTS:
-                time.sleep(_RETRY_SLEEP_S)
-                continue
-            return None
+    try:
+        raw, thinking_text = retry_api_call(
+            lambda: _call_blank_detection(state, prompt, model_id, thinking_tokens, max_tokens),
+            label="Blank page detection (exam)",
+        )
+    except Exception:
+        return None
     save_response(save_path, raw, thinking=thinking_text)
 
     result = _parse_blank_pages(raw)
@@ -273,17 +268,13 @@ def _has_handwriting(
     prompt_text = prompt_text.rstrip("\n")
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt_text}])
 
-    raw = ""
-    thinking_text = ""
-    for attempt in range(_MAX_ATTEMPTS):
-        try:
-            raw, thinking_text = _call_handwriting(state, prompt_text, model_id, jpeg_bytes)
-            break
-        except Exception:  # noqa: BLE001
-            if attempt + 1 < _MAX_ATTEMPTS:
-                time.sleep(_RETRY_SLEEP_S)
-                continue
-            return None
+    try:
+        raw, thinking_text = retry_api_call(
+            lambda: _call_handwriting(state, prompt_text, model_id, jpeg_bytes),
+            label="Handwriting check",
+        )
+    except Exception:
+        return None
     save_response(save_path, raw, thinking=thinking_text)
     return _parse_handwriting(raw)
 

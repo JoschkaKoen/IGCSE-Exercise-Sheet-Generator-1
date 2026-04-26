@@ -12,11 +12,11 @@ Steps:
   5. Detect blank scan pages.
   6. Autorotate (remove blanks, apply /Rotate metadata).
   7. Deskew (small-angle per-half correction) → 07_deskew/cleaned_scan.pdf.
-  8. Scan geometry (page/student counts) → 08_exam_geometry/exam_geometry.json.
-  9. Cover page detection (empty exam) → 09_cover_page/.
- 10. AI: cover page detection (scan) → 10_cover_page_scan/.
- 11. Student name detection (name OCR) → 11_student_names/exam_student_list.json.
- 12. Page count validation.
+  8. AI: cover page detection (empty exam) → 08_cover_page_empty/.
+  9. AI: cover page detection (scan, page 1 only) → 09_cover_page_scan/.
+ 10. Scan geometry (page/student counts) → 10_exam_geometry/exam_geometry.json.
+ 11. AI: verify cover pages on remaining students → 11_cover_page_verify/.
+ 12. Student name detection (name OCR) → 12_student_names/exam_student_list.json.
  13. Page order check → 13_page_order/.
  14. Exam blank detection → 14_exam_blank_detection/.
  15. Student handwriting check → 15_student_handwriting/.
@@ -29,9 +29,9 @@ Steps:
  22. Merge scaffold → 22_create_report/report.json.
  23. Build per-page AI marking blueprints → 23_ai_marking_blueprints/.
  24. AI: grade each student page → 24_ai_marking/students/.
- 25. Per-student reports (XML + MD) → 25_student_reports/students/.
+ 25. Per-student reports (XML + MD) → 25_student_report_preparation/<student>/.
  26. Class statistics + grade curve → 26_class_stats/class_stats.json.
- 27. Per-student PDFs (xelatex) → 27_student_pdfs/students/.
+ 27. Per-student PDFs (xelatex) → 27_student_pdfs/<student>/.
  28. Class report (XML/MD/TeX/PDF + combined PDF) → 28_class_report/.
  29. Review queue (medium/low confidence marks) → 29_review_queue/.
  30. Timing summary → 30_timing_summary/timing.json.

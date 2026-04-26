@@ -142,11 +142,15 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
                 messages=[{"role": "user", "content": _prompt_user_text}],
             )
 
+        from eXercise.api_retry import retry_api_call  # noqa: PLC0415
         _t0 = time.perf_counter()
-        response = client.models.generate_content(
-            model=model_name,
-            contents=contents,
-            config=gen_config,
+        response = retry_api_call(
+            lambda: client.models.generate_content(
+                model=model_name,
+                contents=contents,
+                config=gen_config,
+            ),
+            label="Student list",
         )
         api_latency_line(time.perf_counter() - _t0, label="student list")
         from eXercise.ai_client import split_gemini_response  # noqa: PLC0415
@@ -207,25 +211,42 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
         _msgs = [{"role": "user", "content": user_content}]
         _t0 = time.perf_counter()
         thinking_text = ""
+        from eXercise.api_retry import retry_api_call  # noqa: PLC0415
         if _use_stream:
-            _th: list[str] = []
-            _stream = _oa_client.chat.completions.create(
-                model=model_name, messages=_msgs, stream=True, **_kw,
-            )
-            raw = collect_streamed_response(_stream, thinking_out=_th)
-            thinking_text = "".join(_th)
+            def _do_stream() -> tuple[str, str]:
+                _th: list[str] = []
+                _stream = _oa_client.chat.completions.create(
+                    model=model_name, messages=_msgs, stream=True, **_kw,
+                )
+                _raw = collect_streamed_response(_stream, thinking_out=_th)
+                return _raw, "".join(_th)
+
+            raw, thinking_text = retry_api_call(_do_stream, label="Student list (stream)")
         else:
-            try:
+            def _do_json() -> tuple[str, str]:
                 _resp = _oa_client.chat.completions.create(
                     model=model_name, messages=_msgs,
                     response_format={"type": "json_object"}, **_kw,
                 )
-            except Exception:
+                return (
+                    _resp.choices[0].message.content or "",
+                    getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+                )
+
+            def _do_plain() -> tuple[str, str]:
                 _resp = _oa_client.chat.completions.create(
                     model=model_name, messages=_msgs, **_kw,
                 )
-            raw = _resp.choices[0].message.content or ""
-            thinking_text = getattr(_resp.choices[0].message, "reasoning_content", "") or ""
+                return (
+                    _resp.choices[0].message.content or "",
+                    getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+                )
+
+            try:
+                raw, thinking_text = retry_api_call(_do_json, label="Student list (json)")
+            except Exception:
+                # Provider may reject response_format=json_object — fall through to plain.
+                raw, thinking_text = retry_api_call(_do_plain, label="Student list (plain)")
         api_latency_line(time.perf_counter() - _t0, label="student list")
 
     if _save_prompt_path is not None:
