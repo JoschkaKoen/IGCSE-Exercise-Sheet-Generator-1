@@ -128,7 +128,9 @@ def write_timing_report(
     *api_calls* is the list returned by :func:`run_ai_marking`.
     *accuracy_summary* is the optional dict from :func:`evaluate_results`.
     *failures* is the list of page-level marking failures set on ctx by :func:`run_ai_marking`.
-    *token_usage* maps model name → ``{"input": N, "output": N}`` (from :func:`get_run_usage`).
+    *token_usage* maps model name → ``{"input": N, "output": N, "thinking": N}``
+    (from :func:`get_run_usage`). ``output`` already includes ``thinking``;
+    the latter is informational only.
     *total_cost_rmb* is the sum of all per-model costs in RMB (from :func:`compute_cost`).
     """
     from xscore.shared.exam_paths import artifact_timing_json_path, artifact_timing_md_path
@@ -137,8 +139,9 @@ def write_timing_report(
     failures = failures or []
     token_usage = token_usage or {}
     total = sum(step_durations.values())
-    total_input = sum(v["input"] for v in token_usage.values())
-    total_output = sum(v["output"] for v in token_usage.values())
+    total_input    = sum(v["input"]  for v in token_usage.values())
+    total_output   = sum(v["output"] for v in token_usage.values())
+    total_thinking = sum(v.get("thinking", 0) for v in token_usage.values())
 
     payload: dict = {
         **{k: round(v, 2) for k, v in step_durations.items()},
@@ -150,10 +153,11 @@ def write_timing_report(
     if token_usage:
         from xscore.shared.cost_report import compute_cost
         _, breakdown = compute_cost(token_usage)
-        payload["token_usage"] = breakdown
-        payload["total_input_tokens"] = total_input
-        payload["total_output_tokens"] = total_output
-        payload["total_cost_rmb"] = total_cost_rmb
+        payload["token_usage"]           = breakdown
+        payload["total_input_tokens"]    = total_input
+        payload["total_output_tokens"]   = total_output
+        payload["total_thinking_tokens"] = total_thinking
+        payload["total_cost_rmb"]        = total_cost_rmb
     if failures:
         payload["failures"] = failures
     if accuracy_summary is not None:
@@ -183,29 +187,39 @@ def write_timing_report(
             max((len(f"{d['output_tokens']:,}") for d in breakdown.values()), default=0),
             len("Output"), len(f"{total_output:,}"),
         )
+        _tw = max(
+            max((len(f"{d.get('thinking_tokens', 0):,}") for d in breakdown.values()), default=0),
+            len("Thinking"), len(f"{total_thinking:,}"),
+        )
         _cost_strs = [f"¥{d['cost_rmb']:.1f}" for d in breakdown.values()] + [f"¥{total_cost_rmb:.1f}", "Cost"]
         _cw = max(len(s) for s in _cost_strs)
-        _sep = "  " + "─" * (_mw + 3 + _iw + 3 + _ow + 3 + _cw)
+        _sep = "  " + "─" * (_mw + 3 + _iw + 3 + _ow + 3 + _tw + 3 + _cw)
 
         from xscore.shared.cost_report import _load_pricing
         _n_prices = len(_load_pricing())
         info_line("")
         info_line("API cost:")
         info_line(f"  {_n_prices} model(s) loaded from AI API costs.xlsx")
-        info_line(f"  {'Model':<{_mw}}   {'Input':>{_iw}}   {'Output':>{_ow}}   {'Cost':>{_cw}}")
+        info_line(
+            f"  {'Model':<{_mw}}   {'Input':>{_iw}}   {'Output':>{_ow}}"
+            f"   {'Thinking':>{_tw}}   {'Cost':>{_cw}}"
+        )
         info_line(_sep)
         for _model, _data in breakdown.items():
             _cs = f"¥{_data['cost_rmb']:.1f}"
             info_line(
                 f"  {_model:<{_mw}}   {_data['input_tokens']:>{_iw},}"
-                f"   {_data['output_tokens']:>{_ow},}   {_cs:>{_cw}}"
+                f"   {_data['output_tokens']:>{_ow},}"
+                f"   {_data.get('thinking_tokens', 0):>{_tw},}"
+                f"   {_cs:>{_cw}}"
             )
         info_line(_sep)
         _hint = "" if total_cost_rmb > 0 else "  (prices not found in AI API costs.xlsx)"
         _ts = f"¥{total_cost_rmb:.1f}"
         info_line(
             f"  {'Total':<{_mw}}   {total_input:>{_iw},}"
-            f"   {total_output:>{_ow},}   {_ts:>{_cw}}{_hint}"
+            f"   {total_output:>{_ow},}   {total_thinking:>{_tw},}"
+            f"   {_ts:>{_cw}}{_hint}"
         )
     if failures:
         warn_line(f"  {len(failures)} page(s) failed marking — see 16_timing.md for details")
@@ -227,18 +241,22 @@ def _timing_to_md(payload: dict) -> str:
 
     if payload.get("token_usage"):
         lines.append("\n## Token Usage & Cost\n")
-        lines.append("| Model | Input tokens | Output tokens | Cost (RMB) |")
-        lines.append("|-------|-------------|--------------|------------|")
+        lines.append("| Model | Input tokens | Output tokens | Thinking tokens | Cost (RMB) |")
+        lines.append("|-------|-------------|--------------|-----------------|------------|")
         for model, data in payload["token_usage"].items():
             lines.append(
                 f"| {model} | {data['input_tokens']:,} | {data['output_tokens']:,}"
+                f" | {data.get('thinking_tokens', 0):,}"
                 f" | ¥{data['cost_rmb']:.6f} |"
             )
         lines.append(
             f"| **Total** | **{payload.get('total_input_tokens', 0):,}**"
             f" | **{payload.get('total_output_tokens', 0):,}**"
+            f" | **{payload.get('total_thinking_tokens', 0):,}**"
             f" | **¥{payload.get('total_cost_rmb', 0.0):.6f}** |"
         )
+        lines.append("")
+        lines.append("_Output tokens already include thinking tokens; the Thinking column is informational._")
 
     if payload.get("api_calls"):
         lines.append(f"\n**Total API calls: {payload['total_api_calls']}**\n")

@@ -215,11 +215,12 @@ def _record_step_token_delta(
     after = get_run_usage()
     delta: dict[str, dict[str, int]] = {}
     for model, ac in after.items():
-        bc = usage_before.get(model, {"input": 0, "output": 0})
-        di = ac["input"] - bc["input"]
-        do = ac["output"] - bc["output"]
+        bc = usage_before.get(model, {"input": 0, "output": 0, "thinking": 0})
+        di = ac["input"]  - bc.get("input", 0)
+        do = ac["output"] - bc.get("output", 0)
+        dt = ac.get("thinking", 0) - bc.get("thinking", 0)
         if di or do:
-            delta[model] = {"input": di, "output": do}
+            delta[model] = {"input": di, "output": do, "thinking": dt}
     if delta:
         ctx.step_token_usage[step_name] = delta
 

@@ -32,12 +32,22 @@ def _read_model_config() -> tuple[str, int | None, int | None]:
     return parse_model_spec(raw)
 
 
-def _call_text(user_message: str) -> str:
+def _call_text(user_message: str, out: dict | None = None) -> str:
     """Make a text-only call (any provider) and return the raw response string.
 
     Routes by model name: Gemini → native SDK; Qwen/Grok → OpenAI-compat.
+
+    When *out* is supplied, populates it with ``model``, ``system``, ``user``,
+    ``raw``, ``thinking`` so the caller can persist the prompt+response to disk
+    once an artifact dir is available.
     """
     model_name, thinking_tokens, max_tokens = _read_model_config()
+    if out is not None:
+        out["model"]    = model_name
+        out["system"]   = _SYSTEM_PROMPT
+        out["user"]     = user_message
+        out["raw"]      = ""
+        out["thinking"] = ""
 
     from eXercise.api_retry import retry_api_call
 
@@ -46,7 +56,11 @@ def _call_text(user_message: str) -> str:
             from google.genai import types as gai_types
         except ImportError:
             raise RuntimeError("google-genai not installed; run: pip install google-genai")
-        from eXercise.ai_client import build_gemini_thinking_config, make_gemini_native_client
+        from eXercise.ai_client import (
+            build_gemini_thinking_config,
+            make_gemini_native_client,
+            split_gemini_response,
+        )
         client = make_gemini_native_client()
         if client is None:
             raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
@@ -57,7 +71,7 @@ def _call_text(user_message: str) -> str:
         if thinking_tokens is not None:
             gen_config_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
 
-        def _do_gemini() -> str:
+        def _do_gemini() -> tuple[str, str]:
             _resp = client.models.generate_content(
                 model=model_name,
                 contents=user_message,
@@ -66,9 +80,12 @@ def _call_text(user_message: str) -> str:
                     **gen_config_kwargs,
                 ),
             )
-            return _resp.text or ""
+            return split_gemini_response(_resp)
 
-        return retry_api_call(_do_gemini, label="Parse instruction")
+        raw, thinking = retry_api_call(_do_gemini, label="Parse instruction")
+        if out is not None:
+            out["raw"], out["thinking"] = raw, thinking
+        return raw
 
     # OpenAI-compat path (Qwen, Grok, …)
     from eXercise.ai_client import (
@@ -90,35 +107,48 @@ def _call_text(user_message: str) -> str:
         {"role": "user", "content": user_message},
     ]
     if use_stream:
-        def _do_stream() -> str:
+        def _do_stream() -> tuple[str, str]:
             # Some providers reject response_format with stream=True — omit it
             # on the streaming branch; the prompt itself enforces JSON output.
             # Stream consumed inside the closure so a mid-stream failure retries.
+            _th: list[str] = []
             _stream = client.chat.completions.create(
                 model=model_name, messages=msgs, stream=True, **kw,
             )
-            return collect_streamed_response(_stream)
+            return collect_streamed_response(_stream, thinking_out=_th), "".join(_th)
 
-        return retry_api_call(_do_stream, label="Parse instruction (stream)")
+        raw, thinking = retry_api_call(_do_stream, label="Parse instruction (stream)")
+        if out is not None:
+            out["raw"], out["thinking"] = raw, thinking
+        return raw
 
-    def _do_json() -> str:
+    def _do_json() -> tuple[str, str]:
         _resp = client.chat.completions.create(
             model=model_name, messages=msgs,
             response_format={"type": "json_object"}, **kw,
         )
-        return _resp.choices[0].message.content or ""
+        return (
+            _resp.choices[0].message.content or "",
+            getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+        )
 
-    def _do_plain() -> str:
+    def _do_plain() -> tuple[str, str]:
         _resp = client.chat.completions.create(
             model=model_name, messages=msgs, **kw,
         )
-        return _resp.choices[0].message.content or ""
+        return (
+            _resp.choices[0].message.content or "",
+            getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+        )
 
     try:
-        return retry_api_call(_do_json, label="Parse instruction (json)")
+        raw, thinking = retry_api_call(_do_json, label="Parse instruction (json)")
     except Exception:
         # Provider may reject response_format=json_object — fall through to plain.
-        return retry_api_call(_do_plain, label="Parse instruction (plain)")
+        raw, thinking = retry_api_call(_do_plain, label="Parse instruction (plain)")
+    if out is not None:
+        out["raw"], out["thinking"] = raw, thinking
+    return raw
 
 
 _SYSTEM_PROMPT = load_prompt("parse_grading_instructions")[1]
@@ -128,17 +158,23 @@ def parse_prompt(
     prompt: str,
     client: object | None = None,  # ignored — kept for backward compatibility
     dpi_override: int | None = None,
+    *,
+    out: dict | None = None,
 ) -> TaskInstruction:
     """Parse *prompt* into a ``TaskInstruction`` via a Gemini text call.
 
     Uses PARSE_PROMPT_MODEL (default: gemini-2.5-flash, low).
     *dpi_override* (CLI ``--dpi``) takes precedence over DPI from the prompt.
     Falls back to a simple keyword heuristic if the Gemini call fails.
+
+    When *out* is supplied (a mutable dict), it is populated with debug fields
+    (``model``, ``system``, ``user``, ``raw``, ``thinking``) so the caller can
+    persist the prompt+response to disk once an artifact dir is available.
     """
     instruction = _heuristic_fallback(prompt, dpi_override)
 
     try:
-        raw = _call_text(prompt)
+        raw = _call_text(prompt, out=out)
     except Exception as exc:  # noqa: BLE001
         warn_line(f"Prompt parse API error ({exc}) — using heuristic parse.")
         return instruction

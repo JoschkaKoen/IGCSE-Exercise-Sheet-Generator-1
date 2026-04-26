@@ -92,6 +92,13 @@ def artifact_parse_summary_path(artifact_dir: Path) -> Path:
     return artifact_dir / STEP_01 / "summary.json"
 
 
+def artifact_parse_prompt_path(artifact_dir: Path) -> Path:
+    """Step 1: parse-instruction prompt JSON; the matching response file is
+    written by ``save_response`` as ``parse_prompt_response.txt`` alongside it.
+    """
+    return artifact_dir / STEP_01 / "parse_prompt.json"
+
+
 # ---------------------------------------------------------------------------
 # Step 3 — Read student list
 # ---------------------------------------------------------------------------

@@ -250,12 +250,12 @@ def _rank_exercises_ai_gemini(
 
     raw = "".join(chunks)
     if save_dir:
-        (save_dir / "ranking_response.txt").write_text(raw, encoding="utf-8")
+        from .prompt_logger import save_response as _sr  # noqa: PLC0415
+        _sr(
+            save_dir / "ranking_prompt.json", raw,
+            thinking="".join(thinking_chunks),
+        )
         print(f"  Saved raw response: ranking_response.txt")
-        if thinking_chunks:
-            (save_dir / "ranking_thinking.txt").write_text(
-                "".join(thinking_chunks), encoding="utf-8"
-            )
     return _parse_ranking(raw)
 
 

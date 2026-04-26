@@ -17,12 +17,14 @@ def print_cost_table(
     breakdown: dict,
     total_input: int,
     total_output: int,
+    total_thinking: int,
     total_cost: float,
 ) -> None:
     """Print the per-model cost breakdown as a rich.Table indented to align with
     the surrounding ``  ›  message`` style.
 
     Rows sort by cost desc; sub-cent values render via :func:`fmt_cost_rmb`.
+    ``Output`` already includes thinking tokens; ``Thinking`` is informational.
     """
     from xscore.shared.terminal_ui import get_console, info_line
 
@@ -42,6 +44,7 @@ def print_cost_table(
     table.add_column("Model", justify="left", style="dim")
     table.add_column("Input", justify="right", style="dim")
     table.add_column("Output", justify="right", style="dim")
+    table.add_column("Thinking", justify="right", style="dim")
     table.add_column("Cost", justify="right", style="dim")
 
     rows = sorted(breakdown.items(), key=lambda kv: kv[1]["cost_rmb"], reverse=True)
@@ -50,6 +53,7 @@ def print_cost_table(
             model,
             f"{data['input_tokens']:,}",
             f"{data['output_tokens']:,}",
+            f"{data.get('thinking_tokens', 0):,}",
             fmt_cost_rmb(data["cost_rmb"]),
         )
 
@@ -58,6 +62,7 @@ def print_cost_table(
         "[bold]Total[/]",
         f"[bold]{total_input:,}[/]",
         f"[bold]{total_output:,}[/]",
+        f"[bold]{total_thinking:,}[/]",
         f"[bold]{fmt_cost_rmb(total_cost)}[/]",
     )
 
@@ -96,6 +101,7 @@ def print_per_step_cost_table(per_step_breakdown: dict) -> None:
     table.add_column("Model", justify="left", style="dim")
     table.add_column("Input", justify="right", style="dim")
     table.add_column("Output", justify="right", style="dim")
+    table.add_column("Thinking", justify="right", style="dim")
     table.add_column("Calls", justify="right", style="dim")
     table.add_column("Avg time", justify="right", style="dim")
     table.add_column("Cost", justify="right", style="dim")
@@ -111,6 +117,7 @@ def print_per_step_cost_table(per_step_breakdown: dict) -> None:
                 model,
                 f"{data['input_tokens']:,}",
                 f"{data['output_tokens']:,}",
+                f"{data.get('thinking_tokens', 0):,}",
                 f"{data['calls']}",
                 format_duration(data["avg_duration_s"]),
                 fmt_cost_rmb(data["cost_rmb"]),

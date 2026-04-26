@@ -16,7 +16,7 @@ from xscore.config import MARKING_JPEG_QUALITY
 from xscore.marking.formats.base import FormatParseError, MarkingFormat
 from xscore.marking.mark_xml import MarkingFailure
 from xscore.prompts.loader import load_prompt
-from xscore.shared.prompt_logger import save_prompt
+from xscore.shared.prompt_logger import save_prompt, save_response
 from xscore.shared.terminal_ui import warn_line
 
 
@@ -203,18 +203,23 @@ def _mark_page(
                     # and fall through to a live call.
                     pass
 
-    def _do_call() -> str:
+    def _do_call() -> tuple[str, str]:
         if use_stream:
             # Stream consumed inside the closure so a mid-stream failure retries.
+            _th: list[str] = []
             _stream = client.chat.completions.create(**kwargs, stream=True)
-            return collect_streamed_response(_stream)
+            return collect_streamed_response(_stream, thinking_out=_th), "".join(_th)
         _resp = client.chat.completions.create(**kwargs)
-        return _resp.choices[0].message.content or ""
+        return (
+            _resp.choices[0].message.content or "",
+            getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+        )
 
     _last_raw: str = ""
     try:
-        raw = retry_api_call(_do_call, label=f"Marking ({model_id})")
+        raw, thinking_text = retry_api_call(_do_call, label=f"Marking ({model_id})")
         _last_raw = raw
+        save_response(prompt_save_path, raw, thinking=thinking_text)
         result = _apply_marking_response(raw, blueprint, fmt, warn)
         if reuse_cache and _cache_key is not None:
             from xscore.shared.response_cache import cache_put

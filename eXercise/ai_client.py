@@ -56,7 +56,7 @@ from typing import Any
 # ---------------------------------------------------------------------------
 
 _usage_lock = threading.Lock()
-_run_usage: dict[str, dict[str, int]] = {}  # model → {"input": N, "output": N}
+_run_usage: dict[str, dict[str, int]] = {}  # model → {"input": N, "output": N, "thinking": N}
 _run_call_stats: dict[str, dict[str, float]] = {}  # model → {"calls": N, "total_duration_s": F}
 
 
@@ -92,12 +92,38 @@ def _read_default_seed() -> int | None:
         return None
 
 
-def record_usage(model: str, input_tokens: int, output_tokens: int) -> None:
-    """Accumulate token counts for *model* (thread-safe)."""
+def record_usage(
+    model: str,
+    input_tokens: int,
+    output_tokens: int,
+    thinking_tokens: int = 0,
+) -> None:
+    """Accumulate token counts for *model* (thread-safe).
+
+    *output_tokens* is the total billed output (visible + thinking), matching
+    what the provider invoices. *thinking_tokens* is the thinking portion of
+    *output_tokens* — informational only, not used in cost arithmetic.
+    """
     with _usage_lock:
-        e = _run_usage.setdefault(model, {"input": 0, "output": 0})
+        e = _run_usage.setdefault(model, {"input": 0, "output": 0, "thinking": 0})
         e["input"] += input_tokens
         e["output"] += output_tokens
+        e["thinking"] += thinking_tokens
+
+
+def _extract_reasoning_tokens(u: Any) -> int:
+    """Return reasoning/thinking token count from an OpenAI-compat usage object.
+
+    Tries ``usage.completion_tokens_details.reasoning_tokens`` first (the
+    OpenAI standard, used by Gemini OpenAI-compat and recent Qwen3 reasoning
+    models), then falls back to a flat ``usage.reasoning_tokens`` shape some
+    DashScope versions emit. Returns 0 if neither is present.
+    """
+    details = getattr(u, "completion_tokens_details", None)
+    nested = (getattr(details, "reasoning_tokens", 0) if details else 0) or 0
+    if nested:
+        return nested
+    return getattr(u, "reasoning_tokens", 0) or 0
 
 
 def get_run_usage() -> dict[str, dict[str, int]]:
@@ -370,6 +396,7 @@ class _UsageTrackingStream:
                         self._model,
                         getattr(u, "prompt_tokens", 0) or 0,
                         getattr(u, "completion_tokens", 0) or 0,
+                        _extract_reasoning_tokens(u),
                     )
                     if self._t0 is not None:
                         record_call(self._model, time.perf_counter() - self._t0)
@@ -413,6 +440,7 @@ class _TrackedCompletions:
                 self._model,
                 getattr(u, "prompt_tokens", 0) or 0,
                 getattr(u, "completion_tokens", 0) or 0,
+                _extract_reasoning_tokens(u),
             )
             record_call(self._model, time.perf_counter() - t0)
         return resp
@@ -448,6 +476,14 @@ class _TrackedOpenAIClient:
 
 
 class _TrackedGeminiModels:
+    """Wraps ``client.models`` so every ``generate_content`` records token usage.
+
+    The recorded ``output_tokens`` is ``candidates_token_count + thoughts_token_count``
+    so it matches the OpenAI-compat ``usage.completion_tokens`` semantic (visible +
+    thinking, the number Gemini actually bills). ``thoughts_token_count`` is also
+    recorded separately as ``thinking`` for the cost-report breakdown.
+    """
+
     def __init__(self, models: Any, deterministic: bool = True) -> None:
         self._m = models
         self._deterministic = deterministic
@@ -489,10 +525,16 @@ class _TrackedGeminiModels:
         model = kwargs.get("model") or (args[0] if args else "unknown")
         um = getattr(resp, "usage_metadata", None)
         if um:
+            # candidates_token_count is *visible* output only; thoughts_token_count
+            # is the thinking portion. Sum them so output_tokens matches the
+            # OpenAI-compat semantic (and what Gemini actually bills).
+            visible  = getattr(um, "candidates_token_count", 0) or 0
+            thoughts = getattr(um, "thoughts_token_count",   0) or 0
             record_usage(
                 str(model),
                 getattr(um, "prompt_token_count", 0) or 0,
-                getattr(um, "candidates_token_count", 0) or 0,
+                visible + thoughts,
+                thoughts,
             )
             record_call(str(model), time.perf_counter() - t0)
         return resp

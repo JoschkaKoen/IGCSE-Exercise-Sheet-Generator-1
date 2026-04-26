@@ -45,8 +45,13 @@ def compute_cost(
 ) -> tuple[float, dict[str, dict]]:
     """Return (total_rmb, per_model_breakdown).
 
-    breakdown: model → {"input_tokens": N, "output_tokens": N, "cost_rmb": X}
+    breakdown: model → {"input_tokens": N, "output_tokens": N,
+                        "thinking_tokens": N, "cost_rmb": X}
     Rates come from AI API costs.xlsx (RMB per 1M tokens); 0.0 if model not listed.
+
+    ``output_tokens`` is the total billed output (visible + thinking) and is
+    multiplied by the output rate. ``thinking_tokens`` is the thinking portion
+    of ``output_tokens`` and is informational — not double-counted in the cost.
     """
     pricing = _load_pricing()
     breakdown: dict[str, dict] = {}
@@ -56,8 +61,9 @@ def compute_cost(
         cost = counts["input"] / 1_000_000 * inp_rate + counts["output"] / 1_000_000 * out_rate
         total += cost
         breakdown[model] = {
-            "input_tokens": counts["input"],
-            "output_tokens": counts["output"],
-            "cost_rmb": round(cost, 6),
+            "input_tokens":    counts["input"],
+            "output_tokens":   counts["output"],
+            "thinking_tokens": counts.get("thinking", 0),
+            "cost_rmb":        round(cost, 6),
         }
     return round(total, 6), breakdown

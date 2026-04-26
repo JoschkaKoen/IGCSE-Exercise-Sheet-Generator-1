@@ -97,36 +97,41 @@ def step_32_costs(ctx: _Ctx) -> None:
     total_cost, breakdown = compute_cost(run_usage)
     per_step_breakdown = _build_per_step_breakdown(ctx.step_token_usage, ctx.step_call_stats)
     payload = {
-        "token_usage": breakdown,
-        "total_input_tokens": sum(v["input"] for v in run_usage.values()),
-        "total_output_tokens": sum(v["output"] for v in run_usage.values()),
-        "total_cost_rmb": total_cost,
-        "by_step": per_step_breakdown,
+        "token_usage":           breakdown,
+        "total_input_tokens":    sum(v["input"]  for v in run_usage.values()),
+        "total_output_tokens":   sum(v["output"] for v in run_usage.values()),
+        "total_thinking_tokens": sum(v.get("thinking", 0) for v in run_usage.values()),
+        "total_cost_rmb":        total_cost,
+        "by_step":               per_step_breakdown,
     }
     cj = artifact_cost_json_path(ctx.artifact_dir)
     cj.parent.mkdir(parents=True, exist_ok=True)
     cj.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
     md_lines = [
         "# AI Costs", "",
-        "| Model | Input tokens | Output tokens | Cost (RMB) |",
-        "|-------|--------------|---------------|------------|",
+        "| Model | Input tokens | Output tokens | Thinking tokens | Cost (RMB) |",
+        "|-------|--------------|---------------|-----------------|------------|",
     ]
     for model, data in breakdown.items():
         md_lines.append(
             f"| {model} | {data['input_tokens']:,} | {data['output_tokens']:,}"
+            f" | {data['thinking_tokens']:,}"
             f" | ¥{data['cost_rmb']:.6f} |"
         )
     md_lines.append(
         f"| **Total** | **{payload['total_input_tokens']:,}**"
         f" | **{payload['total_output_tokens']:,}**"
+        f" | **{payload['total_thinking_tokens']:,}**"
         f" | **¥{total_cost:.6f}** |"
     )
+    md_lines.append("")
+    md_lines.append("_Output tokens already include thinking tokens; the Thinking column is informational._")
     if per_step_breakdown:
         md_lines.append("")
         md_lines.append("## Cost by step")
         md_lines.append("")
-        md_lines.append("| Step | Model | Input tokens | Output tokens | Calls | Avg time | Cost (RMB) |")
-        md_lines.append("|------|-------|--------------|---------------|-------|----------|------------|")
+        md_lines.append("| Step | Model | Input tokens | Output tokens | Thinking tokens | Calls | Avg time | Cost (RMB) |")
+        md_lines.append("|------|-------|--------------|---------------|-----------------|-------|----------|------------|")
         for entry in sorted(per_step_breakdown.values(), key=lambda e: e["step_number"]):
             sorted_models = sorted(
                 entry["models"].items(),
@@ -139,6 +144,7 @@ def step_32_costs(ctx: _Ctx) -> None:
                 md_lines.append(
                     f"| {step_cell} | {model} | {data['input_tokens']:,}"
                     f" | {data['output_tokens']:,}"
+                    f" | {data['thinking_tokens']:,}"
                     f" | {data['calls']}"
                     f" | {format_duration(data['avg_duration_s'])}"
                     f" | ¥{data['cost_rmb']:.6f} |"
@@ -148,5 +154,10 @@ def step_32_costs(ctx: _Ctx) -> None:
         "\n".join(md_lines) + "\n", encoding="utf-8"
     )
     print_per_step_cost_table(per_step_breakdown)
-    print_cost_table(breakdown, payload["total_input_tokens"],
-                     payload["total_output_tokens"], total_cost)
+    print_cost_table(
+        breakdown,
+        payload["total_input_tokens"],
+        payload["total_output_tokens"],
+        payload["total_thinking_tokens"],
+        total_cost,
+    )

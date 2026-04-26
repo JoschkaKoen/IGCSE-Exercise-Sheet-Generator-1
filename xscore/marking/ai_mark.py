@@ -130,6 +130,7 @@ def _mark_page_pdf(
         gemini_pdf_part,
         make_gemini_native_client,
         parse_model_spec,
+        split_gemini_response,
     )
     from eXercise.api_retry import retry_api_call
 
@@ -166,7 +167,7 @@ def _mark_page_pdf(
 
     pdf_part = gemini_pdf_part(gai_client, pdf_path, label="marking")
 
-    def _do_call() -> str:
+    def _do_call() -> tuple[str, str]:
         contents = [
             pdf_part,
             gai_types.Part.from_text(text=user_text),
@@ -180,13 +181,13 @@ def _mark_page_pdf(
         _resp = gai_client.models.generate_content(
             model=model_id, contents=contents, config=config,
         )
-        return _resp.text or ""
+        return split_gemini_response(_resp)  # (answer_text, thinking_text)
 
     _last_raw: str = ""
     try:
-        raw = retry_api_call(_do_call, label="Marking PDF")
+        raw, thinking_text = retry_api_call(_do_call, label="Marking PDF")
         _last_raw = raw
-        save_response(prompt_save_path, raw)
+        save_response(prompt_save_path, raw, thinking=thinking_text)
         from xscore.marking.mark_page import _apply_marking_response
         return _apply_marking_response(raw, blueprint, fmt, warn)
     except FormatParseError as exc:

@@ -18,7 +18,8 @@ from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.shared.find_exam_folder import find_folder, validate_input_files
 from xscore.marking.parse_instruction import parse_prompt
 from xscore.pipeline.resume import copy_input_files, resume_pipeline
-from xscore.shared.exam_paths import artifact_parse_summary_path
+from xscore.shared.exam_paths import artifact_parse_prompt_path, artifact_parse_summary_path
+from xscore.shared.prompt_logger import save_prompt, save_response
 from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.terminal_ui import announce_step_model, format_duration, ok_line
 
@@ -31,7 +32,12 @@ def step_01_parse(ctx: _Ctx) -> None:
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     t0 = time.perf_counter()
-    ctx.instruction = parse_prompt(ctx.args.prompt, dpi_override=ctx.args.dpi)
+    ctx.parse_prompt_debug = {}
+    ctx.instruction = parse_prompt(
+        ctx.args.prompt,
+        dpi_override=ctx.args.dpi,
+        out=ctx.parse_prompt_debug,
+    )
     ctx.parse_elapsed = time.perf_counter() - t0
     assert ctx.instruction is not None
     inst = ctx.instruction
@@ -100,6 +106,20 @@ def step_02_folder(ctx: _Ctx) -> None:
     p1 = artifact_parse_summary_path(ctx.artifact_dir)
     p1.parent.mkdir(parents=True, exist_ok=True)
     p1.write_text(json.dumps(step1_summary, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    # Write step 1 prompt + response (deferred from step 1 because artifact_dir
+    # didn't exist yet). Skipped silently if the parse used the heuristic
+    # fallback before the AI call populated the buffer.
+    debug = ctx.parse_prompt_debug or {}
+    if debug.get("raw"):
+        prompt_path = artifact_parse_prompt_path(ctx.artifact_dir)
+        save_prompt(
+            prompt_path,
+            model=debug.get("model", ""),
+            system=debug.get("system", ""),
+            messages=[{"role": "user", "content": debug.get("user", "")}],
+        )
+        save_response(prompt_path, debug["raw"], thinking=debug.get("thinking", ""))
 
     ok_line(ctx.folder.name)
     validate_input_files(ctx.folder)

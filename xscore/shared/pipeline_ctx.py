@@ -26,6 +26,9 @@ class _Ctx:
     timestamp: str
     instruction: "TaskInstruction | None" = None
     parse_elapsed: float = 0.0
+    # Captured by step 1 (parse_prompt out=) and persisted by step 2 once
+    # artifact_dir exists. Keys: "model", "system", "user", "raw", "thinking".
+    parse_prompt_debug: dict | None = None
     force_clean_scan: bool = False
     folder: Path | None = None
     artifact_dir: Path | None = None
