@@ -1,7 +1,7 @@
 ---
-name: parse_exam_user_fallback
+name: parse_exam_pdf_user_fallback_xml
 version: v1
-description: Fallback user prompt when the exam layout has not been pre-detected (asks the AI to detect it itself).
+description: Step 18 — parse_exam_pdf. Fallback user prompt when the exam layout has not been pre-detected, in XML format (asks the AI to detect layout itself). Used by xscore.scaffold.scaffold_prompts.
 ---
 
 Return ONLY well-formed XML, no markdown fences or other text outside the XML.

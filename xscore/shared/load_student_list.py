@@ -161,7 +161,8 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
             config=gen_config,
         )
         api_latency_line(time.perf_counter() - _t0, label="student list")
-        raw = response.text or ""
+        from eXercise.ai_client import split_gemini_response  # noqa: PLC0415
+        raw, thinking_text = split_gemini_response(response)
     else:
         # OpenAI-compat path (Qwen, Grok, …): rasterize PDFs; send CSV as text.
         import base64 as _base64
@@ -217,11 +218,14 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
 
         _msgs = [{"role": "user", "content": user_content}]
         _t0 = time.perf_counter()
+        thinking_text = ""
         if _use_stream:
+            _th: list[str] = []
             _stream = _oa_client.chat.completions.create(
                 model=model_name, messages=_msgs, stream=True, **_kw,
             )
-            raw = collect_streamed_response(_stream)
+            raw = collect_streamed_response(_stream, thinking_out=_th)
+            thinking_text = "".join(_th)
         else:
             try:
                 _resp = _oa_client.chat.completions.create(
@@ -233,7 +237,12 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
                     model=model_name, messages=_msgs, **_kw,
                 )
             raw = _resp.choices[0].message.content or ""
+            thinking_text = getattr(_resp.choices[0].message, "reasoning_content", "") or ""
         api_latency_line(time.perf_counter() - _t0, label="student list")
+
+    if _save_prompt_path is not None:
+        from xscore.shared.prompt_logger import save_response  # noqa: PLC0415
+        save_response(_save_prompt_path, raw, thinking=thinking_text)
 
     try:
         return _parse_name_list(raw)

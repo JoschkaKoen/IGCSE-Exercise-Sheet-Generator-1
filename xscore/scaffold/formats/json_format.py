@@ -7,6 +7,7 @@ from typing import Literal
 
 from pydantic import BaseModel
 
+from xscore.prompts.loader import load_prompt
 from xscore.scaffold.formats.base import ScaffoldFormat
 
 
@@ -58,73 +59,27 @@ class _SchemeResponse(BaseModel):
 _SCHEME_JSON_SCHEMA = _SchemeResponse.model_json_schema()
 
 
-# ---------------------------------------------------------------------------
-# Prompts
-# ---------------------------------------------------------------------------
-
-_SYSTEM_EXAM_JSON = (
-    "You are an expert at reading Cambridge IGCSE exam papers. "
-    "Extract every question and sub-question. Return JSON matching the response schema."
-)
-
-_SYSTEM_SCHEME_JSON = (
-    "You are an expert at reading Cambridge IGCSE mark schemes. "
-    "Extract marking criteria. Return JSON matching the response schema."
-)
-
-_USER_EXAM_JSON = """\
-Extract all questions from this exam paper as JSON matching the schema.
-
-For each question:
-- number: label as printed, run-together (e.g. "9", "9a", "9ai") — no parentheses
-- type: multiple_choice | short_answer | calculation | long_answer
-- page: 1-based page number
-- subpage_row / subpage_col: quadrant (1 if not multi-up)
-- marks: integer from [N] brackets; 0 if not printed
-- text: complete question text; use $...$ for inline math
-- options: list of {{letter, text}} for multiple_choice only
-- subquestions: direct sub-questions (one level; each has the same fields)
-"""
-
-_USER_SCHEME_JSON = """\
-For each question in the scaffold below, fill in `correct_answer` and `criteria` \
-based on the mark scheme.
-
-{scaffold}
-
-- `correct_answer`: always a non-empty string — the model/expected answer. \
-For multiple-choice: just the letter (e.g. "C"). \
-For questions with a single definitive answer: that answer (e.g. "930D", "00001111"). \
-For "any N from" / open-ended questions: write a brief sample answer derived from \
-the criteria (e.g. "Actuator, Printer, Speaker" or "Any three from: A, B, C"). \
-Never leave this empty or null.
-- `criteria`: list of {{mark, criterion}} — extract the COMPLETE marking scheme text.
-
-LaTeX in criterion strings: use \\\\ for backslash in JSON strings.
-Examples: "\\\\textbf{{word}}", "$v = 2\\\\pi r / T$"
-"""
-
-
 from xscore.shared.response_parsing import strip_code_fences as _strip_fences  # noqa: E402
 
 
 class JsonScaffoldFormat(ScaffoldFormat):
 
     def system_exam_prompt(self) -> str:
-        return _SYSTEM_EXAM_JSON
+        return load_prompt("parse_exam_pdf_system_json")[1]
 
     def system_scheme_prompt(self) -> str:
-        return _SYSTEM_SCHEME_JSON
+        return load_prompt("parse_mark_scheme_system_json")[1]
 
     def build_exam_prompt(self, layout_result, is_split: bool, n_split_pages: int) -> str:
+        user_exam = load_prompt("parse_exam_pdf_user_json")[1]
         if layout_result is None:
-            return _USER_EXAM_JSON
+            return user_exam
         rows, cols = layout_result.rows, layout_result.cols
         header = (
             f"Layout: {rows}\u00d7{cols} grid. "
             + (f"PDF pre-split into {n_split_pages} sub-pages.\n\n" if is_split else "\n\n")
         )
-        return header + _USER_EXAM_JSON
+        return header + user_exam
 
     def build_scheme_user_msg(
         self, scaffold_str: str, page_num: int, n_pages: int,
@@ -136,7 +91,7 @@ class JsonScaffoldFormat(ScaffoldFormat):
             "questions on this page. Leave `correct_answer` as `\"\"` and `criteria` as `[]` "
             "for all other questions."
         )
-        return _USER_SCHEME_JSON.format(scaffold=scaffold_str) + page_note
+        return load_prompt("parse_mark_scheme_user_json")[1].format(scaffold=scaffold_str) + page_note
 
     def build_scheme_scaffold(self, questions: list[dict]) -> str:
         entries = []

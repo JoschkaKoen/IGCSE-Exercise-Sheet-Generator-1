@@ -26,42 +26,13 @@ class XmlMarkingFormat(MarkingFormat):
         except ET.ParseError as exc:
             raise RuntimeError(f"Blueprint XML is malformed: {exc}") from exc
 
-    # --- Prompt fragments (verbatim copies of mark_page.py pre-migration text) ---
+    # --- Prompt fragments ---
 
-    def section_A(self) -> str:
-        return (
-            "You are an expert exam marker. You will be shown one page of a student's exam paper "
-            "and a Blueprint XML listing every question. The blueprint is a form: each question has "
-            "four empty fields for you to fill in — <student_answer>, <assigned_marks>, "
-            "<explanation>, and <confidence>. Fill every field for every question in the list."
-        )
+    def system_prompt_name(self) -> str:
+        return "ai_marking_system_xml"
 
     def criterion_ref(self) -> str:
         return "<criterion> elements"
-
-    def section_C(self, rows: int, cols: int) -> str:
-        return (
-            "\n\nReturn ONLY the filled Blueprint XML — no markdown fences, no surrounding text. "
-            "Fill in the four empty XML fields in each <question>: "
-            "<student_answer>, <assigned_marks>, <explanation>, and <confidence>. "
-            "Do not change any other content.\n"
-            "CRITICAL — each element must be closed with its own matching tag. "
-            "WRONG: <explanation>text</student_answer>. "
-            "RIGHT: <explanation>text</explanation>. "
-            "Never close <explanation> with </student_answer> or vice versa."
-        )
-
-    def section_D(self) -> str:
-        return (
-            "\n\nXML validity:\n"
-            "• In element text use &lt; for <, &gt; for >, &amp; for &.\n"
-            "• Do not use HTML tags (e.g. <br>) — use a space or comma instead.\n"
-            "• LaTeX: wrap all math in $...$  "
-            "(e.g. $v = 2\\pi r / T$, $3.0 \\times 10^4$ m/s, $\\frac{d}{v}$). "
-            "Use \\times, \\approx, \\frac{}{}, \\pi, \\rightarrow, \\% etc. "
-            "Failing to wrap math in $...$ will crash the PDF renderer.\n"
-            "• Do not append a mark tally ('— X marks.') at the end of any field."
-        )
 
     def subpage_ref(self) -> str:
         return "<subpage> elements"

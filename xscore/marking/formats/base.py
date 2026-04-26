@@ -25,20 +25,19 @@ class MarkingFormat(ABC):
     # --- Prompt fragments ---
 
     @abstractmethod
-    def section_A(self) -> str:
-        """Role + task description — references the format by name."""
+    def system_prompt_name(self) -> str:
+        """Name of the consolidated per-format system prompt in xscore/prompts/.
+
+        Loaded by mark_page._build_marking_system_prompt with a single
+        ``$field_rules`` substitution (the rendered ai_marking_field_rules.md
+        body, rstripped). The .md file embeds the format-specific role/task
+        intro, output-format spec, and validity/escaping rules around the
+        ``$field_rules`` placeholder.
+        """
 
     @abstractmethod
     def criterion_ref(self) -> str:
         """Short phrase used in section B: '<criterion> elements' or 'criteria entries'."""
-
-    @abstractmethod
-    def section_C(self, rows: int, cols: int) -> str:
-        """Return-format instructions appended after section B."""
-
-    @abstractmethod
-    def section_D(self) -> str:
-        """Format-specific validity / escaping rules appended after section C."""
 
     @abstractmethod
     def subpage_ref(self) -> str:

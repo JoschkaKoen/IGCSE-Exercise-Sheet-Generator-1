@@ -18,6 +18,7 @@ from eXercise.ai_client import (
     build_gemini_thinking_config,
     collect_streamed_response,
     make_ai_client,
+    split_gemini_response,
 )
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.scaffold.scaffold_prompts import (
@@ -168,8 +169,9 @@ def _do_exam_call(
                 _exam_page_b64s.append(_base64.b64encode(pix.tobytes("png")).decode())
                 pix = None  # release pixmap memory
 
-    def _make_exam_call(label: str | None) -> str:
+    def _make_exam_call(label: str | None) -> tuple[str, str]:
         _t0 = time.perf_counter()
+        thinking_text = ""
         if _oa_client is not None:
             _content = [
                 {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}
@@ -185,11 +187,14 @@ def _do_exam_call(
             )
             kwargs.update(_oa_thinking_kw)
             if _oa_use_stream:
+                _th: list[str] = []
                 stream = _oa_client.chat.completions.create(**kwargs, stream=True)
-                raw = collect_streamed_response(stream)
+                raw = collect_streamed_response(stream, thinking_out=_th)
+                thinking_text = "".join(_th)
             else:
                 resp = _oa_client.chat.completions.create(**kwargs)
                 raw = resp.choices[0].message.content or ""
+                thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
         else:
             resp = client.models.generate_content(
                 model=exam_model,
@@ -203,15 +208,15 @@ def _do_exam_call(
                     max_tokens=exam_max_tokens,
                 ),
             )
-            raw = _extract_text(resp)
+            raw, thinking_text = split_gemini_response(resp)
         api_latency_line(time.perf_counter() - _t0, label=label)
-        return raw
+        return raw, thinking_text
 
     try:
-        raw_exam = _make_exam_call(None)
+        raw_exam, exam_thinking_text = _make_exam_call(None)
         if not raw_exam:
             warn_line("Exam API: empty response — retrying once …")
-            raw_exam = _make_exam_call("exam retry")
+            raw_exam, exam_thinking_text = _make_exam_call("exam retry")
             if not raw_exam:
                 if artifact_dir is not None:
                     try:
@@ -222,14 +227,16 @@ def _do_exam_call(
                         warn_line(f"Could not save empty-response stub: {e}")
                 raise RuntimeError(f"Exam response empty after retry — {exam_model}")
         if artifact_dir is not None:
+            _exam_prompt_path = artifact_scaffold_prompt_path(artifact_dir, "exam_questions")
             save_prompt(
-                artifact_scaffold_prompt_path(artifact_dir, "exam_questions"),
+                _exam_prompt_path,
                 model=exam_model, system=fmt.system_exam_prompt(),
                 messages=[{
                     "role": "user",
                     "content": f"[PDF: {actual_exam_pdf.name}]\n\n{user_exam}",
                 }],
             )
+            save_response(_exam_prompt_path, raw_exam, thinking=exam_thinking_text)
             try:
                 p = artifact_exam_questions_raw_path(artifact_dir, fmt=fmt.artifact_ext())
                 p.parent.mkdir(parents=True, exist_ok=True)
@@ -349,7 +356,7 @@ def detect_scheme_graphics(
 
     _gfx_schema_str = json.dumps(_SCHEME_GRAPHICS_JSON_SCHEMA, indent=2)
     from xscore.prompts.loader import load_prompt as _load_prompt
-    _, _gfx_system = _load_prompt("detect_graphics_system", schema=_gfx_schema_str)
+    _, _gfx_system = _load_prompt("detect_mark_scheme_graphics_system", schema=_gfx_schema_str)
 
     _all_qnums = fmt.extract_question_numbers(scaffold_str)
     _qnum_hint = ", ".join(f'"{n}"' for n in _all_qnums)
@@ -383,6 +390,7 @@ def detect_scheme_graphics(
                 **_det_thinking_kw,
             )
             raw = resp.choices[0].message.content or '{"graphics":[]}'
+            _thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
         except Exception as _exc:
             warn_line(
                 f"Scheme graphics p{page_num}: API error  ·  "
@@ -402,7 +410,7 @@ def detect_scheme_graphics(
                 _prompt_path, model=_det_model, system=_gfx_system,
                 messages=[{"role": "user", "content": f"[PNG: p{page_num}]\n\n{_user_msg}"}],
             )
-            save_response(_prompt_path, raw)
+            save_response(_prompt_path, raw, thinking=_thinking_text)
         questions_map: dict[str, list] = {}
         for g in data.get("graphics", []):
             qnum = str(g.get("question_number", "")).strip()
@@ -538,6 +546,7 @@ def parse_mark_scheme_pages(
         _input_label = "image" if _oa_client is not None else "PDF"
         user_msg = fmt.build_scheme_user_msg(scaffold_str, page_num, n_pages, input_label=_input_label)
         _t0 = time.perf_counter()
+        thinking_text = ""
         try:
             if _oa_client is not None:
                 # OpenAI-compatible path (Qwen, Grok, etc.)
@@ -557,11 +566,14 @@ def parse_mark_scheme_pages(
                 kwargs.update(_oa_thinking_kw)
                 kwargs.update(fmt.scheme_oa_extra_kwargs())
                 if _oa_use_stream:
+                    _th: list[str] = []
                     stream = _oa_client.chat.completions.create(**kwargs, stream=True)
-                    raw = collect_streamed_response(stream)
+                    raw = collect_streamed_response(stream, thinking_out=_th)
+                    thinking_text = "".join(_th)
                 else:
                     resp = _oa_client.chat.completions.create(**kwargs)
                     raw = resp.choices[0].message.content or ""
+                    thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
                 ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
             else:
                 # Gemini native path
@@ -580,7 +592,7 @@ def parse_mark_scheme_pages(
                     ),
                 )
                 ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
-                raw = _extract_text(resp)
+                raw, thinking_text = split_gemini_response(resp)
         except Exception as _exc:
             warn_line(
                 f"Mark scheme p{page_num}: API error  ·  "
@@ -600,7 +612,7 @@ def parse_mark_scheme_pages(
                     "content": f"[PDF: {marking_scheme_pdf.name} p{page_num}]\n\n{user_msg}",
                 }],
             )
-            save_response(_prompt_path, raw or "")
+            save_response(_prompt_path, raw or "", thinking=thinking_text)
         return fmt.parse_scheme_response(raw or "")
 
     with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("PARSE_SCHEME_WORKERS", "500")))) as pool:

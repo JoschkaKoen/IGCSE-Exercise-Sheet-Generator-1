@@ -1,7 +1,7 @@
 ---
-name: parse_scheme_user
+name: parse_mark_scheme_user_xml
 version: v1
-description: User prompt for mark-scheme extraction. {scaffold} is a Python str.format placeholder; literal LaTeX braces are escaped as {{ and }}. Callers do `body.format(scaffold=...)`.
+description: Step 20 — parse_mark_scheme. User prompt for mark-scheme extraction (XML format). {scaffold} is a Python str.format placeholder; literal LaTeX braces are escaped as {{ and }}. Callers do `body.format(scaffold=...)`. Used by xscore.scaffold.scaffold_prompts.
 ---
 Return ONLY well-formed XML, no markdown fences or other text outside the XML.
 

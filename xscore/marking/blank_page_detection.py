@@ -191,16 +191,17 @@ def find_blank_exam_pages(
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
 
     raw = ""
+    thinking_text = ""
     for attempt in range(_MAX_ATTEMPTS):
         try:
-            raw = _call_blank_detection(state, prompt, model_id, thinking_tokens, max_tokens)
+            raw, thinking_text = _call_blank_detection(state, prompt, model_id, thinking_tokens, max_tokens)
             break
         except Exception:  # noqa: BLE001
             if attempt + 1 < _MAX_ATTEMPTS:
                 time.sleep(_RETRY_SLEEP_S)
                 continue
             return None
-    save_response(save_path, raw)
+    save_response(save_path, raw, thinking=thinking_text)
 
     result = _parse_blank_pages(raw)
     if result is None:
@@ -215,10 +216,10 @@ def _call_blank_detection(
     model_id: str,
     thinking_tokens: int | None,
     max_tokens: int | None,
-) -> str:
+) -> tuple[str, str]:
     if model_id.startswith("gemini"):
         from google.genai import types as gai_types
-        from eXercise.ai_client import build_gemini_thinking_config
+        from eXercise.ai_client import build_gemini_thinking_config, split_gemini_response
         cfg_kwargs: dict = {
             "max_output_tokens": max_tokens or 256,
             "response_mime_type": "application/json",
@@ -231,14 +232,15 @@ def _call_blank_detection(
             contents=[gai_types.Part.from_text(text=prompt)],
             config=gai_types.GenerateContentConfig(**cfg_kwargs),
         )
-        return resp.text or ""
+        return split_gemini_response(resp)
     from eXercise.ai_client import build_completion_kwargs, collect_streamed_response
     use_stream, kw = build_completion_kwargs(state.provider, thinking_tokens, max_tokens or 256)
     oa_prompt = prompt + '\n\nReturn JSON only with this shape: {"blank_pages": [<int>, ...]}'
     msgs = [{"role": "user", "content": oa_prompt}]
     if use_stream:
+        _th: list[str] = []
         stream = state.oa.chat.completions.create(model=model_id, messages=msgs, stream=True, **kw)
-        return collect_streamed_response(stream)
+        return collect_streamed_response(stream, thinking_out=_th), "".join(_th)
     try:
         resp = state.oa.chat.completions.create(
             model=model_id, messages=msgs,
@@ -246,7 +248,9 @@ def _call_blank_detection(
         )
     except Exception:  # noqa: BLE001
         resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw)
-    return resp.choices[0].message.content or ""
+    raw = resp.choices[0].message.content or ""
+    thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
+    return raw, thinking_text
 
 
 # ─────────── Step 15: per-page handwriting check ──────────────────────────────
@@ -270,16 +274,17 @@ def _has_handwriting(
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt_text}])
 
     raw = ""
+    thinking_text = ""
     for attempt in range(_MAX_ATTEMPTS):
         try:
-            raw = _call_handwriting(state, prompt_text, model_id, jpeg_bytes)
+            raw, thinking_text = _call_handwriting(state, prompt_text, model_id, jpeg_bytes)
             break
         except Exception:  # noqa: BLE001
             if attempt + 1 < _MAX_ATTEMPTS:
                 time.sleep(_RETRY_SLEEP_S)
                 continue
             return None
-    save_response(save_path, raw)
+    save_response(save_path, raw, thinking=thinking_text)
     return _parse_handwriting(raw)
 
 
@@ -288,9 +293,10 @@ def _call_handwriting(
     prompt_text: str,
     model_id: str,
     jpeg_bytes: bytes,
-) -> str:
+) -> tuple[str, str]:
     if model_id.startswith("gemini"):
         from google.genai import types as gai_types
+        from eXercise.ai_client import split_gemini_response
         resp = state.gai.models.generate_content(
             model=model_id,
             contents=[
@@ -303,7 +309,7 @@ def _call_handwriting(
                 response_schema=bool,
             ),
         )
-        return resp.text or ""
+        return split_gemini_response(resp)
     import base64 as _base64
     from eXercise.ai_client import build_completion_kwargs
     # Force thinking off for this tiny yes/no call (32-token cap).
@@ -321,7 +327,9 @@ def _call_handwriting(
         )
     except Exception:  # noqa: BLE001
         resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw)
-    return resp.choices[0].message.content or ""
+    raw = resp.choices[0].message.content or ""
+    thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
+    return raw, thinking_text
 
 
 # ─────────── Public entry points ──────────────────────────────────────────────

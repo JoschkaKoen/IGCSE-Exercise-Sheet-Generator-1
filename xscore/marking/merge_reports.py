@@ -663,7 +663,7 @@ def _pass2_write_tex(
         for orientation, path_fn, font_size in (
             ("landscape", artifact_student_report_tex_landscape_path,      10),
             ("portrait",  artifact_student_report_tex_portrait_path,       10),
-            ("portrait",  artifact_student_report_tex_portrait_large_path, 12),
+            ("portrait",  artifact_student_report_tex_portrait_large_path, 11),
         ):
             tex_path = path_fn(artifact_dir, s["name"])
             tex_path.write_text(

@@ -454,12 +454,12 @@ def generate_mcq_explanations_gemini_pdf(
             raw = "".join(chunks)
             if save_dir is not None:
                 from pathlib import Path as _P  # noqa: PLC0415
-                (_P(save_dir) / "mcq_expl_response.txt").write_text(raw, encoding="utf-8")
+                from .prompt_logger import save_response as _sr  # noqa: PLC0415
+                _sr(
+                    _P(save_dir) / "mcq_expl_prompt.json", raw,
+                    thinking="".join(thinking_chunks),
+                )
                 print("  Saved MCQ response: mcq_expl_response.txt")
-                if thinking_chunks:
-                    (_P(save_dir) / "mcq_expl_thinking.txt").write_text(
-                        "".join(thinking_chunks), encoding="utf-8"
-                    )
             result = _parse_explanations(raw, questions)
             if result:
                 return result
@@ -587,12 +587,12 @@ def generate_mcq_explanations(
             raw, finish = _call(attempt_content)
             if save_dir is not None:
                 from pathlib import Path as _P  # noqa: PLC0415
-                (_P(save_dir) / "mcq_expl_response.txt").write_text(raw, encoding="utf-8")
+                from .prompt_logger import save_response as _sr  # noqa: PLC0415
+                _sr(
+                    _P(save_dir) / "mcq_expl_prompt.json", raw,
+                    thinking="".join(thinking_parts),
+                )
                 print("  Saved MCQ response: mcq_expl_response.txt")
-                if thinking_parts:
-                    (_P(save_dir) / "mcq_expl_thinking.txt").write_text(
-                        "".join(thinking_parts), encoding="utf-8"
-                    )
         except Exception as exc:
             from .ai_client import is_503_error  # noqa: PLC0415
             transient = is_503_error(exc)

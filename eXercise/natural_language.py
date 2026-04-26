@@ -103,6 +103,7 @@ def _precheck_instruction(
             system=_PRECHECK_SYSTEM, messages=msgs[1:])
     use_stream, thinking_kw = build_completion_kwargs(provider, thinking_tokens, max_tokens)
     _t0 = time.monotonic()
+    thinking_text = ""
     try:
         if use_stream:
             stream = client.chat.completions.create(
@@ -111,7 +112,11 @@ def _precheck_instruction(
                 stream=True,
                 **thinking_kw,
             )
-            raw = print_streamed_response(stream, print_thinking=True, print_content=False)
+            _th: list[str] = []
+            raw = print_streamed_response(
+                stream, print_thinking=True, print_content=False, thinking_out=_th,
+            )
+            thinking_text = "".join(_th)
         else:
             completion = client.chat.completions.create(
                 model=model,
@@ -120,9 +125,13 @@ def _precheck_instruction(
                 **thinking_kw,
             )
             raw = (completion.choices[0].message.content or "").strip()
+            thinking_text = getattr(completion.choices[0].message, "reasoning_content", "") or ""
     except Exception as e:
         raise NaturalLanguageError(f"Precheck API error ({model}): {e}") from e
     print(f"  Precheck: {time.monotonic() - _t0:.1f}s")
+    if save_dir is not None:
+        from .prompt_logger import save_response as _sr  # noqa: PLC0415
+        _sr(save_dir / "nl_precheck_prompt.json", raw, thinking=thinking_text)
     try:
         data = json.loads(strip_json_fences(raw))
     except json.JSONDecodeError:
@@ -287,6 +296,7 @@ def resolve_natural_language(
     use_stream, thinking_kw = build_completion_kwargs(provider, thinking_tokens, max_tokens)
     _t0 = time.monotonic()
     response_format_demoted_err: Exception | None = None
+    thinking_text = ""
     try:
         if use_stream:
             stream = client.chat.completions.create(
@@ -295,7 +305,11 @@ def resolve_natural_language(
                 stream=True,
                 **thinking_kw,
             )
-            raw = print_streamed_response(stream, print_thinking=True, print_content=False)
+            _th: list[str] = []
+            raw = print_streamed_response(
+                stream, print_thinking=True, print_content=False, thinking_out=_th,
+            )
+            thinking_text = "".join(_th)
         else:
             try:
                 completion = client.chat.completions.create(
@@ -319,9 +333,13 @@ def resolve_natural_language(
                     **thinking_kw,
                 )
             raw = (completion.choices[0].message.content or "").strip()
+            thinking_text = getattr(completion.choices[0].message, "reasoning_content", "") or ""
     except Exception as e:
         raise NaturalLanguageError(f"API error ({model}): {e}") from e
     print(f"  NL model: {time.monotonic() - _t0:.1f}s")
+    if save_dir is not None:
+        from .prompt_logger import save_response as _sr  # noqa: PLC0415
+        _sr(save_dir / "nl_resolve_prompt.json", raw, thinking=thinking_text)
     try:
         data = json.loads(strip_json_fences(raw))
     except json.JSONDecodeError:

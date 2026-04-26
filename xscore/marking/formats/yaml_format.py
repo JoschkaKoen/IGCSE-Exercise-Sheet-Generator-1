@@ -132,39 +132,11 @@ class YamlMarkingFormat(MarkingFormat):
 
     # --- Prompt fragments ---
 
-    def section_A(self) -> str:
-        return (
-            "You are an expert exam marker. You will be shown one page of a student's exam paper "
-            "and a Blueprint YAML listing every question. The blueprint is a form: each question has "
-            "four empty fields for you to fill in — `student_answer`, `assigned_marks`, "
-            "`explanation`, and `confidence`. Fill every field for every question in the list."
-        )
+    def system_prompt_name(self) -> str:
+        return "ai_marking_system_yaml"
 
     def criterion_ref(self) -> str:
         return "`criteria` entries"
-
-    def section_C(self, rows: int, cols: int) -> str:
-        return (
-            "\n\nReturn ONLY the filled Blueprint YAML — no markdown fences, no surrounding text. "
-            "Fill in the four empty fields in each question: "
-            "`student_answer`, `assigned_marks`, `explanation`, and `confidence`. "
-            "Do not change any other content.\n"
-            "Use a block scalar (`|`) for `student_answer` and `explanation` "
-            "so that LaTeX backslashes and braces are preserved literally.\n"
-            "`assigned_marks` must be a bare integer (not a string).\n"
-            "`confidence` must be one of `high`, `medium`, or `low` (plain string, no quotes needed)."
-        )
-
-    def section_D(self) -> str:
-        return (
-            "\n\nYAML block scalars (`|`) allow literal backslashes, `{`, `}`, `#`, `$` — "
-            "no format-level escaping is needed. Write LaTeX directly.\n"
-            "• LaTeX: wrap all math in $...$  "
-            "(e.g. $v = 2\\pi r / T$, $3.0 \\times 10^4$ m/s, $\\frac{d}{v}$). "
-            "Use \\times, \\approx, \\frac{}{}, \\pi, \\rightarrow, \\% etc. "
-            "Failing to wrap math in $...$ will crash the PDF renderer.\n"
-            "• Do not append a mark tally ('— X marks.') at the end of any field."
-        )
 
     def subpage_ref(self) -> str:
         return "`subpage` entries"

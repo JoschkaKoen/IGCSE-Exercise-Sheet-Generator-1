@@ -58,7 +58,7 @@ from xscore.shared.exam_paths import (
     artifact_split_exam_pdf_path,
 )
 from xscore.shared.models import ExamLayout, Question
-from xscore.shared.prompt_logger import save_prompt
+from xscore.shared.prompt_logger import save_prompt, save_response
 from xscore.shared.terminal_ui import ok_line, tool_line, warn_line
 
 
@@ -90,7 +90,7 @@ def step16_detect_layout(
             messages=[{"role": "user", "content": _USER_LAYOUT}],
         )
 
-    layout_result, layout_elapsed, layout_raw_text, layout_error = _detect_layout(
+    layout_result, layout_elapsed, layout_raw_text, layout_thinking_text, layout_error = _detect_layout(
         client, exam_pdf, layout_model,
         thinking_tokens=layout_thinking, max_tokens=layout_max_tokens,
     )
@@ -102,6 +102,10 @@ def step16_detect_layout(
             raw_path.write_text(layout_raw_text, encoding="utf-8")
         except OSError as e:
             warn_line(f"Could not save raw exam layout: {e}")
+        save_response(
+            artifact_scaffold_prompt_path(artifact_dir, "detect_layout"),
+            layout_raw_text, thinking=layout_thinking_text,
+        )
 
     n_cells = layout_result.rows * layout_result.cols
     if layout_error is not None:

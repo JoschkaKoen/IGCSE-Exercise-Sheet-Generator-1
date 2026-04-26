@@ -1,7 +1,7 @@
 ---
-name: detect_layout_user
+name: detect_exam_layout_user
 version: v1
-description: User prompt for layout detection. Returns rows/cols/reading_order JSON.
+description: Step 16 — detect_exam_layout. User prompt for layout detection. Returns rows/cols/reading_order JSON. Used by xscore.scaffold.scaffold_prompts.
 ---
 
 Look at this exam page image. Determine how many exam sub-pages are printed on this physical page and in what reading order they appear.

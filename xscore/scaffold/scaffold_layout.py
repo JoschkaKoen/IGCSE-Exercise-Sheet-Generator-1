@@ -19,13 +19,13 @@ def _detect_layout(
     client, exam_pdf: Path, model: str,
     thinking_tokens: int | None = None,
     max_tokens: int | None = None,
-) -> tuple["_LayoutDetectSchema", float, "str | None", "str | None"]:
+) -> tuple["_LayoutDetectSchema", float, "str | None", str, "str | None"]:
     """Cheap layout detection: render first page as JPEG, ask the model for rows/cols/order.
 
     Routes to the right provider based on *model*; *client* is used only on the
     Gemini branch (Qwen/Grok build their own OpenAI-compat client internally).
 
-    Returns (result, elapsed_s, raw_response_text, error_summary).
+    Returns (result, elapsed_s, raw_response_text, thinking_text, error_summary).
     On success: error_summary is None.
     On failure: falls back to 1×1; error_summary is a one-line description; raw_response_text
     may still be set if the API succeeded but JSON parsing failed.
@@ -40,6 +40,7 @@ def _detect_layout(
     from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 
     raw_text: str | None = None
+    thinking_text: str = ""
     t0 = time.perf_counter()
     last_exc: Exception = RuntimeError("no attempts made")
     _MAX_ATTEMPTS = 4  # initial attempt + 3 retries on transient errors
@@ -47,7 +48,7 @@ def _detect_layout(
 
     if model.startswith("gemini"):
         from google.genai import types as gai_types
-        from eXercise.ai_client import build_gemini_thinking_config
+        from eXercise.ai_client import build_gemini_thinking_config, split_gemini_response
         cfg_kwargs: dict = {
             "max_output_tokens": max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
             "response_mime_type": "application/json",
@@ -68,9 +69,9 @@ def _detect_layout(
                     config=cfg,
                 )
                 elapsed = time.perf_counter() - t0
-                raw_text = resp.text
+                raw_text, thinking_text = split_gemini_response(resp)
                 result = _LayoutDetectSchema.model_validate_json(raw_text)
-                return result, elapsed, raw_text, None
+                return result, elapsed, raw_text, thinking_text, None
             except KeyboardInterrupt:
                 raise
             except Exception as exc:
@@ -97,7 +98,7 @@ def _detect_layout(
             elapsed = time.perf_counter() - t0
             return (
                 _LayoutDetectSchema(rows=1, cols=1, reading_order=[]),
-                elapsed, None,
+                elapsed, None, "",
                 f"DETECT_LAYOUT_MODEL={model} requires API key for its provider",
             )
         _oa_client, _, _provider, _, _ = _result
@@ -124,10 +125,12 @@ def _detect_layout(
         for attempt in range(_MAX_ATTEMPTS):
             try:
                 if _use_stream:
+                    _th: list[str] = []
                     _stream = _oa_client.chat.completions.create(
                         model=model, messages=_msgs, stream=True, **_kw,
                     )
-                    raw_text = collect_streamed_response(_stream)
+                    raw_text = collect_streamed_response(_stream, thinking_out=_th)
+                    thinking_text = "".join(_th)
                 else:
                     try:
                         _resp = _oa_client.chat.completions.create(
@@ -145,9 +148,10 @@ def _detect_layout(
                                 model=model, messages=_msgs, **_kw,
                             )
                     raw_text = _resp.choices[0].message.content or ""
+                    thinking_text = getattr(_resp.choices[0].message, "reasoning_content", "") or ""
                 elapsed = time.perf_counter() - t0
                 result = _LayoutDetectSchema.model_validate_json(raw_text)
-                return result, elapsed, raw_text, None
+                return result, elapsed, raw_text, thinking_text, None
             except KeyboardInterrupt:
                 raise
             except Exception as exc:
@@ -164,7 +168,7 @@ def _detect_layout(
 
     elapsed = time.perf_counter() - t0
     err_summary = str(last_exc).split("\n")[0]
-    return _LayoutDetectSchema(rows=1, cols=1, reading_order=[]), elapsed, raw_text, err_summary
+    return _LayoutDetectSchema(rows=1, cols=1, reading_order=[]), elapsed, raw_text, thinking_text, err_summary
 
 
 def _order_cells(page_rect, layout: "_LayoutDetectSchema") -> list:

@@ -5,59 +5,8 @@ from __future__ import annotations
 
 import yaml
 
+from xscore.prompts.loader import load_prompt
 from xscore.scaffold.formats.base import ScaffoldFormat
-
-
-# ---------------------------------------------------------------------------
-# YAML system / user prompts
-# ---------------------------------------------------------------------------
-
-_SYSTEM_EXAM_YAML = (
-    "You are an expert at reading Cambridge IGCSE exam papers. "
-    "Extract every question and sub-question as structured YAML."
-)
-
-_SYSTEM_SCHEME_YAML = (
-    "You are an expert at reading Cambridge IGCSE mark schemes. "
-    "Extract marking criteria as structured YAML."
-)
-
-_USER_SCHEME_YAML = """\
-Return ONLY well-formed YAML, no markdown fences or other text outside the YAML.
-
-Below is a scaffold listing every question from the exam. Fill in `correct_answer` and add \
-`criteria` entries for each question, based on the mark scheme.
-
-{scaffold}
-
-For each question:
-- `correct_answer`: always a non-empty string — the model/expected answer. \
-For multiple-choice: just the letter (e.g. "C"). \
-For questions with a single definitive answer: that answer (e.g. "930D", "00001111"). \
-For "any N from" / open-ended questions: write a brief sample answer derived from \
-the criteria (e.g. "Actuator, Printer, Speaker" or "Any three from: A, B, C"). \
-Never leave this empty or null.
-- `criteria`: a YAML list of `{{mark: "", criterion: "..."}}` entries — use a block scalar (`|`) \
-for each criterion to preserve LaTeX backslashes and braces literally.
-  Extract the COMPLETE marking scheme text — introductory sentences, bullet lists, numbered lists, \
-tables, bold text, all mark scheme text. Do not skip any text.
-
-LaTeX formatting rules for criterion text (block scalars handle backslashes literally):
-    bold text           → \\textbf{{...}}
-    unordered lists     → \\begin{{itemize}}\\item first\\item second\\end{{itemize}}
-    ordered/numbered lists → \\begin{{enumerate}}\\item first\\item second\\end{{enumerate}}
-    tables              → \\begin{{tabular}}{{col-spec}} cell & cell \\\\\\ next row \\end{{tabular}}
-    inline math         → $...$
-    Use \\newline for explicit line breaks between prose sentences only.
-    NEVER use \\newline immediately after \\begin{{...}} or before \\end{{...}}.
-    NEVER use more than one \\newline in a row.
-    List items begin directly with \\item — no \\newline between them.
-    Correct: \\begin{{itemize}}\\item first\\item second\\end{{itemize}}
-    plain prose and introductory sentences are written verbatim
-
-- For multiple_choice questions: set `correct_answer` only; `criteria: []`
-- Keep every question present — even if marks cannot be found for it
-"""
 
 
 # ---------------------------------------------------------------------------
@@ -169,10 +118,10 @@ def _common_tail_yaml(page_desc: str, subpage_r_desc: str, subpage_c_desc: str) 
 class YamlScaffoldFormat(ScaffoldFormat):
 
     def system_exam_prompt(self) -> str:
-        return _SYSTEM_EXAM_YAML
+        return load_prompt("parse_exam_pdf_system_yaml")[1]
 
     def system_scheme_prompt(self) -> str:
-        return _SYSTEM_SCHEME_YAML
+        return load_prompt("parse_mark_scheme_system_yaml")[1]
 
     def build_exam_prompt(self, layout_result, is_split: bool, n_split_pages: int) -> str:
         return _build_user_exam_prompt_yaml(layout_result, is_split, n_split_pages)
@@ -187,7 +136,7 @@ class YamlScaffoldFormat(ScaffoldFormat):
             "questions whose criteria appear on this page. For all other questions leave "
             "`correct_answer` as `\"\"` and `criteria` as `[]`."
         )
-        return _USER_SCHEME_YAML.format(scaffold=scaffold_str) + page_note
+        return load_prompt("parse_mark_scheme_user_yaml")[1].format(scaffold=scaffold_str) + page_note
 
     def build_scheme_scaffold(self, questions: list[dict]) -> str:
         """Build YAML scaffold from exam questions for the scheme AI."""

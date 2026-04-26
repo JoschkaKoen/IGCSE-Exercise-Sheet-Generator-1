@@ -95,7 +95,8 @@ def ai_image_call(
             if not raw:
                 warn_line(f"[{model_id}] returned empty content — check thinking/token budget")
             log_ai_response_debug("ai_image", model_id, raw)
-            save_response(prompt_save_path, raw)
+            thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
+            save_response(prompt_save_path, raw, thinking=thinking_text)
             return raw
         except KeyboardInterrupt:
             raise

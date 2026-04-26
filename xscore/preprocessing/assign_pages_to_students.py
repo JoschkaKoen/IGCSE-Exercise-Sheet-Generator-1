@@ -26,93 +26,15 @@ from xscore.config import COVER_PAGE_DETECTION_DPI, GEMINI_MAX_OUTPUT_TOKENS, NA
 
 from eXercise.ai_client import is_503_error
 from xscore.marking.ai_helpers import ai_image_call, page_to_jpeg_b64
+from xscore.prompts.loader import load_prompt
 from xscore.shared.exam_paths import artifact_cover_scan_prompt_path, artifact_names_prompt_path
 from xscore.shared.models import PageAssignment
-from xscore.shared.prompt_logger import save_prompt, save_response, save_thinking
-
-
-_NAME_PROMPT_FREEFORM = """\
-Look at the top of this exam page for the student's HANDWRITTEN name.
-
-Ignore all pre-printed or typed text: exam codes, stamps, watermarks, \
-school names, barcodes, or labels (e.g. printed codes, page numbers, stamps).
-
-Return ONLY a JSON object:
-{"name": "Full name as written"}
-
-If no handwritten name is visible or the name field is blank, return:
-{"name": ""}
-"""
+from xscore.shared.prompt_logger import save_prompt, save_response
 
 
 def _make_name_prompt(students: list[str]) -> str:
     roster = "\n".join(f"  - {s}" for s in students)
-    return f"""\
-Look at the top of this exam page for the student's HANDWRITTEN name.
-
-Ignore all pre-printed or typed text: exam codes, stamps, watermarks, \
-school names, barcodes, or labels (e.g. printed codes, page numbers, stamps).
-
-Here is the official student roster:
-{roster}
-
-Return ONLY a JSON object with the roster name that best matches the \
-handwritten name, spelled EXACTLY as it appears in the roster above:
-{{"name": "Full name as written"}}
-
-If no handwritten name is visible or none of the roster entries match, return:
-{{"name": ""}}
-"""
-
-
-_COVER_PAGE_TEXT_PROMPT = """\
-You are classifying an exam page as either a COVER PAGE or a QUESTION PAGE.
-
-## Cover page
-A cover page does NOT contain any exam questions. It may contain any of the following:
-- Exam title, subject name, paper code, date, or duration
-- Barcode, document reference numbers, or publisher information
-- General instructions to students, such as:
-    - "Answer all questions"
-    - "Write your answers in the spaces provided"
-    - "Use a black or dark blue pen"
-    - "Do not use a calculator"
-- Exam information such as total marks, mark allocation notes, or permitted materials
-- Student identification fields (name, candidate number, centre number, class, or date)
-
-## Question page
-A question page contains at least one actual exam question — a numbered or lettered prompt
-that asks the student to do something specific, such as:
-- "Describe how…"
-- "Calculate the…"
-- "State two reasons why…"
-- "Give one example of…"
-- A diagram or table with numbered sub-questions
-
-## Important disambiguation
-Phrases such as "Answer all questions" or "Write your answer to each question in the space
-provided" are general student instructions that appear on cover pages. They do NOT indicate
-that exam questions are present on this page.
-
-## Examples
-
-Cover page → true:
-  "Computer Science 0478/12 — 1 hour 45 minutes.
-   Write your name, centre number and candidate number in the boxes at the top of the page.
-   Answer all questions. The total mark for this paper is 75."
-
-Question page → false:
-  "1 (a) Describe two advantages of using a database rather than a flat file. [4]
-   (b) State what is meant by a primary key. [1]"
-
-## Page text
-
---- BEGIN PAGE TEXT ---
-{text}
---- END PAGE TEXT ---
-
-Is this a cover page (no actual exam questions present)?
-"""
+    return load_prompt("student_names_user_with_roster", roster=roster)[1]
 
 
 _ocr_engine = None
@@ -156,7 +78,7 @@ def is_cover_page(
         text for _, text, conf in (result or []) if float(conf) > 0.8
     )
 
-    prompt = _COVER_PAGE_TEXT_PROMPT.format(text=printed_text or "(no text extracted)")
+    prompt = load_prompt("cover_page_detection_user", text=printed_text or "(no text extracted)")[1]
 
     save_prompt(prompt_save_path, model=model_id,
                 messages=[{"role": "user", "content": prompt}])
@@ -205,10 +127,12 @@ def is_cover_page(
         _oa_prompt = prompt + '\n\nReturn JSON only with this shape: {"answer": <bool>}'
         _msgs = [{"role": "user", "content": _oa_prompt}]
         if _use_stream:
+            _th: list[str] = []
             _stream = _oa_client.chat.completions.create(
                 model=model_id, messages=_msgs, stream=True, **_kw,
             )
-            raw = collect_streamed_response(_stream)
+            raw = collect_streamed_response(_stream, thinking_out=_th)
+            thinking_text = "".join(_th)
         else:
             try:
                 _resp = _oa_client.chat.completions.create(
@@ -220,11 +144,11 @@ def is_cover_page(
                     model=model_id, messages=_msgs, **_kw,
                 )
             raw = _resp.choices[0].message.content or ""
+            thinking_text = getattr(_resp.choices[0].message, "reasoning_content", "") or ""
 
     if not raw:
         warn_line(f"[{model_id}] cover page check returned empty response")
-    save_thinking(prompt_save_path, thinking_text)
-    save_response(prompt_save_path, raw)
+    save_response(prompt_save_path, raw, thinking=thinking_text)
     return _parse_cover_bool(raw)
 
 
@@ -270,7 +194,7 @@ def check_cover_page_text(
     with fitz.open(str(pdf_path)) as doc:
         page_text = doc[page_idx].get_text().strip()
 
-    prompt = _COVER_PAGE_TEXT_PROMPT.format(text=page_text or "(no text extracted)")
+    prompt = load_prompt("cover_page_detection_user", text=page_text or "(no text extracted)")[1]
 
     save_prompt(prompt_save_path, model=model_id,
                 messages=[{"role": "user", "content": prompt}])
@@ -331,10 +255,12 @@ def check_cover_page_text(
         for _attempt in range(2):  # initial attempt + 1 retry on 503
             try:
                 if _use_stream:
+                    _th: list[str] = []
                     _stream = _oa_client.chat.completions.create(
                         model=model_id, messages=_msgs, stream=True, **_kw,
                     )
-                    raw = collect_streamed_response(_stream)
+                    raw = collect_streamed_response(_stream, thinking_out=_th)
+                    thinking_text = "".join(_th)
                 else:
                     try:
                         _resp = _oa_client.chat.completions.create(
@@ -346,6 +272,7 @@ def check_cover_page_text(
                             model=model_id, messages=_msgs, **_kw,
                         )
                     raw = _resp.choices[0].message.content or ""
+                    thinking_text = getattr(_resp.choices[0].message, "reasoning_content", "") or ""
                 break
             except KeyboardInterrupt:
                 raise
@@ -357,8 +284,7 @@ def check_cover_page_text(
 
     if not raw:
         warn_line(f"[{model_id}] cover page text check returned empty response")
-    save_thinking(prompt_save_path, thinking_text)
-    save_response(prompt_save_path, raw)
+    save_response(prompt_save_path, raw, thinking=thinking_text)
     return _parse_cover_bool(raw)
 
 
@@ -530,7 +456,7 @@ def assign_pages(
     # ------------------------------------------------------------------
     info_line("Detecting student names from scan pages …")
     workers = int(os.environ.get("NAME_WORKERS", str(min(n_blocks, 8))))
-    prompt = _make_name_prompt(students) if students else _NAME_PROMPT_FREEFORM
+    prompt = _make_name_prompt(students) if students else load_prompt("student_names_user_freeform")[1]
 
     def _ocr_and_match(args: tuple[int, Any]) -> tuple[int, str | None]:
         i, page = args

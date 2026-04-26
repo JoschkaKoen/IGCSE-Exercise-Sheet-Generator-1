@@ -427,12 +427,12 @@ def _rank_exercises_ai(
             return []
 
     if save_dir:
-        (save_dir / "ranking_response.txt").write_text(raw, encoding="utf-8")
+        from .prompt_logger import save_response as _sr  # noqa: PLC0415
+        _sr(
+            save_dir / "ranking_prompt.json", raw,
+            thinking="".join(ranking_thinking),
+        )
         print(f"  Saved raw response: ranking_response.txt", flush=True)
-        if ranking_thinking:
-            (save_dir / "ranking_thinking.txt").write_text(
-                "".join(ranking_thinking), encoding="utf-8"
-            )
     ranking = _parse_ranking(raw)
     if not ranking and raw.strip():
         _eprint("  Ranking: response was non-empty but produced no lines after parsing.")

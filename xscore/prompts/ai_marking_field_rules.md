@@ -1,7 +1,7 @@
 ---
-name: mark_page_field_rules
+name: ai_marking_field_rules
 version: v1
-description: Marking system prompt — field rules (Section B). Used by xscore.marking.mark_page._build_marking_system_prompt. Placeholder ${criterion_ref} is filled by the marking format class.
+description: Step 23 — ai_marking. System prompt fragment for field rules (Section B). Used by xscore.marking.mark_page._build_marking_system_prompt as the $field_rules substitution into ai_marking_system_<fmt>.md. Placeholder ${criterion_ref} is filled by the marking format class.
 ---
 Fill each field as follows:
 1. student_answer — transcribe exactly what the student wrote:

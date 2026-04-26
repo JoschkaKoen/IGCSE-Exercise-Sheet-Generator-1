@@ -73,23 +73,18 @@ def _build_marking_system_prompt(
     layout = blueprint.get("layout") or {"rows": 1, "cols": 1}
     rows, cols = int(layout.get("rows", 1)), int(layout.get("cols", 1))
 
-    # --- Section A: role + task ---
-    system_prompt = fmt.section_A()
-
-    # --- Section B: field rules ---
-    _, _b = load_prompt("mark_page_field_rules", criterion_ref=fmt.criterion_ref())
-    system_prompt += "\n\n" + _b.rstrip("\n")
-
-    # --- Section C: output format ---
-    system_prompt += fmt.section_C(rows, cols)
-
-    # --- Section D: format validity + LaTeX ---
-    system_prompt += fmt.section_D()
+    # --- Sections A + B + C + D: role/task, field rules, output format, format validity ---
+    # Per-format .md (ai_marking_system_<fmt>.md) embeds A, C, D around a $field_rules
+    # placeholder; ai_marking_field_rules.md (B) is loaded first with $criterion_ref so
+    # the assembled system prompt is byte-identical to the pre-consolidation 4-method append.
+    _, _b = load_prompt("ai_marking_field_rules", criterion_ref=fmt.criterion_ref())
+    _, system_prompt = load_prompt(fmt.system_prompt_name(), field_rules=_b.rstrip("\n"))
+    system_prompt = system_prompt.rstrip("\n")
 
     # --- Section E: grid navigation (only for multi-subpage layouts) ---
     if rows > 1 or cols > 1:
         _, _e = load_prompt(
-            "mark_page_grid",
+            "ai_marking_grid",
             rows=rows,
             cols=cols,
             subpage_ref=fmt.subpage_ref(),
@@ -107,12 +102,12 @@ def _build_marking_system_prompt(
             _idx[_qn] = _idx.get(_qn, 0) + 1
             _label = f"image {_idx[_qn]}" if _seen[_qn] > 1 else "image"
             _lines.append(f"  • Question {_qn} expected answer → {_label}")
-        _, _f = load_prompt("mark_page_graphics", graphics_lines="\n".join(_lines))
+        _, _f = load_prompt("ai_marking_graphics", graphics_lines="\n".join(_lines))
         system_prompt += "\n\n" + _f.rstrip("\n")
 
     # --- Section G: continuation pages ---
     if has_continuation:
-        _, _g = load_prompt("mark_page_continuation")
+        _, _g = load_prompt("ai_marking_continuation")
         system_prompt += "\n\n" + _g.rstrip("\n")
 
     return system_prompt

@@ -1,7 +1,7 @@
 ---
-name: detect_graphics_user
+name: detect_mark_scheme_graphics_user
 version: v1
-description: User prompt for the per-page mark-scheme graphics detector (step 18).
+description: Step 19 — detect_mark_scheme_graphics. User prompt for the per-page mark-scheme graphics detector. Used by xscore.scaffold.scaffold_prompts.
 ---
 
 Identify diagrams, figures, and illustrations on this page — things a human would describe as 'a drawing' or 'a figure'. This includes circuit diagrams, logic gate diagrams, network diagrams, ray diagrams, graphs with plotted data or axes, labeled physical setups, geometric figures, flowcharts, and maps.

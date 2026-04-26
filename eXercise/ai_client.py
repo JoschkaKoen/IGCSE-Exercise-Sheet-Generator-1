@@ -615,13 +615,16 @@ def get_api_key_env_name(provider: str | None = None) -> str:
     return pdef.api_key_env
 
 
-def collect_streamed_response(stream: Any) -> str:
+def collect_streamed_response(
+    stream: Any, *, thinking_out: list[str] | None = None
+) -> str:
     """Consume a streaming chat completion and return the answer text.
 
-    Skips ``delta.reasoning_content`` (the thinking/scratchpad) and
-    accumulates only ``delta.content`` (the final answer).  Works for any
-    provider that returns a streaming completion, but is specifically
-    designed for Qwen's thinking-mode responses.
+    Accumulates ``delta.content`` (the final answer). When *thinking_out* is
+    a list, ``delta.reasoning_content`` chunks (the thinking/scratchpad) are
+    appended to it; otherwise they are discarded. Works for any provider
+    that returns a streaming completion; specifically designed for Qwen's
+    thinking-mode responses.
     """
     parts: list[str] = []
     for chunk in stream:
@@ -630,7 +633,31 @@ def collect_streamed_response(stream: Any) -> str:
         delta = chunk.choices[0].delta
         if delta.content:
             parts.append(delta.content)
+        if thinking_out is not None:
+            r = getattr(delta, "reasoning_content", None)
+            if r:
+                thinking_out.append(r)
     return "".join(parts).strip()
+
+
+def split_gemini_response(resp: Any) -> tuple[str, str]:
+    """Return ``(answer_text, thinking_text)`` from a native Gemini response.
+
+    Walks ``resp.candidates[*].content.parts[*]`` separating ``part.thought``
+    parts from answer parts. Falls back to ``resp.text`` for ``answer_text``
+    when no parts are seen.
+    """
+    thinking_parts: list[str] = []
+    answer_parts: list[str] = []
+    for candidate in (getattr(resp, "candidates", None) or []):
+        for part in getattr(getattr(candidate, "content", None), "parts", None) or []:
+            text = getattr(part, "text", None) or ""
+            if getattr(part, "thought", False):
+                thinking_parts.append(text)
+            else:
+                answer_parts.append(text)
+    answer = "".join(answer_parts) or (getattr(resp, "text", "") or "")
+    return answer, "".join(thinking_parts)
 
 
 def build_gemini_thinking_config(thinking_tokens: int | None) -> Any:

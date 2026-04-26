@@ -134,7 +134,7 @@ def _build_client_state(model_id: str) -> _ClientState | str:
     return _ClientState(gai=None, oa=oa, provider=provider)
 
 
-def _call_gemini(state: _ClientState, prompt: str, model_id: str, thinking: int | None, max_tok: int | None) -> str:
+def _call_gemini(state: _ClientState, prompt: str, model_id: str, thinking: int | None, max_tok: int | None) -> tuple[str, str]:
     from eXercise.ai_client import build_gemini_thinking_config
     from google.genai import types as gai_types
     cfg_kwargs: dict = {
@@ -148,16 +148,18 @@ def _call_gemini(state: _ClientState, prompt: str, model_id: str, thinking: int 
         contents=[gai_types.Part.from_text(text=prompt)],
         config=gai_types.GenerateContentConfig(**cfg_kwargs),
     )
-    return resp.text or ""
+    from eXercise.ai_client import split_gemini_response
+    return split_gemini_response(resp)
 
 
-def _call_openai_compat(state: _ClientState, prompt: str, model_id: str, thinking: int | None, max_tok: int | None) -> str:
+def _call_openai_compat(state: _ClientState, prompt: str, model_id: str, thinking: int | None, max_tok: int | None) -> tuple[str, str]:
     from eXercise.ai_client import build_completion_kwargs, collect_streamed_response
     use_stream, kw = build_completion_kwargs(state.provider, thinking, max_tok or 2048)
     msgs = [{"role": "user", "content": prompt}]
     if use_stream:
+        _th: list[str] = []
         stream = state.oa.chat.completions.create(model=model_id, messages=msgs, stream=True, **kw)
-        return collect_streamed_response(stream)
+        return collect_streamed_response(stream, thinking_out=_th), "".join(_th)
     try:
         resp = state.oa.chat.completions.create(
             model=model_id, messages=msgs,
@@ -165,7 +167,9 @@ def _call_openai_compat(state: _ClientState, prompt: str, model_id: str, thinkin
         )
     except Exception:  # noqa: BLE001
         resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw)
-    return resp.choices[0].message.content or ""
+    raw = resp.choices[0].message.content or ""
+    thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
+    return raw, thinking_text
 
 
 def _call_model_with_retry(
@@ -174,19 +178,21 @@ def _call_model_with_retry(
     model_id: str,
     thinking: int | None,
     max_tok: int | None,
-) -> tuple[str, str | None]:
-    """Return ``(raw_text, error_message)``. ``raw_text`` is "" on permanent failure."""
+) -> tuple[str, str, str | None]:
+    """Return ``(raw_text, thinking_text, error_message)``. ``raw_text`` is "" on permanent failure."""
     last_exc: str | None = None
     for attempt in range(_MAX_ATTEMPTS):
         try:
             if model_id.startswith("gemini"):
-                return _call_gemini(state, prompt, model_id, thinking, max_tok), None
-            return _call_openai_compat(state, prompt, model_id, thinking, max_tok), None
+                raw, thinking_text = _call_gemini(state, prompt, model_id, thinking, max_tok)
+            else:
+                raw, thinking_text = _call_openai_compat(state, prompt, model_id, thinking, max_tok)
+            return raw, thinking_text, None
         except Exception as exc:  # noqa: BLE001
             last_exc = f"{type(exc).__name__}: {exc}"
             if attempt + 1 < _MAX_ATTEMPTS:
                 time.sleep(_RETRY_SLEEP_S)
-    return "", last_exc
+    return "", "", last_exc
 
 
 # ─────────── Response validation ─────────────────────────────────────────────
@@ -381,9 +387,9 @@ def check_page_order(
             if artifact_dir else None
         )
         save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
-        raw, err = _call_model_with_retry(client_state, prompt, model_id, thinking, max_tok)
+        raw, thinking_text, err = _call_model_with_retry(client_state, prompt, model_id, thinking, max_tok)
         if save_path is not None and raw:
-            save_response(save_path, raw)
+            save_response(save_path, raw, thinking=thinking_text)
         if not raw:
             reason = f"model call failed: {err}" if err else "model returned empty response"
             return sd["name"], PageOrderStatus.INCONCLUSIVE, reason, None

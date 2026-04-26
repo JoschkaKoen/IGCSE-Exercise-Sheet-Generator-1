@@ -62,37 +62,11 @@ class JsonMarkingFormat(MarkingFormat):
 
     # --- Prompt fragments ---
 
-    def section_A(self) -> str:
-        return (
-            "You are an expert exam marker. You will be shown one page of a student's exam paper "
-            "and a Blueprint JSON listing every question. Your response must match the "
-            "response schema: a JSON object with a `questions` array where each entry has "
-            "`number`, `subpage_row`, `subpage_col`, `student_answer`, `assigned_marks` (int), "
-            "`explanation`, and `confidence`."
-        )
+    def system_prompt_name(self) -> str:
+        return "ai_marking_system_json"
 
     def criterion_ref(self) -> str:
         return "`criteria` entries"
-
-    def section_C(self, rows: int, cols: int) -> str:
-        return (
-            "\n\nReturn ONLY a JSON object matching the response schema — no markdown fences. "
-            "The `questions` array must contain one entry per question with: "
-            "`number`, `subpage_row`, `subpage_col`, "
-            "`student_answer` (string), `assigned_marks` (integer), `explanation` (string), "
-            "`confidence` (string: `high`, `medium`, or `low`). "
-            "Do not include any other keys."
-        )
-
-    def section_D(self) -> str:
-        return (
-            "\n\nJSON string escaping for LaTeX: use `\\\\` for a single backslash. "
-            "Examples: `\"\\\\textbf{word}\"` → renders \\textbf{word}; "
-            "`\"$v = 2\\\\pi r / T$\"` → renders $v = 2\\pi r / T$. "
-            "Use `\\\\newline` for line breaks in explanations. "
-            "Wrap all math in $...$. "
-            "Do not append a mark tally ('— X marks.') at the end of any field."
-        )
 
     def subpage_ref(self) -> str:
         return "`subpage` entries"
