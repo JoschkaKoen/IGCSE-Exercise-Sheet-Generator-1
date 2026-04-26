@@ -29,12 +29,10 @@ from pathlib import Path
 from eXercise.ai_client import make_gemini_native_client
 
 from xscore.scaffold.formats import get_scaffold_format
-from xscore.scaffold.scaffold_gemini import (
-    _do_exam_call,
-    assign_questions_to_pages,
-    detect_scheme_graphics,
-    parse_mark_scheme_pages,
-)
+from xscore.scaffold.scaffold_step18_exam import _do_exam_call
+from xscore.scaffold.scaffold_step19_graphics import detect_scheme_graphics
+from xscore.scaffold.scaffold_step20_pages import assign_questions_to_pages
+from xscore.scaffold.scaffold_step21_scheme import parse_mark_scheme_pages
 from xscore.scaffold.scaffold_layout import (
     _detect_layout,
     _save_layout_artifact,

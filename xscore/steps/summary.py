@@ -6,7 +6,7 @@ import json
 import time
 
 from eXercise.ai_client import get_run_usage
-from xscore.marking.merge_reports import load_student_results_from_reports
+from xscore.marking.report_xml import load_student_results_from_reports
 from xscore.shared.timing_report import _step_label, print_step_durations, write_timing_report
 from xscore.pipeline.cost_table import print_cost_table, print_per_step_cost_table
 from xscore.shared.cost_report import compute_cost

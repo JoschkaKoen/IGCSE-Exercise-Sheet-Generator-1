@@ -1,0 +1,203 @@
+"""Step 19 — Detect graphics (figures, diagrams) on each mark scheme page.
+
+Per-page parallel vision call. OpenAI-compatible only (no Gemini path today).
+Skipped entirely if ``DETECT_SCHEME_GRAPHICS_MODEL`` is unset.
+"""
+
+from __future__ import annotations
+
+import base64 as _base64
+import json
+import os
+import time
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+
+from eXercise.ai_client import build_completion_kwargs, make_ai_client
+from eXercise.api_retry import retry_api_call
+from xscore.scaffold.scaffold_prompts import (
+    _SCHEME_GRAPHICS_JSON_SCHEMA, _USER_GRAPHICS,
+)
+from xscore.scaffold.scaffold_qtree import _norm_qnum
+from xscore.scaffold.scaffold_scheme_pdf import (
+    _rasterize_scheme_pages, split_mark_scheme_into_pages,
+)
+from xscore.scaffold.scaffold_xml import _merge_scheme_results
+from xscore.shared.exam_paths import (
+    artifact_mark_scheme_graphics_dir,
+    artifact_mark_scheme_graphics_json_path,
+    artifact_scaffold_prompt_path,
+)
+from xscore.shared.prompt_logger import save_prompt, save_response
+from xscore.shared.terminal_ui import (
+    format_duration, info_line, ok_line, warn_line,
+)
+
+
+def detect_scheme_graphics(
+    marking_scheme_pdf: Path,
+    scaffold_str: str,
+    *,
+    artifact_dir: "Path | None",
+    fmt=None,
+) -> tuple[dict, list[dict] | None]:
+    """Detect graphics in the mark scheme via vision API.
+
+    Splits the mark scheme into per-page PDFs (always — needed by step 19 too)
+    then, if ``DETECT_SCHEME_GRAPHICS_MODEL`` is set, runs graphics detection on
+    each rasterized page in parallel.
+
+    Returns ``(graphics_by_qnum, graphics_questions)`` where:
+      * ``graphics_by_qnum`` is ``{normalised_qnum: [{page, x0, y0, x1, y1}, ...]}``
+        — empty when graphics detection is skipped.
+      * ``graphics_questions`` is the per-question list used by downstream artifact
+        extraction — ``None`` when detection was skipped (no model configured),
+        ``[]`` when run but no graphics found.
+
+    Side effects: writes per-page PDFs to step-18's pages dir, plus graphics JSON
+    and extracted graphic images when graphics are detected.
+    """
+    if fmt is None:
+        from xscore.scaffold.formats.xml_format import XmlScaffoldFormat
+        fmt = XmlScaffoldFormat()
+
+    n_pages, page_paths, _tmp_dir = split_mark_scheme_into_pages(marking_scheme_pdf, artifact_dir)
+
+    _gfx_client_result = make_ai_client(model_env="DETECT_SCHEME_GRAPHICS_MODEL")
+    if _gfx_client_result is None:
+        if _tmp_dir is not None:
+            import shutil
+            shutil.rmtree(_tmp_dir, ignore_errors=True)
+        return {}, None
+
+    page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
+
+    _gfx_schema_str = json.dumps(_SCHEME_GRAPHICS_JSON_SCHEMA, indent=2)
+    from xscore.prompts.loader import load_prompt as _load_prompt
+    _, _gfx_system = _load_prompt(
+        "detect_mark_scheme_graphics", section="system", schema=_gfx_schema_str,
+    )
+
+    _all_qnums = fmt.extract_question_numbers(scaffold_str)
+    _qnum_hint = ", ".join(f'"{n}"' for n in _all_qnums)
+
+    _det_client, _det_model, _det_provider, _det_thinking, _det_max_tok = _gfx_client_result
+    _, _det_thinking_kw = build_completion_kwargs(
+        _det_provider, _det_thinking, _det_max_tok
+    )
+    info_line(f"Detecting graphics ({_det_model}) …")
+
+    def _detect_graphics_page(page_num: int) -> dict:
+        b64 = _base64.b64encode(page_pngs[page_num]).decode()
+        _t0 = time.perf_counter()
+        _hint = (
+            f"Valid question numbers in this mark scheme: {_qnum_hint}\n"
+            "Return exactly one of these as the question_number for each graphic.\n\n"
+        ) if _qnum_hint else ""
+        _user_msg = _hint + _USER_GRAPHICS
+
+        def _do_call() -> tuple[str, str]:
+            _resp = _det_client.chat.completions.create(
+                model=_det_model,
+                messages=[
+                    {"role": "system", "content": _gfx_system},
+                    {"role": "user", "content": [
+                        {"type": "image_url",
+                         "image_url": {"url": f"data:image/png;base64,{b64}"}},
+                        {"type": "text", "text": _user_msg},
+                    ]},
+                ],
+                response_format={"type": "json_object"},
+                **_det_thinking_kw,
+            )
+            return (
+                _resp.choices[0].message.content or '{"graphics":[]}',
+                getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+            )
+
+        try:
+            raw, _thinking_text = retry_api_call(
+                _do_call, label=f"Scheme graphics p{page_num}",
+            )
+        except Exception as _exc:
+            warn_line(
+                f"Scheme graphics p{page_num}: giving up after retries  ·  "
+                f"{format_duration(time.perf_counter() - _t0)}  —  {_exc}"
+            )
+            return {"questions": []}
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
+            return {"questions": []}
+        if artifact_dir is not None:
+            _prompt_path = artifact_scaffold_prompt_path(
+                artifact_dir, f"mark_scheme_graphics_detect_p{page_num}"
+            )
+            save_prompt(
+                _prompt_path, model=_det_model, system=_gfx_system,
+                messages=[{"role": "user", "content": f"[PNG: p{page_num}]\n\n{_user_msg}"}],
+            )
+            save_response(_prompt_path, raw, thinking=_thinking_text)
+        questions_map: dict[str, list] = {}
+        for g in data.get("graphics", []):
+            qnum = str(g.get("question_number", "")).strip()
+            bbox = g.get("bbox") or []
+            if not qnum or len(bbox) != 4:
+                continue
+            x_min, y_min, x_max, y_max = bbox
+            questions_map.setdefault(qnum, []).append({
+                "page": page_num,
+                "x0": x_min / 1000.0, "y0": y_min / 1000.0,
+                "x1": x_max / 1000.0, "y1": y_max / 1000.0,
+            })
+        _qnums_str = (
+            f"  q{', q'.join(questions_map.keys())}"
+            if questions_map else ""
+        )
+        ok_line(f"p{page_num}{_qnums_str}  ·  {format_duration(time.perf_counter() - _t0)}")
+        return {
+            "questions": [
+                {"number": qnum, "correct_answer": None, "mark_scheme": [], "graphics": gfx}
+                for qnum, gfx in questions_map.items()
+            ]
+        }
+
+    with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("SCHEME_GRAPHICS_WORKERS", "500")))) as pool:
+        graphics_page_results = list(pool.map(_detect_graphics_page, range(1, n_pages + 1)))
+
+    _graphics_merged = _merge_scheme_results(graphics_page_results)
+    _graphics_by_qnum = {
+        _norm_qnum(q["number"]): q["graphics"]
+        for q in _graphics_merged.get("questions", [])
+        if q.get("graphics")
+    }
+    _n_graphics = sum(len(g) for g in _graphics_by_qnum.values())
+
+    if artifact_dir is not None:
+        try:
+            p = artifact_mark_scheme_graphics_json_path(artifact_dir)
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(
+                json.dumps(_graphics_merged, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+        except OSError as e:
+            warn_line(f"Could not save mark-scheme graphics JSON: {e}")
+
+    if artifact_dir is not None and _n_graphics:
+        from xscore.scaffold.scaffold_xml import _extract_scheme_graphics
+        _graphics_margin = float(os.environ.get("SCHEME_GRAPHICS_MARGIN", "0.01"))
+        _gfx_dpi = int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300"))
+        try:
+            _extract_scheme_graphics(
+                _graphics_merged.get("questions", []),
+                marking_scheme_pdf,
+                artifact_mark_scheme_graphics_dir(artifact_dir),
+                dpi=_gfx_dpi,
+                margin=_graphics_margin,
+            )
+        except Exception:
+            warn_line("Mark scheme: graphic extraction failed")
+
+    return _graphics_by_qnum, _graphics_merged.get("questions", [])

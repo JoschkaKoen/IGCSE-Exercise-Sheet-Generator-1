@@ -280,7 +280,6 @@ def autorotate_phase(
 
 
 def deskew_phase(
-    folder: Path,
     artifact_dir: Path,
     dpi: int,
     *,

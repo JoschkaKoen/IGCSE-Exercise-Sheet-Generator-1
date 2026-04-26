@@ -87,7 +87,7 @@ def step_06_rotate(ctx: _Ctx) -> None:
 def step_07_deskew(ctx: _Ctx) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
     t0 = time.perf_counter()
-    ctx.cleaned_pdf = deskew_phase(ctx.folder, ctx.artifact_dir, ctx.instruction.dpi)
+    ctx.cleaned_pdf = deskew_phase(ctx.artifact_dir, ctx.instruction.dpi)
     p = ctx.artifact_dir / _STEP_07 / "summary.json"
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(

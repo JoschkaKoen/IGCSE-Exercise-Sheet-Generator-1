@@ -174,7 +174,7 @@ def run_full_pipeline(
     on_line("Step 7 — Deskewing…")
 
     def _deskew() -> Path:
-        return deskew_phase(folder, artifact_dir, effective_dpi)
+        return deskew_phase(artifact_dir, effective_dpi)
 
     cleaned_pdf: Path = _step(7, _deskew)
     on_line("Step 7 — Cleaned scan ready.")

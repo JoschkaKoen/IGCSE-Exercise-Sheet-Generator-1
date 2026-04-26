@@ -219,7 +219,7 @@ def _record_step_token_delta(
         di = ac["input"]  - bc.get("input", 0)
         do = ac["output"] - bc.get("output", 0)
         dt = ac.get("thinking", 0) - bc.get("thinking", 0)
-        if di or do:
+        if di or do or dt:
             delta[model] = {"input": di, "output": do, "thinking": dt}
     if delta:
         ctx.step_token_usage[step_name] = delta

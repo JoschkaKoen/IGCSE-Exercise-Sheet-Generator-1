@@ -388,20 +388,29 @@ class _UsageTrackingStream:
         self._recorded = False
 
     def __iter__(self):
-        for chunk in self._stream:
-            if not chunk.choices and not self._recorded:
+        # Record once when iteration ends (normal exhaustion or early
+        # termination via GeneratorExit). Some providers send usage on a
+        # trailing no-choices chunk (OpenAI canon); others piggyback it on
+        # the final content chunk. Track the latest non-None usage seen and
+        # commit it in finally — works for both shapes and never double-records.
+        last_usage = None
+        try:
+            for chunk in self._stream:
                 u = getattr(chunk, "usage", None)
-                if u and self._model:
-                    record_usage(
-                        self._model,
-                        getattr(u, "prompt_tokens", 0) or 0,
-                        getattr(u, "completion_tokens", 0) or 0,
-                        _extract_reasoning_tokens(u),
-                    )
-                    if self._t0 is not None:
-                        record_call(self._model, time.perf_counter() - self._t0)
-                    self._recorded = True
-            yield chunk
+                if u is not None:
+                    last_usage = u
+                yield chunk
+        finally:
+            if last_usage is not None and self._model and not self._recorded:
+                record_usage(
+                    self._model,
+                    getattr(last_usage, "prompt_tokens", 0) or 0,
+                    getattr(last_usage, "completion_tokens", 0) or 0,
+                    _extract_reasoning_tokens(last_usage),
+                )
+                if self._t0 is not None:
+                    record_call(self._model, time.perf_counter() - self._t0)
+                self._recorded = True
 
     def __enter__(self) -> "_UsageTrackingStream":
         if hasattr(self._stream, "__enter__"):
@@ -430,6 +439,15 @@ class _TrackedCompletions:
                 if s is not None:
                     kwargs["seed"] = s
         is_stream = kwargs.get("stream", False)
+        if is_stream:
+            # OpenAI-compat providers (DashScope/Qwen, Gemini OpenAI-compat,
+            # OpenAI, xAI) only emit the final usage chunk when include_usage
+            # is opted into. Without it, _UsageTrackingStream sees no usage
+            # and silently records nothing — which is how MARKING_MODEL with
+            # thinking>0 lost its tokens from step 32's cost report.
+            opts = dict(kwargs.get("stream_options") or {})
+            opts.setdefault("include_usage", True)
+            kwargs["stream_options"] = opts
         t0 = time.perf_counter()
         resp = self._c.create(*args, **kwargs)
         if is_stream:

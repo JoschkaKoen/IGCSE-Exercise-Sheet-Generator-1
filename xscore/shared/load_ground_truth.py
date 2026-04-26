@@ -102,8 +102,10 @@ def load_ground_truth(
     if not lines:
         return None
 
-    # Determine column separator (tab-separated takes priority)
-    sep = "\t" if any("\t" in ln for ln in lines) else None
+    # Determine column separator: tabs win only if at least half the lines contain
+    # tabs. Avoids a single stray tab anywhere in a space-separated file flipping
+    # the whole parse to tab mode.
+    sep = "\t" if sum(1 for ln in lines if "\t" in ln) * 2 >= len(lines) else None
 
     def split_line(line: str) -> list[str]:
         return [t.strip() for t in (line.split(sep) if sep else line.split()) if t.strip()]
