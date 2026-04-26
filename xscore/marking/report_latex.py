@@ -62,6 +62,82 @@ _ALLTT_BLOCK_RE = re.compile(r"\\begin\{alltt\}.*?\\end\{alltt\}", re.DOTALL)
 _ALLTT_PLACEHOLDER_RE = re.compile(r"\x00ALLTT(\d+)\x00")
 
 
+# AI sometimes emits LaTeX math syntax outside ``$...$`` despite the prompt
+# warnings. xelatex then errors ("Missing \cr inserted", "Missing $ inserted",
+# "Undefined control sequence") and crashes the whole student report.
+# ``_wrap_loose_math`` is the render-time safety net: it finds maximal "math
+# runs" outside existing ``$...$`` regions and, if a run contains a math
+# indicator (``^``, ``_``, or a known math-only command), wraps it in dollars.
+#
+# Text-mode commands like ``\textbf{...}``, ``\newline``, ``\begin{itemize}`` are
+# stashed first so they cannot extend a math run or have their brace arguments
+# misread as standalone math.
+_TEXT_CMDS = (
+    r"newline|begin|end|item|textbf|textit|texttt|textsf|textrm"
+    r"|emph|hline|cr|noindent|par|textcolor|textbullet|textbackslash"
+    r"|textasciicircum|textasciitilde|textless|textgreater"
+)
+_MATH_CMDS = (
+    r"alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa"
+    r"|lambda|mu|nu|xi|omicron|pi|rho|sigma|tau|upsilon|phi|chi|psi|omega"
+    r"|varepsilon|vartheta|varphi|varpi|varrho|varsigma"
+    r"|Alpha|Beta|Gamma|Delta|Epsilon|Zeta|Eta|Theta|Iota|Kappa"
+    r"|Lambda|Mu|Nu|Xi|Omicron|Pi|Rho|Sigma|Tau|Upsilon|Phi|Chi|Psi|Omega"
+    r"|times|cdot|div|pm|mp|neq|leq|geq|approx|equiv|propto|sim|simeq|cong"
+    r"|rightarrow|leftarrow|to|mapsto|Rightarrow|Leftarrow"
+    r"|Leftrightarrow|leftrightarrow"
+    r"|sin|cos|tan|cot|sec|csc|sinh|cosh|tanh|log|ln|exp"
+    r"|sqrt|frac|dfrac|tfrac|sum|prod|int|oint|lim|max|min|inf|sup|binom"
+    r"|infty|emptyset|in|notin|subset|supset|cup|cap"
+    r"|forall|exists|nabla|partial"
+    r"|angle|perp|parallel|circ|deg|prime|dagger|degree"
+    r"|text|mathrm|mathbf|mathit|mathcal|mathbb|mathsf|mathtt|operatorname"
+    r"|quad|qquad"
+)
+# Brace group, up to 2 levels of nesting (handles `\frac{a}{b}`, `^{x_{1}}`).
+_BRACE = r"\{(?:[^{}]|\{[^{}]*\})*\}"
+
+_TEXT_CMD_RE = re.compile(rf"\\(?:{_TEXT_CMDS})\b(?:{_BRACE})*")
+_DOLLAR_SPLIT_RE = re.compile(r"((?<!\\)\$[^$\n]*(?<!\\)\$)")
+_MATH_RUN_RE = re.compile(
+    rf"""
+    (?:
+        \\[A-Za-z]+(?:{_BRACE})*    # \cmd{{args}} (text-mode ones already stashed)
+      | [\^_]{_BRACE}               # ^{{x}} or _{{x}}
+      | [\^_][A-Za-z0-9]            # ^x or _x (single char)
+      | {_BRACE}                    # bare brace group
+      | [A-Za-z0-9+\-*/=().,]       # alphanum / operators
+    )+
+    """,
+    re.VERBOSE,
+)
+_MATH_INDICATOR_RE = re.compile(rf"[\^_]|\\(?:{_MATH_CMDS})\b")
+_STASH_RE = re.compile(r"\x00TXT(\d+)\x00")
+
+
+def _wrap_loose_math(text: str) -> str:
+    stashed: list[str] = []
+
+    def _stash(m: re.Match) -> str:
+        stashed.append(m.group(0))
+        return f"\x00TXT{len(stashed) - 1}\x00"
+
+    text = _TEXT_CMD_RE.sub(_stash, text)
+    parts = _DOLLAR_SPLIT_RE.split(text)
+    for i, part in enumerate(parts):
+        if i % 2 == 0:
+            parts[i] = _MATH_RUN_RE.sub(_maybe_wrap_math, part)
+    text = "".join(parts)
+    return _STASH_RE.sub(lambda m: stashed[int(m.group(1))], text)
+
+
+def _maybe_wrap_math(m: re.Match) -> str:
+    run = m.group(0)
+    if _MATH_INDICATOR_RE.search(run):
+        return f"${run.rstrip()}$"
+    return run
+
+
 def _protect_alltt(text: str, transform) -> str:
     """Run *transform* on parts of *text* outside ``\\begin{alltt}…\\end{alltt}``.
 
@@ -108,7 +184,12 @@ def _ai_cell(text: str) -> str:
         # legitimately part of LaTeX commands. Math ($, \, {, }) is left alone
         # so the AI can still emit `\frac{1}{2}` etc.
         t = re.sub(r"(?<!\\)%", r"\\%", t)         # bare % starts a LaTeX comment
+        # Bare `\\` inside a p{} cell terminates the longtable row and shifts
+        # subsequent content into the wrong columns. AIs sometimes emit `\\`
+        # to mean a line break — convert it to one.
+        t = re.sub(r"\\\\\s*", "\n", t)
         t = _escape_bare_amp_outside_tabular(t)    # preserve & inside \begin{tabular}
+        t = _wrap_loose_math(t)                    # must precede \n → \newline
         t = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", t)
         t = t.replace("\n", "\\newline ")
         # \newline adjacent to block-level environments is invalid LaTeX

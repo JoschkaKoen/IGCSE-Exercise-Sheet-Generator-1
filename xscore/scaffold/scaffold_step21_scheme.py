@@ -20,7 +20,8 @@ from google.genai import types as gai_types
 
 from eXercise.ai_client import (
     build_completion_kwargs, collect_streamed_response,
-    gemini_pdf_part, make_ai_client, split_gemini_response,
+    gemini_pdf_part, make_ai_client, make_gemini_native_client,
+    split_gemini_response,
 )
 from eXercise.api_retry import retry_api_call
 from xscore.scaffold.scaffold_api import _finish_reason, _make_gen_config
@@ -111,6 +112,11 @@ def parse_mark_scheme_pages(
         _input_label = "image" if _oa_client is not None else "PDF"
         user_msg = fmt.build_scheme_user_msg(scaffold_str, page_num, n_pages, input_label=_input_label)
         resp_for_finish: object | None = None
+        # Per-worker Gemini client so each thread has its own httpx pool — avoids
+        # stale keepalive sockets carried over from earlier Gemini steps.
+        page_client = client
+        if _oa_client is None:
+            page_client = make_gemini_native_client(deterministic=True) or client
 
         def _do_call() -> tuple[str, str, object | None]:
             if _oa_client is not None:
@@ -144,11 +150,11 @@ def parse_mark_scheme_pages(
                     None,
                 )
             # Gemini native path — inline PDF bytes per page
-            _resp = client.models.generate_content(
+            _resp = page_client.models.generate_content(
                 model=scheme_model,
                 contents=[
                     gemini_pdf_part(
-                        client, page_path_by_num[page_num],
+                        page_client, page_path_by_num[page_num],
                         label=f"scheme p{page_num}",
                     ),
                     gai_types.Part.from_text(text=user_msg),

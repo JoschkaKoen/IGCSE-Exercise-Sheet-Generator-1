@@ -68,9 +68,10 @@ def _scan_page_texts(
     # RapidOCR's ONNX inference uses all cores for one call, but Python-side
     # preprocessing between detection/classification/recognition models is
     # single-threaded — so parallel callers help fill those gaps up to ~cpu_count.
-    # Beyond that it's pure memory bloat. Cap at 8 to bound peak in-flight
-    # pixmap + PNG-bytes + OCR-buffer memory; PAGE_ORDER_OCR_WORKERS overrides.
-    default_ocr_workers = min(os.cpu_count() or 4, 8)
+    # Beyond that it's pure memory bloat. Each worker holds ~20 MB in flight,
+    # so cpu_count workers ≈ a few hundred MB peak — cheap on modern machines.
+    # PAGE_ORDER_OCR_WORKERS overrides for tuning.
+    default_ocr_workers = os.cpu_count() or 8
     workers = min(
         len(page_nums),
         int(os.environ.get("PAGE_ORDER_OCR_WORKERS", str(default_ocr_workers))),
