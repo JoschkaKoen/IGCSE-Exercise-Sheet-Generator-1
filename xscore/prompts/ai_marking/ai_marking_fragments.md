@@ -10,16 +10,14 @@ Fill each field as follows:
    • multiple_choice: report the single letter the student physically marked (written, circled, crossed, or ticked). Report '?' if nothing is marked. Do NOT infer from the question or your subject knowledge — only report what is physically visible.
    • calculation: transcribe the student's full working and final answer verbatim.
    • all other types: copy the student's written answer verbatim. Mark unreadable words with [?].
-   The output is placed verbatim in a LaTeX document. Apply these formatting rules:
-   - Code/pseudocode: wrap inline tokens (variable names, function calls, single keywords) in \texttt{...}; wrap multi-line code blocks in \begin{alltt}...\end{alltt}. Inside \begin{alltt}...\end{alltt}, write code with literal newlines between lines and do NOT escape <, >, &, %, _, #, $; only escape { → \{, } → \}, backslash → \textbackslash{}. NEVER use \textbf{...} for code — bold is not monospace.
-   - Prose / non-code text: escape literal special characters: % → \%, $ → \$, # → \#, _ → \_, { → \{, } → \}, backslash → \textbackslash{}. Use \newline for line breaks; do not include literal newlines.
+   The output is placed verbatim in a LaTeX document. Escape literal special characters that appear in the student's answer: % → \%, $ → \$, # → \#, _ → \_, { → \{, } → \}, backslash → \textbackslash{}. Use \newline for line breaks; do not include literal newlines.
 2. assigned_marks — an integer 0–max_marks. Use professional judgement, not literal matching:
    • Award marks when the student's answer is plausible and demonstrates understanding of the question. Accept semantically equivalent or closely related answers, not only verbatim matches; if the student presents a correct solution that is not listed in ${criterion_ref}, award the marks.
    • Award no marks when the answer is factually wrong, off-topic, or shows no understanding of the question.
    • For 'any N from' lists, count one mark per distinct, reasonable item the student gives, up to max_marks. The listed criteria are guidance, not an exhaustive list of acceptable answers.
    • For calculation questions: if the final result is correct (rounding errors are acceptable), award full marks regardless of how much working is shown. Otherwise, award one mark per correct step in the working. Apply error-carried-forward: if a step's method is correct but uses a wrong number because of a mistake in an earlier step, still award the mark for that step. Award no marks for steps where the method or calculation path is wrong, or where the step's own result is numerically wrong without being a carry-forward from an earlier error. Scientific notation and expanded form are equivalent (e.g. 5×10^4 = 50000).
    • For multiple_choice: compare student_answer to correct_answer; award max_marks if they match, 0 otherwise.
-3. explanation: clear, easy to understand, short, simple english. Avoid difficult English words (non native, high school english speakers). Address the student directly using 'you'. You can make important words bold using LaTeX syntax \textbf{word}: only for important words. NEVER use markdown bold **word** — it breaks the PDF renderer. Escape non-math special characters that appear literally in your prose: % → \%, _ → \_. Use \newline for line breaks. Write the explanation in short clear and understandable bullet points using latex syntax. For code references (variable names, function calls, code keywords) inside the explanation: use \texttt{...} for inline mentions, \begin{alltt}...\end{alltt} for multi-line code blocks. Reserve \textbf{...} for emphasis on prose words, never for code. Do not append a mark tally (e.g. '— 1 mark.') at the end.
+3. explanation: clear, easy to understand, short, simple english. Avoid difficult English words (non native, high school english speakers). Address the student directly using 'you'. You can make important words bold using LaTeX syntax \textbf{word}: only for important words. NEVER use markdown bold **word** — it breaks the PDF renderer. Escape non-math special characters that appear literally in your prose: % → \%, _ → \_. Use \newline for line breaks. Write the explanation in short clear and understandable bullet points using latex syntax. Do not append a mark tally (e.g. '— 1 mark.') at the end.
    • For multiple_choice questions, leave explanation empty. Do not write any reasoning for multiple-choice answers; the field is filled automatically afterwards.
 4. confidence — one of `high`, `medium`, `low` (lowercase, no quotes). This is an advisory side-channel signal: it is collected for human review but does NOT influence the marks awarded.
    • `low` if the handwriting was ambiguous, the rubric was unclear, or you had to guess.
@@ -40,3 +38,16 @@ Use these images when assessing the student's diagram or graph for the listed qu
 ## CONTINUATION
 
 The student used continuation pages for additional writing. All pages are included in this document. Mark them together as one answer.
+
+## CODE_FORMATTING
+
+This exam contains code and pseudocode. Student answers and your explanations must render code in monospace.
+
+In the student_answer and explanation fields:
+- Wrap inline tokens (variable names, function calls, single keywords) in \texttt{...}.
+- Wrap multi-line code or pseudocode blocks in \begin{alltt}...\end{alltt}.
+- Even a single line like "DECLARE x : INTEGER", "P <- UCASE(P)", or "Counter <- Counter + 1" counts as code and must be wrapped.
+- NEVER use \textbf{...} for code — bold is not monospace. Reserve \textbf{...} for emphasis on prose words.
+- The wrapper does not change the verbatim transcription; it only tells LaTeX to render the text in monospace.
+
+Inside \begin{alltt}...\end{alltt}: write code with literal newlines between lines; do NOT escape <, >, &, %, _, #, $; only escape { → \{, } → \}, backslash → \textbackslash{}.

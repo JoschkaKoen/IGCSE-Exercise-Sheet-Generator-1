@@ -66,6 +66,7 @@ def _build_marking_system_prompt(
     *,
     has_continuation: bool = False,
     fmt: "MarkingFormat | None" = None,
+    is_cs: bool = False,
 ) -> str:
     """Build the system prompt shared by the JPEG and Gemini PDF marking paths."""
     if fmt is None:
@@ -119,6 +120,11 @@ def _build_marking_system_prompt(
         _, _g = load_prompt("ai_marking_fragments", section="continuation")
         system_prompt += "\n\n" + _g.rstrip("\n")
 
+    # --- Section H: code formatting (only for Computer Science exams) ---
+    if is_cs:
+        _, _h = load_prompt("ai_marking_fragments", section="code_formatting")
+        system_prompt += "\n\n" + _h.rstrip("\n")
+
     return system_prompt
 
 
@@ -136,6 +142,7 @@ def _mark_page(
     fmt: "MarkingFormat | None" = None,
     extra_b64: list[str] = (),
     reuse_cache: bool = False,
+    is_cs: bool = False,
 ) -> dict:
     """Vision call to fill in a marking blueprint for one scan page.
 
@@ -150,7 +157,7 @@ def _mark_page(
         fmt = XmlMarkingFormat()
     use_stream = use_stream and fmt.prefer_stream()
     system_prompt = _build_marking_system_prompt(
-        blueprint, scheme_graphics, has_continuation=bool(extra_b64), fmt=fmt
+        blueprint, scheme_graphics, has_continuation=bool(extra_b64), fmt=fmt, is_cs=is_cs,
     )
 
     _, user_text = load_prompt(fmt.prompt_name(), section="user", blueprint=blueprint_xml)

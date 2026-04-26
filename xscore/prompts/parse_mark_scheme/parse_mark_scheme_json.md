@@ -18,4 +18,7 @@ $scaffold
 
 LaTeX in criterion strings: use \\ for backslash in JSON strings.
 Examples: "\\textbf{word}", "$v = 2\\pi r / T$"
-Inline code: "\\texttt{...}". Multi-line code: "\\begin{alltt}...\\end{alltt}" (do not use \\textbf for code).
+
+## CODE_FORMATTING
+
+This exam contains code/pseudocode that must be rendered in monospace. In JSON criterion strings: inline code → "\\texttt{...}", multi-line code → "\\begin{alltt}...\\end{alltt}". Do not use \\textbf for code. Inside the alltt block, only escape { → \\{, } → \\}, backslash → \\textbackslash{}.

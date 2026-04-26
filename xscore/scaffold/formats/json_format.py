@@ -67,8 +67,9 @@ class JsonScaffoldFormat(ScaffoldFormat):
     def system_exam_prompt(self) -> str:
         return load_prompt("parse_exam_pdf_json", section="system")[1]
 
-    def system_scheme_prompt(self) -> str:
-        return load_prompt("parse_mark_scheme_json", section="system")[1]
+    def system_scheme_prompt(self, is_cs: bool = False) -> str:
+        from xscore.scaffold.scaffold_prompts import make_system_scheme_prompt
+        return make_system_scheme_prompt("parse_mark_scheme_json", is_cs=is_cs)
 
     def build_exam_prompt(self, layout_result, is_split: bool, n_split_pages: int) -> str:
         user_exam = load_prompt("parse_exam_pdf_json", section="user")[1]
@@ -136,8 +137,8 @@ class JsonScaffoldFormat(ScaffoldFormat):
     def parse_scheme_response(self, raw: str) -> dict:
         try:
             data = json.loads(_strip_fences(raw))
-        except json.JSONDecodeError:
-            return {"questions": []}
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(f"Mark scheme JSON parse error: {exc}") from exc
         if not isinstance(data, dict):
             return {"questions": []}
         questions = []

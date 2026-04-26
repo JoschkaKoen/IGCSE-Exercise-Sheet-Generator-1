@@ -176,11 +176,11 @@ def _parse_graphic(g_el) -> "dict | None":
 
 
 def _parse_scheme_xml(raw: str) -> dict:
-    """Parse Gemini mark scheme XML → scheme dict. Non-fatal: returns empty on error."""
+    """Parse Gemini mark scheme XML → scheme dict. Raises ``RuntimeError`` on parse error."""
     try:
         root = ET.fromstring(_preprocess_xml(raw))
-    except ET.ParseError:
-        return {"questions": []}
+    except ET.ParseError as exc:
+        raise RuntimeError(f"Mark scheme XML parse error: {exc}") from exc
     questions = []
     for q_el in root.findall("question"):
         graphics_list = []

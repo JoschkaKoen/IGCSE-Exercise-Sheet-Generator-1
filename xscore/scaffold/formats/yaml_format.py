@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 
+import re
 import yaml
 
 from xscore.prompts.loader import load_prompt
 from xscore.scaffold.formats.base import ScaffoldFormat
+from xscore.shared.terminal_ui import warn_line
 
 
 # ---------------------------------------------------------------------------
@@ -27,6 +29,62 @@ _ScaffoldDumper.add_representer(str, _str_representer)
 
 
 from xscore.shared.response_parsing import strip_code_fences as _strip_fences  # noqa: E402
+
+
+# Used by _load_scheme_yaml_recovering: matches lines like "  key: value" where
+# the value is an unquoted plain scalar. The recovery quotes the value when
+# PyYAML rejects it for containing ": " mid-scalar (e.g. ratios like "18 (: 1)").
+_PLAIN_KV_RE = re.compile(r"^(\s+)([\w-]+):\s(.+)$")
+_QUOTE_INDICATORS = ("'", '"', "|", ">", "[", "{", "&", "*", "!")
+
+
+def _quote_unquoted_value(line: str) -> "str | None":
+    m = _PLAIN_KV_RE.match(line)
+    if not m:
+        return None
+    indent, key, value = m.group(1), m.group(2), m.group(3)
+    value = value.rstrip()
+    if not value or value.startswith(_QUOTE_INDICATORS):
+        return None
+    escaped = value.replace("'", "''")
+    return f"{indent}{key}: '{escaped}'"
+
+
+def _load_scheme_yaml_recovering(text: str):
+    """Parse YAML, recovering from unquoted ``: `` mid-scalar by quoting the offending
+    line and retrying. Raises ``RuntimeError`` if the input cannot be parsed even
+    after recovery. Empty/None content is *not* an error — returns whatever
+    ``yaml.safe_load`` produces (``None`` for empty input).
+    """
+    patched: set[int] = set()
+    for _ in range(5):
+        try:
+            return yaml.safe_load(text)
+        except yaml.MarkedYAMLError as exc:
+            mark = getattr(exc, "problem_mark", None)
+            problem = getattr(exc, "problem", "") or ""
+            if mark is None or "mapping values are not allowed" not in problem:
+                raise RuntimeError(f"Mark scheme YAML parse error: {exc}") from exc
+            line_idx = mark.line
+            if line_idx in patched:
+                raise RuntimeError(f"Mark scheme YAML parse error: {exc}") from exc
+            lines = text.split("\n")
+            if not 0 <= line_idx < len(lines):
+                raise RuntimeError(f"Mark scheme YAML parse error: {exc}") from exc
+            original = lines[line_idx]
+            patched_line = _quote_unquoted_value(original)
+            if patched_line is None:
+                raise RuntimeError(f"Mark scheme YAML parse error: {exc}") from exc
+            warn_line(
+                f"Mark scheme YAML: recovered from unquoted ':' on line "
+                f"{line_idx + 1}: {original.strip()!r}"
+            )
+            lines[line_idx] = patched_line
+            text = "\n".join(lines)
+            patched.add(line_idx)
+        except yaml.YAMLError as exc:
+            raise RuntimeError(f"Mark scheme YAML parse error: {exc}") from exc
+    raise RuntimeError("Mark scheme YAML parse error: too many recovery attempts")
 
 
 def _build_user_exam_prompt_yaml(layout_result, is_split: bool, n_split_pages: int) -> str:
@@ -120,8 +178,9 @@ class YamlScaffoldFormat(ScaffoldFormat):
     def system_exam_prompt(self) -> str:
         return load_prompt("parse_exam_pdf_yaml", section="system")[1]
 
-    def system_scheme_prompt(self) -> str:
-        return load_prompt("parse_mark_scheme_yaml", section="system")[1]
+    def system_scheme_prompt(self, is_cs: bool = False) -> str:
+        from xscore.scaffold.scaffold_prompts import make_system_scheme_prompt
+        return make_system_scheme_prompt("parse_mark_scheme_yaml", is_cs=is_cs)
 
     def build_exam_prompt(self, layout_result, is_split: bool, n_split_pages: int) -> str:
         return _build_user_exam_prompt_yaml(layout_result, is_split, n_split_pages)
@@ -193,10 +252,7 @@ class YamlScaffoldFormat(ScaffoldFormat):
         return questions, layout
 
     def parse_scheme_response(self, raw: str) -> dict:
-        try:
-            data = yaml.safe_load(_strip_fences(raw))
-        except yaml.YAMLError:
-            return {"questions": []}
+        data = _load_scheme_yaml_recovering(_strip_fences(raw))
         if not isinstance(data, dict):
             return {"questions": []}
         questions = []

@@ -343,6 +343,9 @@ def step21_parse_mark_scheme(
 
     scheme_model, scheme_thinking, scheme_max_tokens = _mark_scheme_model_config()
 
+    from xscore.shared.exam_paths import is_cs_exam as _is_cs_exam
+    is_cs = _is_cs_exam(marking_scheme_pdf)
+
     try:
         return parse_mark_scheme_pages(
             client,
@@ -355,6 +358,7 @@ def step21_parse_mark_scheme(
             graphics_by_qnum=graphics_by_qnum,
             artifact_dir=artifact_dir,
             fmt=fmt,
+            is_cs=is_cs,
         )
     except Exception as exc:
         import logging as _log

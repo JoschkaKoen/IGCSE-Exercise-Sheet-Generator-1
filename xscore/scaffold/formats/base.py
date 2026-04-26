@@ -53,10 +53,14 @@ class ScaffoldFormat(ABC):
         from xscore.scaffold.scaffold_prompts import _SYSTEM_EXAM
         return _SYSTEM_EXAM
 
-    def system_scheme_prompt(self) -> str:
-        """Return the system prompt for the scheme-extraction call."""
-        from xscore.scaffold.scaffold_prompts import _SYSTEM_SCHEME
-        return _SYSTEM_SCHEME
+    def system_scheme_prompt(self, is_cs: bool = False) -> str:
+        """Return the system prompt for the scheme-extraction call.
+
+        ``is_cs`` triggers the conditional CODE_FORMATTING section append for
+        Computer Science exams (gates ``\\texttt`` / ``\\begin{alltt}`` rules).
+        """
+        from xscore.scaffold.scaffold_prompts import make_system_scheme_prompt
+        return make_system_scheme_prompt("parse_mark_scheme_xml", is_cs=is_cs)
 
     def pydantic_schema_exam(self):
         """Return Pydantic class for Gemini response_schema (exam), or None."""

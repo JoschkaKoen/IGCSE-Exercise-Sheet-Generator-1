@@ -719,6 +719,17 @@ def find_scaffold_cache_file(
     return None
 
 
+def is_cs_exam(*pdf_paths: "Path | None") -> bool:
+    """Whether the exam involves code/pseudocode (gates code-formatting prompt rules).
+
+    Heuristic — temporary: True if any provided PDF filename contains "0478"
+    (Cambridge IGCSE Computer Science). To be replaced by proper subject
+    detection later; keep call sites going through this function so the
+    eventual upgrade is a one-file change.
+    """
+    return any("0478" in p.name for p in pdf_paths if p is not None)
+
+
 def is_completed_run(run_dir: Path) -> bool:
     """True iff *run_dir* contains a finished scaffold report from any era.
 

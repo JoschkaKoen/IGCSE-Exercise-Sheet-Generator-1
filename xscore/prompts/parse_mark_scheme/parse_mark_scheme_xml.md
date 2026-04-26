@@ -23,8 +23,6 @@ For each <question>:
     unordered lists     → \begin{itemize}\item first\item second\end{itemize}
     ordered/numbered lists → \begin{enumerate}\item first\item second\end{enumerate}
     tables              → \begin{tabular}{col-spec} cell & cell \\ next row \end{tabular} (infer col-spec as l/c/r per column)
-    inline code         → \texttt{...}      (variables, function calls, code keywords)
-    multi-line code     → \begin{alltt}...\end{alltt}   (preserves whitespace; do NOT use \textbf for code)
     inline math         → $...$
     output contract     → your text is placed verbatim into LaTeX table cells (p{} columns).
                           Escape characters that appear as literal text (not LaTeX syntax):
@@ -45,3 +43,12 @@ For each <question>:
 - For multiple_choice questions: set correct_answer only; no <criterion> children needed
 - Keep every <question> element present — even if marks cannot be found for it
 - In XML text use &lt; for <, &gt; for >, &amp; for &
+
+## CODE_FORMATTING
+
+This exam contains code and pseudocode. Mark scheme criteria must render code in monospace.
+
+In criterion text:
+- Wrap inline code tokens (variables, function calls, code keywords) in \texttt{...}.
+- Wrap multi-line code blocks in \begin{alltt}...\end{alltt}; preserve indentation with literal spaces; do NOT use \textbf for code.
+- Inside \begin{alltt}...\end{alltt}: do NOT escape <, >, &, %, _, #, $; only escape { → \{, } → \}, backslash → \textbackslash{}.

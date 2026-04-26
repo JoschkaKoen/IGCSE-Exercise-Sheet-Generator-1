@@ -58,6 +58,36 @@ def _escape_bare_amp_outside_tabular(text: str) -> str:
     return "".join(out)
 
 
+_ALLTT_BLOCK_RE = re.compile(r"\\begin\{alltt\}.*?\\end\{alltt\}", re.DOTALL)
+_ALLTT_PLACEHOLDER_RE = re.compile(r"\x00ALLTT(\d+)\x00")
+
+
+def _protect_alltt(text: str, transform) -> str:
+    """Run *transform* on parts of *text* outside ``\\begin{alltt}…\\end{alltt}``.
+
+    Inside alltt only a leading newline immediately after ``\\begin{alltt}`` and
+    trailing whitespace immediately before ``\\end{alltt}`` are trimmed (so the
+    block doesn't render with a blank first line); literal newlines, indentation,
+    and bare ``&``/``%``/``<``/``>`` inside the block are preserved exactly.
+    """
+    stashed: list[str] = []
+
+    def _stash(m: re.Match) -> str:
+        stashed.append(m.group(0))
+        return f"\x00ALLTT{len(stashed) - 1}\x00"
+
+    text = _ALLTT_BLOCK_RE.sub(_stash, text)
+    text = transform(text)
+
+    def _restore(m: re.Match) -> str:
+        block = stashed[int(m.group(1))]
+        block = re.sub(r"(\\begin\{alltt\})\n", r"\1", block, count=1)
+        block = re.sub(r"\s*(\\end\{alltt\})", r"\1", block, count=1)
+        return block
+
+    return _ALLTT_PLACEHOLDER_RE.sub(_restore, text)
+
+
 def _ai_cell(text: str) -> str:
     """Prepare AI-generated LaTeX text for a p{} table cell.
 
@@ -68,23 +98,30 @@ def _ai_cell(text: str) -> str:
     ``\\newline`` immediately before or after a block-level environment
     (``\\begin{...}`` / ``\\end{...}``) is invalid LaTeX and causes
     "There's no line here to end"; strip those.
+
+    ``\\begin{alltt}…\\end{alltt}`` blocks are passed through unchanged
+    (literal newlines, indentation, and bare ``&``/``%``/``<``/``>`` inside
+    the block are preserved) so pseudocode keeps its source layout.
     """
-    # Defensive escape for characters AIs commonly miss when they aren't
-    # legitimately part of LaTeX commands. Math ($, \, {, }) is left alone
-    # so the AI can still emit `\frac{1}{2}` etc.
-    text = re.sub(r"(?<!\\)%", r"\\%", text)         # bare % starts a LaTeX comment
-    text = _escape_bare_amp_outside_tabular(text)    # preserve & inside \begin{tabular}
-    result = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", text)
-    result = result.replace("\n", "\\newline ")
-    # \newline adjacent to block-level environments is invalid LaTeX
-    # ("There's no line here to end") — strip it in all four positions.
-    result = re.sub(r"\\newline\s*(?=\\begin\{)", "", result)
-    result = re.sub(r"(?<=\})\\newline\s*(?=\\begin\{)", "", result)
-    result = re.sub(r"(\\begin\{[^}]+\})\s*\\newline\b", r"\1", result)
-    result = re.sub(r"(\\end\{[^}]+\})\s*\\newline\b", r"\1 ", result)
-    result = re.sub(r"\\newline\s*(?=\\item\b)", "", result)
-    result = re.sub(r"\\newline\s*(?=\\end\{)", "", result)
-    return result
+    def _outside_alltt(t: str) -> str:
+        # Defensive escape for characters AIs commonly miss when they aren't
+        # legitimately part of LaTeX commands. Math ($, \, {, }) is left alone
+        # so the AI can still emit `\frac{1}{2}` etc.
+        t = re.sub(r"(?<!\\)%", r"\\%", t)         # bare % starts a LaTeX comment
+        t = _escape_bare_amp_outside_tabular(t)    # preserve & inside \begin{tabular}
+        t = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", t)
+        t = t.replace("\n", "\\newline ")
+        # \newline adjacent to block-level environments is invalid LaTeX
+        # ("There's no line here to end") — strip it in all four positions.
+        t = re.sub(r"\\newline\s*(?=\\begin\{)", "", t)
+        t = re.sub(r"(?<=\})\\newline\s*(?=\\begin\{)", "", t)
+        t = re.sub(r"(\\begin\{[^}]+\})\s*\\newline\b", r"\1", t)
+        t = re.sub(r"(\\end\{[^}]+\})\s*\\newline\b", r"\1 ", t)
+        t = re.sub(r"\\newline\s*(?=\\item\b)", "", t)
+        t = re.sub(r"\\newline\s*(?=\\end\{)", "", t)
+        return t
+
+    return _protect_alltt(text, _outside_alltt)
 
 
 def _format_criteria_cell(raw: str) -> str:
@@ -92,9 +129,21 @@ def _format_criteria_cell(raw: str) -> str:
 
     Single-token criteria (one word or one number, no spaces) are grouped
     on one line joined with ' / '. Multi-word criteria each get their own line.
+
+    ``\\begin{alltt}…\\end{alltt}`` blocks are stashed before the strip-and-group
+    pass so their internal indentation survives — otherwise ``line.strip()``
+    would eat the leading whitespace on every code line.
     """
+    stashed: list[str] = []
+
+    def _stash(m: re.Match) -> str:
+        stashed.append(m.group(0))
+        return f"\x00ALLTT{len(stashed) - 1}\x00"
+
+    text = _ALLTT_BLOCK_RE.sub(_stash, raw)
+
     lines = []
-    for line in raw.split("\n"):
+    for line in text.split("\n"):
         line = re.sub(r"^\s*\[[^\]]*\]\s*", "", line).strip()
         if line:
             lines.append(line)
@@ -105,7 +154,13 @@ def _format_criteria_cell(raw: str) -> str:
     segments: list[str] = []
     short_group: list[str] = []
     for criterion in lines:
-        if " " not in criterion and not criterion.startswith("\\"):  # single token: one word or one number (not a LaTeX command)
+        # single token: one word or one number (not a LaTeX command, not a stashed alltt placeholder)
+        is_short = (
+            " " not in criterion
+            and not criterion.startswith("\\")
+            and not criterion.startswith("\x00")
+        )
+        if is_short:
             short_group.append(criterion)
         else:
             if short_group:
@@ -116,6 +171,9 @@ def _format_criteria_cell(raw: str) -> str:
         segments.append(" / ".join(short_group))
 
     result = "\n".join(segments)
+    result = _ALLTT_PLACEHOLDER_RE.sub(
+        lambda m: stashed[int(m.group(1))], result
+    )
     return _ai_cell(result)
 
 

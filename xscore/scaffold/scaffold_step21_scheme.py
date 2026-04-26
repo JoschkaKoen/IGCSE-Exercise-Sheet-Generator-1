@@ -50,6 +50,7 @@ def parse_mark_scheme_pages(
     graphics_by_qnum: "dict[str, list] | None" = None,
     artifact_dir: "Path | None",
     fmt=None,
+    is_cs: bool = False,
 ) -> dict:
     """Parse the mark scheme via Gemini (or OpenAI-compatible client) page by page.
 
@@ -119,7 +120,7 @@ def parse_mark_scheme_pages(
                 kwargs: dict = dict(
                     model=scheme_model,
                     messages=[
-                        {"role": "system", "content": fmt.system_scheme_prompt()},
+                        {"role": "system", "content": fmt.system_scheme_prompt(is_cs=is_cs)},
                         {"role": "user", "content": [
                             {"type": "image_url",
                              "image_url": {"url": f"data:image/png;base64,{b64}"}},
@@ -153,7 +154,7 @@ def parse_mark_scheme_pages(
                     gai_types.Part.from_text(text=user_msg),
                 ],
                 config=_make_gen_config(
-                    scheme_thinking, fmt.system_scheme_prompt(),
+                    scheme_thinking, fmt.system_scheme_prompt(is_cs=is_cs),
                     pydantic_schema=fmt.pydantic_schema_scheme(),
                     max_tokens=scheme_max_tokens,
                 ),
@@ -166,7 +167,6 @@ def parse_mark_scheme_pages(
             raw, thinking_text, resp_for_finish = retry_api_call(
                 _do_call, label=f"Mark scheme p{page_num}",
             )
-            ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
         except Exception as _exc:
             # All attempts exhausted — degrade to empty page so the rest of the
             # mark scheme can still be assembled.
@@ -182,14 +182,27 @@ def parse_mark_scheme_pages(
             _prompt_path = artifact_scaffold_prompt_path(artifact_dir, f"mark_scheme_p{page_num}")
             save_prompt(
                 _prompt_path,
-                model=scheme_model, system=fmt.system_scheme_prompt(),
+                model=scheme_model, system=fmt.system_scheme_prompt(is_cs=is_cs),
                 messages=[{
                     "role": "user",
                     "content": f"[PDF: {marking_scheme_pdf.name} p{page_num}]\n\n{user_msg}",
                 }],
             )
             save_response(_prompt_path, raw or "", thinking=thinking_text)
-        return fmt.parse_scheme_response(raw or "")
+        try:
+            parsed = fmt.parse_scheme_response(raw or "")
+        except RuntimeError as _exc:
+            warn_line(f"Mark scheme p{page_num}: parse error  —  {_exc}")
+            ok_line(f"p{page_num}  ·  parse error  ·  {format_duration(time.perf_counter() - _t0)}")
+            return {"questions": []}
+        _qnums_with_content = [
+            str(_q.get("number", ""))
+            for _q in parsed.get("questions", [])
+            if (_q.get("correct_answer") or "").strip() or (_q.get("mark_scheme") or [])
+        ]
+        _qs_str = (", ".join(f"q{q}" for q in _qnums_with_content)) if _qnums_with_content else "—"
+        ok_line(f"p{page_num}  ·  {_qs_str}  ·  {format_duration(time.perf_counter() - _t0)}")
+        return parsed
 
     with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("PARSE_SCHEME_WORKERS", "500")))) as pool:
         page_results = list(pool.map(_call_page, range(1, n_pages + 1)))
