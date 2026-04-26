@@ -79,36 +79,28 @@ def _format_text_artifact(sections: list[tuple[str, str]]) -> str:
 # ─────────── Prompt construction ─────────────────────────────────────────────
 
 def _build_per_student_prompt(exam_texts: list[str], student_data: dict) -> str:
-    lines = [
-        "You are verifying that one student's scanned exam pages are in the correct order",
-        "and contain the correct content.",
-        "",
-        f"EMPTY EXAM PAGES (exact printed text, {len(exam_texts)} pages):",
-    ]
+    from xscore.prompts.loader import load_prompt
+
+    exam_lines: list[str] = []
     for i, text in enumerate(exam_texts, 1):
-        lines += [f"Page {i}:", text or "(no printed text)", ""]
+        exam_lines += [f"Page {i}:", text or "(no printed text)", ""]
+    exam_pages_block = "\n".join(exam_lines)
 
-    lines += ["", f"STUDENT SCAN — {student_data['name']} (OCR of printed text only, handwriting excluded):"]
-    for pos, (scan_p, text) in enumerate(zip(student_data["scan_pages"], student_data["texts"]), 1):
-        lines += [f"  Position {pos} (scan page {scan_p}):", f"  {text or '(no text)'}", ""]
+    student_lines: list[str] = []
+    for pos, (scan_p, text) in enumerate(
+        zip(student_data["scan_pages"], student_data["texts"]), 1
+    ):
+        student_lines += [f"  Position {pos} (scan page {scan_p}):", f"  {text or '(no text)'}", ""]
+    student_pages_block = "\n".join(student_lines)
 
-    lines += [
-        "Your task: detect pages that are physically out of order in this student's scan.",
-        "A mismatch means the SEQUENCE of questions is wrong — e.g. the page at position 5",
-        "contains question 8's text when it should contain question 5's text.",
-        "To detect this: identify the question number(s) and question text visible on each page,",
-        "then check that the sequence in the student scan matches the sequence in the empty exam.",
-        "Both the reference text (PDF heuristic extraction) and the scan text (OCR) are imperfect —",
-        "focus on the identity and order of questions, not exact wording / spelling.",
-        "Ignore all student handwriting, answer variations, and minor OCR noise.",
-        "Only flag when a question clearly belongs to a different position in the exam.",
-        "",
-        'Return JSON ONLY with this shape:',
-        '{"ok": <bool>, "issues": [{"position": <int>, "scan_page": <int>,'
-        ' "expected": <str>, "found": <str>, "detail": <str>}]}',
-        "When ok=true, issues MUST be []. When ok=false, list each problem page in issues.",
-    ]
-    return "\n".join(lines)
+    _, body = load_prompt(
+        "page_order_check_user",
+        n_exam_pages=len(exam_texts),
+        exam_pages_block=exam_pages_block,
+        student_name=student_data["name"],
+        student_pages_block=student_pages_block,
+    )
+    return body.rstrip("\n")
 
 
 # ─────────── Model client (built once, shared by per-student calls) ──────────

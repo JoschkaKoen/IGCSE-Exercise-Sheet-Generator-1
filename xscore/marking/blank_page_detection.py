@@ -160,29 +160,24 @@ def find_blank_exam_pages(
         artifact_blank_detection_txt_path,
         artifact_exam_blank_prompt_path,
     )
+    from xscore.prompts.loader import load_prompt
 
     num_pages = len(exam_texts)
     candidates = list(range(1, num_pages + 1))
 
-    lines = [
-        "You are analysing an empty exam paper.",
-        "Below is the printed text from each page.",
-        "",
-    ]
+    page_lines: list[str] = []
     for i, text in enumerate(exam_texts, 1):
-        lines += [f"Page {i}:", text or "(no printed text)", ""]
-    lines += [
-        "Identify all BLANK pages. A blank page:",
-        "- May contain the words \"BLANK PAGE\"",
-        "- Has NO exercise instructions or question text",
-        "- May have printed horizontal lines (writing lines for students) — these do NOT",
-        "  disqualify a page from being blank",
-        "",
-        f"The exam has {num_pages} page{'s' if num_pages != 1 else ''} in total.",
-        f"Return ONLY page numbers chosen from this list: {candidates}.",
-        "Do not return any number that is not in that list.",
-    ]
-    prompt = "\n".join(lines)
+        page_lines += [f"Page {i}:", text or "(no printed text)", ""]
+    exam_pages_block = "\n".join(page_lines)
+
+    _, prompt = load_prompt(
+        "exam_blank_detection_user",
+        exam_pages_block=exam_pages_block,
+        num_pages=num_pages,
+        page_word="page" if num_pages == 1 else "pages",
+        candidates=candidates,
+    )
+    prompt = prompt.rstrip("\n")
 
     if artifact_dir:
         det_path = artifact_blank_detection_txt_path(artifact_dir)
@@ -268,15 +263,10 @@ def _has_handwriting(
     not be completed or the response was malformed.
     """
     from xscore.shared.prompt_logger import save_prompt, save_response
+    from xscore.prompts.loader import load_prompt
 
-    prompt_text = (
-        "This is a blank exam page. It may have printed horizontal writing lines.\n"
-        "Is there any STUDENT HANDWRITING on this page? "
-        "Ignore the printed lines — only count ink written by a student.\n"
-        "IMPORTANT: Some pages show faint marks that bleed through from ink written on the "
-        "other side of the paper (show-through). Do NOT count these — only report handwriting "
-        "that is clearly and deliberately written on THIS side of the page."
-    )
+    _, prompt_text = load_prompt("student_handwriting_check_user")
+    prompt_text = prompt_text.rstrip("\n")
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt_text}])
 
     raw = ""
