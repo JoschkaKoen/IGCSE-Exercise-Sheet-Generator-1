@@ -74,17 +74,23 @@ def _build_marking_system_prompt(
     rows, cols = int(layout.get("rows", 1)), int(layout.get("cols", 1))
 
     # --- Sections A + B + C + D: role/task, field rules, output format, format validity ---
-    # Per-format .md (ai_marking_system_<fmt>.md) embeds A, C, D around a $field_rules
-    # placeholder; ai_marking_field_rules.md (B) is loaded first with $criterion_ref so
-    # the assembled system prompt is byte-identical to the pre-consolidation 4-method append.
-    _, _b = load_prompt("ai_marking_field_rules", criterion_ref=fmt.criterion_ref())
-    _, system_prompt = load_prompt(fmt.system_prompt_name(), field_rules=_b.rstrip("\n"))
+    # The per-format ai_marking_<fmt>.md SYSTEM section embeds A, C, D around a
+    # $field_rules placeholder. ai_marking_fragments.md FIELD_RULES section (B) is
+    # loaded first with $criterion_ref so the assembled system prompt is byte-identical
+    # to the pre-consolidation 4-method append.
+    _, _b = load_prompt(
+        "ai_marking_fragments", section="field_rules", criterion_ref=fmt.criterion_ref(),
+    )
+    _, system_prompt = load_prompt(
+        fmt.prompt_name(), section="system", field_rules=_b.rstrip("\n"),
+    )
     system_prompt = system_prompt.rstrip("\n")
 
     # --- Section E: grid navigation (only for multi-subpage layouts) ---
     if rows > 1 or cols > 1:
         _, _e = load_prompt(
-            "ai_marking_grid",
+            "ai_marking_fragments",
+            section="grid",
             rows=rows,
             cols=cols,
             subpage_ref=fmt.subpage_ref(),
@@ -102,12 +108,14 @@ def _build_marking_system_prompt(
             _idx[_qn] = _idx.get(_qn, 0) + 1
             _label = f"image {_idx[_qn]}" if _seen[_qn] > 1 else "image"
             _lines.append(f"  • Question {_qn} expected answer → {_label}")
-        _, _f = load_prompt("ai_marking_graphics", graphics_lines="\n".join(_lines))
+        _, _f = load_prompt(
+            "ai_marking_fragments", section="graphics", graphics_lines="\n".join(_lines),
+        )
         system_prompt += "\n\n" + _f.rstrip("\n")
 
     # --- Section G: continuation pages ---
     if has_continuation:
-        _, _g = load_prompt("ai_marking_continuation")
+        _, _g = load_prompt("ai_marking_fragments", section="continuation")
         system_prompt += "\n\n" + _g.rstrip("\n")
 
     return system_prompt
@@ -144,7 +152,7 @@ def _mark_page(
         blueprint, scheme_graphics, has_continuation=bool(extra_b64), fmt=fmt
     )
 
-    user_text = fmt.build_user_text(blueprint_xml)
+    _, user_text = load_prompt(fmt.prompt_name(), section="user", blueprint=blueprint_xml)
     _user_content: list[dict] = [
         {"type": "text", "text": user_text},
         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},

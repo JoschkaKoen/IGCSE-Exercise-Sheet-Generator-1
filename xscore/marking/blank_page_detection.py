@@ -171,7 +171,7 @@ def find_blank_exam_pages(
     exam_pages_block = "\n".join(page_lines)
 
     _, prompt = load_prompt(
-        "exam_blank_detection_user",
+        "exam_blank_detection",
         exam_pages_block=exam_pages_block,
         num_pages=num_pages,
         page_word="page" if num_pages == 1 else "pages",
@@ -269,7 +269,7 @@ def _has_handwriting(
     from xscore.shared.prompt_logger import save_prompt, save_response
     from xscore.prompts.loader import load_prompt
 
-    _, prompt_text = load_prompt("student_handwriting_check_user")
+    _, prompt_text = load_prompt("student_handwriting_check")
     prompt_text = prompt_text.rstrip("\n")
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt_text}])
 

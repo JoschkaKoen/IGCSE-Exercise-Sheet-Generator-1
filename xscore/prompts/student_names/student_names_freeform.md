@@ -1,7 +1,7 @@
 ---
-name: student_names_user_freeform
+name: student_names_freeform
 version: v1
-description: Step 11 — student_names. User prompt that asks the vision LLM to extract one student's HANDWRITTEN name from the top of an exam page. Freeform variant — used when no roster is available. No substitutions. Used by xscore.preprocessing.assign_pages_to_students (line ~533, freeform branch).
+description: Step 11 — student_names. User-only prompt that asks the vision LLM to extract one student's HANDWRITTEN name from the top of an exam page. Freeform variant — used when no roster is available. No substitutions. Used by xscore.preprocessing.assign_pages_to_students freeform branch.
 ---
 Look at the top of this exam page for the student's HANDWRITTEN name.
 

@@ -94,7 +94,7 @@ def _build_per_student_prompt(exam_texts: list[str], student_data: dict) -> str:
     student_pages_block = "\n".join(student_lines)
 
     _, body = load_prompt(
-        "page_order_check_user",
+        "page_order_check",
         n_exam_pages=len(exam_texts),
         exam_pages_block=exam_pages_block,
         student_name=student_data["name"],

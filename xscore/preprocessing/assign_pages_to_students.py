@@ -34,7 +34,7 @@ from xscore.shared.prompt_logger import save_prompt, save_response
 
 def _make_name_prompt(students: list[str]) -> str:
     roster = "\n".join(f"  - {s}" for s in students)
-    return load_prompt("student_names_user_with_roster", roster=roster)[1]
+    return load_prompt("student_names_with_roster", roster=roster)[1]
 
 
 _ocr_engine = None
@@ -78,7 +78,7 @@ def is_cover_page(
         text for _, text, conf in (result or []) if float(conf) > 0.8
     )
 
-    prompt = load_prompt("cover_page_detection_user", text=printed_text or "(no text extracted)")[1]
+    prompt = load_prompt("cover_page_scan", text=printed_text or "(no text extracted)")[1]
 
     save_prompt(prompt_save_path, model=model_id,
                 messages=[{"role": "user", "content": prompt}])
@@ -194,7 +194,7 @@ def check_cover_page_text(
     with fitz.open(str(pdf_path)) as doc:
         page_text = doc[page_idx].get_text().strip()
 
-    prompt = load_prompt("cover_page_detection_user", text=page_text or "(no text extracted)")[1]
+    prompt = load_prompt("cover_page_scan", text=page_text or "(no text extracted)")[1]
 
     save_prompt(prompt_save_path, model=model_id,
                 messages=[{"role": "user", "content": prompt}])
@@ -456,7 +456,7 @@ def assign_pages(
     # ------------------------------------------------------------------
     info_line("Detecting student names from scan pages …")
     workers = int(os.environ.get("NAME_WORKERS", str(min(n_blocks, 8))))
-    prompt = _make_name_prompt(students) if students else load_prompt("student_names_user_freeform")[1]
+    prompt = _make_name_prompt(students) if students else load_prompt("student_names_freeform")[1]
 
     def _ocr_and_match(args: tuple[int, Any]) -> tuple[int, str | None]:
         i, page = args

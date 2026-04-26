@@ -1,7 +1,7 @@
 ---
-name: student_names_user_with_roster
+name: student_names_with_roster
 version: v1
-description: Step 11 — student_names. User prompt that asks the vision LLM to extract one student's HANDWRITTEN name and snap it to the official roster. Placeholder $roster is a multi-line bullet list of "  - <name>" entries (Template syntax). Used by xscore.preprocessing.assign_pages_to_students (line ~533, with-roster branch).
+description: Step 11 — student_names. User-only prompt that asks the vision LLM to extract one student's HANDWRITTEN name and snap it to the official roster. Placeholder $roster is a multi-line bullet list of "  - <name>" entries (Template syntax). Used by xscore.preprocessing.assign_pages_to_students with-roster branch.
 ---
 Look at the top of this exam page for the student's HANDWRITTEN name.
 

@@ -103,7 +103,7 @@ def _call_text(user_message: str) -> str:
     return resp.choices[0].message.content or ""
 
 
-_SYSTEM_PROMPT = load_prompt("parse_grading_instructions_system")[1]
+_SYSTEM_PROMPT = load_prompt("parse_grading_instructions")[1]
 
 
 def parse_prompt(

@@ -132,21 +132,14 @@ class YamlMarkingFormat(MarkingFormat):
 
     # --- Prompt fragments ---
 
-    def system_prompt_name(self) -> str:
-        return "ai_marking_system_yaml"
+    def prompt_name(self) -> str:
+        return "ai_marking_yaml"
 
     def criterion_ref(self) -> str:
         return "`criteria` entries"
 
     def subpage_ref(self) -> str:
         return "`subpage` entries"
-
-    def build_user_text(self, blueprint_str: str) -> str:
-        return (
-            "Fill in the four empty fields (`student_answer`, `assigned_marks`, `explanation`, "
-            "`confidence`) for each question:\n"
-            f"{blueprint_str}"
-        )
 
     # --- API enforcement ---
 

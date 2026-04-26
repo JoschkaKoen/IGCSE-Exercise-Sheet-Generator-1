@@ -1,7 +1,7 @@
 ---
-name: page_order_check_user
+name: page_order_check
 version: v1
-description: Step 13 — per-student page order check. Compares OCR'd scan pages against the empty exam baseline and flags out-of-order pages. Placeholders ${n_exam_pages}, ${exam_pages_block}, ${student_name}, ${student_pages_block} are pre-built by xscore.marking.page_order_check._build_per_student_prompt.
+description: Step 13 — page_order_check. User-only prompt for per-student page order check. Compares OCR'd scan pages against the empty exam baseline and flags out-of-order pages. Placeholders ${n_exam_pages}, ${exam_pages_block}, ${student_name}, ${student_pages_block} are pre-built by xscore.marking.page_order_check._build_per_student_prompt.
 ---
 
 You are verifying that one student's scanned exam pages are in the correct order

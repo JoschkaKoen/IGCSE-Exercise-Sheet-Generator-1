@@ -1,7 +1,7 @@
 ---
-name: cover_page_detection_user
+name: cover_page_scan
 version: v1
-description: Steps 9 & 10 — cover_page_empty_exam and cover_page_scan. User prompt that classifies one exam page as COVER PAGE or QUESTION PAGE, given its OCR/printed text. Placeholder $text holds the printed page text (Template syntax). Used by xscore.preprocessing.assign_pages_to_students.is_cover_page (step 10) AND check_cover_page_text (step 9).
+description: Steps 9 & 10 — cover_page_empty_exam and cover_page_scan. User-only prompt that classifies one exam page as COVER PAGE or QUESTION PAGE, given its OCR/printed text. Placeholder $text holds the printed page text (Template syntax). Used by xscore.preprocessing.assign_pages_to_students.is_cover_page (step 10) AND check_cover_page_text (step 9). Folder named for step 10 (the larger consumer — one call per scan page); same prompt also serves step 9.
 ---
 You are classifying an exam page as either a COVER PAGE or a QUESTION PAGE.
 

@@ -356,7 +356,9 @@ def detect_scheme_graphics(
 
     _gfx_schema_str = json.dumps(_SCHEME_GRAPHICS_JSON_SCHEMA, indent=2)
     from xscore.prompts.loader import load_prompt as _load_prompt
-    _, _gfx_system = _load_prompt("detect_mark_scheme_graphics_system", schema=_gfx_schema_str)
+    _, _gfx_system = _load_prompt(
+        "detect_mark_scheme_graphics", section="system", schema=_gfx_schema_str,
+    )
 
     _all_qnums = fmt.extract_question_numbers(scaffold_str)
     _qnum_hint = ", ".join(f'"{n}"' for n in _all_qnums)

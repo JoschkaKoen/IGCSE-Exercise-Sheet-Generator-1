@@ -247,7 +247,7 @@ def announce_step_model(
     model, thinking_tokens, max_tokens = parse_model_spec(raw)
     effective_max = max_tokens if max_tokens is not None else default_max_tokens
     msg = format_model_announcement(model, thinking_tokens, effective_max)
-    get_console().print(f"[bright_magenta]  {icon('info')}  {msg}[/]")
+    get_console().print(f"[bright_cyan]  {icon('info')}  {msg}[/]")
     sys.stdout.flush()
 
 

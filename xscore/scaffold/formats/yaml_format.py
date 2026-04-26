@@ -118,10 +118,10 @@ def _common_tail_yaml(page_desc: str, subpage_r_desc: str, subpage_c_desc: str) 
 class YamlScaffoldFormat(ScaffoldFormat):
 
     def system_exam_prompt(self) -> str:
-        return load_prompt("parse_exam_pdf_system_yaml")[1]
+        return load_prompt("parse_exam_pdf_yaml", section="system")[1]
 
     def system_scheme_prompt(self) -> str:
-        return load_prompt("parse_mark_scheme_system_yaml")[1]
+        return load_prompt("parse_mark_scheme_yaml", section="system")[1]
 
     def build_exam_prompt(self, layout_result, is_split: bool, n_split_pages: int) -> str:
         return _build_user_exam_prompt_yaml(layout_result, is_split, n_split_pages)
@@ -136,7 +136,9 @@ class YamlScaffoldFormat(ScaffoldFormat):
             "questions whose criteria appear on this page. For all other questions leave "
             "`correct_answer` as `\"\"` and `criteria` as `[]`."
         )
-        return load_prompt("parse_mark_scheme_user_yaml")[1].format(scaffold=scaffold_str) + page_note
+        return load_prompt(
+            "parse_mark_scheme_yaml", section="user", scaffold=scaffold_str,
+        )[1] + page_note
 
     def build_scheme_scaffold(self, questions: list[dict]) -> str:
         """Build YAML scaffold from exam questions for the scheme AI."""

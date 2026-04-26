@@ -1,8 +1,10 @@
 ---
-name: ai_marking_field_rules
+name: ai_marking_fragments
 version: v1
-description: Step 23 — ai_marking. System prompt fragment for field rules (Section B). Used by xscore.marking.mark_page._build_marking_system_prompt as the $field_rules substitution into ai_marking_system_<fmt>.md. Placeholder ${criterion_ref} is filled by the marking format class.
+description: Step 23 — ai_marking. Combined system-prompt fragments (B/E/F/G) appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES uses $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION takes none. Used by xscore.marking.mark_page._build_marking_system_prompt.
 ---
+## FIELD_RULES
+
 Fill each field as follows:
 1. student_answer — transcribe exactly what the student wrote:
    • multiple_choice: report the single letter the student physically marked (written, circled, crossed, or ticked). Report '?' if nothing is marked. Do NOT infer from the question or your subject knowledge — only report what is physically visible.
@@ -21,3 +23,17 @@ Fill each field as follows:
    • `high` if you are certain of both the student's answer and the marks awarded.
    • `medium` otherwise.
    Be honest — flagging uncertainty is more useful than false confidence.
+
+## GRID
+
+This page is divided into a ${rows}×${cols} grid — the ${subpage_ref} at the top of the blueprint label each quadrant. Each question's subpage_row and subpage_col identify its quadrant; do not confuse answers from different quadrants. order_in_subpage (1 = topmost) gives the vertical position within a quadrant. The same question number may appear more than once — always identify questions by subpage_row + subpage_col + question text, not by number alone.
+
+## GRAPHICS
+
+The mark scheme for the following question(s) includes a diagram or graph as the expected answer. The corresponding mark-scheme images are appended after the student's page in the order listed below:
+${graphics_lines}
+Use these images when assessing the student's diagram or graph for the listed questions.
+
+## CONTINUATION
+
+The student used continuation pages for additional writing. All pages are included in this document. Mark them together as one answer.

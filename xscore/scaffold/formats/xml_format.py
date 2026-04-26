@@ -21,14 +21,16 @@ class XmlScaffoldFormat(ScaffoldFormat):
         self, scaffold_str: str, page_num: int, n_pages: int,
         input_label: str = "PDF",
     ) -> str:
-        from xscore.scaffold.scaffold_prompts import _USER_SCHEME
+        from xscore.prompts.loader import load_prompt
         page_note = (
             f"\n\nNote: the {input_label} you receive contains only page {page_num} of {n_pages} "
             "of the mark scheme. Only fill in correct_answer and <criterion> elements for "
             "questions whose criteria appear on this page. For all other questions leave "
             "correct_answer empty and add no <criterion> elements."
         )
-        return _USER_SCHEME.format(scaffold=scaffold_str) + page_note
+        return load_prompt(
+            "parse_mark_scheme_xml", section="user", scaffold=scaffold_str,
+        )[1] + page_note
 
     def build_scheme_scaffold(self, questions: list[dict]) -> str:
         from xscore.scaffold.scaffold_xml import _build_scheme_scaffold

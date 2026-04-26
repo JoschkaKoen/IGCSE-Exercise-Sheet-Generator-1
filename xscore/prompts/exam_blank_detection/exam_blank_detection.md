@@ -1,7 +1,7 @@
 ---
-name: exam_blank_detection_user
+name: exam_blank_detection
 version: v1
-description: Step 14 — text-only LLM call that identifies blank pages in the empty exam PDF. Placeholders ${exam_pages_block}, ${num_pages}, ${page_word}, ${candidates} are pre-built by xscore.marking.blank_page_detection.find_blank_exam_pages.
+description: Step 14 — exam_blank_detection. User-only prompt for the text-only LLM call that identifies blank pages in the empty exam PDF. Placeholders ${exam_pages_block}, ${num_pages}, ${page_word}, ${candidates} are pre-built by xscore.marking.blank_page_detection.find_blank_exam_pages.
 ---
 
 You are analysing an empty exam paper.

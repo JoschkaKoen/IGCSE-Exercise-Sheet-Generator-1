@@ -1,8 +1,13 @@
 ---
-name: detect_exam_layout_user
+name: detect_exam_layout
 version: v1
-description: Step 16 — detect_exam_layout. User prompt for layout detection. Returns rows/cols/reading_order JSON. Used by xscore.scaffold.scaffold_prompts.
+description: Step 16 — detect_exam_layout. Combined system + user prompt for exam page layout detection. Returns rows/cols/reading_order JSON. Used by xscore.scaffold.scaffold_prompts. No substitutions.
 ---
+## SYSTEM
+
+You are an expert at identifying exam paper printing layouts.
+
+## USER
 
 Look at this exam page image. Determine how many exam sub-pages are printed on this physical page and in what reading order they appear.
 

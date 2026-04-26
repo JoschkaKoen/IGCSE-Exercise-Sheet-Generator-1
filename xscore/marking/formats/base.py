@@ -25,27 +25,22 @@ class MarkingFormat(ABC):
     # --- Prompt fragments ---
 
     @abstractmethod
-    def system_prompt_name(self) -> str:
-        """Name of the consolidated per-format system prompt in xscore/prompts/.
+    def prompt_name(self) -> str:
+        """Stem of the per-format combined prompt file in xscore/prompts/ai_marking/.
 
-        Loaded by mark_page._build_marking_system_prompt with a single
-        ``$field_rules`` substitution (the rendered ai_marking_field_rules.md
-        body, rstripped). The .md file embeds the format-specific role/task
-        intro, output-format spec, and validity/escaping rules around the
-        ``$field_rules`` placeholder.
+        Loaded by mark_page with section="system" (taking $field_rules) and
+        section="user" (taking $blueprint). The combined .md embeds the
+        format-specific role/task intro, output-format spec, validity rules,
+        and per-page user intro across two sections.
         """
 
     @abstractmethod
     def criterion_ref(self) -> str:
-        """Short phrase used in section B: '<criterion> elements' or 'criteria entries'."""
+        """Short phrase used in FIELD_RULES: '<criterion> elements' or 'criteria entries'."""
 
     @abstractmethod
     def subpage_ref(self) -> str:
-        """Short phrase used in section E: '<subpage> elements' or 'subpage entries'."""
-
-    @abstractmethod
-    def build_user_text(self, blueprint_str: str) -> str:
-        """Build the user message from the blueprint string."""
+        """Short phrase used in GRID: '<subpage> elements' or 'subpage entries'."""
 
     # --- API enforcement ---
 

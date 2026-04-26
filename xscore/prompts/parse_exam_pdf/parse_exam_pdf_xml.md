@@ -1,8 +1,13 @@
 ---
-name: parse_exam_pdf_user_fallback_xml
+name: parse_exam_pdf_xml
 version: v1
-description: Step 18 — parse_exam_pdf. Fallback user prompt when the exam layout has not been pre-detected, in XML format (asks the AI to detect layout itself). Used by xscore.scaffold.scaffold_prompts.
+description: Step 18 — parse_exam_pdf. Combined system + user (fallback) prompt for exam-paper structure extraction in XML format. The user section is the FALLBACK used when exam layout has not been pre-detected — it asks the AI to detect layout itself. The non-fallback path uses xscore.scaffold.scaffold_prompts._build_user_exam_prompt (dynamic Python). Used by xscore.scaffold.scaffold_prompts.
 ---
+## SYSTEM
+
+You are an expert at reading Cambridge IGCSE exam papers. Extract every question and sub-question as structured XML.
+
+## USER
 
 Return ONLY well-formed XML, no markdown fences or other text outside the XML.
 

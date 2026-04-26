@@ -65,13 +65,13 @@ from xscore.shared.response_parsing import strip_code_fences as _strip_fences  #
 class JsonScaffoldFormat(ScaffoldFormat):
 
     def system_exam_prompt(self) -> str:
-        return load_prompt("parse_exam_pdf_system_json")[1]
+        return load_prompt("parse_exam_pdf_json", section="system")[1]
 
     def system_scheme_prompt(self) -> str:
-        return load_prompt("parse_mark_scheme_system_json")[1]
+        return load_prompt("parse_mark_scheme_json", section="system")[1]
 
     def build_exam_prompt(self, layout_result, is_split: bool, n_split_pages: int) -> str:
-        user_exam = load_prompt("parse_exam_pdf_user_json")[1]
+        user_exam = load_prompt("parse_exam_pdf_json", section="user")[1]
         if layout_result is None:
             return user_exam
         rows, cols = layout_result.rows, layout_result.cols
@@ -91,7 +91,9 @@ class JsonScaffoldFormat(ScaffoldFormat):
             "questions on this page. Leave `correct_answer` as `\"\"` and `criteria` as `[]` "
             "for all other questions."
         )
-        return load_prompt("parse_mark_scheme_user_json")[1].format(scaffold=scaffold_str) + page_note
+        return load_prompt(
+            "parse_mark_scheme_json", section="user", scaffold=scaffold_str,
+        )[1] + page_note
 
     def build_scheme_scaffold(self, questions: list[dict]) -> str:
         entries = []

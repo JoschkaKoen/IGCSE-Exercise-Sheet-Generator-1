@@ -62,22 +62,14 @@ class JsonMarkingFormat(MarkingFormat):
 
     # --- Prompt fragments ---
 
-    def system_prompt_name(self) -> str:
-        return "ai_marking_system_json"
+    def prompt_name(self) -> str:
+        return "ai_marking_json"
 
     def criterion_ref(self) -> str:
         return "`criteria` entries"
 
     def subpage_ref(self) -> str:
         return "`subpage` entries"
-
-    def build_user_text(self, blueprint_str: str) -> str:
-        return (
-            "Mark each question below. Return JSON matching the schema "
-            "(`student_answer`, `assigned_marks`, `explanation`, `confidence` "
-            "for each question):\n"
-            f"{blueprint_str}"
-        )
 
     # --- API enforcement ---
 

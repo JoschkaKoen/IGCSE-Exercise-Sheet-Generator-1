@@ -1,7 +1,7 @@
 ---
-name: parse_grading_instructions_system
+name: parse_grading_instructions
 version: v1
-description: Step 1 — parse_grading_instructions. System prompt that converts a natural-language grading instruction into a structured TaskInstruction JSON object. No substitutions. Used by xscore.marking.parse_instruction.parse_prompt.
+description: Step 1 — parse_grading_instructions. System-only prompt that converts a natural-language grading instruction into a structured TaskInstruction JSON object. No substitutions. Used by xscore.marking.parse_instruction.parse_prompt.
 ---
 Convert the grading instruction to JSON. Return ONLY the JSON, no explanation.
 

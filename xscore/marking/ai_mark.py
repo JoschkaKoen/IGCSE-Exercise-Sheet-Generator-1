@@ -149,7 +149,8 @@ def _mark_page_pdf(
     system_prompt = _build_marking_system_prompt(
         blueprint, scheme_graphics, has_continuation=has_continuation, fmt=fmt
     )
-    user_text = fmt.build_user_text(blueprint_str)
+    from xscore.prompts.loader import load_prompt
+    _, user_text = load_prompt(fmt.prompt_name(), section="user", blueprint=blueprint_str)
     save_prompt(prompt_save_path, model=model_id, system=system_prompt,
                 messages=[{"role": "user", "content": user_text}])
 

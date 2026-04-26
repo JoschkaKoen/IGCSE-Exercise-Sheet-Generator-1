@@ -77,19 +77,14 @@ def _detect_scheme_graphics_model_config() -> tuple[str, int | None, int | None]
 # ---------------------------------------------------------------------------
 
 # Static bodies are loaded once at import time so callers see plain strings,
-# preserving the pre-refactor module-level API.
-_SYSTEM_EXAM = _load_prompt("parse_exam_pdf_system_xml")[1]
-_USER_EXAM = _load_prompt("parse_exam_pdf_user_fallback_xml")[1]
-_SYSTEM_SCHEME = _load_prompt("parse_mark_scheme_system_xml")[1]
-# `_USER_SCHEME` is consumed by `<format>.user_scheme_prompt(...)` callers via
-# `body.format(scaffold=...)`. The .md file therefore preserves Python str.format
-# semantics: `{scaffold}` is the placeholder; literal LaTeX braces are escaped
-# as `{{`/`}}`. The YAML/JSON sibling files (parse_mark_scheme_user_yaml.md,
-# parse_mark_scheme_user_json.md) follow the same convention.
-_USER_SCHEME = _load_prompt("parse_mark_scheme_user_xml")[1]
-_USER_GRAPHICS = _load_prompt("detect_mark_scheme_graphics_user")[1]
-_SYSTEM_LAYOUT = _load_prompt("detect_exam_layout_system")[1]
-_USER_LAYOUT = _load_prompt("detect_exam_layout_user")[1]
+# preserving the pre-refactor module-level API. Combined .md files use
+# section= to extract the role-specific portion.
+_SYSTEM_EXAM = _load_prompt("parse_exam_pdf_xml", section="system")[1]
+_USER_EXAM = _load_prompt("parse_exam_pdf_xml", section="user")[1]
+_SYSTEM_SCHEME = _load_prompt("parse_mark_scheme_xml", section="system")[1]
+_USER_GRAPHICS = _load_prompt("detect_mark_scheme_graphics", section="user")[1]
+_SYSTEM_LAYOUT = _load_prompt("detect_exam_layout", section="system")[1]
+_USER_LAYOUT = _load_prompt("detect_exam_layout", section="user")[1]
 
 # Reading-order labels for 4-up subpages, indexed by (row, col).
 _QUAD = {

@@ -28,21 +28,14 @@ class XmlMarkingFormat(MarkingFormat):
 
     # --- Prompt fragments ---
 
-    def system_prompt_name(self) -> str:
-        return "ai_marking_system_xml"
+    def prompt_name(self) -> str:
+        return "ai_marking_xml"
 
     def criterion_ref(self) -> str:
         return "<criterion> elements"
 
     def subpage_ref(self) -> str:
         return "<subpage> elements"
-
-    def build_user_text(self, blueprint_str: str) -> str:
-        return (
-            "Fill in the four empty fields for each question "
-            "(<student_answer>, <assigned_marks>, <explanation>, <confidence>):\n"
-            f"{blueprint_str}"
-        )
 
     # --- API enforcement ---
 
