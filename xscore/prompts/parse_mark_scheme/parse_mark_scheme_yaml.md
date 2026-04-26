@@ -48,9 +48,9 @@ LaTeX formatting rules for criterion text (block scalars handle backslashes lite
 
 ## CODE_FORMATTING
 
-This exam contains code and pseudocode. Mark scheme criteria must render code in monospace.
+This exam contains code and pseudocode. Mark scheme `correct_answer` and `criterion` text must render code in monospace.
 
-In criterion text:
+In `correct_answer` and `criterion` text:
 - Wrap inline code tokens (variables, function calls, code keywords) in \texttt{...}.
 - Wrap multi-line code blocks in \begin{alltt}...\end{alltt}; preserve indentation with literal spaces; do NOT use \textbf for code.
 - Inside \begin{alltt}...\end{alltt}: do NOT escape <, >, &, %, _, #, $; only escape { → \{, } → \}, backslash → \textbackslash{}.

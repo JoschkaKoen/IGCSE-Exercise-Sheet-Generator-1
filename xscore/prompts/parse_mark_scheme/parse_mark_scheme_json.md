@@ -21,4 +21,4 @@ Examples: "\\textbf{word}", "$v = 2\\pi r / T$"
 
 ## CODE_FORMATTING
 
-This exam contains code/pseudocode that must be rendered in monospace. In JSON criterion strings: inline code → "\\texttt{...}", multi-line code → "\\begin{alltt}...\\end{alltt}". Do not use \\textbf for code. Inside the alltt block, only escape { → \\{, } → \\}, backslash → \\textbackslash{}.
+This exam contains code/pseudocode that must be rendered in monospace. In JSON `correct_answer` and `criterion` strings: inline code → "\\texttt{...}", multi-line code → "\\begin{alltt}...\\end{alltt}". Do not use \\textbf for code. Inside the alltt block, only escape { → \\{, } → \\}, backslash → \\textbackslash{}.

@@ -141,6 +141,7 @@ def step_21_parse_scheme(ctx: _Ctx) -> None:
         state["client"], state["answer_pdf"], state["raw_questions"],
         state["graphics_by_qnum"], state.get("questions_per_page"),
         ctx.artifact_dir, fmt=state["fmt"],
+        exam_pdf=state["exam_pdf"],
     )
     state["scheme_data"] = scheme_data
     scheme_qs = scheme_data.get("questions", []) if isinstance(scheme_data, dict) else []

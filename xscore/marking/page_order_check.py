@@ -56,13 +56,25 @@ def _scan_page_texts(
     def _ocr_one(p: int) -> tuple[str, int, int]:
         with fitz.open(str(scan_pdf)) as doc:
             pix = doc[p - 1].get_pixmap(dpi=dpi, colorspace=fitz.csGRAY)
-        ocr_out, _ = _get_ocr()(pix.tobytes("png"))
+        png_bytes = pix.tobytes("png")
+        pix = None  # release ~2 MB pixmap before the OCR call
+        ocr_out, _ = _get_ocr()(png_bytes)
+        png_bytes = None
         items = list(ocr_out or [])
         total = len(items)
         kept = [t for _, t, c in items if float(c) > _OCR_CONF_THRESHOLD]
         return "\n".join(kept), len(kept), total
 
-    workers = min(len(page_nums), int(os.environ.get("PAGE_ORDER_WORKERS", "500"))) or 1
+    # RapidOCR's ONNX inference uses all cores for one call, but Python-side
+    # preprocessing between detection/classification/recognition models is
+    # single-threaded — so parallel callers help fill those gaps up to ~cpu_count.
+    # Beyond that it's pure memory bloat. Cap at 8 to bound peak in-flight
+    # pixmap + PNG-bytes + OCR-buffer memory; PAGE_ORDER_OCR_WORKERS overrides.
+    default_ocr_workers = min(os.cpu_count() or 4, 8)
+    workers = min(
+        len(page_nums),
+        int(os.environ.get("PAGE_ORDER_OCR_WORKERS", str(default_ocr_workers))),
+    ) or 1
     with ThreadPoolExecutor(max_workers=workers) as ex:
         return list(ex.map(_ocr_one, page_nums))
 

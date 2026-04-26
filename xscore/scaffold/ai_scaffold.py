@@ -324,6 +324,7 @@ def step21_parse_mark_scheme(
     artifact_dir: "Path | None",
     *,
     fmt=None,
+    exam_pdf: "Path | None" = None,
 ) -> dict:
     """Parse the mark scheme into ``{questions: [{number, correct_answer, mark_scheme, ...}]}``.
 
@@ -331,6 +332,10 @@ def step21_parse_mark_scheme(
     PDF if step 19 was skipped. Uses *questions_per_page* (from step 20) to
     send only the relevant question entries to the AI per page; falls back
     to the full scaffold for any page missing from the mapping.
+
+    *exam_pdf* is used only to widen the CS-exam detection — the heuristic
+    matches "0478" in any provided PDF filename, and the question paper is
+    more reliably named (the mark scheme PDF is often renamed by users).
 
     Returns ``{"questions": []}`` when *marking_scheme_pdf* is None or the
     call fails.
@@ -344,7 +349,7 @@ def step21_parse_mark_scheme(
     scheme_model, scheme_thinking, scheme_max_tokens = _mark_scheme_model_config()
 
     from xscore.shared.exam_paths import is_cs_exam as _is_cs_exam
-    is_cs = _is_cs_exam(marking_scheme_pdf)
+    is_cs = _is_cs_exam(marking_scheme_pdf, exam_pdf)
 
     try:
         return parse_mark_scheme_pages(
@@ -532,6 +537,7 @@ def build_ai_scaffold(
         scheme_data = step21_parse_mark_scheme(
             client, marking_scheme_pdf, raw_questions,
             graphics_by_qnum, questions_per_page, artifact_dir, fmt=fmt,
+            exam_pdf=exam_pdf,
         )
         if on_scheme_complete is not None and isinstance(scheme_data.get("questions"), list):
             on_scheme_complete(scheme_data["questions"])
