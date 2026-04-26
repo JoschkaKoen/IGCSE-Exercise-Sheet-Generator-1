@@ -476,7 +476,7 @@ def check_student_handwriting(
         return assignment.student_name, exam_page, scan_page, hw
 
     results: list[tuple[str, int, int, bool | None]] = []
-    workers = min(len(tasks), 8)
+    workers = min(len(tasks), int(os.environ.get("HANDWRITING_WORKERS", "500")))
     with ThreadPoolExecutor(max_workers=workers) as ex:
         futs = {ex.submit(_detect, t): t for t in tasks}
         for fut in as_completed(futs):

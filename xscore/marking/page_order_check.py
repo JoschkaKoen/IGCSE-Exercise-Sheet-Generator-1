@@ -64,7 +64,7 @@ def _scan_page_texts(
         kept = [t for _, t, c in items if float(c) > _OCR_CONF_THRESHOLD]
         return "\n".join(kept), len(kept), total
 
-    workers = min(len(page_nums), 8) or 1
+    workers = min(len(page_nums), int(os.environ.get("PAGE_ORDER_WORKERS", "500"))) or 1
     with ThreadPoolExecutor(max_workers=workers) as ex:
         return list(ex.map(_ocr_one, page_nums))
 
@@ -390,7 +390,7 @@ def check_page_order(
         status, msg, issues = _validate_per_student_response(raw)
         return sd["name"], status, msg, issues
 
-    workers = min(len(students_data), 8) or 1
+    workers = min(len(students_data), int(os.environ.get("PAGE_ORDER_WORKERS", "500"))) or 1
     with ThreadPoolExecutor(max_workers=workers) as ex:
         results = list(ex.map(_check_one, students_data))
 

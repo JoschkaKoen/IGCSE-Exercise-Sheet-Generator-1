@@ -427,7 +427,7 @@ def detect_scheme_graphics(
             ]
         }
 
-    with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("SCHEME_WORKERS", "8")))) as pool:
+    with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("SCHEME_GRAPHICS_WORKERS", "500")))) as pool:
         graphics_page_results = list(pool.map(_detect_graphics_page, range(1, n_pages + 1)))
 
     _graphics_merged = _merge_scheme_results(graphics_page_results)
@@ -530,7 +530,7 @@ def parse_mark_scheme_pages(
             page_num, path = item
             return page_num, _upload_and_poll(client, path, f"scheme p{page_num}")
 
-        with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("SCHEME_WORKERS", "8")))) as pool:
+        with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("PARSE_SCHEME_WORKERS", "500")))) as pool:
             for page_num, f in pool.map(_upload_page, enumerate(page_paths, 1)):
                 page_uris[page_num] = f.uri
 
@@ -603,7 +603,7 @@ def parse_mark_scheme_pages(
             save_response(_prompt_path, raw or "")
         return fmt.parse_scheme_response(raw or "")
 
-    with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("SCHEME_WORKERS", "8")))) as pool:
+    with ThreadPoolExecutor(max_workers=min(n_pages, int(os.environ.get("PARSE_SCHEME_WORKERS", "500")))) as pool:
         page_results = list(pool.map(_call_page, range(1, n_pages + 1)))
 
     result = _merge_scheme_results(page_results)

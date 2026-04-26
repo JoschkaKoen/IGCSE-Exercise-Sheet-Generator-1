@@ -265,7 +265,7 @@ flowchart TD
 - 30 — Evaluate marking accuracy
 - 31 — Summarise AI costs
 
-The pipeline is **sequential at the orchestration level**. The only true concurrency is (a) a background thread that pre-renders all scan pages to JPEG starting just after step 11 — so step 23 doesn't block on rasterisation — (b) `MARKING_WORKERS` parallelism *inside* steps 23 (one API call per student page) and 26 (one xelatex process per student PDF), and (c) step 15's vision check, which fans out one task per (student × blank exam page) on a `ThreadPoolExecutor` capped at 8 workers.
+The pipeline is **sequential at the orchestration level**. The only true concurrency is (a) a background thread that pre-renders all scan pages to JPEG starting just after step 11 — so step 23 doesn't block on rasterisation — (b) `MARKING_WORKERS` parallelism *inside* steps 23 (one API call per student page) and 26 (one xelatex process per student PDF), and (c) per-step `*_WORKERS` env vars for the parallel sites in steps 10, 13, 15, 19, and 20 (each fans out one task per LLM call on a `ThreadPoolExecutor`; defaults are uncapped via `default.env`).
 
 **Blank-page data flow (steps 14 → 15 → 23).** Step 14 identifies which exam pages are blank; only step 15 reads that artifact. Step 15 then runs a per-student vision check on each scan page that corresponds to a blank exam page and records, per student, which scan pages have handwriting (and which were inconclusive). Step 23 (AI marking) reads only step 15's `handwriting.json`: scan pages flagged no-handwriting are dropped from the marking work (no API call), and scan pages flagged with handwriting + an `attach_to_scan_page` link are appended as continuation images on the parent page's API call. Steps 16–22 do not touch either artifact.
 
@@ -289,7 +289,7 @@ Each run writes one folder per step under `output/xscore/<exam>/<timestamp>/`, n
 | **12 — Check number of pages per student** | • Validates each student's page count against the expected `exam_pages (+ 1 cover)`<br>• Aborts with `SystemExit(1)` on mismatch, printing a per-student breakdown |
 | **13 — Check page order** | • Verifies printed question text on each scan page is in the correct order (`PAGE_ORDER_CHECK_MODEL`)<br>• Non-fatal: exceptions are caught and logged<br>• Writes text artifacts to `13_page_order/` |
 | **14 — Detect blank pages in empty exam** | • Text-only LLM call: identifies blank exam pages in the empty exam PDF (no question text — only writing lines or "BLANK PAGE" heading)<br>• Configure with `14_EXAM_BLANK_DETECTION_MODEL`<br>• Non-fatal; writes `14_exam_blank_detection/blank_exam_pages.json` |
-| **15 — Check student handwriting on blank pages** | • Vision LLM call per (student × blank exam page): checks the corresponding student scan page for handwriting<br>• Reads step 14's `blank_exam_pages.json`; runs the per-task vision calls on a `ThreadPoolExecutor` (max 8 workers)<br>• Pages with no handwriting are flagged as skip pages and consumed by step 23; inconclusive pages are surfaced separately and excluded from skip<br>• Configure with `15_HANDWRITING_CHECK_MODEL`<br>• Non-fatal; writes `15_student_handwriting/handwriting.json` and per-page JPEG images |
+| **15 — Check student handwriting on blank pages** | • Vision LLM call per (student × blank exam page): checks the corresponding student scan page for handwriting<br>• Reads step 14's `blank_exam_pages.json`; runs the per-task vision calls on a `ThreadPoolExecutor` (worker count from `HANDWRITING_WORKERS`, default 500)<br>• Pages with no handwriting are flagged as skip pages and consumed by step 23; inconclusive pages are surfaced separately and excluded from skip<br>• Configure with `HANDWRITING_CHECK_MODEL`<br>• Non-fatal; writes `15_student_handwriting/handwriting.json` and per-page JPEG images |
 | **16 — Detect empty exam layout** | • AI vision call detects the printing layout of the exam PDF (1×1, 2-up, 4-up) (`DETECT_LAYOUT_MODEL`)<br>• Writes `16_detect_exam_layout/exam_layout.json` + `.md` |
 | **17 — Cut empty exam** | • Pure geometry step — no AI call<br>• 1×1 layout: prints "skipped" and continues immediately<br>• Multi-up: crops and reassembles each physical page into one PDF page per sub-page in reading order<br>• Split PDF saved to `17_cut_exam/split_exam.pdf` |
 | **18 — Parse empty exam PDF** | • Reads the exam PDF and extracts every question and sub-question<br>• Returns number, type, marks, page, subpage position, and answer options<br>• Writes `18_parse_exam_pdf/exam_questions.json` + `.md`<br>• Configure with `READ_EXAM_PDF_MODEL` (Gemini or Qwen) |
@@ -499,14 +499,21 @@ Legacy `, off` / `, low` / `, high` strings still parse for back-compat (mapped 
 | `COVER_PAGE_DETECTION_MODEL` | xScore step 10 — authoritative cover-page check on scan page 1 |
 | `NAME_DETECTION_MODEL` | xScore step 11 — student-name OCR. **Must use `thinking_tokens=0`** — runs through a non-streaming helper that raises if thinking is on. |
 | `PAGE_ORDER_CHECK_MODEL` | xScore step 13 — verifies scan-page order matches the empty exam |
-| `14_EXAM_BLANK_DETECTION_MODEL` | xScore step 14 — text-only LLM that identifies blank pages in the empty exam PDF |
-| `15_HANDWRITING_CHECK_MODEL` | xScore step 15 — vision LLM that checks each (student × blank exam page) for handwriting (fixed 32-token cap) |
+| `EXAM_BLANK_DETECTION_MODEL` | xScore step 14 — text-only LLM that identifies blank pages in the empty exam PDF |
+| `HANDWRITING_CHECK_MODEL` | xScore step 15 — vision LLM that checks each (student × blank exam page) for handwriting (fixed 32-token cap) |
 | `DETECT_LAYOUT_MODEL` | xScore step 16 — detect printing layout (1×1, 2-up, 4-up) |
 | `READ_EXAM_PDF_MODEL` | xScore step 18 — extract question hierarchy. Gemini → native PDF upload; Qwen → per-page PNG. |
 | `DETECT_SCHEME_GRAPHICS_MODEL` | xScore step 19 — graphics detection. **PNG-only for all providers** (the bbox frame requires a known raster). |
 | `READ_MARK_SCHEME_MODEL` | xScore step 20 — parse mark scheme. Gemini → native PDF; Qwen → per-page PNG. |
 | `MARKING_MODEL` | xScore step 23 — vision model for AI marking. Gemini → native PDF; Qwen → per-page JPEG. Any thinking budget works (the call streams when thinking is on). |
-| `MARKING_WORKERS` | Parallel workers for step 23 (AI marking) and step 26 (per-student PDF compile). Default `min(cpu_count, 16)`; the shipped `default.env` overrides to `100` for high-throughput hosts. |
+| `NAME_WORKERS` | xScore step 11 — parallel workers for student-name OCR (one per student block). Shipped `default.env` value: `500`. |
+| `COVER_PAGE_WORKERS` | xScore step 10 — parallel cover-page vision checks (one per detected scan-block cover). Shipped `default.env` value: `500`. |
+| `PAGE_ORDER_WORKERS` | xScore step 13 — parallel OCR + per-student page-order checks (covers both parallel sites in the step). Shipped `default.env` value: `500`. |
+| `HANDWRITING_WORKERS` | xScore step 15 — parallel handwriting vision checks (one per student × blank exam page). Shipped `default.env` value: `500`. |
+| `SCHEME_GRAPHICS_WORKERS` | xScore step 19 — parallel mark-scheme graphics-detection vision calls (one per scheme page). Shipped `default.env` value: `500`. |
+| `PARSE_SCHEME_WORKERS` | xScore step 20 — parallel mark-scheme parsing calls (one per scheme page; covers both Gemini and OpenAI-compat paths). Shipped `default.env` value: `500`. |
+| `MARKING_WORKERS` | Parallel workers for step 23 (AI marking). Shipped `default.env` value: `500`. Also serves as the fallback for `REPORT_COMPILE_WORKERS`. |
+| `REPORT_COMPILE_WORKERS` | xScore steps 24 + 26 — parallel xelatex per-student PDF compilation. Falls back to `MARKING_WORKERS` then to `4`. Shipped `default.env` value: `500`. |
 
 Full model lists and recommended preset values are in [`default.env`](default.env).
 

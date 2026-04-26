@@ -448,7 +448,10 @@ def detect_scan_cover_pages(
             )
 
         if cover_indices_to_check:
-            _cover_workers = min(len(cover_indices_to_check), 8)
+            _cover_workers = min(
+                len(cover_indices_to_check),
+                int(os.environ.get("COVER_PAGE_WORKERS", "500")),
+            )
             _t_verify = time.perf_counter()
             with ThreadPoolExecutor(max_workers=_cover_workers) as ex:
                 for _idx, _ok in ex.map(_check_cover, cover_indices_to_check):

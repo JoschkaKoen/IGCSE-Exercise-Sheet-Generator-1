@@ -213,11 +213,13 @@ def _merge_student_pages(
             qnum = q.get("number", "?")
             file_occ[qnum] = file_occ.get(qnum, 0) + 1
             key = (qnum, file_occ[qnum])
+            q_with_page = q.copy()
+            q_with_page["page_label"] = p
             if key not in merged_questions:
-                merged_questions[key] = q.copy()
+                merged_questions[key] = q_with_page
             else:
                 merged_questions[key] = _resolve_mark_collision(
-                    merged_questions[key], q, qnum, student_name, p,
+                    merged_questions[key], q_with_page, qnum, student_name, p,
                     collisions=collisions, collisions_lock=collisions_lock,
                 )
 
