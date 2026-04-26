@@ -1,15 +1,15 @@
-"""Steps 15–20: scaffold building (layout, cut, parse, scheme graphics, merge).
+"""Steps 16–21: scaffold building (layout, cut, parse, scheme graphics, merge).
 
-Steps 15–20 share local state (exam_pdf, client, layout_result, raw_questions,
+Steps 16–21 share local state (exam_pdf, client, layout_result, raw_questions,
 …) so each step writes/reads ``ctx.scaffold_state`` rather than receiving these
 through individual ``_Ctx`` fields. ``scaffold_phase`` is the orchestrator
 that:
 
 1. Looks up the exam/answer PDFs and Gemini client (skipping the whole phase
    when no exam PDF is found).
-2. Calls ``run_step`` for each of 15–20 so each gets timing/error capture.
-3. In a ``finally``, deletes the temp split PDF created by step 16 and
-   consumed by step 17. Always runs, even on ``_EarlyExit``.
+2. Calls ``run_step`` for each of 16–21 so each gets timing/error capture.
+3. In a ``finally``, deletes the temp split PDF created by step 17 and
+   consumed by step 18. Always runs, even on ``_EarlyExit``.
 """
 
 from __future__ import annotations
@@ -18,12 +18,12 @@ import time
 from pathlib import Path
 
 from xscore.scaffold.ai_scaffold import (
-    step15_detect_layout,
-    step16_cut_exam_pdf,
-    step17_parse_exam_pdf,
-    step18_detect_scheme_graphics,
-    step19_parse_mark_scheme,
-    step20_merge_scaffold,
+    step16_detect_layout,
+    step17_cut_exam_pdf,
+    step18_parse_exam_pdf,
+    step19_detect_scheme_graphics,
+    step20_parse_mark_scheme,
+    step21_merge_scaffold,
 )
 from xscore.scaffold.formats import get_scaffold_format
 from xscore.scaffold.generate_scaffold import (
@@ -37,14 +37,14 @@ from xscore.shared.pipeline_steps import run_step, step_by_number
 from xscore.shared.terminal_ui import announce_step_model, format_duration, ok_line, warn_line
 
 
-def step_15_layout(ctx: _Ctx) -> None:
+def step_16_layout(ctx: _Ctx) -> None:
     announce_step_model(
-        model_env="15_DETECT_LAYOUT_MODEL",
+        model_env="DETECT_LAYOUT_MODEL",
         default_model="gemini-2.5-flash, low",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     state = ctx.scaffold_state
-    layout_result, layout_elapsed, layout_model = step15_detect_layout(
+    layout_result, layout_elapsed, layout_model = step16_detect_layout(
         state["client"], state["exam_pdf"], ctx.artifact_dir,
     )
     state["layout_result"] = layout_result
@@ -52,9 +52,9 @@ def step_15_layout(ctx: _Ctx) -> None:
     state["layout_model"] = layout_model
 
 
-def step_16_cut(ctx: _Ctx) -> None:
+def step_17_cut(ctx: _Ctx) -> None:
     state = ctx.scaffold_state
-    actual_exam_pdf, split_pdf_temp_path, _n_phys, n_split = step16_cut_exam_pdf(
+    actual_exam_pdf, split_pdf_temp_path, _n_phys, n_split = step17_cut_exam_pdf(
         state["exam_pdf"], state["layout_result"], ctx.artifact_dir,
         layout_model=state["layout_model"], layout_elapsed=state["layout_elapsed"],
     )
@@ -63,14 +63,14 @@ def step_16_cut(ctx: _Ctx) -> None:
     state["n_split"] = n_split
 
 
-def step_17_parse_exam(ctx: _Ctx) -> None:
+def step_18_parse_exam(ctx: _Ctx) -> None:
     announce_step_model(
-        model_env="17_READ_EXAM_PDF_MODEL",
+        model_env="READ_EXAM_PDF_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     state = ctx.scaffold_state
-    raw_questions, raw_layout = step17_parse_exam_pdf(
+    raw_questions, raw_layout = step18_parse_exam_pdf(
         state["client"], state["actual_exam_pdf"], state["layout_result"],
         state["n_split"], state["split_pdf_temp_path"], ctx.artifact_dir,
         fmt=state["fmt"],
@@ -79,21 +79,21 @@ def step_17_parse_exam(ctx: _Ctx) -> None:
     state["raw_layout"] = raw_layout
 
 
-def step_18_scheme_graphics(ctx: _Ctx) -> None:
+def step_19_scheme_graphics(ctx: _Ctx) -> None:
     announce_step_model(
-        model_env="18_DETECT_SCHEME_GRAPHICS_MODEL",
+        model_env="DETECT_SCHEME_GRAPHICS_MODEL",
         default_model="gemini-2.5-flash, off",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
-    graphics_by_qnum, graphics_questions = step18_detect_scheme_graphics(
+    graphics_by_qnum, graphics_questions = step19_detect_scheme_graphics(
         state["answer_pdf"], state["raw_questions"], ctx.artifact_dir,
         fmt=state["fmt"],
     )
     state["graphics_by_qnum"] = graphics_by_qnum
     if graphics_questions is None:
-        ok_line("Skipped (18_DETECT_SCHEME_GRAPHICS_MODEL not set)")
+        ok_line("Skipped (DETECT_SCHEME_GRAPHICS_MODEL not set)")
     else:
         n = sum(len(q.get("graphics") or []) for q in graphics_questions)
         ok_line(
@@ -102,15 +102,15 @@ def step_18_scheme_graphics(ctx: _Ctx) -> None:
         )
 
 
-def step_19_parse_scheme(ctx: _Ctx) -> None:
+def step_20_parse_scheme(ctx: _Ctx) -> None:
     announce_step_model(
-        model_env="19_READ_MARK_SCHEME_MODEL",
+        model_env="READ_MARK_SCHEME_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
-    scheme_data = step19_parse_mark_scheme(
+    scheme_data = step20_parse_mark_scheme(
         state["client"], state["answer_pdf"], state["raw_questions"],
         state["graphics_by_qnum"], ctx.artifact_dir, fmt=state["fmt"],
     )
@@ -122,10 +122,10 @@ def step_19_parse_scheme(ctx: _Ctx) -> None:
     )
 
 
-def step_20_create_report(ctx: _Ctx) -> None:
+def step_21_create_report(ctx: _Ctx) -> None:
     state = ctx.scaffold_state
     t0 = state.get("phase_t0", time.perf_counter())
-    questions, layout = step20_merge_scaffold(
+    questions, layout = step21_merge_scaffold(
         state["raw_questions"], state["raw_layout"], state["scheme_data"],
     )
     ctx.scaffold = finalize_scaffold(
@@ -140,7 +140,7 @@ def step_20_create_report(ctx: _Ctx) -> None:
 
 
 def scaffold_phase(ctx: _Ctx) -> None:
-    """Steps 15–20 with shared-locals + temp-PDF cleanup.
+    """Steps 16–21 with shared-locals + temp-PDF cleanup.
 
     Skipped entirely when resuming (``ctx.from_step`` set). Aborts cleanly if
     no exam PDF is found. Cleanup runs even on ``_EarlyExit`` from
@@ -172,7 +172,7 @@ def scaffold_phase(ctx: _Ctx) -> None:
     })
 
     try:
-        for n in range(15, 21):
+        for n in range(16, 22):
             run_step(ctx, step_by_number(n))
     finally:
         sp: Path | None = ctx.scaffold_state.get("split_pdf_temp_path")

@@ -69,7 +69,7 @@ class _Ctx:
     scan_match: Path | None = None                      # set by step 4 (or scan_phases single-PDF branch),
                                                         # read by step 5
     scaffold_state: dict[str, Any] = field(default_factory=dict)
-    # transient store for steps 15–20 shared locals so individual step bodies stay focused.
+    # transient store for steps 16–21 shared locals so individual step bodies stay focused.
     # Holds keys like exam_pdf, answer_pdf, client, fmt, layout_result, layout_elapsed,
     # layout_model, actual_exam_pdf, split_pdf_temp_path, n_split, raw_questions,
     # raw_layout, graphics_by_qnum, scheme_data. Cleared by scaffold_phase finally.

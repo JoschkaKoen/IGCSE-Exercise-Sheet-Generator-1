@@ -91,14 +91,14 @@ except ValueError as _e:
 #   "jpeg" — faster write, smaller file, lossy (uses CLEANED_SCAN_JPEG_QUALITY).
 #   "png"  — lossless; still written with parallel encoding (slower than jpeg).
 # Change default by editing the getenv second argument, or set CLEANED_SCAN_EMBED_FORMAT.
-_csef = os.getenv("07_CLEANED_SCAN_EMBED_FORMAT", "jpeg").strip().lower()
+_csef = os.getenv("CLEANED_SCAN_EMBED_FORMAT", "jpeg").strip().lower()
 CLEANED_SCAN_EMBED_FORMAT: str = _csef if _csef in ("jpeg", "png") else "jpeg"
-CLEANED_SCAN_JPEG_QUALITY = int(os.getenv("07_CLEANED_SCAN_JPEG_QUALITY", "95"))
+CLEANED_SCAN_JPEG_QUALITY = int(os.getenv("CLEANED_SCAN_JPEG_QUALITY", "95"))
 
 # Class scan rotation (see preprocessing/remove_blanks_autorotate.py).
 # False (default): trust PDF /Rotate per page; only one Poppler raster (72 DPI) for blank detection.
 # True: add a full-DPI raster + Tesseract OSD for extra rotation hints (slow; rare mis-scanned PDFs).
-_scan_tess_rot = os.getenv("06_SCAN_USE_TESSERACT_ROTATION", "").strip().lower()
+_scan_tess_rot = os.getenv("SCAN_USE_TESSERACT_ROTATION", "").strip().lower()
 SCAN_USE_TESSERACT_ROTATION: bool = _scan_tess_rot in ("1", "true", "yes", "on")
 
 # After each half is deskewed, optionally run morphological vertical ruling-line detection.
@@ -108,10 +108,10 @@ _deskew_refl = os.getenv("XSCORE_DESKEW_REFERENCE_LINES", "").strip().lower()
 DESKEW_DETECT_REFERENCE_LINES: bool = _deskew_refl in ("1", "true", "yes", "on")
 
 try:
-    DESKEW_ACCURACY: float = float(os.getenv("07_DESKEW_ACCURACY", "0.01"))
+    DESKEW_ACCURACY: float = float(os.getenv("DESKEW_ACCURACY", "0.01"))
 except ValueError as _e:
     raise RuntimeError(
-        f"07_DESKEW_ACCURACY must be a number; got: {os.getenv('07_DESKEW_ACCURACY')!r}"
+        f"DESKEW_ACCURACY must be a number; got: {os.getenv('DESKEW_ACCURACY')!r}"
     ) from _e
 
 # =============================================================================
@@ -156,33 +156,33 @@ GROUND_TRUTH_PATH = Path(__file__).resolve().parent / "Ground Truth"
 
 # Steps 9–11: deskew + all coordinate-dependent geometric steps.
 # All pixel coordinates in JSON sidecars share this DPI — change as a unit.
-PIPELINE_DEFAULT_DPI: int = int(os.getenv("07_PIPELINE_DEFAULT_DPI", "300"))
+PIPELINE_DEFAULT_DPI: int = int(os.getenv("PIPELINE_DEFAULT_DPI", "300"))
 
 # Step 5: blank-page detection raster (mean/std; 72 DPI is sufficient).
-BLANK_DETECTION_DPI: int = int(os.getenv("05_BLANK_DETECTION_DPI", "72"))
+BLANK_DETECTION_DPI: int = int(os.getenv("BLANK_DETECTION_DPI", "72"))
 
-# Step 6: Tesseract OSD rotation (only when 06_SCAN_USE_TESSERACT_ROTATION=true).
-ROTATION_ANALYSIS_DPI: int = int(os.getenv("06_ROTATION_ANALYSIS_DPI", "150"))
+# Step 6: Tesseract OSD rotation (only when SCAN_USE_TESSERACT_ROTATION=true).
+ROTATION_ANALYSIS_DPI: int = int(os.getenv("ROTATION_ANALYSIS_DPI", "150"))
 
 # Step 9: model for the informational check on the empty exam's first page.
-EMPTY_EXAM_COVER_MODEL: str = os.getenv("09_EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash")
+EMPTY_EXAM_COVER_MODEL: str = os.getenv("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash")
 
 # Step 10: model for the authoritative cover-page check on scan page 1 and per-block verification.
-# Independent of 11_NAME_DETECTION_MODEL (name OCR) and 09_EMPTY_EXAM_COVER_MODEL.
-COVER_PAGE_DETECTION_MODEL: str = os.getenv("10_COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
-COVER_PAGE_DETECTION_DPI: int = int(os.getenv("10_COVER_PAGE_DETECTION_DPI", "150"))
+# Independent of NAME_DETECTION_MODEL (name OCR) and EMPTY_EXAM_COVER_MODEL.
+COVER_PAGE_DETECTION_MODEL: str = os.getenv("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
+COVER_PAGE_DETECTION_DPI: int = int(os.getenv("COVER_PAGE_DETECTION_DPI", "150"))
 
 # Step 11: name-recognition crop sent to vision API.
-NAME_RECOGNITION_DPI: int = int(os.getenv("11_NAME_RECOGNITION_DPI", "300"))
-NAME_JPEG_QUALITY: int = int(os.getenv("11_NAME_JPEG_QUALITY", "85"))
+NAME_RECOGNITION_DPI: int = int(os.getenv("NAME_RECOGNITION_DPI", "300"))
+NAME_JPEG_QUALITY: int = int(os.getenv("NAME_JPEG_QUALITY", "85"))
 
 # Step 22: full scan page sent to vision API for marking.
-MARKING_DPI: int = int(os.getenv("22_MARKING_DPI", "300"))
-MARKING_JPEG_QUALITY: int = int(os.getenv("22_MARKING_JPEG_QUALITY", "90"))
+MARKING_DPI: int = int(os.getenv("MARKING_DPI", "300"))
+MARKING_JPEG_QUALITY: int = int(os.getenv("MARKING_JPEG_QUALITY", "90"))
 
 # Inter-call delays in the marking pipeline (rate limiting). Override via env if needed.
-GRADE_QUESTION_DELAY_S: float = float(os.getenv("22_GRADE_QUESTION_DELAY_S", "0.0"))
-PAGE_API_DELAY_S: float = float(os.getenv("22_PAGE_API_DELAY_S", "0.0"))
+GRADE_QUESTION_DELAY_S: float = float(os.getenv("GRADE_QUESTION_DELAY_S", "0.0"))
+PAGE_API_DELAY_S: float = float(os.getenv("PAGE_API_DELAY_S", "0.0"))
 
 
 def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = False) -> None:
@@ -202,11 +202,11 @@ def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = 
 
 _ai_default = os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash")
 
-READ_EXAM_PDF_MODEL: str = os.getenv("17_READ_EXAM_PDF_MODEL") or _ai_default
-READ_MARK_SCHEME_MODEL: str = os.getenv("19_READ_MARK_SCHEME_MODEL") or _ai_default
-DETECT_LAYOUT_MODEL: str = os.getenv("15_DETECT_LAYOUT_MODEL", "gemini-2.5-flash, low")
-DETECT_SCHEME_GRAPHICS_MODEL: str = os.getenv("18_DETECT_SCHEME_GRAPHICS_MODEL", "gemini-2.5-flash, off")
+READ_EXAM_PDF_MODEL: str = os.getenv("READ_EXAM_PDF_MODEL") or _ai_default
+READ_MARK_SCHEME_MODEL: str = os.getenv("READ_MARK_SCHEME_MODEL") or _ai_default
+DETECT_LAYOUT_MODEL: str = os.getenv("DETECT_LAYOUT_MODEL", "gemini-2.5-flash, low")
+DETECT_SCHEME_GRAPHICS_MODEL: str = os.getenv("DETECT_SCHEME_GRAPHICS_MODEL", "gemini-2.5-flash, off")
 
-MARKING_MODEL_DEFAULT: str = os.getenv("22_MARKING_MODEL", "qwen3.6-plus, low")
+MARKING_MODEL_DEFAULT: str = os.getenv("MARKING_MODEL", "qwen3.6-plus, low")
 
 AI_OUTPUT_FORMAT: str = os.getenv("ALL_AI_OUTPUT_FORMAT", "yaml").strip().lower()

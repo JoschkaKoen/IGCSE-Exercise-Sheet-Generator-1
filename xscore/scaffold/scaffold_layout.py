@@ -92,13 +92,13 @@ def _detect_layout(
             collect_streamed_response,
             make_ai_client,
         )
-        _result = make_ai_client(model_env="15_DETECT_LAYOUT_MODEL")
+        _result = make_ai_client(model_env="DETECT_LAYOUT_MODEL")
         if _result is None:
             elapsed = time.perf_counter() - t0
             return (
                 _LayoutDetectSchema(rows=1, cols=1, reading_order=[]),
                 elapsed, None,
-                f"15_DETECT_LAYOUT_MODEL={model} requires API key for its provider",
+                f"DETECT_LAYOUT_MODEL={model} requires API key for its provider",
             )
         _oa_client, _, _provider, _, _ = _result
         _use_stream, _kw = build_completion_kwargs(

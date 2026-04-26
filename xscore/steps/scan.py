@@ -38,7 +38,7 @@ from xscore.shared.terminal_ui import announce_step_model, ok_line
 def step_03_students(ctx: _Ctx) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None
     announce_step_model(
-        model_env="03_READ_STUDENT_LIST_MODEL",
+        model_env="READ_STUDENT_LIST_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=2048,
     )

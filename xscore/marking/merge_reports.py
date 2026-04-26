@@ -59,13 +59,13 @@ from xscore.shared.terminal_ui import ok_line, warn_line
 # ---------------------------------------------------------------------------
 
 def _grade_curve_target() -> int:
-    """Read 24_GRADE_CURVE_TARGET (default 80). Used as the env-var fallback
+    """Read GRADE_CURVE_TARGET (default 80). Used as the env-var fallback
     when the natural-language prompt doesn't override the target."""
-    raw = os.environ.get("24_GRADE_CURVE_TARGET", "80")
+    raw = os.environ.get("GRADE_CURVE_TARGET", "80")
     try:
         return int(raw)
     except ValueError:
-        warn_line(f"Invalid 24_GRADE_CURVE_TARGET={raw!r} — using default 80")
+        warn_line(f"Invalid GRADE_CURVE_TARGET={raw!r} — using default 80")
         return 80
 
 
@@ -73,7 +73,7 @@ def _effective_curve_target(ctx: Any) -> int:
     """Resolve the curve target for *ctx*.
 
     Priority: ``ctx.instruction.curved_grade_override`` (if int) → env var
-    ``24_GRADE_CURVE_TARGET`` (default 80).
+    ``GRADE_CURVE_TARGET`` (default 80).
     """
     instr = getattr(ctx, "instruction", None)
     if instr is not None:
@@ -91,7 +91,7 @@ def _curved_grade_visible(ctx: Any) -> bool:
     """Resolve whether per-student PDFs include the curved % in their header.
 
     Priority: ``ctx.instruction.curved_grade_visible`` (if bool) → env var
-    ``25_CURVED_GRADE_VISIBLE`` (default true). Unrecognised env values warn
+    ``CURVED_GRADE_VISIBLE`` (default true). Unrecognised env values warn
     and fall back to True.
     """
     instr = getattr(ctx, "instruction", None)
@@ -99,22 +99,22 @@ def _curved_grade_visible(ctx: Any) -> bool:
         override = getattr(instr, "curved_grade_visible", None)
         if override is not None:
             return bool(override)
-    raw = os.environ.get("25_CURVED_GRADE_VISIBLE", "true").strip().lower()
+    raw = os.environ.get("CURVED_GRADE_VISIBLE", "true").strip().lower()
     if raw in _TRUE_STRS:
         return True
     if raw in _FALSE_STRS:
         return False
-    warn_line(f"Invalid 25_CURVED_GRADE_VISIBLE={raw!r} — using default true")
+    warn_line(f"Invalid CURVED_GRADE_VISIBLE={raw!r} — using default true")
     return True
 
 
 def _xelatex_timeout() -> int:
-    """Read 25_XELATEX_TIMEOUT in seconds (default 60). Used by _compile_tex."""
-    raw = os.environ.get("25_XELATEX_TIMEOUT", "60")
+    """Read XELATEX_TIMEOUT in seconds (default 60). Used by _compile_tex."""
+    raw = os.environ.get("XELATEX_TIMEOUT", "60")
     try:
         return max(1, int(raw))
     except ValueError:
-        warn_line(f"Invalid 25_XELATEX_TIMEOUT={raw!r} — using default 60s")
+        warn_line(f"Invalid XELATEX_TIMEOUT={raw!r} — using default 60s")
         return 60
 
 
@@ -926,7 +926,7 @@ def step_23_per_student_reports(ctx: Any) -> None:
     total_max_marks = ctx.scaffold.total_marks
     correct_answers, marking_criteria_by_num = _build_answer_lookup(ctx)
     names = _derive_student_names(ctx.artifact_dir, fmt=fmt)
-    workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("22_MARKING_WORKERS", "4")))
+    workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
 
     cli_student_filter = getattr(ctx, "student_filter", None)
     if cli_student_filter:
@@ -992,7 +992,7 @@ def step_25_per_student_pdfs(ctx: Any) -> None:
     ``CURVED_GRADE_VISIBLE`` (default true).
     """
     exam_name = ctx.artifact_dir.parent.name
-    workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("22_MARKING_WORKERS", "4")))
+    workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
     show_curved_grade = _curved_grade_visible(ctx)
     artifact_student_pdfs_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
     _pass2_write_tex(

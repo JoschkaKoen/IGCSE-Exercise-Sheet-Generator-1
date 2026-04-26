@@ -6,10 +6,10 @@ skip-if-resumed / stop-after / timing / error capture / run-log emission),
 with explicit carve-outs for:
 
 - ``scan_phases`` (steps 4–7, where step 4 is conditional on a duplex match)
-- ``scaffold_phase`` (steps 15–20, where a temp split PDF must be cleaned in finally)
-- ``kick_off_render_bg`` between steps 11 and 12 (pre-render scan pages so step 22
+- ``scaffold_phase`` (steps 16–21, where a temp split PDF must be cleaned in finally)
+- ``kick_off_render_bg`` between steps 11 and 12 (pre-render scan pages so step 23
   can consume them without waiting)
-- The ``ctx.cleaned_pdf and ctx.scaffold`` gate on steps 21–30
+- The ``ctx.cleaned_pdf and ctx.scaffold`` gate on steps 22–31
 """
 
 from __future__ import annotations
@@ -46,7 +46,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
     total_pages = sum(len(a.page_numbers) for a in ctx.page_assignments)
     workers = min(
         total_pages,
-        int(os.environ.get("22_MARKING_WORKERS", str(min(os.cpu_count() or 4, 16)))),
+        int(os.environ.get("MARKING_WORKERS", str(min(os.cpu_count() or 4, 16)))),
     )
     info_line(f"Pre-rendering {total_pages} page(s) in background ({workers} threads, {dpi} DPI) …")
     pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="render_bg")
@@ -93,16 +93,16 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
             for n in (8, 9, 10, 11):
                 run_step(ctx, step_by_number(n))
             kick_off_render_bg(ctx)
-            for n in (12, 13, 14):
+            for n in (12, 13, 14, 15):
                 run_step(ctx, step_by_number(n))
 
-        scaffold_phase(ctx)                               # 15–20 with finally cleanup
+        scaffold_phase(ctx)                               # 16–21 with finally cleanup
 
         if ctx.cleaned_pdf and ctx.scaffold:
-            for n in range(21, 31):
+            for n in range(22, 32):
                 run_step(ctx, step_by_number(n))
         elif ctx.cleaned_pdf and not ctx.scaffold:
-            warn_line("Marking skipped — scaffold not available (steps 21–30 omitted).")
+            warn_line("Marking skipped — scaffold not available (steps 22–31 omitted).")
 
         ctx.pipeline_completed_ok = True
     except _EarlyExit:

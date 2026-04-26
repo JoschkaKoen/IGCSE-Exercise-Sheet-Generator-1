@@ -25,7 +25,7 @@ from xscore.shared.terminal_ui import announce_step_model, format_duration, ok_l
 
 def step_01_parse(ctx: _Ctx) -> None:
     announce_step_model(
-        model_env="01_INTERPRET_PROMPT_MODEL",
+        model_env="INTERPRET_PROMPT_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
         default_model="gemini-2.5-flash",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,

@@ -25,7 +25,7 @@ from xscore.marking.blueprints import marked_to_md
 from xscore.marking.formats import get_marking_format
 from xscore.marking.formats.base import FormatParseError
 from xscore.shared.exam_paths import (
-    artifact_blank_pages_json_path,
+    artifact_handwriting_json_path,
     artifact_blueprint_path,
     artifact_mark_scheme_graphics_dir,
     artifact_marked_failed_path,
@@ -138,9 +138,9 @@ def _mark_page_pdf(
 
     gai_client = make_gemini_native_client()
     if gai_client is None:
-        raise RuntimeError("GEMINI_API_KEY not set — required for Gemini 22_MARKING_MODEL")
+        raise RuntimeError("GEMINI_API_KEY not set — required for Gemini MARKING_MODEL")
 
-    _model_env = os.environ.get("22_MARKING_MODEL", "")
+    _model_env = os.environ.get("MARKING_MODEL", "")
     if _model_env:
         model_id, _thinking, _max_tok = parse_model_spec(_model_env)
     else:
@@ -266,10 +266,10 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
 
     fmt = get_marking_format()
 
-    result = make_ai_client(model_env="22_MARKING_MODEL", default_model=_DEFAULT_MARKING_MODEL)
+    result = make_ai_client(model_env="MARKING_MODEL", default_model=_DEFAULT_MARKING_MODEL)
     if result is None:
         raise RuntimeError(
-            "22_MARKING_MODEL client could not be created — "
+            "MARKING_MODEL client could not be created — "
             "check DASHSCOPE_API_KEY / GEMINI_API_KEY in .env"
         )
     client, model_id, _provider, _thinking, max_tok = result
@@ -293,8 +293,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     raw_assignments: list[dict] = _safe_load_json(list_path)
     # Each entry: {"student_name": str, "page_numbers": [int, ...], "confidence": str}
 
-    # Load blank page detection results (written by step 13 blank_page_detection).
-    _blank_json = artifact_blank_pages_json_path(ctx.artifact_dir)
+    # Load handwriting check results (written by step 15 student_handwriting_check).
+    _blank_json = artifact_handwriting_json_path(ctx.artifact_dir)
     # Keys: student_name → set of scan_pages to skip (blank, no handwriting)
     _skip_scan_pages_by_student: dict[str, set[int]] = {}
     # Keys: student_name → {exercise_scan_page → [extra_blank_scan_pages_with_handwriting]}
@@ -345,7 +345,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         kept = [a["student_name"] for a in raw_assignments]
         info_line(f"--student filter active · marking {len(kept)} of {before}: {', '.join(kept)}")
 
-    workers = int(os.environ.get("22_MARKING_WORKERS", str(min(os.cpu_count() or 4, 16))))
+    workers = int(os.environ.get("MARKING_WORKERS", str(min(os.cpu_count() or 4, 16))))
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
 

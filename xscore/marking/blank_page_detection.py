@@ -1,14 +1,21 @@
-"""Step 14: detect blank pages in the empty exam, then check student scans for handwriting.
+"""Steps 14–15: detect blank pages in the empty exam, then check student scans for handwriting.
 
-The dispatcher in ``xscore/steps/geometry.py`` is the single policy layer:
-this module returns ``(BlankCheckStatus, message)`` and never calls SystemExit
-or prints. INCONCLUSIVE covers every path that today silently fails open
-(parse error, missing creds, API exception, model returning empty list).
+Step 14 (exam_blank_detection): text-only LLM call. Reads every page's extracted
+text from the empty exam PDF and identifies which pages are blank (no question text,
+only writing lines or "BLANK PAGE" heading). Writes
+``14_exam_blank_detection/blank_exam_pages.json``.
+
+Step 15 (student_handwriting_check): vision LLM call per (student × blank exam page).
+Reads the step-14 artifact, renders the corresponding scan pages as JPEGs, and checks
+for student handwriting. Writes ``15_student_handwriting/handwriting.json``.
+
+Both dispatchers in ``xscore/steps/geometry.py`` own the policy (INCONCLUSIVE →
+loud warn + continue, or SystemExit(1) when the per-step STRICT env var is set).
+Neither function here calls SystemExit or prints.
 
 Pages where ``_has_handwriting`` could not be determined are **omitted** from
 ``blank_scan_pages`` (so the consumer in ``xscore/marking/ai_mark.py`` is
-unaffected) and listed under a sibling ``inconclusive_pages`` field per
-student so the dispatcher can surface them to the user.
+unaffected) and listed under a sibling ``inconclusive_pages`` field per student.
 """
 
 from __future__ import annotations
@@ -67,9 +74,9 @@ def _build_client_state(model_id: str) -> _ClientState | str:
             return "GEMINI_API_KEY not set"
         return _ClientState(gai=gai, oa=None, provider="gemini")
     from eXercise.ai_client import make_ai_client
-    result = make_ai_client(model_env="14_BLANK_PAGE_DETECTION_MODEL")
+    result = make_ai_client(model_env="", default_model=model_id)
     if result is None:
-        return f"14_BLANK_PAGE_DETECTION_MODEL={model_id} requires API key for its provider"
+        return f"model={model_id} requires API key for its provider"
     oa, _, provider, _, _ = result
     return _ClientState(gai=None, oa=oa, provider=provider)
 
@@ -128,7 +135,7 @@ def _parse_handwriting(raw: str) -> bool | None:
     return None
 
 
-# ─────────── Step 1: find blank pages in empty exam ──────────────────────────
+# ─────────── Step 14: find blank pages in empty exam ─────────────────────────
 
 def find_blank_exam_pages(
     state: _ClientState,
@@ -143,12 +150,19 @@ def find_blank_exam_pages(
 
     Returns ``set[int]`` of 1-based page numbers (possibly empty) on success;
     ``None`` when the call could not be completed or the response was malformed.
+
+    The prompt includes the full candidate list so the model cannot hallucinate
+    out-of-range numbers. The parsed result is additionally clipped to the valid
+    set as a second layer of defence.
     """
     from xscore.shared.prompt_logger import save_prompt, save_response
     from xscore.shared.exam_paths import (
         artifact_blank_detection_txt_path,
-        artifact_blank_pages_prompt_path,
+        artifact_exam_blank_prompt_path,
     )
+
+    num_pages = len(exam_texts)
+    candidates = list(range(1, num_pages + 1))
 
     lines = [
         "You are analysing an empty exam paper.",
@@ -164,7 +178,9 @@ def find_blank_exam_pages(
         "- May have printed horizontal lines (writing lines for students) — these do NOT",
         "  disqualify a page from being blank",
         "",
-        "Return the list of 1-based page numbers of blank pages.",
+        f"The exam has {num_pages} page{'s' if num_pages != 1 else ''} in total.",
+        f"Return ONLY page numbers chosen from this list: {candidates}.",
+        "Do not return any number that is not in that list.",
     ]
     prompt = "\n".join(lines)
 
@@ -174,7 +190,7 @@ def find_blank_exam_pages(
         det_path.write_text(prompt, encoding="utf-8")
 
     save_path = (
-        artifact_blank_pages_prompt_path(artifact_dir, "blank_detection_exam")
+        artifact_exam_blank_prompt_path(artifact_dir, "blank_detection_exam")
         if artifact_dir else None
     )
     save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
@@ -190,7 +206,12 @@ def find_blank_exam_pages(
                 continue
             return None
     save_response(save_path, raw)
-    return _parse_blank_pages(raw)
+
+    result = _parse_blank_pages(raw)
+    if result is None:
+        return None
+    valid = set(range(1, num_pages + 1))
+    return result & valid
 
 
 def _call_blank_detection(
@@ -233,7 +254,7 @@ def _call_blank_detection(
     return resp.choices[0].message.content or ""
 
 
-# ─────────── Step 2: per-page handwriting check ──────────────────────────────
+# ─────────── Step 15: per-page handwriting check ──────────────────────────────
 
 def _has_handwriting(
     state: _ClientState,
@@ -313,37 +334,22 @@ def _call_handwriting(
     return resp.choices[0].message.content or ""
 
 
-# ─────────── Main entry ──────────────────────────────────────────────────────
+# ─────────── Public entry points ──────────────────────────────────────────────
 
-def check_blank_pages(
+def check_exam_blank_pages(
     exam_pdf: Path,
-    scan_pdf: Path,
-    page_assignments: list["PageAssignment"],
     artifact_dir: Path | None = None,
-    empty_exam_has_cover: bool | None = None,
 ) -> tuple[BlankCheckStatus, str | None]:
-    """Detect blank pages in the empty exam, then check each student's blank scan pages
-    for handwriting. Writes ``14_blank_pages/blank_pages.json`` to artifact_dir.
+    """Step 14: detect blank pages in the empty exam PDF (text-only LLM).
 
-    Returns ``(BlankCheckStatus, message)``. The dispatcher in ``geometry.py``
-    is the single policy layer; this function never calls SystemExit and never
-    prints.
-
-    *empty_exam_has_cover* — True when the empty exam's first page is a cover
-    page. When True the scan's cover page (p_label=1) maps 1:1 to exam page 1,
-    so no offset is needed. When False/None (empty exam has no cover), the scan
-    cover page shifts all answer pages by +1 relative to the empty exam page
-    numbers.
+    Writes ``14_exam_blank_detection/blank_exam_pages.json`` to artifact_dir.
+    Returns ``(BlankCheckStatus, message)``. Never calls SystemExit or prints.
     """
     from eXercise.ai_client import parse_model_spec
-    from xscore.shared.exam_paths import (
-        artifact_blank_pages_dir,
-        artifact_blank_pages_json_path,
-        artifact_blank_pages_prompt_path,
-    )
+    from xscore.shared.exam_paths import artifact_exam_blank_json_path
 
     model_id, thinking, max_tok = parse_model_spec(
-        os.environ.get("14_BLANK_PAGE_DETECTION_MODEL", "gemini-2.5-flash-lite")
+        os.environ.get("EXAM_BLANK_DETECTION_MODEL", "qwen3.6-flash")
     )
 
     client_or_err = _build_client_state(model_id)
@@ -351,7 +357,6 @@ def check_blank_pages(
         return BlankCheckStatus.INCONCLUSIVE, client_or_err
     state = client_or_err
 
-    # ── 1. Find blank pages in the empty exam ────────────────────────────────
     exam_texts = _exam_page_texts(exam_pdf)
     blank_exam_pages = find_blank_exam_pages(
         state, exam_texts, model_id, artifact_dir,
@@ -364,18 +369,84 @@ def check_blank_pages(
             "(model call failed or returned malformed response)",
         )
 
-    empty_artifact = {"blank_exam_pages": [], "students": []}
+    result_doc = {"blank_exam_pages": sorted(blank_exam_pages)}
+    if artifact_dir:
+        bp_path = artifact_exam_blank_json_path(artifact_dir)
+        bp_path.parent.mkdir(parents=True, exist_ok=True)
+        bp_path.write_text(json.dumps(result_doc, indent=2), encoding="utf-8")
+
     if not blank_exam_pages:
-        if artifact_dir:
-            bp_path = artifact_blank_pages_json_path(artifact_dir)
-            bp_path.parent.mkdir(parents=True, exist_ok=True)
-            bp_path.write_text(json.dumps(empty_artifact, indent=2), encoding="utf-8")
         return BlankCheckStatus.PASSED, "no blank pages found in empty exam"
+    n = len(blank_exam_pages)
+    pages_label = (
+        f"exam page{'s' if n != 1 else ''} {sorted(blank_exam_pages)} "
+        f"{'are' if n != 1 else 'is'} blank"
+    )
+    return BlankCheckStatus.PASSED, pages_label
+
+
+def check_student_handwriting(
+    scan_pdf: Path,
+    page_assignments: list["PageAssignment"],
+    artifact_dir: Path | None = None,
+    empty_exam_has_cover: bool | None = None,
+) -> tuple[BlankCheckStatus, str | None]:
+    """Step 15: check student scan pages for handwriting on blank exam pages (vision LLM).
+
+    Reads the step-14 artifact (``14_exam_blank_detection/blank_exam_pages.json``),
+    renders the relevant scan pages, and runs parallel vision handwriting checks.
+    Writes ``15_student_handwriting/handwriting.json``.
+    Returns ``(BlankCheckStatus, message)``. Never calls SystemExit or prints.
+    """
+    from eXercise.ai_client import parse_model_spec
+    from xscore.shared.exam_paths import (
+        artifact_exam_blank_json_path,
+        artifact_handwriting_dir,
+        artifact_handwriting_json_path,
+        artifact_handwriting_prompt_path,
+    )
+
+    if artifact_dir is None:
+        return BlankCheckStatus.INCONCLUSIVE, "no artifact_dir provided"
+
+    # ── Read step 14 artifact ────────────────────────────────────────────────
+    exam_blank_path = artifact_exam_blank_json_path(artifact_dir)
+    if not exam_blank_path.exists():
+        return (
+            BlankCheckStatus.INCONCLUSIVE,
+            "step 14 artifact not found (14_exam_blank_detection/blank_exam_pages.json); "
+            "run exam_blank_detection first",
+        )
+    try:
+        blank_data = json.loads(exam_blank_path.read_text(encoding="utf-8"))
+        blank_exam_pages: set[int] = set(blank_data.get("blank_exam_pages", []))
+    except Exception as exc:  # noqa: BLE001
+        return BlankCheckStatus.INCONCLUSIVE, f"could not read step 14 artifact: {exc}"
+
+    if not blank_exam_pages:
+        students_out = [
+            {"student_name": a.student_name, "blank_scan_pages": [], "inconclusive_pages": []}
+            for a in page_assignments
+        ]
+        artifact = {"students": students_out}
+        hw_path = artifact_handwriting_json_path(artifact_dir)
+        hw_path.parent.mkdir(parents=True, exist_ok=True)
+        hw_path.write_text(json.dumps(artifact, indent=2), encoding="utf-8")
+        return BlankCheckStatus.PASSED, "no blank exam pages — no handwriting checks needed"
+
+    model_id, thinking, max_tok = parse_model_spec(
+        os.environ.get("HANDWRITING_CHECK_MODEL", "qwen3-vl-flash")
+    )
+
+    client_or_err = _build_client_state(model_id)
+    if isinstance(client_or_err, str):
+        return BlankCheckStatus.INCONCLUSIVE, client_or_err
+    state = client_or_err
 
     cover_page_mode = any(a.cover_page_number is not None for a in page_assignments)
     cover_offset = 1 if (cover_page_mode and not empty_exam_has_cover) else 0
 
-    # ── 2. For each student × blank page: render JPEG + detect handwriting ──
+    # ── Build task list ──────────────────────────────────────────────────────
     tasks: list[tuple[Any, int, int]] = []
     for a in page_assignments:
         for exam_page in sorted(blank_exam_pages):
@@ -390,30 +461,26 @@ def check_blank_pages(
             {"student_name": a.student_name, "blank_scan_pages": [], "inconclusive_pages": []}
             for a in page_assignments
         ]
-        artifact = {"blank_exam_pages": sorted(blank_exam_pages), "students": students_out}
-        if artifact_dir:
-            bp_path = artifact_blank_pages_json_path(artifact_dir)
-            bp_path.parent.mkdir(parents=True, exist_ok=True)
-            bp_path.write_text(json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8")
+        artifact = {"students": students_out}
+        hw_path = artifact_handwriting_json_path(artifact_dir)
+        hw_path.parent.mkdir(parents=True, exist_ok=True)
+        hw_path.write_text(json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8")
         return BlankCheckStatus.PASSED, (
             f"exam pages {sorted(blank_exam_pages)} are beyond every student's scan range — "
             "no handwriting checks needed"
         )
 
-    jpeg_dir = artifact_blank_pages_dir(artifact_dir) if artifact_dir else None
-    if jpeg_dir:
-        jpeg_dir.mkdir(parents=True, exist_ok=True)
+    jpeg_dir = artifact_handwriting_dir(artifact_dir)
+    jpeg_dir.mkdir(parents=True, exist_ok=True)
 
     def _detect(args: tuple) -> tuple[str, int, int, bool | None]:
         """Returns (student_name, exam_page, scan_page, has_handwriting_or_None)."""
         assignment, exam_page, scan_page = args
         safe_name = (assignment.student_name or "Unknown").replace(" ", "_")
         jpeg_bytes = _render_page_jpeg(scan_pdf, scan_page)
-        if jpeg_dir:
-            (jpeg_dir / f"{safe_name}_{exam_page}.jpg").write_bytes(jpeg_bytes)
-        save_path = (
-            artifact_blank_pages_prompt_path(artifact_dir, f"blank_{safe_name}_{exam_page}")
-            if artifact_dir else None
+        (jpeg_dir / f"{safe_name}_{exam_page}.jpg").write_bytes(jpeg_bytes)
+        save_path = artifact_handwriting_prompt_path(
+            artifact_dir, f"blank_{safe_name}_{exam_page}"
         )
         hw = _has_handwriting(state, model_id, jpeg_bytes, save_path)
         return assignment.student_name, exam_page, scan_page, hw
@@ -425,8 +492,8 @@ def check_blank_pages(
         for fut in as_completed(futs):
             results.append(fut.result())
 
-    # ── 3. Compute attach_to_exam_page + build artifact ──────────────────────
-    non_blank = set(range(1, len(exam_texts) + 1)) - blank_exam_pages
+    # ── Build per-student artifact ───────────────────────────────────────────
+    non_blank = set(range(1, max(blank_exam_pages) + 1)) - blank_exam_pages
 
     def _attach_target(exam_page: int) -> int | None:
         candidates = [p for p in non_blank if p < exam_page]
@@ -470,16 +537,12 @@ def check_blank_pages(
             "inconclusive_pages": inconclusive_pages,
         })
 
-    artifact = {
-        "blank_exam_pages": sorted(blank_exam_pages),
-        "students": students_out,
-    }
-    if artifact_dir:
-        bp_path = artifact_blank_pages_json_path(artifact_dir)
-        bp_path.parent.mkdir(parents=True, exist_ok=True)
-        bp_path.write_text(
-            json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8"
-        )
+    artifact = {"students": students_out}
+    hw_path = artifact_handwriting_json_path(artifact_dir)
+    hw_path.parent.mkdir(parents=True, exist_ok=True)
+    hw_path.write_text(
+        json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
 
     hw_count = sum(1 for _, _, hw in [e for s in by_student.values() for e in s] if hw is True)
     n_done = sum(1 for _, _, hw in [e for s in by_student.values() for e in s] if hw is not None)

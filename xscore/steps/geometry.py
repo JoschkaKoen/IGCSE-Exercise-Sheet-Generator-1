@@ -1,9 +1,9 @@
-"""Steps 8–14: scan geometry, cover-page detection, student name OCR, validations.
+"""Steps 8–15: scan geometry, cover-page detection, student name OCR, validations.
 
 Step 11 keeps a named ``assign_pages_s`` sub-timing for the timing report
 (in addition to the canonical ``student_names`` timing run_step writes).
 
-Steps 13 and 14 return ``(status, message)`` from their helpers; the
+Steps 13, 14, and 15 return ``(status, message)`` from their helpers; the
 dispatchers below own the policy. INCONCLUSIVE → loud warn + continue
 (or ``SystemExit(1)`` when the per-step ``*_STRICT=1`` env var is set).
 MISMATCH_FOUND in step 13 still raises ``SystemExit(1)``.
@@ -25,7 +25,7 @@ from xscore.preprocessing.assign_pages_to_students import (
     page_assignments_to_json,
     page_assignments_to_md,
 )
-from xscore.marking.blank_page_detection import check_blank_pages
+from xscore.marking.blank_page_detection import check_exam_blank_pages, check_student_handwriting
 from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
 from xscore.marking.page_order_check import check_page_order
 from xscore.pipeline.resume import exam_pdf_page_count
@@ -71,7 +71,7 @@ def step_08_geometry(ctx: _Ctx) -> None:
 def step_09_cover_empty(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None and ctx.folder is not None
     announce_step_model(
-        model_env="09_EMPTY_EXAM_COVER_MODEL",
+        model_env="EMPTY_EXAM_COVER_MODEL",
         default_model="gemini-2.5-flash",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
@@ -115,7 +115,7 @@ def step_09_cover_empty(ctx: _Ctx) -> None:
 def step_10_cover_scan(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     announce_step_model(
-        model_env="10_COVER_PAGE_DETECTION_MODEL",
+        model_env="COVER_PAGE_DETECTION_MODEL",
         default_model="gemini-2.5-flash",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
@@ -130,7 +130,7 @@ def step_10_cover_scan(ctx: _Ctx) -> None:
 def step_11_student_names(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     announce_step_model(
-        model_env="11_NAME_DETECTION_MODEL",
+        model_env="NAME_DETECTION_MODEL",
         default_model="gemini-2.5-flash",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
@@ -218,7 +218,7 @@ def step_12_page_count(ctx: _Ctx) -> None:
 def step_13_page_order(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
     announce_step_model(
-        model_env="13_PAGE_ORDER_CHECK_MODEL",
+        model_env="PAGE_ORDER_CHECK_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=2048,
     )
@@ -242,23 +242,49 @@ def step_13_page_order(ctx: _Ctx) -> None:
     warn_line(
         "Page order check INCONCLUSIVE — pipeline did NOT verify page order:\n"
         f"  {msg}\n"
-        "  Set 13_PAGE_ORDER_CHECK_STRICT=1 to fail-fast on inconclusive checks."
+        "  Set PAGE_ORDER_CHECK_STRICT=1 to fail-fast on inconclusive checks."
     )
-    if os.environ.get("13_PAGE_ORDER_CHECK_STRICT", "0") == "1":
+    if os.environ.get("PAGE_ORDER_CHECK_STRICT", "0") == "1":
         raise SystemExit(1)
 
 
-def step_14_blank_pages(ctx: _Ctx) -> None:
-    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
+def step_14_exam_blank(ctx: _Ctx) -> None:
+    assert ctx.artifact_dir is not None and ctx.folder is not None
     announce_step_model(
-        model_env="14_BLANK_PAGE_DETECTION_MODEL",
+        model_env="EXAM_BLANK_DETECTION_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=256,
     )
     from xscore.marking.blank_page_detection import BlankCheckStatus
     t0 = time.perf_counter()
-    status, msg = check_blank_pages(
+    status, msg = check_exam_blank_pages(
         find_exam_pdf(ctx.folder),
+        ctx.artifact_dir,
+    )
+    dur = format_duration(time.perf_counter() - t0)
+    if status is BlankCheckStatus.PASSED:
+        ok_line(f"Exam blank detection: {msg}  ·  {dur}")
+        return
+    # INCONCLUSIVE
+    warn_line(
+        "Exam blank detection INCONCLUSIVE — pipeline did NOT identify blank exam pages:\n"
+        f"  {msg}\n"
+        "  Set EXAM_BLANK_DETECTION_STRICT=1 to fail-fast on inconclusive checks."
+    )
+    if os.environ.get("EXAM_BLANK_DETECTION_STRICT", "0") == "1":
+        raise SystemExit(1)
+
+
+def step_15_handwriting(ctx: _Ctx) -> None:
+    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    announce_step_model(
+        model_env="HANDWRITING_CHECK_MODEL",
+        legacy_model_env="AI_DEFAULT_MODEL",
+        default_max_tokens=32,
+    )
+    from xscore.marking.blank_page_detection import BlankCheckStatus
+    t0 = time.perf_counter()
+    status, msg = check_student_handwriting(
         ctx.cleaned_pdf,
         ctx.page_assignments,
         ctx.artifact_dir,
@@ -266,13 +292,13 @@ def step_14_blank_pages(ctx: _Ctx) -> None:
     )
     dur = format_duration(time.perf_counter() - t0)
     if status is BlankCheckStatus.PASSED:
-        ok_line(f"Blank page detection: {msg}  ·  {dur}")
+        ok_line(f"Student handwriting check: {msg}  ·  {dur}")
         return
     # INCONCLUSIVE
     warn_line(
-        "Blank page detection INCONCLUSIVE — pipeline did NOT verify all blank pages:\n"
+        "Student handwriting check INCONCLUSIVE — pipeline did NOT verify all blank pages:\n"
         f"  {msg}\n"
-        "  Set 14_BLANK_PAGE_DETECTION_STRICT=1 to fail-fast on inconclusive checks."
+        "  Set HANDWRITING_CHECK_STRICT=1 to fail-fast on inconclusive checks."
     )
-    if os.environ.get("14_BLANK_PAGE_DETECTION_STRICT", "0") == "1":
+    if os.environ.get("HANDWRITING_CHECK_STRICT", "0") == "1":
         raise SystemExit(1)

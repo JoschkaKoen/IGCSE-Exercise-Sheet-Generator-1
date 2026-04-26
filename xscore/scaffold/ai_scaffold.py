@@ -1,14 +1,14 @@
-"""AI-based exam scaffold — six step functions for steps 15–20 of the pipeline.
+"""AI-based exam scaffold — six step functions for steps 16–21 of the pipeline.
 
 Each step is independently callable with explicit inputs/outputs and writes its
 artifacts to its own numbered folder under ``artifact_dir``:
 
-    step15_detect_layout         → 15_detect_exam_layout/
-    step16_cut_exam_pdf          → 16_cut_exam/
-    step17_parse_exam_pdf        → 17_parse_exam_pdf/
-    step18_detect_scheme_graphics → 18_detect_mark_scheme_graphics/
-    step19_parse_mark_scheme     → 19_parse_mark_scheme/
-    step20_merge_scaffold        → 20_create_report/  (via build_scaffold cache)
+    step16_detect_layout          → 16_detect_exam_layout/
+    step17_cut_exam_pdf           → 17_cut_exam/
+    step18_parse_exam_pdf         → 18_parse_exam_pdf/
+    step19_detect_scheme_graphics → 19_detect_mark_scheme_graphics/
+    step20_parse_mark_scheme      → 20_parse_mark_scheme/
+    step21_merge_scaffold         → 21_create_report/  (via build_scaffold cache)
 
 ``build_ai_scaffold`` is kept as a thin orchestrator that calls the six step
 functions in sequence with the original ``on_*_complete`` callbacks for
@@ -63,10 +63,10 @@ from xscore.shared.terminal_ui import ok_line, tool_line, warn_line
 
 
 # ---------------------------------------------------------------------------
-# Step 15 — Detect exam layout
+# Step 16 — Detect exam layout
 # ---------------------------------------------------------------------------
 
-def step15_detect_layout(
+def step16_detect_layout(
     client,
     exam_pdf: Path,
     artifact_dir: "Path | None",
@@ -126,10 +126,10 @@ def step15_detect_layout(
 
 
 # ---------------------------------------------------------------------------
-# Step 16 — Cut exam PDF (split multi-up into single logical pages)
+# Step 17 — Cut exam PDF (split multi-up into single logical pages)
 # ---------------------------------------------------------------------------
 
-def step16_cut_exam_pdf(
+def step17_cut_exam_pdf(
     exam_pdf: Path,
     layout_result,
     artifact_dir: "Path | None",
@@ -192,10 +192,10 @@ def step16_cut_exam_pdf(
 
 
 # ---------------------------------------------------------------------------
-# Step 17 — Parse exam PDF
+# Step 18 — Parse exam PDF
 # ---------------------------------------------------------------------------
 
-def step17_parse_exam_pdf(
+def step18_parse_exam_pdf(
     client,
     actual_exam_pdf: Path,
     layout_result,
@@ -246,10 +246,10 @@ def step17_parse_exam_pdf(
 
 
 # ---------------------------------------------------------------------------
-# Step 18 — Detect mark scheme graphics
+# Step 19 — Detect mark scheme graphics
 # ---------------------------------------------------------------------------
 
-def step18_detect_scheme_graphics(
+def step19_detect_scheme_graphics(
     marking_scheme_pdf: "Path | None",
     raw_questions: list[dict],
     artifact_dir: "Path | None",
@@ -279,10 +279,10 @@ def step18_detect_scheme_graphics(
 
 
 # ---------------------------------------------------------------------------
-# Step 19 — Parse mark scheme
+# Step 20 — Parse mark scheme
 # ---------------------------------------------------------------------------
 
-def step19_parse_mark_scheme(
+def step20_parse_mark_scheme(
     client,
     marking_scheme_pdf: "Path | None",
     raw_questions: list[dict],
@@ -326,10 +326,10 @@ def step19_parse_mark_scheme(
 
 
 # ---------------------------------------------------------------------------
-# Step 20 — Merge scaffold
+# Step 21 — Merge scaffold
 # ---------------------------------------------------------------------------
 
-def step20_merge_scaffold(
+def step21_merge_scaffold(
     raw_questions: list[dict],
     raw_layout: dict,
     scheme_data: dict,
@@ -433,7 +433,7 @@ def build_ai_scaffold(
     on_scheme_complete: "Callable[[list[dict]], None] | None" = None,
     artifact_dir: Path | None = None,
 ) -> tuple[list[Question], ExamLayout]:
-    """Run scaffold steps 15–20 in order, firing the per-step callbacks.
+    """Run scaffold steps 16–21 in order, firing the per-step callbacks.
 
     Thin orchestrator preserved for backward compatibility with
     ``generate_scaffold.build_scaffold`` and external callers (e.g. the web
@@ -448,16 +448,16 @@ def build_ai_scaffold(
 
     split_pdf_temp_path: Path | None = None
     try:
-        # Step 15 — detect layout
-        layout_result, layout_elapsed, layout_model = step15_detect_layout(
+        # Step 16 — detect layout
+        layout_result, layout_elapsed, layout_model = step16_detect_layout(
             client, exam_pdf, artifact_dir,
         )
         if on_layout_complete is not None:
             on_layout_complete()
 
-        # Step 16 — cut PDF
+        # Step 17 — cut PDF
         actual_exam_pdf, split_pdf_temp_path, n_physical_pages, n_split_pages = (
-            step16_cut_exam_pdf(
+            step17_cut_exam_pdf(
                 exam_pdf, layout_result, artifact_dir,
                 layout_model=layout_model, layout_elapsed=layout_elapsed,
             )
@@ -466,31 +466,31 @@ def build_ai_scaffold(
         if on_cut_complete is not None:
             on_cut_complete(n_cells == 1)
 
-        # Step 17 — parse exam PDF
-        raw_questions, raw_layout = step17_parse_exam_pdf(
+        # Step 18 — parse exam PDF
+        raw_questions, raw_layout = step18_parse_exam_pdf(
             client, actual_exam_pdf, layout_result,
             n_split_pages, split_pdf_temp_path, artifact_dir, fmt=fmt,
         )
         if on_exam_complete is not None:
             on_exam_complete(raw_questions)
 
-        # Step 18 — detect scheme graphics
-        graphics_by_qnum, graphics_questions = step18_detect_scheme_graphics(
+        # Step 19 — detect scheme graphics
+        graphics_by_qnum, graphics_questions = step19_detect_scheme_graphics(
             marking_scheme_pdf, raw_questions, artifact_dir, fmt=fmt,
         )
         if on_graphics_complete is not None:
             on_graphics_complete(graphics_questions)
 
-        # Step 19 — parse mark scheme
-        scheme_data = step19_parse_mark_scheme(
+        # Step 20 — parse mark scheme
+        scheme_data = step20_parse_mark_scheme(
             client, marking_scheme_pdf, raw_questions,
             graphics_by_qnum, artifact_dir, fmt=fmt,
         )
         if on_scheme_complete is not None and isinstance(scheme_data.get("questions"), list):
             on_scheme_complete(scheme_data["questions"])
 
-        # Step 20 — merge scaffold
-        return step20_merge_scaffold(raw_questions, raw_layout, scheme_data)
+        # Step 21 — merge scaffold
+        return step21_merge_scaffold(raw_questions, raw_layout, scheme_data)
     finally:
         # Delete temp split PDF (always, even if upload or inference failed)
         if split_pdf_temp_path is not None:

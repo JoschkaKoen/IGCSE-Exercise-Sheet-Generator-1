@@ -17,7 +17,7 @@ _PROMPT = (
 
 def _read_model_config() -> tuple[str, int | None, int | None]:
     from eXercise.ai_client import parse_model_spec
-    raw = os.getenv("03_READ_STUDENT_LIST_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash"))
+    raw = os.getenv("READ_STUDENT_LIST_MODEL", os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash"))
     return parse_model_spec(raw)
 
 
@@ -172,12 +172,12 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
             provider_for_model,
         )
         _result = make_ai_client(
-            model_env="03_READ_STUDENT_LIST_MODEL",
+            model_env="READ_STUDENT_LIST_MODEL",
             legacy_model_env="AI_DEFAULT_MODEL",
         )
         if _result is None:
             raise RuntimeError(
-                f"03_READ_STUDENT_LIST_MODEL={model_name} requires the API key for "
+                f"READ_STUDENT_LIST_MODEL={model_name} requires the API key for "
                 f"provider '{provider_for_model(model_name)}' in .env"
             )
         _oa_client, _, _provider, _, _ = _result

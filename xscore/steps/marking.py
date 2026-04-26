@@ -22,7 +22,7 @@ def step_21_blueprints(ctx: _Ctx) -> None:
 def step_22_mark(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     announce_step_model(
-        model_env="22_MARKING_MODEL",
+        model_env="MARKING_MODEL",
         default_model=MARKING_MODEL_DEFAULT,
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )

@@ -4,9 +4,9 @@ Steps 10–11 of the pipeline:
 - Step 10: ``detect_scan_cover_pages`` — checks whether the scan uses a cover-page layout.
 - Step 11: ``assign_pages`` — renders pages, reads student names, groups into blocks.
 
-Name detection model: ``11_NAME_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
-Cover detection model: ``10_COVER_PAGE_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
-Worker count: ``11_NAME_WORKERS`` env var (default ``min(n_pages, 8)``).
+Name detection model: ``NAME_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
+Cover detection model: ``COVER_PAGE_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
+Worker count: ``NAME_WORKERS`` env var (default ``min(n_pages, 8)``).
 
 Returns a list of ``PageAssignment`` objects (one per student block).
 ``PageAssignment.cover_page_number`` is set to the 1-based scan page of the
@@ -193,10 +193,10 @@ def is_cover_page(
             collect_streamed_response,
             make_ai_client,
         )
-        _result = make_ai_client(model_env="10_COVER_PAGE_DETECTION_MODEL")
+        _result = make_ai_client(model_env="COVER_PAGE_DETECTION_MODEL")
         if _result is None:
             warn_line(
-                f"10_COVER_PAGE_DETECTION_MODEL={model_id} requires API key — "
+                f"COVER_PAGE_DETECTION_MODEL={model_id} requires API key — "
                 f"treating page as non-cover"
             )
             return False
@@ -317,10 +317,10 @@ def check_cover_page_text(
             collect_streamed_response,
             make_ai_client,
         )
-        _result = make_ai_client(model_env="09_EMPTY_EXAM_COVER_MODEL")
+        _result = make_ai_client(model_env="EMPTY_EXAM_COVER_MODEL")
         if _result is None:
             warn_line(
-                f"09_EMPTY_EXAM_COVER_MODEL={model_id} requires API key — "
+                f"EMPTY_EXAM_COVER_MODEL={model_id} requires API key — "
                 f"treating page as non-cover"
             )
             return False
@@ -409,7 +409,7 @@ def detect_scan_cover_pages(
 
     # Resolve the model first; only the Gemini branch needs a Gemini client.
     _cover_model, _cover_thinking, _cover_max_tokens = parse_model_spec(
-        os.environ.get("10_COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
+        os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
     )
     if _cover_model.startswith("gemini"):
         _gai_client = make_gemini_native_client()
@@ -503,10 +503,10 @@ def assign_pages(
     from pdf2image import convert_from_path
     from eXercise.ai_client import make_ai_client
 
-    ai_result = make_ai_client(model_env="11_NAME_DETECTION_MODEL", default_model="gemini-2.5-flash")
+    ai_result = make_ai_client(model_env="NAME_DETECTION_MODEL", default_model="gemini-2.5-flash")
     if ai_result is None:
         raise RuntimeError(
-            "11_NAME_DETECTION_MODEL client could not be created — check API key in .env"
+            "NAME_DETECTION_MODEL client could not be created — check API key in .env"
         )
     client, model_id, _provider, _thinking, _max_tok = ai_result
 
@@ -526,7 +526,7 @@ def assign_pages(
     # the student writes their name, so the same positions apply.
     # ------------------------------------------------------------------
     info_line("Detecting student names from scan pages …")
-    workers = int(os.environ.get("11_NAME_WORKERS", str(min(n_blocks, 8))))
+    workers = int(os.environ.get("NAME_WORKERS", str(min(n_blocks, 8))))
     prompt = _make_name_prompt(students) if students else _NAME_PROMPT_FREEFORM
 
     def _ocr_and_match(args: tuple[int, Any]) -> tuple[int, str | None]:
