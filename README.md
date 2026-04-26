@@ -122,58 +122,58 @@ flowchart TD
         u4[mark scheme PDF]
     end
 
-    s1["Step 1 — Parse grading prompt\n(Gemini · INTERPRET_PROMPT_MODEL)"]
-    s2["Step 2 — Locate exam folder\n(terminal only · fuzzy search)"]
-    s3["Step 3 — Read student roster\n(Gemini · READ_STUDENT_LIST_MODEL)"]
+    s1["Step 1 — Interpret prompt\n(Gemini · INTERPRET_PROMPT_MODEL)"]
+    s2["Step 2 — Select exam folder\n(terminal only · fuzzy search)"]
+    s3["Step 3 — Read student list\n(Gemini · READ_STUDENT_LIST_MODEL)"]
     routeCond{"Terminal or\nweb route?"}
 
     subgraph cleaning ["Scan cleaning (steps 4–7)"]
         direction TB
         s4["Step 4 — Merge duplex scans\n(optional · only when two scan files exist)"]
-        s5["Step 5 — Blank page detection\n(parallel · ≤ 4 CPU workers)"]
-        s6["Step 6 — Auto-rotate pages"]
-        s7["Step 7 — Deskew\n(IGCSE anchor detection · parallel)"]
+        s5["Step 5 — Detect blank pages in scanned exam\n(parallel · ≤ 4 CPU workers)"]
+        s6["Step 6 — Autorotate scanned exam pages"]
+        s7["Step 7 — Deskew scan pages\n(IGCSE anchor detection · parallel)"]
         s4 -.->|if two scans| s5
         s5 --> s6 --> s7
     end
 
     subgraph geometry ["Exam geometry (steps 8–14)"]
         direction TB
-        s8["Step 8 — Exam geometry\n(scan÷exam pages → num_students · roster cross-check)"]
-        s9["Step 9 — Cover page (empty exam)\n(EMPTY_EXAM_COVER_MODEL)"]
-        s10["Step 10 — Cover page (scan)\n(COVER_PAGE_DETECTION_MODEL)"]
-        s11["Step 11 — Student names\n(NAME_DETECTION_MODEL · parallel)"]
-        s12["Step 12 — Page count validation\n(abort if mismatch)"]
-        s13["Step 13 — Page order check\n(PAGE_ORDER_CHECK_MODEL)"]
-        s14["Step 14 — Blank page detection\n(BLANK_PAGE_DETECTION_MODEL)"]
+        s8["Step 8 — Detect empty exam geometry\n(scan÷exam pages → num_students · roster cross-check)"]
+        s9["Step 9 — Detect cover page in empty exam\n(EMPTY_EXAM_COVER_MODEL)"]
+        s10["Step 10 — Detect cover pages in scanned exam\n(COVER_PAGE_DETECTION_MODEL)"]
+        s11["Step 11 — Detect student names\n(NAME_DETECTION_MODEL · parallel)"]
+        s12["Step 12 — Check number of pages per student\n(abort if mismatch)"]
+        s13["Step 13 — Check page order\n(PAGE_ORDER_CHECK_MODEL)"]
+        s14["Step 14 — Detect blank pages in empty exam\n(BLANK_PAGE_DETECTION_MODEL)"]
         s8 --> s9 --> s10 --> s11 --> s12 --> s13 --> s14
     end
 
     subgraph scaffold ["Exam scaffold (steps 15–20)"]
         direction TB
-        s15["Step 15 — Detect exam layout\n(DETECT_LAYOUT_MODEL)"]
+        s15["Step 15 — Detect empty exam layout\n(DETECT_LAYOUT_MODEL)"]
         s16["Step 16 — Cut empty exam\n(1×1 → skipped · multi-up → split sub-pages)"]
-        s17["Step 17 — Parse exam PDF\n(READ_EXAM_PDF_MODEL)\n(Gemini: native PDF · Qwen: per-page PNG)"]
+        s17["Step 17 — Parse empty exam PDF\n(READ_EXAM_PDF_MODEL)\n(Gemini: native PDF · Qwen: per-page PNG)"]
         s18["Step 18 — Detect mark scheme graphics\n(DETECT_SCHEME_GRAPHICS_MODEL · PNG only)"]
         s19["Step 19 — Parse mark scheme\n(READ_MARK_SCHEME_MODEL)\n(Gemini: native PDF · Qwen: per-page PNG)"]
-        s20["Step 20 — Create report\n(merges question tree + mark scheme)"]
+        s20["Step 20 — Build grading scaffold\n(merges question tree + mark scheme)"]
         s15 --> s16 --> s17 --> s18 --> s19 --> s20
     end
 
     subgraph marking ["AI marking (steps 21–22)"]
         direction TB
-        s21["Step 21 — Marking blueprints\n(per-page templates from scaffold)"]
-        s22["Step 22 — AI marking\n(MARKING_MODEL · MARKING_WORKERS parallel)\n(Gemini: native PDF · Qwen: per-page JPEG)"]
+        s21["Step 21 — Build AI marking blueprints\n(per-page templates from scaffold)"]
+        s22["Step 22 — Run AI marking\n(MARKING_MODEL · MARKING_WORKERS parallel)\n(Gemini: native PDF · Qwen: per-page JPEG)"]
         s21 --> s22
     end
 
     subgraph reports ["Reports (steps 23–27)"]
         direction TB
-        s23["Step 23 — Per-student reports\n(merge per-page marks · cross-page max)"]
-        s24["Step 24 — Class statistics + curve\n(per-question averages · grade distribution)"]
-        s25["Step 25 — Per-student PDFs\n(xelatex · MARKING_WORKERS parallel)"]
-        s26["Step 26 — Class report PDF"]
-        s27["Step 27 — Review queue\n(low-confidence marks for manual review)"]
+        s23["Step 23 — Fuse AI marking output to student reports\n(merge per-page marks · cross-page max)"]
+        s24["Step 24 — Compute class statistics + curve\n(per-question averages · grade distribution)"]
+        s25["Step 25 — Generate per-student reports\n(landscape + portrait + 2UP · xelatex · MARKING_WORKERS parallel)"]
+        s26["Step 26 — Generate class report"]
+        s27["Step 27 — Build review queue\n(low-confidence marks for manual review)"]
         s23 --> s24 --> s25 --> s26 --> s27
     end
 
