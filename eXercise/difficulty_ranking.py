@@ -162,16 +162,14 @@ def _rank_exercises_ai_gemini(
     so PDFs are sent as documents — no image rendering or page cap.
     """
     try:
-        from google import genai as gai
         from google.genai import types as gai_types
     except ImportError:
         raise RuntimeError("google-genai not installed; run: pip install google-genai")
 
-    api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
-    if not api_key:
+    from .ai_client import make_gemini_native_client  # noqa: PLC0415
+    client = make_gemini_native_client()
+    if client is None:
         raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
-
-    client = gai.Client(api_key=api_key)
 
     # Inline both PDFs via gemini_pdf_part — no upload pool, no polling.
     from .ai_client import build_gemini_thinking_config, gemini_pdf_part  # noqa: PLC0415

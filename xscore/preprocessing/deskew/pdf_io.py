@@ -20,7 +20,7 @@ from xscore.config import PIPELINE_DEFAULT_DPI
 from xscore.preprocessing.deskew.anchors import (
     detect_igcse_anchors, extract_igcse_template,
 )
-from xscore.preprocessing.deskew.page import _PageResult, _process_page
+from xscore.preprocessing.deskew.page import _process_page
 from xscore.preprocessing.deskew.types import (
     _A3_HEIGHT_THRESHOLD_FACTOR, AnchorPoint,
 )
@@ -143,34 +143,49 @@ def deskew_pdf_raster(
         )
 
     from xscore.shared.terminal_ui import format_duration, info_line, ok_line
-    _pdf_kw = dict(
-        dpi=dpi,
-        grayscale=True,
-        thread_count=os.cpu_count() or 4,
-    )
+    from xscore.config import CLEANED_SCAN_EMBED_FORMAT, CLEANED_SCAN_JPEG_QUALITY
+    from PIL import Image
 
-    t_load = time.perf_counter()
-    pages = convert_from_path(str(input_pdf), **_pdf_kw)
-    ok_line(f"Pages loaded · {format_duration(time.perf_counter() - t_load)}")
-    n = len(pages)
+    with fitz.open(str(input_pdf)) as _src:
+        n = _src.page_count
     num_workers = min(os.cpu_count() or 4, n)
 
-    results: dict[int, _PageResult] = {}
+    # One pass per page: fitz-render → deskew → JPEG/PNG-encode inside the worker,
+    # so each worker only ever holds 1 PIL grayscale + 1 deskewed PIL + 1 buffer
+    # (~18 MB) instead of the previous design that kept two full-cohort PIL lists
+    # plus an encoded-bytes list alive simultaneously.
+    def _process_one(i: int) -> tuple:
+        with fitz.open(str(input_pdf)) as _d:
+            pix = _d[i].get_pixmap(dpi=dpi, colorspace=fitz.csGRAY)
+        input_h_px = pix.height
+        pil_in = Image.frombytes("L", (pix.width, pix.height), pix.samples)
+        pix = None  # release pixmap before deskew
+
+        (_idx, deskewed, top_angle, bot_angle, top_lines, bot_lines,
+         top_iters, bot_iters, top_method, bot_method) = _process_page((i, pil_in, dpi))
+        pil_in = None  # release input PIL once deskew is done
+
+        # Preserve the cleaned_scan.pdf "single embedded JPEG per page at known
+        # DPI" contract that the marking fast-path at mark_page.py:_render_page_b64
+        # depends on — must stay PIL.save(...) → page.insert_image(stream=...).
+        buf = io.BytesIO()
+        if CLEANED_SCAN_EMBED_FORMAT == "png":
+            deskewed.save(buf, format="PNG")
+        else:
+            deskewed.save(buf, format="JPEG", quality=CLEANED_SCAN_JPEG_QUALITY)
+        return (
+            i, buf.getvalue(), deskewed.size, input_h_px,
+            top_angle, bot_angle, top_lines, bot_lines,
+            top_iters, bot_iters, top_method, bot_method,
+        )
 
     t_angle = time.perf_counter()
+    results: dict[int, tuple] = {}
     with ThreadPoolExecutor(max_workers=num_workers) as ex:
-        futures = {
-            ex.submit(_process_page, (i, pages[i], dpi)): i
-            for i in range(n)
-        }
+        futures = {ex.submit(_process_one, i): i for i in range(n)}
         for fut in as_completed(futures):
-            (page_idx, fixed_pil, top_angle, bot_angle,
-             top_lines, bot_lines,
-             top_iters, bot_iters, top_method, bot_method) = fut.result()
-            results[page_idx] = (
-                fixed_pil, top_angle, bot_angle, top_lines, bot_lines,
-                top_iters, bot_iters, top_method, bot_method,
-            )
+            t = fut.result()
+            results[t[0]] = t
     angle_elapsed = time.perf_counter() - t_angle
 
     # Per-page angle log (in page order). `(Ni,method)` shows the number of
@@ -178,9 +193,10 @@ def deskew_pdf_raster(
     # the primary path) or "proj" (projection-variance fallback for pages
     # without detectable answer-line structure).
     for i in range(n):
-        (_, top_angle, bot_angle, _, _,
+        (_, _, _, input_h_px,
+         top_angle, bot_angle, _, _,
          top_iters, bot_iters, top_method, bot_method) = results[i]
-        is_a3 = pages[i].height > _A3_HEIGHT_THRESHOLD_FACTOR * dpi
+        is_a3 = input_h_px > _A3_HEIGHT_THRESHOLD_FACTOR * dpi
         if is_a3:
             info_line(
                 f"Page {i+1:>2} · top {top_angle:+.2f}° ({top_iters}i,{top_method})  "
@@ -201,7 +217,7 @@ def deskew_pdf_raster(
         }
         reflines_data: list[dict] = []
         for i in range(n):
-            _, _, _, top_lines, bot_lines, _, _, _, _ = results[i]
+            (_, _, _, _, _, _, top_lines, bot_lines, _, _, _, _) = results[i]
             reflines_data.append({
                 "page": i + 1,
                 "top": [asdict(ln) for ln in top_lines],
@@ -211,28 +227,14 @@ def deskew_pdf_raster(
         Path(reflines_sidecar).resolve().write_text(json.dumps(reflines_data, indent=2), encoding="utf-8")
 
     t_write = time.perf_counter()
-
-    from xscore.config import CLEANED_SCAN_EMBED_FORMAT, CLEANED_SCAN_JPEG_QUALITY
-
-    def _encode_cleaned_scan_page(page_idx: int) -> tuple[int, bytes, tuple[int, int]]:
-        pil_img, *_ = results[page_idx]
-        buf = io.BytesIO()
-        if CLEANED_SCAN_EMBED_FORMAT == "png":
-            pil_img.save(buf, format="PNG")
-        else:
-            pil_img.save(buf, format="JPEG", quality=CLEANED_SCAN_JPEG_QUALITY)
-        return page_idx, buf.getvalue(), pil_img.size
-
-    with ThreadPoolExecutor(max_workers=num_workers) as ex:
-        encoded = list(ex.map(_encode_cleaned_scan_page, range(n)))
-    encoded.sort(key=lambda t: t[0])
-
     pt_per_px = 72.0 / dpi
     with fitz.open() as doc:
-        for _idx, stream_bytes, (w_px, h_px) in encoded:
+        for i in range(n):
+            _, stream_bytes, (w_px, h_px), *_rest = results[i]
             page = doc.new_page(width=w_px * pt_per_px, height=h_px * pt_per_px)
             rect = fitz.Rect(0, 0, w_px * pt_per_px, h_px * pt_per_px)
             page.insert_image(rect, stream=stream_bytes)
+            results[i] = None  # free encoded bytes once embedded
         # Image streams (JPEG / PNG) are already compressed; skip extra document-level zlib.
         doc.save(str(output_pdf), deflate=False)
 

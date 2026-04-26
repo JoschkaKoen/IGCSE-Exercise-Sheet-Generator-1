@@ -774,15 +774,27 @@ def make_gemini_native_client(*, deterministic: bool = True) -> Any:
     When ``deterministic`` is True (default), ``ALL_AI_TEMPERATURE`` and ``ALL_AI_SEED``
     are injected into every ``generate_content`` call's ``GenerateContentConfig``
     unless the caller already set those fields.
+
+    A request-level HTTP timeout is configured from ``GEMINI_REQUEST_TIMEOUT_S``
+    (default 300 s). This caps any single ``generate_content`` call so a stalled
+    connection surfaces as a retryable ``httpx.ReadTimeout`` instead of blocking
+    a worker thread forever — important for the parallel mark-scheme parser,
+    where a hung worker would otherwise stall ``ThreadPoolExecutor.map``.
     """
     try:
         from google import genai as gai
+        from google.genai import types as gai_types  # noqa: PLC0415
     except ImportError:
         return None
     api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
     if not api_key:
         return None
-    return _TrackedGeminiClient(gai.Client(api_key=api_key), deterministic=deterministic)
+    timeout_s = float(os.environ.get("GEMINI_REQUEST_TIMEOUT_S", "300"))
+    http_options = gai_types.HttpOptions(timeout=int(timeout_s * 1000))  # ms
+    return _TrackedGeminiClient(
+        gai.Client(api_key=api_key, http_options=http_options),
+        deterministic=deterministic,
+    )
 
 
 _GEMINI_INLINE_PDF_LIMIT = 18 * 1024 * 1024  # 18 MB; Gemini's hard inline cap is ~20 MB

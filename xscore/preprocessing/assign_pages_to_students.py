@@ -345,19 +345,11 @@ def detect_empty_exam_cover(
     )
     gai_client = None
     if model.startswith("gemini"):
-        try:
-            from google import genai as gai
-        except ImportError as exc:
-            warn_line(f"Empty exam cover check skipped — google-genai not installed: {exc}")
-            return None
-        api_key = (
-            os.environ.get("GEMINI_API_KEY", "")
-            or os.environ.get("GOOGLE_API_KEY", "")
-        ).strip()
-        if not api_key:
+        from eXercise.ai_client import make_gemini_native_client  # noqa: PLC0415
+        gai_client = make_gemini_native_client()
+        if gai_client is None:
             warn_line("Empty exam cover check skipped — no GEMINI_API_KEY")
             return None
-        gai_client = gai.Client(api_key=api_key)
 
     save_path = None
     if artifact_dir is not None:
@@ -511,7 +503,6 @@ def assign_pages(
     *pages*: optional pre-rendered PIL images at *dpi* (skips PDF rendering).
     """
     from xscore.extraction.ground_truth import fuzzy_match_name
-    from pdf2image import convert_from_path
     from eXercise.ai_client import make_ai_client
 
     ai_result = make_ai_client(model_env="NAME_DETECTION_MODEL", default_model="gemini-2.5-flash")
@@ -521,12 +512,14 @@ def assign_pages(
         )
     client, model_id, _provider, _thinking, _max_tok = ai_result
 
-    from xscore.shared.terminal_ui import info_line, ok_line, tool_line, format_duration, warn_line
+    from xscore.shared.terminal_ui import info_line, ok_line, format_duration, warn_line
 
     if pages is None:
-        tool_line("pages", f"Rendering scanned pages @ {dpi} DPI …")
-        pages = convert_from_path(str(cleaned_pdf), dpi=dpi, thread_count=os.cpu_count() or 4)
-    n_pages = len(pages)
+        import fitz as _fitz
+        with _fitz.open(str(cleaned_pdf)) as _d:
+            n_pages = _d.page_count
+    else:
+        n_pages = len(pages)
     import math
     n_blocks = math.ceil(n_pages / pages_per_student)
     first_page_set = {b * pages_per_student + 1 for b in range(n_blocks)}  # 1-based scan pages
@@ -535,13 +528,23 @@ def assign_pages(
     # Name detection — only the first page of each student block is checked.
     # In cover-page mode the first page is the cover page, which is where
     # the student writes their name, so the same positions apply.
+    #
+    # When *pages* is None we render only the ~n_blocks first pages on demand
+    # inside each worker (per-worker fitz doc — fitz is not thread-safe).
     # ------------------------------------------------------------------
     info_line("Detecting student names from scan pages …")
     workers = int(os.environ.get("NAME_WORKERS", str(min(n_blocks, 8))))
     prompt = _make_name_prompt(students) if students else load_prompt("student_names_freeform")[1]
 
-    def _ocr_and_match(args: tuple[int, Any]) -> tuple[int, str | None]:
-        i, page = args
+    def _ocr_and_match(i: int) -> tuple[int, str | None]:
+        if pages is not None:
+            page = pages[i - 1]
+        else:
+            import fitz as _fitz
+            from PIL import Image as _Image
+            with _fitz.open(str(cleaned_pdf)) as _d:
+                pix = _d[i - 1].get_pixmap(dpi=dpi, colorspace=_fitz.csRGB)
+            page = _Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
         fraction = name_crop_fraction if name_crop_fraction is not None else _name_crop_fraction(page, dpi)
         crop = _crop_top(page, fraction=fraction)
         img_b64 = page_to_jpeg_b64(crop)
@@ -564,11 +567,7 @@ def assign_pages(
 
     page_results: dict[int, str | None] = {}
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        futures = {
-            ex.submit(_ocr_and_match, (i, page)): i
-            for i, page in enumerate(pages, 1)
-            if i in first_page_set
-        }
+        futures = {ex.submit(_ocr_and_match, i): i for i in sorted(first_page_set)}
         for fut in as_completed(futures):
             i, matched_name = fut.result()
             page_results[i] = matched_name
@@ -576,7 +575,8 @@ def assign_pages(
     # Restore page order for the block-grouping step below.
     # Non-first pages were not submitted and default to None.
     matched: list[str | None] = [page_results.get(i) for i in range(1, n_pages + 1)]
-    del pages  # free PIL image list
+    if pages is not None:
+        del pages  # only meaningful when caller pre-rendered the full list
 
     # Group into fixed blocks of pages_per_student (guaranteed by geometry).
     if n_pages % pages_per_student:
