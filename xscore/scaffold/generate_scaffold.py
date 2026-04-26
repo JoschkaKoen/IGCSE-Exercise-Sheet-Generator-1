@@ -55,18 +55,22 @@ SCHEMA_VERSION = 18
 def find_exam_pdf(folder: Path) -> Path:
     """Pick the vector exam PDF for parsing.
 
-    Prefers files with 'empty' or 'exam' in the name; skips scan/answer/student files.
+    Prefers files with 'empty', 'exam', or Cambridge '_qp_' in the name; skips
+    scan/answer/student files and Cambridge '_ms_' mark schemes.
     """
-    _SKIP = ("scan", "answer", "student")
+    _SKIP = ("scan", "answer", "student", "_ms_")
     pdfs = [f for f in folder.glob("*.pdf") if not any(kw in f.name.lower() for kw in _SKIP)]
     if not pdfs:
         raise FileNotFoundError(f"No exam PDF found in {folder}")
-    preferred = [f for f in pdfs if any(kw in f.name.lower() for kw in ("empty", "exam"))]
+    preferred = [f for f in pdfs if any(kw in f.name.lower() for kw in ("empty", "exam", "_qp_"))]
     return preferred[0] if preferred else pdfs[0]
 
 
 def find_answer_pdf(folder: Path) -> Path | None:
-    answer_pdfs = [f for f in folder.glob("*.pdf") if "answer" in f.name.lower()]
+    answer_pdfs = [
+        f for f in folder.glob("*.pdf")
+        if "answer" in f.name.lower() or "_ms_" in f.name.lower()
+    ]
     return answer_pdfs[0] if answer_pdfs else None
 
 

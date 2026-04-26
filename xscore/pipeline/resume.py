@@ -30,7 +30,7 @@ def copy_input_files(folder: Path, artifact_dir: Path) -> None:
     from xscore.shared.exam_paths import artifact_input_dir
     dst = artifact_input_dir(artifact_dir)
     dst.mkdir(parents=True, exist_ok=True)
-    _EXAM_SKIP = ("scan", "answer", "student", "cleaned")
+    _EXAM_SKIP = ("scan", "answer", "student", "cleaned", "_ms_")
     for f in folder.iterdir():
         if not f.is_file():
             continue
@@ -40,7 +40,7 @@ def copy_input_files(folder: Path, artifact_dir: Path) -> None:
         if f.suffix.lower() == ".pdf" and not any(kw in f.name.lower() for kw in _EXAM_SKIP):
             shutil.copy2(f, dst / f.name)
             continue
-        if f.suffix.lower() == ".pdf" and "answer" in f.name.lower():
+        if f.suffix.lower() == ".pdf" and ("answer" in f.name.lower() or "_ms_" in f.name.lower()):
             shutil.copy2(f, dst / f.name)
             continue
         if any(kw in f.name.lower() for kw in ("studentlist", "student", "roster")) and f.suffix.lower() in (".xlsx", ".xls", ".csv", ".txt"):

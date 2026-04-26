@@ -105,25 +105,32 @@ def validate_input_files(folder: Path) -> None:
     if not _roster:
         missing.append("student roster  (StudentList.xlsx, or any *student* / *roster* file)")
 
-    # Accept: exact name, any *empty*/*exam* PDF, or (fallback) any non-scan/answer/student PDF.
+    # Accept: exact name, any *empty*/*exam*/Cambridge *_qp_* PDF, or (fallback)
+    # any non-scan/answer/student/_ms_ PDF.
     # Mirrors generate_scaffold.find_exam_pdf which uses the same fallback.
-    _EXAM_SKIP = ("scan", "answer", "student", "cleaned")
+    _EXAM_SKIP = ("scan", "answer", "student", "cleaned", "_ms_")
     _non_skip_pdfs = [
         f for f in folder.glob("*.pdf")
         if not any(kw in f.name.lower() for kw in _EXAM_SKIP)
     ]
     _exam_pdfs = [
         f for f in _non_skip_pdfs
-        if any(kw in f.name.lower() for kw in ("empty", "exam"))
+        if any(kw in f.name.lower() for kw in ("empty", "exam", "_qp_"))
     ]
     if not (folder / "empty_exam.pdf").is_file() and not _exam_pdfs and not _non_skip_pdfs:
-        missing.append("empty_exam.pdf  (or any PDF that isn't a scan/answer/student file)")
+        missing.append(
+            "empty_exam.pdf  (or any PDF that isn't a scan/answer/student file; "
+            "Cambridge *_qp_*.pdf also accepted)"
+        )
 
-    # Accept exact name OR any PDF with 'answer' in the name
-    # (mirrors generate_scaffold._find_answer_pdf)
-    _answer_pdfs = [f for f in folder.glob("*.pdf") if "answer" in f.name.lower()]
+    # Accept exact name OR any PDF with 'answer' or Cambridge '_ms_' in the name
+    # (mirrors generate_scaffold.find_answer_pdf)
+    _answer_pdfs = [
+        f for f in folder.glob("*.pdf")
+        if "answer" in f.name.lower() or "_ms_" in f.name.lower()
+    ]
     if not (folder / "answer_sheet.pdf").is_file() and not _answer_pdfs:
-        missing.append("answer_sheet.pdf  (or any *answer*.pdf)")
+        missing.append("answer_sheet.pdf  (or any *answer*.pdf, or Cambridge *_ms_*.pdf)")
 
     if missing:
         bullet = "\n  • "

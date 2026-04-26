@@ -99,6 +99,7 @@ def find_raw_four_up_pdf(folder: Path) -> Path | None:
             if "4up" in p.name.lower()
             and "answer" not in p.name.lower()
             and "scan" not in p.name.lower()
+            and "_ms_" not in p.name.lower()
         ),
         key=lambda p: p.name.lower(),
     )
