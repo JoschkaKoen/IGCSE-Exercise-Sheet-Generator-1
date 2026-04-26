@@ -170,17 +170,26 @@ class JsonScaffoldFormat(ScaffoldFormat):
     def pydantic_schema_scheme(self):
         return _SchemeResponse
 
-    def scheme_oa_extra_kwargs(self) -> dict:
-        return {
-            "response_format": {
-                "type": "json_schema",
-                "json_schema": {
-                    "name": "scheme_response",
-                    "strict": True,
-                    "schema": _SCHEME_JSON_SCHEMA,
-                },
+    def scheme_oa_extra_kwargs(self, model: str) -> dict:
+        # Mark-scheme parsing uses a system message, so on providers that
+        # reject json_schema together with a system message (Qwen/DashScope)
+        # we fall back to json_object.
+        from eXercise.ai_client import (
+            provider_for_model,
+            provider_supports_json_schema_with_system,
+        )
+        if provider_supports_json_schema_with_system(provider_for_model(model)):
+            return {
+                "response_format": {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "scheme_response",
+                        "strict": True,
+                        "schema": _SCHEME_JSON_SCHEMA,
+                    },
+                }
             }
-        }
+        return {"response_format": {"type": "json_object"}}
 
     def artifact_ext(self) -> str:
         return "json"

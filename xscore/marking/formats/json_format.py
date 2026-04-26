@@ -79,17 +79,25 @@ class JsonMarkingFormat(MarkingFormat):
                 "response_mime_type": "application/json",
                 "response_schema": _MarkingResponse,
             }
-        # OpenAI-compat (Qwen, Grok, …): try strict json_schema
-        return {
-            "response_format": {
-                "type": "json_schema",
-                "json_schema": {
-                    "name": "marking_response",
-                    "strict": True,
-                    "schema": _MARKING_JSON_SCHEMA,
-                },
+        # OpenAI-compat (Qwen, Grok, …). Marking uses a system message, so on
+        # providers that reject json_schema together with a system message
+        # (Qwen/DashScope) we fall back to json_object.
+        from eXercise.ai_client import (
+            provider_for_model,
+            provider_supports_json_schema_with_system,
+        )
+        if provider_supports_json_schema_with_system(provider_for_model(model)):
+            return {
+                "response_format": {
+                    "type": "json_schema",
+                    "json_schema": {
+                        "name": "marking_response",
+                        "strict": True,
+                        "schema": _MARKING_JSON_SCHEMA,
+                    },
+                }
             }
-        }
+        return {"response_format": {"type": "json_object"}}
 
     def prefer_stream(self) -> bool:
         return False

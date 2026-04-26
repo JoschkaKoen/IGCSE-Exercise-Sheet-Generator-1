@@ -183,6 +183,26 @@ def provider_for_model(model: str) -> str:
     return "gemini"
 
 
+# Providers that reject ``response_format={"type": "json_schema", ...}`` when
+# a system message is present. DashScope (Qwen) is the known case — verified
+# via scripts/diagnose_qwen_json_schema.py: schema strictness, the ``strict``
+# flag, and ``default`` fields are all irrelevant; the rejection is purely
+# triggered by having a system message in the conversation. The error text
+# DashScope returns ("System message must be at the beginning") is misleading.
+_NO_JSON_SCHEMA_WITH_SYSTEM: frozenset[str] = frozenset({"qwen"})
+
+
+def provider_supports_json_schema_with_system(provider: str) -> bool:
+    """True iff the provider accepts ``response_format=json_schema`` *and* a system message together.
+
+    Callers using a system message should branch on this: pass strict
+    ``json_schema`` when True, fall back to ``{"type": "json_object"}`` when False.
+    Note this only matters when both factors coincide — providers in the
+    deny set still accept ``json_schema`` if no system message is present.
+    """
+    return provider not in _NO_JSON_SCHEMA_WITH_SYSTEM
+
+
 _LEGACY_EFFORT = {"off": 0, "low": 1024, "high": 8192}
 
 

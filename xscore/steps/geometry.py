@@ -21,7 +21,7 @@ import time
 
 from xscore.preprocessing.assign_pages_to_students import (
     assign_pages,
-    check_cover_page_text,
+    detect_empty_exam_cover,
     detect_first_page_cover,
     page_assignments_to_json,
     page_assignments_to_md,
@@ -33,7 +33,6 @@ from xscore.marking.page_order_check import check_page_order
 from xscore.pipeline.resume import exam_pdf_page_count
 from xscore.scaffold.generate_scaffold import find_exam_pdf
 from xscore.shared.exam_paths import (
-    artifact_cover_page_dir,
     artifact_cover_verify_json_path,
     artifact_exam_student_list_json_path,
     artifact_exam_student_list_md_path,
@@ -56,37 +55,10 @@ def step_08_cover_empty(ctx: _Ctx) -> None:
         default_model="gemini-2.5-flash",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
-    from eXercise.ai_client import parse_model_spec
     exam_pdf = find_exam_pdf(ctx.folder)
-    from xscore.config import EMPTY_EXAM_COVER_MODEL
-    model, thinking_tokens, max_tokens = parse_model_spec(EMPTY_EXAM_COVER_MODEL)
-    # Only the Gemini branch needs a Gemini client; check_cover_page_text routes internally.
-    gai_client = None
-    if model.startswith("gemini"):
-        try:
-            from google import genai as gai
-        except ImportError as exc:
-            warn_line(f"Empty exam cover check skipped — google-genai not installed: {exc}")
-            return
-        api_key = (os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")).strip()
-        if not api_key:
-            warn_line("Empty exam cover check skipped — no GEMINI_API_KEY")
-            return
-        gai_client = gai.Client(api_key=api_key)
     try:
-        save_dir = artifact_cover_page_dir(ctx.artifact_dir)
-        save_dir.mkdir(parents=True, exist_ok=True)
-        save = save_dir / "cover_empty_exam_prompt.md"
-        t0 = time.perf_counter()
-        ctx.empty_exam_has_cover = check_cover_page_text(
-            exam_pdf, 0, gai_client, model,
-            prompt_save_path=save,
-            thinking_tokens=thinking_tokens,
-            max_tokens=max_tokens,
-        )
-        ok_line(
-            f"Empty exam page 1: {'cover page' if ctx.empty_exam_has_cover else 'no cover page'}"
-            f"  ·  {format_duration(time.perf_counter() - t0)}"
+        ctx.empty_exam_has_cover = detect_empty_exam_cover(
+            exam_pdf, artifact_dir=ctx.artifact_dir
         )
     except Exception:
         logging.exception("step 8 cover detection failed")
@@ -113,6 +85,7 @@ def step_10_geometry(ctx: _Ctx) -> None:
         ctx.geo = compute_geometry(
             ctx.cleaned_pdf,
             exam_pages,
+            ctx.empty_exam_has_cover,
             ctx.cover_page_mode,
             ctx.students or [],
         )

@@ -31,6 +31,7 @@ from eXercise.api_retry import retry_api_call
 from xscore.marking.ai_helpers import ai_image_call, page_to_jpeg_b64
 from xscore.prompts.loader import load_prompt
 from xscore.shared.exam_paths import (
+    artifact_cover_page_dir,
     artifact_cover_scan_prompt_path,
     artifact_cover_verify_prompt_path,
     artifact_names_prompt_path,
@@ -322,6 +323,60 @@ def _name_crop_fraction(page: Any, dpi: int) -> float:
     w, h = page.size
     long_side_mm = max(w, h) / dpi * 25.4
     return _NAME_CROP_FRACTION_A3 if long_side_mm > _A3_LONG_SIDE_THRESHOLD_MM else _NAME_CROP_FRACTION_A4
+
+
+def detect_empty_exam_cover(
+    exam_pdf: Path,
+    *,
+    artifact_dir: Path | None = None,
+) -> bool | None:
+    """Step 8 — Check whether page 1 of the empty exam PDF is a cover page.
+
+    Returns True/False on success, or None when skipped (no API key, missing
+    google-genai, etc.). The None case is meaningful: ``compute_geometry``
+    raises on (empty=None, scan=True) so we never silently default the cover
+    offset when step 8 didn't produce a value.
+    """
+    from eXercise.ai_client import parse_model_spec
+    from xscore.shared.terminal_ui import ok_line, warn_line, format_duration
+
+    model, thinking_tokens, max_tokens = parse_model_spec(
+        os.environ.get("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash")
+    )
+    gai_client = None
+    if model.startswith("gemini"):
+        try:
+            from google import genai as gai
+        except ImportError as exc:
+            warn_line(f"Empty exam cover check skipped — google-genai not installed: {exc}")
+            return None
+        api_key = (
+            os.environ.get("GEMINI_API_KEY", "")
+            or os.environ.get("GOOGLE_API_KEY", "")
+        ).strip()
+        if not api_key:
+            warn_line("Empty exam cover check skipped — no GEMINI_API_KEY")
+            return None
+        gai_client = gai.Client(api_key=api_key)
+
+    save_path = None
+    if artifact_dir is not None:
+        save_dir = artifact_cover_page_dir(artifact_dir)
+        save_dir.mkdir(parents=True, exist_ok=True)
+        save_path = save_dir / "cover_empty_exam_prompt.md"
+
+    t0 = time.perf_counter()
+    has_cover = check_cover_page_text(
+        exam_pdf, 0, gai_client, model,
+        prompt_save_path=save_path,
+        thinking_tokens=thinking_tokens,
+        max_tokens=max_tokens,
+    )
+    ok_line(
+        f"Empty exam page 1: {'cover page' if has_cover else 'no cover page'}"
+        f"  ·  {format_duration(time.perf_counter() - t0)}"
+    )
+    return has_cover
 
 
 def detect_first_page_cover(

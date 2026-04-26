@@ -816,7 +816,7 @@ def parse_mark_scheme_pages(
                     ],
                 )
                 kwargs.update(_oa_thinking_kw)
-                kwargs.update(fmt.scheme_oa_extra_kwargs())
+                kwargs.update(fmt.scheme_oa_extra_kwargs(scheme_model))
                 if _oa_use_stream:
                     _th: list[str] = []
                     # Stream consumed *inside* the closure so a mid-stream SSL EOF

@@ -129,28 +129,27 @@ def _detect_layout(
                 getattr(_resp.choices[0].message, "reasoning_content", "") or "",
             )
 
-        # Try strict json_schema → json_object → plain. Each format gets its
-        # own retry budget; format-rejection (4xx) cascades to the next format.
-        try:
-            raw_text, thinking_text = retry_api_call(
-                lambda: _do_oa(_strict_rf), label="Layout detection (json_schema)",
-            )
-        except Exception as exc:
-            last_exc = exc
+        # Format cascade: strict json_schema → json_object → plain.
+        # Skip strict json_schema on providers that reject it together with a
+        # system message (DashScope/Qwen — verified via
+        # scripts/diagnose_qwen_json_schema.py).
+        from eXercise.ai_client import provider_supports_json_schema_with_system  # noqa: PLC0415
+        formats: list[tuple[str, dict | None]] = []
+        if provider_supports_json_schema_with_system(_provider):
+            formats.append(("json_schema", _strict_rf))
+        formats.append(("json_object", {"type": "json_object"}))
+        formats.append(("plain", None))
+
+        raw_text, thinking_text = "", ""
+        for _fmt_name, _fmt_rf in formats:
             try:
                 raw_text, thinking_text = retry_api_call(
-                    lambda: _do_oa({"type": "json_object"}),
-                    label="Layout detection (json_object)",
+                    lambda rf=_fmt_rf: _do_oa(rf),
+                    label=f"Layout detection ({_fmt_name})",
                 )
-            except Exception as exc2:
-                last_exc = exc2
-                try:
-                    raw_text, thinking_text = retry_api_call(
-                        lambda: _do_oa(None), label="Layout detection (plain)",
-                    )
-                except Exception as exc3:
-                    last_exc = exc3
-                    raw_text, thinking_text = "", ""
+                break
+            except Exception as exc:
+                last_exc = exc
 
         if raw_text:
             try:

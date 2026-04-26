@@ -195,7 +195,11 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     if geo_path.exists():
         geo = json.loads(geo_path.read_text())
         ctx.empty_exam_has_cover = geo.get("empty_exam_has_cover")
-        ctx.cover_page_mode = bool(geo.get("cover_page_mode", False))
+        # New runs persist `scan_has_cover`; pre-restructure runs persisted
+        # `cover_page_mode` (same meaning, old key) — keep the legacy fallback.
+        ctx.cover_page_mode = bool(
+            geo.get("scan_has_cover", geo.get("cover_page_mode", False))
+        )
 
     ctx.scaffold = build_scaffold(
         ctx.folder, artifact_dir=ctx.artifact_dir, force_rebuild=False

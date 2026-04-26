@@ -66,8 +66,13 @@ class ScaffoldFormat(ABC):
         """Return Pydantic class for Gemini response_schema (scheme), or None."""
         return None
 
-    def scheme_oa_extra_kwargs(self) -> dict:
-        """Extra kwargs for non-Gemini (OpenAI-compat) scheme calls."""
+    def scheme_oa_extra_kwargs(self, model: str) -> dict:
+        """Extra kwargs for non-Gemini (OpenAI-compat) scheme calls.
+
+        ``model`` is the model id (e.g. "qwen3.6-flash") so subclasses can
+        branch on provider — needed because some providers reject certain
+        ``response_format`` shapes when a system message is present.
+        """
         return {}
 
     def artifact_ext(self) -> str:
