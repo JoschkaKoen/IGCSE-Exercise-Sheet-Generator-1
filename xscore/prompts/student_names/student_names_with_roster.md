@@ -13,5 +13,12 @@ $roster
 Return ONLY a JSON object with the roster name that best matches the handwritten name, spelled EXACTLY as it appears in the roster above:
 {"name": "Full name as written"}
 
-If no handwritten name is visible or none of the roster entries match, return:
-{"name": ""}
+**Prefer one of these sentinels over guessing a roster name you are not confident about:**
+- `NONAME` — no handwritten name is visible at all (page is blank or only printed text).
+- `UNREADABLE` — a handwritten name is visible but you cannot read it confidently.
+- `NOMATCH` — you can read the handwritten name but it is not in the roster.
+
+Examples:
+{"name": "NONAME"}
+{"name": "UNREADABLE"}
+{"name": "NOMATCH"}

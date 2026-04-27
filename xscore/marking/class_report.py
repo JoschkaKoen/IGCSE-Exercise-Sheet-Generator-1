@@ -463,7 +463,7 @@ def _write_review_queue(
         ]
         for e in entries:
             sa = (e["student_answer"] or "").replace("|", "/").replace("\n", " ")
-            ca = (e["correct_answer"] or "").replace("|", "/")
+            ca = str(e["correct_answer"] or "").replace("|", "/")
             ex = (e["explanation"] or "").replace("|", "/").replace("\n", " ")
             am = e["assigned_marks"]
             am_s = "?" if am is None else str(am)

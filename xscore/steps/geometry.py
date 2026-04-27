@@ -25,6 +25,8 @@ from xscore.preprocessing.assign_pages_to_students import (
     detect_first_page_cover,
     page_assignments_to_json,
     page_assignments_to_md,
+    page_assignments_to_overview,
+    print_page_range_table,
     verify_cover_positions,
 )
 from xscore.marking.blank_page_detection import check_exam_blank_pages, check_student_handwriting
@@ -34,6 +36,7 @@ from xscore.pipeline.resume import exam_pdf_page_count
 from xscore.scaffold.generate_scaffold import find_exam_pdf
 from xscore.shared.exam_paths import (
     artifact_cover_verify_json_path,
+    artifact_exam_page_range_overview_path,
     artifact_exam_student_list_json_path,
     artifact_exam_student_list_md_path,
 )
@@ -175,6 +178,9 @@ def step_12_student_names(ctx: _Ctx) -> None:
     json_path.write_text(page_assignments_to_json(ctx.page_assignments), encoding="utf-8")
     md_path = artifact_exam_student_list_md_path(ctx.artifact_dir)
     md_path.write_text(page_assignments_to_md(ctx.page_assignments), encoding="utf-8")
+    overview = page_assignments_to_overview(ctx.page_assignments)
+    artifact_exam_page_range_overview_path(ctx.artifact_dir).write_text(overview, encoding="utf-8")
+    print_page_range_table(ctx.page_assignments)
     detected = len(ctx.page_assignments)
     answer_pages = ctx.pages_per_student - (1 if ctx.cover_page_mode else 0)
     if detected != ctx.num_students:

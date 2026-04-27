@@ -296,7 +296,8 @@ class YamlScaffoldFormat(ScaffoldFormat):
                 continue
             questions.append({
                 "number":         str(q.get("number", "")),
-                "correct_answer": q.get("correct_answer") or None,
+                # str() wrap: model occasionally emits unquoted YAML int (e.g. `correct_answer: 5`); parser must coerce.
+                "correct_answer": str(q.get("correct_answer") or "").strip() or None,
                 "mark_scheme": [
                     {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", "")).strip()}
                     for c in (q.get("criteria") or [])

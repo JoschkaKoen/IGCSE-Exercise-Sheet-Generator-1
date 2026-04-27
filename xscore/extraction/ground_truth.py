@@ -6,8 +6,17 @@ from difflib import SequenceMatcher
 
 
 def fuzzy_match_name(extracted_name: str, gt_names: list[str]) -> str | None:
-    """Find the best matching ground truth name using fuzzy matching."""
-    if not extracted_name or extracted_name in ("UNKNOWN", "EXTRACTION_ERROR", "?"):
+    """Find the best matching ground truth name using fuzzy matching.
+
+    Sentinels (``NONAME``, ``UNREADABLE``, ``NOMATCH``) and legacy unknown
+    markers return ``None`` BEFORE the substring/fuzzy match runs — otherwise
+    e.g. ``NOMATCH`` would hit a roster name like ``Match`` via the substring
+    fallback below.
+    """
+    if not extracted_name or extracted_name.upper().strip() in (
+        "UNKNOWN", "EXTRACTION_ERROR", "?",
+        "NONAME", "NOMATCH", "UNREADABLE",
+    ):
         return None
 
     extracted_lower = extracted_name.lower().strip()

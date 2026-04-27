@@ -14,6 +14,7 @@ Convert the grading instruction to JSON. Return ONLY the JSON, no explanation.
   "force_clean_scan": false,
   "no_report": false,
   "from_step": null,
+  "stop_after": null,
   "reuse_cache": false,
   "curved_grade_override": null,
   "curved_grade_visible": null
@@ -27,6 +28,7 @@ Examples: "from ~/Desktop/exams/physics" → folder_path "~/Desktop/exams/physic
 force_clean_scan: true=ignore cache, re-clean ("re-clean", "force deskew").
 no_report: true=skip PDF ("terminal only", "no report").
 from_step: integer step number to resume from ("from step 14", "resume from step 13", "rerun from step 15"); null otherwise.
+stop_after: integer step number to stop after ("stop after step 5", "only run steps 1-5", "halt at step 7", "first 5 steps", "only the first 13 steps"); null otherwise. Distinct from from_step (which controls where the pipeline starts).
 reuse_cache: true=use cached AI marking responses from previous identical runs ("reuse cache", "use cache", "from cache"); false otherwise. Default false.
 curved_grade_override: integer 0–100 to override the grade-curve target ("curve at 70", "target 75%", "curve to 80"); null if the user did not specify a target.
 curved_grade_visible: false if the user wants the curved percentage hidden from per-student PDFs ("hide curve from students", "don't show curve on student reports", "no curve on student PDFs"); true if the user explicitly asks to show it; null if the user did not mention it.

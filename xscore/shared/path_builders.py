@@ -179,6 +179,11 @@ def artifact_exam_student_list_md_path(artifact_dir: Path) -> Path:
     return artifact_dir / STEP_12_NAMES / "exam_student_list.md"
 
 
+def artifact_exam_page_range_overview_path(artifact_dir: Path) -> Path:
+    """Step 12: human-readable '<student> page <a>-<b>' overview, one line per student."""
+    return artifact_dir / STEP_12_NAMES / "page_range_overview.txt"
+
+
 def artifact_names_prompt_path(artifact_dir: Path, name: str) -> Path:
     """Step 12: prompt file for name-detection AI calls (one per scan page)."""
     return artifact_dir / STEP_12_NAMES / "names" / f"{name}_prompt.md"

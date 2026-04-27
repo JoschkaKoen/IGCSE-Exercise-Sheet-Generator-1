@@ -103,7 +103,8 @@ def _yaml_questions_to_list(data: dict) -> list[dict]:
                 {"letter": str(o.get("letter", "")), "text": str(o.get("text", ""))}
                 for o in (q.get("options") or [])
             ],
-            "correct_answer":   q.get("correct_answer") or None,
+            # str() wrap: model occasionally emits unquoted YAML int (e.g. `correct_answer: 5`); parser must coerce.
+            "correct_answer":   str(q.get("correct_answer") or "").strip() or None,
             "max_marks":        int(q.get("max_marks", 0)),
             "mark_scheme":      [
                 {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", ""))}

@@ -45,6 +45,8 @@ def step_01_parse(ctx: _Ctx) -> None:
     ctx.force_clean_scan = ctx.args.force_clean_scan or inst.force_clean_scan
     if ctx.from_step is None and inst.from_step is not None:
         ctx.from_step = inst.from_step
+    if ctx.args.stop_after is None and inst.stop_after is not None:
+        ctx.stop_after = inst.stop_after
 
     task_labels = {
         "check_answers": "Grade answers",

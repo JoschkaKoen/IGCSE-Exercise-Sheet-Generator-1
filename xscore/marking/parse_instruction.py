@@ -238,6 +238,11 @@ def parse_prompt(
         from_step = int(raw_from_step) if raw_from_step not in (None, "") else None
     except (TypeError, ValueError):
         from_step = None
+    raw_stop_after = data.get("stop_after")
+    try:
+        stop_after = int(raw_stop_after) if raw_stop_after not in (None, "") else None
+    except (TypeError, ValueError):
+        stop_after = None
     # AI-set value takes priority; fall back to the heuristic in case the AI
     # ignored or omitted the field.
     reuse_cache = bool(data.get("reuse_cache", instruction.reuse_cache))
@@ -282,6 +287,7 @@ def parse_prompt(
         force_clean_scan=force_clean_scan,
         no_report=no_report,
         from_step=from_step,
+        stop_after=stop_after,
         reuse_cache=reuse_cache,
         curved_grade_override=curved_grade_override,
         curved_grade_visible=curved_grade_visible,
@@ -321,6 +327,13 @@ def _heuristic_fallback(prompt: str, dpi_override: int | None) -> TaskInstructio
     if _fs_m:
         from_step = int(_fs_m.group(1))
 
+    stop_after: int | None = None
+    _sa_m = re.search(r'\b(?:stop|halt|end)\s+(?:(?:after|at|on)\s+)?step\s+(\d+)', p)
+    if _sa_m is None:
+        _sa_m = re.search(r'\bfirst\s+(\d+)\s+steps?\b', p)
+    if _sa_m:
+        stop_after = int(_sa_m.group(1))
+
     # Cache opt-in phrases — kept narrow so casual mentions of "cache" don't
     # accidentally enable it.
     reuse_cache = (
@@ -359,6 +372,7 @@ def _heuristic_fallback(prompt: str, dpi_override: int | None) -> TaskInstructio
         force_clean_scan=force_clean,
         no_report="no report" in p or "terminal only" in p,
         from_step=from_step,
+        stop_after=stop_after,
         reuse_cache=reuse_cache,
         curved_grade_override=curved_grade_override,
         curved_grade_visible=curved_grade_visible,

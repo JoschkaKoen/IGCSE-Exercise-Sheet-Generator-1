@@ -39,6 +39,10 @@ class TaskInstruction:
     force_clean_scan: bool = False
     no_report: bool = False
     from_step: int | None = None
+    # Stop pipeline after step N completes (mirrors CLI --stop-after N).
+    # None means "no prompt-driven cutoff" — falls back to ctx.stop_after default
+    # (9999 = run everything) unless the CLI flag is also set.
+    stop_after: int | None = None
     # Set to True when the user includes a cache opt-in phrase in the NL prompt
     # (e.g. "grade the exam, reuse cache"). Currently honoured only by step 24
     # (AI marking) — see :mod:`xscore.shared.response_cache`.

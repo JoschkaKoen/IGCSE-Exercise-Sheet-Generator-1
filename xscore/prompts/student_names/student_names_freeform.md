@@ -10,5 +10,10 @@ Ignore all pre-printed or typed text: exam codes, stamps, watermarks, school nam
 Return ONLY a JSON object:
 {"name": "Full name as written"}
 
-If no handwritten name is visible or the name field is blank, return:
-{"name": ""}
+**Prefer one of these sentinels over guessing a name you are not confident about:**
+- `NONAME` — no handwritten name is visible at all (page is blank or only printed text).
+- `UNREADABLE` — a handwritten name is visible but you cannot read it confidently.
+
+Examples:
+{"name": "NONAME"}
+{"name": "UNREADABLE"}

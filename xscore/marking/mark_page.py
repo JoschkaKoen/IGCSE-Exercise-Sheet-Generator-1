@@ -321,7 +321,7 @@ def _fix_mc_marks(result: dict) -> None:
     _2 is removed from blueprints.
     """
     mc_correct: dict[str, str] = {
-        (q.get("question_text") or "").strip(): (q.get("correct_answer") or "").strip().upper()
+        (q.get("question_text") or "").strip(): str(q.get("correct_answer") or "").strip().upper()
         for q in result.get("questions", [])
         if q.get("question_type") == "multiple_choice" and q.get("correct_answer")
     }

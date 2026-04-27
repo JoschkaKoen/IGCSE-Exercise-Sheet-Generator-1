@@ -562,7 +562,10 @@ def assign_pages(
             data = {}
         raw_name = str(data.get("name", "") or "").strip()
         matched_name = fuzzy_match_name(raw_name, students) if raw_name else None
-        ok_line(f"Page {i:3d}/{n_pages}: {raw_name!r}  →  {matched_name!r}  ·  {format_duration(elapsed)}")
+        # Yellow warn line for any "no match" case (sentinel, empty, or
+        # below-threshold fuzzy match); green ok line for a real roster hit.
+        log = ok_line if matched_name is not None else warn_line
+        log(f"Page {i:3d}/{n_pages}: {raw_name!r}  →  {matched_name!r}  ·  {format_duration(elapsed)}")
         return i, matched_name
 
     page_results: dict[int, str | None] = {}
@@ -612,6 +615,29 @@ def assign_pages(
             confidence=confidence,
             cover_page_number=cover_page_number,
         ))
+
+    # If the same roster name was matched on multiple covers, suffix all
+    # occurrences in scan-page order so neither booklet overwrites the other
+    # downstream. Confidence drops to "low" — at most one of the colliding
+    # booklets is the real student; the others are mislabelled. ``Unknown_N``
+    # names cannot collide by construction (each block gets a unique b+1).
+    from collections import Counter
+    name_counts = Counter(a.student_name for a in result)
+    duplicates = {n for n, c in name_counts.items() if c > 1}
+    if duplicates:
+        for dup in sorted(duplicates):
+            suffixes = ", ".join(f"{dup}_{i + 1}" for i in range(name_counts[dup]))
+            warn_line(
+                f"Name {dup!r} matched {name_counts[dup]} cover pages — "
+                f"labelling them {suffixes}"
+            )
+        seen: dict[str, int] = {}
+        for a in result:
+            if a.student_name in duplicates:
+                seen[a.student_name] = seen.get(a.student_name, 0) + 1
+                a.student_name = f"{a.student_name}_{seen[a.student_name]}"
+                a.confidence = "low"
+
     return result
 
 
@@ -655,3 +681,76 @@ def page_assignments_to_md(assignments: list[PageAssignment]) -> str:
             pages = ", ".join(str(p) for p in a.page_numbers)
             lines.append(f"| {i} | {a.student_name} | {pages} | {a.confidence} |")
     return "\n".join(lines) + "\n"
+
+
+def page_assignments_to_overview(assignments: list[PageAssignment]) -> str:
+    """Plain-text overview: one aligned line per student in scan-page order.
+
+    Used for the on-disk artifact (``page_range_overview.txt``). The terminal
+    rendering uses :func:`print_page_range_table` instead.
+
+    Pages are guaranteed contiguous by step-12 block grouping. If somehow
+    they aren't, fall back to listing all pages so the file is still useful.
+    """
+    if not assignments:
+        return ""
+    sorted_a = sorted(assignments, key=lambda x: x.page_numbers[0])
+    name_w = max(len(a.student_name) for a in sorted_a)
+    lo_w = max(len(str(a.page_numbers[0])) for a in sorted_a)
+    hi_w = max(len(str(a.page_numbers[-1])) for a in sorted_a)
+    lines = []
+    for a in sorted_a:
+        rng = _format_page_range(a, lo_w, hi_w)
+        lines.append(f"{a.student_name:<{name_w}}  pages {rng}")
+    return "\n".join(lines) + "\n"
+
+
+def _format_page_range(a: PageAssignment, lo_w: int, hi_w: int) -> str:
+    """Pre-formatted page-range string with dashes aligned across rows."""
+    nums = a.page_numbers
+    lo, hi = nums[0], nums[-1]
+    contiguous = list(range(lo, hi + 1)) == nums
+    if not contiguous:
+        return ", ".join(str(p) for p in nums)
+    if lo == hi:
+        return f"{lo:>{lo_w}}"
+    return f"{lo:>{lo_w}}-{hi:>{hi_w}}"
+
+
+def print_page_range_table(assignments: list[PageAssignment]) -> None:
+    """Render a Rich table of student → page range to the terminal.
+
+    Two columns — *Student* (left) and *Pages* (right). Low-confidence rows
+    (``Unknown_N`` and duplicate-suffixed students) are styled yellow so the
+    user can spot them at a glance.
+    """
+    if not assignments:
+        return
+    from rich import box
+    from rich.padding import Padding
+    from rich.table import Table
+
+    from xscore.shared.terminal_ui import get_console
+
+    sorted_a = sorted(assignments, key=lambda x: x.page_numbers[0])
+    lo_w = max(len(str(a.page_numbers[0])) for a in sorted_a)
+    hi_w = max(len(str(a.page_numbers[-1])) for a in sorted_a)
+
+    table = Table(
+        title="Page range per student (scan-page order)",
+        title_justify="left",
+        title_style="dim",
+        box=box.HORIZONTALS,
+        header_style="dim",
+        show_edge=False,
+        pad_edge=False,
+    )
+    table.add_column("Student", justify="left")
+    table.add_column("Pages", justify="right")
+
+    for a in sorted_a:
+        rng = _format_page_range(a, lo_w, hi_w)
+        style = "yellow" if a.confidence == "low" else None
+        table.add_row(a.student_name, rng, style=style)
+
+    get_console().print(Padding(table, (0, 0, 0, 4)))
