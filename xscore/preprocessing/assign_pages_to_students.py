@@ -714,7 +714,7 @@ def _format_page_range(a: PageAssignment, lo_w: int, hi_w: int) -> str:
         return ", ".join(str(p) for p in nums)
     if lo == hi:
         return f"{lo:>{lo_w}}"
-    return f"{lo:>{lo_w}}-{hi:>{hi_w}}"
+    return f"{lo:>{lo_w}}–{hi:>{hi_w}}"
 
 
 def print_page_range_table(assignments: list[PageAssignment]) -> None:

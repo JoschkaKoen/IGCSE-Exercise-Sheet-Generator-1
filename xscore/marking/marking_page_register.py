@@ -132,10 +132,18 @@ def _load_handwriting(
 ) -> tuple[dict[str, set[int]], dict[str, dict[int, list[int]]]]:
     """Parse handwriting.json into (skip_set, extras_map) keyed by student.
 
-    Mirrors the parse loop at ``ai_mark.py:294–311``. ``skip_set`` lists scan
-    pages that are blank with no handwriting (the AI should never see them);
-    ``extras_map`` says "for student S, when marking scan-page P, also include
-    these blank-but-handwritten extras".
+    ``skip_set`` lists scan pages with no handwriting (the AI should never
+    see them); ``extras_map`` says "for student S, when marking scan-page P,
+    also include these blank-but-handwritten extras".
+
+    Prefers the per-student ``pages_without_handwriting`` field as the
+    authoritative skip list (written by step 15 under
+    ``HANDWRITING_CHECK_WIDE=1``). Falls back to deriving the skip set from
+    ``blank_scan_pages`` entries with ``has_handwriting=false`` for
+    handwriting.json files written before that field existed.
+
+    The extras map is always derived from ``blank_scan_pages`` —
+    attach-to-previous semantics only apply to blank-in-empty pages.
     """
     skip_by_student: dict[str, set[int]] = {}
     extras_by_student: dict[str, dict[int, list[int]]] = {}
@@ -144,19 +152,29 @@ def _load_handwriting(
 
     data = json.loads(handwriting_path.read_text(encoding="utf-8"))
     for s in data.get("students", []):
-        skip: set[int] = set()
+        student_name = s.get("student_name")
+        if student_name is None:
+            continue
+
+        new_field = s.get("pages_without_handwriting")
+        if new_field is not None:
+            skip: set[int] = {int(p) for p in new_field}
+        else:
+            skip = {
+                bp["scan_page"]
+                for bp in s.get("blank_scan_pages", [])
+                if bp.get("scan_page") is not None
+                and not bp.get("has_handwriting", False)
+            }
+
         extras: dict[int, list[int]] = {}
         for bp in s.get("blank_scan_pages", []):
             scan_page = bp.get("scan_page")
             if scan_page is None:
                 continue
-            if not bp.get("has_handwriting", False):
-                skip.add(scan_page)
-            elif bp.get("attach_to_scan_page") is not None:
+            if bp.get("has_handwriting", False) and bp.get("attach_to_scan_page") is not None:
                 extras.setdefault(bp["attach_to_scan_page"], []).append(scan_page)
-        student_name = s.get("student_name")
-        if student_name is None:
-            continue
+
         skip_by_student[student_name] = skip
         extras_by_student[student_name] = extras
     return skip_by_student, extras_by_student
@@ -234,6 +252,9 @@ def apply_cross_page_extras(
         student_cover_offset = (
             1 if (cover_page_number is not None and not empty_exam_has_cover) else 0
         )
+        # Pages the student left blank — never useful as a cross-page figure
+        # source even if the empty-exam template has the figure drawn there.
+        skipped = set(student.get("skipped_scan_pages") or [])
         for call in student["calls"]:
             x = call["answer_label"]
             extras_for_x = extras_by_answer_label.get(x, set())
@@ -250,6 +271,8 @@ def apply_cross_page_extras(
                     continue
                 if scan_page_y in existing_extras:
                     continue
+                if scan_page_y in skipped:
+                    continue   # student left this page blank — no figure to send
                 # Find the figure label(s) for the diagnostic source string.
                 figs_for_y = sorted(
                     label for label, pg in figure_first_page.items()
@@ -482,6 +505,34 @@ def print_register_summary(
     )
     console.print(Padding(table, (0, 0, 0, 4), expand=False))
 
+    # ── Excluded pages sub-table ─────────────────────────────────────────────
+    excluded_rows = []
+    for s in sorted(students, key=lambda x: _first_primary(x)):
+        cover = s.get("cover_page_number")
+        skipped = s.get("skipped_scan_pages") or []
+        if cover is None and not skipped:
+            continue
+        excluded_rows.append((s["student_name"], cover, skipped))
+
+    if excluded_rows:
+        excluded_table = Table(
+            box=box.HORIZONTALS,
+            header_style="dim",
+            show_edge=False,
+            pad_edge=False,
+        )
+        excluded_table.add_column("Student", justify="left")
+        excluded_table.add_column("Cover", justify="right")
+        excluded_table.add_column("No handwriting", justify="left")
+        for name, cover, skipped in excluded_rows:
+            excluded_table.add_row(
+                name,
+                str(cover) if cover is not None else "—",
+                _format_skipped_pages(skipped),
+            )
+        console.print("    [dim]Excluded pages per student[/]")
+        console.print(Padding(excluded_table, (0, 0, 0, 4), expand=False))
+
     if cross_page_refs:
         console.print(f"    [dim]Cross-page figures detected ({len(cross_page_refs)}):[/]")
         for ref in cross_page_refs:
@@ -514,3 +565,31 @@ def _first_primary(student: dict) -> int:
     if not calls:
         return 1 << 30   # sort empties to the end
     return calls[0]["primary_scan_page"]
+
+
+def _format_skipped_pages(pages: list[int], *, max_ranges: int = 4) -> str:
+    """Group contiguous integers into en-dash ranges, with overflow truncation.
+
+    [5,6,7,8,9,12,14,15,16] → "5–9, 12, 14–16"
+    Truncates to *max_ranges* ranges and appends "(… N more)" for the rest.
+    Empty list → "—".
+    """
+    if not pages:
+        return "—"
+    sorted_pages = sorted(set(int(p) for p in pages))
+    ranges: list[tuple[int, int]] = []
+    start = end = sorted_pages[0]
+    for p in sorted_pages[1:]:
+        if p == end + 1:
+            end = p
+        else:
+            ranges.append((start, end))
+            start = end = p
+    ranges.append((start, end))
+
+    parts = [f"{s}–{e}" if s != e else str(s) for s, e in ranges]
+    if len(ranges) <= max_ranges:
+        return ", ".join(parts)
+    kept = parts[:max_ranges]
+    rest_count = sum(e - s + 1 for s, e in ranges[max_ranges:])
+    return ", ".join(kept) + f" (… {rest_count} more)"

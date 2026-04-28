@@ -264,12 +264,14 @@ def step_15_handwriting(ctx: _Ctx) -> None:
         default_max_tokens=32,
     )
     from xscore.marking.blank_page_detection import BlankCheckStatus
+    wide = os.environ.get("HANDWRITING_CHECK_WIDE", "1") == "1"
     t0 = time.perf_counter()
     status, msg = check_student_handwriting(
         ctx.cleaned_pdf,
         ctx.page_assignments,
         ctx.artifact_dir,
         empty_exam_has_cover=bool(ctx.empty_exam_has_cover),
+        wide=wide,
     )
     dur = format_duration(time.perf_counter() - t0)
 
