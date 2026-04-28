@@ -75,10 +75,12 @@ def step_18_parse_exam(ctx: _Ctx) -> None:
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     state = ctx.scaffold_state
+    from xscore.shared.exam_paths import is_cs_exam
     raw_questions, raw_layout = step18_parse_exam_pdf(
         state["client"], state["actual_exam_pdf"], state["layout_result"],
         state["n_split"], state["split_pdf_temp_path"], ctx.artifact_dir,
         fmt=state["fmt"],
+        is_cs=is_cs_exam(state["actual_exam_pdf"], state.get("answer_pdf")),
     )
     state["raw_questions"] = raw_questions
     state["raw_layout"] = raw_layout

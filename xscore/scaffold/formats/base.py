@@ -48,10 +48,15 @@ class ScaffoldFormat(ABC):
     def serialize_exam(self, questions: list[dict], layout: dict) -> str:
         """Serialise post-remap question dicts for the step-10 artifact."""
 
-    def system_exam_prompt(self) -> str:
-        """Return the system prompt for the exam-extraction call."""
-        from xscore.scaffold.scaffold_prompts import _SYSTEM_EXAM
-        return _SYSTEM_EXAM
+    def system_exam_prompt(self, is_cs: bool = False) -> str:
+        """Return the system prompt for the exam-extraction call.
+
+        ``is_cs`` triggers the conditional CODE_FORMATTING section append for
+        Computer Science exams (gates ``\\texttt`` / ``\\begin{alltt}`` rules
+        in question text and MCQ options).
+        """
+        from xscore.scaffold.scaffold_prompts import make_system_exam_prompt
+        return make_system_exam_prompt("parse_exam_pdf_xml", is_cs=is_cs)
 
     def system_scheme_prompt(self, is_cs: bool = False) -> str:
         """Return the system prompt for the scheme-extraction call.

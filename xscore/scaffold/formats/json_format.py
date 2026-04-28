@@ -64,8 +64,9 @@ from xscore.shared.response_parsing import strip_code_fences as _strip_fences  #
 
 class JsonScaffoldFormat(ScaffoldFormat):
 
-    def system_exam_prompt(self) -> str:
-        return load_prompt("parse_exam_pdf_json", section="system")[1]
+    def system_exam_prompt(self, is_cs: bool = False) -> str:
+        from xscore.scaffold.scaffold_prompts import make_system_exam_prompt
+        return make_system_exam_prompt("parse_exam_pdf_json", is_cs=is_cs)
 
     def system_scheme_prompt(self, is_cs: bool = False) -> str:
         from xscore.scaffold.scaffold_prompts import make_system_scheme_prompt

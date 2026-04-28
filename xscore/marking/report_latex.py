@@ -61,6 +61,29 @@ def _escape_bare_amp_outside_tabular(text: str) -> str:
 _ALLTT_BLOCK_RE = re.compile(r"\\begin\{alltt\}.*?\\end\{alltt\}", re.DOTALL)
 _ALLTT_PLACEHOLDER_RE = re.compile(r"\x00ALLTT(\d+)\x00")
 
+# AI sometimes emits math arrows inside alltt pseudocode (`P \leftarrow "x"`).
+# alltt is text-mode only, so xelatex inserts an implicit `$` and then errors
+# at `\end{alltt}` ("invalid in math mode"). Substitute with Unicode arrows
+# at restore time — fontspec renders them directly.
+_ALLTT_MATH_SUB = {
+    "leftarrow": "←", "gets": "←",
+    "rightarrow": "→", "to": "→",
+    "Leftarrow": "⇐",
+    "Rightarrow": "⇒",
+}
+_ALLTT_MATH_RE = re.compile(r"\\(" + "|".join(_ALLTT_MATH_SUB) + r")\b\s?")
+
+# AI-generated cells sometimes embed `\begin{tabular}…\end{tabular}` (truth
+# tables, mark-scheme tables). The post-munging passes in `_ai_cell` would
+# convert the tabular's `\\` row terminators to `\newline` and break alignment.
+# Stash these blocks before munging, restore byte-identically afterwards.
+_PROTECTED_ENV_NAMES = r"tabular\*?|array|pmatrix|bmatrix|cases|aligned"
+_ENV_BLOCK_RE = re.compile(
+    r"\\begin\{(" + _PROTECTED_ENV_NAMES + r")\}.*?\\end\{\1\}",
+    re.DOTALL,
+)
+_ENV_PLACEHOLDER_RE = re.compile(r"\x00ENV(\d+)\x00")
+
 
 # AI sometimes emits LaTeX math syntax outside ``$...$`` despite the prompt
 # warnings. xelatex then errors ("Missing \cr inserted", "Missing $ inserted",
@@ -159,9 +182,40 @@ def _protect_alltt(text: str, transform) -> str:
         block = stashed[int(m.group(1))]
         block = re.sub(r"(\\begin\{alltt\})\n", r"\1", block, count=1)
         block = re.sub(r"\s*(\\end\{alltt\})", r"\1", block, count=1)
+        block = _ALLTT_MATH_RE.sub(lambda mm: _ALLTT_MATH_SUB[mm.group(1)], block)
         return block
 
-    return _ALLTT_PLACEHOLDER_RE.sub(_restore, text)
+    text = _ALLTT_PLACEHOLDER_RE.sub(_restore, text)
+    # The strip rules in `transform` couldn't see `\begin{alltt}` / `\end{alltt}`
+    # while they were stashed as placeholders. Re-apply them post-restore so
+    # `\end{alltt}\newline` ("There's no line here to end") and
+    # `\newline\begin{alltt}` get cleaned up.
+    text = re.sub(r"(\\end\{alltt\})\s*\\newline\b\s?", r"\1 ", text)
+    text = re.sub(r"\\newline\s*(?=\\begin\{alltt\})", "", text)
+    return text
+
+
+def _protect_envs(text: str, transform) -> str:
+    """Run *transform* on parts of *text* outside protected env blocks
+    (``\\begin{tabular}…\\end{tabular}`` and other tabular/math envs in
+    ``_PROTECTED_ENV_NAMES``). Stashed blocks are restored byte-identically —
+    internal ``\\\\``, ``\\hline``, ``&``, and newlines are preserved exactly.
+    """
+    stashed: list[str] = []
+
+    def _stash(m: re.Match) -> str:
+        stashed.append(m.group(0))
+        return f"\x00ENV{len(stashed) - 1}\x00"
+
+    # Fixed-point loop covers nested same-name blocks (tabular-in-tabular).
+    for _ in range(5):
+        new_text = _ENV_BLOCK_RE.sub(_stash, text)
+        if new_text == text:
+            break
+        text = new_text
+
+    text = transform(text)
+    return _ENV_PLACEHOLDER_RE.sub(lambda m: stashed[int(m.group(1))], text)
 
 
 def _ai_cell(text: str) -> str:
@@ -202,7 +256,7 @@ def _ai_cell(text: str) -> str:
         t = re.sub(r"\\newline\s*(?=\\end\{)", "", t)
         return t
 
-    return _protect_alltt(text, _outside_alltt)
+    return _protect_envs(text, lambda t: _protect_alltt(t, _outside_alltt))
 
 
 def _format_criteria_cell(raw: str) -> str:

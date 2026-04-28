@@ -208,11 +208,15 @@ def step18_parse_exam_pdf(
     artifact_dir: "Path | None",
     *,
     fmt=None,
+    is_cs: bool = False,
 ) -> tuple[list[dict], dict]:
     """Parse the exam PDF into a question hierarchy via Gemini.
 
     Returns ``(raw_questions, raw_layout)`` as produced by ``_do_exam_call``.
     Writes ``17_parse_exam_pdf/exam_questions.{json,xml}`` and the raw response.
+
+    *is_cs* gates the CODE_FORMATTING section of the system prompt — see
+    ``xscore.shared.exam_paths.is_cs_exam`` and the parallel step-21 wiring.
     """
     if fmt is None:
         fmt = get_scaffold_format()
@@ -229,6 +233,7 @@ def step18_parse_exam_pdf(
         n_split_pages=n_split_pages,
         artifact_dir=artifact_dir,
         fmt=fmt,
+        is_cs=is_cs,
     )
 
     # Use pre-detected layout (ignore raw_layout from extraction response in split mode).
@@ -514,9 +519,11 @@ def build_ai_scaffold(
             on_cut_complete(n_cells == 1)
 
         # Step 18 — parse exam PDF
+        from xscore.shared.exam_paths import is_cs_exam as _is_cs_exam
         raw_questions, raw_layout = step18_parse_exam_pdf(
             client, actual_exam_pdf, layout_result,
             n_split_pages, split_pdf_temp_path, artifact_dir, fmt=fmt,
+            is_cs=_is_cs_exam(actual_exam_pdf, marking_scheme_pdf),
         )
         if on_exam_complete is not None:
             on_exam_complete(raw_questions)

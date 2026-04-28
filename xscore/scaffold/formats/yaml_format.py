@@ -210,8 +210,9 @@ def _common_tail_yaml(page_desc: str, subpage_r_desc: str, subpage_c_desc: str) 
 
 class YamlScaffoldFormat(ScaffoldFormat):
 
-    def system_exam_prompt(self) -> str:
-        return load_prompt("parse_exam_pdf_yaml", section="system")[1]
+    def system_exam_prompt(self, is_cs: bool = False) -> str:
+        from xscore.scaffold.scaffold_prompts import make_system_exam_prompt
+        return make_system_exam_prompt("parse_exam_pdf_yaml", is_cs=is_cs)
 
     def system_scheme_prompt(self, is_cs: bool = False) -> str:
         from xscore.scaffold.scaffold_prompts import make_system_scheme_prompt

@@ -20,3 +20,18 @@ For each question:
 - text: complete question text; use $...$ for inline math
 - options: list of {{letter, text}} for multiple_choice only
 - subquestions: direct sub-questions (one level; each has the same fields)
+
+## CODE_FORMATTING
+
+This exam contains code and pseudocode. Question text and answer options must render code in monospace.
+
+In question `text` content (and in `options[].text` for multiple-choice questions):
+- Wrap inline code tokens (variable names, function calls, single keywords like IF / WHILE / DECLARE / RETURN) in \texttt{...}.
+- Wrap multi-line code or pseudocode listings in \begin{alltt}...\end{alltt}; preserve indentation with literal spaces; literal newlines between lines.
+- Even a single line like "DECLARE x : INTEGER" or "Counter <- Counter + 1" counts as code and must be wrapped in \texttt{...} (inline) or \begin{alltt}...\end{alltt} (own line).
+- NEVER use \textbf{...} for code — bold is not monospace.
+- For pseudocode assignment, use the ASCII arrow `<-`. NEVER emit math commands like \leftarrow, \rightarrow, \gets, \to inside alltt — alltt is text mode and these break compilation.
+
+Markdown still applies to prose: **bold**, *italic*, $...$ for inline math. Code formatting overrides markdown only inside the wrapped regions.
+
+Inside \begin{alltt}...\end{alltt}: do NOT escape <, >, &, %, _, #, $ for LaTeX (alltt is verbatim-with-commands); only escape { → \{, } → \}, backslash → \textbackslash{}.

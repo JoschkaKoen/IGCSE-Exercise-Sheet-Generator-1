@@ -45,6 +45,7 @@ def _do_exam_call(
     n_split_pages: int,
     artifact_dir: "Path | None",
     fmt=None,
+    is_cs: bool = False,
 ) -> tuple[list[dict], dict]:
     if fmt is None:
         from xscore.scaffold.formats.xml_format import XmlScaffoldFormat
@@ -95,13 +96,13 @@ def _do_exam_call(
             if _oa_client is not None:
                 if _oa_provider == "kimi":
                     _messages = [
-                        {"role": "system", "content": fmt.system_exam_prompt()},
+                        {"role": "system", "content": fmt.system_exam_prompt(is_cs=is_cs)},
                         {"role": "system", "content": _exam_pdf_text},
                         {"role": "user", "content": user_exam},
                     ]
                 elif _use_qwen_pdf:
                     _messages = [
-                        {"role": "system", "content": fmt.system_exam_prompt()},
+                        {"role": "system", "content": fmt.system_exam_prompt(is_cs=is_cs)},
                         qwen_pdf_system_message(_exam_pdf_file_id),
                         {"role": "user", "content": user_exam},
                     ]
@@ -112,7 +113,7 @@ def _do_exam_call(
                     ]
                     _content.append({"type": "text", "text": user_exam})
                     _messages = [
-                        {"role": "system", "content": fmt.system_exam_prompt()},
+                        {"role": "system", "content": fmt.system_exam_prompt(is_cs=is_cs)},
                         {"role": "user", "content": _content},
                     ]
                 kwargs: dict = dict(
@@ -139,7 +140,7 @@ def _do_exam_call(
                     gai_types.Part.from_text(text=user_exam),
                 ],
                 config=_make_gen_config(
-                    exam_thinking, fmt.system_exam_prompt(),
+                    exam_thinking, fmt.system_exam_prompt(is_cs=is_cs),
                     pydantic_schema=fmt.pydantic_schema_exam(),
                     max_tokens=exam_max_tokens,
                 ),
@@ -180,7 +181,7 @@ def _do_exam_call(
             _exam_prompt_path = artifact_scaffold_prompt_path(artifact_dir, "exam_questions")
             save_prompt(
                 _exam_prompt_path,
-                model=exam_model, system=fmt.system_exam_prompt(),
+                model=exam_model, system=fmt.system_exam_prompt(is_cs=is_cs),
                 messages=[{
                     "role": "user",
                     "content": f"[{_src_kind}: {actual_exam_pdf.name}]\n\n{user_exam}",

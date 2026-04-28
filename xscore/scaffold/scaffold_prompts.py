@@ -79,7 +79,6 @@ def _detect_scheme_graphics_model_config() -> tuple[str, int | None, int | None]
 # Static bodies are loaded once at import time so callers see plain strings,
 # preserving the pre-refactor module-level API. Combined .md files use
 # section= to extract the role-specific portion.
-_SYSTEM_EXAM = _load_prompt("parse_exam_pdf_xml", section="system")[1]
 _USER_EXAM = _load_prompt("parse_exam_pdf_xml", section="user")[1]
 _USER_GRAPHICS = _load_prompt("detect_mark_scheme_graphics", section="user")[1]
 _SYSTEM_LAYOUT = _load_prompt("detect_exam_layout", section="system")[1]
@@ -92,6 +91,20 @@ def make_system_scheme_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
     for code in criterion text.
 
     *prompt_name* is one of ``"parse_mark_scheme_xml"`` / ``"_yaml"`` / ``"_json"``.
+    """
+    base = _load_prompt(prompt_name, section="system")[1]
+    if is_cs:
+        code = _load_prompt(prompt_name, section="code_formatting")[1]
+        return base + "\n\n" + code.rstrip("\n")
+    return base
+
+
+def make_system_exam_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
+    """Load the SYSTEM section of an exam-paper-parse prompt; if ``is_cs`` also
+    append the CODE_FORMATTING section so the AI emits ``\\texttt`` /
+    ``\\begin{alltt}`` for code in question text and MCQ options.
+
+    *prompt_name* is one of ``"parse_exam_pdf_xml"`` / ``"_yaml"`` / ``"_json"``.
     """
     base = _load_prompt(prompt_name, section="system")[1]
     if is_cs:
