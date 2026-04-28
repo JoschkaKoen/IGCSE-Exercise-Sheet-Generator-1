@@ -243,6 +243,11 @@ def _apply_grade_curve(student_summaries: list[dict], target: int) -> None:
 # Pass 2 — per-student .tex files + parallel xelatex compile
 # ---------------------------------------------------------------------------
 
+def _suffixed(p: Path, suffix: str) -> Path:
+    """Return *p* with *suffix* inserted before its extension. ``suffix=""`` is a no-op."""
+    return p if not suffix else p.with_name(p.stem + suffix + p.suffix)
+
+
 def _pass2_write_tex(
     student_summaries: list[dict],
     full_reports: dict[str, dict],
@@ -252,12 +257,20 @@ def _pass2_write_tex(
     show_curved_grade: bool = True,
     parsed_questions: list[dict] | None = None,
     qmap_by_num: dict[str, dict] | None = None,
+    name_suffix: str = "",
 ) -> None:
     """Write per-student .tex files (landscape + portrait + portrait-large), then compile all in parallel.
 
     When ``parsed_questions`` is non-None, additionally writes each student's
     ``_landscape_with_questions.tex`` and ``_portrait_list.tex`` plus the
     run-level ``exam_questions.tex`` — all compiled in the same parallel pass.
+
+    *name_suffix* is appended to every per-student output filename (before
+    the extension). With ``""`` (default) behaviour is unchanged. With
+    ``"_full"`` the augmented PDF batch lands next to the filtered one in
+    the same per-student folder. The standalone ``exam_questions.pdf`` is
+    only emitted when ``name_suffix == ""`` (it's a per-run artifact, not
+    per-student, and the second pass shouldn't produce a duplicate).
     """
     qmap_by_num = qmap_by_num or {}
     tex_paths: list[Path] = []
@@ -270,7 +283,7 @@ def _pass2_write_tex(
             ("portrait",  artifact_student_report_tex_portrait_path,       10),
             ("portrait",  artifact_student_report_tex_portrait_large_path, 12),
         ):
-            tex_path = path_fn(artifact_dir, s["name"])
+            tex_path = _suffixed(path_fn(artifact_dir, s["name"]), name_suffix)
             tex_path.write_text(
                 _student_report_to_tex(
                     report, exam_name=exam_name, orientation=orientation,
@@ -281,8 +294,11 @@ def _pass2_write_tex(
             tex_paths.append(tex_path)
 
         if parsed_questions is not None:
-            wq_tex_path = artifact_student_report_tex_landscape_with_questions_path(
-                artifact_dir, s["name"]
+            wq_tex_path = _suffixed(
+                artifact_student_report_tex_landscape_with_questions_path(
+                    artifact_dir, s["name"]
+                ),
+                name_suffix,
             )
             wq_tex_path.write_text(
                 _student_report_with_questions_to_tex(
@@ -293,8 +309,11 @@ def _pass2_write_tex(
             )
             tex_paths.append(wq_tex_path)
 
-            list_tex_path = artifact_student_report_tex_portrait_list_path(
-                artifact_dir, s["name"]
+            list_tex_path = _suffixed(
+                artifact_student_report_tex_portrait_list_path(
+                    artifact_dir, s["name"]
+                ),
+                name_suffix,
             )
             list_tex_path.write_text(
                 _student_report_list_to_tex(
@@ -305,7 +324,10 @@ def _pass2_write_tex(
             )
             tex_paths.append(list_tex_path)
 
-    if parsed_questions is not None:
+    # The standalone exam-questions PDF is per-run, not per-student. Only
+    # emit it on the first call (no suffix) — the second pass would produce
+    # an identical duplicate.
+    if parsed_questions is not None and not name_suffix:
         eq_tex_path = artifact_exam_questions_tex_path(artifact_dir)
         eq_tex_path.parent.mkdir(parents=True, exist_ok=True)
         eq_tex_path.write_text(
@@ -319,8 +341,14 @@ def _pass2_write_tex(
 
     portrait_2up_jobs: list[tuple[Path, Path]] = []
     for s in student_summaries:
-        p_in = artifact_student_report_pdf_portrait_large_path(artifact_dir, s["name"])
-        p_out = artifact_student_report_pdf_portrait_2up_path(artifact_dir, s["name"])
+        p_in = _suffixed(
+            artifact_student_report_pdf_portrait_large_path(artifact_dir, s["name"]),
+            name_suffix,
+        )
+        p_out = _suffixed(
+            artifact_student_report_pdf_portrait_2up_path(artifact_dir, s["name"]),
+            name_suffix,
+        )
         if p_in.is_file():
             portrait_2up_jobs.append((p_in, p_out))
     if portrait_2up_jobs:

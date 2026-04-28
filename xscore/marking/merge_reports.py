@@ -63,14 +63,26 @@ def step_26_per_student_reports(ctx: Any) -> None:
     artifact_marking_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
     artifact_student_reports_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
 
-    student_summaries, full_reports, q_totals, failed, collisions = _pass1_merge_students(
+    (
+        student_summaries, full_reports, full_reports_augmented,
+        q_totals, failed, collisions,
+    ) = _pass1_merge_students(
         ctx, fmt, names, total_max_marks, correct_answers, marking_criteria_by_num, workers
     )
     ctx.student_summaries = student_summaries
     ctx.full_reports = full_reports
+    ctx.full_reports_augmented = full_reports_augmented
     ctx.q_totals = q_totals
     ctx.failed_students = failed
     ctx.mark_collisions = collisions
+
+    if full_reports_augmented:
+        from xscore.shared.terminal_ui import info_line
+        n = len(full_reports_augmented)
+        info_line(
+            f"{n} student{'s' if n != 1 else ''} have unanswered questions — "
+            f"_full reports will be generated"
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -152,6 +164,20 @@ def step_28_per_student_pdfs(ctx: Any) -> None:
         parsed_questions=parsed_questions,
         qmap_by_num=qmap_by_num,
     )
+
+    # Second pass — companion "_full" PDFs containing rows for unanswered
+    # questions on skipped scan pages. Only fires for students whose
+    # augmented report differs from the filtered one.
+    aug = getattr(ctx, "full_reports_augmented", None) or {}
+    if aug:
+        aug_summaries = [s for s in ctx.student_summaries if s["name"] in aug]
+        _pass2_write_tex(
+            aug_summaries, aug, ctx.artifact_dir, exam_name, workers,
+            show_curved_grade=show_curved_grade,
+            parsed_questions=parsed_questions,
+            qmap_by_num=qmap_by_num,
+            name_suffix="_full",
+        )
 
 
 # ---------------------------------------------------------------------------

@@ -307,10 +307,12 @@ def _student_report_to_tex(
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
-        answer = (
-            "\\textit{(blank)}" if not answer_raw
-            else _ai_cell(answer_raw)
-        )
+        if q.get("_unanswered"):
+            answer = "\\textit{(not answered)}"
+        elif not answer_raw:
+            answer = "\\textit{(blank)}"
+        else:
+            answer = _ai_cell(answer_raw)
         correct_raw = str(q.get("correct_answer") or "").strip()
         criteria_raw = str(q.get("marking_criteria") or "").strip()
         question_type = str(q.get("question_type", "")).strip()
@@ -542,7 +544,12 @@ def _student_report_with_questions_to_tex(
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
-        answer = "\\textit{(blank)}" if not answer_raw else _ai_cell(answer_raw)
+        if q.get("_unanswered"):
+            answer = "\\textit{(not answered)}"
+        elif not answer_raw:
+            answer = "\\textit{(blank)}"
+        else:
+            answer = _ai_cell(answer_raw)
         correct_raw = str(q.get("correct_answer") or "").strip()
         criteria_raw = str(q.get("marking_criteria") or "").strip()
         question_type = str(q.get("question_type", "")).strip()
@@ -613,7 +620,12 @@ def _student_report_list_to_tex(
         awarded = q.get("assigned_marks")
         awarded_cell = _awarded_tex(awarded, max_q)
         answer_raw = str(q.get("student_answer") or "").strip()
-        answer = "\\textit{(blank)}" if not answer_raw else _ai_cell(answer_raw)
+        if q.get("_unanswered"):
+            answer = "\\textit{(not answered)}"
+        elif not answer_raw:
+            answer = "\\textit{(blank)}"
+        else:
+            answer = _ai_cell(answer_raw)
         correct_raw = str(q.get("correct_answer") or "").strip()
         criteria_raw = str(q.get("marking_criteria") or "").strip()
         question_type = str(q.get("question_type", "")).strip()
@@ -627,13 +639,13 @@ def _student_report_list_to_tex(
         ) or r"\textit{(text unavailable)}"
         blocks.append(
             f"\\noindent\\textbf{{Q{qnum_dotted}}} \\hfill {awarded_cell} / {max_q}\\par\n"
-            f"\\smallskip\\textit{{Question:}}\\par\n"
+            f"\\smallskip\\textbf{{Question:}}\\par\n"
             f"{question_body}\\par\n"
-            f"\\smallskip\\textit{{Student answer:}}\\par\n"
+            f"\\smallskip\\textbf{{Student answer:}}\\par\n"
             f"{answer}\\par\n"
-            f"\\smallskip\\textit{{Expected:}}\\par\n"
+            f"\\smallskip\\textbf{{Expected:}}\\par\n"
             f"{expected}\\par\n"
-            f"\\smallskip\\textit{{Reasoning:}}\\par\n"
+            f"\\smallskip\\textbf{{Reasoning:}}\\par\n"
             f"{reasoning}\\par\n"
             f"\\vspace{{0.4em}}\\hrule\\vspace{{0.6em}}"
         )

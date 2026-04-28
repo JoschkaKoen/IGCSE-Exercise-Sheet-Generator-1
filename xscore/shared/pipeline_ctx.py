@@ -81,6 +81,11 @@ class _Ctx:
     # Set by step 25 (per-student reports), consumed by 26 (curve), 27 (PDFs), 28 (class), 29 (review).
     student_summaries: list[dict] | None = None
     full_reports: dict[str, dict] | None = None
+    # Augmented per-student reports (_unanswered rows added from blueprints
+    # for skipped scan pages). Only contains entries for students whose
+    # augmented report differs from the filtered one. Step 28 generates the
+    # parallel "_full" PDF batch from this dict.
+    full_reports_augmented: dict[str, dict] = field(default_factory=dict)
     q_totals: dict[str, list[float]] | None = None
     # Failure surfaces for steps 25–29. Populated by step 25 (merge),
     # surfaced by step wrappers (25, 27), persisted by step 29 (review queue).

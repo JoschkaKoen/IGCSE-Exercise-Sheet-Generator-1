@@ -24,7 +24,12 @@ def _student_report_to_md(report: dict) -> str:
     ]
     for q in report["questions"]:
         answer_raw = str(q.get("student_answer") or "").strip()
-        answer = "*(blank)*" if not answer_raw else answer_raw.replace("|", "/")
+        if q.get("_unanswered"):
+            answer = "*(not answered)*"
+        elif not answer_raw:
+            answer = "*(blank)*"
+        else:
+            answer = answer_raw.replace("|", "/")
         awarded = q.get("assigned_marks")
         awarded_str = "*?*" if awarded is None else str(awarded)
         correct = str(q.get("correct_answer") or "—").replace("|", "/")

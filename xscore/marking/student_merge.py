@@ -12,10 +12,13 @@ from typing import Any
 from xscore.marking.report_markdown import _fmt_pct, _student_report_to_md
 from xscore.marking.report_xml import student_report_to_xml
 from xscore.shared.exam_paths import (
+    artifact_blueprint_path,
     artifact_marked_path,
     artifact_marking_students_dir,
     artifact_student_report_dir,
+    artifact_student_report_md_full_path,
     artifact_student_report_md_path,
+    artifact_student_report_xml_full_path,
     artifact_student_report_xml_path,
     safe_student_name as _safe_name,
 )
@@ -141,6 +144,106 @@ def _merge_student_pages(
     }
 
 
+def _augment_with_unanswered(
+    filtered_report: dict,
+    artifact_dir: Path,
+    register: dict,
+    fmt: Any,
+    correct_answers: dict[str, str],
+    marking_criteria_by_num: dict[str, str],
+) -> dict | None:
+    """Return a copy of *filtered_report* with one extra row per question on
+    every scan page the student left blank, sourced from the step-24 blueprint.
+
+    Each injected row carries ``student_answer=""``, ``assigned_marks=0`` and
+    ``_unanswered=True``. The flag drives a different rendering branch in
+    ``report_latex.py`` and ``report_markdown.py`` (``(not answered)`` italic).
+
+    Returns ``None`` when there's nothing to add (no skipped scan pages, no
+    matching blueprints, or every blueprint question is already in the
+    filtered report). The caller treats ``None`` as "no _full batch needed
+    for this student".
+    """
+    from xscore.marking.marking_page_register import _cover_offset
+
+    student_name = filtered_report["student_name"]
+    student_record = next(
+        (s for s in register.get("students") or [] if s.get("student_name") == student_name),
+        None,
+    )
+    if student_record is None:
+        return None
+
+    skipped_scan_pages = list(student_record.get("skipped_scan_pages") or [])
+    if not skipped_scan_pages:
+        return None
+
+    cover_page_number = student_record.get("cover_page_number")
+    has_cover = cover_page_number is not None
+    page_numbers: list[int] = list(student_record.get("page_numbers") or [])
+    empty_exam_has_cover = bool(
+        (register.get("metadata") or {}).get("empty_exam_has_cover", False)
+    )
+    cover_offset = _cover_offset(has_cover, empty_exam_has_cover)
+
+    # Track every qnum already represented so the injected rows don't double
+    # up against the marked report or against another skipped page that
+    # mentions the same cross-page question.
+    existing_qnums: set[str] = {
+        str(q.get("number", "")) for q in filtered_report.get("questions") or []
+    }
+
+    augmented_questions = list(filtered_report.get("questions") or [])
+    appended = 0
+    for scan_page in sorted(skipped_scan_pages):
+        try:
+            p_label = page_numbers.index(scan_page) + 1
+        except ValueError:
+            continue   # skipped page not in this student's roster — skip
+        if has_cover and p_label == 1:
+            continue   # student cover page never has questions
+        answer_label = p_label - cover_offset
+        if answer_label < 1:
+            continue
+        bp_path = artifact_blueprint_path(
+            artifact_dir, answer_label, fmt=fmt.artifact_ext()
+        )
+        if not bp_path.is_file():
+            continue   # blank-in-empty page — no scaffold questions to inject
+        try:
+            blueprint = fmt.deserialize_blueprint(bp_path.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            continue
+        for q in blueprint.get("questions") or []:
+            qnum = str(q.get("number", ""))
+            if qnum in existing_qnums:
+                continue
+            entry = q.copy()
+            entry["student_answer"] = ""
+            entry["assigned_marks"] = 0
+            entry["_unanswered"] = True
+            entry["page_label"] = p_label
+            entry["correct_answer"] = correct_answers.get(qnum, entry.get("correct_answer", ""))
+            entry["marking_criteria"] = marking_criteria_by_num.get(
+                qnum, entry.get("marking_criteria", "")
+            )
+            augmented_questions.append(entry)
+            existing_qnums.add(qnum)
+            appended += 1
+
+    if appended == 0:
+        return None
+
+    # Stable sort by page_label so unanswered rows from page P slot in among
+    # marked rows from page P. Marked rows already arrive in page order from
+    # the existing merge loop; in-page question order is preserved by stable sort.
+    augmented_questions.sort(key=lambda q: q.get("page_label") or 0)
+
+    augmented = dict(filtered_report)
+    augmented["questions"] = augmented_questions
+    return augmented
+
+
 def _derive_student_names(artifact_dir: Path, fmt=None) -> list[str]:
     """Collect unique student names from marked student files, in order."""
     if fmt is None:
@@ -205,21 +308,34 @@ def _pass1_merge_students(
     correct_answers: dict[str, str],
     marking_criteria_by_num: dict[str, str],
     workers: int,
-) -> tuple[list[dict], dict[str, dict], dict[str, list[float]], list[dict], list[dict]]:
+) -> tuple[list[dict], dict[str, dict], dict[str, dict], dict[str, list[float]], list[dict], list[dict]]:
     """Parallel: merge per-page marks, write XML + MD per student, accumulate q_totals.
 
-    Returns (student_summaries, full_reports, q_totals, failed, collisions).
-    Per-student failures are collected into ``failed`` and the run continues —
-    one bad student does not block the rest. ``collisions`` records cross-page
-    mark conflicts for the review queue.
+    Returns ``(student_summaries, full_reports, full_reports_augmented,
+    q_totals, failed, collisions)``. ``full_reports_augmented`` only contains
+    students whose augmented report differs from the filtered one (i.e. they
+    have at least one skipped scan page that the marking page register can
+    map to a blueprint with questions).
+
+    Per-student failures are collected into ``failed`` and the run continues
+    — one bad student does not block the rest. ``collisions`` records
+    cross-page mark conflicts for the review queue.
     """
+    from xscore.marking.marking_page_register import load_register
+
     student_summaries: list[dict] = []
     full_reports: dict[str, dict] = {}
+    full_reports_augmented: dict[str, dict] = {}
     q_totals: dict[str, list[float]] = {}
     collisions: list[dict] = []
     _summaries_lock = threading.Lock()
     _q_totals_lock = threading.Lock()
     _collisions_lock = threading.Lock()
+
+    # Load the marking page register once. Used by _augment_with_unanswered
+    # to find each student's skipped_scan_pages. None when resuming from a
+    # run that predates the register artifact — augmentation is skipped.
+    register = load_register(ctx.artifact_dir)
 
     def _process_one(name: str) -> None:
         report = _merge_student_pages(
@@ -238,11 +354,29 @@ def _pass1_merge_students(
             _student_report_to_md(report), encoding="utf-8"
         )
 
+        # q_totals: filtered only — augmented rows have assigned_marks=0
+        # and would skew the per-question class averages used by step 27/29.
         with _q_totals_lock:
             for q in report["questions"]:
                 am = q.get("assigned_marks")
                 if am is not None:
                     q_totals.setdefault(str(q.get("number", "")), []).append(float(am))
+
+        # Augmented variant — only when the register knows about this run
+        # AND the student has unanswered questions to inject.
+        aug = None
+        if register is not None:
+            aug = _augment_with_unanswered(
+                report, ctx.artifact_dir, register, fmt,
+                correct_answers, marking_criteria_by_num,
+            )
+            if aug is not None:
+                artifact_student_report_xml_full_path(ctx.artifact_dir, name).write_text(
+                    student_report_to_xml(aug), encoding="utf-8"
+                )
+                artifact_student_report_md_full_path(ctx.artifact_dir, name).write_text(
+                    _student_report_to_md(aug), encoding="utf-8"
+                )
 
         with _summaries_lock:
             student_summaries.append({
@@ -251,6 +385,8 @@ def _pass1_merge_students(
                 "percentage": report["percentage"],
             })
             full_reports[name] = report
+            if aug is not None:
+                full_reports_augmented[name] = aug
 
         ok_line(f"{name}: {report['total_marks']}/{total_max_marks} ({_fmt_pct(report['percentage'])})")
 
@@ -267,4 +403,7 @@ def _pass1_merge_students(
                 })
                 warn_line(f"merge failed for {name}: {type(exc).__name__}: {exc}")
 
-    return student_summaries, full_reports, q_totals, failed, collisions
+    return (
+        student_summaries, full_reports, full_reports_augmented,
+        q_totals, failed, collisions,
+    )

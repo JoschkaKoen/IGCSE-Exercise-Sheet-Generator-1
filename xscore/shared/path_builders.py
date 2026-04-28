@@ -479,6 +479,16 @@ def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
     return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}.md"
 
 
+def artifact_student_report_xml_full_path(artifact_dir: Path, student: str) -> Path:
+    """Augmented per-student XML — includes blueprint-derived rows for unanswered questions."""
+    return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}_full.xml"
+
+
+def artifact_student_report_md_full_path(artifact_dir: Path, student: str) -> Path:
+    """Augmented per-student Markdown — companion to the _full XML."""
+    return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}_full.md"
+
+
 # Backward-compat alias for callers that haven't migrated to the new name.
 artifact_reports_students_dir = artifact_student_reports_dir
 
