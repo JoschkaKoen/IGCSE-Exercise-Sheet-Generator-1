@@ -1,8 +1,11 @@
 """Step 20 — Assign questions to mark scheme pages (cheap per-page vision call).
 
-Dual-provider: Gemini gets per-page PDFs inline; OpenAI-compatible clients get
-rasterized PNGs. Skipped entirely when ``ASSIGN_SCHEME_QUESTIONS_MODEL`` is unset
-or step 18 produced no question numbers.
+Four-way provider routing: Gemini gets per-page PDFs inline; Kimi gets
+server-extracted text via ``kimi_pdf_text`` injected as a system message;
+qwen-doc-turbo / qwen-long get the per-page PDF via DashScope ``fileid://``
+(native PDF); other OpenAI-compatible clients (Grok, ``qwen3-vl-plus``, …)
+get rasterized PNGs. Skipped entirely when ``ASSIGN_SCHEME_QUESTIONS_MODEL``
+is unset or step 18 produced no question numbers.
 """
 
 from __future__ import annotations
@@ -17,8 +20,12 @@ from pathlib import Path
 from google.genai import types as gai_types
 
 from eXercise.ai_client import (
-    build_completion_kwargs, gemini_pdf_part,
+    build_completion_kwargs, collect_streamed_response,
+    gemini_pdf_part, kimi_pdf_text,
     make_ai_client, split_gemini_response,
+)
+from eXercise.qwen_input import (
+    model_supports_pdf_input, qwen_pdf_system_message, upload_pdf_for_extract,
 )
 from eXercise.api_retry import retry_api_call
 from xscore.prompts.loader import load_prompt
@@ -50,9 +57,12 @@ def assign_questions_to_pages(
     (step 21) then falls back to its full-scaffold behavior.
 
     Provider routing (auto-detected from ``ASSIGN_SCHEME_QUESTIONS_MODEL``):
-      * ``gemini*``  → inline per-page PDFs via ``gemini_pdf_part``, call
+      * ``gemini*``         → inline per-page PDFs via ``gemini_pdf_part``,
         ``client.models.generate_content`` with ``response_mime_type='application/json'``.
-      * everything else → rasterize PNGs, call ``chat.completions.create`` on
+      * ``kimi*``/``moonshot*`` → per-page PDF extracted to text via
+        ``kimi_pdf_text`` and injected as a system message; ``chat.completions.create``
+        with ``response_format={"type": "json_object"}``.
+      * everything else → rasterize PNGs, ``chat.completions.create`` on
         an OpenAI-compatible client with ``response_format={"type": "json_object"}``.
     """
     _result = make_ai_client(model_env="ASSIGN_SCHEME_QUESTIONS_MODEL")
@@ -75,15 +85,19 @@ def assign_questions_to_pages(
         question_numbers=", ".join(f'"{q}"' for q in qnums),
     )
 
-    use_gemini = model.startswith("gemini")
+    use_gemini = provider == "gemini"
+    use_kimi = provider == "kimi"
+    use_qwen_pdf = provider == "qwen" and model_supports_pdf_input(model)
     page_pngs: dict[int, bytes] = {}
+    _oa_use_stream = False
     _oa_thinking_kw: dict = {}
 
     info_line(f"Assigning questions to {n_pages} page(s) ({model}) …")
 
     if not use_gemini:
-        page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
-        _, _oa_thinking_kw = build_completion_kwargs(provider, thinking, max_tokens)
+        _oa_use_stream, _oa_thinking_kw = build_completion_kwargs(provider, thinking, max_tokens)
+        if not use_kimi and not use_qwen_pdf:
+            page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
 
     page_path_by_num: dict[int, Path] = {pn: p for pn, p in enumerate(page_paths, 1)}
 
@@ -110,20 +124,53 @@ def assign_questions_to_pages(
                 )
                 _raw, _th = split_gemini_response(_resp)
                 return _raw, _th
-            b64 = _base64.b64encode(page_pngs[page_num]).decode()
-            kwargs: dict = dict(
-                model=model,
-                messages=[
+            # OpenAI-compat path. Build the per-page messages list, then
+            # dispatch streaming vs non-streaming uniformly so K2 thinking-on
+            # (which forces streaming) is honoured here too — non-streaming
+            # K2 thinking blocks the whole reply and looks like a hang.
+            if use_kimi:
+                _page_text = kimi_pdf_text(
+                    _oa_client_aux, page_path_by_num[page_num], label=f"assign p{page_num}",
+                )
+                _messages = [
+                    {"role": "system", "content": system_msg},
+                    {"role": "system", "content": _page_text},
+                    {"role": "user", "content": user_msg},
+                ]
+            elif use_qwen_pdf:
+                file_id = upload_pdf_for_extract(
+                    _oa_client_aux, page_path_by_num[page_num],
+                )
+                _messages = [
+                    {"role": "system", "content": system_msg},
+                    qwen_pdf_system_message(file_id),
+                    {"role": "user", "content": user_msg},
+                ]
+            else:
+                b64 = _base64.b64encode(page_pngs[page_num]).decode()
+                _messages = [
                     {"role": "system", "content": system_msg},
                     {"role": "user", "content": [
                         {"type": "image_url",
                          "image_url": {"url": f"data:image/png;base64,{b64}"}},
                         {"type": "text", "text": user_msg},
                     ]},
-                ],
+                ]
+            kwargs: dict = dict(
+                model=model,
+                messages=_messages,
                 response_format={"type": "json_object"},
             )
             kwargs.update(_oa_thinking_kw)
+            if _oa_use_stream:
+                _th: list[str] = []
+                # Stream consumed inside the closure so a mid-stream SSL EOF
+                # triggers a retry rather than returning a partial response.
+                # Thinking lands in `_th` (saved to file via save_response
+                # below); content streams silently to keep terminal clean.
+                stream = _oa_client_aux.chat.completions.create(**kwargs, stream=True)
+                _raw = collect_streamed_response(stream, thinking_out=_th)
+                return _raw or '{"questions":[]}', "".join(_th)
             _resp = _oa_client_aux.chat.completions.create(**kwargs)
             return (
                 _resp.choices[0].message.content or '{"questions":[]}',
@@ -146,11 +193,19 @@ def assign_questions_to_pages(
             _prompt_path = artifact_scaffold_prompt_path(
                 artifact_dir, f"assign_scheme_questions_p{page_num}"
             )
+            if use_gemini:
+                _src_label = "PDF (gemini)"
+            elif use_kimi:
+                _src_label = "PDF→text (kimi)"
+            elif use_qwen_pdf:
+                _src_label = "PDF (qwen fileid)"
+            else:
+                _src_label = "PNG"
             save_prompt(
                 _prompt_path, model=model, system=system_msg,
                 messages=[{
                     "role": "user",
-                    "content": f"[{'PDF' if use_gemini else 'PNG'}: p{page_num}]\n\n{user_msg}",
+                    "content": f"[{_src_label}: p{page_num}]\n\n{user_msg}",
                 }],
             )
             save_response(_prompt_path, raw or "", thinking=thinking_text)

@@ -20,10 +20,13 @@ def _detect_layout(
     thinking_tokens: int | None = None,
     max_tokens: int | None = None,
 ) -> tuple["_LayoutDetectSchema", float, "str | None", str, "str | None"]:
-    """Cheap layout detection: render first page as JPEG, ask the model for rows/cols/order.
+    """Cheap layout detection: send first page of *exam_pdf* and ask for rows/cols/order.
 
     Routes to the right provider based on *model*; *client* is used only on the
-    Gemini branch (Qwen/Grok build their own OpenAI-compat client internally).
+    Gemini branch (other providers build their own OpenAI-compat client
+    internally). Encoding of page 1 depends on the model: Gemini and other
+    OA-compat models get a 72-DPI JPEG; ``qwen-doc-turbo`` / ``qwen-long`` get
+    a 1-page PDF uploaded via DashScope ``fileid://``.
 
     Returns (result, elapsed_s, raw_response_text, thinking_text, error_summary).
     On success: error_summary is None.
@@ -32,9 +35,19 @@ def _detect_layout(
     """
     import fitz
 
-    with fitz.open(str(exam_pdf)) as doc:
-        pix = doc[0].get_pixmap(matrix=fitz.Matrix(1.0, 1.0))  # 72 DPI
-    img_bytes = pix.tobytes("jpeg")
+    from eXercise.qwen_input import (
+        model_supports_pdf_input, qwen_pdf_system_message, upload_pdf_for_extract,
+    )
+
+    _use_qwen_pdf = (
+        not model.startswith("gemini") and model_supports_pdf_input(model)
+    )
+
+    img_bytes: bytes = b""
+    if not _use_qwen_pdf:
+        with fitz.open(str(exam_pdf)) as doc:
+            pix = doc[0].get_pixmap(matrix=fitz.Matrix(1.0, 1.0))  # 72 DPI
+        img_bytes = pix.tobytes("jpeg")
 
     from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 
@@ -95,14 +108,29 @@ def _detect_layout(
         _use_stream, _kw = build_completion_kwargs(
             _provider, thinking_tokens, max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
         )
-        _b64 = _base64.b64encode(img_bytes).decode()
-        _msgs = [
-            {"role": "system", "content": _SYSTEM_LAYOUT},
-            {"role": "user", "content": [
-                {"type": "text", "text": _USER_LAYOUT},
-                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{_b64}"}},
-            ]},
-        ]
+        if _use_qwen_pdf:
+            from eXercise.output_paths import temp_pdf_path  # noqa: PLC0415
+            with temp_pdf_path() as _tmp_pdf:
+                with fitz.open(str(exam_pdf)) as _src:
+                    _new = fitz.open()
+                    _new.insert_pdf(_src, from_page=0, to_page=0)
+                    _new.save(str(_tmp_pdf))
+                    _new.close()
+                _file_id = upload_pdf_for_extract(_oa_client, _tmp_pdf)
+            _msgs = [
+                {"role": "system", "content": _SYSTEM_LAYOUT},
+                qwen_pdf_system_message(_file_id),
+                {"role": "user", "content": _USER_LAYOUT},
+            ]
+        else:
+            _b64 = _base64.b64encode(img_bytes).decode()
+            _msgs = [
+                {"role": "system", "content": _SYSTEM_LAYOUT},
+                {"role": "user", "content": [
+                    {"type": "text", "text": _USER_LAYOUT},
+                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{_b64}"}},
+                ]},
+            ]
         _strict_rf = {
             "type": "json_schema",
             "json_schema": {

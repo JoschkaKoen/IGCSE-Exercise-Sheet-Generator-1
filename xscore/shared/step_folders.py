@@ -30,25 +30,49 @@ STEP_15_HANDWRITING     = "15_student_handwriting"
 STEP_16_LAYOUT          = "16_detect_exam_layout"
 STEP_17_CUT             = "17_cut_exam"
 STEP_18_PARSE_EXAM      = "18_parse_exam_pdf"
-STEP_19_GRAPHICS         = "19_detect_mark_scheme_graphics"
-STEP_20_ASSIGN_QUESTIONS = "20_assign_scheme_questions"
-STEP_21_PARSE_SCHEME     = "21_parse_mark_scheme"
-STEP_22_CREATE_REPORT    = "22_create_report"
-STEP_23_BLUEPRINTS       = "23_ai_marking_blueprints"
-STEP_24_AI_MARKING       = "24_ai_marking"
-STEP_25_STUDENT_REPORTS  = "25_student_report_preparation"
-STEP_26_CLASS_STATS      = "26_class_stats"
-STEP_27_STUDENT_PDFS     = "27_student_pdfs"
-STEP_28_CLASS_REPORT     = "28_class_report"
-STEP_29_REVIEW_QUEUE     = "29_review_queue"
-STEP_30_TIMING           = "30_timing_summary"
-STEP_31_ACCURACY         = "31_accuracy"
-STEP_32_AI_COSTS         = "32_ai_costs"
 
-# Backwards-compat alias kept for the resume-artifact copier and any
-# external script that references the old umbrella name. Old runs continue
-# to use the legacy "23_compile_reports/" folder; new runs split across 25–29.
-STEP_25_COMPILE_REPORTS = STEP_25_STUDENT_REPORTS
+# Step 19 (NEW): build the marking page register augmented with cross-page
+# figure references (e.g. "Fig. 1.1" referenced on a different page than the
+# one it's drawn on). All steps from the previous step 19 onward shift by +1.
+STEP_19_CROSS_PAGE_FIGURES = "19_detect_cross_page_figures"
+STEP_20_GRAPHICS         = "20_detect_mark_scheme_graphics"
+STEP_21_ASSIGN_QUESTIONS = "21_assign_scheme_questions"
+STEP_22_PARSE_SCHEME     = "22_parse_mark_scheme"
+STEP_23_CREATE_REPORT    = "23_create_report"
+STEP_24_BLUEPRINTS       = "24_ai_marking_blueprints"
+STEP_25_AI_MARKING       = "25_ai_marking"
+STEP_26_STUDENT_REPORTS  = "26_student_report_preparation"
+STEP_27_CLASS_STATS      = "27_class_stats"
+STEP_28_STUDENT_PDFS     = "28_student_pdfs"
+STEP_29_CLASS_REPORT     = "29_class_report"
+STEP_30_REVIEW_QUEUE     = "30_review_queue"
+STEP_31_TIMING           = "31_timing_summary"
+STEP_32_ACCURACY         = "32_accuracy"
+STEP_33_AI_COSTS         = "33_ai_costs"
+
+# ---------------------------------------------------------------------------
+# Backwards-compat aliases — old constant names point to the NEW folder
+# strings so callers that imported the old name keep resolving to the right
+# (renumbered) folder. Drop these once every importer has been migrated.
+# ---------------------------------------------------------------------------
+STEP_19_GRAPHICS         = STEP_20_GRAPHICS
+STEP_20_ASSIGN_QUESTIONS = STEP_21_ASSIGN_QUESTIONS
+STEP_21_PARSE_SCHEME     = STEP_22_PARSE_SCHEME
+STEP_22_CREATE_REPORT    = STEP_23_CREATE_REPORT
+STEP_23_BLUEPRINTS       = STEP_24_BLUEPRINTS
+STEP_24_AI_MARKING       = STEP_25_AI_MARKING
+STEP_25_STUDENT_REPORTS  = STEP_26_STUDENT_REPORTS
+STEP_26_CLASS_STATS      = STEP_27_CLASS_STATS
+STEP_27_STUDENT_PDFS     = STEP_28_STUDENT_PDFS
+STEP_28_CLASS_REPORT     = STEP_29_CLASS_REPORT
+STEP_29_REVIEW_QUEUE     = STEP_30_REVIEW_QUEUE
+STEP_30_TIMING           = STEP_31_TIMING
+STEP_31_ACCURACY         = STEP_32_ACCURACY
+STEP_32_AI_COSTS         = STEP_33_AI_COSTS
+
+# Older umbrella alias kept for the resume-artifact copier and any external
+# script that references the old name. Now points to the renumbered folder.
+STEP_25_COMPILE_REPORTS = STEP_26_STUDENT_REPORTS
 
 # Path of cleaned scan relative to artifact_dir (updated from "7_cleaned_scan.pdf")
 CLEANED_SCAN_PDF = STEP_07 + "/cleaned_scan.pdf"

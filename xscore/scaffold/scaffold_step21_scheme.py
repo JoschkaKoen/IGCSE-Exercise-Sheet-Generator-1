@@ -1,9 +1,12 @@
 """Step 21 — Parse the mark scheme into per-question criteria, page by page.
 
-Dual-provider routing (Gemini inline PDFs vs OpenAI-compatible PNGs). Uses
-step 20's per-page question mapping to filter the scaffold sent per page;
-falls back to the full scaffold for any page missing from the mapping.
-Attaches step 19's graphics positions onto matching scheme entries.
+Four-way provider routing: Gemini inline PDFs, Kimi server-extracted text
+(injected as a system message), Qwen ``qwen-doc-turbo`` / ``qwen-long`` via
+DashScope ``fileid://`` (native PDF), other OpenAI-compatible clients (Grok,
+``qwen3-vl-plus``, …) rasterized PNGs. Uses step 20's per-page question
+mapping to filter the scaffold sent per page; falls back to the full scaffold
+for any page missing from the mapping. Attaches step 19's graphics positions
+onto matching scheme entries.
 """
 
 from __future__ import annotations
@@ -20,8 +23,11 @@ from google.genai import types as gai_types
 
 from eXercise.ai_client import (
     build_completion_kwargs, collect_streamed_response,
-    gemini_pdf_part, make_ai_client, make_gemini_native_client,
+    gemini_pdf_part, kimi_pdf_text, make_ai_client,
     split_gemini_response,
+)
+from eXercise.qwen_input import (
+    model_supports_pdf_input, qwen_pdf_system_message, upload_pdf_for_extract,
 )
 from eXercise.api_retry import retry_api_call
 from xscore.scaffold.scaffold_api import _finish_reason, _make_gen_config
@@ -85,10 +91,14 @@ def parse_mark_scheme_pages(
             _full_scaffold_str = fmt.build_scheme_scaffold(raw_questions)
         return _full_scaffold_str, False
 
-    # OpenAI-compatible client path requires PNGs — only rasterize when needed.
+    # OpenAI-compatible client path. Kimi extracts PDFs to text (no PNG needed);
+    # qwen-doc-turbo / qwen-long take native PDFs via fileid://; everything
+    # else (Grok, qwen3-vl-plus, …) needs rasterized PNGs per page.
     _oa_client = None
+    _oa_provider = ""
     _oa_use_stream = False
     _oa_thinking_kw: dict = {}
+    _use_qwen_pdf = False
     page_pngs: dict[int, bytes] = {}
     if not scheme_model.startswith("gemini"):
         _oa_result = make_ai_client(model_env="READ_MARK_SCHEME_MODEL")
@@ -98,7 +108,9 @@ def parse_mark_scheme_pages(
         _oa_use_stream, _oa_thinking_kw = build_completion_kwargs(
             _oa_provider, scheme_thinking, scheme_max_tokens
         )
-        page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
+        _use_qwen_pdf = _oa_provider == "qwen" and model_supports_pdf_input(scheme_model)
+        if _oa_provider != "kimi" and not _use_qwen_pdf:
+            page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
 
     # Gemini path inlines per-page PDFs via gemini_pdf_part inside the worker
     # (no upload pool needed). Build a quick lookup of page_num → Path.
@@ -109,30 +121,56 @@ def parse_mark_scheme_pages(
         if _is_filtered and not scaffold_str:
             ok_line(f"p{page_num}  ·  no questions assigned — skipped")
             return {"questions": []}
-        _input_label = "image" if _oa_client is not None else "PDF"
+        if _oa_client is None:
+            _input_label = "PDF"
+        elif _oa_provider == "kimi":
+            _input_label = "PDF"  # Kimi sees server-extracted PDF text
+        elif _use_qwen_pdf:
+            _input_label = "PDF"  # Qwen sees native PDF via fileid://
+        else:
+            _input_label = "image"
         user_msg = fmt.build_scheme_user_msg(scaffold_str, page_num, n_pages, input_label=_input_label)
         resp_for_finish: object | None = None
-        # Per-worker Gemini client so each thread has its own httpx pool — avoids
-        # stale keepalive sockets carried over from earlier Gemini steps.
-        page_client = client
-        if _oa_client is None:
-            page_client = make_gemini_native_client(deterministic=True) or client
 
         def _do_call() -> tuple[str, str, object | None]:
             if _oa_client is not None:
-                # OpenAI-compatible path (Qwen, Grok, etc.)
-                # PNG from page_pngs: 300 DPI lossless — preserves fine mark-scheme text
-                b64 = _base64.b64encode(page_pngs[page_num]).decode()
-                kwargs: dict = dict(
-                    model=scheme_model,
-                    messages=[
+                # OpenAI-compatible path. Kimi extracts the per-page PDF
+                # server-side to text and injects it as a system message;
+                # qwen-doc-turbo / qwen-long take the per-page PDF natively
+                # via fileid://; everything else gets the rasterized PNG.
+                if _oa_provider == "kimi":
+                    _page_text = kimi_pdf_text(
+                        _oa_client, page_path_by_num[page_num],
+                        label=f"scheme p{page_num}",
+                    )
+                    _messages = [
+                        {"role": "system", "content": fmt.system_scheme_prompt(is_cs=is_cs)},
+                        {"role": "system", "content": _page_text},
+                        {"role": "user", "content": user_msg},
+                    ]
+                elif _use_qwen_pdf:
+                    file_id = upload_pdf_for_extract(
+                        _oa_client, page_path_by_num[page_num],
+                    )
+                    _messages = [
+                        {"role": "system", "content": fmt.system_scheme_prompt(is_cs=is_cs)},
+                        qwen_pdf_system_message(file_id),
+                        {"role": "user", "content": user_msg},
+                    ]
+                else:
+                    # PNG from page_pngs: 300 DPI lossless — preserves fine mark-scheme text
+                    b64 = _base64.b64encode(page_pngs[page_num]).decode()
+                    _messages = [
                         {"role": "system", "content": fmt.system_scheme_prompt(is_cs=is_cs)},
                         {"role": "user", "content": [
                             {"type": "image_url",
                              "image_url": {"url": f"data:image/png;base64,{b64}"}},
                             {"type": "text", "text": user_msg},
                         ]},
-                    ],
+                    ]
+                kwargs: dict = dict(
+                    model=scheme_model,
+                    messages=_messages,
                 )
                 kwargs.update(_oa_thinking_kw)
                 kwargs.update(fmt.scheme_oa_extra_kwargs(scheme_model))
@@ -150,11 +188,11 @@ def parse_mark_scheme_pages(
                     None,
                 )
             # Gemini native path — inline PDF bytes per page
-            _resp = page_client.models.generate_content(
+            _resp = client.models.generate_content(
                 model=scheme_model,
                 contents=[
                     gemini_pdf_part(
-                        page_client, page_path_by_num[page_num],
+                        client, page_path_by_num[page_num],
                         label=f"scheme p{page_num}",
                     ),
                     gai_types.Part.from_text(text=user_msg),
@@ -185,13 +223,21 @@ def parse_mark_scheme_pages(
             _reason = "" if _oa_client is not None else f" ({_finish_reason(resp_for_finish)})"
             warn_line(f"Mark scheme p{page_num}: empty response{_reason}")
         if artifact_dir is not None:
+            if _oa_client is None:
+                _src_kind = "PDF (gemini)"
+            elif _oa_provider == "kimi":
+                _src_kind = "PDF→text (kimi)"
+            elif _use_qwen_pdf:
+                _src_kind = "PDF (qwen fileid)"
+            else:
+                _src_kind = "PNG"
             _prompt_path = artifact_scaffold_prompt_path(artifact_dir, f"mark_scheme_p{page_num}")
             save_prompt(
                 _prompt_path,
                 model=scheme_model, system=fmt.system_scheme_prompt(is_cs=is_cs),
                 messages=[{
                     "role": "user",
-                    "content": f"[PDF: {marking_scheme_pdf.name} p{page_num}]\n\n{user_msg}",
+                    "content": f"[{_src_kind}: {marking_scheme_pdf.name} p{page_num}]\n\n{user_msg}",
                 }],
             )
             save_response(_prompt_path, raw or "", thinking=thinking_text)

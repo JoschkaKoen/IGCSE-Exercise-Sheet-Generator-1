@@ -305,6 +305,28 @@ def _rank_exercises_ai(
         except Exception as exc:
             _eprint(f"  Ranking: native Gemini path failed ({type(exc).__name__}: {exc}); falling back to image path.")
 
+    # Native Qwen path: upload PDFs via DashScope file-extract and reference
+    # them as fileid:// system messages. qwen-doc-turbo allows only one PDF per
+    # call, so when both exercise and answer PDFs are present we require
+    # qwen-long (multi-file). On any failure, fall through to the vision path.
+    from .qwen_input import (  # noqa: PLC0415
+        model_supports_multi_pdf_input,
+        model_supports_pdf_input,
+        qwen_pdf_system_message,
+        upload_pdf_for_extract,
+    )
+    _has_answers = bool(answer_pdf and answer_pdf.exists())
+    _use_qwen_pdf = (
+        provider == "qwen" and model_supports_pdf_input(model)
+    )
+    if _use_qwen_pdf and _has_answers and not model_supports_multi_pdf_input(model):
+        _eprint(
+            f"  Ranking: model {model!r} accepts only 1 PDF per call but "
+            f"exercise + answer PDFs were both provided; falling back to "
+            f"vision. Set RANKING_MODEL=qwen-long for native PDF here."
+        )
+        _use_qwen_pdf = False
+
     def _build_vision_messages() -> list[dict]:
         has_answers = bool(answer_pdf and answer_pdf.exists())
         print(
@@ -379,25 +401,80 @@ def _rank_exercises_ai(
         )
         return (completion.choices[0].message.content or "").strip()
 
-    # First attempt: vision
-    try:
-        _vision_msgs = _build_vision_messages()
-        if save_dir:
-            from .prompt_logger import save_prompt as _sp  # noqa: PLC0415
-            _sp(
-                save_dir / "ranking_prompt.json",
-                model=model,
-                system=_SYSTEM_PROMPT,
-                messages=_vision_msgs[1:],  # skip system message — it's in `system` param
-            )
-        raw = _call(_vision_msgs)
-    except Exception as exc:
-        _eprint(f"  Ranking: vision call failed ({type(exc).__name__}: {exc}); retrying with text.")
+    raw: str | None = None
+
+    # First attempt: Qwen native PDF (when model supports it).
+    if _use_qwen_pdf:
         try:
-            raw = _call(_build_text_messages())
-        except Exception as exc2:
-            _eprint(f"  Ranking: text fallback also failed ({type(exc2).__name__}: {exc2})")
-            return []
+            print("  Uploading PDF(s) for Qwen native PDF call…", flush=True)
+            _ex_id = upload_pdf_for_extract(client, exercise_pdf)
+            _ans_id = (
+                upload_pdf_for_extract(client, answer_pdf) if _has_answers else None
+            )
+            _qwen_user_lines = ["Materials attached (referenced via fileid:// above):"]
+            _qwen_user_lines.append("- EXERCISE SHEET: first fileid")
+            if _ans_id is not None:
+                _qwen_user_lines.append("- ANSWER SHEET: second fileid")
+            _qwen_user_lines.append("")
+            _qwen_user_lines.append(
+                "Rank every question part in the exercise sheet from most "
+                "difficult to easiest, in the format described."
+            )
+            _qwen_user_text = "\n".join(_qwen_user_lines)
+            _qwen_msgs: list[dict] = [
+                {"role": "system", "content": _SYSTEM_PROMPT},
+                qwen_pdf_system_message(_ex_id),
+            ]
+            if _ans_id is not None:
+                _qwen_msgs.append(qwen_pdf_system_message(_ans_id))
+            _qwen_msgs.append({"role": "user", "content": _qwen_user_text})
+            if save_dir:
+                from .prompt_logger import save_prompt as _sp  # noqa: PLC0415
+                _sp(
+                    save_dir / "ranking_prompt.json",
+                    model=model,
+                    system=_SYSTEM_PROMPT,
+                    messages=[{
+                        "role": "user",
+                        "content": (
+                            f"[PDF (qwen fileid): {exercise_pdf.name}"
+                            + (
+                                f" + answers: {answer_pdf.name}"
+                                if _has_answers and answer_pdf is not None
+                                else ""
+                            )
+                            + f"]\n\n{_qwen_user_text}"
+                        ),
+                    }],
+                )
+            raw = _call(_qwen_msgs)
+        except Exception as exc:
+            _eprint(
+                f"  Ranking: Qwen native-PDF call failed "
+                f"({type(exc).__name__}: {exc}); falling back to vision."
+            )
+            raw = None
+
+    # Vision fallback (also the default path when Qwen-PDF isn't available).
+    if raw is None:
+        try:
+            _vision_msgs = _build_vision_messages()
+            if save_dir:
+                from .prompt_logger import save_prompt as _sp  # noqa: PLC0415
+                _sp(
+                    save_dir / "ranking_prompt.json",
+                    model=model,
+                    system=_SYSTEM_PROMPT,
+                    messages=_vision_msgs[1:],  # skip system message — it's in `system` param
+                )
+            raw = _call(_vision_msgs)
+        except Exception as exc:
+            _eprint(f"  Ranking: vision call failed ({type(exc).__name__}: {exc}); retrying with text.")
+            try:
+                raw = _call(_build_text_messages())
+            except Exception as exc2:
+                _eprint(f"  Ranking: text fallback also failed ({type(exc2).__name__}: {exc2})")
+                return []
 
     if save_dir:
         from .prompt_logger import save_response as _sr  # noqa: PLC0415

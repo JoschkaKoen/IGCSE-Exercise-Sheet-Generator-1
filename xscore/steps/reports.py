@@ -1,4 +1,4 @@
-"""Steps 25–29: per-student reports, class stats/curve, per-student PDFs,
+"""Steps 26–30: per-student reports, class stats/curve, per-student PDFs,
 class report, review queue.
 
 Each step is a thin wrapper around the corresponding ``step_NN_*`` function
@@ -9,11 +9,11 @@ under canonical keys (``per_student_reports``, ``class_stats_curve``, …).
 from __future__ import annotations
 
 from xscore.marking.merge_reports import (
-    step_25_per_student_reports as _impl_25_reports,
-    step_26_class_stats_curve as _impl_26_stats,
-    step_27_per_student_pdfs as _impl_27_pdfs,
-    step_28_class_report as _impl_28_class,
-    step_29_review_queue as _impl_29_review,
+    step_26_per_student_reports as _impl_26_reports,
+    step_27_class_stats_curve as _impl_27_stats,
+    step_28_per_student_pdfs as _impl_28_pdfs,
+    step_29_class_report as _impl_29_class,
+    step_30_review_queue as _impl_30_review,
 )
 from xscore.shared.path_builders import (
     artifact_student_report_pdf_landscape_path,
@@ -25,9 +25,9 @@ from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.terminal_ui import info_line, ok_line, warn_line
 
 
-def step_25_per_student_reports(ctx: _Ctx) -> None:
+def step_26_per_student_reports(ctx: _Ctx) -> None:
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
-    _impl_25_reports(ctx)
+    _impl_26_reports(ctx)
     n = len(ctx.student_summaries or [])
     ok_line(f"{n} student report" if n == 1 else f"{n} student reports")
     if ctx.failed_students:
@@ -35,9 +35,9 @@ def step_25_per_student_reports(ctx: _Ctx) -> None:
         warn_line(f"{len(ctx.failed_students)} student(s) failed to merge: {names}")
 
 
-def step_26_class_stats(ctx: _Ctx) -> None:
+def step_27_class_stats(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
-    _impl_26_stats(ctx)
+    _impl_27_stats(ctx)
     summaries = ctx.student_summaries or []
     known = [s["percentage"] for s in summaries if s["percentage"] is not None]
     if len(known) >= 2:
@@ -49,9 +49,9 @@ def step_26_class_stats(ctx: _Ctx) -> None:
         ok_line("Class avg N/A")
 
 
-def step_27_per_student_pdfs(ctx: _Ctx) -> None:
+def step_28_per_student_pdfs(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
-    _impl_27_pdfs(ctx)
+    _impl_28_pdfs(ctx)
     n = len(ctx.student_summaries or [])
     s = "" if n == 1 else "s"
     ok_line(f"{n} landscape + {n} portrait + {n} portrait-large + {n} 2UP PDF{s} compiled")
@@ -75,20 +75,20 @@ def step_27_per_student_pdfs(ctx: _Ctx) -> None:
         )
 
 
-def step_28_class_report(ctx: _Ctx) -> None:
+def step_29_class_report(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
-    result = _impl_28_class(ctx)
+    result = _impl_29_class(ctx)
     if result == "done":
         n = len(ctx.student_summaries or [])
         ok_line(f"Class report compiled  ·  {n} student{'s' if n != 1 else ''}")
     elif result == "skipped_empty":
         info_line("Skipped — no student summaries to compile")
-    # "skipped_filter": _impl_28_class already printed a warn_line; don't double up
+    # "skipped_filter": _impl_29_class already printed a warn_line; don't double up
 
 
-def step_29_review_queue(ctx: _Ctx) -> None:
+def step_30_review_queue(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
-    n = _impl_29_review(ctx)
+    n = _impl_30_review(ctx)
     if n:
         ok_line(f"{n} mark{'s' if n != 1 else ''} flagged for review")
         _print_review_queue_breakdown(ctx)

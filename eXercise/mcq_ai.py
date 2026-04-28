@@ -431,11 +431,11 @@ def generate_mcq_explanations_gemini_pdf(
                     print()
 
             except Exception as exc:
-                from .ai_client import is_503_error  # noqa: PLC0415
-                transient = is_503_error(exc)
+                from .ai_client import is_transient_error  # noqa: PLC0415
+                transient = is_transient_error(exc)
                 print(
                     f"  MCQ explanations (PDF): API error on attempt {attempt + 1} "
-                    f"({'transient 503' if transient else type(exc).__name__}): {exc}"
+                    f"({'transient' if transient else type(exc).__name__}): {exc}"
                 )
                 if attempt == max_attempts - 1 or not transient:
                     return {}
@@ -512,10 +512,41 @@ def generate_mcq_explanations(
             stream_thinking=stream_thinking,
         )
 
-    system = _build_system_prompt(exam_key, provider)
-    user_content: str | list[dict] = _build_user_content(
-        q_texts, answers, questions_with_answers, q_images or {},
+    # Qwen native-PDF path: upload the questions PDF via DashScope file-extract
+    # and reference it via fileid://. Supported only on qwen-doc-turbo / qwen-long;
+    # other Qwen models fall through to the text + images flow below.
+    from .qwen_input import (  # noqa: PLC0415
+        model_supports_pdf_input,
+        qwen_pdf_system_message,
+        upload_pdf_for_extract,
     )
+    _use_qwen_pdf = (
+        q_pdf_bytes is not None
+        and provider == "qwen"
+        and model_supports_pdf_input(model)
+    )
+    _qwen_pdf_file_id: str | None = None
+    if _use_qwen_pdf:
+        from .output_paths import temp_pdf_path  # noqa: PLC0415
+        print("  Uploading MCQ questions PDF for Qwen native PDF call…", flush=True)
+        with temp_pdf_path() as _tmp_pdf:
+            _tmp_pdf.write_bytes(q_pdf_bytes)
+            _qwen_pdf_file_id = upload_pdf_for_extract(client, _tmp_pdf)
+
+    system = _build_system_prompt(exam_key, provider)
+    user_content: str | list[dict]
+    if _use_qwen_pdf:
+        _qa_lines = [
+            "The attached PDF contains the MCQ questions for this paper.",
+            "Generate explanations for each question listed below.\n",
+        ]
+        for q in questions_with_answers:
+            _qa_lines.append(f"Q{q} (Answer: {answers[q]})")
+        user_content = "\n".join(_qa_lines)
+    else:
+        user_content = _build_user_content(
+            q_texts, answers, questions_with_answers, q_images or {},
+        )
 
     if save_dir is not None:
         _save_mcq_prompt(save_dir, system, user_content, exam_key, q_texts=q_texts)
@@ -526,10 +557,10 @@ def generate_mcq_explanations(
 
     def _call(content: str | list[dict], **kwargs: Any) -> tuple[str, str | None]:
         """Return (content, finish_reason)."""
-        msgs = [
-            {"role": "system", "content": system},
-            {"role": "user", "content": content},
-        ]
+        msgs: list[dict] = [{"role": "system", "content": system}]
+        if _qwen_pdf_file_id is not None:
+            msgs.append(qwen_pdf_system_message(_qwen_pdf_file_id))
+        msgs.append({"role": "user", "content": content})
         if use_stream:
             stream = client.chat.completions.create(
                 model=model,
@@ -582,11 +613,11 @@ def generate_mcq_explanations(
                 )
                 print("  Saved MCQ response: mcq_expl_response.txt")
         except Exception as exc:
-            from .ai_client import is_503_error  # noqa: PLC0415
-            transient = is_503_error(exc)
+            from .ai_client import is_transient_error  # noqa: PLC0415
+            transient = is_transient_error(exc)
             print(
                 f"  MCQ explanations: API error on attempt {attempt + 1} "
-                f"({'transient 503' if transient else type(exc).__name__}): {exc}"
+                f"({'transient' if transient else type(exc).__name__}): {exc}"
             )
             # Only retry on known-transient errors; auth / quota / 4xx won't recover.
             if attempt == max_attempts - 1 or not transient:

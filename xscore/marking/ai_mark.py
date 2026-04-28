@@ -1,10 +1,16 @@
-"""Step 18/19 — AI marking: iterate over student scan pages and fill blueprint JSONs.
+"""Step 25 — AI marking: iterate over student scan pages and fill blueprint JSONs.
 
 Uses the MARKING_MODEL env var (default: qwen3.6-plus, off) via make_ai_client().
 Requires DASHSCOPE_API_KEY to be set in .env.
 
 Students are processed in parallel (MARKING_WORKERS workers, default 4).
 Each worker opens its own fitz document handle (fitz is not thread-safe).
+
+The "which scan pages does each AI call see?" question is now answered by
+the marking page register (written by step 15, refined by step 19) — see
+:mod:`xscore.marking.marking_page_register`. This step loads the most-refined
+register available and iterates it; runtime filters (scaffold-bounds cap and
+the ``--student`` cohort filter) are applied at iteration time.
 """
 
 from __future__ import annotations
@@ -25,7 +31,6 @@ from xscore.marking.blueprints import marked_to_md
 from xscore.marking.formats import get_marking_format
 from xscore.marking.formats.base import FormatParseError
 from xscore.shared.exam_paths import (
-    artifact_handwriting_json_path,
     artifact_blueprint_path,
     artifact_mark_scheme_graphics_dir,
     artifact_marked_failed_path,
@@ -63,7 +68,7 @@ def render_pages_b64(
 ) -> dict[tuple[str, int], str]:
     """Render all scan pages to base64 JPEG, parallelised.
 
-    Reads 10_exam_student_list.json directly (same source as run_ai_marking).
+    Reads 12_student_names/exam_student_list.json directly (same source as run_ai_marking).
     Each worker opens its own fitz.Document — fitz is not thread-safe.
     Returns {(student_name, page_label): b64_str}.
     """
@@ -229,11 +234,14 @@ def _scheme_graphics_for_page(
 def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
-    Reads page assignments from ``10_exam_student_list.json`` (written by step 10)
-    so each student's scan pages are determined by name detection, not position.
-    Pages are processed in parallel (MARKING_WORKERS env var, default varies with cpu_count).
-    *dpi* defaults to ``MARKING_DPI`` when not supplied.
-    Returns a list of API call timing records for step 15.
+    Reads page assignments from ``12_student_names/exam_student_list.json``
+    (written by step 12) so each student's scan pages are determined by name
+    detection, not position. The list of (student, answer_label, scan_pages)
+    triples to mark is loaded from the marking page register written by
+    step 15 (and refined by step 19). Pages are processed in parallel
+    (MARKING_WORKERS env var, default varies with cpu_count). *dpi* defaults
+    to ``MARKING_DPI`` when not supplied. Returns a list of API call timing
+    records.
     """
     from xscore.config import MARKING_DPI
     if dpi is None:
@@ -242,12 +250,18 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     import fitz
 
     from eXercise.ai_client import make_ai_client, build_completion_kwargs
+    from xscore.marking.marking_page_register import (
+        build_initial_register,
+        iter_marking_calls,
+        load_register,
+        print_register_summary,
+    )
     from xscore.shared.exam_paths import artifact_exam_student_list_json_path
 
     fmt = get_marking_format()
 
     # Detect CS exam from PDF filenames — gates the CODE_FORMATTING prompt section.
-    # Uses ctx.folder so this also works on `--from-step 24` resume runs (where
+    # Uses ctx.folder so this also works on `--from-step 25` resume runs (where
     # scaffold_phase didn't populate ctx.scaffold_state).
     from xscore.scaffold.generate_scaffold import find_exam_pdf, find_answer_pdf
     from xscore.shared.exam_paths import is_cs_exam
@@ -274,43 +288,22 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     from xscore.shared.response_cache import reuse_cache_enabled
     _reuse_cache_active = reuse_cache_enabled(ctx)
     if _reuse_cache_active:
-        info_line("Response cache enabled · step 22 marking calls will check ~/.cache/xscore/responses/")
+        info_line("Response cache enabled · step 25 marking calls will check ~/.cache/xscore/responses/")
 
-    # Load page assignments produced by step 10 name detection.
+    # Load page assignments produced by step 12 name detection. The register
+    # already encodes most of the per-call data, but we need the original
+    # assignment dict (with confidence + raw page_numbers) for downstream
+    # code that consumes the page_tasks tuples.
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     if not list_path.exists():
         raise FileNotFoundError(
-            f"10_exam_student_list.json not found at {list_path} — run step 10 first"
+            f"12_student_names/exam_student_list.json not found at {list_path} — "
+            "run step 12 first"
         )
     raw_assignments: list[dict] = _safe_load_json(list_path)
-    # Each entry: {"student_name": str, "page_numbers": [int, ...], "confidence": str}
-
-    # Load handwriting check results (written by step 15 student_handwriting_check).
-    _blank_json = artifact_handwriting_json_path(ctx.artifact_dir)
-    # Keys: student_name → set of scan_pages to skip (blank, no handwriting)
-    _skip_scan_pages_by_student: dict[str, set[int]] = {}
-    # Keys: student_name → {exercise_scan_page → [extra_blank_scan_pages_with_handwriting]}
-    _extra_by_student: dict[str, dict[int, list[int]]] = {}
-    if _blank_json.exists():
-        _bdata = _safe_load_json(_blank_json)
-        for _s in _bdata.get("students", []):
-            _skip: set[int] = set()
-            _extras: dict[int, list[int]] = {}
-            for _bp in _s.get("blank_scan_pages", []):
-                _scan_page = _bp.get("scan_page")
-                if _scan_page is None:
-                    continue
-                if not _bp.get("has_handwriting", False):
-                    _skip.add(_scan_page)
-                elif _bp.get("attach_to_scan_page") is not None:
-                    _extras.setdefault(_bp["attach_to_scan_page"], []).append(_scan_page)
-            _student_name = _s.get("student_name")
-            if _student_name is None:
-                continue
-            _skip_scan_pages_by_student[_student_name] = _skip
-            _extra_by_student[_student_name] = _extras
 
     _instr = getattr(ctx, "instruction", None)
+    _unfiltered_student_count = len(raw_assignments)
     if _instr is not None:
         sf = _instr.student_filter
         if sf.mode == "specific" and sf.names:
@@ -331,7 +324,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         if not raw_assignments:
             warn_line(
                 f"--student filter {sorted(wanted)} matched 0 of {before} students — "
-                f"nothing to mark; aborting step 22."
+                f"nothing to mark; aborting step 25."
             )
             raise SystemExit(2)
         kept = [a["student_name"] for a in raw_assignments]
@@ -385,26 +378,42 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             "cannot safely compute page offsets for students with cover pages"
         )
 
-    # Build flat per-page task list — cover pages, out-of-range pages, and blank exam pages
-    # without handwriting are excluded here.
-    page_tasks: list[tuple[dict, int, int, int, list[int]]] = []
-    for a in raw_assignments:
-        has_cover = a.get("cover_page_number") is not None
-        answer_page_count = len(a["page_numbers"]) - (1 if has_cover else 0)
-        student_skip = _skip_scan_pages_by_student.get(a["student_name"], set())
-        student_extras = _extra_by_student.get(a["student_name"], {})
-        for p_label, _ in enumerate(a["page_numbers"], 1):
-            if has_cover and p_label == 1:
-                continue
-            _cover_offset = 1 if (has_cover and not ctx.empty_exam_has_cover) else 0
-            answer_label = p_label - _cover_offset
-            scan_page = a["page_numbers"][p_label - 1]
-            if ctx.scaffold is not None and answer_label > ctx.scaffold.page_count:
-                continue
-            if scan_page in student_skip:
-                continue
-            extra_scan_pages = student_extras.get(scan_page, [])
-            page_tasks.append((a, p_label, answer_label, answer_page_count, extra_scan_pages))
+    # Load the marking page register. Step 19 (cross-page figures) refines
+    # what step 15 wrote; load_register tries the most-refined first. If
+    # neither file exists (e.g. resuming a pre-renumber run), fall back to
+    # building it in memory — same builder step 15 uses, so the result is
+    # equivalent to a fresh v1 register.
+    register = load_register(ctx.artifact_dir)
+    if register is None:
+        register = build_initial_register(ctx)
+
+    # Pre-marking summary table — render once, before the per-page loop kicks in.
+    _scaffold_pc = ctx.scaffold.page_count if ctx.scaffold is not None else None
+    _student_filter_set = {a["student_name"] for a in raw_assignments}
+    _filtered_call_count = sum(
+        1 for _t in iter_marking_calls(
+            register,
+            raw_assignments=raw_assignments,
+            scaffold_page_count=_scaffold_pc,
+        )
+    )
+    print_register_summary(
+        register,
+        filtered_call_count=_filtered_call_count,
+        filtered_student_count=len(_student_filter_set),
+    )
+
+    # Build flat per-page task list. The register already encodes the cover-page
+    # skip, handwriting-extras, and cross-page-figure extras. iter_marking_calls
+    # additionally applies the runtime scaffold-bounds cap and (implicitly via
+    # the filtered raw_assignments) the cohort filter.
+    page_tasks: list[tuple[dict, int, int, int, list[int]]] = list(
+        iter_marking_calls(
+            register,
+            raw_assignments=raw_assignments,
+            scaffold_page_count=_scaffold_pc,
+        )
+    )
 
     import contextlib
     import sys

@@ -35,17 +35,17 @@ from xscore.shared.exam_paths import (
 
 
 # ---------------------------------------------------------------------------
-# Step 25 — Per-student reports (XML + MD)
+# Step 26 — Per-student reports (XML + MD)
 # ---------------------------------------------------------------------------
 
-def step_25_per_student_reports(ctx: Any) -> None:
+def step_26_per_student_reports(ctx: Any) -> None:
     """Merge per-page marking results into per-student XML + MD reports.
 
     Populates ``ctx.student_summaries``, ``ctx.full_reports``, ``ctx.q_totals``
-    for downstream steps (26–29) to consume.
+    for downstream steps (27–30) to consume.
 
     Honours ``--student`` CLI filter (lower-case exact match): downstream
-    class-report step (28) is skipped when the filter is active because a
+    class-report step (29) is skipped when the filter is active because a
     one-or-two-student "class" average would be misleading.
     """
     fmt = get_marking_format()
@@ -74,17 +74,17 @@ def step_25_per_student_reports(ctx: Any) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Step 26 — Class statistics + grade curve
+# Step 27 — Class statistics + grade curve
 # ---------------------------------------------------------------------------
 
-def step_26_class_stats_curve(ctx: Any) -> None:
+def step_27_class_stats_curve(ctx: Any) -> None:
     """Compute class average + grade-curve offset.
 
     Target priority: prompt override ``ctx.instruction.curved_grade_override``
     → env var ``GRADE_CURVE_TARGET`` (default 80). Mutates
     ``ctx.student_summaries`` in place to add ``curved_pct``, and writes a
     small ``class_stats.json`` artifact recording the resolved target/offset
-    so steps 27 and 28 use identical numbers.
+    so steps 28 and 29 use identical numbers.
     """
     summaries = ctx.student_summaries
     target = _effective_curve_target(ctx)
@@ -107,10 +107,10 @@ def step_26_class_stats_curve(ctx: Any) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Step 27 — Per-student PDFs
+# Step 28 — Per-student PDFs
 # ---------------------------------------------------------------------------
 
-def step_27_per_student_pdfs(ctx: Any) -> None:
+def step_28_per_student_pdfs(ctx: Any) -> None:
     """Write per-student .tex files then compile them in parallel via xelatex.
 
     Visibility of the curved % in each per-student PDF header follows
@@ -128,10 +128,10 @@ def step_27_per_student_pdfs(ctx: Any) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Step 28 — Class report
+# Step 29 — Class report
 # ---------------------------------------------------------------------------
 
-def step_28_class_report(ctx: Any) -> str:
+def step_29_class_report(ctx: Any) -> str:
     """Build & write class XML/MD/TeX/PDF + concat combined PDF.
 
     Returns a discriminator so the wrapper can pick the right summary line:
@@ -156,15 +156,15 @@ def step_28_class_report(ctx: Any) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Step 29 — Review queue
+# Step 30 — Review queue
 # ---------------------------------------------------------------------------
 
-def step_29_review_queue(ctx: Any) -> int:
+def step_30_review_queue(ctx: Any) -> int:
     """Emit the side-channel review queue (medium / low confidence marks + collisions).
 
     Always runs, even when no entries are flagged, so downstream tooling can
     rely on the artifact existing. Returns the count of flagged entries.
-    Cross-page mark collisions captured by step 25 are appended to the same
+    Cross-page mark collisions captured by step 26 are appended to the same
     artifact under ``"collisions"``.
     """
     return _write_review_queue(
@@ -178,13 +178,13 @@ def step_29_review_queue(ctx: Any) -> int:
 # ---------------------------------------------------------------------------
 
 def compile_reports(ctx: Any) -> list[dict]:
-    """Run steps 25–29 in sequence (kept for callers not yet migrated).
+    """Run steps 26–30 in sequence (kept for callers not yet migrated).
 
     Returns a list of per-student summary dicts (keys: name, total_marks, percentage).
     """
-    step_25_per_student_reports(ctx)
-    step_26_class_stats_curve(ctx)
-    step_27_per_student_pdfs(ctx)
-    step_28_class_report(ctx)
-    step_29_review_queue(ctx)
+    step_26_per_student_reports(ctx)
+    step_27_class_stats_curve(ctx)
+    step_28_per_student_pdfs(ctx)
+    step_29_class_report(ctx)
+    step_30_review_queue(ctx)
     return ctx.student_summaries or []

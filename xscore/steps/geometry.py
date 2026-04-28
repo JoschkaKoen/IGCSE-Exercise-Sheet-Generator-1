@@ -272,6 +272,24 @@ def step_15_handwriting(ctx: _Ctx) -> None:
         empty_exam_has_cover=bool(ctx.empty_exam_has_cover),
     )
     dur = format_duration(time.perf_counter() - t0)
+
+    # Build and persist the v1 marking page register. This is the first
+    # point where all inputs (page assignments + handwriting attachments +
+    # cover info) are settled, so the register is born here. Step 19
+    # refines it with cross-page figure extras; step 25 consumes the
+    # most-refined version it can find.
+    try:
+        from xscore.marking.marking_page_register import (
+            build_initial_register, write_register,
+        )
+        from xscore.shared.path_builders import artifact_marking_page_register_v1_path
+        register = build_initial_register(ctx)
+        write_register(
+            artifact_marking_page_register_v1_path(ctx.artifact_dir), register
+        )
+    except Exception as exc:  # noqa: BLE001 — never fail step 15 over the register
+        warn_line(f"Marking page register (v1) write failed: {exc}")
+
     if status is BlankCheckStatus.PASSED:
         ok_line(f"Student handwriting check: {msg}  ·  {dur}")
         return

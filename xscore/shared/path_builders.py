@@ -31,21 +31,22 @@ from xscore.shared.step_folders import (
     STEP_16_LAYOUT,
     STEP_17_CUT,
     STEP_18_PARSE_EXAM,
-    STEP_19_GRAPHICS,
-    STEP_20_ASSIGN_QUESTIONS,
-    STEP_21_PARSE_SCHEME,
-    STEP_22_CREATE_REPORT,
-    STEP_23_BLUEPRINTS,
-    STEP_24_AI_MARKING,
+    STEP_19_CROSS_PAGE_FIGURES,
+    STEP_20_GRAPHICS,
+    STEP_21_ASSIGN_QUESTIONS,
+    STEP_22_PARSE_SCHEME,
+    STEP_23_CREATE_REPORT,
+    STEP_24_BLUEPRINTS,
+    STEP_25_AI_MARKING,
     STEP_25_COMPILE_REPORTS,
-    STEP_25_STUDENT_REPORTS,
-    STEP_26_CLASS_STATS,
-    STEP_27_STUDENT_PDFS,
-    STEP_28_CLASS_REPORT,
-    STEP_29_REVIEW_QUEUE,
-    STEP_30_TIMING,
-    STEP_31_ACCURACY,
-    STEP_32_AI_COSTS,
+    STEP_26_STUDENT_REPORTS,
+    STEP_27_CLASS_STATS,
+    STEP_28_STUDENT_PDFS,
+    STEP_29_CLASS_REPORT,
+    STEP_30_REVIEW_QUEUE,
+    STEP_31_TIMING,
+    STEP_32_ACCURACY,
+    STEP_33_AI_COSTS,
     SUBDIR_INPUT,
     SUBDIR_NAMES,
     SUBDIR_STUDENTS,
@@ -246,6 +247,30 @@ def artifact_handwriting_dir(artifact_dir: Path) -> Path:
     return artifact_dir / STEP_15_HANDWRITING / "scan_pages"
 
 
+def artifact_marking_page_register_v1_path(artifact_dir: Path) -> Path:
+    """Step 15: initial marking page register (one row per AI marking call)."""
+    return artifact_dir / STEP_15_HANDWRITING / "marking_page_register.json"
+
+
+# ---------------------------------------------------------------------------
+# Step 19 — Detect cross-page figures (refines marking page register)
+# ---------------------------------------------------------------------------
+
+def artifact_marking_page_register_v2_path(artifact_dir: Path) -> Path:
+    """Step 19: refined marking page register with cross-page figure extras."""
+    return artifact_dir / STEP_19_CROSS_PAGE_FIGURES / "marking_page_register.json"
+
+
+def artifact_cross_page_refs_json_path(artifact_dir: Path) -> Path:
+    """Step 19: diagnostic listing each detected cross-page figure reference."""
+    return artifact_dir / STEP_19_CROSS_PAGE_FIGURES / "cross_page_refs.json"
+
+
+def artifact_cross_page_changes_md_path(artifact_dir: Path) -> Path:
+    """Step 19: human-readable summary of register changes vs v1."""
+    return artifact_dir / STEP_19_CROSS_PAGE_FIGURES / "changes.md"
+
+
 # ---------------------------------------------------------------------------
 # Step 16 — Detect exam layout
 # ---------------------------------------------------------------------------
@@ -314,17 +339,17 @@ def artifact_exam_questions_raw_path(artifact_dir: Path, fmt: str = "yaml") -> P
 
 def artifact_mark_scheme_pages_dir(artifact_dir: Path) -> Path:
     """Per-page PDFs (one per mark scheme page) — produced by step 19, consumed by step 20 + 21."""
-    return artifact_dir / STEP_19_GRAPHICS / "pages"
+    return artifact_dir / STEP_20_GRAPHICS / "pages"
 
 
 def artifact_mark_scheme_graphics_dir(artifact_dir: Path) -> Path:
     """Directory of images extracted from the mark scheme."""
-    return artifact_dir / STEP_19_GRAPHICS / "graphics"
+    return artifact_dir / STEP_20_GRAPHICS / "graphics"
 
 
 def artifact_mark_scheme_graphics_json_path(artifact_dir: Path) -> Path:
     """Step 19: detected graphics positions per question."""
-    return artifact_dir / STEP_19_GRAPHICS / "mark_scheme_graphics.json"
+    return artifact_dir / STEP_20_GRAPHICS / "mark_scheme_graphics.json"
 
 
 # ---------------------------------------------------------------------------
@@ -334,7 +359,7 @@ def artifact_mark_scheme_graphics_json_path(artifact_dir: Path) -> Path:
 def artifact_questions_per_page_path(artifact_dir: Path) -> Path:
     """Step 20: ``{page_num: [question_numbers]}`` JSON used by step 21 to filter
     its per-page scaffold to only the relevant questions."""
-    return artifact_dir / STEP_20_ASSIGN_QUESTIONS / "questions_per_page.json"
+    return artifact_dir / STEP_21_ASSIGN_QUESTIONS / "questions_per_page.json"
 
 
 # ---------------------------------------------------------------------------
@@ -342,19 +367,19 @@ def artifact_questions_per_page_path(artifact_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_mark_scheme_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_21_PARSE_SCHEME / "mark_scheme.json"
+    return artifact_dir / STEP_22_PARSE_SCHEME / "mark_scheme.json"
 
 
 def artifact_mark_scheme_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_21_PARSE_SCHEME / "mark_scheme.md"
+    return artifact_dir / STEP_22_PARSE_SCHEME / "mark_scheme.md"
 
 
 def artifact_mark_scheme_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_21_PARSE_SCHEME / "mark_scheme.xml"
+    return artifact_dir / STEP_22_PARSE_SCHEME / "mark_scheme.xml"
 
 
 def artifact_mark_scheme_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_21_PARSE_SCHEME / f"mark_scheme.{fmt}"
+    return artifact_dir / STEP_22_PARSE_SCHEME / f"mark_scheme.{fmt}"
 
 
 # ---------------------------------------------------------------------------
@@ -363,23 +388,23 @@ def artifact_mark_scheme_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
 
 def artifact_scaffold_xml_path(artifact_dir: Path) -> Path:
     """Merged exam + mark scheme XML scaffold cache."""
-    return artifact_dir / STEP_22_CREATE_REPORT / "report.xml"
+    return artifact_dir / STEP_23_CREATE_REPORT / "report.xml"
 
 
 def artifact_scaffold_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_22_CREATE_REPORT / "report.json"
+    return artifact_dir / STEP_23_CREATE_REPORT / "report.json"
 
 
 def artifact_scaffold_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_22_CREATE_REPORT / "report.md"
+    return artifact_dir / STEP_23_CREATE_REPORT / "report.md"
 
 
 def artifact_short_scaffold_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_22_CREATE_REPORT / "short_report.json"
+    return artifact_dir / STEP_23_CREATE_REPORT / "short_report.json"
 
 
 def artifact_short_scaffold_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_22_CREATE_REPORT / "short_report.md"
+    return artifact_dir / STEP_23_CREATE_REPORT / "short_report.md"
 
 
 # ---------------------------------------------------------------------------
@@ -387,19 +412,19 @@ def artifact_short_scaffold_markdown_path(artifact_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_blueprint_path(artifact_dir: Path, page: int, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_23_BLUEPRINTS / f"blueprint_page_{page}.{fmt}"
+    return artifact_dir / STEP_24_BLUEPRINTS / f"blueprint_page_{page}.{fmt}"
 
 
 def artifact_blueprint_xml_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_23_BLUEPRINTS / f"blueprint_page_{page}.xml"
+    return artifact_dir / STEP_24_BLUEPRINTS / f"blueprint_page_{page}.xml"
 
 
 def artifact_blueprint_json_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_23_BLUEPRINTS / f"blueprint_page_{page}.json"
+    return artifact_dir / STEP_24_BLUEPRINTS / f"blueprint_page_{page}.json"
 
 
 def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_23_BLUEPRINTS / f"blueprint_page_{page}.md"
+    return artifact_dir / STEP_24_BLUEPRINTS / f"blueprint_page_{page}.md"
 
 
 # ---------------------------------------------------------------------------
@@ -408,7 +433,7 @@ def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
 
 def artifact_marking_students_dir(artifact_dir: Path) -> Path:
     """Directory containing per-student marking files."""
-    return artifact_dir / STEP_24_AI_MARKING / "students"
+    return artifact_dir / STEP_25_AI_MARKING / "students"
 
 
 def artifact_marked_path(artifact_dir: Path, student: str, page: int, fmt: str = "yaml") -> Path:
@@ -439,7 +464,7 @@ def artifact_marking_prompt_path(artifact_dir: Path, student: str, page: int) ->
 
 def artifact_student_reports_dir(artifact_dir: Path) -> Path:
     """Parent directory holding per-student report subfolders (step 25)."""
-    return artifact_dir / STEP_25_STUDENT_REPORTS
+    return artifact_dir / STEP_26_STUDENT_REPORTS
 
 
 def artifact_student_report_dir(artifact_dir: Path, student: str) -> Path:
@@ -465,7 +490,7 @@ artifact_reports_students_dir = artifact_student_reports_dir
 
 def artifact_class_stats_json_path(artifact_dir: Path) -> Path:
     """Step 26: class average + curve offset, written before per-student PDFs."""
-    return artifact_dir / STEP_26_CLASS_STATS / "class_stats.json"
+    return artifact_dir / STEP_27_CLASS_STATS / "class_stats.json"
 
 
 # ---------------------------------------------------------------------------
@@ -474,7 +499,7 @@ def artifact_class_stats_json_path(artifact_dir: Path) -> Path:
 
 def artifact_student_pdfs_dir(artifact_dir: Path) -> Path:
     """Parent directory holding per-student PDF subfolders (step 27)."""
-    return artifact_dir / STEP_27_STUDENT_PDFS
+    return artifact_dir / STEP_28_STUDENT_PDFS
 
 
 def artifact_student_pdf_dir(artifact_dir: Path, student: str) -> Path:
@@ -515,7 +540,7 @@ def artifact_student_report_pdf_portrait_large_path(artifact_dir: Path, student:
 # ---------------------------------------------------------------------------
 
 def artifact_class_report_dir(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_28_CLASS_REPORT
+    return artifact_dir / STEP_29_CLASS_REPORT
 
 
 def artifact_class_report_xml_path(artifact_dir: Path) -> Path:
@@ -524,6 +549,11 @@ def artifact_class_report_xml_path(artifact_dir: Path) -> Path:
 
 def artifact_class_report_md_path(artifact_dir: Path) -> Path:
     return artifact_class_report_dir(artifact_dir) / "class_report.md"
+
+
+def artifact_class_marks_xlsx_path(artifact_dir: Path) -> Path:
+    """Step 28: machine-friendly per-student × per-question marks grid."""
+    return artifact_class_report_dir(artifact_dir) / "class_marks.xlsx"
 
 
 def artifact_class_report_tex_path(artifact_dir: Path) -> Path:
@@ -570,11 +600,11 @@ def artifact_review_queue_json_path(artifact_dir: Path) -> Path:
     Pure side artifact — never loaded by any pipeline step; intended for manual
     spot-checking by the human marker.
     """
-    return artifact_dir / STEP_29_REVIEW_QUEUE / "review.json"
+    return artifact_dir / STEP_30_REVIEW_QUEUE / "review.json"
 
 
 def artifact_review_queue_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_29_REVIEW_QUEUE / "review.md"
+    return artifact_dir / STEP_30_REVIEW_QUEUE / "review.md"
 
 
 # ---------------------------------------------------------------------------
@@ -582,11 +612,11 @@ def artifact_review_queue_md_path(artifact_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_timing_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_30_TIMING / "timing.json"
+    return artifact_dir / STEP_31_TIMING / "timing.json"
 
 
 def artifact_timing_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_30_TIMING / "timing.md"
+    return artifact_dir / STEP_31_TIMING / "timing.md"
 
 
 # ---------------------------------------------------------------------------
@@ -594,7 +624,7 @@ def artifact_timing_md_path(artifact_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_accuracy_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_31_ACCURACY / "accuracy.json"
+    return artifact_dir / STEP_32_ACCURACY / "accuracy.json"
 
 
 # ---------------------------------------------------------------------------
@@ -602,11 +632,11 @@ def artifact_accuracy_json_path(artifact_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_cost_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_32_AI_COSTS / "cost.json"
+    return artifact_dir / STEP_33_AI_COSTS / "cost.json"
 
 
 def artifact_cost_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_32_AI_COSTS / "cost.md"
+    return artifact_dir / STEP_33_AI_COSTS / "cost.md"
 
 
 # ---------------------------------------------------------------------------
@@ -623,11 +653,11 @@ def artifact_scaffold_prompt_path(artifact_dir: Path, name: str) -> Path:
     """
     # Order matters: check most-specific first.
     if "assign_scheme_questions" in name:
-        return artifact_dir / STEP_20_ASSIGN_QUESTIONS / f"{name}_prompt.md"
+        return artifact_dir / STEP_21_ASSIGN_QUESTIONS / f"{name}_prompt.md"
     if "mark_scheme" in name and "graphics" in name:
-        return artifact_dir / STEP_19_GRAPHICS / f"{name}_prompt.md"
+        return artifact_dir / STEP_20_GRAPHICS / f"{name}_prompt.md"
     if "mark_scheme" in name:
-        return artifact_dir / STEP_21_PARSE_SCHEME / f"{name}_prompt.md"
+        return artifact_dir / STEP_22_PARSE_SCHEME / f"{name}_prompt.md"
     if "detect" in name or "layout" in name:
         return artifact_dir / STEP_16_LAYOUT / f"{name}_prompt.md"
     return artifact_dir / STEP_18_PARSE_EXAM / f"{name}_prompt.md"

@@ -16,11 +16,24 @@ xai  (model names starting with ``grok``)
     api_key  : XAI_API_KEY
     example  : grok-4-1-fast-non-reasoning, grok-3
 
-    qwen  (model names starting with ``qwen``)
+qwen  (model names starting with ``qwen``)
     base_url : https://dashscope.aliyuncs.com/compatible-mode/v1
     api_key  : DASHSCOPE_API_KEY
     example  : qwen3.6-plus, qwen3-32b
     note     : Thinking on → streaming required; thinking off → non-streaming.
+
+kimi  (model names starting with ``kimi`` or ``moonshot``)
+    base_url : https://api.moonshot.cn/v1  (China endpoint — default,
+               matches the existing xscore.extraction kimi path. Override
+               via KIMI_BASE_URL=https://api.moonshot.ai/v1 for the
+               international endpoint. Keys are NOT interchangeable.)
+    api_key  : KIMI_API_KEY
+    example  : kimi-k2.6, kimi-k2-turbo-preview, moonshot-v1-128k
+    note     : Native PDF input via files.create(purpose="file-extract")
+               returns plain text, injected as a system message — see
+               kimi_pdf_text() below. K2 thinking is binary on/off via
+               extra_body. K2 has fixed temperature, so determinism
+               injection is skipped for kimi-k2* ids.
 
 Per-call-type model overrides
 ------------------------------
@@ -41,6 +54,7 @@ Environment variables (API keys)
 GEMINI_API_KEY    Required for gemini models  (GOOGLE_API_KEY accepted as fallback)
 XAI_API_KEY       Required for grok models
 DASHSCOPE_API_KEY Required for qwen models
+KIMI_API_KEY      Required for kimi / moonshot models  (KIMI_BASE_URL optional)
 """
 
 from __future__ import annotations
@@ -191,6 +205,17 @@ _PROVIDER_REGISTRY: list[_ProviderDef] = [
         api_key_env="DASHSCOPE_API_KEY",
         model_prefixes=("qwen",),
     ),
+    _ProviderDef(
+        name="kimi",
+        # Default to .cn endpoint (matches xscore.extraction.providers.kimi).
+        # Override to https://api.moonshot.ai/v1 via KIMI_BASE_URL for the
+        # international endpoint. Keys are region-specific and NOT
+        # interchangeable. Resolved lazily in make_ai_client() so tests /
+        # runtime overrides always win.
+        base_url="https://api.moonshot.cn/v1",
+        api_key_env="KIMI_API_KEY",
+        model_prefixes=("kimi", "moonshot"),
+    ),
 ]
 
 # Fallback model when no model env var is set anywhere.
@@ -323,6 +348,13 @@ def build_thinking_kwargs(
               value enables thinking (forces stream); use
               :func:`build_completion_kwargs` to also pass the integer through
               as Dashscope's ``thinking_budget``.
+    Kimi    — ``0`` or ``None`` disables thinking (non-streaming, JSON-friendly).
+              Any positive value enables thinking via
+              ``extra_body={"thinking": {"type": "enabled"}}`` AND forces
+              streaming, mirroring Qwen — non-streaming K2 thinking calls
+              blocked the whole reply (often >5 min on long-form scaffold
+              calls) and looked like a hang. Older ``moonshot-v1-*`` ids
+              ignore the thinking field.
     Grok    — silently ignored; always non-streaming.
     """
     if provider == "gemini":
@@ -338,6 +370,15 @@ def build_thinking_kwargs(
         if thinking_tokens is None or thinking_tokens == 0:
             return False, {"extra_body": {"enable_thinking": False}}
         return True, {"extra_body": {"enable_thinking": True}}
+
+    if provider == "kimi":
+        if thinking_tokens is None or thinking_tokens == 0:
+            return False, {"extra_body": {"thinking": {"type": "disabled"}}}
+        # Thinking enabled → force streaming (matches Qwen). Non-streaming
+        # K2 thinking calls block until the entire reply is generated, which
+        # for long-form scaffold parsing routinely exceeds the OpenAI SDK's
+        # default read timeout and looks like a hang from the caller's side.
+        return True, {"extra_body": {"thinking": {"type": "enabled"}}}
 
     # grok or unknown — no thinking params
     return False, {}
@@ -429,7 +470,12 @@ class _TrackedCompletions:
         self._deterministic = deterministic
 
     def create(self, *args: Any, **kwargs: Any) -> Any:
-        if self._deterministic:
+        # kimi-k2.x rejects any temperature other than its fixed default
+        # (1.0 thinking / 0.6 non-thinking) with a 400 error, so skip the
+        # determinism injection for those ids. Older moonshot-v1-* accept
+        # temperature normally.
+        inject_determinism = self._deterministic and not self._model.startswith("kimi-k2")
+        if inject_determinism:
             if "temperature" not in kwargs:
                 t = _read_default_temperature()
                 if t is not None:
@@ -630,8 +676,13 @@ def make_ai_client(
     if not api_key:
         return None
 
+    # Kimi accepts KIMI_BASE_URL as a runtime override (.cn vs .ai endpoint).
+    base_url = pdef.base_url
+    if pdef.name == "kimi":
+        base_url = os.environ.get("KIMI_BASE_URL", "").strip() or base_url
+
     try:
-        client = OpenAI(api_key=api_key, base_url=pdef.base_url)
+        client = OpenAI(api_key=api_key, base_url=base_url)
     except Exception:
         return None
 
@@ -838,7 +889,34 @@ def gemini_pdf_part(client: Any, path: "Path", *, label: str = "pdf") -> Any:
     return gai_types.Part.from_uri(file_uri=f.uri, mime_type="application/pdf")
 
 
-def is_503_error(exc: BaseException) -> bool:
+def kimi_pdf_text(client: Any, path: "Path", *, label: str = "pdf") -> str:
+    """Upload *path* to Moonshot's file-extract endpoint and return the extracted text.
+
+    Mirrors :func:`gemini_pdf_part` for Kimi/Moonshot models, but Moonshot does
+    server-side PDF parsing and returns plain text — so callers should inject
+    the result as a system message rather than as a multimodal part.
+
+    Files count against the per-account quota (1000 files / 10 GB per Moonshot
+    docs); the helper deletes the upload before returning so per-call cost is
+    bounded. Cleanup failure is silent (best-effort).
+
+    *client* must be an OpenAI-compatible client pointing at Moonshot
+    (e.g. the one returned by :func:`make_ai_client` for a kimi-* model).
+    """
+    from pathlib import Path
+    if not isinstance(path, Path):
+        path = Path(path)
+    file_obj = client.files.create(file=path, purpose="file-extract")
+    try:
+        return client.files.content(file_obj.id).text
+    finally:
+        try:
+            client.files.delete(file_obj.id)
+        except Exception:
+            pass
+
+
+def is_transient_error(exc: BaseException) -> bool:
     """Return True if exc is a transient server error worth retrying.
 
     Covers HTTP 503 from any supported provider SDK, and connection drops

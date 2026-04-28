@@ -737,9 +737,6 @@ def print_page_range_table(assignments: list[PageAssignment]) -> None:
     hi_w = max(len(str(a.page_numbers[-1])) for a in sorted_a)
 
     table = Table(
-        title="Page range per student (scan-page order)",
-        title_justify="left",
-        title_style="dim",
         box=box.HORIZONTALS,
         header_style="dim",
         show_edge=False,
@@ -753,4 +750,9 @@ def print_page_range_table(assignments: list[PageAssignment]) -> None:
         style = "yellow" if a.confidence == "low" else None
         table.add_row(a.student_name, rng, style=style)
 
-    get_console().print(Padding(table, (0, 0, 0, 4)))
+    # Title goes ABOVE the table (printed separately) so it doesn't get
+    # truncated to the table's content width when the class is small.
+    # ``expand=False`` keeps the table itself from padding to console width.
+    console = get_console()
+    console.print("    [dim]Page range per student (scan-page order)[/]")
+    console.print(Padding(table, (0, 0, 0, 4), expand=False))

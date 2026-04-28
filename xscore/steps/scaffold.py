@@ -1,14 +1,17 @@
-"""Steps 16–22: scaffold building (layout, cut, parse, scheme graphics, assign,
-merge).
+"""Steps 16–23: scaffold building (layout, cut, parse, cross-page figures,
+scheme graphics, assign, parse mark scheme, merge).
 
-Steps 16–22 share local state (exam_pdf, client, layout_result, raw_questions,
+Most steps share local state (exam_pdf, client, layout_result, raw_questions,
 …) so each step writes/reads ``ctx.scaffold_state`` rather than receiving these
-through individual ``_Ctx`` fields. ``scaffold_phase`` is the orchestrator
-that:
+through individual ``_Ctx`` fields. Step 19 (``detect_cross_page_figures``) is
+a standalone data transform that does not touch ``scaffold_state`` — it only
+reads on-disk artifacts from steps 15 and 18 and ``ctx.empty_exam_has_cover``.
+
+``scaffold_phase`` is the orchestrator that:
 
 1. Looks up the exam/answer PDFs and Gemini client (skipping the whole phase
    when no exam PDF is found).
-2. Calls ``run_step`` for each of 16–22 so each gets timing/error capture.
+2. Calls ``run_step`` for each of 16–23 so each gets timing/error capture.
 3. In a ``finally``, deletes the temp split PDF created by step 17 and
    consumed by step 18. Always runs, even on ``_EarlyExit``.
 """
@@ -81,7 +84,96 @@ def step_18_parse_exam(ctx: _Ctx) -> None:
     state["raw_layout"] = raw_layout
 
 
-def step_19_scheme_graphics(ctx: _Ctx) -> None:
+def step_19_detect_cross_page_figures(ctx: _Ctx) -> None:
+    """Detect figures referenced on a different page than the one they're drawn on.
+
+    Pure data transform: reads the v1 marking page register from step 15 plus
+    ``18_parse_exam_pdf/exam_questions.yaml``, augments calls whose answer
+    pages reference figures drawn elsewhere, and writes the v2 register at
+    ``19_detect_cross_page_figures/marking_page_register.json`` along with
+    diagnostics. No AI calls.
+    """
+    import yaml
+
+    from xscore.marking.marking_page_register import (
+        apply_cross_page_extras,
+        build_initial_register,
+        load_register,
+        write_register,
+    )
+    from xscore.shared.path_builders import (
+        artifact_cross_page_changes_md_path,
+        artifact_cross_page_refs_json_path,
+        artifact_exam_questions_path,
+        artifact_marking_page_register_v2_path,
+    )
+
+    assert ctx.artifact_dir is not None
+
+    register = load_register(ctx.artifact_dir)
+    if register is None:
+        # Step 15's writer was newly added — older runs may lack v1.
+        register = build_initial_register(ctx)
+
+    questions_path = artifact_exam_questions_path(ctx.artifact_dir, fmt="yaml")
+    if not questions_path.exists():
+        warn_line(
+            "Skipped — 18_parse_exam_pdf/exam_questions.yaml not found "
+            "(scaffold phase did not produce parsed exam)."
+        )
+        return
+
+    exam_questions = yaml.safe_load(questions_path.read_text(encoding="utf-8")) or {}
+    register, cross_page_refs = apply_cross_page_extras(
+        register, exam_questions, bool(ctx.empty_exam_has_cover)
+    )
+
+    write_register(artifact_marking_page_register_v2_path(ctx.artifact_dir), register)
+
+    refs_path = artifact_cross_page_refs_json_path(ctx.artifact_dir)
+    refs_path.parent.mkdir(parents=True, exist_ok=True)
+    import json
+    refs_path.write_text(
+        json.dumps(cross_page_refs, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+
+    n_extras = sum(
+        1 for s in register["students"] for c in s["calls"]
+        if any((src or "").startswith("cross_page") for src in c.get("extra_sources") or [])
+    )
+    md_lines = [
+        "# Cross-page figure references",
+        "",
+        f"- Figures detected: {len(cross_page_refs)} cross-page",
+        f"- Calls augmented: {n_extras}",
+        "",
+    ]
+    if cross_page_refs:
+        md_lines.append("## Detected references")
+        md_lines.append("")
+        for ref in cross_page_refs:
+            referenced = ", ".join(str(p) for p in ref["referenced_on_answer_labels"])
+            md_lines.append(
+                f"- **Fig. {ref['figure_label']}** — drawn on answer page "
+                f"{ref['drawn_on_answer_label']}, referenced on page"
+                f"{'s' if len(ref['referenced_on_answer_labels']) != 1 else ''} {referenced}"
+            )
+        md_lines.append("")
+    artifact_cross_page_changes_md_path(ctx.artifact_dir).write_text(
+        "\n".join(md_lines), encoding="utf-8"
+    )
+
+    if cross_page_refs:
+        ok_line(
+            f"{len(cross_page_refs)} cross-page figure"
+            f"{'s' if len(cross_page_refs) != 1 else ''} detected  ·  "
+            f"{n_extras} call{'s' if n_extras != 1 else ''} augmented"
+        )
+    else:
+        ok_line("No cross-page figures detected")
+
+
+def step_20_scheme_graphics(ctx: _Ctx) -> None:
     announce_step_model(
         model_env="DETECT_SCHEME_GRAPHICS_MODEL",
         default_model="gemini-2.5-flash, off",
@@ -104,7 +196,7 @@ def step_19_scheme_graphics(ctx: _Ctx) -> None:
         )
 
 
-def step_20_assign_questions(ctx: _Ctx) -> None:
+def step_21_assign_questions(ctx: _Ctx) -> None:
     announce_step_model(
         model_env="ASSIGN_SCHEME_QUESTIONS_MODEL",
         default_model="gemini-2.5-flash, off",
@@ -129,7 +221,7 @@ def step_20_assign_questions(ctx: _Ctx) -> None:
         )
 
 
-def step_21_parse_scheme(ctx: _Ctx) -> None:
+def step_22_parse_scheme(ctx: _Ctx) -> None:
     announce_step_model(
         model_env="READ_MARK_SCHEME_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
@@ -151,7 +243,7 @@ def step_21_parse_scheme(ctx: _Ctx) -> None:
     )
 
 
-def step_22_create_report(ctx: _Ctx) -> None:
+def step_23_create_report(ctx: _Ctx) -> None:
     state = ctx.scaffold_state
     t0 = time.perf_counter()
     questions, layout = step22_merge_scaffold(
@@ -169,7 +261,7 @@ def step_22_create_report(ctx: _Ctx) -> None:
 
 
 def scaffold_phase(ctx: _Ctx) -> None:
-    """Steps 16–22 with shared-locals + temp-PDF cleanup.
+    """Steps 16–23 with shared-locals + temp-PDF cleanup.
 
     Skipped entirely when resuming (``ctx.from_step`` set). Aborts cleanly if
     no exam PDF is found. Cleanup runs even on ``_EarlyExit`` from
@@ -201,7 +293,7 @@ def scaffold_phase(ctx: _Ctx) -> None:
     })
 
     try:
-        for n in range(16, 23):
+        for n in range(16, 24):
             run_step(ctx, step_by_number(n))
     finally:
         sp: Path | None = ctx.scaffold_state.get("split_pdf_temp_path")
