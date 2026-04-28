@@ -264,7 +264,7 @@ def step_15_handwriting(ctx: _Ctx) -> None:
         default_max_tokens=32,
     )
     from xscore.marking.blank_page_detection import BlankCheckStatus
-    wide = os.environ.get("HANDWRITING_CHECK_WIDE", "1") == "1"
+    wide = os.environ.get("HANDWRITING_CHECK_WIDE", "1").strip().lower() in {"1", "true", "yes", "on"}
     t0 = time.perf_counter()
     status, msg = check_student_handwriting(
         ctx.cleaned_pdf,

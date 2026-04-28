@@ -536,7 +536,8 @@ def assign_pages(
     workers = int(os.environ.get("NAME_WORKERS", str(min(n_blocks, 8))))
     prompt = _make_name_prompt(students) if students else load_prompt("student_names_freeform")[1]
 
-    def _ocr_and_match(i: int) -> tuple[int, str | None]:
+    def _ocr_and_match(idx: int, i: int) -> tuple[int, int, str, str | None, float]:
+        """Returns (idx, page, raw_name, matched_name, elapsed_s)."""
         if pages is not None:
             page = pages[i - 1]
         else:
@@ -562,18 +563,30 @@ def assign_pages(
             data = {}
         raw_name = str(data.get("name", "") or "").strip()
         matched_name = fuzzy_match_name(raw_name, students) if raw_name else None
+        return idx, i, raw_name, matched_name, elapsed
+
+    def _emit(i: int, raw_name: str, matched_name: str | None, elapsed: float) -> None:
         # Yellow warn line for any "no match" case (sentinel, empty, or
         # below-threshold fuzzy match); green ok line for a real roster hit.
         log = ok_line if matched_name is not None else warn_line
         log(f"Page {i:3d}/{n_pages}: {raw_name!r}  →  {matched_name!r}  ·  {format_duration(elapsed)}")
-        return i, matched_name
 
+    sorted_pages = sorted(first_page_set)
+    pending: dict[int, tuple[int, str, str | None, float]] = {}
+    next_idx = 0
     page_results: dict[int, str | None] = {}
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        futures = {ex.submit(_ocr_and_match, i): i for i in sorted(first_page_set)}
+        futures = {ex.submit(_ocr_and_match, idx, i): idx for idx, i in enumerate(sorted_pages)}
         for fut in as_completed(futures):
-            i, matched_name = fut.result()
+            idx, i, raw_name, matched_name, elapsed = fut.result()
+            pending[idx] = (i, raw_name, matched_name, elapsed)
             page_results[i] = matched_name
+            # Drain consecutive ready entries so output stays in scan-page
+            # order while remaining incremental as workers complete.
+            while next_idx in pending:
+                pi, prn, pmn, pel = pending.pop(next_idx)
+                _emit(pi, prn, pmn, pel)
+                next_idx += 1
 
     # Restore page order for the block-grouping step below.
     # Non-first pages were not submitted and default to None.
@@ -754,5 +767,7 @@ def print_page_range_table(assignments: list[PageAssignment]) -> None:
     # truncated to the table's content width when the class is small.
     # ``expand=False`` keeps the table itself from padding to console width.
     console = get_console()
+    console.print()
     console.print("    [dim]Page range per student (scan-page order)[/]")
     console.print(Padding(table, (0, 0, 0, 4), expand=False))
+    console.print()

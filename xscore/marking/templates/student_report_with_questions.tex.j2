@@ -1,0 +1,31 @@
+\documentclass[<<font_size>>pt]{article}
+\usepackage{fontspec}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{alltt}
+\usepackage{enumitem}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+<<geometry_line>>\begin{document}
+\section*{Student Report (with questions): <<name>><<header_extra>>}
+\textbf{Total: <<total>>/<<max_m>> (<<summary_text>>)} \quad \textcolor{gray}{\small <<date_str>>}
+\vspace{1em}
+
+<<table_open>>\renewcommand{\arraystretch}{1.6}
+\begin{longtable}{<<col_spec>>}
+\toprule
+\textbf{Q} & \textbf{Question} & \textbf{Max} & \textbf{Got} & \textbf{Student Answer} & \textbf{Expected} & \textbf{Reasoning} \\
+\midrule
+\endfirsthead
+\midrule
+\textbf{Q} & \textbf{Question} & \textbf{Max} & \textbf{Got} & \textbf{Student Answer} & \textbf{Expected} & \textbf{Reasoning} \\
+\midrule
+\endhead
+<<rows_str>>
+\bottomrule
+\end{longtable}
+<<table_close>>\end{document}

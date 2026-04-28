@@ -426,7 +426,22 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     def _render() -> str:  # caller must hold _display_lock
         return "\n".join(_student_lines.values()) if _student_lines else ""
 
+    # Non-live mode: streaming reorder buffer so completion-order workers
+    # still emit lines in submission (= sorted student × page) order.
+    _print_buffer: dict[int, str] = {}
+    _print_next: list[int] = [0]
+    _print_lock = threading.Lock()
+
+    def _emit_ordered(idx: int, line: str) -> None:
+        with _print_lock:
+            _print_buffer[idx] = line
+            while _print_next[0] in _print_buffer:
+                ln = _print_buffer.pop(_print_next[0])
+                get_console().print(ln)
+                _print_next[0] += 1
+
     def _mark_one_page(
+        idx: int,
         assignment: dict, p_label: int, answer_label: int, answer_page_count: int,
         extra_scan_pages: list[int],
     ) -> tuple[dict | None, dict | None]:
@@ -528,8 +543,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 )
                 if _use_live:
                     live.update(_render())
-                else:
-                    get_console().print(_student_lines[key])
+            if not _use_live:
+                _emit_ordered(idx, _student_lines[key])
             return None, failure
 
         mark_dur = round(time.perf_counter() - t0, 2)
@@ -545,8 +560,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             )
             if _use_live:
                 live.update(_render())
-            else:
-                get_console().print(_student_lines[key])
+        if not _use_live:
+            _emit_ordered(idx, _student_lines[key])
 
         filled["student_name"] = student_name
         out_path = artifact_marked_path(ctx.artifact_dir, safe_name, p_label, fmt=fmt.artifact_ext())
@@ -568,10 +583,17 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             else:
                 warn_line(msg)
 
+        # Sort tasks by global scan page so the reorder buffer in non-live mode
+        # produces lines in ascending scan-page order (which also groups each
+        # student's pages together, since page_numbers are contiguous per student).
+        page_tasks_sorted = sorted(
+            page_tasks,
+            key=lambda t: t[0]["page_numbers"][t[1] - 1],
+        )
         with ThreadPoolExecutor(max_workers=workers) as ex:
             futures = {
-                ex.submit(_mark_one_page, a, p_label, ans_lbl, ans_cnt, extras): (a["student_name"], p_label)
-                for a, p_label, ans_lbl, ans_cnt, extras in page_tasks
+                ex.submit(_mark_one_page, idx, a, p_label, ans_lbl, ans_cnt, extras): (a["student_name"], p_label)
+                for idx, (a, p_label, ans_lbl, ans_cnt, extras) in enumerate(page_tasks_sorted)
             }
             for fut in as_completed(futures):
                 try:

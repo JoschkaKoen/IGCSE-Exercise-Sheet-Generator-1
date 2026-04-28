@@ -410,3 +410,248 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
         histogram_path=report.get("histogram_path"),
         difficulty_path=report.get("difficulty_path"),
     )
+
+
+# ---------------------------------------------------------------------------
+# Parsed-exam question rendering (step 28: exam_questions.pdf,
+# *_landscape_with_questions.pdf, *_portrait_list.pdf).
+# ---------------------------------------------------------------------------
+
+def _build_question_index(parsed_questions: list[dict]) -> dict[str, dict]:
+    """DFS the parsed-exam tree; map every node's bare number to its dict."""
+    index: dict[str, dict] = {}
+
+    def _visit(q: dict) -> None:
+        num = str(q.get("number", "")).strip()
+        if num:
+            index[num] = q
+        for sub in q.get("subquestions") or []:
+            _visit(sub)
+
+    for q in parsed_questions or []:
+        _visit(q)
+    return index
+
+
+def _question_text_for_row(qnum: str, qmap: dict[str, dict]) -> dict | None:
+    """Look up a parsed-exam question by row number, stripping ``_2``-style suffix."""
+    base = str(qnum).partition("_")[0]
+    return qmap.get(base)
+
+
+def _render_question_text(q: dict | None) -> str:
+    """Render only the question stem — for the narrow Question column in the
+    landscape with-questions table."""
+    if not q:
+        return r"\textit{(text unavailable)}"
+    text = str(q.get("text") or "").strip()
+    if not text:
+        return r"\textit{(no stem)}"
+    return _ai_cell(text)
+
+
+def _render_question_with_options(q: dict | None) -> str:
+    """Render question stem plus an ``(A)/(B)/...`` itemize for MCQs.
+
+    Returns empty string for parent-only nodes (text == "" and no options) so
+    the recursive ``_question_to_tex`` can omit a blank body line for them.
+    """
+    if not q:
+        return r"\textit{(text unavailable)}"
+    parts: list[str] = []
+    text = str(q.get("text") or "").strip()
+    if text:
+        parts.append(_ai_cell(text))
+    if str(q.get("type") or "") == "multiple_choice":
+        opts = q.get("answer_options") or []
+        if opts:
+            items: list[str] = []
+            for opt in opts:
+                letter = _latex_escape(str(opt.get("letter") or "").strip())
+                opt_text = _ai_cell(str(opt.get("text") or "").strip())
+                items.append(f"  \\item[({letter})] {opt_text}")
+            parts.append(
+                "\\begin{itemize}[leftmargin=2em,itemsep=0pt]\n"
+                + "\n".join(items)
+                + "\n\\end{itemize}"
+            )
+    return "\n".join(parts)
+
+
+def _question_to_tex(q: dict, depth: int = 0) -> str:
+    """Recursive renderer used by ``exam_questions.pdf``.
+
+    Top-level questions render flush-left; subquestions are indented with
+    ``\\setlength{\\leftskip}{...em}`` inside a TeX group so wrapped lines stay
+    aligned without pulling in ``changepage``.
+    """
+    num = _latex_escape(str(q.get("number", "")))
+    marks = q.get("marks") or 0
+    marks_label = ""
+    if marks:
+        marks_label = f" \\hfill {marks} mark{'s' if marks != 1 else ''}"
+    body = _render_question_with_options(q)
+
+    lines = [f"\\noindent\\textbf{{Q{num}}}{marks_label}\\par\\nopagebreak"]
+    if body:
+        lines.append(f"{body}\\par")
+    block = "\n".join(lines)
+    if depth > 0:
+        block = f"{{\\setlength{{\\leftskip}}{{{depth * 1.5}em}}\n{block}\n}}"
+
+    subs = q.get("subquestions") or []
+    if subs:
+        sub_blocks = "\n\\smallskip\n".join(
+            _question_to_tex(sub, depth + 1) for sub in subs
+        )
+        block = f"{block}\n\\smallskip\n{sub_blocks}"
+    return block
+
+
+def _exam_questions_to_tex(parsed_questions: list[dict], exam_name: str = "") -> str:
+    """Render all parsed exam questions into a standalone TeX document."""
+    header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
+    date_str = datetime.date.today().isoformat()
+    body_blocks = [_question_to_tex(q) for q in parsed_questions or []]
+    body = "\n\\vspace{1em}\n".join(body_blocks)
+    return _ENV.get_template("exam_questions.tex.j2").render(
+        header_extra=header_extra,
+        date_str=date_str,
+        body=body,
+    )
+
+
+def _student_report_with_questions_to_tex(
+    report: dict,
+    qmap: dict[str, dict],
+    exam_name: str = "",
+    font_size: int = 10,
+    show_curved_grade: bool = True,
+) -> str:
+    """Landscape per-student PDF with an extra Question column (no MCQ options)."""
+    name = _latex_escape(report["student_name"])
+    total = report["total_marks"]
+    max_m = report["max_marks"]
+    pct = report["percentage"]
+    date_str = datetime.date.today().isoformat()
+    header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
+    rows = []
+    for q in report["questions"]:
+        qnum_raw = str(q.get("number", ""))
+        qnum = _latex_escape(qnum_raw.replace("_", "."))
+        max_q = q.get("max_marks", "")
+        awarded = q.get("assigned_marks")
+        answer_raw = str(q.get("student_answer") or "").strip()
+        answer = "\\textit{(blank)}" if not answer_raw else _ai_cell(answer_raw)
+        correct_raw = str(q.get("correct_answer") or "").strip()
+        criteria_raw = str(q.get("marking_criteria") or "").strip()
+        question_type = str(q.get("question_type", "")).strip()
+        if question_type == "multiple_choice" or not criteria_raw:
+            correct_ans = _ai_cell(correct_raw) if correct_raw else "---"
+        else:
+            correct_ans = _format_criteria_cell(criteria_raw)
+        reasoning = _ai_cell(str(q.get("explanation") or ""))
+        awarded_cell = _awarded_tex(awarded, max_q)
+        question_cell = _render_question_text(_question_text_for_row(qnum_raw, qmap))
+        rows.append(
+            f"    {qnum} & {question_cell} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"
+        )
+    rows_str = "\n".join(rows)
+    curved_pct = report.get("curved_pct")
+    pct_display = "N/A" if pct is None else f"{pct}\\%"
+    curved_display = "N/A" if curved_pct is None else f"{curved_pct}\\%"
+    summary_text = (
+        f"{pct_display} raw, {curved_display} curved"
+        if show_curved_grade else pct_display
+    )
+    # Landscape A4: 25.7 cm text - ~3.0 cm \tabcolsep overhead across 7 cols
+    # → ~22.7 cm column budget = 0.5+4.5+0.5+0.6+4.7+5.0+6.2 (cm).
+    geometry_line = "\\geometry{a4paper,landscape,margin=2cm}\n"
+    col_spec = "L{0.5cm}L{4.5cm}L{0.5cm}L{0.6cm}L{4.7cm}L{5.0cm}L{6.2cm}"
+    table_open  = "{\\small\n" if font_size < 12 else ""
+    table_close = "}\n"        if font_size < 12 else ""
+    return _ENV.get_template("student_report_with_questions.tex.j2").render(
+        font_size=font_size,
+        geometry_line=geometry_line,
+        name=name,
+        header_extra=header_extra,
+        total=total,
+        max_m=max_m,
+        summary_text=summary_text,
+        date_str=date_str,
+        table_open=table_open,
+        col_spec=col_spec,
+        rows_str=rows_str,
+        table_close=table_close,
+    )
+
+
+def _student_report_list_to_tex(
+    report: dict,
+    qmap: dict[str, dict],
+    exam_name: str = "",
+    show_curved_grade: bool = True,
+) -> str:
+    """Portrait per-student PDF in a list/block layout (no longtable).
+
+    Each row of ``report["questions"]`` becomes one block: header line, question
+    prompt (with MCQ options inline), then labeled paragraphs for student
+    answer / expected / reasoning, separated by a thin horizontal rule.
+    """
+    name = _latex_escape(report["student_name"])
+    total = report["total_marks"]
+    max_m = report["max_marks"]
+    pct = report["percentage"]
+    date_str = datetime.date.today().isoformat()
+    header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
+
+    blocks: list[str] = []
+    for q in report["questions"]:
+        qnum_raw = str(q.get("number", ""))
+        qnum_dotted = _latex_escape(qnum_raw.replace("_", "."))
+        max_q = q.get("max_marks", "")
+        awarded = q.get("assigned_marks")
+        awarded_cell = _awarded_tex(awarded, max_q)
+        answer_raw = str(q.get("student_answer") or "").strip()
+        answer = "\\textit{(blank)}" if not answer_raw else _ai_cell(answer_raw)
+        correct_raw = str(q.get("correct_answer") or "").strip()
+        criteria_raw = str(q.get("marking_criteria") or "").strip()
+        question_type = str(q.get("question_type", "")).strip()
+        if question_type == "multiple_choice" or not criteria_raw:
+            expected = _ai_cell(correct_raw) if correct_raw else "---"
+        else:
+            expected = _format_criteria_cell(criteria_raw)
+        reasoning = _ai_cell(str(q.get("explanation") or ""))
+        question_body = _render_question_with_options(
+            _question_text_for_row(qnum_raw, qmap)
+        ) or r"\textit{(text unavailable)}"
+        blocks.append(
+            f"\\noindent\\textbf{{Q{qnum_dotted}}} \\hfill {awarded_cell} / {max_q}\\par\n"
+            f"\\smallskip\\textit{{Question:}}\\par\n"
+            f"{question_body}\\par\n"
+            f"\\smallskip\\textit{{Student answer:}}\\par\n"
+            f"{answer}\\par\n"
+            f"\\smallskip\\textit{{Expected:}}\\par\n"
+            f"{expected}\\par\n"
+            f"\\smallskip\\textit{{Reasoning:}}\\par\n"
+            f"{reasoning}\\par\n"
+            f"\\vspace{{0.4em}}\\hrule\\vspace{{0.6em}}"
+        )
+    body = "\n".join(blocks)
+
+    curved_pct = report.get("curved_pct")
+    pct_display = "N/A" if pct is None else f"{pct}\\%"
+    curved_display = "N/A" if curved_pct is None else f"{curved_pct}\\%"
+    summary_text = (
+        f"{pct_display} raw, {curved_display} curved"
+        if show_curved_grade else pct_display
+    )
+    return _ENV.get_template("student_report_list.tex.j2").render(
+        name=name,
+        header_extra=header_extra,
+        total=total,
+        max_m=max_m,
+        summary_text=summary_text,
+        date_str=date_str,
+        body=body,
+    )

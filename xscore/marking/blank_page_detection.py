@@ -544,8 +544,13 @@ def check_student_handwriting(
         f"on scanned exam pages …"
     )
 
-    def _detect(args: tuple) -> tuple[str, int, int, bool | None]:
-        """Returns (student_name, exam_page, scan_page, has_handwriting_or_None)."""
+    # Sort tasks by scan_page so the reorder buffer below produces lines in
+    # ascending page order (which also groups each student's pages together,
+    # since page_numbers are contiguous per student).
+    tasks_sorted = sorted(tasks, key=lambda t: t[2])
+
+    def _detect(idx: int, args: tuple) -> tuple[int, str, int, int, bool | None, str]:
+        """Returns (idx, student_name, exam_page, scan_page, has_handwriting_or_None, dur_str)."""
         assignment, exam_page, scan_page = args
         safe_name = (assignment.student_name or "Unknown").replace(" ", "_")
         jpeg_bytes = _render_page_jpeg(scan_pdf, scan_page)
@@ -556,7 +561,10 @@ def check_student_handwriting(
         t0 = time.perf_counter()
         hw = _has_handwriting(state, model_id, jpeg_bytes, save_path)
         dur = format_duration(time.perf_counter() - t0)
-        name_quoted = f"{assignment.student_name!r}"
+        return idx, assignment.student_name, exam_page, scan_page, hw, dur
+
+    def _emit(student_name: str, scan_page: int, hw: bool | None, dur: str) -> None:
+        name_quoted = f"{student_name!r}"
         # +2 to padding for the surrounding quotes added by repr().
         if hw is None:
             warn_line(
@@ -569,14 +577,23 @@ def check_student_handwriting(
                 f"Page {scan_page:>{page_width}d}/{scan_n_pages}: "
                 f"{name_quoted:<{name_width + 2}}  ·  {label}  ·  {dur}"
             )
-        return assignment.student_name, exam_page, scan_page, hw
 
     results: list[tuple[str, int, int, bool | None]] = []
-    workers = min(len(tasks), int(os.environ.get("HANDWRITING_WORKERS", "500")))
+    pending: dict[int, tuple[str, int, int, bool | None, str]] = {}
+    next_idx = 0
+    workers = min(len(tasks_sorted), int(os.environ.get("HANDWRITING_WORKERS", "500")))
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        futs = {ex.submit(_detect, t): t for t in tasks}
+        futs = {ex.submit(_detect, i, t): i for i, t in enumerate(tasks_sorted)}
         for fut in as_completed(futs):
-            results.append(fut.result())
+            idx, student_name, exam_page, scan_page, hw, dur = fut.result()
+            pending[idx] = (student_name, exam_page, scan_page, hw, dur)
+            # Drain consecutive ready entries so output stays in submission
+            # order while remaining incremental as workers complete.
+            while next_idx in pending:
+                sn, ep, sp, h, d = pending.pop(next_idx)
+                _emit(sn, sp, h, d)
+                results.append((sn, ep, sp, h))
+                next_idx += 1
 
     # ── Build per-student artifact ───────────────────────────────────────────
     if blank_exam_pages:

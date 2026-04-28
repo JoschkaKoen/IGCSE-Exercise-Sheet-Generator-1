@@ -500,10 +500,12 @@ def print_register_summary(
             str(cp_count),
         )
 
+    console.print()
     console.print(
         f"    [dim]Marking page register — {call_label} across {student_label}[/]"
     )
     console.print(Padding(table, (0, 0, 0, 4), expand=False))
+    console.print()
 
     # ── Excluded pages sub-table ─────────────────────────────────────────────
     excluded_rows = []
@@ -532,6 +534,7 @@ def print_register_summary(
             )
         console.print("    [dim]Excluded pages per student[/]")
         console.print(Padding(excluded_table, (0, 0, 0, 4), expand=False))
+        console.print()
 
     if cross_page_refs:
         console.print(f"    [dim]Cross-page figures detected ({len(cross_page_refs)}):[/]")

@@ -12,7 +12,7 @@ from __future__ import annotations
 import json
 import os
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from enum import Enum
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
@@ -390,24 +390,74 @@ def check_page_order(
             )
 
     # ── Per-student model calls in parallel ───────────────────────────────
-    def _check_one(sd: dict) -> _PerStudentResult:
+    from xscore.shared.terminal_ui import (
+        format_duration,
+        info_line,
+        ok_line,
+        warn_line,
+    )
+
+    name_width = max(
+        (len(sd["name"] or "Unknown") for sd in students_data),
+        default=1,
+    )
+
+    def _check_one(idx: int, sd: dict) -> tuple[int, _PerStudentResult, float]:
         prompt = _build_per_student_prompt(exam_texts, sd)
         save_path = (
             artifact_page_order_prompt_path(artifact_dir, sd["name"])
             if artifact_dir else None
         )
         save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
+        t0 = time.perf_counter()
         raw, thinking_text, err = _call_model_with_retry(client_state, prompt, model_id, thinking, max_tok)
+        elapsed = time.perf_counter() - t0
         if save_path is not None and raw:
             save_response(save_path, raw, thinking=thinking_text)
         if not raw:
             reason = f"model call failed: {err}" if err else "model returned empty response"
-            return sd["name"], PageOrderStatus.INCONCLUSIVE, reason, None
+            return idx, (sd["name"], PageOrderStatus.INCONCLUSIVE, reason, None), elapsed
         status, msg, issues = _validate_per_student_response(raw)
-        return sd["name"], status, msg, issues
+        return idx, (sd["name"], status, msg, issues), elapsed
 
+    def _emit(name: str, status: PageOrderStatus, msg: str | None, issues: list | None, elapsed: float) -> None:
+        name_quoted = f"{name!r}"
+        dur = format_duration(elapsed)
+        if status is PageOrderStatus.PASSED:
+            ok_line(
+                f"{name_quoted:<{name_width + 2}}  ·  page order OK  ·  {dur}"
+            )
+        elif status is PageOrderStatus.MISMATCH_FOUND:
+            n_issues = len(issues or [])
+            warn_line(
+                f"{name_quoted:<{name_width + 2}}  ·  "
+                f"page order MISMATCH ({n_issues} issue{'s' if n_issues != 1 else ''})  ·  {dur}"
+            )
+        else:  # INCONCLUSIVE
+            warn_line(
+                f"{name_quoted:<{name_width + 2}}  ·  inconclusive: {msg or '?'}  ·  {dur}"
+            )
+
+    info_line(
+        f"Checking page order for {len(students_data)} student"
+        f"{'s' if len(students_data) != 1 else ''} …"
+    )
+
+    results: list[_PerStudentResult] = [None] * len(students_data)  # type: ignore[list-item]
+    pending: dict[int, tuple[_PerStudentResult, float]] = {}
+    next_idx = 0
     workers = min(len(students_data), int(os.environ.get("PAGE_ORDER_WORKERS", "500"))) or 1
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        results = list(ex.map(_check_one, students_data))
+        futs = {ex.submit(_check_one, i, sd): i for i, sd in enumerate(students_data)}
+        for fut in as_completed(futs):
+            idx, result, elapsed = fut.result()
+            results[idx] = result
+            pending[idx] = (result, elapsed)
+            # Drain consecutive ready entries so output stays in submission
+            # (= scan-page) order while remaining incremental as workers complete.
+            while next_idx in pending:
+                r, el = pending.pop(next_idx)
+                _emit(r[0], r[1], r[2], r[3], el)
+                next_idx += 1
 
     return _aggregate(results, _ocr_quality_summary(students_data))

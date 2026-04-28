@@ -116,14 +116,41 @@ def step_28_per_student_pdfs(ctx: Any) -> None:
     Visibility of the curved % in each per-student PDF header follows
     ``ctx.instruction.curved_grade_visible`` first, then env var
     ``CURVED_GRADE_VISIBLE`` (default true).
+
+    When ``18_parse_exam_pdf/exam_questions.yaml`` exists, additionally emits
+    ``exam_questions.pdf`` (one per run) and ``*_landscape_with_questions.pdf``
+    + ``*_portrait_list.pdf`` per student. Missing YAML → warn-and-skip; the
+    original four per-student PDFs still produce.
     """
+    import yaml
+
+    from xscore.marking.report_latex import _build_question_index
+    from xscore.shared.path_builders import artifact_exam_questions_path
+    from xscore.shared.terminal_ui import warn_line
+
     exam_name = ctx.artifact_dir.parent.name
     workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
     show_curved_grade = _curved_grade_visible(ctx)
     artifact_student_pdfs_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+
+    questions_path = artifact_exam_questions_path(ctx.artifact_dir, fmt="yaml")
+    parsed_questions: list[dict] | None = None
+    qmap_by_num: dict[str, dict] = {}
+    if questions_path.exists():
+        raw = yaml.safe_load(questions_path.read_text(encoding="utf-8")) or {}
+        parsed_questions = list(raw.get("questions") or [])
+        qmap_by_num = _build_question_index(parsed_questions)
+    else:
+        warn_line(
+            "Skipped exam-questions PDF and with-questions student variants — "
+            "18_parse_exam_pdf/exam_questions.yaml not found."
+        )
+
     _pass2_write_tex(
         ctx.student_summaries, ctx.full_reports, ctx.artifact_dir, exam_name, workers,
         show_curved_grade=show_curved_grade,
+        parsed_questions=parsed_questions,
+        qmap_by_num=qmap_by_num,
     )
 
 

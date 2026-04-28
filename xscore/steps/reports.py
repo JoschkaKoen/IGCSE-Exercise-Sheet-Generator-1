@@ -16,9 +16,13 @@ from xscore.marking.merge_reports import (
     step_30_review_queue as _impl_30_review,
 )
 from xscore.shared.path_builders import (
+    artifact_exam_questions_path,
+    artifact_exam_questions_pdf_path,
     artifact_student_report_pdf_landscape_path,
+    artifact_student_report_pdf_landscape_with_questions_path,
     artifact_student_report_pdf_portrait_2up_path,
     artifact_student_report_pdf_portrait_large_path,
+    artifact_student_report_pdf_portrait_list_path,
     artifact_student_report_pdf_portrait_path,
 )
 from xscore.shared.pipeline_ctx import _Ctx
@@ -54,15 +58,28 @@ def step_28_per_student_pdfs(ctx: _Ctx) -> None:
     _impl_28_pdfs(ctx)
     n = len(ctx.student_summaries or [])
     s = "" if n == 1 else "s"
-    ok_line(f"{n} landscape + {n} portrait + {n} portrait-large + {n} 2UP PDF{s} compiled")
-    # Post-check expected outputs: every student should have all 4 PDF variants.
+    has_parsed_exam = artifact_exam_questions_path(ctx.artifact_dir, fmt="yaml").exists()
+    if has_parsed_exam:
+        ok_line(
+            f"{n} landscape + {n} portrait + {n} portrait-large + {n} 2UP "
+            f"+ {n} landscape-with-questions + {n} portrait-list "
+            f"+ 1 exam-questions PDF{s} compiled"
+        )
+    else:
+        ok_line(f"{n} landscape + {n} portrait + {n} portrait-large + {n} 2UP PDF{s} compiled")
+    # Post-check expected outputs: every student should have all PDF variants.
     # Catches both xelatex non-zero exits and "exited 0 but produced no PDF" cases.
-    pdf_path_fns = (
+    pdf_path_fns = [
         artifact_student_report_pdf_landscape_path,
         artifact_student_report_pdf_portrait_path,
         artifact_student_report_pdf_portrait_large_path,
         artifact_student_report_pdf_portrait_2up_path,
-    )
+    ]
+    if has_parsed_exam:
+        pdf_path_fns.extend([
+            artifact_student_report_pdf_landscape_with_questions_path,
+            artifact_student_report_pdf_portrait_list_path,
+        ])
     students_missing: list[str] = []
     for summary in ctx.student_summaries or []:
         name = summary["name"]
@@ -73,6 +90,8 @@ def step_28_per_student_pdfs(ctx: _Ctx) -> None:
             f"{len(students_missing)} student(s) missing one or more PDFs: "
             + ", ".join(students_missing)
         )
+    if has_parsed_exam and not artifact_exam_questions_pdf_path(ctx.artifact_dir).is_file():
+        warn_line("exam_questions.pdf was not produced")
 
 
 def step_29_class_report(ctx: _Ctx) -> None:

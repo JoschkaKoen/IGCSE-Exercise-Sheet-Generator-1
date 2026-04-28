@@ -15,7 +15,11 @@ from pathlib import Path
 from typing import Any
 
 from xscore.marking.report_latex import (
-    _class_report_to_tex, _student_report_to_tex,
+    _class_report_to_tex,
+    _exam_questions_to_tex,
+    _student_report_list_to_tex,
+    _student_report_to_tex,
+    _student_report_with_questions_to_tex,
 )
 from xscore.marking.report_markdown import _class_report_to_md
 from xscore.marking.report_xml import class_report_to_xml
@@ -30,6 +34,7 @@ from xscore.shared.exam_paths import (
     artifact_class_report_pdf_2up_path,
     artifact_class_report_tex_path,
     artifact_class_report_xml_path,
+    artifact_exam_questions_tex_path,
     artifact_review_queue_json_path,
     artifact_review_queue_md_path,
     artifact_student_pdf_dir,
@@ -37,7 +42,9 @@ from xscore.shared.exam_paths import (
     artifact_student_report_pdf_portrait_2up_path,
     artifact_student_report_pdf_portrait_large_path,
     artifact_student_report_tex_landscape_path,
+    artifact_student_report_tex_landscape_with_questions_path,
     artifact_student_report_tex_portrait_large_path,
+    artifact_student_report_tex_portrait_list_path,
     artifact_student_report_tex_portrait_path,
 )
 from eXercise.pdfjam_post import make_2up_landscape_pdf
@@ -243,8 +250,16 @@ def _pass2_write_tex(
     exam_name: str,
     workers: int,
     show_curved_grade: bool = True,
+    parsed_questions: list[dict] | None = None,
+    qmap_by_num: dict[str, dict] | None = None,
 ) -> None:
-    """Write per-student .tex files (landscape + portrait + portrait-large), then compile all in parallel."""
+    """Write per-student .tex files (landscape + portrait + portrait-large), then compile all in parallel.
+
+    When ``parsed_questions`` is non-None, additionally writes each student's
+    ``_landscape_with_questions.tex`` and ``_portrait_list.tex`` plus the
+    run-level ``exam_questions.tex`` — all compiled in the same parallel pass.
+    """
+    qmap_by_num = qmap_by_num or {}
     tex_paths: list[Path] = []
     for s in student_summaries:
         report = full_reports[s["name"]]
@@ -264,6 +279,40 @@ def _pass2_write_tex(
                 encoding="utf-8",
             )
             tex_paths.append(tex_path)
+
+        if parsed_questions is not None:
+            wq_tex_path = artifact_student_report_tex_landscape_with_questions_path(
+                artifact_dir, s["name"]
+            )
+            wq_tex_path.write_text(
+                _student_report_with_questions_to_tex(
+                    report, qmap_by_num, exam_name=exam_name,
+                    font_size=10, show_curved_grade=show_curved_grade,
+                ),
+                encoding="utf-8",
+            )
+            tex_paths.append(wq_tex_path)
+
+            list_tex_path = artifact_student_report_tex_portrait_list_path(
+                artifact_dir, s["name"]
+            )
+            list_tex_path.write_text(
+                _student_report_list_to_tex(
+                    report, qmap_by_num, exam_name=exam_name,
+                    show_curved_grade=show_curved_grade,
+                ),
+                encoding="utf-8",
+            )
+            tex_paths.append(list_tex_path)
+
+    if parsed_questions is not None:
+        eq_tex_path = artifact_exam_questions_tex_path(artifact_dir)
+        eq_tex_path.parent.mkdir(parents=True, exist_ok=True)
+        eq_tex_path.write_text(
+            _exam_questions_to_tex(parsed_questions, exam_name=exam_name),
+            encoding="utf-8",
+        )
+        tex_paths.append(eq_tex_path)
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
         list(ex.map(lambda p: _compile_tex(p, p.parent), tex_paths))
