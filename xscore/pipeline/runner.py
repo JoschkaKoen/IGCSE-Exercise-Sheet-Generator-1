@@ -42,8 +42,25 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
     from xscore.shared.terminal_ui import format_duration, info_line, ok_line, warn_line
 
     instr = getattr(ctx, "instruction", None)
+    cli_filter = getattr(ctx, "student_filter", None)
     dpi = getattr(instr, "dpi", None) or MARKING_DPI
-    total_pages = sum(len(a.page_numbers) for a in ctx.page_assignments)
+
+    filtered_assignments = list(ctx.page_assignments)
+    if instr is not None:
+        sf = instr.student_filter
+        if sf.mode == "specific" and sf.names:
+            filtered_assignments = [a for a in filtered_assignments if a.student_name in sf.names]
+        elif sf.mode == "first_n" and sf.n:
+            filtered_assignments = filtered_assignments[: sf.n]
+    if cli_filter:
+        wanted = {n.strip().lower() for n in cli_filter}
+        filtered_assignments = [
+            a for a in filtered_assignments
+            if (a.student_name or "").strip().lower() in wanted
+        ]
+    total_pages = sum(len(a.page_numbers) for a in filtered_assignments)
+    if total_pages == 0:
+        return
     workers = min(
         total_pages,
         int(os.environ.get("MARKING_WORKERS", str(min(os.cpu_count() or 4, 16)))),
@@ -54,6 +71,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
     fut = pool.submit(
         render_pages_b64, ctx.cleaned_pdf, ctx.artifact_dir, dpi, workers,
         instruction=instr,
+        cli_filter=cli_filter,
     )
 
     def _on_done(f) -> None:

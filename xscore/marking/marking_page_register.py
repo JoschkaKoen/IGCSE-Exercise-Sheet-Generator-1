@@ -45,6 +45,27 @@ SCHEMA_VERSION = 1
 REGISTER_FILENAME = "marking_page_register.json"
 
 
+def _cover_offset(has_cover: bool, empty_exam_has_cover: bool) -> int:
+    """How many positions to shift between scan ``p_label`` and ``answer_label``.
+
+    Two-sided so all four (student-cover, empty-exam-cover) combinations
+    map p_label → empty-exam page correctly:
+
+    - student has cover, empty doesn't  → +1 (student's scan has an extra
+      cover; subtract it to land on the right empty-exam page).
+    - empty has cover, student doesn't  → -1 (student's scan is missing
+      the empty cover; shift up).
+    - otherwise → 0.
+
+    ``answer_label = p_label - cover_offset``.
+    """
+    if has_cover and not empty_exam_has_cover:
+        return 1
+    if empty_exam_has_cover and not has_cover:
+        return -1
+    return 0
+
+
 # ---------------------------------------------------------------------------
 # Builder — used by step 15 (writes v1) and the step 25 backwards-compat path
 # ---------------------------------------------------------------------------
@@ -81,7 +102,7 @@ def build_initial_register(ctx: "_Ctx") -> dict:
         page_numbers: list[int] = a["page_numbers"]
         cover_page_number = a.get("cover_page_number")
         has_cover = cover_page_number is not None
-        cover_offset = 1 if (has_cover and not empty_exam_has_cover) else 0
+        cover_offset = _cover_offset(has_cover, empty_exam_has_cover)
         student_skip = skip_by_student.get(student_name, set())
         student_extras = extras_by_student.get(student_name, {})
 
@@ -249,8 +270,8 @@ def apply_cross_page_extras(
     for student in register["students"]:
         cover_page_number = student.get("cover_page_number")
         page_numbers = student.get("page_numbers") or []
-        student_cover_offset = (
-            1 if (cover_page_number is not None and not empty_exam_has_cover) else 0
+        student_cover_offset = _cover_offset(
+            cover_page_number is not None, empty_exam_has_cover
         )
         # Pages the student left blank — never useful as a cross-page figure
         # source even if the empty-exam template has the figure drawn there.
@@ -419,6 +440,7 @@ def print_register_summary(
     cross_page_refs: list[dict] | None = None,
     filtered_call_count: int | None = None,
     filtered_student_count: int | None = None,
+    filtered_page_image_count: int | None = None,
     console: Any = None,
 ) -> None:
     """Render the pre-marking summary table to the terminal.
@@ -547,15 +569,23 @@ def print_register_summary(
             )
 
     # Totals: page-images = sum of len(scan_pages) across surviving calls.
-    page_image_count = sum(
-        len(c["scan_pages"]) for s in students for c in s["calls"]
-    )
+    # Use the filtered count when provided so the printed equation
+    # ``{active_calls} × {avg} = {page_image_count}`` actually balances.
     if filtered_call_count is not None and filtered_call_count != total_calls:
         active_calls = filtered_call_count
+        if filtered_page_image_count is not None:
+            page_image_count = filtered_page_image_count
+        else:
+            page_image_count = sum(
+                len(c["scan_pages"]) for s in students for c in s["calls"]
+            )
     else:
         active_calls = total_calls
+        page_image_count = sum(
+            len(c["scan_pages"]) for s in students for c in s["calls"]
+        )
     if active_calls:
-        avg = page_image_count / max(total_calls, 1)
+        avg = page_image_count / max(active_calls, 1)
         console.print(
             f"    [dim]{active_calls} calls × {avg:.2f} avg pages/call = "
             f"{page_image_count} page-images about to be sent to the marking AI.[/]"

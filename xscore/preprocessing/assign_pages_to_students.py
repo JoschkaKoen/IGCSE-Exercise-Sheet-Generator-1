@@ -545,7 +545,7 @@ def assign_pages(
             from PIL import Image as _Image
             with _fitz.open(str(cleaned_pdf)) as _d:
                 pix = _d[i - 1].get_pixmap(dpi=dpi, colorspace=_fitz.csRGB)
-            page = _Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+                page = _Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
         fraction = name_crop_fraction if name_crop_fraction is not None else _name_crop_fraction(page, dpi)
         crop = _crop_top(page, fraction=fraction)
         img_b64 = page_to_jpeg_b64(crop)

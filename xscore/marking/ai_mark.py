@@ -65,11 +65,17 @@ def render_pages_b64(
     workers: int,
     *,
     instruction: Any = None,
+    cli_filter: list[str] | None = None,
 ) -> dict[tuple[str, int], str]:
     """Render all scan pages to base64 JPEG, parallelised.
 
     Reads 12_student_names/exam_student_list.json directly (same source as run_ai_marking).
     Each worker opens its own fitz.Document — fitz is not thread-safe.
+
+    Both the prompt-derived ``instruction.student_filter`` and the
+    ``--student`` CLI cohort filter are applied so the rendered set matches
+    what the marker will actually consume.
+
     Returns {(student_name, page_label): b64_str}.
     """
     import fitz
@@ -85,6 +91,13 @@ def render_pages_b64(
             raw = [a for a in raw if a["student_name"] in sf.names]
         elif sf.mode == "first_n" and sf.n:
             raw = raw[: sf.n]
+
+    if cli_filter:
+        wanted = {n.strip().lower() for n in cli_filter}
+        raw = [
+            a for a in raw
+            if (a.get("student_name") or "").strip().lower() in wanted
+        ]
 
     tasks: list[tuple[str, int, int]] = []
     for a in raw:
@@ -340,6 +353,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         return render_pages_b64(
             ctx.cleaned_pdf, ctx.artifact_dir, dpi, workers,
             instruction=getattr(ctx, "instruction", None),
+            cli_filter=getattr(ctx, "student_filter", None),
         )
 
     b64_future = getattr(ctx, "b64_future", None)
@@ -390,17 +404,20 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     # Pre-marking summary table — render once, before the per-page loop kicks in.
     _scaffold_pc = ctx.scaffold.page_count if ctx.scaffold is not None else None
     _student_filter_set = {a["student_name"] for a in raw_assignments}
-    _filtered_call_count = sum(
-        1 for _t in iter_marking_calls(
-            register,
-            raw_assignments=raw_assignments,
-            scaffold_page_count=_scaffold_pc,
-        )
-    )
+    _filtered_call_count = 0
+    _filtered_page_image_count = 0
+    for _t in iter_marking_calls(
+        register,
+        raw_assignments=raw_assignments,
+        scaffold_page_count=_scaffold_pc,
+    ):
+        _filtered_call_count += 1
+        _filtered_page_image_count += 1 + len(_t[4])  # primary + extras
     print_register_summary(
         register,
         filtered_call_count=_filtered_call_count,
         filtered_student_count=len(_student_filter_set),
+        filtered_page_image_count=_filtered_page_image_count,
     )
 
     # Build flat per-page task list. The register already encodes the cover-page
@@ -468,7 +485,6 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             _page_graphics = _scheme_graphics_for_page(blueprint, _graphics_map, _graphics_b64_cache)
             _use_pdf_path = _provider == "gemini"
             if _use_pdf_path:
-                import shutil
                 import tempfile
                 exercise_scan_page = assignment["page_numbers"][p_label - 1]
                 all_scan_pages = [exercise_scan_page] + extra_scan_pages
@@ -483,8 +499,6 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                             _out.save(tmp_path)
                         finally:
                             _out.close()
-                    local_pdf = ctx.artifact_dir / f"14_upload_{safe_name}_{p_label}.pdf"
-                    shutil.copy(tmp_path, local_pdf)
                     filled = _mark_page_pdf(
                         tmp_path, blueprint, blueprint_str,
                         prompt_save_path=prompt_save,
