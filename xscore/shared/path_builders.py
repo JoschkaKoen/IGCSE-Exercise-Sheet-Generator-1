@@ -607,6 +607,14 @@ def artifact_class_report_combined_portrait_pdf_path(artifact_dir: Path) -> Path
     return artifact_class_report_dir(artifact_dir) / "class_report_combined_portrait.pdf"
 
 
+def artifact_class_report_combined_landscape_with_questions_pdf_path(artifact_dir: Path) -> Path:
+    return artifact_class_report_dir(artifact_dir) / "class_report_combined_landscape_with_questions.pdf"
+
+
+def artifact_class_report_combined_portrait_list_pdf_path(artifact_dir: Path) -> Path:
+    return artifact_class_report_dir(artifact_dir) / "class_report_combined_portrait_list.pdf"
+
+
 def artifact_class_report_pdf_2up_path(artifact_dir: Path) -> Path:
     return artifact_class_report_dir(artifact_dir) / "class_report_2up.pdf"
 

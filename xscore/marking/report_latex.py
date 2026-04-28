@@ -73,6 +73,30 @@ _ALLTT_MATH_SUB = {
 }
 _ALLTT_MATH_RE = re.compile(r"\\(" + "|".join(_ALLTT_MATH_SUB) + r")\b\s?")
 
+
+# Font-size step-down for alltt blocks whose longest line would overflow the
+# narrowest cell that hosts alltt — L{3.6cm} student-answer in the portrait
+# variant (see col_spec at line 433). Empirically validated against
+# /tmp/adjustbox_test/test4.pdf in a 3.6cm cell:
+#   - body 10pt: ~5.7 chars/cm  → fits up to ~20 chars before overflow
+#   - \footnotesize ~8pt: ~9.4 chars/cm → up to ~32 chars
+#   - \scriptsize ~7pt: ~12 chars/cm → up to ~47 chars
+#   - \tiny ~5pt: ~17 chars/cm → up to ~55 chars (floor; readability cost)
+# Wider cells (4.7cm with-questions, 5.7cm landscape) get the same step-down,
+# slightly smaller font than strictly necessary — accepted trade-off vs.
+# threading cell width through the renderer.
+def _alltt_size_command(block: str) -> str:
+    inner = re.sub(r"\\(?:begin|end)\{alltt\}", "", block)
+    inner = inner.replace(r"\textbackslash{}", "\\")  # 16-char escape → 1
+    max_len = max((len(ln) for ln in inner.split("\n")), default=0)
+    if max_len <= 20:
+        return ""
+    if max_len <= 32:
+        return "\\footnotesize "
+    if max_len <= 47:
+        return "\\scriptsize "
+    return "\\tiny "
+
 # AI-generated cells sometimes embed `\begin{tabular}…\end{tabular}` (truth
 # tables, mark-scheme tables). The post-munging passes in `_ai_cell` would
 # convert the tabular's `\\` row terminators to `\newline` and break alignment.
@@ -83,6 +107,14 @@ _ENV_BLOCK_RE = re.compile(
     re.DOTALL,
 )
 _ENV_PLACEHOLDER_RE = re.compile(r"\x00ENV(\d+)\x00")
+
+# Inner ``\begin{tabular}…\end{tabular}`` blocks in p{} cells visually butt
+# against the outer longtable header (when at cell start) and against
+# preceding prose (when AI emits ``\newline\begin{tabular}``). Wrap with a
+# small vspace on restore. ``\par\addvspace`` is the only idiom that works in
+# all three positions: cell-start, after prose, and before more prose.
+# (``\vspace*`` mid-paragraph is silently discarded — empirically verified.)
+_TABULAR_VSPACE = "0.5em"
 
 
 # AI sometimes emits LaTeX math syntax outside ``$...$`` despite the prompt
@@ -183,6 +215,9 @@ def _protect_alltt(text: str, transform) -> str:
         block = re.sub(r"(\\begin\{alltt\})\n", r"\1", block, count=1)
         block = re.sub(r"\s*(\\end\{alltt\})", r"\1", block, count=1)
         block = _ALLTT_MATH_RE.sub(lambda mm: _ALLTT_MATH_SUB[mm.group(1)], block)
+        size = _alltt_size_command(block)
+        if size:
+            block = block.replace(r"\begin{alltt}", r"\begin{alltt}" + size, 1)
         return block
 
     text = _ALLTT_PLACEHOLDER_RE.sub(_restore, text)
@@ -198,8 +233,11 @@ def _protect_alltt(text: str, transform) -> str:
 def _protect_envs(text: str, transform) -> str:
     """Run *transform* on parts of *text* outside protected env blocks
     (``\\begin{tabular}…\\end{tabular}`` and other tabular/math envs in
-    ``_PROTECTED_ENV_NAMES``). Stashed blocks are restored byte-identically —
-    internal ``\\\\``, ``\\hline``, ``&``, and newlines are preserved exactly.
+    ``_PROTECTED_ENV_NAMES``). Stashed blocks are restored byte-identically
+    (internal ``\\\\``, ``\\hline``, ``&``, and newlines preserved exactly),
+    except ``tabular`` / ``tabular*`` blocks are wrapped with
+    ``{\\par\\addvspace{...}}`` separators so they don't visually butt
+    against the surrounding longtable header or adjacent prose.
     """
     stashed: list[str] = []
 
@@ -215,7 +253,23 @@ def _protect_envs(text: str, transform) -> str:
         text = new_text
 
     text = transform(text)
-    return _ENV_PLACEHOLDER_RE.sub(lambda m: stashed[int(m.group(1))], text)
+
+    def _restore(m: re.Match) -> str:
+        block = stashed[int(m.group(1))]
+        if block.startswith((r"\begin{tabular}", r"\begin{tabular*}")):
+            sep = "{\\par\\addvspace{" + _TABULAR_VSPACE + "}}"
+            return sep + block + sep
+        return block
+
+    text = _ENV_PLACEHOLDER_RE.sub(_restore, text)
+    # Wrapper provides the paragraph break + vspace; surrounding AI-emitted
+    # ``\newline`` is now redundant. Match against the wrapper's literal
+    # text (not ``\begin{tabular}``) since the wrapper sits between any
+    # preceding ``\newline`` and the env start.
+    _wrapper_pat = re.escape("{\\par\\addvspace{" + _TABULAR_VSPACE + "}}")
+    text = re.sub(r"\\newline\s+(?=" + _wrapper_pat + ")", "", text)
+    text = re.sub("(" + _wrapper_pat + r")\s*\\newline\b\s?", r"\1 ", text)
+    return text
 
 
 def _ai_cell(text: str) -> str:

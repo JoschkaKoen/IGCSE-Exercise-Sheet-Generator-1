@@ -28,7 +28,9 @@ from xscore.shared.exam_paths import (
     artifact_class_marks_xlsx_path,
     artifact_class_question_difficulty_path,
     artifact_class_report_combined_landscape_pdf_path,
+    artifact_class_report_combined_landscape_with_questions_pdf_path,
     artifact_class_report_combined_portrait_2up_pdf_path,
+    artifact_class_report_combined_portrait_list_pdf_path,
     artifact_class_report_combined_portrait_pdf_path,
     artifact_class_report_md_path,
     artifact_class_report_pdf_2up_path,
@@ -552,6 +554,26 @@ def _build_class_report(
         artifact_class_report_combined_portrait_pdf_path(ctx.artifact_dir),
         suffix="portrait",
     )
+
+    # With-questions variants — step 28 only emits these when parsed_questions
+    # is available, so guard each merge by checking that at least one student
+    # PDF of that variant exists. Otherwise the merge would produce a single-
+    # page combined PDF with just the class overview, which is misleading.
+    students_dir = artifact_student_pdfs_dir(ctx.artifact_dir)
+    if any(students_dir.glob("*/*_landscape_with_questions.pdf")):
+        _merge_pdfs(
+            tex_path.with_suffix(".pdf"),
+            students_dir,
+            artifact_class_report_combined_landscape_with_questions_pdf_path(ctx.artifact_dir),
+            suffix="landscape_with_questions",
+        )
+    if any(students_dir.glob("*/*_portrait_list.pdf")):
+        _merge_pdfs(
+            tex_path.with_suffix(".pdf"),
+            students_dir,
+            artifact_class_report_combined_portrait_list_pdf_path(ctx.artifact_dir),
+            suffix="portrait_list",
+        )
 
     class_pdf_path = tex_path.with_suffix(".pdf")
     class_2up_path = artifact_class_report_pdf_2up_path(ctx.artifact_dir)
