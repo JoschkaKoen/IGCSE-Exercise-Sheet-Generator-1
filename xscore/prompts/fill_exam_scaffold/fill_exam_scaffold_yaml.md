@@ -22,7 +22,18 @@ For each entry, fill in:
 - `text`: complete question text in markdown; $...$ for inline math, $$...$$ for display math
 - `options`: list of `{letter, text}` for multiple_choice only — leave empty otherwise
 
-Use block scalars (`|`) for `text` fields when the text contains newlines or backslashes.
+Quoting rules — **never use double quotes** for any string field in the output. Double quotes interpret `\` as an escape introducer in YAML, so `"\texttt{DIV}"` parses to a literal TAB followed by `exttt{DIV}` — silently destroying every LaTeX command. Apply these rules to BOTH `text:` and each option's `text:`:
+
+- Plain short value with no special characters → no quoting: `text: 42`, `letter: A`.
+- Single-line value containing a backslash (LaTeX commands like `\texttt{DIV}`, `\leftarrow`) → single quotes: `text: '\texttt{DIV}'`. Single quotes do not interpret escapes; the backslash is preserved literally.
+- Multi-line value, or value containing both single and double quotes → block scalar (`|`):
+
+      text: |
+        \texttt{DIV}
+
+WRONG: `text: "\texttt{DIV}"`     ← becomes `<TAB>exttt{DIV}` on parse
+RIGHT: `text: '\texttt{DIV}'`     ← preserves `\texttt{DIV}`
+RIGHT: block scalar (above)        ← preserves `\texttt{DIV}`
 
 ## CODE_FORMATTING
 

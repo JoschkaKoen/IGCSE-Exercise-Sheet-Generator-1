@@ -48,6 +48,7 @@ def _build_yaml_blueprint(page_num: int, layout, questions: list[dict]) -> str:
                 })
         doc["subpages"] = subpages
 
+    from xscore.marking.blueprints import _clean_text
     for q in questions:
         entry: dict = {
             "number": str(q.get("number", "")),
@@ -57,13 +58,13 @@ def _build_yaml_blueprint(page_num: int, layout, questions: list[dict]) -> str:
             "order_in_subpage": int(q.get("order_in_subpage", 1)),
             "max_marks": int(q.get("max_marks", 0)),
             "correct_answer": str(q.get("correct_answer") or ""),
-            "text": str(q.get("question_text", "")),
+            "text": _clean_text(str(q.get("question_text", ""))),
             "criteria": [
-                {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", ""))}
+                {"mark": str(c.get("mark", "")), "criterion": _clean_text(str(c.get("criterion", "")))}
                 for c in (q.get("mark_scheme") or [])
             ],
             "options": [
-                {"letter": str(o.get("letter", "")), "text": str(o.get("text", ""))}
+                {"letter": str(o.get("letter", "")), "text": _clean_text(str(o.get("text", "")))}
                 for o in (q.get("answer_options") or [])
             ],
             "student_answer": "",
