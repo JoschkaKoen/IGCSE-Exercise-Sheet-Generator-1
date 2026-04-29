@@ -13,8 +13,10 @@ from pydantic import BaseModel
 
 from eXercise.ai_client import parse_model_spec
 from xscore.config import (
+    DETECT_EXAM_SCAFFOLD_MODEL,
     DETECT_LAYOUT_MODEL,
     DETECT_SCHEME_GRAPHICS_MODEL,
+    FILL_EXAM_SCAFFOLD_MODEL,
     READ_EXAM_PDF_MODEL,
     READ_MARK_SCHEME_MODEL,
 )
@@ -59,6 +61,14 @@ def _exam_pdf_model_config() -> tuple[str, int | None, int | None]:
     return parse_model_spec(READ_EXAM_PDF_MODEL)
 
 
+def _detect_scaffold_model_config() -> tuple[str, int | None, int | None]:
+    return parse_model_spec(DETECT_EXAM_SCAFFOLD_MODEL)
+
+
+def _fill_scaffold_model_config() -> tuple[str, int | None, int | None]:
+    return parse_model_spec(FILL_EXAM_SCAFFOLD_MODEL)
+
+
 def _mark_scheme_model_config() -> tuple[str, int | None, int | None]:
     return parse_model_spec(READ_MARK_SCHEME_MODEL)
 
@@ -80,6 +90,7 @@ def _detect_scheme_graphics_model_config() -> tuple[str, int | None, int | None]
 # preserving the pre-refactor module-level API. Combined .md files use
 # section= to extract the role-specific portion.
 _USER_EXAM = _load_prompt("parse_exam_pdf_xml", section="user")[1]
+_USER_SCAFFOLD = _load_prompt("detect_exam_scaffold_xml", section="user")[1]
 _USER_GRAPHICS = _load_prompt("detect_mark_scheme_graphics", section="user")[1]
 _SYSTEM_LAYOUT = _load_prompt("detect_exam_layout", section="system")[1]
 _USER_LAYOUT = _load_prompt("detect_exam_layout", section="user")[1]
@@ -105,6 +116,30 @@ def make_system_exam_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
     ``\\begin{alltt}`` for code in question text and MCQ options.
 
     *prompt_name* is one of ``"parse_exam_pdf_xml"`` / ``"_yaml"`` / ``"_json"``.
+    """
+    base = _load_prompt(prompt_name, section="system")[1]
+    if is_cs:
+        code = _load_prompt(prompt_name, section="code_formatting")[1]
+        return base + "\n\n" + code.rstrip("\n")
+    return base
+
+
+def make_system_scaffold_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
+    """Load the SYSTEM section of a detect-scaffold prompt.
+
+    *is_cs* is accepted for symmetry but ignored — the scaffold-detect phase
+    does not extract question text, so CODE_FORMATTING is irrelevant.
+
+    *prompt_name* is one of ``"detect_exam_scaffold_xml"`` / ``"_yaml"`` / ``"_json"``.
+    """
+    return _load_prompt(prompt_name, section="system")[1]
+
+
+def make_system_fill_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
+    """Load the SYSTEM section of a fill-scaffold prompt; if ``is_cs`` also
+    append the CODE_FORMATTING section.
+
+    *prompt_name* is one of ``"fill_exam_scaffold_xml"`` / ``"_yaml"`` / ``"_json"``.
     """
     base = _load_prompt(prompt_name, section="system")[1]
     if is_cs:
@@ -194,6 +229,84 @@ def _build_user_exam_prompt(
         '- <option letter="A">text</option>: for multiple_choice only — one per answer option\n'
         "- child <question> elements for any sub-questions\n\n"
         "In XML text content use &lt; for <, &gt; for >, &amp; for &.\n"
+    )
+
+    return header + common_tail
+
+
+def _build_user_scaffold_prompt(
+    layout_result: "_LayoutDetectSchema | None",
+    is_split: bool,
+    n_split_pages: int,
+) -> str:
+    """Build the detect-scaffold user prompt — like ``_build_user_exam_prompt``
+    but the per-question schema in the tail drops ``<text>`` and ``<option>``
+    (the fill phase produces those).
+
+    Falls back to ``_USER_SCAFFOLD`` (which asks the AI to detect the layout)
+    when *layout_result* is None.
+    """
+    if layout_result is None:
+        return _USER_SCAFFOLD
+
+    if is_split:
+        rows, cols = layout_result.rows, layout_result.cols
+        order = layout_result.reading_order or [
+            [r + 1, c + 1] for r in range(rows) for c in range(cols)
+        ]
+        cells = len(order)
+        order_labels = [_QUAD.get((rc[0], rc[1]), f"r{rc[0]}c{rc[1]}") for rc in order]
+        reading_order_str = " → ".join(order_labels)
+
+        mapping_lines = []
+        for split_p in range(1, n_split_pages + 1):
+            phys = (split_p - 1) // cells + 1
+            rc = order[(split_p - 1) % cells]
+            label = _QUAD.get((rc[0], rc[1]), f"row {rc[0]} col {rc[1]}")
+            mapping_lines.append(
+                f"  PDF page {split_p} → "
+                f"page=\"{phys}\" subpage_row=\"{rc[0]}\" subpage_col=\"{rc[1]}\" ({label})"
+            )
+        mapping = "\n".join(mapping_lines)
+
+        header = (
+            f"The layout of this exam has already been detected: "
+            f"{rows}×{cols} grid, reading order: {reading_order_str}.\n"
+            f"This PDF has been pre-split into {n_split_pages} individual sub-pages "
+            f"(one per PDF page).\n\n"
+            "Return ONLY well-formed XML, no markdown fences or other text outside the XML.\n\n"
+            f'Set the root element as: <exam rows="{rows}" cols="{cols}">\n\n'
+            "Use this mapping to set page, subpage_row, and subpage_col for each question\n"
+            "based on which PDF page the question physically appears on:\n"
+            f"{mapping}\n\n"
+        )
+        page_desc      = "exam page from the mapping above"
+        subpage_r_desc = "subpage_row from the mapping above"
+        subpage_c_desc = "subpage_col from the mapping above"
+    else:
+        header = (
+            "The layout of this exam has already been detected: 1×1 (one sub-page per page).\n\n"
+            "Return ONLY well-formed XML, no markdown fences or other text outside the XML.\n\n"
+            'Set the root element as: <exam rows="1" cols="1">\n\n'
+            'Set subpage_row="1" and subpage_col="1" for every question.\n\n'
+        )
+        page_desc      = "1-based page number where this question first appears"
+        subpage_r_desc = "always 1"
+        subpage_c_desc = "always 1"
+
+    common_tail = (
+        "List every question and sub-question at every nesting level as <question> elements.\n"
+        "Nested sub-questions are child <question> elements inside their parent.\n\n"
+        "Each <question> must have these attributes:\n"
+        '- number: the label as printed, run-together — "9", then "9a", then "9ai"'
+        " (no parentheses or spaces)\n"
+        "- type: one of multiple_choice | short_answer | calculation | long_answer\n"
+        f"- page: {page_desc}\n"
+        f"- subpage_row: {subpage_r_desc}\n"
+        f"- subpage_col: {subpage_c_desc}\n"
+        "- marks: integer mark allocation from [N] brackets; 0 if not printed\n\n"
+        "**Do NOT include <text> or <option> elements.** Only structural metadata.\n"
+        "Each <question> may contain only child <question> elements for sub-questions.\n"
     )
 
     return header + common_tail

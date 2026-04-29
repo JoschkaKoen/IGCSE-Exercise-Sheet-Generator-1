@@ -59,6 +59,42 @@ class _SchemeResponse(BaseModel):
 _SCHEME_JSON_SCHEMA = _SchemeResponse.model_json_schema()
 
 
+# Detect-scaffold (phase A) — number/type/page/subpage/marks + nested. NO text, NO options.
+
+class _ScaffoldSubNode(BaseModel):
+    number: str
+    type: Literal["multiple_choice", "short_answer", "calculation", "long_answer"] = "short_answer"
+    page: int = 1
+    subpage_row: int = 1
+    subpage_col: int = 1
+    marks: int = 0
+
+
+class _ScaffoldNode(_ScaffoldSubNode):
+    subquestions: list[_ScaffoldSubNode] = []
+
+
+class _ScaffoldResponse(BaseModel):
+    rows: int = 1
+    cols: int = 1
+    questions: list[_ScaffoldNode]
+
+
+# Fill (phase B) — flat list of {number, text, options}.
+
+class _FillEntry(BaseModel):
+    number: str
+    text: str = ""
+    options: list[_McOption] = []
+
+
+class _FillResponse(BaseModel):
+    questions: list[_FillEntry]
+
+
+_FILL_JSON_SCHEMA = _FillResponse.model_json_schema()
+
+
 from xscore.shared.response_parsing import strip_code_fences as _strip_fences  # noqa: E402
 
 
@@ -71,6 +107,14 @@ class JsonScaffoldFormat(ScaffoldFormat):
     def system_scheme_prompt(self, is_cs: bool = False) -> str:
         from xscore.scaffold.scaffold_prompts import make_system_scheme_prompt
         return make_system_scheme_prompt("parse_mark_scheme_json", is_cs=is_cs)
+
+    def system_scaffold_prompt(self, is_cs: bool = False) -> str:
+        from xscore.scaffold.scaffold_prompts import make_system_scaffold_prompt
+        return make_system_scaffold_prompt("detect_exam_scaffold_json", is_cs=is_cs)
+
+    def system_fill_prompt(self, is_cs: bool = False) -> str:
+        from xscore.scaffold.scaffold_prompts import make_system_fill_prompt
+        return make_system_fill_prompt("fill_exam_scaffold_json", is_cs=is_cs)
 
     def build_exam_prompt(self, layout_result, is_split: bool, n_split_pages: int) -> str:
         user_exam = load_prompt("parse_exam_pdf_json", section="user")[1]
@@ -167,11 +211,107 @@ class JsonScaffoldFormat(ScaffoldFormat):
         }
         return json.dumps(doc, ensure_ascii=False, indent=2)
 
+    # ---- detect-scaffold (phase A) -----------------------------------------
+
+    def build_scaffold_user_msg(
+        self, layout_result, is_split: bool, n_split_pages: int,
+    ) -> str:
+        user_msg = load_prompt("detect_exam_scaffold_json", section="user")[1]
+        if layout_result is None:
+            return user_msg
+        rows, cols = layout_result.rows, layout_result.cols
+        header = (
+            f"Layout: {rows}×{cols} grid. "
+            + (f"PDF pre-split into {n_split_pages} sub-pages.\n\n" if is_split else "\n\n")
+        )
+        return header + user_msg
+
+    def parse_scaffold_response(self, raw: str) -> tuple[list[dict], dict]:
+        try:
+            data = json.loads(_strip_fences(raw))
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(f"Scaffold JSON parse error: {exc}") from exc
+        layout = {"rows": int(data.get("rows", 1)), "cols": int(data.get("cols", 1))}
+        nodes = [
+            _parse_json_scaffold_node(q)
+            for q in data.get("questions", [])
+            if isinstance(q, dict)
+        ]
+        return nodes, layout
+
+    def serialize_scaffold(self, nodes: list[dict], layout: dict) -> str:
+        doc = {
+            "rows": layout.get("rows", 1),
+            "cols": layout.get("cols", 1),
+            "questions": [_scaffold_node_to_json_dict(n) for n in nodes],
+        }
+        return json.dumps(doc, ensure_ascii=False, indent=2)
+
+    # ---- fill (phase B) -----------------------------------------------------
+
+    def build_fill_stub(self, filtered_nodes: list[dict]) -> str:
+        return json.dumps(
+            [
+                {
+                    "number": str(n.get("number", "")),
+                    "type": str(n.get("question_type", "short_answer")),
+                }
+                for n in filtered_nodes
+            ],
+            ensure_ascii=False, indent=2,
+        )
+
+    def build_fill_user_msg(
+        self, stub_str: str, page_num: int, n_pages: int,
+        expected_qnums: list[str], input_label: str = "PDF",
+    ) -> str:
+        page_note = (
+            f"\n\nNote: the {input_label} you receive contains only page {page_num} of {n_pages} "
+            f"of the exam. Expected question numbers on this page: "
+            + (", ".join(f'"{q}"' for q in expected_qnums) or "(none)")
+            + "."
+        )
+        return load_prompt(
+            "fill_exam_scaffold_json", section="user", scaffold=stub_str,
+        )[1] + page_note
+
+    def parse_fill_response(self, raw: str) -> list[dict]:
+        try:
+            data = json.loads(_strip_fences(raw))
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(f"Fill JSON parse error: {exc}") from exc
+        if isinstance(data, dict):
+            entries = data.get("questions") or []
+        elif isinstance(data, list):
+            entries = data
+        else:
+            return []
+        out: list[dict] = []
+        for q in entries:
+            if not isinstance(q, dict):
+                continue
+            out.append({
+                "number":  str(q.get("number", "")),
+                "text":    str(q.get("text", "")).strip(),
+                "options": [
+                    {"letter": str(o.get("letter", "")), "text": str(o.get("text", "")).strip()}
+                    for o in (q.get("options") or [])
+                    if isinstance(o, dict)
+                ],
+            })
+        return out
+
     def pydantic_schema_exam(self):
         return _ExamResponse
 
     def pydantic_schema_scheme(self):
         return _SchemeResponse
+
+    def pydantic_schema_scaffold(self):
+        return _ScaffoldResponse
+
+    def pydantic_schema_fill(self):
+        return _FillResponse
 
     def scheme_oa_extra_kwargs(self, model: str) -> dict:
         # Mark-scheme parsing uses a system message, so on providers that
@@ -201,6 +341,39 @@ class JsonScaffoldFormat(ScaffoldFormat):
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
+def _parse_json_scaffold_node(q: dict) -> dict:
+    """Parse a detect-scaffold JSON node — text/options forced empty."""
+    return {
+        "number":        str(q.get("number", "")),
+        "question_type": str(q.get("type", "short_answer")),
+        "page":          int(q.get("page", 1)),
+        "subpage_row":   int(q.get("subpage_row", 1)),
+        "subpage_col":   int(q.get("subpage_col", 1)),
+        "marks":         int(q.get("marks", 0)),
+        "text":          "",
+        "answer_options": [],
+        "subquestions": [
+            _parse_json_scaffold_node(s) for s in (q.get("subquestions") or [])
+            if isinstance(s, dict)
+        ],
+    }
+
+
+def _scaffold_node_to_json_dict(q: dict) -> dict:
+    entry: dict = {
+        "number":      str(q.get("number", "")),
+        "type":        str(q.get("question_type", "short_answer")),
+        "page":        int(q.get("page", 1)),
+        "subpage_row": int(q.get("subpage_row", 1)),
+        "subpage_col": int(q.get("subpage_col", 1)),
+        "marks":       int(q.get("marks", 0)),
+    }
+    subs = q.get("subquestions") or []
+    if subs:
+        entry["subquestions"] = [_scaffold_node_to_json_dict(s) for s in subs]
+    return entry
+
 
 def _parse_json_question(q: dict) -> dict:
     return {

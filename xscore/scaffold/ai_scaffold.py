@@ -29,7 +29,8 @@ from pathlib import Path
 from eXercise.ai_client import make_gemini_native_client
 
 from xscore.scaffold.formats import get_scaffold_format
-from xscore.scaffold.scaffold_step18_exam import _do_exam_call
+from xscore.scaffold.scaffold_step18_detect import detect_exam_scaffold
+from xscore.scaffold.scaffold_step18_fill import fill_exam_scaffold
 from xscore.scaffold.scaffold_step19_graphics import detect_scheme_graphics
 from xscore.scaffold.scaffold_step20_pages import assign_questions_to_pages
 from xscore.scaffold.scaffold_step21_scheme import parse_mark_scheme_pages
@@ -41,7 +42,8 @@ from xscore.scaffold.scaffold_layout import (
 from xscore.scaffold.scaffold_prompts import (
     _SYSTEM_LAYOUT,
     _USER_LAYOUT,
-    _exam_pdf_model_config,
+    _detect_scaffold_model_config,
+    _fill_scaffold_model_config,
     _layout_detect_model_config,
     _mark_scheme_model_config,
 )
@@ -54,12 +56,13 @@ from xscore.shared.exam_paths import (
     artifact_exam_input_pdf_path,
     artifact_exam_layout_raw_path,
     artifact_exam_questions_path,
+    artifact_exam_scaffold_path,
     artifact_scaffold_prompt_path,
     artifact_split_exam_pdf_path,
 )
 from xscore.shared.models import ExamLayout, Question
 from xscore.shared.prompt_logger import save_prompt, save_response
-from xscore.shared.terminal_ui import ok_line, tool_line, warn_line
+from xscore.shared.terminal_ui import info_line, ok_line, tool_line, warn_line
 
 
 # ---------------------------------------------------------------------------
@@ -210,23 +213,35 @@ def step18_parse_exam_pdf(
     fmt=None,
     is_cs: bool = False,
 ) -> tuple[list[dict], dict]:
-    """Parse the exam PDF into a question hierarchy via Gemini.
+    """Parse the exam PDF into a question hierarchy. Internally split into
+    two phases:
 
-    Returns ``(raw_questions, raw_layout)`` as produced by ``_do_exam_call``.
-    Writes ``17_parse_exam_pdf/exam_questions.{json,xml}`` and the raw response.
+    A. ``detect_exam_scaffold`` — one cheap call returns ``number/type/page/
+       subpage/marks`` (no text). Uses ``DETECT_EXAM_SCAFFOLD_MODEL``.
+    B. ``fill_exam_scaffold`` — per-page parallel calls populate ``text`` and
+       ``options`` for each question on each page. Uses
+       ``FILL_EXAM_SCAFFOLD_MODEL`` (falls back to ``READ_EXAM_PDF_MODEL``).
 
-    *is_cs* gates the CODE_FORMATTING section of the system prompt — see
-    ``xscore.shared.exam_paths.is_cs_exam`` and the parallel step-21 wiring.
+    Writes ``18_parse_exam_pdf/exam_scaffold.{ext}`` (intermediate, no text)
+    and ``18_parse_exam_pdf/exam_questions.{ext}`` (final, with text).
+
+    Returns ``(raw_questions, raw_layout)`` matching the legacy single-call
+    contract — same shape every downstream consumer (steps 19–22) expects.
+
+    *is_cs* gates the CODE_FORMATTING section in the fill phase's system
+    prompt (the detect phase does not extract text and ignores ``is_cs``).
     """
     if fmt is None:
         fmt = get_scaffold_format()
-    exam_model, exam_thinking, exam_max_tokens = _exam_pdf_model_config()
 
-    raw_questions, raw_layout = _do_exam_call(
+    # --- Phase A — detect scaffold (cheap; structure only) ------------------
+    detect_model, detect_thinking, detect_max_tokens = _detect_scaffold_model_config()
+    info_line(f"Detect scaffold ({detect_model}) …")
+    scaffold_nodes, raw_layout = detect_exam_scaffold(
         client,
-        exam_model,
-        exam_thinking,
-        exam_max_tokens,
+        detect_model,
+        detect_thinking,
+        detect_max_tokens,
         actual_exam_pdf=actual_exam_pdf,
         layout_result=layout_result,
         split_pdf_path=split_pdf_path,
@@ -236,9 +251,34 @@ def step18_parse_exam_pdf(
         is_cs=is_cs,
     )
 
-    # Use pre-detected layout (ignore raw_layout from extraction response in split mode).
+    # Use pre-detected layout (ignore raw_layout from the detect response in split mode).
     if layout_result is not None:
         raw_layout = {"rows": layout_result.rows, "cols": layout_result.cols}
+
+    if artifact_dir is not None:
+        try:
+            p = artifact_exam_scaffold_path(artifact_dir, fmt=fmt.artifact_ext())
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(
+                fmt.serialize_scaffold(scaffold_nodes, raw_layout), encoding="utf-8",
+            )
+        except OSError as e:
+            warn_line(f"Could not save exam_scaffold artifact: {e}")
+    ok_line(f"{len(scaffold_nodes)} top-level questions identified")
+
+    # --- Phase B — per-page parallel fill -----------------------------------
+    fill_model, fill_thinking, fill_max_tokens = _fill_scaffold_model_config()
+    raw_questions = fill_exam_scaffold(
+        client,
+        fill_model,
+        fill_thinking,
+        fill_max_tokens,
+        actual_exam_pdf=actual_exam_pdf,
+        scaffold_nodes=scaffold_nodes,
+        artifact_dir=artifact_dir,
+        fmt=fmt,
+        is_cs=is_cs,
+    )
 
     if artifact_dir is not None:
         try:
@@ -250,7 +290,6 @@ def step18_parse_exam_pdf(
         except OSError as e:
             warn_line(f"Could not save exam questions artifacts: {e}")
 
-    ok_line(f"{len(raw_questions)} top-level questions extracted")
     return raw_questions, raw_layout
 
 

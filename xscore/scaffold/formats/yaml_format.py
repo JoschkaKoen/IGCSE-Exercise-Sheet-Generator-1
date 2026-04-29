@@ -122,6 +122,93 @@ def _load_scheme_yaml_recovering(text: str):
     raise RuntimeError("Mark scheme YAML parse error: too many recovery attempts")
 
 
+def _build_user_scaffold_prompt_yaml(
+    layout_result, is_split: bool, n_split_pages: int,
+) -> str:
+    """YAML-adapted detect-scaffold user prompt — like
+    ``_build_user_exam_prompt_yaml`` but the per-question schema in the tail
+    drops ``text`` and ``options``."""
+    _QUAD = {
+        (1, 1): "top-left", (1, 2): "top-right",
+        (2, 1): "bottom-left", (2, 2): "bottom-right",
+    }
+
+    if layout_result is None:
+        return (
+            "Return ONLY well-formed YAML, no markdown fences or other text outside the YAML.\n\n"
+            "List every question and sub-question as a YAML document with structure:\n"
+            "  rows: <int>\n  cols: <int>\n  questions:\n    - number: ...\n      ...\n\n"
+            + _common_tail_scaffold_yaml("1-based page number", "1", "1")
+        )
+
+    rows, cols = layout_result.rows, layout_result.cols
+
+    if is_split:
+        order = layout_result.reading_order or [
+            [r + 1, c + 1] for r in range(rows) for c in range(cols)
+        ]
+        cells = len(order)
+        order_labels = [_QUAD.get((rc[0], rc[1]), f"r{rc[0]}c{rc[1]}") for rc in order]
+        reading_order_str = " → ".join(order_labels)
+        mapping_lines = []
+        for split_p in range(1, n_split_pages + 1):
+            phys = (split_p - 1) // cells + 1
+            rc = order[(split_p - 1) % cells]
+            label = _QUAD.get((rc[0], rc[1]), f"row {rc[0]} col {rc[1]}")
+            mapping_lines.append(
+                f"  PDF page {split_p} → page: {phys}  subpage_row: {rc[0]}  "
+                f"subpage_col: {rc[1]}  ({label})"
+            )
+        mapping = "\n".join(mapping_lines)
+        header = (
+            f"The layout of this exam has already been detected: "
+            f"{rows}×{cols} grid, reading order: {reading_order_str}.\n"
+            f"This PDF has been pre-split into {n_split_pages} individual sub-pages.\n\n"
+            "Return ONLY well-formed YAML, no markdown fences or other text outside the YAML.\n\n"
+            f"Set root keys rows: {rows}  cols: {cols}\n\n"
+            "Use this mapping to set page, subpage_row, and subpage_col for each question:\n"
+            f"{mapping}\n\n"
+        )
+        page_desc      = "page number from the mapping above"
+        subpage_r_desc = "subpage_row from the mapping above"
+        subpage_c_desc = "subpage_col from the mapping above"
+    else:
+        header = (
+            "The layout of this exam has already been detected: 1×1.\n\n"
+            "Return ONLY well-formed YAML, no markdown fences or other text outside the YAML.\n\n"
+            "Set root keys rows: 1  cols: 1\n"
+            "Set subpage_row: 1 and subpage_col: 1 for every question.\n\n"
+        )
+        page_desc      = "1-based page number where this question first appears"
+        subpage_r_desc = "always 1"
+        subpage_c_desc = "always 1"
+
+    return header + _common_tail_scaffold_yaml(page_desc, subpage_r_desc, subpage_c_desc)
+
+
+def _common_tail_scaffold_yaml(
+    page_desc: str, subpage_r_desc: str, subpage_c_desc: str,
+) -> str:
+    return (
+        "List every question and sub-question at every nesting level.\n"
+        "Use this YAML structure:\n"
+        "  rows: <int>\n"
+        "  cols: <int>\n"
+        "  questions:\n"
+        "    - number: \"9\"          # label as printed, run-together; no parentheses\n"
+        "      type: short_answer    # multiple_choice | short_answer | calculation | long_answer\n"
+        f"      page: <int>          # {page_desc}\n"
+        f"      subpage_row: <int>   # {subpage_r_desc}\n"
+        f"      subpage_col: <int>   # {subpage_c_desc}\n"
+        "      marks: <int>          # integer from [N] brackets; 0 if not printed\n"
+        "      subquestions:\n"
+        "        - number: \"9a\"\n"
+        "          ...\n"
+        "Nested sub-questions go under `subquestions` of their parent.\n"
+        "**Do NOT include `text` or `options` keys.** Structural metadata only.\n"
+    )
+
+
 def _build_user_exam_prompt_yaml(layout_result, is_split: bool, n_split_pages: int) -> str:
     """YAML-adapted version of _build_user_exam_prompt."""
     _QUAD = {
@@ -217,6 +304,14 @@ class YamlScaffoldFormat(ScaffoldFormat):
     def system_scheme_prompt(self, is_cs: bool = False) -> str:
         from xscore.scaffold.scaffold_prompts import make_system_scheme_prompt
         return make_system_scheme_prompt("parse_mark_scheme_yaml", is_cs=is_cs)
+
+    def system_scaffold_prompt(self, is_cs: bool = False) -> str:
+        from xscore.scaffold.scaffold_prompts import make_system_scaffold_prompt
+        return make_system_scaffold_prompt("detect_exam_scaffold_yaml", is_cs=is_cs)
+
+    def system_fill_prompt(self, is_cs: bool = False) -> str:
+        from xscore.scaffold.scaffold_prompts import make_system_fill_prompt
+        return make_system_fill_prompt("fill_exam_scaffold_yaml", is_cs=is_cs)
 
     def build_exam_prompt(self, layout_result, is_split: bool, n_split_pages: int) -> str:
         return _build_user_exam_prompt_yaml(layout_result, is_split, n_split_pages)
@@ -320,6 +415,97 @@ class YamlScaffoldFormat(ScaffoldFormat):
             sort_keys=False,
         )
 
+    # ---- detect-scaffold (phase A) -----------------------------------------
+
+    def build_scaffold_user_msg(
+        self, layout_result, is_split: bool, n_split_pages: int,
+    ) -> str:
+        return _build_user_scaffold_prompt_yaml(layout_result, is_split, n_split_pages)
+
+    def parse_scaffold_response(self, raw: str) -> tuple[list[dict], dict]:
+        try:
+            data = yaml.safe_load(_strip_fences(raw))
+        except yaml.YAMLError as exc:
+            raise RuntimeError(f"Scaffold YAML parse error: {exc}") from exc
+        if not isinstance(data, dict):
+            raise RuntimeError(
+                f"Scaffold YAML: expected a mapping, got {type(data).__name__}"
+            )
+        layout = {
+            "rows": int(data.get("rows", 1)),
+            "cols": int(data.get("cols", 1)),
+        }
+        nodes = [
+            _parse_yaml_scaffold_node(q)
+            for q in data.get("questions", [])
+            if isinstance(q, dict)
+        ]
+        return nodes, layout
+
+    def serialize_scaffold(self, nodes: list[dict], layout: dict) -> str:
+        doc = {
+            "rows": layout.get("rows", 1),
+            "cols": layout.get("cols", 1),
+            "questions": [_scaffold_node_to_yaml_dict(n) for n in nodes],
+        }
+        return yaml.dump(
+            doc, Dumper=_ScaffoldDumper,
+            allow_unicode=True, default_flow_style=False,
+            sort_keys=False,
+        )
+
+    # ---- fill (phase B) -----------------------------------------------------
+
+    def build_fill_stub(self, filtered_nodes: list[dict]) -> str:
+        lines = []
+        for n in filtered_nodes:
+            num = str(n.get("number", ""))
+            qt = str(n.get("question_type", "short_answer"))
+            lines.append(f'  - number: "{num}"')
+            lines.append(f"    type: {qt}")
+            lines.append("    text: \"\"")
+        return "\n".join(lines)
+
+    def build_fill_user_msg(
+        self, stub_str: str, page_num: int, n_pages: int,
+        expected_qnums: list[str], input_label: str = "PDF",
+    ) -> str:
+        page_note = (
+            f"\n\nNote: the {input_label} you receive contains only page {page_num} of {n_pages} "
+            f"of the exam. Expected question numbers on this page: "
+            + (", ".join(f'"{q}"' for q in expected_qnums) or "(none)")
+            + "."
+        )
+        return load_prompt(
+            "fill_exam_scaffold_yaml", section="user", scaffold=stub_str,
+        )[1] + page_note
+
+    def parse_fill_response(self, raw: str) -> list[dict]:
+        try:
+            data = yaml.safe_load(_strip_fences(raw))
+        except yaml.YAMLError as exc:
+            raise RuntimeError(f"Fill YAML parse error: {exc}") from exc
+        if isinstance(data, dict):
+            entries = data.get("questions") or []
+        elif isinstance(data, list):
+            entries = data
+        else:
+            return []
+        out: list[dict] = []
+        for q in entries:
+            if not isinstance(q, dict):
+                continue
+            out.append({
+                "number":  str(q.get("number", "")),
+                "text":    str(q.get("text", "")).strip(),
+                "options": [
+                    {"letter": str(o.get("letter", "")), "text": str(o.get("text", "")).strip()}
+                    for o in (q.get("options") or [])
+                    if isinstance(o, dict)
+                ],
+            })
+        return out
+
     def artifact_ext(self) -> str:
         return "yaml"
 
@@ -347,6 +533,42 @@ def _parse_yaml_question(q: dict) -> dict:
             if isinstance(s, dict)
         ],
     }
+
+
+def _parse_yaml_scaffold_node(q: dict) -> dict:
+    """Parse a detect-scaffold YAML node — same shape as the exam parser but
+    text/options are forced empty (the model is instructed not to emit them;
+    this defends against accidental emission)."""
+    return {
+        "number":        str(q.get("number", "")),
+        "question_type": str(q.get("type", "short_answer")),
+        "page":          int(q.get("page", 1)),
+        "subpage_row":   int(q.get("subpage_row", 1)),
+        "subpage_col":   int(q.get("subpage_col", 1)),
+        "marks":         int(q.get("marks", 0)),
+        "text":          "",
+        "answer_options": [],
+        "subquestions": [
+            _parse_yaml_scaffold_node(s) for s in (q.get("subquestions") or [])
+            if isinstance(s, dict)
+        ],
+    }
+
+
+def _scaffold_node_to_yaml_dict(q: dict) -> dict:
+    """Serialise a scaffold node — drops text/options for a clean artifact."""
+    entry: dict = {
+        "number":      str(q.get("number", "")),
+        "type":        str(q.get("question_type", "short_answer")),
+        "page":        int(q.get("page", 1)),
+        "subpage_row": int(q.get("subpage_row", 1)),
+        "subpage_col": int(q.get("subpage_col", 1)),
+        "marks":       int(q.get("marks", 0)),
+    }
+    subs = q.get("subquestions") or []
+    if subs:
+        entry["subquestions"] = [_scaffold_node_to_yaml_dict(s) for s in subs]
+    return entry
 
 
 def _exam_q_to_yaml_dict(q: dict) -> dict:

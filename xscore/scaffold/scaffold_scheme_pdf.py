@@ -6,6 +6,7 @@ import os
 import re
 from pathlib import Path
 
+from xscore.scaffold.scaffold_pdf_split import split_pdf_into_pages
 from xscore.shared.exam_paths import artifact_mark_scheme_pages_dir
 
 
@@ -17,30 +18,10 @@ def split_mark_scheme_into_pages(
     Returns ``(n_pages, page_paths, tmp_dir)``. ``tmp_dir`` is non-None only when
     ``artifact_dir`` is None (caller is responsible for cleanup).
     """
-    import fitz
-
-    _tmp_dir: Path | None = None
-    if artifact_dir is not None:
-        pages_dir = artifact_mark_scheme_pages_dir(artifact_dir)
-    else:
-        import tempfile
-        _tmp_dir = Path(tempfile.mkdtemp())
-        pages_dir = _tmp_dir
-    pages_dir.mkdir(parents=True, exist_ok=True)
-
-    page_paths: list[Path] = []
-    with fitz.open(str(marking_scheme_pdf)) as _doc:
-        n_pages = _doc.page_count
-        for _i in range(n_pages):
-            _out_path = pages_dir / f"page_{_i + 1}.pdf"
-            _out = fitz.open()
-            try:
-                _out.insert_pdf(_doc, from_page=_i, to_page=_i)
-                _out.save(str(_out_path))
-            finally:
-                _out.close()
-            page_paths.append(_out_path)
-    return n_pages, page_paths, _tmp_dir
+    pages_dir = (
+        artifact_mark_scheme_pages_dir(artifact_dir) if artifact_dir is not None else None
+    )
+    return split_pdf_into_pages(marking_scheme_pdf, pages_dir)
 
 
 def _rasterize_scheme_pages(marking_scheme_pdf: Path, n_pages: int) -> dict[int, bytes]:

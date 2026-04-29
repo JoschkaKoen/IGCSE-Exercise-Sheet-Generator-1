@@ -188,7 +188,14 @@ def _break_alltt_long_lines(block: str, cell_width_cm: float = 3.6) -> str:
 # Stash these blocks before munging, restore byte-identically afterwards.
 _PROTECTED_ENV_NAMES = r"tabular\*?|array|pmatrix|bmatrix|cases|aligned"
 _ENV_BLOCK_RE = re.compile(
-    r"\\begin\{(" + _PROTECTED_ENV_NAMES + r")\}.*?\\end\{\1\}",
+    # Tempered token ``(?:(?!\\begin{\1}).)*?`` blocks the body from spanning
+    # a same-name nested ``\begin{NAME}``, so a self-nested env (tabular in
+    # tabular) matches innermost-first. Without it the non-greedy ``.*?``
+    # would match outer-begin..first-inner-end, mis-aligning boundaries that
+    # downstream restore + escape passes can't recover from.
+    r"\\begin\{(" + _PROTECTED_ENV_NAMES + r")\}"
+    r"(?:(?!\\begin\{\1\}).)*?"
+    r"\\end\{\1\}",
     re.DOTALL,
 )
 _ENV_PLACEHOLDER_RE = re.compile(r"\x00ENV(\d+)\x00")
@@ -350,8 +357,16 @@ def _protect_envs(text: str, transform) -> str:
 
     text = transform(text)
 
+    # Indices visible at top level here are the outermost-stashed blocks.
+    # Inner blocks live inside other stashed blocks and become visible only
+    # after their parent restore expands. Snapshot before restoring so the
+    # \par\addvspace wrap fires on outers only — \par inside a tabular cell
+    # breaks row alignment.
+    top_level = {m.group(1) for m in _ENV_PLACEHOLDER_RE.finditer(text)}
+
     def _restore(m: re.Match) -> str:
-        block = stashed[int(m.group(1))]
+        idx = m.group(1)
+        block = stashed[int(idx)]
         if block.startswith((r"\begin{tabular}", r"\begin{tabular*}")):
             # [t] sets the tabular's reference point to its top-row baseline
             # so the visible top of the first row aligns with the first
@@ -361,15 +376,22 @@ def _protect_envs(text: str, transform) -> str:
             # \arraystretch{1.6} keeps prose cells one stretched baseline
             # lower — the row-internal asymmetry the user flagged.
             # (?!\[) avoids double-injection if the AI already emitted an
-            # explicit alignment option.
+            # explicit alignment option. Inner tabulars get [t] too so their
+            # top row aligns with surrounding prose in the outer cell.
             block = re.sub(r"\\begin\{(tabular\*?)\}(?!\[)",
                            r"\\begin{\1}[t]", block, count=1)
-            block = "\\adjustbox{max width=\\linewidth}{" + block + "}"
-            sep = "{\\par\\addvspace{" + _TABULAR_VSPACE + "}}"
-            return sep + block + sep
+            if idx in top_level:
+                block = "\\adjustbox{max width=\\linewidth}{" + block + "}"
+                sep = "{\\par\\addvspace{" + _TABULAR_VSPACE + "}}"
+                return sep + block + sep
         return block
 
-    text = _ENV_PLACEHOLDER_RE.sub(_restore, text)
+    # Outer expansion exposes inner placeholders that re.sub won't re-scan.
+    # Cap mirrors the stash-side defensive cap; real depth is 2-3.
+    for _ in range(10):
+        if not _ENV_PLACEHOLDER_RE.search(text):
+            break
+        text = _ENV_PLACEHOLDER_RE.sub(_restore, text)
     # Wrapper provides the paragraph break + vspace; surrounding AI-emitted
     # ``\newline`` is now redundant. Match against the wrapper's literal
     # text (not ``\begin{tabular}``) since the wrapper sits between any

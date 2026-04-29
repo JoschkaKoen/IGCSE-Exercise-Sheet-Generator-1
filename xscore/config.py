@@ -205,6 +205,8 @@ def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = 
 _ai_default = os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash")
 
 READ_EXAM_PDF_MODEL: str = os.getenv("READ_EXAM_PDF_MODEL") or _ai_default
+DETECT_EXAM_SCAFFOLD_MODEL: str = os.getenv("DETECT_EXAM_SCAFFOLD_MODEL") or "gemini-3-flash-preview, 2048, 8192"
+FILL_EXAM_SCAFFOLD_MODEL: str = os.getenv("FILL_EXAM_SCAFFOLD_MODEL") or os.getenv("READ_EXAM_PDF_MODEL") or _ai_default
 READ_MARK_SCHEME_MODEL: str = os.getenv("READ_MARK_SCHEME_MODEL") or _ai_default
 DETECT_LAYOUT_MODEL: str = os.getenv("DETECT_LAYOUT_MODEL") or "gemini-2.5-flash, low"
 DETECT_SCHEME_GRAPHICS_MODEL: str = os.getenv("DETECT_SCHEME_GRAPHICS_MODEL") or "gemini-2.5-flash, off"

@@ -1,8 +1,8 @@
 """Factory for the active scaffold format.
 
 Call ``get_scaffold_format()`` once per pipeline invocation and pass the
-instance to ``_do_exam_call``, ``detect_scheme_graphics``, and
-``parse_mark_scheme_pages``.
+instance to ``detect_exam_scaffold``, ``fill_exam_scaffold``,
+``detect_scheme_graphics``, and ``parse_mark_scheme_pages``.
 """
 
 from __future__ import annotations

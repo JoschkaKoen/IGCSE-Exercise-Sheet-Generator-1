@@ -41,52 +41,70 @@ The student used continuation pages for additional writing. All pages are includ
 
 ## CODE_FORMATTING
 
-This exam contains code and pseudocode. Student answers and your explanations must render code in monospace.
+This exam has code and pseudocode. Format student answers and your explanations so code shows in monospace (typewriter-style font):
 
-A `student_answer` whose content is pseudocode (or any multi-line code) MUST be a single \begin{alltt}…\end{alltt} block — even when the field's value is a YAML block scalar. Bare multi-line pseudocode renders as prose paragraphs in the PDF regardless of how it was emitted (\newline separators and YAML block-scalar literal newlines both round-trip into the same prose form), defeating the monospace formatting.
+- **Code or pseudocode answer** — wrap the whole answer in \begin{alltt}…\end{alltt}. Put \begin{alltt} and \end{alltt} on their own lines, with code lines in between separated by real newlines (no \newline, no \\). Even a single line of code (e.g. "DECLARE x : INTEGER", "P <- UCASE(P)", "Counter <- Counter + 1") goes in \begin{alltt}…\end{alltt}.
 
-In the student_answer and explanation fields:
-- Wrap inline tokens in \texttt{...} whenever they appear in prose (in `student_answer` or `explanation`):
-  • Variable names: \texttt{Counter}, \texttt{AccDetails[AccID,1]}.
-  • Function/procedure calls: \texttt{UCASE(P)}, \texttt{CheckDetails(123)}.
-  • Pseudocode keywords used as narrative labels in English sentences — REPEAT, UNTIL, FOR, NEXT, ENDFOR, WHILE, ENDWHILE, IF, THEN, ELSE, ENDIF, CASE, OTHERWISE, ENDCASE, PROCEDURE, ENDPROCEDURE, FUNCTION, ENDFUNCTION, RETURN, RETURNS, DECLARE, CONSTANT, ARRAY, INPUT, OUTPUT, AND, OR, NOT, MOD, DIV, TRUE, FALSE, INTEGER, REAL, STRING, BOOLEAN, CHAR (non-exhaustive). Wrap each keyword separately, including when joined by `/`, `,`, or "and": write \texttt{REPEAT}/\texttt{UNTIL}, not \texttt{REPEAT/UNTIL}.
-  Examples:
-  – Prose "use a REPEAT/UNTIL loop instead of an IF check" → "use a \texttt{REPEAT}/\texttt{UNTIL} loop instead of an \texttt{IF} check".
-  – Prose "you need to add an ENDIF after the last branch" → "you need to add an \texttt{ENDIF} after the last branch".
-  This rule applies to keywords mentioned IN prose. A complete pseudocode STATEMENT (e.g. "DECLARE x : INTEGER" written as code, not as a reference to the keyword) goes inside \begin{alltt}…\end{alltt} per the next bullet — alltt for code statements, \texttt{} for inline keyword references.
-- Wrap multi-line code or pseudocode blocks in \begin{alltt}...\end{alltt} with real line breaks (literal newlines) between code lines. NEVER separate code lines with \newline (or with \\) — those are prose-paragraph and tabular-row separators; using either inside a code block defeats alltt and renders the lines in the body proportional font. Example — student writes the pseudocode answer:
-    DECLARE x : INTEGER
-    INPUT x
-    IF x > 0 THEN
-      OUTPUT "yes"
-    ENDIF
-  Correct transcription:
-    \begin{alltt}DECLARE x : INTEGER
-    INPUT x
-    IF x > 0 THEN
-      OUTPUT "yes"
-    ENDIF\end{alltt}
-  Wrong (renders as prose paragraphs, not monospace pseudocode):
-    DECLARE x : INTEGER\newline INPUT x\newline IF x > 0 THEN\newline   OUTPUT "yes"\newline ENDIF
-  Also wrong — a YAML block scalar of bare pseudocode looks fine in YAML but the
-  pipeline parses it into the same prose-paragraph form as above:
-    student_answer: |-
+  Example — student writes:
       DECLARE x : INTEGER
       INPUT x
       IF x > 0 THEN
         OUTPUT "yes"
       ENDIF
-- Even a single line like "DECLARE x : INTEGER", "P <- UCASE(P)", or "Counter <- Counter + 1" counts as code and must be wrapped.
-- For trace tables, truth tables, decision tables, and any column-aligned tabular data, use \begin{tabular}{|c|c|c|...|} with & separators between cells and \\ \hline between rows so the table renders with visible borders. Begin with \hline immediately after \begin{tabular}{...} for the top border, and ensure the final row's \\ \hline draws the bottom border. Do NOT use \begin{alltt} for tables — alltt aligns columns by counting spaces, which is unreliable when cells have unequal widths. Leave empty cells blank between &. Example for a partially-filled trace table with 8 columns:
-  \begin{tabular}{|c|c|c|c|c|c|c|c|}
-  \hline
-  F & C & X[1] & X[2] & X[3] & X[4] & X[5] & T \\ \hline
-  0 & 1 & 1    & 10   &      &      &      & 10 \\ \hline
-  1 & 2 &      & 5    & 10   &      &      & 10 \\ \hline
-  1 & 3 &      &      & 7    & 10   &      & 10 \\ \hline
-  1 & 4 &      &      &      &      &      &    \\ \hline
-  \end{tabular}
-- NEVER use \textbf{...} for code — bold is not monospace. Reserve \textbf{...} for emphasis on prose words.
-- The wrapper does not change the verbatim transcription; it only tells LaTeX to render the text in monospace.
+  Correct:
+      \begin{alltt}
+      DECLARE x : INTEGER
+      INPUT x
+      IF x > 0 THEN
+        OUTPUT "yes"
+      ENDIF
+      \end{alltt}
+  Wrong (renders as plain prose, not code):
+      DECLARE x : INTEGER\newline INPUT x\newline IF x > 0 THEN\newline   OUTPUT "yes"\newline ENDIF
+  Also wrong — a YAML block scalar of bare code (the pipeline still renders it as plain prose):
+      student_answer: |-
+        DECLARE x : INTEGER
+        INPUT x
+        IF x > 0 THEN
+          OUTPUT "yes"
+        ENDIF
 
-Inside \begin{alltt}...\end{alltt}: write code with literal newlines between lines; do NOT escape <, >, &, %, _, #, $; only escape { → \{, } → \}, backslash → \textbackslash{}.
+- **Prose answer** — use \newline between lines.
+
+- **Code words inside prose** — wrap each in \texttt{...}. This covers:
+  - Variable names: \texttt{Counter}, \texttt{AccDetails[AccID,1]}.
+  - Function/procedure calls: \texttt{UCASE(P)}, \texttt{CheckDetails(123)}.
+  - Pseudocode keywords mentioned in English sentences: REPEAT, UNTIL, FOR, NEXT, ENDFOR, WHILE, ENDWHILE, IF, THEN, ELSE, ENDIF, CASE, OTHERWISE, ENDCASE, PROCEDURE, ENDPROCEDURE, FUNCTION, ENDFUNCTION, RETURN, RETURNS, DECLARE, CONSTANT, ARRAY, INPUT, OUTPUT, AND, OR, NOT, MOD, DIV, TRUE, FALSE, INTEGER, REAL, STRING, BOOLEAN, CHAR (and similar).
+
+  Wrap each keyword on its own — \texttt{REPEAT}/\texttt{UNTIL}, not \texttt{REPEAT/UNTIL}.
+
+  Examples:
+  - "use a REPEAT/UNTIL loop instead of an IF check" → "use a \texttt{REPEAT}/\texttt{UNTIL} loop instead of an \texttt{IF} check".
+  - "you need to add an ENDIF after the last branch" → "you need to add an \texttt{ENDIF} after the last branch".
+
+- **Tables (trace tables, truth tables, decision tables, any column-aligned data)** — use a tabular block, not alltt. `&` between cells, `\\ \hline` between rows, `\hline` for borders. Empty cells stay blank between `&`. Don't use \begin{alltt} for tables — alltt aligns columns by counting spaces, which fails when cells have different widths.
+
+  Example — partially-filled trace table with 8 columns:
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      F & C & X[1] & X[2] & X[3] & X[4] & X[5] & T \\ \hline
+      0 & 1 & 1    & 10   &      &      &      & 10 \\ \hline
+      1 & 2 &      & 5    & 10   &      &      & 10 \\ \hline
+      1 & 3 &      &      & 7    & 10   &      & 10 \\ \hline
+      1 & 4 &      &      &      &      &      &    \\ \hline
+      \end{tabular}
+
+- **Don't use \textbf{...} for code.** Bold is not monospace. Save \textbf{...} for emphasis on prose words.
+
+- **YAML indentation must be consistent.** When a field is a YAML block scalar (`student_answer: |`), every line of the value — \begin{alltt}, code lines, \end{alltt}, blank lines — must be at the same YAML indent or greater than the first content line. If a line is dedented below that, YAML thinks the value ended there and the parse breaks. Don't vary YAML indents to align columns; put column alignment inside the alltt body where leading spaces are plain text.
+
+  Example — student adds two binary numbers vertically:
+      \begin{alltt}
+        0011 0011
+      + 0111 1000
+      -----------
+        1010 1011
+      \end{alltt}
+  Every line above is at the same YAML indent or greater. The `+` and the two-space alignment happen inside alltt, not via YAML.
+
+- **Inside \begin{alltt}…\end{alltt}:** write code with real newlines between lines. Do NOT escape `<`, `>`, `&`, `%`, `_`, `#`, `$`. Only escape `{` → `\{`, `}` → `\}`, backslash → `\textbackslash{}`.

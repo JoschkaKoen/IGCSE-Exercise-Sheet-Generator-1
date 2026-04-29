@@ -71,9 +71,14 @@ def step_17_cut(ctx: _Ctx) -> None:
 
 
 def step_18_parse_exam(ctx: _Ctx) -> None:
+    # Two AI phases — announce both models so the user sees what's running.
     announce_step_model(
-        model_env="READ_EXAM_PDF_MODEL",
-        legacy_model_env="AI_DEFAULT_MODEL",
+        model_env="DETECT_EXAM_SCAFFOLD_MODEL",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
+    announce_step_model(
+        model_env="FILL_EXAM_SCAFFOLD_MODEL",
+        legacy_model_env="READ_EXAM_PDF_MODEL",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     state = ctx.scaffold_state

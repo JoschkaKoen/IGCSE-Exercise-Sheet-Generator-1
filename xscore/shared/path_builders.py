@@ -338,6 +338,20 @@ def artifact_exam_questions_raw_path(artifact_dir: Path, fmt: str = "yaml") -> P
     return artifact_dir / STEP_18_PARSE_EXAM / f"exam_questions_raw.{fmt}"
 
 
+def artifact_exam_scaffold_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
+    """Intermediate scaffold (Phase A output) — number/type/page/subpage/marks, no text."""
+    return artifact_dir / STEP_18_PARSE_EXAM / f"exam_scaffold.{fmt}"
+
+
+def artifact_exam_scaffold_raw_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
+    return artifact_dir / STEP_18_PARSE_EXAM / f"exam_scaffold_raw.{fmt}"
+
+
+def artifact_exam_pages_dir(artifact_dir: Path) -> Path:
+    """Per-page PDFs from the post-cut exam PDF — produced and consumed by Phase B (fill)."""
+    return artifact_dir / STEP_18_PARSE_EXAM / "pages"
+
+
 # ---------------------------------------------------------------------------
 # Step 19 — Detect mark scheme graphics (per-page splits + graphics detection)
 # ---------------------------------------------------------------------------
