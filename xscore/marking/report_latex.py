@@ -139,6 +139,42 @@ def _alltt_size_command(block: str, cell_width_cm: float = 3.6) -> str:
         return "\\scriptsize "
     return "\\tiny "
 
+
+# Long pseudocode lines containing AND/OR (boolean expressions) are broken
+# after the first such operator before `_alltt_size_command` measures, so the
+# size selection sees the post-break (shorter) longest line and can keep the
+# block at \footnotesize instead of dropping to \scriptsize / \tiny.
+# Threshold = `\footnotesize` ceiling (`ceil(32 * scale)`); above this the
+# block would currently shrink. The break is single-pass per line — the user
+# asked for "after the first occurrence", and a second break inside a
+# bool-expression continuation rarely buys more readability.
+_ALLTT_OP_BREAK_RE = re.compile(r"\s(AND|OR)\s")
+
+
+def _break_alltt_long_lines(block: str, cell_width_cm: float = 3.6) -> str:
+    m = re.match(r"(\\begin\{alltt\})(.*)(\\end\{alltt\})", block, re.DOTALL)
+    if not m:
+        return block
+    prefix, body, suffix = m.groups()
+    threshold = math.ceil(32 * cell_width_cm / 3.6)
+    new_lines: list[str] = []
+    for line in body.split("\n"):
+        effective = len(line.replace(r"\textbackslash{}", "\\"))
+        if effective <= threshold:
+            new_lines.append(line)
+            continue
+        op_m = _ALLTT_OP_BREAK_RE.search(line)
+        if not op_m:
+            new_lines.append(line)
+            continue
+        leading = re.match(r"^\s*", line).group(0)
+        head = line[: op_m.end()].rstrip()
+        tail = leading + "  " + line[op_m.end() :].lstrip()
+        new_lines.append(head)
+        new_lines.append(tail)
+    return prefix + "\n".join(new_lines) + suffix
+
+
 # AI-generated cells sometimes embed `\begin{tabular}…\end{tabular}` (truth
 # tables, mark-scheme tables). The post-munging passes in `_ai_cell` would
 # convert the tabular's `\\` row terminators to `\newline` and break alignment.
@@ -267,6 +303,7 @@ def _protect_alltt(text: str, transform, cell_width_cm: float = 3.6) -> str:
         block = re.sub(r"(\\begin\{alltt\})\n", r"\1", block, count=1)
         block = re.sub(r"\s*(\\end\{alltt\})", r"\1", block, count=1)
         block = _ALLTT_MATH_RE.sub(lambda mm: _ALLTT_MATH_SUB[mm.group(1)], block)
+        block = _break_alltt_long_lines(block, cell_width_cm)
         size = _alltt_size_command(block, cell_width_cm)
         if size:
             block = block.replace(r"\begin{alltt}", r"\begin{alltt}" + size, 1)
@@ -504,6 +541,119 @@ def _format_criteria_cell(raw: str, cell_width_cm: float = 3.6) -> str:
     return _ai_cell(result, cell_width_cm)
 
 
+# Per-orientation panel budgets used by `_split_oversized_cell` to detect
+# Expected cells whose formatted height would exceed a single longtable row
+# (Q12-style mega mark schemes). Units are "prose-line equivalents":
+# 10 pt × \arraystretch{1.6} ≈ 16 pt vertical per prose line; alltt lines
+# weigh less per the size command (see _ALLTT_SIZE_WEIGHTS below).
+# Landscape A4 has ~16 cm of vertical text → ~22 prose lines with margin.
+# Portrait A4 is ~28 cm tall → ~40.
+
+_ALLTT_SIZE_WEIGHTS: tuple[tuple[str, float], ...] = (
+    (r"\tiny ", 0.4),
+    (r"\scriptsize ", 0.55),
+    (r"\footnotesize ", 0.7),
+)
+_ALLTT_HEADER_RE = re.compile(
+    r"\\begin\{alltt\}((?:\\(?:tiny|scriptsize|footnotesize|small|normalsize)\s)?)"
+)
+_ALLTT_KEYWORD_RE = re.compile(r"^\s*(?:PROCEDURE|FUNCTION|SUBROUTINE)\b")
+
+
+def _chunk_weight(chunk: str) -> float:
+    if r"\begin{alltt}" not in chunk:
+        # Each prose chunk is one `\newline`-segment; itemize items expand
+        # vertically (one visual line per \item).
+        return 1.0 + chunk.count(r"\item ")
+    inner = re.sub(r"\\(?:begin|end)\{alltt\}", "", chunk)
+    n_lines = inner.count("\n") + 1
+    for token, weight in _ALLTT_SIZE_WEIGHTS:
+        if token in chunk:
+            return n_lines * weight
+    return n_lines * 0.85  # body 10pt alltt (no size command)
+
+
+def _split_prose_lines(prose: str) -> list[str]:
+    parts = re.split(r"(\\newline\s)", prose)
+    out: list[str] = []
+    cur = ""
+    for p in parts:
+        cur += p
+        if p.startswith(r"\newline"):
+            out.append(cur)
+            cur = ""
+    if cur:
+        out.append(cur)
+    return out
+
+
+def _sub_split_alltt_block(block: str) -> list[str]:
+    """Sub-split an oversized alltt block at blank lines (preferred) or
+    PROCEDURE/FUNCTION/SUBROUTINE keyword boundaries; preserve the parent's
+    size command verbatim on each sub-block."""
+    h = _ALLTT_HEADER_RE.match(block)
+    if not h or not block.endswith(r"\end{alltt}"):
+        return [block]
+    size_prefix = h.group(1)
+    body = block[h.end() : -len(r"\end{alltt}")]
+    lines = body.split("\n")
+
+    groups: list[list[str]] = [[]]
+    for ln in lines:
+        if ln.strip() == "" and groups[-1]:
+            groups.append([])
+        else:
+            groups[-1].append(ln)
+    groups = [g for g in groups if g]
+    if len(groups) < 2:
+        groups = [[]]
+        for ln in lines:
+            if _ALLTT_KEYWORD_RE.match(ln) and groups[-1]:
+                groups.append([])
+            groups[-1].append(ln)
+        groups = [g for g in groups if g]
+    if len(groups) < 2:
+        return [block]
+    return [
+        r"\begin{alltt}" + size_prefix + "\n".join(g) + r"\end{alltt}"
+        for g in groups
+    ]
+
+
+def _decompose_cell(cell: str, budget: float):
+    pos = 0
+    for m in _ALLTT_BLOCK_RE.finditer(cell):
+        if pos < m.start():
+            yield from _split_prose_lines(cell[pos : m.start()])
+        block = m.group(0)
+        if _chunk_weight(block) > budget:
+            yield from _sub_split_alltt_block(block)
+        else:
+            yield block
+        pos = m.end()
+    if pos < len(cell):
+        yield from _split_prose_lines(cell[pos:])
+
+
+def _split_oversized_cell(cell: str, budget: float) -> list[str]:
+    """Split a too-tall formatted cell into panel strings so its longtable row
+    can break across pages by being emitted as several rows with empty leading
+    columns. Returns ``[cell]`` if the cell fits within *budget*."""
+    chunks = list(_decompose_cell(cell, budget))
+    if sum(_chunk_weight(c) for c in chunks) <= budget:
+        return [cell]
+    panels: list[list[str]] = [[]]
+    used = 0.0
+    for c in chunks:
+        w = _chunk_weight(c)
+        if used > 0 and used + w > budget:
+            panels.append([])
+            used = 0.0
+        panels[-1].append(c)
+        used += w
+    return ["".join(p) for p in panels if p]
+
+
 def _awarded_tex(awarded: int | None, max_q: int | str) -> str:
     """Render awarded marks with colour: green=full, red=zero, plain=partial."""
     if awarded is None:
@@ -549,10 +699,15 @@ def _student_report_to_tex(
     header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
     # Column widths threaded into _ai_cell / _format_criteria_cell so alltt
     # font-size selection scales with cell width. Match the col_spec below.
+    # `panel_budget` is forwarded to `_split_oversized_cell` so very tall
+    # Expected cells are emitted as multi-row panels (avoids cell overflow
+    # off-page; longtable allows page breaks between rows but not within).
     if orientation == "portrait":
         ans_w, exp_w, reason_w = 3.6, 5.0, 5.5
+        panel_budget = 40.0
     else:
         ans_w, exp_w, reason_w = 5.7, 7.0, 8.1
+        panel_budget = 22.0
     rows = []
     for q in report["questions"]:
         qnum = _latex_escape(str(q.get("number", "")).replace("_", "."))
@@ -577,9 +732,22 @@ def _student_report_to_tex(
             correct_ans = _format_criteria_cell(criteria_raw, exp_w)
         reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
         awarded_cell = _awarded_tex(awarded, max_q)
-        rows.append(
-            f"    {qnum} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"
-        )
+        panels = _split_oversized_cell(correct_ans, panel_budget)
+        if len(panels) == 1:
+            rows.append(
+                f"    {qnum} & {max_q} & {awarded_cell} & {answer} & {panels[0]} & {reasoning} \\\\ \\hline"
+            )
+        else:
+            # Q12-style mega Expected: emit one row per panel; continuation
+            # rows have empty Q/Max/Got/Answer/Reasoning so panels appear as
+            # one logical row. Only the final continuation row carries
+            # \hline (separates from the next question).
+            rows.append(
+                f"    {qnum} & {max_q} & {awarded_cell} & {answer} & {panels[0]} & {reasoning} \\\\"
+            )
+            for i, panel in enumerate(panels[1:], 1):
+                terminator = "\\\\ \\hline" if i == len(panels) - 1 else "\\\\"
+                rows.append(f"     &  &  &  & {panel} &  {terminator}")
     rows_str = "\n".join(rows)
     curved_pct = report.get("curved_pct")
     pct_display = "N/A" if pct is None else f"{pct}\\%"
