@@ -516,48 +516,66 @@ def artifact_student_pdf_dir(artifact_dir: Path, student: str) -> Path:
     return artifact_student_pdfs_dir(artifact_dir) / safe_student_name(student)
 
 
+# Layout-variant subfolder names under <student>/. Each layout (and its
+# _full / _10pt / _11pt companions) lives in its own folder so the per-
+# student directory has six clean groups instead of 50+ flat files.
+_VARIANT_LANDSCAPE                 = "landscape"
+_VARIANT_LANDSCAPE_WITH_QUESTIONS  = "landscape_with_questions"
+_VARIANT_PORTRAIT                  = "portrait"
+_VARIANT_PORTRAIT_2UP              = "portrait_2up"
+_VARIANT_PORTRAIT_LARGE            = "portrait_large"
+_VARIANT_PORTRAIT_LIST             = "portrait_list"
+
+
+def artifact_student_pdf_variant_dir(
+    artifact_dir: Path, student: str, variant: str
+) -> Path:
+    """Per-student per-variant subfolder (e.g. ``Simon_Wang/landscape``)."""
+    return artifact_student_pdf_dir(artifact_dir, student) / variant
+
+
 def artifact_student_report_tex_landscape_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_landscape.tex"
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_LANDSCAPE) / f"{safe_student_name(student)}_landscape.tex"
 
 
 def artifact_student_report_pdf_landscape_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_landscape.pdf"
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_LANDSCAPE) / f"{safe_student_name(student)}_landscape.pdf"
 
 
 def artifact_student_report_tex_portrait_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait.tex"
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT) / f"{safe_student_name(student)}_portrait.tex"
 
 
 def artifact_student_report_pdf_portrait_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait.pdf"
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT) / f"{safe_student_name(student)}_portrait.pdf"
 
 
 def artifact_student_report_pdf_portrait_2up_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait_2up.pdf"
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_2UP) / f"{safe_student_name(student)}_portrait_2up.pdf"
 
 
 def artifact_student_report_tex_portrait_large_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait_large.tex"
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_LARGE) / f"{safe_student_name(student)}_portrait_large.tex"
 
 
 def artifact_student_report_pdf_portrait_large_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait_large.pdf"
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_LARGE) / f"{safe_student_name(student)}_portrait_large.pdf"
 
 
 def artifact_student_report_tex_landscape_with_questions_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_landscape_with_questions.tex"
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_LANDSCAPE_WITH_QUESTIONS) / f"{safe_student_name(student)}_landscape_with_questions.tex"
 
 
 def artifact_student_report_pdf_landscape_with_questions_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_landscape_with_questions.pdf"
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_LANDSCAPE_WITH_QUESTIONS) / f"{safe_student_name(student)}_landscape_with_questions.pdf"
 
 
 def artifact_student_report_tex_portrait_list_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait_list.tex"
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_LIST) / f"{safe_student_name(student)}_portrait_list.tex"
 
 
 def artifact_student_report_pdf_portrait_list_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_pdf_dir(artifact_dir, student) / f"{safe_student_name(student)}_portrait_list.pdf"
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_LIST) / f"{safe_student_name(student)}_portrait_list.pdf"
 
 
 def artifact_exam_questions_tex_path(artifact_dir: Path) -> Path:

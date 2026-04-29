@@ -265,8 +265,9 @@ def resolve_natural_language(
         "Do not require the user to ask for answers or mark schemes explicitly — include them by default when available.\n"
         "Also include: "
         '\"ranking\": true or false — whether to generate a difficulty ranking. '
-        "Default true. Set to false only if the user explicitly says they do not want a ranking "
-        "(e.g. 'no ranking', 'skip ranking', 'without ranking')."
+        "Default false. Set to true only if the user explicitly asks for a ranking "
+        "(e.g. 'with ranking', 'include a ranking', 'add a difficulty ranking', "
+        "'rank the questions by difficulty')."
     )
     blocks = []
     for key, c in catalogs.items():
@@ -445,7 +446,7 @@ def resolve_natural_language(
     from .labels import build_output_filename
 
     output_pdf = build_output_filename(exam_key, normalized)
-    ranking_raw = data.get("ranking", True)
+    ranking_raw = data.get("ranking", False)
     if isinstance(ranking_raw, bool):
         ranking = ranking_raw
     elif isinstance(ranking_raw, str):

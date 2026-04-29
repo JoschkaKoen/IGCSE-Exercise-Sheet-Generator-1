@@ -80,6 +80,16 @@ def main():
         metavar="PDF",
         help="Legacy only: mark scheme PDF after explicit input/output/questions.",
     )
+    parser.add_argument(
+        "--ranking",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help=(
+            "Generate a difficulty-ranking PDF. Default: off. "
+            "Can also be enabled by phrasing it in the natural-language prompt "
+            "(e.g. 'with ranking'). Use --no-ranking to force off, overriding the prompt."
+        ),
+    )
 
     args = parser.parse_args()
     parts = args.parts
@@ -110,10 +120,14 @@ def main():
                     }
                 )
             output_pdf = str(resolve_output_path(data["output_pdf"]))
+            run_ranking = (
+                args.ranking if args.ranking is not None
+                else data.get("ranking", False)
+            )
             run_extraction_jobs(
                 jobs, output_pdf,
                 exam_key=data.get("exam"),
-                run_ranking=data.get("ranking", True),
+                run_ranking=run_ranking,
                 step_timings=_step_timings,
             )
             return
@@ -127,7 +141,11 @@ def main():
         input_pdf = parts[0]
         output_pdf = str(resolve_output_path(parts[1]))
         requested = _parse_question_tokens(parts[2:])
-        run_extraction(input_pdf, output_pdf, requested, args.mark_scheme, step_timings=_step_timings)
+        run_extraction(
+            input_pdf, output_pdf, requested, args.mark_scheme,
+            run_ranking=bool(args.ranking),
+            step_timings=_step_timings,
+        )
     except ExtractionUserError as e:
         print(str(e), file=sys.stderr)
         sys.exit(1)

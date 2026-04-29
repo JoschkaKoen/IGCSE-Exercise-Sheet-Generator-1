@@ -14,6 +14,7 @@ Jinja delimiters here are ``<< >>`` for variables, ``<% %>`` for blocks,
 from __future__ import annotations
 
 import datetime
+import math
 import re
 from pathlib import Path
 
@@ -56,6 +57,19 @@ _LINE_BREAK_RE = re.compile(r"\n|\\newline\s*")
 _BULLET_LINE_RE = re.compile(r"^\s*[-•]\s+(\S.*)$")
 
 
+# Cells whose content begins with itemize / enumerate / alltt show ~1
+# baseline of leading whitespace, observed visually in the rendered PDF
+# (Simon_Wang_landscape.pdf Q2/Q3/Q4a Reasoning, Q4a/Q4bii Student Answer).
+# Both itemize and alltt are \trivlist-based, and
+# \setlist[itemize]{topsep=0pt,partopsep=0pt} (already in the templates)
+# does not cancel the offset — it lives one level above enumitem's reach.
+# The observed magnitude is exactly one \baselineskip. Detect such cells
+# in _ai_cell and pull the env up by one baseline. enumerate is included
+# for defence-in-depth — not currently emitted by the AI but mark schemes
+# may use it in future exams.
+_LEADING_LIST_ENV_RE = re.compile(r"^\s*\\begin\{(?:itemize|enumerate|alltt)\b")
+
+
 def _escape_bare_amp_outside_tabular(text: str) -> str:
     """Escape bare ``&`` to ``\\&`` everywhere except inside
     ``\\begin{tabular}…\\end{tabular}``, where ``&`` is the column separator."""
@@ -82,29 +96,41 @@ _ALLTT_MATH_SUB = {
     "Leftarrow": "⇐",
     "Rightarrow": "⇒",
 }
-_ALLTT_MATH_RE = re.compile(r"\\(" + "|".join(_ALLTT_MATH_SUB) + r")\b\s?")
+# Match either the raw form `\leftarrow` or the prompt-escaped form
+# `\textbackslash{}leftarrow`. Step 22's mark-scheme parsing prompt tells the
+# AI to escape backslashes inside alltt to `\textbackslash{}`, so pseudocode
+# arrows arrive in either form depending on the AI's mood.
+_ALLTT_MATH_RE = re.compile(
+    r"(?:\\textbackslash\{\}|\\)(" + "|".join(_ALLTT_MATH_SUB) + r")\b\s?"
+)
 
 
 # Font-size step-down for alltt blocks whose longest line would overflow the
-# narrowest cell that hosts alltt — L{3.6cm} student-answer in the portrait
-# variant (see col_spec at line 433). Empirically validated against
-# /tmp/adjustbox_test/test4.pdf in a 3.6cm cell:
+# cell. The empirical thresholds (20 / 32 / 47 chars) were calibrated against
+# /tmp/adjustbox_test/test4.pdf in a 3.6cm cell — the narrowest column that
+# hosts alltt (portrait Student Answer):
 #   - body 10pt: ~5.7 chars/cm  → fits up to ~20 chars before overflow
 #   - \footnotesize ~8pt: ~9.4 chars/cm → up to ~32 chars
 #   - \scriptsize ~7pt: ~12 chars/cm → up to ~47 chars
 #   - \tiny ~5pt: ~17 chars/cm → up to ~55 chars (floor; readability cost)
-# Wider cells (4.7cm with-questions, 5.7cm landscape) get the same step-down,
-# slightly smaller font than strictly necessary — accepted trade-off vs.
-# threading cell width through the renderer.
-def _alltt_size_command(block: str) -> str:
+# For wider cells (e.g. 7cm landscape Expected) the thresholds scale linearly
+# by `cell_width_cm / 3.6`. math.ceil absorbs the discreteness of integer
+# char counts vs continuous chars/cm — at 7cm a 39-char line measures
+# 7×(20/3.6) = 38.89cm-equivalent which JUST exceeds the linear-extrapolated
+# body threshold; the original 3.6cm calibration "<= 20" was almost certainly
+# a rounded-down conservative value, so ceiling is the honest interpretation.
+# Default cell_width_cm=3.6 reproduces the original behaviour exactly:
+# ceil(20*1.0)=20, ceil(32*1.0)=32, ceil(47*1.0)=47.
+def _alltt_size_command(block: str, cell_width_cm: float = 3.6) -> str:
     inner = re.sub(r"\\(?:begin|end)\{alltt\}", "", block)
     inner = inner.replace(r"\textbackslash{}", "\\")  # 16-char escape → 1
     max_len = max((len(ln) for ln in inner.split("\n")), default=0)
-    if max_len <= 20:
+    scale = cell_width_cm / 3.6
+    if max_len <= math.ceil(20 * scale):
         return ""
-    if max_len <= 32:
+    if max_len <= math.ceil(32 * scale):
         return "\\footnotesize "
-    if max_len <= 47:
+    if max_len <= math.ceil(47 * scale):
         return "\\scriptsize "
     return "\\tiny "
 
@@ -210,13 +236,17 @@ def _maybe_wrap_math(m: re.Match) -> str:
     return run
 
 
-def _protect_alltt(text: str, transform) -> str:
+def _protect_alltt(text: str, transform, cell_width_cm: float = 3.6) -> str:
     """Run *transform* on parts of *text* outside ``\\begin{alltt}…\\end{alltt}``.
 
     Inside alltt only a leading newline immediately after ``\\begin{alltt}`` and
     trailing whitespace immediately before ``\\end{alltt}`` are trimmed (so the
     block doesn't render with a blank first line); literal newlines, indentation,
     and bare ``&``/``%``/``<``/``>`` inside the block are preserved exactly.
+
+    *cell_width_cm* is forwarded to `_alltt_size_command` so the alltt font-size
+    step-down scales linearly with the host cell's width. Default 3.6cm matches
+    the original calibration target (portrait Student Answer column).
     """
     stashed: list[str] = []
 
@@ -232,7 +262,7 @@ def _protect_alltt(text: str, transform) -> str:
         block = re.sub(r"(\\begin\{alltt\})\n", r"\1", block, count=1)
         block = re.sub(r"\s*(\\end\{alltt\})", r"\1", block, count=1)
         block = _ALLTT_MATH_RE.sub(lambda mm: _ALLTT_MATH_SUB[mm.group(1)], block)
-        size = _alltt_size_command(block)
+        size = _alltt_size_command(block, cell_width_cm)
         if size:
             block = block.replace(r"\begin{alltt}", r"\begin{alltt}" + size, 1)
         return block
@@ -331,7 +361,7 @@ def _convert_literal_bullets(t: str) -> str:
     return "\n".join(out)
 
 
-def _ai_cell(text: str) -> str:
+def _ai_cell(text: str, cell_width_cm: float = 3.6) -> str:
     """Prepare AI-generated LaTeX text for a p{} table cell.
 
     XML element text is stored verbatim (no JSON escaping layer), so no
@@ -345,6 +375,11 @@ def _ai_cell(text: str) -> str:
     ``\\begin{alltt}…\\end{alltt}`` blocks are passed through unchanged
     (literal newlines, indentation, and bare ``&``/``%``/``<``/``>`` inside
     the block are preserved) so pseudocode keeps its source layout.
+
+    *cell_width_cm* is forwarded to alltt font-size selection so wider cells
+    don't shrink unnecessarily. Default 3.6cm matches the original calibration
+    target (portrait Student Answer); landscape and with-questions variants
+    pass their actual column widths.
     """
     def _outside_alltt(t: str) -> str:
         # Defensive escape for characters AIs commonly miss when they aren't
@@ -370,10 +405,16 @@ def _ai_cell(text: str) -> str:
         t = re.sub(r"\\newline\s*(?=\\end\{)", "", t)
         return t
 
-    return _protect_envs(text, lambda t: _protect_alltt(t, _outside_alltt))
+    result = _protect_envs(text, lambda t: _protect_alltt(t, _outside_alltt, cell_width_cm))
+    if _LEADING_LIST_ENV_RE.match(result):
+        # See _LEADING_LIST_ENV_RE comment for the diagnosis. \vspace*
+        # (starred) is non-discardable at the parbox top, where \vspace
+        # would be silently dropped.
+        result = r"\vspace*{-\baselineskip}" + result
+    return result
 
 
-def _format_criteria_cell(raw: str) -> str:
+def _format_criteria_cell(raw: str, cell_width_cm: float = 3.6) -> str:
     """Format a marking_criteria string for the Expected column.
 
     Single-token criteria (one word or one number, no spaces) are grouped
@@ -382,6 +423,8 @@ def _format_criteria_cell(raw: str) -> str:
     ``\\begin{alltt}…\\end{alltt}`` blocks are stashed before the strip-and-group
     pass so their internal indentation survives — otherwise ``line.strip()``
     would eat the leading whitespace on every code line.
+
+    *cell_width_cm* is forwarded to `_ai_cell` for alltt font-size selection.
     """
     stashed: list[str] = []
 
@@ -423,7 +466,7 @@ def _format_criteria_cell(raw: str) -> str:
     result = _ALLTT_PLACEHOLDER_RE.sub(
         lambda m: stashed[int(m.group(1))], result
     )
-    return _ai_cell(result)
+    return _ai_cell(result, cell_width_cm)
 
 
 def _awarded_tex(awarded: int | None, max_q: int | str) -> str:
@@ -469,6 +512,12 @@ def _student_report_to_tex(
     pct = report["percentage"]
     date_str = datetime.date.today().isoformat()
     header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
+    # Column widths threaded into _ai_cell / _format_criteria_cell so alltt
+    # font-size selection scales with cell width. Match the col_spec below.
+    if orientation == "portrait":
+        ans_w, exp_w, reason_w = 3.6, 5.0, 5.5
+    else:
+        ans_w, exp_w, reason_w = 5.7, 7.0, 8.1
     rows = []
     for q in report["questions"]:
         qnum = _latex_escape(str(q.get("number", "")).replace("_", "."))
@@ -480,18 +529,18 @@ def _student_report_to_tex(
         elif not answer_raw:
             answer = "\\textit{(blank)}"
         else:
-            answer = _ai_cell(answer_raw)
+            answer = _ai_cell(answer_raw, ans_w)
         correct_raw = str(q.get("correct_answer") or "").strip()
         criteria_raw = str(q.get("marking_criteria") or "").strip()
         question_type = str(q.get("question_type", "")).strip()
         if question_type == "multiple_choice" or not criteria_raw:
             # MCQ: always show the answer letter.
             # Non-MCQ without criteria: fall back to correct_answer.
-            correct_ans = _ai_cell(correct_raw) if correct_raw else "---"
+            correct_ans = _ai_cell(correct_raw, exp_w) if correct_raw else "---"
         else:
             # Non-MCQ with criteria: show the full breakdown regardless of correct_answer.
-            correct_ans = _format_criteria_cell(criteria_raw)
-        reasoning = _ai_cell(str(q.get("explanation") or ""))
+            correct_ans = _format_criteria_cell(criteria_raw, exp_w)
+        reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
         awarded_cell = _awarded_tex(awarded, max_q)
         rows.append(
             f"    {qnum} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"
@@ -609,7 +658,7 @@ def _question_text_for_row(qnum: str, qmap: dict[str, dict]) -> dict | None:
     return qmap.get(base)
 
 
-def _render_question_text(q: dict | None) -> str:
+def _render_question_text(q: dict | None, cell_width_cm: float = 3.6) -> str:
     """Render only the question stem — for the narrow Question column in the
     landscape with-questions table."""
     if not q:
@@ -617,10 +666,10 @@ def _render_question_text(q: dict | None) -> str:
     text = str(q.get("text") or "").strip()
     if not text:
         return r"\textit{(no stem)}"
-    return _ai_cell(text)
+    return _ai_cell(text, cell_width_cm)
 
 
-def _render_question_with_options(q: dict | None) -> str:
+def _render_question_with_options(q: dict | None, cell_width_cm: float = 3.6) -> str:
     """Render question stem plus an ``(A)/(B)/...`` itemize for MCQs.
 
     Returns empty string for parent-only nodes (text == "" and no options) so
@@ -631,14 +680,14 @@ def _render_question_with_options(q: dict | None) -> str:
     parts: list[str] = []
     text = str(q.get("text") or "").strip()
     if text:
-        parts.append(_ai_cell(text))
+        parts.append(_ai_cell(text, cell_width_cm))
     if str(q.get("type") or "") == "multiple_choice":
         opts = q.get("answer_options") or []
         if opts:
             items: list[str] = []
             for opt in opts:
                 letter = _latex_escape(str(opt.get("letter") or "").strip())
-                opt_text = _ai_cell(str(opt.get("text") or "").strip())
+                opt_text = _ai_cell(str(opt.get("text") or "").strip(), cell_width_cm)
                 items.append(f"  \\item[({letter})] {opt_text}")
             parts.append(
                 "\\begin{itemize}[leftmargin=2em,itemsep=0pt]\n"
@@ -660,7 +709,12 @@ def _question_to_tex(q: dict, depth: int = 0) -> str:
     marks_label = ""
     if marks:
         marks_label = f" \\hfill {marks} mark{'s' if marks != 1 else ''}"
-    body = _render_question_with_options(q)
+    # exam_questions.pdf is A4 with 1.5cm margins → 18cm text width. Each
+    # subquestion depth indents 1.5em (~0.5cm at 11pt body); subtract that
+    # so deeply-nested alltt sizes correctly. Floor at 4cm to avoid silly
+    # widths if the recursion ever goes very deep.
+    block_w = max(4.0, 18.0 - depth * 0.5)
+    body = _render_question_with_options(q, block_w)
 
     lines = [f"\\noindent\\textbf{{Q{num}}}{marks_label}\\par\\nopagebreak"]
     if body:
@@ -705,6 +759,10 @@ def _student_report_with_questions_to_tex(
     pct = report["percentage"]
     date_str = datetime.date.today().isoformat()
     header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
+    # Column widths threaded into _ai_cell / _format_criteria_cell /
+    # _render_question_text so alltt font-size selection scales with cell
+    # width. Match the col_spec below.
+    qstem_w, ans_w, exp_w, reason_w = 4.5, 4.7, 5.0, 6.2
     rows = []
     for q in report["questions"]:
         qnum_raw = str(q.get("number", ""))
@@ -717,17 +775,17 @@ def _student_report_with_questions_to_tex(
         elif not answer_raw:
             answer = "\\textit{(blank)}"
         else:
-            answer = _ai_cell(answer_raw)
+            answer = _ai_cell(answer_raw, ans_w)
         correct_raw = str(q.get("correct_answer") or "").strip()
         criteria_raw = str(q.get("marking_criteria") or "").strip()
         question_type = str(q.get("question_type", "")).strip()
         if question_type == "multiple_choice" or not criteria_raw:
-            correct_ans = _ai_cell(correct_raw) if correct_raw else "---"
+            correct_ans = _ai_cell(correct_raw, exp_w) if correct_raw else "---"
         else:
-            correct_ans = _format_criteria_cell(criteria_raw)
-        reasoning = _ai_cell(str(q.get("explanation") or ""))
+            correct_ans = _format_criteria_cell(criteria_raw, exp_w)
+        reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
         awarded_cell = _awarded_tex(awarded, max_q)
-        question_cell = _render_question_text(_question_text_for_row(qnum_raw, qmap))
+        question_cell = _render_question_text(_question_text_for_row(qnum_raw, qmap), qstem_w)
         rows.append(
             f"    {qnum} & {question_cell} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"
         )
@@ -779,6 +837,9 @@ def _student_report_list_to_tex(
     pct = report["percentage"]
     date_str = datetime.date.today().isoformat()
     header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
+    # Block layout, no longtable: each labeled paragraph spans the full text
+    # width. A4 portrait with 1.5cm margins = 21 - 3 = 18cm.
+    block_w = 18.0
 
     blocks: list[str] = []
     for q in report["questions"]:
@@ -793,17 +854,17 @@ def _student_report_list_to_tex(
         elif not answer_raw:
             answer = "\\textit{(blank)}"
         else:
-            answer = _ai_cell(answer_raw)
+            answer = _ai_cell(answer_raw, block_w)
         correct_raw = str(q.get("correct_answer") or "").strip()
         criteria_raw = str(q.get("marking_criteria") or "").strip()
         question_type = str(q.get("question_type", "")).strip()
         if question_type == "multiple_choice" or not criteria_raw:
-            expected = _ai_cell(correct_raw) if correct_raw else "---"
+            expected = _ai_cell(correct_raw, block_w) if correct_raw else "---"
         else:
-            expected = _format_criteria_cell(criteria_raw)
-        reasoning = _ai_cell(str(q.get("explanation") or ""))
+            expected = _format_criteria_cell(criteria_raw, block_w)
+        reasoning = _ai_cell(str(q.get("explanation") or ""), block_w)
         question_body = _render_question_with_options(
-            _question_text_for_row(qnum_raw, qmap)
+            _question_text_for_row(qnum_raw, qmap), block_w
         ) or r"\textit{(text unavailable)}"
         blocks.append(
             f"\\noindent\\textbf{{Q{qnum_dotted}}} \\hfill {awarded_cell} / {max_q}\\par\n"

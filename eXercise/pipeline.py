@@ -314,7 +314,7 @@ def run_extraction_jobs(
     output_pdf: str,
     exam_key: str | None = None,
     *,
-    run_ranking: bool = True,
+    run_ranking: bool = False,
     step_timings: list[tuple[str, float]] | None = None,
 ) -> dict[str, Any]:
     """
@@ -443,11 +443,14 @@ def run_extraction(
     output_pdf: str,
     requested: list,
     ms_pdf: str | None,
+    *,
+    run_ranking: bool = False,
     step_timings: list[tuple[str, float]] | None = None,
 ) -> dict:
     return run_extraction_jobs(
         [{"input_pdf": input_pdf, "questions": requested, "mark_scheme_pdf": ms_pdf}],
         output_pdf,
         exam_key=None,
+        run_ranking=run_ranking,
         step_timings=step_timings,
     )

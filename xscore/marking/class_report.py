@@ -145,9 +145,22 @@ def _rank_students(students: list[dict]) -> list[dict]:
     return sorted_s
 
 
+def _variant_subfolder_for_suffix(suffix: str) -> str:
+    """Map a `_merge_pdfs` suffix to the variant subfolder it lives in."""
+    return "portrait_2up" if suffix.startswith("portrait_2up") else suffix
+
+
 def _merge_pdfs(class_pdf: Path, students_dir: Path, output_pdf: Path, suffix: str) -> None:
-    """Concatenate the class overview PDF with student PDFs matching ``*/*_<suffix>.pdf``."""
-    student_pdfs = sorted(students_dir.glob(f"*/*_{suffix}.pdf"), key=lambda p: p.stem)
+    """Concatenate the class overview PDF with student PDFs matching ``*/<variant>/*_<suffix>.pdf``."""
+    variant = _variant_subfolder_for_suffix(suffix)
+    student_pdfs = sorted(
+        students_dir.glob(f"*/{variant}/*_{suffix}.pdf"), key=lambda p: p.stem
+    )
+    if not student_pdfs:
+        warn_line(
+            f"No student PDFs matched */{variant}/*_{suffix}.pdf — combined "
+            f"report {output_pdf.name} will contain only the class overview"
+        )
 
     try:
         from pikepdf import Pdf
@@ -260,6 +273,19 @@ def _suffixed(p: Path, suffix: str) -> Path:
     return p if not suffix else p.with_name(p.stem + suffix + p.suffix)
 
 
+def _ensure_student_pdf_subdirs(
+    artifact_dir: Path, student: str, *, with_questions: bool
+) -> None:
+    """Create the per-student variant subfolders that ``_pass2_write_tex``
+    will write into. Idempotent."""
+    variants = ["landscape", "portrait", "portrait_large", "portrait_2up"]
+    if with_questions:
+        variants += ["landscape_with_questions", "portrait_list"]
+    student_dir = artifact_student_pdf_dir(artifact_dir, student)
+    for v in variants:
+        (student_dir / v).mkdir(parents=True, exist_ok=True)
+
+
 def _pass2_write_tex(
     student_summaries: list[dict],
     full_reports: dict[str, dict],
@@ -289,7 +315,9 @@ def _pass2_write_tex(
     for s in student_summaries:
         report = full_reports[s["name"]]
         report["curved_pct"] = s["curved_pct"]
-        artifact_student_pdf_dir(artifact_dir, s["name"]).mkdir(parents=True, exist_ok=True)
+        _ensure_student_pdf_subdirs(
+            artifact_dir, s["name"], with_questions=parsed_questions is not None
+        )
         for orientation, path_fn, font_size in (
             ("landscape", artifact_student_report_tex_landscape_path,      10),
             ("portrait",  artifact_student_report_tex_portrait_path,       10),
@@ -603,14 +631,14 @@ def _build_class_report(
     # PDF of that variant exists. Otherwise the merge would produce a single-
     # page combined PDF with just the class overview, which is misleading.
     students_dir = artifact_student_pdfs_dir(ctx.artifact_dir)
-    if any(students_dir.glob("*/*_landscape_with_questions.pdf")):
+    if any(students_dir.glob("*/landscape_with_questions/*_landscape_with_questions.pdf")):
         _merge_pdfs(
             tex_path.with_suffix(".pdf"),
             students_dir,
             artifact_class_report_combined_landscape_with_questions_pdf_path(ctx.artifact_dir),
             suffix="landscape_with_questions",
         )
-    if any(students_dir.glob("*/*_portrait_list.pdf")):
+    if any(students_dir.glob("*/portrait_list/*_portrait_list.pdf")):
         _merge_pdfs(
             tex_path.with_suffix(".pdf"),
             students_dir,
