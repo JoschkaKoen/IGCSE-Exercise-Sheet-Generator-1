@@ -45,6 +45,17 @@ def _latex_escape(text: str) -> str:
 _TABULAR_RE = re.compile(r"(\\begin\{tabular\*?\}.*?\\end\{tabular\*?\})", re.DOTALL)
 
 
+# Detect AI-emitted bullet runs in `_ai_cell`. Lines starting with `-` or
+# `•` (followed by whitespace + non-space content) are wrapped in a real
+# itemize block, so the prompt's intended list structure survives even
+# when the model forgets to use \begin{itemize}. Markers kept narrow so
+# the regex never collides with prose (`-2`, em-dash interjections, etc).
+# Split on both real `\n` (introduced by `\\` -> `\n` upstream in _ai_cell)
+# and the literal `\newline` text the AI emits per the FIELD_RULES rule.
+_LINE_BREAK_RE = re.compile(r"\n|\\newline\s*")
+_BULLET_LINE_RE = re.compile(r"^\s*[-•]\s+(\S.*)$")
+
+
 def _escape_bare_amp_outside_tabular(text: str) -> str:
     """Escape bare ``&`` to ``\\&`` everywhere except inside
     ``\\begin{tabular}…\\end{tabular}``, where ``&`` is the column separator."""
@@ -181,6 +192,12 @@ def _wrap_loose_math(text: str) -> str:
     parts = _DOLLAR_SPLIT_RE.split(text)
     for i, part in enumerate(parts):
         if i % 2 == 0:
+            # Bare `$` left in an "outside" part has no closing `$` on the
+            # same line — it's currency (mark schemes write "(cost =) $36"),
+            # not the start of math mode. Escape so xelatex doesn't open
+            # math mode and crash on text-only commands like `\newline` that
+            # follow on the next line.
+            part = re.sub(r"(?<!\\)\$", r"\\$", part)
             parts[i] = _MATH_RUN_RE.sub(_maybe_wrap_math, part)
     text = "".join(parts)
     return _STASH_RE.sub(lambda m: stashed[int(m.group(1))], text)
@@ -272,6 +289,48 @@ def _protect_envs(text: str, transform) -> str:
     return text
 
 
+def _convert_literal_bullets(t: str) -> str:
+    """Wrap runs of >=2 lines starting with ``- `` or ``• `` in an itemize
+    block. The marking model occasionally forgets the FIELD_RULES rule and
+    emits literal markers joined by ``\\newline``; this safety net rebuilds
+    the intended list before the cell is rendered.
+
+    A singleton (one such line on its own) has its marker stripped and
+    becomes plain prose — wrapping a single line in itemize adds visual
+    noise without conveying list structure.
+    """
+    lines = _LINE_BREAK_RE.split(t)
+    out: list[str] = []
+    i = 0
+    while i < len(lines):
+        m = _BULLET_LINE_RE.match(lines[i])
+        if m:
+            items = [m.group(1)]
+            j = i + 1
+            while j < len(lines):
+                m2 = _BULLET_LINE_RE.match(lines[j])
+                if not m2:
+                    break
+                items.append(m2.group(1))
+                j += 1
+            if len(items) >= 2:
+                # Match existing AI-emitted itemize style: space after
+                # \begin{itemize} and before each \item — keeps .tex diffs
+                # tidy when comparing helper output against model output.
+                out.append(
+                    r"\begin{itemize} "
+                    + " ".join(rf"\item {b}" for b in items)
+                    + r" \end{itemize}"
+                )
+            else:
+                out.append(items[0])  # singleton: drop marker, keep content
+            i = j
+            continue
+        out.append(lines[i])
+        i += 1
+    return "\n".join(out)
+
+
 def _ai_cell(text: str) -> str:
     """Prepare AI-generated LaTeX text for a p{} table cell.
 
@@ -299,6 +358,7 @@ def _ai_cell(text: str) -> str:
         t = _escape_bare_amp_outside_tabular(t)    # preserve & inside \begin{tabular}
         t = _wrap_loose_math(t)                    # must precede \n → \newline
         t = re.sub(r"\*\*(.+?)\*\*", r"\\textbf{\1}", t)
+        t = _convert_literal_bullets(t)
         t = t.replace("\n", "\\newline ")
         # \newline adjacent to block-level environments is invalid LaTeX
         # ("There's no line here to end") — strip it in all four positions.

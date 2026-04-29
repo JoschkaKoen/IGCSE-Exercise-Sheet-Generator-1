@@ -245,6 +245,16 @@ def _apply_grade_curve(student_summaries: list[dict], target: int) -> None:
 # Pass 2 — per-student .tex files + parallel xelatex compile
 # ---------------------------------------------------------------------------
 
+# Extra portrait_large font sizes to render alongside the canonical 12pt
+# variant. Each size produces an additional `<name>_portrait_large_<N>pt.tex`
+# (compiled in the same parallel xelatex batch), `<name>_portrait_2up_<N>pt.pdf`
+# (made by the same parallel pdfjam batch), and a class-level
+# `class_report_combined_portrait_2up_<N>pt.pdf` (built by `_build_class_report`).
+# The canonical 12pt artifacts keep their bare names — only the extras carry
+# a size suffix. Adding a 9pt variant later is a one-line edit.
+_EXTRA_2UP_FONT_SIZES: tuple[int, ...] = (10, 11)
+
+
 def _suffixed(p: Path, suffix: str) -> Path:
     """Return *p* with *suffix* inserted before its extension. ``suffix=""`` is a no-op."""
     return p if not suffix else p.with_name(p.stem + suffix + p.suffix)
@@ -294,6 +304,25 @@ def _pass2_write_tex(
                 encoding="utf-8",
             )
             tex_paths.append(tex_path)
+
+        # Extra portrait_large variants at smaller font sizes for the
+        # combined 2up class PDF. Skipped on the augmented "_full" pass
+        # (see merge_reports.py:179) — those would over-match the new
+        # portrait_2up_<N>pt glob in _build_class_report.
+        if not name_suffix:
+            for fs in _EXTRA_2UP_FONT_SIZES:
+                tex_path = _suffixed(
+                    artifact_student_report_tex_portrait_large_path(artifact_dir, s["name"]),
+                    f"_{fs}pt",
+                )
+                tex_path.write_text(
+                    _student_report_to_tex(
+                        report, exam_name=exam_name, orientation="portrait",
+                        font_size=fs, show_curved_grade=show_curved_grade,
+                    ),
+                    encoding="utf-8",
+                )
+                tex_paths.append(tex_path)
 
         if parsed_questions is not None:
             wq_tex_path = _suffixed(
@@ -353,6 +382,20 @@ def _pass2_write_tex(
         )
         if p_in.is_file():
             portrait_2up_jobs.append((p_in, p_out))
+        # Companion 2up jobs for each extra font size. Skipped on the
+        # augmented "_full" pass (see merge_reports.py:179).
+        if not name_suffix:
+            for fs in _EXTRA_2UP_FONT_SIZES:
+                p_in_extra = _suffixed(
+                    artifact_student_report_pdf_portrait_large_path(artifact_dir, s["name"]),
+                    f"_{fs}pt",
+                )
+                p_out_extra = _suffixed(
+                    artifact_student_report_pdf_portrait_2up_path(artifact_dir, s["name"]),
+                    f"_{fs}pt",
+                )
+                if p_in_extra.is_file():
+                    portrait_2up_jobs.append((p_in_extra, p_out_extra))
     if portrait_2up_jobs:
         with ThreadPoolExecutor(max_workers=workers) as ex:
             list(ex.map(lambda j: make_2up_landscape_pdf(j[0], j[1]), portrait_2up_jobs))
@@ -586,6 +629,19 @@ def _build_class_report(
             artifact_class_report_combined_portrait_2up_pdf_path(ctx.artifact_dir),
             suffix="portrait_2up",
         )
+        # Smaller-font combined variants — same class summary prefix,
+        # per-student halves come from the *_portrait_2up_<N>pt.pdf files
+        # produced by _pass2_write_tex.
+        for fs in _EXTRA_2UP_FONT_SIZES:
+            _merge_pdfs(
+                class_2up_path,
+                artifact_student_pdfs_dir(ctx.artifact_dir),
+                _suffixed(
+                    artifact_class_report_combined_portrait_2up_pdf_path(ctx.artifact_dir),
+                    f"_{fs}pt",
+                ),
+                suffix=f"portrait_2up_{fs}pt",
+            )
 
 
 # ---------------------------------------------------------------------------
