@@ -57,16 +57,23 @@ _LINE_BREAK_RE = re.compile(r"\n|\\newline\s*")
 _BULLET_LINE_RE = re.compile(r"^\s*[-•]\s+(\S.*)$")
 
 
-# Cells whose content begins with itemize / enumerate / alltt show ~1
-# baseline of leading whitespace, observed visually in the rendered PDF
+# Cells whose content begins with itemize / enumerate / alltt show
+# leading whitespace observed visually in the rendered PDF
 # (Simon_Wang_landscape.pdf Q2/Q3/Q4a Reasoning, Q4a/Q4bii Student Answer).
-# Both itemize and alltt are \trivlist-based, and
-# \setlist[itemize]{topsep=0pt,partopsep=0pt} (already in the templates)
-# does not cancel the offset — it lives one level above enumitem's reach.
-# The observed magnitude is exactly one \baselineskip. Detect such cells
-# in _ai_cell and pull the env up by one baseline. enumerate is included
-# for defence-in-depth — not currently emitted by the AI but mark schemes
-# may use it in future exams.
+# Two contributors, handled together at cell start in _ai_cell:
+#   1) ~1 baseline of trivlist-related offset that the templates'
+#      \setlist[itemize]{topsep=0pt,partopsep=0pt} cancels for itemize via
+#      enumitem, but cannot cancel for alltt/enumerate (those go through
+#      plain \trivlist and read the underlying \topsep / \partopsep
+#      lengths directly). Cancelled with \vspace*{-\baselineskip}.
+#   2) For alltt/enumerate specifically, the trivlist also reads
+#      \topsep + \partopsep at \begin time and inserts ~10pt of space
+#      that the pull-up alone cannot reach (visible as a free line above
+#      pseudocode). Cancelled by setting both lengths to 0pt locally
+#      before the env opens; harmless for itemize (enumitem doesn't
+#      consult the underlying lengths). enumerate is included for
+#      defence-in-depth — not currently emitted by the AI but mark
+#      schemes may use it in future exams.
 _LEADING_LIST_ENV_RE = re.compile(r"^\s*\\begin\{(?:itemize|enumerate|alltt)\b")
 
 
@@ -481,8 +488,17 @@ def _ai_cell(text: str, cell_width_cm: float = 3.6) -> str:
     if _LEADING_LIST_ENV_RE.match(result):
         # See _LEADING_LIST_ENV_RE comment for the diagnosis. \vspace*
         # (starred) is non-discardable at the parbox top, where \vspace
-        # would be silently dropped.
-        result = r"\vspace*{-\baselineskip}" + result
+        # would be silently dropped. The two \setlength calls zero the
+        # trivlist top-of-list spacing for alltt/enumerate; harmless
+        # no-op for itemize (whose topsep flows through enumitem, not
+        # the underlying length). \setlength is local to the cell's
+        # parbox group, so subsequent rows see the original lengths.
+        result = (
+            r"\setlength{\topsep}{0pt}"
+            r"\setlength{\partopsep}{0pt}"
+            r"\vspace*{-\baselineskip}"
+            + result
+        )
     return result
 
 
