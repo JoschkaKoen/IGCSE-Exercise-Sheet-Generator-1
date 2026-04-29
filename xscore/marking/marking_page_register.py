@@ -224,6 +224,8 @@ def apply_cross_page_extras(
     register: dict,
     exam_questions_yaml: dict,
     empty_exam_has_cover: bool,
+    *,
+    detect_parents: bool = True,
 ) -> tuple[dict, list[dict], list[dict]]:
     """Augment *register* (in-place) with cross-page context extras.
 
@@ -237,7 +239,9 @@ def apply_cross_page_extras(
        ancestor's, attach the ancestor's page as an extra. *Bypasses* the
        ``skipped_scan_pages`` check because parent pages typically have no
        student handwriting (printed flowchart / stem only) — that's the
-       very content we want the marker to see.
+       very content we want the marker to see. Skipped when
+       ``detect_parents=False`` (controlled by the
+       ``CROSS_PAGE_PARENT_DETECTION`` env toggle at the step boundary).
 
     Returns ``(register, figure_refs, parent_refs)`` where each ``*_refs`` is
     a flat list of diagnostic dicts (sorted, deduped) suitable for writing
@@ -255,13 +259,16 @@ def apply_cross_page_extras(
     )
 
     # ── Pass 2: parent stems ────────────────────────────────────────────────
-    parent_attachments, parent_refs = _compute_parent_attachments(
-        questions, empty_exam_has_cover,
-    )
-    _apply_attachments(
-        register, parent_attachments, empty_exam_has_cover,
-        bypass_skipped=True,
-    )
+    if detect_parents:
+        parent_attachments, parent_refs = _compute_parent_attachments(
+            questions, empty_exam_has_cover,
+        )
+        _apply_attachments(
+            register, parent_attachments, empty_exam_has_cover,
+            bypass_skipped=True,
+        )
+    else:
+        parent_refs = []
 
     # ── Refresh metadata ───────────────────────────────────────────────────
     md = register["metadata"]

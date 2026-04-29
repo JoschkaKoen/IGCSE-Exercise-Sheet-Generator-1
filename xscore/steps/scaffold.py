@@ -19,6 +19,7 @@ only reads on-disk artifacts from steps 15 and 18 and
 
 from __future__ import annotations
 
+import os
 import time
 from pathlib import Path
 
@@ -130,9 +131,13 @@ def step_19_detect_cross_page_context(ctx: _Ctx) -> None:
         )
         return
 
+    _cppd = os.environ.get("CROSS_PAGE_PARENT_DETECTION", "1").strip().lower()
+    detect_parents = _cppd in {"1", "true", "yes", "on"}
+
     exam_questions = yaml.safe_load(questions_path.read_text(encoding="utf-8")) or {}
     register, figure_refs, parent_refs = apply_cross_page_extras(
-        register, exam_questions, bool(ctx.empty_exam_has_cover)
+        register, exam_questions, bool(ctx.empty_exam_has_cover),
+        detect_parents=detect_parents,
     )
 
     write_register(artifact_marking_page_register_v2_path(ctx.artifact_dir), register)
@@ -202,7 +207,9 @@ def step_19_detect_cross_page_context(ctx: _Ctx) -> None:
         )
     else:
         ok_line("No cross-page figures detected")
-    if parent_refs:
+    if not detect_parents:
+        ok_line("Cross-page parent-stem detection disabled (CROSS_PAGE_PARENT_DETECTION=false)")
+    elif parent_refs:
         ok_line(
             f"{len(parent_refs)} cross-page parent stem"
             f"{'s' if len(parent_refs) != 1 else ''} detected  ·  "
