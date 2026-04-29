@@ -31,7 +31,7 @@ from xscore.shared.step_folders import (
     STEP_16_LAYOUT,
     STEP_17_CUT,
     STEP_18_PARSE_EXAM,
-    STEP_19_CROSS_PAGE_FIGURES,
+    STEP_19_CROSS_PAGE_CONTEXT,
     STEP_20_GRAPHICS,
     STEP_21_ASSIGN_QUESTIONS,
     STEP_22_PARSE_SCHEME,
@@ -252,22 +252,28 @@ def artifact_marking_page_register_v1_path(artifact_dir: Path) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# Step 19 — Detect cross-page figures (refines marking page register)
+# Step 19 — Detect cross-page context (refines marking page register with
+# cross-page figure references AND parent-question stems)
 # ---------------------------------------------------------------------------
 
 def artifact_marking_page_register_v2_path(artifact_dir: Path) -> Path:
-    """Step 19: refined marking page register with cross-page figure extras."""
-    return artifact_dir / STEP_19_CROSS_PAGE_FIGURES / "marking_page_register.json"
+    """Step 19: refined marking page register with cross-page context extras."""
+    return artifact_dir / STEP_19_CROSS_PAGE_CONTEXT / "marking_page_register.json"
 
 
 def artifact_cross_page_refs_json_path(artifact_dir: Path) -> Path:
     """Step 19: diagnostic listing each detected cross-page figure reference."""
-    return artifact_dir / STEP_19_CROSS_PAGE_FIGURES / "cross_page_refs.json"
+    return artifact_dir / STEP_19_CROSS_PAGE_CONTEXT / "cross_page_refs.json"
+
+
+def artifact_parent_refs_json_path(artifact_dir: Path) -> Path:
+    """Step 19: diagnostic listing each detected parent-context reference."""
+    return artifact_dir / STEP_19_CROSS_PAGE_CONTEXT / "parent_refs.json"
 
 
 def artifact_cross_page_changes_md_path(artifact_dir: Path) -> Path:
     """Step 19: human-readable summary of register changes vs v1."""
-    return artifact_dir / STEP_19_CROSS_PAGE_FIGURES / "changes.md"
+    return artifact_dir / STEP_19_CROSS_PAGE_CONTEXT / "changes.md"
 
 
 # ---------------------------------------------------------------------------

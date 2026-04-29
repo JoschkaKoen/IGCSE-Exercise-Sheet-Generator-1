@@ -32,11 +32,13 @@ from xscore.marking.formats import get_marking_format
 from xscore.marking.formats.base import FormatParseError
 from xscore.shared.exam_paths import (
     artifact_blueprint_path,
+    artifact_cross_page_refs_json_path,
     artifact_mark_scheme_graphics_dir,
     artifact_marked_failed_path,
     artifact_marked_md_path,
     artifact_marked_path,
     artifact_marking_prompt_path,
+    artifact_parent_refs_json_path,
 )
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, warn_line
@@ -264,6 +266,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
 
     from eXercise.ai_client import make_ai_client, build_completion_kwargs
     from xscore.marking.marking_page_register import (
+        _pretty_source_label,
         build_initial_register,
         iter_marking_calls,
         load_register,
@@ -401,6 +404,20 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     if register is None:
         register = build_initial_register(ctx)
 
+    # Step-19 diagnostics — used by the per-call line to render +context labels.
+    # Missing files map to empty lists; _pretty_source_label degrades to a "?"
+    # page placeholder rather than raising.
+    def _load_refs(path: Path) -> list[dict]:
+        if not path.exists():
+            return []
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            return data if isinstance(data, list) else []
+        except (OSError, json.JSONDecodeError):
+            return []
+    _figure_refs = _load_refs(artifact_cross_page_refs_json_path(ctx.artifact_dir))
+    _parent_refs = _load_refs(artifact_parent_refs_json_path(ctx.artifact_dir))
+
     # Pre-marking summary table — render once, before the per-page loop kicks in.
     _scaffold_pc = ctx.scaffold.page_count if ctx.scaffold is not None else None
     _student_filter_set = {a["student_name"] for a in raw_assignments}
@@ -424,7 +441,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     # skip, handwriting-extras, and cross-page-figure extras. iter_marking_calls
     # additionally applies the runtime scaffold-bounds cap and (implicitly via
     # the filtered raw_assignments) the cohort filter.
-    page_tasks: list[tuple[dict, int, int, int, list[int]]] = list(
+    page_tasks: list[tuple[dict, int, int, int, list[int], list[str]]] = list(
         iter_marking_calls(
             register,
             raw_assignments=raw_assignments,
@@ -461,6 +478,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         idx: int,
         assignment: dict, p_label: int, answer_label: int, answer_page_count: int,
         extra_scan_pages: list[int],
+        extra_sources: list[str],
     ) -> tuple[dict | None, dict | None]:
         student_name: str = assignment["student_name"]
         safe_name = student_name or f"Unknown_{p_label}"
@@ -487,7 +505,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             if _use_pdf_path:
                 import tempfile
                 exercise_scan_page = assignment["page_numbers"][p_label - 1]
-                all_scan_pages = [exercise_scan_page] + extra_scan_pages
+                # Sort ascending so the AI sees pages in natural reading order
+                # (parent stems / referenced figures land before the child page).
+                all_scan_pages = sorted([exercise_scan_page] + extra_scan_pages)
                 with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as _tmp:
                     tmp_path = _tmp.name
                 try:
@@ -514,13 +534,18 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     except OSError:
                         pass
             else:
-                b64 = _b64_cache[(student_name, p_label)]
+                # Sort ascending so the bundle reads top-to-bottom in scan-page
+                # order; primary slot just carries whichever page is earliest.
+                exercise_scan_page = assignment["page_numbers"][p_label - 1]
                 _scan_to_plabel = {sp: i + 1 for i, sp in enumerate(assignment["page_numbers"])}
-                extra_b64 = [
-                    _b64_cache[(student_name, _scan_to_plabel[esp])]
-                    for esp in extra_scan_pages
-                    if esp in _scan_to_plabel and (student_name, _scan_to_plabel[esp]) in _b64_cache
+                _all_pages = sorted([exercise_scan_page] + extra_scan_pages)
+                _all_b64 = [
+                    _b64_cache[(student_name, _scan_to_plabel[sp])]
+                    for sp in _all_pages
+                    if sp in _scan_to_plabel and (student_name, _scan_to_plabel[sp]) in _b64_cache
                 ]
+                b64 = _all_b64[0]
+                extra_b64 = _all_b64[1:]
                 filled = _mark_page(
                     client, model_id, b64, blueprint, _thinking_kw,
                     blueprint_xml=blueprint_str,
@@ -567,10 +592,21 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             _graphic_note = f"  · +graphic ({', '.join(_graphic_labels)})"
         else:
             _graphic_note = ""
+        _context_labels = [
+            lab for src in extra_sources
+            if (lab := _pretty_source_label(src, _figure_refs, _parent_refs, compact=True)) is not None
+        ]
+        _context_note = f"  · +context ({', '.join(_context_labels)})" if _context_labels else ""
+        _n_writing = sum(1 for src in extra_sources if src == "handwriting")
+        _writing_note = (
+            f"  · +writing ({_n_writing} page{'s' if _n_writing != 1 else ''})"
+            if _n_writing else ""
+        )
         with _display_lock:
             _student_lines[key] = (
                 f"[green]  {icon('ok')}  Student '{student_name}'"
-                f" · scan page {p_label}/{_total_pages}  ·  {format_duration(mark_dur)}{_graphic_note}[/]"
+                f" · scan page {p_label}/{_total_pages}  ·  {format_duration(mark_dur)}"
+                f"{_context_note}{_writing_note}{_graphic_note}[/]"
             )
             if _use_live:
                 live.update(_render())
@@ -606,8 +642,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         )
         with ThreadPoolExecutor(max_workers=workers) as ex:
             futures = {
-                ex.submit(_mark_one_page, idx, a, p_label, ans_lbl, ans_cnt, extras): (a["student_name"], p_label)
-                for idx, (a, p_label, ans_lbl, ans_cnt, extras) in enumerate(page_tasks_sorted)
+                ex.submit(_mark_one_page, idx, a, p_label, ans_lbl, ans_cnt, extras, sources): (a["student_name"], p_label)
+                for idx, (a, p_label, ans_lbl, ans_cnt, extras, sources) in enumerate(page_tasks_sorted)
             }
             for fut in as_completed(futures):
                 try:

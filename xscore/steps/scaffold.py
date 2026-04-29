@@ -3,9 +3,10 @@ scheme graphics, assign, parse mark scheme, merge).
 
 Most steps share local state (exam_pdf, client, layout_result, raw_questions,
 …) so each step writes/reads ``ctx.scaffold_state`` rather than receiving these
-through individual ``_Ctx`` fields. Step 19 (``detect_cross_page_figures``) is
-a standalone data transform that does not touch ``scaffold_state`` — it only
-reads on-disk artifacts from steps 15 and 18 and ``ctx.empty_exam_has_cover``.
+through individual ``_Ctx`` fields. Step 19 (``detect_cross_page_context``)
+is a standalone data transform that does not touch ``scaffold_state`` — it
+only reads on-disk artifacts from steps 15 and 18 and
+``ctx.empty_exam_has_cover``.
 
 ``scaffold_phase`` is the orchestrator that:
 
@@ -86,14 +87,16 @@ def step_18_parse_exam(ctx: _Ctx) -> None:
     state["raw_layout"] = raw_layout
 
 
-def step_19_detect_cross_page_figures(ctx: _Ctx) -> None:
-    """Detect figures referenced on a different page than the one they're drawn on.
+def step_19_detect_cross_page_context(ctx: _Ctx) -> None:
+    """Detect cross-page context — figure references AND parent stems.
 
     Pure data transform: reads the v1 marking page register from step 15 plus
-    ``18_parse_exam_pdf/exam_questions.yaml``, augments calls whose answer
-    pages reference figures drawn elsewhere, and writes the v2 register at
-    ``19_detect_cross_page_figures/marking_page_register.json`` along with
-    diagnostics. No AI calls.
+    ``18_parse_exam_pdf/exam_questions.yaml``, runs two augmentation passes
+    (figure mentions on a different page from where the figure is drawn;
+    child questions on a different page from a parent's stem/flowchart), and
+    writes the v2 register at
+    ``19_detect_cross_page_context/marking_page_register.json`` along with
+    diagnostic JSON files and a markdown summary. No AI calls.
     """
     import yaml
 
@@ -101,6 +104,7 @@ def step_19_detect_cross_page_figures(ctx: _Ctx) -> None:
         apply_cross_page_extras,
         build_initial_register,
         load_register,
+        render_cross_page_step_summary,
         write_register,
     )
     from xscore.shared.path_builders import (
@@ -108,6 +112,7 @@ def step_19_detect_cross_page_figures(ctx: _Ctx) -> None:
         artifact_cross_page_refs_json_path,
         artifact_exam_questions_path,
         artifact_marking_page_register_v2_path,
+        artifact_parent_refs_json_path,
     )
 
     assert ctx.artifact_dir is not None
@@ -126,34 +131,45 @@ def step_19_detect_cross_page_figures(ctx: _Ctx) -> None:
         return
 
     exam_questions = yaml.safe_load(questions_path.read_text(encoding="utf-8")) or {}
-    register, cross_page_refs = apply_cross_page_extras(
+    register, figure_refs, parent_refs = apply_cross_page_extras(
         register, exam_questions, bool(ctx.empty_exam_has_cover)
     )
 
     write_register(artifact_marking_page_register_v2_path(ctx.artifact_dir), register)
 
+    import json
     refs_path = artifact_cross_page_refs_json_path(ctx.artifact_dir)
     refs_path.parent.mkdir(parents=True, exist_ok=True)
-    import json
     refs_path.write_text(
-        json.dumps(cross_page_refs, indent=2, ensure_ascii=False), encoding="utf-8"
+        json.dumps(figure_refs, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    parent_refs_path = artifact_parent_refs_json_path(ctx.artifact_dir)
+    parent_refs_path.write_text(
+        json.dumps(parent_refs, indent=2, ensure_ascii=False), encoding="utf-8"
     )
 
-    n_extras = sum(
+    # Per-source counts. A single call can be augmented by both passes; report
+    # each pass independently so the totals match what shows up in the register.
+    n_fig_calls = sum(
         1 for s in register["students"] for c in s["calls"]
-        if any((src or "").startswith("cross_page") for src in c.get("extra_sources") or [])
+        if any((src or "").startswith("cross_page_fig_") for src in c.get("extra_sources") or [])
     )
+    n_parent_calls = sum(
+        1 for s in register["students"] for c in s["calls"]
+        if any((src or "").startswith("cross_page_parent_") for src in c.get("extra_sources") or [])
+    )
+
     md_lines = [
-        "# Cross-page figure references",
+        "# Cross-page context references",
         "",
-        f"- Figures detected: {len(cross_page_refs)} cross-page",
-        f"- Calls augmented: {n_extras}",
+        f"- Figures detected: {len(figure_refs)}  ·  calls augmented: {n_fig_calls}",
+        f"- Parent stems detected: {len(parent_refs)}  ·  calls augmented: {n_parent_calls}",
         "",
     ]
-    if cross_page_refs:
-        md_lines.append("## Detected references")
+    if figure_refs:
+        md_lines.append("## Detected figure references")
         md_lines.append("")
-        for ref in cross_page_refs:
+        for ref in figure_refs:
             referenced = ", ".join(str(p) for p in ref["referenced_on_answer_labels"])
             md_lines.append(
                 f"- **Fig. {ref['figure_label']}** — drawn on answer page "
@@ -161,18 +177,45 @@ def step_19_detect_cross_page_figures(ctx: _Ctx) -> None:
                 f"{'s' if len(ref['referenced_on_answer_labels']) != 1 else ''} {referenced}"
             )
         md_lines.append("")
+    if parent_refs:
+        md_lines.append("## Detected parent-context references")
+        md_lines.append("")
+        for ref in parent_refs:
+            children = ", ".join(ref["child_numbers"])
+            child_pages = sorted(set(ref["child_answer_labels"]))
+            child_pages_str = ", ".join(str(p) for p in child_pages)
+            md_lines.append(
+                f"- **Q{ref['parent_number']}** (page {ref['parent_answer_label']}) "
+                f"→ {children} (page{'s' if len(child_pages) != 1 else ''} {child_pages_str})"
+            )
+        md_lines.append("")
     artifact_cross_page_changes_md_path(ctx.artifact_dir).write_text(
         "\n".join(md_lines), encoding="utf-8"
     )
 
-    if cross_page_refs:
+    # Two separate ok_lines so each detection is visible in the terminal.
+    if figure_refs:
         ok_line(
-            f"{len(cross_page_refs)} cross-page figure"
-            f"{'s' if len(cross_page_refs) != 1 else ''} detected  ·  "
-            f"{n_extras} call{'s' if n_extras != 1 else ''} augmented"
+            f"{len(figure_refs)} cross-page figure"
+            f"{'s' if len(figure_refs) != 1 else ''} detected  ·  "
+            f"{n_fig_calls} call{'s' if n_fig_calls != 1 else ''} augmented"
         )
     else:
         ok_line("No cross-page figures detected")
+    if parent_refs:
+        ok_line(
+            f"{len(parent_refs)} cross-page parent stem"
+            f"{'s' if len(parent_refs) != 1 else ''} detected  ·  "
+            f"{n_parent_calls} call{'s' if n_parent_calls != 1 else ''} augmented"
+        )
+    else:
+        ok_line("No cross-page parent stems detected")
+
+    render_cross_page_step_summary(
+        figure_refs=figure_refs,
+        parent_refs=parent_refs,
+        register=register,
+    )
 
 
 def step_20_scheme_graphics(ctx: _Ctx) -> None:

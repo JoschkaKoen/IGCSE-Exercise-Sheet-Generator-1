@@ -45,7 +45,20 @@ This exam contains code and pseudocode. Student answers and your explanations mu
 
 In the student_answer and explanation fields:
 - Wrap inline tokens (variable names, function calls, single keywords) in \texttt{...}.
-- Wrap multi-line code or pseudocode blocks in \begin{alltt}...\end{alltt}.
+- Wrap multi-line code or pseudocode blocks in \begin{alltt}...\end{alltt} with real line breaks (literal newlines) between code lines. NEVER separate code lines with \newline (or with \\) — those are prose-paragraph and tabular-row separators; using either inside a code block defeats alltt and renders the lines in the body proportional font. Example — student writes the pseudocode answer:
+    DECLARE x : INTEGER
+    INPUT x
+    IF x > 0 THEN
+      OUTPUT "yes"
+    ENDIF
+  Correct transcription:
+    \begin{alltt}DECLARE x : INTEGER
+    INPUT x
+    IF x > 0 THEN
+      OUTPUT "yes"
+    ENDIF\end{alltt}
+  Wrong (do not do):
+    DECLARE x : INTEGER\newline INPUT x\newline IF x > 0 THEN\newline   OUTPUT "yes"\newline ENDIF
 - Even a single line like "DECLARE x : INTEGER", "P <- UCASE(P)", or "Counter <- Counter + 1" counts as code and must be wrapped.
 - For trace tables, truth tables, decision tables, and any column-aligned tabular data, use \begin{tabular}{|c|c|c|...|} with & separators between cells and \\ \hline between rows so the table renders with visible borders. Begin with \hline immediately after \begin{tabular}{...} for the top border, and ensure the final row's \\ \hline draws the bottom border. Do NOT use \begin{alltt} for tables — alltt aligns columns by counting spaces, which is unreliable when cells have unequal widths. Leave empty cells blank between &. Example for a partially-filled trace table with 8 columns:
   \begin{tabular}{|c|c|c|c|c|c|c|c|}

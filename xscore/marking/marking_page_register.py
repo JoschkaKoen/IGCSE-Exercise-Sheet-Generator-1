@@ -13,9 +13,13 @@ Lifecycle:
    (``15_student_handwriting/marking_page_register.json``) with one primary
    scan page per call plus extras coming from blank-page-with-handwriting
    attachments.
-2. **Step 19** (cross-page figure detection) reads register v1, augments calls
-   whose answer pages reference figures drawn elsewhere in the exam, and
-   writes ``19_detect_cross_page_figures/marking_page_register.json``.
+2. **Step 19** (cross-page context detection) reads register v1 and augments
+   calls in two passes: (a) pages that mention figures drawn elsewhere get
+   the figure's drawn-on page as an extra; (b) pages whose questions are
+   children of a parent on an earlier page get the parent's page as an
+   extra (so the AI sees flowcharts, tables, or stems that introduce the
+   sub-questions). Writes
+   ``19_detect_cross_page_context/marking_page_register.json``.
 3. **Step 25** (AI marking) loads the most-refined register available and
    iterates the calls. Two filters that *cannot* be baked in (scaffold-bounds
    cap and CLI cohort filter) are applied at iteration time.
@@ -202,31 +206,91 @@ def _load_handwriting(
 
 
 # ---------------------------------------------------------------------------
-# Cross-page figure-reference detection (step 19)
+# Cross-page context detection (step 19) — figure references + parent stems
 # ---------------------------------------------------------------------------
 
 # Matches "Fig. 1.1", "Fig 1.1", "Figure 1.1", "Fig. 5" — case-insensitive.
 _FIGURE_RE = re.compile(r"(?i)\bfig(?:ure|\.)?\s*(\d+(?:\.\d+)?)")
 
 
+# An ``Attachment`` records "for answer-page x, also include answer-page y"
+# along with a ``source`` string that names *why* (e.g. "cross_page_fig_1.1"
+# or "cross_page_parent_9"). The per-student attach loop dedups on (y, source)
+# so the same scan page can carry multiple sources if multiple detectors agree.
+_AttachMap = dict[int, list[tuple[int, str]]]
+
+
 def apply_cross_page_extras(
     register: dict,
     exam_questions_yaml: dict,
     empty_exam_has_cover: bool,
-) -> tuple[dict, list[dict]]:
-    """Augment *register* (in-place copy) with cross-page figure extras.
+) -> tuple[dict, list[dict], list[dict]]:
+    """Augment *register* (in-place) with cross-page context extras.
 
-    Returns ``(updated_register, cross_page_refs)`` where ``cross_page_refs``
-    is a flat list of ``{figure_label, drawn_on_*, referenced_on_*}`` dicts
-    suitable for writing as a diagnostic.
+    Two passes that share the per-student attach loop:
 
-    Figure → page resolution uses the **first textual mention** heuristic:
-    the figure lives on the smallest-numbered page that mentions it. If the
-    figure is mentioned on multiple pages, every page other than the first is
-    a "cross-page reference" and gets the first-mention page added as an
-    extra scan page in the register.
+    1. **Figure pass** — for each "Fig. N.N" mention found on a page other
+       than the figure's first-mention (drawn-on) page, attach the drawn-on
+       page as an extra. Respects the student's ``skipped_scan_pages``: a
+       page the student left blank carries no useful figure pixels.
+    2. **Parent pass** — for each child question whose page is later than an
+       ancestor's, attach the ancestor's page as an extra. *Bypasses* the
+       ``skipped_scan_pages`` check because parent pages typically have no
+       student handwriting (printed flowchart / stem only) — that's the
+       very content we want the marker to see.
+
+    Returns ``(register, figure_refs, parent_refs)`` where each ``*_refs`` is
+    a flat list of diagnostic dicts (sorted, deduped) suitable for writing
+    next to the register.
     """
     questions = exam_questions_yaml.get("questions") or []
+
+    # ── Pass 1: figure mentions ─────────────────────────────────────────────
+    figure_attachments, figure_refs = _compute_figure_attachments(
+        questions, empty_exam_has_cover,
+    )
+    _apply_attachments(
+        register, figure_attachments, empty_exam_has_cover,
+        bypass_skipped=False,
+    )
+
+    # ── Pass 2: parent stems ────────────────────────────────────────────────
+    parent_attachments, parent_refs = _compute_parent_attachments(
+        questions, empty_exam_has_cover,
+    )
+    _apply_attachments(
+        register, parent_attachments, empty_exam_has_cover,
+        bypass_skipped=True,
+    )
+
+    # ── Refresh metadata ───────────────────────────────────────────────────
+    md = register["metadata"]
+    md["produced_by_step"] = 19
+    md["produced_by_step_name"] = "detect_cross_page_context"
+    applied = list(md.get("applied_extras", []))
+    if figure_refs and "cross_page_figures" not in applied:
+        applied.append("cross_page_figures")
+    if parent_refs and "cross_page_parents" not in applied:
+        applied.append("cross_page_parents")
+    md["applied_extras"] = applied
+    md["total_calls"] = sum(len(s["calls"]) for s in register["students"])
+
+    return register, figure_refs, parent_refs
+
+
+# ---------------------------------------------------------------------------
+# Pass 1: figure mentions
+# ---------------------------------------------------------------------------
+
+def _compute_figure_attachments(
+    questions: list[dict],
+    empty_exam_has_cover: bool,
+) -> tuple[_AttachMap, list[dict]]:
+    """Resolve "Fig. N.N" mentions into (attachments, diagnostic refs).
+
+    Figure → page resolution uses the first-textual-mention heuristic: the
+    figure lives on the smallest-numbered page that mentions it.
+    """
     mentions = list(_walk_figure_mentions(questions))
 
     figure_first_page: dict[str, int] = {}
@@ -235,9 +299,9 @@ def apply_cross_page_extras(
         if prev is None or exam_page < prev:
             figure_first_page[fig_label] = exam_page
 
-    # extras_by_answer_label: {answer_label_referencing → set(answer_label_drawn)}
-    extras_by_answer_label: dict[int, set[int]] = {}
-    cross_page_refs_by_label: dict[str, dict] = {}
+    attachments: _AttachMap = {}
+    refs_by_label: dict[str, dict] = {}
+    seen_pairs: set[tuple[int, int, str]] = set()
     for fig_label, ref_page in mentions:
         drawn_page = figure_first_page[fig_label]
         if drawn_page == ref_page:
@@ -246,8 +310,12 @@ def apply_cross_page_extras(
         drawn_answer = _exam_page_to_answer_label(drawn_page, empty_exam_has_cover)
         if ref_answer is None or drawn_answer is None:
             continue
-        extras_by_answer_label.setdefault(ref_answer, set()).add(drawn_answer)
-        entry = cross_page_refs_by_label.setdefault(fig_label, {
+        source = f"cross_page_fig_{fig_label}"
+        key = (ref_answer, drawn_answer, source)
+        if key not in seen_pairs:
+            attachments.setdefault(ref_answer, []).append((drawn_answer, source))
+            seen_pairs.add(key)
+        entry = refs_by_label.setdefault(fig_label, {
             "figure_label": fig_label,
             "drawn_on_empty_exam_page": drawn_page,
             "drawn_on_answer_label": drawn_answer,
@@ -258,65 +326,14 @@ def apply_cross_page_extras(
             entry["referenced_on_empty_exam_pages"].append(ref_page)
             entry["referenced_on_answer_labels"].append(ref_answer)
 
-    cross_page_refs = sorted(
-        cross_page_refs_by_label.values(),
+    refs = sorted(
+        refs_by_label.values(),
         key=lambda r: (r["drawn_on_empty_exam_page"], r["figure_label"]),
     )
-    for entry in cross_page_refs:
+    for entry in refs:
         entry["referenced_on_empty_exam_pages"].sort()
         entry["referenced_on_answer_labels"].sort()
-
-    # Apply extras to each student's calls.
-    for student in register["students"]:
-        cover_page_number = student.get("cover_page_number")
-        page_numbers = student.get("page_numbers") or []
-        student_cover_offset = _cover_offset(
-            cover_page_number is not None, empty_exam_has_cover
-        )
-        # Pages the student left blank — never useful as a cross-page figure
-        # source even if the empty-exam template has the figure drawn there.
-        skipped = set(student.get("skipped_scan_pages") or [])
-        for call in student["calls"]:
-            x = call["answer_label"]
-            extras_for_x = extras_by_answer_label.get(x, set())
-            if not extras_for_x:
-                continue
-            existing_extras = list(call["extra_scan_pages"])
-            existing_sources = list(call["extra_sources"])
-            for y in sorted(extras_for_x):
-                p_label_y = y + student_cover_offset
-                if not (1 <= p_label_y <= len(page_numbers)):
-                    continue
-                scan_page_y = page_numbers[p_label_y - 1]
-                if scan_page_y == call["primary_scan_page"]:
-                    continue
-                if scan_page_y in existing_extras:
-                    continue
-                if scan_page_y in skipped:
-                    continue   # student left this page blank — no figure to send
-                # Find the figure label(s) for the diagnostic source string.
-                figs_for_y = sorted(
-                    label for label, pg in figure_first_page.items()
-                    if _exam_page_to_answer_label(pg, empty_exam_has_cover) == y
-                )
-                source = (
-                    f"cross_page_fig_{figs_for_y[0]}" if figs_for_y else "cross_page"
-                )
-                existing_extras.append(scan_page_y)
-                existing_sources.append(source)
-            call["extra_scan_pages"] = existing_extras
-            call["extra_sources"] = existing_sources
-            call["scan_pages"] = [call["primary_scan_page"]] + existing_extras
-
-    # Refresh metadata.
-    md = register["metadata"]
-    md["produced_by_step"] = 19
-    md["produced_by_step_name"] = "detect_cross_page_figures"
-    if "cross_page_figures" not in md.get("applied_extras", []):
-        md["applied_extras"] = list(md.get("applied_extras", [])) + ["cross_page_figures"]
-    md["total_calls"] = sum(len(s["calls"]) for s in register["students"])
-
-    return register, cross_page_refs
+    return attachments, refs
 
 
 def _walk_figure_mentions(questions: list[dict]) -> Iterator[tuple[str, int]]:
@@ -333,6 +350,134 @@ def _walk_figure_mentions(questions: list[dict]) -> Iterator[tuple[str, int]]:
                 yield m.group(1), page
         for sub in q.get("subquestions") or []:
             yield from _walk_figure_mentions([sub])
+
+
+# ---------------------------------------------------------------------------
+# Pass 2: parent stems
+# ---------------------------------------------------------------------------
+
+def _compute_parent_attachments(
+    questions: list[dict],
+    empty_exam_has_cover: bool,
+) -> tuple[_AttachMap, list[dict]]:
+    """Resolve parent → child cross-page stems into (attachments, refs).
+
+    For every child question whose page is later than an ancestor's, attach
+    the ancestor's page to the child's marking call. Walks the full ancestor
+    chain so a 3-level case (Q9 p8 → 9a p9 → 9ai p10) attaches *both* p8 and
+    p9 to 9ai's call.
+    """
+    walk = list(_walk_parent_attachments(questions))
+
+    attachments: _AttachMap = {}
+    refs_by_parent: dict[tuple[str, int], dict] = {}
+    seen_pairs: set[tuple[int, int, str]] = set()
+    for child_page, ancestor_page, ancestor_number, child_number in walk:
+        child_answer = _exam_page_to_answer_label(child_page, empty_exam_has_cover)
+        ancestor_answer = _exam_page_to_answer_label(ancestor_page, empty_exam_has_cover)
+        if child_answer is None or ancestor_answer is None:
+            continue
+        source = f"cross_page_parent_{ancestor_number}"
+        key = (child_answer, ancestor_answer, source)
+        if key not in seen_pairs:
+            attachments.setdefault(child_answer, []).append((ancestor_answer, source))
+            seen_pairs.add(key)
+        entry = refs_by_parent.setdefault((ancestor_number, ancestor_page), {
+            "parent_number": ancestor_number,
+            "parent_empty_exam_page": ancestor_page,
+            "parent_answer_label": ancestor_answer,
+            "child_numbers": [],
+            "child_empty_exam_pages": [],
+            "child_answer_labels": [],
+        })
+        if child_number not in entry["child_numbers"]:
+            entry["child_numbers"].append(child_number)
+            entry["child_empty_exam_pages"].append(child_page)
+            entry["child_answer_labels"].append(child_answer)
+
+    refs = sorted(
+        refs_by_parent.values(),
+        key=lambda r: (r["parent_empty_exam_page"], r["parent_number"]),
+    )
+    return attachments, refs
+
+
+def _walk_parent_attachments(
+    questions: list[dict],
+    ancestors: tuple[tuple[str, int], ...] = (),
+) -> Iterator[tuple[int, int, str, str]]:
+    """Yield (child_page, ancestor_page, ancestor_number, child_number) for every
+    question whose page is later than an ancestor's page.
+
+    Recurses into ``subquestions`` while threading the ancestor chain. Each
+    yield = one attachment to make. Consumers dedup.
+    """
+    for q in questions:
+        page = q.get("page")
+        number = q.get("number")
+        if isinstance(page, int) and number is not None:
+            child_number = str(number)
+            for a_number, a_page in ancestors:
+                if page > a_page:
+                    yield page, a_page, a_number, child_number
+        next_ancestors = ancestors
+        if isinstance(page, int) and number is not None:
+            next_ancestors = ancestors + ((str(number), page),)
+        for sub in q.get("subquestions") or []:
+            yield from _walk_parent_attachments([sub], next_ancestors)
+
+
+# ---------------------------------------------------------------------------
+# Shared per-student attach loop
+# ---------------------------------------------------------------------------
+
+def _apply_attachments(
+    register: dict,
+    attachments: _AttachMap,
+    empty_exam_has_cover: bool,
+    *,
+    bypass_skipped: bool,
+) -> None:
+    """Apply *attachments* in-place to each student's calls in *register*.
+
+    *bypass_skipped* controls whether pages the student left blank
+    (``skipped_scan_pages``) are eligible as extras. The figure pass passes
+    ``False`` (a blank page in the student's scan is a useless figure
+    source); the parent pass passes ``True`` (parent pages are typically
+    printed exam content like flowcharts that the student doesn't write on).
+    """
+    if not attachments:
+        return
+    for student in register["students"]:
+        cover_page_number = student.get("cover_page_number")
+        page_numbers = student.get("page_numbers") or []
+        student_cover_offset = _cover_offset(
+            cover_page_number is not None, empty_exam_has_cover
+        )
+        skipped = set(student.get("skipped_scan_pages") or [])
+        for call in student["calls"]:
+            x = call["answer_label"]
+            attach_list = attachments.get(x)
+            if not attach_list:
+                continue
+            existing_extras = list(call["extra_scan_pages"])
+            existing_sources = list(call["extra_sources"])
+            for y, source in sorted(attach_list):
+                p_label_y = y + student_cover_offset
+                if not (1 <= p_label_y <= len(page_numbers)):
+                    continue
+                scan_page_y = page_numbers[p_label_y - 1]
+                if scan_page_y == call["primary_scan_page"]:
+                    continue
+                if scan_page_y in existing_extras:
+                    continue
+                if scan_page_y in skipped and not bypass_skipped:
+                    continue
+                existing_extras.append(scan_page_y)
+                existing_sources.append(source)
+            call["extra_scan_pages"] = existing_extras
+            call["extra_sources"] = existing_sources
+            call["scan_pages"] = [call["primary_scan_page"]] + existing_extras
 
 
 def _exam_page_to_answer_label(empty_exam_page: int, empty_exam_has_cover: bool) -> int | None:
@@ -362,13 +507,15 @@ def write_register(path: Path, register: dict) -> None:
 def load_register(artifact_dir: Path) -> dict | None:
     """Return the most-refined register available, or ``None`` if none exists.
 
-    Tries the step 19 register first (cross-page-figure-augmented), falling
-    back to the step 15 register (handwriting-extras only). Returns ``None``
-    when neither file exists — callers handle that via an in-memory rebuild
-    (e.g. when resuming an old run from before this artifact existed).
+    Tries the step 19 register first (cross-page-context-augmented), falling
+    back to the step 15 register (handwriting-extras only). Includes the
+    pre-rename legacy folder name as an intermediate fallback so resuming an
+    old run still finds the register. Returns ``None`` when none of the
+    candidates exists.
     """
     candidates = (
         artifact_marking_page_register_v2_path(artifact_dir),
+        artifact_dir / "19_detect_cross_page_figures" / REGISTER_FILENAME,
         artifact_marking_page_register_v1_path(artifact_dir),
     )
     for candidate in candidates:
@@ -390,16 +537,19 @@ def iter_marking_calls(
     raw_assignments: list[dict],
     scaffold_page_count: int | None = None,
     student_filter: set[str] | None = None,
-) -> Iterator[tuple[dict, int, int, int, list[int]]]:
-    """Yield ``(assignment, p_label, answer_label, answer_page_count, extra_scan_pages)``.
-
-    Mirrors the tuple shape that ``run_ai_marking`` consumed pre-refactor so
-    the call-site change in :mod:`xscore.marking.ai_mark` is minimal.
+) -> Iterator[tuple[dict, int, int, int, list[int], list[str]]]:
+    """Yield ``(assignment, p_label, answer_label, answer_page_count,
+    extra_scan_pages, extra_sources)``.
 
     *raw_assignments* is the parsed ``exam_student_list.json`` content; it's
     needed because the marking loop uses the original ``page_numbers`` list
     for rendering and labelling. The register knows which calls to make; the
     raw list provides the per-student pixel-level metadata.
+
+    *extra_sources* is index-aligned with *extra_scan_pages* — entry ``i``
+    names the detector that contributed page ``i`` (e.g. ``"handwriting"``,
+    ``"cross_page_parent_9"``, ``"cross_page_fig_1.1"``). Consumers can use
+    this to render per-call provenance without re-walking the register.
 
     Filters applied:
     - **scaffold-bounds cap**: drops calls with
@@ -427,7 +577,155 @@ def iter_marking_calls(
                 answer_label,
                 answer_page_count,
                 list(call["extra_scan_pages"]),
+                list(call.get("extra_sources") or []),
             )
+
+
+# ---------------------------------------------------------------------------
+# Step-19 terminal display
+# ---------------------------------------------------------------------------
+
+def _pretty_source_label(
+    source: str,
+    figure_refs: list[dict],
+    parent_refs: list[dict],
+    *,
+    compact: bool = False,
+) -> str | None:
+    """Resolve an ``extra_sources`` string to a human-readable display label.
+
+    Returns ``None`` for sources that did not come from step 19 (e.g. step
+    15's ``"handwriting"`` extras) — callers filter those out before
+    rendering, so step 19's terminal output stays scoped to step 19's work.
+
+    *compact* picks the format for inline use in streaming log lines:
+    ``"Q9 p.8"`` / ``"Fig. 1.1 p.2"`` instead of the default
+    ``"Q9 (page 8)"`` / ``"Fig. 1.1 (page 2)"``.
+    """
+    if source.startswith("cross_page_fig_"):
+        label = source[len("cross_page_fig_"):]
+        ref = next((r for r in figure_refs if r["figure_label"] == label), None)
+        page = ref["drawn_on_answer_label"] if ref else "?"
+        return f"Fig. {label} p.{page}" if compact else f"Fig. {label} (page {page})"
+    if source.startswith("cross_page_parent_"):
+        number = source[len("cross_page_parent_"):]
+        ref = next((r for r in parent_refs if r["parent_number"] == number), None)
+        page = ref["parent_answer_label"] if ref else "?"
+        return f"Q{number} p.{page}" if compact else f"Q{number} (page {page})"
+    return None
+
+
+def render_cross_page_step_summary(
+    *,
+    figure_refs: list[dict],
+    parent_refs: list[dict],
+    register: dict,
+    console: Any = None,
+) -> None:
+    """Render step-19 detail tables to the terminal (no-op when no detections).
+
+    Two indented Rich tables, both styled to match :func:`print_register_summary`:
+
+    1. **Detected references** — combined figure + parent rows with a
+       ``Type`` column. Sorted figures-first, then by source page.
+    2. **Calls augmented** — one row per ``(student, call)`` whose call has
+       at least one step-19 source. Multiple step-19 sources on the same
+       call are joined in the "Extras added" cell.
+
+    Each table is skipped when its data is empty, so the no-detection case
+    produces no output and the caller's ``ok_line`` summary stands alone.
+    """
+    if not figure_refs and not parent_refs:
+        return
+
+    from rich import box
+    from rich.padding import Padding
+    from rich.table import Table
+
+    if console is None:
+        from xscore.shared.terminal_ui import get_console
+        console = get_console()
+
+    # ── Detected references table ──────────────────────────────────────────
+    refs_rows: list[tuple[str, str, str]] = []
+    for r in figure_refs:
+        refs_rows.append((
+            "figure",
+            f"Fig. {r['figure_label']} (page {r['drawn_on_answer_label']})",
+            "referenced on page "
+            + ", ".join(str(p) for p in r["referenced_on_answer_labels"]),
+        ))
+    for r in parent_refs:
+        children = ", ".join(r["child_numbers"])
+        child_pages = sorted(set(r["child_answer_labels"]))
+        page_word = "page" if len(child_pages) == 1 else "pages"
+        refs_rows.append((
+            "parent",
+            f"Q{r['parent_number']} (page {r['parent_answer_label']})",
+            f"{children} ({page_word} {', '.join(str(p) for p in child_pages)})",
+        ))
+
+    if refs_rows:
+        refs_table = Table(
+            box=box.HORIZONTALS,
+            header_style="dim",
+            show_edge=False,
+            pad_edge=False,
+        )
+        refs_table.add_column("Type", justify="left")
+        refs_table.add_column("Source", justify="left")
+        refs_table.add_column("Target", justify="left")
+        for row in refs_rows:
+            refs_table.add_row(*row)
+
+        console.print()
+        console.print(
+            f"    [dim]Detected references — "
+            f"{len(figure_refs)} figure{'s' if len(figure_refs) != 1 else ''}, "
+            f"{len(parent_refs)} parent{'s' if len(parent_refs) != 1 else ''}[/]"
+        )
+        console.print(Padding(refs_table, (0, 0, 0, 4), expand=False))
+
+    # ── Calls augmented table ──────────────────────────────────────────────
+    aug_rows: list[tuple[str, str, str]] = []
+    students_seen: set[str] = set()
+    for student in register.get("students") or []:
+        for call in student["calls"]:
+            sources = call.get("extra_sources") or []
+            labels = [
+                lab for s in sources
+                if (lab := _pretty_source_label(s, figure_refs, parent_refs)) is not None
+            ]
+            if not labels:
+                continue
+            students_seen.add(student["student_name"])
+            aug_rows.append((
+                student["student_name"],
+                f"answer p.{call['answer_label']}",
+                ", ".join(f"+ {lab}" for lab in labels),
+            ))
+
+    if aug_rows:
+        aug_table = Table(
+            box=box.HORIZONTALS,
+            header_style="dim",
+            show_edge=False,
+            pad_edge=False,
+        )
+        aug_table.add_column("Student", justify="left")
+        aug_table.add_column("Call", justify="left")
+        aug_table.add_column("Extras added", justify="left")
+        for row in aug_rows:
+            aug_table.add_row(*row)
+
+        console.print()
+        console.print(
+            f"    [dim]Calls augmented — {len(aug_rows)} call"
+            f"{'s' if len(aug_rows) != 1 else ''} across {len(students_seen)} "
+            f"student{'s' if len(students_seen) != 1 else ''}[/]"
+        )
+        console.print(Padding(aug_table, (0, 0, 0, 4), expand=False))
+        console.print()
 
 
 # ---------------------------------------------------------------------------

@@ -306,6 +306,7 @@ def _protect_envs(text: str, transform) -> str:
     def _restore(m: re.Match) -> str:
         block = stashed[int(m.group(1))]
         if block.startswith((r"\begin{tabular}", r"\begin{tabular*}")):
+            block = "\\adjustbox{max width=\\linewidth}{" + block + "}"
             sep = "{\\par\\addvspace{" + _TABULAR_VSPACE + "}}"
             return sep + block + sep
         return block
@@ -318,6 +319,16 @@ def _protect_envs(text: str, transform) -> str:
     _wrapper_pat = re.escape("{\\par\\addvspace{" + _TABULAR_VSPACE + "}}")
     text = re.sub(r"\\newline\s+(?=" + _wrapper_pat + ")", "", text)
     text = re.sub("(" + _wrapper_pat + r")\s*\\newline\b\s?", r"\1 ", text)
+    # A wrapper at the very start of the cell text means the tabular is the
+    # first content in its longtable cell. The wrapper's leading \par then
+    # closes the cell's initial empty paragraph and manufactures a full
+    # baseline of vertical space above the table — visible as a free line in
+    # the PDF. Mid-text wrappers (after-prose, before-prose) still need the
+    # \par to enter vertical mode, so leave those alone. The preceding
+    # ``\newline``-strip already ate any AI-emitted leading newline before
+    # the wrapper, so this anchor fires iff the tabular is genuinely at
+    # cell start.
+    text = re.sub(r"^\s*" + _wrapper_pat, "", text)
     return text
 
 

@@ -31,10 +31,11 @@ STEP_16_LAYOUT          = "16_detect_exam_layout"
 STEP_17_CUT             = "17_cut_exam"
 STEP_18_PARSE_EXAM      = "18_parse_exam_pdf"
 
-# Step 19 (NEW): build the marking page register augmented with cross-page
-# figure references (e.g. "Fig. 1.1" referenced on a different page than the
-# one it's drawn on). All steps from the previous step 19 onward shift by +1.
-STEP_19_CROSS_PAGE_FIGURES = "19_detect_cross_page_figures"
+# Step 19: build the marking page register augmented with cross-page context —
+# both figure references (e.g. "Fig. 1.1" referenced on a different page than
+# the one it's drawn on) AND parent-question stems (e.g. Q9's flowchart on
+# page 8 attached to 9a/9b's marking calls on page 9).
+STEP_19_CROSS_PAGE_CONTEXT = "19_detect_cross_page_context"
 STEP_20_GRAPHICS         = "20_detect_mark_scheme_graphics"
 STEP_21_ASSIGN_QUESTIONS = "21_assign_scheme_questions"
 STEP_22_PARSE_SCHEME     = "22_parse_mark_scheme"
@@ -55,6 +56,7 @@ STEP_33_AI_COSTS         = "33_ai_costs"
 # strings so callers that imported the old name keep resolving to the right
 # (renumbered) folder. Drop these once every importer has been migrated.
 # ---------------------------------------------------------------------------
+STEP_19_CROSS_PAGE_FIGURES = STEP_19_CROSS_PAGE_CONTEXT
 STEP_19_GRAPHICS         = STEP_20_GRAPHICS
 STEP_20_ASSIGN_QUESTIONS = STEP_21_ASSIGN_QUESTIONS
 STEP_21_PARSE_SCHEME     = STEP_22_PARSE_SCHEME
