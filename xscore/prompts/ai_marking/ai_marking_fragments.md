@@ -47,13 +47,14 @@ In the student_answer and explanation fields:
 - Wrap inline tokens (variable names, function calls, single keywords) in \texttt{...}.
 - Wrap multi-line code or pseudocode blocks in \begin{alltt}...\end{alltt}.
 - Even a single line like "DECLARE x : INTEGER", "P <- UCASE(P)", or "Counter <- Counter + 1" counts as code and must be wrapped.
-- For trace tables, truth tables, decision tables, and any column-aligned tabular data, use \begin{tabular}{c c c ...} with & separators between cells and \\ between rows. Do NOT use \begin{alltt} for tables — alltt aligns columns by counting spaces, which is unreliable when cells have unequal widths. Leave empty cells blank between &. Omit \hline for compact rendering. Example for a partially-filled trace table with 8 columns:
-  \begin{tabular}{c c c c c c c c}
-  F & C & X[1] & X[2] & X[3] & X[4] & X[5] & T \\
-  0 & 1 & 1    & 10   &      &      &      & 10 \\
-  1 & 2 &      & 5    & 10   &      &      & 10 \\
-  1 & 3 &      &      & 7    & 10   &      & 10 \\
-  1 & 4 &      &      &      &      &      &    \\
+- For trace tables, truth tables, decision tables, and any column-aligned tabular data, use \begin{tabular}{|c|c|c|...|} with & separators between cells and \\ \hline between rows so the table renders with visible borders. Begin with \hline immediately after \begin{tabular}{...} for the top border, and ensure the final row's \\ \hline draws the bottom border. Do NOT use \begin{alltt} for tables — alltt aligns columns by counting spaces, which is unreliable when cells have unequal widths. Leave empty cells blank between &. Example for a partially-filled trace table with 8 columns:
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+  \hline
+  F & C & X[1] & X[2] & X[3] & X[4] & X[5] & T \\ \hline
+  0 & 1 & 1    & 10   &      &      &      & 10 \\ \hline
+  1 & 2 &      & 5    & 10   &      &      & 10 \\ \hline
+  1 & 3 &      &      & 7    & 10   &      & 10 \\ \hline
+  1 & 4 &      &      &      &      &      &    \\ \hline
   \end{tabular}
 - NEVER use \textbf{...} for code — bold is not monospace. Reserve \textbf{...} for emphasis on prose words.
 - The wrapper does not change the verbatim transcription; it only tells LaTeX to render the text in monospace.

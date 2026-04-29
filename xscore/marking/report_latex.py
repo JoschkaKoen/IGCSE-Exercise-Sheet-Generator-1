@@ -99,9 +99,11 @@ _ALLTT_MATH_SUB = {
 # Match either the raw form `\leftarrow` or the prompt-escaped form
 # `\textbackslash{}leftarrow`. Step 22's mark-scheme parsing prompt tells the
 # AI to escape backslashes inside alltt to `\textbackslash{}`, so pseudocode
-# arrows arrive in either form depending on the AI's mood.
+# arrows arrive in either form depending on the AI's mood. Trailing whitespace
+# is left alone — alltt preserves spaces verbatim, and consuming one would
+# render `P \leftarrow "x"` as `P ←"x"` (no gap after the arrow).
 _ALLTT_MATH_RE = re.compile(
-    r"(?:\\textbackslash\{\}|\\)(" + "|".join(_ALLTT_MATH_SUB) + r")\b\s?"
+    r"(?:\\textbackslash\{\}|\\)(" + "|".join(_ALLTT_MATH_SUB) + r")\b"
 )
 
 
