@@ -17,7 +17,7 @@ from xscore.marking.formats.base import FormatParseError, MarkingFormat
 from xscore.marking.mark_xml import MarkingFailure
 from xscore.prompts.loader import load_prompt
 from xscore.shared.prompt_logger import save_prompt, save_response
-from xscore.shared.terminal_ui import warn_line
+from xscore.shared.terminal_ui import info_line, warn_line
 
 
 def _render_page_b64(doc: Any, page_idx: int, dpi: int = 300) -> str:
@@ -185,6 +185,8 @@ def _mark_page(
     # NL prompt ("reuse cache"). Key folds in every input that affects the
     # response so a stale hit is impossible by construction.
     _cache_key: str | None = None
+    cache_hit = False
+    raw_from_cache: str | None = None
     if reuse_cache:
         from xscore.shared.response_cache import cache_key as _cache_key_fn, cache_get
         _extra_hashes = ",".join(extra_b64) + "|" + ",".join(g[2] for g in scheme_graphics)
@@ -203,12 +205,8 @@ def _mark_page(
         if _hit is not None:
             _cached_raw = _hit.get("response", "")
             if isinstance(_cached_raw, str) and _cached_raw:
-                try:
-                    return _apply_marking_response(_cached_raw, blueprint, fmt, warn)
-                except FormatParseError:
-                    # Cached entry is malformed for the current parser — discard it
-                    # and fall through to a live call.
-                    pass
+                cache_hit = True
+                raw_from_cache = _cached_raw
 
     def _do_call() -> tuple[str, str]:
         if use_stream:
@@ -222,13 +220,78 @@ def _mark_page(
             getattr(_resp.choices[0].message, "reasoning_content", "") or "",
         )
 
+    # --- First call: cache hit or live API call --------------------------
     _last_raw: str = ""
     try:
-        raw, thinking_text = retry_api_call(_do_call, label=f"Marking ({model_id})")
+        if cache_hit and raw_from_cache is not None:
+            raw, thinking_text = raw_from_cache, ""
+        else:
+            raw, thinking_text = retry_api_call(_do_call, label=f"Marking ({model_id})")
+            save_response(prompt_save_path, raw, thinking=thinking_text)
         _last_raw = raw
-        save_response(prompt_save_path, raw, thinking=thinking_text)
-        result = _apply_marking_response(raw, blueprint, fmt, warn)
-        if reuse_cache and _cache_key is not None:
+
+        try:
+            result, unfilled, unmatched = _apply_marking_response(raw, blueprint, fmt)
+        except FormatParseError:
+            if cache_hit:
+                # Stale cache shape — discard and fall through to a live call.
+                cache_hit = False
+                raw, thinking_text = retry_api_call(_do_call, label=f"Marking ({model_id})")
+                save_response(prompt_save_path, raw, thinking=thinking_text)
+                _last_raw = raw
+                result, unfilled, unmatched = _apply_marking_response(raw, blueprint, fmt)
+            else:
+                raise
+
+        if unmatched:
+            warn(f"Marking: AI returned question(s) with no blueprint match: {unmatched}")
+
+        # --- Completeness retry: one shot to recover skipped questions ----
+        if unfilled:
+            _page_num = int(blueprint.get("page") or 0)
+            _layout = blueprint.get("layout") or {"rows": 1, "cols": 1}
+            unfilled_set = set(unfilled)
+            slim_questions = [
+                q for q in result.get("questions", [])
+                if q.get("number") in unfilled_set
+            ]
+            info_line(
+                f"Marking p{_page_num} retry: {len(unfilled)} missing question(s) — "
+                + ", ".join(f"q{n}" for n in unfilled)
+            )
+            retry_raw, _retry_thinking = _do_retry_call(
+                client, model_id, kwargs, fmt, slim_questions, unfilled,
+                _page_num, _layout, prompt_save_path, use_stream,
+            )
+            still_unfilled: list[str] = list(unfilled)
+            if retry_raw:
+                slim_bp = {
+                    "page": _page_num,
+                    "layout": _layout,
+                    "questions": slim_questions,
+                }
+                try:
+                    _, still_unfilled, retry_unmatched = _apply_marking_response(
+                        retry_raw, slim_bp, fmt,
+                    )
+                except FormatParseError as exc:
+                    warn(f"Marking p{_page_num} retry parse error: {exc} — keeping first-call result")
+                    retry_unmatched = []
+                if retry_unmatched:
+                    warn(
+                        f"Marking: AI returned question(s) with no blueprint match (retry): "
+                        f"{retry_unmatched}"
+                    )
+            if still_unfilled:
+                warn(
+                    f"Marking: {len(still_unfilled)} blueprint question(s) skipped by AI "
+                    f"(after retry): {still_unfilled}"
+                )
+
+        # --- Final validation pass: MCQ fix + blank-answer + clamp --------
+        _finalize_marking(result, warn)
+
+        if reuse_cache and not cache_hit and _cache_key is not None:
             from xscore.shared.response_cache import cache_put
             cache_put(_cache_key, model=model_id, response=raw)
         return result
@@ -245,13 +308,19 @@ def _apply_marking_response(
     raw: str,
     blueprint: dict,
     fmt: "MarkingFormat",
-    warn: Callable[[str], None],
-) -> dict:
+) -> tuple[dict, list[str], list[str]]:
     """Parse a raw marking response and apply it to *blueprint*.
 
-    Used by both the live API path and the cache-hit path so the validation /
-    clamping / MCQ-fix / blank-answer logic runs identically. Raises
+    Pure-ish: parses *raw*, walks *blueprint*, fills entries by ``_bq_key``
+    positional match, returns ``(result, unfilled, unmatched)``. Does NOT warn,
+    does NOT MCQ-fix, does NOT clamp — those are caller responsibilities so
+    that retry logic can run before final validation. Raises
     :class:`FormatParseError` if *raw* is unparseable.
+
+    Idempotent on repeated calls against partially-filled blueprints — the
+    inner walk only fills bp entries whose ``assigned_marks is None``, so a
+    second invocation against a slim blueprint of previously-unfilled entries
+    is a clean retry-merge.
     """
     parsed_questions = fmt.parse_response(raw)
     result = blueprint.copy()
@@ -260,11 +329,16 @@ def _apply_marking_response(
         fill_groups[_bq_key(q)].append(q)
 
     fill_group_idx: dict[tuple, int] = defaultdict(int)
-    _unfilled = []
+    unfilled: list[str] = []
     for bq in result.get("questions", []):
         key = _bq_key(bq)
         idx = fill_group_idx[key]
         fill_group_idx[key] += 1
+        # Skip bp entries that were already filled by an earlier pass — only
+        # fill ones still pending. Lets the same function run idempotently as
+        # a retry-merge against a slim blueprint of just-unfilled entries.
+        if bq.get("assigned_marks") is not None:
+            continue
         group = fill_groups.get(key, [])
         if idx < len(group):
             fq = group[idx]
@@ -276,17 +350,24 @@ def _apply_marking_response(
             if "confidence" in fq:
                 bq["confidence"] = fq["confidence"]
         else:
-            _unfilled.append(bq.get("number"))
+            unfilled.append(bq.get("number"))
 
-    if _unfilled:
-        warn(f"Marking: {len(_unfilled)} blueprint question(s) skipped by AI: {_unfilled}")
-    _unmatched: list[str] = []
+    unmatched: list[str] = []
     for key, grp in fill_groups.items():
         excess = len(grp) - fill_group_idx.get(key, 0)
         for fq in grp[fill_group_idx.get(key, 0):fill_group_idx.get(key, 0) + max(0, excess)]:
-            _unmatched.append(fq.get("number") or str(key))
-    if _unmatched:
-        warn(f"Marking: AI returned question(s) with no blueprint match: {_unmatched}")
+            unmatched.append(fq.get("number") or str(key))
+
+    return result, unfilled, unmatched
+
+
+def _finalize_marking(result: dict, warn: Callable[[str], None]) -> None:
+    """Run the final validation pass on a fully-merged marking result.
+
+    Steps: MCQ deterministic recompute, blank-answer default text, range
+    clamp on ``assigned_marks``. Mutates *result* in place. Fires the clamp
+    warning for any out-of-range marks that survived all retries.
+    """
     _fix_mc_marks(result)
     for bq in result.get("questions", []):
         if not (bq.get("student_answer") or "").strip() and bq.get("assigned_marks") in (None, 0):
@@ -306,7 +387,94 @@ def _apply_marking_response(
             except (TypeError, ValueError):
                 m_int = 0
             bq["assigned_marks"] = max(0, min(m_int, int(max_m)))
-    return result
+
+
+def _do_retry_call(
+    client: Any,
+    model_id: str,
+    base_kwargs: dict,
+    fmt: "MarkingFormat",
+    slim_questions: list[dict],
+    unfilled_qnums: list[str],
+    page_num: int,
+    layout: dict,
+    prompt_save_path: Path | None,
+    use_stream: bool,
+) -> tuple[str, str]:
+    """Single follow-up call that re-asks the marking AI for the missing
+    questions, with a slim blueprint scoped to just those entries.
+
+    Returns ``(raw, thinking)``. On any exception (parse error, API failure,
+    empty response), returns ``("", "")`` — never propagates, so the caller
+    can fall back to the original warn-and-clamp path. No ``retry_api_call``
+    wrapper here: a single shot is intentional, otherwise transient retries
+    would compound on top of the completeness retry.
+    """
+    try:
+        slim_xml = fmt.build_blueprint(page_num, layout, slim_questions)
+        _, base_user_text = load_prompt(
+            fmt.prompt_name(), section="user", blueprint=slim_xml,
+        )
+        # Display labels with a leading "q" so they read naturally in the
+        # emphasis line ("missing q4c, q10" rather than "missing 4c, 10").
+        _qnum_str = ", ".join(f"q{n}" for n in unfilled_qnums)
+        emphasis = (
+            f"RETRY: your previous response was missing entries for these "
+            f"question(s): {_qnum_str}. Mark each one explicitly — return one "
+            "entry per number listed in the blueprint below.\n\n"
+        )
+        retry_user_text = emphasis + base_user_text
+
+        # Reuse the system message and image_url parts from the first call;
+        # only swap the user-prompt text.
+        first_user_content = base_kwargs["messages"][1]["content"]
+        if isinstance(first_user_content, list):
+            image_parts = [c for c in first_user_content if c.get("type") == "image_url"]
+        else:
+            image_parts = []
+        retry_kwargs = dict(base_kwargs)
+        retry_kwargs["messages"] = [
+            base_kwargs["messages"][0],
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": retry_user_text},
+                    *image_parts,
+                ],
+            },
+        ]
+
+        if prompt_save_path is not None:
+            retry_prompt_path = prompt_save_path.with_name(
+                prompt_save_path.stem + "_retry" + prompt_save_path.suffix
+            )
+            save_prompt(
+                retry_prompt_path, model=model_id, messages=retry_kwargs["messages"],
+            )
+        else:
+            retry_prompt_path = None
+
+        if use_stream:
+            _th: list[str] = []
+            _stream = client.chat.completions.create(**retry_kwargs, stream=True)
+            raw = collect_streamed_response(_stream, thinking_out=_th)
+            thinking_text = "".join(_th)
+        else:
+            _resp = client.chat.completions.create(**retry_kwargs)
+            raw = _resp.choices[0].message.content or ""
+            thinking_text = (
+                getattr(_resp.choices[0].message, "reasoning_content", "") or ""
+            )
+
+        if retry_prompt_path is not None:
+            save_response(retry_prompt_path, raw, thinking=thinking_text)
+
+        return raw, thinking_text
+    except KeyboardInterrupt:
+        raise
+    except Exception as exc:  # noqa: BLE001
+        warn_line(f"Marking p{page_num} retry failed: {exc} — keeping first-call result")
+        return "", ""
 
 
 def _fix_mc_marks(result: dict) -> None:

@@ -209,8 +209,17 @@ def _mark_page_pdf(
         raw, thinking_text = retry_api_call(_do_call, label="Marking PDF")
         _last_raw = raw
         save_response(prompt_save_path, raw, thinking=thinking_text)
-        from xscore.marking.mark_page import _apply_marking_response
-        return _apply_marking_response(raw, blueprint, fmt, warn)
+        from xscore.marking.mark_page import _apply_marking_response, _finalize_marking
+        # PDF upload path runs a single call with no completeness retry — the
+        # retry helper in mark_page.py is wired for chat.completions only.
+        # Mirrors the JPEG path's apply→warn→finalize sequence otherwise.
+        result, unfilled, unmatched = _apply_marking_response(raw, blueprint, fmt)
+        if unmatched:
+            warn(f"Marking: AI returned question(s) with no blueprint match: {unmatched}")
+        if unfilled:
+            warn(f"Marking: {len(unfilled)} blueprint question(s) skipped by AI: {unfilled}")
+        _finalize_marking(result, warn)
+        return result
     except FormatParseError as exc:
         warn(f"Marking parse error (PDF upload path) — marking aborted ({exc})")
         raise MarkingFailure(attempts=1, last_exc=exc, last_raw=_last_raw)
