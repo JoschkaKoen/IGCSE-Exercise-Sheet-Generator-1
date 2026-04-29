@@ -86,10 +86,13 @@ def _escape_bare_amp_outside_tabular(text: str) -> str:
 _ALLTT_BLOCK_RE = re.compile(r"\\begin\{alltt\}.*?\\end\{alltt\}", re.DOTALL)
 _ALLTT_PLACEHOLDER_RE = re.compile(r"\x00ALLTT(\d+)\x00")
 
-# AI sometimes emits math arrows inside alltt pseudocode (`P \leftarrow "x"`).
-# alltt is text-mode only, so xelatex inserts an implicit `$` and then errors
-# at `\end{alltt}` ("invalid in math mode"). Substitute with Unicode arrows
-# at restore time — fontspec renders them directly.
+# AI sometimes emits math arrows in text mode. Originally seen inside alltt
+# pseudocode (`P \leftarrow "x"`) — alltt is text-mode only, so xelatex would
+# insert an implicit `$` and then error at `\end{alltt}` ("invalid in math
+# mode"). Also seen inside `\texttt{...}` in AI explanations, where
+# `_wrap_loose_math` can't reach (the whole `\texttt{...}` is stashed as a
+# single text-command unit). Substitute with Unicode in both contexts —
+# fontspec renders these glyphs directly, identically in text and math modes.
 _ALLTT_MATH_SUB = {
     "leftarrow": "←", "gets": "←",
     "rightarrow": "→", "to": "→",
@@ -306,6 +309,17 @@ def _protect_envs(text: str, transform) -> str:
     def _restore(m: re.Match) -> str:
         block = stashed[int(m.group(1))]
         if block.startswith((r"\begin{tabular}", r"\begin{tabular*}")):
+            # [t] sets the tabular's reference point to its top-row baseline
+            # so the visible top of the first row aligns with the first
+            # character of any prose/itemize neighbour cell in the same
+            # longtable row. Default [c] (centre) plus \adjustbox would
+            # leave the tabular clamped against the cell rule while
+            # \arraystretch{1.6} keeps prose cells one stretched baseline
+            # lower — the row-internal asymmetry the user flagged.
+            # (?!\[) avoids double-injection if the AI already emitted an
+            # explicit alignment option.
+            block = re.sub(r"\\begin\{(tabular\*?)\}(?!\[)",
+                           r"\\begin{\1}[t]", block, count=1)
             block = "\\adjustbox{max width=\\linewidth}{" + block + "}"
             sep = "{\\par\\addvspace{" + _TABULAR_VSPACE + "}}"
             return sep + block + sep
@@ -395,6 +409,11 @@ def _ai_cell(text: str, cell_width_cm: float = 3.6) -> str:
     pass their actual column widths.
     """
     def _outside_alltt(t: str) -> str:
+        # Convert math arrows the AI sometimes emits in text mode (e.g. inside
+        # \texttt{...}, where _wrap_loose_math can't reach because the whole
+        # \texttt{...} is stashed as one unit). Same substitution applied
+        # inside alltt by _protect_alltt — running both is idempotent.
+        t = _ALLTT_MATH_RE.sub(lambda m: _ALLTT_MATH_SUB[m.group(1)], t)
         # Defensive escape for characters AIs commonly miss when they aren't
         # legitimately part of LaTeX commands. Math ($, \, {, }) is left alone
         # so the AI can still emit `\frac{1}{2}` etc.
@@ -410,12 +429,15 @@ def _ai_cell(text: str, cell_width_cm: float = 3.6) -> str:
         t = t.replace("\n", "\\newline ")
         # \newline adjacent to block-level environments is invalid LaTeX
         # ("There's no line here to end") — strip it in all four positions.
-        t = re.sub(r"\\newline\s*(?=\\begin\{)", "", t)
-        t = re.sub(r"(?<=\})\\newline\s*(?=\\begin\{)", "", t)
-        t = re.sub(r"(\\begin\{[^}]+\})\s*\\newline\b", r"\1", t)
-        t = re.sub(r"(\\end\{[^}]+\})\s*\\newline\b", r"\1 ", t)
-        t = re.sub(r"\\newline\s*(?=\\item\b)", "", t)
-        t = re.sub(r"\\newline\s*(?=\\end\{)", "", t)
+        # Match one-or-more so consecutive \newlines (e.g. AI paragraph
+        # break `\n\n` → `\newline \newline ` after line `t.replace("\n", ...)`)
+        # are all stripped, not just the first.
+        t = re.sub(r"(?:\\newline\s*)+(?=\\begin\{)", "", t)
+        t = re.sub(r"(?<=\})(?:\\newline\s*)+(?=\\begin\{)", "", t)
+        t = re.sub(r"(\\begin\{[^}]+\})(?:\s*\\newline\b\s?)+", r"\1", t)
+        t = re.sub(r"(\\end\{[^}]+\})(?:\s*\\newline\b\s?)+", r"\1 ", t)
+        t = re.sub(r"(?:\\newline\s*)+(?=\\item\b)", "", t)
+        t = re.sub(r"(?:\\newline\s*)+(?=\\end\{)", "", t)
         return t
 
     result = _protect_envs(text, lambda t: _protect_alltt(t, _outside_alltt, cell_width_cm))
