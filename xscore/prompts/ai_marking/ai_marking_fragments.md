@@ -10,7 +10,7 @@ Fill each field as follows:
    • multiple_choice: report the single letter the student physically marked (written, circled, crossed, or ticked). Report '?' if nothing is marked. Do NOT infer from the question or your subject knowledge — only report what is physically visible.
    • calculation: transcribe the student's full working and final answer verbatim.
    • all other types: copy the student's written answer verbatim. Mark unreadable words with [?].
-   The output is placed verbatim in a LaTeX document. Escape literal special characters that appear in the student's answer: % → \%, $ → \$, # → \#, _ → \_, { → \{, } → \}, backslash → \textbackslash{}. Use \newline for line breaks; do not include literal newlines.
+   The output is placed verbatim in a LaTeX document. Escape literal special characters that appear in the student's answer: % → \%, $ → \$, # → \#, _ → \_, { → \{, } → \}, backslash → \textbackslash{}. Use \newline for line breaks in prose; do not include literal newlines outside \begin{alltt}…\end{alltt} blocks (inside alltt, literal newlines are required — \newline is treated as text there, not a line break).
 2. assigned_marks — an integer 0–max_marks. Use professional judgement, not literal matching:
    • Award marks when the student's answer is plausible and demonstrates understanding of the question. Accept semantically equivalent or closely related answers, not only verbatim matches; if the student presents a correct solution that is not listed in ${criterion_ref}, award the marks.
    • Award no marks when the answer is factually wrong, off-topic, or shows no understanding of the question.
@@ -43,6 +43,8 @@ The student used continuation pages for additional writing. All pages are includ
 
 This exam contains code and pseudocode. Student answers and your explanations must render code in monospace.
 
+A `student_answer` whose content is pseudocode (or any multi-line code) MUST be a single \begin{alltt}…\end{alltt} block — even when the field's value is a YAML block scalar. Bare multi-line pseudocode renders as prose paragraphs in the PDF regardless of how it was emitted (\newline separators and YAML block-scalar literal newlines both round-trip into the same prose form), defeating the monospace formatting.
+
 In the student_answer and explanation fields:
 - Wrap inline tokens (variable names, function calls, single keywords) in \texttt{...}.
 - Wrap multi-line code or pseudocode blocks in \begin{alltt}...\end{alltt} with real line breaks (literal newlines) between code lines. NEVER separate code lines with \newline (or with \\) — those are prose-paragraph and tabular-row separators; using either inside a code block defeats alltt and renders the lines in the body proportional font. Example — student writes the pseudocode answer:
@@ -57,8 +59,16 @@ In the student_answer and explanation fields:
     IF x > 0 THEN
       OUTPUT "yes"
     ENDIF\end{alltt}
-  Wrong (do not do):
+  Wrong (renders as prose paragraphs, not monospace pseudocode):
     DECLARE x : INTEGER\newline INPUT x\newline IF x > 0 THEN\newline   OUTPUT "yes"\newline ENDIF
+  Also wrong — a YAML block scalar of bare pseudocode looks fine in YAML but the
+  pipeline parses it into the same prose-paragraph form as above:
+    student_answer: |-
+      DECLARE x : INTEGER
+      INPUT x
+      IF x > 0 THEN
+        OUTPUT "yes"
+      ENDIF
 - Even a single line like "DECLARE x : INTEGER", "P <- UCASE(P)", or "Counter <- Counter + 1" counts as code and must be wrapped.
 - For trace tables, truth tables, decision tables, and any column-aligned tabular data, use \begin{tabular}{|c|c|c|...|} with & separators between cells and \\ \hline between rows so the table renders with visible borders. Begin with \hline immediately after \begin{tabular}{...} for the top border, and ensure the final row's \\ \hline draws the bottom border. Do NOT use \begin{alltt} for tables — alltt aligns columns by counting spaces, which is unreliable when cells have unequal widths. Leave empty cells blank between &. Example for a partially-filled trace table with 8 columns:
   \begin{tabular}{|c|c|c|c|c|c|c|c|}
