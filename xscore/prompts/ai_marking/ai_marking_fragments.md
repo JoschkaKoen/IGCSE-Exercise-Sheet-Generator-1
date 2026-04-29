@@ -46,7 +46,14 @@ This exam contains code and pseudocode. Student answers and your explanations mu
 A `student_answer` whose content is pseudocode (or any multi-line code) MUST be a single \begin{alltt}…\end{alltt} block — even when the field's value is a YAML block scalar. Bare multi-line pseudocode renders as prose paragraphs in the PDF regardless of how it was emitted (\newline separators and YAML block-scalar literal newlines both round-trip into the same prose form), defeating the monospace formatting.
 
 In the student_answer and explanation fields:
-- Wrap inline tokens (variable names, function calls, single keywords) in \texttt{...}.
+- Wrap inline tokens in \texttt{...} whenever they appear in prose (in `student_answer` or `explanation`):
+  • Variable names: \texttt{Counter}, \texttt{AccDetails[AccID,1]}.
+  • Function/procedure calls: \texttt{UCASE(P)}, \texttt{CheckDetails(123)}.
+  • Pseudocode keywords used as narrative labels in English sentences — REPEAT, UNTIL, FOR, NEXT, ENDFOR, WHILE, ENDWHILE, IF, THEN, ELSE, ENDIF, CASE, OTHERWISE, ENDCASE, PROCEDURE, ENDPROCEDURE, FUNCTION, ENDFUNCTION, RETURN, RETURNS, DECLARE, CONSTANT, ARRAY, INPUT, OUTPUT, AND, OR, NOT, MOD, DIV, TRUE, FALSE, INTEGER, REAL, STRING, BOOLEAN, CHAR (non-exhaustive). Wrap each keyword separately, including when joined by `/`, `,`, or "and": write \texttt{REPEAT}/\texttt{UNTIL}, not \texttt{REPEAT/UNTIL}.
+  Examples:
+  – Prose "use a REPEAT/UNTIL loop instead of an IF check" → "use a \texttt{REPEAT}/\texttt{UNTIL} loop instead of an \texttt{IF} check".
+  – Prose "you need to add an ENDIF after the last branch" → "you need to add an \texttt{ENDIF} after the last branch".
+  This rule applies to keywords mentioned IN prose. A complete pseudocode STATEMENT (e.g. "DECLARE x : INTEGER" written as code, not as a reference to the keyword) goes inside \begin{alltt}…\end{alltt} per the next bullet — alltt for code statements, \texttt{} for inline keyword references.
 - Wrap multi-line code or pseudocode blocks in \begin{alltt}...\end{alltt} with real line breaks (literal newlines) between code lines. NEVER separate code lines with \newline (or with \\) — those are prose-paragraph and tabular-row separators; using either inside a code block defeats alltt and renders the lines in the body proportional font. Example — student writes the pseudocode answer:
     DECLARE x : INTEGER
     INPUT x
