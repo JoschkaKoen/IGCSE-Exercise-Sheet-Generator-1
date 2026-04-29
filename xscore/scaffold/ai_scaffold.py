@@ -47,6 +47,7 @@ from xscore.scaffold.scaffold_prompts import (
     _layout_detect_model_config,
     _mark_scheme_model_config,
 )
+from xscore.scaffold.scaffold_qtree import _format_qnums_for_line
 from xscore.scaffold.scaffold_xml import (
     _json_to_question,
     _merge_scheme,
@@ -62,7 +63,9 @@ from xscore.shared.exam_paths import (
 )
 from xscore.shared.models import ExamLayout, Question
 from xscore.shared.prompt_logger import save_prompt, save_response
-from xscore.shared.terminal_ui import info_line, ok_line, tool_line, warn_line
+from xscore.shared.terminal_ui import (
+    get_console, info_line, ok_line, tool_line, warn_line,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -202,6 +205,70 @@ def step17_cut_exam_pdf(
 # Step 18 — Parse exam PDF
 # ---------------------------------------------------------------------------
 
+def _print_detected_summary(scaffold_nodes: list[dict]) -> None:
+    """Render the post-detect listing — per-page qnums + a one-line summary.
+
+    Walks the scaffold tree once collecting:
+      - per-page qnums (parents AND leaves; a parent's stem text lives on its
+        own page so its number belongs in that page's listing)
+      - total marks (sum across every node — parents are typically 0 marks in
+        Cambridge schemes, so the sum equals the leaves' total)
+      - leaf type counts (multiple_choice / short_answer / calculation /
+        long_answer); parents are excluded since they don't get answered as
+        a single unit
+    """
+    per_page: dict[int, list[str]] = {}
+    n_top_level = len(scaffold_nodes)
+    n_total = 0
+    total_marks = 0
+    type_counts: dict[str, int] = {}
+
+    def visit(node: dict) -> None:
+        nonlocal n_total, total_marks
+        n_total += 1
+        num = str(node.get("number", "")).strip()
+        if num:
+            page = max(1, int(node.get("page") or 1))
+            per_page.setdefault(page, []).append(num)
+        try:
+            total_marks += int(node.get("marks") or 0)
+        except (TypeError, ValueError):
+            pass
+        subs = node.get("subquestions") or []
+        if not subs:
+            qt = str(node.get("question_type", "") or "").strip()
+            if qt:
+                type_counts[qt] = type_counts.get(qt, 0) + 1
+        for s in subs:
+            visit(s)
+
+    for q in scaffold_nodes:
+        visit(q)
+
+    console = get_console()
+    for page in sorted(per_page):
+        qnums = per_page[page]
+        console.print(f"[dim]     p{page}   {_format_qnums_for_line(qnums)}[/]")
+
+    n_subs = max(0, n_total - n_top_level)
+    type_order = ("multiple_choice", "short_answer", "calculation", "long_answer")
+    type_labels = {
+        "multiple_choice": "MCQ",
+        "short_answer":    "short",
+        "calculation":     "calc",
+        "long_answer":     "long",
+    }
+    type_summary = ", ".join(
+        f"{type_counts[t]} {type_labels[t]}"
+        for t in type_order
+        if type_counts.get(t)
+    )
+    parts = [f"{n_top_level} top-level + {n_subs} sub-questions",
+             f"{total_marks} marks"]
+    if type_summary:
+        parts.append(type_summary)
+    ok_line("  ·  ".join(parts))
+
 def step18_parse_exam_pdf(
     client,
     actual_exam_pdf: Path,
@@ -264,7 +331,8 @@ def step18_parse_exam_pdf(
             )
         except OSError as e:
             warn_line(f"Could not save exam_scaffold artifact: {e}")
-    ok_line(f"{len(scaffold_nodes)} top-level questions identified")
+
+    _print_detected_summary(scaffold_nodes)
 
     # --- Phase B — per-page parallel fill -----------------------------------
     fill_model, fill_thinking, fill_max_tokens = _fill_scaffold_model_config()

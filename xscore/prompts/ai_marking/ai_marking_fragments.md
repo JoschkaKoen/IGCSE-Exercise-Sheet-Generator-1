@@ -10,7 +10,7 @@ Fill each field as follows:
    • multiple_choice: report the single letter the student physically marked (written, circled, crossed, or ticked). Report '?' if nothing is marked. Do NOT infer from the question or your subject knowledge — only report what is physically visible.
    • calculation: transcribe the student's full working and final answer verbatim.
    • all other types: copy the student's written answer verbatim. Mark unreadable words with [?].
-   The output is placed verbatim in a LaTeX document. Escape literal special characters that appear in the student's answer: % → \%, $ → \$, # → \#, _ → \_, { → \{, } → \}, backslash → \textbackslash{}. Use \newline for line breaks in prose; do not include literal newlines outside \begin{alltt}…\end{alltt} blocks (inside alltt, literal newlines are required — \newline is treated as text there, not a line break).
+   The output is placed verbatim in a LaTeX document. Escape literal special characters that appear in the student's answer: % → \%, $ → \$, # → \#, _ → \_, { → \{, } → \}, backslash → \textbackslash{}. Use \newline for line breaks in prose.
 2. assigned_marks — an integer 0–max_marks. Use professional judgement, not literal matching:
    • Award marks when the student's answer is plausible and demonstrates understanding of the question. Accept semantically equivalent or closely related answers, not only verbatim matches; if the student presents a correct solution that is not listed in ${criterion_ref}, award the marks.
    • Award no marks when the answer is factually wrong, off-topic, or shows no understanding of the question.

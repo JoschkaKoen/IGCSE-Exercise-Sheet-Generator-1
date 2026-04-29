@@ -32,7 +32,9 @@ from eXercise.qwen_input import (
 )
 from xscore.scaffold.scaffold_api import _make_gen_config
 from xscore.scaffold.scaffold_pdf_split import split_pdf_into_pages
-from xscore.scaffold.scaffold_qtree import _filter_questions_by_qnums
+from xscore.scaffold.scaffold_qtree import (
+    _filter_questions_by_qnums, _format_qnums_for_line,
+)
 from xscore.shared.exam_paths import (
     artifact_exam_pages_dir, artifact_scaffold_prompt_path,
 )
@@ -187,7 +189,7 @@ def fill_exam_scaffold(
     def _call_page(page_num: int) -> dict[str, dict]:
         qnums = expected.get(page_num) or []
         if not qnums:
-            ok_line(f"p{page_num}  ·  no questions  ·  skipped")
+            ok_line(f"p{page_num}   skipped (no questions)")
             return {}
 
         filtered = _filter_questions_by_qnums(scaffold_nodes, set(qnums))
@@ -272,7 +274,7 @@ def fill_exam_scaffold(
             )
         except Exception as _exc:
             warn_line(
-                f"Fill p{page_num}: giving up after retries  ·  "
+                f"p{page_num}   retries exhausted  ·  "
                 f"{format_duration(time.perf_counter() - _t0)}  —  {_exc}"
             )
             return {}
@@ -299,11 +301,11 @@ def fill_exam_scaffold(
             )
             save_response(_prompt_path, raw or "", thinking=thinking_text)
 
+        _duration = format_duration(time.perf_counter() - _t0)
         try:
             entries = fmt.parse_fill_response(raw or "")
         except RuntimeError as _exc:
-            warn_line(f"Fill p{page_num}: parse error  —  {_exc}")
-            ok_line(f"p{page_num}  ·  parse error  ·  {format_duration(time.perf_counter() - _t0)}")
+            warn_line(f"p{page_num}   parse error  ·  {_duration}  —  {_exc}")
             return {}
 
         by_number: dict[str, dict] = {}
@@ -311,10 +313,22 @@ def fill_exam_scaffold(
             num = str(e.get("number", "")).strip()
             if num:
                 by_number[num] = e
-        ok_line(
-            f"p{page_num}  ·  {len(by_number)}/{len(qnums)} filled  ·  "
-            f"{format_duration(time.perf_counter() - _t0)}"
-        )
+
+        filled = [q for q in qnums if q in by_number]
+        missing = [q for q in qnums if q not in by_number]
+        chars = sum(len(str(e.get("text", "") or "")) for e in by_number.values())
+        chars_str = f"{chars / 1000:.1f}k chars" if chars >= 1000 else f"{chars} chars"
+
+        if not missing:
+            ok_line(
+                f"p{page_num}   {_format_qnums_for_line(filled)}  "
+                f"·  {_duration}  ·  {chars_str}"
+            )
+        else:
+            warn_line(
+                f"p{page_num}   {_format_qnums_for_line(filled) or '—'} filled  ·  "
+                f"{_format_qnums_for_line(missing)} missing  ·  {_duration}"
+            )
         return by_number
 
     workers = min(

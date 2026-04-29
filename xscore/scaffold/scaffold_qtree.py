@@ -12,6 +12,18 @@ def _norm_qnum(s: str) -> str:
     return re.sub(r"[()]", "", s)
 
 
+def _format_qnums_for_line(qnums: list[str], limit: int = 10) -> str:
+    """Comma-separated qnum list, truncated when long.
+
+    For ``len > limit``: shows the first 8 followed by ``… (+N more)`` so the
+    line stays bounded on terminals while still naming the leading questions.
+    """
+    if len(qnums) <= limit:
+        return ", ".join(qnums)
+    head = qnums[:8]
+    return ", ".join(head) + f", … (+{len(qnums) - 8} more)"
+
+
 def _collect_qnums(raw_questions: list[dict]) -> list[str]:
     """Walk *raw_questions* recursively, return ordered unique question numbers
     (top-level + nested subquestions). Preserves first-seen order."""
