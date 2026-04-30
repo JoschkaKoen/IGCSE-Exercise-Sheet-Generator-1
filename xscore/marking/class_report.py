@@ -24,7 +24,8 @@ from xscore.marking.report_latex import (
 from xscore.marking.report_markdown import _class_report_to_md
 from xscore.marking.report_xml import class_report_to_xml
 from xscore.shared.exam_paths import (
-    artifact_class_grade_histogram_path,
+    artifact_class_grade_histogram_curved_path,
+    artifact_class_grade_histogram_raw_path,
     artifact_class_marks_xlsx_path,
     artifact_class_question_difficulty_path,
     artifact_class_report_combined_landscape_pdf_path,
@@ -296,6 +297,7 @@ def _pass2_write_tex(
     parsed_questions: list[dict] | None = None,
     qmap_by_num: dict[str, dict] | None = None,
     name_suffix: str = "",
+    class_avg: int | None = None,
 ) -> None:
     """Write per-student .tex files (landscape + portrait + portrait-large), then compile all in parallel.
 
@@ -328,6 +330,7 @@ def _pass2_write_tex(
                 _student_report_to_tex(
                     report, exam_name=exam_name, orientation=orientation,
                     font_size=font_size, show_curved_grade=show_curved_grade,
+                    class_avg=class_avg,
                 ),
                 encoding="utf-8",
             )
@@ -347,6 +350,7 @@ def _pass2_write_tex(
                     _student_report_to_tex(
                         report, exam_name=exam_name, orientation="portrait",
                         font_size=fs, show_curved_grade=show_curved_grade,
+                        class_avg=class_avg,
                     ),
                     encoding="utf-8",
                 )
@@ -363,6 +367,7 @@ def _pass2_write_tex(
                 _student_report_with_questions_to_tex(
                     report, qmap_by_num, exam_name=exam_name,
                     font_size=10, show_curved_grade=show_curved_grade,
+                    class_avg=class_avg,
                 ),
                 encoding="utf-8",
             )
@@ -378,6 +383,7 @@ def _pass2_write_tex(
                 _student_report_list_to_tex(
                     report, qmap_by_num, exam_name=exam_name,
                     show_curved_grade=show_curved_grade,
+                    class_avg=class_avg,
                 ),
                 encoding="utf-8",
             )
@@ -550,8 +556,17 @@ def _build_class_report(
     all_avgs, all_max = _build_all_question_tables(
         getattr(ctx.scaffold, "questions", []), leaf_avgs
     )
-    known_pcts = [s["percentage"] for s in student_summaries if s["percentage"] is not None]
-    class_avg = int(round(sum(known_pcts) / len(known_pcts))) if known_pcts else None
+    known_pcts_sorted = sorted(
+        s["percentage"] for s in student_summaries if s["percentage"] is not None
+    )
+    class_avg = (
+        int(round(sum(known_pcts_sorted) / len(known_pcts_sorted)))
+        if known_pcts_sorted else None
+    )
+    n_students = len(student_summaries)
+    median_pct = known_pcts_sorted[len(known_pcts_sorted) // 2] if known_pcts_sorted else None
+    min_pct = known_pcts_sorted[0] if known_pcts_sorted else None
+    max_pct = known_pcts_sorted[-1] if known_pcts_sorted else None
     per_question_pct: dict[str, int] = {
         qnum: int(round(avg / all_max[qnum] * 100))
         for qnum, avg in all_avgs.items()
@@ -563,20 +578,45 @@ def _build_class_report(
         for qnum, avg in leaf_avgs.items()
         if all_max.get(qnum, 0) > 0
     }
-    # Charts are best-effort: if matplotlib isn't installed the LaTeX block
-    # for the figure stays empty (template uses ``<% if histogram_path %>``).
-    histogram_path: str | None = None
+
+    # Top-level-only subset for the new ranking. Replicates the `_N`
+    # duplicate-suffix convention from `_build_all_question_tables` so the
+    # keys line up with `all_avgs` / `all_max` / `per_question_pct`.
+    top_keys: list[str] = []
+    seen_top: dict[str, int] = {}
+    for q in getattr(ctx.scaffold, "questions", []):
+        num = str(q.number or "")
+        if not num:
+            continue
+        seen_top[num] = seen_top.get(num, 0) + 1
+        top_keys.append(num if seen_top[num] == 1 else f"{num}_{seen_top[num]}")
+    top_avgs = {k: all_avgs[k] for k in top_keys if k in all_avgs}
+    top_max  = {k: all_max[k]  for k in top_keys if k in all_max}
+    top_pct  = {k: per_question_pct[k] for k in top_keys if k in per_question_pct}
+
+    # Charts are best-effort: if matplotlib isn't installed the LaTeX
+    # figure block stays empty (template uses ``<% if histogram_*_path %>``).
+    histogram_raw_path: str | None = None
+    histogram_curved_path: str | None = None
     difficulty_path: str | None = None
     try:
         from xscore.marking.class_charts import (
             render_grade_histogram, render_question_difficulty,
         )
-        h = render_grade_histogram(
+        h_raw = render_grade_histogram(
             student_summaries,
-            artifact_class_grade_histogram_path(ctx.artifact_dir),
+            artifact_class_grade_histogram_raw_path(ctx.artifact_dir),
+            kind="raw",
         )
-        if h is not None:
-            histogram_path = str(h)
+        if h_raw is not None:
+            histogram_raw_path = str(h_raw)
+        h_curved = render_grade_histogram(
+            student_summaries,
+            artifact_class_grade_histogram_curved_path(ctx.artifact_dir),
+            kind="curved",
+        )
+        if h_curved is not None:
+            histogram_curved_path = str(h_curved)
         d = render_question_difficulty(
             leaf_pct, all_max,
             artifact_class_question_difficulty_path(ctx.artifact_dir),
@@ -593,9 +633,17 @@ def _build_class_report(
         "per_question_averages": all_avgs,
         "per_question_max_marks": all_max,
         "per_question_pct_averages": per_question_pct,
+        "per_top_question_averages": top_avgs,
+        "per_top_question_max_marks": top_max,
+        "per_top_question_pct_averages": top_pct,
         "class_average_pct": class_avg,
         "total_max_marks": total_max_marks,
-        "histogram_path": histogram_path,
+        "n_students": n_students,
+        "median_pct": median_pct,
+        "min_pct": min_pct,
+        "max_pct": max_pct,
+        "histogram_raw_path": histogram_raw_path,
+        "histogram_curved_path": histogram_curved_path,
         "difficulty_path": difficulty_path,
     }
     artifact_class_report_xml_path(ctx.artifact_dir).write_text(

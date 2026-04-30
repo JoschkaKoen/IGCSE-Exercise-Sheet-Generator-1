@@ -1,18 +1,12 @@
 \documentclass[11pt]{article}
-\usepackage{fontspec}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{geometry}
-\usepackage{xcolor}
-\usepackage{adjustbox}
-\usepackage{enumitem}
-\setlist[itemize]{topsep=0pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.2em}
-\usepackage{alltt}
+<% include '_student_report_preamble.tex.j2' %>
 \geometry{a4paper,margin=1.5cm}
 \begin{document}
-\section*{Student Report (list view): <<name>><<header_extra>>}
-\textbf{Total: <<total>>/<<max_m>> (<<summary_text>>)} \quad \textcolor{gray}{\small <<date_str>>}
-\vspace{1em}
+<%- if class_avg_pct is not none and percentage is not none %>
+\reportheader{Student Report (list view): <<name>><<header_extra>>}{Total: <<total>>/<<max_m>> (<<summary_text>>)}{<<percentage>>}{<<class_avg_pct>>}{<<date_str>>}
+<%- else %>
+\reportheaderbasic{Student Report (list view): <<name>><<header_extra>>}{Total: <<total>>/<<max_m>> (<<summary_text>>)}{<<date_str>>}
+<%- endif %>
 
 <<body>>
 

@@ -104,6 +104,7 @@ def step_27_class_stats_curve(ctx: Any) -> None:
     known = [s["percentage"] for s in summaries if s["percentage"] is not None]
     class_avg = int(round(sum(known) / len(known))) if known else None
     curve_offset = (target - class_avg) if class_avg is not None else 0
+    ctx.class_average_pct = class_avg
     p = artifact_class_stats_json_path(ctx.artifact_dir)
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(
@@ -158,11 +159,13 @@ def step_28_per_student_pdfs(ctx: Any) -> None:
             "18_parse_exam_pdf/exam_questions.yaml not found."
         )
 
+    class_avg = getattr(ctx, "class_average_pct", None)
     _pass2_write_tex(
         ctx.student_summaries, ctx.full_reports, ctx.artifact_dir, exam_name, workers,
         show_curved_grade=show_curved_grade,
         parsed_questions=parsed_questions,
         qmap_by_num=qmap_by_num,
+        class_avg=class_avg,
     )
 
     # Second pass — companion "_full" PDFs containing rows for unanswered
@@ -177,6 +180,7 @@ def step_28_per_student_pdfs(ctx: Any) -> None:
             parsed_questions=parsed_questions,
             qmap_by_num=qmap_by_num,
             name_suffix="_full",
+            class_avg=class_avg,
         )
 
 

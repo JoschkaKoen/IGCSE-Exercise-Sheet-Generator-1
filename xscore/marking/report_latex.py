@@ -722,19 +722,40 @@ _ENV = jinja2.Environment(
 )
 
 
+def _student_header_kwargs(
+    report: dict,
+    exam_name: str,
+    show_curved_grade: bool,
+    class_avg: int | None,
+) -> dict:
+    """Build the Jinja2 kwargs shared by all three per-student-report templates."""
+    pct = report["percentage"]
+    curved_pct = report.get("curved_pct")
+    pct_display = "N/A" if pct is None else f"{pct}\\%"
+    curved_display = "N/A" if curved_pct is None else f"{curved_pct}\\%"
+    return {
+        "name": _latex_escape(report["student_name"]),
+        "header_extra": f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else "",
+        "total": report["total_marks"],
+        "max_m": report["max_marks"],
+        "percentage": pct,
+        "class_avg_pct": class_avg,
+        "summary_text": (
+            f"{pct_display} raw, {curved_display} curved"
+            if show_curved_grade else pct_display
+        ),
+        "date_str": datetime.date.today().isoformat(),
+    }
+
+
 def _student_report_to_tex(
     report: dict,
     exam_name: str = "",
     orientation: str = "landscape",
     font_size: int = 10,
     show_curved_grade: bool = True,
+    class_avg: int | None = None,
 ) -> str:
-    name = _latex_escape(report["student_name"])
-    total = report["total_marks"]
-    max_m = report["max_marks"]
-    pct = report["percentage"]
-    date_str = datetime.date.today().isoformat()
-    header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
     # Column widths threaded into _ai_cell / _format_criteria_cell so alltt
     # font-size selection scales with cell width. Match the col_spec below.
     # `panel_budget` is forwarded to `_split_oversized_cell` so very tall
@@ -787,17 +808,6 @@ def _student_report_to_tex(
                 terminator = "\\\\ \\hline" if i == len(panels) - 1 else "\\\\"
                 rows.append(f"     &  &  &  & {panel} &  {terminator}")
     rows_str = "\n".join(rows)
-    curved_pct = report.get("curved_pct")
-    pct_display = "N/A" if pct is None else f"{pct}\\%"
-    curved_display = "N/A" if curved_pct is None else f"{curved_pct}\\%"
-    # Header summary: "X% raw, Y% curved" by default, or just "X%" when the
-    # curved grade is hidden (env CURVED_GRADE_VISIBLE=false or prompt
-    # "hide curve from students").
-    summary_text = (
-        f"{pct_display} raw, {curved_display} curved"
-        if show_curved_grade
-        else pct_display
-    )
     # Column widths fill the available text width minus ~2.5 cm of
     # \tabcolsep separator overhead across 6 columns:
     #   landscape A4 (25.7 cm text - 2.5 cm overhead) → ~22.7 cm column budget
@@ -816,17 +826,27 @@ def _student_report_to_tex(
     return _ENV.get_template("student_report.tex.j2").render(
         font_size=font_size,
         geometry_line=geometry_line,
-        name=name,
-        header_extra=header_extra,
-        total=total,
-        max_m=max_m,
-        summary_text=summary_text,
-        date_str=date_str,
         table_open=table_open,
         col_spec=col_spec,
         rows_str=rows_str,
         table_close=table_close,
+        **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg),
     )
+
+
+def _format_q_rows(avgs: dict, q_max: dict, q_pct: dict) -> str:
+    """Build LaTeX rows for a question-ranking table, sorted hardest first."""
+    rows = []
+    for qnum, avg in sorted(
+        avgs.items(),
+        key=lambda x: (q_pct.get(x[0], float("inf")), x[0]),
+    ):
+        max_cell = str(q_max.get(qnum, "")) if q_max else ""
+        pct_cell = f"{q_pct[qnum]}\\%" if qnum in q_pct else "N/A"
+        rows.append(
+            f"    {_latex_escape(qnum.replace('_', '.'))} & {max_cell} & {avg} & {pct_cell} \\\\"
+        )
+    return "\n".join(rows)
 
 
 def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
@@ -843,17 +863,13 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
 
     q_max = report.get("per_question_max_marks", {})
     q_pct = report.get("per_question_pct_averages", {})
-    q_rows = []
-    for qnum, avg in sorted(
-        report.get("per_question_averages", {}).items(),
-        key=lambda x: (q_pct.get(x[0], float("inf")), x[0]),
-    ):
-        max_cell = str(q_max.get(qnum, "")) if q_max else ""
-        pct_cell = f"{q_pct[qnum]}\\%" if qnum in q_pct else "N/A"
-        q_rows.append(
-            f"    {_latex_escape(qnum.replace('_', '.'))} & {max_cell} & {avg} & {pct_cell} \\\\"
-        )
-    q_rows_str = "\n".join(q_rows)
+    q_rows_str = _format_q_rows(report.get("per_question_averages", {}), q_max, q_pct)
+
+    top_q_rows_str = _format_q_rows(
+        report.get("per_top_question_averages", {}),
+        report.get("per_top_question_max_marks", {}),
+        report.get("per_top_question_pct_averages", {}),
+    )
 
     class_avg_display = (
         "N/A" if report["class_average_pct"] is None
@@ -864,10 +880,16 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
         header_extra=header_extra,
         class_avg_display=class_avg_display,
         total_max_marks=report["total_max_marks"],
+        n_students=report.get("n_students"),
+        median_pct=report.get("median_pct"),
+        min_pct=report.get("min_pct"),
+        max_pct=report.get("max_pct"),
         date_str=date_str,
         student_rows_str=student_rows_str,
         q_rows_str=q_rows_str,
-        histogram_path=report.get("histogram_path"),
+        top_q_rows_str=top_q_rows_str,
+        histogram_raw_path=report.get("histogram_raw_path"),
+        histogram_curved_path=report.get("histogram_curved_path"),
         difficulty_path=report.get("difficulty_path"),
     )
 
@@ -992,14 +1014,9 @@ def _student_report_with_questions_to_tex(
     exam_name: str = "",
     font_size: int = 10,
     show_curved_grade: bool = True,
+    class_avg: int | None = None,
 ) -> str:
     """Landscape per-student PDF with an extra Question column (no MCQ options)."""
-    name = _latex_escape(report["student_name"])
-    total = report["total_marks"]
-    max_m = report["max_marks"]
-    pct = report["percentage"]
-    date_str = datetime.date.today().isoformat()
-    header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
     # Column widths threaded into _ai_cell / _format_criteria_cell /
     # _render_question_text so alltt font-size selection scales with cell
     # width. Match the col_spec below.
@@ -1031,13 +1048,6 @@ def _student_report_with_questions_to_tex(
             f"    {qnum} & {question_cell} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"
         )
     rows_str = "\n".join(rows)
-    curved_pct = report.get("curved_pct")
-    pct_display = "N/A" if pct is None else f"{pct}\\%"
-    curved_display = "N/A" if curved_pct is None else f"{curved_pct}\\%"
-    summary_text = (
-        f"{pct_display} raw, {curved_display} curved"
-        if show_curved_grade else pct_display
-    )
     # Landscape A4: 25.7 cm text - ~3.0 cm \tabcolsep overhead across 7 cols
     # → ~22.7 cm column budget = 0.5+4.5+0.5+0.6+4.7+5.0+6.2 (cm).
     geometry_line = "\\geometry{a4paper,landscape,margin=2cm}\n"
@@ -1047,16 +1057,11 @@ def _student_report_with_questions_to_tex(
     return _ENV.get_template("student_report_with_questions.tex.j2").render(
         font_size=font_size,
         geometry_line=geometry_line,
-        name=name,
-        header_extra=header_extra,
-        total=total,
-        max_m=max_m,
-        summary_text=summary_text,
-        date_str=date_str,
         table_open=table_open,
         col_spec=col_spec,
         rows_str=rows_str,
         table_close=table_close,
+        **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg),
     )
 
 
@@ -1065,6 +1070,7 @@ def _student_report_list_to_tex(
     qmap: dict[str, dict],
     exam_name: str = "",
     show_curved_grade: bool = True,
+    class_avg: int | None = None,
 ) -> str:
     """Portrait per-student PDF in a list/block layout (no longtable).
 
@@ -1072,12 +1078,6 @@ def _student_report_list_to_tex(
     prompt (with MCQ options inline), then labeled paragraphs for student
     answer / expected / reasoning, separated by a thin horizontal rule.
     """
-    name = _latex_escape(report["student_name"])
-    total = report["total_marks"]
-    max_m = report["max_marks"]
-    pct = report["percentage"]
-    date_str = datetime.date.today().isoformat()
-    header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
     # Block layout, no longtable: each labeled paragraph spans the full text
     # width. A4 portrait with 1.5cm margins = 21 - 3 = 18cm.
     block_w = 18.0
@@ -1111,7 +1111,7 @@ def _student_report_list_to_tex(
             f"\\noindent\\textbf{{Q{qnum_dotted}}} \\hfill {awarded_cell} / {max_q}\\par\n"
             f"\\smallskip\\textbf{{Question:}}\\par\n"
             f"{question_body}\\par\n"
-            f"\\smallskip\\textbf{{Student answer:}}\\par\n"
+            f"\\smallskip\\textbf{{Your answer:}}\\par\n"
             f"{answer}\\par\n"
             f"\\smallskip\\textbf{{Expected:}}\\par\n"
             f"{expected}\\par\n"
@@ -1121,19 +1121,7 @@ def _student_report_list_to_tex(
         )
     body = "\n".join(blocks)
 
-    curved_pct = report.get("curved_pct")
-    pct_display = "N/A" if pct is None else f"{pct}\\%"
-    curved_display = "N/A" if curved_pct is None else f"{curved_pct}\\%"
-    summary_text = (
-        f"{pct_display} raw, {curved_display} curved"
-        if show_curved_grade else pct_display
-    )
     return _ENV.get_template("student_report_list.tex.j2").render(
-        name=name,
-        header_extra=header_extra,
-        total=total,
-        max_m=max_m,
-        summary_text=summary_text,
-        date_str=date_str,
         body=body,
+        **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg),
     )

@@ -702,9 +702,14 @@ def artifact_class_report_combined_portrait_2up_pdf_path(artifact_dir: Path) -> 
     return artifact_class_report_dir(artifact_dir) / "class_report_combined_portrait_2up.pdf"
 
 
-def artifact_class_grade_histogram_path(artifact_dir: Path) -> Path:
-    """Grade-distribution histogram PNG embedded in the class report (step 28)."""
-    return artifact_class_report_dir(artifact_dir) / "grade_histogram.png"
+def artifact_class_grade_histogram_raw_path(artifact_dir: Path) -> Path:
+    """Raw-percentage grade-distribution histogram PNG (step 30)."""
+    return artifact_class_report_dir(artifact_dir) / "grade_histogram_raw.png"
+
+
+def artifact_class_grade_histogram_curved_path(artifact_dir: Path) -> Path:
+    """Curved-percentage grade-distribution histogram PNG (step 30)."""
+    return artifact_class_report_dir(artifact_dir) / "grade_histogram_curved.png"
 
 
 def artifact_class_question_difficulty_path(artifact_dir: Path) -> Path:

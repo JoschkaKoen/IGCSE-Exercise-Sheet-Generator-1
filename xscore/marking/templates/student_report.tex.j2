@@ -1,30 +1,20 @@
 \documentclass[<<font_size>>pt]{article}
-\usepackage{fontspec}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{adjustbox}
-\usepackage{geometry}
-\usepackage{xcolor}
-\usepackage{array}
-\usepackage{alltt}
-\usepackage{enumitem}
-\setlist[itemize]{topsep=0pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.2em}
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+<% include '_student_report_preamble.tex.j2' %>
 <<geometry_line>>\begin{document}
-\section*{Student Report: <<name>><<header_extra>>}
-\textbf{Total: <<total>>/<<max_m>> (<<summary_text>>)} \quad \textcolor{gray}{\small <<date_str>>}
-\vspace{1em}
+<%- if class_avg_pct is not none and percentage is not none %>
+\reportheader{Student Report: <<name>><<header_extra>>}{Total: <<total>>/<<max_m>> (<<summary_text>>)}{<<percentage>>}{<<class_avg_pct>>}{<<date_str>>}
+<%- else %>
+\reportheaderbasic{Student Report: <<name>><<header_extra>>}{Total: <<total>>/<<max_m>> (<<summary_text>>)}{<<date_str>>}
+<%- endif %>
 
 <<table_open>>\renewcommand{\arraystretch}{1.6}
 \begin{longtable}{<<col_spec>>}
 \toprule
-\textbf{Q} & \textbf{Max} & \textbf{Got} & \textbf{Student Answer} & \textbf{Expected} & \textbf{Reasoning} \\
+\textbf{Q} & \textbf{Max} & \textbf{Got} & \textbf{Your Answer} & \textbf{Expected} & \textbf{Reasoning} \\
 \midrule
 \endfirsthead
 \midrule
-\textbf{Q} & \textbf{Max} & \textbf{Got} & \textbf{Student Answer} & \textbf{Expected} & \textbf{Reasoning} \\
+\textbf{Q} & \textbf{Max} & \textbf{Got} & \textbf{Your Answer} & \textbf{Expected} & \textbf{Reasoning} \\
 \midrule
 \endhead
 <<rows_str>>

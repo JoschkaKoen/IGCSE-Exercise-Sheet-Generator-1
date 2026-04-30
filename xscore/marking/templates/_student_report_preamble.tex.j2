@@ -1,0 +1,108 @@
+% Shared preamble for the three per-student report variants.
+% Included from student_report.tex.j2, student_report_with_questions.tex.j2,
+% and student_report_list.tex.j2 via a Jinja2 include directive.
+\usepackage{fontspec}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{alltt}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\setlist[itemize]{topsep=0pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.2em}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% ---------------------------------------------------------------
+% Score marker: student percentage vs class average on a 0-100 line
+% Usage: \scoremarker[width in cm]{student}{average}
+% Default width is 5 cm. Below-avg renders red, at/above renders green.
+% ---------------------------------------------------------------
+\newcommand{\scoremarker}[3][5]{%
+  \begingroup
+  \def\smW{#1}%
+  \pgfmathtruncatemacro{\smStu}{#2}%
+  \pgfmathtruncatemacro{\smAvg}{#3}%
+  \pgfmathsetmacro{\smSx}{\smStu/100*\smW}%
+  \pgfmathsetmacro{\smAx}{\smAvg/100*\smW}%
+  \ifnum\smStu<\smAvg
+    \colorlet{smC}{red!75!black}%
+  \else
+    \colorlet{smC}{green!55!black}%
+  \fi
+  \ifnum\smStu<10\def\smAnch{south west}%
+  \else\ifnum\smStu>90\def\smAnch{south east}%
+  \else\def\smAnch{south}\fi\fi
+  \ifnum\smAvg<12\def\smAvgAnch{north west}%
+  \else\ifnum\smAvg>88\def\smAvgAnch{north east}%
+  \else\def\smAvgAnch{north}\fi\fi
+  \begin{tikzpicture}[baseline=-0.5ex]
+    \fill[gray!15, rounded corners=1.5pt] (0,-0.08) rectangle (\smW,0.08);
+    \draw[gray!60, thick] (0,0) -- (\smW,0);
+    \node[font=\tiny\sffamily, gray!60!black, anchor=east] at (-0.06,0) {0};
+    \node[font=\tiny\sffamily, gray!60!black, anchor=west] at (\smW+0.06,0) {100};
+    \foreach \v in {25,50,75}
+      \draw[gray!50] (\v/100*\smW,-0.08) -- (\v/100*\smW,0.08);
+    \fill[gray!70!black] (\smAx,-0.08) -- ++(-0.12,-0.22) -- ++(0.24,0) -- cycle;
+    \node[font=\tiny\sffamily, gray!70!black, anchor=\smAvgAnch, inner sep=2pt]
+      at (\smAx,-0.30) {Avg: \smAvg\%};
+    \draw[smC, thick] (\smSx,0.08) -- (\smSx,0.45);
+    \fill[smC] (\smSx,0.45) circle (2pt);
+    \node[font=\tiny\sffamily\bfseries, smC, anchor=\smAnch, inner sep=2pt]
+      at (\smSx,0.50) {You: \smStu\%};
+  \end{tikzpicture}%
+  \endgroup
+}
+
+% ---------------------------------------------------------------
+% Report header — title + totals on the left, score marker on the right
+% Usage: \reportheader{title}{totals_line}{student_pct}{avg_pct}{date}
+% ---------------------------------------------------------------
+\newcommand{\reportheader}[5]{%
+  \noindent
+  \begin{minipage}[t]{0.55\textwidth}
+    \vspace{0pt}
+    {\Large\bfseries #1\par}
+    \vspace{0.4em}
+    \textbf{#2}\quad\textcolor{gray}{\small #5}%
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.42\textwidth}
+    \vspace{0pt}\raggedleft
+    \scoremarker{#3}{#4}%
+  \end{minipage}\par
+  \vspace{1em}
+}
+
+% Fallback header without score marker (used when student % or class avg is unknown).
+% Usage: \reportheaderbasic{title}{totals_line}{date}
+\newcommand{\reportheaderbasic}[3]{%
+  \noindent {\Large\bfseries #1\par}
+  \vspace{0.4em}
+  \textbf{#2}\quad\textcolor{gray}{\small #3}\par
+  \vspace{1em}
+}
+
+% ---------------------------------------------------------------
+% Page-number bubble: small grey TikZ circle in the centre of each footer.
+% Mirror to the `plain` page style so the first page (after section/title
+% commands) gets the bubble too.
+% ---------------------------------------------------------------
+\newcommand{\xscorepagebubble}{%
+  \tikz[baseline]{\node[circle, draw=gray!50, fill=gray!12,
+    inner sep=2pt, minimum size=1.6em, font=\small\sffamily] {\thepage};}%
+}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\xscorepagebubble}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\xscorepagebubble}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}

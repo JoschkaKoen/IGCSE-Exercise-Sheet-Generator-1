@@ -1,16 +1,17 @@
-"""matplotlib chart renderers for the class report (step 28).
+"""matplotlib chart renderers for the class report (step 30).
 
-Two PNG figures are produced and embedded into the class-report PDF:
+Three PNG figures are produced and embedded into the class-report PDF:
 
-- :func:`render_grade_histogram`: 10-bin histogram of student percentages,
-  with raw and curved bars side-by-side and a class-average vertical line.
+- :func:`render_grade_histogram` (called twice — once per ``kind``):
+  10-bin histogram of student percentages with a class-average vertical
+  line. ``kind="raw"`` renders raw %, ``kind="curved"`` renders curved %.
 - :func:`render_question_difficulty`: horizontal bar chart of the hardest
   leaf questions sorted by class average percentage.
 
-Both functions return the output path on success, or ``None`` when the
-figure should be skipped (single-student class, no marks). Callers should
-treat ``None`` as "omit this figure from the LaTeX report" and not write
-the file.
+All functions return the output path on success, or ``None`` when the
+figure should be skipped (single-student class, no marks, no curved
+data). Callers should treat ``None`` as "omit this figure from the
+LaTeX report" and not write the file.
 """
 
 from __future__ import annotations
@@ -20,52 +21,54 @@ import matplotlib
 matplotlib.use("Agg")  # non-interactive backend; must precede pyplot import.
 
 from pathlib import Path
+from typing import Literal
 
 import matplotlib.pyplot as plt
+
+
+_HIST_STYLE = {
+    "raw":    {"color": "#4477aa", "title": "Raw %"},
+    "curved": {"color": "#ee7733", "title": "Curved %"},
+}
 
 
 def render_grade_histogram(
     student_summaries: list[dict],
     out_path: Path,
+    *,
+    kind: Literal["raw", "curved"] = "raw",
 ) -> Path | None:
-    """Render a 10-bin grade histogram (raw vs curved). Returns None if <2 students.
+    """Render a 10-bin histogram of either raw or curved percentages.
 
-    Each bar group covers a 10-percentage-point bin (0–10, 10–20, …, 90–100).
-    The vertical dashed line marks the class average (raw).
+    Returns None when fewer than 2 students have a value of the requested
+    kind, so the caller can skip embedding a near-empty chart.
     """
-    raw = [s["percentage"] for s in student_summaries if s.get("percentage") is not None]
-    curved = [s["curved_pct"] for s in student_summaries if s.get("curved_pct") is not None]
-    if len(raw) < 2:
+    field = "percentage" if kind == "raw" else "curved_pct"
+    values = [s[field] for s in student_summaries if s.get(field) is not None]
+    if len(values) < 2:
         return None
 
     bins = list(range(0, 101, 10))           # 0,10,20,…,100 → 10 bins
     bin_centers = [b + 5 for b in bins[:-1]] # 5,15,…,95
-    bin_width = 4.0                          # leaves room for two side-by-side bars per bin
-    raw_counts = [0] * 10
-    curved_counts = [0] * 10
-    for v in raw:
+    counts = [0] * 10
+    for v in values:
         idx = min(int(v) // 10, 9)
-        raw_counts[idx] += 1
-    for v in curved:
-        idx = min(int(v) // 10, 9)
-        curved_counts[idx] += 1
+        counts[idx] += 1
 
     fig, ax = plt.subplots(figsize=(6, 4), dpi=144)
-    raw_xs    = [c - bin_width / 2 for c in bin_centers]
-    curved_xs = [c + bin_width / 2 for c in bin_centers]
-    ax.bar(raw_xs,    raw_counts,    width=bin_width, color="#4477aa", label="Raw %")
-    ax.bar(curved_xs, curved_counts, width=bin_width, color="#ee7733", label="Curved %", alpha=0.85)
+    style = _HIST_STYLE[kind]
+    ax.bar(bin_centers, counts, width=9.0, color=style["color"], label=style["title"])
 
-    class_avg = sum(raw) / len(raw)
-    ax.axvline(class_avg, color="black", linestyle="--", linewidth=1, label=f"Class avg ({class_avg:.0f}%)")
+    class_avg = sum(values) / len(values)
+    ax.axvline(class_avg, color="black", linestyle="--", linewidth=1,
+               label=f"Class avg ({class_avg:.0f}%)")
 
     ax.set_xlabel("Percentage")
     ax.set_ylabel("Number of students")
-    ax.set_title("Grade distribution")
+    ax.set_title(style["title"])
     ax.set_xticks(bins)
     ax.set_xlim(0, 100)
-    max_count = max(max(raw_counts), max(curved_counts), 1)
-    ax.set_ylim(0, max_count + 1)
+    ax.set_ylim(0, max(counts) + 1)
     ax.legend(loc="upper left", fontsize=9)
     ax.grid(axis="y", linestyle=":", alpha=0.4)
 

@@ -73,6 +73,18 @@ def class_report_to_xml(report: dict) -> str:
         qel.set("max_marks", str(all_max.get(qnum, "")))
         qel.set("avg_pct", str(pct_avgs.get(qnum, "")))
 
+    top_avgs = report.get("per_top_question_averages") or {}
+    if top_avgs:
+        top_max = report.get("per_top_question_max_marks") or {}
+        top_pct = report.get("per_top_question_pct_averages") or {}
+        top_el = ET.SubElement(root, "per_top_question_averages")
+        for qnum, avg in top_avgs.items():
+            qel = ET.SubElement(top_el, "question")
+            qel.set("number", str(qnum))
+            qel.set("avg", str(avg))
+            qel.set("max_marks", str(top_max.get(qnum, "")))
+            qel.set("avg_pct", str(top_pct.get(qnum, "")))
+
     ET.indent(root)
     return ET.tostring(root, encoding="unicode")
 

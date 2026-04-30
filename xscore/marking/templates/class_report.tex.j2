@@ -14,14 +14,28 @@
 \section*{Class Report<<header_extra>>}
 \textbf{Class average: <<class_avg_display>>} \quad
 \textbf{Max marks: <<total_max_marks>>} \quad
+<%- if n_students is not none %>\textbf{Students: <<n_students>>} \quad <%- endif %>
+<%- if median_pct is not none %>\textbf{Median: <<median_pct>>\%} \quad
+\textbf{Range: <<min_pct>>\%--<<max_pct>>\%} \quad <%- endif %>
 \textcolor{gray}{\small <<date_str>>}
 \vspace{1em}
 
-<%- if histogram_path %>
+<%- if histogram_raw_path or histogram_curved_path %>
 \subsection*{Grade distribution}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth]{<<histogram_path>>}
+<%- if histogram_raw_path and histogram_curved_path %>
+  \begin{minipage}[t]{0.48\textwidth}\centering
+    \includegraphics[width=\linewidth]{<<histogram_raw_path>>}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.48\textwidth}\centering
+    \includegraphics[width=\linewidth]{<<histogram_curved_path>>}
+  \end{minipage}
+<%- elif histogram_raw_path %>
+  \includegraphics[width=0.5\textwidth]{<<histogram_raw_path>>}
+<%- elif histogram_curved_path %>
+  \includegraphics[width=0.5\textwidth]{<<histogram_curved_path>>}
+<%- endif %>
 \end{figure}
 
 <%- endif %>
@@ -29,35 +43,48 @@
 \subsection*{Question difficulty}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth]{<<difficulty_path>>}
+  \includegraphics[width=0.7\textwidth]{<<difficulty_path>>}
 \end{figure}
 
 <%- endif %>
+\clearpage
 \subsection*{Student Rankings}
-\begin{longtable}{rlrrr}
+{\small
+\begin{adjustbox}{max width=\textwidth, max totalheight=0.85\textheight}
+\begin{tabular}{rlrrr}
 \toprule
 \textbf{Rank} & \textbf{Student} & \textbf{Marks} & \textbf{Percentage} & \textbf{Curved} \\
 \midrule
-\endfirsthead
-\midrule
-\textbf{Rank} & \textbf{Student} & \textbf{Marks} & \textbf{Percentage} & \textbf{Curved} \\
-\midrule
-\endhead
 <<student_rows_str>>
 \bottomrule
-\end{longtable}
+\end{tabular}
+\end{adjustbox}}
 
-\subsection*{Exercise Rankings (hardest first)}
-\begin{longtable}{lrrr}
+<%- if top_q_rows_str %>
+\clearpage
+\subsection*{Top-level Exercise Rankings (hardest first)}
+{\small
+\begin{adjustbox}{max width=\textwidth, max totalheight=0.85\textheight}
+\begin{tabular}{lrrr}
 \toprule
 \textbf{Question} & \textbf{Max} & \textbf{Class Avg} & \textbf{Class Avg \%} \\
 \midrule
-\endfirsthead
-\midrule
+<<top_q_rows_str>>
+\bottomrule
+\end{tabular}
+\end{adjustbox}}
+
+<%- endif %>
+\clearpage
+\subsection*{Exercise Rankings (hardest first; all parts)}
+{\small
+\begin{adjustbox}{max width=\textwidth, max totalheight=0.85\textheight}
+\begin{tabular}{lrrr}
+\toprule
 \textbf{Question} & \textbf{Max} & \textbf{Class Avg} & \textbf{Class Avg \%} \\
 \midrule
-\endhead
 <<q_rows_str>>
 \bottomrule
-\end{longtable}
+\end{tabular}
+\end{adjustbox}}
 \end{document}
