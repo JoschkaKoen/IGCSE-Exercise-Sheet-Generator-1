@@ -198,31 +198,10 @@ def _prepare_duplex(
             warn_line(f"scan_orientations.json could not be read: {exc!r}")
         return out
 
-    from xscore.preprocessing.scan_orientation import (
-        ROTATION_DETECTION_DPI,
-        detect_scan_orientations,
-    )
-    from xscore.config import (
-        SCAN_ORIENTATION_MODEL,
-        SCAN_ORIENTATION_INITIAL_PAGES,
-        SCAN_ORIENTATION_ESCALATION_PAGES,
-    )
-    from eXercise.ai_client import parse_model_spec
+    from xscore.preprocessing.scan_orientation import detect_scan_orientations
 
     unique_files = sorted({p for pair in pairs for p in pair}, key=lambda p: p.name)
-    model_name, _, _ = parse_model_spec(SCAN_ORIENTATION_MODEL)
-    initial = max(1, SCAN_ORIENTATION_INITIAL_PAGES)
-    escalation = max(0, SCAN_ORIENTATION_ESCALATION_PAGES)
-    if escalation == 0:
-        sample_desc = f"{initial} sample pages per file (no escalation)"
-    else:
-        sample_desc = (
-            f"{initial} initial + up to {escalation} escalation pages per file"
-        )
-    info_line("Detecting per-file orientation")
-    info_line(
-        f"Model: {model_name} · {sample_desc} at {ROTATION_DETECTION_DPI} DPI"
-    )
+    _emit_orientation_phase_header(info_line)
     results = detect_scan_orientations(unique_files)
     audit.parent.mkdir(parents=True, exist_ok=True)
     _write_orientations_audit(audit, results)
@@ -305,30 +284,9 @@ def _prepare_single(
                 return oriented
             # rotation expected but file missing → fall through to regenerate
 
-    from xscore.preprocessing.scan_orientation import (
-        ROTATION_DETECTION_DPI,
-        detect_scan_orientations,
-    )
-    from xscore.config import (
-        SCAN_ORIENTATION_MODEL,
-        SCAN_ORIENTATION_INITIAL_PAGES,
-        SCAN_ORIENTATION_ESCALATION_PAGES,
-    )
-    from eXercise.ai_client import parse_model_spec
+    from xscore.preprocessing.scan_orientation import detect_scan_orientations
 
-    model_name, _, _ = parse_model_spec(SCAN_ORIENTATION_MODEL)
-    initial = max(1, SCAN_ORIENTATION_INITIAL_PAGES)
-    escalation = max(0, SCAN_ORIENTATION_ESCALATION_PAGES)
-    if escalation == 0:
-        sample_desc = f"{initial} sample pages per file (no escalation)"
-    else:
-        sample_desc = (
-            f"{initial} initial + up to {escalation} escalation pages per file"
-        )
-    info_line("Detecting per-file orientation")
-    info_line(
-        f"Model: {model_name} · {sample_desc} at {ROTATION_DETECTION_DPI} DPI"
-    )
+    _emit_orientation_phase_header(info_line)
     results = detect_scan_orientations([src])
     audit.parent.mkdir(parents=True, exist_ok=True)
     _write_orientations_audit(audit, results)
@@ -348,6 +306,66 @@ def _prepare_single(
 
 
 # ---------------------------------------------------------------------------
+# Orientation phase header (Step 4)
+# ---------------------------------------------------------------------------
+
+def _emit_orientation_phase_header(info_line) -> None:
+    """Emit the Step-4 'Detecting per-file orientation' header lines.
+
+    Adapts the second info_line to the configured detector:
+    - tesseract: "Targeting N usable votes per file at 150 DPI · escalating with M more if not unanimous"
+    - ai:        "Model: <name> · N initial + up to M escalation pages per file at 300 DPI"
+    - auto:      "Auto (Tesseract preferred, AI fallback)"
+    """
+    from xscore.config import (  # noqa: PLC0415
+        SCAN_ORIENTATION_DETECTOR,
+        SCAN_ORIENTATION_INITIAL_VOTES,
+        SCAN_ORIENTATION_ESCALATION_VOTES,
+        SCAN_ORIENTATION_MODEL,
+    )
+    from xscore.preprocessing.scan_orientation import (  # noqa: PLC0415
+        ROTATION_DETECTION_DPI,
+        TESS_OSD_DPI,
+        _resolve_detector,
+    )
+    from eXercise.ai_client import parse_model_spec  # noqa: PLC0415
+
+    initial = max(1, SCAN_ORIENTATION_INITIAL_VOTES)
+    escalation = max(0, SCAN_ORIENTATION_ESCALATION_VOTES)
+    detector = _resolve_detector()  # final detector (after auto-resolution)
+
+    info_line("Detecting per-file orientation")
+    if detector == "tesseract":
+        if escalation == 0:
+            tess_desc = (
+                f"Tesseract OSD · targeting {initial} usable votes per file "
+                f"at {TESS_OSD_DPI} DPI (no escalation)"
+            )
+        else:
+            tess_desc = (
+                f"Tesseract OSD · targeting {initial} usable votes per file "
+                f"at {TESS_OSD_DPI} DPI · escalating with {escalation} more "
+                "if not unanimous"
+            )
+        info_line(tess_desc)
+        if SCAN_ORIENTATION_DETECTOR == "auto":
+            info_line("(auto: Tesseract available, using it)")
+    else:  # ai
+        model_name, _, _ = parse_model_spec(SCAN_ORIENTATION_MODEL)
+        if escalation == 0:
+            ai_desc = (
+                f"AI vision · model {model_name} · {initial} sample pages "
+                f"per file at {ROTATION_DETECTION_DPI} DPI (no escalation)"
+            )
+        else:
+            ai_desc = (
+                f"AI vision · model {model_name} · {initial} initial + up to "
+                f"{escalation} escalation pages per file at {ROTATION_DETECTION_DPI} DPI"
+            )
+        info_line(ai_desc)
+
+
+# ---------------------------------------------------------------------------
 # Orientation audit JSON helpers (Step 4)
 # ---------------------------------------------------------------------------
 
@@ -355,27 +373,35 @@ def _write_orientations_audit(path: Path, results: dict) -> None:
     """Serialize ``{Path: OrientationResult}`` to scan_orientations.json.
 
     Schema:
-        {"schema_version": 1,
-         "model": "<resolved-model-or-null>",
-         "files": [{"name": "...", "rotation_cw": ..., "source": "qwen"|"fallback",
+        {"schema_version": 2,
+         "detector": "tesseract" | "ai" | "fallback",
+         "model": "<resolved-ai-model-or-null>",
+         "files": [{"name": "...", "rotation_cw": ...,
+                    "source": "model" | "fallback",
+                    "detector": "tesseract" | "ai" | "fallback",
                     "reason": "..."?}, ...]}
     """
     import json
     files: list[dict] = []
     model: str | None = None
+    top_detector: str | None = None
     for p, r in results.items():
         entry: dict = {
             "name": p.name,
             "rotation_cw": int(r.rotation_cw),
             "source": str(r.source),
+            "detector": str(r.detector),
         }
         if r.reason is not None:
             entry["reason"] = str(r.reason)
         files.append(entry)
         if model is None and r.model:
             model = r.model
+        if top_detector is None and r.source == "model":
+            top_detector = r.detector
     body = {
-        "schema_version": 1,
+        "schema_version": 2,
+        "detector": top_detector,
         "model": model,
         "files": sorted(files, key=lambda e: e["name"]),
     }
@@ -383,10 +409,13 @@ def _write_orientations_audit(path: Path, results: dict) -> None:
 
 
 def _read_orientations_audit(path: Path) -> dict[str, int]:
-    """Read scan_orientations.json and return ``{name: rotation_cw}``."""
+    """Read scan_orientations.json and return ``{name: rotation_cw}``.
+
+    Accepts both schema_version 1 (pre-Tesseract-primary) and 2.
+    """
     import json
     data = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(data, dict) or data.get("schema_version") != 1:
+    if not isinstance(data, dict) or data.get("schema_version") not in (1, 2):
         raise ValueError(f"unsupported scan_orientations.json schema: {path}")
     out: dict[str, int] = {}
     for entry in data.get("files", []) or []:

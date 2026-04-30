@@ -166,21 +166,42 @@ BLANK_DETECTION_DPI: int = int(os.getenv("BLANK_DETECTION_DPI", "72"))
 # Step 6: Tesseract OSD rotation (only when SCAN_USE_TESSERACT_ROTATION=true).
 ROTATION_ANALYSIS_DPI: int = int(os.getenv("ROTATION_ANALYSIS_DPI", "150"))
 
-# Step 4: vision model for per-scan-file orientation detection. Up to N
-# pages per source PDF are rendered at 300 DPI and majority-voted. See
+# Step 4: orientation detector selection.
+#   tesseract — primary; local OSD, no API cost, no API key (default)
+#   ai        — vision-LLM path (kept as fallback for users without Tesseract)
+#   auto      — tesseract if available, else fall back to ai silently
+_orient_detector_raw = os.getenv("SCAN_ORIENTATION_DETECTOR", "tesseract").strip().lower()
+SCAN_ORIENTATION_DETECTOR: str = (
+    _orient_detector_raw if _orient_detector_raw in ("tesseract", "ai", "auto") else "tesseract"
+)
+
+# Step 4: two-stage Tesseract sampling targets *usable* votes (high-confidence
+# OSD answers). Pages with low confidence or errors are skipped. We collect
+# INITIAL_VOTES first; if they're not unanimous (or we couldn't fill the
+# initial target), we collect ESCALATION_VOTES more and majority-vote across
+# every successful vote. Both clamped to >= 1 / >= 0 at read time.
+SCAN_ORIENTATION_INITIAL_VOTES: int = int(os.getenv("SCAN_ORIENTATION_INITIAL_VOTES", "3"))
+SCAN_ORIENTATION_ESCALATION_VOTES: int = int(os.getenv("SCAN_ORIENTATION_ESCALATION_VOTES", "3"))
+
+# Step 4: AI-fallback model — only used when SCAN_ORIENTATION_DETECTOR is
+# "ai" (or "auto" and Tesseract is unavailable). See
 # xscore/preprocessing/scan_orientation.py.
 SCAN_ORIENTATION_MODEL: str = os.getenv("SCAN_ORIENTATION_MODEL", "gemini-3-flash-preview")
 
-# Step 4: per-file orientation detection is two-stage. INITIAL_PAGES content
-# pages are queried first; if they agree, that result is used. If they
-# disagree (or one call fails), an additional ESCALATION_PAGES pages are
-# queried and the rotation is decided by majority vote across the full set.
-# Maximum API calls per file = INITIAL_PAGES + ESCALATION_PAGES.
-# Defaults (2 + 3 = 5) match the cost-saving design: typical case 2 calls,
-# uncertain files 5 calls. Set ESCALATION_PAGES=0 to disable escalation.
-# Both clamped to >= 0 (and INITIAL >= 1) at read time.
-SCAN_ORIENTATION_INITIAL_PAGES: int = int(os.getenv("SCAN_ORIENTATION_INITIAL_PAGES", "2"))
-SCAN_ORIENTATION_ESCALATION_PAGES: int = int(os.getenv("SCAN_ORIENTATION_ESCALATION_PAGES", "3"))
+# Deprecation warnings for renamed knobs. Emitted once at module load.
+def _warn_deprecated_orientation_knob(old: str, new: str) -> None:
+    if os.getenv(old):
+        # Print to stderr to match the existing pre-pipeline-init style; the
+        # pipeline's own warn_line is wired up later.
+        import sys
+        print(
+            f"WARNING: env var {old} is deprecated — use {new} instead.",
+            file=sys.stderr,
+        )
+
+_warn_deprecated_orientation_knob("SCAN_ORIENTATION_INITIAL_PAGES", "SCAN_ORIENTATION_INITIAL_VOTES")
+_warn_deprecated_orientation_knob("SCAN_ORIENTATION_ESCALATION_PAGES", "SCAN_ORIENTATION_ESCALATION_VOTES")
+_warn_deprecated_orientation_knob("SCAN_ORIENTATION_COMPARE_TESSERACT", "SCAN_ORIENTATION_DETECTOR")
 
 # Step 9: model for the informational check on the empty exam's first page.
 EMPTY_EXAM_COVER_MODEL: str = os.getenv("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash")

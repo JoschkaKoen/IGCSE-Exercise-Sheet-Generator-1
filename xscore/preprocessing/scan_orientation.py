@@ -45,26 +45,30 @@ ROTATION_DETECTION_DPI = 300
 _VALID_ROTATIONS = {0, 90, 180, 270}
 _INNER_POOL_MAX_WORKERS = 8  # cap on parallel AI calls per file
 
+# Tesseract OSD shadow-comparison constants
+_TESS_CONF_THRESHOLD = 2.0   # matches existing remove_blanks_autorotate convention
+_TESS_DOWNSAMPLE_AT_PIXELS = 4_000_000  # downsample 2× when image > this many pixels
 
-def _initial_and_escalation_counts() -> tuple[int, int]:
-    """Read the configured (initial, escalation) page counts.
 
-    Clamps INITIAL to >= 1 and ESCALATION to >= 0. Read at call time rather
-    than import time so a runtime ``os.environ`` override (tests, ad-hoc CLI
-    runs) is honoured immediately.
+def _initial_and_escalation_votes() -> tuple[int, int]:
+    """Read the configured (initial, escalation) usable-vote targets.
+
+    Clamps INITIAL_VOTES to >= 1 and ESCALATION_VOTES to >= 0. Read at call
+    time rather than import time so a runtime ``os.environ`` override is
+    honoured immediately.
     """
     from xscore.config import (  # noqa: PLC0415
-        SCAN_ORIENTATION_INITIAL_PAGES,
-        SCAN_ORIENTATION_ESCALATION_PAGES,
+        SCAN_ORIENTATION_INITIAL_VOTES,
+        SCAN_ORIENTATION_ESCALATION_VOTES,
     )
-    initial = max(1, int(SCAN_ORIENTATION_INITIAL_PAGES))
-    escalation = max(0, int(SCAN_ORIENTATION_ESCALATION_PAGES))
+    initial = max(1, int(SCAN_ORIENTATION_INITIAL_VOTES))
+    escalation = max(0, int(SCAN_ORIENTATION_ESCALATION_VOTES))
     return initial, escalation
 
 
-def _total_sample_pages() -> int:
-    """Total max pages queried per file across both stages."""
-    initial, escalation = _initial_and_escalation_counts()
+def _total_vote_target() -> int:
+    """Total max usable votes targeted per file across both stages."""
+    initial, escalation = _initial_and_escalation_votes()
     return initial + escalation
 
 _SYSTEM = (
@@ -106,38 +110,49 @@ _ROTATION_SCHEMA = {
 
 @dataclass(frozen=True)
 class PageVote:
-    """One page's raw orientation answer, used to build OrientationResult.votes."""
+    """One page's orientation verdict from the active detector.
+
+    ``rotation_cw`` is the CW rotation in degrees needed to upright the page
+    (0 / 90 / 180 / 270). ``confidence`` is the Tesseract OSD confidence
+    score on the Tesseract path (0.0 on the AI path — AI doesn't expose
+    a numeric confidence). ``edge`` is populated only on the AI path with
+    the model's edge label ("top" / "right" / "bottom" / "left"); empty
+    string on the Tesseract path.
+    """
 
     page_idx: int
-    edge: str          # canonical lowercase: "top" | "right" | "bottom" | "left"
-    rotation_cw: int   # 0 | 90 | 180 | 270
+    rotation_cw: int
+    confidence: float = 0.0
+    edge: str = ""
 
 
 @dataclass(frozen=True)
 class OrientationResult:
     """Result of one orientation-detection call.
 
-    Two-stage sampling: the detector queries 2 well-spread pages first
-    (``initial_votes``), and only escalates to the remaining N-2 pages
-    (``escalated_votes``) when the initial round didn't agree or had a
-    partial API failure. ``votes`` is a convenience property combining the
-    two in page-index order — used by the audit JSON writer and by the
-    majority-vote tally. Empty on the fallback path.
+    Two-stage sampling: the detector queries an initial batch first
+    (``initial_votes``); if those don't agree (or the round under-fills
+    the target) it escalates and queries more (``escalated_votes``). The
+    final ``rotation_cw`` is the majority vote across every successful
+    vote.
 
-    ``source`` is ``"model"`` for a confident model answer, ``"fallback"``
-    for any failure path (no API key, parse error, all candidate pages
-    blank, etc.). ``reason`` is populated only when ``source == "fallback"``.
+    On the Tesseract path we additionally record ``pages_skipped`` —
+    candidate pages that returned low confidence, errored, or were blank.
 
-    ``model`` is the resolved model id from :func:`make_ai_client`, or
-    ``None`` when no client was constructed (e.g. missing API key).
+    ``source`` is ``"model"`` for a confident detector answer,
+    ``"fallback"`` for any failure path (Tesseract unavailable, API key
+    missing, all candidate pages blank, no usable votes, etc.).
+    ``detector`` records which path produced the result.
     """
 
     rotation_cw: int
     source: str
     reason: Optional[str] = None
     model: Optional[str] = None
+    detector: str = "tesseract"  # "tesseract" | "ai" | "fallback"
     initial_votes: tuple[PageVote, ...] = field(default_factory=tuple)
     escalated_votes: tuple[PageVote, ...] = field(default_factory=tuple)
+    pages_skipped: tuple[int, ...] = field(default_factory=tuple)
 
     @property
     def votes(self) -> tuple[PageVote, ...]:
@@ -147,8 +162,16 @@ class OrientationResult:
         )
 
 
-def _fallback(reason: str, model: Optional[str] = None) -> OrientationResult:
-    return OrientationResult(rotation_cw=0, source="fallback", reason=reason, model=model)
+def _fallback(
+    reason: str,
+    *,
+    model: Optional[str] = None,
+    detector: str = "fallback",
+) -> OrientationResult:
+    return OrientationResult(
+        rotation_cw=0, source="fallback", reason=reason,
+        model=model, detector=detector,
+    )
 
 
 def _pick_candidate_pages(
@@ -167,7 +190,7 @@ def _pick_candidate_pages(
       cover) or p-1 (often a blank back-cover with sparse copyright text).
     """
     if max_samples is None:
-        max_samples = _total_sample_pages()
+        max_samples = _total_vote_target()
     n = len(doc)
     if n == 0:
         return []
@@ -229,6 +252,57 @@ def _split_candidates(
 
 
 _JPEG_QUALITY = 95  # never below 90 (preserves text clarity for orientation detection)
+TESS_OSD_DPI = 150  # Tesseract path render DPI; OSD doesn't need 300 DPI
+_TESS_BATCH_SIZE = 4  # candidates dispatched per parallel Tesseract batch
+
+
+def _spread_candidates(n_pages: int, count: int) -> list[int]:
+    """Return up to *count* page indices in **bisection order** (mid first,
+    then quarters, then eighths, etc.).
+
+    Avoids the absolute edges (p0 and p_{n-1}) which are typically sparse
+    covers / back-page text where Tesseract OSD struggles. For very small
+    docs (n <= 2) returns ``[0..n-1]`` since there's nothing to bisect.
+
+    The returned ordering guarantees that any prefix of the list is well-
+    spread across the document — the first 3 indices are spread across
+    rough quarters, the next few fill in the gaps, etc.
+    """
+    if n_pages <= 0 or count <= 0:
+        return []
+    if n_pages <= 2:
+        return list(range(n_pages))[:count]
+    lo, hi = 1, n_pages - 2
+    if lo > hi:
+        return [n_pages // 2][:count]
+    seen: set[int] = set()
+    out: list[int] = []
+    from collections import deque  # noqa: PLC0415
+    queue = deque([(lo, hi)])
+    while queue and len(out) < count:
+        a, b = queue.popleft()
+        m = (a + b) // 2
+        if m not in seen:
+            seen.add(m)
+            out.append(m)
+        if a <= m - 1:
+            queue.append((a, m - 1))
+        if m + 1 <= b:
+            queue.append((m + 1, b))
+    return out[:count]
+
+
+def _render_for_osd(page: fitz.Page, dpi: int = TESS_OSD_DPI) -> Image.Image:
+    """Render *page* at *dpi* as RGB PIL Image (no JPEG round-trip).
+
+    Tesseract OSD is the only consumer on the Tesseract path; it doesn't
+    need JPEG bytes, just the pixmap. Skipping the JPEG encode saves ~30 ms
+    per page vs :func:`_render_jpeg_b64` and avoids a lossy round-trip.
+    """
+    pix = page.get_pixmap(
+        matrix=fitz.Matrix(dpi / 72, dpi / 72), colorspace=fitz.csRGB,
+    )
+    return Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
 
 
 def _render_jpeg_b64(page: fitz.Page, dpi: int = ROTATION_DETECTION_DPI) -> tuple[str, Image.Image]:
@@ -243,6 +317,93 @@ def _render_jpeg_b64(page: fitz.Page, dpi: int = ROTATION_DETECTION_DPI) -> tupl
     img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
     jpg = to_jpeg_bytes(img, quality=_JPEG_QUALITY)
     return base64.b64encode(jpg).decode("ascii"), img
+
+
+# ---------------------------------------------------------------------------
+# Tesseract OSD shadow comparison
+# ---------------------------------------------------------------------------
+
+_tesseract_unavailable_logged: bool = False  # module state — single warn per session
+
+
+def _check_tesseract_available() -> bool:
+    """Probe pytesseract + the tesseract binary. Returns True on success.
+
+    Silent — callers control whether/how to log. The :func:`_resolve_detector`
+    helper warns appropriately based on the SCAN_ORIENTATION_DETECTOR mode.
+    """
+    try:
+        import pytesseract  # noqa: PLC0415
+        # pytesseract import succeeds even when the tesseract executable is
+        # missing — only image_to_osd raises. Probe the binary too.
+        _ = pytesseract.get_tesseract_version()
+    except Exception:  # noqa: BLE001 — broad catch is intentional
+        return False
+    return True
+
+
+def _resolve_detector() -> str:
+    """Resolve SCAN_ORIENTATION_DETECTOR + Tesseract availability into the
+    concrete detector to use: ``"tesseract"`` or ``"ai"``.
+
+    - ``DETECTOR=tesseract``: returns ``"tesseract"`` regardless of
+      availability. The actual Tesseract calls fail loudly if the binary
+      is missing; the user gets a clear hint to flip to ``ai`` or ``auto``.
+    - ``DETECTOR=ai``: returns ``"ai"`` always.
+    - ``DETECTOR=auto``: returns ``"tesseract"`` if available, else
+      ``"ai"`` silently.
+    """
+    from xscore.config import SCAN_ORIENTATION_DETECTOR  # noqa: PLC0415
+    if SCAN_ORIENTATION_DETECTOR == "ai":
+        return "ai"
+    if SCAN_ORIENTATION_DETECTOR == "tesseract":
+        return "tesseract"
+    # auto
+    return "tesseract" if _check_tesseract_available() else "ai"
+
+
+def _tesseract_rotation_cw(pil_img: Image.Image) -> tuple[int | None, float]:
+    """Run Tesseract OSD on a downsampled copy of *pil_img*.
+
+    Returns ``(rotation_cw, confidence)``:
+      - ``(int, conf)`` on a confident Tesseract verdict
+      - ``(None, conf)`` when ``orientation_conf < threshold`` (we keep the
+        confidence number for terminal display; the rotation is withheld)
+      - ``(None, 0.0)`` when Tesseract is unavailable / errors
+
+    Convention: returns CW degrees so the caller can compare directly with
+    the AI path's ``rotation_cw``. **Verified empirically on first run** —
+    if the convention turns out to be CCW, flip the marked line below.
+
+    This helper runs inside the AI per-page worker and must NEVER raise —
+    a Tesseract failure must not poison the AI vote. A whole-body except
+    catches any unforeseen exception path.
+    """
+    try:
+        import pytesseract  # noqa: PLC0415
+    except ImportError:
+        return None, 0.0
+    try:
+        # Downsample for OSD speed (300 → 150 DPI ≈ half the wall time).
+        w, h = pil_img.size
+        osd_img = (
+            pil_img.resize((w // 2, h // 2), Image.Resampling.LANCZOS)
+            if w * h > _TESS_DOWNSAMPLE_AT_PIXELS else pil_img
+        )
+        osd = pytesseract.image_to_osd(osd_img, output_type=pytesseract.Output.DICT)
+        raw_angle = int(osd.get("rotate", 0)) % 360
+        conf = float(osd.get("orientation_conf", 0))
+        if conf < _TESS_CONF_THRESHOLD:
+            return None, conf
+        # CONVENTION FLIP POINT — see helper docstring. Default: assume CW.
+        cw = raw_angle
+        # If the verification run shows disagreement on top-fed scans, change to:
+        #   cw = (360 - raw_angle) % 360
+        if cw not in _VALID_ROTATIONS:
+            return None, conf
+        return cw, conf
+    except BaseException:  # noqa: BLE001 — final safety net; helper never raises
+        return None, 0.0
 
 
 def _parse_rotation(raw_text: str) -> tuple[str, int]:
@@ -267,9 +428,11 @@ def _parse_rotation(raw_text: str) -> tuple[str, int]:
 
 
 def detect_scan_orientation(scan_pdf: Path) -> OrientationResult:
-    """Single Qwen call on the first non-blank page of *scan_pdf*.
+    """Detect orientation for *scan_pdf*.
 
-    Always returns a result — never raises. On any failure path returns
+    Routes through :func:`_detect_one` to the configured detector
+    (Tesseract by default, AI fallback). Always returns a result — never
+    raises. On any failure path returns
     ``OrientationResult(0, "fallback", "<why>")`` and emits a ``warn_line``.
     """
     from xscore.preprocessing.remove_blanks_autorotate import is_blank_page  # noqa: PLC0415
@@ -413,19 +576,201 @@ def _make_gemini_caller(
     return _call
 
 
-def _detect_one(scan_pdf: Path, *, is_blank_page) -> OrientationResult:
-    """Inner body of :func:`detect_scan_orientation`. May raise; outer wraps.
+def _detect_one(
+    scan_pdf: Path,
+    *,
+    is_blank_page,
+) -> OrientationResult:
+    """Dispatcher: route to the configured detector path."""
+    detector = _resolve_detector()
+    if detector == "tesseract":
+        return _detect_one_tesseract(scan_pdf, is_blank_page=is_blank_page)
+    return _detect_one_ai(scan_pdf, is_blank_page=is_blank_page)
 
-    Samples up to ``SCAN_ORIENTATION_INITIAL_PAGES + _ESCALATION_PAGES`` pages
-    spread across the file, queries the configured vision model on each non-blank page in
-    parallel (capped at ``_INNER_POOL_MAX_WORKERS``), then **majority-votes**
-    across the answers. Single-page errors (model confused by a sparse cover
-    page or an outlier image) are dominated by the consistent answer from
-    the rest of the pages.
 
-    Per-page progress is **not** logged here — emission lives in
-    :func:`detect_scan_orientations` so it can sit between the file-name
-    header and the decision line.
+# ---------------------------------------------------------------------------
+# Tesseract path — primary
+# ---------------------------------------------------------------------------
+
+def _detect_one_tesseract(
+    scan_pdf: Path,
+    *,
+    is_blank_page,
+) -> OrientationResult:
+    """Tesseract-primary detection with usable-vote two-stage sampling.
+
+    Walks bisection-ordered candidate pages in parallel batches; each batch
+    is rendered at 150 DPI (sequential, fitz isn't thread-safe) and OSD'd in
+    parallel. Pages that return low confidence or errors are recorded in
+    ``pages_skipped`` and we keep walking until we collect ``initial_target``
+    usable votes (or run out of candidates). If the initial votes don't
+    unanimously agree (or we couldn't fill the target), we walk more
+    candidates for an additional ``escalation_target`` usable votes and
+    majority-vote across the full set.
+    """
+    from xscore.shared.terminal_ui import warn_line  # noqa: PLC0415
+    from collections import Counter  # noqa: PLC0415
+
+    if not scan_pdf.is_file():
+        warn_line(f"Orientation: {scan_pdf.name} not found — using 0°")
+        return _fallback(f"file not found: {scan_pdf}", detector="tesseract")
+
+    # Loud-fail when explicit tesseract mode is set but binary is missing.
+    if not _check_tesseract_available():
+        from xscore.config import SCAN_ORIENTATION_DETECTOR  # noqa: PLC0415
+        if SCAN_ORIENTATION_DETECTOR == "tesseract":
+            warn_line(
+                f"Orientation: {scan_pdf.name} Tesseract not installed — using "
+                "0°. Set SCAN_ORIENTATION_DETECTOR=auto or =ai to use AI vision."
+            )
+        return _fallback("Tesseract not installed", detector="tesseract")
+
+    initial_target, escalation_target = _initial_and_escalation_votes()
+
+    doc = fitz.open(str(scan_pdf))
+    try:
+        n = len(doc)
+        if n == 0:
+            warn_line(f"Orientation: {scan_pdf.name} has 0 pages — using 0°")
+            return _fallback("empty PDF", detector="tesseract")
+
+        # Generous candidate sequence in bisection order. We need slack
+        # because some pages (sparse, blank, scribbles-only) will fail OSD.
+        target_total = initial_target + escalation_target
+        candidate_count = max(target_total * 2, target_total + 4)
+        candidates = _spread_candidates(n, candidate_count)
+        if not candidates:
+            return _fallback("no candidate pages", detector="tesseract")
+
+        cursor = [0]  # mutable holder so nested closure can advance it
+        skipped: list[int] = []
+
+        def _walk_until(target: int) -> list[PageVote]:
+            """Walk candidates in batches, return up to *target* fresh
+            usable votes. Updates `cursor` and `skipped` in place."""
+            collected: list[PageVote] = []
+            while cursor[0] < len(candidates) and len(collected) < target:
+                batch_end = min(cursor[0] + _TESS_BATCH_SIZE, len(candidates))
+                batch = candidates[cursor[0]:batch_end]
+                cursor[0] = batch_end
+                results = _run_tesseract_batch(doc, batch, is_blank_page=is_blank_page)
+                # Process in batch order so the caller's terminal log shows
+                # pages in the order they were tried, not in completion order.
+                for vote, status_idx in results:
+                    if vote is None:
+                        skipped.append(status_idx)
+                        continue
+                    collected.append(vote)
+                    if len(collected) >= target:
+                        break
+            return collected
+
+        initial_votes = _walk_until(initial_target)
+
+        distinct = {v.rotation_cw for v in initial_votes}
+        need_escalation = (
+            len(initial_votes) < initial_target  # didn't fill initial target
+            or len(distinct) > 1                  # didn't unanimously agree
+        )
+        escalated_votes: list[PageVote] = []
+        if need_escalation and escalation_target > 0:
+            escalated_votes = _walk_until(escalation_target)
+
+        all_votes = initial_votes + escalated_votes
+        if not all_votes:
+            warn_line(
+                f"Orientation: {scan_pdf.name} no usable Tesseract votes — using 0°"
+            )
+            return _fallback(
+                "no usable Tesseract votes",
+                detector="tesseract",
+            )
+
+        counts = Counter(v.rotation_cw for v in all_votes)
+        top, _top_n = counts.most_common(1)[0]
+        return OrientationResult(
+            rotation_cw=top,
+            source="model",
+            detector="tesseract",
+            initial_votes=tuple(sorted(initial_votes, key=lambda v: v.page_idx)),
+            escalated_votes=tuple(sorted(escalated_votes, key=lambda v: v.page_idx)),
+            pages_skipped=tuple(sorted(set(skipped))),
+        )
+    finally:
+        doc.close()
+
+
+def _run_tesseract_batch(
+    doc: fitz.Document,
+    page_indices: list[int],
+    *,
+    is_blank_page,
+) -> list[tuple["PageVote | None", int]]:
+    """Render+blank-check+OSD a batch of pages in parallel.
+
+    Rendering happens **sequentially in the outer thread** (fitz documents
+    aren't reliably thread-safe across page operations). OSD calls run in
+    parallel via :class:`ThreadPoolExecutor`.
+
+    Returns a list of ``(PageVote_or_None, page_idx)`` pairs in original
+    batch order. ``None`` means the page was blank or Tesseract returned
+    a low-confidence / errored answer. ``page_idx`` is always populated for
+    skip-tracking.
+    """
+    if not page_indices:
+        return []
+
+    # Render sequentially.
+    renders: list[tuple[int, Image.Image]] = []
+    for idx in page_indices:
+        try:
+            pil_img = _render_for_osd(doc[idx])
+        except BaseException:  # noqa: BLE001 — can't render → treat as skip
+            renders.append((idx, None))  # type: ignore[arg-type]
+            continue
+        renders.append((idx, pil_img))
+
+    # OSD in parallel.
+    pool_size = min(len(renders), _INNER_POOL_MAX_WORKERS)
+    by_idx: dict[int, "PageVote | None"] = {}
+
+    def _osd_one(item: tuple[int, "Image.Image | None"]) -> tuple[int, "PageVote | None"]:
+        idx, pil_img = item
+        if pil_img is None:
+            return idx, None
+        try:
+            if is_blank_page(pil_img):
+                return idx, None
+        except BaseException:  # noqa: BLE001
+            return idx, None
+        rot, conf = _tesseract_rotation_cw(pil_img)
+        if rot is None:
+            return idx, None
+        return idx, PageVote(page_idx=idx, rotation_cw=rot, confidence=conf)
+
+    with ThreadPoolExecutor(max_workers=pool_size) as executor:
+        for idx, vote in executor.map(_osd_one, renders):
+            by_idx[idx] = vote
+
+    # Re-emit in the original batch (page_indices) order.
+    return [(by_idx.get(idx), idx) for idx in page_indices]
+
+
+# ---------------------------------------------------------------------------
+# AI path — kept as fallback (DETECTOR=ai or auto+tesseract-missing)
+# ---------------------------------------------------------------------------
+
+def _detect_one_ai(
+    scan_pdf: Path,
+    *,
+    is_blank_page,
+) -> OrientationResult:
+    """AI vision two-stage detection (legacy primary path).
+
+    Renders candidate pages at 300 DPI as JPEG, sends each to the configured
+    vision model with the edge-label prompt, and majority-votes across the
+    answers. Two-stage: ``INITIAL_VOTES`` initial pages + ``ESCALATION_VOTES``
+    additional pages on disagreement / partial failure.
     """
     from eXercise.api_retry import retry_api_call  # noqa: PLC0415
     from xscore.shared.terminal_ui import warn_line  # noqa: PLC0415
@@ -433,16 +778,13 @@ def _detect_one(scan_pdf: Path, *, is_blank_page) -> OrientationResult:
 
     if not scan_pdf.is_file():
         warn_line(f"Orientation: {scan_pdf.name} not found — using 0°")
-        return _fallback(f"file not found: {scan_pdf}")
+        return _fallback(f"file not found: {scan_pdf}", detector="ai")
 
-    # 1. Render up to N candidate pages spread across the file, dropping blanks.
-    #    Rendering stays sequential in the outer thread (fitz Documents are not
-    #    reliably thread-safe across page operations).
     doc = fitz.open(str(scan_pdf))
     try:
         if len(doc) == 0:
             warn_line(f"Orientation: {scan_pdf.name} has 0 pages — using 0°")
-            return _fallback("empty PDF")
+            return _fallback("empty PDF", detector="ai")
         candidates = _pick_candidate_pages(doc)
         renders: list[tuple[int, str]] = []  # (page_idx, b64)
         for idx in candidates:
@@ -454,15 +796,13 @@ def _detect_one(scan_pdf: Path, *, is_blank_page) -> OrientationResult:
                 f"Orientation: {scan_pdf.name} all candidate pages "
                 f"({candidates}) appear blank — using 0°"
             )
-            return _fallback(f"all candidate pages blank: {candidates}")
+            return _fallback(
+                f"all candidate pages blank: {candidates}", detector="ai",
+            )
     finally:
         doc.close()
 
-    # 2. Resolve model. Gemini and Qwen take different SDK paths for image input;
-    #    we dispatch on the model name. Qwen uses OpenAI-compat with image_url;
-    #    Gemini uses the native google.genai SDK with Part.from_bytes.
     from eXercise.ai_client import parse_model_spec  # noqa: PLC0415
-
     raw_model_spec = (
         os.environ.get("SCAN_ORIENTATION_MODEL", "").strip()
         or os.environ.get("AI_DEFAULT_MODEL", "").strip()
@@ -474,72 +814,66 @@ def _detect_one(scan_pdf: Path, *, is_blank_page) -> OrientationResult:
     if use_gemini:
         _call_for_b64 = _make_gemini_caller(model, thinking_tokens, max_tokens)
         if _call_for_b64 is None:
-            warn_line(
-                f"Orientation: {scan_pdf.name} no GEMINI_API_KEY — using 0°"
-            )
-            return _fallback("no GEMINI_API_KEY", model=model)
+            warn_line(f"Orientation: {scan_pdf.name} no GEMINI_API_KEY — using 0°")
+            return _fallback("no GEMINI_API_KEY", model=model, detector="ai")
     else:
         _call_for_b64 = _make_openai_compat_caller(model, thinking_tokens, max_tokens)
         if _call_for_b64 is None:
             warn_line(
                 f"Orientation: {scan_pdf.name} no API key for {model} — using 0°"
             )
-            return _fallback(f"no API key for {model}", model=model)
+            return _fallback(
+                f"no API key for {model}", model=model, detector="ai",
+            )
 
-    # 3. Two-stage sampling: query 2 well-spread pages first, escalate to
-    #    the remainder only if they disagree or one of them fails.
-    def _query_page(idx: int, b64: str) -> PageVote | BaseException:
-        """Return a PageVote on success, the exception on failure."""
+    def _query_page(idx: int, b64: str) -> "PageVote | BaseException":
         try:
             raw = retry_api_call(
                 lambda b=b64: _call_for_b64(b),
                 label=f"Orientation: {scan_pdf.name} p{idx}",
             )
             edge, rot = _parse_rotation(raw)
-            return PageVote(page_idx=idx, edge=edge, rotation_cw=rot)
-        except BaseException as exc:  # noqa: BLE001 — caller dispatches on type
+            return PageVote(
+                page_idx=idx, rotation_cw=rot, confidence=0.0, edge=edge,
+            )
+        except BaseException as exc:  # noqa: BLE001
             return exc
 
     def _run_pool(
         page_renders: list[tuple[int, str]],
     ) -> tuple[list[PageVote], BaseException | None]:
-        """Query *page_renders* in parallel, return (votes, last_exc)."""
         if not page_renders:
             return [], None
         pool_size = min(len(page_renders), _INNER_POOL_MAX_WORKERS)
-        out_votes: list[PageVote] = []
-        last_exception: BaseException | None = None
+        votes: list[PageVote] = []
+        last_exc: BaseException | None = None
         with ThreadPoolExecutor(max_workers=pool_size) as executor:
-            futures = [executor.submit(_query_page, idx, b64) for idx, b64 in page_renders]
+            futures = [
+                executor.submit(_query_page, idx, b64) for idx, b64 in page_renders
+            ]
             for fut in as_completed(futures):
                 r = fut.result()
                 if isinstance(r, PageVote):
-                    out_votes.append(r)
+                    votes.append(r)
                 else:
-                    last_exception = r
-        out_votes.sort(key=lambda v: v.page_idx)
-        return out_votes, last_exception
+                    last_exc = r
+        votes.sort(key=lambda v: v.page_idx)
+        return votes, last_exc
 
-    # Pick which renders form the initial round. Use _split_candidates so the
-    # initial picks come from content-rich inner positions and avoid the
-    # spread's edges (empirically risky — sparse covers + back-page text).
-    initial_count, _escalation_count = _initial_and_escalation_counts()
-    initial_pages, _escalation_pages = _split_candidates(
-        [r[0] for r in renders], initial_count
+    initial_count, _ = _initial_and_escalation_votes()
+    initial_pages, _ = _split_candidates(
+        [r[0] for r in renders], initial_count,
     )
     initial_set = set(initial_pages)
-    initial_renders   = [r for r in renders if r[0] in initial_set]
+    initial_renders = [r for r in renders if r[0] in initial_set]
     remaining_renders = [r for r in renders if r[0] not in initial_set]
 
     initial_votes, last_exc = _run_pool(initial_renders)
-
-    # Decide whether to escalate.
-    distinct_rotations = {v.rotation_cw for v in initial_votes}
+    distinct = {v.rotation_cw for v in initial_votes}
     initial_complete = len(initial_votes) == len(initial_renders)
     should_escalate = bool(remaining_renders) and (
-        len(distinct_rotations) > 1 or not initial_complete
+        len(distinct) > 1 or not initial_complete
     )
-
     if should_escalate:
         escalated_votes, esc_exc = _run_pool(remaining_renders)
         last_exc = last_exc or esc_exc
@@ -550,15 +884,15 @@ def _detect_one(scan_pdf: Path, *, is_blank_page) -> OrientationResult:
     if not all_votes:
         reason = f"all page queries failed: {last_exc!r}" if last_exc else "all page queries failed"
         warn_line(f"Orientation: {scan_pdf.name} {reason} — using 0°")
-        return _fallback(reason, model=model)
+        return _fallback(reason, model=model, detector="ai")
 
-    # 4. Majority-vote across every successful vote (initial + escalated).
     counts = Counter(v.rotation_cw for v in all_votes)
-    top, _top_n = counts.most_common(1)[0]
+    top, _ = counts.most_common(1)[0]
     return OrientationResult(
         rotation_cw=top,
         source="model",
         model=model,
+        detector="ai",
         initial_votes=tuple(initial_votes),
         escalated_votes=tuple(escalated_votes),
     )
@@ -585,10 +919,24 @@ def detect_scan_orientations(
     helper iterates ``scan_pdfs`` in caller-supplied order and uses inputs
     as dict keys verbatim.
     """
+    from xscore.config import SCAN_ORIENTATION_DETECTOR  # noqa: PLC0415
     from xscore.shared.terminal_ui import info_line, ok_line, warn_line  # noqa: PLC0415
 
     if not scan_pdfs:
         return {}
+
+    # Resolve detector ONCE up-front so the auto-fallback warning (if any)
+    # appears at the top of Step 4 rather than buried mid-stream.
+    declared = SCAN_ORIENTATION_DETECTOR
+    detector = _resolve_detector()
+    if declared == "auto" and detector == "ai":
+        warn_line("auto: Tesseract unavailable, falling back to AI vision")
+    elif declared == "tesseract" and not _check_tesseract_available():
+        warn_line(
+            "SCAN_ORIENTATION_DETECTOR=tesseract but Tesseract is not installed "
+            "— orientation detection will fall back to 0°. Set "
+            "SCAN_ORIENTATION_DETECTOR=auto or =ai to use AI vision instead."
+        )
 
     out: dict[Path, OrientationResult] = {}
     for pdf in scan_pdfs:
@@ -599,38 +947,71 @@ def detect_scan_orientations(
             res = _fallback(f"unexpected: {exc!r}")
         out[pdf] = res
 
-        # Emit per-page lines for the initial round.
+        # Initial round of per-page lines.
         for v in sorted(res.initial_votes, key=lambda v: v.page_idx):
-            info_line(
-                f"  p{v.page_idx:<3d} →  {v.edge:<7s}  (rotate {v.rotation_cw:>3d}°)"
-            )
+            info_line(_fmt_page_line(v, res.detector))
 
-        # If escalation kicked in, separate it visually then print the rest.
+        # Escalation, if any.
         if res.escalated_votes:
             info_line(
-                f"  not unanimous — checking {len(res.escalated_votes)} more pages"
+                f"  not unanimous — collecting {len(res.escalated_votes)} more usable votes"
             )
             for v in sorted(res.escalated_votes, key=lambda v: v.page_idx):
-                info_line(
-                    f"  p{v.page_idx:<3d} →  {v.edge:<7s}  (rotate {v.rotation_cw:>3d}°)"
-                )
+                info_line(_fmt_page_line(v, res.detector))
 
-        # Emit decision line.
-        if res.source == "fallback":
-            warn_line(
-                f"{pdf.name}: detection failed ({res.reason or 'unknown'}) "
-                "— using 0°"
+        # Skipped pages (Tesseract path only — AI path doesn't skip, it errors).
+        if res.pages_skipped:
+            info_line(
+                f"  ({len(res.pages_skipped)} page(s) skipped: "
+                f"{list(res.pages_skipped)})"
             )
-            continue
-        n_votes = len(res.votes)
-        top_n = sum(1 for v in res.votes if v.rotation_cw == res.rotation_cw)
-        tag = "unanimous" if top_n == n_votes else "majority"
-        if res.rotation_cw == 0:
-            ok_line(f"{pdf.name}: already upright  ({top_n}/{n_votes} {tag})")
-        else:
-            ok_line(
-                f"{pdf.name}: applying rotation {res.rotation_cw:>3d}° CW  "
-                f"({top_n}/{n_votes} {tag})"
-            )
+
+        _emit_decision_line(pdf, res, info_line, ok_line, warn_line)
 
     return out
+
+
+def _fmt_page_line(v: PageVote, detector: str) -> str:
+    """Format one per-page line, choosing the layout based on detector path."""
+    if detector == "tesseract":
+        return (
+            f"  p{v.page_idx:<3d} →  {v.rotation_cw:>3d}° CW   "
+            f"(conf {v.confidence:.1f})"
+        )
+    # AI path
+    return (
+        f"  p{v.page_idx:<3d} →  {v.edge:<7s}  (rotate {v.rotation_cw:>3d}°)"
+    )
+
+
+def _emit_decision_line(
+    pdf: Path,
+    res: OrientationResult,
+    info_line,
+    ok_line,
+    warn_line,
+) -> None:
+    """Emit the per-file decision line."""
+    if res.source == "fallback":
+        warn_line(
+            f"{pdf.name}: detection failed ({res.reason or 'unknown'}) — using 0°"
+        )
+        return
+
+    n_votes = len(res.votes)
+    top_n = sum(1 for v in res.votes if v.rotation_cw == res.rotation_cw)
+    tag = "unanimous" if top_n == n_votes else "majority"
+    skipped_note = (
+        f", {len(res.pages_skipped)} page(s) skipped"
+        if res.pages_skipped else ""
+    )
+    if res.rotation_cw == 0:
+        ok_line(
+            f"{pdf.name}: already upright  "
+            f"({top_n}/{n_votes} {tag}{skipped_note})"
+        )
+    else:
+        ok_line(
+            f"{pdf.name}: applying rotation {res.rotation_cw:>3d}° CW  "
+            f"({top_n}/{n_votes} {tag}{skipped_note})"
+        )
