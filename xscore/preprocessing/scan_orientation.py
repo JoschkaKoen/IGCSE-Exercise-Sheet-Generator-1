@@ -1,19 +1,23 @@
 """Per-scan-file orientation detection via vision LLM (default gemini-3-flash-preview).
 
-Samples up to ``SCAN_ORIENTATION_SAMPLE_PAGES`` pages spread across each
-source PDF (rendered at 300 DPI, JPEG quality 95), queries the configured
-vision model on each non-blank page, and majority-votes the answer. The
-result is a clockwise rotation (0/90/180/270) that uprights the page, plus a
-``source`` tag so callers can distinguish a confident model answer
-(``"model"``) from a fallback (``"fallback"``), and a ``votes`` tuple
-recording the per-page raw answers.
+**Two-stage sampling**: ``SCAN_ORIENTATION_INITIAL_PAGES`` well-spread pages
+are queried first; ``SCAN_ORIENTATION_ESCALATION_PAGES`` more pages are
+queried only when the initial round disagrees or one of the calls fails.
+On a uniformly-fed scan the typical cost is just the initial-round calls;
+the full majority vote runs only when the model is uncertain.
+
+Pages are rendered at 300 DPI, JPEG quality 95. The configured vision
+model is asked which edge of the rendered image holds the page header
+(top/right/bottom/left); each answer maps to a clockwise rotation in
+``{0, 90, 180, 270}`` that uprights the page. The per-file rotation is the
+majority vote across every successful page query (initial + escalated).
 
 Provider dispatch: model names starting with ``gemini`` go through the
 native ``google.genai`` SDK with ``Part.from_bytes``; everything else uses
 the OpenAI-compat path with ``image_url`` content parts (Qwen and friends).
 
 Concurrency: files are processed sequentially so terminal output stays
-contiguous per file; within a file the per-page AI calls run in parallel
+contiguous per file; within a file each phase's AI calls run in parallel
 (capped at 8 workers) while fitz rendering stays in the outer thread (fitz
 ``Document``s aren't reliably thread-safe across page operations).
 
@@ -42,14 +46,26 @@ _VALID_ROTATIONS = {0, 90, 180, 270}
 _INNER_POOL_MAX_WORKERS = 8  # cap on parallel AI calls per file
 
 
-def _sample_pages_per_file() -> int:
-    """Read the configured per-file sample count, clamped to >= 1.
+def _initial_and_escalation_counts() -> tuple[int, int]:
+    """Read the configured (initial, escalation) page counts.
 
-    Read at call time rather than import time so a runtime ``os.environ``
-    override (tests, ad-hoc CLI runs) is honoured immediately.
+    Clamps INITIAL to >= 1 and ESCALATION to >= 0. Read at call time rather
+    than import time so a runtime ``os.environ`` override (tests, ad-hoc CLI
+    runs) is honoured immediately.
     """
-    from xscore.config import SCAN_ORIENTATION_SAMPLE_PAGES  # noqa: PLC0415
-    return max(1, int(SCAN_ORIENTATION_SAMPLE_PAGES))
+    from xscore.config import (  # noqa: PLC0415
+        SCAN_ORIENTATION_INITIAL_PAGES,
+        SCAN_ORIENTATION_ESCALATION_PAGES,
+    )
+    initial = max(1, int(SCAN_ORIENTATION_INITIAL_PAGES))
+    escalation = max(0, int(SCAN_ORIENTATION_ESCALATION_PAGES))
+    return initial, escalation
+
+
+def _total_sample_pages() -> int:
+    """Total max pages queried per file across both stages."""
+    initial, escalation = _initial_and_escalation_counts()
+    return initial + escalation
 
 _SYSTEM = (
     "You analyse scanned exam pages. Look at the image and identify where the "
@@ -101,22 +117,34 @@ class PageVote:
 class OrientationResult:
     """Result of one orientation-detection call.
 
+    Two-stage sampling: the detector queries 2 well-spread pages first
+    (``initial_votes``), and only escalates to the remaining N-2 pages
+    (``escalated_votes``) when the initial round didn't agree or had a
+    partial API failure. ``votes`` is a convenience property combining the
+    two in page-index order — used by the audit JSON writer and by the
+    majority-vote tally. Empty on the fallback path.
+
     ``source`` is ``"model"`` for a confident model answer, ``"fallback"``
     for any failure path (no API key, parse error, all candidate pages
     blank, etc.). ``reason`` is populated only when ``source == "fallback"``.
 
     ``model`` is the resolved model id from :func:`make_ai_client`, or
     ``None`` when no client was constructed (e.g. missing API key).
-
-    ``votes`` carries the per-page raw answers in page-index order.  Empty
-    on the fallback path (we never reached the AI calls).
     """
 
     rotation_cw: int
     source: str
     reason: Optional[str] = None
     model: Optional[str] = None
-    votes: tuple[PageVote, ...] = field(default_factory=tuple)
+    initial_votes: tuple[PageVote, ...] = field(default_factory=tuple)
+    escalated_votes: tuple[PageVote, ...] = field(default_factory=tuple)
+
+    @property
+    def votes(self) -> tuple[PageVote, ...]:
+        """All votes (initial + escalated), sorted by page index."""
+        return tuple(
+            sorted(self.initial_votes + self.escalated_votes, key=lambda v: v.page_idx)
+        )
 
 
 def _fallback(reason: str, model: Optional[str] = None) -> OrientationResult:
@@ -139,7 +167,7 @@ def _pick_candidate_pages(
       cover) or p-1 (often a blank back-cover with sparse copyright text).
     """
     if max_samples is None:
-        max_samples = _sample_pages_per_file()
+        max_samples = _total_sample_pages()
     n = len(doc)
     if n == 0:
         return []
@@ -156,6 +184,48 @@ def _pick_candidate_pages(
             seen.add(i)
             out.append(i)
     return out
+
+
+def _split_candidates(
+    candidates: list[int], initial_count: int
+) -> tuple[list[int], list[int]]:
+    """Split *candidates* into (initial, escalation) lists.
+
+    The *initial* list takes content-rich inner positions (avoiding the
+    spread's edges where covers / back-pages tend to confuse the model);
+    the rest go to *escalation*. Both returned lists preserve original
+    page-index order.
+
+    For a 5-element spread ``[0, 16, 32, 47, 63]`` with ``initial_count=2``
+    this returns ``([16, 47], [0, 32, 63])`` — exactly the heuristic the
+    single-knob version used.
+    """
+    n = len(candidates)
+    if n == 0 or initial_count <= 0:
+        return [], list(candidates)
+    if initial_count >= n:
+        return list(candidates), []
+
+    # Pick `initial_count` positions within the spread. For initial_count==1,
+    # pick the dead-middle position. For >=2, span [1, n-2] (skip both edges)
+    # evenly, dropping rounding collisions.
+    if initial_count == 1:
+        initial_pos = [n // 2]
+    elif n >= initial_count + 2:
+        # Have room to skip both edges.
+        initial_pos = [
+            round(1 + i * (n - 3) / (initial_count - 1))
+            for i in range(initial_count)
+        ]
+    else:
+        # Tight fit (initial_count == n - 1) — start at index 0.
+        initial_pos = list(range(initial_count))
+    initial_pos = sorted(set(initial_pos))
+
+    initial_set = set(initial_pos)
+    initial = [candidates[i] for i in initial_pos]
+    escalation = [candidates[i] for i in range(n) if i not in initial_set]
+    return initial, escalation
 
 
 _JPEG_QUALITY = 95  # never below 90 (preserves text clarity for orientation detection)
@@ -346,8 +416,8 @@ def _make_gemini_caller(
 def _detect_one(scan_pdf: Path, *, is_blank_page) -> OrientationResult:
     """Inner body of :func:`detect_scan_orientation`. May raise; outer wraps.
 
-    Samples up to ``SCAN_ORIENTATION_SAMPLE_PAGES`` pages spread across the
-    file, queries the configured vision model on each non-blank page in
+    Samples up to ``SCAN_ORIENTATION_INITIAL_PAGES + _ESCALATION_PAGES`` pages
+    spread across the file, queries the configured vision model on each non-blank page in
     parallel (capped at ``_INNER_POOL_MAX_WORKERS``), then **majority-votes**
     across the answers. Single-page errors (model confused by a sparse cover
     page or an outlier image) are dominated by the consistent answer from
@@ -416,7 +486,8 @@ def _detect_one(scan_pdf: Path, *, is_blank_page) -> OrientationResult:
             )
             return _fallback(f"no API key for {model}", model=model)
 
-    # 3. Run the per-page AI calls in parallel (capped at _INNER_POOL_MAX_WORKERS).
+    # 3. Two-stage sampling: query 2 well-spread pages first, escalate to
+    #    the remainder only if they disagree or one of them fails.
     def _query_page(idx: int, b64: str) -> PageVote | BaseException:
         """Return a PageVote on success, the exception on failure."""
         try:
@@ -429,30 +500,67 @@ def _detect_one(scan_pdf: Path, *, is_blank_page) -> OrientationResult:
         except BaseException as exc:  # noqa: BLE001 — caller dispatches on type
             return exc
 
-    pool_size = min(len(renders), _INNER_POOL_MAX_WORKERS)
-    votes: list[PageVote] = []
-    last_exc: BaseException | None = None
-    with ThreadPoolExecutor(max_workers=pool_size) as executor:
-        futures = [executor.submit(_query_page, idx, b64) for idx, b64 in renders]
-        for fut in as_completed(futures):
-            result = fut.result()
-            if isinstance(result, PageVote):
-                votes.append(result)
-            else:
-                last_exc = result
+    def _run_pool(
+        page_renders: list[tuple[int, str]],
+    ) -> tuple[list[PageVote], BaseException | None]:
+        """Query *page_renders* in parallel, return (votes, last_exc)."""
+        if not page_renders:
+            return [], None
+        pool_size = min(len(page_renders), _INNER_POOL_MAX_WORKERS)
+        out_votes: list[PageVote] = []
+        last_exception: BaseException | None = None
+        with ThreadPoolExecutor(max_workers=pool_size) as executor:
+            futures = [executor.submit(_query_page, idx, b64) for idx, b64 in page_renders]
+            for fut in as_completed(futures):
+                r = fut.result()
+                if isinstance(r, PageVote):
+                    out_votes.append(r)
+                else:
+                    last_exception = r
+        out_votes.sort(key=lambda v: v.page_idx)
+        return out_votes, last_exception
 
-    if not votes:
+    # Pick which renders form the initial round. Use _split_candidates so the
+    # initial picks come from content-rich inner positions and avoid the
+    # spread's edges (empirically risky — sparse covers + back-page text).
+    initial_count, _escalation_count = _initial_and_escalation_counts()
+    initial_pages, _escalation_pages = _split_candidates(
+        [r[0] for r in renders], initial_count
+    )
+    initial_set = set(initial_pages)
+    initial_renders   = [r for r in renders if r[0] in initial_set]
+    remaining_renders = [r for r in renders if r[0] not in initial_set]
+
+    initial_votes, last_exc = _run_pool(initial_renders)
+
+    # Decide whether to escalate.
+    distinct_rotations = {v.rotation_cw for v in initial_votes}
+    initial_complete = len(initial_votes) == len(initial_renders)
+    should_escalate = bool(remaining_renders) and (
+        len(distinct_rotations) > 1 or not initial_complete
+    )
+
+    if should_escalate:
+        escalated_votes, esc_exc = _run_pool(remaining_renders)
+        last_exc = last_exc or esc_exc
+    else:
+        escalated_votes = []
+
+    all_votes = initial_votes + escalated_votes
+    if not all_votes:
         reason = f"all page queries failed: {last_exc!r}" if last_exc else "all page queries failed"
         warn_line(f"Orientation: {scan_pdf.name} {reason} — using 0°")
         return _fallback(reason, model=model)
 
-    # 4. Majority-vote (Counter.most_common ties broken by insertion order →
-    #    deterministic given sorted-by-page-index votes).
-    votes.sort(key=lambda v: v.page_idx)
-    counts = Counter(v.rotation_cw for v in votes)
+    # 4. Majority-vote across every successful vote (initial + escalated).
+    counts = Counter(v.rotation_cw for v in all_votes)
     top, _top_n = counts.most_common(1)[0]
     return OrientationResult(
-        rotation_cw=top, source="model", model=model, votes=tuple(votes),
+        rotation_cw=top,
+        source="model",
+        model=model,
+        initial_votes=tuple(initial_votes),
+        escalated_votes=tuple(escalated_votes),
     )
 
 
@@ -491,11 +599,21 @@ def detect_scan_orientations(
             res = _fallback(f"unexpected: {exc!r}")
         out[pdf] = res
 
-        # Emit per-page lines (votes are already sorted by page_idx in _detect_one).
-        for v in res.votes:
+        # Emit per-page lines for the initial round.
+        for v in sorted(res.initial_votes, key=lambda v: v.page_idx):
             info_line(
                 f"  p{v.page_idx:<3d} →  {v.edge:<7s}  (rotate {v.rotation_cw:>3d}°)"
             )
+
+        # If escalation kicked in, separate it visually then print the rest.
+        if res.escalated_votes:
+            info_line(
+                f"  not unanimous — checking {len(res.escalated_votes)} more pages"
+            )
+            for v in sorted(res.escalated_votes, key=lambda v: v.page_idx):
+                info_line(
+                    f"  p{v.page_idx:<3d} →  {v.edge:<7s}  (rotate {v.rotation_cw:>3d}°)"
+                )
 
         # Emit decision line.
         if res.source == "fallback":

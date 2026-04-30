@@ -204,17 +204,24 @@ def _prepare_duplex(
     )
     from xscore.config import (
         SCAN_ORIENTATION_MODEL,
-        SCAN_ORIENTATION_SAMPLE_PAGES,
+        SCAN_ORIENTATION_INITIAL_PAGES,
+        SCAN_ORIENTATION_ESCALATION_PAGES,
     )
     from eXercise.ai_client import parse_model_spec
 
     unique_files = sorted({p for pair in pairs for p in pair}, key=lambda p: p.name)
     model_name, _, _ = parse_model_spec(SCAN_ORIENTATION_MODEL)
+    initial = max(1, SCAN_ORIENTATION_INITIAL_PAGES)
+    escalation = max(0, SCAN_ORIENTATION_ESCALATION_PAGES)
+    if escalation == 0:
+        sample_desc = f"{initial} sample pages per file (no escalation)"
+    else:
+        sample_desc = (
+            f"{initial} initial + up to {escalation} escalation pages per file"
+        )
     info_line("Detecting per-file orientation")
     info_line(
-        f"Model: {model_name} · "
-        f"{max(1, SCAN_ORIENTATION_SAMPLE_PAGES)} sample pages per file at "
-        f"{ROTATION_DETECTION_DPI} DPI"
+        f"Model: {model_name} · {sample_desc} at {ROTATION_DETECTION_DPI} DPI"
     )
     results = detect_scan_orientations(unique_files)
     audit.parent.mkdir(parents=True, exist_ok=True)
@@ -304,16 +311,23 @@ def _prepare_single(
     )
     from xscore.config import (
         SCAN_ORIENTATION_MODEL,
-        SCAN_ORIENTATION_SAMPLE_PAGES,
+        SCAN_ORIENTATION_INITIAL_PAGES,
+        SCAN_ORIENTATION_ESCALATION_PAGES,
     )
     from eXercise.ai_client import parse_model_spec
 
     model_name, _, _ = parse_model_spec(SCAN_ORIENTATION_MODEL)
+    initial = max(1, SCAN_ORIENTATION_INITIAL_PAGES)
+    escalation = max(0, SCAN_ORIENTATION_ESCALATION_PAGES)
+    if escalation == 0:
+        sample_desc = f"{initial} sample pages per file (no escalation)"
+    else:
+        sample_desc = (
+            f"{initial} initial + up to {escalation} escalation pages per file"
+        )
     info_line("Detecting per-file orientation")
     info_line(
-        f"Model: {model_name} · "
-        f"{max(1, SCAN_ORIENTATION_SAMPLE_PAGES)} sample pages per file at "
-        f"{ROTATION_DETECTION_DPI} DPI"
+        f"Model: {model_name} · {sample_desc} at {ROTATION_DETECTION_DPI} DPI"
     )
     results = detect_scan_orientations([src])
     audit.parent.mkdir(parents=True, exist_ok=True)

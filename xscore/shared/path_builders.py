@@ -51,7 +51,9 @@ from xscore.shared.step_folders import (
     # Old-numbering aliases — kept so legacy body references compile during
     # the refactor; both old + new names resolve to the same renumbered folder
     # via the aliases in step_folders.py.
+    STEP_08_COVER_EMPTY,
     STEP_09_COVER_SCAN,
+    STEP_10_GEOMETRY,
     STEP_12_NAMES,
     STEP_13_PAGE_ORDER,
     STEP_14_EXAM_BLANK,

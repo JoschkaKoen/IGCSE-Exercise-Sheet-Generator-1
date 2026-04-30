@@ -171,12 +171,16 @@ ROTATION_ANALYSIS_DPI: int = int(os.getenv("ROTATION_ANALYSIS_DPI", "150"))
 # xscore/preprocessing/scan_orientation.py.
 SCAN_ORIENTATION_MODEL: str = os.getenv("SCAN_ORIENTATION_MODEL", "gemini-3-flash-preview")
 
-# Step 4: number of pages sampled per source PDF for orientation majority-vote.
-# Pages are spread evenly across the file (always including p0 and last page);
-# blank samples are dropped before AI calls. 1 = single-page detection (fast,
-# brittle). 5 is the default and was 6/6 correct on s23/22. Higher = more
-# robust, more API cost. Clamped to >= 1 at read time.
-SCAN_ORIENTATION_SAMPLE_PAGES: int = int(os.getenv("SCAN_ORIENTATION_SAMPLE_PAGES", "5"))
+# Step 4: per-file orientation detection is two-stage. INITIAL_PAGES content
+# pages are queried first; if they agree, that result is used. If they
+# disagree (or one call fails), an additional ESCALATION_PAGES pages are
+# queried and the rotation is decided by majority vote across the full set.
+# Maximum API calls per file = INITIAL_PAGES + ESCALATION_PAGES.
+# Defaults (2 + 3 = 5) match the cost-saving design: typical case 2 calls,
+# uncertain files 5 calls. Set ESCALATION_PAGES=0 to disable escalation.
+# Both clamped to >= 0 (and INITIAL >= 1) at read time.
+SCAN_ORIENTATION_INITIAL_PAGES: int = int(os.getenv("SCAN_ORIENTATION_INITIAL_PAGES", "2"))
+SCAN_ORIENTATION_ESCALATION_PAGES: int = int(os.getenv("SCAN_ORIENTATION_ESCALATION_PAGES", "3"))
 
 # Step 9: model for the informational check on the empty exam's first page.
 EMPTY_EXAM_COVER_MODEL: str = os.getenv("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash")
