@@ -31,6 +31,11 @@ from typing import Any
 
 from eXercise.ai_client import collect_streamed_response, make_ai_client, build_completion_kwargs
 from eXercise.api_retry import retry_api_call
+from xscore.marking.extract_answers_display import (
+    build_display_entries,
+    emit_skipped_lines,
+    make_reorder_buffer,
+)
 from xscore.marking.formats.base import FormatParseError
 from xscore.marking.formats import get_marking_format
 from xscore.prompts.loader import load_prompt
@@ -271,7 +276,21 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
     api_call_timings: list[dict] = []
     all_failures: list[dict] = []
 
-    info_line(f"Extracting answers for {len(page_tasks)} (student, page) pair(s) …")
+    # Enumerate every page in the scan PDF (extracted, cover-skipped,
+    # no-handwriting-skipped) so the output is a complete picture. The
+    # reorder buffer prints lines in (student, p_label) order regardless of
+    # worker completion order.
+    display_entries, idx_by_key, total_pdf_pages, n_cover, n_no_hw = (
+        build_display_entries(register, raw_assignments)
+    )
+
+    info_line(
+        f"Extracting answers for {len(page_tasks)} of {len(display_entries)} pages "
+        f"({n_cover} cover, {n_no_hw} no-handwriting skipped) …"
+    )
+
+    _emit_ordered = make_reorder_buffer(get_console())
+    emit_skipped_lines(display_entries, idx_by_key, total_pdf_pages, _emit_ordered, icon)
 
     def _extract_one(
         idx: int,
@@ -296,11 +315,20 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
             for sp in all_pages
             if sp in scan_to_plabel and (student_name, scan_to_plabel[sp]) in _b64_cache
         ]
+        scan_page_global = assignment["page_numbers"][p_label - 1]
+        student_total = len(assignment["page_numbers"])
+        prefix = (
+            f"Student '{student_name}'"
+            f"  ·  page {scan_page_global:>3}/{total_pdf_pages}"
+            f"  ·  ans p {p_label:>2}/{student_total}"
+        )
+
         if not all_b64:
             failure = {
                 "student": student_name, "page": p_label,
                 "error": "no scan pages rendered (cache miss)",
             }
+            _emit_ordered(idx, f"[yellow]  {icon('warn')}  {prefix}  ·  FAILED (cache miss)[/]")
             return None, failure
         b64 = all_b64[0]
         extra_b64 = tuple(all_b64[1:])
@@ -322,7 +350,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
             failed_path = artifact_student_answers_failed_path(ctx.artifact_dir, safe_name, p_label)
             failed_path.parent.mkdir(parents=True, exist_ok=True)
             failed_path.write_text(json.dumps(failure, indent=2, ensure_ascii=False), encoding="utf-8")
-            warn_line(f"Extract '{student_name}' p{p_label}: {exc}")
+            _emit_ordered(idx, f"[yellow]  {icon('warn')}  {prefix}  ·  FAILED[/]")
             return None, failure
         except Exception as exc:  # noqa: BLE001
             failure = {
@@ -332,7 +360,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
             failed_path = artifact_student_answers_failed_path(ctx.artifact_dir, safe_name, p_label)
             failed_path.parent.mkdir(parents=True, exist_ok=True)
             failed_path.write_text(json.dumps(failure, indent=2, ensure_ascii=False), encoding="utf-8")
-            warn_line(f"Extract '{student_name}' p{p_label}: {exc}")
+            _emit_ordered(idx, f"[yellow]  {icon('warn')}  {prefix}  ·  FAILED[/]")
             return None, failure
 
         dur = round(time.perf_counter() - t0, 2)
@@ -341,33 +369,38 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(_build_answers_xml(student_name, p_label, answers), encoding="utf-8")
 
-        get_console().print(
-            f"[green]  {icon('ok')}  Student '{student_name}'"
-            f" · scan page {p_label}/{len(assignment['page_numbers'])}"
+        _emit_ordered(idx, (
+            f"[green]  {icon('ok')}  {prefix}"
             f"  ·  {format_duration(dur)}  ·  {len(answers)} answer(s)[/]"
-        )
+        ))
         return {"phase": "extract_answers", "student": student_name, "page": p_label,
                 "duration_s": dur}, None
 
-    page_tasks_sorted = sorted(
-        page_tasks,
-        key=lambda t: t[0]["page_numbers"][t[1] - 1],
-    )
+    # Each worker carries the absolute display ``idx`` so its line lands in
+    # the right slot in the reorder buffer regardless of completion order.
+    extracted_with_idx = [
+        (idx_by_key[(a["student_name"], p_label)], a, p_label, ans_lbl, ans_cnt, extras, sources)
+        for (a, p_label, ans_lbl, ans_cnt, extras, sources) in page_tasks
+    ]
+    extracted_with_idx.sort(key=lambda t: t[0])
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
         futures = {
             ex.submit(_extract_one, idx, a, p_label, ans_lbl, ans_cnt, extras, sources):
-                (a["student_name"], p_label)
-            for idx, (a, p_label, ans_lbl, ans_cnt, extras, sources) in enumerate(page_tasks_sorted)
+                (idx, a["student_name"], p_label)
+            for (idx, a, p_label, ans_lbl, ans_cnt, extras, sources) in extracted_with_idx
         }
         for fut in as_completed(futures):
             try:
                 timing, failure = fut.result()
             except Exception as exc:  # noqa: BLE001
-                student, page = futures[fut]
+                idx, student, page = futures[fut]
                 failure = {"student": student, "page": page, "error": f"unhandled worker: {exc}"}
                 timing = None
-                warn_line(f"Extract worker: {exc}")
+                _emit_ordered(idx, (
+                    f"[yellow]  {icon('warn')}  Student '{student}'"
+                    f"  ·  ans p {page}  ·  FAILED (worker crash)[/]"
+                ))
             with timings_lock:
                 if timing:
                     api_call_timings.append(timing)
