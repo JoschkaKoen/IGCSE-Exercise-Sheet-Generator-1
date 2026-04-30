@@ -473,9 +473,14 @@ def artifact_student_answers_dir(artifact_dir: Path) -> Path:
 
 
 def artifact_student_answers_path(
-    artifact_dir: Path, student: str, page: int, fmt: str = "xml"
+    artifact_dir: Path, student: str, page: int, *, fmt: str
 ) -> Path:
-    """Per-(student, page) extracted student answers (XML by default)."""
+    """Per-(student, page) extracted student answers; ``fmt`` is the active
+    MARKING_FORMAT (yaml | json | xml). The caller passes
+    ``fmt=fmt.artifact_ext()`` so writers and readers stay aligned, and the
+    loader (:func:`xscore.marking.extract_answers.load_student_answers`)
+    probes all three extensions to remain resilient to format changes
+    between runs."""
     return artifact_student_answers_dir(artifact_dir) / f"{safe_student_name(student)}_page_{page}.{fmt}"
 
 
