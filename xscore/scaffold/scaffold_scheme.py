@@ -315,7 +315,11 @@ def parse_mark_scheme_pages(
                 _out_str = ET.tostring(_root, encoding="unicode", xml_declaration=False)
             elif _ext == "yaml":
                 import yaml as _yaml
-                _out_str = _yaml.dump(result, allow_unicode=True, default_flow_style=False)
+                from xscore.scaffold.formats.yaml_format import _ScaffoldDumper
+                _out_str = _yaml.dump(
+                    result, Dumper=_ScaffoldDumper,
+                    allow_unicode=True, default_flow_style=False, sort_keys=False,
+                )
             else:
                 _out_str = json.dumps(result, ensure_ascii=False, indent=2)
             p = artifact_mark_scheme_path(artifact_dir, fmt=_ext)

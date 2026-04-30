@@ -23,6 +23,11 @@ class _MarkingDumper(yaml.SafeDumper):
 
 def _str_representer(dumper: yaml.Dumper, data: str) -> yaml.ScalarNode:
     if "\n" in data or "\\" in data:
+        # Strip per-line trailing whitespace so PyYAML can use block-scalar
+        # style. Without this, multiline strings with trailing whitespace fall
+        # back to double-quoted form, which interprets backslashes as escapes
+        # and silently destroys LaTeX commands.
+        data = "\n".join(line.rstrip() for line in data.split("\n"))
         return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
     return dumper.represent_scalar("tag:yaml.org,2002:str", data)
 

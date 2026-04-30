@@ -21,6 +21,7 @@ _SWEEP_STEP = 0.01          # deg — fine pass only (full-resolution thresh)
 _SWEEP_COARSE_STEP = 0.1    # deg — coarse pass
 _SWEEP_FINE_HALF = 0.15     # deg — fine window ± this around coarse best (covers grid error)
 _MIN_APPLY_DEG = DESKEW_ACCURACY  # skip warp below this — matches fine-sweep resolution (default 0.01°)
+_MAX_APPLY_DEG = 1.0        # deg — skip rotation entirely if detection exceeds this (likely bad signal)
 _REFINE_MAX_ITERS = 5       # iterative-refinement cap (1–2 typical, 5 covers worst case)
 
 # Writing-line (dotted answer-line) detection — primary deskew signal

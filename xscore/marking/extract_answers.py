@@ -82,6 +82,11 @@ class _ExtractAnswersDumper(_yaml.SafeDumper):
 
 def _ea_str_representer(dumper: _yaml.Dumper, data: str) -> _yaml.ScalarNode:
     if "\n" in data or "\\" in data:
+        # Strip per-line trailing whitespace so PyYAML can use block-scalar
+        # style. Without this, multiline strings with trailing whitespace fall
+        # back to double-quoted form, which interprets backslashes as escapes
+        # and silently destroys LaTeX commands.
+        data = "\n".join(line.rstrip() for line in data.split("\n"))
         return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
     return dumper.represent_scalar("tag:yaml.org,2002:str", data)
 
@@ -427,9 +432,11 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
         safe_name = student_name or f"Unknown_{p_label}"
 
         # Load blueprint for this answer page (any format — we pass it as
-        # context only).
+        # context only). Strip correct_answer so the transcriber isn't biased
+        # by the answer key.
         bp_path = artifact_blueprint_path(ctx.artifact_dir, answer_label, fmt=fmt.artifact_ext())
         blueprint_str = bp_path.read_text(encoding="utf-8")
+        blueprint_str = blueprint_for_transcription(blueprint_str, fmt)
 
         # Assemble the page bundle: primary scan page + continuation pages,
         # in ascending scan-page order so the model reads top-to-bottom.
@@ -594,6 +601,52 @@ def patch_blueprint_with_answers(
     raise ValueError(f"Unsupported blueprint format: {ext}")
 
 
+def blueprint_for_transcription(blueprint_str: str, fmt: Any) -> str:
+    """Return *blueprint_str* with fields the transcriber must not see removed.
+
+    Currently strips ``correct_answer`` so the step-27 transcriber AI is not
+    biased by the answer key while transcribing. Format-aware on
+    ``fmt.artifact_ext()`` (xml | yaml | json).
+    """
+    ext = fmt.artifact_ext()
+    if ext == "xml":
+        return _strip_correct_answer_xml(blueprint_str)
+    if ext == "yaml":
+        return _strip_correct_answer_yaml(blueprint_str)
+    if ext == "json":
+        return _strip_correct_answer_json(blueprint_str)
+    raise ValueError(f"Unsupported blueprint format: {ext}")
+
+
+def _strip_correct_answer_xml(blueprint_str: str) -> str:
+    root = ET.fromstring(blueprint_str)
+    for q in root.findall("question"):
+        ca = q.find("correct_answer")
+        if ca is not None:
+            q.remove(ca)
+    ET.indent(root)
+    return ET.tostring(
+        root, encoding="unicode", xml_declaration=False, short_empty_elements=False,
+    )
+
+
+def _strip_correct_answer_yaml(blueprint_str: str) -> str:
+    data = _yaml.safe_load(blueprint_str) or {}
+    for q in data.get("questions", []) or []:
+        q.pop("correct_answer", None)
+    return _yaml.dump(
+        data, Dumper=_ExtractAnswersDumper,
+        allow_unicode=True, default_flow_style=False, sort_keys=False,
+    )
+
+
+def _strip_correct_answer_json(blueprint_str: str) -> str:
+    data = json.loads(blueprint_str)
+    for q in data.get("questions", []) or []:
+        q.pop("correct_answer", None)
+    return json.dumps(data, ensure_ascii=False, indent=2)
+
+
 def _patch_blueprint_xml(blueprint_str: str, answers_map: dict[str, str]) -> str:
     root = ET.fromstring(blueprint_str)
     for q in root.findall("question"):
@@ -617,8 +670,9 @@ def _patch_blueprint_yaml(blueprint_str: str, answers_map: dict[str, str]) -> st
         qnum = str(q.get("number", "")).strip()
         if qnum in answers_map:
             q["student_answer"] = answers_map[qnum]
-    return yaml.safe_dump(
-        data, allow_unicode=True, default_flow_style=False, sort_keys=False,
+    return yaml.dump(
+        data, Dumper=_ExtractAnswersDumper,
+        allow_unicode=True, default_flow_style=False, sort_keys=False,
     )
 
 

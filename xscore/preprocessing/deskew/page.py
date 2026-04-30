@@ -8,9 +8,13 @@ from PIL import Image
 from xscore.preprocessing.deskew.angle import iterative_deskew_angle
 from xscore.preprocessing.deskew.reflines import detect_reference_lines
 from xscore.preprocessing.deskew.types import (
-    _A3_HEIGHT_THRESHOLD_FACTOR, ReferenceLine,
+    _A3_HEIGHT_THRESHOLD_FACTOR, _MAX_APPLY_DEG, ReferenceLine,
 )
 from xscore.preprocessing.deskew.warp import deskew_image
+
+
+def _gate_angle(angle: float) -> float:
+    return angle if abs(angle) <= _MAX_APPLY_DEG else 0.0
 
 
 _PageResult = tuple[
@@ -46,6 +50,8 @@ def deskew_page_halves(
     #    projection-variance fallback — see iterative_deskew_angle).
     top_angle, top_iters, top_method = iterative_deskew_angle(top)
     bot_angle, bot_iters, bot_method = iterative_deskew_angle(bot)
+    top_angle = _gate_angle(top_angle)
+    bot_angle = _gate_angle(bot_angle)
 
     # 2) Apply angular deskew before any morphological ruling-line detection.
     top_fixed = deskew_image(top, top_angle)
@@ -78,6 +84,7 @@ def deskew_whole_page(
     reference-line lists are empty.
     """
     angle, iters, method = iterative_deskew_angle(page_gray)
+    angle = _gate_angle(angle)
     fixed = deskew_image(page_gray, angle)
     return fixed, angle, 0.0, [], [], iters, 0, method, ""
 
