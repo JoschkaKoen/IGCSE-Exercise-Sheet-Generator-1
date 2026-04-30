@@ -35,3 +35,20 @@ def normalize_extracted_record(data: dict, answer_fields: list[str]) -> dict:
         if field in data:
             data[field] = normalize_mc_answer(data.get(field))
     return data
+
+
+def failed_extraction_record(
+    last_error: Exception | str | None, answer_fields: list[str]
+) -> dict:
+    """Build the sentinel record returned when all extraction retries fail."""
+    err = str(last_error) if last_error is not None else "unknown"
+    base: dict = {
+        "student_name": "EXTRACTION_ERROR",
+        "student_name_confidence": "failed",
+        "confidence": "failed",
+        "error": err,
+    }
+    for f in answer_fields:
+        base[f] = "?"
+        base[f"{f}_confidence"] = "failed"
+    return normalize_extracted_record(base, answer_fields)

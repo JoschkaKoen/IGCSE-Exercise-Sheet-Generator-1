@@ -42,7 +42,7 @@ from xscore.scaffold.generate_scaffold import (
 )
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.shared.pipeline_ctx import _Ctx
-from xscore.shared.pipeline_steps import run_step, step_by_number
+from xscore.shared.pipeline_steps import run_step
 from xscore.shared.terminal_ui import announce_step_model, format_duration, ok_line, warn_line
 
 
@@ -176,15 +176,13 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
 
     Pure data transform: reads the v1 marking page register from
     ``build_marking_register_v1`` plus ``fill_exam_scaffold``'s
-    ``exam_questions.yaml`` artifact, runs two augmentation passes
+    ``exam_questions.{yaml|json|xml}`` artifact, runs two augmentation passes
     (figure mentions on a different page from where the figure is drawn;
     child questions on a different page from a parent's stem/flowchart),
     and writes the v2 register at
     ``<detect_cross_page_context_dir>/marking_page_register.json`` along
     with diagnostic JSON files and a markdown summary. No AI calls.
     """
-    import yaml
-
     from xscore.marking.marking_page_register import (
         apply_cross_page_extras,
         build_initial_register,
@@ -192,6 +190,8 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
         render_cross_page_step_summary,
         write_register,
     )
+    from xscore.scaffold.formats import load_exam_questions_artifact
+    from xscore.shared.output_format import get_output_format
     from xscore.shared.path_builders import (
         artifact_cross_page_changes_md_path,
         artifact_cross_page_refs_json_path,
@@ -207,7 +207,9 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
         # build_marking_register_v1's writer was newly added — older runs may lack v1.
         register = build_initial_register(ctx)
 
-    questions_path = artifact_exam_questions_path(ctx.artifact_dir, fmt="yaml")
+    questions_path = artifact_exam_questions_path(
+        ctx.artifact_dir, fmt=get_output_format().value,
+    )
     if not questions_path.exists():
         warn_line(
             f"Skipped — {questions_path} not found "
@@ -218,7 +220,7 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
     _cppd = os.environ.get("CROSS_PAGE_PARENT_DETECTION", "1").strip().lower()
     detect_parents = _cppd in {"1", "true", "yes", "on"}
 
-    exam_questions = yaml.safe_load(questions_path.read_text(encoding="utf-8")) or {}
+    exam_questions = load_exam_questions_artifact(questions_path)
     register, figure_refs, parent_refs = apply_cross_page_extras(
         register, exam_questions, bool(ctx.empty_exam_has_cover),
         detect_parents=detect_parents,
@@ -436,7 +438,11 @@ def scaffold_setup(ctx: _Ctx) -> bool:
 
     client = make_gemini_native_client()
     if client is None:
-        raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
+        warn_line(
+            "GEMINI_API_KEY (or GOOGLE_API_KEY) not set — scaffold and "
+            "marking-reports phases will be skipped."
+        )
+        return False
 
     ctx.scaffold_state.update({
         "exam_pdf":   exam_pdf,

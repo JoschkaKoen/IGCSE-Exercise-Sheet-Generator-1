@@ -48,18 +48,10 @@ from xscore.marking.mark_page import (
     _build_marking_system_prompt, _mark_page, _render_page_b64,
 )
 from xscore.marking.extract_answers import (
-    load_student_answers, patch_blueprint_with_answers,
+    _safe_load_json, load_student_answers, patch_blueprint_with_answers,
 )
 
 _DEFAULT_MARKING_MODEL = MARKING_MODEL_DEFAULT
-
-
-def _safe_load_json(path: Path) -> Any:
-    """Read a JSON artifact, surfacing the path on parse failure."""
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as e:
-        raise RuntimeError(f"corrupt artifact {path}: {e}") from e
 
 
 
@@ -356,7 +348,15 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         kept = [a["student_name"] for a in raw_assignments]
         info_line(f"--student filter active · marking {len(kept)} of {before}: {', '.join(kept)}")
 
-    workers = int(os.environ.get("MARKING_WORKERS", str(min(os.cpu_count() or 4, 16))))
+    _default_workers = min(os.cpu_count() or 4, 16)
+    try:
+        workers = int(os.environ.get("MARKING_WORKERS", str(_default_workers)))
+    except ValueError:
+        warn_line(
+            f"MARKING_WORKERS={os.environ.get('MARKING_WORKERS')!r} is not an "
+            f"integer — falling back to default {_default_workers}."
+        )
+        workers = _default_workers
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
 
@@ -429,34 +429,26 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     _parent_refs = _load_refs(artifact_parent_refs_json_path(ctx.artifact_dir))
 
     # Pre-marking summary table — render once, before the per-page loop kicks in.
+    # The register already encodes the cover-page skip, handwriting-extras, and
+    # cross-page-figure extras. iter_marking_calls additionally applies the
+    # runtime scaffold-bounds cap and (implicitly via the filtered
+    # raw_assignments) the cohort filter.
     _scaffold_pc = ctx.scaffold.page_count if ctx.scaffold is not None else None
     _student_filter_set = {a["student_name"] for a in raw_assignments}
-    _filtered_call_count = 0
-    _filtered_page_image_count = 0
-    for _t in iter_marking_calls(
-        register,
-        raw_assignments=raw_assignments,
-        scaffold_page_count=_scaffold_pc,
-    ):
-        _filtered_call_count += 1
-        _filtered_page_image_count += 1 + len(_t[4])  # primary + extras
-    print_register_summary(
-        register,
-        filtered_call_count=_filtered_call_count,
-        filtered_student_count=len(_student_filter_set),
-        filtered_page_image_count=_filtered_page_image_count,
-    )
-
-    # Build flat per-page task list. The register already encodes the cover-page
-    # skip, handwriting-extras, and cross-page-figure extras. iter_marking_calls
-    # additionally applies the runtime scaffold-bounds cap and (implicitly via
-    # the filtered raw_assignments) the cohort filter.
     page_tasks: list[tuple[dict, int, int, int, list[int], list[str]]] = list(
         iter_marking_calls(
             register,
             raw_assignments=raw_assignments,
             scaffold_page_count=_scaffold_pc,
         )
+    )
+    _filtered_call_count = len(page_tasks)
+    _filtered_page_image_count = sum(1 + len(t[4]) for t in page_tasks)
+    print_register_summary(
+        register,
+        filtered_call_count=_filtered_call_count,
+        filtered_student_count=len(_student_filter_set),
+        filtered_page_image_count=_filtered_page_image_count,
     )
 
     import contextlib
@@ -573,6 +565,15 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     for sp in _all_pages
                     if sp in _scan_to_plabel and (student_name, _scan_to_plabel[sp]) in _b64_cache
                 ]
+                if not _all_b64:
+                    raise MarkingFailure(
+                        attempts=0,
+                        last_exc=RuntimeError(
+                            f"No rendered page images available for "
+                            f"{student_name!r} page label {p_label} "
+                            f"(scan pages {_all_pages})"
+                        ),
+                    )
                 b64 = _all_b64[0]
                 extra_b64 = _all_b64[1:]
                 filled = _mark_page(

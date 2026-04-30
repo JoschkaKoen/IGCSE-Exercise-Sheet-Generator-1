@@ -38,7 +38,6 @@ Tunables below apply to extraction/, the other top-level packages, and xscore.py
 """
 
 import os
-from pathlib import Path
 from typing import Any
 
 # =============================================================================
@@ -143,16 +142,6 @@ GEMINI_MAX_OUTPUT_TOKENS: int = int(os.getenv("ALL_GEMINI_MAX_OUTPUT_TOKENS", "6
 KIMI_MAX_TOKENS: int = int(os.getenv("KIMI_MAX_TOKENS", "64000"))
 
 # =============================================================================
-# Paths and File Handling
-# =============================================================================
-
-# Default PDF — leave empty so the folder-find logic raises a clear error if no folder is given
-DEFAULT_PDF = ""
-
-# Ground truth file path (for accuracy evaluation; repo-relative)
-GROUND_TRUTH_PATH = Path(__file__).resolve().parent / "Ground Truth"
-
-# =============================================================================
 # Generic Pipeline Configuration (xscore.py)
 # =============================================================================
 
@@ -229,7 +218,7 @@ def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = 
 
     No-op for other model ids. *thinking* True → ``\"enabled\"``, False → ``\"disabled\"``.
     """
-    if model.startswith("kimi-k2"):
+    if model.lower().startswith("kimi-k2"):
         kwargs["extra_body"] = {"thinking": {"type": "enabled" if thinking else "disabled"}}
 
 
@@ -249,5 +238,3 @@ DETECT_LAYOUT_MODEL: str = os.getenv("DETECT_LAYOUT_MODEL") or "gemini-2.5-flash
 DETECT_SCHEME_GRAPHICS_MODEL: str = os.getenv("DETECT_SCHEME_GRAPHICS_MODEL") or "gemini-2.5-flash, off"
 
 MARKING_MODEL_DEFAULT: str = os.getenv("MARKING_MODEL") or "qwen3.6-plus, low"
-
-AI_OUTPUT_FORMAT: str = os.getenv("ALL_AI_OUTPUT_FORMAT", "yaml").strip().lower()

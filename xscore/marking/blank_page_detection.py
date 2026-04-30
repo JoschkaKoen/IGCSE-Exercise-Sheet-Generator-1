@@ -580,7 +580,7 @@ def check_student_handwriting(
     results: list[tuple[int, int, bool | None, int | None, bool | None]] = []
     pending: dict[int, tuple[int, int, bool | None, int | None, bool | None, str]] = {}
     next_idx = 0
-    workers = min(len(tasks), int(os.environ.get("HANDWRITING_WORKERS", "500")))
+    workers = min(len(tasks), int(os.environ.get("HANDWRITING_WORKERS", "32")))
     with ThreadPoolExecutor(max_workers=workers) as ex:
         futs = {ex.submit(_detect, i, t): i for i, t in enumerate(tasks)}
         for fut in as_completed(futs):

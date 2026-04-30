@@ -57,6 +57,7 @@ _DEFAULT_EXTRACT_MODEL = "qwen3.6-plus, off"
 
 
 def _safe_load_json(path: Path) -> Any:
+    """Read a JSON artifact, surfacing the path on parse failure."""
     try:
         return json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as e:

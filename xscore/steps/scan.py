@@ -30,7 +30,7 @@ from xscore.preprocessing.coordinator import (
 )
 from xscore.shared.step_folders import AUTOROTATE_DIR, BLANK_DETECT_DIR, DESKEW_DIR
 from xscore.shared.load_student_list import read_student_list as _read_student_list
-from xscore.shared.pipeline_ctx import _Ctx, _EarlyExit
+from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.pipeline_steps import run_step, step_by_number
 from xscore.shared.student_artifacts import write_student_artifacts
 from xscore.shared.terminal_ui import announce_step_model, ok_line
@@ -116,9 +116,6 @@ def scan_phases(ctx: _Ctx) -> None:
         return
 
     run_step(ctx, step_by_number(4))
-    if ctx.stop_after <= 4:
-        raise _EarlyExit()
-
     run_step(ctx, step_by_number(5))
     run_step(ctx, step_by_number(6))
     run_step(ctx, step_by_number(7))

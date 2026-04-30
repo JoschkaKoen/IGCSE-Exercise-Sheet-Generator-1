@@ -19,21 +19,7 @@ from xscore.config import (
     RETRY_BACKOFF_S,
     USE_ENSEMBLE,
 )
-from xscore.extraction.images import normalize_extracted_record
-
-
-def _failed_record(last_error: Exception | str | None, answer_fields: list[str]) -> dict:
-    err = str(last_error) if last_error is not None else "unknown"
-    base: dict = {
-        "student_name": "EXTRACTION_ERROR",
-        "student_name_confidence": "failed",
-        "confidence": "failed",
-        "error": err,
-    }
-    for f in answer_fields:
-        base[f] = "?"
-        base[f"{f}_confidence"] = "failed"
-    return normalize_extracted_record(base, answer_fields)
+from xscore.extraction.images import failed_extraction_record, normalize_extracted_record
 
 
 class GeminiProvider:
@@ -52,7 +38,7 @@ class GeminiProvider:
             from xscore.shared.terminal_ui import err_line
 
             err_line("Gemini model selected but wrong client type")
-            return _failed_record("Client type mismatch for Gemini", answer_fields)
+            return failed_extraction_record("Client type mismatch for Gemini", answer_fields)
         if USE_ENSEMBLE:
             return self._ensemble(client, image_bytes, page_num, prompt, schema, answer_fields, ENSEMBLE_CALLS,
                                   prompt_save_dir=prompt_save_dir)
@@ -136,7 +122,7 @@ class GeminiProvider:
                 jitter=0.0,
             )
         except Exception as e:
-            return _failed_record(e, answer_fields)
+            return failed_extraction_record(e, answer_fields)
 
     def _ensemble(
         self,
@@ -180,7 +166,15 @@ class GeminiProvider:
         ]
         if names:
             name_counts = Counter(names)
-            final_result["student_name"] = name_counts.most_common(1)[0][0]
+            winner_name, winner_votes = name_counts.most_common(1)[0]
+            final_result["student_name"] = winner_name
+            name_agreement = winner_votes / len(names)
+            if name_agreement == 1.0:
+                final_result["student_name_confidence"] = "high"
+            elif name_agreement >= 0.5:
+                final_result["student_name_confidence"] = "medium"
+            else:
+                final_result["student_name_confidence"] = "low"
 
         confidences = [r.get("confidence", "low") for r in results]
         conf_counts = Counter(confidences)

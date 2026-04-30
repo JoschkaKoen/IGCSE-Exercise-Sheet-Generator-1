@@ -149,6 +149,7 @@ def resume_pipeline(ctx: "_Ctx") -> None:
         found = _first_existing(*paths)
         required.append(found if found else paths[0])
 
+    missing_globs: list[str] = []
     if ctx.from_step > _blueprints_n:
         bp_found = (
             list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.json"))
@@ -159,9 +160,7 @@ def resume_pipeline(ctx: "_Ctx") -> None:
         if bp_found:
             required += bp_found
         else:
-            # No blueprints anywhere — surface as a missing-artifact failure rather
-            # than letting later steps die with FileNotFoundError.
-            required.append(resume_dir / BLUEPRINTS_DIR / "blueprint_page_*.json")
+            missing_globs.append(f"blueprint_page_*.json (in {BLUEPRINTS_DIR}/ or legacy locations)")
     if ctx.from_step > _marking_n:
         # Look in the current marking folder first, then the pre-detect_subject
         # folder ("27_ai_marking/"), then older renumbers, then the very old flat layout.
@@ -174,12 +173,12 @@ def resume_pipeline(ctx: "_Ctx") -> None:
         if mk_found:
             required += mk_found
         else:
-            required.append(resume_dir / AI_MARKING_DIR / "students" / "*.yaml")
-    missing = [p for p in required if not p.exists()]
+            missing_globs.append(f"students/*.yaml (in {AI_MARKING_DIR}/ or legacy locations)")
+    missing = [p.name for p in required if not p.exists()] + missing_globs
     if missing:
         raise SystemExit(
             f"Prior run {resume_dir} is missing required artifacts:\n"
-            + "\n".join(f"  {p.name}" for p in missing)
+            + "\n".join(f"  {m}" for m in missing)
         )
 
     assert ctx.artifact_dir is not None

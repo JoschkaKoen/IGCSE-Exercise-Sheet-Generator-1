@@ -57,16 +57,18 @@ def per_student_pdfs(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
     render_per_student_pdfs(ctx)
     n = len(ctx.student_summaries or [])
-    s = "" if n == 1 else "s"
-    has_parsed_exam = artifact_exam_questions_path(ctx.artifact_dir, fmt="yaml").exists()
+    from xscore.shared.output_format import get_output_format
+    has_parsed_exam = artifact_exam_questions_path(
+        ctx.artifact_dir, fmt=get_output_format().value,
+    ).exists()
     if has_parsed_exam:
         ok_line(
             f"{n} landscape + {n} portrait + {n} portrait-large + {n} 2UP "
             f"+ {n} landscape-with-questions + {n} portrait-list "
-            f"+ 1 exam-questions PDF{s} compiled"
+            f"+ 1 exam-questions PDFs compiled"
         )
     else:
-        ok_line(f"{n} landscape + {n} portrait + {n} portrait-large + {n} 2UP PDF{s} compiled")
+        ok_line(f"{n} landscape + {n} portrait + {n} portrait-large + {n} 2UP PDFs compiled")
     # Post-check expected outputs: every student should have all PDF variants.
     # Catches both xelatex non-zero exits and "exited 0 but produced no PDF" cases.
     pdf_path_fns = [

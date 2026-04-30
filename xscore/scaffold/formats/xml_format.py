@@ -70,7 +70,10 @@ class XmlScaffoldFormat(ScaffoldFormat):
         empty ``text`` / ``answer_options`` (the model is instructed not to
         emit them). Tolerates accidental <text>/<option> elements by ignoring
         them — the fill phase produces those."""
-        root = ET.fromstring(_preprocess_xml(raw))
+        try:
+            root = ET.fromstring(_preprocess_xml(raw))
+        except ET.ParseError as exc:
+            raise RuntimeError(f"Scaffold XML parse error: {exc}") from exc
         layout = {"rows": int(root.get("rows", 1)), "cols": int(root.get("cols", 1))}
 
         def _parse_q(el: ET.Element) -> dict:

@@ -172,7 +172,7 @@ class JsonMarkingFormat(MarkingFormat):
         try:
             data = json.loads(text)
         except json.JSONDecodeError as exc:
-            raise ValueError(f"JSON blueprint parse error: {exc}") from exc
+            raise FormatParseError(f"JSON blueprint parse error: {exc}") from exc
         if not isinstance(data, dict):
             return {"page": 1, "layout": {"rows": 1, "cols": 1}, "questions": []}
         questions = []

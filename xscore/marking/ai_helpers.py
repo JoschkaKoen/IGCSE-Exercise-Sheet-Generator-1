@@ -51,7 +51,10 @@ def ai_image_call(
     cannot consume streaming responses. Pass non-zero thinking and the call
     raises a ``RuntimeError`` naming the env var to fix.
 
-    Retries once on 503 after 0.1 s; all other errors fail immediately.
+    Retries once on 503 after 0.1 s. On any other error after retries are
+    exhausted the exception is logged via ``warn_line`` and the function
+    returns an empty string — callers treat empty as "no usable response"
+    (e.g. no roster match) without distinguishing errors from genuine empties.
     """
     create_kwargs: dict[str, Any] = dict(
         model=model_id,
@@ -96,7 +99,8 @@ def ai_image_call(
     _t0 = time.perf_counter()
     try:
         raw, thinking_text = retry_api_call(_do_call, label=f"AI image ({model_id})")
-    except Exception:
+    except Exception as exc:
+        warn_line(f"[{model_id}] vision call failed after retries: {type(exc).__name__}: {exc}")
         return ""
     if print_latency:
         api_latency_line(time.perf_counter() - _t0)

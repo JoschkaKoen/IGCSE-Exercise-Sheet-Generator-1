@@ -13,7 +13,7 @@ from xscore.extraction.providers.kimi import KimiProvider
 
 
 def get_provider() -> GeminiProvider | KimiProvider:
-    if AI_MODEL.startswith("kimi"):
+    if AI_MODEL.lower().startswith("kimi"):
         return KimiProvider()
     return GeminiProvider()
 

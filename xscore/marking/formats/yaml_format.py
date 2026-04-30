@@ -90,7 +90,9 @@ def _yaml_questions_to_list(data: dict) -> list[dict]:
     for q in data.get("questions", []):
         am = q.get("assigned_marks", "")
         try:
-            am_int: int | None = int(am) if str(am).strip() else None
+            # YAML null becomes Python None → str(None) == "None"; treat the
+            # literal "null"/"None" strings as absent too (matches JSON path).
+            am_int: int | None = int(am) if str(am).strip() not in ("", "null", "None") else None
         except (ValueError, TypeError):
             am_int = None
         questions.append({
@@ -226,7 +228,7 @@ class YamlMarkingFormat(MarkingFormat):
         try:
             data = yaml.safe_load(text)
         except yaml.YAMLError as exc:
-            raise ValueError(f"YAML blueprint parse error: {exc}") from exc
+            raise FormatParseError(f"YAML blueprint parse error: {exc}") from exc
         if not isinstance(data, dict):
             return {"page": 1, "layout": {"rows": 1, "cols": 1}, "questions": []}
         questions = _yaml_questions_to_list(data)

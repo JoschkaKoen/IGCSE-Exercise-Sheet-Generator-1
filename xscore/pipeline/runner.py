@@ -71,10 +71,17 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
     total_pages = sum(len(a.page_numbers) for a in filtered_assignments)
     if total_pages == 0:
         return
-    workers = min(
-        total_pages,
-        int(os.environ.get("MARKING_WORKERS", str(min(os.cpu_count() or 4, 16)))),
-    )
+    _default_workers = min(os.cpu_count() or 4, 16)
+    try:
+        _env_workers = int(os.environ.get("MARKING_WORKERS", str(_default_workers)))
+    except ValueError:
+        from xscore.shared.terminal_ui import warn_line
+        warn_line(
+            f"MARKING_WORKERS={os.environ.get('MARKING_WORKERS')!r} is not an "
+            f"integer — falling back to default {_default_workers}."
+        )
+        _env_workers = _default_workers
+    workers = min(total_pages, _env_workers)
     info_line(f"Pre-rendering {total_pages} page(s) in background ({workers} threads, {dpi} DPI) …")
     pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="render_bg")
     t_start = time.perf_counter()

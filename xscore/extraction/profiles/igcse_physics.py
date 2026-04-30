@@ -200,7 +200,7 @@ Example 11 - Circle around C:
   → q38_left_bottom: "C", q38_left_bottom_confidence: "high"
   A complete or nearly complete circle/oval around C means C is selected.
 
-Example 11 - Circle vs checkmark on same option:
+Example 12 - Circle vs checkmark on same option:
   [Image shows letter D with both a faint partial circle AND a clear checkmark]
   → q39_left: "D", q39_left_confidence: "high"
   The checkmark confirms D was selected. Multiple marking types on one letter = that letter.

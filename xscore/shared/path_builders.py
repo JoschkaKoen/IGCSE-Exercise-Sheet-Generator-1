@@ -805,40 +805,6 @@ def artifact_scaffold_prompt_path(artifact_dir: Path, name: str) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# Deprecated generic prompt router (kept for callers not yet migrated)
-# ---------------------------------------------------------------------------
-
-def artifact_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """DEPRECATED — use the specific prompt path functions instead.
-
-    Routing:
-    - ``10_cover_p*`` → step-10 cover-scan dir
-    - ``11_name*``    → step-11 names subdir
-    - ``13_*``        → step-13 page-order root
-    - ``14_*``        → step-14 blank-pages root
-    - ``8_*``         → step-8 geometry root
-    - ``3_*``         → step-3 root
-    - ``20_*``        → marking students dir (legacy pre-renumber)
-    - everything else → ``artifact_scaffold_prompt_path``
-    """
-    if name.startswith("10_cover_p"):
-        return artifact_cover_scan_prompt_path(artifact_dir, name)
-    if name.startswith("11_name"):
-        return artifact_names_prompt_path(artifact_dir, name)
-    if name.startswith("13_"):
-        return artifact_dir / PAGE_ORDER_DIR / f"{name}_prompt.md"
-    if name.startswith("14_"):
-        return artifact_dir / EXAM_BLANK_DIR / f"{name}_prompt.md"
-    if name.startswith("8_"):
-        return artifact_geometry_prompt_path(artifact_dir, name)
-    if name.startswith("3_"):
-        return artifact_dir / STUDENT_LIST_DIR / f"{name}_prompt.md"
-    if name.startswith("20_"):
-        return artifact_marking_students_dir(artifact_dir) / f"{name}_prompt.md"
-    return artifact_scaffold_prompt_path(artifact_dir, name)
-
-
-# ---------------------------------------------------------------------------
 # Extract-answers tool (independent sub-pipeline)
 # ---------------------------------------------------------------------------
 

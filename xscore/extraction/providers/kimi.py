@@ -19,7 +19,7 @@ from xscore.config import (
     RETRY_BACKOFF_S,
     apply_kimi_k2_extra,
 )
-from xscore.extraction.images import normalize_extracted_record
+from xscore.extraction.images import failed_extraction_record, normalize_extracted_record
 from xscore.shared.response_parsing import parse_json_safe
 from xscore.shared.terminal_ui import api_latency_line, log_ai_response_debug
 
@@ -44,20 +44,6 @@ def _filter_schema_fields(data: dict, schema: type[BaseModel]) -> dict:
     return {k: v for k, v in data.items() if k in allowed_fields}
 
 
-
-
-def _failed_record(last_error: Exception | str | None, answer_fields: list[str]) -> dict:
-    err = str(last_error) if last_error is not None else "unknown"
-    base: dict = {
-        "student_name": "EXTRACTION_ERROR",
-        "student_name_confidence": "failed",
-        "confidence": "failed",
-        "error": err,
-    }
-    for f in answer_fields:
-        base[f] = "?"
-        base[f"{f}_confidence"] = "failed"
-    return normalize_extracted_record(base, answer_fields)
 
 
 class KimiProvider:
@@ -94,7 +80,7 @@ class KimiProvider:
         prompt_save_dir: Path | None = None,
     ) -> dict:
         if not KIMI_AVAILABLE or _OpenAIClient is None:
-            return _failed_record("openai package not installed", answer_fields)
+            return failed_extraction_record("openai package not installed", answer_fields)
         if not isinstance(client, _OpenAIClient):
             try:
                 from xscore.shared.terminal_ui import err_line
@@ -102,7 +88,7 @@ class KimiProvider:
                 err_line("Kimi model selected but wrong client type")
             except Exception:
                 print("Error: Kimi model selected but wrong client type", file=sys.stderr)
-            return _failed_record("Client type mismatch for Kimi", answer_fields)
+            return failed_extraction_record("Client type mismatch for Kimi", answer_fields)
         return self._single(client, image_bytes, page_num, prompt, schema, answer_fields,
                             prompt_save_dir=prompt_save_dir)
 
@@ -191,4 +177,4 @@ class KimiProvider:
                 jitter=0.0,
             )
         except Exception as e:
-            return _failed_record(e, answer_fields)
+            return failed_extraction_record(e, answer_fields)

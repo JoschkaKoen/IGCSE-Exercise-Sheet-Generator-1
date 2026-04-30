@@ -134,15 +134,15 @@ def render_per_student_pdfs(ctx: Any) -> None:
     ``ctx.instruction.curved_grade_visible`` first, then env var
     ``CURVED_GRADE_VISIBLE`` (default true).
 
-    When ``fill_exam_scaffold``'s ``exam_questions.yaml`` exists, additionally
+    When ``fill_exam_scaffold``'s ``exam_questions.{yaml|json|xml}`` exists, additionally
     emits ``exam_questions.pdf`` (one per run) and
     ``*_landscape_with_questions.pdf`` + ``*_portrait_list.pdf`` per student.
-    Missing YAML → warn-and-skip; the original four per-student PDFs still
-    produce.
+    Missing exam-questions artifact → warn-and-skip; the original four
+    per-student PDFs still produce.
     """
-    import yaml
-
     from xscore.marking.report_latex import _build_question_index
+    from xscore.scaffold.formats import load_exam_questions_artifact
+    from xscore.shared.output_format import get_output_format
     from xscore.shared.path_builders import artifact_exam_questions_path
     from xscore.shared.terminal_ui import warn_line
 
@@ -151,11 +151,13 @@ def render_per_student_pdfs(ctx: Any) -> None:
     show_curved_grade = _curved_grade_visible(ctx)
     artifact_student_pdfs_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
 
-    questions_path = artifact_exam_questions_path(ctx.artifact_dir, fmt="yaml")
+    questions_path = artifact_exam_questions_path(
+        ctx.artifact_dir, fmt=get_output_format().value,
+    )
     parsed_questions: list[dict] | None = None
     qmap_by_num: dict[str, dict] = {}
     if questions_path.exists():
-        raw = yaml.safe_load(questions_path.read_text(encoding="utf-8")) or {}
+        raw = load_exam_questions_artifact(questions_path)
         parsed_questions = list(raw.get("questions") or [])
         qmap_by_num = _build_question_index(parsed_questions)
     else:

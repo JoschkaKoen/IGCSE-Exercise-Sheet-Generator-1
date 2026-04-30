@@ -19,7 +19,7 @@ def _step_label(name: str) -> str:
     """
     from xscore.shared.pipeline_steps import step_by_name
 
-    label = _STEP_LABELS.get(name, name.replace("_s", "").replace("_", " ").title())
+    label = _STEP_LABELS.get(name, name.replace("_", " ").title())
     s = step_by_name(name)
     return f"Step {s.number:>2} — {label}" if s else label
 
@@ -222,7 +222,8 @@ def write_timing_report(
             f"   {_ts:>{_cw}}{_hint}"
         )
     if failures:
-        warn_line(f"  {len(failures)} page(s) failed marking — see 16_timing.md for details")
+        from xscore.shared.step_folders import TIMING_DIR
+        warn_line(f"  {len(failures)} page(s) failed marking — see {TIMING_DIR}/timing.md for details")
 
 
 def _timing_to_md(payload: dict) -> str:

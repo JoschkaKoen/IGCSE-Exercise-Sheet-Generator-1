@@ -407,6 +407,9 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
     5. Capture exceptions into ``ctx.step_failures`` and re-raise — callers
        decide whether to treat it as fatal (most steps) or warn-and-continue
        (cover_page_scan_first, student_handwriting_check, and student_names today).
+       ``SystemExit`` is also captured here (treated as a step failure) so that
+       strict-mode aborts inside steps still write a run-log entry before
+       propagating.
     """
     from eXercise.ai_client import get_run_call_stats, get_run_usage
     from xscore.shared.pipeline_ctx import _EarlyExit
@@ -436,7 +439,7 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
         _record_step_token_delta(ctx, step.name, usage_before)
         _record_step_call_delta(ctx, step.name, call_stats_before)
         raise
-    except Exception as exc:
+    except (Exception, SystemExit) as exc:
         elapsed = time.perf_counter() - t0
         ctx.step_timings[step.name] = elapsed
         _record_step_token_delta(ctx, step.name, usage_before)
@@ -547,6 +550,7 @@ def wire_step_fns() -> None:
     )
 
     fns: dict[str, Callable[["_Ctx"], None]] = {}
+    missing: list[str] = []
     for module_name, step_names in phase_specs:
         try:
             mod = importlib.import_module(module_name)
@@ -554,8 +558,16 @@ def wire_step_fns() -> None:
             continue   # phase not yet migrated — leave _unmigrated stubs in place
         for step_name in step_names:
             fn = getattr(mod, step_name, None)
-            if fn is not None:
-                fns[step_name] = fn
+            if fn is None:
+                missing.append(f"{module_name}.{step_name}")
+                continue
+            fns[step_name] = fn
+    if missing:
+        raise RuntimeError(
+            "wire_step_fns: phase modules imported but the following step "
+            "functions are missing (rename or registry typo?): "
+            + ", ".join(missing)
+        )
 
     STEPS = tuple(
         replace(s, fn=fns[s.name]) if s.fn is _unmigrated and s.name in fns else s

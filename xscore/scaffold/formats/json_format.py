@@ -195,7 +195,7 @@ class JsonScaffoldFormat(ScaffoldFormat):
                 # str() wrap: model occasionally emits unquoted numeric scalar (e.g. `"correct_answer": 5`); parser must coerce.
                 "correct_answer": str(q.get("correct_answer") or "").strip() or None,
                 "mark_scheme": [
-                    {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", ""))}
+                    {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", "")).strip()}
                     for c in (q.get("criteria") or [])
                     if isinstance(c, dict)
                 ],

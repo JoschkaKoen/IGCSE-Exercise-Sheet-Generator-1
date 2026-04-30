@@ -1,6 +1,6 @@
 """Global AI output-format selector.
 
-Set ``AI_OUTPUT_FORMAT`` env var to ``yaml`` (default), ``json``, or ``xml``.
+Set ``ALL_AI_OUTPUT_FORMAT`` env var to ``yaml`` (default), ``json``, or ``xml``.
 All three AI output surfaces (exam extraction, scheme extraction, marking)
 switch together so that artifact file extensions stay consistent within a run.
 """
