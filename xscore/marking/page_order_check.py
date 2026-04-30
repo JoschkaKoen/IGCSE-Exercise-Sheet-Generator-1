@@ -1,10 +1,16 @@
-"""Step 13: per-student page-order check (parallel calls vs empty-exam baseline).
+"""Step 15: per-student page-order check — heuristic over step 13's handwriting.json.
+
+For every scan page, step 13's vision call already detected the printed page
+number and whether the page is a cover. This step joins that data with the
+per-student page_numbers from step 14 and verifies that each student's
+sequence of detected page numbers matches what the empty-exam layout
+expects. No OCR, no LLM call.
 
 The dispatcher in ``xscore/steps/geometry.py`` is the single policy layer:
 this module returns ``(PageOrderStatus, message)`` and never calls SystemExit
 or prints. INCONCLUSIVE covers every path that today silently fails open
-(parse error, missing creds, API exception, image-only exam PDF, model
-omitting students from the response).
+(missing handwriting.json, parse error, model returned None for too many
+pages to draw a conclusion).
 """
 
 from __future__ import annotations
@@ -318,78 +324,23 @@ def check_page_order(
     page_assignments: list["PageAssignment"],
     artifact_dir: Path | None = None,
 ) -> tuple[PageOrderStatus, str | None]:
-    """Validate page order and content for all students, in parallel per student.
+    """Validate page order from step 13's per-page page-number detections.
 
-    Returns ``(status, message)``. The dispatcher in ``geometry.py`` is the
-    single policy layer; this function never calls SystemExit and never prints.
+    Heuristic only — no LLM, no OCR. For each student, looks up the AI-detected
+    printed page number from ``13_student_handwriting/handwriting.json`` for
+    every scan page they own, computes the expected sequence using
+    ``cover_offset`` from the same metadata block, and flags students whose
+    detected sequence disagrees with the expected one.
+
+    ``exam_pdf`` and ``scan_pdf`` are kept in the signature for compat with
+    the dispatcher; both are unused by the new implementation.
     """
-    from eXercise.ai_client import parse_model_spec
-    from xscore.shared.exam_paths import (
-        artifact_page_order_empty_exam_txt_path,
-        artifact_page_order_prompt_path,
-        artifact_page_order_txt_path,
-    )
-    from xscore.shared.prompt_logger import save_prompt, save_response
+    del exam_pdf, scan_pdf  # legacy params, retained for dispatcher compat
 
-    model_id, thinking, max_tok = parse_model_spec(
-        os.environ.get("PAGE_ORDER_CHECK_MODEL", "qwen3.6-flash, 0, 2048")
-    )
+    if artifact_dir is None:
+        return PageOrderStatus.INCONCLUSIVE, "no artifact_dir provided"
 
-    # ── Empty exam baseline (with image-PDF guard) ────────────────────────
-    exam_texts = _exam_page_texts(exam_pdf)
-    if sum(len(t) for t in exam_texts) < 100:
-        return (
-            PageOrderStatus.INCONCLUSIVE,
-            "empty exam PDF has no extractable text layer; "
-            "export the empty exam with a text layer or skip step 13",
-        )
-
-    if artifact_dir:
-        po_empty = artifact_page_order_empty_exam_txt_path(artifact_dir)
-        po_empty.parent.mkdir(parents=True, exist_ok=True)
-        po_empty.write_text(
-            _format_text_artifact([(f"Page {i}", t) for i, t in enumerate(exam_texts, 1)]),
-            encoding="utf-8",
-        )
-
-    # ── Build the model client once ───────────────────────────────────────
-    client_or_err = _build_client_state(model_id)
-    if isinstance(client_or_err, str):
-        return PageOrderStatus.INCONCLUSIVE, client_or_err
-    client_state = client_or_err
-
-    # ── OCR all scan pages once, in parallel ──────────────────────────────
-    all_page_nums: list[int] = []
-    for a in page_assignments:
-        all_page_nums.extend(a.page_numbers)
-    ocr_results = _scan_page_texts(scan_pdf, all_page_nums)
-    page_text_map: dict[int, tuple[str, int, int]] = dict(zip(all_page_nums, ocr_results))
-
-    students_data: list[dict] = []
-    for a in page_assignments:
-        triples = [page_text_map[p] for p in a.page_numbers]
-        texts = [t for t, _, _ in triples]
-        ocr_stats = [(k, n) for _, k, n in triples]
-        students_data.append({
-            "name": a.student_name,
-            "scan_pages": a.page_numbers,
-            "texts": texts,
-            "ocr_stats": ocr_stats,
-        })
-        if artifact_dir:
-            po_student = artifact_page_order_txt_path(artifact_dir, a.student_name)
-            po_student.parent.mkdir(parents=True, exist_ok=True)
-            po_student.write_text(
-                _format_text_artifact([
-                    (f"Position {pos} (scan page {sp}, OCR: {k}/{n} high-conf words)", t)
-                    for pos, (sp, t, (k, n)) in enumerate(
-                        zip(a.page_numbers, texts, ocr_stats), 1
-                    )
-                ]),
-                encoding="utf-8",
-            )
-
-    # ── Per-student model calls in parallel ───────────────────────────────
+    from xscore.shared.exam_paths import artifact_handwriting_json_path
     from xscore.shared.terminal_ui import (
         format_duration,
         info_line,
@@ -397,67 +348,125 @@ def check_page_order(
         warn_line,
     )
 
+    hw_path = artifact_handwriting_json_path(artifact_dir)
+    if not hw_path.exists():
+        return (
+            PageOrderStatus.INCONCLUSIVE,
+            "step 13 artifact not found (13_student_handwriting/handwriting.json); "
+            "run student_handwriting_check first",
+        )
+    try:
+        hw_data = json.loads(hw_path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        return PageOrderStatus.INCONCLUSIVE, f"could not read handwriting.json: {exc}"
+
+    metadata = hw_data.get("metadata", {})
+    cover_offset = int(metadata.get("cover_offset", 0))
+    by_scan: dict[int, dict] = {
+        int(entry["scan_page"]): entry
+        for entry in hw_data.get("scan_pages", [])
+        if entry.get("scan_page") is not None
+    }
+
+    info_line(
+        f"Checking page order for {len(page_assignments)} student"
+        f"{'s' if len(page_assignments) != 1 else ''} (heuristic) …"
+    )
+
     name_width = max(
-        (len(sd["name"] or "Unknown") for sd in students_data),
+        (len(a.student_name or "Unknown") for a in page_assignments),
         default=1,
     )
 
-    def _check_one(idx: int, sd: dict) -> tuple[int, _PerStudentResult, float]:
-        prompt = _build_per_student_prompt(exam_texts, sd)
-        save_path = (
-            artifact_page_order_prompt_path(artifact_dir, sd["name"])
-            if artifact_dir else None
-        )
-        save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
-        t0 = time.perf_counter()
-        raw, thinking_text, err = _call_model_with_retry(client_state, prompt, model_id, thinking, max_tok)
-        elapsed = time.perf_counter() - t0
-        if save_path is not None and raw:
-            save_response(save_path, raw, thinking=thinking_text)
-        if not raw:
-            reason = f"model call failed: {err}" if err else "model returned empty response"
-            return idx, (sd["name"], PageOrderStatus.INCONCLUSIVE, reason, None), elapsed
-        status, msg, issues = _validate_per_student_response(raw)
-        return idx, (sd["name"], status, msg, issues), elapsed
+    issue_total: list[dict] = []
+    inconclusive: list[str] = []
+    passed = 0
 
-    def _emit(name: str, status: PageOrderStatus, msg: str | None, issues: list | None, elapsed: float) -> None:
-        name_quoted = f"{name!r}"
-        dur = format_duration(elapsed)
-        if status is PageOrderStatus.PASSED:
-            ok_line(
-                f"{name_quoted:<{name_width + 2}}  ·  page order OK  ·  {dur}"
-            )
-        elif status is PageOrderStatus.MISMATCH_FOUND:
-            n_issues = len(issues or [])
+    t_start = time.perf_counter()
+    for a in page_assignments:
+        has_cover = a.cover_page_number is not None
+        student_issues: list[dict] = []
+        n_no_pn = 0
+        for p_label, scan_page in enumerate(a.page_numbers, 1):
+            entry = by_scan.get(scan_page)
+            if has_cover and p_label == 1:
+                # Cover page: AI should say is_cover_page=True, no printed
+                # page number expected.
+                if entry is not None and entry.get("is_cover_page") is False:
+                    student_issues.append({
+                        "scan_page": scan_page,
+                        "expected": "cover",
+                        "detected": (
+                            f"page {entry.get('detected_page_number')}"
+                            if entry.get("detected_page_number") is not None
+                            else "non-cover"
+                        ),
+                    })
+                continue
+            expected_pn = p_label - cover_offset
+            if expected_pn < 1:
+                continue  # before-first-page; nothing to check
+            if entry is None:
+                n_no_pn += 1
+                continue
+            detected_pn = entry.get("detected_page_number")
+            if detected_pn is None:
+                n_no_pn += 1
+                continue
+            if entry.get("is_cover_page") is True:
+                student_issues.append({
+                    "scan_page": scan_page,
+                    "expected": f"page {expected_pn}",
+                    "detected": "cover",
+                })
+                continue
+            if int(detected_pn) != expected_pn:
+                student_issues.append({
+                    "scan_page": scan_page,
+                    "expected": f"page {expected_pn}",
+                    "detected": f"page {detected_pn}",
+                })
+
+        name_quoted = f"{a.student_name!r}"
+        if student_issues:
+            issue_total.extend({"student": a.student_name, **i} for i in student_issues)
             warn_line(
                 f"{name_quoted:<{name_width + 2}}  ·  "
-                f"page order MISMATCH ({n_issues} issue{'s' if n_issues != 1 else ''})  ·  {dur}"
+                f"page order MISMATCH ({len(student_issues)} issue"
+                f"{'s' if len(student_issues) != 1 else ''})"
             )
-        else:  # INCONCLUSIVE
+        elif n_no_pn > 0 and n_no_pn >= len(a.page_numbers) - (1 if has_cover else 0):
+            inconclusive.append(a.student_name)
             warn_line(
-                f"{name_quoted:<{name_width + 2}}  ·  inconclusive: {msg or '?'}  ·  {dur}"
+                f"{name_quoted:<{name_width + 2}}  ·  "
+                f"inconclusive: AI returned no page number on {n_no_pn} pages"
             )
+        else:
+            passed += 1
+            ok_line(f"{name_quoted:<{name_width + 2}}  ·  page order OK")
 
-    info_line(
-        f"Checking page order for {len(students_data)} student"
-        f"{'s' if len(students_data) != 1 else ''} …"
+    dur = format_duration(time.perf_counter() - t_start)
+
+    if issue_total:
+        sample = "; ".join(
+            f"{i['student']} scan {i['scan_page']}: {i['detected']} (expected {i['expected']})"
+            for i in issue_total[:5]
+        )
+        more = (
+            f" (and {len(issue_total) - 5} more)"
+            if len(issue_total) > 5 else ""
+        )
+        return (
+            PageOrderStatus.MISMATCH_FOUND,
+            f"page-order mismatches detected in {dur}: {sample}{more}",
+        )
+    if inconclusive:
+        return (
+            PageOrderStatus.INCONCLUSIVE,
+            f"{len(inconclusive)} student(s) had insufficient page-number detections "
+            f"to verify order: {', '.join(inconclusive[:10])}",
+        )
+    return (
+        PageOrderStatus.PASSED,
+        f"{passed}/{len(page_assignments)} students — page order OK ({dur})",
     )
-
-    results: list[_PerStudentResult] = [None] * len(students_data)  # type: ignore[list-item]
-    pending: dict[int, tuple[_PerStudentResult, float]] = {}
-    next_idx = 0
-    workers = min(len(students_data), int(os.environ.get("PAGE_ORDER_WORKERS", "500"))) or 1
-    with ThreadPoolExecutor(max_workers=workers) as ex:
-        futs = {ex.submit(_check_one, i, sd): i for i, sd in enumerate(students_data)}
-        for fut in as_completed(futs):
-            idx, result, elapsed = fut.result()
-            results[idx] = result
-            pending[idx] = (result, elapsed)
-            # Drain consecutive ready entries so output stays in submission
-            # (= scan-page) order while remaining incremental as workers complete.
-            while next_idx in pending:
-                r, el = pending.pop(next_idx)
-                _emit(r[0], r[1], r[2], r[3], el)
-                next_idx += 1
-
-    return _aggregate(results, _ocr_quality_summary(students_data))

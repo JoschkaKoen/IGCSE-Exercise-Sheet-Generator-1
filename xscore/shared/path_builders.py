@@ -20,10 +20,38 @@ from xscore.shared.step_folders import (
     STEP_05,
     STEP_06,
     STEP_07,
-    STEP_08_COVER_EMPTY,
+    # New-numbering constants (most path builders reference these)
+    STEP_08_LAYOUT,
+    STEP_09_CUT,
+    STEP_10_COVER_EMPTY,
+    STEP_11_COVER_SCAN,
+    STEP_12_GEOMETRY,
+    STEP_13_HANDWRITING,
+    STEP_14_NAMES,
+    STEP_15_PAGE_ORDER,
+    STEP_16_EXAM_BLANK,
+    STEP_17_BUILD_REGISTER,
+    STEP_18_DETECT_SCAFFOLD,
+    STEP_19_FILL_SCAFFOLD,
+    STEP_20_CROSS_PAGE_CONTEXT,
+    STEP_21_GRAPHICS,
+    STEP_22_ASSIGN_QUESTIONS,
+    STEP_23_PARSE_SCHEME,
+    STEP_24_CREATE_REPORT,
+    STEP_25_BLUEPRINTS,
+    STEP_26_AI_MARKING,
+    STEP_27_STUDENT_REPORTS,
+    STEP_28_CLASS_STATS,
+    STEP_29_STUDENT_PDFS,
+    STEP_30_CLASS_REPORT,
+    STEP_31_REVIEW_QUEUE,
+    STEP_32_TIMING,
+    STEP_33_ACCURACY,
+    STEP_34_AI_COSTS,
+    # Old-numbering aliases — kept so legacy body references compile during
+    # the refactor; both old + new names resolve to the same renumbered folder
+    # via the aliases in step_folders.py.
     STEP_09_COVER_SCAN,
-    STEP_10_GEOMETRY,
-    STEP_11_COVER_VERIFY,
     STEP_12_NAMES,
     STEP_13_PAGE_ORDER,
     STEP_14_EXAM_BLANK,
@@ -124,7 +152,7 @@ def artifact_student_list_prompt_path(artifact_dir: Path) -> Path:
 
 def artifact_cover_page_dir(artifact_dir: Path) -> Path:
     """Step 8: directory for empty-exam cover-page detection artifacts."""
-    return artifact_dir / STEP_08_COVER_EMPTY
+    return artifact_dir / STEP_10_COVER_EMPTY
 
 
 # ---------------------------------------------------------------------------
@@ -154,21 +182,24 @@ def artifact_geometry_prompt_path(artifact_dir: Path, name: str) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# Step 11 — Cover page verification (remaining students)
+# (Old step 11, cover_page_verify — RETIRED, superseded by new step 13's
+# per-page is_cover_page detection. Stubs below kept so legacy import lines
+# in dead-code paths don't break module loading.)
 # ---------------------------------------------------------------------------
 
 def artifact_cover_verify_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Step 11: prompt file for per-position cover verification calls."""
-    return artifact_dir / STEP_11_COVER_VERIFY / f"{name}_prompt.md"
+    """DEPRECATED — old step 11 retired. Returns a path under a sentinel folder
+    so dead-code paths that still import this don't shadow legitimate output."""
+    return artifact_dir / "_retired_11_cover_page_verify" / f"{name}_prompt.md"
 
 
 def artifact_cover_verify_json_path(artifact_dir: Path) -> Path:
-    """Step 11: per-position cover_ok dict persisted as JSON."""
-    return artifact_dir / STEP_11_COVER_VERIFY / "cover_ok.json"
+    """DEPRECATED — old step 11 retired."""
+    return artifact_dir / "_retired_11_cover_page_verify" / "cover_ok.json"
 
 
 # ---------------------------------------------------------------------------
-# Step 12 — Student names
+# Step 14 — Student names (was old step 12)
 # ---------------------------------------------------------------------------
 
 def artifact_exam_student_list_json_path(artifact_dir: Path) -> Path:
@@ -247,8 +278,8 @@ def artifact_handwriting_dir(artifact_dir: Path) -> Path:
 
 
 def artifact_marking_page_register_v1_path(artifact_dir: Path) -> Path:
-    """Step 15: initial marking page register (one row per AI marking call)."""
-    return artifact_dir / STEP_15_HANDWRITING / "marking_page_register.json"
+    """Step 17: initial marking page register (one row per AI marking call)."""
+    return artifact_dir / STEP_17_BUILD_REGISTER / "marking_page_register.json"
 
 
 # ---------------------------------------------------------------------------
@@ -306,50 +337,58 @@ def artifact_split_exam_pdf_path(artifact_dir: Path) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# Step 18 — Parse exam PDF
+# Step 9 — Cut exam PDF additional output (was at step 18 pre-refactor)
 # ---------------------------------------------------------------------------
 
 def artifact_exam_input_pdf_path(artifact_dir: Path) -> Path:
-    """Copy of the original exam PDF uploaded to Gemini (1×1 mode)."""
-    return artifact_dir / STEP_18_PARSE_EXAM / "exam_input.pdf"
+    """Step 9: copy of the original exam PDF (1×1 mode) — ``exam_input.pdf``."""
+    return artifact_dir / STEP_09_CUT / "exam_input.pdf"
 
 
-def artifact_exam_questions_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_18_PARSE_EXAM / "exam_questions.json"
-
-
-def artifact_exam_questions_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_18_PARSE_EXAM / "exam_questions.md"
-
-
-def artifact_exam_questions_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_18_PARSE_EXAM / "exam_questions.xml"
-
-
-def artifact_exam_questions_raw_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_18_PARSE_EXAM / "exam_questions_raw.xml"
-
-
-def artifact_exam_questions_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_18_PARSE_EXAM / f"exam_questions.{fmt}"
-
-
-def artifact_exam_questions_raw_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_18_PARSE_EXAM / f"exam_questions_raw.{fmt}"
-
+# ---------------------------------------------------------------------------
+# Step 18 — Detect exam scaffold (Phase A — structure only)
+# ---------------------------------------------------------------------------
 
 def artifact_exam_scaffold_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    """Intermediate scaffold (Phase A output) — number/type/page/subpage/marks, no text."""
-    return artifact_dir / STEP_18_PARSE_EXAM / f"exam_scaffold.{fmt}"
+    """Step 18: intermediate scaffold — number/type/page/subpage/marks, no text."""
+    return artifact_dir / STEP_18_DETECT_SCAFFOLD / f"exam_scaffold.{fmt}"
 
 
 def artifact_exam_scaffold_raw_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_18_PARSE_EXAM / f"exam_scaffold_raw.{fmt}"
+    return artifact_dir / STEP_18_DETECT_SCAFFOLD / f"exam_scaffold_raw.{fmt}"
+
+
+# ---------------------------------------------------------------------------
+# Step 19 — Fill exam scaffold (Phase B — text + options per question)
+# ---------------------------------------------------------------------------
+
+def artifact_exam_questions_json_path(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_19_FILL_SCAFFOLD / "exam_questions.json"
+
+
+def artifact_exam_questions_markdown_path(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_19_FILL_SCAFFOLD / "exam_questions.md"
+
+
+def artifact_exam_questions_xml_path(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_19_FILL_SCAFFOLD / "exam_questions.xml"
+
+
+def artifact_exam_questions_raw_xml_path(artifact_dir: Path) -> Path:
+    return artifact_dir / STEP_19_FILL_SCAFFOLD / "exam_questions_raw.xml"
+
+
+def artifact_exam_questions_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
+    return artifact_dir / STEP_19_FILL_SCAFFOLD / f"exam_questions.{fmt}"
+
+
+def artifact_exam_questions_raw_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
+    return artifact_dir / STEP_19_FILL_SCAFFOLD / f"exam_questions_raw.{fmt}"
 
 
 def artifact_exam_pages_dir(artifact_dir: Path) -> Path:
     """Per-page PDFs from the post-cut exam PDF — produced and consumed by Phase B (fill)."""
-    return artifact_dir / STEP_18_PARSE_EXAM / "pages"
+    return artifact_dir / STEP_19_FILL_SCAFFOLD / "pages"
 
 
 # ---------------------------------------------------------------------------
@@ -734,14 +773,17 @@ def artifact_scaffold_prompt_path(artifact_dir: Path, name: str) -> Path:
     """
     # Order matters: check most-specific first.
     if "assign_scheme_questions" in name:
-        return artifact_dir / STEP_21_ASSIGN_QUESTIONS / f"{name}_prompt.md"
+        return artifact_dir / STEP_22_ASSIGN_QUESTIONS / f"{name}_prompt.md"
     if "mark_scheme" in name and "graphics" in name:
-        return artifact_dir / STEP_20_GRAPHICS / f"{name}_prompt.md"
+        return artifact_dir / STEP_21_GRAPHICS / f"{name}_prompt.md"
     if "mark_scheme" in name:
-        return artifact_dir / STEP_22_PARSE_SCHEME / f"{name}_prompt.md"
-    if "detect" in name or "layout" in name:
-        return artifact_dir / STEP_16_LAYOUT / f"{name}_prompt.md"
-    return artifact_dir / STEP_18_PARSE_EXAM / f"{name}_prompt.md"
+        return artifact_dir / STEP_23_PARSE_SCHEME / f"{name}_prompt.md"
+    if "exam_scaffold" in name:
+        return artifact_dir / STEP_18_DETECT_SCAFFOLD / f"{name}_prompt.md"
+    if "detect_layout" in name or "layout" in name:
+        return artifact_dir / STEP_08_LAYOUT / f"{name}_prompt.md"
+    # Catch-all: per-page exam-questions fill prompts (Phase B).
+    return artifact_dir / STEP_19_FILL_SCAFFOLD / f"{name}_prompt.md"
 
 
 # ---------------------------------------------------------------------------

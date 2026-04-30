@@ -522,7 +522,36 @@ def assign_pages(
         n_pages = len(pages)
     import math
     n_blocks = math.ceil(n_pages / pages_per_student)
-    first_page_set = {b * pages_per_student + 1 for b in range(n_blocks)}  # 1-based scan pages
+    positional_covers = {b * pages_per_student + 1 for b in range(n_blocks)}
+    first_page_set: set[int] = positional_covers
+
+    # Cover-anchored sanity check: step 13's handwriting.json vision-classifies
+    # every scan page (is_cover_page). If those AI detections agree with the
+    # positional cover positions, we proceed; if they disagree, that's a
+    # strong signal the scan is misordered or a cover is missing — log it as
+    # a warning so the user knows before downstream steps fail mysteriously.
+    if cover_page_mode and artifact_dir is not None:
+        try:
+            from xscore.shared.exam_paths import artifact_handwriting_json_path
+            hw_path = artifact_handwriting_json_path(artifact_dir)
+            if hw_path.exists():
+                hw_data = json.loads(hw_path.read_text(encoding="utf-8"))
+                ai_covers = {
+                    int(entry["scan_page"])
+                    for entry in hw_data.get("scan_pages", [])
+                    if entry.get("is_cover_page") is True
+                    and entry.get("scan_page") is not None
+                }
+                if ai_covers and ai_covers != positional_covers:
+                    extra = sorted(ai_covers - positional_covers)
+                    missing = sorted(positional_covers - ai_covers)
+                    warn_line(
+                        f"AI cover detection disagrees with geometry: "
+                        f"extra at {extra or '∅'}, missing at {missing or '∅'} — "
+                        "scan may be misordered."
+                    )
+        except Exception as _exc:  # noqa: BLE001
+            warn_line(f"Could not read handwriting.json for cover sanity check: {_exc}")
 
     # ------------------------------------------------------------------
     # Name detection — only the first page of each student block is checked.

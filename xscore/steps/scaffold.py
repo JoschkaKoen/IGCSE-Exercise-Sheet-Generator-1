@@ -71,7 +71,13 @@ def step_17_cut(ctx: _Ctx) -> None:
 
 
 def step_18_parse_exam(ctx: _Ctx) -> None:
-    # Two AI phases — announce both models so the user sees what's running.
+    """LEGACY — single-step parse_exam that runs both phases in one step.
+
+    Kept so any old plan file or external script that imports it still works.
+    The pipeline registry now wires ``detect_exam_scaffold`` (step 18) and
+    ``fill_exam_scaffold`` (step 19) to the split functions below; this
+    function is dead from the registry's perspective.
+    """
     announce_step_model(
         model_env="DETECT_EXAM_SCAFFOLD_MODEL",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
@@ -91,6 +97,106 @@ def step_18_parse_exam(ctx: _Ctx) -> None:
     )
     state["raw_questions"] = raw_questions
     state["raw_layout"] = raw_layout
+
+
+def step_18_detect_scaffold(ctx: _Ctx) -> None:
+    """Step 18 (Phase A): detect exam scaffold structure (one cheap call).
+
+    Writes ``18_detect_exam_scaffold/exam_scaffold.{ext}`` and stores the
+    resulting nodes in ``ctx.scaffold_state['scaffold_nodes']`` for step 19.
+    """
+    announce_step_model(
+        model_env="DETECT_EXAM_SCAFFOLD_MODEL",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
+    state = ctx.scaffold_state
+    from xscore.scaffold.scaffold_step18_detect import detect_exam_scaffold
+    from xscore.scaffold.ai_scaffold import (
+        _detect_scaffold_model_config, _print_detected_summary,
+    )
+    from xscore.shared.exam_paths import (
+        artifact_exam_scaffold_path, is_cs_exam,
+    )
+    fmt = state["fmt"]
+    detect_model, detect_thinking, detect_max_tokens = _detect_scaffold_model_config()
+    from xscore.shared.terminal_ui import info_line
+    info_line(f"Detect scaffold ({detect_model}) …")
+    scaffold_nodes, raw_layout = detect_exam_scaffold(
+        state["client"],
+        detect_model,
+        detect_thinking,
+        detect_max_tokens,
+        actual_exam_pdf=state["actual_exam_pdf"],
+        layout_result=state["layout_result"],
+        split_pdf_path=state["split_pdf_temp_path"],
+        n_split_pages=state["n_split"],
+        artifact_dir=ctx.artifact_dir,
+        fmt=fmt,
+        is_cs=is_cs_exam(state["actual_exam_pdf"], state.get("answer_pdf")),
+    )
+    if state["layout_result"] is not None:
+        raw_layout = {
+            "rows": state["layout_result"].rows,
+            "cols": state["layout_result"].cols,
+        }
+    if ctx.artifact_dir is not None:
+        try:
+            p = artifact_exam_scaffold_path(ctx.artifact_dir, fmt=fmt.artifact_ext())
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(
+                fmt.serialize_scaffold(scaffold_nodes, raw_layout), encoding="utf-8",
+            )
+        except OSError as e:
+            warn_line(f"Could not save exam_scaffold artifact: {e}")
+    _print_detected_summary(scaffold_nodes)
+    state["scaffold_nodes"] = scaffold_nodes
+    state["raw_layout"] = raw_layout
+
+
+def step_19_fill_scaffold(ctx: _Ctx) -> None:
+    """Step 19 (Phase B): fill scaffold with text + options (per-page parallel).
+
+    Reads ``ctx.scaffold_state['scaffold_nodes']`` from step 18; writes
+    ``19_fill_exam_scaffold/exam_questions.{ext}`` and stores ``raw_questions``
+    on ``scaffold_state`` for downstream steps.
+    """
+    announce_step_model(
+        model_env="FILL_EXAM_SCAFFOLD_MODEL",
+        legacy_model_env="READ_EXAM_PDF_MODEL",
+        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+    )
+    state = ctx.scaffold_state
+    from xscore.scaffold.scaffold_step18_fill import fill_exam_scaffold
+    from xscore.scaffold.ai_scaffold import _fill_scaffold_model_config
+    from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
+    from xscore.shared.exam_paths import (
+        artifact_exam_questions_path, is_cs_exam,
+    )
+    fmt = state["fmt"]
+    fill_model, fill_thinking, fill_max_tokens = _fill_scaffold_model_config()
+    raw_questions = fill_exam_scaffold(
+        state["client"],
+        fill_model,
+        fill_thinking,
+        fill_max_tokens,
+        actual_exam_pdf=state["actual_exam_pdf"],
+        scaffold_nodes=state["scaffold_nodes"],
+        artifact_dir=ctx.artifact_dir,
+        fmt=fmt,
+        is_cs=is_cs_exam(state["actual_exam_pdf"], state.get("answer_pdf")),
+    )
+    if ctx.artifact_dir is not None:
+        try:
+            p = artifact_exam_questions_path(ctx.artifact_dir, fmt=fmt.artifact_ext())
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(
+                fmt.serialize_exam(raw_questions, state["raw_layout"]),
+                encoding="utf-8",
+            )
+            write_raw_exam_markdown(ctx.artifact_dir, raw_questions)
+        except OSError as e:
+            warn_line(f"Could not save exam questions artifacts: {e}")
+    state["raw_questions"] = raw_questions
 
 
 def step_19_detect_cross_page_context(ctx: _Ctx) -> None:
@@ -317,24 +423,28 @@ def step_23_create_report(ctx: _Ctx) -> None:
     )
 
 
-def scaffold_phase(ctx: _Ctx) -> None:
-    """Steps 16–23 with shared-locals + temp-PDF cleanup.
+def scaffold_setup(ctx: _Ctx) -> bool:
+    """Initialize ``ctx.scaffold_state`` for the scaffold-related steps.
 
-    Skipped entirely when resuming (``ctx.from_step`` set). Aborts cleanly if
-    no exam PDF is found. Cleanup runs even on ``_EarlyExit`` from
-    ``run_step``.
+    Returns True on success (state populated), False when no exam PDF is found
+    (steps 8–9 + 18–24 must be skipped). Idempotent — calling it twice is a
+    no-op once state["client"] is set.
+
+    Skipped entirely when resuming (``ctx.from_step`` set).
     """
     from eXercise.ai_client import make_gemini_native_client
 
     assert ctx.folder is not None and ctx.artifact_dir is not None
     if ctx.from_step:
-        return
+        return False
+    if ctx.scaffold_state.get("client") is not None:
+        return True   # already set up
 
     try:
         exam_pdf = find_exam_pdf(ctx.folder)
     except FileNotFoundError as exc:
         warn_line(f"No exam PDF found — scaffold skipped ({exc})")
-        return
+        return False
     answer_pdf = find_answer_pdf(ctx.folder)
 
     client = make_gemini_native_client()
@@ -348,15 +458,37 @@ def scaffold_phase(ctx: _Ctx) -> None:
         "fmt":        get_scaffold_format(),
         "phase_t0":   time.perf_counter(),
     })
+    return True
 
+
+def scaffold_cleanup(ctx: _Ctx) -> None:
+    """Drop the temp split PDF and clear ``scaffold_state``.
+
+    Safe to call regardless of whether setup succeeded; safe to call multiple
+    times. Used in the runner's finally so cleanup happens on ``_EarlyExit``
+    or unexpected exception.
+    """
+    sp: Path | None = ctx.scaffold_state.get("split_pdf_temp_path")
+    if sp is not None:
+        try:
+            sp.unlink()
+        except OSError:
+            pass
+    ctx.scaffold_state.clear()
+
+
+def scaffold_phase(ctx: _Ctx) -> None:
+    """LEGACY — old monolithic 16–23 orchestrator.
+
+    Pre-refactor the runner called this once after geometry. The new pipeline
+    splits scaffold work into ``scaffold_setup`` + early steps (8–9) before
+    geometry, then late steps (18–24) after geometry. Kept as a fallback for
+    callers (e.g. plans, scripts) that still call the old name.
+    """
+    if not scaffold_setup(ctx):
+        return
     try:
-        for n in range(16, 24):
+        for n in (8, 9, 18, 19, 20, 21, 22, 23, 24):
             run_step(ctx, step_by_number(n))
     finally:
-        sp: Path | None = ctx.scaffold_state.get("split_pdf_temp_path")
-        if sp is not None:
-            try:
-                sp.unlink()
-            except OSError:
-                pass
-        ctx.scaffold_state.clear()
+        scaffold_cleanup(ctx)

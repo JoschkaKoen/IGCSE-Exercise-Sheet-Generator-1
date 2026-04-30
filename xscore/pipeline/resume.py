@@ -133,10 +133,14 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     for paths in [
         (resume_dir / "07_deskew" / "cleaned_scan.pdf",          resume_dir / "7_cleaned_scan.pdf"),
         (resume_dir / "03_read_student_list" / "students.json",  resume_dir / "3_students.json"),
-        (resume_dir / "12_student_names" / "exam_student_list.json",
+        # Student list — new (14_) and legacy (12_, 11_, 8_) locations.
+        (resume_dir / "14_student_names" / "exam_student_list.json",
+         resume_dir / "12_student_names" / "exam_student_list.json",
          resume_dir / "11_student_names" / "exam_student_list.json",
          resume_dir / "8_exam_student_list.json"),
-        (resume_dir / "23_create_report" / "report.xml",
+        # Scaffold report — new (24_) and legacy (23_, 22_) locations.
+        (resume_dir / "24_create_report" / "report.xml",
+         resume_dir / "23_create_report" / "report.xml",
          resume_dir / "22_create_report" / "report.xml",
          resume_dir / "12_report.json"),
     ]:
@@ -175,6 +179,8 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     ctx.students = json.loads(students_path.read_text())
 
     student_list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
+    if not student_list_path.exists():
+        student_list_path = ctx.artifact_dir / "12_student_names" / "exam_student_list.json"
     if not student_list_path.exists():
         student_list_path = ctx.artifact_dir / "11_student_names" / "exam_student_list.json"
     if not student_list_path.exists():

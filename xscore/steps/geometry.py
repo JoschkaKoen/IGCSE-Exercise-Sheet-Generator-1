@@ -201,12 +201,12 @@ def step_12_student_names(ctx: _Ctx) -> None:
 
 
 def step_13_page_order(ctx: _Ctx) -> None:
+    """Heuristic page-order check (no LLM, no OCR).
+
+    Reads step 13's handwriting.json and verifies each student's detected
+    page numbers form the expected sequence given the empty-exam layout.
+    """
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
-    announce_step_model(
-        model_env="PAGE_ORDER_CHECK_MODEL",
-        legacy_model_env="AI_DEFAULT_MODEL",
-        default_max_tokens=2048,
-    )
     from xscore.marking.page_order_check import PageOrderStatus
     t0 = time.perf_counter()
     status, msg = check_page_order(
@@ -241,9 +241,17 @@ def step_14_exam_blank(ctx: _Ctx) -> None:
         default_max_tokens=256,
     )
     from xscore.marking.blank_page_detection import BlankCheckStatus
+    # Prefer the cut/split exam PDF from step 9 — it has the same logical
+    # page count as the rest of the pipeline operates on. Falls back to the
+    # original empty exam if scaffold setup didn't run (e.g. during partial
+    # resume scenarios).
+    exam_pdf_for_blanks = (
+        ctx.scaffold_state.get("actual_exam_pdf")
+        or find_exam_pdf(ctx.folder)
+    )
     t0 = time.perf_counter()
     status, msg = check_exam_blank_pages(
-        find_exam_pdf(ctx.folder),
+        exam_pdf_for_blanks,
         ctx.artifact_dir,
     )
     dur = format_duration(time.perf_counter() - t0)
@@ -282,22 +290,10 @@ def step_15_handwriting(ctx: _Ctx) -> None:
     )
     dur = format_duration(time.perf_counter() - t0)
 
-    # Build and persist the v1 marking page register. This is the first
-    # point where all inputs (page assignments + handwriting attachments +
-    # cover info) are settled, so the register is born here. Step 19
-    # refines it with cross-page figure extras; step 25 consumes the
-    # most-refined version it can find.
-    try:
-        from xscore.marking.marking_page_register import (
-            build_initial_register, write_register,
-        )
-        from xscore.shared.path_builders import artifact_marking_page_register_v1_path
-        register = build_initial_register(ctx)
-        write_register(
-            artifact_marking_page_register_v1_path(ctx.artifact_dir), register
-        )
-    except Exception as exc:  # noqa: BLE001 — never fail step 15 over the register
-        warn_line(f"Marking page register (v1) write failed: {exc}")
+    # Note: register building (v1) used to live here. It moved to a dedicated
+    # step 17 (build_marking_register_v1) so it can run AFTER step 14
+    # (student_names) provides ctx.page_assignments — which step 13 no longer
+    # needs but the register still does.
 
     if status is BlankCheckStatus.PASSED:
         ok_line(f"Student handwriting check: {msg}  ·  {dur}")
@@ -310,3 +306,35 @@ def step_15_handwriting(ctx: _Ctx) -> None:
     )
     if os.environ.get("HANDWRITING_CHECK_STRICT", "0") == "1":
         raise SystemExit(1)
+
+
+def step_17_build_register(ctx: _Ctx) -> None:
+    """Build and persist the v1 marking page register.
+
+    Pure data transform — combines step 13 (handwriting per scan page),
+    step 14 (page_assignments), step 16 (blank-in-empty exam pages), and
+    ``ctx.empty_exam_has_cover``. Was previously embedded at the end of
+    step 15 (handwriting) but has been split out so step 13 can run before
+    student_names without requiring page_assignments.
+    """
+    assert ctx.artifact_dir is not None
+    from xscore.marking.marking_page_register import (
+        build_initial_register, write_register,
+    )
+    from xscore.shared.path_builders import artifact_marking_page_register_v1_path
+    t0 = time.perf_counter()
+    try:
+        register = build_initial_register(ctx)
+        write_register(
+            artifact_marking_page_register_v1_path(ctx.artifact_dir), register
+        )
+    except Exception as exc:  # noqa: BLE001
+        warn_line(f"Marking page register (v1) write failed: {exc}")
+        return
+    dur = format_duration(time.perf_counter() - t0)
+    n_students = len(register.get("students", []))
+    n_calls = register.get("metadata", {}).get("total_calls", 0)
+    ok_line(
+        f"Marking page register: {n_students} students, "
+        f"{n_calls} marking calls  ·  {dur}"
+    )

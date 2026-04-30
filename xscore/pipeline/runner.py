@@ -108,7 +108,7 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
         warn_line,
     )
     from xscore.steps.scan import scan_phases
-    from xscore.steps.scaffold import scaffold_phase
+    from xscore.steps.scaffold import scaffold_setup, scaffold_cleanup
 
     wire_step_fns()
     reset_run_usage()
@@ -120,6 +120,7 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
     started_iso = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds")
     early_exit_seen = False
     fatal_exc: BaseException | None = None
+    scaffold_inited = False
     try:
         # Bootstrap: steps 1–2 must always run (mark with bootstrap=True in registry)
         run_step(ctx, step_by_number(1))
@@ -128,20 +129,37 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
         run_step(ctx, step_by_number(3))
         scan_phases(ctx)                                  # 4–7 (4 is conditional)
 
+        # Empty-exam analysis (steps 8–9): layout + cut. Initialize scaffold
+        # state up-front so step 16 (blank detection) can read the cut PDF
+        # later, and step 18/19 can finish their phases without re-init.
+        scaffold_inited = scaffold_setup(ctx)
+        if scaffold_inited:
+            for n in (8, 9):
+                run_step(ctx, step_by_number(n))
+
         if ctx.cleaned_pdf:
-            for n in (8, 9, 10, 11, 12):
+            # Cover detection + scan geometry.
+            for n in (10, 11, 12):
                 run_step(ctx, step_by_number(n))
             kick_off_render_bg(ctx)
+            # Step 13 (handwriting per scan page) → 14 (names) → 15 (page order).
             for n in (13, 14, 15):
                 run_step(ctx, step_by_number(n))
+            # Step 16 (empty-exam blank detection) and 17 (build register v1).
+            for n in (16, 17):
+                run_step(ctx, step_by_number(n))
 
-        scaffold_phase(ctx)                               # 16–23 with finally cleanup
+        # Scaffold phase B (steps 18–24): detect_scaffold, fill_scaffold,
+        # cross_page, scheme graphics, assign, parse_scheme, create_report.
+        if scaffold_inited:
+            for n in (18, 19, 20, 21, 22, 23, 24):
+                run_step(ctx, step_by_number(n))
 
         if ctx.cleaned_pdf and ctx.scaffold:
-            for n in range(24, 34):
+            for n in range(25, 35):
                 run_step(ctx, step_by_number(n))
         elif ctx.cleaned_pdf and not ctx.scaffold:
-            warn_line("Marking skipped — scaffold not available (steps 24–33 omitted).")
+            warn_line("Marking skipped — scaffold not available (steps 25–34 omitted).")
 
         ctx.pipeline_completed_ok = True
     except _EarlyExit:
@@ -151,6 +169,8 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
         fatal_exc = exc
         raise
     finally:
+        if scaffold_inited:
+            scaffold_cleanup(ctx)
         elapsed_total = time.perf_counter() - t0
         if ctx.pipeline_completed_ok:
             run_status = "ok"
