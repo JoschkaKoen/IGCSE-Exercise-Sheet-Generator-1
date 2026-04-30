@@ -1,6 +1,6 @@
-"""Step 30 — Timing summary: write 30_timing_summary/timing.json + timing.md and print tables.
+"""Timing summary helper: write timing.json + timing.md and print tables.
 
-Cost reporting moved to step 32 (cost_report.py); accuracy moved to step 31.
+Cost reporting lives in cost_report.py; accuracy evaluation has its own step.
 """
 
 from __future__ import annotations

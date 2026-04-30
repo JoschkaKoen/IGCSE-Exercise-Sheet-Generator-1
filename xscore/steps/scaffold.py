@@ -1,20 +1,21 @@
-"""Steps 16–23: scaffold building (layout, cut, parse, cross-page figures,
-scheme graphics, assign, parse mark scheme, merge).
+"""Scaffold step bodies: layout, cut, parse, cross-page figures, scheme
+graphics, assign, parse mark scheme, merge.
 
-Most steps share local state (exam_pdf, client, layout_result, raw_questions,
-…) so each step writes/reads ``ctx.scaffold_state`` rather than receiving these
-through individual ``_Ctx`` fields. Step 19 (``detect_cross_page_context``)
-is a standalone data transform that does not touch ``scaffold_state`` — it
-only reads on-disk artifacts from steps 15 and 18 and
-``ctx.empty_exam_has_cover``.
+Most step bodies share local state (exam_pdf, client, layout_result,
+raw_questions, …) so each writes/reads ``ctx.scaffold_state`` rather than
+receiving these through individual ``_Ctx`` fields.
+``detect_cross_page_context`` is a standalone data transform that does not
+touch ``scaffold_state`` — it only reads on-disk artifacts from earlier
+steps and ``ctx.empty_exam_has_cover``.
 
 ``scaffold_phase`` is the orchestrator that:
 
 1. Looks up the exam/answer PDFs and Gemini client (skipping the whole phase
    when no exam PDF is found).
-2. Calls ``run_step`` for each of 16–23 so each gets timing/error capture.
-3. In a ``finally``, deletes the temp split PDF created by step 17 and
-   consumed by step 18. Always runs, even on ``_EarlyExit``.
+2. Calls ``run_step`` for each scaffold-building step so each gets
+   timing/error capture.
+3. In a ``finally``, deletes the temp split PDF created by ``cut_exam_pdf``
+   and consumed by the parse phase. Always runs, even on ``_EarlyExit``.
 """
 
 from __future__ import annotations
@@ -24,13 +25,12 @@ import time
 from pathlib import Path
 
 from xscore.scaffold.ai_scaffold import (
-    step16_detect_layout,
-    step17_cut_exam_pdf,
-    step18_parse_exam_pdf,
-    step19_detect_scheme_graphics,
-    step20_assign_scheme_questions,
-    step21_parse_mark_scheme,
-    step22_merge_scaffold,
+    assign_scheme_questions_phase,
+    cut_exam_pdf_phase,
+    detect_layout_phase,
+    detect_scheme_graphics_phase,
+    merge_scaffold_phase,
+    parse_mark_scheme_phase,
 )
 from xscore.scaffold.formats import get_scaffold_format
 from xscore.scaffold.generate_scaffold import (
@@ -44,14 +44,14 @@ from xscore.shared.pipeline_steps import run_step, step_by_number
 from xscore.shared.terminal_ui import announce_step_model, format_duration, ok_line, warn_line
 
 
-def step_16_layout(ctx: _Ctx) -> None:
+def detect_exam_layout(ctx: _Ctx) -> None:
     announce_step_model(
         model_env="DETECT_LAYOUT_MODEL",
         default_model="gemini-2.5-flash, low",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     state = ctx.scaffold_state
-    layout_result, layout_elapsed, layout_model = step16_detect_layout(
+    layout_result, layout_elapsed, layout_model = detect_layout_phase(
         state["client"], state["exam_pdf"], ctx.artifact_dir,
     )
     state["layout_result"] = layout_result
@@ -59,9 +59,9 @@ def step_16_layout(ctx: _Ctx) -> None:
     state["layout_model"] = layout_model
 
 
-def step_17_cut(ctx: _Ctx) -> None:
+def cut_exam_pdf(ctx: _Ctx) -> None:
     state = ctx.scaffold_state
-    actual_exam_pdf, split_pdf_temp_path, _n_phys, n_split = step17_cut_exam_pdf(
+    actual_exam_pdf, split_pdf_temp_path, _n_phys, n_split = cut_exam_pdf_phase(
         state["exam_pdf"], state["layout_result"], ctx.artifact_dir,
         layout_model=state["layout_model"], layout_elapsed=state["layout_elapsed"],
     )
@@ -70,47 +70,19 @@ def step_17_cut(ctx: _Ctx) -> None:
     state["n_split"] = n_split
 
 
-def step_18_parse_exam(ctx: _Ctx) -> None:
-    """LEGACY — single-step parse_exam that runs both phases in one step.
-
-    Kept so any old plan file or external script that imports it still works.
-    The pipeline registry now wires ``detect_exam_scaffold`` (step 18) and
-    ``fill_exam_scaffold`` (step 19) to the split functions below; this
-    function is dead from the registry's perspective.
-    """
-    announce_step_model(
-        model_env="DETECT_EXAM_SCAFFOLD_MODEL",
-        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
-    )
-    announce_step_model(
-        model_env="FILL_EXAM_SCAFFOLD_MODEL",
-        legacy_model_env="READ_EXAM_PDF_MODEL",
-        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
-    )
-    state = ctx.scaffold_state
-    from xscore.shared.exam_paths import is_cs_exam
-    raw_questions, raw_layout = step18_parse_exam_pdf(
-        state["client"], state["actual_exam_pdf"], state["layout_result"],
-        state["n_split"], state["split_pdf_temp_path"], ctx.artifact_dir,
-        fmt=state["fmt"],
-        is_cs=is_cs_exam(state["actual_exam_pdf"], state.get("answer_pdf")),
-    )
-    state["raw_questions"] = raw_questions
-    state["raw_layout"] = raw_layout
-
-
-def step_18_detect_scaffold(ctx: _Ctx) -> None:
-    """Step 18 (Phase A): detect exam scaffold structure (one cheap call).
+def detect_exam_scaffold(ctx: _Ctx) -> None:
+    """Phase A: detect exam scaffold structure (one cheap call).
 
     Writes ``18_detect_exam_scaffold/exam_scaffold.{ext}`` and stores the
-    resulting nodes in ``ctx.scaffold_state['scaffold_nodes']`` for step 19.
+    resulting nodes in ``ctx.scaffold_state['scaffold_nodes']`` for the
+    fill phase.
     """
     announce_step_model(
         model_env="DETECT_EXAM_SCAFFOLD_MODEL",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     state = ctx.scaffold_state
-    from xscore.scaffold.scaffold_step18_detect import detect_exam_scaffold
+    from xscore.scaffold.scaffold_detect import detect_exam_scaffold
     from xscore.scaffold.ai_scaffold import (
         _detect_scaffold_model_config, _print_detected_summary,
     )
@@ -153,12 +125,12 @@ def step_18_detect_scaffold(ctx: _Ctx) -> None:
     state["raw_layout"] = raw_layout
 
 
-def step_19_fill_scaffold(ctx: _Ctx) -> None:
-    """Step 19 (Phase B): fill scaffold with text + options (per-page parallel).
+def fill_exam_scaffold(ctx: _Ctx) -> None:
+    """Phase B: fill scaffold with text + options (per-page parallel).
 
-    Reads ``ctx.scaffold_state['scaffold_nodes']`` from step 18; writes
-    ``19_fill_exam_scaffold/exam_questions.{ext}`` and stores ``raw_questions``
-    on ``scaffold_state`` for downstream steps.
+    Reads ``ctx.scaffold_state['scaffold_nodes']`` from the detect phase;
+    writes ``19_fill_exam_scaffold/exam_questions.{ext}`` and stores
+    ``raw_questions`` on ``scaffold_state`` for downstream steps.
     """
     announce_step_model(
         model_env="FILL_EXAM_SCAFFOLD_MODEL",
@@ -166,7 +138,7 @@ def step_19_fill_scaffold(ctx: _Ctx) -> None:
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     state = ctx.scaffold_state
-    from xscore.scaffold.scaffold_step18_fill import fill_exam_scaffold
+    from xscore.scaffold.scaffold_fill import fill_exam_scaffold
     from xscore.scaffold.ai_scaffold import _fill_scaffold_model_config
     from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
     from xscore.shared.exam_paths import (
@@ -199,10 +171,10 @@ def step_19_fill_scaffold(ctx: _Ctx) -> None:
     state["raw_questions"] = raw_questions
 
 
-def step_19_detect_cross_page_context(ctx: _Ctx) -> None:
+def detect_cross_page_context(ctx: _Ctx) -> None:
     """Detect cross-page context — figure references AND parent stems.
 
-    Pure data transform: reads the v1 marking page register from step 15 plus
+    Pure data transform: reads the v1 marking page register from build_marking_register_v1 plus
     ``18_parse_exam_pdf/exam_questions.yaml``, runs two augmentation passes
     (figure mentions on a different page from where the figure is drawn;
     child questions on a different page from a parent's stem/flowchart), and
@@ -231,7 +203,7 @@ def step_19_detect_cross_page_context(ctx: _Ctx) -> None:
 
     register = load_register(ctx.artifact_dir)
     if register is None:
-        # Step 15's writer was newly added — older runs may lack v1.
+        # build_marking_register_v1's writer was newly added — older runs may lack v1.
         register = build_initial_register(ctx)
 
     questions_path = artifact_exam_questions_path(ctx.artifact_dir, fmt="yaml")
@@ -336,7 +308,7 @@ def step_19_detect_cross_page_context(ctx: _Ctx) -> None:
     )
 
 
-def step_20_scheme_graphics(ctx: _Ctx) -> None:
+def detect_mark_scheme_graphics(ctx: _Ctx) -> None:
     announce_step_model(
         model_env="DETECT_SCHEME_GRAPHICS_MODEL",
         default_model="gemini-2.5-flash, off",
@@ -344,7 +316,7 @@ def step_20_scheme_graphics(ctx: _Ctx) -> None:
     )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
-    graphics_by_qnum, graphics_questions = step19_detect_scheme_graphics(
+    graphics_by_qnum, graphics_questions = detect_scheme_graphics_phase(
         state["answer_pdf"], state["raw_questions"], ctx.artifact_dir,
         fmt=state["fmt"],
     )
@@ -359,7 +331,7 @@ def step_20_scheme_graphics(ctx: _Ctx) -> None:
         )
 
 
-def step_21_assign_questions(ctx: _Ctx) -> None:
+def assign_scheme_questions(ctx: _Ctx) -> None:
     announce_step_model(
         model_env="ASSIGN_SCHEME_QUESTIONS_MODEL",
         default_model="gemini-2.5-flash, off",
@@ -371,7 +343,7 @@ def step_21_assign_questions(ctx: _Ctx) -> None:
         ok_line("Skipped (no mark scheme PDF)")
         state["questions_per_page"] = {}
         return
-    mapping = step20_assign_scheme_questions(
+    mapping = assign_scheme_questions_phase(
         state["client"], state["answer_pdf"], state["raw_questions"], ctx.artifact_dir,
     )
     state["questions_per_page"] = mapping
@@ -384,7 +356,7 @@ def step_21_assign_questions(ctx: _Ctx) -> None:
         )
 
 
-def step_22_parse_scheme(ctx: _Ctx) -> None:
+def parse_mark_scheme(ctx: _Ctx) -> None:
     announce_step_model(
         model_env="READ_MARK_SCHEME_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
@@ -392,7 +364,7 @@ def step_22_parse_scheme(ctx: _Ctx) -> None:
     )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
-    scheme_data = step21_parse_mark_scheme(
+    scheme_data = parse_mark_scheme_phase(
         state["client"], state["answer_pdf"], state["raw_questions"],
         state["graphics_by_qnum"], state.get("questions_per_page"),
         ctx.artifact_dir, fmt=state["fmt"],
@@ -406,10 +378,10 @@ def step_22_parse_scheme(ctx: _Ctx) -> None:
     )
 
 
-def step_23_create_report(ctx: _Ctx) -> None:
+def create_report(ctx: _Ctx) -> None:
     state = ctx.scaffold_state
     t0 = time.perf_counter()
-    questions, layout = step22_merge_scaffold(
+    questions, layout = merge_scaffold_phase(
         state["raw_questions"], state["raw_layout"], state["scheme_data"],
     )
     ctx.scaffold = finalize_scaffold(
@@ -427,7 +399,7 @@ def scaffold_setup(ctx: _Ctx) -> bool:
     """Initialize ``ctx.scaffold_state`` for the scaffold-related steps.
 
     Returns True on success (state populated), False when no exam PDF is found
-    (steps 8–9 + 18–24 must be skipped). Idempotent — calling it twice is a
+    (the empty-exam analysis and scaffold steps must be skipped). Idempotent — calling it twice is a
     no-op once state["client"] is set.
 
     Skipped entirely when resuming (``ctx.from_step`` set).

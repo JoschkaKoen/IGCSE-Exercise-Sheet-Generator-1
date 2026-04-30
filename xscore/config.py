@@ -5,17 +5,17 @@ config.py
 Configuration for xScore. Edit values here or set the noted environment
 variables. See README.md for full detail.
 
-AI provider usage by step (live 32-step pipeline; see ``xscore.shared.pipeline_steps.STEPS``):
-  Step 1                  : KIMI_API_KEY  — natural-language prompt parsing
-  Step 9                  : Gemini        — empty-exam cover-page check
-  Step 10                 : Gemini        — scan cover-page detection
-  Step 11                 : configurable  — student-name OCR (NAME_DETECTION_MODEL)
-  Steps 16 / 18 / 19 / 20 / 21 : configurable — exam/mark-scheme parsing
-                            (DETECT_LAYOUT_MODEL, READ_EXAM_PDF_MODEL,
-                             DETECT_SCHEME_GRAPHICS_MODEL,
-                             ASSIGN_SCHEME_QUESTIONS_MODEL,
-                             READ_MARK_SCHEME_MODEL)
-  Step 24                 : configurable  — AI marking (MARKING_MODEL)
+AI provider usage by step (see ``xscore.shared.pipeline_steps.STEPS`` for the live ordering):
+  parse_grading_instructions     : KIMI_API_KEY  — natural-language prompt parsing
+  cover_page_empty_exam          : Gemini        — empty-exam cover-page check
+  cover_page_scan_first          : Gemini        — scan cover-page detection (page 1 only)
+  student_names                  : configurable  — student-name OCR (NAME_DETECTION_MODEL)
+  detect_exam_layout / scaffold / mark scheme :
+                                   configurable — exam/mark-scheme parsing
+                                   (DETECT_LAYOUT_MODEL, DETECT_EXAM_SCAFFOLD_MODEL,
+                                    FILL_EXAM_SCAFFOLD_MODEL, DETECT_SCHEME_GRAPHICS_MODEL,
+                                    ASSIGN_SCHEME_QUESTIONS_MODEL, READ_MARK_SCHEME_MODEL)
+  ai_marking                     : configurable  — AI marking (MARKING_MODEL)
 
 How to run (from repo root, with venv activated and dependencies installed):
 
@@ -156,17 +156,17 @@ GROUND_TRUTH_PATH = Path(__file__).resolve().parent / "Ground Truth"
 # Generic Pipeline Configuration (xscore.py)
 # =============================================================================
 
-# Steps 9–11: deskew + all coordinate-dependent geometric steps.
+# deskew + all coordinate-dependent geometric steps.
 # All pixel coordinates in JSON sidecars share this DPI — change as a unit.
 PIPELINE_DEFAULT_DPI: int = int(os.getenv("PIPELINE_DEFAULT_DPI", "300"))
 
-# Step 5: blank-page detection raster (mean/std; 72 DPI is sufficient).
+# detect_blank_pages: raster (mean/std; 72 DPI is sufficient).
 BLANK_DETECTION_DPI: int = int(os.getenv("BLANK_DETECTION_DPI", "72"))
 
-# Step 6: Tesseract OSD rotation (only when SCAN_USE_TESSERACT_ROTATION=true).
+# autorotate: Tesseract OSD rotation (only when SCAN_USE_TESSERACT_ROTATION=true).
 ROTATION_ANALYSIS_DPI: int = int(os.getenv("ROTATION_ANALYSIS_DPI", "150"))
 
-# Step 4: orientation detector selection.
+# prepare_scans: orientation detector selection.
 #   tesseract — primary; local OSD, no API cost, no API key (default)
 #   ai        — vision-LLM path (kept as fallback for users without Tesseract)
 #   auto      — tesseract if available, else fall back to ai silently
@@ -175,7 +175,7 @@ SCAN_ORIENTATION_DETECTOR: str = (
     _orient_detector_raw if _orient_detector_raw in ("tesseract", "ai", "auto") else "tesseract"
 )
 
-# Step 4: two-stage Tesseract sampling targets *usable* votes (high-confidence
+# prepare_scans: two-stage Tesseract sampling targets *usable* votes (high-confidence
 # OSD answers). Pages with low confidence or errors are skipped. We collect
 # INITIAL_VOTES first; if they're not unanimous (or we couldn't fill the
 # initial target), we collect ESCALATION_VOTES more and majority-vote across
@@ -183,7 +183,7 @@ SCAN_ORIENTATION_DETECTOR: str = (
 SCAN_ORIENTATION_INITIAL_VOTES: int = int(os.getenv("SCAN_ORIENTATION_INITIAL_VOTES", "3"))
 SCAN_ORIENTATION_ESCALATION_VOTES: int = int(os.getenv("SCAN_ORIENTATION_ESCALATION_VOTES", "3"))
 
-# Step 4: AI-fallback model — only used when SCAN_ORIENTATION_DETECTOR is
+# prepare_scans: AI-fallback model — only used when SCAN_ORIENTATION_DETECTOR is
 # "ai" (or "auto" and Tesseract is unavailable). See
 # xscore/preprocessing/scan_orientation.py.
 SCAN_ORIENTATION_MODEL: str = os.getenv("SCAN_ORIENTATION_MODEL", "gemini-3-flash-preview")
@@ -203,19 +203,19 @@ _warn_deprecated_orientation_knob("SCAN_ORIENTATION_INITIAL_PAGES", "SCAN_ORIENT
 _warn_deprecated_orientation_knob("SCAN_ORIENTATION_ESCALATION_PAGES", "SCAN_ORIENTATION_ESCALATION_VOTES")
 _warn_deprecated_orientation_knob("SCAN_ORIENTATION_COMPARE_TESSERACT", "SCAN_ORIENTATION_DETECTOR")
 
-# Step 9: model for the informational check on the empty exam's first page.
+# cover_page_empty_exam: model for the informational check on the empty exam's first page.
 EMPTY_EXAM_COVER_MODEL: str = os.getenv("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash")
 
-# Step 10: model for the authoritative cover-page check on scan page 1 and per-block verification.
+# cover_page_scan_first: model for the cover-page check on scan page 1.
 # Independent of NAME_DETECTION_MODEL (name OCR) and EMPTY_EXAM_COVER_MODEL.
 COVER_PAGE_DETECTION_MODEL: str = os.getenv("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
 COVER_PAGE_DETECTION_DPI: int = int(os.getenv("COVER_PAGE_DETECTION_DPI", "150"))
 
-# Step 11: name-recognition crop sent to vision API.
+# student_names: name-recognition crop sent to vision API.
 NAME_RECOGNITION_DPI: int = int(os.getenv("NAME_RECOGNITION_DPI", "300"))
 NAME_JPEG_QUALITY: int = int(os.getenv("NAME_JPEG_QUALITY", "85"))
 
-# Step 23: full scan page sent to vision API for marking.
+# ai_marking: full scan page sent to vision API for marking.
 MARKING_DPI: int = int(os.getenv("MARKING_DPI", "300"))
 MARKING_JPEG_QUALITY: int = int(os.getenv("MARKING_JPEG_QUALITY", "90"))
 

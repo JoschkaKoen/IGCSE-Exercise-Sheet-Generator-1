@@ -6,30 +6,31 @@ import re
 import shutil
 from pathlib import Path
 
+from xscore.shared.step_folders import (
+    AUTOROTATE_DIR,
+    BLANK_DETECT_DIR,
+    DESKEW_DIR,
+    MERGE_DUPLEX_DIR,
+)
+
 _NUMBERED_RE = re.compile(r"^scan[\s_\-]*(\d+)\b", re.IGNORECASE)
 
-# Step folder names for scan preprocessing (steps 4–7)
-_STEP_04 = "04_merge_duplex_scans"
-_STEP_05 = "05_detect_blank_pages"
-_STEP_06 = "06_autorotate"
-_STEP_07 = "07_deskew"
-
 # File name constants (no longer include the step-number prefix)
-MERGED_SCAN_PDF           = _STEP_04 + "/merged_scan.pdf"
-SCAN_ORIENTATIONS_JSON    = _STEP_04 + "/scan_orientations.json"
-ORIENTED_SCAN_PDF         = _STEP_04 + "/oriented_scan.pdf"  # single-PDF flow only
-SCAN_BLANKS_JSON          = _STEP_05 + "/scan_blanks.json"
-SCAN_ROTATED_PDF          = _STEP_06 + "/scan_rotated.pdf"
-CLEANED_SCAN_PDF          = _STEP_07 + "/cleaned_scan.pdf"
-SCAN_ANCHORS_JSON         = _STEP_07 + "/scan_anchors.json"
-SCAN_TRANSFORMS_JSON      = _STEP_07 + "/scan_transforms.json"
-SCAN_LINES_REMOVED_PDF    = _STEP_07 + "/scan_lines_removed.pdf"
-SCAN_BOXES_PROJECTED_PDF  = _STEP_07 + "/scan_boxes_projected.pdf"
-SCAN_BOXES_PROJECTED_JSON = _STEP_07 + "/scan_boxes_projected.json"
-SCAN_BOXES_REFINED_PDF    = _STEP_07 + "/scan_boxes_refined.pdf"
-SCAN_HANDWRITING_JSON     = _STEP_07 + "/scan_handwriting.json"
-SCAN_EXERCISE_BOXES_JSON  = _STEP_07 + "/scan_exercise_boxes.json"
-SCAN_EXERCISE_BOXES_PDF   = _STEP_07 + "/scan_exercise_boxes.pdf"
+MERGED_SCAN_PDF           = MERGE_DUPLEX_DIR + "/merged_scan.pdf"
+SCAN_ORIENTATIONS_JSON    = MERGE_DUPLEX_DIR + "/scan_orientations.json"
+ORIENTED_SCAN_PDF         = MERGE_DUPLEX_DIR + "/oriented_scan.pdf"  # single-PDF flow only
+SCAN_BLANKS_JSON          = BLANK_DETECT_DIR + "/scan_blanks.json"
+SCAN_ROTATED_PDF          = AUTOROTATE_DIR + "/scan_rotated.pdf"
+CLEANED_SCAN_PDF          = DESKEW_DIR + "/cleaned_scan.pdf"
+SCAN_ANCHORS_JSON         = DESKEW_DIR + "/scan_anchors.json"
+SCAN_TRANSFORMS_JSON      = DESKEW_DIR + "/scan_transforms.json"
+SCAN_LINES_REMOVED_PDF    = DESKEW_DIR + "/scan_lines_removed.pdf"
+SCAN_BOXES_PROJECTED_PDF  = DESKEW_DIR + "/scan_boxes_projected.pdf"
+SCAN_BOXES_PROJECTED_JSON = DESKEW_DIR + "/scan_boxes_projected.json"
+SCAN_BOXES_REFINED_PDF    = DESKEW_DIR + "/scan_boxes_refined.pdf"
+SCAN_HANDWRITING_JSON     = DESKEW_DIR + "/scan_handwriting.json"
+SCAN_EXERCISE_BOXES_JSON  = DESKEW_DIR + "/scan_exercise_boxes.json"
+SCAN_EXERCISE_BOXES_PDF   = DESKEW_DIR + "/scan_exercise_boxes.pdf"
 
 
 def _scan_phase_paths(artifact_dir: Path) -> dict[str, Path]:
@@ -146,7 +147,7 @@ def prepare_scans_phase(
     *,
     force_rebuild: bool = False,
 ) -> Path:
-    """Step 4 body. Always runs. Detects per-file orientation via Qwen
+    """prepare_scans body. Always runs. Detects per-file orientation via Qwen
     vision (see :mod:`xscore.preprocessing.scan_orientation`), then either
 
     (a) merges duplex pairs into ``merged_scan.pdf`` with rotation applied, or
@@ -306,7 +307,7 @@ def _prepare_single(
 
 
 # ---------------------------------------------------------------------------
-# Orientation phase header (Step 4)
+# Orientation phase header (prepare_scans)
 # ---------------------------------------------------------------------------
 
 def _emit_orientation_phase_header(info_line) -> None:
@@ -366,7 +367,7 @@ def _emit_orientation_phase_header(info_line) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Orientation audit JSON helpers (Step 4)
+# Orientation audit JSON helpers (prepare_scans)
 # ---------------------------------------------------------------------------
 
 def _write_orientations_audit(path: Path, results: dict) -> None:
@@ -482,7 +483,7 @@ def detect_blank_pages_phase(
     blank_mean: float | None = None,
     blank_std: float | None = None,
 ) -> Path:
-    """Step 5: write ``scan_blanks.json`` with blank/content lists and render sizes."""
+    """detect_blank_pages body: write ``scan_blanks.json`` with blank/content lists and render sizes."""
     from xscore.config import SCAN_USE_TESSERACT_ROTATION
     from xscore.preprocessing.remove_blanks_autorotate import (
         BLANK_MEAN_THRESHOLD,
@@ -543,7 +544,7 @@ def autorotate_phase(
     *,
     output_pdf: Path | None = None,
 ) -> Path:
-    """Step 6: read ``scan_blanks.json``, write rotated PDF (blanks dropped)."""
+    """autorotate body: read ``scan_blanks.json``, write rotated PDF (blanks dropped)."""
     from xscore.preprocessing.remove_blanks_autorotate import (
         scan_blanks_state_from_json,
         write_rotated_pdf_after_blanks,
@@ -579,7 +580,7 @@ def deskew_phase(
     *,
     input_pdf: Path | None = None,
 ) -> Path:
-    """Step 7: deskew ``scan_rotated.pdf`` (or *input_pdf*) into ``cleaned_scan.pdf``."""
+    """deskew body: deskew ``scan_rotated.pdf`` (or *input_pdf*) into ``cleaned_scan.pdf``."""
     from xscore.preprocessing.deskew import deskew_pdf_raster
 
     paths = _scan_phase_paths(artifact_dir)

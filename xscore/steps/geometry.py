@@ -1,20 +1,20 @@
-"""Steps 8–15: cover-page detection, scan geometry, student name OCR, validations.
+"""Geometry & validation step bodies: cover-page detection, scan geometry,
+student name OCR, validations.
 
-Cover detection now runs in two phases. Step 9 checks scan page 1 only and
-sets ``ctx.cover_page_mode``; step 10 then derives ``pages_per_student``
-deterministically from that flag and aborts on any total-page mismatch.
-Step 11 verifies the remaining cover positions in parallel (warn-by-default,
-fail-fast under ``COVER_PAGE_VERIFY_STRICT=1``).
+Cover detection runs in two phases. ``cover_page_scan_first`` checks scan
+page 1 only and sets ``ctx.cover_page_mode``; ``exam_geometry`` then derives
+``pages_per_student`` deterministically from that flag and aborts on any
+total-page mismatch.
 
-Steps 13, 14, and 15 return ``(status, message)`` from their helpers; the
-dispatchers below own the policy. INCONCLUSIVE → loud warn + continue
-(or ``SystemExit(1)`` when the per-step ``*_STRICT=1`` env var is set).
-MISMATCH_FOUND in step 13 still raises ``SystemExit(1)``.
+The handwriting / names / page-order checks return ``(status, message)``
+from their helpers; the dispatchers below own the policy. INCONCLUSIVE → loud
+warn + continue (or ``SystemExit(1)`` when the per-step ``*_STRICT=1`` env
+var is set). MISMATCH_FOUND in the handwriting check still raises
+``SystemExit(1)``.
 """
 
 from __future__ import annotations
 
-import json
 import logging
 import os
 import time
@@ -27,7 +27,6 @@ from xscore.preprocessing.assign_pages_to_students import (
     page_assignments_to_md,
     page_assignments_to_overview,
     print_page_range_table,
-    verify_cover_positions,
 )
 from xscore.marking.blank_page_detection import check_exam_blank_pages, check_student_handwriting
 from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
@@ -35,7 +34,6 @@ from xscore.marking.page_order_check import check_page_order
 from xscore.pipeline.resume import exam_pdf_page_count
 from xscore.scaffold.generate_scaffold import find_exam_pdf
 from xscore.shared.exam_paths import (
-    artifact_cover_verify_json_path,
     artifact_exam_page_range_overview_path,
     artifact_exam_student_list_json_path,
     artifact_exam_student_list_md_path,
@@ -51,7 +49,7 @@ from xscore.shared.terminal_ui import (
 )
 
 
-def step_08_cover_empty(ctx: _Ctx) -> None:
+def cover_page_empty_exam(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None and ctx.folder is not None
     announce_step_model(
         model_env="EMPTY_EXAM_COVER_MODEL",
@@ -64,11 +62,11 @@ def step_08_cover_empty(ctx: _Ctx) -> None:
             exam_pdf, artifact_dir=ctx.artifact_dir
         )
     except Exception:
-        logging.exception("step 8 cover detection failed")
+        logging.exception("cover_page_empty_exam detection failed")
         raise
 
 
-def step_09_cover_scan_first(ctx: _Ctx) -> None:
+def cover_page_scan_first(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     announce_step_model(
         model_env="COVER_PAGE_DETECTION_MODEL",
@@ -81,7 +79,7 @@ def step_09_cover_scan_first(ctx: _Ctx) -> None:
     )
 
 
-def step_10_geometry(ctx: _Ctx) -> None:
+def exam_geometry(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     exam_pages = ctx.scaffold.page_count if ctx.scaffold else exam_pdf_page_count(ctx.folder)
     try:
@@ -126,44 +124,7 @@ def step_10_geometry(ctx: _Ctx) -> None:
     write_geometry_artifacts(ctx.artifact_dir, ctx.geo)
 
 
-def step_11_cover_verify(ctx: _Ctx) -> None:
-    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
-    if not ctx.cover_page_mode:
-        ok_line("Cover-page mode off — verification skipped")
-        return
-    announce_step_model(
-        model_env="COVER_PAGE_DETECTION_MODEL",
-        default_model="gemini-2.5-flash",
-        default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
-    )
-    cover_ok = verify_cover_positions(
-        ctx.cleaned_pdf,
-        ctx.pages_per_student,
-        ctx.num_students,
-        artifact_dir=ctx.artifact_dir,
-    )
-    json_path = artifact_cover_verify_json_path(ctx.artifact_dir)
-    json_path.parent.mkdir(parents=True, exist_ok=True)
-    json_path.write_text(
-        json.dumps({str(k): v for k, v in cover_ok.items()}, indent=2),
-        encoding="utf-8",
-    )
-    bad = [idx for idx, ok in cover_ok.items() if not ok]
-    if not bad:
-        return
-    msg_lines = [
-        f"{len(bad)} expected cover page(s) did not look like cover pages:"
-    ]
-    for idx in sorted(bad):
-        block = idx // ctx.pages_per_student + 1
-        msg_lines.append(f"  Block {block} (scan page {idx + 1})  — check scan quality")
-    msg_lines.append("  Set COVER_PAGE_VERIFY_STRICT=1 to fail-fast on cover-position mismatches.")
-    warn_line("\n".join(msg_lines))
-    if os.environ.get("COVER_PAGE_VERIFY_STRICT", "0") == "1":
-        raise SystemExit(1)
-
-
-def step_12_student_names(ctx: _Ctx) -> None:
+def student_names(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     announce_step_model(
         model_env="NAME_DETECTION_MODEL",
@@ -200,10 +161,10 @@ def step_12_student_names(ctx: _Ctx) -> None:
     )
 
 
-def step_13_page_order(ctx: _Ctx) -> None:
+def page_order_check(ctx: _Ctx) -> None:
     """Heuristic page-order check (no LLM, no OCR).
 
-    Reads step 13's handwriting.json and verifies each student's detected
+    Reads student_handwriting_check's handwriting.json and verifies each student's detected
     page numbers form the expected sequence given the empty-exam layout.
     """
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
@@ -233,7 +194,7 @@ def step_13_page_order(ctx: _Ctx) -> None:
         raise SystemExit(1)
 
 
-def step_14_exam_blank(ctx: _Ctx) -> None:
+def exam_blank_detection(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None and ctx.folder is not None
     announce_step_model(
         model_env="EXAM_BLANK_DETECTION_MODEL",
@@ -241,7 +202,7 @@ def step_14_exam_blank(ctx: _Ctx) -> None:
         default_max_tokens=256,
     )
     from xscore.marking.blank_page_detection import BlankCheckStatus
-    # Prefer the cut/split exam PDF from step 9 — it has the same logical
+    # Prefer the cut/split exam PDF from cut_exam_pdf — it has the same logical
     # page count as the rest of the pipeline operates on. Falls back to the
     # original empty exam if scaffold setup didn't run (e.g. during partial
     # resume scenarios).
@@ -268,7 +229,7 @@ def step_14_exam_blank(ctx: _Ctx) -> None:
         raise SystemExit(1)
 
 
-def step_15_handwriting(ctx: _Ctx) -> None:
+def student_handwriting_check(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     assert ctx.pages_per_student is not None and ctx.pages_per_student > 0
     announce_step_model(
@@ -291,8 +252,8 @@ def step_15_handwriting(ctx: _Ctx) -> None:
     dur = format_duration(time.perf_counter() - t0)
 
     # Note: register building (v1) used to live here. It moved to a dedicated
-    # step 17 (build_marking_register_v1) so it can run AFTER step 14
-    # (student_names) provides ctx.page_assignments — which step 13 no longer
+    # build_marking_register_v1 so it can run AFTER student_names provides
+    # ctx.page_assignments — which student_handwriting_check no longer
     # needs but the register still does.
 
     if status is BlankCheckStatus.PASSED:
@@ -308,13 +269,13 @@ def step_15_handwriting(ctx: _Ctx) -> None:
         raise SystemExit(1)
 
 
-def step_17_build_register(ctx: _Ctx) -> None:
+def build_marking_register_v1(ctx: _Ctx) -> None:
     """Build and persist the v1 marking page register.
 
-    Pure data transform — combines step 13 (handwriting per scan page),
-    step 14 (page_assignments), step 16 (blank-in-empty exam pages), and
+    Pure data transform — combines student_handwriting_check (per scan page),
+    student_names (page_assignments), exam_blank_detection (blank-in-empty exam pages), and
     ``ctx.empty_exam_has_cover``. Was previously embedded at the end of
-    step 15 (handwriting) but has been split out so step 13 can run before
+    student_handwriting_check but has been split out so the handwriting check can run before
     student_names without requiring page_assignments.
     """
     assert ctx.artifact_dir is not None

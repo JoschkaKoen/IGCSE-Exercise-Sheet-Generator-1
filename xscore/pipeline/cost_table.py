@@ -1,4 +1,4 @@
-"""Per-model cost-breakdown table for step 32 (AI costs)."""
+"""Per-model cost-breakdown table for the ai_costs step."""
 
 from __future__ import annotations
 

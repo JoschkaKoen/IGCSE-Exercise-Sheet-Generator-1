@@ -221,9 +221,9 @@ def write_run_manifest(
         for f in (ctx.step_failures or [])
     ]
 
-    # Total cost is written by step 32 to 32_ai_costs/cost.json. Surface it in
-    # the manifest if available; fall back to legacy 28_timing_summary/timing.json
-    # location for runs done before the Phase B/D split.
+    # Total cost is written by ai_costs to ai_costs/cost.json. Surface it in
+    # the manifest if available; fall back to the legacy timing-summary location
+    # for runs done before the cost-report split.
     total_cost_rmb: float | None = None
     try:
         from xscore.shared.exam_paths import (

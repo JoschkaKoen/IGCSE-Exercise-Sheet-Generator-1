@@ -1,28 +1,22 @@
-"""Step registry + wrapper — declarative core for the xScore pipeline.
+"""Step registry + wrapper — declarative core of the xScore pipeline.
 
-This module provides the *infrastructure* for moving xScore.py's 25 nested
-``_stepNN_*`` closures into a flat registry. Migration is incremental: each
-step body can be lifted out into a top-level ``step_NN_xxx(ctx)`` function
-and registered here without changing any other steps.
+The ``STEPS`` tuple below is the canonical ordering and naming of every
+pipeline step. Step bodies live in :mod:`xscore.steps` (one module per phase);
+:func:`wire_step_fns` looks each one up by name at startup and slots it into
+the registry. Each entry's ``number`` matches the ``NN_`` prefix on its
+artifact folder under ``output/xscore/<exam>/<timestamp>/``.
 
-Today's xScore.py still hard-wires the step ordering inside ``_run``; the
-registry below mirrors that ordering so callers (e.g. the run-log writer in
-:mod:`xscore.shared.run_log`) can ask "which step is N?" without parsing
-xScore.py source. As steps are migrated, replace the ``fn=_unmigrated`` stub
-with a real callable.
+Per-step responsibilities (skip-if-from-step, stop-after, timing, exception
+routing) are handled inside :func:`run_step`, so step bodies can stay focused
+on their actual work.
 
-Usage when a step has been migrated:
+Usage:
 
-    from xscore.shared.pipeline_steps import run_step, STEPS
+    from xscore.shared.pipeline_steps import run_step, STEPS, wire_step_fns
 
+    wire_step_fns()   # idempotent; once at startup
     for step in STEPS:
-        if step.fn is _unmigrated:
-            continue   # still inlined in xScore.py — leave it there
         run_step(ctx, step)
-
-Each step's responsibilities (skip-if-from-step, stop-after, timing,
-exception routing) are handled inside :func:`run_step`, eliminating the
-~20 duplicated guards currently scattered through xScore.py.
 """
 
 from __future__ import annotations
@@ -74,8 +68,9 @@ class Step:
         scaffold, marking, reports, summary).
     bootstrap:
         If True, this step runs unconditionally regardless of ``ctx.from_step``.
-        Steps 1 and 2 carry this flag so resume can bootstrap ``ctx.instruction``,
-        ``ctx.folder``, ``ctx.artifact_dir`` before later steps short-circuit.
+        ``parse_grading_instructions`` and ``locate_exam_folder`` carry this
+        flag so resume can bootstrap ``ctx.instruction``, ``ctx.folder``, and
+        ``ctx.artifact_dir`` before later steps short-circuit.
     """
 
     number: int
@@ -93,10 +88,10 @@ class Step:
 # ---------------------------------------------------------------------------
 #
 # Order matters — consumers iterate this list to determine pipeline ordering.
-# Numbers are kept aligned with the artifact-folder prefixes in
-# `xscore/shared/exam_paths.py` (STEP_01, STEP_03, …, STEP_32). Gaps in the
-# numbering reflect the live pipeline (steps 2 and 4 don't have artifact
-# folders today; they're transparent operations on the scan PDF).
+# Step ``number`` matches the ``NN_`` prefix on artifact folder names in
+# ``xscore/shared/step_folders.py``. Gaps in the numbering reflect the live
+# pipeline (locate_exam_folder and prepare_scans don't always have artifact
+# folders; they're transparent operations on the scan PDF).
 
 STEPS: tuple[Step, ...] = (
     Step(1,  "parse_grading_instructions", writes=("01_parse_grading_instructions/*",),
@@ -126,22 +121,23 @@ STEPS: tuple[Step, ...] = (
          title="Detect cover page in scanned exam"),
     Step(12, "exam_geometry",              writes=("12_exam_geometry/*",),
          title="Calculate number of scanned exam pages per student"),
-    # Per-page vision classification — drives steps 14 & 15.
+    # Per-page vision classification — drives student_names and page_order_check.
     Step(13, "student_handwriting_check",  writes=("13_student_handwriting/*",),
          title="Vision classify each scan page (handwriting + page# + cover)"),
-    # Cover-anchored student-name detection (consumes step 13's covers).
+    # Cover-anchored student-name detection (consumes student_handwriting_check's covers).
     Step(14, "student_names",              writes=("14_student_names/*",),
          title="Detect student names"),
-    # Heuristic page-order check (consumes step 13's page numbers).
+    # Heuristic page-order check (consumes student_handwriting_check's page numbers).
     Step(15, "page_order_check",           writes=("15_page_order/*",),
          title="Check page order"),
     # Empty-exam blank pages (text-only LLM call).
     Step(16, "exam_blank_detection",       writes=("16_exam_blank_detection/*",),
          title="Detect blank pages in empty exam"),
-    # Pure data transform: combines step 13 + 14 + 16 into the marking-page register v1.
+    # Pure data transform: combines handwriting + names + exam_blank_detection
+    # into the marking-page register v1.
     Step(17, "build_marking_register_v1",  writes=("17_build_marking_register/*",),
          title="Build marking page register"),
-    # Step 18 split: phase A = detect structure; phase B = fill text.
+    # Scaffold split: phase A = detect structure; phase B = fill text.
     Step(18, "detect_exam_scaffold",       writes=("18_detect_exam_scaffold/*",),
          title="Detect exam scaffold (structure)", section="Exam & mark scheme parsing"),
     Step(19, "fill_exam_scaffold",         writes=("19_fill_exam_scaffold/*",),
@@ -306,7 +302,7 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
     Responsibilities (kept in one place so individual steps don't duplicate them):
 
     1. Skip if ``ctx.from_step > step.number`` (resume past this step), unless
-       ``step.bootstrap`` is True (steps 1–2 must always run to bootstrap ctx).
+       ``step.bootstrap`` is True (the bootstrap steps must always run to populate ctx).
     2. Print the section header (via ``pipeline_section``) when ``step.section`` is set,
        then the step header via ``terminal_ui.pipeline_step`` (using ``step.title`` if
        set, else a humanised ``step.name``).
@@ -317,7 +313,7 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
        skipped without running.
     5. Capture exceptions into ``ctx.step_failures`` and re-raise — callers
        decide whether to treat it as fatal (most steps) or warn-and-continue
-       (steps 9, 13, 14 today).
+       (cover_page_scan_first, student_handwriting_check, and student_names today).
     """
     from eXercise.ai_client import get_run_call_stats, get_run_usage
     from xscore.shared.pipeline_ctx import _EarlyExit
@@ -402,72 +398,68 @@ def wire_step_fns() -> None:
     import importlib
     from dataclasses import replace
 
-    # Each phase module → (module_name, mapping of step name → attribute).
-    # Function attribute names follow the OLD step-number convention to keep
-    # this refactor's diff small; what changed is each step's .number on the
-    # registry entry above. The new functions added by this refactor
-    # (build_marking_register_v1, detect_exam_scaffold, fill_exam_scaffold)
-    # use the new numbering directly.
-    phase_specs: tuple[tuple[str, dict[str, str]], ...] = (
-        ("xscore.steps.prelude", {
-            "parse_grading_instructions":   "step_01_parse",
-            "locate_exam_folder":           "step_02_folder",
-        }),
-        ("xscore.steps.scan", {
-            "read_student_list":            "step_03_students",
-            "prepare_scans":                "step_04_prepare",
-            "detect_blank_pages":           "step_05_blanks",
-            "autorotate":                   "step_06_rotate",
-            "deskew":                       "step_07_deskew",
-        }),
-        ("xscore.steps.geometry", {
-            "cover_page_empty_exam":        "step_08_cover_empty",
-            "cover_page_scan_first":        "step_09_cover_scan_first",
-            "exam_geometry":                "step_10_geometry",
-            "student_handwriting_check":    "step_15_handwriting",
-            "student_names":                "step_12_student_names",
-            "page_order_check":             "step_13_page_order",
-            "exam_blank_detection":         "step_14_exam_blank",
-            "build_marking_register_v1":    "step_17_build_register",
-        }),
-        ("xscore.steps.scaffold", {
-            "detect_exam_layout":           "step_16_layout",
-            "cut_exam_pdf":                 "step_17_cut",
-            "detect_exam_scaffold":         "step_18_detect_scaffold",
-            "fill_exam_scaffold":           "step_19_fill_scaffold",
-            "detect_cross_page_context":    "step_19_detect_cross_page_context",
-            "detect_mark_scheme_graphics":  "step_20_scheme_graphics",
-            "assign_scheme_questions":      "step_21_assign_questions",
-            "parse_mark_scheme":            "step_22_parse_scheme",
-            "create_report":                "step_23_create_report",
-        }),
-        ("xscore.steps.marking", {
-            "ai_marking_blueprints":        "step_24_blueprints",
-            "extract_student_answers":      "step_26_extract_answers",
-            "ai_marking":                   "step_25_mark",
-        }),
-        ("xscore.steps.reports", {
-            "per_student_reports":          "step_26_per_student_reports",
-            "class_stats_curve":            "step_27_class_stats",
-            "per_student_pdfs":             "step_28_per_student_pdfs",
-            "class_report":                 "step_29_class_report",
-            "review_queue":                 "step_30_review_queue",
-        }),
-        ("xscore.steps.summary", {
-            "timing_summary":               "step_31_timing",
-            "accuracy_evaluation":          "step_32_accuracy",
-            "ai_costs":                     "step_33_costs",
-        }),
+    # Each phase module → tuple of step names (matching ``step.name`` in STEPS
+    # and the function attribute name in the module).
+    phase_specs: tuple[tuple[str, tuple[str, ...]], ...] = (
+        ("xscore.steps.prelude", (
+            "parse_grading_instructions",
+            "locate_exam_folder",
+        )),
+        ("xscore.steps.scan", (
+            "read_student_list",
+            "prepare_scans",
+            "detect_blank_pages",
+            "autorotate",
+            "deskew",
+        )),
+        ("xscore.steps.geometry", (
+            "cover_page_empty_exam",
+            "cover_page_scan_first",
+            "exam_geometry",
+            "student_handwriting_check",
+            "student_names",
+            "page_order_check",
+            "exam_blank_detection",
+            "build_marking_register_v1",
+        )),
+        ("xscore.steps.scaffold", (
+            "detect_exam_layout",
+            "cut_exam_pdf",
+            "detect_exam_scaffold",
+            "fill_exam_scaffold",
+            "detect_cross_page_context",
+            "detect_mark_scheme_graphics",
+            "assign_scheme_questions",
+            "parse_mark_scheme",
+            "create_report",
+        )),
+        ("xscore.steps.marking", (
+            "ai_marking_blueprints",
+            "extract_student_answers",
+            "ai_marking",
+        )),
+        ("xscore.steps.reports", (
+            "per_student_reports",
+            "class_stats_curve",
+            "per_student_pdfs",
+            "class_report",
+            "review_queue",
+        )),
+        ("xscore.steps.summary", (
+            "timing_summary",
+            "accuracy_evaluation",
+            "ai_costs",
+        )),
     )
 
     fns: dict[str, Callable[["_Ctx"], None]] = {}
-    for module_name, mapping in phase_specs:
+    for module_name, step_names in phase_specs:
         try:
             mod = importlib.import_module(module_name)
         except ImportError:
             continue   # phase not yet migrated — leave _unmigrated stubs in place
-        for step_name, attr in mapping.items():
-            fn = getattr(mod, attr, None)
+        for step_name in step_names:
+            fn = getattr(mod, step_name, None)
             if fn is not None:
                 fns[step_name] = fn
 

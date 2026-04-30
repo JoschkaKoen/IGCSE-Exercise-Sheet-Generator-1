@@ -1,11 +1,10 @@
 """Assign PDF pages to students by reading names from the top of each page.
 
-Steps 9, 11, and 12 of the pipeline:
-- Step  9: ``detect_first_page_cover`` — checks scan page 1 for a cover page.
-- Step 11: ``verify_cover_positions`` — verifies covers on remaining students
-  in parallel (only runs when step 9 said yes).
-- Step 12: ``assign_pages`` — renders pages, reads student names, groups
-  into blocks of ``pages_per_student``.
+Two helpers used by the pipeline:
+- ``detect_first_page_cover`` — checks scan page 1 for a cover page (sets
+  ``ctx.cover_page_mode`` for downstream geometry).
+- ``assign_pages`` — renders pages, reads student names, groups into blocks
+  of ``pages_per_student``.
 
 Name detection model: ``NAME_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
 Cover detection model: ``COVER_PAGE_DETECTION_MODEL`` env var (default ``gemini-2.5-flash``).
@@ -33,7 +32,6 @@ from xscore.prompts.loader import load_prompt
 from xscore.shared.exam_paths import (
     artifact_cover_page_dir,
     artifact_cover_scan_prompt_path,
-    artifact_cover_verify_prompt_path,
     artifact_names_prompt_path,
 )
 from xscore.shared.models import PageAssignment
@@ -330,12 +328,12 @@ def detect_empty_exam_cover(
     *,
     artifact_dir: Path | None = None,
 ) -> bool | None:
-    """Step 8 — Check whether page 1 of the empty exam PDF is a cover page.
+    """Check whether page 1 of the empty exam PDF is a cover page.
 
     Returns True/False on success, or None when skipped (no API key, missing
     google-genai, etc.). The None case is meaningful: ``compute_geometry``
     raises on (empty=None, scan=True) so we never silently default the cover
-    offset when step 8 didn't produce a value.
+    offset when the empty-exam cover check didn't produce a value.
     """
     from eXercise.ai_client import parse_model_spec
     from xscore.shared.terminal_ui import ok_line, warn_line, format_duration
@@ -376,7 +374,7 @@ def detect_first_page_cover(
     *,
     artifact_dir: Path | None = None,
 ) -> bool:
-    """Step 9 — Check whether scan page 1 is a cover page.
+    """Check whether scan page 1 is a cover page.
 
     Returns True if the first scan page looks like a cover page (and the
     scan therefore uses cover-page mode). Returns False if not, or if API
@@ -413,66 +411,6 @@ def detect_first_page_cover(
     return page1_is_cover
 
 
-def verify_cover_positions(
-    cleaned_pdf: Path,
-    pages_per_student: int,
-    num_students: int,
-    *,
-    artifact_dir: Path | None = None,
-) -> dict[int, bool]:
-    """Step 11 — Verify cover-page positions for students 2..N.
-
-    Called when ``detect_first_page_cover`` returned True. Checks each
-    expected cover position in parallel and returns a dict mapping 0-based
-    page index → is_cover bool (page 0 is included as True for completeness).
-    The caller decides what to do with mismatches (warn or fail under STRICT).
-    """
-    from eXercise.ai_client import make_gemini_native_client, parse_model_spec
-    from xscore.shared.terminal_ui import ok_line, warn_line, format_duration
-
-    cover_ok: dict[int, bool] = {0: True}
-
-    model, thinking, max_tokens = parse_model_spec(
-        os.environ.get("COVER_PAGE_DETECTION_MODEL", "gemini-2.5-flash")
-    )
-    if model.startswith("gemini"):
-        gai_client = make_gemini_native_client()
-        if gai_client is None:
-            warn_line("GEMINI_API_KEY not set — cover-page verification skipped")
-            return cover_ok
-    else:
-        gai_client = None
-
-    cover_indices = [b * pages_per_student for b in range(1, num_students)]
-    if not cover_indices:
-        return cover_ok
-
-    def _check(idx: int) -> tuple[int, bool]:
-        save_path = (
-            artifact_cover_verify_prompt_path(artifact_dir, f"cover_p{idx + 1}")
-            if artifact_dir else None
-        )
-        return idx, is_cover_page(
-            cleaned_pdf, idx, gai_client, model,
-            prompt_save_path=save_path,
-            thinking_tokens=thinking, max_tokens=max_tokens,
-        )
-
-    workers = min(
-        len(cover_indices),
-        int(os.environ.get("COVER_PAGE_WORKERS", "500")),
-    )
-    t0 = time.perf_counter()
-    with ThreadPoolExecutor(max_workers=workers) as ex:
-        for idx, ok in ex.map(_check, cover_indices):
-            cover_ok[idx] = ok
-    ok_line(
-        f"Verified {len(cover_indices)} cover position(s)"
-        f"  ·  {format_duration(time.perf_counter() - t0)}"
-    )
-    return cover_ok
-
-
 def assign_pages(
     cleaned_pdf: Path,
     students: list[str],
@@ -484,17 +422,15 @@ def assign_pages(
     artifact_dir: Path | None = None,
     cover_page_mode: bool = False,
 ) -> list[PageAssignment]:
-    """Return one ``PageAssignment`` per student block (Step 12).
+    """Return one ``PageAssignment`` per student block.
 
     Pages are grouped into fixed blocks of *pages_per_student* (as determined
-    by exam geometry in step 10). The name is read from the first page of
-    each block. Blocks with no detectable name are recorded as ``Unknown_N``
-    with ``confidence="low"`` instead of being merged into a neighbouring
-    student.
+    by ``exam_geometry``). The name is read from the first page of each block.
+    Blocks with no detectable name are recorded as ``Unknown_N`` with
+    ``confidence="low"`` instead of being merged into a neighbouring student.
 
-    Cover-page detection is performed earlier (step 9 ``detect_first_page_cover``
-    and step 11 ``verify_cover_positions``); ``cover_page_mode`` is final by
-    the time this runs.
+    Cover-page detection is performed earlier (``detect_first_page_cover``);
+    ``cover_page_mode`` is final by the time this runs.
 
     *name_crop_fraction*: fraction of page height to crop for name detection.
     ``None`` (default) auto-detects A4 (top half, 0.5) vs A3 (top third, 1/3)
@@ -525,7 +461,7 @@ def assign_pages(
     positional_covers = {b * pages_per_student + 1 for b in range(n_blocks)}
     first_page_set: set[int] = positional_covers
 
-    # Cover-anchored sanity check: step 13's handwriting.json vision-classifies
+    # Cover-anchored sanity check: student_handwriting_check's handwriting.json vision-classifies
     # every scan page (is_cover_page). If those AI detections agree with the
     # positional cover positions, we proceed; if they disagree, that's a
     # strong signal the scan is misordered or a cover is missing — log it as

@@ -292,7 +292,7 @@ def print_run_footer(
     elapsed: float,
     status: str,
 ) -> None:
-    """Visual footer for a finished run — separates closing lines from Step 30.
+    """Visual footer for a finished run — separates closing lines from the last step body.
 
     *status* is one of ``"ok"`` / ``"early_exit"`` / ``"error"`` / ``"incomplete"``.
     *cleaned_pdf* is surfaced whenever it exists, regardless of *status* — even

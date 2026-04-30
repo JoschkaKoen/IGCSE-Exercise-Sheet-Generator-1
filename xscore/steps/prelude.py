@@ -1,9 +1,8 @@
-"""Steps 1–2: parse grading instructions, locate exam folder + bootstrap resume.
+"""Bootstrap step bodies: parse grading instructions, locate exam folder + resume setup.
 
-Both steps are marked ``bootstrap=True`` in the registry so they always run
-even when ``--from-step N`` (N > 1) is supplied — they populate
-``ctx.instruction``, ``ctx.folder``, ``ctx.artifact_dir`` that later steps
-depend on.
+Both step bodies are marked ``bootstrap=True`` in the registry so they always
+run even when ``--from-step`` is supplied — they populate ``ctx.instruction``,
+``ctx.folder``, ``ctx.artifact_dir`` that later steps depend on.
 """
 
 from __future__ import annotations
@@ -24,7 +23,7 @@ from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.terminal_ui import announce_step_model, format_duration, ok_line
 
 
-def step_01_parse(ctx: _Ctx) -> None:
+def parse_grading_instructions(ctx: _Ctx) -> None:
     announce_step_model(
         model_env="INTERPRET_PROMPT_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
@@ -71,7 +70,7 @@ def step_01_parse(ctx: _Ctx) -> None:
     )
 
 
-def step_02_folder(ctx: _Ctx) -> None:
+def locate_exam_folder(ctx: _Ctx) -> None:
     assert ctx.instruction is not None
     ctx.folder = find_folder(
         instruction_hint=ctx.instruction.folder_hint,
@@ -96,7 +95,8 @@ def step_02_folder(ctx: _Ctx) -> None:
         encoding="utf-8",
     )
 
-    # Write step 1 summary now that artifact_dir exists (created here, not in step 1)
+    # Write the parse-grading-instructions summary now that artifact_dir exists
+    # (created here, not earlier).
     inst = ctx.instruction
     step1_summary = {
         "step": 1,
@@ -109,7 +109,7 @@ def step_02_folder(ctx: _Ctx) -> None:
     p1.parent.mkdir(parents=True, exist_ok=True)
     p1.write_text(json.dumps(step1_summary, indent=2, ensure_ascii=False), encoding="utf-8")
 
-    # Write step 1 prompt + response (deferred from step 1 because artifact_dir
+    # Write the parse-grading-instructions prompt + response (deferred because artifact_dir
     # didn't exist yet). Skipped silently if the parse used the heuristic
     # fallback before the AI call populated the buffer.
     debug = ctx.parse_prompt_debug or {}

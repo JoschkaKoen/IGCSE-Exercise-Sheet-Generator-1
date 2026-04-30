@@ -406,10 +406,11 @@ class YamlScaffoldFormat(ScaffoldFormat):
         input_label: str = "PDF",
     ) -> str:
         page_note = (
-            f"\n\nNote: the {input_label} you receive contains only page {page_num} of {n_pages} "
-            "of the mark scheme. Only fill in `correct_answer` and `criteria` entries for "
-            "questions whose criteria appear on this page. For all other questions leave "
-            "`correct_answer` as `\"\"` and `criteria` as `[]`."
+            f"\n\n## Page context\n"
+            f"The {input_label} you receive is page {page_num} of {n_pages} of the mark scheme.\n"
+            f"Fill `correct_answer` and `criteria` for the questions whose criteria appear on this page. "
+            f'For every other question in the scaffold, leave `correct_answer: ""` and `criteria: []`.\n'
+            f"Keep every scaffold entry — do not remove any."
         )
         return load_prompt(
             "parse_mark_scheme_yaml", section="user", scaffold=scaffold_str,

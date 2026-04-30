@@ -22,7 +22,8 @@ contiguous per file; within a file each phase's AI calls run in parallel
 ``Document``s aren't reliably thread-safe across page operations).
 
 Used by :mod:`xscore.preprocessing.coordinator`'s ``prepare_scans`` phase
-before duplex merge / single-PDF write, so steps 5–7 see correctly-oriented
+before duplex merge / single-PDF write, so the downstream blank-detect /
+autorotate / deskew steps see correctly-oriented
 input. Each file's failure is isolated — one bad file does not affect the
 others' results, and a missing API key degrades gracefully (rotation 0,
 loud warn) rather than crashing the pipeline.
@@ -926,7 +927,7 @@ def detect_scan_orientations(
         return {}
 
     # Resolve detector ONCE up-front so the auto-fallback warning (if any)
-    # appears at the top of Step 4 rather than buried mid-stream.
+    # appears at the top of prepare_scans rather than buried mid-stream.
     declared = SCAN_ORIENTATION_DETECTOR
     detector = _resolve_detector()
     if declared == "auto" and detector == "ai":

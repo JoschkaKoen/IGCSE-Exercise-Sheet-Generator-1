@@ -1,19 +1,19 @@
-"""Steps 26–30: per-student reports, class stats/curve, per-student PDFs,
-class report, review queue.
+"""Per-student reports, class stats/curve, per-student PDFs, class report,
+review queue.
 
-Each step is a thin wrapper around the corresponding ``step_NN_*`` function
-in :mod:`xscore.marking.merge_reports`. Timing captured by ``run_step``
-under canonical keys (``per_student_reports``, ``class_stats_curve``, …).
+Each step is a thin wrapper around the corresponding implementation in
+:mod:`xscore.marking.merge_reports`. Timing captured by ``run_step`` under
+canonical keys (``per_student_reports``, ``class_stats_curve``, …).
 """
 
 from __future__ import annotations
 
 from xscore.marking.merge_reports import (
-    step_26_per_student_reports as _impl_26_reports,
-    step_27_class_stats_curve as _impl_27_stats,
-    step_28_per_student_pdfs as _impl_28_pdfs,
-    step_29_class_report as _impl_29_class,
-    step_30_review_queue as _impl_30_review,
+    build_per_student_reports,
+    build_review_queue,
+    compute_class_stats,
+    render_class_report,
+    render_per_student_pdfs,
 )
 from xscore.shared.path_builders import (
     artifact_exam_questions_path,
@@ -29,9 +29,9 @@ from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.terminal_ui import info_line, ok_line, warn_line
 
 
-def step_26_per_student_reports(ctx: _Ctx) -> None:
+def per_student_reports(ctx: _Ctx) -> None:
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
-    _impl_26_reports(ctx)
+    build_per_student_reports(ctx)
     n = len(ctx.student_summaries or [])
     ok_line(f"{n} student report" if n == 1 else f"{n} student reports")
     if ctx.failed_students:
@@ -39,9 +39,9 @@ def step_26_per_student_reports(ctx: _Ctx) -> None:
         warn_line(f"{len(ctx.failed_students)} student(s) failed to merge: {names}")
 
 
-def step_27_class_stats(ctx: _Ctx) -> None:
+def class_stats_curve(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
-    _impl_27_stats(ctx)
+    compute_class_stats(ctx)
     summaries = ctx.student_summaries or []
     known = [s["percentage"] for s in summaries if s["percentage"] is not None]
     if len(known) >= 2:
@@ -53,9 +53,9 @@ def step_27_class_stats(ctx: _Ctx) -> None:
         ok_line("Class avg N/A")
 
 
-def step_28_per_student_pdfs(ctx: _Ctx) -> None:
+def per_student_pdfs(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
-    _impl_28_pdfs(ctx)
+    render_per_student_pdfs(ctx)
     n = len(ctx.student_summaries or [])
     s = "" if n == 1 else "s"
     has_parsed_exam = artifact_exam_questions_path(ctx.artifact_dir, fmt="yaml").exists()
@@ -94,20 +94,20 @@ def step_28_per_student_pdfs(ctx: _Ctx) -> None:
         warn_line("exam_questions.pdf was not produced")
 
 
-def step_29_class_report(ctx: _Ctx) -> None:
+def class_report(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
-    result = _impl_29_class(ctx)
+    result = render_class_report(ctx)
     if result == "done":
         n = len(ctx.student_summaries or [])
         ok_line(f"Class report compiled  ·  {n} student{'s' if n != 1 else ''}")
     elif result == "skipped_empty":
         info_line("Skipped — no student summaries to compile")
-    # "skipped_filter": _impl_29_class already printed a warn_line; don't double up
+    # "skipped_filter": render_class_report already printed a warn_line; don't double up
 
 
-def step_30_review_queue(ctx: _Ctx) -> None:
+def review_queue(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
-    n = _impl_30_review(ctx)
+    n = build_review_queue(ctx)
     if n:
         ok_line(f"{n} mark{'s' if n != 1 else ''} flagged for review")
         _print_review_queue_breakdown(ctx)

@@ -1,4 +1,4 @@
-"""Steps 25–27: blueprints → extract answers → AI marking.
+"""AI-marking step bodies: blueprints → extract answers → AI marking.
 
 Timing is captured by ``run_step`` under the canonical keys
 ``ai_marking_blueprints``, ``extract_student_answers`` and ``ai_marking`` —
@@ -15,13 +15,13 @@ from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.terminal_ui import announce_step_model, ok_line
 
 
-def step_24_blueprints(ctx: _Ctx) -> None:
+def ai_marking_blueprints(ctx: _Ctx) -> None:
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
     blueprints = build_blueprints(ctx.scaffold, ctx.artifact_dir)
     ok_line(f"{len(blueprints)} page blueprint(s) written")
 
 
-def step_26_extract_answers(ctx: _Ctx) -> None:
+def extract_student_answers(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     announce_step_model(
         model_env="EXTRACT_ANSWERS_MODEL",
@@ -38,7 +38,7 @@ def step_26_extract_answers(ctx: _Ctx) -> None:
     )
 
 
-def step_25_mark(ctx: _Ctx) -> None:
+def ai_marking(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
     announce_step_model(
         model_env="MARKING_MODEL",

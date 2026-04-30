@@ -14,72 +14,43 @@ import re
 from pathlib import Path
 
 from xscore.shared.step_folders import (
+    ACCURACY_DIR,
+    AI_COSTS_DIR,
+    AI_MARKING_DIR,
+    ASSIGN_QUESTIONS_DIR,
+    AUTOROTATE_DIR,
+    BLANK_DETECT_DIR,
+    BLUEPRINTS_DIR,
+    BUILD_REGISTER_DIR,
+    CLASS_REPORT_DIR,
+    CLASS_STATS_DIR,
     CLEANED_SCAN_PDF,
-    STEP_01,
-    STEP_03,
-    STEP_05,
-    STEP_06,
-    STEP_07,
-    # New-numbering constants (most path builders reference these)
-    STEP_08_LAYOUT,
-    STEP_09_CUT,
-    STEP_10_COVER_EMPTY,
-    STEP_11_COVER_SCAN,
-    STEP_12_GEOMETRY,
-    STEP_13_HANDWRITING,
-    STEP_14_NAMES,
-    STEP_15_PAGE_ORDER,
-    STEP_16_EXAM_BLANK,
-    STEP_17_BUILD_REGISTER,
-    STEP_18_DETECT_SCAFFOLD,
-    STEP_19_FILL_SCAFFOLD,
-    STEP_20_CROSS_PAGE_CONTEXT,
-    STEP_21_GRAPHICS,
-    STEP_22_ASSIGN_QUESTIONS,
-    STEP_23_PARSE_SCHEME,
-    STEP_24_CREATE_REPORT,
-    STEP_25_BLUEPRINTS,
-    STEP_26_EXTRACT_ANSWERS,
-    STEP_27_AI_MARKING,
-    STEP_28_STUDENT_REPORTS,
-    STEP_29_CLASS_STATS,
-    STEP_30_STUDENT_PDFS,
-    STEP_31_CLASS_REPORT,
-    STEP_32_REVIEW_QUEUE,
-    STEP_33_TIMING,
-    STEP_34_ACCURACY,
-    STEP_35_AI_COSTS,
-    # Old-numbering aliases — kept so legacy body references compile during
-    # the refactor; both old + new names resolve to the same renumbered folder
-    # via the aliases in step_folders.py.
-    STEP_08_COVER_EMPTY,
-    STEP_09_COVER_SCAN,
-    STEP_10_GEOMETRY,
-    STEP_12_NAMES,
-    STEP_13_PAGE_ORDER,
-    STEP_14_EXAM_BLANK,
-    STEP_15_HANDWRITING,
-    STEP_16_LAYOUT,
-    STEP_17_CUT,
-    STEP_18_PARSE_EXAM,
-    STEP_19_CROSS_PAGE_CONTEXT,
-    STEP_20_GRAPHICS,
-    STEP_21_ASSIGN_QUESTIONS,
-    STEP_22_PARSE_SCHEME,
-    STEP_23_CREATE_REPORT,
-    STEP_24_BLUEPRINTS,
-    STEP_25_AI_MARKING,
-    STEP_26_STUDENT_REPORTS,
-    STEP_27_CLASS_STATS,
-    STEP_28_STUDENT_PDFS,
-    STEP_29_CLASS_REPORT,
-    STEP_30_REVIEW_QUEUE,
-    STEP_31_TIMING,
-    STEP_32_ACCURACY,
-    STEP_33_AI_COSTS,
+    COVER_EMPTY_DIR,
+    COVER_SCAN_DIR,
+    CREATE_REPORT_DIR,
+    CROSS_PAGE_CONTEXT_DIR,
+    CUT_EXAM_DIR,
+    DESKEW_DIR,
+    DETECT_SCAFFOLD_DIR,
+    EXAM_BLANK_DIR,
+    EXTRACT_ANSWERS_DIR,
+    FILL_SCAFFOLD_DIR,
+    GEOMETRY_DIR,
+    HANDWRITING_DIR,
+    LAYOUT_DIR,
+    PAGE_ORDER_DIR,
+    PARSE_INSTRUCTIONS_DIR,
+    PARSE_SCHEME_DIR,
+    REVIEW_QUEUE_DIR,
+    SCHEME_GRAPHICS_DIR,
+    STUDENT_LIST_DIR,
+    STUDENT_NAMES_DIR,
+    STUDENT_PDFS_DIR,
+    STUDENT_REPORTS_DIR,
     SUBDIR_INPUT,
     SUBDIR_NAMES,
     SUBDIR_STUDENTS,
+    TIMING_DIR,
 )
 
 
@@ -107,7 +78,7 @@ def exam_artifact_dir(exam_folder: Path, output_base: str | Path = "output/xscor
 
 
 # ---------------------------------------------------------------------------
-# Input copies — step 2 (folder selection)
+# Input copies (folder selection)
 # ---------------------------------------------------------------------------
 
 def artifact_input_dir(artifact_dir: Path) -> Path:
@@ -116,398 +87,381 @@ def artifact_input_dir(artifact_dir: Path) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# Step 1 — Parse grading instructions
+# Parse grading instructions
 # ---------------------------------------------------------------------------
 
 def artifact_parse_summary_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_01 / "summary.json"
+    return artifact_dir / PARSE_INSTRUCTIONS_DIR / "summary.json"
 
 
 def artifact_parse_prompt_path(artifact_dir: Path) -> Path:
-    """Step 1: parse-instruction prompt JSON; the matching response file is
+    """Parse-instruction prompt JSON; the matching response file is
     written by ``save_response`` as ``parse_prompt_response.txt`` alongside it.
     """
-    return artifact_dir / STEP_01 / "parse_prompt.json"
+    return artifact_dir / PARSE_INSTRUCTIONS_DIR / "parse_prompt.json"
 
 
 # ---------------------------------------------------------------------------
-# Step 3 — Read student list
+# Read student list
 # ---------------------------------------------------------------------------
 
 def artifact_students_json_path(artifact_dir: Path) -> Path:
-    """Step 3: student roster as a JSON array of name strings."""
-    return artifact_dir / STEP_03 / "students.json"
+    """Student roster as a JSON array of name strings."""
+    return artifact_dir / STUDENT_LIST_DIR / "students.json"
 
 
 def artifact_students_markdown_path(artifact_dir: Path) -> Path:
-    """Step 3: human-readable numbered student list."""
-    return artifact_dir / STEP_03 / "students.md"
+    """Human-readable numbered student list."""
+    return artifact_dir / STUDENT_LIST_DIR / "students.md"
 
 
 def artifact_student_list_prompt_path(artifact_dir: Path) -> Path:
-    """Step 3: prompt file for student-list AI call."""
-    return artifact_dir / STEP_03 / "student_list_prompt.md"
+    """Prompt file for student-list AI call."""
+    return artifact_dir / STUDENT_LIST_DIR / "student_list_prompt.md"
 
 
 # ---------------------------------------------------------------------------
-# Step 8 — Cover page detection (empty exam)
+# Cover page detection (empty exam)
 # ---------------------------------------------------------------------------
 
 def artifact_cover_page_dir(artifact_dir: Path) -> Path:
-    """Step 8: directory for empty-exam cover-page detection artifacts."""
-    return artifact_dir / STEP_10_COVER_EMPTY
+    """Directory for empty-exam cover-page detection artifacts."""
+    return artifact_dir / COVER_EMPTY_DIR
 
 
 # ---------------------------------------------------------------------------
-# Step 9 — Cover page detection (scan, first page only)
+# Cover page detection (scan, first page only)
 # ---------------------------------------------------------------------------
 
 def artifact_cover_scan_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Step 9: prompt file for scan first-page cover detection."""
-    return artifact_dir / STEP_09_COVER_SCAN / f"{name}_prompt.md"
+    """Prompt file for scan first-page cover detection."""
+    return artifact_dir / COVER_SCAN_DIR / f"{name}_prompt.md"
 
 
 # ---------------------------------------------------------------------------
-# Step 10 — Scan geometry (pages per student)
+# Scan geometry (pages per student)
 # ---------------------------------------------------------------------------
 
 def artifact_geometry_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_10_GEOMETRY / "exam_geometry.json"
+    return artifact_dir / GEOMETRY_DIR / "exam_geometry.json"
 
 
 def artifact_geometry_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_10_GEOMETRY / "exam_geometry.md"
+    return artifact_dir / GEOMETRY_DIR / "exam_geometry.md"
 
 
 def artifact_geometry_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Step 10: prompt file for geometry AI calls."""
-    return artifact_dir / STEP_10_GEOMETRY / f"{name}_prompt.md"
+    """Prompt file for geometry AI calls."""
+    return artifact_dir / GEOMETRY_DIR / f"{name}_prompt.md"
 
 
 # ---------------------------------------------------------------------------
-# (Old step 11, cover_page_verify — RETIRED, superseded by new step 13's
-# per-page is_cover_page detection. Stubs below kept so legacy import lines
-# in dead-code paths don't break module loading.)
-# ---------------------------------------------------------------------------
-
-def artifact_cover_verify_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """DEPRECATED — old step 11 retired. Returns a path under a sentinel folder
-    so dead-code paths that still import this don't shadow legitimate output."""
-    return artifact_dir / "_retired_11_cover_page_verify" / f"{name}_prompt.md"
-
-
-def artifact_cover_verify_json_path(artifact_dir: Path) -> Path:
-    """DEPRECATED — old step 11 retired."""
-    return artifact_dir / "_retired_11_cover_page_verify" / "cover_ok.json"
-
-
-# ---------------------------------------------------------------------------
-# Step 14 — Student names (was old step 12)
+# Student names
 # ---------------------------------------------------------------------------
 
 def artifact_exam_student_list_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_12_NAMES / "exam_student_list.json"
+    return artifact_dir / STUDENT_NAMES_DIR / "exam_student_list.json"
 
 
 def artifact_exam_student_list_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_12_NAMES / "exam_student_list.md"
+    return artifact_dir / STUDENT_NAMES_DIR / "exam_student_list.md"
 
 
 def artifact_exam_page_range_overview_path(artifact_dir: Path) -> Path:
-    """Step 12: human-readable '<student> page <a>-<b>' overview, one line per student."""
-    return artifact_dir / STEP_12_NAMES / "page_range_overview.txt"
+    """Human-readable '<student> page <a>-<b>' overview, one line per student."""
+    return artifact_dir / STUDENT_NAMES_DIR / "page_range_overview.txt"
 
 
 def artifact_names_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Step 12: prompt file for name-detection AI calls (one per scan page)."""
-    return artifact_dir / STEP_12_NAMES / "names" / f"{name}_prompt.md"
+    """Prompt file for name-detection AI calls (one per scan page)."""
+    return artifact_dir / STUDENT_NAMES_DIR / "names" / f"{name}_prompt.md"
 
 
 # ---------------------------------------------------------------------------
-# Step 13 — Page order
+# Page order
 # ---------------------------------------------------------------------------
 
 def artifact_page_order_txt_path(artifact_dir: Path, student: str) -> Path:
-    """Step 13: per-student page-order detection text file."""
-    return artifact_dir / STEP_13_PAGE_ORDER / f"page_order_{safe_student_name(student)}.txt"
+    """Per-student page-order detection text file."""
+    return artifact_dir / PAGE_ORDER_DIR / f"page_order_{safe_student_name(student)}.txt"
 
 
 def artifact_page_order_prompt_path(artifact_dir: Path, student: str) -> Path:
-    """Step 13: per-student prompt file for page-order AI call."""
-    return artifact_dir / STEP_13_PAGE_ORDER / f"page_order_{safe_student_name(student)}_prompt.md"
+    """Per-student prompt file for page-order AI call."""
+    return artifact_dir / PAGE_ORDER_DIR / f"page_order_{safe_student_name(student)}_prompt.md"
 
 
 def artifact_page_order_empty_exam_txt_path(artifact_dir: Path) -> Path:
-    """Step 13: empty-exam page-order detection text file."""
-    return artifact_dir / STEP_13_PAGE_ORDER / "page_order_empty_exam.txt"
+    """Empty-exam page-order detection text file."""
+    return artifact_dir / PAGE_ORDER_DIR / "page_order_empty_exam.txt"
 
 
 # ---------------------------------------------------------------------------
-# Step 14 — Exam blank detection (text-only)
+# Exam blank detection (text-only)
 # ---------------------------------------------------------------------------
 
 def artifact_exam_blank_json_path(artifact_dir: Path) -> Path:
-    """Step 14: blank exam pages list JSON."""
-    return artifact_dir / STEP_14_EXAM_BLANK / "blank_exam_pages.json"
+    """Blank exam pages list JSON."""
+    return artifact_dir / EXAM_BLANK_DIR / "blank_exam_pages.json"
 
 
 def artifact_exam_blank_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Step 14: prompt file for exam blank-detection AI calls."""
-    return artifact_dir / STEP_14_EXAM_BLANK / f"{name}_prompt.md"
+    """Prompt file for exam blank-detection AI calls."""
+    return artifact_dir / EXAM_BLANK_DIR / f"{name}_prompt.md"
 
 
 def artifact_blank_detection_txt_path(artifact_dir: Path) -> Path:
-    """Step 14: empty-exam blank-detection output text file."""
-    return artifact_dir / STEP_14_EXAM_BLANK / "blank_detection_empty_exam.txt"
+    """Empty-exam blank-detection output text file."""
+    return artifact_dir / EXAM_BLANK_DIR / "blank_detection_empty_exam.txt"
 
 
 # ---------------------------------------------------------------------------
-# Step 15 — Student handwriting check (vision)
+# Student handwriting check (vision)
 # ---------------------------------------------------------------------------
 
 def artifact_handwriting_json_path(artifact_dir: Path) -> Path:
-    """Step 15: per-student handwriting detection results JSON."""
-    return artifact_dir / STEP_15_HANDWRITING / "handwriting.json"
+    """Per-student handwriting detection results JSON."""
+    return artifact_dir / HANDWRITING_DIR / "handwriting.json"
 
 
 def artifact_handwriting_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Step 15: prompt file for handwriting AI calls."""
-    return artifact_dir / STEP_15_HANDWRITING / f"{name}_prompt.md"
+    """Prompt file for handwriting AI calls."""
+    return artifact_dir / HANDWRITING_DIR / f"{name}_prompt.md"
 
 
 def artifact_handwriting_dir(artifact_dir: Path) -> Path:
-    """Step 15: directory of JPEG images rendered for handwriting checks."""
-    return artifact_dir / STEP_15_HANDWRITING / "scan_pages"
+    """Directory of JPEG images rendered for handwriting checks."""
+    return artifact_dir / HANDWRITING_DIR / "scan_pages"
 
 
 def artifact_marking_page_register_v1_path(artifact_dir: Path) -> Path:
-    """Step 17: initial marking page register (one row per AI marking call)."""
-    return artifact_dir / STEP_17_BUILD_REGISTER / "marking_page_register.json"
+    """Initial marking page register (one row per AI marking call)."""
+    return artifact_dir / BUILD_REGISTER_DIR / "marking_page_register.json"
 
 
 # ---------------------------------------------------------------------------
-# Step 19 — Detect cross-page context (refines marking page register with
+# Detect cross-page context (refines marking page register with
 # cross-page figure references AND parent-question stems)
 # ---------------------------------------------------------------------------
 
 def artifact_marking_page_register_v2_path(artifact_dir: Path) -> Path:
-    """Step 19: refined marking page register with cross-page context extras."""
-    return artifact_dir / STEP_19_CROSS_PAGE_CONTEXT / "marking_page_register.json"
+    """Refined marking page register with cross-page context extras."""
+    return artifact_dir / CROSS_PAGE_CONTEXT_DIR / "marking_page_register.json"
 
 
 def artifact_cross_page_refs_json_path(artifact_dir: Path) -> Path:
-    """Step 19: diagnostic listing each detected cross-page figure reference."""
-    return artifact_dir / STEP_19_CROSS_PAGE_CONTEXT / "cross_page_refs.json"
+    """Diagnostic listing each detected cross-page figure reference."""
+    return artifact_dir / CROSS_PAGE_CONTEXT_DIR / "cross_page_refs.json"
 
 
 def artifact_parent_refs_json_path(artifact_dir: Path) -> Path:
-    """Step 19: diagnostic listing each detected parent-context reference."""
-    return artifact_dir / STEP_19_CROSS_PAGE_CONTEXT / "parent_refs.json"
+    """Diagnostic listing each detected parent-context reference."""
+    return artifact_dir / CROSS_PAGE_CONTEXT_DIR / "parent_refs.json"
 
 
 def artifact_cross_page_changes_md_path(artifact_dir: Path) -> Path:
-    """Step 19: human-readable summary of register changes vs v1."""
-    return artifact_dir / STEP_19_CROSS_PAGE_CONTEXT / "changes.md"
+    """Human-readable summary of register changes vs v1."""
+    return artifact_dir / CROSS_PAGE_CONTEXT_DIR / "changes.md"
 
 
 # ---------------------------------------------------------------------------
-# Step 16 — Detect exam layout
+# Detect exam layout
 # ---------------------------------------------------------------------------
 
 def artifact_exam_layout_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_16_LAYOUT / "exam_layout.json"
+    return artifact_dir / LAYOUT_DIR / "exam_layout.json"
 
 
 def artifact_exam_layout_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_16_LAYOUT / "exam_layout.md"
+    return artifact_dir / LAYOUT_DIR / "exam_layout.md"
 
 
 def artifact_exam_layout_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_16_LAYOUT / "exam_layout.xml"
+    return artifact_dir / LAYOUT_DIR / "exam_layout.xml"
 
 
 def artifact_exam_layout_raw_path(artifact_dir: Path, fmt: str = "json") -> Path:
-    """Step 16: raw AI response before parsing (layout detection)."""
-    return artifact_dir / STEP_16_LAYOUT / f"exam_layout_raw.{fmt}"
+    """Raw AI response before parsing (layout detection)."""
+    return artifact_dir / LAYOUT_DIR / f"exam_layout_raw.{fmt}"
 
 
 # ---------------------------------------------------------------------------
-# Step 17 — Cut exam PDF (split multi-up layout into single logical pages)
+# Cut exam PDF (split multi-up layout into single logical pages)
 # ---------------------------------------------------------------------------
 
 def artifact_split_exam_pdf_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_17_CUT / "split_exam.pdf"
+    return artifact_dir / CUT_EXAM_DIR / "split_exam.pdf"
 
 
 # ---------------------------------------------------------------------------
-# Step 9 — Cut exam PDF additional output (was at step 18 pre-refactor)
+# Cut exam PDF additional output
 # ---------------------------------------------------------------------------
 
 def artifact_exam_input_pdf_path(artifact_dir: Path) -> Path:
-    """Step 9: copy of the original exam PDF (1×1 mode) — ``exam_input.pdf``."""
-    return artifact_dir / STEP_09_CUT / "exam_input.pdf"
+    """Copy of the original exam PDF (1×1 mode) — ``exam_input.pdf``."""
+    return artifact_dir / CUT_EXAM_DIR / "exam_input.pdf"
 
 
 # ---------------------------------------------------------------------------
-# Step 18 — Detect exam scaffold (Phase A — structure only)
+# Detect exam scaffold (Phase A — structure only)
 # ---------------------------------------------------------------------------
 
 def artifact_exam_scaffold_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    """Step 18: intermediate scaffold — number/type/page/subpage/marks, no text."""
-    return artifact_dir / STEP_18_DETECT_SCAFFOLD / f"exam_scaffold.{fmt}"
+    """Intermediate scaffold — number/type/page/subpage/marks, no text."""
+    return artifact_dir / DETECT_SCAFFOLD_DIR / f"exam_scaffold.{fmt}"
 
 
 def artifact_exam_scaffold_raw_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_18_DETECT_SCAFFOLD / f"exam_scaffold_raw.{fmt}"
+    return artifact_dir / DETECT_SCAFFOLD_DIR / f"exam_scaffold_raw.{fmt}"
 
 
 # ---------------------------------------------------------------------------
-# Step 19 — Fill exam scaffold (Phase B — text + options per question)
+# Fill exam scaffold (Phase B — text + options per question)
 # ---------------------------------------------------------------------------
 
 def artifact_exam_questions_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_19_FILL_SCAFFOLD / "exam_questions.json"
+    return artifact_dir / FILL_SCAFFOLD_DIR / "exam_questions.json"
 
 
 def artifact_exam_questions_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_19_FILL_SCAFFOLD / "exam_questions.md"
+    return artifact_dir / FILL_SCAFFOLD_DIR / "exam_questions.md"
 
 
 def artifact_exam_questions_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_19_FILL_SCAFFOLD / "exam_questions.xml"
+    return artifact_dir / FILL_SCAFFOLD_DIR / "exam_questions.xml"
 
 
 def artifact_exam_questions_raw_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_19_FILL_SCAFFOLD / "exam_questions_raw.xml"
+    return artifact_dir / FILL_SCAFFOLD_DIR / "exam_questions_raw.xml"
 
 
 def artifact_exam_questions_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_19_FILL_SCAFFOLD / f"exam_questions.{fmt}"
+    return artifact_dir / FILL_SCAFFOLD_DIR / f"exam_questions.{fmt}"
 
 
 def artifact_exam_questions_raw_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_19_FILL_SCAFFOLD / f"exam_questions_raw.{fmt}"
+    return artifact_dir / FILL_SCAFFOLD_DIR / f"exam_questions_raw.{fmt}"
 
 
 def artifact_exam_pages_dir(artifact_dir: Path) -> Path:
     """Per-page PDFs from the post-cut exam PDF — produced and consumed by Phase B (fill)."""
-    return artifact_dir / STEP_19_FILL_SCAFFOLD / "pages"
+    return artifact_dir / FILL_SCAFFOLD_DIR / "pages"
 
 
 # ---------------------------------------------------------------------------
-# Step 19 — Detect mark scheme graphics (per-page splits + graphics detection)
+# Detect mark scheme graphics (per-page splits + graphics detection)
 # ---------------------------------------------------------------------------
 
 def artifact_mark_scheme_pages_dir(artifact_dir: Path) -> Path:
-    """Per-page PDFs (one per mark scheme page) — produced by step 19, consumed by step 20 + 21."""
-    return artifact_dir / STEP_20_GRAPHICS / "pages"
+    """Per-page PDFs (one per mark scheme page) — produced by detect_mark_scheme_graphics, consumed by assign_scheme_questions and parse_mark_scheme."""
+    return artifact_dir / SCHEME_GRAPHICS_DIR / "pages"
 
 
 def artifact_mark_scheme_graphics_dir(artifact_dir: Path) -> Path:
     """Directory of images extracted from the mark scheme."""
-    return artifact_dir / STEP_20_GRAPHICS / "graphics"
+    return artifact_dir / SCHEME_GRAPHICS_DIR / "graphics"
 
 
 def artifact_mark_scheme_graphics_json_path(artifact_dir: Path) -> Path:
-    """Step 19: detected graphics positions per question."""
-    return artifact_dir / STEP_20_GRAPHICS / "mark_scheme_graphics.json"
+    """Detected graphics positions per question."""
+    return artifact_dir / SCHEME_GRAPHICS_DIR / "mark_scheme_graphics.json"
 
 
 # ---------------------------------------------------------------------------
-# Step 20 — Assign questions to mark scheme pages
+# Assign questions to mark scheme pages
 # ---------------------------------------------------------------------------
 
 def artifact_questions_per_page_path(artifact_dir: Path) -> Path:
-    """Step 20: ``{page_num: [question_numbers]}`` JSON used by step 21 to filter
+    """``{page_num: [question_numbers]}`` JSON used by parse_mark_scheme to filter
     its per-page scaffold to only the relevant questions."""
-    return artifact_dir / STEP_21_ASSIGN_QUESTIONS / "questions_per_page.json"
+    return artifact_dir / ASSIGN_QUESTIONS_DIR / "questions_per_page.json"
 
 
 # ---------------------------------------------------------------------------
-# Step 21 — Parse mark scheme
+# Parse mark scheme
 # ---------------------------------------------------------------------------
 
 def artifact_mark_scheme_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_22_PARSE_SCHEME / "mark_scheme.json"
+    return artifact_dir / PARSE_SCHEME_DIR / "mark_scheme.json"
 
 
 def artifact_mark_scheme_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_22_PARSE_SCHEME / "mark_scheme.md"
+    return artifact_dir / PARSE_SCHEME_DIR / "mark_scheme.md"
 
 
 def artifact_mark_scheme_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_22_PARSE_SCHEME / "mark_scheme.xml"
+    return artifact_dir / PARSE_SCHEME_DIR / "mark_scheme.xml"
 
 
 def artifact_mark_scheme_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_22_PARSE_SCHEME / f"mark_scheme.{fmt}"
+    return artifact_dir / PARSE_SCHEME_DIR / f"mark_scheme.{fmt}"
 
 
 # ---------------------------------------------------------------------------
-# Step 22 — Create report / scaffold cache
+# Create report / scaffold cache
 # ---------------------------------------------------------------------------
 
 def artifact_scaffold_xml_path(artifact_dir: Path) -> Path:
     """Merged exam + mark scheme XML scaffold cache."""
-    return artifact_dir / STEP_23_CREATE_REPORT / "report.xml"
+    return artifact_dir / CREATE_REPORT_DIR / "report.xml"
 
 
 def artifact_scaffold_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_23_CREATE_REPORT / "report.json"
+    return artifact_dir / CREATE_REPORT_DIR / "report.json"
 
 
 def artifact_scaffold_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_23_CREATE_REPORT / "report.md"
+    return artifact_dir / CREATE_REPORT_DIR / "report.md"
 
 
 def artifact_short_scaffold_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_23_CREATE_REPORT / "short_report.json"
+    return artifact_dir / CREATE_REPORT_DIR / "short_report.json"
 
 
 def artifact_short_scaffold_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_23_CREATE_REPORT / "short_report.md"
+    return artifact_dir / CREATE_REPORT_DIR / "short_report.md"
 
 
 # ---------------------------------------------------------------------------
-# Step 23 — AI marking blueprints
+# AI marking blueprints
 # ---------------------------------------------------------------------------
 
 def artifact_blueprint_path(artifact_dir: Path, page: int, fmt: str = "yaml") -> Path:
-    return artifact_dir / STEP_24_BLUEPRINTS / f"blueprint_page_{page}.{fmt}"
+    return artifact_dir / BLUEPRINTS_DIR / f"blueprint_page_{page}.{fmt}"
 
 
 def artifact_blueprint_xml_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_24_BLUEPRINTS / f"blueprint_page_{page}.xml"
+    return artifact_dir / BLUEPRINTS_DIR / f"blueprint_page_{page}.xml"
 
 
 def artifact_blueprint_json_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_24_BLUEPRINTS / f"blueprint_page_{page}.json"
+    return artifact_dir / BLUEPRINTS_DIR / f"blueprint_page_{page}.json"
 
 
 def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
-    return artifact_dir / STEP_24_BLUEPRINTS / f"blueprint_page_{page}.md"
+    return artifact_dir / BLUEPRINTS_DIR / f"blueprint_page_{page}.md"
 
 
 # ---------------------------------------------------------------------------
-# Step 26 — Extract student answers (transcribe verbatim, no marking)
+# Extract student answers (transcribe verbatim, no marking)
 # ---------------------------------------------------------------------------
 
 def artifact_student_answers_dir(artifact_dir: Path) -> Path:
-    """Step 26: directory containing per-student extracted-answer files."""
-    return artifact_dir / STEP_26_EXTRACT_ANSWERS / "students"
+    """Directory containing per-student extracted-answer files."""
+    return artifact_dir / EXTRACT_ANSWERS_DIR / "students"
 
 
 def artifact_student_answers_path(
     artifact_dir: Path, student: str, page: int, fmt: str = "xml"
 ) -> Path:
-    """Step 26: per-(student, page) extracted student answers (XML by default)."""
+    """Per-(student, page) extracted student answers (XML by default)."""
     return artifact_student_answers_dir(artifact_dir) / f"{safe_student_name(student)}_page_{page}.{fmt}"
 
 
 def artifact_student_answers_prompt_path(
     artifact_dir: Path, student: str, page: int
 ) -> Path:
-    """Step 26: prompt file saved alongside the extraction result for one (student, page)."""
+    """Prompt file saved alongside the extraction result for one (student, page)."""
     return artifact_student_answers_dir(artifact_dir) / f"{safe_student_name(student)}_page_{page}_prompt.md"
 
 
@@ -519,12 +473,12 @@ def artifact_student_answers_failed_path(
 
 
 # ---------------------------------------------------------------------------
-# Step 27 — AI marking (was step 24/25/26 pre-refactor)
+# AI marking
 # ---------------------------------------------------------------------------
 
 def artifact_marking_students_dir(artifact_dir: Path) -> Path:
     """Directory containing per-student marking files."""
-    return artifact_dir / STEP_25_AI_MARKING / "students"
+    return artifact_dir / AI_MARKING_DIR / "students"
 
 
 def artifact_marked_path(artifact_dir: Path, student: str, page: int, fmt: str = "yaml") -> Path:
@@ -550,16 +504,16 @@ def artifact_marking_prompt_path(artifact_dir: Path, student: str, page: int) ->
 
 
 # ---------------------------------------------------------------------------
-# Step 25 — Per-student reports (XML + MD)
+# Per-student reports (XML + MD)
 # ---------------------------------------------------------------------------
 
 def artifact_student_reports_dir(artifact_dir: Path) -> Path:
-    """Parent directory holding per-student report subfolders (step 25)."""
-    return artifact_dir / STEP_26_STUDENT_REPORTS
+    """Parent directory holding per-student report subfolders"""
+    return artifact_dir / STUDENT_REPORTS_DIR
 
 
 def artifact_student_report_dir(artifact_dir: Path, student: str) -> Path:
-    """Per-student subfolder for XML + Markdown reports (step 25)."""
+    """Per-student subfolder for XML + Markdown reports"""
     return artifact_student_reports_dir(artifact_dir) / safe_student_name(student)
 
 
@@ -586,25 +540,25 @@ artifact_reports_students_dir = artifact_student_reports_dir
 
 
 # ---------------------------------------------------------------------------
-# Step 26 — Class statistics + grade curve
+# Class statistics + grade curve
 # ---------------------------------------------------------------------------
 
 def artifact_class_stats_json_path(artifact_dir: Path) -> Path:
-    """Step 26: class average + curve offset, written before per-student PDFs."""
-    return artifact_dir / STEP_27_CLASS_STATS / "class_stats.json"
+    """Class average + curve offset, written before per-student PDFs."""
+    return artifact_dir / CLASS_STATS_DIR / "class_stats.json"
 
 
 # ---------------------------------------------------------------------------
-# Step 27 — Per-student PDFs (TeX + xelatex output)
+# Per-student PDFs (TeX + xelatex output)
 # ---------------------------------------------------------------------------
 
 def artifact_student_pdfs_dir(artifact_dir: Path) -> Path:
-    """Parent directory holding per-student PDF subfolders (step 27)."""
-    return artifact_dir / STEP_28_STUDENT_PDFS
+    """Parent directory holding per-student PDF subfolders"""
+    return artifact_dir / STUDENT_PDFS_DIR
 
 
 def artifact_student_pdf_dir(artifact_dir: Path, student: str) -> Path:
-    """Per-student subfolder for .tex + .pdf files (step 27)."""
+    """Per-student subfolder for .tex + .pdf files"""
     return artifact_student_pdfs_dir(artifact_dir) / safe_student_name(student)
 
 
@@ -671,21 +625,21 @@ def artifact_student_report_pdf_portrait_list_path(artifact_dir: Path, student: 
 
 
 def artifact_exam_questions_tex_path(artifact_dir: Path) -> Path:
-    """Standalone exam-questions PDF source — one per run, top-level of step 28."""
+    """Standalone exam-questions PDF source — one per run, top-level (top-level)."""
     return artifact_student_pdfs_dir(artifact_dir) / "exam_questions.tex"
 
 
 def artifact_exam_questions_pdf_path(artifact_dir: Path) -> Path:
-    """Standalone exam-questions PDF — one per run, top-level of step 28."""
+    """Standalone exam-questions PDF — one per run, top-level (top-level)."""
     return artifact_student_pdfs_dir(artifact_dir) / "exam_questions.pdf"
 
 
 # ---------------------------------------------------------------------------
-# Step 28 — Class report (XML/MD/TeX/PDF + combined PDF)
+# Class report (XML/MD/TeX/PDF + combined PDF)
 # ---------------------------------------------------------------------------
 
 def artifact_class_report_dir(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_29_CLASS_REPORT
+    return artifact_dir / CLASS_REPORT_DIR
 
 
 def artifact_class_report_xml_path(artifact_dir: Path) -> Path:
@@ -697,7 +651,7 @@ def artifact_class_report_md_path(artifact_dir: Path) -> Path:
 
 
 def artifact_class_marks_xlsx_path(artifact_dir: Path) -> Path:
-    """Step 28: machine-friendly per-student × per-question marks grid."""
+    """Machine-friendly per-student × per-question marks grid."""
     return artifact_class_report_dir(artifact_dir) / "class_marks.xlsx"
 
 
@@ -734,22 +688,22 @@ def artifact_class_report_combined_portrait_2up_pdf_path(artifact_dir: Path) -> 
 
 
 def artifact_class_grade_histogram_raw_path(artifact_dir: Path) -> Path:
-    """Raw-percentage grade-distribution histogram PNG (step 30)."""
+    """Raw-percentage grade-distribution histogram PNG"""
     return artifact_class_report_dir(artifact_dir) / "grade_histogram_raw.png"
 
 
 def artifact_class_grade_histogram_curved_path(artifact_dir: Path) -> Path:
-    """Curved-percentage grade-distribution histogram PNG (step 30)."""
+    """Curved-percentage grade-distribution histogram PNG"""
     return artifact_class_report_dir(artifact_dir) / "grade_histogram_curved.png"
 
 
 def artifact_class_question_difficulty_path(artifact_dir: Path) -> Path:
-    """Per-question difficulty bar chart PNG embedded in the class report (step 28)."""
+    """Per-question difficulty bar chart PNG embedded in the class report"""
     return artifact_class_report_dir(artifact_dir) / "question_difficulty.png"
 
 
 # ---------------------------------------------------------------------------
-# Step 29 — Review queue (side-channel artifact for human spot-check)
+# Review queue (side-channel artifact for human spot-check)
 # ---------------------------------------------------------------------------
 
 def artifact_review_queue_json_path(artifact_dir: Path) -> Path:
@@ -758,43 +712,43 @@ def artifact_review_queue_json_path(artifact_dir: Path) -> Path:
     Pure side artifact — never loaded by any pipeline step; intended for manual
     spot-checking by the human marker.
     """
-    return artifact_dir / STEP_30_REVIEW_QUEUE / "review.json"
+    return artifact_dir / REVIEW_QUEUE_DIR / "review.json"
 
 
 def artifact_review_queue_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_30_REVIEW_QUEUE / "review.md"
+    return artifact_dir / REVIEW_QUEUE_DIR / "review.md"
 
 
 # ---------------------------------------------------------------------------
-# Step 30 — Timing summary (timing only, no accuracy/cost)
+# Timing summary (timing only, no accuracy/cost)
 # ---------------------------------------------------------------------------
 
 def artifact_timing_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_31_TIMING / "timing.json"
+    return artifact_dir / TIMING_DIR / "timing.json"
 
 
 def artifact_timing_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_31_TIMING / "timing.md"
+    return artifact_dir / TIMING_DIR / "timing.md"
 
 
 # ---------------------------------------------------------------------------
-# Step 31 — Accuracy evaluation (only when ground truth present)
+# Accuracy evaluation (only when ground truth present)
 # ---------------------------------------------------------------------------
 
 def artifact_accuracy_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_32_ACCURACY / "accuracy.json"
+    return artifact_dir / ACCURACY_DIR / "accuracy.json"
 
 
 # ---------------------------------------------------------------------------
-# Step 32 — AI costs
+# AI costs
 # ---------------------------------------------------------------------------
 
 def artifact_cost_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_33_AI_COSTS / "cost.json"
+    return artifact_dir / AI_COSTS_DIR / "cost.json"
 
 
 def artifact_cost_md_path(artifact_dir: Path) -> Path:
-    return artifact_dir / STEP_33_AI_COSTS / "cost.md"
+    return artifact_dir / AI_COSTS_DIR / "cost.md"
 
 
 # ---------------------------------------------------------------------------
@@ -811,17 +765,17 @@ def artifact_scaffold_prompt_path(artifact_dir: Path, name: str) -> Path:
     """
     # Order matters: check most-specific first.
     if "assign_scheme_questions" in name:
-        return artifact_dir / STEP_22_ASSIGN_QUESTIONS / f"{name}_prompt.md"
+        return artifact_dir / ASSIGN_QUESTIONS_DIR / f"{name}_prompt.md"
     if "mark_scheme" in name and "graphics" in name:
-        return artifact_dir / STEP_21_GRAPHICS / f"{name}_prompt.md"
+        return artifact_dir / SCHEME_GRAPHICS_DIR / f"{name}_prompt.md"
     if "mark_scheme" in name:
-        return artifact_dir / STEP_23_PARSE_SCHEME / f"{name}_prompt.md"
+        return artifact_dir / PARSE_SCHEME_DIR / f"{name}_prompt.md"
     if "exam_scaffold" in name:
-        return artifact_dir / STEP_18_DETECT_SCAFFOLD / f"{name}_prompt.md"
+        return artifact_dir / DETECT_SCAFFOLD_DIR / f"{name}_prompt.md"
     if "detect_layout" in name or "layout" in name:
-        return artifact_dir / STEP_08_LAYOUT / f"{name}_prompt.md"
+        return artifact_dir / LAYOUT_DIR / f"{name}_prompt.md"
     # Catch-all: per-page exam-questions fill prompts (Phase B).
-    return artifact_dir / STEP_19_FILL_SCAFFOLD / f"{name}_prompt.md"
+    return artifact_dir / FILL_SCAFFOLD_DIR / f"{name}_prompt.md"
 
 
 # ---------------------------------------------------------------------------
@@ -838,7 +792,7 @@ def artifact_prompt_path(artifact_dir: Path, name: str) -> Path:
     - ``14_*``        → step-14 blank-pages root
     - ``8_*``         → step-8 geometry root
     - ``3_*``         → step-3 root
-    - ``20_*``        → marking students dir (legacy — pre-renumber, when marking lived at step 20)
+    - ``20_*``        → marking students dir (legacy pre-renumber)
     - everything else → ``artifact_scaffold_prompt_path``
     """
     if name.startswith("10_cover_p"):
@@ -846,13 +800,13 @@ def artifact_prompt_path(artifact_dir: Path, name: str) -> Path:
     if name.startswith("11_name"):
         return artifact_names_prompt_path(artifact_dir, name)
     if name.startswith("13_"):
-        return artifact_dir / STEP_13_PAGE_ORDER / f"{name}_prompt.md"
+        return artifact_dir / PAGE_ORDER_DIR / f"{name}_prompt.md"
     if name.startswith("14_"):
-        return artifact_dir / STEP_14_EXAM_BLANK / f"{name}_prompt.md"
+        return artifact_dir / EXAM_BLANK_DIR / f"{name}_prompt.md"
     if name.startswith("8_"):
         return artifact_geometry_prompt_path(artifact_dir, name)
     if name.startswith("3_"):
-        return artifact_dir / STEP_03 / f"{name}_prompt.md"
+        return artifact_dir / STUDENT_LIST_DIR / f"{name}_prompt.md"
     if name.startswith("20_"):
         return artifact_marking_students_dir(artifact_dir) / f"{name}_prompt.md"
     return artifact_scaffold_prompt_path(artifact_dir, name)

@@ -1,8 +1,8 @@
-"""Step 18 phase B — fill_exam_scaffold.
+"""Scaffold phase B — fill_exam_scaffold.
 
 Per-page parallel calls that populate ``text`` and ``options`` for each
 question listed on a page. Modeled on
-:func:`xscore.scaffold.scaffold_step21_scheme.parse_mark_scheme_pages`:
+:func:`xscore.scaffold.scaffold_scheme.parse_mark_scheme_pages`:
 ``ThreadPoolExecutor`` over post-cut PDF pages, four-way provider dispatch
 per page, graceful empty-page degradation on retry exhaustion.
 

@@ -5,11 +5,11 @@ Reads the ``STEPS`` registry, calls ``run_step`` for each step (which handles
 skip-if-resumed / stop-after / timing / error capture / run-log emission),
 with explicit carve-outs for:
 
-- ``scan_phases`` (steps 4–7, where step 4 is conditional on a duplex match)
-- ``scaffold_phase`` (steps 16–23, where a temp split PDF must be cleaned in finally)
-- ``kick_off_render_bg`` between steps 12 and 13 (pre-render scan pages so step 25
-  can consume them without waiting; needs ``page_assignments`` from step 12)
-- The ``ctx.cleaned_pdf and ctx.scaffold`` gate on steps 24–33
+- ``scan_phases`` (the scan-cleaning group, where ``prepare_scans`` is conditional on a duplex match)
+- ``scaffold_phase`` (the scaffold-building group, where a temp split PDF must be cleaned in finally)
+- ``kick_off_render_bg`` after ``exam_geometry`` (pre-render scan pages so ``ai_marking``
+  can consume them without waiting; needs ``page_assignments`` from ``exam_geometry``)
+- The ``ctx.cleaned_pdf and ctx.scaffold`` gate on the AI-marking and reporting steps
 """
 
 from __future__ import annotations
@@ -27,13 +27,14 @@ from xscore.shared.pipeline_ctx import _Ctx, _EarlyExit
 
 
 def kick_off_render_bg(ctx: _Ctx) -> None:
-    """Start parallel page rendering in a background thread right after step 12.
+    """Start parallel page rendering in a background thread right after ``exam_geometry``.
 
     No-op if cleaned_pdf or page_assignments are not yet set.
 
     The outer ``ThreadPoolExecutor(max_workers=1)`` exists only to give us a
-    ``Future`` handle that step 25 can ``.result()`` on. ``render_pages_b64``
-    spawns its own worker pool internally (sized by ``MARKING_WORKERS``).
+    ``Future`` handle that ``ai_marking_blueprints`` can ``.result()`` on.
+    ``render_pages_b64`` spawns its own worker pool internally (sized by
+    ``MARKING_WORKERS``).
     """
     if not (ctx.cleaned_pdf and ctx.page_assignments and ctx.artifact_dir):
         return
@@ -83,7 +84,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
             try:
                 warn_line(
                     f"Background pre-rendering failed ({exc}) after {format_duration(elapsed)} "
-                    f"— will render inline at step 25"
+                    f"— will render inline at the ai_marking_blueprints step"
                 )
             except Exception:
                 pass
@@ -97,7 +98,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
 
 
 def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | None = None) -> None:
-    """Orchestrate the full 33-step pipeline."""
+    """Orchestrate the full pipeline (see ``xscore.shared.pipeline_steps.STEPS``)."""
     from eXercise.ai_client import reset_run_call_stats, reset_run_usage
     from xscore.shared.pipeline_steps import run_step, step_by_number, wire_step_fns
     from xscore.shared.run_log import write_run_manifest
@@ -122,16 +123,16 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
     fatal_exc: BaseException | None = None
     scaffold_inited = False
     try:
-        # Bootstrap: steps 1–2 must always run (mark with bootstrap=True in registry)
+        # Bootstrap step bodies must always run (registry entries flagged bootstrap=True).
         run_step(ctx, step_by_number(1))
         run_step(ctx, step_by_number(2))
 
         run_step(ctx, step_by_number(3))
         scan_phases(ctx)                                  # 4–7 (4 is conditional)
 
-        # Empty-exam analysis (steps 8–9): layout + cut. Initialize scaffold
-        # state up-front so step 16 (blank detection) can read the cut PDF
-        # later, and step 18/19 can finish their phases without re-init.
+        # Empty-exam analysis: layout + cut. Initialize scaffold state up-front
+        # so the empty-exam blank-detection step can read the cut PDF later,
+        # and the scaffold detect/fill phases can finish without re-init.
         scaffold_inited = scaffold_setup(ctx)
         if scaffold_inited:
             for n in (8, 9):
@@ -142,15 +143,15 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
             for n in (10, 11, 12):
                 run_step(ctx, step_by_number(n))
             kick_off_render_bg(ctx)
-            # Step 13 (handwriting per scan page) → 14 (names) → 15 (page order).
+            # student_handwriting_check → student_names → page_order_check.
             for n in (13, 14, 15):
                 run_step(ctx, step_by_number(n))
-            # Step 16 (empty-exam blank detection) and 17 (build register v1).
+            # exam_blank_detection (empty exam) and build_marking_register_v1.
             for n in (16, 17):
                 run_step(ctx, step_by_number(n))
 
-        # Scaffold phase B (steps 18–24): detect_scaffold, fill_scaffold,
-        # cross_page, scheme graphics, assign, parse_scheme, create_report.
+        # Scaffold phase B: detect_scaffold, fill_scaffold, cross_page,
+        # scheme graphics, assign, parse_scheme, create_report.
         if scaffold_inited:
             for n in (18, 19, 20, 21, 22, 23, 24):
                 run_step(ctx, step_by_number(n))
@@ -159,7 +160,7 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
             for n in range(25, 35):
                 run_step(ctx, step_by_number(n))
         elif ctx.cleaned_pdf and not ctx.scaffold:
-            warn_line("Marking skipped — scaffold not available (steps 25–34 omitted).")
+            warn_line("Marking skipped — scaffold not available; AI-marking and reporting steps omitted.")
 
         ctx.pipeline_completed_ok = True
     except _EarlyExit:

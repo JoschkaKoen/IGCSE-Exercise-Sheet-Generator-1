@@ -1,9 +1,9 @@
 """Resume-from-step support: bootstrap ``ctx`` from a prior run's artifacts.
 
-Lifted from xScore.py. ``resume_pipeline`` is invoked from inside
-``step_02_folder`` once ``ctx.artifact_dir`` exists; ``copy_input_files`` is
-also called from step 2 to mirror exam/scan/answer/roster files into the new
-artifact dir. ``copy_artifacts`` is internal to ``resume_pipeline``.
+``resume_pipeline`` is invoked from inside ``locate_exam_folder`` once
+``ctx.artifact_dir`` exists; ``copy_input_files`` is called from the same
+step to mirror exam/scan/answer/roster files into the new artifact dir.
+``copy_artifacts`` is internal to ``resume_pipeline``.
 """
 
 from __future__ import annotations
@@ -86,7 +86,7 @@ def copy_artifacts(src: Path, dst: Path, from_step: int) -> None:
 def resume_pipeline(ctx: "_Ctx") -> None:
     """Bootstrap *ctx* from a prior run's artifacts and set ctx.from_step skip logic."""
     from xscore.shared.exam_paths import (
-        STEP_07,
+        DESKEW_DIR,
         artifact_exam_student_list_json_path,
         artifact_geometry_json_path,
         artifact_students_json_path,
@@ -94,7 +94,7 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     )
     from xscore.shared.models import PageAssignment as _PA
     from xscore.shared.pipeline_steps import resumable_step_numbers, step_by_name
-    from xscore.shared.step_folders import STEP_24_BLUEPRINTS, STEP_25_AI_MARKING
+    from xscore.shared.step_folders import BLUEPRINTS_DIR, AI_MARKING_DIR
     from xscore.shared.terminal_ui import ok_line
     from xscore.scaffold.generate_scaffold import build_scaffold
 
@@ -148,14 +148,14 @@ def resume_pipeline(ctx: "_Ctx") -> None:
         required.append(found if found else paths[0])
 
     if ctx.from_step > _blueprints_n:
-        bp_new = list(resume_dir.glob(f"{STEP_24_BLUEPRINTS}/blueprint_page_*.json"))
+        bp_new = list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.json"))
         bp_old = list(resume_dir.glob("23_ai_marking_blueprints/blueprint_page_*.json"))
         bp_legacy = list(resume_dir.glob("18_ai_marking_blueprint_*.json"))
         required += bp_new or bp_old or bp_legacy
     if ctx.from_step > _marking_n:
         # Look in the current marking folder first, then the pre-renumber
         # folder ("24_ai_marking/"), then the very old flat layout.
-        mk_new = list(resume_dir.glob(f"{STEP_25_AI_MARKING}/students/*.yaml"))
+        mk_new = list(resume_dir.glob(f"{AI_MARKING_DIR}/students/*.yaml"))
         mk_old = list(resume_dir.glob("24_ai_marking/students/*.yaml"))
         mk_legacy = list(resume_dir.glob("students/14_marked_*.xml"))
         required += mk_new or mk_old or mk_legacy
@@ -169,7 +169,7 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     assert ctx.artifact_dir is not None
     copy_artifacts(resume_dir, ctx.artifact_dir, ctx.from_step)
 
-    cleaned_new = ctx.artifact_dir / STEP_07 / "cleaned_scan.pdf"
+    cleaned_new = ctx.artifact_dir / DESKEW_DIR / "cleaned_scan.pdf"
     cleaned_old = ctx.artifact_dir / "7_cleaned_scan.pdf"
     ctx.cleaned_pdf = cleaned_new if cleaned_new.exists() else cleaned_old
 

@@ -1,17 +1,17 @@
-"""Opt-in response cache for AI marking calls (step 24 only).
+"""Opt-in response cache for the ai_marking step only.
 
 Activated by ``ctx.instruction.reuse_cache == True``, which is set when the
 user includes "reuse cache" / "use cache" in the natural-language prompt
-(parsed in step 1). Default is OFF — running without the phrase produces
-identical behaviour to the pre-cache pipeline.
+(parsed in parse_grading_instructions). Default is OFF — running without the
+phrase produces identical behaviour to the pre-cache pipeline.
 
 Scope is deliberately narrow: only the OpenAI-compatible marking call in
 ``xscore.marking.mark_page._mark_page`` is cached today. The Gemini-native
 PDF upload path (``xscore.marking.ai_mark._mark_page_pdf``, used only when
 ``MARKING_MODEL`` is gemini-* AND a student has continuation pages) is NOT
 cached yet — the bytes-on-disk caching path for that route is intentional
-future work. Scaffold (steps 17–19), name detection (step 11), cover-page
-checks, and every other AI call still hit the API on every run.
+future work. Scaffold parsing, name detection, cover-page checks, and every
+other AI call still hit the API on every run.
 
 Cache layout
 ------------

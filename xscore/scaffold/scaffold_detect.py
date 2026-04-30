@@ -1,4 +1,4 @@
-"""Step 18 phase A — detect_exam_scaffold.
+"""Scaffold phase A — detect_exam_scaffold.
 
 Single-call inference against the full split exam PDF. Returns the question
 hierarchy with structural metadata only: number, type, page, subpage_row,

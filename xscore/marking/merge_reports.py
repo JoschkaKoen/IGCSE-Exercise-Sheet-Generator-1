@@ -38,7 +38,7 @@ from xscore.shared.exam_paths import (
 # Step 26 — Per-student reports (XML + MD)
 # ---------------------------------------------------------------------------
 
-def step_26_per_student_reports(ctx: Any) -> None:
+def build_per_student_reports(ctx: Any) -> None:
     """Merge per-page marking results into per-student XML + MD reports.
 
     Populates ``ctx.student_summaries``, ``ctx.full_reports``, ``ctx.q_totals``
@@ -89,7 +89,7 @@ def step_26_per_student_reports(ctx: Any) -> None:
 # Step 27 — Class statistics + grade curve
 # ---------------------------------------------------------------------------
 
-def step_27_class_stats_curve(ctx: Any) -> None:
+def compute_class_stats(ctx: Any) -> None:
     """Compute class average + grade-curve offset.
 
     Target priority: prompt override ``ctx.instruction.curved_grade_override``
@@ -123,7 +123,7 @@ def step_27_class_stats_curve(ctx: Any) -> None:
 # Step 28 — Per-student PDFs
 # ---------------------------------------------------------------------------
 
-def step_28_per_student_pdfs(ctx: Any) -> None:
+def render_per_student_pdfs(ctx: Any) -> None:
     """Write per-student .tex files then compile them in parallel via xelatex.
 
     Visibility of the curved % in each per-student PDF header follows
@@ -188,7 +188,7 @@ def step_28_per_student_pdfs(ctx: Any) -> None:
 # Step 29 — Class report
 # ---------------------------------------------------------------------------
 
-def step_29_class_report(ctx: Any) -> str:
+def render_class_report(ctx: Any) -> str:
     """Build & write class XML/MD/TeX/PDF + concat combined PDF.
 
     Returns a discriminator so the wrapper can pick the right summary line:
@@ -216,7 +216,7 @@ def step_29_class_report(ctx: Any) -> str:
 # Step 30 — Review queue
 # ---------------------------------------------------------------------------
 
-def step_30_review_queue(ctx: Any) -> int:
+def build_review_queue(ctx: Any) -> int:
     """Emit the side-channel review queue (medium / low confidence marks + collisions).
 
     Always runs, even when no entries are flagged, so downstream tooling can
@@ -235,13 +235,13 @@ def step_30_review_queue(ctx: Any) -> int:
 # ---------------------------------------------------------------------------
 
 def compile_reports(ctx: Any) -> list[dict]:
-    """Run steps 26–30 in sequence (kept for callers not yet migrated).
+    """Run the report-pipeline tail in sequence (kept for callers not yet migrated).
 
     Returns a list of per-student summary dicts (keys: name, total_marks, percentage).
     """
-    step_26_per_student_reports(ctx)
-    step_27_class_stats_curve(ctx)
-    step_28_per_student_pdfs(ctx)
-    step_29_class_report(ctx)
-    step_30_review_queue(ctx)
+    build_per_student_reports(ctx)
+    compute_class_stats(ctx)
+    render_per_student_pdfs(ctx)
+    render_class_report(ctx)
+    build_review_queue(ctx)
     return ctx.student_summaries or []

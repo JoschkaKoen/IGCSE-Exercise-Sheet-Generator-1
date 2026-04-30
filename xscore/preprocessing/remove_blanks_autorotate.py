@@ -1,6 +1,6 @@
 """Blank-page removal and page rotation for class-scan PDFs (pikepdf).
 
-**Step 4 (``prepare_scans``) now handles per-scan-file orientation upstream**
+**``prepare_scans`` now handles per-scan-file orientation upstream**
 via Qwen vision (see :mod:`xscore.preprocessing.scan_orientation`), so by the
 time pages reach this module they are already correctly oriented in the
 common case. The branches below are now defensive fallbacks rather than the
@@ -15,7 +15,7 @@ with the same shape are rare here; use ``SCAN_USE_TESSERACT_ROTATION`` if needed
 Optional Tesseract OSD can add an extra CCW adjustment on top (slow); see
 ``config.SCAN_USE_TESSERACT_ROTATION``. Note that Tesseract OSD only addresses
 90° landscape→portrait, **not 180° flips** — the upstream Qwen detection in
-Step 4 is the only thing that catches a bottom-fed scan. If ``SCAN_ORIENTATION_MODEL``
+``prepare_scans`` is the only thing that catches a bottom-fed scan. If ``SCAN_ORIENTATION_MODEL``
 falls back (e.g. missing API key) on a 180°-flipped file, the fallback will
 not be repaired here.
 
@@ -325,7 +325,7 @@ def scan_blanks_state_to_json(
     use_tesseract_rotation: bool,
     analysis_dpi: int,
 ) -> str:
-    """Serialize blank-detection state for phased scan pipeline (step 5 → step 6)."""
+    """Serialize blank-detection state for the phased scan pipeline (detect_blank_pages → autorotate)."""
     data = {
         "schema_version": 1,
         "source_pdf": str(source_pdf.resolve()),
