@@ -36,10 +36,12 @@ def run_full_pipeline(
     from xscore.marking.ai_mark import run_ai_marking
     from xscore.preprocessing.assign_pages_to_students import (
         assign_pages,
-        detect_empty_exam_cover,
-        detect_first_page_cover,
         page_assignments_to_json,
         page_assignments_to_md,
+    )
+    from xscore.preprocessing.cover_detection import (
+        detect_empty_exam_cover,
+        detect_first_page_cover,
     )
     from xscore.marking.blueprints import build_blueprints
     from xscore.marking.geometry import compute_geometry, write_geometry_artifacts

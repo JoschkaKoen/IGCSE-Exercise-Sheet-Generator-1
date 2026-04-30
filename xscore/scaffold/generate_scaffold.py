@@ -1,55 +1,49 @@
-"""Build an ExamScaffold by parsing vector exam and answer-key PDFs (PyMuPDF).
+"""Build an :class:`ExamScaffold` for an exam folder.
 
-No AI for structure: question regions follow left-margin numbering (Cambridge-style).
-The list of questions is in **reading order** on the page(s); printed numbers may be out of order.
-Results are cached under ``{artifact_dir}/scaffold.json`` (and a readable
-``scaffold.md`` beside it; default ``output/<exam_stem>/`` via
-:func:`xscore.shared.exam_paths.exam_artifact_dir`) and reused
-if no source PDF is newer than the cache. Exam PDF figures go under
-``{artifact_dir}/scaffold_images``.
+Top-level orchestration:
+
+- :func:`find_exam_pdf`, :func:`find_answer_pdf` — pick the vector exam and
+  answer-key PDFs out of an exam folder.
+- :func:`build_scaffold` — load from cache if a fresh cache exists, otherwise
+  call :func:`xscore.scaffold.ai_scaffold.build_ai_scaffold` and finalize.
+- :func:`finalize_scaffold` — mark rollups, page count, ``ExamScaffold``
+  construction, and cache write.
+
+Disk cache serializers (JSON, XML, legacy migrations) live in
+:mod:`xscore.scaffold.scaffold_cache`.
 """
 
 from __future__ import annotations
 
 import json
-import os
-import shutil
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
-from xscore.shared.models import (
-    BBox,
-    ExamImage,
-    ExamLayout,
-    ExamScaffold,
-    McAnswerOption,
-    Question,
-    WritingArea,
-    flatten_questions,
-    gradable_questions,
-)
 from xscore.shared.exam_paths import (
-    artifact_scaffold_json_path,
     artifact_scaffold_markdown_path,
-    artifact_scaffold_xml_path,
     exam_artifact_dir,
 )
-from xscore.scaffold.scaffold_markdown import write_scaffold_markdown, write_short_scaffold_markdown
-from xscore.scaffold.pdf_parser import (
-    merge_answers_into_scaffold,
-    parse_answer_key_pdf,
-    parse_exam_pdf,
+from xscore.shared.models import (
+    ExamLayout,
+    ExamScaffold,
+    Question,
+    gradable_questions,
 )
 from xscore.scaffold.pdf_parser.content import (
-    normalize_multiple_choice_tree,
-    rollup_question_marks,
     default_mcq_leaf_marks,
+    rollup_question_marks,
 )
-from xscore.scaffold.draw_boxes_on_empty_exam import write_scaffold_boxes_pdf
-
-
-SCHEMA_VERSION = 18
+from xscore.scaffold.scaffold_cache import (
+    _cache_path_under_exam_folder,
+    _clear_legacy_scaffold_outputs,
+    _effective_cache_path,
+    _load_cache,
+    _migrate_scaffold_cache_to_artifact,
+    _save_cache,
+    _scaffold_to_payload,
+)
+from xscore.scaffold.scaffold_markdown import write_scaffold_markdown
 
 
 def find_exam_pdf(folder: Path) -> Path:
@@ -76,164 +70,6 @@ def find_answer_pdf(folder: Path) -> Path | None:
 
 # Backwards-compat alias for any caller still on the old name.
 _find_answer_pdf = find_answer_pdf
-
-
-# ---------------------------------------------------------------------------
-# JSON (de)serialization
-# ---------------------------------------------------------------------------
-
-# Keep cache JSON readable: 1 fractional digit is sufficient for PDF-point coordinates.
-_JSON_COORD_DECIMALS = 1
-
-
-def _round_coord(v: float) -> float:
-    return round(float(v), _JSON_COORD_DECIMALS)
-
-
-def _bbox_to_dict(b: BBox) -> dict:
-    return {
-        "x0": _round_coord(b.x0),
-        "y0": _round_coord(b.y0),
-        "x1": _round_coord(b.x1),
-        "y1": _round_coord(b.y1),
-        "page": b.page,
-    }
-
-
-def _bbox_from_dict(d: dict) -> BBox:
-    return BBox(
-        float(d["x0"]),
-        float(d["y0"]),
-        float(d["x1"]),
-        float(d["y1"]),
-        int(d["page"]),
-    )
-
-
-def _img_to_dict(im: ExamImage) -> dict:
-    return {"bbox": _bbox_to_dict(im.bbox), "path": im.path}
-
-
-def _img_from_dict(d: dict) -> ExamImage:
-    return ExamImage(bbox=_bbox_from_dict(d["bbox"]), path=d["path"])
-
-
-def _wa_to_dict(w: WritingArea) -> dict:
-    return {"bbox": _bbox_to_dict(w.bbox), "kind": w.kind}
-
-
-def _wa_from_dict(d: dict) -> WritingArea:
-    return WritingArea(bbox=_bbox_from_dict(d["bbox"]), kind=d["kind"])
-
-
-def question_to_dict(q: Question) -> dict[str, Any]:
-    """Serialize for cache JSON; omit nulls and empty collections (sparse)."""
-    opts_dicts = [{"letter": o.letter, "text": o.text} for o in q.answer_options]
-    d: dict[str, Any] = {
-        "number": q.number,
-        "question_type": q.question_type,
-        "text": q.text,
-        "marks": q.marks,
-        "page": q.page,
-        "subpage_row": q.subpage_row,
-        "subpage_col": q.subpage_col,
-    }
-    if q.bbox.x0 or q.bbox.y0 or q.bbox.x1 or q.bbox.y1:
-        d["bbox"] = _bbox_to_dict(q.bbox)
-    if opts_dicts:
-        d["answer_options"] = opts_dicts
-    if q.equation_blank_bboxes:
-        d["equation_blank_bboxes"] = [_bbox_to_dict(b) for b in q.equation_blank_bboxes]
-    if q.images:
-        d["images"] = [_img_to_dict(i) for i in q.images]
-    if q.writing_areas:
-        d["writing_areas"] = [_wa_to_dict(w) for w in q.writing_areas]
-    if q.subquestions:
-        d["subquestions"] = [question_to_dict(s) for s in q.subquestions]
-    if q.correct_answer is not None and str(q.correct_answer).strip():
-        d["correct_answer"] = q.correct_answer
-    if q.question_type != "multiple_choice" and q.marking_criteria is not None and str(q.marking_criteria).strip():
-        d["marking_criteria"] = q.marking_criteria
-    if q.answer_images:
-        d["answer_images"] = [_img_to_dict(i) for i in q.answer_images]
-    return d
-
-
-def question_from_dict(d: dict) -> Question:
-    # Migrate v1 cache (AI scaffold)
-    text = d.get("text")
-    if text is None:
-        text = d.get("content_summary", "")
-    bbox_d = d.get("bbox")
-    if not bbox_d:
-        bbox_d = {"x0": 0.0, "y0": 0.0, "x1": 0.0, "y1": 0.0, "page": 1}
-    ao = [
-        McAnswerOption(letter=str(x["letter"]), text=str(x.get("text") or ""))
-        for x in (d.get("answer_options") or [])
-        if isinstance(x, dict) and x.get("letter")
-    ]
-    ca = d.get("correct_answer")
-    if ca is None or (isinstance(ca, str) and not str(ca).strip()):
-        # Migrate older caches that stored answer_key_text instead of correct_answer
-        leg = d.get("answer_key_text")
-        if leg and str(leg).strip():
-            ca = str(leg).strip()
-    page = int(d.get("page") or d.get("bbox", {}).get("page", 0))
-    return Question(
-        number=str(d["number"]),
-        question_type=d.get("question_type", "short_answer"),
-        text=text,
-        marks=int(d.get("marks", 1)),
-        bbox=_bbox_from_dict(bbox_d),
-        page=page,
-        subpage_row=int(d.get("subpage_row", 1)),
-        subpage_col=int(d.get("subpage_col", 1)),
-        equation_blank_bboxes=[_bbox_from_dict(x) for x in d.get("equation_blank_bboxes") or []],
-        images=[_img_from_dict(x) for x in d.get("images") or []],
-        writing_areas=[_wa_from_dict(x) for x in d.get("writing_areas") or []],
-        subquestions=[question_from_dict(s) for s in d.get("subquestions") or []],
-        correct_answer=ca,
-        marking_criteria=d.get("marking_criteria"),
-        answer_images=[_img_from_dict(x) for x in d.get("answer_images") or []],
-        answer_options=ao,
-    )
-
-
-# ---------------------------------------------------------------------------
-# Cache
-# ---------------------------------------------------------------------------
-
-def _legacy_cache_path(folder: Path) -> Path:
-    """Pre-layout: cache lived at the exam folder root."""
-    return folder / "scaffold_cache.json"
-
-
-def _legacy_scaffold_subdir_cache(folder: Path) -> Path:
-    return folder / "scaffolds" / "scaffold_cache.json"
-
-
-def _legacy_flat_artifact_scaffold_cache_path(artifact_dir: Path) -> Path:
-    """Older runs stored the cache as ``scaffold_cache.json`` in the run folder."""
-    return artifact_dir / "scaffold_cache.json"
-
-
-def _legacy_artifact_scaffold_subdir_cache_path(artifact_dir: Path) -> Path:
-    """Older layout: cache lived under ``scaffolds/`` inside *artifact_dir*."""
-    return artifact_dir / "scaffolds" / "scaffold_cache.json"
-
-
-def _effective_cache_path(folder: Path, artifact_dir: Path) -> Path | None:
-    for p in (
-        artifact_scaffold_xml_path(artifact_dir),
-        artifact_scaffold_json_path(artifact_dir),
-        _legacy_flat_artifact_scaffold_cache_path(artifact_dir),
-        _legacy_artifact_scaffold_subdir_cache_path(artifact_dir),
-        _legacy_scaffold_subdir_cache(folder),
-        _legacy_cache_path(folder),
-    ):
-        if p.is_file():
-            return p
-    return None
 
 
 def _source_pdfs(folder: Path, exam_pdf_override: Path | None = None) -> list[Path]:
@@ -265,266 +101,6 @@ def _is_cache_valid(
     return True
 
 
-def _cache_path_under_exam_folder(path: Path, exam_folder: Path) -> bool:
-    try:
-        path.resolve().relative_to(exam_folder.resolve())
-        return True
-    except ValueError:
-        return False
-
-
-def _migrate_scaffold_cache_to_artifact(
-    exam_folder: Path, artifact_dir: Path, scaffold: ExamScaffold
-) -> None:
-    """Copy scaffold JSON + images into *artifact_dir* and remove legacy copies in *exam_folder*."""
-    artifact_dir.mkdir(parents=True, exist_ok=True)
-    _save_cache(artifact_dir, scaffold)
-    src_img = exam_folder / "scaffold_images"
-    dst_img = artifact_dir / "scaffold_images"
-    if src_img.is_dir():
-        if dst_img.exists():
-            shutil.rmtree(dst_img)
-        shutil.copytree(src_img, dst_img)
-    _clear_legacy_scaffold_outputs(exam_folder)
-
-
-def _clear_legacy_scaffold_outputs(exam_folder: Path) -> None:
-    for p in (_legacy_scaffold_subdir_cache(exam_folder), _legacy_cache_path(exam_folder)):
-        if p.is_file():
-            try:
-                p.unlink()
-            except OSError:
-                pass
-    leg_img = exam_folder / "scaffold_images"
-    if leg_img.is_dir():
-        shutil.rmtree(leg_img, ignore_errors=True)
-    leg_sd = exam_folder / "scaffolds"
-    if leg_sd.is_dir():
-        try:
-            if not any(leg_sd.iterdir()):
-                leg_sd.rmdir()
-        except OSError:
-            pass
-
-
-def _load_cache(folder: Path, artifact_dir: Path) -> ExamScaffold:
-    path = _effective_cache_path(folder, artifact_dir)
-    if path is None:
-        raise FileNotFoundError(f"No scaffold cache for {folder}")
-    if path.suffix == ".xml":
-        return _load_cache_xml(path)
-    with open(path, encoding="utf-8") as f:
-        data = json.load(f)
-    if data.get("schema_version") != SCHEMA_VERSION:
-        raise ValueError(
-            "scaffold cache schema_version mismatch — rebuild required "
-            f"(got {data.get('schema_version')!r}, need {SCHEMA_VERSION})"
-        )
-    questions = [question_from_dict(q) for q in data["questions"]]
-    total = int(data.get("total_marks", 0))
-    if not total and questions:
-        total = sum(q.marks for q in gradable_questions(questions))
-    layout_d = data.get("layout") or {}
-    return ExamScaffold(
-        questions=questions,
-        total_marks=total,
-        page_count=int(data.get("page_count", 0)),
-        raw_description=data.get("raw_description", ""),
-        layout=ExamLayout(
-            rows=int(layout_d.get("rows", 1)),
-            cols=int(layout_d.get("cols", 1)),
-        ),
-    )
-
-
-def _criterion_str_to_elements(criteria_str: str) -> list[ET.Element]:
-    """Convert a LaTeX-formatted marking criteria block → single <criterion mark=""> element."""
-    text = criteria_str.strip()
-    if not text:
-        return []
-    el = ET.Element("criterion")
-    el.set("mark", "")
-    el.text = text
-    return [el]
-
-
-def _question_to_xml_element(q: Question) -> ET.Element:
-    el = ET.Element("question")
-    el.set("number", q.number)
-    el.set("type", q.question_type)
-    el.set("page", str(q.page or (q.bbox.page if q.bbox else 1)))
-    el.set("subpage_row", str(q.subpage_row))
-    el.set("subpage_col", str(q.subpage_col))
-    el.set("marks", str(q.marks))
-    if q.correct_answer is not None and str(q.correct_answer).strip():
-        el.set("correct_answer", str(q.correct_answer))
-    text_el = ET.SubElement(el, "text")
-    text_el.text = q.text or ""
-    for opt in (q.answer_options or []):
-        opt_el = ET.SubElement(el, "option")
-        opt_el.set("letter", opt.letter)
-        opt_el.text = opt.text
-    if q.question_type != "multiple_choice" and q.marking_criteria and str(q.marking_criteria).strip():
-        for crit_el in _criterion_str_to_elements(str(q.marking_criteria)):
-            el.append(crit_el)
-    for sub in (q.subquestions or []):
-        el.append(_question_to_xml_element(sub))
-    return el
-
-
-def _scaffold_to_xml(scaffold: ExamScaffold, students: list[str] | None = None) -> str:
-    """Serialise ExamScaffold to an XML string."""
-    root = ET.Element("scaffold")
-    root.set("schema_version", str(SCHEMA_VERSION))
-    root.set("total_marks", str(scaffold.total_marks))
-    root.set("page_count", str(scaffold.page_count))
-    root.set("rows", str(scaffold.layout.rows))
-    root.set("cols", str(scaffold.layout.cols))
-    if students:
-        studs_el = ET.SubElement(root, "students")
-        for s in students:
-            s_el = ET.SubElement(studs_el, "student")
-            s_el.text = s
-    for q in scaffold.questions:
-        root.append(_question_to_xml_element(q))
-    ET.indent(root)
-    return ET.tostring(root, encoding="unicode", xml_declaration=False)
-
-
-def _question_from_xml_element(el: ET.Element) -> Question:
-    page = int(el.get("page", 1))
-    text_el = el.find("text")
-    text = (text_el.text or "").strip() if text_el is not None else ""
-    answer_options = [
-        McAnswerOption(letter=o.get("letter", ""), text=(o.text or "").strip())
-        for o in el.findall("option")
-    ]
-    criterion_parts = []
-    for c in el.findall("criterion"):
-        mark = c.get("mark", "")
-        ctext = (c.text or "").strip()
-        if ctext:
-            criterion_parts.append(f"[{mark}] {ctext}" if mark else ctext)
-    marking_criteria: str | None = "\n".join(criterion_parts) or None
-    subquestions = [_question_from_xml_element(sub) for sub in el.findall("question")]
-    return Question(
-        number=el.get("number", ""),
-        question_type=el.get("type", "short_answer"),
-        text=text,
-        marks=int(el.get("marks", 0)),
-        bbox=BBox(0.0, 0.0, 0.0, 0.0, page),
-        page=page,
-        subpage_row=int(el.get("subpage_row", 1)),
-        subpage_col=int(el.get("subpage_col", 1)),
-        answer_options=answer_options,
-        subquestions=subquestions,
-        correct_answer=el.get("correct_answer") or None,
-        marking_criteria=marking_criteria,
-    )
-
-
-def _load_cache_xml(path: Path) -> ExamScaffold:
-    tree = ET.parse(path)
-    root = tree.getroot()
-    if root.get("schema_version") != str(SCHEMA_VERSION):
-        raise ValueError(
-            f"scaffold XML schema_version mismatch — rebuild required "
-            f"(got {root.get('schema_version')!r}, need {str(SCHEMA_VERSION)!r})"
-        )
-    questions = [_question_from_xml_element(el) for el in root.findall("question")]
-    total = int(root.get("total_marks", 0))
-    if not total and questions:
-        total = sum(q.marks for q in gradable_questions(questions))
-    return ExamScaffold(
-        questions=questions,
-        total_marks=total,
-        page_count=int(root.get("page_count", 0)),
-        layout=ExamLayout(
-            rows=int(root.get("rows", 1)),
-            cols=int(root.get("cols", 1)),
-        ),
-    )
-
-
-def _scaffold_to_payload(scaffold: ExamScaffold, students: list[str] | None = None) -> dict[str, Any]:
-    return {
-        "schema_version": SCHEMA_VERSION,
-        "layout": {"rows": scaffold.layout.rows, "cols": scaffold.layout.cols},
-        "students": students or [],
-        "questions": [question_to_dict(q) for q in scaffold.questions],
-        "total_marks": scaffold.total_marks,
-        "page_count": scaffold.page_count,
-        "raw_description": scaffold.raw_description,
-    }
-
-
-def _save_cache(artifact_dir: Path, scaffold: ExamScaffold, students: list[str] | None = None) -> None:
-    out = artifact_scaffold_xml_path(artifact_dir)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_scaffold_to_xml(scaffold, students), encoding="utf-8")
-    payload = _scaffold_to_payload(scaffold, students)
-    write_scaffold_markdown(artifact_dir, payload)
-    write_short_scaffold_markdown(artifact_dir, payload)
-    for old_name in (artifact_dir / "6_scaffold.json", artifact_dir / "5_scaffold.json", artifact_dir / "1_scaffold.json"):
-        if old_name.is_file():
-            try:
-                old_name.unlink()
-            except OSError:
-                pass
-    flat_old = _legacy_flat_artifact_scaffold_cache_path(artifact_dir)
-    if flat_old.is_file():
-        try:
-            flat_old.unlink()
-        except OSError:
-            pass
-    leg = _legacy_artifact_scaffold_subdir_cache_path(artifact_dir)
-    if leg.is_file():
-        try:
-            leg.unlink()
-        except OSError:
-            pass
-        try:
-            sd = artifact_dir / "scaffolds"
-            if sd.is_dir() and not any(sd.iterdir()):
-                sd.rmdir()
-        except OSError:
-            pass
-
-
-def _build_heuristic_scaffold(
-    exam_pdf: Path,
-    folder: Path,
-    ans: Path | None,
-    artifact_dir: Path,
-) -> list[Question]:
-    """Build question list using PyMuPDF layout heuristics (preserved for future use).
-
-    This was the default scaffold extraction path before the AI route was added.
-    To re-enable it, replace the ``build_ai_scaffold`` call in ``build_scaffold()``
-    with: ``questions = _build_heuristic_scaffold(exam_pdf, folder, _find_answer_pdf(folder), ad)``
-    """
-    questions = parse_exam_pdf(exam_pdf, folder, artifact_dir=artifact_dir)
-    if not questions:
-        raise RuntimeError(
-            "No questions detected in exam PDF. Check that the file is a vector paper "
-            "with Cambridge-style left-margin question numbers."
-        )
-    if ans is not None:
-        amap, table_answers, printed_mc = parse_answer_key_pdf(ans, folder)
-        merge_answers_into_scaffold(
-            questions,
-            amap,
-            table_model_answers=table_answers,
-            printed_mc_letters=printed_mc,
-        )
-    else:
-        from xscore.shared.terminal_ui import tool_line as _tool_line
-        _tool_line("scaffold", "No answer key PDF found — correct_answer left empty.")
-    for q in questions:
-        normalize_multiple_choice_tree(q)
-    return questions
-
-
 def build_scaffold(
     folder: Path,
     client: Any | None = None,
@@ -552,7 +128,7 @@ def build_scaffold(
     *force_rebuild*: when True, skip cache entirely and always re-run AI extraction.
     """
     _ = client, dpi
-    from xscore.shared.terminal_ui import ok_line, tool_line
+    from xscore.shared.terminal_ui import tool_line
 
     ad = artifact_dir or exam_artifact_dir(folder, output_base)
 

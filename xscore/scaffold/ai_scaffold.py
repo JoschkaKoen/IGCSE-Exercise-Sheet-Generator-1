@@ -1,487 +1,57 @@
-"""AI-based exam scaffold — seven phase orchestrators for the scaffold-building stage.
+"""AI-based exam scaffold orchestrator.
 
-Each is independently callable with explicit inputs/outputs and writes its
-artifacts to its own folder under ``artifact_dir``:
+The seven phase orchestrators are split into two siblings by which input PDF
+they process:
 
-    detect_layout_phase              → detect_exam_layout/
-    cut_exam_pdf_phase               → cut_exam/
-    parse_exam_pdf_full              → parse_exam_pdf/  (legacy single-call parse)
-    detect_scheme_graphics_phase     → detect_mark_scheme_graphics/
-    assign_scheme_questions_phase    → assign_scheme_questions/
-    parse_mark_scheme_phase          → parse_mark_scheme/
-    merge_scaffold_phase             → create_report/  (via build_scaffold cache)
+- Exam-side phases (:mod:`ai_scaffold_exam`):
+  ``detect_layout_phase``, ``cut_exam_pdf_phase``, ``parse_exam_pdf_full``.
+- Mark-scheme-side phases (:mod:`ai_scaffold_scheme`):
+  ``detect_scheme_graphics_phase``, ``assign_scheme_questions_phase``,
+  ``parse_mark_scheme_phase``.
 
-``build_ai_scaffold`` is a thin orchestrator that calls these phases in sequence
-with the original ``on_*_complete`` callbacks for backward compatibility
-(``generate_scaffold.build_scaffold`` and the web service still use it).
-The pipeline registry calls each step body in ``xscore.steps.scaffold``,
-which in turn calls the phase orchestrators here.
+This module owns the seventh phase (:func:`merge_scaffold_phase`) and the
+top-level orchestrator (:func:`build_ai_scaffold`) that calls the six phases
+in sequence with backward-compat ``on_*_complete`` callbacks. The pipeline
+registry calls each step body in :mod:`xscore.steps.scaffold`, which in turn
+calls the phase orchestrators directly.
+
+For backward compatibility we re-export ``_print_detected_summary`` and the
+``_*_model_config`` helpers so callers in :mod:`xscore.steps.scaffold` that
+currently import them from ``ai_scaffold`` keep working without churn.
 """
 
 from __future__ import annotations
 
-import json
 import re
-import shutil
-import time
 from collections.abc import Callable
 from pathlib import Path
 
 from eXercise.ai_client import make_gemini_native_client
 
-from xscore.scaffold.formats import get_scaffold_format
-from xscore.scaffold.scaffold_detect import detect_exam_scaffold
-from xscore.scaffold.scaffold_fill import fill_exam_scaffold
-from xscore.scaffold.scaffold_graphics import detect_scheme_graphics
-from xscore.scaffold.scaffold_pages import assign_questions_to_pages
-from xscore.scaffold.scaffold_scheme import parse_mark_scheme_pages
-from xscore.scaffold.scaffold_layout import (
-    _detect_layout,
-    _save_layout_artifact,
-    _split_pdf_by_layout,
+from xscore.scaffold.ai_scaffold_exam import (
+    _print_detected_summary,  # noqa: F401  (re-export for steps/scaffold.py)
+    cut_exam_pdf_phase,
+    detect_layout_phase,
+    parse_exam_pdf_full,
 )
-from xscore.scaffold.scaffold_prompts import (
-    _SYSTEM_LAYOUT,
-    _USER_LAYOUT,
+from xscore.scaffold.ai_scaffold_scheme import (
+    assign_scheme_questions_phase,
+    detect_scheme_graphics_phase,
+    parse_mark_scheme_phase,
+)
+from xscore.scaffold.formats import get_scaffold_format
+from xscore.scaffold.scaffold_prompts import (  # noqa: F401  (re-exported)
     _detect_scaffold_model_config,
     _fill_scaffold_model_config,
     _layout_detect_model_config,
     _mark_scheme_model_config,
 )
-from xscore.scaffold.scaffold_qtree import _format_qnums_for_line
 from xscore.scaffold.scaffold_xml import (
     _json_to_question,
     _merge_scheme,
     _norm,
 )
-from xscore.shared.exam_paths import (
-    artifact_exam_input_pdf_path,
-    artifact_exam_layout_raw_path,
-    artifact_exam_questions_path,
-    artifact_exam_scaffold_path,
-    artifact_scaffold_prompt_path,
-    artifact_split_exam_pdf_path,
-)
 from xscore.shared.models import ExamLayout, Question
-from xscore.shared.prompt_logger import save_prompt, save_response
-from xscore.shared.terminal_ui import (
-    get_console, info_line, ok_line, tool_line, warn_line,
-)
-
-
-# ---------------------------------------------------------------------------
-# Detect exam layout
-# ---------------------------------------------------------------------------
-
-def detect_layout_phase(
-    client,
-    exam_pdf: Path,
-    artifact_dir: "Path | None",
-) -> tuple["object", float, str]:
-    """Detect the rows×cols multi-up layout of *exam_pdf* via Gemini.
-
-    Returns ``(layout_result, elapsed_s, model_id)``. ``layout_result`` is a
-    ``_LayoutDetectSchema`` with ``rows``, ``cols``, ``reading_order``.
-    On failure, falls back to 1×1 with a warning.
-
-    Writes ``15_detect_exam_layout/exam_layout_raw.json``,
-    ``exam_layout.{xml,md}`` (the latter without cut info; this phase re-saves
-    with actual ``n_physical_pages`` / ``n_split_pages``).
-    """
-    layout_model, layout_thinking, layout_max_tokens = _layout_detect_model_config()
-
-    if artifact_dir is not None:
-        save_prompt(
-            artifact_scaffold_prompt_path(artifact_dir, "detect_layout"),
-            model=layout_model, system=_SYSTEM_LAYOUT,
-            messages=[{"role": "user", "content": _USER_LAYOUT}],
-        )
-
-    layout_result, layout_elapsed, layout_raw_text, layout_thinking_text, layout_error = _detect_layout(
-        client, exam_pdf, layout_model,
-        thinking_tokens=layout_thinking, max_tokens=layout_max_tokens,
-    )
-
-    if artifact_dir is not None and layout_raw_text is not None:
-        try:
-            raw_path = artifact_exam_layout_raw_path(artifact_dir)
-            raw_path.parent.mkdir(parents=True, exist_ok=True)
-            raw_path.write_text(layout_raw_text, encoding="utf-8")
-        except OSError as e:
-            warn_line(f"Could not save raw exam layout: {e}")
-        save_response(
-            artifact_scaffold_prompt_path(artifact_dir, "detect_layout"),
-            layout_raw_text, thinking=layout_thinking_text,
-        )
-
-    n_cells = layout_result.rows * layout_result.cols
-    if layout_error is not None:
-        warn_line(
-            f"Layout detection failed — assuming 1×1"
-            f"  ·  {layout_model}  ·  {layout_elapsed:.1f}s"
-            f"\n    {layout_error}"
-        )
-    elif n_cells > 1:
-        ok_line(
-            f"Layout {layout_result.rows}×{layout_result.cols} ({n_cells}-up)"
-            f"  ·  {layout_model}  ·  {layout_elapsed:.1f}s"
-        )
-    else:
-        ok_line(f"Layout 1×1 (single)  ·  {layout_model}  ·  {layout_elapsed:.1f}s")
-
-    # Write initial layout artifact (cut numbers placeholder; the cut phase re-saves with real values).
-    if artifact_dir is not None:
-        _save_layout_artifact(artifact_dir, layout_result, layout_model, layout_elapsed, 0, 0)
-
-    return layout_result, layout_elapsed, layout_model
-
-
-# ---------------------------------------------------------------------------
-# Cut exam PDF (split multi-up into single logical pages)
-# ---------------------------------------------------------------------------
-
-def cut_exam_pdf_phase(
-    exam_pdf: Path,
-    layout_result,
-    artifact_dir: "Path | None",
-    *,
-    layout_model: str = "",
-    layout_elapsed: float = 0.0,
-) -> tuple[Path, "Path | None", int, int]:
-    """Split *exam_pdf* by *layout_result* into a single-logical-page PDF.
-
-    Returns ``(actual_exam_pdf, split_pdf_temp_path, n_physical_pages, n_split_pages)``.
-    For 1×1 layouts: returns the original *exam_pdf* and ``split_pdf_temp_path=None``.
-    For multi-up layouts: writes ``16_cut_exam/split_exam.pdf`` and returns its path.
-
-    Caller is responsible for unlinking *split_pdf_temp_path* (the underlying
-    temp file produced by ``_split_pdf_by_layout``) once parsing finishes.
-    Also updates the step-15 layout artifact to record ``n_physical_pages``
-    and ``n_split_pages`` (was zero before the cut).
-    """
-    n_cells = layout_result.rows * layout_result.cols
-    split_pdf_temp_path: Path | None = None
-    n_physical_pages = 0
-    n_split_pages = 0
-
-    if n_cells > 1:
-        layout_label = f"{layout_result.rows}×{layout_result.cols}"
-        tool_line("split", f"Splitting exam PDF ({layout_label} layout) …")
-        split_pdf_temp_path, n_physical_pages, n_split_pages = _split_pdf_by_layout(
-            exam_pdf, layout_result
-        )
-        ok_line(f"{n_physical_pages} physical page(s) → {n_split_pages} sub-pages")
-        if artifact_dir is not None:
-            try:
-                dest = artifact_split_exam_pdf_path(artifact_dir)
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(str(split_pdf_temp_path), str(dest))
-            except OSError as e:
-                warn_line(f"Could not copy split exam PDF to artifacts: {e}")
-        actual_exam_pdf = split_pdf_temp_path
-    else:
-        ok_line("Skipped — 1×1 layout, no splitting needed")
-        # In 1×1 mode no split PDF is produced; copy the original so the artifact
-        # directory always contains the PDF sent to Gemini.
-        if artifact_dir is not None:
-            try:
-                dest = artifact_exam_input_pdf_path(artifact_dir)
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(str(exam_pdf), str(dest))
-            except OSError as e:
-                warn_line(f"Could not copy exam PDF to artifacts: {e}")
-        actual_exam_pdf = exam_pdf
-
-    # Re-save the step-15 layout artifact with the actual cut counts.
-    if artifact_dir is not None:
-        _save_layout_artifact(
-            artifact_dir, layout_result, layout_model, layout_elapsed,
-            n_physical_pages, n_split_pages,
-        )
-
-    return actual_exam_pdf, split_pdf_temp_path, n_physical_pages, n_split_pages
-
-
-# ---------------------------------------------------------------------------
-# Parse exam PDF (legacy single-call path)
-# ---------------------------------------------------------------------------
-
-def _print_detected_summary(scaffold_nodes: list[dict]) -> None:
-    """Render the post-detect listing — per-page qnums + a one-line summary.
-
-    Walks the scaffold tree once collecting:
-      - per-page qnums (parents AND leaves; a parent's stem text lives on its
-        own page so its number belongs in that page's listing)
-      - total marks (sum across every node — parents are typically 0 marks in
-        Cambridge schemes, so the sum equals the leaves' total)
-      - leaf type counts (multiple_choice / short_answer / calculation /
-        long_answer); parents are excluded since they don't get answered as
-        a single unit
-    """
-    per_page: dict[int, list[str]] = {}
-    n_top_level = len(scaffold_nodes)
-    n_total = 0
-    total_marks = 0
-    type_counts: dict[str, int] = {}
-
-    def visit(node: dict) -> None:
-        nonlocal n_total, total_marks
-        n_total += 1
-        num = str(node.get("number", "")).strip()
-        if num:
-            page = max(1, int(node.get("page") or 1))
-            per_page.setdefault(page, []).append(num)
-        try:
-            total_marks += int(node.get("marks") or 0)
-        except (TypeError, ValueError):
-            pass
-        subs = node.get("subquestions") or []
-        if not subs:
-            qt = str(node.get("question_type", "") or "").strip()
-            if qt:
-                type_counts[qt] = type_counts.get(qt, 0) + 1
-        for s in subs:
-            visit(s)
-
-    for q in scaffold_nodes:
-        visit(q)
-
-    console = get_console()
-    for page in sorted(per_page):
-        qnums = per_page[page]
-        console.print(f"[dim]     p{page}   {_format_qnums_for_line(qnums)}[/]")
-
-    n_subs = max(0, n_total - n_top_level)
-    type_order = ("multiple_choice", "short_answer", "calculation", "long_answer")
-    type_labels = {
-        "multiple_choice": "MCQ",
-        "short_answer":    "short",
-        "calculation":     "calc",
-        "long_answer":     "long",
-    }
-    type_summary = ", ".join(
-        f"{type_counts[t]} {type_labels[t]}"
-        for t in type_order
-        if type_counts.get(t)
-    )
-    parts = [f"{n_top_level} top-level + {n_subs} sub-questions",
-             f"{total_marks} marks"]
-    if type_summary:
-        parts.append(type_summary)
-    ok_line("  ·  ".join(parts))
-
-def parse_exam_pdf_full(
-    client,
-    actual_exam_pdf: Path,
-    layout_result,
-    n_split_pages: int,
-    split_pdf_path: "Path | None",
-    artifact_dir: "Path | None",
-    *,
-    fmt=None,
-    is_cs: bool = False,
-) -> tuple[list[dict], dict]:
-    """Parse the exam PDF into a question hierarchy. Internally split into
-    two phases:
-
-    A. ``detect_exam_scaffold`` — one cheap call returns ``number/type/page/
-       subpage/marks`` (no text). Uses ``DETECT_EXAM_SCAFFOLD_MODEL``.
-    B. ``fill_exam_scaffold`` — per-page parallel calls populate ``text`` and
-       ``options`` for each question on each page. Uses
-       ``FILL_EXAM_SCAFFOLD_MODEL`` (falls back to ``READ_EXAM_PDF_MODEL``).
-
-    Writes the ``detect_exam_scaffold`` artifact ``exam_scaffold.{ext}``
-    (intermediate, no text) and the ``fill_exam_scaffold`` artifact
-    ``exam_questions.{ext}`` (final, with text). Concrete folder names come
-    from ``xscore/shared/step_folders.py`` so renumbering is centralised.
-
-    Returns ``(raw_questions, raw_layout)`` matching the legacy single-call
-    contract — same shape every downstream consumer expects.
-
-    *is_cs* gates the CODE_FORMATTING section in the fill phase's system
-    prompt (the detect phase does not extract text and ignores ``is_cs``).
-    """
-    if fmt is None:
-        fmt = get_scaffold_format()
-
-    # --- Phase A — detect scaffold (cheap; structure only) ------------------
-    detect_model, detect_thinking, detect_max_tokens = _detect_scaffold_model_config()
-    info_line(f"Detect scaffold ({detect_model}) …")
-    scaffold_nodes, raw_layout = detect_exam_scaffold(
-        client,
-        detect_model,
-        detect_thinking,
-        detect_max_tokens,
-        actual_exam_pdf=actual_exam_pdf,
-        layout_result=layout_result,
-        split_pdf_path=split_pdf_path,
-        n_split_pages=n_split_pages,
-        artifact_dir=artifact_dir,
-        fmt=fmt,
-        is_cs=is_cs,
-    )
-
-    # Use pre-detected layout (ignore raw_layout from the detect response in split mode).
-    if layout_result is not None:
-        raw_layout = {"rows": layout_result.rows, "cols": layout_result.cols}
-
-    if artifact_dir is not None:
-        try:
-            p = artifact_exam_scaffold_path(artifact_dir, fmt=fmt.artifact_ext())
-            p.parent.mkdir(parents=True, exist_ok=True)
-            p.write_text(
-                fmt.serialize_scaffold(scaffold_nodes, raw_layout), encoding="utf-8",
-            )
-        except OSError as e:
-            warn_line(f"Could not save exam_scaffold artifact: {e}")
-
-    _print_detected_summary(scaffold_nodes)
-
-    # --- Phase B — per-page parallel fill -----------------------------------
-    fill_model, fill_thinking, fill_max_tokens = _fill_scaffold_model_config()
-    raw_questions = fill_exam_scaffold(
-        client,
-        fill_model,
-        fill_thinking,
-        fill_max_tokens,
-        actual_exam_pdf=actual_exam_pdf,
-        scaffold_nodes=scaffold_nodes,
-        artifact_dir=artifact_dir,
-        fmt=fmt,
-        is_cs=is_cs,
-    )
-
-    if artifact_dir is not None:
-        try:
-            from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
-            p = artifact_exam_questions_path(artifact_dir, fmt=fmt.artifact_ext())
-            p.parent.mkdir(parents=True, exist_ok=True)
-            p.write_text(fmt.serialize_exam(raw_questions, raw_layout), encoding="utf-8")
-            write_raw_exam_markdown(artifact_dir, raw_questions)
-        except OSError as e:
-            warn_line(f"Could not save exam questions artifacts: {e}")
-
-    return raw_questions, raw_layout
-
-
-# ---------------------------------------------------------------------------
-# Detect mark scheme graphics
-# ---------------------------------------------------------------------------
-
-def detect_scheme_graphics_phase(
-    marking_scheme_pdf: "Path | None",
-    raw_questions: list[dict],
-    artifact_dir: "Path | None",
-    *,
-    fmt=None,
-) -> tuple[dict, "list[dict] | None"]:
-    """Detect graphics in the mark scheme via vision API.
-
-    Builds the scheme scaffold from *raw_questions* (used as a hint for valid
-    question numbers) then delegates to ``scaffold_gemini.detect_scheme_graphics``.
-
-    Returns ``(graphics_by_qnum, graphics_questions)``. When *marking_scheme_pdf*
-    is None, both are empty (mark scheme step is skipped).
-    """
-    if fmt is None:
-        fmt = get_scaffold_format()
-
-    if marking_scheme_pdf is None:
-        ok_line("Skipped (no mark scheme PDF)")
-        return {}, None
-
-    scaffold_str = fmt.build_scheme_scaffold(raw_questions)
-    return detect_scheme_graphics(
-        marking_scheme_pdf, scaffold_str,
-        artifact_dir=artifact_dir, fmt=fmt,
-    )
-
-
-# ---------------------------------------------------------------------------
-# Assign questions to mark scheme pages
-# ---------------------------------------------------------------------------
-
-def assign_scheme_questions_phase(
-    client,
-    marking_scheme_pdf: "Path | None",
-    raw_questions: list[dict],
-    artifact_dir: "Path | None",
-) -> dict[int, list[str]]:
-    """Identify which question numbers' criteria appear on each mark scheme page.
-
-    Returns ``{page_num: [qnum, ...]}``. Empty dict when *marking_scheme_pdf*
-    is None, the model env var is unset, or the call fails — parse_mark_scheme then
-    falls back to its full-scaffold behavior.
-    """
-    if marking_scheme_pdf is None:
-        return {}
-    try:
-        return assign_questions_to_pages(
-            client, marking_scheme_pdf, raw_questions, artifact_dir,
-        )
-    except Exception as exc:
-        import logging as _log
-        _log.warning("ai_scaffold: question-assignment failed — %s", exc)
-        warn_line(f"Question-assignment failed — falling back to full scaffold\n    {exc}")
-        return {}
-
-
-# ---------------------------------------------------------------------------
-# Parse mark scheme
-# ---------------------------------------------------------------------------
-
-def parse_mark_scheme_phase(
-    client,
-    marking_scheme_pdf: "Path | None",
-    raw_questions: list[dict],
-    graphics_by_qnum: "dict[str, list] | None",
-    questions_per_page: "dict[int, list[str]] | None",
-    artifact_dir: "Path | None",
-    *,
-    fmt=None,
-    is_cs: bool = False,
-) -> dict:
-    """Parse the mark scheme into ``{questions: [{number, correct_answer, mark_scheme, ...}]}``.
-
-    Reads per-page PDFs from step 20's pages dir; falls back to splitting the
-    PDF if step 20 was skipped. Uses *questions_per_page* (from step 23) to
-    send only the relevant question entries to the AI per page; falls back
-    to the full scaffold for any page missing from the mapping.
-
-    *is_cs* gates the ``CODE_FORMATTING`` prompt section. The pipeline caller
-    derives this from ``ctx.subject`` (set by detect_subject); legacy / external
-    callers (``build_ai_scaffold``, web grade service) default to ``False``.
-
-    Returns ``{"questions": []}`` when *marking_scheme_pdf* is None or the
-    call fails.
-    """
-    if fmt is None:
-        fmt = get_scaffold_format()
-
-    if marking_scheme_pdf is None:
-        return {"questions": []}
-
-    scheme_model, scheme_thinking, scheme_max_tokens = _mark_scheme_model_config()
-
-    try:
-        return parse_mark_scheme_pages(
-            client,
-            scheme_model,
-            scheme_thinking,
-            scheme_max_tokens,
-            marking_scheme_pdf=marking_scheme_pdf,
-            raw_questions=raw_questions,
-            questions_per_page=questions_per_page,
-            graphics_by_qnum=graphics_by_qnum,
-            artifact_dir=artifact_dir,
-            fmt=fmt,
-            is_cs=is_cs,
-        )
-    except Exception as exc:
-        import logging as _log
-        _log.warning("ai_scaffold: mark-scheme extraction failed — %s", exc)
-        warn_line(f"Mark-scheme extraction failed — grading without criteria\n    {exc}")
-        return {"questions": []}
 
 
 # ---------------------------------------------------------------------------

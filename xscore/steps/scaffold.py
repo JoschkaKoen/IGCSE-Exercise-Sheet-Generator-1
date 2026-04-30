@@ -24,12 +24,14 @@ import os
 import time
 from pathlib import Path
 
-from xscore.scaffold.ai_scaffold import (
-    assign_scheme_questions_phase,
+from xscore.scaffold.ai_scaffold import merge_scaffold_phase
+from xscore.scaffold.ai_scaffold_exam import (
     cut_exam_pdf_phase,
     detect_layout_phase,
+)
+from xscore.scaffold.ai_scaffold_scheme import (
+    assign_scheme_questions_phase,
     detect_scheme_graphics_phase,
-    merge_scaffold_phase,
     parse_mark_scheme_phase,
 )
 from xscore.scaffold.formats import get_scaffold_format

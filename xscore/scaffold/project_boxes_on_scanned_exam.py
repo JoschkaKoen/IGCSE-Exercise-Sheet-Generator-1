@@ -313,7 +313,6 @@ def overlay_projected_scaffold_on_scan_pdf(
     raw_anchors = extract_raw_igcse_anchors(raw_4up_pdf)
     sidecar: list[dict] = json.loads(reflines_json.read_text())
     px_to_pt = 72.0 / dpi
-
     all_nodes = flatten_questions(questions)
 
     from xscore.shared.terminal_ui import warn_line
@@ -328,49 +327,20 @@ def overlay_projected_scaffold_on_scan_pdf(
                 f"— overlaying min({n_side}, {n_doc}) pages"
             )
 
-        n_overlay = min(n_doc, n_side)
-        for page_idx in range(n_overlay):
-            entry = sidecar[page_idx]
-            page = doc[page_idx]
-            mid_px = int(round(page.rect.height / px_to_pt)) // 2
-            top_tf, bot_tf = compute_page_transforms(raw_anchors, entry["anchors"])
+        transforms_per_page = [
+            compute_page_transforms(raw_anchors, entry["anchors"])
+            for entry in sidecar[:n_doc]
+        ]
 
-            exercise: list[tuple[fitz.Rect, tuple[float, float, float]]] = []
-            eq_blank: list[tuple[fitz.Rect, tuple[float, float, float]]] = []
-
-            for color_idx, node in enumerate(all_nodes):
-                for half, quad, color, is_eq in _projected_items_for_question_node(
-                    node,
-                    color_idx,
-                    top_tf,
-                    bot_tf,
-                    scaffold_page=scaffold_page,
-                    mid_y_pt=mid_y_pt,
-                ):
-                    x0, y0, x1, y1 = quad
-                    r = _half_page_px_to_page_rect(
-                        x0, y0, x1, y1, half, mid_px, px_to_pt
-                    )
-                    r = r.intersect(page.rect)
-                    if r.is_empty:
-                        continue
-                    if is_eq:
-                        eq_blank.append((r, color))
-                    else:
-                        exercise.append((r, color))
-
-            yellow = [
-                (yr, _YELLOW)
-                for yr in compute_yellow_rects_for_page(
-                    page, all_nodes, top_tf, bot_tf,
-                    px_to_pt=px_to_pt,
-                    scaffold_page=scaffold_page,
-                    mid_y_pt=mid_y_pt,
-                )
-            ]
-
-            for r, color in exercise + eq_blank + yellow:
-                page.draw_rect(r, color=color, width=line_width)
+        _render_overlay_pages(
+            doc, transforms_per_page, all_nodes,
+            line_width=line_width,
+            scaffold_page=scaffold_page,
+            mid_y_pt=mid_y_pt,
+            px_to_pt=px_to_pt,
+            trim_subpage_first=False,
+            collect_pages_data=False,
+        )
 
         doc.save(str(save_path), garbage=4, deflate=True)
     finally:
@@ -489,6 +459,91 @@ def _trim_first_exercise_per_subpage(
     return exercise, yellow
 
 
+def _render_overlay_pages(
+    doc: fitz.Document,
+    transforms_per_page: list[tuple[SimilarityTransform, SimilarityTransform]],
+    all_nodes: list[Question],
+    *,
+    line_width: float,
+    scaffold_page: int,
+    mid_y_pt: float,
+    px_to_pt: float,
+    trim_subpage_first: bool,
+    collect_pages_data: bool,
+) -> list[dict] | None:
+    """Render projected scaffold rects on each page of *doc*.
+
+    Shared inner loop of :func:`overlay_projected_scaffold_on_scan_pdf` and
+    :func:`overlay_projected_scaffold_from_transforms_json`. The two callers
+    differ only in how transforms are computed and in two flags (whether to
+    trim the first exercise per subpage, and whether to collect a sidecar of
+    drawn rects).
+    """
+    n_overlay = min(len(doc), len(transforms_per_page))
+    pages_data: list[dict] = []
+
+    for page_idx in range(n_overlay):
+        page = doc[page_idx]
+        mid_px = int(round(page.rect.height / px_to_pt)) // 2
+        top_tf, bot_tf = transforms_per_page[page_idx]
+
+        exercise: list[tuple[fitz.Rect, tuple[float, float, float]]] = []
+        eq_blank: list[tuple[fitz.Rect, tuple[float, float, float]]] = []
+
+        for color_idx, node in enumerate(all_nodes):
+            for half, quad, color, is_eq in _projected_items_for_question_node(
+                node, color_idx, top_tf, bot_tf,
+                scaffold_page=scaffold_page, mid_y_pt=mid_y_pt,
+            ):
+                x0, y0, x1, y1 = quad
+                r = _half_page_px_to_page_rect(
+                    x0, y0, x1, y1, half, mid_px, px_to_pt
+                )
+                r = r.intersect(page.rect)
+                if r.is_empty:
+                    continue
+                if is_eq:
+                    eq_blank.append((r, color))
+                else:
+                    exercise.append((r, color))
+
+        yellow_rects = compute_yellow_rects_for_page(
+            page, all_nodes, top_tf, bot_tf,
+            px_to_pt=px_to_pt,
+            scaffold_page=scaffold_page,
+            mid_y_pt=mid_y_pt,
+        )
+        yellow = [(yr, _YELLOW) for yr in yellow_rects]
+
+        if trim_subpage_first:
+            exercise, yellow = _trim_first_exercise_per_subpage(
+                exercise, yellow, page.rect.width, page.rect.height
+            )
+            yellow_rects = [yr for yr, _ in yellow]
+
+        for r, color in exercise + eq_blank + yellow:
+            page.draw_rect(r, color=color, width=line_width)
+
+        if collect_pages_data:
+            pages_data.append({
+                "page_idx": page_idx,
+                "exercise": [
+                    {"rect": [r.x0, r.y0, r.x1, r.y1], "color": list(c)}
+                    for r, c in exercise
+                ],
+                "eq_blank": [
+                    {"rect": [r.x0, r.y0, r.x1, r.y1]}
+                    for r, _ in eq_blank
+                ],
+                "yellow": [
+                    {"rect": [r.x0, r.y0, r.x1, r.y1]}
+                    for r in yellow_rects
+                ],
+            })
+
+    return pages_data if collect_pages_data else None
+
+
 def overlay_projected_scaffold_from_transforms_json(
     deskewed_pdf: Path,
     transforms_json: Path,
@@ -505,11 +560,11 @@ def overlay_projected_scaffold_from_transforms_json(
     transforms_json = Path(transforms_json)
     output_pdf = Path(output_pdf)
 
+    from xscore.shared.terminal_ui import warn_line
+
     try:
         payload = json.loads(transforms_json.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as e:
-        from xscore.shared.terminal_ui import warn_line
-
         warn_line(f"Could not read transforms JSON: {e}")
         return None
 
@@ -517,15 +572,11 @@ def overlay_projected_scaffold_from_transforms_json(
     file_mid = float(payload.get("mid_y_pt", mid_y_pt))
     page_entries: list[dict] = payload.get("pages") or []
     if not page_entries:
-        from xscore.shared.terminal_ui import warn_line
-
         warn_line("Transforms JSON has no pages — skip projected overlay")
         return None
 
     px_to_pt = 72.0 / dpi
     all_nodes = flatten_questions(questions)
-
-    from xscore.shared.terminal_ui import warn_line
 
     use_tmp = output_pdf.resolve() == deskewed_pdf.resolve()
     save_path = output_pdf.with_suffix(".bbox_overlay_tmp.pdf") if use_tmp else output_pdf
@@ -540,71 +591,23 @@ def overlay_projected_scaffold_from_transforms_json(
                 f"— overlaying min({n_tf}, {n_doc}) pages"
             )
 
-        n_overlay = min(n_doc, n_tf)
-        pages_data: list[dict] = []
-        for page_idx in range(n_overlay):
-            page = doc[page_idx]
-            mid_px = int(round(page.rect.height / px_to_pt)) // 2
-
-            pe = page_entries[page_idx]
-            top_tf = similarity_transform_from_dict(pe["top"])
-            bot_tf = similarity_transform_from_dict(pe["bot"])
-
-            exercise: list[tuple[fitz.Rect, tuple[float, float, float]]] = []
-            eq_blank: list[tuple[fitz.Rect, tuple[float, float, float]]] = []
-
-            for color_idx, node in enumerate(all_nodes):
-                for half, quad, color, is_eq in _projected_items_for_question_node(
-                    node,
-                    color_idx,
-                    top_tf,
-                    bot_tf,
-                    scaffold_page=scaffold_page,
-                    mid_y_pt=file_mid,
-                ):
-                    x0, y0, x1, y1 = quad
-                    r = _half_page_px_to_page_rect(
-                        x0, y0, x1, y1, half, mid_px, px_to_pt
-                    )
-                    r = r.intersect(page.rect)
-                    if r.is_empty:
-                        continue
-                    if is_eq:
-                        eq_blank.append((r, color))
-                    else:
-                        exercise.append((r, color))
-
-            yellow_rects = compute_yellow_rects_for_page(
-                page, all_nodes, top_tf, bot_tf,
-                px_to_pt=px_to_pt,
-                scaffold_page=scaffold_page,
-                mid_y_pt=file_mid,
+        transforms_per_page = [
+            (
+                similarity_transform_from_dict(pe["top"]),
+                similarity_transform_from_dict(pe["bot"]),
             )
-            yellow = [(yr, _YELLOW) for yr in yellow_rects]
+            for pe in page_entries[:n_doc]
+        ]
 
-            exercise, yellow = _trim_first_exercise_per_subpage(
-                exercise, yellow, page.rect.width, page.rect.height
-            )
-            yellow_rects = [yr for yr, _ in yellow]
-
-            for r, color in exercise + eq_blank + yellow:
-                page.draw_rect(r, color=color, width=line_width)
-
-            pages_data.append({
-                "page_idx": page_idx,
-                "exercise": [
-                    {"rect": [r.x0, r.y0, r.x1, r.y1], "color": list(c)}
-                    for r, c in exercise
-                ],
-                "eq_blank": [
-                    {"rect": [r.x0, r.y0, r.x1, r.y1]}
-                    for r, _ in eq_blank
-                ],
-                "yellow": [
-                    {"rect": [r.x0, r.y0, r.x1, r.y1]}
-                    for r in yellow_rects
-                ],
-            })
+        pages_data = _render_overlay_pages(
+            doc, transforms_per_page, all_nodes,
+            line_width=line_width,
+            scaffold_page=scaffold_page,
+            mid_y_pt=file_mid,
+            px_to_pt=px_to_pt,
+            trim_subpage_first=True,
+            collect_pages_data=True,
+        )
 
         doc.save(str(save_path), garbage=4, deflate=True)
     finally:

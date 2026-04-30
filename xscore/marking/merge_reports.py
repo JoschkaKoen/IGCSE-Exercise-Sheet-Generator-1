@@ -19,8 +19,9 @@ from typing import Any
 
 from xscore.marking.class_report import (
     _apply_grade_curve, _build_class_report, _curved_grade_visible,
-    _effective_curve_target, _pass2_write_tex, _write_review_queue,
+    _effective_curve_target, _pass2_write_tex,
 )
+from xscore.marking.class_report_export import _write_review_queue
 from xscore.marking.formats import get_marking_format
 from xscore.marking.report_xml import (  # re-export for legacy importers
     load_student_results_from_reports,  # noqa: F401

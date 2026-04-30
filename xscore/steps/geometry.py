@@ -21,12 +21,14 @@ import time
 
 from xscore.preprocessing.assign_pages_to_students import (
     assign_pages,
-    detect_empty_exam_cover,
-    detect_first_page_cover,
     page_assignments_to_json,
     page_assignments_to_md,
     page_assignments_to_overview,
     print_page_range_table,
+)
+from xscore.preprocessing.cover_detection import (
+    detect_empty_exam_cover,
+    detect_first_page_cover,
 )
 from xscore.marking.blank_page_detection import check_exam_blank_pages, check_student_handwriting
 from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
