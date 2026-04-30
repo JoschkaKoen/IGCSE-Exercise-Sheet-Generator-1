@@ -1,5 +1,11 @@
 """Blank-page removal and page rotation for class-scan PDFs (pikepdf).
 
+**Step 4 (``prepare_scans``) now handles per-scan-file orientation upstream**
+via Qwen vision (see :mod:`xscore.preprocessing.scan_orientation`), so by the
+time pages reach this module they are already correctly oriented in the
+common case. The branches below are now defensive fallbacks rather than the
+primary rotation path.
+
 By default rotation follows each page's PDF ``/Rotate`` metadata (scanner output).
 If the blank pass (72 DPI) renders a **content** page wider than tall, Poppler has
 already applied a non-zero ``/Rotate`` to a portrait ``MediaBox``; we then write
@@ -7,7 +13,11 @@ already applied a non-zero ``/Rotate`` to a portrait ``MediaBox``; we then write
 with the same shape are rare here; use ``SCAN_USE_TESSERACT_ROTATION`` if needed.
 
 Optional Tesseract OSD can add an extra CCW adjustment on top (slow); see
-``config.SCAN_USE_TESSERACT_ROTATION``.
+``config.SCAN_USE_TESSERACT_ROTATION``. Note that Tesseract OSD only addresses
+90° landscape→portrait, **not 180° flips** — the upstream Qwen detection in
+Step 4 is the only thing that catches a bottom-fed scan. If ``SCAN_ORIENTATION_MODEL``
+falls back (e.g. missing API key) on a 180°-flipped file, the fallback will
+not be repaired here.
 
 Used by :mod:`preprocessing.coordinator` before fine deskew. Formerly ``autograder.py``.
 """

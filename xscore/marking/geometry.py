@@ -22,18 +22,25 @@ def compute_geometry(
 
     Returns a dict with keys: scan_pages, exam_pages, empty_exam_has_cover,
     scan_has_cover, num_students, num_students_roster, roster_mismatch,
-    pages_per_student.
+    pages_per_student, mismatch_warning.
 
     The cover offset matches the convention used elsewhere in the codebase
     (see ai_mark.py, blank_page_detection.py): the scan adds a cover only
     when ``scan_has_cover`` is True AND the empty exam does not already
     include its own cover.
 
-    Raises ``ValueError`` when ``scan_pages`` is not an exact multiple of
-    ``pages_per_student`` — there is no fallback divisor search. Also raises
-    when ``empty_exam_has_cover`` is None and ``scan_has_cover`` is True
-    (step 8 was skipped but a cover was detected in the scan; we can't
-    safely guess whether the empty exam already counts that cover).
+    When ``scan_pages`` is not an exact multiple of ``pages_per_student``,
+    falls back to ``round(scan_pages / pages_per_student)`` for
+    ``num_students`` and records the discrepancy in ``mismatch_warning``
+    (a multi-line string) so downstream steps can run and pinpoint where
+    the misalignment surfaces. ``mismatch_warning`` is ``None`` on a clean
+    match. The caller is responsible for surfacing the warning and
+    (optionally) fail-fast.
+
+    Raises ``ValueError`` only for inputs we cannot recover from:
+    ``exam_pages == 0``, or ``empty_exam_has_cover is None`` while
+    ``scan_has_cover is True`` (step 8 skipped but the scan has a cover —
+    we cannot safely decide whether the empty exam already counts it).
 
     Roster mismatch is reported via the returned dict but is not fatal; the
     scan-derived count is the source of truth.
@@ -67,8 +74,8 @@ def compute_geometry(
             "no" if empty_exam_has_cover is False else
             "unknown"
         )
-        raise ValueError(
-            "Scan page count mismatch — cannot mark reliably.\n\n"
+        mismatch_warning = (
+            "Scan page count mismatch — proceeding with closest match.\n\n"
             f"  Empty exam:                {exam_pages} pages\n"
             f"  Empty exam has cover page: {empty_str}\n"
             f"  Scan has cover page:       {'yes' if scan_has_cover else 'no'}\n"
@@ -76,10 +83,14 @@ def compute_geometry(
             f"  Scan pages:                {scan_pages}\n"
             f"  Closest match:             {expected_n} students × {pages_per_student} pages "
             f"= {expected_total} ({diff:+d})\n\n"
-            "  Re-scan the missing/extra page(s) and re-run."
+            "  Continuing so downstream steps can pinpoint the misalignment.\n"
+            "  Set GEOMETRY_STRICT=1 to fail-fast on this check."
         )
+        num_students_scan = expected_n
+    else:
+        mismatch_warning = None
+        num_students_scan = scan_pages // pages_per_student
 
-    num_students_scan = scan_pages // pages_per_student
     roster_mismatch = num_students_scan != len(roster)
 
     return {
@@ -91,6 +102,7 @@ def compute_geometry(
         "num_students_roster": len(roster),
         "roster_mismatch": roster_mismatch,
         "pages_per_student": pages_per_student,
+        "mismatch_warning": mismatch_warning,
     }
 
 

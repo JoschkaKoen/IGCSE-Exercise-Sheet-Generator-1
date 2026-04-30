@@ -77,7 +77,7 @@ def _cover_offset(has_cover: bool, empty_exam_has_cover: bool) -> int:
 def build_initial_register(ctx: "_Ctx") -> dict:
     """Build register v1 from page assignments + handwriting check.
 
-    Pure function: reads the on-disk artifacts of steps 12 and 15 plus
+    Pure function: reads the on-disk artifacts of steps 12, 14, and 15 plus
     ``ctx.empty_exam_has_cover``. Returns the in-memory register dict.
 
     Reproduces the loop from the legacy bundling logic in
@@ -86,6 +86,7 @@ def build_initial_register(ctx: "_Ctx") -> dict:
     cap or any cohort filter — those are runtime concerns of step 25.
     """
     from xscore.shared.exam_paths import (
+        artifact_exam_blank_json_path,
         artifact_exam_student_list_json_path,
         artifact_handwriting_json_path,
     )
@@ -94,11 +95,21 @@ def build_initial_register(ctx: "_Ctx") -> dict:
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
 
-    skip_by_student, extras_by_student = _load_handwriting(
-        artifact_handwriting_json_path(ctx.artifact_dir)
-    )
+    blank_path = artifact_exam_blank_json_path(ctx.artifact_dir)
+    if blank_path.exists():
+        blank_data = json.loads(blank_path.read_text(encoding="utf-8"))
+        blank_exam_pages: set[int] = set(blank_data.get("blank_exam_pages", []))
+    else:
+        blank_exam_pages = set()
 
     empty_exam_has_cover = bool(ctx.empty_exam_has_cover)
+    skip_by_student, extras_by_student = _load_handwriting(
+        artifact_handwriting_json_path(ctx.artifact_dir),
+        raw_assignments,
+        blank_exam_pages,
+        empty_exam_has_cover,
+    )
+
     students_out: list[dict] = []
     total_calls = 0
     for a in raw_assignments:
@@ -154,6 +165,9 @@ def build_initial_register(ctx: "_Ctx") -> dict:
 
 def _load_handwriting(
     handwriting_path: Path,
+    raw_assignments: list[dict],
+    blank_exam_pages: set[int],
+    empty_exam_has_cover: bool,
 ) -> tuple[dict[str, set[int]], dict[str, dict[int, list[int]]]]:
     """Parse handwriting.json into (skip_set, extras_map) keyed by student.
 
@@ -161,14 +175,15 @@ def _load_handwriting(
     see them); ``extras_map`` says "for student S, when marking scan-page P,
     also include these blank-but-handwritten extras".
 
-    Prefers the per-student ``pages_without_handwriting`` field as the
-    authoritative skip list (written by step 15 under
-    ``HANDWRITING_CHECK_WIDE=1``). Falls back to deriving the skip set from
-    ``blank_scan_pages`` entries with ``has_handwriting=false`` for
-    handwriting.json files written before that field existed.
+    The handwriting.json schema is per-scan-page (a flat ``scan_pages`` list
+    plus a ``metadata`` block). Per-student grouping is derived here using the
+    page-assignment list from step 12 — which scan pages belong to which
+    student, and which scan position is the cover.
 
-    The extras map is always derived from ``blank_scan_pages`` —
-    attach-to-previous semantics only apply to blank-in-empty pages.
+    The extras map is built by joining the per-scan-page handwriting flags
+    with the blank-in-empty exam-page set: if a blank-in-empty page received
+    student handwriting, it's an overflow that attaches to the previous
+    non-blank answer page.
     """
     skip_by_student: dict[str, set[int]] = {}
     extras_by_student: dict[str, dict[int, list[int]]] = {}
@@ -176,29 +191,47 @@ def _load_handwriting(
         return skip_by_student, extras_by_student
 
     data = json.loads(handwriting_path.read_text(encoding="utf-8"))
-    for s in data.get("students", []):
-        student_name = s.get("student_name")
+    by_scan: dict[int, dict] = {
+        int(entry["scan_page"]): entry
+        for entry in data.get("scan_pages", [])
+        if entry.get("scan_page") is not None
+    }
+
+    if blank_exam_pages:
+        non_blank_exam_pages = set(range(1, max(blank_exam_pages) + 1)) - blank_exam_pages
+    else:
+        non_blank_exam_pages = set()
+
+    for a in raw_assignments:
+        student_name = a.get("student_name")
         if student_name is None:
             continue
+        page_numbers: list[int] = a.get("page_numbers", [])
+        cover_page_number = a.get("cover_page_number")
+        has_cover = cover_page_number is not None
+        cover_offset = _cover_offset(has_cover, empty_exam_has_cover)
 
-        new_field = s.get("pages_without_handwriting")
-        if new_field is not None:
-            skip: set[int] = {int(p) for p in new_field}
-        else:
-            skip = {
-                bp["scan_page"]
-                for bp in s.get("blank_scan_pages", [])
-                if bp.get("scan_page") is not None
-                and not bp.get("has_handwriting", False)
-            }
-
+        skip: set[int] = set()
         extras: dict[int, list[int]] = {}
-        for bp in s.get("blank_scan_pages", []):
-            scan_page = bp.get("scan_page")
-            if scan_page is None:
+        for p_label, scan_page in enumerate(page_numbers, 1):
+            if has_cover and p_label == 1:
+                continue  # cover never marked, never skipped, never an extra
+            entry = by_scan.get(scan_page)
+            if entry is None:
                 continue
-            if bp.get("has_handwriting", False) and bp.get("attach_to_scan_page") is not None:
-                extras.setdefault(bp["attach_to_scan_page"], []).append(scan_page)
+            has_hw = entry.get("has_handwriting")
+            if has_hw is False:
+                skip.add(scan_page)
+            exam_page = p_label - cover_offset
+            if exam_page in blank_exam_pages and has_hw is True:
+                # Attach this overflow to the previous non-blank answer page.
+                candidates = [p for p in non_blank_exam_pages if p < exam_page]
+                if candidates:
+                    attach_exam = max(candidates)
+                    attach_p_label = attach_exam + cover_offset
+                    if 1 <= attach_p_label <= len(page_numbers):
+                        attach_scan = page_numbers[attach_p_label - 1]
+                        extras.setdefault(attach_scan, []).append(scan_page)
 
         skip_by_student[student_name] = skip
         extras_by_student[student_name] = extras

@@ -26,9 +26,7 @@ from xscore.preprocessing.coordinator import (
     autorotate_phase,
     deskew_phase,
     detect_blank_pages_phase,
-    find_scan_pairs,
-    find_source_scan_match,
-    merge_duplex_scans_phase,
+    prepare_scans_phase,
 )
 from xscore.shared.load_student_list import read_student_list
 from xscore.shared.pipeline_ctx import _Ctx, _EarlyExit
@@ -49,13 +47,19 @@ def step_03_students(ctx: _Ctx) -> None:
     write_student_artifacts(ctx.artifact_dir, ctx.students)
 
 
-def step_04_merge(ctx: _Ctx) -> None:
-    """Duplex merge — only invoked when find_scan_pairs returns at least one pair."""
-    assert ctx.folder is not None and ctx.artifact_dir is not None
-    pairs = find_scan_pairs(ctx.folder, ctx.artifact_dir)
-    assert pairs, "step_04_merge invoked without any duplex pairs"
-    ctx.scan_match = merge_duplex_scans_phase(
-        pairs, ctx.artifact_dir, force_rebuild=ctx.force_clean_scan
+def step_04_prepare(ctx: _Ctx) -> None:
+    """Orient + (optionally) merge scans. Always runs.
+
+    Detects per-file orientation via Qwen vision (page 1 at 300 DPI), then
+    either interleaves duplex pairs or writes a rotated single-PDF copy.
+    See ``xscore.preprocessing.coordinator.prepare_scans_phase``.
+    """
+    assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
+    ctx.scan_match = prepare_scans_phase(
+        ctx.folder,
+        ctx.artifact_dir,
+        ctx.instruction.dpi,
+        force_rebuild=ctx.force_clean_scan,
     )
 
 
@@ -99,25 +103,19 @@ def step_07_deskew(ctx: _Ctx) -> None:
 
 
 def scan_phases(ctx: _Ctx) -> None:
-    """Steps 4–7. Step 4 is conditional on numbered duplex scans being present.
+    """Steps 4–7. Step 4 always runs (per-file orientation detection +
+    optional duplex merge); both single-PDF and duplex flows go through the
+    same ``prepare_scans_phase``.
 
-    Skipped entirely when resuming (``ctx.from_step`` set). For single-PDF
-    runs, ``find_source_scan_match`` is invoked silently (no header, no
-    run-log entry) — matching today's behaviour.
+    Skipped entirely when resuming (``ctx.from_step`` set).
     """
     assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
     if ctx.from_step:
         return
 
-    if find_scan_pairs(ctx.folder, ctx.artifact_dir) is not None:
-        run_step(ctx, step_by_number(4))
-    else:
-        ctx.scan_match = find_source_scan_match(
-            ctx.folder, ctx.artifact_dir, ctx.instruction.dpi
-        )
-        # Preserve current single-PDF stop-after-4 semantics
-        if ctx.stop_after <= 4:
-            raise _EarlyExit()
+    run_step(ctx, step_by_number(4))
+    if ctx.stop_after <= 4:
+        raise _EarlyExit()
 
     run_step(ctx, step_by_number(5))
     run_step(ctx, step_by_number(6))

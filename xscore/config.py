@@ -166,6 +166,18 @@ BLANK_DETECTION_DPI: int = int(os.getenv("BLANK_DETECTION_DPI", "72"))
 # Step 6: Tesseract OSD rotation (only when SCAN_USE_TESSERACT_ROTATION=true).
 ROTATION_ANALYSIS_DPI: int = int(os.getenv("ROTATION_ANALYSIS_DPI", "150"))
 
+# Step 4: vision model for per-scan-file orientation detection. Up to N
+# pages per source PDF are rendered at 300 DPI and majority-voted. See
+# xscore/preprocessing/scan_orientation.py.
+SCAN_ORIENTATION_MODEL: str = os.getenv("SCAN_ORIENTATION_MODEL", "gemini-3-flash-preview")
+
+# Step 4: number of pages sampled per source PDF for orientation majority-vote.
+# Pages are spread evenly across the file (always including p0 and last page);
+# blank samples are dropped before AI calls. 1 = single-page detection (fast,
+# brittle). 5 is the default and was 6/6 correct on s23/22. Higher = more
+# robust, more API cost. Clamped to >= 1 at read time.
+SCAN_ORIENTATION_SAMPLE_PAGES: int = int(os.getenv("SCAN_ORIENTATION_SAMPLE_PAGES", "5"))
+
 # Step 9: model for the informational check on the empty exam's first page.
 EMPTY_EXAM_COVER_MODEL: str = os.getenv("EMPTY_EXAM_COVER_MODEL", "gemini-2.5-flash")
 

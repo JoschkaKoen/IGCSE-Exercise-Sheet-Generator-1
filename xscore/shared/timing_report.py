@@ -28,7 +28,7 @@ _STEP_LABELS: dict[str, str] = {
     "parse_grading_instructions":  "Parse instructions",
     "locate_exam_folder":          "Select exam folder",
     "read_student_list":           "Read student list",
-    "merge_duplex_scan_halves":    "Merge duplex scans",
+    "prepare_scans":               "Orient and merge scans",
     "detect_blank_pages":          "Detect blank pages",
     "autorotate":                  "Autorotate",
     "deskew":                      "Deskew",

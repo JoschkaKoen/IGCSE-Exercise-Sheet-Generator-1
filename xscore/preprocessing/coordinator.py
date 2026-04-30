@@ -16,6 +16,8 @@ _STEP_07 = "07_deskew"
 
 # File name constants (no longer include the step-number prefix)
 MERGED_SCAN_PDF           = _STEP_04 + "/merged_scan.pdf"
+SCAN_ORIENTATIONS_JSON    = _STEP_04 + "/scan_orientations.json"
+ORIENTED_SCAN_PDF         = _STEP_04 + "/oriented_scan.pdf"  # single-PDF flow only
 SCAN_BLANKS_JSON          = _STEP_05 + "/scan_blanks.json"
 SCAN_ROTATED_PDF          = _STEP_06 + "/scan_rotated.pdf"
 CLEANED_SCAN_PDF          = _STEP_07 + "/cleaned_scan.pdf"
@@ -137,13 +139,39 @@ def find_scan_pairs(folder: Path, artifact_dir: Path) -> list[tuple[Path, Path]]
     return [(indexed[i], indexed[i + 1]) for i in range(1, len(found), 2)]
 
 
-def merge_duplex_scans_phase(
+def prepare_scans_phase(
+    folder: Path,
+    artifact_dir: Path,
+    dpi: int,
+    *,
+    force_rebuild: bool = False,
+) -> Path:
+    """Step 4 body. Always runs. Detects per-file orientation via Qwen
+    vision (see :mod:`xscore.preprocessing.scan_orientation`), then either
+
+    (a) merges duplex pairs into ``merged_scan.pdf`` with rotation applied, or
+    (b) for a single source PDF, writes a rotated copy to ``oriented_scan.pdf``
+        when rotation ≠ 0; otherwise returns the source path unchanged.
+
+    Returns the path subsequent steps should read.
+
+    *dpi* is plumbed through to :func:`find_source_scan_match` (used to
+    prefer a DPI-tagged scan filename when multiple PDFs are present).
+    """
+    pairs = find_scan_pairs(folder, artifact_dir)
+    if pairs is not None:
+        return _prepare_duplex(pairs, artifact_dir, force_rebuild=force_rebuild)
+    src = find_source_scan_match(folder, artifact_dir, dpi)
+    return _prepare_single(src, artifact_dir, force_rebuild=force_rebuild)
+
+
+def _prepare_duplex(
     pairs: list[tuple[Path, Path]],
     artifact_dir: Path,
     *,
     force_rebuild: bool = False,
 ) -> Path:
-    """Step 4: interleave each duplex pair and concatenate all pairs into one PDF.
+    """Per-file orientation detection + duplex interleave merge.
 
     Within each pair, the front PDF's pages are in order [p1, p3, p5, ...] and
     the back PDF's pages are in reverse order [p2N, p2N-2, ..., p2] (the stack
@@ -151,48 +179,223 @@ def merge_duplex_scans_phase(
 
     With multiple pairs, each pair is interleaved on its own and the resulting
     runs are concatenated in pair order.
+
+    Cache validity requires *both* ``merged_scan.pdf`` AND
+    ``scan_orientations.json`` to exist — pre-fix runs lacking the audit
+    regenerate cleanly.
     """
     import fitz
-    from xscore.shared.terminal_ui import ok_line, warn_line
+    from xscore.shared.terminal_ui import info_line, ok_line, warn_line
 
     out = artifact_dir / MERGED_SCAN_PDF
-    if out.is_file() and not force_rebuild:
+    audit = artifact_dir / SCAN_ORIENTATIONS_JSON
+    if out.is_file() and audit.is_file() and not force_rebuild:
         ok_line(f"Using cached {out.name}")
+        try:
+            cached = _read_orientations_audit(audit)
+            _log_cached_orientation_summary(cached)
+        except Exception as exc:  # noqa: BLE001 — replay is best-effort
+            warn_line(f"scan_orientations.json could not be read: {exc!r}")
         return out
 
+    from xscore.preprocessing.scan_orientation import (
+        ROTATION_DETECTION_DPI,
+        detect_scan_orientations,
+    )
+    from xscore.config import (
+        SCAN_ORIENTATION_MODEL,
+        SCAN_ORIENTATION_SAMPLE_PAGES,
+    )
+    from eXercise.ai_client import parse_model_spec
+
+    unique_files = sorted({p for pair in pairs for p in pair}, key=lambda p: p.name)
+    model_name, _, _ = parse_model_spec(SCAN_ORIENTATION_MODEL)
+    info_line("Detecting per-file orientation")
+    info_line(
+        f"Model: {model_name} · "
+        f"{max(1, SCAN_ORIENTATION_SAMPLE_PAGES)} sample pages per file at "
+        f"{ROTATION_DETECTION_DPI} DPI"
+    )
+    results = detect_scan_orientations(unique_files)
+    audit.parent.mkdir(parents=True, exist_ok=True)
+    _write_orientations_audit(audit, results)
+
+    pairs_desc = ", ".join(f"{f.stem}+{b.stem}" for f, b in pairs)
+    info_line(
+        f"Merging {len(unique_files)} files "
+        f"({len(pairs)} duplex pair{'' if len(pairs) == 1 else 's'})  ·  "
+        f"{pairs_desc}"
+    )
+
     merged = fitz.open()
-    total_pages = 0
-    pair_descriptions: list[str] = []
+    try:
+        total_pages = 0
+        for front, back in pairs:
+            front_rot = results[front].rotation_cw if front in results else 0
+            back_rot  = results[back].rotation_cw  if back  in results else 0
+            with fitz.open(str(front)) as doc_f, fitz.open(str(back)) as doc_b:
+                if front_rot:
+                    for p in doc_f:
+                        p.set_rotation((p.rotation + front_rot) % 360)
+                if back_rot:
+                    for p in doc_b:
+                        p.set_rotation((p.rotation + back_rot) % 360)
+                nf, nb = len(doc_f), len(doc_b)
+                if nf != nb:
+                    warn_line(
+                        f"Page count mismatch: {front.name}={nf}, {back.name}={nb}; "
+                        f"pairing first {min(nf, nb)} from each"
+                    )
+                n = min(nf, nb)
+                for i in range(n):
+                    merged.insert_pdf(doc_f, from_page=i, to_page=i)
+                    merged.insert_pdf(doc_b, from_page=nb - 1 - i, to_page=nb - 1 - i)
+                total_pages += n * 2
+        out.parent.mkdir(parents=True, exist_ok=True)
+        merged.save(str(out))
+    finally:
+        merged.close()
 
-    for front, back in pairs:
-        doc_f = fitz.open(str(front))
-        doc_b = fitz.open(str(back))
-        nf, nb = len(doc_f), len(doc_b)
-        if nf != nb:
-            warn_line(
-                f"Page count mismatch: {front.name}={nf}, {back.name}={nb}; "
-                f"pairing first {min(nf, nb)} from each"
-            )
-        n = min(nf, nb)
-        for i in range(n):
-            merged.insert_pdf(doc_f, from_page=i, to_page=i)
-            merged.insert_pdf(doc_b, from_page=nb - 1 - i, to_page=nb - 1 - i)
-        total_pages += n * 2
-        pair_descriptions.append(f"{front.name}+{back.name}")
-        doc_f.close()
-        doc_b.close()
-
-    out.parent.mkdir(parents=True, exist_ok=True)
-    merged.save(str(out))
-    merged.close()
-    if len(pairs) == 1:
-        ok_line(f"{total_pages} pages merged  ·  {pair_descriptions[0]}")
-    else:
-        ok_line(
-            f"{total_pages} pages merged  ·  {len(pairs)} pairs "
-            f"({', '.join(pair_descriptions)})"
-        )
+    ok_line(f"{total_pages} pages merged into {out.name}")
     return out
+
+
+def _prepare_single(
+    src: Path,
+    artifact_dir: Path,
+    *,
+    force_rebuild: bool = False,
+) -> Path:
+    """Detect orientation of a single source scan; if rotation is needed,
+    write a rotated copy to ``ORIENTED_SCAN_PDF`` and return that. Otherwise
+    return *src* unchanged (no copy written).
+
+    Cache: when ``scan_orientations.json`` exists with rotation 0 for *src*,
+    we trust it and skip the Qwen call. When it exists with rotation ≠ 0 but
+    the rotated copy is missing, we regenerate.
+    """
+    import fitz
+    from xscore.shared.terminal_ui import info_line, ok_line
+
+    audit = artifact_dir / SCAN_ORIENTATIONS_JSON
+    oriented = artifact_dir / ORIENTED_SCAN_PDF
+
+    if audit.is_file() and not force_rebuild:
+        try:
+            cached = _read_orientations_audit(audit)
+        except Exception:  # noqa: BLE001 — corrupt audit → regenerate
+            cached = {}
+        cached_rot = cached.get(src.name, None)
+        if cached_rot is not None:
+            if cached_rot == 0:
+                ok_line(f"Using cached orientation for {src.name}")
+                _log_cached_orientation_summary(cached)
+                oriented.unlink(missing_ok=True)
+                return src
+            if oriented.is_file():
+                ok_line(f"Using cached {oriented.name}")
+                _log_cached_orientation_summary(cached)
+                return oriented
+            # rotation expected but file missing → fall through to regenerate
+
+    from xscore.preprocessing.scan_orientation import (
+        ROTATION_DETECTION_DPI,
+        detect_scan_orientations,
+    )
+    from xscore.config import (
+        SCAN_ORIENTATION_MODEL,
+        SCAN_ORIENTATION_SAMPLE_PAGES,
+    )
+    from eXercise.ai_client import parse_model_spec
+
+    model_name, _, _ = parse_model_spec(SCAN_ORIENTATION_MODEL)
+    info_line("Detecting per-file orientation")
+    info_line(
+        f"Model: {model_name} · "
+        f"{max(1, SCAN_ORIENTATION_SAMPLE_PAGES)} sample pages per file at "
+        f"{ROTATION_DETECTION_DPI} DPI"
+    )
+    results = detect_scan_orientations([src])
+    audit.parent.mkdir(parents=True, exist_ok=True)
+    _write_orientations_audit(audit, results)
+
+    rot = results[src].rotation_cw if src in results else 0
+    if rot == 0:
+        oriented.unlink(missing_ok=True)
+        return src
+    info_line(f"Writing rotated copy to {oriented.name}")
+    with fitz.open(str(src)) as doc:
+        for p in doc:
+            p.set_rotation((p.rotation + rot) % 360)
+        oriented.parent.mkdir(parents=True, exist_ok=True)
+        doc.save(str(oriented))
+    ok_line(f"Saved {oriented.name} (all pages rotated {rot}° CW)")
+    return oriented
+
+
+# ---------------------------------------------------------------------------
+# Orientation audit JSON helpers (Step 4)
+# ---------------------------------------------------------------------------
+
+def _write_orientations_audit(path: Path, results: dict) -> None:
+    """Serialize ``{Path: OrientationResult}`` to scan_orientations.json.
+
+    Schema:
+        {"schema_version": 1,
+         "model": "<resolved-model-or-null>",
+         "files": [{"name": "...", "rotation_cw": ..., "source": "qwen"|"fallback",
+                    "reason": "..."?}, ...]}
+    """
+    import json
+    files: list[dict] = []
+    model: str | None = None
+    for p, r in results.items():
+        entry: dict = {
+            "name": p.name,
+            "rotation_cw": int(r.rotation_cw),
+            "source": str(r.source),
+        }
+        if r.reason is not None:
+            entry["reason"] = str(r.reason)
+        files.append(entry)
+        if model is None and r.model:
+            model = r.model
+    body = {
+        "schema_version": 1,
+        "model": model,
+        "files": sorted(files, key=lambda e: e["name"]),
+    }
+    path.write_text(json.dumps(body, indent=2), encoding="utf-8")
+
+
+def _read_orientations_audit(path: Path) -> dict[str, int]:
+    """Read scan_orientations.json and return ``{name: rotation_cw}``."""
+    import json
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict) or data.get("schema_version") != 1:
+        raise ValueError(f"unsupported scan_orientations.json schema: {path}")
+    out: dict[str, int] = {}
+    for entry in data.get("files", []) or []:
+        out[str(entry["name"])] = int(entry.get("rotation_cw", 0))
+    return out
+
+
+def _log_cached_orientation_summary(cached: dict[str, int]) -> None:
+    """Log a one-line-per-file replay from cached audit JSON.
+
+    The audit JSON intentionally doesn't store per-page votes (kept compact),
+    so this replay shows just the per-file decision.
+    """
+    from xscore.shared.terminal_ui import info_line
+    if not cached:
+        return
+    info_line("Cached orientations:")
+    for name in sorted(cached):
+        rot = cached[name]
+        if rot == 0:
+            info_line(f"  {name}: already upright")
+        else:
+            info_line(f"  {name}: rotated {rot}° CW")
 
 
 def _scan_blanks_to_md(

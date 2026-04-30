@@ -95,6 +95,10 @@ def step_10_geometry(ctx: _Ctx) -> None:
     except ValueError as exc:
         warn_line(str(exc))
         raise SystemExit(1)
+    if ctx.geo.get("mismatch_warning"):
+        warn_line(ctx.geo["mismatch_warning"])
+        if os.environ.get("GEOMETRY_STRICT", "0") == "1":
+            raise SystemExit(1)
     ctx.num_students = ctx.geo["num_students"]
     ctx.pages_per_student = ctx.geo["pages_per_student"]
     if ctx.geo["roster_mismatch"]:
@@ -258,20 +262,23 @@ def step_14_exam_blank(ctx: _Ctx) -> None:
 
 def step_15_handwriting(ctx: _Ctx) -> None:
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    assert ctx.pages_per_student is not None and ctx.pages_per_student > 0
     announce_step_model(
         model_env="HANDWRITING_CHECK_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
-        default_max_tokens=32,
+        default_max_tokens=96,
     )
     from xscore.marking.blank_page_detection import BlankCheckStatus
-    wide = os.environ.get("HANDWRITING_CHECK_WIDE", "1").strip().lower() in {"1", "true", "yes", "on"}
+    from xscore.marking.marking_page_register import _cover_offset
+    cover_page_mode = bool(ctx.cover_page_mode)
+    cover_offset = _cover_offset(cover_page_mode, bool(ctx.empty_exam_has_cover))
     t0 = time.perf_counter()
     status, msg = check_student_handwriting(
         ctx.cleaned_pdf,
-        ctx.page_assignments,
         ctx.artifact_dir,
-        empty_exam_has_cover=bool(ctx.empty_exam_has_cover),
-        wide=wide,
+        cover_page_mode=cover_page_mode,
+        pages_per_student=ctx.pages_per_student,
+        cover_offset=cover_offset,
     )
     dur = format_duration(time.perf_counter() - t0)
 

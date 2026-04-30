@@ -51,9 +51,7 @@ def run_full_pipeline(
         autorotate_phase,
         deskew_phase,
         detect_blank_pages_phase,
-        find_scan_pairs,
-        find_source_scan_match,
-        merge_duplex_scans_phase,
+        prepare_scans_phase,
     )
     from xscore.scaffold.generate_scaffold import build_scaffold
     from xscore.shared.exam_paths import (
@@ -135,21 +133,19 @@ def run_full_pipeline(
     artifact_dir.mkdir(parents=True, exist_ok=True)
     (artifact_dir / "command.txt").write_text(" ".join(_cmd_parts), encoding="utf-8")
 
-    # ---------------------------------------------------------------------- step 4 (conditional: duplex scan merge)
+    # ---------------------------------------------------------------------- step 4 (orient + optional duplex merge)
     empty_exam_path = folder / "empty_exam.pdf"
     scaffold = None
 
-    pairs = find_scan_pairs(folder, artifact_dir)
-    if pairs is not None:
-        on_line(f"Step 4 — Merging {len(pairs)} duplex pair(s)…")
+    on_line("Step 4 — Detecting per-file orientation and preparing scans…")
 
-        def _merge() -> Path:
-            return merge_duplex_scans_phase(pairs, artifact_dir, force_rebuild=True)
+    def _prepare() -> Path:
+        return prepare_scans_phase(
+            folder, artifact_dir, effective_dpi, force_rebuild=True
+        )
 
-        source_scan = _step(4, _merge)
-        on_line(f"Step 4 — {len(pairs)} duplex pair(s) merged.")
-    else:
-        source_scan = find_source_scan_match(folder, artifact_dir, effective_dpi)
+    source_scan = _step(4, _prepare)
+    on_line("Step 4 — Scans prepared.")
 
     # ---------------------------------------------------------------------- steps 5–7 (scan cleaning)
     on_line("Step 5 — Detecting blank pages…")

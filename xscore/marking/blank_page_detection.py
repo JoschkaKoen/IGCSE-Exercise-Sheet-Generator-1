@@ -31,10 +31,9 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from enum import Enum
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
-if TYPE_CHECKING:
-    from xscore.shared.models import PageAssignment
+from pydantic import BaseModel
 
 
 class BlankCheckStatus(Enum):
@@ -119,24 +118,45 @@ def _parse_blank_pages(raw: str) -> set[int] | None:
         return None
 
 
-def _parse_handwriting(raw: str) -> bool | None:
-    """Parse handwriting yes/no response. Returns ``True``/``False`` or ``None``
-    when the response is malformed."""
+def _parse_handwriting(
+    raw: str,
+) -> tuple[bool | None, int | None, bool | None]:
+    """Parse the handwriting + page-number + cover-page vision response.
+
+    Returns ``(handwriting, page_number, is_cover_page)``. Each component is
+    parsed independently — a malformed field does not invalidate the others.
+    Any component may be ``None`` when the field was missing or malformed.
+    """
     if not raw:
-        return None
+        return None, None, None
     try:
         data = json.loads(raw)
     except (json.JSONDecodeError, ValueError):
-        return None
+        return None, None, None
     if isinstance(data, bool):
-        return data
-    if isinstance(data, dict):
-        v = data.get("answer")
-        if v is None:
-            v = data.get("has_handwriting")
-        if isinstance(v, bool):
-            return v
-    return None
+        return data, None, None
+    if not isinstance(data, dict):
+        return None, None, None
+    hw_raw = data.get("answer")
+    if hw_raw is None:
+        hw_raw = data.get("has_handwriting")
+    hw: bool | None = hw_raw if isinstance(hw_raw, bool) else None
+    pn_raw = data.get("page_number")
+    pn: int | None = None
+    if isinstance(pn_raw, bool):
+        pn = None  # bool is a subclass of int — reject
+    elif isinstance(pn_raw, int):
+        pn = pn_raw
+    elif isinstance(pn_raw, str):
+        try:
+            pn = int(pn_raw.strip())
+        except (ValueError, AttributeError):
+            pn = None
+    if pn is not None and (pn <= 0 or pn > 200):
+        pn = None
+    cover_raw = data.get("is_cover_page")
+    cover: bool | None = cover_raw if isinstance(cover_raw, bool) else None
+    return hw, pn, cover
 
 
 # ─────────── Step 14: find blank pages in empty exam ─────────────────────────
@@ -260,11 +280,12 @@ def _has_handwriting(
     model_id: str,
     jpeg_bytes: bytes,
     save_path: Path | None,
-) -> bool | None:
-    """Vision call: does this blank scan page contain student handwriting?
+) -> tuple[bool | None, int | None, bool | None]:
+    """Vision call: handwriting + printed page number + cover-page flag.
 
-    Returns ``True``/``False`` on success, or ``None`` when the call could
-    not be completed or the response was malformed.
+    Returns ``(handwriting, page_number, is_cover_page)``. Each component is
+    ``None`` if the call failed or the field was missing/malformed; the three
+    are independent so any subset can succeed.
     """
     from xscore.shared.prompt_logger import save_prompt, save_response
     from xscore.prompts.loader import load_prompt
@@ -279,9 +300,16 @@ def _has_handwriting(
             label="Handwriting check",
         )
     except Exception:
-        return None
+        return None, None, None
     save_response(save_path, raw, thinking=thinking_text)
     return _parse_handwriting(raw)
+
+
+class _HandwritingPageNumberResp(BaseModel):
+    """Structured-output schema for the step-15 vision call (Gemini path)."""
+    answer: bool
+    page_number: int | None = None
+    is_cover_page: bool = False
 
 
 def _call_handwriting(
@@ -300,20 +328,19 @@ def _call_handwriting(
                 gai_types.Part.from_text(text=prompt_text),
             ],
             config=gai_types.GenerateContentConfig(
-                max_output_tokens=32,
+                max_output_tokens=96,
                 response_mime_type="application/json",
-                response_schema=bool,
+                response_schema=_HandwritingPageNumberResp,
             ),
         )
         return split_gemini_response(resp)
     import base64 as _base64
     from eXercise.ai_client import build_completion_kwargs
-    # Force thinking off for this tiny yes/no call (32-token cap).
-    _use_stream, kw = build_completion_kwargs(state.provider, 0, 32)
+    # Force thinking off — the JSON shape is in the prompt, 96 tokens is plenty.
+    _use_stream, kw = build_completion_kwargs(state.provider, 0, 96)
     b64 = _base64.b64encode(jpeg_bytes).decode()
-    oa_prompt = prompt_text + '\n\nReturn JSON only with this shape: {"answer": <bool>}'
     msgs = [{"role": "user", "content": [
-        {"type": "text", "text": oa_prompt},
+        {"type": "text", "text": prompt_text},
         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
     ]}]
     try:
@@ -391,36 +418,28 @@ def check_exam_blank_pages(
 
 def check_student_handwriting(
     scan_pdf: Path,
-    page_assignments: list["PageAssignment"],
     artifact_dir: Path | None = None,
-    empty_exam_has_cover: bool | None = None,
     *,
-    wide: bool = True,
+    cover_page_mode: bool = False,
+    pages_per_student: int = 0,
+    cover_offset: int = 0,
 ) -> tuple[BlankCheckStatus, str | None]:
-    """Step 15: check student scan pages for handwriting (vision LLM, parallel).
+    """Step 15: per-scan-page vision classification.
 
-    Reads the step-14 artifact for the empty-exam blank set, then runs vision
-    handwriting checks per (student × page). With ``wide=True`` (default,
-    controlled by ``HANDWRITING_CHECK_WIDE`` in the dispatcher) every answer
-    page is checked; with ``wide=False`` only step-14 blank pages are checked.
+    For every scan PDF page, runs a vision LLM call that returns
+    ``(has_handwriting, detected_page_number, is_cover_page)``. Per-student
+    aggregation happens later in the marking-page-register builder, which has
+    the page assignments needed to map scan pages → students.
 
-    Cover scan pages (``p_label == 1`` when the student has a cover) are
-    always excluded from checks.
+    Writes ``15_student_handwriting/handwriting.json`` with a flat
+    ``scan_pages`` list (one entry per page) and a ``metadata`` block
+    capturing the geometry parameters used to compute expected values.
 
-    Writes ``15_student_handwriting/handwriting.json`` with three per-student
-    fields: ``blank_scan_pages`` (entries for blank-in-empty pages — drives
-    the attach-to-previous extras logic in the marking page register),
-    ``pages_without_handwriting`` (authoritative skip list for the marker;
-    every scan page where the AI returned False), and ``inconclusive_pages``
-    (model errors / malformed responses).
-
-    Emits per-task progress lines ``✓ Page X/N: 'Student' · {has,no} handwriting · dur``
-    via terminal_ui. Returns ``(BlankCheckStatus, message)``; never raises
-    SystemExit (the dispatcher owns warn-vs-SystemExit policy).
+    Returns ``(BlankCheckStatus, message)``; never raises SystemExit (the
+    dispatcher owns warn-vs-SystemExit policy).
     """
     from eXercise.ai_client import parse_model_spec
     from xscore.shared.exam_paths import (
-        artifact_exam_blank_json_path,
         artifact_handwriting_dir,
         artifact_handwriting_json_path,
         artifact_handwriting_prompt_path,
@@ -434,254 +453,233 @@ def check_student_handwriting(
 
     if artifact_dir is None:
         return BlankCheckStatus.INCONCLUSIVE, "no artifact_dir provided"
-
-    # ── Read step 14 artifact ────────────────────────────────────────────────
-    exam_blank_path = artifact_exam_blank_json_path(artifact_dir)
-    if not exam_blank_path.exists():
+    if pages_per_student <= 0:
         return (
             BlankCheckStatus.INCONCLUSIVE,
-            "step 14 artifact not found (14_exam_blank_detection/blank_exam_pages.json); "
-            "run exam_blank_detection first",
+            f"invalid pages_per_student={pages_per_student}; geometry must run first",
         )
-    try:
-        blank_data = json.loads(exam_blank_path.read_text(encoding="utf-8"))
-        blank_exam_pages: set[int] = set(blank_data.get("blank_exam_pages", []))
-    except Exception as exc:  # noqa: BLE001
-        return BlankCheckStatus.INCONCLUSIVE, f"could not read step 14 artifact: {exc}"
 
-    # Narrow mode + zero blanks → nothing to do; write empty artifact and exit.
-    # Wide mode keeps going regardless of step 14's blank set.
-    if not blank_exam_pages and not wide:
-        students_out = [
-            {
-                "student_name": a.student_name,
-                "blank_scan_pages": [],
-                "pages_without_handwriting": [],
-                "inconclusive_pages": [],
-            }
-            for a in page_assignments
-        ]
-        artifact = {"students": students_out}
-        hw_path = artifact_handwriting_json_path(artifact_dir)
-        hw_path.parent.mkdir(parents=True, exist_ok=True)
-        hw_path.write_text(json.dumps(artifact, indent=2), encoding="utf-8")
-        return BlankCheckStatus.PASSED, "no blank exam pages — no handwriting checks needed"
-
-    model_id, thinking, max_tok = parse_model_spec(
+    model_id, _thinking, _max_tok = parse_model_spec(
         os.environ.get("HANDWRITING_CHECK_MODEL", "qwen3-vl-flash")
     )
-
     client_or_err = _build_client_state(model_id)
     if isinstance(client_or_err, str):
         return BlankCheckStatus.INCONCLUSIVE, client_or_err
     state = client_or_err
 
-    cover_page_mode = any(a.cover_page_number is not None for a in page_assignments)
-    cover_offset = 1 if (cover_page_mode and not empty_exam_has_cover) else 0
-
-    # ── Build task list ──────────────────────────────────────────────────────
-    # Two cover concepts at play:
-    #   - student cover (a.cover_page_number is not None) → skip p_label == 1
-    #   - empty-exam cover (cover_offset) → drives exam_page = p_label - cover_offset
-    tasks: list[tuple[Any, int, int]] = []  # (assignment, exam_page, scan_page)
-    if wide:
-        for a in page_assignments:
-            has_cover = a.cover_page_number is not None
-            for p_label, scan_page in enumerate(a.page_numbers, 1):
-                if has_cover and p_label == 1:
-                    continue                # student cover scan page
-                exam_page = p_label - cover_offset
-                if exam_page < 1:
-                    continue
-                tasks.append((a, exam_page, scan_page))
-    else:
-        for a in page_assignments:
-            for exam_page in sorted(blank_exam_pages):
-                p_label = exam_page + cover_offset
-                if p_label > len(a.page_numbers):
-                    continue
-                scan_page = a.page_numbers[p_label - 1]
-                tasks.append((a, exam_page, scan_page))
-
-    if not tasks:
-        students_out = [
-            {
-                "student_name": a.student_name,
-                "blank_scan_pages": [],
-                "pages_without_handwriting": [],
-                "inconclusive_pages": [],
-            }
-            for a in page_assignments
-        ]
-        artifact = {"students": students_out}
-        hw_path = artifact_handwriting_json_path(artifact_dir)
-        hw_path.parent.mkdir(parents=True, exist_ok=True)
-        hw_path.write_text(json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8")
-        if wide:
-            msg = "no answer pages to check (every student's scan range is empty)"
-        else:
-            msg = (
-                f"exam pages {sorted(blank_exam_pages)} are beyond every student's scan range — "
-                "no handwriting checks needed"
-            )
-        return BlankCheckStatus.PASSED, msg
-
-    jpeg_dir = artifact_handwriting_dir(artifact_dir)
-    jpeg_dir.mkdir(parents=True, exist_ok=True)
-
-    # Read scan PDF page count once for progress-line width formatting.
     import fitz
     with fitz.open(str(scan_pdf)) as _doc:
         scan_n_pages = _doc.page_count
     page_width = max(1, len(str(scan_n_pages)))
-    name_width = max(
-        (len(a.student_name or "Unknown") for a in page_assignments),
-        default=1,
-    )
+
+    def _expected(scan_page: int) -> int:
+        """Return expected exam_page for this scan_page, or 0 for an expected cover."""
+        p_label = ((scan_page - 1) % pages_per_student) + 1
+        if cover_page_mode and p_label == 1:
+            return 0
+        return p_label - cover_offset
+
+    # Build task list. exam_page = 0 → cover; exam_page >= 1 → answer page.
+    # Skip rows where exam_page < 1 (can occur when cover_offset is -1 and the
+    # first scan page is a non-cover that maps to "exam page 0", i.e. before
+    # the empty exam's first content page).
+    tasks: list[tuple[int, int]] = []  # (scan_page, exam_page)
+    for scan_page in range(1, scan_n_pages + 1):
+        exam_page = _expected(scan_page)
+        if exam_page == 0 or exam_page >= 1:
+            tasks.append((scan_page, exam_page))
+
+    if not tasks:
+        artifact = {
+            "metadata": {
+                "scan_pdf_page_count": scan_n_pages,
+                "cover_page_mode": cover_page_mode,
+                "pages_per_student": pages_per_student,
+                "cover_offset": cover_offset,
+            },
+            "scan_pages": [],
+            "inconclusive_pages": [],
+        }
+        hw_path = artifact_handwriting_json_path(artifact_dir)
+        hw_path.parent.mkdir(parents=True, exist_ok=True)
+        hw_path.write_text(json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8")
+        return BlankCheckStatus.PASSED, "no scan pages to check"
+
+    jpeg_dir = artifact_handwriting_dir(artifact_dir)
+    jpeg_dir.mkdir(parents=True, exist_ok=True)
 
     info_line(
-        f"Checking {len(tasks)} (student × page) handwriting tasks "
-        f"on scanned exam pages …"
+        f"Checking {len(tasks)} scan pages for handwriting + page-number + cover-page …"
     )
 
-    # Sort tasks by scan_page so the reorder buffer below produces lines in
-    # ascending page order (which also groups each student's pages together,
-    # since page_numbers are contiguous per student).
-    tasks_sorted = sorted(tasks, key=lambda t: t[2])
+    def _classify(
+        exam_page: int, detected_pn: int | None, is_cover: bool | None
+    ) -> tuple[str, bool | None]:
+        """Return (page-number column text, match flag).
 
-    def _detect(idx: int, args: tuple) -> tuple[int, str, int, int, bool | None, str]:
-        """Returns (idx, student_name, exam_page, scan_page, has_handwriting_or_None, dur_str)."""
-        assignment, exam_page, scan_page = args
-        safe_name = (assignment.student_name or "Unknown").replace(" ", "_")
+        match: True when the AI's classification matches expectation (cover ↔
+        cover, or answer page with correct printed page number); False on
+        clear disagreement; None when not enough info to decide.
+        """
+        expected_is_cover = (exam_page == 0)
+        if is_cover:
+            ai_label = "cover"
+        elif detected_pn is not None:
+            ai_label = str(detected_pn)
+        else:
+            ai_label = "—"
+        if expected_is_cover:
+            match: bool | None = None if is_cover is None else bool(is_cover)
+            expected_label = "cover"
+        else:
+            if is_cover:
+                match = False
+            elif detected_pn is None:
+                match = None
+            else:
+                match = (detected_pn == exam_page)
+            expected_label = str(exam_page)
+        if match is False:
+            return f"pg {ai_label} (exp {expected_label})", False
+        return f"pg {ai_label}", match
+
+    def _detect(
+        idx: int, args: tuple
+    ) -> tuple[int, int, int, bool | None, int | None, bool | None, str]:
+        """Returns (idx, scan_page, exam_page, hw, detected_pn, is_cover, dur_str)."""
+        scan_page, exam_page = args
         jpeg_bytes = _render_page_jpeg(scan_pdf, scan_page)
-        (jpeg_dir / f"{safe_name}_{exam_page}.jpg").write_bytes(jpeg_bytes)
+        (jpeg_dir / f"page_{scan_page:03d}.jpg").write_bytes(jpeg_bytes)
         save_path = artifact_handwriting_prompt_path(
-            artifact_dir, f"blank_{safe_name}_{exam_page}"
+            artifact_dir, f"page_{scan_page:03d}"
         )
         t0 = time.perf_counter()
-        hw = _has_handwriting(state, model_id, jpeg_bytes, save_path)
+        hw, detected_pn, is_cover = _has_handwriting(state, model_id, jpeg_bytes, save_path)
         dur = format_duration(time.perf_counter() - t0)
-        return idx, assignment.student_name, exam_page, scan_page, hw, dur
+        return idx, scan_page, exam_page, hw, detected_pn, is_cover, dur
 
-    def _emit(student_name: str, scan_page: int, hw: bool | None, dur: str) -> None:
-        name_quoted = f"{student_name!r}"
-        # +2 to padding for the surrounding quotes added by repr().
+    def _emit(
+        scan_page: int,
+        exam_page: int,
+        hw: bool | None,
+        detected_pn: int | None,
+        is_cover: bool | None,
+        dur: str,
+    ) -> None:
+        pn_str, match = _classify(exam_page, detected_pn, is_cover)
         if hw is None:
-            warn_line(
-                f"Page {scan_page:>{page_width}d}/{scan_n_pages}: "
-                f"{name_quoted:<{name_width + 2}}  ·  inconclusive    ·  {dur}"
-            )
+            label = "inconclusive   "
+            line_fn = warn_line
         else:
             label = "has handwriting" if hw else "no handwriting "
-            ok_line(
-                f"Page {scan_page:>{page_width}d}/{scan_n_pages}: "
-                f"{name_quoted:<{name_width + 2}}  ·  {label}  ·  {dur}"
-            )
+            line_fn = warn_line if match is False else ok_line
+        line_fn(
+            f"Page {scan_page:>{page_width}d}/{scan_n_pages}  ·  {label}  ·  {pn_str:<20}  ·  {dur}"
+        )
 
-    results: list[tuple[str, int, int, bool | None]] = []
-    pending: dict[int, tuple[str, int, int, bool | None, str]] = {}
+    results: list[tuple[int, int, bool | None, int | None, bool | None]] = []
+    pending: dict[int, tuple[int, int, bool | None, int | None, bool | None, str]] = {}
     next_idx = 0
-    workers = min(len(tasks_sorted), int(os.environ.get("HANDWRITING_WORKERS", "500")))
+    workers = min(len(tasks), int(os.environ.get("HANDWRITING_WORKERS", "500")))
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        futs = {ex.submit(_detect, i, t): i for i, t in enumerate(tasks_sorted)}
+        futs = {ex.submit(_detect, i, t): i for i, t in enumerate(tasks)}
         for fut in as_completed(futs):
-            idx, student_name, exam_page, scan_page, hw, dur = fut.result()
-            pending[idx] = (student_name, exam_page, scan_page, hw, dur)
-            # Drain consecutive ready entries so output stays in submission
-            # order while remaining incremental as workers complete.
+            idx, scan_page, exam_page, hw, detected_pn, is_cover, dur = fut.result()
+            pending[idx] = (scan_page, exam_page, hw, detected_pn, is_cover, dur)
             while next_idx in pending:
-                sn, ep, sp, h, d = pending.pop(next_idx)
-                _emit(sn, sp, h, d)
-                results.append((sn, ep, sp, h))
+                sp, ep, h, pn, ic, d = pending.pop(next_idx)
+                _emit(sp, ep, h, pn, ic, d)
+                results.append((sp, ep, h, pn, ic))
                 next_idx += 1
 
-    # ── Build per-student artifact ───────────────────────────────────────────
-    if blank_exam_pages:
-        non_blank = set(range(1, max(blank_exam_pages) + 1)) - blank_exam_pages
-    else:
-        non_blank = set()
-
-    def _attach_target(exam_page: int) -> int | None:
-        candidates = [p for p in non_blank if p < exam_page]
-        return max(candidates) if candidates else None
-
-    by_student: dict[str, list[tuple[int, int, bool | None]]] = {}
-    for student_name, exam_page, scan_page, has_hw in results:
-        by_student.setdefault(student_name, []).append((exam_page, scan_page, has_hw))
-
-    students_out = []
-    inconclusive_total: list[tuple[str, int, int]] = []
-    for a in page_assignments:
-        entries = sorted(by_student.get(a.student_name, []), key=lambda x: x[0])
-        blank_scan_pages: list[dict] = []
-        pages_without_hw: list[int] = []
-        inconclusive_pages: list[dict] = []
-        for exam_page, scan_page, has_hw in entries:
-            if has_hw is None:
-                inconclusive_pages.append({
-                    "exam_page": exam_page,
-                    "scan_page": scan_page,
-                    "reason": "handwriting check failed (model error or malformed response)",
-                })
-                inconclusive_total.append((a.student_name, exam_page, scan_page))
-                continue
-            if not has_hw:
-                pages_without_hw.append(scan_page)
-            # blank_scan_pages keeps its today-semantics: only blank-in-empty
-            # entries, used by the register's attach-to-previous extras logic.
-            if exam_page in blank_exam_pages:
-                attach_exam = _attach_target(exam_page) if has_hw else None
-                attach_scan_page: int | None = None
-                if attach_exam is not None:
-                    attach_p_label = attach_exam + cover_offset
-                    if 1 <= attach_p_label <= len(a.page_numbers):
-                        attach_scan_page = a.page_numbers[attach_p_label - 1]
-                blank_scan_pages.append({
-                    "exam_page": exam_page,
-                    "scan_page": scan_page,
-                    "has_handwriting": has_hw,
-                    "attach_to_exam_page": attach_exam,
-                    "attach_to_scan_page": attach_scan_page,
-                })
-        students_out.append({
-            "student_name": a.student_name,
-            "blank_scan_pages": blank_scan_pages,
-            "pages_without_handwriting": sorted(pages_without_hw),
-            "inconclusive_pages": inconclusive_pages,
+    # ── Build artifact ───────────────────────────────────────────────────────
+    scan_pages_out: list[dict] = []
+    inconclusive_pages: list[dict] = []
+    mismatch_total: list[tuple[int, str, str]] = []
+    for scan_page, exam_page, has_hw, detected_pn, is_cover in results:
+        expected_is_cover = (exam_page == 0)
+        expected_pn: int | None = None if expected_is_cover else exam_page
+        _, pn_match = _classify(exam_page, detected_pn, is_cover)
+        scan_pages_out.append({
+            "scan_page": scan_page,
+            "expected_is_cover": expected_is_cover,
+            "expected_page_number": expected_pn,
+            "has_handwriting": has_hw,
+            "detected_page_number": detected_pn,
+            "is_cover_page": is_cover,
+            "match": pn_match,
         })
+        if has_hw is None:
+            inconclusive_pages.append({
+                "scan_page": scan_page,
+                "reason": "handwriting check failed (model error or malformed response)",
+            })
+        if pn_match is False:
+            expected_label = "cover" if expected_is_cover else str(exam_page)
+            if is_cover:
+                detected_label = "cover"
+            elif detected_pn is not None:
+                detected_label = str(detected_pn)
+            else:
+                detected_label = "—"
+            mismatch_total.append((scan_page, expected_label, detected_label))
 
-    artifact = {"students": students_out}
+    artifact = {
+        "metadata": {
+            "scan_pdf_page_count": scan_n_pages,
+            "cover_page_mode": cover_page_mode,
+            "pages_per_student": pages_per_student,
+            "cover_offset": cover_offset,
+        },
+        "scan_pages": scan_pages_out,
+        "inconclusive_pages": inconclusive_pages,
+    }
     hw_path = artifact_handwriting_json_path(artifact_dir)
     hw_path.parent.mkdir(parents=True, exist_ok=True)
     hw_path.write_text(
         json.dumps(artifact, indent=2, ensure_ascii=False), encoding="utf-8"
     )
 
-    hw_count = sum(1 for _, _, hw in [e for s in by_student.values() for e in s] if hw is True)
-    n_done = sum(1 for _, _, hw in [e for s in by_student.values() for e in s] if hw is not None)
+    # Tallies — cover pages excluded from handwriting tallies (their
+    # has_handwriting result is not consumed downstream).
+    answer_results = [r for r in results if r[1] != 0]
+    hw_count = sum(1 for r in answer_results if r[2] is True)
+    n_done = sum(1 for r in answer_results if r[2] is not None)
+    n_no_pn = sum(1 for r in answer_results if r[2] is not None and r[3] is None)
     n_total = len(results)
 
-    if blank_exam_pages:
-        pages_label = (
-            f"exam page{'s' if len(blank_exam_pages) != 1 else ''} {sorted(blank_exam_pages)}"
-        )
-    else:
-        pages_label = "all answer pages"
-    hw_label = "no handwriting" if hw_count == 0 else f"{hw_count}/{n_done} with handwriting"
-
-    if inconclusive_total:
-        names_pages = ", ".join(
-            f"{name} page {sp}" for name, _ep, sp in inconclusive_total[:10]
+    if mismatch_total:
+        items = ", ".join(
+            f"page {sp}: detected {det}, expected {exp}"
+            for sp, exp, det in mismatch_total[:10]
         )
         more = (
-            f" (and {len(inconclusive_total) - 10} more)"
-            if len(inconclusive_total) > 10 else ""
+            f" (and {len(mismatch_total) - 10} more)"
+            if len(mismatch_total) > 10 else ""
+        )
+        warn_line(
+            f"Page-classification mismatches ({len(mismatch_total)}): {items}{more} — "
+            "advisory only; check whether the scan is misordered."
+        )
+    if n_done > 0 and n_no_pn / n_done > 0.20:
+        info_line(
+            f"Page-number not detected on {n_no_pn}/{n_done} answer pages "
+            "(model returned null or unreadable)."
+        )
+
+    hw_label = "no handwriting" if hw_count == 0 else f"{hw_count}/{n_done} with handwriting"
+
+    if inconclusive_pages:
+        sample = ", ".join(f"page {p['scan_page']}" for p in inconclusive_pages[:10])
+        more = (
+            f" (and {len(inconclusive_pages) - 10} more)"
+            if len(inconclusive_pages) > 10 else ""
         )
         msg = (
-            f"Verified {n_done}/{n_total} (student × page) handwriting checks; "
-            f"could not verify: {names_pages}{more} — these scan pages will not be "
+            f"Verified {n_done}/{n_total} answer-page handwriting checks; "
+            f"could not verify: {sample}{more} — these scan pages will not be "
             "attached to any answer; review manually if continuation work is suspected."
         )
         return BlankCheckStatus.INCONCLUSIVE, msg
 
-    return BlankCheckStatus.PASSED, f"{pages_label} — {hw_label}"
+    return BlankCheckStatus.PASSED, f"all answer pages — {hw_label}"
