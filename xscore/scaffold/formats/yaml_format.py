@@ -555,11 +555,13 @@ class YamlScaffoldFormat(ScaffoldFormat):
         self, stub_str: str, page_num: int, n_pages: int,
         expected_qnums: list[str], input_label: str = "PDF",
     ) -> str:
+        qnums_str = ", ".join(f'"{q}"' for q in expected_qnums) or "(none)"
         page_note = (
-            f"\n\nNote: the {input_label} you receive contains only page {page_num} of {n_pages} "
-            f"of the exam. Expected question numbers on this page: "
-            + (", ".join(f'"{q}"' for q in expected_qnums) or "(none)")
-            + "."
+            f"\n\n## Page context\n"
+            f"The {input_label} you receive is page {page_num} of {n_pages} of the exam. "
+            f"The expected question numbers on this page are: {qnums_str}.\n"
+            f"Return exactly these entries, in this order, one per `number` listed above. "
+            f"Do not add, remove, reorder, or rename any entry."
         )
         return load_prompt(
             "fill_exam_scaffold_yaml", section="user", scaffold=stub_str,

@@ -39,15 +39,16 @@ from xscore.shared.step_folders import (
     STEP_23_PARSE_SCHEME,
     STEP_24_CREATE_REPORT,
     STEP_25_BLUEPRINTS,
-    STEP_26_AI_MARKING,
-    STEP_27_STUDENT_REPORTS,
-    STEP_28_CLASS_STATS,
-    STEP_29_STUDENT_PDFS,
-    STEP_30_CLASS_REPORT,
-    STEP_31_REVIEW_QUEUE,
-    STEP_32_TIMING,
-    STEP_33_ACCURACY,
-    STEP_34_AI_COSTS,
+    STEP_26_EXTRACT_ANSWERS,
+    STEP_27_AI_MARKING,
+    STEP_28_STUDENT_REPORTS,
+    STEP_29_CLASS_STATS,
+    STEP_30_STUDENT_PDFS,
+    STEP_31_CLASS_REPORT,
+    STEP_32_REVIEW_QUEUE,
+    STEP_33_TIMING,
+    STEP_34_ACCURACY,
+    STEP_35_AI_COSTS,
     # Old-numbering aliases — kept so legacy body references compile during
     # the refactor; both old + new names resolve to the same renumbered folder
     # via the aliases in step_folders.py.
@@ -488,7 +489,37 @@ def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# Step 24 — AI marking
+# Step 26 — Extract student answers (transcribe verbatim, no marking)
+# ---------------------------------------------------------------------------
+
+def artifact_student_answers_dir(artifact_dir: Path) -> Path:
+    """Step 26: directory containing per-student extracted-answer files."""
+    return artifact_dir / STEP_26_EXTRACT_ANSWERS / "students"
+
+
+def artifact_student_answers_path(
+    artifact_dir: Path, student: str, page: int, fmt: str = "xml"
+) -> Path:
+    """Step 26: per-(student, page) extracted student answers (XML by default)."""
+    return artifact_student_answers_dir(artifact_dir) / f"{safe_student_name(student)}_page_{page}.{fmt}"
+
+
+def artifact_student_answers_prompt_path(
+    artifact_dir: Path, student: str, page: int
+) -> Path:
+    """Step 26: prompt file saved alongside the extraction result for one (student, page)."""
+    return artifact_student_answers_dir(artifact_dir) / f"{safe_student_name(student)}_page_{page}_prompt.md"
+
+
+def artifact_student_answers_failed_path(
+    artifact_dir: Path, student: str, page: int
+) -> Path:
+    """Failure record when all extraction attempts are exhausted for a (student, page)."""
+    return artifact_student_answers_dir(artifact_dir) / f"failed_{safe_student_name(student)}_page_{page}.json"
+
+
+# ---------------------------------------------------------------------------
+# Step 27 — AI marking (was step 24/25/26 pre-refactor)
 # ---------------------------------------------------------------------------
 
 def artifact_marking_students_dir(artifact_dir: Path) -> Path:

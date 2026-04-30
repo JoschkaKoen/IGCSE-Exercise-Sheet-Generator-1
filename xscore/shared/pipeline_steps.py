@@ -164,29 +164,62 @@ STEPS: tuple[Step, ...] = (
     Step(25, "ai_marking_blueprints",      resumable=True,
          writes=("25_ai_marking_blueprints/*",),
          title="Build AI marking blueprints", section="AI marking"),
-    Step(26, "ai_marking",                 resumable=True,
-         writes=("26_ai_marking/*",),
+    Step(26, "extract_student_answers",    resumable=True,
+         writes=("26_extract_student_answers/*",),
+         title="Extract student answers (transcribe-only pass)"),
+    Step(27, "ai_marking",                 resumable=True,
+         writes=(
+             "27_ai_marking/*",
+             "26_ai_marking/*",  # legacy folder (pre-extract-answers refactor)
+         ),
          title="Run AI marking"),
-    Step(27, "per_student_reports",        resumable=True,
-         writes=("27_student_report_preparation/*",),
+    Step(28, "per_student_reports",        resumable=True,
+         writes=(
+             "28_student_report_preparation/*",
+             "27_student_report_preparation/*",  # legacy folder
+         ),
          title="Fuse AI marking output to student reports", section="Reports & PDFs"),
-    Step(28, "class_stats_curve",          resumable=True,
-         writes=("28_class_stats/*",),
+    Step(29, "class_stats_curve",          resumable=True,
+         writes=(
+             "29_class_stats/*",
+             "28_class_stats/*",  # legacy folder
+         ),
          title="Compute class statistics + curve"),
-    Step(29, "per_student_pdfs",           resumable=True,
-         writes=("29_student_pdfs/*",),
+    Step(30, "per_student_pdfs",           resumable=True,
+         writes=(
+             "30_student_pdfs/*",
+             "29_student_pdfs/*",  # legacy folder
+         ),
          title="Generate per-student reports (landscape + portrait + 2UP)"),
-    Step(30, "class_report",               resumable=True,
-         writes=("30_class_report/*",),
+    Step(31, "class_report",               resumable=True,
+         writes=(
+             "31_class_report/*",
+             "30_class_report/*",  # legacy folder
+         ),
          title="Generate class report"),
-    Step(31, "review_queue",               resumable=True,
-         writes=("31_review_queue/*",),
+    Step(32, "review_queue",               resumable=True,
+         writes=(
+             "32_review_queue/*",
+             "31_review_queue/*",  # legacy folder
+         ),
          title="Build review queue"),
-    Step(32, "timing_summary",             writes=("32_timing_summary/*",),
+    Step(33, "timing_summary",
+         writes=(
+             "33_timing_summary/*",
+             "32_timing_summary/*",  # legacy folder
+         ),
          title="Summarise step timings", section="Summary"),
-    Step(33, "accuracy_evaluation",        writes=("33_accuracy/*",),
+    Step(34, "accuracy_evaluation",
+         writes=(
+             "34_accuracy/*",
+             "33_accuracy/*",  # legacy folder
+         ),
          title="Evaluate marking accuracy"),
-    Step(34, "ai_costs",                   writes=("34_ai_costs/*",),
+    Step(35, "ai_costs",
+         writes=(
+             "35_ai_costs/*",
+             "34_ai_costs/*",  # legacy folder
+         ),
          title="Summarise AI costs"),
 )
 
@@ -410,6 +443,7 @@ def wire_step_fns() -> None:
         }),
         ("xscore.steps.marking", {
             "ai_marking_blueprints":        "step_24_blueprints",
+            "extract_student_answers":      "step_26_extract_answers",
             "ai_marking":                   "step_25_mark",
         }),
         ("xscore.steps.reports", {

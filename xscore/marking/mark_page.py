@@ -67,8 +67,18 @@ def _build_marking_system_prompt(
     has_continuation: bool = False,
     fmt: "MarkingFormat | None" = None,
     is_cs: bool = False,
+    has_student_answers: bool = False,
 ) -> str:
-    """Build the system prompt shared by the JPEG and Gemini PDF marking paths."""
+    """Build the system prompt shared by the JPEG and Gemini PDF marking paths.
+
+    *has_student_answers* — when True, the per-question ``student_answer``
+    fields in the blueprint are pre-filled by step 26
+    (``extract_student_answers``). The system prompt is then assembled from
+    the FIELD_RULES_PRESUPPLIED fragment, which tells the model to copy the
+    pre-filled value through unchanged and focus on assigned_marks +
+    explanation. When False, the original FIELD_RULES fragment is used and
+    the model transcribes ``student_answer`` itself.
+    """
     if fmt is None:
         from xscore.marking.formats.xml_format import XmlMarkingFormat
         fmt = XmlMarkingFormat()
@@ -77,11 +87,13 @@ def _build_marking_system_prompt(
 
     # --- Sections A + B + C + D: role/task, field rules, output format, format validity ---
     # The per-format ai_marking_<fmt>.md SYSTEM section embeds A, C, D around a
-    # $field_rules placeholder. ai_marking_fragments.md FIELD_RULES section (B) is
-    # loaded first with $criterion_ref so the assembled system prompt is byte-identical
-    # to the pre-consolidation 4-method append.
+    # $field_rules placeholder. ai_marking_fragments.md FIELD_RULES (or
+    # FIELD_RULES_PRESUPPLIED, when answers are pre-filled by step 26) is
+    # loaded first with $criterion_ref so the assembled system prompt is
+    # byte-identical to the pre-consolidation 4-method append.
+    _field_rules_section = "field_rules_presupplied" if has_student_answers else "field_rules"
     _, _b = load_prompt(
-        "ai_marking_fragments", section="field_rules", criterion_ref=fmt.criterion_ref(),
+        "ai_marking_fragments", section=_field_rules_section, criterion_ref=fmt.criterion_ref(),
     )
     _, system_prompt = load_prompt(
         fmt.prompt_name(), section="system", field_rules=_b.rstrip("\n"),
@@ -143,6 +155,7 @@ def _mark_page(
     extra_b64: list[str] = (),
     reuse_cache: bool = False,
     is_cs: bool = False,
+    has_student_answers: bool = False,
 ) -> dict:
     """Vision call to fill in a marking blueprint for one scan page.
 
@@ -151,6 +164,9 @@ def _mark_page(
     *reuse_cache* — when True, look up the request in
     :mod:`xscore.shared.response_cache` before calling the API; on miss, store
     the API response after a successful parse. Default False (no cache).
+    *has_student_answers* — when True, the blueprint's student_answer fields
+    are pre-filled by step 26; the system prompt switches to FIELD_RULES_PRESUPPLIED
+    and the marking-response-merge guards student_answer against AI overwrite.
     """
     if fmt is None:
         from xscore.marking.formats.xml_format import XmlMarkingFormat
@@ -158,6 +174,7 @@ def _mark_page(
     use_stream = use_stream and fmt.prefer_stream()
     system_prompt = _build_marking_system_prompt(
         blueprint, scheme_graphics, has_continuation=bool(extra_b64), fmt=fmt, is_cs=is_cs,
+        has_student_answers=has_student_answers,
     )
 
     _, user_text = load_prompt(fmt.prompt_name(), section="user", blueprint=blueprint_xml)
@@ -342,7 +359,10 @@ def _apply_marking_response(
         group = fill_groups.get(key, [])
         if idx < len(group):
             fq = group[idx]
-            bq["student_answer"] = fq['student_answer']
+            # Guarded: pre-fill from step 26 (extract_student_answers) takes
+            # precedence over the AI's re-emission in the marking response.
+            if not bq.get("student_answer"):
+                bq["student_answer"] = fq['student_answer']
             bq["assigned_marks"] = fq['assigned_marks']
             bq["explanation"] = fq['explanation']
             # `confidence` is optional — present only when item 3 (confidence

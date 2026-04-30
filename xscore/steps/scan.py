@@ -16,6 +16,7 @@ the body returns).
 from __future__ import annotations
 
 import json
+import shutil
 import time
 
 from xscore.config import ROTATION_ANALYSIS_DPI
@@ -94,6 +95,7 @@ def step_07_deskew(ctx: _Ctx) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
     t0 = time.perf_counter()
     ctx.cleaned_pdf = deskew_phase(ctx.artifact_dir, ctx.instruction.dpi)
+    shutil.copy2(ctx.cleaned_pdf, ctx.artifact_dir / ctx.cleaned_pdf.name)
     p = ctx.artifact_dir / _STEP_07 / "summary.json"
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(

@@ -47,6 +47,9 @@ from xscore.marking.mark_xml import MarkingFailure
 from xscore.marking.mark_page import (
     _build_marking_system_prompt, _mark_page, _render_page_b64,
 )
+from xscore.marking.extract_answers import (
+    load_student_answers, patch_blueprint_with_answers,
+)
 
 _DEFAULT_MARKING_MODEL = MARKING_MODEL_DEFAULT
 
@@ -138,10 +141,14 @@ def _mark_page_pdf(
     has_continuation: bool = False,
     fmt=None,
     is_cs: bool = False,
+    has_student_answers: bool = False,
 ) -> dict:
     """Upload a PDF page (+ optional continuation pages) to Gemini and mark it.
 
     Raises MarkingFailure if all retries are exhausted.
+    *has_student_answers* — when True, the blueprint's student_answer fields
+    are pre-filled by step 26; switches the system prompt to
+    FIELD_RULES_PRESUPPLIED. See ``_mark_page`` docstring.
     """
     import os
     from google.genai import types as gai_types
@@ -171,6 +178,7 @@ def _mark_page_pdf(
 
     system_prompt = _build_marking_system_prompt(
         blueprint, scheme_graphics, has_continuation=has_continuation, fmt=fmt, is_cs=is_cs,
+        has_student_answers=has_student_answers,
     )
     from xscore.prompts.loader import load_prompt
     _, user_text = load_prompt(fmt.prompt_name(), section="user", blueprint=blueprint_str)
@@ -506,6 +514,24 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         blueprint_str = bp_path.read_text(encoding="utf-8")
         blueprint = fmt.deserialize_blueprint(blueprint_str)
 
+        # Pre-fill student_answer from step 26 (extract_student_answers) when
+        # the per-(student, page) artifact exists. Soft fallback: a missing
+        # extraction artifact (e.g. step 26 had a failure for this page)
+        # leaves student_answer empty and the AI transcribes during marking
+        # as it did pre-refactor.
+        _answers_map = load_student_answers(ctx.artifact_dir, student_name, p_label)
+        _has_student_answers = bool(_answers_map)
+        if _has_student_answers:
+            for bq in blueprint.get("questions", []):
+                qnum = str(bq.get("number", ""))
+                if qnum in _answers_map:
+                    bq["student_answer"] = _answers_map[qnum]
+            # Patch the on-disk blueprint string in place — preserves the
+            # original format (xml/yaml/json) and structure exactly, mutating
+            # only the student_answer fields. The AI sees pre-filled values
+            # in the prompt.
+            blueprint_str = patch_blueprint_with_answers(blueprint_str, _answers_map, fmt)
+
         t0 = time.perf_counter()
         prompt_save = artifact_marking_prompt_path(ctx.artifact_dir, student_name, p_label)
         try:
@@ -536,6 +562,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         has_continuation=bool(extra_scan_pages),
                         fmt=fmt,
                         is_cs=_is_cs,
+                        has_student_answers=_has_student_answers,
                     )
                 finally:
                     try:
@@ -566,6 +593,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     extra_b64=extra_b64,
                     reuse_cache=_reuse_cache_active,
                     is_cs=_is_cs,
+                    has_student_answers=_has_student_answers,
                 )
         except MarkingFailure as mf:
             filled = blueprint.copy()

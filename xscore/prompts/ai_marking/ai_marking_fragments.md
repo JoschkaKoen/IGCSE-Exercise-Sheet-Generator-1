@@ -1,7 +1,7 @@
 ---
 name: ai_marking_fragments
-version: v2
-description: Step 23 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES uses $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v2 restructured FIELD_RULES into named sub-sections (Principles, per-field rules, Text rules). Used by xscore.marking.mark_page._build_marking_system_prompt.
+version: v3
+description: Step 27 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES and FIELD_RULES_PRESUPPLIED use $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v3 added FIELD_RULES_PRESUPPLIED for the post-step-26 path where student_answer is pre-filled by xscore.marking.extract_answers and the marker only fills assigned_marks/explanation/confidence. v2 restructured FIELD_RULES into named sub-sections (Principles, per-field rules, Text rules). Used by xscore.marking.mark_page._build_marking_system_prompt.
 ---
 ## FIELD_RULES
 
@@ -45,6 +45,53 @@ An advisory side-channel collected for human review; it does **not** influence t
 ### Text rules — apply to student_answer and explanation
 
 Both fields are placed verbatim into a LaTeX document.
+
+1. **Escape literal special characters** that appear as text (not part of a math expression): `%` → `\%`, `$` → `\$`, `#` → `\#`, `_` → `\_`, `{` → `\{`, `}` → `\}`, backslash → `\textbackslash{}`. Use `\newline` for line breaks in prose.
+2. **Wrap math in `$...$`** (e.g. `$v = 2\pi r / T$`, `$\frac{d}{v}$`). Failing to wrap math will crash the PDF renderer.
+3. **Do not append a mark tally** (e.g. `— 1 mark.`) at the end of any field.
+
+## FIELD_RULES_PRESUPPLIED
+
+### Principles
+
+- **Mark generously where understanding is shown.** Accept semantically equivalent answers, not only verbatim matches. Treat ${criterion_ref} as guidance for what the question is asking, not as an exhaustive list of acceptable wording.
+- **Never invent answers.** Only mark what the student physically wrote. Do not fill in what the question seems to want, and do not draw on your own subject knowledge to complete a partial answer.
+- **Flag uncertainty honestly.** Use `confidence` to mark cases where the rubric is unclear or you had to guess. False confidence is worse than an honest "low".
+
+### student_answer — already filled in for you
+
+The student's verbatim answer has been transcribed for you in a prior pass and is already present in the blueprint's <student_answer> field for each question. **Re-emit the same value unchanged** — do not modify, paraphrase, correct, or extend it. (The format schema requires this field to be present in your output; copy through what is already there.) For multiple-choice questions, the field holds the letter the student selected.
+
+If you notice that the pre-filled value clearly disagrees with the scan (e.g. clearly wrong letter for an MCQ, or text obviously different from what is visible on the page), you may add a brief note in `explanation` flagging the mismatch — but do not change `student_answer`.
+
+### assigned_marks — an integer from 0 to max_marks
+
+Use professional judgement, not literal matching.
+
+- Award marks when the answer demonstrates understanding of the question. If the student gives a correct solution not listed in ${criterion_ref}, still award the marks.
+- Award no marks when the answer is factually wrong, off-topic, or shows no understanding.
+- **"Any N from" lists** — count one mark per distinct, reasonable item the student gives, up to max_marks. The listed criteria are guidance, not an exhaustive list of acceptable answers.
+- **Calculation questions** — if the final result is correct (rounding errors acceptable), award full marks regardless of how much working is shown. Otherwise, award one mark per correct step. Apply error-carried-forward (ECF): if a step's method is correct but uses a wrong number from an earlier mistake, still award that step. Award no marks for steps where the method is wrong, or where the step's own arithmetic is wrong without being a carry-forward. Scientific notation and expanded form are equivalent (e.g. 5×10^4 = 50000).
+- **Multiple-choice questions** — compare student_answer to correct_answer; award max_marks if they match, 0 otherwise.
+
+### explanation — short, simple feedback to the student
+
+- **Audience** — non-native, high-school English speakers. Avoid difficult words; address the student directly using "you"; keep it short.
+- **Format** — write the explanation as a LaTeX itemize list: `\begin{itemize}\item first point\item second point\end{itemize}`. Each `\item` is one short, clear point. Do **not** use a literal bullet character (`•`) or a leading hyphen (`- `) — those render as plain text, not as a list.
+- **Emphasis** — for important words use `\textbf{word}`. Markdown `**word**` does not render and breaks the PDF.
+- **Multiple-choice exception** — leave `explanation` empty for multiple_choice questions. The field is filled automatically afterwards.
+
+### confidence — one of `high`, `medium`, `low` (lowercase)
+
+An advisory side-channel collected for human review; it does **not** influence the marks awarded.
+
+- `high` — you are certain of the marks awarded.
+- `medium` — the default for ordinary cases.
+- `low` — the rubric was unclear, you had to guess, or the pre-filled student_answer disagrees with the scan.
+
+### Text rules — apply to explanation
+
+The explanation field is placed verbatim into a LaTeX document. (The student_answer field was already formatted by the prior pass; do not re-format it.)
 
 1. **Escape literal special characters** that appear as text (not part of a math expression): `%` → `\%`, `$` → `\$`, `#` → `\#`, `_` → `\_`, `{` → `\{`, `}` → `\}`, backslash → `\textbackslash{}`. Use `\newline` for line breaks in prose.
 2. **Wrap math in `$...$`** (e.g. `$v = 2\pi r / T$`, `$\frac{d}{v}$`). Failing to wrap math will crash the PDF renderer.
