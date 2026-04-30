@@ -60,7 +60,7 @@ def build_per_student_reports(ctx: Any) -> None:
 
     cli_student_filter = getattr(ctx, "student_filter", None)
     if cli_student_filter:
-        wanted = set(cli_student_filter)
+        wanted = {n.strip().lower() for n in cli_student_filter}
         names = [n for n in names if n.strip().lower() in wanted]
 
     ctx.artifact_dir.mkdir(parents=True, exist_ok=True)

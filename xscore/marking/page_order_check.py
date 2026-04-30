@@ -327,7 +327,7 @@ def check_page_order(
     """Validate page order from step 14's per-page page-number detections.
 
     Heuristic only — no LLM, no OCR. For each student, looks up the AI-detected
-    printed page number from ``13_student_handwriting/handwriting.json`` for
+    printed page number from ``14_student_handwriting/handwriting.json`` for
     every scan page they own, computes the expected sequence using
     ``cover_offset`` from the same metadata block, and flags students whose
     detected sequence disagrees with the expected one.
@@ -352,7 +352,7 @@ def check_page_order(
     if not hw_path.exists():
         return (
             PageOrderStatus.INCONCLUSIVE,
-            "step 13 artifact not found (13_student_handwriting/handwriting.json); "
+            "step 14 artifact not found (14_student_handwriting/handwriting.json); "
             "run student_handwriting_check first",
         )
     try:

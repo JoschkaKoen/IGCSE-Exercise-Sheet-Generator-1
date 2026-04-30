@@ -116,7 +116,7 @@ def parse_args() -> argparse.Namespace:
         help=(
             "Mark only the given student (case-insensitive exact match). "
             "Repeat the flag or pass a comma-separated list to mark a small cohort. "
-            "When set, step 24 emits only the filtered students' reports — the class "
+            "When set, step 29 emits only the filtered students' reports — the class "
             "report is skipped."
         ),
     )

@@ -1,10 +1,10 @@
-"""Step 26 — extract_student_answers: transcribe student answers verbatim.
+"""Step 27 — extract_student_answers: transcribe student answers verbatim.
 
-A pre-pass before AI marking (step 27). For each (student, answer_page) the
+A pre-pass before AI marking (step 28). For each (student, answer_page) the
 register yields, send the rendered scan JPEG(s) to a vision model with the
 page blueprint as context, and ask only for the verbatim student answer per
 question. Output is one XML file per (student, page) under
-``26_extract_student_answers/students/``.
+``27_extract_student_answers/students/``.
 
 The marking step then loads these artifacts, pre-fills ``student_answer`` on
 each blueprint question, and asks the marker only to assign marks + write
@@ -226,7 +226,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     if not list_path.exists():
         raise FileNotFoundError(
-            f"student_names artifact not found at {list_path} — run step 14 first"
+            f"student_names artifact not found at {list_path} — run step 15 first"
         )
     raw_assignments: list[dict] = _safe_load_json(list_path)
 

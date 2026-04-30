@@ -1,18 +1,18 @@
-"""Steps 14–15: detect blank pages in the empty exam, then check student scans for handwriting.
+"""Steps 14 + 17: check student scans for handwriting, and detect blank pages in the empty exam.
 
-Step 14 (exam_blank_detection): text-only LLM call. Reads every page's extracted
+Step 14 (student_handwriting_check): vision LLM call per (student × answer page).
+Renders scan pages as JPEGs and checks for student handwriting. Under
+``HANDWRITING_CHECK_WIDE=1`` (default) every answer page is checked; under
+``=0`` only step-17 blank pages are checked.
+Writes ``14_student_handwriting/handwriting.json``.
+
+Step 17 (exam_blank_detection): text-only LLM call. Reads every page's extracted
 text from the empty exam PDF and identifies which pages are blank (no question text,
 only writing lines or "BLANK PAGE" heading). Writes
-``14_exam_blank_detection/blank_exam_pages.json``.
-
-Step 15 (student_handwriting_check): vision LLM call per (student × answer page).
-Reads the step-14 artifact, renders the corresponding scan pages as JPEGs, and checks
-for student handwriting. Under ``HANDWRITING_CHECK_WIDE=1`` (default) every
-answer page is checked; under ``=0`` only step-14 blank pages are checked.
-Writes ``15_student_handwriting/handwriting.json``.
+``17_exam_blank_detection/blank_exam_pages.json``.
 
 Both functions emit per-page / per-task progress lines via the terminal_ui
-``info_line`` / ``ok_line`` / ``warn_line`` helpers (mirrors step 12's
+``info_line`` / ``ok_line`` / ``warn_line`` helpers (mirrors step 15's
 ``_ocr_and_match`` idiom). Policy stays at the dispatcher: INCONCLUSIVE
 returns from these functions; the dispatcher in ``xscore/steps/geometry.py``
 decides warn-vs-SystemExit based on the per-step ``*_STRICT`` env var.
@@ -159,7 +159,7 @@ def _parse_handwriting(
     return hw, pn, cover
 
 
-# ─────────── Step 14: find blank pages in empty exam ─────────────────────────
+# ─────────── Step 17: find blank pages in empty exam ─────────────────────────
 
 def find_blank_exam_pages(
     state: _ClientState,
@@ -273,7 +273,7 @@ def _call_blank_detection(
     return raw, thinking_text
 
 
-# ─────────── Step 15: per-page handwriting check ──────────────────────────────
+# ─────────── Step 14: per-page handwriting check ──────────────────────────────
 
 def _has_handwriting(
     state: _ClientState,

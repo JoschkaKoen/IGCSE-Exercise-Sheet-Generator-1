@@ -1,6 +1,7 @@
 """Recursive walks over the raw_questions tree + question-number normalization.
 
-Pure stdlib — depends only on ``re``. Used by the step 19, 20, 21 helpers.
+Pure stdlib — depends only on ``re``. Used by the scaffold helpers in
+steps 19, 20, 22, 23, and 24.
 """
 
 from __future__ import annotations

@@ -43,7 +43,7 @@ def detect_scheme_graphics(
 ) -> tuple[dict, list[dict] | None]:
     """Detect graphics in the mark scheme via vision API.
 
-    Splits the mark scheme into per-page PDFs (always — needed by step 19 too)
+    Splits the mark scheme into per-page PDFs (always — needed by steps 23 and 24 too)
     then, if ``DETECT_SCHEME_GRAPHICS_MODEL`` is set, runs graphics detection on
     each rasterized page in parallel.
 

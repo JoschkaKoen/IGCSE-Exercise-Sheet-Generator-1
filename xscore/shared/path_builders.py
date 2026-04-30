@@ -859,20 +859,26 @@ def find_scaffold_cache_file(
     for base in (output_base, "output"):
         ad = exam_artifact_dir(exam_folder, base)
         for p in (
-            artifact_scaffold_xml_path(ad),                   # 22_create_report/report.xml
-            artifact_scaffold_json_path(ad),                  # 22_create_report/report.json
-            ad / "21_create_report" / "report.xml",           # post-assign-scheme-questions split legacy
-            ad / "21_create_report" / "report.json",          # post-assign-scheme-questions split legacy
-            ad / "20_create_report" / "report.xml",           # post-step-14-split legacy
-            ad / "20_create_report" / "report.json",          # post-step-14-split legacy
-            ad / "19_create_report" / "report.xml",           # post-step-18-split legacy
-            ad / "19_create_report" / "report.json",          # post-step-18-split legacy
-            ad / "18_create_report" / "report.xml",           # post-step-split-refactor legacy
-            ad / "18_create_report" / "report.json",          # post-step-split-refactor legacy
-            ad / "17_create_report" / "report.xml",           # post-step-16-refactor legacy
-            ad / "17_create_report" / "report.json",          # post-step-16-refactor legacy
-            ad / "16_create_report" / "report.xml",           # pre-step-16-refactor legacy
-            ad / "16_create_report" / "report.json",          # pre-step-16-refactor legacy
+            artifact_scaffold_xml_path(ad),                   # CREATE_REPORT_DIR/report.xml (currently 25_)
+            artifact_scaffold_json_path(ad),                  # CREATE_REPORT_DIR/report.json (currently 25_)
+            ad / "24_create_report" / "report.xml",           # post-detect-subject legacy
+            ad / "24_create_report" / "report.json",          # post-detect-subject legacy
+            ad / "23_create_report" / "report.xml",           # post-extract-student-answers legacy
+            ad / "23_create_report" / "report.json",          # post-extract-student-answers legacy
+            ad / "22_create_report" / "report.xml",           # post-assign-scheme-questions legacy
+            ad / "22_create_report" / "report.json",          # post-assign-scheme-questions legacy
+            ad / "21_create_report" / "report.xml",
+            ad / "21_create_report" / "report.json",
+            ad / "20_create_report" / "report.xml",
+            ad / "20_create_report" / "report.json",
+            ad / "19_create_report" / "report.xml",
+            ad / "19_create_report" / "report.json",
+            ad / "18_create_report" / "report.xml",
+            ad / "18_create_report" / "report.json",
+            ad / "17_create_report" / "report.xml",
+            ad / "17_create_report" / "report.json",
+            ad / "16_create_report" / "report.xml",
+            ad / "16_create_report" / "report.json",
             ad / "12_report.xml",                             # pre-restructure legacy
             ad / "12_report.json",                            # pre-restructure legacy
             ad / "exam" / "12_report.json",                   # older legacy (pre-2025)
@@ -898,13 +904,16 @@ def is_completed_run(run_dir: Path) -> bool:
     each caller maintaining its own legacy probe list.
     """
     candidates = (
-        run_dir / "22_create_report" / "report.xml",   # current
-        run_dir / "21_create_report" / "report.xml",   # post-assign-scheme-questions legacy
-        run_dir / "20_create_report" / "report.xml",   # post-step-14-split legacy
-        run_dir / "19_create_report" / "report.xml",   # post-step-18-split legacy
-        run_dir / "18_create_report" / "report.xml",   # post-step-split legacy
-        run_dir / "17_create_report" / "report.xml",   # post-step-16 refactor legacy
-        run_dir / "16_create_report" / "report.xml",   # pre-step-16 refactor legacy
+        artifact_scaffold_xml_path(run_dir),           # current — derived from CREATE_REPORT_DIR
+        run_dir / "24_create_report" / "report.xml",   # post-detect-subject legacy
+        run_dir / "23_create_report" / "report.xml",   # post-extract-student-answers legacy
+        run_dir / "22_create_report" / "report.xml",   # post-assign-scheme-questions legacy
+        run_dir / "21_create_report" / "report.xml",
+        run_dir / "20_create_report" / "report.xml",
+        run_dir / "19_create_report" / "report.xml",
+        run_dir / "18_create_report" / "report.xml",
+        run_dir / "17_create_report" / "report.xml",
+        run_dir / "16_create_report" / "report.xml",
         run_dir / "12_report.json",                    # pre-restructure legacy
     )
     return any(p.exists() for p in candidates)

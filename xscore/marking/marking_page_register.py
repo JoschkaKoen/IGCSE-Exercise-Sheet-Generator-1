@@ -5,22 +5,22 @@ scan pages will the AI see in one call?" Today this decision is computed
 inline at marking time in :func:`xscore.marking.ai_mark.run_ai_marking`; this
 module hoists that logic into a persisted artifact so it can be inspected,
 diffed, and refined by additional steps (e.g. cross-page figure detection in
-step 19) before any expensive marking work happens.
+step 21) before any expensive marking work happens.
 
 Lifecycle:
 
-1. **Step 15** (handwriting check) writes the *initial* register
-   (``15_student_handwriting/marking_page_register.json``) with one primary
+1. **Step 18** (build_marking_register_v1) writes the *initial* register
+   (``18_build_marking_register/marking_page_register.json``) with one primary
    scan page per call plus extras coming from blank-page-with-handwriting
    attachments.
-2. **Step 19** (cross-page context detection) reads register v1 and augments
+2. **Step 21** (cross-page context detection) reads register v1 and augments
    calls in two passes: (a) pages that mention figures drawn elsewhere get
    the figure's drawn-on page as an extra; (b) pages whose questions are
    children of a parent on an earlier page get the parent's page as an
    extra (so the AI sees flowcharts, tables, or stems that introduce the
    sub-questions). Writes
-   ``19_detect_cross_page_context/marking_page_register.json``.
-3. **Step 25** (AI marking) loads the most-refined register available and
+   ``21_detect_cross_page_context/marking_page_register.json``.
+3. **Step 28** (AI marking) loads the most-refined register available and
    iterates the calls. Two filters that *cannot* be baked in (scaffold-bounds
    cap and CLI cohort filter) are applied at iteration time.
 
@@ -71,19 +71,19 @@ def _cover_offset(has_cover: bool, empty_exam_has_cover: bool) -> int:
 
 
 # ---------------------------------------------------------------------------
-# Builder — used by step 15 (writes v1) and the step 25 backwards-compat path
+# Builder — used by step 18 (writes v1) and the step 28 backwards-compat path
 # ---------------------------------------------------------------------------
 
 def build_initial_register(ctx: "_Ctx") -> dict:
     """Build register v1 from page assignments + handwriting check.
 
-    Pure function: reads the on-disk artifacts of steps 12, 14, and 15 plus
+    Pure function: reads the on-disk artifacts of steps 14, 15, and 17 plus
     ``ctx.empty_exam_has_cover``. Returns the in-memory register dict.
 
     Reproduces the loop from the legacy bundling logic in
     :func:`xscore.marking.ai_mark.run_ai_marking` (cover-skip, handwriting
     skip, handwriting-extras attach), but does NOT apply the scaffold-bounds
-    cap or any cohort filter — those are runtime concerns of step 25.
+    cap or any cohort filter — those are runtime concerns of step 28.
     """
     from xscore.shared.exam_paths import (
         artifact_exam_blank_json_path,
@@ -177,7 +177,7 @@ def _load_handwriting(
 
     The handwriting.json schema is per-scan-page (a flat ``scan_pages`` list
     plus a ``metadata`` block). Per-student grouping is derived here using the
-    page-assignment list from step 12 — which scan pages belong to which
+    page-assignment list from step 15 — which scan pages belong to which
     student, and which scan position is the cover.
 
     The extras map is built by joining the per-scan-page handwriting flags
@@ -239,7 +239,7 @@ def _load_handwriting(
 
 
 # ---------------------------------------------------------------------------
-# Cross-page context detection (step 19) — figure references + parent stems
+# Cross-page context detection (step 21) — figure references + parent stems
 # ---------------------------------------------------------------------------
 
 # Matches "Fig. 1.1", "Fig 1.1", "Figure 1.1", "Fig. 5" — case-insensitive.
@@ -547,8 +547,8 @@ def write_register(path: Path, register: dict) -> None:
 def load_register(artifact_dir: Path) -> dict | None:
     """Return the most-refined register available, or ``None`` if none exists.
 
-    Tries the step 19 register first (cross-page-context-augmented), falling
-    back to the step 15 register (handwriting-extras only). Includes the
+    Tries the step 21 register first (cross-page-context-augmented), falling
+    back to the step 18 register (handwriting-extras only). Includes the
     pre-rename legacy folder name as an intermediate fallback so resuming an
     old run still finds the register. Returns ``None`` when none of the
     candidates exists.
@@ -568,7 +568,7 @@ def load_register(artifact_dir: Path) -> dict | None:
 
 
 # ---------------------------------------------------------------------------
-# Iteration with runtime filters (consumed by step 25)
+# Iteration with runtime filters (consumed by step 28)
 # ---------------------------------------------------------------------------
 
 def iter_marking_calls(
@@ -634,9 +634,9 @@ def _pretty_source_label(
 ) -> str | None:
     """Resolve an ``extra_sources`` string to a human-readable display label.
 
-    Returns ``None`` for sources that did not come from step 19 (e.g. step
-    15's ``"handwriting"`` extras) — callers filter those out before
-    rendering, so step 19's terminal output stays scoped to step 19's work.
+    Returns ``None`` for sources that did not come from step 21 (e.g. step
+    18's ``"handwriting"`` extras) — callers filter those out before
+    rendering, so step 21's terminal output stays scoped to step 21's work.
 
     *compact* picks the format for inline use in streaming log lines:
     ``"Q9 p.8"`` / ``"Fig. 1.1 p.2"`` instead of the default
@@ -791,7 +791,7 @@ def print_register_summary(
     that the cohort filter narrowed the call list; they're shown alongside
     the unfiltered totals in the header.
 
-    *cross_page_refs* (the diagnostic emitted by step 19) is rendered as a
+    *cross_page_refs* (the diagnostic emitted by step 21) is rendered as a
     short list under the table when non-empty.
     """
     from rich import box
@@ -931,7 +931,7 @@ def print_register_summary(
 
 
 def _first_primary(student: dict) -> int:
-    """Sort key: first primary scan page (matches step 12's print_page_range_table)."""
+    """Sort key: first primary scan page (matches step 15's print_page_range_table)."""
     calls = student.get("calls") or []
     if not calls:
         return 1 << 30   # sort empties to the end

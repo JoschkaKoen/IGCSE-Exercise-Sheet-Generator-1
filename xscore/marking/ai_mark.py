@@ -1,4 +1,4 @@
-"""Step 25 — AI marking: iterate over student scan pages and fill blueprint JSONs.
+"""Step 28 — AI marking: iterate over student scan pages and fill blueprint JSONs.
 
 Uses the MARKING_MODEL env var (default: qwen3.6-plus, off) via make_ai_client().
 Requires DASHSCOPE_API_KEY to be set in .env.
@@ -7,7 +7,7 @@ Students are processed in parallel (MARKING_WORKERS workers, default 4).
 Each worker opens its own fitz document handle (fitz is not thread-safe).
 
 The "which scan pages does each AI call see?" question is now answered by
-the marking page register (written by step 15, refined by step 19) — see
+the marking page register (written by step 18, refined by step 21) — see
 :mod:`xscore.marking.marking_page_register`. This step loads the most-refined
 register available and iterates it; runtime filters (scaffold-bounds cap and
 the ``--student`` cohort filter) are applied at iteration time.
@@ -74,7 +74,7 @@ def render_pages_b64(
 ) -> dict[tuple[str, int], str]:
     """Render all scan pages to base64 JPEG, parallelised.
 
-    Reads 12_student_names/exam_student_list.json directly (same source as run_ai_marking).
+    Reads 15_student_names/exam_student_list.json directly (same source as run_ai_marking).
     Each worker opens its own fitz.Document — fitz is not thread-safe.
 
     Both the prompt-derived ``instruction.student_filter`` and the
@@ -266,11 +266,11 @@ def _scheme_graphics_for_page(
 def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
-    Reads page assignments from ``12_student_names/exam_student_list.json``
-    (written by step 12) so each student's scan pages are determined by name
+    Reads page assignments from ``15_student_names/exam_student_list.json``
+    (written by step 15) so each student's scan pages are determined by name
     detection, not position. The list of (student, answer_label, scan_pages)
     triples to mark is loaded from the marking page register written by
-    step 15 (and refined by step 19). Pages are processed in parallel
+    step 18 (and refined by step 21). Pages are processed in parallel
     (MARKING_WORKERS env var, default varies with cpu_count). *dpi* defaults
     to ``MARKING_DPI`` when not supplied. Returns a list of API call timing
     records.
@@ -314,17 +314,17 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     from xscore.shared.response_cache import reuse_cache_enabled
     _reuse_cache_active = reuse_cache_enabled(ctx)
     if _reuse_cache_active:
-        info_line("Response cache enabled · step 25 marking calls will check ~/.cache/xscore/responses/")
+        info_line("Response cache enabled · step 28 marking calls will check ~/.cache/xscore/responses/")
 
-    # Load page assignments produced by step 12 name detection. The register
+    # Load page assignments produced by step 15 name detection. The register
     # already encodes most of the per-call data, but we need the original
     # assignment dict (with confidence + raw page_numbers) for downstream
     # code that consumes the page_tasks tuples.
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     if not list_path.exists():
         raise FileNotFoundError(
-            f"12_student_names/exam_student_list.json not found at {list_path} — "
-            "run step 12 first"
+            f"15_student_names/exam_student_list.json not found at {list_path} — "
+            "run step 15 first"
         )
     raw_assignments: list[dict] = _safe_load_json(list_path)
 
@@ -341,7 +341,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     # Layered AFTER the NL-prompt student_filter so both narrow the cohort.
     cli_filter = getattr(ctx, "student_filter", None)
     if cli_filter:
-        wanted = set(cli_filter)
+        wanted = {n.strip().lower() for n in cli_filter}
         before = len(raw_assignments)
         raw_assignments = [
             a for a in raw_assignments
@@ -350,7 +350,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         if not raw_assignments:
             warn_line(
                 f"--student filter {sorted(wanted)} matched 0 of {before} students — "
-                f"nothing to mark; aborting step 25."
+                f"nothing to mark; aborting step 28."
             )
             raise SystemExit(2)
         kept = [a["student_name"] for a in raw_assignments]
@@ -405,16 +405,16 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             "cannot safely compute page offsets for students with cover pages"
         )
 
-    # Load the marking page register. Step 19 (cross-page figures) refines
-    # what step 15 wrote; load_register tries the most-refined first. If
+    # Load the marking page register. Step 21 (cross-page figures) refines
+    # what step 18 wrote; load_register tries the most-refined first. If
     # neither file exists (e.g. resuming a pre-renumber run), fall back to
-    # building it in memory — same builder step 15 uses, so the result is
+    # building it in memory — same builder step 18 uses, so the result is
     # equivalent to a fresh v1 register.
     register = load_register(ctx.artifact_dir)
     if register is None:
         register = build_initial_register(ctx)
 
-    # Step-19 diagnostics — used by the per-call line to render +context labels.
+    # Step-21 diagnostics — used by the per-call line to render +context labels.
     # Missing files map to empty lists; _pretty_source_label degrades to a "?"
     # page placeholder rather than raising.
     def _load_refs(path: Path) -> list[dict]:

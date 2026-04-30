@@ -355,7 +355,7 @@ def _pass1_merge_students(
         )
 
         # q_totals: filtered only — augmented rows have assigned_marks=0
-        # and would skew the per-question class averages used by step 27/29.
+        # and would skew the per-question class averages used by step 30/32.
         with _q_totals_lock:
             for q in report["questions"]:
                 am = q.get("assigned_marks")

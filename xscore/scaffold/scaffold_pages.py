@@ -1,11 +1,11 @@
-"""Step 20 — Assign questions to mark scheme pages (cheap per-page vision call).
+"""Step 23 — Assign questions to mark scheme pages (cheap per-page vision call).
 
 Four-way provider routing: Gemini gets per-page PDFs inline; Kimi gets
 server-extracted text via ``kimi_pdf_text`` injected as a system message;
 qwen-doc-turbo / qwen-long get the per-page PDF via DashScope ``fileid://``
 (native PDF); other OpenAI-compatible clients (Grok, ``qwen3-vl-plus``, …)
 get rasterized PNGs. Skipped entirely when ``ASSIGN_SCHEME_QUESTIONS_MODEL``
-is unset or step 18 produced no question numbers.
+is unset or step 19 produced no question numbers.
 """
 
 from __future__ import annotations
@@ -54,7 +54,7 @@ def assign_questions_to_pages(
 
     Returns ``{page_num: [qnum, ...]}``. Empty dict when the model env var is
     unset, no question numbers are available, or the call fails — the caller
-    (step 21) then falls back to its full-scaffold behavior.
+    (step 24) then falls back to its full-scaffold behavior.
 
     Provider routing (auto-detected from ``ASSIGN_SCHEME_QUESTIONS_MODEL``):
       * ``gemini*``         → inline per-page PDFs via ``gemini_pdf_part``,
@@ -73,7 +73,7 @@ def assign_questions_to_pages(
 
     qnums = _collect_qnums(raw_questions)
     if not qnums:
-        info_line("Skipped (no question numbers from step 18)")
+        info_line("Skipped (no question numbers from step 19)")
         return {}
     allowed = set(qnums)
 
@@ -225,7 +225,7 @@ def assign_questions_to_pages(
 
     mapping: dict[int, list[str]] = {pn: qs for pn, qs in pairs}
 
-    # Warn about leaf questions the AI never assigned to any page — step 21
+    # Warn about leaf questions the AI never assigned to any page — step 24
     # will skip these, so the final mark scheme will have no criteria for them.
     _assigned: set[str] = set()
     for _qs in mapping.values():
@@ -234,7 +234,7 @@ def assign_questions_to_pages(
     if _missing:
         warn_line(
             f"Mark scheme: {len(_missing)} question(s) not assigned to any page "
-            f"(step 21 will skip them): "
+            f"(step 24 will skip them): "
             + ", ".join(f"q{q}" for q in _missing)
         )
 

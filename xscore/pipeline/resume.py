@@ -150,19 +150,31 @@ def resume_pipeline(ctx: "_Ctx") -> None:
         required.append(found if found else paths[0])
 
     if ctx.from_step > _blueprints_n:
-        bp_new = list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.json"))
-        bp_old = list(resume_dir.glob("25_ai_marking_blueprints/blueprint_page_*.json"))
-        bp_older = list(resume_dir.glob("23_ai_marking_blueprints/blueprint_page_*.json"))
-        bp_legacy = list(resume_dir.glob("18_ai_marking_blueprint_*.json"))
-        required += bp_new or bp_old or bp_older or bp_legacy
+        bp_found = (
+            list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.json"))
+            or list(resume_dir.glob("25_ai_marking_blueprints/blueprint_page_*.json"))
+            or list(resume_dir.glob("23_ai_marking_blueprints/blueprint_page_*.json"))
+            or list(resume_dir.glob("18_ai_marking_blueprint_*.json"))
+        )
+        if bp_found:
+            required += bp_found
+        else:
+            # No blueprints anywhere — surface as a missing-artifact failure rather
+            # than letting later steps die with FileNotFoundError.
+            required.append(resume_dir / BLUEPRINTS_DIR / "blueprint_page_*.json")
     if ctx.from_step > _marking_n:
         # Look in the current marking folder first, then the pre-detect_subject
         # folder ("27_ai_marking/"), then older renumbers, then the very old flat layout.
-        mk_new = list(resume_dir.glob(f"{AI_MARKING_DIR}/students/*.yaml"))
-        mk_old = list(resume_dir.glob("27_ai_marking/students/*.yaml"))
-        mk_older = list(resume_dir.glob("24_ai_marking/students/*.yaml"))
-        mk_legacy = list(resume_dir.glob("students/14_marked_*.xml"))
-        required += mk_new or mk_old or mk_older or mk_legacy
+        mk_found = (
+            list(resume_dir.glob(f"{AI_MARKING_DIR}/students/*.yaml"))
+            or list(resume_dir.glob("27_ai_marking/students/*.yaml"))
+            or list(resume_dir.glob("24_ai_marking/students/*.yaml"))
+            or list(resume_dir.glob("students/14_marked_*.xml"))
+        )
+        if mk_found:
+            required += mk_found
+        else:
+            required.append(resume_dir / AI_MARKING_DIR / "students" / "*.yaml")
     missing = [p for p in required if not p.exists()]
     if missing:
         raise SystemExit(
