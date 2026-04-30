@@ -32,11 +32,15 @@ from xscore.marking.blank_page_detection import check_exam_blank_pages, check_st
 from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
 from xscore.marking.page_order_check import check_page_order
 from xscore.pipeline.resume import exam_pdf_page_count
-from xscore.scaffold.generate_scaffold import find_exam_pdf
+from xscore.scaffold.generate_scaffold import find_answer_pdf, find_exam_pdf
 from xscore.shared.exam_paths import (
     artifact_exam_page_range_overview_path,
     artifact_exam_student_list_json_path,
     artifact_exam_student_list_md_path,
+    artifact_subject_dir,
+    artifact_subject_json_path,
+    artifact_subject_md_path,
+    artifact_subject_prompt_path,
 )
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.shared.pipeline_ctx import _Ctx
@@ -122,6 +126,178 @@ def exam_geometry(ctx: _Ctx) -> None:
         f"·  {ctx.geo['scan_pages']} scan pages total"
     )
     write_geometry_artifacts(ctx.artifact_dir, ctx.geo)
+
+
+def detect_subject(ctx: _Ctx) -> None:
+    """Two-tier subject detection: filename heuristic first, AI fallback.
+
+    Sets ``ctx.subject`` and writes ``13_detect_subject/subject.{json,md}``.
+    Gates the ``CODE_FORMATTING`` prompt section in detect_exam_scaffold,
+    fill_exam_scaffold, parse_mark_scheme, ai_marking, extract_student_answers
+    via :func:`xscore.shared.subjects.needs_code_formatting`.
+    """
+    import json
+    from pathlib import Path
+
+    from xscore.shared.subjects import (
+        Subject,
+        available_subjects_from_env,
+        detect_subject_from_filenames,
+        get_subject,
+    )
+
+    assert ctx.artifact_dir is not None and ctx.folder is not None
+    announce_step_model(
+        model_env="SUBJECT_DETECTION_MODEL",
+        default_model="gemini-3.1-flash-lite-preview",
+        default_max_tokens=256,
+    )
+
+    available = available_subjects_from_env()
+    if not available:
+        raise RuntimeError("AVAILABLE_SUBJECTS is empty; configure it in default.env")
+
+    try:
+        exam_pdf: Path | None = find_exam_pdf(ctx.folder)
+    except FileNotFoundError:
+        exam_pdf = None
+    answer_pdf = find_answer_pdf(ctx.folder)
+
+    matched = detect_subject_from_filenames((exam_pdf, answer_pdf), candidates=available)
+    ai_meta: dict | None = None
+    if matched is not None:
+        ctx.subject = matched
+        method = "filename"
+        ok_line(f"Subject: {matched.name}  (matched filename)")
+    else:
+        ctx.subject, ai_meta = _detect_subject_via_ai(ctx, available, exam_pdf)
+        method = "ai"
+        ok_line(f"Subject: {ctx.subject.name}  (Gemini classification)")
+
+    artifact_subject_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+    payload: dict = {
+        "name": ctx.subject.name,
+        "slug": ctx.subject.slug,
+        "needs_code_formatting": ctx.subject.needs_code_formatting,
+        "detection_method": method,
+    }
+    if ai_meta is not None:
+        payload["ai"] = ai_meta
+    artifact_subject_json_path(ctx.artifact_dir).write_text(
+        json.dumps(payload, indent=2) + "\n", encoding="utf-8",
+    )
+    artifact_subject_md_path(ctx.artifact_dir).write_text(
+        f"# Subject\n\n**{ctx.subject.name}**  (slug: `{ctx.subject.slug}`, "
+        f"code formatting: {ctx.subject.needs_code_formatting})\n\n"
+        f"_Detected via: {method}_\n",
+        encoding="utf-8",
+    )
+
+
+def _detect_subject_via_ai(
+    ctx: _Ctx,
+    available: "tuple",
+    exam_pdf,
+):
+    """AI fallback: extract first 2 pages of the empty exam, classify via Gemini."""
+    import json
+    from pathlib import Path
+
+    import fitz
+    from google.genai import types as gai_types
+
+    from eXercise.ai_client import (
+        build_gemini_thinking_config,
+        gemini_pdf_part,
+        make_gemini_native_client,
+        parse_model_spec,
+        split_gemini_response,
+    )
+    from eXercise.api_retry import retry_api_call
+    from eXercise.prompt_logger import save_prompt, save_response
+    from xscore.shared.subjects import get_subject
+
+    src_pdf = ctx.scaffold_state.get("actual_exam_pdf") or exam_pdf
+    if src_pdf is None:
+        raise RuntimeError("No empty-exam PDF available for AI subject detection")
+
+    subject_dir = artifact_subject_dir(ctx.artifact_dir)
+    subject_dir.mkdir(parents=True, exist_ok=True)
+    preview_pdf = subject_dir / "preview_first_pages.pdf"
+    doc_in = fitz.open(str(src_pdf))
+    doc_out = fitz.open()
+    try:
+        last = min(2, doc_in.page_count) - 1
+        doc_out.insert_pdf(doc_in, from_page=0, to_page=last)
+        doc_out.save(str(preview_pdf), garbage=4, deflate=True)
+    finally:
+        doc_in.close()
+        doc_out.close()
+
+    model_spec = os.environ.get(
+        "SUBJECT_DETECTION_MODEL", "gemini-3.1-flash-lite-preview, 0, 256",
+    )
+    model, thinking_tokens, max_tokens = parse_model_spec(model_spec)
+
+    client = make_gemini_native_client()
+    if client is None:
+        raise RuntimeError(
+            "GEMINI_API_KEY (or GOOGLE_API_KEY) not set — required by detect_subject "
+            "AI fallback. Set the env var, or add a filename pattern to "
+            "xscore/shared/subjects.py:KNOWN_SUBJECTS so the heuristic matches."
+        )
+
+    subject_names = [s.name for s in available]
+    system_prompt = (
+        "You are classifying an exam paper by its academic subject. "
+        f"Choose exactly one subject from this list: {', '.join(subject_names)}."
+    )
+    user_prompt = (
+        "Look at the exam cover page and page 2. Identify the subject from the "
+        "subject heading, paper title, and question content. Reply with one of "
+        f"the allowed subjects: {', '.join(subject_names)}."
+    )
+
+    config_kwargs: dict = {
+        "max_output_tokens": max_tokens or 256,
+        "response_mime_type": "application/json",
+        "response_schema": {
+            "type": "object",
+            "properties": {"subject": {"type": "string", "enum": subject_names}},
+            "required": ["subject"],
+        },
+    }
+    if thinking_tokens is not None:
+        config_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
+    gen_config = gai_types.GenerateContentConfig(**config_kwargs)
+
+    contents = [
+        gemini_pdf_part(client, preview_pdf, label="subject detection"),
+        gai_types.Part.from_text(text=user_prompt),
+    ]
+    response = retry_api_call(
+        lambda: client.models.generate_content(
+            model=model, contents=contents, config=gen_config,
+        ),
+        label="Subject Detection",
+    )
+    answer_text, thinking_text = split_gemini_response(response)
+    detected_name = json.loads(answer_text)["subject"]
+    subject = get_subject(detected_name)
+
+    prompt_path = artifact_subject_prompt_path(ctx.artifact_dir, "subject")
+    save_prompt(
+        prompt_path,
+        model=model,
+        system=system_prompt,
+        messages=[{
+            "role": "user",
+            "content": f"[pdf: {preview_pdf.name}]\n\n{user_prompt}",
+        }],
+    )
+    save_response(prompt_path, answer_text, thinking=thinking_text)
+
+    return subject, {"model": model, "raw_response": answer_text}
 
 
 def student_names(ctx: _Ctx) -> None:

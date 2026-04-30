@@ -1,15 +1,24 @@
 """Pipeline runner — registry-driven orchestration.
 
-Replaces the manual hand-unrolled ``_run`` loop that lived in xScore.py.
-Reads the ``STEPS`` registry, calls ``run_step`` for each step (which handles
-skip-if-resumed / stop-after / timing / error capture / run-log emission),
-with explicit carve-outs for:
+Walks the ``STEPS`` registry once and dispatches each step on its ``phase``
+field. ``run_step`` handles the per-step concerns (skip-if-resumed,
+stop-after, timing, error capture, run-log emission); the runner here only
+applies the runtime *gate* that determines whether a phase's steps run at
+all in this invocation.
 
-- ``scan_phases`` (the scan-cleaning group, where ``prepare_scans`` is conditional on a duplex match)
-- ``scaffold_phase`` (the scaffold-building group, where a temp split PDF must be cleaned in finally)
-- ``kick_off_render_bg`` after ``exam_geometry`` (pre-render scan pages so ``ai_marking``
-  can consume them without waiting; needs ``page_assignments`` from ``exam_geometry``)
-- The ``ctx.cleaned_pdf and ctx.scaffold`` gate on the AI-marking and reporting steps
+Carve-outs:
+
+- The bootstrap steps (``parse_grading_instructions``, ``locate_exam_folder``)
+  and ``read_student_list`` are dispatched explicitly so the resume bootstrap
+  in ``locate_exam_folder`` runs before any phase-gated step.
+- Scan-cleaning (``prepare_scans`` … ``deskew``) is dispatched via
+  ``scan_phases`` because ``prepare_scans`` is conditional on a duplex match.
+- ``scaffold_setup`` populates the empty-exam state shared by phases
+  ``empty_exam`` and ``scaffold_phase_b``; ``scaffold_cleanup`` runs in the
+  ``finally`` block to drop the temp split PDF.
+- ``kick_off_render_bg`` fires immediately after ``student_names`` (the step
+  that populates ``ctx.page_assignments``) so background pre-rendering can
+  proceed in parallel with the rest of the geometry / scaffold work.
 """
 
 from __future__ import annotations
@@ -27,7 +36,7 @@ from xscore.shared.pipeline_ctx import _Ctx, _EarlyExit
 
 
 def kick_off_render_bg(ctx: _Ctx) -> None:
-    """Start parallel page rendering in a background thread right after ``exam_geometry``.
+    """Start parallel page rendering in a background thread right after ``student_names``.
 
     No-op if cleaned_pdf or page_assignments are not yet set.
 
@@ -100,7 +109,11 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
 def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | None = None) -> None:
     """Orchestrate the full pipeline (see ``xscore.shared.pipeline_steps.STEPS``)."""
     from eXercise.ai_client import reset_run_call_stats, reset_run_usage
-    from xscore.shared.pipeline_steps import run_step, step_by_number, wire_step_fns
+    from xscore.shared.pipeline_steps import (
+        run_step,
+        step_by_number,
+        wire_step_fns,
+    )
     from xscore.shared.run_log import write_run_manifest
     from xscore.shared.terminal_ui import (
         get_console,
@@ -112,6 +125,10 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
     from xscore.steps.scaffold import scaffold_setup, scaffold_cleanup
 
     wire_step_fns()
+    # Import STEPS *after* wire_step_fns rebinds the module global so we walk
+    # the wired-up tuple (functions installed) rather than the _unmigrated stubs.
+    from xscore.shared.pipeline_steps import STEPS
+
     reset_run_usage()
     reset_run_call_stats()
 
@@ -123,43 +140,58 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
     fatal_exc: BaseException | None = None
     scaffold_inited = False
     try:
-        # Bootstrap step bodies must always run (registry entries flagged bootstrap=True).
+        # Bootstrap: parse + locate-folder must run before anything phase-gated
+        # so resume can populate ctx (instruction, folder, artifact_dir, and
+        # — when --from-step is set — cleaned_pdf, scaffold, page_assignments).
         run_step(ctx, step_by_number(1))
         run_step(ctx, step_by_number(2))
 
+        # Roster + scan-cleaning. ``scan_phases`` is a helper because
+        # ``prepare_scans`` is conditional on duplex match detection.
         run_step(ctx, step_by_number(3))
-        scan_phases(ctx)                                  # 4–7 (4 is conditional)
+        scan_phases(ctx)
 
-        # Empty-exam analysis: layout + cut. Initialize scaffold state up-front
-        # so the empty-exam blank-detection step can read the cut PDF later,
-        # and the scaffold detect/fill phases can finish without re-init.
+        # Initialize scaffold state up-front so the empty-exam blank-detection
+        # step can read the cut PDF later, and the scaffold detect/fill phases
+        # can finish without re-init.
         scaffold_inited = scaffold_setup(ctx)
-        if scaffold_inited:
-            for n in (8, 9):
-                run_step(ctx, step_by_number(n))
 
-        if ctx.cleaned_pdf:
-            # Cover detection + scan geometry.
-            for n in (10, 11, 12):
-                run_step(ctx, step_by_number(n))
-            kick_off_render_bg(ctx)
-            # student_handwriting_check → student_names → page_order_check.
-            for n in (13, 14, 15):
-                run_step(ctx, step_by_number(n))
-            # exam_blank_detection (empty exam) and build_marking_register_v1.
-            for n in (16, 17):
-                run_step(ctx, step_by_number(n))
+        # Walk every remaining step in registry order, dispatching on phase.
+        # Each phase has a single gate (whether the step's prerequisites are
+        # available in ctx); per-step concerns (skip-on-from-step, stop-after,
+        # timing, error capture) are handled inside ``run_step``.
+        for step in STEPS:
+            if step.phase is None:
+                continue  # bootstrap / roster / scan-cleaning — already dispatched
 
-        # Scaffold phase B: detect_scaffold, fill_scaffold, cross_page,
-        # scheme graphics, assign, parse_scheme, create_report.
-        if scaffold_inited:
-            for n in (18, 19, 20, 21, 22, 23, 24):
-                run_step(ctx, step_by_number(n))
+            if step.phase == "empty_exam":
+                if not scaffold_inited:
+                    continue
+            elif step.phase == "cover_geometry":
+                if not ctx.cleaned_pdf:
+                    continue
+            elif step.phase == "scaffold_phase_b":
+                if not scaffold_inited:
+                    continue
+            elif step.phase == "marking_reports_summary":
+                if not (ctx.cleaned_pdf and ctx.scaffold):
+                    continue
+            else:
+                # Unknown phase — fail loudly so a typo on a registry entry
+                # surfaces as an error instead of silently skipping the step.
+                raise ValueError(
+                    f"step {step.number} ({step.name!r}) has unknown phase {step.phase!r}"
+                )
 
-        if ctx.cleaned_pdf and ctx.scaffold:
-            for n in range(25, 35):
-                run_step(ctx, step_by_number(n))
-        elif ctx.cleaned_pdf and not ctx.scaffold:
+            run_step(ctx, step)
+
+            # Hook: ``student_names`` populates ``ctx.page_assignments``;
+            # spin up background pre-rendering as soon as it's available so
+            # the rest of geometry + scaffold can overlap with rendering.
+            if step.name == "student_names":
+                kick_off_render_bg(ctx)
+
+        if ctx.cleaned_pdf and not ctx.scaffold:
             warn_line("Marking skipped — scaffold not available; AI-marking and reporting steps omitted.")
 
         ctx.pipeline_completed_ok = True

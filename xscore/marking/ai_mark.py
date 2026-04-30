@@ -293,17 +293,10 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
 
     fmt = get_marking_format()
 
-    # Detect CS exam from PDF filenames — gates the CODE_FORMATTING prompt section.
-    # Uses ctx.folder so this also works on `--from-step 25` resume runs (where
-    # scaffold_phase didn't populate ctx.scaffold_state).
-    from xscore.scaffold.generate_scaffold import find_exam_pdf, find_answer_pdf
-    from xscore.shared.exam_paths import is_cs_exam
-    try:
-        _exam_pdf = find_exam_pdf(ctx.folder)
-    except FileNotFoundError:
-        _exam_pdf = None
-    _answer_pdf = find_answer_pdf(ctx.folder)
-    _is_cs = is_cs_exam(_exam_pdf, _answer_pdf)
+    # Gate the CODE_FORMATTING prompt section on the detected subject. Reads
+    # ctx.subject set by detect_subject (rehydrated from artifact on resume).
+    from xscore.shared.subjects import needs_code_formatting
+    _is_cs = needs_code_formatting(ctx)
 
     result = make_ai_client(model_env="MARKING_MODEL", default_model=_DEFAULT_MARKING_MODEL)
     if result is None:

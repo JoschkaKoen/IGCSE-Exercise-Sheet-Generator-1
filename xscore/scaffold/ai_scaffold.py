@@ -290,8 +290,10 @@ def parse_exam_pdf_full(
        ``options`` for each question on each page. Uses
        ``FILL_EXAM_SCAFFOLD_MODEL`` (falls back to ``READ_EXAM_PDF_MODEL``).
 
-    Writes ``18_parse_exam_pdf/exam_scaffold.{ext}`` (intermediate, no text)
-    and ``18_parse_exam_pdf/exam_questions.{ext}`` (final, with text).
+    Writes the ``detect_exam_scaffold`` artifact ``exam_scaffold.{ext}``
+    (intermediate, no text) and the ``fill_exam_scaffold`` artifact
+    ``exam_questions.{ext}`` (final, with text). Concrete folder names come
+    from ``xscore/shared/step_folders.py`` so renumbering is centralised.
 
     Returns ``(raw_questions, raw_layout)`` matching the legacy single-call
     contract — same shape every downstream consumer expects.
@@ -437,18 +439,18 @@ def parse_mark_scheme_phase(
     artifact_dir: "Path | None",
     *,
     fmt=None,
-    exam_pdf: "Path | None" = None,
+    is_cs: bool = False,
 ) -> dict:
     """Parse the mark scheme into ``{questions: [{number, correct_answer, mark_scheme, ...}]}``.
 
-    Reads per-page PDFs from step 19's pages dir; falls back to splitting the
-    PDF if step 19 was skipped. Uses *questions_per_page* (from step 20) to
+    Reads per-page PDFs from step 20's pages dir; falls back to splitting the
+    PDF if step 20 was skipped. Uses *questions_per_page* (from step 23) to
     send only the relevant question entries to the AI per page; falls back
     to the full scaffold for any page missing from the mapping.
 
-    *exam_pdf* is used only to widen the CS-exam detection — the heuristic
-    matches "0478" in any provided PDF filename, and the question paper is
-    more reliably named (the mark scheme PDF is often renamed by users).
+    *is_cs* gates the ``CODE_FORMATTING`` prompt section. The pipeline caller
+    derives this from ``ctx.subject`` (set by detect_subject); legacy / external
+    callers (``build_ai_scaffold``, web grade service) default to ``False``.
 
     Returns ``{"questions": []}`` when *marking_scheme_pdf* is None or the
     call fails.
@@ -460,9 +462,6 @@ def parse_mark_scheme_phase(
         return {"questions": []}
 
     scheme_model, scheme_thinking, scheme_max_tokens = _mark_scheme_model_config()
-
-    from xscore.shared.exam_paths import is_cs_exam as _is_cs_exam
-    is_cs = _is_cs_exam(marking_scheme_pdf, exam_pdf)
 
     try:
         return parse_mark_scheme_pages(
@@ -592,13 +591,19 @@ def build_ai_scaffold(
     on_graphics_complete: "Callable[[list | None], None] | None" = None,
     on_scheme_complete: "Callable[[list[dict]], None] | None" = None,
     artifact_dir: Path | None = None,
+    is_cs: bool = False,
 ) -> tuple[list[Question], ExamLayout]:
-    """Run scaffold steps 16–21 in order, firing the per-step callbacks.
+    """Run the scaffold-building phases in order, firing the per-step callbacks.
 
     Thin orchestrator preserved for backward compatibility with
     ``generate_scaffold.build_scaffold`` and external callers (e.g. the web
-    grade service). xScore.py's pipeline calls the six ``step*`` functions
+    grade service). xScore.py's pipeline calls the per-step functions
     directly so each step has its own header, timing, and resume semantics.
+
+    *is_cs* gates the ``CODE_FORMATTING`` prompt section in the exam-PDF and
+    mark-scheme calls. External callers without subject knowledge default to
+    ``False`` (no code formatting). The pipeline path uses
+    :func:`xscore.shared.subjects.needs_code_formatting` instead.
     """
     fmt = get_scaffold_format()
 
@@ -627,11 +632,10 @@ def build_ai_scaffold(
             on_cut_complete(n_cells == 1)
 
         # parse exam PDF (legacy single-call path)
-        from xscore.shared.exam_paths import is_cs_exam as _is_cs_exam
         raw_questions, raw_layout = parse_exam_pdf_full(
             client, actual_exam_pdf, layout_result,
             n_split_pages, split_pdf_temp_path, artifact_dir, fmt=fmt,
-            is_cs=_is_cs_exam(actual_exam_pdf, marking_scheme_pdf),
+            is_cs=is_cs,
         )
         if on_exam_complete is not None:
             on_exam_complete(raw_questions)
@@ -652,7 +656,7 @@ def build_ai_scaffold(
         scheme_data = parse_mark_scheme_phase(
             client, marking_scheme_pdf, raw_questions,
             graphics_by_qnum, questions_per_page, artifact_dir, fmt=fmt,
-            exam_pdf=exam_pdf,
+            is_cs=is_cs,
         )
         if on_scheme_complete is not None and isinstance(scheme_data.get("questions"), list):
             on_scheme_complete(scheme_data["questions"])

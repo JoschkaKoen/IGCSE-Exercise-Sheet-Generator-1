@@ -31,41 +31,42 @@ CUT_EXAM_DIR           = "09_cut_exam"
 COVER_EMPTY_DIR        = "10_cover_page_empty"
 COVER_SCAN_DIR         = "11_cover_page_scan"
 GEOMETRY_DIR           = "12_exam_geometry"
+DETECT_SUBJECT_DIR     = "13_detect_subject"
 
 # Per-page validation.
-HANDWRITING_DIR        = "13_student_handwriting"
-STUDENT_NAMES_DIR      = "14_student_names"
-PAGE_ORDER_DIR         = "15_page_order"
-EXAM_BLANK_DIR         = "16_exam_blank_detection"
-BUILD_REGISTER_DIR     = "17_build_marking_register"
+HANDWRITING_DIR        = "14_student_handwriting"
+STUDENT_NAMES_DIR      = "15_student_names"
+PAGE_ORDER_DIR         = "16_page_order"
+EXAM_BLANK_DIR         = "17_exam_blank_detection"
+BUILD_REGISTER_DIR     = "18_build_marking_register"
 
 # Exam scaffold (split into detect + fill phases).
-DETECT_SCAFFOLD_DIR    = "18_detect_exam_scaffold"
-FILL_SCAFFOLD_DIR      = "19_fill_exam_scaffold"
-CROSS_PAGE_CONTEXT_DIR = "20_detect_cross_page_context"
+DETECT_SCAFFOLD_DIR    = "19_detect_exam_scaffold"
+FILL_SCAFFOLD_DIR      = "20_fill_exam_scaffold"
+CROSS_PAGE_CONTEXT_DIR = "21_detect_cross_page_context"
 
 # Mark scheme parsing.
-SCHEME_GRAPHICS_DIR    = "21_detect_mark_scheme_graphics"
-ASSIGN_QUESTIONS_DIR   = "22_assign_scheme_questions"
-PARSE_SCHEME_DIR       = "23_parse_mark_scheme"
-CREATE_REPORT_DIR      = "24_create_report"
+SCHEME_GRAPHICS_DIR    = "22_detect_mark_scheme_graphics"
+ASSIGN_QUESTIONS_DIR   = "23_assign_scheme_questions"
+PARSE_SCHEME_DIR       = "24_parse_mark_scheme"
+CREATE_REPORT_DIR      = "25_create_report"
 
 # AI marking.
-BLUEPRINTS_DIR         = "25_ai_marking_blueprints"
-EXTRACT_ANSWERS_DIR    = "26_extract_student_answers"
-AI_MARKING_DIR         = "27_ai_marking"
+BLUEPRINTS_DIR         = "26_ai_marking_blueprints"
+EXTRACT_ANSWERS_DIR    = "27_extract_student_answers"
+AI_MARKING_DIR         = "28_ai_marking"
 
 # Reports & PDFs.
-STUDENT_REPORTS_DIR    = "28_student_report_preparation"
-CLASS_STATS_DIR        = "29_class_stats"
-STUDENT_PDFS_DIR       = "30_student_pdfs"
-CLASS_REPORT_DIR       = "31_class_report"
-REVIEW_QUEUE_DIR       = "32_review_queue"
+STUDENT_REPORTS_DIR    = "29_student_report_preparation"
+CLASS_STATS_DIR        = "30_class_stats"
+STUDENT_PDFS_DIR       = "31_student_pdfs"
+CLASS_REPORT_DIR       = "32_class_report"
+REVIEW_QUEUE_DIR       = "33_review_queue"
 
 # Summary.
-TIMING_DIR             = "33_timing_summary"
-ACCURACY_DIR           = "34_accuracy"
-AI_COSTS_DIR           = "35_ai_costs"
+TIMING_DIR             = "34_timing_summary"
+ACCURACY_DIR           = "35_accuracy"
+AI_COSTS_DIR           = "36_ai_costs"
 
 
 # Path of cleaned scan relative to artifact_dir.

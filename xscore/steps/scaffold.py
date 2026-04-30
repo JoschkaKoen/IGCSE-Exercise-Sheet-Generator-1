@@ -86,9 +86,8 @@ def detect_exam_scaffold(ctx: _Ctx) -> None:
     from xscore.scaffold.ai_scaffold import (
         _detect_scaffold_model_config, _print_detected_summary,
     )
-    from xscore.shared.exam_paths import (
-        artifact_exam_scaffold_path, is_cs_exam,
-    )
+    from xscore.shared.exam_paths import artifact_exam_scaffold_path
+    from xscore.shared.subjects import needs_code_formatting
     fmt = state["fmt"]
     detect_model, detect_thinking, detect_max_tokens = _detect_scaffold_model_config()
     from xscore.shared.terminal_ui import info_line
@@ -104,7 +103,7 @@ def detect_exam_scaffold(ctx: _Ctx) -> None:
         n_split_pages=state["n_split"],
         artifact_dir=ctx.artifact_dir,
         fmt=fmt,
-        is_cs=is_cs_exam(state["actual_exam_pdf"], state.get("answer_pdf")),
+        is_cs=needs_code_formatting(ctx),
     )
     if state["layout_result"] is not None:
         raw_layout = {
@@ -141,9 +140,8 @@ def fill_exam_scaffold(ctx: _Ctx) -> None:
     from xscore.scaffold.scaffold_fill import fill_exam_scaffold
     from xscore.scaffold.ai_scaffold import _fill_scaffold_model_config
     from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
-    from xscore.shared.exam_paths import (
-        artifact_exam_questions_path, is_cs_exam,
-    )
+    from xscore.shared.exam_paths import artifact_exam_questions_path
+    from xscore.shared.subjects import needs_code_formatting
     fmt = state["fmt"]
     fill_model, fill_thinking, fill_max_tokens = _fill_scaffold_model_config()
     raw_questions = fill_exam_scaffold(
@@ -155,7 +153,7 @@ def fill_exam_scaffold(ctx: _Ctx) -> None:
         scaffold_nodes=state["scaffold_nodes"],
         artifact_dir=ctx.artifact_dir,
         fmt=fmt,
-        is_cs=is_cs_exam(state["actual_exam_pdf"], state.get("answer_pdf")),
+        is_cs=needs_code_formatting(ctx),
     )
     if ctx.artifact_dir is not None:
         try:
@@ -174,13 +172,14 @@ def fill_exam_scaffold(ctx: _Ctx) -> None:
 def detect_cross_page_context(ctx: _Ctx) -> None:
     """Detect cross-page context — figure references AND parent stems.
 
-    Pure data transform: reads the v1 marking page register from build_marking_register_v1 plus
-    ``18_parse_exam_pdf/exam_questions.yaml``, runs two augmentation passes
+    Pure data transform: reads the v1 marking page register from
+    ``build_marking_register_v1`` plus ``fill_exam_scaffold``'s
+    ``exam_questions.yaml`` artifact, runs two augmentation passes
     (figure mentions on a different page from where the figure is drawn;
-    child questions on a different page from a parent's stem/flowchart), and
-    writes the v2 register at
-    ``19_detect_cross_page_context/marking_page_register.json`` along with
-    diagnostic JSON files and a markdown summary. No AI calls.
+    child questions on a different page from a parent's stem/flowchart),
+    and writes the v2 register at
+    ``<detect_cross_page_context_dir>/marking_page_register.json`` along
+    with diagnostic JSON files and a markdown summary. No AI calls.
     """
     import yaml
 
@@ -209,7 +208,7 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
     questions_path = artifact_exam_questions_path(ctx.artifact_dir, fmt="yaml")
     if not questions_path.exists():
         warn_line(
-            "Skipped — 18_parse_exam_pdf/exam_questions.yaml not found "
+            f"Skipped — {questions_path} not found "
             "(scaffold phase did not produce parsed exam)."
         )
         return
@@ -364,11 +363,12 @@ def parse_mark_scheme(ctx: _Ctx) -> None:
     )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
+    from xscore.shared.subjects import needs_code_formatting
     scheme_data = parse_mark_scheme_phase(
         state["client"], state["answer_pdf"], state["raw_questions"],
         state["graphics_by_qnum"], state.get("questions_per_page"),
         ctx.artifact_dir, fmt=state["fmt"],
-        exam_pdf=state["exam_pdf"],
+        is_cs=needs_code_formatting(ctx),
     )
     state["scheme_data"] = scheme_data
     scheme_qs = scheme_data.get("questions", []) if isinstance(scheme_data, dict) else []
@@ -402,13 +402,26 @@ def scaffold_setup(ctx: _Ctx) -> bool:
     (the empty-exam analysis and scaffold steps must be skipped). Idempotent — calling it twice is a
     no-op once state["client"] is set.
 
-    Skipped entirely when resuming (``ctx.from_step`` set).
+    When resuming (``ctx.from_step`` set), only short-circuits if the user is
+    resuming into a step that doesn't need ``scaffold_state`` — i.e. anything
+    in the ``marking_reports_summary`` phase. For ``--from-step`` values that
+    fall within ``scaffold_phase_b`` (e.g. 21 = ``detect_cross_page_context``)
+    we still populate state so the later scaffold steps that DO read it
+    (``detect_mark_scheme_graphics`` onward) can run. The cutoff is computed
+    from the registry so renumbering can't reintroduce the old bug where
+    ``--from-step 20`` silently no-op'd the user's target step.
     """
     from eXercise.ai_client import make_gemini_native_client
+    from xscore.shared.pipeline_steps import STEPS
 
     assert ctx.folder is not None and ctx.artifact_dir is not None
-    if ctx.from_step:
-        return False
+    if ctx.from_step is not None:
+        first_marking = next(
+            (s.number for s in STEPS if s.phase == "marking_reports_summary"),
+            None,
+        )
+        if first_marking is not None and ctx.from_step >= first_marking:
+            return False
     if ctx.scaffold_state.get("client") is not None:
         return True   # already set up
 
@@ -450,17 +463,20 @@ def scaffold_cleanup(ctx: _Ctx) -> None:
 
 
 def scaffold_phase(ctx: _Ctx) -> None:
-    """LEGACY — old monolithic 16–23 orchestrator.
+    """LEGACY — old monolithic scaffold orchestrator.
 
     Pre-refactor the runner called this once after geometry. The new pipeline
-    splits scaffold work into ``scaffold_setup`` + early steps (8–9) before
-    geometry, then late steps (18–24) after geometry. Kept as a fallback for
-    callers (e.g. plans, scripts) that still call the old name.
+    splits scaffold work into ``scaffold_setup`` + the ``empty_exam`` phase
+    (run before geometry) and the ``scaffold_phase_b`` phase (run after).
+    Kept as a fallback for callers (e.g. plans, scripts) that still call the
+    old name.
     """
     if not scaffold_setup(ctx):
         return
     try:
-        for n in (8, 9, 18, 19, 20, 21, 22, 23, 24):
-            run_step(ctx, step_by_number(n))
+        from xscore.shared.pipeline_steps import STEPS
+        for s in STEPS:
+            if s.phase in ("empty_exam", "scaffold_phase_b"):
+                run_step(ctx, s)
     finally:
         scaffold_cleanup(ctx)

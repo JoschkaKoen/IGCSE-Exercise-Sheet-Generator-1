@@ -1,8 +1,8 @@
-"""Step 15: per-student page-order check — heuristic over step 13's handwriting.json.
+"""Step 16: per-student page-order check — heuristic over step 14's handwriting.json.
 
-For every scan page, step 13's vision call already detected the printed page
+For every scan page, step 14's vision call already detected the printed page
 number and whether the page is a cover. This step joins that data with the
-per-student page_numbers from step 14 and verifies that each student's
+per-student page_numbers from step 15 and verifies that each student's
 sequence of detected page numbers matches what the empty-exam layout
 expects. No OCR, no LLM call.
 
@@ -324,7 +324,7 @@ def check_page_order(
     page_assignments: list["PageAssignment"],
     artifact_dir: Path | None = None,
 ) -> tuple[PageOrderStatus, str | None]:
-    """Validate page order from step 13's per-page page-number detections.
+    """Validate page order from step 14's per-page page-number detections.
 
     Heuristic only — no LLM, no OCR. For each student, looks up the AI-detected
     printed page number from ``13_student_handwriting/handwriting.json`` for

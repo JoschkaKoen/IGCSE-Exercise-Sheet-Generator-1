@@ -133,13 +133,15 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     for paths in [
         (resume_dir / "07_deskew" / "cleaned_scan.pdf",          resume_dir / "7_cleaned_scan.pdf"),
         (resume_dir / "03_read_student_list" / "students.json",  resume_dir / "3_students.json"),
-        # Student list — new (14_) and legacy (12_, 11_, 8_) locations.
-        (resume_dir / "14_student_names" / "exam_student_list.json",
+        # Student list — new (15_) and legacy (14_, 12_, 11_, 8_) locations.
+        (resume_dir / "15_student_names" / "exam_student_list.json",
+         resume_dir / "14_student_names" / "exam_student_list.json",
          resume_dir / "12_student_names" / "exam_student_list.json",
          resume_dir / "11_student_names" / "exam_student_list.json",
          resume_dir / "8_exam_student_list.json"),
-        # Scaffold report — new (24_) and legacy (23_, 22_) locations.
-        (resume_dir / "24_create_report" / "report.xml",
+        # Scaffold report — new (25_) and legacy (24_, 23_, 22_) locations.
+        (resume_dir / "25_create_report" / "report.xml",
+         resume_dir / "24_create_report" / "report.xml",
          resume_dir / "23_create_report" / "report.xml",
          resume_dir / "22_create_report" / "report.xml",
          resume_dir / "12_report.json"),
@@ -149,16 +151,18 @@ def resume_pipeline(ctx: "_Ctx") -> None:
 
     if ctx.from_step > _blueprints_n:
         bp_new = list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.json"))
-        bp_old = list(resume_dir.glob("23_ai_marking_blueprints/blueprint_page_*.json"))
+        bp_old = list(resume_dir.glob("25_ai_marking_blueprints/blueprint_page_*.json"))
+        bp_older = list(resume_dir.glob("23_ai_marking_blueprints/blueprint_page_*.json"))
         bp_legacy = list(resume_dir.glob("18_ai_marking_blueprint_*.json"))
-        required += bp_new or bp_old or bp_legacy
+        required += bp_new or bp_old or bp_older or bp_legacy
     if ctx.from_step > _marking_n:
-        # Look in the current marking folder first, then the pre-renumber
-        # folder ("24_ai_marking/"), then the very old flat layout.
+        # Look in the current marking folder first, then the pre-detect_subject
+        # folder ("27_ai_marking/"), then older renumbers, then the very old flat layout.
         mk_new = list(resume_dir.glob(f"{AI_MARKING_DIR}/students/*.yaml"))
-        mk_old = list(resume_dir.glob("24_ai_marking/students/*.yaml"))
+        mk_old = list(resume_dir.glob("27_ai_marking/students/*.yaml"))
+        mk_older = list(resume_dir.glob("24_ai_marking/students/*.yaml"))
         mk_legacy = list(resume_dir.glob("students/14_marked_*.xml"))
-        required += mk_new or mk_old or mk_legacy
+        required += mk_new or mk_old or mk_older or mk_legacy
     missing = [p for p in required if not p.exists()]
     if missing:
         raise SystemExit(
@@ -179,6 +183,8 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     ctx.students = json.loads(students_path.read_text())
 
     student_list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
+    if not student_list_path.exists():
+        student_list_path = ctx.artifact_dir / "14_student_names" / "exam_student_list.json"
     if not student_list_path.exists():
         student_list_path = ctx.artifact_dir / "12_student_names" / "exam_student_list.json"
     if not student_list_path.exists():
@@ -217,6 +223,19 @@ def resume_pipeline(ctx: "_Ctx") -> None:
         ctx.cover_page_mode = bool(
             geo.get("scan_has_cover", geo.get("cover_page_mode", False))
         )
+
+    # Subject (set by detect_subject). Pre-detect_subject runs have no
+    # subject.json — leave ctx.subject as None; needs_code_formatting()
+    # treats None as "no code formatting" for those legacy runs.
+    from xscore.shared.exam_paths import artifact_subject_json_path
+    subject_path = artifact_subject_json_path(ctx.artifact_dir)
+    if subject_path.exists():
+        from xscore.shared.subjects import get_subject
+        raw_subj = json.loads(subject_path.read_text(encoding="utf-8"))
+        try:
+            ctx.subject = get_subject(raw_subj["name"])
+        except KeyError:
+            pass  # subject removed from KNOWN_SUBJECTS since the prior run; skip
 
     ctx.scaffold = build_scaffold(
         ctx.folder, artifact_dir=ctx.artifact_dir, force_rebuild=False

@@ -1,6 +1,9 @@
-"""Step orchestrators (steps 25–29) for the marking pipeline.
+"""Step orchestrators for the marking-reports phase of the pipeline.
 
-Thin entry points — actual work lives in:
+These are the entry points wired into the registry by ``wire_step_fns`` for
+``per_student_reports``, ``class_stats_curve``, ``per_student_pdfs``,
+``class_report``, and ``review_queue``. Actual work lives in:
+
 - :mod:`xscore.marking.student_merge`   (per-student page merge, name discovery)
 - :mod:`xscore.marking.report_xml`      (XML serialisation + post-hoc loader)
 - :mod:`xscore.marking.report_markdown` (Markdown rendering)
@@ -130,10 +133,11 @@ def render_per_student_pdfs(ctx: Any) -> None:
     ``ctx.instruction.curved_grade_visible`` first, then env var
     ``CURVED_GRADE_VISIBLE`` (default true).
 
-    When ``18_parse_exam_pdf/exam_questions.yaml`` exists, additionally emits
-    ``exam_questions.pdf`` (one per run) and ``*_landscape_with_questions.pdf``
-    + ``*_portrait_list.pdf`` per student. Missing YAML → warn-and-skip; the
-    original four per-student PDFs still produce.
+    When ``fill_exam_scaffold``'s ``exam_questions.yaml`` exists, additionally
+    emits ``exam_questions.pdf`` (one per run) and
+    ``*_landscape_with_questions.pdf`` + ``*_portrait_list.pdf`` per student.
+    Missing YAML → warn-and-skip; the original four per-student PDFs still
+    produce.
     """
     import yaml
 
@@ -156,7 +160,7 @@ def render_per_student_pdfs(ctx: Any) -> None:
     else:
         warn_line(
             "Skipped exam-questions PDF and with-questions student variants — "
-            "18_parse_exam_pdf/exam_questions.yaml not found."
+            f"{questions_path} not found."
         )
 
     class_avg = getattr(ctx, "class_average_pct", None)

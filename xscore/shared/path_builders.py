@@ -32,6 +32,7 @@ from xscore.shared.step_folders import (
     CUT_EXAM_DIR,
     DESKEW_DIR,
     DETECT_SCAFFOLD_DIR,
+    DETECT_SUBJECT_DIR,
     EXAM_BLANK_DIR,
     EXTRACT_ANSWERS_DIR,
     FILL_SCAFFOLD_DIR,
@@ -153,6 +154,26 @@ def artifact_geometry_md_path(artifact_dir: Path) -> Path:
 def artifact_geometry_prompt_path(artifact_dir: Path, name: str) -> Path:
     """Prompt file for geometry AI calls."""
     return artifact_dir / GEOMETRY_DIR / f"{name}_prompt.md"
+
+
+# ---------------------------------------------------------------------------
+# Subject detection
+# ---------------------------------------------------------------------------
+
+def artifact_subject_dir(artifact_dir: Path) -> Path:
+    return artifact_dir / DETECT_SUBJECT_DIR
+
+
+def artifact_subject_json_path(artifact_dir: Path) -> Path:
+    return artifact_dir / DETECT_SUBJECT_DIR / "subject.json"
+
+
+def artifact_subject_md_path(artifact_dir: Path) -> Path:
+    return artifact_dir / DETECT_SUBJECT_DIR / "subject.md"
+
+
+def artifact_subject_prompt_path(artifact_dir: Path, name: str = "subject") -> Path:
+    return artifact_dir / DETECT_SUBJECT_DIR / f"{name}_prompt.md"
 
 
 # ---------------------------------------------------------------------------
@@ -867,17 +888,6 @@ def find_scaffold_cache_file(
         if p.is_file():
             return p
     return None
-
-
-def is_cs_exam(*pdf_paths: "Path | None") -> bool:
-    """Whether the exam involves code/pseudocode (gates code-formatting prompt rules).
-
-    Heuristic — temporary: True if any provided PDF filename contains "0478"
-    (Cambridge IGCSE Computer Science). To be replaced by proper subject
-    detection later; keep call sites going through this function so the
-    eventual upgrade is a one-file change.
-    """
-    return any("0478" in p.name for p in pdf_paths if p is not None)
 
 
 def is_completed_run(run_dir: Path) -> bool:

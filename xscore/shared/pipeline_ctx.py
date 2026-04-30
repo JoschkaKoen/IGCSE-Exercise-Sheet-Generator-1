@@ -14,6 +14,7 @@ from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from xscore.shared.models import ExamScaffold, PageAssignment, TaskInstruction
+    from xscore.shared.subjects import Subject
 
 
 class _EarlyExit(Exception):
@@ -56,13 +57,17 @@ class _Ctx:
     step_failures: list[dict] = field(default_factory=list)
     marking_api_calls: list[dict] = field(default_factory=list)
     marking_failures: list[dict] = field(default_factory=list)
-    page_assignments: "list[PageAssignment] | None" = None  # set by exam_geometry
+    page_assignments: "list[PageAssignment] | None" = None  # set by student_names
     # --- Cover page detection ---
     # Set by cover_page_empty_exam; None means the AI check was skipped (no API key or error).
     empty_exam_has_cover: bool | None = None
     # Set by cover_page_scan_first from the scan page-1 check; final once that
     # step finishes (no retroactive update). False = no cover (also the default).
     cover_page_mode: bool = False
+    # Set by detect_subject (step 13). None means the step hasn't run yet (or
+    # was skipped on resume from a pre-step-13 run); downstream prompts treat
+    # None as "no code formatting" via :func:`xscore.shared.subjects.needs_code_formatting`.
+    subject: "Subject | None" = None
     stop_after: int = 9999                   # --stop-after N; 9999 = run everything
     from_step: int | None = None             # --from-step N; skip steps < N, resume from prior run
     resume_dir: Path | None = None           # --resume-dir PATH; prior artifact dir to resume from
