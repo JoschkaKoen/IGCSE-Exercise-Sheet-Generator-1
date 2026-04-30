@@ -215,31 +215,31 @@ Same pipeline as a flat sequence — step-by-step from 1 to 34:
 ```mermaid
 flowchart TD
     subgraph setup["Setup (1–3)"]
-        s1["1 — Interpret prompt"] --> s2["2 — Select exam folder"] --> s3["3 — Read student list"]
+        s1["1 —\nInterpret\nprompt"] --> s2["2 —\nSelect exam\nfolder"] --> s3["3 —\nRead student\nlist"]
     end
     subgraph scan["Scan cleaning (4–7)"]
-        s4["4 — Merge duplex scans"] --> s5["5 — Detect blank pages"] --> s6["6 — Autorotate"] --> s7["7 — Deskew"]
+        s4["4 —\nMerge duplex\nscans"] --> s5["5 —\nDetect blank\npages"] --> s6["6 —\nAutorotate"] --> s7["7 —\nDeskew"]
     end
     subgraph emptyexam["Empty-exam analysis (8–9)"]
-        s8["8 — Detect exam layout"] --> s9["9 — Cut empty exam"]
+        s8["8 —\nDetect exam\nlayout"] --> s9["9 —\nCut empty\nexam"]
     end
     subgraph geometry["Cover & geometry (10–12)"]
-        s10["10 — Cover page (empty exam)"] --> s11["11 — Cover page (scan)"] --> s12["12 — Pages per student"]
+        s10["10 —\nCover page\n(empty exam)"] --> s11["11 —\nCover page\n(scan)"] --> s12["12 —\nPages per\nstudent"]
     end
     subgraph identity["Per-page vision + identity (13–17)"]
-        s13["13 — Vision classify each page"] --> s14["14 — Detect student names"] --> s15["15 — Check page order"] --> s16["16 — Blank pages (empty exam)"] --> s17["17 — Build marking register"]
+        s13["13 —\nVision classify\neach page"] --> s14["14 —\nDetect student\nnames"] --> s15["15 —\nCheck page\norder"] --> s16["16 —\nBlank pages\n(empty exam)"] --> s17["17 —\nBuild marking\nregister"]
     end
     subgraph scaffold["Exam parse + cross-page + mark scheme (18–24)"]
-        s18["18 — Detect exam scaffold"] --> s19["19 — Fill exam scaffold"] --> s20["20 — Cross-page context"] --> s21["21 — Mark scheme graphics"] --> s22["22 — Assign questions to scheme pages"] --> s23["23 — Parse mark scheme"] --> s24["24 — Build grading scaffold"]
+        s18["18 —\nDetect exam\nscaffold"] --> s19["19 —\nFill exam\nscaffold"] --> s20["20 —\nCross-page\ncontext"] --> s21["21 —\nMark scheme\ngraphics"] --> s22["22 —\nAssign questions\nto scheme pages"] --> s23["23 —\nParse mark\nscheme"] --> s24["24 —\nBuild grading\nscaffold"]
     end
     subgraph marking["AI marking (25–26)"]
-        s25["25 — Build marking blueprints"] --> s26["26 — Run AI marking"]
+        s25["25 —\nBuild marking\nblueprints"] --> s26["26 —\nRun AI\nmarking"]
     end
     subgraph reports["Reports (27–31)"]
-        s27["27 — Fuse marks to reports"] --> s28["28 — Class stats & curve"] --> s29["29 — Per-student PDFs"] --> s30["30 — Class report"] --> s31["31 — Review queue"]
+        s27["27 —\nFuse marks\nto reports"] --> s28["28 —\nClass stats\n& curve"] --> s29["29 —\nPer-student\nPDFs"] --> s30["30 —\nClass\nreport"] --> s31["31 —\nReview\nqueue"]
     end
     subgraph summary["Summary (32–34)"]
-        s32["32 — Timing summary"] --> s33["33 — Accuracy evaluation"] --> s34["34 — AI cost summary"]
+        s32["32 —\nTiming\nsummary"] --> s33["33 —\nAccuracy\nevaluation"] --> s34["34 —\nAI cost\nsummary"]
     end
 
     s3 --> s4
