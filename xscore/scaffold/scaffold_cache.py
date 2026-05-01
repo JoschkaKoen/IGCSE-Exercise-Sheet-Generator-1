@@ -44,7 +44,7 @@ from xscore.scaffold.scaffold_markdown import (
 )
 
 
-SCHEMA_VERSION = 18
+SCHEMA_VERSION = 19
 
 
 # ---------------------------------------------------------------------------
@@ -123,6 +123,8 @@ def question_to_dict(q: Question) -> dict[str, Any]:
         d["correct_answer"] = q.correct_answer
     if q.question_type != "multiple_choice" and q.marking_criteria is not None and str(q.marking_criteria).strip():
         d["marking_criteria"] = q.marking_criteria
+    if q.reasoning is not None and str(q.reasoning).strip():
+        d["reasoning"] = q.reasoning
     if q.answer_images:
         d["answer_images"] = [_img_to_dict(i) for i in q.answer_images]
     return d
@@ -163,6 +165,7 @@ def question_from_dict(d: dict) -> Question:
         subquestions=[question_from_dict(s) for s in d.get("subquestions") or []],
         correct_answer=ca,
         marking_criteria=d.get("marking_criteria"),
+        reasoning=d.get("reasoning"),
         answer_images=[_img_from_dict(x) for x in d.get("answer_images") or []],
         answer_options=ao,
     )
@@ -311,6 +314,9 @@ def _question_to_xml_element(q: Question) -> ET.Element:
     if q.question_type != "multiple_choice" and q.marking_criteria and str(q.marking_criteria).strip():
         for crit_el in _criterion_str_to_elements(str(q.marking_criteria)):
             el.append(crit_el)
+    if q.reasoning and str(q.reasoning).strip():
+        reasoning_el = ET.SubElement(el, "reasoning")
+        reasoning_el.text = str(q.reasoning)
     for sub in (q.subquestions or []):
         el.append(_question_to_xml_element(sub))
     return el
@@ -350,6 +356,11 @@ def _question_from_xml_element(el: ET.Element) -> Question:
         if ctext:
             criterion_parts.append(f"[{mark}] {ctext}" if mark else ctext)
     marking_criteria: str | None = "\n".join(criterion_parts) or None
+    reasoning_el = el.find("reasoning")
+    reasoning: str | None = (
+        (reasoning_el.text or "").strip() or None
+        if reasoning_el is not None else None
+    )
     subquestions = [_question_from_xml_element(sub) for sub in el.findall("question")]
     return Question(
         number=el.get("number", ""),
@@ -364,6 +375,7 @@ def _question_from_xml_element(el: ET.Element) -> Question:
         subquestions=subquestions,
         correct_answer=el.get("correct_answer") or None,
         marking_criteria=marking_criteria,
+        reasoning=reasoning,
     )
 
 

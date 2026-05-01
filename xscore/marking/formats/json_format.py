@@ -12,6 +12,7 @@ import json
 
 from pydantic import BaseModel
 
+from xscore.marking.formats import parse_confidence_int, parse_problem
 from xscore.marking.formats.base import FormatParseError, MarkingFormat
 from xscore.shared.response_parsing import strip_code_fences as _strip_fences  # noqa: F401
 
@@ -27,10 +28,13 @@ class _QuestionMarking(BaseModel):
     student_answer: str
     assigned_marks: int
     explanation: str
-    # Side-channel confidence — does NOT influence marks or PDF.
-    # Required so strict json_schema validation accepts the field; an empty
-    # string is acceptable and downstream code treats empty as "high".
-    confidence: str = ""
+    # Side-channel signals — never influence marks or PDFs. Read only by
+    # step 33 (review queue / confidence audit). confidence is an int 0–10
+    # (0 = no confidence, 10 = fully certain); problem is a short freeform
+    # string the AI fills in when there's something specific worth a human
+    # glance.
+    confidence: int = 5
+    problem: str = ""
 
 
 class _MarkingResponse(BaseModel):
@@ -129,7 +133,8 @@ class JsonMarkingFormat(MarkingFormat):
                 "assigned_marks": am,
                 "student_answer": str(q.get("student_answer") or "").strip(),
                 "explanation":    str(q.get("explanation") or "").strip(),
-                "confidence":     str(q.get("confidence") or "").strip().lower(),
+                "confidence":     parse_confidence_int(q.get("confidence")),
+                "problem":        parse_problem(q.get("problem")),
             })
         return result
 
@@ -144,6 +149,7 @@ class JsonMarkingFormat(MarkingFormat):
         }
         for q in filled.get("questions") or []:
             am = q.get("assigned_marks")
+            cf = q.get("confidence")
             doc["questions"].append({
                 "number":           str(q.get("number", "")),
                 "type":             str(q.get("question_type", "")),
@@ -164,7 +170,8 @@ class JsonMarkingFormat(MarkingFormat):
                 "student_answer":   str(q.get("student_answer") or ""),
                 "assigned_marks":   int(am) if am is not None else 0,
                 "explanation":      str(q.get("explanation") or ""),
-                "confidence":       str(q.get("confidence") or ""),
+                "confidence":       parse_confidence_int(cf),
+                "problem":          str(q.get("problem") or ""),
             })
         return json.dumps(doc, ensure_ascii=False, indent=2)
 
@@ -205,7 +212,8 @@ class JsonMarkingFormat(MarkingFormat):
                 "student_answer":   str(q.get("student_answer") or "").strip(),
                 "assigned_marks":   am_int,
                 "explanation":      str(q.get("explanation") or "").strip(),
-                "confidence":       str(q.get("confidence") or "").strip().lower(),
+                "confidence":       parse_confidence_int(q.get("confidence")),
+                "problem":          parse_problem(q.get("problem")),
             })
         result: dict = {
             "page":     int(data.get("page", 1)),

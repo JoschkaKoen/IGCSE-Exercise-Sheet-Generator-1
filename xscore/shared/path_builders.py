@@ -733,7 +733,7 @@ def artifact_class_question_difficulty_path(artifact_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_review_queue_json_path(artifact_dir: Path) -> Path:
-    """Side-channel review queue (medium / low confidence marks).
+    """Side-channel review queue / confidence audit (every marked question).
 
     Pure side artifact — never loaded by any pipeline step; intended for manual
     spot-checking by the human marker.
@@ -743,6 +743,14 @@ def artifact_review_queue_json_path(artifact_dir: Path) -> Path:
 
 def artifact_review_queue_md_path(artifact_dir: Path) -> Path:
     return artifact_dir / REVIEW_QUEUE_DIR / "review.md"
+
+
+def artifact_review_queue_txt_path(artifact_dir: Path) -> Path:
+    """Plain-text mirror of the review queue — one line per marked question,
+    ordered by ascending confidence. Same per-entry format the terminal echoes
+    (top 10 only); the .txt holds the full sorted list for grep / less.
+    """
+    return artifact_dir / REVIEW_QUEUE_DIR / "review.txt"
 
 
 # ---------------------------------------------------------------------------

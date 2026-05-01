@@ -151,6 +151,7 @@ def _augment_with_unanswered(
     fmt: Any,
     correct_answers: dict[str, str],
     marking_criteria_by_num: dict[str, str],
+    reasoning_by_num: dict[str, str],
 ) -> dict | None:
     """Return a copy of *filtered_report* with one extra row per question on
     every scan page the student left blank, sourced from the step-24 blueprint.
@@ -227,6 +228,10 @@ def _augment_with_unanswered(
             entry["marking_criteria"] = marking_criteria_by_num.get(
                 qnum, entry.get("marking_criteria", "")
             )
+            if entry.get("question_type") == "multiple_choice":
+                r = reasoning_by_num.get(qnum, "")
+                if r:
+                    entry["explanation"] = r
             augmented_questions.append(entry)
             existing_qnums.add(qnum)
             appended += 1
@@ -287,17 +292,25 @@ def _derive_student_names(artifact_dir: Path, fmt=None) -> list[str]:
     return result
 
 
-def _build_answer_lookup(ctx: Any) -> tuple[dict[str, str], dict[str, str]]:
-    """Build correct_answer and marking_criteria dicts keyed by (possibly _N-suffixed) question number."""
+def _build_answer_lookup(
+    ctx: Any,
+) -> tuple[dict[str, str], dict[str, str], dict[str, str]]:
+    """Build correct_answer / marking_criteria / reasoning dicts keyed by (possibly _N-suffixed) question number.
+
+    ``reasoning`` is populated for MCQ questions when the parsed mark scheme
+    included an explanation of the correct answer; empty for everything else.
+    """
     correct_answers: dict[str, str] = {}
     marking_criteria_by_num: dict[str, str] = {}
+    reasoning_by_num: dict[str, str] = {}
     seen: dict[str, int] = {}
     for q in ctx.scaffold.gradable_questions:
         seen[q.number] = seen.get(q.number, 0) + 1
         key = q.number if seen[q.number] == 1 else f"{q.number}_{seen[q.number]}"
         correct_answers[key] = q.correct_answer or ""
         marking_criteria_by_num[key] = q.marking_criteria or ""
-    return correct_answers, marking_criteria_by_num
+        reasoning_by_num[key] = q.reasoning or ""
+    return correct_answers, marking_criteria_by_num, reasoning_by_num
 
 
 def _pass1_merge_students(
@@ -307,6 +320,7 @@ def _pass1_merge_students(
     total_max_marks: int,
     correct_answers: dict[str, str],
     marking_criteria_by_num: dict[str, str],
+    reasoning_by_num: dict[str, str],
     workers: int,
 ) -> tuple[list[dict], dict[str, dict], dict[str, dict], dict[str, list[float]], list[dict], list[dict]]:
     """Parallel: merge per-page marks, write XML + MD per student, accumulate q_totals.
@@ -343,8 +357,13 @@ def _pass1_merge_students(
             collisions=collisions, collisions_lock=_collisions_lock,
         )
         for q in report["questions"]:
-            q["correct_answer"] = correct_answers.get(str(q.get("number", "")), "")
-            q["marking_criteria"] = marking_criteria_by_num.get(str(q.get("number", "")), "")
+            qnum = str(q.get("number", ""))
+            q["correct_answer"] = correct_answers.get(qnum, "")
+            q["marking_criteria"] = marking_criteria_by_num.get(qnum, "")
+            if q.get("question_type") == "multiple_choice":
+                r = reasoning_by_num.get(qnum, "")
+                if r:
+                    q["explanation"] = r
 
         artifact_student_report_dir(ctx.artifact_dir, name).mkdir(parents=True, exist_ok=True)
         artifact_student_report_xml_path(ctx.artifact_dir, name).write_text(
@@ -368,7 +387,7 @@ def _pass1_merge_students(
         if register is not None:
             aug = _augment_with_unanswered(
                 report, ctx.artifact_dir, register, fmt,
-                correct_answers, marking_criteria_by_num,
+                correct_answers, marking_criteria_by_num, reasoning_by_num,
             )
             if aug is not None:
                 artifact_student_report_xml_full_path(ctx.artifact_dir, name).write_text(

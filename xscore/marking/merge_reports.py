@@ -54,7 +54,7 @@ def build_per_student_reports(ctx: Any) -> None:
     """
     fmt = get_marking_format()
     total_max_marks = ctx.scaffold.total_marks
-    correct_answers, marking_criteria_by_num = _build_answer_lookup(ctx)
+    correct_answers, marking_criteria_by_num, reasoning_by_num = _build_answer_lookup(ctx)
     names = _derive_student_names(ctx.artifact_dir, fmt=fmt)
     workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
 
@@ -62,6 +62,10 @@ def build_per_student_reports(ctx: Any) -> None:
     if cli_student_filter:
         wanted = {n.strip().lower() for n in cli_student_filter}
         names = [n for n in names if n.strip().lower() in wanted]
+
+    cli_limit = getattr(ctx, "limit_students", None)
+    if cli_limit:
+        names = names[:cli_limit]
 
     ctx.artifact_dir.mkdir(parents=True, exist_ok=True)
     artifact_marking_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
@@ -71,7 +75,9 @@ def build_per_student_reports(ctx: Any) -> None:
         student_summaries, full_reports, full_reports_augmented,
         q_totals, failed, collisions,
     ) = _pass1_merge_students(
-        ctx, fmt, names, total_max_marks, correct_answers, marking_criteria_by_num, workers
+        ctx, fmt, names, total_max_marks,
+        correct_answers, marking_criteria_by_num, reasoning_by_num,
+        workers,
     )
     ctx.student_summaries = student_summaries
     ctx.full_reports = full_reports
@@ -199,15 +205,17 @@ def render_class_report(ctx: Any) -> str:
     """Build & write class XML/MD/TeX/PDF + concat combined PDF.
 
     Returns a discriminator so the wrapper can pick the right summary line:
-    ``"done"`` (work ran), ``"skipped_filter"`` (``--student`` filter active —
-    a warning was already emitted), ``"skipped_empty"`` (no per-student
-    summaries to compile).
+    ``"done"`` (work ran), ``"skipped_filter"`` (``--student`` or
+    ``--limit-students`` filter active — a warning was already emitted),
+    ``"skipped_empty"`` (no per-student summaries to compile).
     """
     cli_student_filter = getattr(ctx, "student_filter", None)
-    if cli_student_filter:
+    cli_limit = getattr(ctx, "limit_students", None)
+    if cli_student_filter or cli_limit:
         from xscore.shared.terminal_ui import warn_line
+        active = "--student" if cli_student_filter else "--limit-students"
         warn_line(
-            "--student filter active — skipping class report (would not be "
+            f"{active} filter active — skipping class report (would not be "
             "representative of the full class)."
         )
         return "skipped_filter"
@@ -223,17 +231,20 @@ def render_class_report(ctx: Any) -> str:
 # Step 30 — Review queue
 # ---------------------------------------------------------------------------
 
-def build_review_queue(ctx: Any) -> int:
-    """Emit the side-channel review queue (medium / low confidence marks + collisions).
+def build_review_queue(ctx: Any) -> list[dict]:
+    """Emit the side-channel confidence audit (every marked question + collisions).
 
-    Always runs, even when no entries are flagged, so downstream tooling can
-    rely on the artifact existing. Returns the count of flagged entries.
-    Cross-page mark collisions captured by step 26 are appended to the same
-    artifact under ``"collisions"``.
+    Always runs, even when no questions were marked, so downstream tooling can
+    rely on the artifacts existing. Returns the list of entries (sorted by
+    ascending confidence) so the caller can echo the lowest-confidence rows
+    to the terminal without rebuilding it. Cross-page mark collisions
+    captured earlier in the pipeline are appended to the JSON / Markdown
+    artifacts under ``"collisions"``.
     """
     return _write_review_queue(
         ctx.full_reports, ctx.artifact_dir,
         collisions=getattr(ctx, "mark_collisions", None) or None,
+        page_assignments=getattr(ctx, "page_assignments", None),
     )
 
 

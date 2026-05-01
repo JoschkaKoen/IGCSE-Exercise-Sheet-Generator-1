@@ -361,14 +361,18 @@ def _apply_marking_response(
             fq = group[idx]
             # Guarded: pre-fill from step 26 (extract_student_answers) takes
             # precedence over the AI's re-emission in the marking response.
+            # In presupplied mode the AI is told NOT to emit student_answer at
+            # all — fall back to "" so the missing key doesn't crash the merge.
             if not bq.get("student_answer"):
-                bq["student_answer"] = fq['student_answer']
+                bq["student_answer"] = fq.get("student_answer", "")
             bq["assigned_marks"] = fq['assigned_marks']
             bq["explanation"] = fq['explanation']
-            # `confidence` is optional — present only when item 3 (confidence
-            # side artifact) is in effect AND the AI produced it.
+            # Side-channel signals — copied from the AI response when
+            # present. Read only by step 33's confidence audit.
             if "confidence" in fq:
                 bq["confidence"] = fq["confidence"]
+            if "problem" in fq:
+                bq["problem"] = fq["problem"]
         else:
             unfilled.append(bq.get("number"))
 

@@ -63,6 +63,7 @@ def render_pages_b64(
     *,
     instruction: Any = None,
     cli_filter: list[str] | None = None,
+    limit_students: int | None = None,
 ) -> dict[tuple[str, int], str]:
     """Render all scan pages to base64 JPEG, parallelised.
 
@@ -71,7 +72,8 @@ def render_pages_b64(
 
     Both the prompt-derived ``instruction.student_filter`` and the
     ``--student`` CLI cohort filter are applied so the rendered set matches
-    what the marker will actually consume.
+    what the marker will actually consume. ``--limit-students N`` (passed as
+    ``limit_students``) further slices to the first N after both filters.
 
     Returns {(student_name, page_label): b64_str}.
     """
@@ -95,6 +97,9 @@ def render_pages_b64(
             a for a in raw
             if (a.get("student_name") or "").strip().lower() in wanted
         ]
+
+    if limit_students:
+        raw = raw[:limit_students]
 
     tasks: list[tuple[str, int, int]] = []
     for a in raw:
@@ -348,6 +353,15 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         kept = [a["student_name"] for a in raw_assignments]
         info_line(f"--student filter active · marking {len(kept)} of {before}: {', '.join(kept)}")
 
+    # CLI-driven --limit-students slice. Applied last so it composes with
+    # both the NL-prompt filter and the --student filter.
+    limit_students = getattr(ctx, "limit_students", None)
+    if limit_students:
+        before = len(raw_assignments)
+        raw_assignments = raw_assignments[:limit_students]
+        kept = [a["student_name"] for a in raw_assignments]
+        info_line(f"--limit-students active · marking {len(kept)} of {before}: {', '.join(kept)}")
+
     _default_workers = min(os.cpu_count() or 4, 16)
     try:
         workers = int(os.environ.get("MARKING_WORKERS", str(_default_workers)))
@@ -367,6 +381,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             ctx.cleaned_pdf, ctx.artifact_dir, dpi, workers,
             instruction=getattr(ctx, "instruction", None),
             cli_filter=getattr(ctx, "student_filter", None),
+            limit_students=getattr(ctx, "limit_students", None),
         )
 
     b64_future = getattr(ctx, "b64_future", None)

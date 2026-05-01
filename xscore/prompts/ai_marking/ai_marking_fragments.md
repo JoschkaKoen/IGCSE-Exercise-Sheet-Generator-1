@@ -1,7 +1,7 @@
 ---
 name: ai_marking_fragments
-version: v3
-description: Step 27 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES and FIELD_RULES_PRESUPPLIED use $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v3 added FIELD_RULES_PRESUPPLIED for the post-step-26 path where student_answer is pre-filled by xscore.marking.extract_answers and the marker only fills assigned_marks/explanation/confidence. v2 restructured FIELD_RULES into named sub-sections (Principles, per-field rules, Text rules). Used by xscore.marking.mark_page._build_marking_system_prompt.
+version: v5
+description: Step 28 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES and FIELD_RULES_PRESUPPLIED use $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v5 replaced the three-value `confidence` (high/medium/low) with an integer 0–10 (0 = no confidence, 10 = fully certain) and added a new freeform `problem` string field for human-review diagnostics — read by step 33's confidence audit. v4 changed FIELD_RULES_PRESUPPLIED so the marker no longer re-emits student_answer. v3 added FIELD_RULES_PRESUPPLIED for the post-step-26 path where student_answer is pre-filled. v2 restructured FIELD_RULES into named sub-sections (Principles, per-field rules, Text rules). Used by xscore.marking.mark_page._build_marking_system_prompt.
 ---
 ## FIELD_RULES
 
@@ -9,7 +9,7 @@ description: Step 27 — ai_marking. Combined system-prompt fragments appended c
 
 - **Mark generously where understanding is shown.** Accept semantically equivalent answers, not only verbatim matches. Treat ${criterion_ref} as guidance for what the question is asking, not as an exhaustive list of acceptable wording.
 - **Never invent answers.** Only report what the student physically wrote. Do not fill in what the question seems to want, and do not draw on your own subject knowledge to complete a partial answer.
-- **Flag uncertainty honestly.** Use `confidence` to mark cases where the handwriting is ambiguous or the rubric is unclear. False confidence is worse than an honest "low".
+- **Flag uncertainty honestly.** Use `confidence` (an integer 0–10) to score how sure you are. Use `problem` to record any specific concern a human should look at. False confidence is worse than an honest low score.
 
 ### student_answer — transcribe what the student wrote
 
@@ -34,13 +34,23 @@ Use professional judgement, not literal matching.
 - **Emphasis** — for important words use `\textbf{word}`. Markdown `**word**` does not render and breaks the PDF.
 - **Multiple-choice exception** — leave `explanation` empty for multiple_choice questions. The field is filled automatically afterwards.
 
-### confidence — one of `high`, `medium`, `low` (lowercase)
+### confidence — an integer in [0, 10]
 
 An advisory side-channel collected for human review; it does **not** influence the marks awarded.
 
-- `high` — you are certain of both the student's answer and the marks awarded.
-- `medium` — the default for ordinary cases.
-- `low` — handwriting was ambiguous, the rubric was unclear, or you had to guess.
+- `0` — you have no confidence in your marking.
+- `10` — you are fully certain of both the student's answer and the marks awarded.
+
+Pick any integer in between. Calibrate the scale yourself.
+
+### problem — a short freeform string
+
+Use this field to record any problem you noticed during marking. Leave it empty (`""`) when you have no specific concern.
+
+- May be written at any confidence level. **Should** be written when confidence is below 7. Above 7 it is optional.
+- Keep it under ~120 characters. If there are multiple concerns, separate them with semicolons in the same string.
+- Only fill `problem` when there is something specific a human should look at; routine ambiguity is what the confidence dial is for.
+- Do not restate the explanation — `problem` is for things a human reviewer needs, not student-facing feedback.
 
 ### Text rules — apply to student_answer and explanation
 
@@ -56,13 +66,15 @@ Both fields are placed verbatim into a LaTeX document.
 
 - **Mark generously where understanding is shown.** Accept semantically equivalent answers, not only verbatim matches. Treat ${criterion_ref} as guidance for what the question is asking, not as an exhaustive list of acceptable wording.
 - **Never invent answers.** Only mark what the student physically wrote. Do not fill in what the question seems to want, and do not draw on your own subject knowledge to complete a partial answer.
-- **Flag uncertainty honestly.** Use `confidence` to mark cases where the rubric is unclear or you had to guess. False confidence is worse than an honest "low".
+- **Flag uncertainty honestly.** Use `confidence` (an integer 0–10) to score how sure you are. Use `problem` to record any specific concern a human should look at. False confidence is worse than an honest low score.
 
-### student_answer — already filled in for you
+### student_answer — pre-filled, do not emit
 
-The student's verbatim answer has been transcribed for you in a prior pass and is already present in the blueprint's <student_answer> field for each question. **Re-emit the same value unchanged** — do not modify, paraphrase, correct, or extend it. (The format schema requires this field to be present in your output; copy through what is already there.) For multiple-choice questions, the field holds the letter the student selected.
+The student's verbatim answer has been transcribed for you in a prior pass and is already present in the blueprint's <student_answer> field for each question. **Do NOT include `student_answer` in your response** — focus only on `assigned_marks`, `explanation`, and `confidence`. The pre-filled value carries through to the final artifact unchanged. For multiple-choice questions, the pre-filled value is the letter the student selected; treat it as the source of truth and award `max_marks` if it matches `correct_answer`, else 0.
 
-If you notice that the pre-filled value clearly disagrees with the scan (e.g. clearly wrong letter for an MCQ, or text obviously different from what is visible on the page), you may add a brief note in `explanation` flagging the mismatch — but do not change `student_answer`.
+(The JSON output schema lists `student_answer` as a required field — when responding in JSON, emit an empty string `""` for it. YAML and XML responses should omit the field entirely.)
+
+If the pre-filled value clearly disagrees with what you see on the scan (e.g. clearly wrong letter for an MCQ, or text obviously different from what is visible on the page), lower your `confidence` score and record the mismatch in `problem` so a human reviewer can catch it.
 
 ### assigned_marks — an integer from 0 to max_marks
 
@@ -79,19 +91,29 @@ Use professional judgement, not literal matching.
 - **Audience** — non-native, high-school English speakers. Avoid difficult words; address the student directly using "you"; keep it short.
 - **Format** — write the explanation as a LaTeX itemize list: `\begin{itemize}\item first point\item second point\end{itemize}`. Each `\item` is one short, clear point. Do **not** use a literal bullet character (`•`) or a leading hyphen (`- `) — those render as plain text, not as a list.
 - **Emphasis** — for important words use `\textbf{word}`. Markdown `**word**` does not render and breaks the PDF.
-- **Multiple-choice exception** — leave `explanation` empty for multiple_choice questions. The field is filled automatically afterwards.
+- **Multiple-choice exception** — leave `explanation` empty for multiple_choice questions. For MCQ the student-facing reasoning comes from the mark scheme and is filled in automatically afterwards.
 
-### confidence — one of `high`, `medium`, `low` (lowercase)
+### confidence — an integer in [0, 10]
 
 An advisory side-channel collected for human review; it does **not** influence the marks awarded.
 
-- `high` — you are certain of the marks awarded.
-- `medium` — the default for ordinary cases.
-- `low` — the rubric was unclear, you had to guess, or the pre-filled student_answer disagrees with the scan.
+- `0` — you have no confidence in your marking.
+- `10` — you are fully certain of the marks awarded.
+
+Pick any integer in between. Calibrate the scale yourself.
+
+### problem — a short freeform string
+
+Use this field to record any problem you noticed during marking. Leave it empty (`""`) when you have no specific concern.
+
+- May be written at any confidence level. **Should** be written when confidence is below 7. Above 7 it is optional.
+- Keep it under ~120 characters. If there are multiple concerns, separate them with semicolons in the same string.
+- Only fill `problem` when there is something specific a human should look at; routine ambiguity is what the confidence dial is for.
+- Do not restate the explanation — `problem` is for things a human reviewer needs, not student-facing feedback.
 
 ### Text rules — apply to explanation
 
-The explanation field is placed verbatim into a LaTeX document. (The student_answer field was already formatted by the prior pass; do not re-format it.)
+The explanation field is placed verbatim into a LaTeX document.
 
 1. **Escape literal special characters** that appear as text (not part of a math expression): `%` → `\%`, `$` → `\$`, `#` → `\#`, `_` → `\_`, `{` → `\{`, `}` → `\}`, backslash → `\textbackslash{}`. Use `\newline` for line breaks in prose.
 2. **Wrap math in `$...$`** (e.g. `$v = 2\pi r / T$`, `$\frac{d}{v}$`). Failing to wrap math will crash the PDF renderer.

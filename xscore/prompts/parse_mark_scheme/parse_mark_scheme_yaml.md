@@ -1,7 +1,7 @@
 ---
 name: parse_mark_scheme_yaml
-version: v2
-description: Step 23 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction in YAML format. Placeholder $scaffold (Template syntax) holds the full exam scaffold inserted into the user prompt; per-page workers fill criteria for questions on the current page and leave the rest empty. Body also contains literal LaTeX math `$...$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. v2 restructured SYSTEM into named sub-blocks (In scope / What NOT to change) and USER into named sub-blocks (The scaffold / Output schema / correct_answer rules / Quoting rules / criteria rules / LaTeX formatting in criterion text / Worked example). Used by xscore.scaffold.formats.yaml_format.YamlScaffoldFormat.
+version: v3
+description: Step 23 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction in YAML format. Placeholder $scaffold (Template syntax) holds the full exam scaffold inserted into the user prompt; per-page workers fill criteria for questions on the current page and leave the rest empty. Body also contains literal LaTeX math `$...$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. v3 changed the MCQ rule from `criteria: []` to a single `mark: 0` entry containing the mark scheme's explanation of the correct answer, formatted as a LaTeX itemize list — downstream code (`scaffold_xml._merge_scheme`) routes that text into the new `Question.reasoning` field for MCQ. v2 restructured SYSTEM into named sub-blocks (In scope / What NOT to change) and USER into named sub-blocks (The scaffold / Output schema / correct_answer rules / Quoting rules / criteria rules / LaTeX formatting in criterion text / Worked example). Used by xscore.scaffold.formats.yaml_format.YamlScaffoldFormat.
 ---
 ## SYSTEM
 
@@ -37,7 +37,7 @@ For each entry in the output:
 
 - `number`, `type`, `marks` — copy verbatim from the scaffold.
 - `correct_answer` — the final answer value the candidate is expected to give. See `## correct_answer rules` below. For questions whose criteria are not on this page, use the empty string `""` (the scaffold's empty default; round-trip unchanged).
-- `criteria` — a YAML list of `{mark, criterion}` entries, one per item in the printed mark scheme. See `## criteria rules` below. For `multiple_choice` questions, `criteria: []` (the question's mark is fully covered by the `correct_answer` letter; no criterion text is needed). For questions whose criteria are not on this page, also `criteria: []`.
+- `criteria` — a YAML list of `{mark, criterion}` entries, one per item in the printed mark scheme. See `## criteria rules` below. For `multiple_choice` questions, put the mark scheme's explanation of the correct answer (typically a short bulleted breakdown) into a single `criteria` entry with `mark: 0` (the mark belongs to the `correct_answer` letter, not the explanation). Format the explanation as a LaTeX itemize list inside a block scalar — see the worked example for Question 1. If the page does not include an explanation, use `criteria: []`. For questions whose criteria are not on this page, also `criteria: []`.
 
 ## correct_answer rules
 
@@ -138,7 +138,14 @@ questions:
     type: multiple_choice
     marks: 1
     correct_answer: C
-    criteria: []
+    criteria:
+      - mark: 0
+        criterion: |
+          \begin{itemize}
+          \item Option C is correct because the upward thrust exceeds the rocket's weight, giving a net upward force.
+          \item Options A and B describe a rocket in free fall, with no thrust.
+          \item Option D would only be true if thrust and weight were equal.
+          \end{itemize}
   - number: "2"
     type: short_answer
     marks: 0
@@ -162,7 +169,7 @@ questions:
 ```
 
 Notes:
-- Question 1: MCQ — `correct_answer` is just the letter (no quoting), `criteria: []`.
+- Question 1: MCQ — `correct_answer` is just the letter (no quoting); `criteria` contains a single `mark: 0` entry with the mark scheme's explanation as a LaTeX itemize list (so students see why C is correct). Use `criteria: []` only when the mark scheme has no explanation.
 - Question 2: parent stem with criteria not on this page — `correct_answer: ""` (the scaffold's empty default, round-tripped), `criteria: []`. Same shape applies to ANY question whose criteria are not on the current page.
 - Question 2a: filled — `correct_answer` is single-quoted because it contains a space and a slash. Three `criteria` entries with mark + criterion (LaTeX inline math + `\textbf{...}` inside block scalars).
 

@@ -53,6 +53,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
 
     instr = getattr(ctx, "instruction", None)
     cli_filter = getattr(ctx, "student_filter", None)
+    limit_students = getattr(ctx, "limit_students", None)
     dpi = getattr(instr, "dpi", None) or MARKING_DPI
 
     filtered_assignments = list(ctx.page_assignments)
@@ -68,6 +69,8 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
             a for a in filtered_assignments
             if (a.student_name or "").strip().lower() in wanted
         ]
+    if limit_students:
+        filtered_assignments = filtered_assignments[:limit_students]
     total_pages = sum(len(a.page_numbers) for a in filtered_assignments)
     if total_pages == 0:
         return
@@ -89,6 +92,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
         render_pages_b64, ctx.cleaned_pdf, ctx.artifact_dir, dpi, workers,
         instruction=instr,
         cli_filter=cli_filter,
+        limit_students=limit_students,
     )
 
     def _on_done(f) -> None:

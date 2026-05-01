@@ -68,10 +68,13 @@ def _build_blueprint_xml(page_num: int, layout: Any, page_qs: list[dict]) -> str
         ET.SubElement(qel, "student_answer")
         ET.SubElement(qel, "assigned_marks")
         ET.SubElement(qel, "explanation")
-        # Side-channel confidence signal — does NOT affect marking or PDF output.
-        # Populated only if the AI follows the prompt rule; merged into the
-        # standalone review queue (27_review_queue/review.json).
+        # Side-channel signals — do NOT affect marking or PDFs. Read only
+        # by step 33 (review queue / confidence audit).
+        # confidence: int 0–10 (0 = no confidence, 10 = fully certain).
+        # problem: short freeform string the AI fills in when there's a
+        # specific concern worth a human glance; empty otherwise.
         ET.SubElement(qel, "confidence")
+        ET.SubElement(qel, "problem")
     ET.indent(root)
     return ET.tostring(root, encoding="unicode", xml_declaration=False, short_empty_elements=False)
 

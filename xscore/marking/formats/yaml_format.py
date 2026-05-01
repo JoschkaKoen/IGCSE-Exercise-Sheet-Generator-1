@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import yaml
 
+from xscore.marking.formats import parse_confidence_int, parse_problem
 from xscore.marking.formats.base import FormatParseError, MarkingFormat
 from xscore.shared.response_parsing import strip_code_fences as _strip_fences
 
@@ -75,10 +76,12 @@ def _build_yaml_blueprint(page_num: int, layout, questions: list[dict]) -> str:
             "student_answer": "",
             "assigned_marks": "",
             "explanation": "",
-            # Side-channel confidence (advisory; does NOT influence marks or PDF).
-            # Empty string means the AI did not provide one — downstream readers
-            # treat empty as equivalent to "high".
+            # Side-channel signals (advisory; never influence marks or PDFs).
+            # Empty placeholders for the AI to overwrite. confidence is
+            # parsed back as int 0–10 (default 5 on missing/unparseable);
+            # problem is a short freeform string, default "".
             "confidence": "",
+            "problem": "",
         }
         doc["questions"].append(entry)
 
@@ -121,7 +124,8 @@ def _yaml_questions_to_list(data: dict) -> list[dict]:
             "student_answer":   str(q.get("student_answer") or "").strip(),
             "assigned_marks":   am_int,
             "explanation":      str(q.get("explanation") or "").strip(),
-            "confidence":       str(q.get("confidence") or "").strip().lower(),
+            "confidence":       parse_confidence_int(q.get("confidence")),
+            "problem":          parse_problem(q.get("problem")),
         })
     return questions
 
@@ -186,7 +190,8 @@ class YamlMarkingFormat(MarkingFormat):
                 "assigned_marks": am_int,
                 "student_answer": str(q.get("student_answer") or "").strip(),
                 "explanation":    str(q.get("explanation") or "").strip(),
-                "confidence":     str(q.get("confidence") or "").strip().lower(),
+                "confidence":     parse_confidence_int(q.get("confidence")),
+                "problem":        parse_problem(q.get("problem")),
             })
         return result
 
@@ -201,6 +206,7 @@ class YamlMarkingFormat(MarkingFormat):
         }
         for q in filled.get("questions") or []:
             am = q.get("assigned_marks")
+            cf = q.get("confidence")
             doc["questions"].append({
                 "number":           str(q.get("number", "")),
                 "type":             str(q.get("question_type", "")),
@@ -221,7 +227,8 @@ class YamlMarkingFormat(MarkingFormat):
                 "student_answer":   str(q.get("student_answer") or ""),
                 "assigned_marks":   int(am) if am is not None else 0,
                 "explanation":      str(q.get("explanation") or ""),
-                "confidence":       str(q.get("confidence") or ""),
+                "confidence":       parse_confidence_int(cf),
+                "problem":          str(q.get("problem") or ""),
             })
         return yaml.dump(
             doc, Dumper=_MarkingDumper,

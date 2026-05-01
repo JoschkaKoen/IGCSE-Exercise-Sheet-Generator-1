@@ -382,12 +382,17 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
             if (a.get("student_name") or "").strip().lower() in wanted
         ]
 
+    limit_students = getattr(ctx, "limit_students", None)
+    if limit_students:
+        raw_assignments = raw_assignments[:limit_students]
+
     workers = int(os.environ.get("MARKING_WORKERS", str(min(os.cpu_count() or 4, 16))))
 
     _b64_cache = render_pages_b64(
         ctx.cleaned_pdf, ctx.artifact_dir, dpi, workers,
         instruction=getattr(ctx, "instruction", None),
         cli_filter=getattr(ctx, "student_filter", None),
+        limit_students=getattr(ctx, "limit_students", None),
     )
 
     register = load_register(ctx.artifact_dir)

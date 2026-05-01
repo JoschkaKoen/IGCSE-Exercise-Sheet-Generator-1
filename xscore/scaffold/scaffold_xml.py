@@ -22,7 +22,14 @@ def _norm(n: str) -> str:
 
 
 def _merge_scheme(questions: list[dict], scheme_map: dict[str, dict]) -> None:
-    """Recursively annotate *questions* in-place with correct_answer/marking_criteria."""
+    """Recursively annotate *questions* in-place with correct_answer + marking_criteria/reasoning.
+
+    For MCQ questions the parsed criteria carry the mark scheme's student-facing
+    explanation (mark=0 entries by convention) — route that text into ``reasoning``
+    and leave ``marking_criteria`` empty, preserving the long-standing invariant
+    that MCQ have no marking criteria. For all other types the criteria text
+    lands in ``marking_criteria`` as before.
+    """
     for node in questions:
         key = _norm(node.get("number", ""))
         entry = scheme_map.get(key)
@@ -36,10 +43,17 @@ def _merge_scheme(questions: list[dict], scheme_map: dict[str, dict]) -> None:
                 mark_label = m.get("mark") or ""
                 prefix = f"[{mark_label}] " if mark_label else ""
                 criteria_lines.append(f"{prefix}{criterion}")
-            node["marking_criteria"] = "\n".join(criteria_lines) or None
+            joined = "\n".join(criteria_lines) or None
+            if node.get("question_type") == "multiple_choice":
+                node["reasoning"] = joined
+                node["marking_criteria"] = None
+            else:
+                node["reasoning"] = None
+                node["marking_criteria"] = joined
         else:
             node.setdefault("correct_answer", None)
             node.setdefault("marking_criteria", None)
+            node.setdefault("reasoning", None)
         _merge_scheme(node.get("subquestions") or [], scheme_map)
 
 
@@ -83,6 +97,7 @@ def _json_to_question(node: dict, layout: ExamLayout) -> Question:
         subquestions=[_json_to_question(s, layout) for s in (node.get("subquestions") or [])],
         correct_answer=node.get("correct_answer"),
         marking_criteria=node.get("marking_criteria"),
+        reasoning=node.get("reasoning"),
     )
 
 

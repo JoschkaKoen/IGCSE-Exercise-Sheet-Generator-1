@@ -110,6 +110,7 @@ class Question:
     subquestions: list[Question] = field(default_factory=list)
     correct_answer: str | None = None
     marking_criteria: str | None = None
+    reasoning: str | None = None
     answer_images: list[ExamImage] = field(default_factory=list)
     answer_options: list[McAnswerOption] = field(default_factory=list)  # MC only
 

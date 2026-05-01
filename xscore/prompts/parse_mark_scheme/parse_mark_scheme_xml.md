@@ -1,7 +1,7 @@
 ---
 name: parse_mark_scheme_xml
-version: v1
-description: Step 20 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction in XML format. Placeholder $scaffold (Template syntax) holds the question scaffold inserted into the user prompt. Body also contains literal LaTeX math like `$1.5 \times 10^{11}$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. Used by xscore.scaffold.scaffold_prompts.
+version: v2
+description: Step 20 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction in XML format. Placeholder $scaffold (Template syntax) holds the question scaffold inserted into the user prompt. Body also contains literal LaTeX math like `$1.5 \times 10^{11}$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. v2 changed the MCQ rule: instead of "no <criterion> children needed", emit a single `<criterion mark="0">` containing the mark scheme's explanation as a LaTeX itemize list — downstream code routes it into `Question.reasoning`. Used by xscore.scaffold.scaffold_prompts.
 ---
 ## SYSTEM
 
@@ -40,7 +40,7 @@ For each <question>:
                Wrong: "Any two from:\n\begin{itemize}\n\item To save space\n\end{itemize}"
                Right: "Any two from: \begin{itemize}\item To save space\item To transmit faster\end{itemize}"
     plain prose and introductory sentences are written verbatim (no special wrapping)
-- For multiple_choice questions: set correct_answer only; no <criterion> children needed
+- For multiple_choice questions: set correct_answer (the letter) and add a single `<criterion mark="0">` child containing the mark scheme's explanation of the correct answer (typically a short bulleted breakdown), formatted as `\begin{itemize}\item ...\item ...\end{itemize}`. The mark belongs to the correct_answer letter, not the explanation — that is why mark="0". If the page does not include an explanation, omit the `<criterion>` child entirely.
 - Keep every <question> element present — even if marks cannot be found for it
 - In XML text use &lt; for <, &gt; for >, &amp; for &
 

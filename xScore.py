@@ -120,7 +120,20 @@ def parse_args() -> argparse.Namespace:
             "report is skipped."
         ),
     )
+    parser.add_argument(
+        "--limit-students",
+        type=int,
+        default=None,
+        metavar="N",
+        help=(
+            "Mark only the first N students. Composes with --student and any "
+            "prompt-derived first_n filter (slice is applied last). When set, "
+            "step 29 (class report) is skipped — same reasoning as --student."
+        ),
+    )
     args = parser.parse_args()
+    if args.limit_students is not None and args.limit_students <= 0:
+        parser.error(f"--limit-students must be a positive integer (got {args.limit_students})")
     return args
 
 

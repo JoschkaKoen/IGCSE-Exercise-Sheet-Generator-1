@@ -72,6 +72,7 @@ class _Ctx:
     from_step: int | None = None             # --from-step N; skip steps < N, resume from prior run
     resume_dir: Path | None = None           # --resume-dir PATH; prior artifact dir to resume from
     student_filter: list[str] | None = None  # --student; restrict marking + reports to these names (lower-case)
+    limit_students: int | None = None        # --limit-students N; slice raw_assignments to first N (after other filters)
     geo: dict[str, Any] = field(default_factory=dict)   # scan geometry from exam_geometry
     b64_future: "Future[dict[int, str]] | None" = None  # render_pages_b64 submitted by kick_off_render_bg
     accuracy_summary: dict[str, Any] | None = None      # set by accuracy_evaluation; read by ai_costs
@@ -119,3 +120,5 @@ class _Ctx:
                     if piece:
                         names.append(piece)
             self.student_filter = names or None
+        if getattr(self.args, "limit_students", None):
+            self.limit_students = self.args.limit_students

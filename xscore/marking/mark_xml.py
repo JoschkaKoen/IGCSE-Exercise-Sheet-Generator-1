@@ -8,6 +8,8 @@ from __future__ import annotations
 import re
 import xml.etree.ElementTree as ET
 
+from xscore.marking.formats import parse_confidence_int, parse_problem
+
 
 def filled_to_xml(filled: dict) -> str:
     """Serialise a filled marking blueprint dict to Blueprint XML.
@@ -56,11 +58,16 @@ def filled_to_xml(filled: dict) -> str:
         exp_el = ET.SubElement(qel, "explanation")
         exp_el.text = str(q.get("explanation") or "")
 
-        # Side-channel confidence (advisory; never affects marks or PDF).
-        # Empty string means the AI did not provide a value — downstream
-        # readers treat empty as equivalent to "high".
+        # Side-channel signals (advisory; never affect marks or PDFs).
+        # confidence is an int 0–10; written as the bare digits. Empty
+        # element when the source dict has no value — downstream parser
+        # defaults to 5. problem is a short freeform string; empty
+        # element means "no problem flagged".
         conf_el = ET.SubElement(qel, "confidence")
-        conf_el.text = str(q.get("confidence") or "")
+        cf_val = q.get("confidence")
+        conf_el.text = str(cf_val) if cf_val is not None else ""
+        prob_el = ET.SubElement(qel, "problem")
+        prob_el.text = str(q.get("problem") or "")
 
     ET.indent(root)
     return ET.tostring(root, encoding="unicode")
@@ -81,7 +88,7 @@ def _repair_mismatched_leaf_tags(raw: str) -> str:
     e.g. <explanation>long text</student_answer> → <explanation>long text</explanation>
     Applied per <question> block to avoid cross-question interference.
     """
-    _LEAF = ('student_answer', 'assigned_marks', 'explanation', 'confidence')
+    _LEAF = ('student_answer', 'assigned_marks', 'explanation', 'confidence', 'problem')
 
     def _fix_within_question(q_text: str) -> str:
         for tag in _LEAF:
@@ -130,6 +137,7 @@ def _parse_xml_response(raw: str) -> list[dict]:
         am_el = q.find('assigned_marks')
         re_el = q.find('explanation')
         cf_el = q.find('confidence')
+        pr_el = q.find('problem')
         # assigned_marks: prefer child element (new format), fall back to attribute (legacy)
         if am_el is not None and (am_el.text or '').strip():
             try:
@@ -145,7 +153,8 @@ def _parse_xml_response(raw: str) -> list[dict]:
             'assigned_marks': assigned_marks,
             'student_answer': (sa_el.text or '').strip() if sa_el is not None else '',
             'explanation':    (re_el.text or '').strip() if re_el is not None else '',
-            'confidence':     (cf_el.text or '').strip().lower() if cf_el is not None else '',
+            'confidence':     parse_confidence_int(cf_el.text) if cf_el is not None else 5,
+            'problem':        parse_problem(pr_el.text) if pr_el is not None else '',
         })
     return questions
 
@@ -169,6 +178,7 @@ def _blueprint_xml_to_dict(xml_str: str) -> dict:
         am_el = qel.find("assigned_marks")
         ex_el = qel.find("explanation")
         cf_el = qel.find("confidence")
+        pr_el = qel.find("problem")
         questions.append({
             "number":          qel.get("number", ""),
             "question_type":   qel.get("type", "short_answer"),
@@ -183,7 +193,8 @@ def _blueprint_xml_to_dict(xml_str: str) -> dict:
             "student_answer":  (sa_el.text or "").strip() if sa_el is not None else "",
             "assigned_marks":  None if am_el is None or not (am_el.text or "").strip() else int(am_el.text),
             "explanation":     (ex_el.text or "").strip() if ex_el is not None else "",
-            "confidence":      (cf_el.text or "").strip().lower() if cf_el is not None else "",
+            "confidence":      parse_confidence_int(cf_el.text) if cf_el is not None else 5,
+            "problem":         parse_problem(pr_el.text) if pr_el is not None else "",
         })
     result: dict = {
         "page":     int(root.get("page", 1)),

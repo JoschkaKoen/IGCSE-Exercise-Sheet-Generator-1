@@ -1,0 +1,6 @@
+---
+description: Remind the agent that Codex will review its output
+alwaysApply: true
+---
+
+Codex will review your output once you are done.

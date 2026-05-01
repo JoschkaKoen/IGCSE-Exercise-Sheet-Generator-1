@@ -8,6 +8,7 @@ canonical keys (``per_student_reports``, ``class_stats_curve``, …).
 
 from __future__ import annotations
 
+from xscore.marking.class_report_export import format_review_entry_line
 from xscore.marking.merge_reports import (
     build_per_student_reports,
     build_review_queue,
@@ -18,6 +19,7 @@ from xscore.marking.merge_reports import (
 from xscore.shared.path_builders import (
     artifact_exam_questions_path,
     artifact_exam_questions_pdf_path,
+    artifact_review_queue_txt_path,
     artifact_student_report_pdf_landscape_path,
     artifact_student_report_pdf_landscape_with_questions_path,
     artifact_student_report_pdf_portrait_2up_path,
@@ -27,6 +29,11 @@ from xscore.shared.path_builders import (
 )
 from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.terminal_ui import info_line, ok_line, warn_line
+
+
+# Terminal echoes the N lowest-confidence rows; the full list lives in
+# review.txt. Pure display knob — does not influence what's written to disk.
+TERMINAL_TOP_N = 10
 
 
 def per_student_reports(ctx: _Ctx) -> None:
@@ -109,48 +116,29 @@ def class_report(ctx: _Ctx) -> None:
 
 def review_queue(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
-    n = build_review_queue(ctx)
-    if n:
-        ok_line(f"{n} mark{'s' if n != 1 else ''} flagged for review")
-        _print_review_queue_breakdown(ctx)
-    else:
-        ok_line("No marks flagged for review")
-
-
-def _qnum_natural_key(qnum: str) -> tuple:
-    """Sort '2' before '10', and 'Q_2' suffix after its base."""
-    base, _, suffix = qnum.partition("_")
-    try:
-        return (0, int(base), suffix)
-    except ValueError:
-        return (1, qnum, "")
-
-
-def _print_review_queue_breakdown(ctx: _Ctx) -> None:
-    """Per-student list of flagged exercise numbers with scan-page references."""
-    if not ctx.full_reports:
+    entries = build_review_queue(ctx)
+    n = len(entries)
+    if n == 0:
+        ok_line("No marked questions to audit")
         return
-    student_to_pages: dict[str, list[int]] = {
-        a.student_name: list(a.page_numbers) for a in (ctx.page_assignments or [])
-    }
-    by_student: dict[str, list[tuple[str, int | None]]] = {}
-    for student in ctx.full_reports:
-        pages = student_to_pages.get(student, [])
-        for q in ctx.full_reports[student].get("questions") or []:
-            conf = (q.get("confidence") or "").strip().lower()
-            if conf in ("", "high"):
-                continue
-            qnum = str(q.get("number", "?"))
-            p_label = q.get("page_label")
-            scan_page: int | None = None
-            if isinstance(p_label, int) and 1 <= p_label <= len(pages):
-                scan_page = pages[p_label - 1]
-            by_student.setdefault(student, []).append((qnum, scan_page))
+    below_7 = sum(1 for e in entries if e["confidence"] < 7)
+    ok_line(f"Confidence audit · {n} mark{'s' if n != 1 else ''} · {below_7} below conf=7")
+    _print_review_queue_breakdown(ctx, entries, below_7)
 
-    for student in sorted(by_student):
-        items = sorted(by_student[student], key=lambda x: _qnum_natural_key(x[0]))
-        fragments = [
-            f"Q{qnum} (p.{scan_page})" if scan_page is not None else f"Q{qnum} (p.?)"
-            for qnum, scan_page in items
-        ]
-        info_line(f"{student}: {', '.join(fragments)}")
+
+def _print_review_queue_breakdown(
+    ctx: _Ctx, entries: list[dict], below_7: int,
+) -> None:
+    """Echo the lowest-confidence rows to the terminal in the same per-entry
+    format as ``review.txt``. The full sorted list lives in the .txt artifact;
+    only the top N are echoed here."""
+    assert ctx.artifact_dir is not None
+    n = len(entries)
+    shown = min(n, TERMINAL_TOP_N)
+    for entry in entries[:shown]:
+        info_line(format_review_entry_line(entry))
+    txt_rel = artifact_review_queue_txt_path(ctx.artifact_dir).relative_to(ctx.artifact_dir)
+    info_line(
+        f"Showing top {shown} of {n} questions "
+        f"(full list in {txt_rel}; {below_7} entries have confidence < 7)"
+    )

@@ -4,9 +4,9 @@ Two pure writers extracted from ``class_report.py``:
 
 - :func:`_write_class_marks_xlsx` — per-student × per-question marks grid as
   ``class_marks.xlsx`` (called inline by ``_build_class_report``).
-- :func:`_write_review_queue` — list of marks the AI flagged as medium/low
-  confidence, plus any cross-page collisions, as JSON + Markdown
-  (called by ``merge_reports.compile_reports``).
+- :func:`_write_review_queue` — confidence audit of every marked question
+  (sorted by ascending confidence) plus any cross-page collisions, as JSON
+  + Markdown + plain text (called by ``merge_reports.build_review_queue``).
 
 Both take their data as parameters and have no compile-time dependency on
 ``class_report``; ``class_report`` and ``merge_reports`` import them from
@@ -17,11 +17,13 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 from xscore.shared.exam_paths import (
     artifact_class_marks_xlsx_path,
     artifact_review_queue_json_path,
     artifact_review_queue_md_path,
+    artifact_review_queue_txt_path,
 )
 
 
@@ -130,98 +132,160 @@ def _write_class_marks_xlsx(
     wb.save(out_path)
 
 
+def _qnum_natural_key(qnum: str) -> tuple:
+    """Sort '2' before '10', and 'Q_2' suffix after its base."""
+    base, _, suffix = qnum.partition("_")
+    try:
+        return (0, int(base), suffix)
+    except ValueError:
+        return (1, qnum, "")
+
+
+def format_review_entry_line(entry: dict) -> str:
+    """Format one queue entry as a single line for terminal echo / review.txt.
+
+    Layout: ``{student}  Q{qnum}  (p.{page})  conf={int}  · {problem}``.
+    The trailing ``· {problem}`` segment is omitted when ``problem`` is empty.
+    """
+    student = entry["student"]
+    qnum = entry["question"]
+    page = entry.get("page")
+    conf = entry["confidence"]
+    problem = entry.get("problem") or ""
+    page_str = f"(p.{page})" if page is not None else "(p.?)"
+    base = f"{student}  Q{qnum}  {page_str}  conf={conf}"
+    if problem:
+        return f"{base}  · {problem}"
+    return base
+
+
 def _write_review_queue(
     full_reports: dict[str, dict],
     artifact_dir: Path,
     collisions: list[dict] | None = None,
-) -> int:
-    """Emit a standalone list of marks the AI flagged as medium/low confidence.
+    page_assignments: list[Any] | None = None,
+) -> list[dict]:
+    """Emit confidence-audit artifacts for every marked question.
 
-    Returns the number of flagged confidence entries (also written to the
-    JSON's ``"total"``). Cross-page mark collisions, if any, are appended to
-    the same artifacts under ``"collisions"`` / ``"collisions_total"``.
+    Writes three sibling files in ``33_review_queue/``:
 
-    Pure side artifact: read by humans only, never by any pipeline step.
-    Existing student/class reports and PDFs are unaffected by this code path.
+    - ``review.json`` — structured entries, ordered by ascending confidence,
+      plus the cross-page ``collisions`` section unchanged.
+    - ``review.md``   — human-readable markdown table, same order.
+    - ``review.txt``  — plain-text per-entry pretty format (one line per
+      question), same order; mirrors what the terminal echoes for the top N.
 
-    Each entry in the JSON file:
+    Returns the entries list so the caller can echo the lowest-confidence
+    rows to the terminal without rebuilding it. Pure side artifact: read by
+    humans only, never by any pipeline step.
+
+    Each JSON entry:
         {
-          "student": ..., "question": ..., "confidence": "medium" | "low",
+          "student": ..., "question": ..., "confidence": <int 0..10>,
           "assigned_marks": ..., "max_marks": ...,
           "student_answer": ..., "correct_answer": ...,
-          "explanation": ...    # truncated to ~200 chars for readability
+          "explanation": ...,    # truncated to ~200 chars
+          "problem":     ...,    # may be empty string
+          "page":        <int|None>  # absolute scan page, when known
         }
-
-    Empty / missing confidence is treated as ``"high"`` and excluded.
     """
+    student_to_pages: dict[str, list[int]] = {
+        a.student_name: list(a.page_numbers) for a in (page_assignments or [])
+    }
+
     entries: list[dict] = []
-    for student_name in sorted(full_reports):
+    for student_name in full_reports:
         report = full_reports[student_name]
+        pages = student_to_pages.get(student_name, [])
         for q in report.get("questions") or []:
-            conf = (q.get("confidence") or "").strip().lower()
-            if conf in ("", "high"):
-                continue
-            if conf not in ("medium", "low"):
-                # Unknown values still surface — they're an AI mistake worth seeing.
-                pass
+            am = q.get("assigned_marks")
+            if am is None:
+                continue  # question was not marked — exclude from audit
+            cf = q.get("confidence")
+            try:
+                conf_int = int(cf) if cf is not None else 5
+            except (TypeError, ValueError):
+                conf_int = 5
+            if conf_int < 0:
+                conf_int = 0
+            elif conf_int > 10:
+                conf_int = 10
+
+            p_label = q.get("page_label")
+            scan_page: int | None = None
+            if isinstance(p_label, int) and 1 <= p_label <= len(pages):
+                scan_page = pages[p_label - 1]
+
             explanation = str(q.get("explanation") or "")
             if len(explanation) > 200:
                 explanation = explanation[:200].rstrip() + "…"
+
             entries.append({
                 "student":        student_name,
                 "question":       str(q.get("number", "")),
-                "confidence":     conf,
-                "assigned_marks": q.get("assigned_marks"),
+                "confidence":     conf_int,
+                "problem":        str(q.get("problem") or "").strip(),
+                "assigned_marks": am,
                 "max_marks":      q.get("max_marks"),
                 "student_answer": str(q.get("student_answer") or ""),
                 "correct_answer": str(q.get("correct_answer") or ""),
                 "explanation":    explanation,
+                "page":           scan_page,
             })
 
-    # Sort: low first, then medium; within each, by student then question.
-    _conf_rank = {"low": 0, "medium": 1}
-    entries.sort(key=lambda e: (_conf_rank.get(e["confidence"], 2), e["student"], e["question"]))
+    # Sort: confidence ascending, then student, then question (natural).
+    entries.sort(key=lambda e: (
+        e["confidence"], e["student"], _qnum_natural_key(e["question"]),
+    ))
 
     coll = list(collisions or [])
     coll.sort(key=lambda c: (c.get("student", ""), str(c.get("question", "")), c.get("page", 0)))
 
+    below_7 = sum(1 for e in entries if e["confidence"] < 7)
+
+    # JSON artifact
     json_path = artifact_review_queue_json_path(artifact_dir)
     json_path.parent.mkdir(parents=True, exist_ok=True)
     json_path.write_text(
         json.dumps({
             "entries":          entries,
             "total":            len(entries),
+            "below_7_total":    below_7,
             "collisions":       coll,
             "collisions_total": len(coll),
         }, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
 
-    # Markdown mirror — quick to skim.
+    # Markdown artifact — quick to skim, sorted top-down by ascending confidence.
     md_lines = [
         "# Review Queue",
         "",
-        f"**{len(entries)} marks flagged for human review** "
-        "(medium or low confidence; no impact on the marks already awarded).",
+        f"**Marking confidence audit** — all {len(entries)} questions sorted "
+        f"by confidence (lowest first). {below_7} entries have confidence "
+        "&lt; 7. No impact on the marks already awarded.",
         "",
     ]
     if entries:
         md_lines += [
-            "| Conf | Student | Q | Awarded | Max | Student Answer | Correct | Explanation |",
-            "|------|---------|---|---------|-----|----------------|---------|-------------|",
+            "| Conf | Student | Q | Awarded | Max | Student Answer | Correct | Problem | Explanation |",
+            "|------|---------|---|---------|-----|----------------|---------|---------|-------------|",
         ]
         for e in entries:
             sa = (e["student_answer"] or "").replace("|", "/").replace("\n", " ")
             ca = str(e["correct_answer"] or "").replace("|", "/")
             ex = (e["explanation"] or "").replace("|", "/").replace("\n", " ")
+            problem = (e["problem"] or "").replace("|", "/").replace("\n", " ")
+            if len(problem) > 120:
+                problem = problem[:120].rstrip() + "…"
             am = e["assigned_marks"]
             am_s = "?" if am is None else str(am)
             md_lines.append(
                 f"| {e['confidence']} | {e['student']} | {e['question']} | {am_s} | "
-                f"{e['max_marks']} | {sa} | {ca} | {ex} |"
+                f"{e['max_marks']} | {sa} | {ca} | {problem} | {ex} |"
             )
     else:
-        md_lines.append("*No medium/low-confidence entries — the AI was confident on every question.*")
+        md_lines.append("*No marked questions to audit.*")
 
     if coll:
         md_lines += [
@@ -243,4 +307,10 @@ def _write_review_queue(
         "\n".join(md_lines) + "\n", encoding="utf-8"
     )
 
-    return len(entries)
+    # Plain-text artifact — one line per entry, byte-identical to terminal echo.
+    txt_lines = [format_review_entry_line(e) for e in entries]
+    artifact_review_queue_txt_path(artifact_dir).write_text(
+        "\n".join(txt_lines) + ("\n" if txt_lines else ""), encoding="utf-8",
+    )
+
+    return entries
