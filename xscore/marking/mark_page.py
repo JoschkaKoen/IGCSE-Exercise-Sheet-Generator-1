@@ -13,8 +13,7 @@ from typing import Any
 from eXercise.ai_client import collect_streamed_response
 from eXercise.api_retry import retry_api_call
 from xscore.config import MARKING_JPEG_QUALITY
-from xscore.marking.formats.base import FormatParseError, MarkingFormat
-from xscore.marking.mark_xml import MarkingFailure
+from xscore.marking.formats.base import FormatParseError, MarkingFailure, MarkingFormat
 from xscore.prompts.loader import load_prompt
 from xscore.shared.prompt_logger import save_prompt, save_response
 from xscore.shared.terminal_ui import info_line, warn_line
@@ -80,8 +79,7 @@ def _build_marking_system_prompt(
     the model transcribes ``student_answer`` itself.
     """
     if fmt is None:
-        from xscore.marking.formats.xml_format import XmlMarkingFormat
-        fmt = XmlMarkingFormat()
+        fmt = MarkingFormat()
     layout = blueprint.get("layout") or {"rows": 1, "cols": 1}
     rows, cols = int(layout.get("rows", 1)), int(layout.get("cols", 1))
 
@@ -169,8 +167,7 @@ def _mark_page(
     and the marking-response-merge guards student_answer against AI overwrite.
     """
     if fmt is None:
-        from xscore.marking.formats.xml_format import XmlMarkingFormat
-        fmt = XmlMarkingFormat()
+        fmt = MarkingFormat()
     use_stream = use_stream and fmt.prefer_stream()
     system_prompt = _build_marking_system_prompt(
         blueprint, scheme_graphics, has_continuation=bool(extra_b64), fmt=fmt, is_cs=is_cs,

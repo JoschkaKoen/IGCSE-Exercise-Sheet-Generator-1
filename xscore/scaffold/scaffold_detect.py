@@ -54,8 +54,8 @@ def detect_exam_scaffold(
     subquestions populated; ``text == ""`` and ``answer_options == []``.
     """
     if fmt is None:
-        from xscore.scaffold.formats.xml_format import XmlScaffoldFormat
-        fmt = XmlScaffoldFormat()
+        from xscore.scaffold.formats.base import ScaffoldFormat
+        fmt = ScaffoldFormat()
     user_msg = fmt.build_scaffold_user_msg(
         layout_result, split_pdf_path is not None, n_split_pages,
     )

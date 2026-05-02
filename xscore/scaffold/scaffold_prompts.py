@@ -89,8 +89,8 @@ def _detect_scheme_graphics_model_config() -> tuple[str, int | None, int | None]
 # Static bodies are loaded once at import time so callers see plain strings,
 # preserving the pre-refactor module-level API. Combined .md files use
 # section= to extract the role-specific portion.
-_USER_EXAM = _load_prompt("parse_exam_pdf_xml", section="user")[1]
-_USER_SCAFFOLD = _load_prompt("detect_exam_scaffold_xml", section="user")[1]
+_USER_EXAM = _load_prompt("parse_exam_pdf", section="user")[1]
+_USER_SCAFFOLD = _load_prompt("detect_exam_scaffold", section="user")[1]
 _USER_GRAPHICS = _load_prompt("detect_mark_scheme_graphics", section="user")[1]
 _SYSTEM_LAYOUT = _load_prompt("detect_exam_layout", section="system")[1]
 _USER_LAYOUT = _load_prompt("detect_exam_layout", section="user")[1]
@@ -101,7 +101,7 @@ def make_system_scheme_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
     the CODE_FORMATTING section so the AI emits ``\\texttt`` / ``\\begin{alltt}``
     for code in criterion text.
 
-    *prompt_name* is one of ``"parse_mark_scheme_xml"`` / ``"_yaml"`` / ``"_json"``.
+    *prompt_name* is ``"parse_mark_scheme"``.
     """
     base = _load_prompt(prompt_name, section="system")[1]
     if is_cs:
@@ -115,7 +115,7 @@ def make_system_exam_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
     append the CODE_FORMATTING section so the AI emits ``\\texttt`` /
     ``\\begin{alltt}`` for code in question text and MCQ options.
 
-    *prompt_name* is one of ``"parse_exam_pdf_xml"`` / ``"_yaml"`` / ``"_json"``.
+    *prompt_name* is ``"parse_exam_pdf"``.
     """
     base = _load_prompt(prompt_name, section="system")[1]
     if is_cs:
@@ -130,7 +130,7 @@ def make_system_scaffold_prompt(prompt_name: str, *, is_cs: bool = False) -> str
     *is_cs* is accepted for symmetry but ignored — the scaffold-detect phase
     does not extract question text, so CODE_FORMATTING is irrelevant.
 
-    *prompt_name* is one of ``"detect_exam_scaffold_xml"`` / ``"_yaml"`` / ``"_json"``.
+    *prompt_name* is ``"detect_exam_scaffold"``.
     """
     return _load_prompt(prompt_name, section="system")[1]
 
@@ -139,7 +139,7 @@ def make_system_fill_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
     """Load the SYSTEM section of a fill-scaffold prompt; if ``is_cs`` also
     append the CODE_FORMATTING section.
 
-    *prompt_name* is one of ``"fill_exam_scaffold_xml"`` / ``"_yaml"`` / ``"_json"``.
+    *prompt_name* is ``"fill_exam_scaffold"``.
     """
     base = _load_prompt(prompt_name, section="system")[1]
     if is_cs:

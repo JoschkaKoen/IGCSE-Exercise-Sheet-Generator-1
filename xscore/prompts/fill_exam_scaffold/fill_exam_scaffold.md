@@ -1,7 +1,7 @@
 ---
-name: fill_exam_scaffold_yaml
+name: fill_exam_scaffold
 version: v2
-description: Step 18 fill phase — per-page worker fills text + options for given expected question numbers. Combined system + user prompt for YAML format. Placeholder $scaffold holds the per-page filtered question stub. v2 restructured SYSTEM into named sub-blocks (In scope / What NOT to change) and USER into named sub-blocks (The stub / Output schema / Markdown vs LaTeX / Quoting rules / Worked example).
+description: Step 18 fill phase — per-page worker fills text + options for given expected question numbers. Combined system + user prompt. Placeholder $scaffold holds the per-page filtered question stub. v2 restructured SYSTEM into named sub-blocks (In scope / What NOT to change) and USER into named sub-blocks (The stub / Output schema / Markdown vs LaTeX / Quoting rules / Worked example).
 ---
 ## SYSTEM
 

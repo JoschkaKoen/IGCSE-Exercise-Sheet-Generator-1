@@ -18,7 +18,7 @@ contain ``$...`` (e.g. LaTeX math like ``$v = 2\\pi r / T$``) safe to load
 even when no substitutions are passed.
 
 Lookup is recursive: prompt files live in step-named subfolders
-(e.g. ``ai_marking/ai_marking_xml.md``) and callers reference them by bare
+(e.g. ``ai_marking/ai_marking.md``) and callers reference them by bare
 filename stem. Stems must be unique across all subfolders.
 """
 

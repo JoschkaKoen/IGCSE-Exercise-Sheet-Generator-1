@@ -5,7 +5,7 @@ Prompt files live in step-named subfolders (one folder per pipeline step in
 
     xscore/prompts/
       parse_grading_instructions/parse_grading_instructions.md
-      ai_marking/ai_marking_xml.md
+      ai_marking/ai_marking.md
       ai_marking/ai_marking_fragments.md  (multi-section: FIELD_RULES, GRID, …)
 
 Each ``.md`` has optional YAML front-matter and a body. Files with multiple

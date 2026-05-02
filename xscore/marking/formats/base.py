@@ -1,85 +1,299 @@
-"""Abstract base for AI marking output formats (XML / YAML / JSON)."""
+"""AI marking output format — YAML.
+
+YAML block scalars (``|``) preserve literal backslashes, ``{``, ``}``, ``#``, ``$``,
+so LaTeX content in student_answer and explanation needs no format-level escaping.
+"""
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
+import yaml
+
+from xscore.shared.response_parsing import strip_code_fences as _strip_fences
 
 
 class FormatParseError(ValueError):
     """Raised by parse_response() on malformed AI output.
 
-    Callers catch this and ``break`` (no retry), identical to the current
-    ``ET.ParseError`` behaviour.
+    Callers catch this and ``break`` (no retry).
     """
 
 
-class MarkingFormat(ABC):
-    # --- Blueprint construction (step 13) ---
+class MarkingFailure(Exception):
+    """Raised when all retry attempts to mark a page are exhausted."""
+    def __init__(self, *, attempts: int, last_exc: BaseException, last_raw: str = "") -> None:
+        super().__init__(f"All {attempts} marking attempts failed: {last_exc}")
+        self.attempts = attempts
+        self.last_exc = last_exc
+        self.last_raw = last_raw
 
-    @abstractmethod
-    def build_blueprint(self, page_num: int, layout, questions: list[dict]) -> str: ...
+
+def parse_confidence_int(value: object) -> int:
+    """Parse a confidence value to int in [0, 10]; default 5 on missing/unparseable.
+
+    The AI is instructed to emit an integer 0–10. Anything else (None, empty
+    string, stale ``"low"`` / ``"medium"`` / ``"high"`` from a pre-change run)
+    falls through to the mid-band default — no string→int compat shim.
+    """
+    if value is None:
+        return 5
+    try:
+        n = int(value)
+    except (TypeError, ValueError):
+        return 5
+    if n < 0:
+        return 0
+    if n > 10:
+        return 10
+    return n
+
+
+def parse_problem(value: object) -> str:
+    """Parse a problem value to a stripped string; default ``""`` on missing."""
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+# ---------------------------------------------------------------------------
+# Custom YAML dumper — uses literal block scalars for strings with backslashes
+# or newlines; plain scalars otherwise.
+# ---------------------------------------------------------------------------
+
+class _MarkingDumper(yaml.SafeDumper):
+    pass
+
+
+def _str_representer(dumper: yaml.Dumper, data: str) -> yaml.ScalarNode:
+    if "\n" in data or "\\" in data:
+        # Strip per-line trailing whitespace so PyYAML can use block-scalar
+        # style. Without this, multiline strings with trailing whitespace fall
+        # back to double-quoted form, which interprets backslashes as escapes
+        # and silently destroys LaTeX commands.
+        data = "\n".join(line.rstrip() for line in data.split("\n"))
+        return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
+    return dumper.represent_scalar("tag:yaml.org,2002:str", data)
+
+
+_MarkingDumper.add_representer(str, _str_representer)
+
+
+def _build_yaml_blueprint(page_num: int, layout, questions: list[dict]) -> str:
+    """Build a YAML blueprint string for one exam page."""
+    doc: dict = {
+        "page": page_num,
+        "layout": {"rows": layout.rows, "cols": layout.cols},
+        "questions": [],
+    }
+    if layout.rows > 1 or layout.cols > 1:
+        subpages = []
+        for r in range(1, layout.rows + 1):
+            for c in range(1, layout.cols + 1):
+                from xscore.marking.blueprints import _quadrant_label
+                subpages.append({
+                    "row": r, "col": c,
+                    "label": _quadrant_label(r, c, layout.rows, layout.cols),
+                })
+        doc["subpages"] = subpages
+
+    from xscore.marking.blueprints import _clean_text
+    for q in questions:
+        entry: dict = {
+            "number": str(q.get("number", "")),
+            "type": str(q.get("question_type", "short_answer")),
+            "subpage_row": int(q.get("subpage_row", 1)),
+            "subpage_col": int(q.get("subpage_col", 1)),
+            "order_in_subpage": int(q.get("order_in_subpage", 1)),
+            "max_marks": int(q.get("max_marks", 0)),
+            "correct_answer": str(q.get("correct_answer") or ""),
+            "text": _clean_text(str(q.get("question_text", ""))),
+            "criteria": [
+                {"mark": str(c.get("mark", "")), "criterion": _clean_text(str(c.get("criterion", "")))}
+                for c in (q.get("mark_scheme") or [])
+            ],
+            "options": [
+                {"letter": str(o.get("letter", "")), "text": _clean_text(str(o.get("text", "")))}
+                for o in (q.get("answer_options") or [])
+            ],
+            "student_answer": "",
+            "assigned_marks": "",
+            "explanation": "",
+            # Side-channel signals (advisory; never influence marks or PDFs).
+            # Empty placeholders for the AI to overwrite. confidence is
+            # parsed back as int 0–10 (default 5 on missing/unparseable);
+            # problem is a short freeform string, default "".
+            "confidence": "",
+            "problem": "",
+        }
+        doc["questions"].append(entry)
+
+    return yaml.dump(
+        doc, Dumper=_MarkingDumper,
+        allow_unicode=True, default_flow_style=False,
+        sort_keys=False,
+    )
+
+
+def _yaml_questions_to_list(data: dict) -> list[dict]:
+    """Convert parsed YAML blueprint dict → list of question dicts for merge logic."""
+    questions = []
+    for q in data.get("questions", []):
+        am = q.get("assigned_marks", "")
+        try:
+            # YAML null becomes Python None → str(None) == "None"; treat the
+            # literal "null"/"None" strings as absent too.
+            am_int: int | None = int(am) if str(am).strip() not in ("", "null", "None") else None
+        except (ValueError, TypeError):
+            am_int = None
+        questions.append({
+            "number":           str(q.get("number", "")),
+            "question_type":    str(q.get("type", "short_answer")),
+            "subpage_row":      int(q.get("subpage_row", 1)),
+            "subpage_col":      int(q.get("subpage_col", 1)),
+            "order_in_subpage": int(q.get("order_in_subpage", 1)),
+            "question_text":    str(q.get("text", "")),
+            "answer_options":   [
+                {"letter": str(o.get("letter", "")), "text": str(o.get("text", ""))}
+                for o in (q.get("options") or [])
+            ],
+            # str() wrap: model occasionally emits unquoted YAML int (e.g. `correct_answer: 5`); parser must coerce.
+            "correct_answer":   str(q.get("correct_answer") or "").strip() or None,
+            "max_marks":        int(q.get("max_marks", 0)),
+            "mark_scheme":      [
+                {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", ""))}
+                for c in (q.get("criteria") or [])
+            ],
+            "student_answer":   str(q.get("student_answer") or "").strip(),
+            "assigned_marks":   am_int,
+            "explanation":      str(q.get("explanation") or "").strip(),
+            "confidence":       parse_confidence_int(q.get("confidence")),
+            "problem":          parse_problem(q.get("problem")),
+        })
+    return questions
+
+
+class MarkingFormat:
+
+    # --- Blueprint construction ---
+
+    def build_blueprint(self, page_num: int, layout, questions: list[dict]) -> str:
+        return _build_yaml_blueprint(page_num, layout, questions)
 
     def validate_blueprint(self, text: str) -> None:
-        """Validate *text* as a well-formed blueprint. Raises RuntimeError if invalid."""
+        try:
+            yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            raise RuntimeError(f"Blueprint YAML is malformed: {exc}") from exc
 
     # --- Prompt fragments ---
 
-    @abstractmethod
     def prompt_name(self) -> str:
-        """Stem of the per-format combined prompt file in xscore/prompts/ai_marking/.
+        return "ai_marking"
 
-        Loaded by mark_page with section="system" (taking $field_rules) and
-        section="user" (taking $blueprint). The combined .md embeds the
-        format-specific role/task intro, output-format spec, validity rules,
-        and per-page user intro across two sections.
-        """
-
-    @abstractmethod
     def criterion_ref(self) -> str:
-        """Short phrase used in FIELD_RULES: '<criterion> elements' or 'criteria entries'."""
+        return "`criteria` entries"
 
-    @abstractmethod
     def subpage_ref(self) -> str:
-        """Short phrase used in GRID: '<subpage> elements' or 'subpage entries'."""
+        return "`subpage` entries"
 
     # --- API enforcement ---
 
-    @abstractmethod
     def api_extra_kwargs(self, model: str) -> dict:
-        """Extra kwargs merged into the API call.
-
-        Model-aware: gemini-* models get Gemini-native enforcement dict;
-        other models get OpenAI-compatible enforcement dict.
-        XML and YAML implementations return {}.
-        """
+        return {}
 
     def prefer_stream(self) -> bool:
-        """Return False to disable streaming (JSON format skips it)."""
         return True
 
     # --- Response parsing ---
 
-    @abstractmethod
     def parse_response(self, raw: str) -> list[dict]:
-        """Parse raw AI response → list of question dicts.
-
-        Must raise :class:`FormatParseError` on malformed output.
-        """
+        try:
+            data = yaml.safe_load(_strip_fences(raw))
+        except yaml.YAMLError as exc:
+            raise FormatParseError(f"YAML: {exc}") from exc
+        if not isinstance(data, dict):
+            raise FormatParseError(f"YAML: expected a mapping, got {type(data).__name__}")
+        questions = data.get("questions", [])
+        if not isinstance(questions, list):
+            raise FormatParseError("YAML: 'questions' key is not a list")
+        result = []
+        for q in questions:
+            if not isinstance(q, dict):
+                continue
+            am = q.get("assigned_marks", "")
+            try:
+                am_int: int = int(am) if str(am).strip() not in ("", "null", "None") else 0
+            except (ValueError, TypeError):
+                am_int = 0
+            result.append({
+                "number":        str(q.get("number", "")),
+                "subpage_row":   int(q.get("subpage_row", 1)),
+                "subpage_col":   int(q.get("subpage_col", 1)),
+                "assigned_marks": am_int,
+                "student_answer": str(q.get("student_answer") or "").strip(),
+                "explanation":    str(q.get("explanation") or "").strip(),
+                "confidence":     parse_confidence_int(q.get("confidence")),
+                "problem":        parse_problem(q.get("problem")),
+            })
+        return result
 
     # --- Serialisation ---
 
-    @abstractmethod
     def serialize_filled(self, filled: dict) -> str:
-        """Serialise a filled blueprint dict to a string for step-14 artifact."""
+        doc: dict = {
+            "page": filled.get("page", ""),
+            "student_name": filled.get("student_name", ""),
+            "layout": filled.get("layout") or {"rows": 1, "cols": 1},
+            "questions": [],
+        }
+        for q in filled.get("questions") or []:
+            am = q.get("assigned_marks")
+            cf = q.get("confidence")
+            doc["questions"].append({
+                "number":           str(q.get("number", "")),
+                "type":             str(q.get("question_type", "")),
+                "subpage_row":      int(q.get("subpage_row", 1)),
+                "subpage_col":      int(q.get("subpage_col", 1)),
+                "order_in_subpage": int(q.get("order_in_subpage", 1)),
+                "max_marks":        int(q.get("max_marks", 0)),
+                "correct_answer":   str(q.get("correct_answer") or ""),
+                "text":             str(q.get("question_text") or ""),
+                "criteria":         [
+                    {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", ""))}
+                    for c in (q.get("mark_scheme") or [])
+                ],
+                "options":          [
+                    {"letter": str(o.get("letter", "")), "text": str(o.get("text", ""))}
+                    for o in (q.get("answer_options") or [])
+                ],
+                "student_answer":   str(q.get("student_answer") or ""),
+                "assigned_marks":   int(am) if am is not None else 0,
+                "explanation":      str(q.get("explanation") or ""),
+                "confidence":       parse_confidence_int(cf),
+                "problem":          str(q.get("problem") or ""),
+            })
+        return yaml.dump(
+            doc, Dumper=_MarkingDumper,
+            allow_unicode=True, default_flow_style=False,
+            sort_keys=False,
+        )
 
-    @abstractmethod
     def deserialize_blueprint(self, text: str) -> dict:
-        """Parse a blueprint string (step-13 or step-14 artifact) to a dict.
-
-        Returns dict with keys: ``page``, ``layout``, ``questions``, and
-        optionally ``student_name`` (present in filled step-14 artifacts).
-        """
+        try:
+            data = yaml.safe_load(text)
+        except yaml.YAMLError as exc:
+            raise FormatParseError(f"YAML blueprint parse error: {exc}") from exc
+        if not isinstance(data, dict):
+            return {"page": 1, "layout": {"rows": 1, "cols": 1}, "questions": []}
+        questions = _yaml_questions_to_list(data)
+        result: dict = {
+            "page":     int(data.get("page", 1)),
+            "layout":   data.get("layout") or {"rows": 1, "cols": 1},
+            "questions": questions,
+        }
+        student_name = data.get("student_name", "")
+        if student_name:
+            result["student_name"] = str(student_name)
+        return result
 
     def artifact_ext(self) -> str:
-        """File extension for blueprint artifacts ('xml', 'yaml', or 'json')."""
-        return "xml"
+        return "yaml"

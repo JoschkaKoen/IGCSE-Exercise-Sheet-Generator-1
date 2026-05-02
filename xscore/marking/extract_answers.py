@@ -3,11 +3,8 @@
 A pre-pass before AI marking (step 28). For each (student, answer_page) the
 register yields, send the rendered scan JPEG(s) to a vision model with the
 page blueprint as context, and ask only for the verbatim student answer per
-question. Output is one file per (student, page) under
-``27_extract_student_answers/students/``, in the active ALL_AI_OUTPUT_FORMAT
-(yaml/json/xml) — input and output formats match so the model never has to
-context-switch (e.g. read YAML and emit XML), which is a known failure mode
-for vision + LaTeX content.
+question. Output is one YAML file per (student, page) under
+``27_extract_student_answers/students/``.
 
 The marking step then loads these artifacts, pre-fills ``student_answer`` on
 each blueprint question, and asks the marker only to assign marks + write
@@ -27,7 +24,6 @@ import json
 import os
 import threading
 import time
-import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
@@ -94,38 +90,17 @@ def _ea_str_representer(dumper: _yaml.Dumper, data: str) -> _yaml.ScalarNode:
 _ExtractAnswersDumper.add_representer(str, _ea_str_representer)
 
 
-def _strip_xml_envelope(raw: str) -> str:
-    """Trim text outside the ``<answers>`` root after fence-stripping.
-
-    XML-only safety net — yaml/json have stricter root-level grammars and
-    don't need this kind of "find the document inside whatever the model
-    surrounded it with" logic.
-    """
-    start = raw.find("<answers")
-    end = raw.rfind("</answers>")
-    if start >= 0 and end > start:
-        return raw[start : end + len("</answers>")]
-    return raw
-
-
 def _parse_extract_response(raw: str, fmt: Any) -> dict[str, str]:
-    """Parse the AI's transcription response; format-aware on ``fmt.artifact_ext()``.
+    """Parse the AI's transcription response.
 
     Returns ``{question_number: student_answer_text}``. Question numbers are
-    coerced to strings (YAML/JSON may decode ``1`` as int). Duplicate numbers
+    coerced to strings (YAML may decode ``1`` as int). Duplicate numbers
     keep the last occurrence.
     """
     cleaned = strip_code_fences(raw).strip()
     if not cleaned:
         raise FormatParseError("Empty response from extractor")
-    ext = fmt.artifact_ext()
-    if ext == "yaml":
-        return _parse_yaml_response(cleaned)
-    if ext == "json":
-        return _parse_json_response(cleaned)
-    if ext == "xml":
-        return _parse_xml_response(cleaned)
-    raise FormatParseError(f"Unsupported extractor format: {ext}")
+    return _parse_yaml_response(cleaned)
 
 
 def _parse_yaml_response(cleaned: str) -> dict[str, str]:
@@ -150,47 +125,6 @@ def _parse_yaml_response(cleaned: str) -> dict[str, str]:
     return result
 
 
-def _parse_json_response(cleaned: str) -> dict[str, str]:
-    try:
-        data = json.loads(cleaned)
-    except json.JSONDecodeError as e:
-        raise FormatParseError(f"JSON: {e}") from e
-    if not isinstance(data, dict):
-        raise FormatParseError(f"JSON: expected an object, got {type(data).__name__}")
-    questions = data.get("questions", [])
-    if not isinstance(questions, list):
-        raise FormatParseError("JSON: 'questions' key is not a list")
-    result: dict[str, str] = {}
-    for q in questions:
-        if not isinstance(q, dict):
-            continue
-        number = str(q.get("number", "")).strip()
-        if not number:
-            continue
-        text = str(q.get("student_answer") or "").strip()
-        result[number] = text
-    return result
-
-
-def _parse_xml_response(cleaned: str) -> dict[str, str]:
-    cleaned = _strip_xml_envelope(cleaned)
-    try:
-        root = ET.fromstring(cleaned)
-    except ET.ParseError as e:
-        raise FormatParseError(f"XML: {e}") from e
-    if root.tag != "answers":
-        raise FormatParseError(f"XML: expected <answers> root, got <{root.tag}>")
-    result: dict[str, str] = {}
-    for q in root.findall("question"):
-        number = (q.get("number") or "").strip()
-        if not number:
-            continue
-        sa = q.find("student_answer")
-        text = "" if sa is None else (sa.text or "")
-        result[number] = text.strip()
-    return result
-
-
 def _extract_page_answers(
     client: Any,
     model_id: str,
@@ -205,10 +139,7 @@ def _extract_page_answers(
 ) -> dict[str, str]:
     """Single API call: extract verbatim student answers for one page.
 
-    *blueprint_str* — the per-page marking blueprint already serialised in
-    the active MARKING_FORMAT (xml/yaml/json). Both the prompt picked here
-    and the response parser use ``fmt.artifact_ext()``, so input and output
-    formats always match.
+    *blueprint_str* — the per-page marking blueprint already serialised as YAML.
 
     *extra_b64* — continuation pages, appended after the primary page in the
     user-content array. Same pattern as the marking call.
@@ -216,7 +147,7 @@ def _extract_page_answers(
     Returns ``{question_number: student_answer}``. Empty dict if the response
     parses but contains no questions (rare; usually a model bug).
     """
-    prompt_name = f"extract_student_answers_{fmt.artifact_ext()}"
+    prompt_name = "extract_student_answers"
     _, user_text = load_prompt(prompt_name, section="user", blueprint=blueprint_str)
     _, system_prompt = load_prompt(prompt_name, section="system")
 
@@ -261,25 +192,11 @@ def _extract_page_answers(
 
 
 def _build_answers(student: str, page: int, answers: dict[str, str], fmt: Any) -> str:
-    """Serialise the per-(student, page) answers to the on-disk shape.
+    """Serialise the per-(student, page) answers to the on-disk YAML shape.
 
-    Format-aware on ``fmt.artifact_ext()`` (yaml | json | xml). All three
-    variants emit the same logical structure (``page`` + ``student_name`` +
-    ``questions: [{number, student_answer}, ...]``); the YAML variant uses
-    a literal block scalar for ``student_answer`` strings containing
+    Uses a literal block scalar for ``student_answer`` strings containing
     backslashes or newlines, mirroring the marking YAML format's dumper.
     """
-    ext = fmt.artifact_ext()
-    if ext == "yaml":
-        return _build_yaml(student, page, answers)
-    if ext == "json":
-        return _build_json(student, page, answers)
-    if ext == "xml":
-        return _build_xml(student, page, answers)
-    raise ValueError(f"Unsupported on-disk format: {ext}")
-
-
-def _build_yaml(student: str, page: int, answers: dict[str, str]) -> str:
     doc: dict = {
         "page": int(page),
         "student_name": str(student),
@@ -293,31 +210,6 @@ def _build_yaml(student: str, page: int, answers: dict[str, str]) -> str:
         allow_unicode=True, default_flow_style=False,
         sort_keys=False,
     )
-
-
-def _build_json(student: str, page: int, answers: dict[str, str]) -> str:
-    doc = {
-        "page": int(page),
-        "student_name": str(student),
-        "questions": [
-            {"number": str(number), "student_answer": str(text)}
-            for number, text in answers.items()
-        ],
-    }
-    return json.dumps(doc, ensure_ascii=False, indent=2) + "\n"
-
-
-def _build_xml(student: str, page: int, answers: dict[str, str]) -> str:
-    root = ET.Element("answers")
-    root.set("student", student)
-    root.set("page", str(page))
-    for number, text in answers.items():
-        q = ET.SubElement(root, "question")
-        q.set("number", number)
-        sa = ET.SubElement(q, "student_answer")
-        sa.text = text
-    ET.indent(root)
-    return ET.tostring(root, encoding="unicode", short_empty_elements=False) + "\n"
 
 
 def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dict]:
@@ -556,32 +448,21 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
 def load_student_answers(
     artifact_dir: Path, student: str, page: int
 ) -> dict[str, str] | None:
-    """Read the per-(student, page) extraction artifact; probe yaml → json → xml.
+    """Read the per-(student, page) YAML extraction artifact.
 
     Returns ``{question_number: student_answer}`` or ``None`` if no artifact
-    exists for this (student, page). Format-resilient: probes all three
-    extensions in priority order so a run started under one MARKING_FORMAT
-    can be consumed by a later run under a different MARKING_FORMAT, and
-    legacy XML-only artifacts (from before the format-parity refactor) keep
-    working.
+    exists for this (student, page).
 
     Used by :mod:`xscore.marking.ai_mark` to pre-fill the marking blueprint
     for one (student, page) before the marker is called.
     """
-    for ext in ("yaml", "json", "xml"):
-        path = artifact_student_answers_path(artifact_dir, student, page, fmt=ext)
-        if not path.is_file():
-            continue
-        text = path.read_text(encoding="utf-8")
-        try:
-            if ext == "yaml":
-                return _parse_yaml_response(text)
-            if ext == "json":
-                return _parse_json_response(text)
-            return _parse_xml_response(text)
-        except FormatParseError:
-            return None
-    return None
+    path = artifact_student_answers_path(artifact_dir, student, page, fmt="yaml")
+    if not path.is_file():
+        return None
+    try:
+        return _parse_yaml_response(path.read_text(encoding="utf-8"))
+    except FormatParseError:
+        return None
 
 
 def patch_blueprint_with_answers(
@@ -590,52 +471,28 @@ def patch_blueprint_with_answers(
     """Return *blueprint_str* with each question's ``student_answer`` field
     filled in from *answers_map* (keyed by question ``number``).
 
-    Format-aware: dispatches on ``fmt.artifact_ext()`` (xml | yaml | json).
-    Preserves the original on-disk structure exactly — we walk the parsed
+    Preserves the original YAML structure exactly — we walk the parsed
     representation, mutate just the ``student_answer`` field per question,
     and re-emit. Question numbers not present in *answers_map* are left
     unchanged.
     """
-    ext = fmt.artifact_ext()
-    if ext == "xml":
-        return _patch_blueprint_xml(blueprint_str, answers_map)
-    if ext == "yaml":
-        return _patch_blueprint_yaml(blueprint_str, answers_map)
-    if ext == "json":
-        return _patch_blueprint_json(blueprint_str, answers_map)
-    raise ValueError(f"Unsupported blueprint format: {ext}")
+    data = _yaml.safe_load(blueprint_str) or {}
+    for q in data.get("questions", []) or []:
+        qnum = str(q.get("number", "")).strip()
+        if qnum in answers_map:
+            q["student_answer"] = answers_map[qnum]
+    return _yaml.dump(
+        data, Dumper=_ExtractAnswersDumper,
+        allow_unicode=True, default_flow_style=False, sort_keys=False,
+    )
 
 
 def blueprint_for_transcription(blueprint_str: str, fmt: Any) -> str:
     """Return *blueprint_str* with fields the transcriber must not see removed.
 
-    Currently strips ``correct_answer`` so the step-27 transcriber AI is not
-    biased by the answer key while transcribing. Format-aware on
-    ``fmt.artifact_ext()`` (xml | yaml | json).
+    Strips ``correct_answer`` so the step-27 transcriber AI is not biased by
+    the answer key while transcribing.
     """
-    ext = fmt.artifact_ext()
-    if ext == "xml":
-        return _strip_correct_answer_xml(blueprint_str)
-    if ext == "yaml":
-        return _strip_correct_answer_yaml(blueprint_str)
-    if ext == "json":
-        return _strip_correct_answer_json(blueprint_str)
-    raise ValueError(f"Unsupported blueprint format: {ext}")
-
-
-def _strip_correct_answer_xml(blueprint_str: str) -> str:
-    root = ET.fromstring(blueprint_str)
-    for q in root.findall("question"):
-        ca = q.find("correct_answer")
-        if ca is not None:
-            q.remove(ca)
-    ET.indent(root)
-    return ET.tostring(
-        root, encoding="unicode", xml_declaration=False, short_empty_elements=False,
-    )
-
-
-def _strip_correct_answer_yaml(blueprint_str: str) -> str:
     data = _yaml.safe_load(blueprint_str) or {}
     for q in data.get("questions", []) or []:
         q.pop("correct_answer", None)
@@ -643,48 +500,3 @@ def _strip_correct_answer_yaml(blueprint_str: str) -> str:
         data, Dumper=_ExtractAnswersDumper,
         allow_unicode=True, default_flow_style=False, sort_keys=False,
     )
-
-
-def _strip_correct_answer_json(blueprint_str: str) -> str:
-    data = json.loads(blueprint_str)
-    for q in data.get("questions", []) or []:
-        q.pop("correct_answer", None)
-    return json.dumps(data, ensure_ascii=False, indent=2)
-
-
-def _patch_blueprint_xml(blueprint_str: str, answers_map: dict[str, str]) -> str:
-    root = ET.fromstring(blueprint_str)
-    for q in root.findall("question"):
-        qnum = (q.get("number") or "").strip()
-        if qnum not in answers_map:
-            continue
-        sa = q.find("student_answer")
-        if sa is None:
-            sa = ET.SubElement(q, "student_answer")
-        sa.text = answers_map[qnum]
-    ET.indent(root)
-    return ET.tostring(
-        root, encoding="unicode", xml_declaration=False, short_empty_elements=False,
-    )
-
-
-def _patch_blueprint_yaml(blueprint_str: str, answers_map: dict[str, str]) -> str:
-    import yaml
-    data = yaml.safe_load(blueprint_str) or {}
-    for q in data.get("questions", []) or []:
-        qnum = str(q.get("number", "")).strip()
-        if qnum in answers_map:
-            q["student_answer"] = answers_map[qnum]
-    return yaml.dump(
-        data, Dumper=_ExtractAnswersDumper,
-        allow_unicode=True, default_flow_style=False, sort_keys=False,
-    )
-
-
-def _patch_blueprint_json(blueprint_str: str, answers_map: dict[str, str]) -> str:
-    data = json.loads(blueprint_str)
-    for q in data.get("questions", []) or []:
-        qnum = str(q.get("number", "")).strip()
-        if qnum in answers_map:
-            q["student_answer"] = answers_map[qnum]
-    return json.dumps(data, ensure_ascii=False, indent=2)

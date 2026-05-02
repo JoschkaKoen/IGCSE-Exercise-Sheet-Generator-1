@@ -43,7 +43,7 @@ from xscore.shared.exam_paths import (
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, warn_line
 
-from xscore.marking.mark_xml import MarkingFailure
+from xscore.marking.formats.base import MarkingFailure
 from xscore.marking.mark_page import (
     _build_marking_system_prompt, _mark_page, _render_page_b64,
 )
@@ -160,8 +160,8 @@ def _mark_page_pdf(
     from eXercise.api_retry import retry_api_call
 
     if fmt is None:
-        from xscore.marking.formats.xml_format import XmlMarkingFormat
-        fmt = XmlMarkingFormat()
+        from xscore.marking.formats.base import MarkingFormat
+        fmt = MarkingFormat()
 
     gai_client = make_gemini_native_client()
     if gai_client is None:

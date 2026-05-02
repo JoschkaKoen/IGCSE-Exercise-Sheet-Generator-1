@@ -74,8 +74,8 @@ def detect_scheme_graphics(
     and extracted graphic images when graphics are detected.
     """
     if fmt is None:
-        from xscore.scaffold.formats.xml_format import XmlScaffoldFormat
-        fmt = XmlScaffoldFormat()
+        from xscore.scaffold.formats.base import ScaffoldFormat
+        fmt = ScaffoldFormat()
 
     n_pages, page_paths, _tmp_dir = split_mark_scheme_into_pages(marking_scheme_pdf, artifact_dir)
 

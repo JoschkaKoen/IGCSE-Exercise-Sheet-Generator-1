@@ -64,9 +64,8 @@ def per_student_pdfs(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None
     render_per_student_pdfs(ctx)
     n = len(ctx.student_summaries or [])
-    from xscore.shared.output_format import get_output_format
     has_parsed_exam = artifact_exam_questions_path(
-        ctx.artifact_dir, fmt=get_output_format().value,
+        ctx.artifact_dir, fmt="yaml",
     ).exists()
     if has_parsed_exam:
         ok_line(

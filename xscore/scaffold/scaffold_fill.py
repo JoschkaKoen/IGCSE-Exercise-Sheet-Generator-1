@@ -153,8 +153,8 @@ def fill_exam_scaffold(
 ) -> list[dict]:
     """Per-page parallel fill. Returns *scaffold_nodes* (mutated in place)."""
     if fmt is None:
-        from xscore.scaffold.formats.xml_format import XmlScaffoldFormat
-        fmt = XmlScaffoldFormat()
+        from xscore.scaffold.formats.base import ScaffoldFormat
+        fmt = ScaffoldFormat()
 
     expected = _expected_qnums_by_page(scaffold_nodes)
     n_pages, page_paths, _tmp_dir = _ensure_exam_pages(actual_exam_pdf, artifact_dir)

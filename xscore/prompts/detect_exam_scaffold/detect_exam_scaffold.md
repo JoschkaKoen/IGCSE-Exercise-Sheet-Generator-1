@@ -1,7 +1,7 @@
 ---
-name: detect_exam_scaffold_yaml
+name: detect_exam_scaffold
 version: v2
-description: Step 18 detect phase — extract question hierarchy + page assignments + type + marks from the empty exam paper, NO text or options. System-only prompt for YAML format (the user prompt is built dynamically by xscore.scaffold.formats.yaml_format._build_user_scaffold_prompt_yaml). v2 restructured the SYSTEM body into named sub-blocks (What to emit / What NOT to emit / What counts as a question / When in doubt) and relaxed the IGCSE gate to "Cambridge IGCSE and similar".
+description: Step 18 detect phase — extract question hierarchy + page assignments + type + marks from the empty exam paper, NO text or options. System-only prompt (the user prompt is built dynamically by xscore.scaffold.formats.base._build_user_scaffold_prompt_yaml). v2 restructured the SYSTEM body into named sub-blocks (What to emit / What NOT to emit / What counts as a question / When in doubt) and relaxed the IGCSE gate to "Cambridge IGCSE and similar".
 ---
 ## SYSTEM
 

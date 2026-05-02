@@ -150,7 +150,6 @@ def render_per_student_pdfs(ctx: Any) -> None:
         _build_question_index, _scheme_graphics_by_qnum,
     )
     from xscore.scaffold.formats import load_exam_questions_artifact
-    from xscore.shared.output_format import get_output_format
     from xscore.shared.path_builders import (
         artifact_exam_questions_path, artifact_mark_scheme_graphics_dir,
     )
@@ -162,7 +161,7 @@ def render_per_student_pdfs(ctx: Any) -> None:
     artifact_student_pdfs_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
 
     questions_path = artifact_exam_questions_path(
-        ctx.artifact_dir, fmt=get_output_format().value,
+        ctx.artifact_dir, fmt="yaml",
     )
     parsed_questions: list[dict] | None = None
     qmap_by_num: dict[str, dict] = {}

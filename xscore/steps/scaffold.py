@@ -191,7 +191,6 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
         write_register,
     )
     from xscore.scaffold.formats import load_exam_questions_artifact
-    from xscore.shared.output_format import get_output_format
     from xscore.shared.path_builders import (
         artifact_cross_page_changes_md_path,
         artifact_cross_page_refs_json_path,
@@ -208,7 +207,7 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
         register = build_initial_register(ctx)
 
     questions_path = artifact_exam_questions_path(
-        ctx.artifact_dir, fmt=get_output_format().value,
+        ctx.artifact_dir, fmt="yaml",
     )
     if not questions_path.exists():
         warn_line(

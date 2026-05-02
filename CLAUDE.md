@@ -35,7 +35,7 @@ Stop early / start late: `--stop-after <N>` and `--from-step <N>`.
 
 ## Marking & scaffold output formats
 
-Set `ALL_AI_OUTPUT_FORMAT=yaml|json|xml` in `.env` (default `yaml`) to control the on-disk format for AI structured-output steps. Both `xscore/marking/formats/` and `xscore/scaffold/formats/` follow the same factory pattern — each format module registers its serializer and the dispatcher in `xscore/shared/output_format.py:get_format()` resolves at call time. Affects scaffold steps 19/20, scheme parsing 23/24, and marking 27/28. YAML is the default because it diffs better than JSON and humans can read it without an XML parser.
+AI structured-output steps (scaffold 19/20, scheme parsing 23/24, marking 27/28) emit YAML — block scalars preserve LaTeX without escaping and the diffs are reviewable. Format classes live in `xscore/marking/formats/base.py` (`MarkingFormat`) and `xscore/scaffold/formats/base.py` (`ScaffoldFormat`); call sites get an instance via `get_marking_format()` / `get_scaffold_format()`.
 
 ## Scaffold subsystem
 

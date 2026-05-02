@@ -101,8 +101,8 @@ def _merge_student_pages(
     collisions are recorded for the review queue (step 29).
     """
     if fmt is None:
-        from xscore.marking.formats.xml_format import XmlMarkingFormat
-        fmt = XmlMarkingFormat()
+        from xscore.marking.formats.base import MarkingFormat
+        fmt = MarkingFormat()
 
     merged_questions: dict[tuple[str, int], dict] = {}
 
@@ -252,8 +252,8 @@ def _augment_with_unanswered(
 def _derive_student_names(artifact_dir: Path, fmt=None) -> list[str]:
     """Collect unique student names from marked student files, in order."""
     if fmt is None:
-        from xscore.marking.formats.xml_format import XmlMarkingFormat
-        fmt = XmlMarkingFormat()
+        from xscore.marking.formats.base import MarkingFormat
+        fmt = MarkingFormat()
     _ext = fmt.artifact_ext()
     seen: dict[str, str] = {}   # safe_name → original name
     result: list[str] = []

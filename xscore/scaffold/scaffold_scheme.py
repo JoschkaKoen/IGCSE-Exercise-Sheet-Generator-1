@@ -12,10 +12,8 @@ onto matching scheme entries.
 from __future__ import annotations
 
 import base64 as _base64
-import json
 import os
 import time
-import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -69,8 +67,8 @@ def parse_mark_scheme_pages(
     Attaches ``graphics_by_qnum`` (from step 22) onto matching scheme entries.
     """
     if fmt is None:
-        from xscore.scaffold.formats.xml_format import XmlScaffoldFormat
-        fmt = XmlScaffoldFormat()
+        from xscore.scaffold.formats.base import ScaffoldFormat
+        fmt = ScaffoldFormat()
 
     n_pages, page_paths, _tmp_dir = _ensure_scheme_pages(marking_scheme_pdf, artifact_dir)
 
@@ -302,29 +300,13 @@ def parse_mark_scheme_pages(
     if artifact_dir is not None:
         try:
             from xscore.scaffold.scaffold_markdown import write_mark_scheme_markdown
-            _ext = fmt.artifact_ext()
-            if _ext == "xml":
-                _root = ET.Element("scheme")
-                for _q in result.get("questions", []):
-                    _qel = ET.SubElement(_root, "question")
-                    _qel.set("number", _q["number"])
-                    _qel.set("correct_answer", _q.get("correct_answer") or "")
-                    for _c in (_q.get("mark_scheme") or []):
-                        _cel = ET.SubElement(_qel, "criterion")
-                        _cel.set("mark", _c.get("mark", ""))
-                        _cel.text = _c.get("criterion", "")
-                ET.indent(_root)
-                _out_str = ET.tostring(_root, encoding="unicode", xml_declaration=False)
-            elif _ext == "yaml":
-                import yaml as _yaml
-                from xscore.scaffold.formats.yaml_format import _ScaffoldDumper
-                _out_str = _yaml.dump(
-                    result, Dumper=_ScaffoldDumper,
-                    allow_unicode=True, default_flow_style=False, sort_keys=False,
-                )
-            else:
-                _out_str = json.dumps(result, ensure_ascii=False, indent=2)
-            p = artifact_mark_scheme_path(artifact_dir, fmt=_ext)
+            import yaml as _yaml
+            from xscore.scaffold.formats.base import _ScaffoldDumper
+            _out_str = _yaml.dump(
+                result, Dumper=_ScaffoldDumper,
+                allow_unicode=True, default_flow_style=False, sort_keys=False,
+            )
+            p = artifact_mark_scheme_path(artifact_dir, fmt="yaml")
             p.parent.mkdir(parents=True, exist_ok=True)
             p.write_text(_out_str, encoding="utf-8")
             write_mark_scheme_markdown(artifact_dir, result.get("questions", []))
