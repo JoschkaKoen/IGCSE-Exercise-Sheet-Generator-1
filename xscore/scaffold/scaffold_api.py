@@ -37,14 +37,10 @@ def _finish_reason(resp) -> str:
 def _make_gen_config(
     thinking_tokens: int | None, system: str,
     schema: dict | None = None,
-    pydantic_schema=None,
     max_tokens: int | None = None,
 ) -> "gai_types.GenerateContentConfig":
     cfg: dict = {"max_output_tokens": max_tokens or GEMINI_MAX_OUTPUT_TOKENS}
-    if pydantic_schema is not None:
-        cfg["response_mime_type"] = "application/json"
-        cfg["response_schema"] = pydantic_schema
-    elif schema is not None:
+    if schema is not None:
         cfg["response_mime_type"] = "application/json"
         cfg["response_json_schema"] = schema
     if thinking_tokens is not None:

@@ -163,7 +163,6 @@ def detect_exam_scaffold(
                 ],
                 config=_make_gen_config(
                     detect_thinking, fmt.system_scaffold_prompt(is_cs=is_cs),
-                    pydantic_schema=fmt.pydantic_schema_scaffold(),
                     max_tokens=detect_max_tokens,
                 ),
             )

@@ -279,7 +279,6 @@ def fill_exam_scaffold(
                 ],
                 config=_make_gen_config(
                     fill_thinking, fmt.system_fill_prompt(is_cs=is_cs),
-                    pydantic_schema=fmt.pydantic_schema_fill(),
                     max_tokens=fill_max_tokens,
                 ),
             )

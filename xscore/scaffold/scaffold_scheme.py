@@ -190,7 +190,6 @@ def parse_mark_scheme_pages(
                     messages=_messages,
                 )
                 kwargs.update(_oa_thinking_kw)
-                kwargs.update(fmt.scheme_oa_extra_kwargs(scheme_model))
                 if _oa_use_stream:
                     _th: list[str] = []
                     # Stream consumed *inside* the closure so a mid-stream SSL EOF
@@ -216,7 +215,6 @@ def parse_mark_scheme_pages(
                 ],
                 config=_make_gen_config(
                     scheme_thinking, fmt.system_scheme_prompt(is_cs=is_cs),
-                    pydantic_schema=fmt.pydantic_schema_scheme(),
                     max_tokens=scheme_max_tokens,
                 ),
             )
