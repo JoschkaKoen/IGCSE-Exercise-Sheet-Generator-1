@@ -263,9 +263,19 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
         save_response(_save_prompt_path, raw, thinking=thinking_text)
 
     try:
-        return _parse_name_list(raw)
+        names = _parse_name_list(raw)
     except (json.JSONDecodeError, ValueError) as exc:
         raise RuntimeError(
             f"Student-list API returned non-JSON (model={model_name}): {exc}\n"
             f"  Raw response: {raw!r:.200}"
         ) from exc
+    if _save_prompt_path is not None:
+        try:
+            from xscore.shared.prompt_logger import save_output_data
+            save_output_data(
+                _save_prompt_path, json.dumps({"names": names}, indent=2),
+                ext="json",
+            )
+        except Exception:  # noqa: BLE001
+            pass
+    return names

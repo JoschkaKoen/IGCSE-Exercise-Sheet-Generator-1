@@ -30,7 +30,7 @@ from xscore.scaffold.scaffold_api import _make_gen_config
 from xscore.shared.exam_paths import (
     artifact_exam_scaffold_raw_path, artifact_scaffold_prompt_path,
 )
-from xscore.shared.prompt_logger import save_prompt, save_response
+from xscore.shared.prompt_logger import save_output_data, save_prompt, save_response
 from xscore.shared.terminal_ui import api_latency_line, warn_line
 
 
@@ -198,6 +198,7 @@ def detect_exam_scaffold(
             model=detect_model, messages=_audit_messages,
         )
         save_response(_prompt_path, raw, thinking=thinking_text)
+        save_output_data(_prompt_path, raw, ext="yaml")
         try:
             p = artifact_exam_scaffold_raw_path(artifact_dir, fmt=fmt.artifact_ext())
             p.parent.mkdir(parents=True, exist_ok=True)

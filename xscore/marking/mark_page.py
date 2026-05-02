@@ -15,7 +15,9 @@ from eXercise.api_retry import retry_api_call
 from xscore.config import MARKING_JPEG_QUALITY
 from xscore.marking.formats.base import FormatParseError, MarkingFailure, MarkingFormat
 from xscore.prompts.loader import load_prompt
-from xscore.shared.prompt_logger import save_prompt, save_response
+from xscore.shared.prompt_logger import (
+    save_input_data, save_output_data, save_prompt, save_response,
+)
 from xscore.shared.terminal_ui import info_line, warn_line
 
 
@@ -194,6 +196,7 @@ def _mark_page(
     kwargs.update(fmt.api_extra_kwargs(model_id))
 
     save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
+    save_input_data(prompt_save_path, blueprint_xml, ext="yaml")
 
     # Optional response cache: only consulted when the user opted in via the
     # NL prompt ("reuse cache"). Key folds in every input that affects the
@@ -304,6 +307,13 @@ def _mark_page(
 
         # --- Final validation pass: MCQ fix + blank-answer + clamp --------
         _finalize_marking(result, warn)
+
+        try:
+            save_output_data(
+                prompt_save_path, fmt.serialize_filled(result), ext="yaml",
+            )
+        except Exception:  # noqa: BLE001 - logging must never break the call
+            pass
 
         if reuse_cache and not cache_hit and _cache_key is not None:
             from xscore.shared.response_cache import cache_put

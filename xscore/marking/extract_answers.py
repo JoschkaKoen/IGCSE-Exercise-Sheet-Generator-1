@@ -44,7 +44,9 @@ from xscore.shared.exam_paths import (
     artifact_student_answers_path,
     artifact_student_answers_prompt_path,
 )
-from xscore.shared.prompt_logger import save_prompt, save_response
+from xscore.shared.prompt_logger import (
+    save_input_data, save_output_data, save_prompt, save_response,
+)
 from xscore.shared.response_parsing import strip_code_fences
 from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, warn_line
 
@@ -170,6 +172,7 @@ def _extract_page_answers(
     kwargs.update(thinking_kw)
 
     save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
+    save_input_data(prompt_save_path, blueprint_str, ext="yaml")
 
     def _do_call() -> tuple[str, str]:
         if use_stream:
@@ -185,10 +188,12 @@ def _extract_page_answers(
     raw, thinking_text = retry_api_call(_do_call, label=f"Extract ({model_id})")
     save_response(prompt_save_path, raw, thinking=thinking_text)
     try:
-        return _parse_extract_response(raw, fmt)
+        parsed = _parse_extract_response(raw, fmt)
     except FormatParseError as exc:
         warn(f"Extract: parse error — {exc}")
         raise
+    save_output_data(prompt_save_path, raw, ext="yaml")
+    return parsed
 
 
 def _build_answers(student: str, page: int, answers: dict[str, str], fmt: Any) -> str:

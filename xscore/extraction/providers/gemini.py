@@ -59,11 +59,15 @@ class GeminiProvider:
         from google import genai
         from google.genai import types
 
-        if prompt_save_dir is not None:
+        _prompt_path = (
+            prompt_save_dir / f"page_{page_num}_prompt.txt"
+            if prompt_save_dir is not None else None
+        )
+        if _prompt_path is not None:
             from xscore.shared.prompt_logger import save_prompt
             _img_b64 = base64.b64encode(image_bytes).decode()
             save_prompt(
-                prompt_save_dir / f"page_{page_num}.json",
+                _prompt_path,
                 model=AI_MODEL,
                 messages=[{"role": "user", "content": [
                     {"type": "image_url",
@@ -119,7 +123,7 @@ class GeminiProvider:
                 ) from parse_err
 
         try:
-            return retry_api_call(
+            parsed = retry_api_call(
                 _do_call,
                 label=f"Gemini extract p{page_num}",
                 max_attempts=MAX_RETRIES + 1,
@@ -129,6 +133,16 @@ class GeminiProvider:
             )
         except Exception as e:
             return failed_extraction_record(e, answer_fields)
+        if _prompt_path is not None:
+            try:
+                from xscore.shared.prompt_logger import save_output_data
+                save_output_data(
+                    _prompt_path, json.dumps(parsed, indent=2, ensure_ascii=False),
+                    ext="json",
+                )
+            except Exception:  # noqa: BLE001
+                pass
+        return parsed
 
     def _ensemble(
         self,

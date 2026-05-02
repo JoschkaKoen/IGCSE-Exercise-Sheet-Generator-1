@@ -39,7 +39,9 @@ from xscore.scaffold.scaffold_xml import _merge_scheme_results
 from xscore.shared.exam_paths import (
     artifact_mark_scheme_path, artifact_scaffold_prompt_path,
 )
-from xscore.shared.prompt_logger import save_prompt, save_response
+from xscore.shared.prompt_logger import (
+    save_input_data, save_output_data, save_prompt, save_response,
+)
 from xscore.shared.terminal_ui import format_duration, ok_line, warn_line
 
 
@@ -240,7 +242,10 @@ def parse_mark_scheme_pages(
         if artifact_dir is not None:
             _prompt_path = artifact_scaffold_prompt_path(artifact_dir, f"mark_scheme_p{page_num}")
             save_prompt(_prompt_path, model=scheme_model, messages=_audit_messages)
+            save_input_data(_prompt_path, scaffold_str, ext="yaml")
             save_response(_prompt_path, raw or "", thinking=thinking_text)
+            if raw:
+                save_output_data(_prompt_path, raw, ext="yaml")
         try:
             parsed = fmt.parse_scheme_response(raw or "")
         except RuntimeError as _exc:

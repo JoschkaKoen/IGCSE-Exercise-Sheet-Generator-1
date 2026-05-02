@@ -38,7 +38,9 @@ from xscore.scaffold.scaffold_qtree import (
 from xscore.shared.exam_paths import (
     artifact_exam_pages_dir, artifact_scaffold_prompt_path,
 )
-from xscore.shared.prompt_logger import save_prompt, save_response
+from xscore.shared.prompt_logger import (
+    save_input_data, save_output_data, save_prompt, save_response,
+)
 from xscore.shared.terminal_ui import (
     format_duration, info_line, ok_line, warn_line,
 )
@@ -304,7 +306,10 @@ def fill_exam_scaffold(
                 _prompt_path,
                 model=fill_model, messages=_audit_messages,
             )
+            save_input_data(_prompt_path, stub, ext="yaml")
             save_response(_prompt_path, raw or "", thinking=thinking_text)
+            if raw:
+                save_output_data(_prompt_path, raw, ext="yaml")
 
         _duration = format_duration(time.perf_counter() - _t0)
         try:

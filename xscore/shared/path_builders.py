@@ -96,10 +96,11 @@ def artifact_parse_summary_path(artifact_dir: Path) -> Path:
 
 
 def artifact_parse_prompt_path(artifact_dir: Path) -> Path:
-    """Parse-instruction prompt JSON; the matching response file is
-    written by ``save_response`` as ``parse_prompt_response.txt`` alongside it.
+    """Parse-instruction prompt; the matching response file is written by
+    ``save_response`` as ``parse_response.txt`` alongside it (the
+    ``_prompt`` suffix is stripped from the stem before joining).
     """
-    return artifact_dir / PARSE_INSTRUCTIONS_DIR / "parse_prompt.json"
+    return artifact_dir / PARSE_INSTRUCTIONS_DIR / "parse_prompt.txt"
 
 
 # ---------------------------------------------------------------------------
@@ -118,7 +119,7 @@ def artifact_students_markdown_path(artifact_dir: Path) -> Path:
 
 def artifact_student_list_prompt_path(artifact_dir: Path) -> Path:
     """Prompt file for student-list AI call."""
-    return artifact_dir / STUDENT_LIST_DIR / "student_list_prompt.md"
+    return artifact_dir / STUDENT_LIST_DIR / "student_list_prompt.txt"
 
 
 # ---------------------------------------------------------------------------
@@ -136,7 +137,7 @@ def artifact_cover_page_dir(artifact_dir: Path) -> Path:
 
 def artifact_cover_scan_prompt_path(artifact_dir: Path, name: str) -> Path:
     """Prompt file for scan first-page cover detection."""
-    return artifact_dir / COVER_SCAN_DIR / f"{name}_prompt.md"
+    return artifact_dir / COVER_SCAN_DIR / f"{name}_prompt.txt"
 
 
 # ---------------------------------------------------------------------------
@@ -153,7 +154,7 @@ def artifact_geometry_md_path(artifact_dir: Path) -> Path:
 
 def artifact_geometry_prompt_path(artifact_dir: Path, name: str) -> Path:
     """Prompt file for geometry AI calls."""
-    return artifact_dir / GEOMETRY_DIR / f"{name}_prompt.md"
+    return artifact_dir / GEOMETRY_DIR / f"{name}_prompt.txt"
 
 
 # ---------------------------------------------------------------------------
@@ -173,7 +174,7 @@ def artifact_subject_md_path(artifact_dir: Path) -> Path:
 
 
 def artifact_subject_prompt_path(artifact_dir: Path, name: str = "subject") -> Path:
-    return artifact_dir / DETECT_SUBJECT_DIR / f"{name}_prompt.md"
+    return artifact_dir / DETECT_SUBJECT_DIR / f"{name}_prompt.txt"
 
 
 # ---------------------------------------------------------------------------
@@ -195,7 +196,7 @@ def artifact_exam_page_range_overview_path(artifact_dir: Path) -> Path:
 
 def artifact_names_prompt_path(artifact_dir: Path, name: str) -> Path:
     """Prompt file for name-detection AI calls (one per scan page)."""
-    return artifact_dir / STUDENT_NAMES_DIR / "names" / f"{name}_prompt.md"
+    return artifact_dir / STUDENT_NAMES_DIR / "names" / f"{name}_prompt.txt"
 
 
 # ---------------------------------------------------------------------------
@@ -205,11 +206,6 @@ def artifact_names_prompt_path(artifact_dir: Path, name: str) -> Path:
 def artifact_page_order_txt_path(artifact_dir: Path, student: str) -> Path:
     """Per-student page-order detection text file."""
     return artifact_dir / PAGE_ORDER_DIR / f"page_order_{safe_student_name(student)}.txt"
-
-
-def artifact_page_order_prompt_path(artifact_dir: Path, student: str) -> Path:
-    """Per-student prompt file for page-order AI call."""
-    return artifact_dir / PAGE_ORDER_DIR / f"page_order_{safe_student_name(student)}_prompt.md"
 
 
 def artifact_page_order_empty_exam_txt_path(artifact_dir: Path) -> Path:
@@ -228,7 +224,7 @@ def artifact_exam_blank_json_path(artifact_dir: Path) -> Path:
 
 def artifact_exam_blank_prompt_path(artifact_dir: Path, name: str) -> Path:
     """Prompt file for exam blank-detection AI calls."""
-    return artifact_dir / EXAM_BLANK_DIR / f"{name}_prompt.md"
+    return artifact_dir / EXAM_BLANK_DIR / f"{name}_prompt.txt"
 
 
 def artifact_blank_detection_txt_path(artifact_dir: Path) -> Path:
@@ -247,7 +243,7 @@ def artifact_handwriting_json_path(artifact_dir: Path) -> Path:
 
 def artifact_handwriting_prompt_path(artifact_dir: Path, name: str) -> Path:
     """Prompt file for handwriting AI calls."""
-    return artifact_dir / HANDWRITING_DIR / f"{name}_prompt.md"
+    return artifact_dir / HANDWRITING_DIR / f"{name}_prompt.txt"
 
 
 def artifact_handwriting_dir(artifact_dir: Path) -> Path:
@@ -468,34 +464,35 @@ def artifact_blueprint_md_path(artifact_dir: Path, page: int) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_student_answers_dir(artifact_dir: Path) -> Path:
-    """Directory containing per-student extracted-answer files."""
+    """Directory containing per-student extracted-answer subfolders."""
     return artifact_dir / EXTRACT_ANSWERS_DIR / "students"
 
 
+def _student_answers_subdir(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_answers_dir(artifact_dir) / safe_student_name(student)
+
+
 def artifact_student_answers_path(
-    artifact_dir: Path, student: str, page: int, *, fmt: str
+    artifact_dir: Path, student: str, page: int, *, fmt: str = "yaml",
 ) -> Path:
-    """Per-(student, page) extracted student answers; ``fmt`` is the active
-    MARKING_FORMAT (yaml | json | xml). The caller passes
-    ``fmt=fmt.artifact_ext()`` so writers and readers stay aligned, and the
-    loader (:func:`xscore.marking.extract_answers.load_student_answers`)
-    probes all three extensions to remain resilient to format changes
-    between runs."""
-    return artifact_student_answers_dir(artifact_dir) / f"{safe_student_name(student)}_page_{page}.{fmt}"
+    """Per-(student, page) extracted student answers. *fmt* is retained for
+    back-compat but defaults to ``"yaml"`` since xml/json variants were
+    removed."""
+    return _student_answers_subdir(artifact_dir, student) / f"page_{page}.{fmt}"
 
 
 def artifact_student_answers_prompt_path(
     artifact_dir: Path, student: str, page: int
 ) -> Path:
     """Prompt file saved alongside the extraction result for one (student, page)."""
-    return artifact_student_answers_dir(artifact_dir) / f"{safe_student_name(student)}_page_{page}_prompt.md"
+    return _student_answers_subdir(artifact_dir, student) / f"page_{page}_prompt.txt"
 
 
 def artifact_student_answers_failed_path(
     artifact_dir: Path, student: str, page: int
 ) -> Path:
     """Failure record when all extraction attempts are exhausted for a (student, page)."""
-    return artifact_student_answers_dir(artifact_dir) / f"failed_{safe_student_name(student)}_page_{page}.json"
+    return _student_answers_subdir(artifact_dir, student) / f"failed_page_{page}.json"
 
 
 # ---------------------------------------------------------------------------
@@ -503,30 +500,30 @@ def artifact_student_answers_failed_path(
 # ---------------------------------------------------------------------------
 
 def artifact_marking_students_dir(artifact_dir: Path) -> Path:
-    """Directory containing per-student marking files."""
+    """Directory containing per-student marking subfolders."""
     return artifact_dir / AI_MARKING_DIR / "students"
 
 
+def _marking_student_subdir(artifact_dir: Path, student: str) -> Path:
+    return artifact_marking_students_dir(artifact_dir) / safe_student_name(student)
+
+
 def artifact_marked_path(artifact_dir: Path, student: str, page: int, fmt: str = "yaml") -> Path:
-    return artifact_marking_students_dir(artifact_dir) / f"{safe_student_name(student)}_page_{page}.{fmt}"
-
-
-def artifact_marked_xml_path(artifact_dir: Path, student: str, page: int) -> Path:
-    return artifact_marking_students_dir(artifact_dir) / f"{safe_student_name(student)}_page_{page}.xml"
+    return _marking_student_subdir(artifact_dir, student) / f"page_{page}.{fmt}"
 
 
 def artifact_marked_md_path(artifact_dir: Path, student: str, page: int) -> Path:
-    return artifact_marking_students_dir(artifact_dir) / f"{safe_student_name(student)}_page_{page}.md"
+    return _marking_student_subdir(artifact_dir, student) / f"page_{page}.md"
 
 
 def artifact_marked_failed_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Failure record when all marking attempts are exhausted for a page."""
-    return artifact_marking_students_dir(artifact_dir) / f"failed_{safe_student_name(student)}_page_{page}.json"
+    return _marking_student_subdir(artifact_dir, student) / f"failed_page_{page}.json"
 
 
 def artifact_marking_prompt_path(artifact_dir: Path, student: str, page: int) -> Path:
     """Prompt file saved alongside the marking result for one student page."""
-    return artifact_marking_students_dir(artifact_dir) / f"{safe_student_name(student)}_page_{page}_prompt.md"
+    return _marking_student_subdir(artifact_dir, student) / f"page_{page}_prompt.txt"
 
 
 # ---------------------------------------------------------------------------
@@ -799,17 +796,17 @@ def artifact_scaffold_prompt_path(artifact_dir: Path, name: str) -> Path:
     """
     # Order matters: check most-specific first.
     if "assign_scheme_questions" in name:
-        return artifact_dir / ASSIGN_QUESTIONS_DIR / f"{name}_prompt.md"
+        return artifact_dir / ASSIGN_QUESTIONS_DIR / f"{name}_prompt.txt"
     if "mark_scheme" in name and "graphics" in name:
-        return artifact_dir / SCHEME_GRAPHICS_DIR / f"{name}_prompt.md"
+        return artifact_dir / SCHEME_GRAPHICS_DIR / f"{name}_prompt.txt"
     if "mark_scheme" in name:
-        return artifact_dir / PARSE_SCHEME_DIR / f"{name}_prompt.md"
+        return artifact_dir / PARSE_SCHEME_DIR / f"{name}_prompt.txt"
     if "exam_scaffold" in name:
-        return artifact_dir / DETECT_SCAFFOLD_DIR / f"{name}_prompt.md"
+        return artifact_dir / DETECT_SCAFFOLD_DIR / f"{name}_prompt.txt"
     if "detect_layout" in name or "layout" in name:
-        return artifact_dir / LAYOUT_DIR / f"{name}_prompt.md"
+        return artifact_dir / LAYOUT_DIR / f"{name}_prompt.txt"
     # Catch-all: per-page exam-questions fill prompts (Phase B).
-    return artifact_dir / FILL_SCAFFOLD_DIR / f"{name}_prompt.md"
+    return artifact_dir / FILL_SCAFFOLD_DIR / f"{name}_prompt.txt"
 
 
 # ---------------------------------------------------------------------------

@@ -227,7 +227,18 @@ def find_blank_exam_pages(
     if result is None:
         return None
     valid = set(range(1, num_pages + 1))
-    return result & valid
+    final = result & valid
+    try:
+        import json as _json
+        from xscore.shared.prompt_logger import save_output_data
+        save_output_data(
+            save_path,
+            _json.dumps({"blank_pages": sorted(final)}, indent=2),
+            ext="json",
+        )
+    except Exception:  # noqa: BLE001
+        pass
+    return final
 
 
 def _call_blank_detection(
@@ -287,7 +298,9 @@ def _has_handwriting(
     ``None`` if the call failed or the field was missing/malformed; the three
     are independent so any subset can succeed.
     """
-    from xscore.shared.prompt_logger import attachment_part, save_prompt, save_response
+    from xscore.shared.prompt_logger import (
+        attachment_part, save_output_data, save_prompt, save_response,
+    )
     from xscore.prompts.loader import load_prompt
 
     _, prompt_text = load_prompt("student_handwriting_check")
@@ -308,6 +321,7 @@ def _has_handwriting(
     except Exception:
         return None, None, None
     save_response(save_path, raw, thinking=thinking_text)
+    save_output_data(save_path, raw, ext="json")
     return _parse_handwriting(raw)
 
 

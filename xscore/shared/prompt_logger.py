@@ -23,7 +23,7 @@ _DATA_URL_RE = re.compile(r"^data:([^;]+);base64,(.*)$", re.DOTALL)
 def _sidecar_stem(path: Path) -> str:
     """Stem to use for attachment sidecars next to *path*.
 
-    ``Kim_page_8_prompt.md`` → ``Kim_page_8`` (drop trailing ``_prompt``);
+    ``Kim_page_8_prompt.txt`` → ``Kim_page_8`` (drop trailing ``_prompt``);
     ``page_5.json`` → ``page_5`` (no suffix to strip).
     """
     stem = path.stem
@@ -166,7 +166,8 @@ def save_response(
 ) -> None:
     """Write the AI response (optionally prefixed with thinking) alongside *prompt_path*.
 
-    Saves to <stem>_response.txt. When *thinking* is non-empty, the file body is:
+    Saves to ``<stem-without-_prompt>_response.txt``. When *thinking* is
+    non-empty, the file body is:
 
         [thinking]
         <thinking>
@@ -184,8 +185,60 @@ def save_response(
             body = f"[thinking]\n{thinking}\n[/thinking]\n\n{response}"
         else:
             body = response
-        resp_path = prompt_path.with_name(prompt_path.stem + "_response.txt")
+        stem = _sidecar_stem(prompt_path)
+        resp_path = prompt_path.with_name(f"{stem}_response.txt")
         resp_path.parent.mkdir(parents=True, exist_ok=True)
         resp_path.write_text(body, encoding="utf-8")
     except Exception:  # noqa: BLE001
         pass
+
+
+def _save_payload(
+    prompt_path: Path | None, data: str | bytes, *, kind: str, ext: str,
+) -> None:
+    """Shared body for :func:`save_input_data` and :func:`save_output_data`.
+
+    Writes *data* to ``<stem-without-_prompt>_<kind>.<ext>`` next to
+    *prompt_path*. Strings are utf-8 encoded; bytes pass through. Silently
+    no-ops on I/O error or when *prompt_path* is None — logging never breaks
+    the pipeline."""
+    if prompt_path is None:
+        return
+    try:
+        stem = _sidecar_stem(prompt_path)
+        out_path = prompt_path.with_name(f"{stem}_{kind}.{ext}")
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        if isinstance(data, bytes):
+            out_path.write_bytes(data)
+        else:
+            out_path.write_text(data, encoding="utf-8")
+    except Exception:  # noqa: BLE001
+        pass
+
+
+def save_input_data(
+    prompt_path: Path | None, data: str | bytes, *, ext: str = "yaml",
+) -> None:
+    """Write the structured payload sent in the prompt body to
+    ``<stem-without-_prompt>_input.<ext>`` next to *prompt_path*.
+
+    *data* is the already-serialised string (or bytes) you embedded in the
+    prompt — typically a blueprint YAML or scaffold stub. Caller picks
+    *ext* (``"yaml"``, ``"json"``, ``"xml"``…). Pre-call save: pair with
+    :func:`save_prompt` so the audit holds even if the API call fails.
+    Silently no-ops on I/O error."""
+    _save_payload(prompt_path, data, kind="input", ext=ext)
+
+
+def save_output_data(
+    prompt_path: Path | None, data: str | bytes, *, ext: str = "yaml",
+) -> None:
+    """Write the parsed AI response to
+    ``<stem-without-_prompt>_output.<ext>`` next to *prompt_path*.
+
+    *data* is the canonical re-serialised payload (or the AI's raw text if
+    it's already in target format). Skip the call if the parser failed —
+    :func:`save_response` already captured the raw string. Post-call save:
+    pair with :func:`save_response` after a successful parse. Silently
+    no-ops on I/O error."""
+    _save_payload(prompt_path, data, kind="output", ext=ext)

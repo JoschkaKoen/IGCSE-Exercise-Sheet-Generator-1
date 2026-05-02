@@ -37,7 +37,9 @@ from xscore.scaffold.scaffold_scheme_pdf import (
 from xscore.shared.exam_paths import (
     artifact_questions_per_page_path, artifact_scaffold_prompt_path,
 )
-from xscore.shared.prompt_logger import save_prompt, save_response
+from xscore.shared.prompt_logger import (
+    save_output_data, save_prompt, save_response,
+)
 from xscore.shared.terminal_ui import (
     format_duration, info_line, ok_line, warn_line,
 )
@@ -213,6 +215,8 @@ def assign_questions_to_pages(
             )
             save_prompt(_prompt_path, model=model, messages=_audit_messages)
             save_response(_prompt_path, raw or "", thinking=thinking_text)
+            if raw:
+                save_output_data(_prompt_path, raw, ext="json")
 
         try:
             data = json.loads(raw)

@@ -29,7 +29,7 @@ from xscore.shared.exam_paths import (
     artifact_mark_scheme_graphics_json_path,
     artifact_scaffold_prompt_path,
 )
-from xscore.shared.prompt_logger import save_prompt, save_response
+from xscore.shared.prompt_logger import save_output_data, save_prompt, save_response
 from xscore.shared.terminal_ui import (
     format_duration, info_line, ok_line, warn_line,
 )
@@ -164,6 +164,7 @@ def detect_scheme_graphics(
                 ],
             )
             save_response(_prompt_path, raw, thinking=_thinking_text)
+            save_output_data(_prompt_path, raw, ext="json")
         questions_map: dict[str, list] = {}
         for g in data.get("graphics", []):
             qnum = str(g.get("question_number", "")).strip()

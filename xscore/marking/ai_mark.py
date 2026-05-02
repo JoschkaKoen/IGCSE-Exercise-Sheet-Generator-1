@@ -194,6 +194,8 @@ def _mark_page_pdf(
         prompt_save_path, model=model_id, system=system_prompt,
         messages=[{"role": "user", "content": _logged_user}],
     )
+    from xscore.shared.prompt_logger import save_input_data, save_output_data
+    save_input_data(prompt_save_path, blueprint_str, ext="yaml")
 
     cfg: dict = {
         "system_instruction": system_prompt,
@@ -237,6 +239,12 @@ def _mark_page_pdf(
         if unfilled:
             warn(f"Marking: {len(unfilled)} blueprint question(s) skipped by AI: {unfilled}")
         _finalize_marking(result, warn)
+        try:
+            save_output_data(
+                prompt_save_path, fmt.serialize_filled(result), ext="yaml",
+            )
+        except Exception:  # noqa: BLE001 - logging must never break marking
+            pass
         return result
     except FormatParseError as exc:
         warn(f"Marking parse error (PDF upload path) — marking aborted ({exc})")

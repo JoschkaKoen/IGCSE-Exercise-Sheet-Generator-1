@@ -88,10 +88,13 @@ def detect_layout_phase(
             raw_path.write_text(layout_raw_text, encoding="utf-8")
         except OSError as e:
             warn_line(f"Could not save raw exam layout: {e}")
+        _layout_prompt_path = artifact_scaffold_prompt_path(artifact_dir, "detect_layout")
         save_response(
-            artifact_scaffold_prompt_path(artifact_dir, "detect_layout"),
+            _layout_prompt_path,
             layout_raw_text, thinking=layout_thinking_text,
         )
+        from xscore.shared.prompt_logger import save_output_data
+        save_output_data(_layout_prompt_path, layout_raw_text, ext="json")
 
     n_cells = layout_result.rows * layout_result.cols
     if layout_error is not None:

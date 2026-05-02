@@ -148,7 +148,16 @@ def is_cover_page(
     if not raw:
         warn_line(f"[{model_id}] cover page check returned empty response")
     save_response(prompt_save_path, raw, thinking=thinking_text)
-    return _parse_cover_bool(raw)
+    parsed = _parse_cover_bool(raw)
+    try:
+        from xscore.shared.prompt_logger import save_output_data
+        save_output_data(
+            prompt_save_path, json.dumps({"is_cover_page": parsed}, indent=2),
+            ext="json",
+        )
+    except Exception:  # noqa: BLE001
+        pass
+    return parsed
 
 
 def _parse_cover_bool(raw: str) -> bool:
@@ -288,7 +297,16 @@ def check_cover_page_text(
     if not raw:
         warn_line(f"[{model_id}] cover page text check returned empty response")
     save_response(prompt_save_path, raw, thinking=thinking_text)
-    return _parse_cover_bool(raw)
+    parsed = _parse_cover_bool(raw)
+    try:
+        from xscore.shared.prompt_logger import save_output_data
+        save_output_data(
+            prompt_save_path, json.dumps({"is_cover_page": parsed}, indent=2),
+            ext="json",
+        )
+    except Exception:  # noqa: BLE001
+        pass
+    return parsed
 
 
 def detect_empty_exam_cover(
@@ -321,7 +339,7 @@ def detect_empty_exam_cover(
     if artifact_dir is not None:
         save_dir = artifact_cover_page_dir(artifact_dir)
         save_dir.mkdir(parents=True, exist_ok=True)
-        save_path = save_dir / "cover_empty_exam_prompt.md"
+        save_path = save_dir / "cover_empty_exam_prompt.txt"
 
     t0 = time.perf_counter()
     has_cover = check_cover_page_text(
