@@ -304,6 +304,57 @@ def api_latency_line(seconds: float, *, label: str | None = None) -> None:
     sys.stdout.flush()
 
 
+def confirm_continue(prompt: str) -> bool:
+    """Block on Enter (True) / Esc (False). Auto-True on non-TTY.
+
+    On a TTY (POSIX raw mode) the user presses Enter to confirm or Esc to
+    abort. On a non-TTY stdin (web worker, piped, nohup, CI) auto-returns
+    True with a one-line info message — set ``PAGE_ORDER_CHECK_STRICT=1``
+    to auto-return False instead. Windows degrades to the non-TTY path.
+
+    The Esc peek uses a 150 ms ``select`` timeout so a lone Esc is
+    distinguished from CSI sequences (arrow keys, function keys), which
+    can arrive past 50 ms over SSH or nested tmux.
+    """
+    if not sys.stdin.isatty() or os.name == "nt":
+        if os.environ.get("PAGE_ORDER_CHECK_STRICT", "0") == "1":
+            info_line("Non-interactive run with PAGE_ORDER_CHECK_STRICT=1 — aborting.")
+            return False
+        info_line("Non-interactive run — auto-continuing past page-order issues.")
+        return True
+    try:
+        import select  # noqa: PLC0415
+        import termios  # noqa: PLC0415
+        import tty  # noqa: PLC0415
+    except ImportError:
+        info_line("Terminal raw mode unavailable — auto-continuing.")
+        return True
+
+    get_console().print(f"  {icon('info')}  {prompt} [dim][Enter] continue   [Esc] abort[/]")
+    sys.stdout.flush()
+
+    fd = sys.stdin.fileno()
+    old = termios.tcgetattr(fd)
+    try:
+        tty.setcbreak(fd)
+        while True:
+            ch = sys.stdin.read(1)
+            if ch in ("\r", "\n"):
+                return True
+            if ch == "\x1b":
+                ready, _, _ = select.select([sys.stdin], [], [], 0.15)
+                if not ready:
+                    return False
+                while True:
+                    more, _, _ = select.select([sys.stdin], [], [], 0.01)
+                    if not more:
+                        break
+                    sys.stdin.read(1)
+            # Other keys: ignore and keep waiting for Enter / Esc.
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+
 def print_run_footer(
     *,
     cleaned_pdf: Path | None,

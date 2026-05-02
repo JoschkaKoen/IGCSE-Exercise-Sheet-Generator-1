@@ -214,6 +214,11 @@ def artifact_page_order_empty_exam_txt_path(artifact_dir: Path) -> Path:
     return artifact_dir / PAGE_ORDER_DIR / "page_order_empty_exam.txt"
 
 
+def artifact_page_order_issues_path(artifact_dir: Path) -> Path:
+    """Structured page-order check result (status + per-page issues)."""
+    return artifact_dir / PAGE_ORDER_DIR / "issues.json"
+
+
 # ---------------------------------------------------------------------------
 # Exam blank detection (text-only)
 # ---------------------------------------------------------------------------

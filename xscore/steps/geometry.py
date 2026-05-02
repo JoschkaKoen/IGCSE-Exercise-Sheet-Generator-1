@@ -48,6 +48,7 @@ from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.terminal_ui import (
     announce_step_model,
+    confirm_continue,
     format_duration,
     info_line,
     ok_line,
@@ -344,34 +345,44 @@ def student_names(ctx: _Ctx) -> None:
 def page_order_check(ctx: _Ctx) -> None:
     """Heuristic page-order check (no LLM, no OCR).
 
-    Reads student_handwriting_check's handwriting.json and verifies each student's detected
-    page numbers form the expected sequence given the empty-exam layout.
+    Reads ``student_handwriting_check``'s ``handwriting.json`` and verifies
+    each student's detected page numbers form the expected sequence given
+    the empty-exam layout. On mismatches, renders detail tables and asks
+    the user whether to continue.
     """
     assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None and ctx.folder is not None
-    from xscore.marking.page_order_check import PageOrderStatus
+    from xscore.marking.page_order_check import PageOrderStatus, render_problem_tables
     t0 = time.perf_counter()
-    status, msg = check_page_order(
+    result = check_page_order(
         find_exam_pdf(ctx.folder),
         ctx.cleaned_pdf,
         ctx.page_assignments,
         artifact_dir=ctx.artifact_dir,
     )
     dur = format_duration(time.perf_counter() - t0)
-    n = len(ctx.page_assignments)
-    if status is PageOrderStatus.PASSED:
+    n = result.total_count
+
+    if result.status is PageOrderStatus.PASSED:
         ok_line(f"Page order check: {n}/{n} students OK  ·  {dur}")
         return
-    if status is PageOrderStatus.MISMATCH_FOUND:
-        warn_line(msg or "Page order mismatch detected.")
-        raise SystemExit(1)
-    # INCONCLUSIVE
-    warn_line(
-        "Page order check INCONCLUSIVE — pipeline did NOT verify page order:\n"
-        f"  {msg}\n"
-        "  Set PAGE_ORDER_CHECK_STRICT=1 to fail-fast on inconclusive checks."
-    )
-    if os.environ.get("PAGE_ORDER_CHECK_STRICT", "0") == "1":
-        raise SystemExit(1)
+
+    if result.status is PageOrderStatus.INCONCLUSIVE:
+        warn_line(
+            "Page order check INCONCLUSIVE — pipeline did NOT verify page order:\n"
+            f"  {result.setup_error}\n"
+            "  Set PAGE_ORDER_CHECK_STRICT=1 to fail-fast on inconclusive checks."
+        )
+        if os.environ.get("PAGE_ORDER_CHECK_STRICT", "0") == "1":
+            raise SystemExit(1)
+        return
+
+    # MISMATCH_FOUND — tables + prompt
+    render_problem_tables(result)
+    if confirm_continue("Continue despite page-order issues?"):
+        info_line("Continuing past page-order issues.")
+        return
+    info_line("Aborted by user.")
+    raise SystemExit(1)
 
 
 def exam_blank_detection(ctx: _Ctx) -> None:

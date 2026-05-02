@@ -100,8 +100,10 @@ def _scheme_graphics_by_qnum(artifact_dir: Path) -> dict[str, list[str]]:
 
 def _scheme_graphics_tex(filenames: list[str]) -> str:
     """Build the LaTeX fragment that embeds extracted scheme graphics in the
-    Expected column of a per-student report. Returned text is meant to be
-    appended to a `_format_criteria_cell` result, separated by `\\newline`."""
+    Expected column of a per-student report. Appended to the criteria cell
+    after a single space — the preceding `\\end{itemize}` already returns
+    the parbox to vertical mode, so `\\includegraphics` starts a new line on
+    its own. (`\\newline` after `\\end{...}` would raise "no line here to end".)"""
     return " ".join(
         rf"\includegraphics[width=\linewidth]{{{f}}}" for f in filenames
     )
@@ -179,7 +181,7 @@ def _student_report_to_tex(
             correct_ans = _format_criteria_cell(criteria_raw, exp_w)
         gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum((q.get("number") or "")), [])
         if gfx_files:
-            correct_ans = correct_ans + r" \newline " + _scheme_graphics_tex(gfx_files)
+            correct_ans = correct_ans + " " + _scheme_graphics_tex(gfx_files)
         reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
         awarded_cell = _awarded_tex(awarded, max_q)
         panels = _split_oversized_cell(correct_ans, panel_budget)
@@ -439,7 +441,7 @@ def _student_report_with_questions_to_tex(
             correct_ans = _format_criteria_cell(criteria_raw, exp_w)
         gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum(qnum_raw), [])
         if gfx_files:
-            correct_ans = correct_ans + r" \newline " + _scheme_graphics_tex(gfx_files)
+            correct_ans = correct_ans + " " + _scheme_graphics_tex(gfx_files)
         reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
         awarded_cell = _awarded_tex(awarded, max_q)
         question_cell = _render_question_text(_question_text_for_row(qnum_raw, qmap), qstem_w)
@@ -508,7 +510,7 @@ def _student_report_list_to_tex(
             expected = _format_criteria_cell(criteria_raw, block_w)
         gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum(qnum_raw), [])
         if gfx_files:
-            expected = expected + r" \newline " + _scheme_graphics_tex(gfx_files)
+            expected = expected + " " + _scheme_graphics_tex(gfx_files)
         reasoning = _ai_cell(str(q.get("explanation") or ""), block_w)
         question_body = _render_question_with_options(
             _question_text_for_row(qnum_raw, qmap), block_w
