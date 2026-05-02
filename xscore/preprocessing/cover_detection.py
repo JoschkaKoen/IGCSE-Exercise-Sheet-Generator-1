@@ -175,7 +175,10 @@ def _parse_cover_bool(raw: str) -> bool:
     if isinstance(data, bool):
         return data
     if isinstance(data, dict):
-        return bool(data.get("answer", data.get("is_cover_page", False)))
+        # Accept any of the historical/current key names. Current prompt
+        # (cover_page_scan v2) emits `is_cover`; older models still emit
+        # `answer` or `is_cover_page` from when the schema was implicit.
+        return bool(data.get("is_cover", data.get("answer", data.get("is_cover_page", False))))
     return False
 
 

@@ -9,10 +9,19 @@ import os
 import time
 from pathlib import Path
 
-_PROMPT = (
-    "Extract all student names from this data. "
-    "Return a JSON array of name strings only — no numbers, headers, or extra text."
-)
+def _load_prompt() -> str:
+    """Return the rules-only system text for the read_student_list prompt.
+
+    The .md file's SYSTEM section holds the schema, the header-skip rule,
+    and the JSON output shape. Callers append the spreadsheet CSV (or attach
+    the PDF separately) and send the combination as the user message.
+    """
+    from xscore.prompts.loader import load_prompt
+    _, body = load_prompt("read_student_list", section="system")
+    return body.rstrip()
+
+
+_PROMPT = _load_prompt()
 
 
 def _read_model_config() -> tuple[str, int | None, int | None]:

@@ -286,8 +286,9 @@ def _call_blank_detection(
         return split_gemini_response(resp)
     from eXercise.ai_client import build_completion_kwargs, collect_streamed_response
     use_stream, kw = build_completion_kwargs(state.provider, thinking_tokens, max_tokens or 256)
-    oa_prompt = prompt + '\n\nReturn JSON only with this shape: {"blank_pages": [<int>, ...]}'
-    msgs = [{"role": "user", "content": oa_prompt}]
+    # The exam_blank_detection.md prompt already requests `{"blank_pages": [...]}`
+    # since v2; the previous OA-only suffix is redundant.
+    msgs = [{"role": "user", "content": prompt}]
     if use_stream:
         _th: list[str] = []
         stream = state.oa.chat.completions.create(model=model_id, messages=msgs, stream=True, **kw)

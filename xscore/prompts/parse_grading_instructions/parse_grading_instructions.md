@@ -1,7 +1,7 @@
 ---
 name: parse_grading_instructions
-version: v1
-description: Step 1 — parse_grading_instructions. System-only prompt that converts a natural-language grading instruction into a structured TaskInstruction JSON object. No substitutions. Used by xscore.marking.parse_instruction.parse_prompt.
+version: v2
+description: Step 1 — parse_grading_instructions. System-only prompt that converts a natural-language grading instruction into a structured TaskInstruction JSON object. No substitutions. Used by xscore.marking.parse_instruction.parse_prompt. v2 names `check_answers` as the default task_type (was inferred from the verb "grade", which sometimes resolved to `count_marks`).
 ---
 Convert the grading instruction to JSON. Return ONLY the JSON, no explanation.
 
@@ -20,7 +20,7 @@ Convert the grading instruction to JSON. Return ONLY the JSON, no explanation.
   "curved_grade_visible": null
 }
 
-task_type: count_marks=tally red teacher marks; check_mc=MC only; check_answers=all types.
+task_type: count_marks=tally red teacher marks; check_mc=MC only; check_answers=all types. **Default: `check_answers`.** Use `count_marks` only when the user explicitly says 'count marks' / 'tally red marks'; use `check_mc` only when the user explicitly says 'multiple choice only'.
 student_filter.mode: all=default; specific=named students; first_n=first N (set n). names=list.
 dpi: 400 default; 300 if "fast"/"quick"; 600 if "high quality"/"accurate".
 folder_hint: short name for fuzzy folder match. folder_path: absolute or ~-relative path; set only when user gives an explicit path; else null. Prefer folder_path when both apply.

@@ -10,6 +10,7 @@ import re
 import yaml
 
 from xscore.prompts.loader import load_prompt
+from xscore.scaffold.pdf_parser.content import strip_exam_mark_indicators
 from xscore.shared.response_parsing import strip_code_fences as _strip_fences
 from xscore.shared.terminal_ui import warn_line
 
@@ -604,9 +605,12 @@ class ScaffoldFormat:
                 continue
             out.append({
                 "number":  str(q.get("number", "")),
-                "text":    str(q.get("text", "")).strip(),
+                "text":    strip_exam_mark_indicators(str(q.get("text", "")).strip()),
                 "options": [
-                    {"letter": str(o.get("letter", "")), "text": str(o.get("text", "")).strip()}
+                    {
+                        "letter": str(o.get("letter", "")),
+                        "text":   strip_exam_mark_indicators(str(o.get("text", "")).strip()),
+                    }
                     for o in (q.get("options") or [])
                     if isinstance(o, dict)
                 ],

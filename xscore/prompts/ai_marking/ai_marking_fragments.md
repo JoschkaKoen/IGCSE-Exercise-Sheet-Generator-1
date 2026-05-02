@@ -1,66 +1,9 @@
 ---
 name: ai_marking_fragments
-version: v7
-description: Step 29 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES and FIELD_RULES_PRESUPPLIED use $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v7 dropped the JSON/XML response-format parenthetical from FIELD_RULES_PRESUPPLIED — the pipeline has been YAML-only since the per-format abstraction collapsed to a single `MarkingFormat` — and backfilled `problem` into the section's "focus only on" field list (omitted since v5). v6 extended GRAPHICS to optionally inline a per-image `Transcription:` block (produced by step 25 transcribe_scheme_graphics) — when transcription is empty the section renders byte-identically to v5. v5 replaced the three-value `confidence` (high/medium/low) with an integer 0–10 (0 = no confidence, 10 = fully certain) and added a new freeform `problem` string field for human-review diagnostics — read by step 34's confidence audit. v4 changed FIELD_RULES_PRESUPPLIED so the marker no longer re-emits student_answer. v3 added FIELD_RULES_PRESUPPLIED for the post-step-28 path where student_answer is pre-filled. v2 restructured FIELD_RULES into named sub-sections (Principles, per-field rules, Text rules). Used by xscore.marking.mark_page._build_marking_system_prompt.
+version: v8
+description: Step 29 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES uses $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v8 deleted the legacy non-pre-supplied FIELD_RULES branch (transcribe-while-marking is no longer supported — step 28 always runs first) and renamed the surviving section back from FIELD_RULES_PRESUPPLIED to FIELD_RULES. v7 dropped the JSON/XML response-format parenthetical and backfilled `problem` into the section's "focus only on" field list (omitted since v5). v6 extended GRAPHICS to optionally inline a per-image `Transcription:` block (produced by step 25 transcribe_scheme_graphics). v5 replaced the three-value `confidence` (high/medium/low) with an integer 0–10. v4 changed FIELD_RULES_PRESUPPLIED so the marker no longer re-emits student_answer. v3 added FIELD_RULES_PRESUPPLIED for the post-step-28 path. v2 restructured FIELD_RULES into named sub-sections. Used by xscore.marking.mark_page._build_marking_system_prompt.
 ---
 ## FIELD_RULES
-
-### Principles
-
-- **Mark generously where understanding is shown.** Accept semantically equivalent answers, not only verbatim matches. Treat ${criterion_ref} as guidance for what the question is asking, not as an exhaustive list of acceptable wording.
-- **Never invent answers.** Only report what the student physically wrote. Do not fill in what the question seems to want, and do not draw on your own subject knowledge to complete a partial answer.
-- **Flag uncertainty honestly.** Use `confidence` (an integer 0–10) to score how sure you are. Use `problem` to record any specific concern a human should look at. False confidence is worse than an honest low score.
-
-### student_answer — transcribe what the student wrote
-
-- **multiple_choice**: report the single letter the student physically marked (written, circled, crossed, or ticked). Report `?` if nothing is marked.
-- **calculation**: transcribe the student's full working and final answer verbatim.
-- **all other types**: copy the student's written answer verbatim. Mark unreadable words with `[?]`.
-
-### assigned_marks — an integer from 0 to max_marks
-
-Use professional judgement, not literal matching.
-
-- Award marks when the answer demonstrates understanding of the question. If the student gives a correct solution not listed in ${criterion_ref}, still award the marks.
-- Award no marks when the answer is factually wrong, off-topic, or shows no understanding.
-- **"Any N from" lists** — count one mark per distinct, reasonable item the student gives, up to max_marks. The listed criteria are guidance, not an exhaustive list of acceptable answers.
-- **Calculation questions** — if the final result is correct (rounding errors acceptable), award full marks regardless of how much working is shown. Otherwise, award one mark per correct step. Apply error-carried-forward (ECF): if a step's method is correct but uses a wrong number from an earlier mistake, still award that step. Award no marks for steps where the method is wrong, or where the step's own arithmetic is wrong without being a carry-forward. Scientific notation and expanded form are equivalent (e.g. 5×10^4 = 50000).
-- **Multiple-choice questions** — compare student_answer to correct_answer; award max_marks if they match, 0 otherwise.
-
-### explanation — short, simple feedback to the student
-
-- **Audience** — non-native, high-school English speakers. Avoid difficult words; address the student directly using "you"; keep it short.
-- **Format** — write the explanation as a LaTeX itemize list: `\begin{itemize}\item first point\item second point\end{itemize}`. Each `\item` is one short, clear point. Do **not** use a literal bullet character (`•`) or a leading hyphen (`- `) — those render as plain text, not as a list.
-- **Emphasis** — for important words use `\textbf{word}`. Markdown `**word**` does not render and breaks the PDF.
-- **Multiple-choice exception** — leave `explanation` empty for multiple_choice questions. The field is filled automatically afterwards.
-
-### confidence — an integer in [0, 10]
-
-An advisory side-channel collected for human review; it does **not** influence the marks awarded.
-
-- `0` — you have no confidence in your marking.
-- `10` — you are fully certain of both the student's answer and the marks awarded.
-
-Pick any integer in between. Calibrate the scale yourself.
-
-### problem — a short freeform string
-
-Use this field to record any problem you noticed during marking. Leave it empty (`""`) when you have no specific concern.
-
-- May be written at any confidence level. **Should** be written when confidence is below 7. Above 7 it is optional.
-- Keep it under ~120 characters. If there are multiple concerns, separate them with semicolons in the same string.
-- Only fill `problem` when there is something specific a human should look at; routine ambiguity is what the confidence dial is for.
-- Do not restate the explanation — `problem` is for things a human reviewer needs, not student-facing feedback.
-
-### Text rules — apply to student_answer and explanation
-
-Both fields are placed verbatim into a LaTeX document.
-
-1. **Escape literal special characters** that appear as text (not part of a math expression): `%` → `\%`, `$` → `\$`, `#` → `\#`, `_` → `\_`, `{` → `\{`, `}` → `\}`, backslash → `\textbackslash{}`. Use `\newline` for line breaks in prose.
-2. **Wrap math in `$...$`** (e.g. `$v = 2\pi r / T$`, `$\frac{d}{v}$`). Failing to wrap math will crash the PDF renderer.
-3. **Do not append a mark tally** (e.g. `— 1 mark.`) at the end of any field.
-
-## FIELD_RULES_PRESUPPLIED
 
 ### Principles
 
@@ -68,9 +11,9 @@ Both fields are placed verbatim into a LaTeX document.
 - **Never invent answers.** Only mark what the student physically wrote. Do not fill in what the question seems to want, and do not draw on your own subject knowledge to complete a partial answer.
 - **Flag uncertainty honestly.** Use `confidence` (an integer 0–10) to score how sure you are. Use `problem` to record any specific concern a human should look at. False confidence is worse than an honest low score.
 
-### student_answer — pre-filled, do not emit
+### transcribed_answer — read-only input from step 28
 
-The student's verbatim answer has been transcribed for you in a prior pass and is already present in the blueprint's <student_answer> field for each question. **Do NOT include `student_answer` in your response** — focus only on `assigned_marks`, `explanation`, `confidence`, and `problem`. The pre-filled value carries through to the final artifact unchanged. For multiple-choice questions, the pre-filled value is the letter the student selected; treat it as the source of truth and award `max_marks` if it matches `correct_answer`, else 0.
+The student's verbatim answer has been transcribed by step 28 and is present in the blueprint's `transcribed_answer` field for each question. **NEVER emit `transcribed_answer` in your response. NEVER alter it. NEVER re-transcribe what you see on the scan into any field.** Only emit `assigned_marks`, `explanation`, `confidence`, and `problem`. For multiple-choice questions, `transcribed_answer` is the letter the student selected; treat it as the source of truth and award `max_marks` if it matches `correct_answer`, else 0.
 
 If the pre-filled value clearly disagrees with what you see on the scan (e.g. clearly wrong letter for an MCQ, or text obviously different from what is visible on the page), lower your `confidence` score and record the mismatch in `problem` so a human reviewer can catch it.
 
@@ -82,7 +25,9 @@ Use professional judgement, not literal matching.
 - Award no marks when the answer is factually wrong, off-topic, or shows no understanding.
 - **"Any N from" lists** — count one mark per distinct, reasonable item the student gives, up to max_marks. The listed criteria are guidance, not an exhaustive list of acceptable answers.
 - **Calculation questions** — if the final result is correct (rounding errors acceptable), award full marks regardless of how much working is shown. Otherwise, award one mark per correct step. Apply error-carried-forward (ECF): if a step's method is correct but uses a wrong number from an earlier mistake, still award that step. Award no marks for steps where the method is wrong, or where the step's own arithmetic is wrong without being a carry-forward. Scientific notation and expanded form are equivalent (e.g. 5×10^4 = 50000).
-- **Multiple-choice questions** — compare student_answer to correct_answer; award max_marks if they match, 0 otherwise.
+- **Multiple-choice questions** — compare transcribed_answer to correct_answer; award max_marks if they match, 0 otherwise.
+
+For long-answer questions where understanding is partial, lean toward awarding the marks rather than denying them — flag the case in `problem` if uncertain.
 
 ### explanation — short, simple feedback to the student
 

@@ -589,7 +589,12 @@ def deskew_phase(
     *,
     input_pdf: Path | None = None,
 ) -> Path:
-    """deskew body: deskew ``scan_rotated.pdf`` (or *input_pdf*) into ``cleaned_scan.pdf``."""
+    """deskew body: deskew ``scan_rotated.pdf`` (or *input_pdf*) into ``cleaned_scan.pdf``.
+
+    The canonical location is the run root (``CLEANED_SCAN_PDF``); a duplicate
+    copy is also written under ``07_deskew/`` so the step folder is
+    self-contained when browsing artifacts.
+    """
     from xscore.preprocessing.deskew import deskew_pdf_raster
 
     paths = _scan_phase_paths(artifact_dir)
@@ -608,4 +613,7 @@ def deskew_phase(
         angles_json_path=artifact_dir / DESKEW_ANGLES_JSON,
     )
     shutil.move(str(tmp_deskew), str(out))
+    deskew_copy = artifact_dir / DESKEW_DIR / CLEANED_SCAN_PDF
+    deskew_copy.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(str(out), str(deskew_copy))
     return out

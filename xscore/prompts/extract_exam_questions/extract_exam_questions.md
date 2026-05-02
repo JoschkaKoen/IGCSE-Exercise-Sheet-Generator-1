@@ -1,7 +1,7 @@
 ---
 name: extract_exam_questions
-version: v3
-description: Step 20 — per-page worker fills text + options for the question numbers extracted in step 19. Combined system + user prompt. Placeholder $question_stub holds the per-page filtered question stub. SYSTEM has named sub-blocks (In scope / What NOT to change); USER has named sub-blocks (The stub / Output schema / LaTeX formatting / Quoting rules / Worked example). v3 switched the output convention from markdown-for-prose to raw LaTeX (`\textbf{...}`, `\begin{itemize}`, `\begin{tabular}`, `\dotfill`) — mirrors parse_mark_scheme.md, removing the markdown→LaTeX conversion gap that left literal `| ... | ... |` tables and dot runs in `exam_questions.tex`.
+version: v4
+description: Step 20 — per-page worker fills text + options for the question numbers extracted in step 19. Combined system + user prompt. Placeholder $question_stub holds the per-page filtered question stub. SYSTEM has named sub-blocks (In scope / What NOT to change); USER has named sub-blocks (The stub / Output schema / LaTeX formatting / Quoting rules / Worked example). v4 fixes the display-math instruction: `$$...$$` written in source was collapsing to `$...$` because string.Template treats `$$` as the escape for a literal `$`. Doubled to `$$$$...$$$$` so the rendered prompt shows `$$...$$`. v3 switched the output convention from markdown-for-prose to raw LaTeX, mirroring parse_mark_scheme.md.
 ---
 ## SYSTEM
 
@@ -37,7 +37,7 @@ For each entry in the output:
 
 - `number` — copy verbatim from the stub. String, in quotes.
 - `type` — copy verbatim from the stub.
-- `text` — complete question text as printed. Use `$...$` for inline math and `$$...$$` for display math. If the stem is not visible on this page (continued from a previous page, or onto the next), use the empty string `""`.
+- `text` — complete question text as printed. Use `$...$` for inline math and `$$$$...$$$$` for display math. If the stem is not visible on this page (continued from a previous page, or onto the next), use the empty string `""`.
 - `options` — for `type: multiple_choice` only, a list of `{letter, text}` entries (one per printed answer option, in printed order). For every other `type`, **omit the `options` key entirely** — do NOT emit `options: []`.
 
 ## LaTeX formatting in `text` and option `text`
@@ -49,7 +49,7 @@ Block scalars handle backslashes literally, so write LaTeX commands directly:
 - unordered lists → `\begin{itemize}\item first\item second\end{itemize}`
 - ordered/numbered lists → `\begin{enumerate}\item first\item second\end{enumerate}`
 - tables (option grids, binary registers, fill-in cells) → `\begin{tabular}{col-spec} cell & cell \\ next row \end{tabular}` with `\hline` between rows
-- inline math → `$...$`; display math → `$$...$$`
+- inline math → `$...$`; display math → `$$$$...$$$$`
 - explicit line breaks between prose sentences → `\newline`
 - answer lines that span a full line (printed as a long run of dots in the paper) → `\dotfill`. Inline dots within prose stay as literal text — `\dotfill` is for full-line placeholders only.
 

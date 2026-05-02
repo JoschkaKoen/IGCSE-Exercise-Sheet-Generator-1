@@ -495,12 +495,16 @@ def patch_blueprint_with_answers(
 def blueprint_for_transcription(blueprint_str: str, fmt: Any) -> str:
     """Return *blueprint_str* with fields the transcriber must not see removed.
 
-    Strips ``correct_answer`` so the step-27 transcriber AI is not biased by
-    the answer key while transcribing.
+    Strips ``correct_answer`` so the transcriber AI is not biased by the answer
+    key while transcribing. Also strips the step-29 marking fields
+    (``assigned_marks``, ``explanation``, ``confidence``, ``problem``) — the
+    transcriber owns only ``student_answer`` and shouldn't see (or have a
+    chance to fill) the marking-only target fields.
     """
     data = _yaml.safe_load(blueprint_str) or {}
     for q in data.get("questions", []) or []:
-        q.pop("correct_answer", None)
+        for _key in ("correct_answer", "assigned_marks", "explanation", "confidence", "problem"):
+            q.pop(_key, None)
     return _yaml.dump(
         data, Dumper=_ExtractAnswersDumper,
         allow_unicode=True, default_flow_style=False, sort_keys=False,

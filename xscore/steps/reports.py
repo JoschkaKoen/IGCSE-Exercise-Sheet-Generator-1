@@ -70,8 +70,9 @@ def per_student_pdfs(ctx: _Ctx) -> None:
     ).exists()
     # Count actual PDFs on disk so the message reflects every variant
     # (landscape, portrait, portrait-large, 2up, landscape-with-questions,
-    # portrait-list, plus _10pt/_11pt 2up font-size companions, and the
-    # run-level exam_questions.pdf — all under 32_student_pdfs/).
+    # portrait-list, plus _10pt/_11pt 2up font-size companions — all under
+    # 32_student_pdfs/). The run-level exam_questions.pdf lives under
+    # 33_class_report/exam_questions/ and is not counted here.
     n_pdfs = sum(1 for _ in (ctx.artifact_dir / STUDENT_PDFS_DIR).rglob("*.pdf"))
     ok_line(f"{n_pdfs} PDF(s) compiled across {n} student{'s' if n != 1 else ''}")
     # Post-check expected outputs: every student should have all PDF variants.

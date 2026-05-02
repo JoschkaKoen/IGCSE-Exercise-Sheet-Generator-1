@@ -1,7 +1,7 @@
 ---
 name: cover_page_scan
-version: v1
-description: Steps 9 & 10 — cover_page_empty_exam and cover_page_scan. User-only prompt that classifies one exam page as COVER PAGE or QUESTION PAGE, given its OCR/printed text. Placeholder $text holds the printed page text (Template syntax). Used by xscore.preprocessing.assign_pages_to_students.is_cover_page (step 10) AND check_cover_page_text (step 9). Folder named for step 10 (the larger consumer — one call per scan page); same prompt also serves step 9.
+version: v2
+description: Steps 10 & 11 — cover_page_empty and cover_page_scan. User-only prompt that classifies one exam page as COVER PAGE or QUESTION PAGE, given its OCR/printed text. Placeholder $text holds the printed page text (Template syntax). Used by xscore.preprocessing.cover_detection.is_cover_page (step 11) AND check_cover_page_text (step 10). Folder named for step 11 (the larger consumer — one call per scan page); same prompt also serves step 10. v2 names the response shape explicitly (`{"is_cover": true|false}`) so the model doesn't have to guess.
 ---
 You are classifying an exam page as either a COVER PAGE or a QUESTION PAGE.
 
@@ -49,3 +49,5 @@ $text
 --- END PAGE TEXT ---
 
 Is this a cover page (no actual exam questions present)?
+
+Return JSON only: `{"is_cover": true|false}`.

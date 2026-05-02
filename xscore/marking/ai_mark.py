@@ -144,9 +144,9 @@ def _mark_page_pdf(
     """Upload a PDF page (+ optional continuation pages) to Gemini and mark it.
 
     Raises MarkingFailure if all retries are exhausted.
-    *has_student_answers* — when True, the blueprint's student_answer fields
-    are pre-filled by step 28; switches the system prompt to
-    FIELD_RULES_PRESUPPLIED. See ``_mark_page`` docstring.
+    *has_student_answers* — kept for backward compat; ignored. The marking
+    AI always treats `transcribed_answer` as read-only input (step 28 always
+    runs first). See ``_mark_page`` docstring.
 
     *scheme_graphics* — 4-tuples (qnum, ms_page, b64_png, transcription). The
     PDF path attaches the image bytes alongside the user text and embeds the
@@ -183,7 +183,11 @@ def _mark_page_pdf(
         has_student_answers=has_student_answers,
     )
     from xscore.prompts.loader import load_prompt
-    _, user_text = load_prompt(fmt.prompt_name(), section="user", blueprint=blueprint_str)
+    from xscore.marking.mark_page import _rename_blueprint_for_prompt
+    _, user_text = load_prompt(
+        fmt.prompt_name(), section="user",
+        blueprint=_rename_blueprint_for_prompt(blueprint_str),
+    )
     _pdf_b64 = base64.b64encode(Path(pdf_path).read_bytes()).decode()
     _logged_user: list[dict] = [
         {"type": "image_url",

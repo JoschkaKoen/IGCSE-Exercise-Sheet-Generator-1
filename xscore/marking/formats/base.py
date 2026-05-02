@@ -239,12 +239,19 @@ class MarkingFormat:
                 am_int: int | None = int(am) if str(am).strip() not in ("", "null", "None") else None
             except (ValueError, TypeError):
                 am_int = None
+            # The marking prompt presents the field as `transcribed_answer` to
+            # signal it's read-only input. The AI may copy that key through, or
+            # fall back to the legacy `student_answer` name from training data.
+            # Accept either; downstream uses `student_answer` everywhere.
+            _sa = q.get("student_answer")
+            if _sa is None:
+                _sa = q.get("transcribed_answer")
             result.append({
                 "number":        str(q.get("number", "")),
                 "subpage_row":   int(q.get("subpage_row", 1)),
                 "subpage_col":   int(q.get("subpage_col", 1)),
                 "assigned_marks": am_int,
-                "student_answer": str(q.get("student_answer") or "").strip(),
+                "student_answer": str(_sa or "").strip(),
                 "explanation":    str(q.get("explanation") or "").strip(),
                 "confidence":     parse_confidence_int(q.get("confidence")),
                 "problem":        parse_problem(q.get("problem")),

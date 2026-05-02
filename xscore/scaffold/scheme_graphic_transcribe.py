@@ -125,6 +125,31 @@ def _transcribe_one(
 # Phase orchestration
 # ---------------------------------------------------------------------------
 
+def _format_mark_scheme(ms: Any) -> str:
+    """Render a list of ``{mark, criterion}`` dicts as readable plain text.
+
+    The mark-scheme parser (step 24) produces structured criteria. Plain
+    ``str(list_of_dicts)`` gives Python's ``repr()``: single-quote dict keys,
+    doubled backslashes, literal ``\\n`` — the model has to mentally unescape.
+    This helper emits the same content as a clean ``[N marks] criterion``
+    block per entry, which the transcribe-graphic prompt's ``$mark_scheme_text``
+    placeholder consumes verbatim.
+    """
+    if isinstance(ms, str):
+        return ms  # pre-formatted (legacy callers)
+    if not ms:
+        return ""
+    parts: list[str] = []
+    for entry in ms:
+        if not isinstance(entry, dict):
+            continue
+        mark = entry.get("mark", "")
+        criterion = (entry.get("criterion") or "").rstrip()
+        suffix = "marks" if str(mark) != "1" else "mark"
+        parts.append(f"[{mark} {suffix}] {criterion}")
+    return "\n\n".join(parts)
+
+
 def _scheme_question_lookup(scheme_data: Any, raw_questions: Any) -> dict[str, dict[str, str]]:
     """``{safe_qnum: {question_text, correct_answer, mark_scheme}}``.
 
@@ -158,7 +183,7 @@ def _scheme_question_lookup(scheme_data: Any, raw_questions: Any) -> dict[str, d
             out[safe] = {
                 "question_text": str(q.get("question_text") or raw_text_by_safe.get(safe) or ""),
                 "correct_answer": str(q.get("correct_answer") or ""),
-                "mark_scheme": str(q.get("mark_scheme") or ""),
+                "mark_scheme": _format_mark_scheme(q.get("mark_scheme") or []),
                 "human_qnum": num,
             }
 

@@ -1,7 +1,7 @@
 ---
 name: detect_exam_layout
 version: v1
-description: Step 16 — detect_exam_layout. Combined system + user prompt for exam page layout detection. Returns rows/cols/reading_order JSON. Used by xscore.scaffold.scaffold_prompts. No substitutions.
+description: Step 8 — detect_exam_layout. Combined system + user prompt for exam page layout detection. Returns rows/cols/reading_order JSON. Used by xscore.scaffold.scaffold_prompts. No substitutions. (Step number was 16 in earlier pipeline versions; current run-folder is `08_detect_exam_layout`.)
 ---
 ## SYSTEM
 

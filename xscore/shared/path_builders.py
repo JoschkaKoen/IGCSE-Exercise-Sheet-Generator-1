@@ -657,16 +657,6 @@ def artifact_student_report_pdf_portrait_list_path(artifact_dir: Path, student: 
     return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_LIST) / f"{safe_student_name(student)}_portrait_list.pdf"
 
 
-def artifact_exam_questions_tex_path(artifact_dir: Path) -> Path:
-    """Standalone exam-questions PDF source — one per run, top-level (top-level)."""
-    return artifact_student_pdfs_dir(artifact_dir) / "exam_questions.tex"
-
-
-def artifact_exam_questions_pdf_path(artifact_dir: Path) -> Path:
-    """Standalone exam-questions PDF — one per run, top-level (top-level)."""
-    return artifact_student_pdfs_dir(artifact_dir) / "exam_questions.pdf"
-
-
 # ---------------------------------------------------------------------------
 # Class report (XML/MD/TeX/PDF + combined PDF)
 # ---------------------------------------------------------------------------
@@ -678,6 +668,21 @@ def artifact_class_report_dir(artifact_dir: Path) -> Path:
 def artifact_class_report_summary_dir(artifact_dir: Path) -> Path:
     """Class summary core (xml/md/tex/pdf/2up/aux/log + xlsx + charts/)."""
     return artifact_class_report_dir(artifact_dir) / "class_report"
+
+
+def artifact_class_report_exam_questions_dir(artifact_dir: Path) -> Path:
+    """Standalone exam-questions PDF + sources — one per run."""
+    return artifact_class_report_dir(artifact_dir) / "exam_questions"
+
+
+def artifact_exam_questions_tex_path(artifact_dir: Path) -> Path:
+    """Standalone exam-questions PDF source — one per run."""
+    return artifact_class_report_exam_questions_dir(artifact_dir) / "exam_questions.tex"
+
+
+def artifact_exam_questions_pdf_path(artifact_dir: Path) -> Path:
+    """Standalone exam-questions PDF — one per run."""
+    return artifact_class_report_exam_questions_dir(artifact_dir) / "exam_questions.pdf"
 
 
 def artifact_class_report_charts_dir(artifact_dir: Path) -> Path:

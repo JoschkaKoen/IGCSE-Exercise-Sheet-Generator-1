@@ -1,7 +1,7 @@
 ---
 name: parse_mark_scheme
 version: v4
-description: Step 23 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction. Placeholder $scaffold (Template syntax) holds the full exam scaffold inserted into the user prompt; per-page workers fill criteria for questions on the current page and leave the rest empty. Body also contains literal LaTeX math `$...$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. v4 added a constraint forbidding the model from transcribing diagrams: no `\includegraphics`/`\graphicspath` and no verbal "[Diagram text: …]" criteria — diagrams are extracted by step 22 and inserted by the renderer. v3 changed the MCQ rule from `criteria: []` to a single `mark: 0` entry containing the mark scheme's explanation of the correct answer, formatted as a LaTeX itemize list — downstream code routes that text into the new `Question.reasoning` field for MCQ. v2 restructured SYSTEM into named sub-blocks (In scope / What NOT to change) and USER into named sub-blocks (The scaffold / Output schema / correct_answer rules / Quoting rules / criteria rules / LaTeX formatting in criterion text / Worked example). Used by xscore.scaffold.formats.base.ScaffoldFormat.
+description: Step 24 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction. Placeholder $scaffold (Template syntax) holds the full exam scaffold inserted into the user prompt; per-page workers fill criteria for questions on the current page and leave the rest empty. Body also contains literal LaTeX math `$...$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. v4 added a constraint forbidding the model from transcribing diagrams: no `\includegraphics`/`\graphicspath` and no verbal "[Diagram text: …]" criteria — diagrams are extracted by step 22 and inserted by the renderer. v3 changed the MCQ rule from `criteria: []` to a single `mark: 0` entry containing the mark scheme's explanation of the correct answer, formatted as a LaTeX itemize list — downstream code routes that text into the new `Question.reasoning` field for MCQ. v2 restructured SYSTEM into named sub-blocks (In scope / What NOT to change) and USER into named sub-blocks (The scaffold / Output schema / correct_answer rules / Quoting rules / criteria rules / LaTeX formatting in criterion text / Worked example). Used by xscore.scaffold.formats.base.ScaffoldFormat. (Step number was 23 in earlier pipeline versions; current run-folder is `24_parse_mark_scheme`.)
 ---
 ## SYSTEM
 
@@ -18,6 +18,7 @@ You are an expert at reading exam mark schemes. Your job is to extract per-quest
 - **Keep every scaffold entry.** The scaffold lists every question in the exam; return one entry per scaffold entry, in the same order, with `number`, `type`, and `marks` copied through unchanged. Do not drop any.
 - **Per-page filtering.** The scaffold is the FULL exam scaffold, but the page in front of you only contains criteria for some of the questions. For questions whose criteria are NOT on this page, leave `correct_answer: ""` and `criteria: []` (the scaffold's empty defaults) — do not guess.
 - **Do NOT emit any structural keys other than `number`, `type`, `marks`, `correct_answer`, `criteria`.**
+- **Do NOT transcribe diagrams.** When a question's mark scheme contains a diagram, figure, or graph, do not emit `\includegraphics`/`\graphicspath`/any image command, and do not produce bullet criteria that verbally describe the diagram (e.g. `[Diagram text: …]`, "*The diagram demonstrates…*"). Diagrams are extracted by step 22 and inserted by the renderer. Include only criteria that are genuinely separate text in the printed mark scheme — list-style mark allocations, "MAX six" rules, accept/reject notes, and similar.
 
 ## USER
 
@@ -106,7 +107,7 @@ Constraints:
 - Never use more than one `\newline` in a row.
 - List items begin directly with `\item` — no `\newline` between items.
 - Plain prose and introductory sentences are written verbatim (no wrapping command needed).
-- When a question's mark scheme contains a diagram, figure, or graph, do **not** transcribe it. Specifically: do not emit `\includegraphics`, `\graphicspath`, or any image command; and do not produce bullet criteria that verbally describe the diagram (e.g. `[Diagram text: …]`, "*The diagram demonstrates: bots send requests…*"). Diagrams are extracted separately and inserted alongside the bullet criteria automatically. Include only criteria that are genuinely separate text in the printed mark scheme — list-style mark allocations, "MAX six" rules, accept/reject notes, and similar.
+- (Diagram-handling rule lives at the top under `## What NOT to change` — do not transcribe diagrams or emit `\includegraphics`.)
 
 ## Worked example
 

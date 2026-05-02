@@ -62,6 +62,27 @@ def _bq_key(bq: dict) -> tuple:
     )
 
 
+# Match `student_answer:` only when it sits at the question-dict indent — exactly
+# 2 spaces in the YAML emitted by build_blueprint / patch_blueprint_with_answers
+# (sibling to `type:`, `correct_answer:`, etc.). Block-scalar content lives at
+# 4+ spaces, so this regex won't rename text that happens to mention
+# `student_answer:` inside a question_text.
+_STUDENT_ANSWER_LINE = re.compile(r'(?m)^(  )student_answer:')
+
+
+def _rename_blueprint_for_prompt(blueprint_str: str) -> str:
+    """Rename ``student_answer:`` → ``transcribed_answer:`` in the YAML blueprint
+    string passed into the marking prompt.
+
+    The pipeline stores the field as ``student_answer`` everywhere (matching
+    step 28's output and the downstream report format); the rename only
+    happens on the prompt-bound copy so the marking AI sees a different field
+    name from the marking fields it owns. ``parse_response`` accepts either
+    name when reading the AI's reply, so the round-trip is transparent.
+    """
+    return _STUDENT_ANSWER_LINE.sub(r'\1transcribed_answer:', blueprint_str)
+
+
 def _build_marking_system_prompt(
     blueprint: dict,
     scheme_graphics: "list[tuple[str, int, str, str]]" = (),
@@ -73,13 +94,15 @@ def _build_marking_system_prompt(
 ) -> str:
     """Build the system prompt shared by the JPEG and Gemini PDF marking paths.
 
-    *has_student_answers* — when True, the per-question ``student_answer``
-    fields in the blueprint are pre-filled by step 26
-    (``extract_student_answers``). The system prompt is then assembled from
-    the FIELD_RULES_PRESUPPLIED fragment, which tells the model to copy the
-    pre-filled value through unchanged and focus on assigned_marks +
-    explanation. When False, the original FIELD_RULES fragment is used and
-    the model transcribes ``student_answer`` itself.
+    Step 28 (``extract_student_answers``) always runs before step 29 in the
+    live pipeline; the blueprint reaches this function with student answers
+    already transcribed and renamed to ``transcribed_answer``. The
+    FIELD_RULES fragment instructs the marker to treat that field as
+    read-only input and emit only ``assigned_marks``, ``explanation``,
+    ``confidence``, and ``problem``.
+
+    *has_student_answers* — accepted for backward compat with callers that
+    haven't been updated yet; ignored.
     """
     if fmt is None:
         fmt = MarkingFormat()
@@ -88,13 +111,11 @@ def _build_marking_system_prompt(
 
     # --- Sections A + B + C + D: role/task, field rules, output format, format validity ---
     # The per-format ai_marking_<fmt>.md SYSTEM section embeds A, C, D around a
-    # $field_rules placeholder. ai_marking_fragments.md FIELD_RULES (or
-    # FIELD_RULES_PRESUPPLIED, when answers are pre-filled by step 26) is
-    # loaded first with $criterion_ref so the assembled system prompt is
-    # byte-identical to the pre-consolidation 4-method append.
-    _field_rules_section = "field_rules_presupplied" if has_student_answers else "field_rules"
+    # $field_rules placeholder. ai_marking_fragments.md FIELD_RULES is loaded
+    # first with $criterion_ref so the assembled system prompt is byte-
+    # identical to the pre-consolidation 4-method append.
     _, _b = load_prompt(
-        "ai_marking_fragments", section=_field_rules_section, criterion_ref=fmt.criterion_ref(),
+        "ai_marking_fragments", section="field_rules", criterion_ref=fmt.criterion_ref(),
     )
     _, system_prompt = load_prompt(
         fmt.prompt_name(), section="system", field_rules=_b.rstrip("\n"),
@@ -171,9 +192,8 @@ def _mark_page(
     *reuse_cache* — when True, look up the request in
     :mod:`xscore.shared.response_cache` before calling the API; on miss, store
     the API response after a successful parse. Default False (no cache).
-    *has_student_answers* — when True, the blueprint's student_answer fields
-    are pre-filled by step 26; the system prompt switches to FIELD_RULES_PRESUPPLIED
-    and the marking-response-merge guards student_answer against AI overwrite.
+    *has_student_answers* — kept for backward compat; ignored. The marking
+    AI always treats `transcribed_answer` as read-only input from step 28.
     """
     if fmt is None:
         fmt = MarkingFormat()
@@ -183,7 +203,10 @@ def _mark_page(
         has_student_answers=has_student_answers,
     )
 
-    _, user_text = load_prompt(fmt.prompt_name(), section="user", blueprint=blueprint_xml)
+    _, user_text = load_prompt(
+        fmt.prompt_name(), section="user",
+        blueprint=_rename_blueprint_for_prompt(blueprint_xml),
+    )
     _user_content: list[dict] = [
         {"type": "text", "text": user_text},
         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
@@ -484,7 +507,8 @@ def _do_retry_call(
     try:
         slim_xml = fmt.build_blueprint(page_num, layout, slim_questions)
         _, base_user_text = load_prompt(
-            fmt.prompt_name(), section="user", blueprint=slim_xml,
+            fmt.prompt_name(), section="user",
+            blueprint=_rename_blueprint_for_prompt(slim_xml),
         )
         # Display labels with a leading "q" so they read naturally in the
         # emphasis line ("missing q4c, q10" rather than "missing 4c, 10").

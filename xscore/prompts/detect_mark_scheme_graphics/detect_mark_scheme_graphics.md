@@ -1,7 +1,7 @@
 ---
 name: detect_mark_scheme_graphics
-version: v3
-description: Step 22 — detect_mark_scheme_graphics. Combined SYSTEM + USER prompt for the per-page mark-scheme graphics detector. Used by xscore.scaffold.scaffold_graphics.
+version: v4
+description: Step 22 — detect_mark_scheme_graphics. Combined SYSTEM + USER prompt for the per-page mark-scheme graphics detector. Used by xscore.scaffold.scaffold_graphics. v4 switched the example/instruction question-number format from Cambridge bracket form ("3(b)(ii)") to the compact form passed in the user message ("3bii"); the previous contradiction caused the AI to emit "7(a)" which had to be normalised downstream.
 ---
 ## SYSTEM
 
@@ -11,7 +11,7 @@ Respond ONLY with well-formed YAML — no markdown fences, no commentary outside
 
 ```yaml
 graphics:
-  - question_number: "3(b)(ii)"
+  - question_number: "3bii"
     bbox: [120, 200, 380, 460]
     description: "circuit diagram"
   - question_number: "5"
@@ -54,9 +54,9 @@ Bounding-box rules:
 - One bounding box per distinct graphic. Two unrelated diagrams for the same question → two entries.
 
 Question-number rules:
-- Use the format printed in the mark scheme (e.g. "3(b)(ii)", "5", "Section B 2(a)").
+- Use the EXACT format from the "Valid question numbers in this mark scheme" list passed in user (e.g. "3bii", "5"). Do NOT use Cambridge bracket form like "3(b)(ii)" — that won't match.
 - Prefer the most specific sub-part whose marking criteria the graphic illustrates.
-- If the sub-part is genuinely unclear, return the most specific parent you can identify (e.g. "3(b)" or "3") rather than guessing a wrong sub-part.
+- If the sub-part is genuinely unclear, return the most specific parent you can identify (e.g. "3b" or "3") rather than guessing a wrong sub-part.
 
 For each graphic, return:
   question_number — the question number, per the rules above.
