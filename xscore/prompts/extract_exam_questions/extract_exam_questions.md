@@ -1,7 +1,7 @@
 ---
-name: fill_exam_scaffold
+name: extract_exam_questions
 version: v2
-description: Step 18 fill phase — per-page worker fills text + options for given expected question numbers. Combined system + user prompt. Placeholder $scaffold holds the per-page filtered question stub. v2 restructured SYSTEM into named sub-blocks (In scope / What NOT to change) and USER into named sub-blocks (The stub / Output schema / Markdown vs LaTeX / Quoting rules / Worked example).
+description: Step 20 — per-page worker fills text + options for the question numbers extracted in step 19. Combined system + user prompt. Placeholder $question_stub holds the per-page filtered question stub. SYSTEM has named sub-blocks (In scope / What NOT to change); USER has named sub-blocks (The stub / Output schema / Markdown vs LaTeX / Quoting rules / Worked example).
 ---
 ## SYSTEM
 
@@ -27,7 +27,7 @@ Below is a stub listing every question whose `number` is expected on this page. 
 
 ```yaml
 questions:
-$scaffold
+$question_stub
 ```
 
 Return ONLY well-formed YAML matching this shape — no markdown fences in your response, no commentary outside the YAML document. (The fenced YAML blocks in this prompt are for visual highlighting only.)

@@ -31,11 +31,11 @@ from xscore.shared.step_folders import (
     CROSS_PAGE_CONTEXT_DIR,
     CUT_EXAM_DIR,
     DESKEW_DIR,
-    DETECT_SCAFFOLD_DIR,
     DETECT_SUBJECT_DIR,
     EXAM_BLANK_DIR,
     EXTRACT_ANSWERS_DIR,
-    FILL_SCAFFOLD_DIR,
+    EXTRACT_QUESTION_NUMBERS_DIR,
+    EXTRACT_QUESTIONS_DIR,
     GEOMETRY_DIR,
     HANDWRITING_DIR,
     LAYOUT_DIR,
@@ -326,49 +326,49 @@ def artifact_exam_input_pdf_path(artifact_dir: Path) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# Detect exam scaffold (Phase A — structure only)
+# Extract question numbers from empty exam (step 19)
 # ---------------------------------------------------------------------------
 
 def artifact_exam_scaffold_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
     """Intermediate scaffold — number/type/page/subpage/marks, no text."""
-    return artifact_dir / DETECT_SCAFFOLD_DIR / f"exam_scaffold.{fmt}"
+    return artifact_dir / EXTRACT_QUESTION_NUMBERS_DIR / f"exam_scaffold.{fmt}"
 
 
 def artifact_exam_scaffold_raw_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / DETECT_SCAFFOLD_DIR / f"exam_scaffold_raw.{fmt}"
+    return artifact_dir / EXTRACT_QUESTION_NUMBERS_DIR / f"exam_scaffold_raw.{fmt}"
 
 
 # ---------------------------------------------------------------------------
-# Fill exam scaffold (Phase B — text + options per question)
+# Extract questions from empty exam (step 20 — text + options per question)
 # ---------------------------------------------------------------------------
 
 def artifact_exam_questions_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / FILL_SCAFFOLD_DIR / "exam_questions.json"
+    return artifact_dir / EXTRACT_QUESTIONS_DIR / "exam_questions.json"
 
 
 def artifact_exam_questions_markdown_path(artifact_dir: Path) -> Path:
-    return artifact_dir / FILL_SCAFFOLD_DIR / "exam_questions.md"
+    return artifact_dir / EXTRACT_QUESTIONS_DIR / "exam_questions.md"
 
 
 def artifact_exam_questions_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / FILL_SCAFFOLD_DIR / "exam_questions.xml"
+    return artifact_dir / EXTRACT_QUESTIONS_DIR / "exam_questions.xml"
 
 
 def artifact_exam_questions_raw_xml_path(artifact_dir: Path) -> Path:
-    return artifact_dir / FILL_SCAFFOLD_DIR / "exam_questions_raw.xml"
+    return artifact_dir / EXTRACT_QUESTIONS_DIR / "exam_questions_raw.xml"
 
 
 def artifact_exam_questions_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / FILL_SCAFFOLD_DIR / f"exam_questions.{fmt}"
+    return artifact_dir / EXTRACT_QUESTIONS_DIR / f"exam_questions.{fmt}"
 
 
 def artifact_exam_questions_raw_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
-    return artifact_dir / FILL_SCAFFOLD_DIR / f"exam_questions_raw.{fmt}"
+    return artifact_dir / EXTRACT_QUESTIONS_DIR / f"exam_questions_raw.{fmt}"
 
 
 def artifact_exam_pages_dir(artifact_dir: Path) -> Path:
-    """Per-page PDFs from the post-cut exam PDF — produced and consumed by Phase B (fill)."""
-    return artifact_dir / FILL_SCAFFOLD_DIR / "pages"
+    """Per-page PDFs from the post-cut exam PDF — produced and consumed by step 20 (extract_exam_questions)."""
+    return artifact_dir / EXTRACT_QUESTIONS_DIR / "pages"
 
 
 # ---------------------------------------------------------------------------
@@ -836,12 +836,12 @@ def artifact_scaffold_prompt_path(artifact_dir: Path, name: str) -> Path:
         return artifact_dir / SCHEME_GRAPHICS_DIR / f"{name}_prompt.txt"
     if "mark_scheme" in name:
         return artifact_dir / PARSE_SCHEME_DIR / f"{name}_prompt.txt"
-    if "exam_scaffold" in name:
-        return artifact_dir / DETECT_SCAFFOLD_DIR / f"{name}_prompt.txt"
+    if "question_numbers" in name:
+        return artifact_dir / EXTRACT_QUESTION_NUMBERS_DIR / f"{name}_prompt.txt"
     if "detect_layout" in name or "layout" in name:
         return artifact_dir / LAYOUT_DIR / f"{name}_prompt.txt"
-    # Catch-all: per-page exam-questions fill prompts (Phase B).
-    return artifact_dir / FILL_SCAFFOLD_DIR / f"{name}_prompt.txt"
+    # Catch-all: per-page extract-exam-questions prompts (step 20).
+    return artifact_dir / EXTRACT_QUESTIONS_DIR / f"{name}_prompt.txt"
 
 
 # ---------------------------------------------------------------------------

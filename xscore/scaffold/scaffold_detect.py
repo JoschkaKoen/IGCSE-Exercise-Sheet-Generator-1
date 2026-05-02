@@ -1,12 +1,12 @@
-"""Scaffold phase A — detect_exam_scaffold.
+"""Step 19 worker — extract_exam_question_numbers.
 
 Single-call inference against the full split exam PDF. Returns the question
 hierarchy with structural metadata only: number, type, page, subpage_row,
-subpage_col, marks. **No text, no options.** Phase B (fill) populates those
-per-page in parallel.
+subpage_col, marks. **No text, no options.** Step 20 (extract_exam_questions)
+populates those per-page in parallel.
 
-Provider routing mirrors the old monolithic step 18: Gemini inline PDF /
-Kimi PDF→text / Qwen ``fileid://`` (native PDF) / fallback PNG list.
+Provider routing: Gemini inline PDF / Kimi PDF→text / Qwen ``fileid://``
+(native PDF) / fallback PNG list.
 """
 
 from __future__ import annotations
@@ -34,7 +34,7 @@ from xscore.shared.prompt_logger import save_output_data, save_prompt, save_resp
 from xscore.shared.terminal_ui import api_latency_line, warn_line
 
 
-def detect_exam_scaffold(
+def extract_exam_question_numbers(
     client,
     detect_model: str,
     detect_thinking: int | None,
@@ -48,7 +48,7 @@ def detect_exam_scaffold(
     fmt=None,
     is_cs: bool = False,
 ) -> tuple[list[dict], dict]:
-    """Run the detect-scaffold call. Returns ``(scaffold_nodes, layout_dict)``.
+    """Run the extract-question-numbers call. Returns ``(scaffold_nodes, layout_dict)``.
 
     Each node has number / type / page / subpage_row / subpage_col / marks /
     subquestions populated; ``text == ""`` and ``answer_options == []``.
@@ -56,7 +56,7 @@ def detect_exam_scaffold(
     if fmt is None:
         from xscore.scaffold.formats.base import ScaffoldFormat
         fmt = ScaffoldFormat()
-    user_msg = fmt.build_scaffold_user_msg(
+    user_msg = fmt.build_question_numbers_user_msg(
         layout_result, split_pdf_path is not None, n_split_pages,
     )
 
@@ -66,10 +66,10 @@ def detect_exam_scaffold(
     _oa_thinking_kw: dict = {}
     _use_qwen_pdf = False
     if not detect_model.startswith("gemini"):
-        _oa_result = make_ai_client(model_env="DETECT_EXAM_SCAFFOLD_MODEL")
+        _oa_result = make_ai_client(model_env="EXTRACT_EXAM_QUESTION_NUMBERS_MODEL")
         if _oa_result is None:
             raise RuntimeError(
-                f"No API key set for detect-scaffold model {detect_model!r}"
+                f"No API key set for extract-question-numbers model {detect_model!r}"
             )
         _oa_client, _, _oa_provider, _, _ = _oa_result
         _oa_use_stream, _oa_thinking_kw = build_completion_kwargs(
@@ -95,7 +95,7 @@ def detect_exam_scaffold(
         _exam_pdf_file_id = upload_pdf_for_extract(_oa_client, actual_exam_pdf)
     else:
         import fitz as _fitz
-        _dpi = int(os.environ.get("DETECT_EXAM_SCAFFOLD_DPI", "300"))
+        _dpi = int(os.environ.get("EXTRACT_EXAM_QUESTION_NUMBERS_DPI", "300"))
         with _fitz.open(str(actual_exam_pdf)) as _doc:
             for _i in range(_doc.page_count):
                 pix = _doc[_i].get_pixmap(dpi=_dpi)
@@ -109,7 +109,7 @@ def detect_exam_scaffold(
     _messages: list = []
     if _oa_client is None:
         _audit_messages: list = [
-            {"role": "system", "content": fmt.system_scaffold_prompt(is_cs=is_cs)},
+            {"role": "system", "content": fmt.system_question_numbers_prompt(is_cs=is_cs)},
             {"role": "user", "content": [
                 attachment_part(actual_exam_pdf.read_bytes(), "application/pdf"),
                 {"type": "text", "text": user_msg},
@@ -118,13 +118,13 @@ def detect_exam_scaffold(
     else:
         if _oa_provider == "kimi":
             _messages = [
-                {"role": "system", "content": fmt.system_scaffold_prompt(is_cs=is_cs)},
+                {"role": "system", "content": fmt.system_question_numbers_prompt(is_cs=is_cs)},
                 {"role": "system", "content": _exam_pdf_text},
                 {"role": "user", "content": user_msg},
             ]
         elif _use_qwen_pdf:
             _messages = [
-                {"role": "system", "content": fmt.system_scaffold_prompt(is_cs=is_cs)},
+                {"role": "system", "content": fmt.system_question_numbers_prompt(is_cs=is_cs)},
                 qwen_pdf_system_message(_exam_pdf_file_id),
                 {"role": "user", "content": user_msg},
             ]
@@ -135,7 +135,7 @@ def detect_exam_scaffold(
             ]
             _content.append({"type": "text", "text": user_msg})
             _messages = [
-                {"role": "system", "content": fmt.system_scaffold_prompt(is_cs=is_cs)},
+                {"role": "system", "content": fmt.system_question_numbers_prompt(is_cs=is_cs)},
                 {"role": "user", "content": _content},
             ]
         _audit_messages = _messages
@@ -162,7 +162,7 @@ def detect_exam_scaffold(
                     gai_types.Part.from_text(text=user_msg),
                 ],
                 config=_make_gen_config(
-                    detect_thinking, fmt.system_scaffold_prompt(is_cs=is_cs),
+                    detect_thinking, fmt.system_question_numbers_prompt(is_cs=is_cs),
                     max_tokens=detect_max_tokens,
                 ),
             )
@@ -191,7 +191,7 @@ def detect_exam_scaffold(
             raise RuntimeError(f"Scaffold response empty after retry — {detect_model}")
 
     if artifact_dir is not None:
-        _prompt_path = artifact_scaffold_prompt_path(artifact_dir, "exam_scaffold")
+        _prompt_path = artifact_scaffold_prompt_path(artifact_dir, "exam_question_numbers")
         save_prompt(
             _prompt_path,
             model=detect_model, messages=_audit_messages,
@@ -206,7 +206,7 @@ def detect_exam_scaffold(
             warn_line(f"Could not save raw scaffold response: {e}")
 
     try:
-        return fmt.parse_scaffold_response(raw)
+        return fmt.parse_question_numbers_response(raw)
     except Exception as exc:
         raise RuntimeError(
             f"Scaffold response failed parsing: {exc}: {raw[:300]!r}"

@@ -10,10 +10,10 @@ AI provider usage by step (see ``xscore.shared.pipeline_steps.STEPS`` for the li
   cover_page_empty_exam          : Gemini        — empty-exam cover-page check
   cover_page_scan_first          : Gemini        — scan cover-page detection (page 1 only)
   student_names                  : configurable  — student-name OCR (NAME_DETECTION_MODEL)
-  detect_exam_layout / scaffold / mark scheme :
+  detect_exam_layout / extract questions / mark scheme :
                                    configurable — exam/mark-scheme parsing
-                                   (DETECT_LAYOUT_MODEL, DETECT_EXAM_SCAFFOLD_MODEL,
-                                    FILL_EXAM_SCAFFOLD_MODEL, DETECT_SCHEME_GRAPHICS_MODEL,
+                                   (DETECT_LAYOUT_MODEL, EXTRACT_EXAM_QUESTION_NUMBERS_MODEL,
+                                    EXTRACT_EXAM_QUESTIONS_MODEL, DETECT_SCHEME_GRAPHICS_MODEL,
                                     ASSIGN_SCHEME_QUESTIONS_MODEL, READ_MARK_SCHEME_MODEL)
   ai_marking                     : configurable  — AI marking (MARKING_MODEL)
 
@@ -230,9 +230,8 @@ def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = 
 
 _ai_default = os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash")
 
-READ_EXAM_PDF_MODEL: str = os.getenv("READ_EXAM_PDF_MODEL") or _ai_default
-DETECT_EXAM_SCAFFOLD_MODEL: str = os.getenv("DETECT_EXAM_SCAFFOLD_MODEL") or "gemini-3-flash-preview, 2048, 8192"
-FILL_EXAM_SCAFFOLD_MODEL: str = os.getenv("FILL_EXAM_SCAFFOLD_MODEL") or os.getenv("READ_EXAM_PDF_MODEL") or _ai_default
+EXTRACT_EXAM_QUESTION_NUMBERS_MODEL: str = os.getenv("EXTRACT_EXAM_QUESTION_NUMBERS_MODEL") or "gemini-3-flash-preview, 2048, 8192"
+EXTRACT_EXAM_QUESTIONS_MODEL: str = os.getenv("EXTRACT_EXAM_QUESTIONS_MODEL") or _ai_default
 READ_MARK_SCHEME_MODEL: str = os.getenv("READ_MARK_SCHEME_MODEL") or _ai_default
 DETECT_LAYOUT_MODEL: str = os.getenv("DETECT_LAYOUT_MODEL") or "gemini-2.5-flash, low"
 DETECT_SCHEME_GRAPHICS_MODEL: str = os.getenv("DETECT_SCHEME_GRAPHICS_MODEL") or "gemini-2.5-flash, off"

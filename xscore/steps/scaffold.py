@@ -75,29 +75,28 @@ def cut_exam_pdf(ctx: _Ctx) -> None:
     state["n_split"] = n_split
 
 
-def detect_exam_scaffold(ctx: _Ctx) -> None:
-    """Phase A: detect exam scaffold structure (one cheap call).
+def extract_exam_question_numbers(ctx: _Ctx) -> None:
+    """Step 19: extract question numbers from the empty exam (one cheap call).
 
-    Writes ``18_detect_exam_scaffold/exam_scaffold.{ext}`` and stores the
-    resulting nodes in ``ctx.scaffold_state['scaffold_nodes']`` for the
-    fill phase.
+    Writes ``19_extract_exam_question_numbers/exam_scaffold.{ext}`` and stores
+    the resulting nodes in ``ctx.scaffold_state['scaffold_nodes']`` for step 20.
     """
     announce_step_model(
-        model_env="DETECT_EXAM_SCAFFOLD_MODEL",
+        model_env="EXTRACT_EXAM_QUESTION_NUMBERS_MODEL",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     state = ctx.scaffold_state
-    from xscore.scaffold.scaffold_detect import detect_exam_scaffold
+    from xscore.scaffold.scaffold_detect import extract_exam_question_numbers
     from xscore.scaffold.ai_scaffold import (
-        _detect_scaffold_model_config, _print_detected_summary,
+        _extract_question_numbers_model_config, _print_detected_summary,
     )
     from xscore.shared.exam_paths import artifact_exam_scaffold_path
     from xscore.shared.subjects import needs_code_formatting
     fmt = state["fmt"]
-    detect_model, detect_thinking, detect_max_tokens = _detect_scaffold_model_config()
+    detect_model, detect_thinking, detect_max_tokens = _extract_question_numbers_model_config()
     from xscore.shared.terminal_ui import info_line
-    info_line(f"Detect scaffold ({detect_model}) …")
-    scaffold_nodes, raw_layout = detect_exam_scaffold(
+    info_line(f"Extract question numbers ({detect_model}) …")
+    scaffold_nodes, raw_layout = extract_exam_question_numbers(
         state["client"],
         detect_model,
         detect_thinking,
@@ -129,27 +128,26 @@ def detect_exam_scaffold(ctx: _Ctx) -> None:
     state["raw_layout"] = raw_layout
 
 
-def fill_exam_scaffold(ctx: _Ctx) -> None:
-    """Phase B: fill scaffold with text + options (per-page parallel).
+def extract_exam_questions(ctx: _Ctx) -> None:
+    """Step 20: extract per-question text + options from the empty exam (per-page parallel).
 
-    Reads ``ctx.scaffold_state['scaffold_nodes']`` from the detect phase;
-    writes ``19_fill_exam_scaffold/exam_questions.{ext}`` and stores
+    Reads ``ctx.scaffold_state['scaffold_nodes']`` from step 19; writes
+    ``20_extract_exam_questions/exam_questions.{ext}`` and stores
     ``raw_questions`` on ``scaffold_state`` for downstream steps.
     """
     announce_step_model(
-        model_env="FILL_EXAM_SCAFFOLD_MODEL",
-        legacy_model_env="READ_EXAM_PDF_MODEL",
+        model_env="EXTRACT_EXAM_QUESTIONS_MODEL",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
     state = ctx.scaffold_state
-    from xscore.scaffold.scaffold_fill import fill_exam_scaffold
-    from xscore.scaffold.ai_scaffold import _fill_scaffold_model_config
+    from xscore.scaffold.scaffold_fill import extract_exam_questions
+    from xscore.scaffold.ai_scaffold import _extract_questions_model_config
     from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
     from xscore.shared.exam_paths import artifact_exam_questions_path
     from xscore.shared.subjects import needs_code_formatting
     fmt = state["fmt"]
-    fill_model, fill_thinking, fill_max_tokens = _fill_scaffold_model_config()
-    raw_questions = fill_exam_scaffold(
+    fill_model, fill_thinking, fill_max_tokens = _extract_questions_model_config()
+    raw_questions = extract_exam_questions(
         state["client"],
         fill_model,
         fill_thinking,
@@ -178,7 +176,7 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
     """Detect cross-page context — figure references AND parent stems.
 
     Pure data transform: reads the v1 marking page register from
-    ``build_marking_register_v1`` plus ``fill_exam_scaffold``'s
+    ``build_marking_register_v1`` plus ``extract_exam_questions``'s
     ``exam_questions.{yaml|json|xml}`` artifact, runs two augmentation passes
     (figure mentions on a different page from where the figure is drawn;
     child questions on a different page from a parent's stem/flowchart),

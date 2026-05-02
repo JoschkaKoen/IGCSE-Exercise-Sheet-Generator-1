@@ -1,7 +1,7 @@
 """Factory for the scaffold format.
 
 Call ``get_scaffold_format()`` once per pipeline invocation and pass the
-instance to ``detect_exam_scaffold``, ``fill_exam_scaffold``,
+instance to ``extract_exam_question_numbers``, ``extract_exam_questions``,
 ``detect_scheme_graphics``, and ``parse_mark_scheme_pages``.
 """
 

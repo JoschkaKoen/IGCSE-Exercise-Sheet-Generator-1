@@ -127,10 +127,10 @@ def _load_scheme_yaml_recovering(text: str):
     raise RuntimeError("Mark scheme YAML parse error: too many recovery attempts")
 
 
-def _build_user_scaffold_prompt_yaml(
+def _build_user_question_numbers_prompt_yaml(
     layout_result, is_split: bool, n_split_pages: int,
 ) -> str:
-    """YAML-adapted detect-scaffold user prompt — like
+    """YAML-adapted extract-question-numbers user prompt — like
     ``_build_user_exam_prompt_yaml`` but the per-question schema in the tail
     drops ``text`` and ``options``."""
     _QUAD = {
@@ -395,13 +395,13 @@ class ScaffoldFormat:
         from xscore.scaffold.scaffold_prompts import make_system_scheme_prompt
         return make_system_scheme_prompt("parse_mark_scheme", is_cs=is_cs)
 
-    def system_scaffold_prompt(self, is_cs: bool = False) -> str:
-        from xscore.scaffold.scaffold_prompts import make_system_scaffold_prompt
-        return make_system_scaffold_prompt("detect_exam_scaffold", is_cs=is_cs)
+    def system_question_numbers_prompt(self, is_cs: bool = False) -> str:
+        from xscore.scaffold.scaffold_prompts import make_system_question_numbers_prompt
+        return make_system_question_numbers_prompt("extract_exam_question_numbers", is_cs=is_cs)
 
-    def system_fill_prompt(self, is_cs: bool = False) -> str:
-        from xscore.scaffold.scaffold_prompts import make_system_fill_prompt
-        return make_system_fill_prompt("fill_exam_scaffold", is_cs=is_cs)
+    def system_questions_prompt(self, is_cs: bool = False) -> str:
+        from xscore.scaffold.scaffold_prompts import make_system_questions_prompt
+        return make_system_questions_prompt("extract_exam_questions", is_cs=is_cs)
 
     def build_exam_prompt(self, layout_result, is_split: bool, n_split_pages: int) -> str:
         return _build_user_exam_prompt_yaml(layout_result, is_split, n_split_pages)
@@ -520,21 +520,21 @@ class ScaffoldFormat:
             sort_keys=False,
         )
 
-    # ---- detect-scaffold (phase A) -----------------------------------------
+    # ---- step 19 — extract question numbers --------------------------------
 
-    def build_scaffold_user_msg(
+    def build_question_numbers_user_msg(
         self, layout_result, is_split: bool, n_split_pages: int,
     ) -> str:
-        return _build_user_scaffold_prompt_yaml(layout_result, is_split, n_split_pages)
+        return _build_user_question_numbers_prompt_yaml(layout_result, is_split, n_split_pages)
 
-    def parse_scaffold_response(self, raw: str) -> tuple[list[dict], dict]:
+    def parse_question_numbers_response(self, raw: str) -> tuple[list[dict], dict]:
         try:
             data = yaml.safe_load(_strip_fences(raw))
         except yaml.YAMLError as exc:
-            raise RuntimeError(f"Scaffold YAML parse error: {exc}") from exc
+            raise RuntimeError(f"Question-numbers YAML parse error: {exc}") from exc
         if not isinstance(data, dict):
             raise RuntimeError(
-                f"Scaffold YAML: expected a mapping, got {type(data).__name__}"
+                f"Question-numbers YAML: expected a mapping, got {type(data).__name__}"
             )
         layout = {
             "rows": int(data.get("rows", 1)),
@@ -559,9 +559,9 @@ class ScaffoldFormat:
             sort_keys=False,
         )
 
-    # ---- fill (phase B) -----------------------------------------------------
+    # ---- step 20 — extract question text + options -------------------------
 
-    def build_fill_stub(self, filtered_nodes: list[dict]) -> str:
+    def build_questions_stub(self, filtered_nodes: list[dict]) -> str:
         lines = []
         for n in filtered_nodes:
             num = str(n.get("number", ""))
@@ -571,7 +571,7 @@ class ScaffoldFormat:
             lines.append("    text: \"\"")
         return "\n".join(lines)
 
-    def build_fill_user_msg(
+    def build_questions_user_msg(
         self, stub_str: str, page_num: int, n_pages: int,
         expected_qnums: list[str], input_label: str = "PDF",
     ) -> str:
@@ -584,14 +584,14 @@ class ScaffoldFormat:
             f"Do not add, remove, reorder, or rename any entry."
         )
         return load_prompt(
-            "fill_exam_scaffold", section="user", scaffold=stub_str,
+            "extract_exam_questions", section="user", question_stub=stub_str,
         )[1] + page_note
 
-    def parse_fill_response(self, raw: str) -> list[dict]:
+    def parse_questions_response(self, raw: str) -> list[dict]:
         try:
             data = yaml.safe_load(_strip_fences(raw))
         except yaml.YAMLError as exc:
-            raise RuntimeError(f"Fill YAML parse error: {exc}") from exc
+            raise RuntimeError(f"Questions YAML parse error: {exc}") from exc
         if isinstance(data, dict):
             entries = data.get("questions") or []
         elif isinstance(data, list):

@@ -1,4 +1,4 @@
-"""Scaffold phase B — fill_exam_scaffold.
+"""Step 20 worker — extract_exam_questions.
 
 Per-page parallel calls that populate ``text`` and ``options`` for each
 question listed on a page. Modeled on
@@ -6,9 +6,9 @@ question listed on a page. Modeled on
 ``ThreadPoolExecutor`` over post-cut PDF pages, four-way provider dispatch
 per page, graceful empty-page degradation on retry exhaustion.
 
-Returns the same scaffold tree the detect phase produced, mutated in place
-to add ``text`` / ``answer_options`` on every node whose ``number`` was
-covered by a successful page response.
+Returns the same scaffold tree step 19 produced, mutated in place to add
+``text`` / ``answer_options`` on every node whose ``number`` was covered by
+a successful page response.
 """
 
 from __future__ import annotations
@@ -89,7 +89,7 @@ def _rasterize_exam_pages(
     actual_exam_pdf: Path, n_pages: int,
 ) -> dict[int, bytes]:
     import fitz
-    _dpi = int(os.environ.get("FILL_EXAM_SCAFFOLD_DPI", "300"))
+    _dpi = int(os.environ.get("EXTRACT_EXAM_QUESTIONS_DPI", "300"))
     page_pngs: dict[int, bytes] = {}
     with fitz.open(str(actual_exam_pdf)) as _doc_r:
         for _i in range(n_pages):
@@ -141,7 +141,7 @@ def _run_truncation_check(scaffold_nodes: list[dict]) -> None:
         warn_line(f"Fill: {f}")
 
 
-def fill_exam_scaffold(
+def extract_exam_questions(
     client,
     fill_model: str,
     fill_thinking: int | None,
@@ -153,7 +153,7 @@ def fill_exam_scaffold(
     fmt=None,
     is_cs: bool = False,
 ) -> list[dict]:
-    """Per-page parallel fill. Returns *scaffold_nodes* (mutated in place)."""
+    """Per-page parallel extract of question text + options. Returns *scaffold_nodes* (mutated in place)."""
     if fmt is None:
         from xscore.scaffold.formats.base import ScaffoldFormat
         fmt = ScaffoldFormat()
@@ -171,10 +171,10 @@ def fill_exam_scaffold(
     _use_qwen_pdf = False
     page_pngs: dict[int, bytes] = {}
     if not fill_model.startswith("gemini"):
-        _oa_result = make_ai_client(model_env="FILL_EXAM_SCAFFOLD_MODEL")
+        _oa_result = make_ai_client(model_env="EXTRACT_EXAM_QUESTIONS_MODEL")
         if _oa_result is None:
             raise RuntimeError(
-                f"No API key set for fill model {fill_model!r}"
+                f"No API key set for extract-questions model {fill_model!r}"
             )
         _oa_client, _, _oa_provider, _, _ = _oa_result
         _oa_use_stream, _oa_thinking_kw = build_completion_kwargs(
@@ -195,7 +195,7 @@ def fill_exam_scaffold(
             return {}
 
         filtered = _filter_questions_by_qnums(scaffold_nodes, set(qnums))
-        stub = fmt.build_fill_stub(filtered)
+        stub = fmt.build_questions_stub(filtered)
         if _oa_client is None:
             _input_label = "PDF"
         elif _oa_provider == "kimi":
@@ -204,7 +204,7 @@ def fill_exam_scaffold(
             _input_label = "PDF"
         else:
             _input_label = "image"
-        user_msg = fmt.build_fill_user_msg(
+        user_msg = fmt.build_questions_user_msg(
             stub, page_num, n_pages, qnums, input_label=_input_label,
         )
 
@@ -215,7 +215,7 @@ def fill_exam_scaffold(
         _messages: list = []
         if _oa_client is None:
             _audit_messages: list = [
-                {"role": "system", "content": fmt.system_fill_prompt(is_cs=is_cs)},
+                {"role": "system", "content": fmt.system_questions_prompt(is_cs=is_cs)},
                 {"role": "user", "content": [
                     attachment_part(
                         page_path_by_num[page_num].read_bytes(), "application/pdf"),
@@ -229,7 +229,7 @@ def fill_exam_scaffold(
                     label=f"fill p{page_num}",
                 )
                 _messages = [
-                    {"role": "system", "content": fmt.system_fill_prompt(is_cs=is_cs)},
+                    {"role": "system", "content": fmt.system_questions_prompt(is_cs=is_cs)},
                     {"role": "system", "content": _page_text},
                     {"role": "user", "content": user_msg},
                 ]
@@ -238,14 +238,14 @@ def fill_exam_scaffold(
                     _oa_client, page_path_by_num[page_num],
                 )
                 _messages = [
-                    {"role": "system", "content": fmt.system_fill_prompt(is_cs=is_cs)},
+                    {"role": "system", "content": fmt.system_questions_prompt(is_cs=is_cs)},
                     qwen_pdf_system_message(file_id),
                     {"role": "user", "content": user_msg},
                 ]
             else:
                 b64 = _base64.b64encode(page_pngs[page_num]).decode()
                 _messages = [
-                    {"role": "system", "content": fmt.system_fill_prompt(is_cs=is_cs)},
+                    {"role": "system", "content": fmt.system_questions_prompt(is_cs=is_cs)},
                     {"role": "user", "content": [
                         {"type": "image_url",
                          "image_url": {"url": f"data:image/png;base64,{b64}"}},
@@ -278,7 +278,7 @@ def fill_exam_scaffold(
                     gai_types.Part.from_text(text=user_msg),
                 ],
                 config=_make_gen_config(
-                    fill_thinking, fmt.system_fill_prompt(is_cs=is_cs),
+                    fill_thinking, fmt.system_questions_prompt(is_cs=is_cs),
                     max_tokens=fill_max_tokens,
                 ),
             )
@@ -299,7 +299,7 @@ def fill_exam_scaffold(
 
         if artifact_dir is not None:
             _prompt_path = artifact_scaffold_prompt_path(
-                artifact_dir, f"exam_fill_p{page_num}",
+                artifact_dir, f"exam_questions_p{page_num}",
             )
             save_prompt(
                 _prompt_path,
@@ -312,7 +312,7 @@ def fill_exam_scaffold(
 
         _duration = format_duration(time.perf_counter() - _t0)
         try:
-            entries = fmt.parse_fill_response(raw or "")
+            entries = fmt.parse_questions_response(raw or "")
         except RuntimeError as _exc:
             warn_line(f"p{page_num}   parse error  ·  {_duration}  —  {_exc}")
             return {}
@@ -341,7 +341,7 @@ def fill_exam_scaffold(
         return by_number
 
     workers = min(
-        n_pages, int(os.environ.get("FILL_EXAM_SCAFFOLD_WORKERS", "500")),
+        n_pages, int(os.environ.get("EXTRACT_EXAM_QUESTIONS_WORKERS", "500")),
     )
     with ThreadPoolExecutor(max_workers=workers) as pool:
         per_page = list(pool.map(_call_page, range(1, n_pages + 1)))

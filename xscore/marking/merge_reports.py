@@ -145,7 +145,7 @@ def render_per_student_pdfs(ctx: Any) -> None:
     ``ctx.instruction.curved_grade_visible`` first, then env var
     ``CURVED_GRADE_VISIBLE`` (default true).
 
-    When ``fill_exam_scaffold``'s ``exam_questions.{yaml|json|xml}`` exists, additionally
+    When ``extract_exam_questions``'s ``exam_questions.{yaml|json|xml}`` exists, additionally
     emits ``exam_questions.pdf`` (one per run) and
     ``*_landscape_with_questions.pdf`` + ``*_portrait_list.pdf`` per student.
     Missing exam-questions artifact → warn-and-skip; the original four

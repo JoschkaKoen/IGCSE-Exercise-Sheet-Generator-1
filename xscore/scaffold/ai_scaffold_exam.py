@@ -5,7 +5,7 @@ Three phase orchestrators called by :func:`build_ai_scaffold` and
 
 - :func:`detect_layout_phase` — Gemini detects the rows×cols multi-up layout.
 - :func:`cut_exam_pdf_phase` — split a multi-up PDF into a single-logical-page PDF.
-- :func:`parse_exam_pdf_full` — two-phase parse (detect scaffold, fill text).
+- :func:`parse_exam_pdf_full` — orchestrates extract_exam_question_numbers + extract_exam_questions.
 
 The mark-scheme-side phases live in :mod:`ai_scaffold_scheme`; the orchestrator
 plus merge logic stays in :mod:`ai_scaffold`.
@@ -17,8 +17,8 @@ import shutil
 from pathlib import Path
 
 from xscore.scaffold.formats import get_scaffold_format
-from xscore.scaffold.scaffold_detect import detect_exam_scaffold
-from xscore.scaffold.scaffold_fill import fill_exam_scaffold
+from xscore.scaffold.scaffold_detect import extract_exam_question_numbers
+from xscore.scaffold.scaffold_fill import extract_exam_questions
 from xscore.scaffold.scaffold_layout import (
     _detect_layout,
     _save_layout_artifact,
@@ -27,8 +27,8 @@ from xscore.scaffold.scaffold_layout import (
 from xscore.scaffold.scaffold_prompts import (
     _SYSTEM_LAYOUT,
     _USER_LAYOUT,
-    _detect_scaffold_model_config,
-    _fill_scaffold_model_config,
+    _extract_question_numbers_model_config,
+    _extract_questions_model_config,
     _layout_detect_model_config,
 )
 from xscore.scaffold.scaffold_qtree import _format_qnums_for_line
@@ -265,32 +265,32 @@ def parse_exam_pdf_full(
     is_cs: bool = False,
 ) -> tuple[list[dict], dict]:
     """Parse the exam PDF into a question hierarchy. Internally split into
-    two phases:
+    two steps:
 
-    A. ``detect_exam_scaffold`` — one cheap call returns ``number/type/page/
-       subpage/marks`` (no text). Uses ``DETECT_EXAM_SCAFFOLD_MODEL``.
-    B. ``fill_exam_scaffold`` — per-page parallel calls populate ``text`` and
-       ``options`` for each question on each page. Uses
-       ``FILL_EXAM_SCAFFOLD_MODEL`` (falls back to ``READ_EXAM_PDF_MODEL``).
+    19. ``extract_exam_question_numbers`` — one cheap call returns ``number/type/page/
+        subpage/marks`` (no text). Uses ``EXTRACT_EXAM_QUESTION_NUMBERS_MODEL``.
+    20. ``extract_exam_questions`` — per-page parallel calls populate ``text`` and
+        ``options`` for each question on each page. Uses
+        ``EXTRACT_EXAM_QUESTIONS_MODEL``.
 
-    Writes the ``detect_exam_scaffold`` artifact ``exam_scaffold.{ext}``
-    (intermediate, no text) and the ``fill_exam_scaffold`` artifact
-    ``exam_questions.{ext}`` (final, with text). Concrete folder names come
-    from ``xscore/shared/step_folders.py`` so renumbering is centralised.
+    Writes the step 19 artifact ``exam_scaffold.{ext}`` (intermediate, no text)
+    and the step 20 artifact ``exam_questions.{ext}`` (final, with text).
+    Concrete folder names come from ``xscore/shared/step_folders.py`` so
+    renumbering is centralised.
 
     Returns ``(raw_questions, raw_layout)`` matching the legacy single-call
     contract — same shape every downstream consumer expects.
 
-    *is_cs* gates the CODE_FORMATTING section in the fill phase's system
-    prompt (the detect phase does not extract text and ignores ``is_cs``).
+    *is_cs* gates the CODE_FORMATTING section in the step-20 system prompt
+    (step 19 does not extract text and ignores ``is_cs``).
     """
     if fmt is None:
         fmt = get_scaffold_format()
 
-    # --- Phase A — detect scaffold (cheap; structure only) ------------------
-    detect_model, detect_thinking, detect_max_tokens = _detect_scaffold_model_config()
-    info_line(f"Detect scaffold ({detect_model}) …")
-    scaffold_nodes, raw_layout = detect_exam_scaffold(
+    # --- Step 19 — extract question numbers (cheap; structure only) ---------
+    detect_model, detect_thinking, detect_max_tokens = _extract_question_numbers_model_config()
+    info_line(f"Extract question numbers ({detect_model}) …")
+    scaffold_nodes, raw_layout = extract_exam_question_numbers(
         client,
         detect_model,
         detect_thinking,
@@ -320,9 +320,9 @@ def parse_exam_pdf_full(
 
     _print_detected_summary(scaffold_nodes)
 
-    # --- Phase B — per-page parallel fill -----------------------------------
-    fill_model, fill_thinking, fill_max_tokens = _fill_scaffold_model_config()
-    raw_questions = fill_exam_scaffold(
+    # --- Step 20 — extract per-question text + options (per-page parallel) --
+    fill_model, fill_thinking, fill_max_tokens = _extract_questions_model_config()
+    raw_questions = extract_exam_questions(
         client,
         fill_model,
         fill_thinking,

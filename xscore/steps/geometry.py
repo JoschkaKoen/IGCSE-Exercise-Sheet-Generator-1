@@ -135,8 +135,8 @@ def detect_subject(ctx: _Ctx) -> None:
     """Two-tier subject detection: filename heuristic first, AI fallback.
 
     Sets ``ctx.subject`` and writes ``13_detect_subject/subject.{json,md}``.
-    Gates the ``CODE_FORMATTING`` prompt section in detect_exam_scaffold,
-    fill_exam_scaffold, parse_mark_scheme, ai_marking, extract_student_answers
+    Gates the ``CODE_FORMATTING`` prompt section in extract_exam_question_numbers,
+    extract_exam_questions, parse_mark_scheme, ai_marking, extract_student_answers
     via :func:`xscore.shared.subjects.needs_code_formatting`.
     """
     import json

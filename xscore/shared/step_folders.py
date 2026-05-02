@@ -40,9 +40,9 @@ PAGE_ORDER_DIR         = "16_page_order"
 EXAM_BLANK_DIR         = "17_exam_blank_detection"
 BUILD_REGISTER_DIR     = "18_build_marking_register"
 
-# Exam scaffold (split into detect + fill phases).
-DETECT_SCAFFOLD_DIR    = "19_detect_exam_scaffold"
-FILL_SCAFFOLD_DIR      = "20_fill_exam_scaffold"
+# Empty-exam parse (question numbers + per-question text/options).
+EXTRACT_QUESTION_NUMBERS_DIR = "19_extract_exam_question_numbers"
+EXTRACT_QUESTIONS_DIR        = "20_extract_exam_questions"
 CROSS_PAGE_CONTEXT_DIR = "21_detect_cross_page_context"
 
 # Mark scheme parsing.

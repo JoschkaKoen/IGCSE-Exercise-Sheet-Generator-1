@@ -143,8 +143,8 @@ STEPS: tuple[Step, ...] = (
          phase="cover_geometry"),
     # Two-tier subject detection (filename heuristic → Gemini AI fallback on
     # cover + page 2 of the empty exam). Sets ctx.subject; gates the
-    # CODE_FORMATTING prompt section in detect_exam_scaffold, fill_exam_scaffold,
-    # parse_mark_scheme, ai_marking, extract_student_answers.
+    # CODE_FORMATTING prompt section in extract_exam_question_numbers,
+    # extract_exam_questions, parse_mark_scheme, ai_marking, extract_student_answers.
     Step(13, "detect_subject",             writes=("13_detect_subject/*",),
          title="Detect exam subject (filename → AI fallback)",
          phase="cover_geometry"),
@@ -181,16 +181,15 @@ STEPS: tuple[Step, ...] = (
                  "17_build_marking_register/*"),  # legacy
          title="Build marking page register",
          phase="cover_geometry"),
-    # Scaffold split: phase A = detect structure; phase B = fill text.
-    Step(19, "detect_exam_scaffold",
-         writes=("19_detect_exam_scaffold/*",
-                 "18_detect_exam_scaffold/*"),  # legacy
-         title="Detect exam scaffold (structure)", section="Exam & mark scheme parsing",
+    # Empty-exam parse split: question numbers (cheap call) + per-question text (per-page parallel).
+    Step(19, "extract_exam_question_numbers",
+         writes=("19_extract_exam_question_numbers/*",),
+         title="Extract question numbers from empty exam",
+         section="Exam & mark scheme parsing",
          phase="scaffold_phase_b"),
-    Step(20, "fill_exam_scaffold",
-         writes=("20_fill_exam_scaffold/*",
-                 "19_fill_exam_scaffold/*"),  # legacy
-         title="Fill exam scaffold (text + options)",
+    Step(20, "extract_exam_questions",
+         writes=("20_extract_exam_questions/*",),
+         title="Extract questions from empty exam",
          phase="scaffold_phase_b"),
     Step(21, "detect_cross_page_context",  resumable=True,
          writes=(
@@ -544,8 +543,8 @@ def wire_step_fns() -> None:
         ("xscore.steps.scaffold", (
             "detect_exam_layout",
             "cut_exam_pdf",
-            "detect_exam_scaffold",
-            "fill_exam_scaffold",
+            "extract_exam_question_numbers",
+            "extract_exam_questions",
             "detect_cross_page_context",
             "detect_mark_scheme_graphics",
             "assign_scheme_questions",

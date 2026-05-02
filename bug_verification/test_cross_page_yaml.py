@@ -2,7 +2,7 @@
 
 File: xscore/steps/scaffold.py
 Issue: detect_cross_page_context hardcodes fmt="yaml" when looking for
-exam questions artifact, but fill_exam_scaffold writes using fmt.artifact_ext()
+exam questions artifact, but extract_exam_questions writes using fmt.artifact_ext()
 which could be json or xml.
 """
 

@@ -165,8 +165,8 @@ flowchart TD
 
     subgraph scaffold ["Exam parse + cross-page + mark scheme (steps 19–26)"]
         direction TB
-        s19["Step 19 —\nDetect exam scaffold\n(Phase A — structure only ·\nDETECT_EXAM_SCAFFOLD_MODEL)"]
-        s20["Step 20 —\nFill exam scaffold\n(Phase B — text + options ·\nper-page parallel ·\nFILL_EXAM_SCAFFOLD_MODEL)"]
+        s19["Step 19 —\nExtract question numbers\nfrom empty exam\n(EXTRACT_EXAM_QUESTION_NUMBERS_MODEL)"]
+        s20["Step 20 —\nExtract questions\nfrom empty exam\n(text + options · per-page parallel ·\nEXTRACT_EXAM_QUESTIONS_MODEL)"]
         s21["Step 21 —\nDetect cross-page\ncontext\n(figures + parent stems ·\nno LLM)"]
         s22["Step 22 —\nDetect mark scheme\ngraphics\n(DETECT_SCHEME_GRAPHICS_MODEL\n· PNG only)"]
         s23["Step 23 —\nAssign questions\nto mark scheme pages\n(ASSIGN_SCHEME_QUESTIONS_MODEL\n· Gemini: native PDF\n· Qwen: per-page PNG)"]
@@ -286,8 +286,8 @@ flowchart TD
 - 18 — Build marking page register v1 (data transform)
 
 **Exam parse + cross-page + mark scheme (19–26)**
-- 19 — Detect exam scaffold (Phase A — structure only)
-- 20 — Fill exam scaffold (Phase B — text + options)
+- 19 — Extract question numbers from empty exam
+- 20 — Extract questions from empty exam (text + options)
 - 21 — Detect cross-page context (figures + parent stems)
 - 22 — Detect mark scheme graphics
 - 23 — Assign questions to mark scheme pages
@@ -378,8 +378,8 @@ Step 14 is the single vision call that classifies every scan page; downstream st
 
 | Step | Description |
 |------|-------------|
-| **19 — Detect exam scaffold** | • Phase A of the (formerly monolithic) parse_exam step<br>• One cheap call against the cut PDF returns `number/type/page/subpage/marks` (no text)<br>• Configure with `DETECT_EXAM_SCAFFOLD_MODEL`<br>• Writes `19_detect_exam_scaffold/exam_scaffold.{yaml,json,xml}` |
-| **20 — Fill exam scaffold** | • Phase B: per-page parallel calls populate `text` and `options` for each question<br>• Reads step 19's scaffold from `ctx.scaffold_state` (in-memory, same run) or disk (resume)<br>• Configure with `FILL_EXAM_SCAFFOLD_MODEL` (or legacy `READ_EXAM_PDF_MODEL`)<br>• Parallel (`FILL_EXAM_SCAFFOLD_WORKERS`)<br>• Writes `20_fill_exam_scaffold/exam_questions.{yaml,json,xml}` + `pages/*.pdf` |
+| **19 — Extract question numbers from empty exam** | • One cheap call against the cut PDF returns `number/type/page/subpage/marks` (no text)<br>• Configure with `EXTRACT_EXAM_QUESTION_NUMBERS_MODEL`<br>• Writes `19_extract_exam_question_numbers/exam_scaffold.{yaml,json,xml}` |
+| **20 — Extract questions from empty exam** | • Per-page parallel calls populate `text` and `options` for each question<br>• Reads step 19's scaffold from `ctx.scaffold_state` (in-memory, same run) or disk (resume)<br>• Configure with `EXTRACT_EXAM_QUESTIONS_MODEL`<br>• Parallel (`EXTRACT_EXAM_QUESTIONS_WORKERS`)<br>• Writes `20_extract_exam_questions/exam_questions.{yaml,json,xml}` + `pages/*.pdf` |
 | **21 — Detect cross-page context** | • Pure data transform — no LLM call<br>• Augments the v1 register from step 18 with figure references ("Fig. N.N" mentioned on a different page from where it's drawn) and parent-question stems (so child sub-questions get their parent's flowchart attached)<br>• Writes `21_detect_cross_page_context/marking_page_register.json` (v2) plus diagnostics<br>• Toggle parent pass via `CROSS_PAGE_PARENT_DETECTION` |
 | **22 — Detect mark scheme graphics** | • Detects graphics (diagrams, tables) on each mark scheme page; crops bounding boxes to `22_detect_mark_scheme_graphics/` (`DETECT_SCHEME_GRAPHICS_MODEL`) |
 | **23 — Assign questions to mark scheme pages** | • Cheap per-page vision call asks which question numbers' criteria appear on each mark scheme page (`ASSIGN_SCHEME_QUESTIONS_MODEL`; Gemini → PDF upload, Qwen → PNG)<br>• Step 24 then sends only the relevant questions per page instead of the full scaffold — fewer hallucinations on pages with 1–3 of N questions<br>• Writes `23_assign_scheme_questions/questions_per_page.json`<br>• Skipped when env var is unset → step 24 falls back to full-scaffold behaviour |
@@ -609,9 +609,8 @@ Legacy `, off` / `, low` / `, high` strings still parse for back-compat (mapped 
 | `HANDWRITING_CHECK_MODEL` | xScore step 14 — per-scan-page vision LLM. Returns handwriting + printed page number + cover-page flag for every scan page. Drives steps 15, 16, and 18. |
 | `NAME_DETECTION_MODEL` | xScore step 15 — student-name OCR on AI-detected cover pages. **Must use `thinking_tokens=0`** — runs through a non-streaming helper that raises if thinking is on. |
 | `EXAM_BLANK_DETECTION_MODEL` | xScore step 17 — text-only LLM that identifies blank pages in the empty exam PDF |
-| `DETECT_EXAM_SCAFFOLD_MODEL` | xScore step 19 — Phase A of exam parse: returns scaffold structure (number/type/page/marks, no text) |
-| `FILL_EXAM_SCAFFOLD_MODEL` | xScore step 20 — Phase B: per-page parallel calls that populate question text + options. Falls back to `READ_EXAM_PDF_MODEL` when unset. |
-| `READ_EXAM_PDF_MODEL` | Legacy fallback for `FILL_EXAM_SCAFFOLD_MODEL`. Gemini → native PDF upload; Qwen → per-page PNG. |
+| `EXTRACT_EXAM_QUESTION_NUMBERS_MODEL` | xScore step 19 — extract question numbers from the empty exam: returns scaffold structure (number/type/page/marks, no text) |
+| `EXTRACT_EXAM_QUESTIONS_MODEL` | xScore step 20 — extract per-question text + options from the empty exam (per-page parallel). Gemini → native PDF; Qwen → per-page PNG. |
 | `DETECT_SCHEME_GRAPHICS_MODEL` | xScore step 22 — graphics detection. **PNG-only for all providers** (the bbox frame requires a known raster). |
 | `ASSIGN_SCHEME_QUESTIONS_MODEL` | xScore step 23 — cheap per-page vision call that lists which question numbers' criteria appear on each mark scheme page. Gemini → native PDF; Qwen → per-page PNG. Skipped when unset → step 24 sends the full scaffold per page (legacy behaviour). |
 | `READ_MARK_SCHEME_MODEL` | xScore step 24 — parse mark scheme. Gemini → native PDF; Qwen → per-page PNG. |
@@ -620,7 +619,7 @@ Legacy `, off` / `, low` / `, high` strings still parse for back-compat (mapped 
 | `MARKING_MODEL` | xScore step 29 — vision model for AI marking. Gemini → native PDF; Qwen → per-page JPEG. Any thinking budget works (the call streams when thinking is on). |
 | `HANDWRITING_WORKERS` | xScore step 14 — parallel per-scan-page vision calls (one task per scan page). Shipped `default.env` value: `500`. |
 | `NAME_WORKERS` | xScore step 15 — parallel workers for student-name OCR (one per cover page). Shipped `default.env` value: `500`. |
-| `FILL_EXAM_SCAFFOLD_WORKERS` | xScore step 20 — parallel per-page fill calls. Shipped `default.env` value: `500`. |
+| `EXTRACT_EXAM_QUESTIONS_WORKERS` | xScore step 20 — parallel per-page extract-questions calls. Shipped `default.env` value: `500`. |
 | `SCHEME_GRAPHICS_WORKERS` | xScore step 22 — parallel mark-scheme graphics-detection vision calls (one per scheme page). Shipped `default.env` value: `500`. |
 | `ASSIGN_SCHEME_QUESTIONS_WORKERS` | xScore step 23 — parallel question-assignment vision calls (one per scheme page). Shipped `default.env` value: `500`. |
 | `PARSE_SCHEME_WORKERS` | xScore step 24 — parallel mark-scheme parsing calls (one per scheme page; covers both Gemini and OpenAI-compat paths). Shipped `default.env` value: `500`. |

@@ -622,16 +622,23 @@ def check_student_handwriting(
         else:
             label = "has handwriting" if hw else "no handwriting "
             line_fn = warn_line if match is False else ok_line
+        # When the page is judged blank and the page-number isn't a
+        # mismatch, "blank page" is more informative than "pg N" and
+        # matches step 17's blank|content convention.
+        if hw is False and match is not False:
+            pn_str = "blank page"
         conf_str = f"conf={conf}" if conf is not None else "conf=?"
+        # Append the reason inline only when confidence is genuinely low
+        # (matches the review-queue threshold in steps/reports.py:123).
+        # High-confidence reasons stay in page_NNN_output.json only.
+        reason_suffix = ""
+        if reason and conf is not None and conf < 7:
+            r = reason if len(reason) <= 120 else reason[:119].rstrip() + "…"
+            reason_suffix = f"  ·  {r}"
         line_fn(
             f"Page {scan_page:>{page_width}d}/{scan_n_pages}  ·  {label}"
-            f"  ·  {pn_str:<20}  ·  {conf_str:<7}  ·  {dur}"
+            f"  ·  {pn_str:<20}  ·  {conf_str:<7}  ·  {dur}{reason_suffix}"
         )
-        # Show the model's reason when the answer is "no handwriting" or
-        # confidence is low — those are the cases a reviewer should sanity-
-        # check. High-confidence "yes" doesn't need a justification.
-        if reason and (hw is False or (conf is not None and conf < 7)):
-            info_line(f"    ↳ {reason}")
 
     results: list[tuple[int, int, bool | None, int | None, bool | None, int | None, str]] = []
     pending: dict[int, tuple[int, int, bool | None, int | None, bool | None, int | None, str, str]] = {}
@@ -668,12 +675,14 @@ def check_student_handwriting(
                 status = "has handwriting" if hw else "no handwriting"
                 line_fn = warn_line if match is False else ok_line
             conf_str = f"conf={cf}" if cf is not None else "conf=?"
+            reason_suffix = ""
+            if rs and cf is not None and cf < 7:
+                r = rs if len(rs) <= 120 else rs[:119].rstrip() + "…"
+                reason_suffix = f"  ·  {r}"
             line_fn(
                 f"  ↳ recheck page {sp:>{page_width}d}  ·  {status}"
-                f"  ·  {conf_str}  ·  {dur}"
+                f"  ·  {conf_str}  ·  {dur}{reason_suffix}"
             )
-            if rs and (hw is False or (cf is not None and cf < 7)):
-                info_line(f"      ↳ {rs}")
             results[i] = (sp, ep, hw, pn, ic, cf, rs)
 
     # ── Build artifact ───────────────────────────────────────────────────────

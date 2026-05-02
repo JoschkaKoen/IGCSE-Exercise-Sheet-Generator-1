@@ -13,11 +13,10 @@ from pydantic import BaseModel
 
 from eXercise.ai_client import parse_model_spec
 from xscore.config import (
-    DETECT_EXAM_SCAFFOLD_MODEL,
     DETECT_LAYOUT_MODEL,
     DETECT_SCHEME_GRAPHICS_MODEL,
-    FILL_EXAM_SCAFFOLD_MODEL,
-    READ_EXAM_PDF_MODEL,
+    EXTRACT_EXAM_QUESTION_NUMBERS_MODEL,
+    EXTRACT_EXAM_QUESTIONS_MODEL,
     READ_MARK_SCHEME_MODEL,
 )
 from xscore.prompts.loader import load_prompt as _load_prompt
@@ -44,16 +43,12 @@ _LAYOUT_DETECT_JSON_SCHEMA: dict = _LayoutDetectSchema.model_json_schema()
 # Model config — read from xscore/config.py constants (defaults match default.env)
 # ---------------------------------------------------------------------------
 
-def _exam_pdf_model_config() -> tuple[str, int | None, int | None]:
-    return parse_model_spec(READ_EXAM_PDF_MODEL)
+def _extract_question_numbers_model_config() -> tuple[str, int | None, int | None]:
+    return parse_model_spec(EXTRACT_EXAM_QUESTION_NUMBERS_MODEL)
 
 
-def _detect_scaffold_model_config() -> tuple[str, int | None, int | None]:
-    return parse_model_spec(DETECT_EXAM_SCAFFOLD_MODEL)
-
-
-def _fill_scaffold_model_config() -> tuple[str, int | None, int | None]:
-    return parse_model_spec(FILL_EXAM_SCAFFOLD_MODEL)
+def _extract_questions_model_config() -> tuple[str, int | None, int | None]:
+    return parse_model_spec(EXTRACT_EXAM_QUESTIONS_MODEL)
 
 
 def _mark_scheme_model_config() -> tuple[str, int | None, int | None]:
@@ -77,7 +72,7 @@ def _detect_scheme_graphics_model_config() -> tuple[str, int | None, int | None]
 # preserving the pre-refactor module-level API. Combined .md files use
 # section= to extract the role-specific portion.
 _USER_EXAM = _load_prompt("parse_exam_pdf", section="user")[1]
-_USER_SCAFFOLD = _load_prompt("detect_exam_scaffold", section="user")[1]
+_USER_QUESTION_NUMBERS = _load_prompt("extract_exam_question_numbers", section="user")[1]
 _USER_GRAPHICS = _load_prompt("detect_mark_scheme_graphics", section="user")[1]
 _SYSTEM_LAYOUT = _load_prompt("detect_exam_layout", section="system")[1]
 _USER_LAYOUT = _load_prompt("detect_exam_layout", section="user")[1]
@@ -111,22 +106,22 @@ def make_system_exam_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
     return base
 
 
-def make_system_scaffold_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
-    """Load the SYSTEM section of a detect-scaffold prompt.
+def make_system_question_numbers_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
+    """Load the SYSTEM section of an extract-question-numbers prompt.
 
-    *is_cs* is accepted for symmetry but ignored — the scaffold-detect phase
-    does not extract question text, so CODE_FORMATTING is irrelevant.
+    *is_cs* is accepted for symmetry but ignored — this step does not extract
+    question text, so CODE_FORMATTING is irrelevant.
 
-    *prompt_name* is ``"detect_exam_scaffold"``.
+    *prompt_name* is ``"extract_exam_question_numbers"``.
     """
     return _load_prompt(prompt_name, section="system")[1]
 
 
-def make_system_fill_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
-    """Load the SYSTEM section of a fill-scaffold prompt; if ``is_cs`` also
+def make_system_questions_prompt(prompt_name: str, *, is_cs: bool = False) -> str:
+    """Load the SYSTEM section of an extract-questions prompt; if ``is_cs`` also
     append the CODE_FORMATTING section.
 
-    *prompt_name* is ``"fill_exam_scaffold"``.
+    *prompt_name* is ``"extract_exam_questions"``.
     """
     base = _load_prompt(prompt_name, section="system")[1]
     if is_cs:
@@ -221,20 +216,20 @@ def _build_user_exam_prompt(
     return header + common_tail
 
 
-def _build_user_scaffold_prompt(
+def _build_user_question_numbers_prompt(
     layout_result: "_LayoutDetectSchema | None",
     is_split: bool,
     n_split_pages: int,
 ) -> str:
-    """Build the detect-scaffold user prompt — like ``_build_user_exam_prompt``
+    """Build the extract-question-numbers user prompt — like ``_build_user_exam_prompt``
     but the per-question schema in the tail drops ``<text>`` and ``<option>``
-    (the fill phase produces those).
+    (the extract-questions step produces those).
 
-    Falls back to ``_USER_SCAFFOLD`` (which asks the AI to detect the layout)
+    Falls back to ``_USER_QUESTION_NUMBERS`` (which asks the AI to detect the layout)
     when *layout_result* is None.
     """
     if layout_result is None:
-        return _USER_SCAFFOLD
+        return _USER_QUESTION_NUMBERS
 
     if is_split:
         rows, cols = layout_result.rows, layout_result.cols
