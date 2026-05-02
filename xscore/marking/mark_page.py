@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import hashlib
 import re
 import time
 from collections import defaultdict
@@ -206,7 +207,17 @@ def _mark_page(
     raw_from_cache: str | None = None
     if reuse_cache:
         from xscore.shared.response_cache import cache_key as _cache_key_fn, cache_get
-        _extra_hashes = ",".join(extra_b64) + "|" + ",".join(g[2] for g in scheme_graphics)
+        # Pre-hash each base64 image to a 64-char digest before joining. The
+        # raw strings are multi-MB each; folding them whole into cache_key()'s
+        # SHA-256 update would re-hash megabytes per lookup. Mirrors what the
+        # `image_bytes=` path does for the primary page image below.
+        def _b64_digest(s: str) -> str:
+            return hashlib.sha256(s.encode("ascii", errors="ignore")).hexdigest()
+        _extra_hashes = (
+            ",".join(_b64_digest(b) for b in extra_b64)
+            + "|"
+            + ",".join(_b64_digest(g[2]) for g in scheme_graphics)
+        )
         try:
             _img_bytes = base64.b64decode(b64) if b64 else b""
         except Exception:
@@ -366,6 +377,15 @@ def _apply_marking_response(
         group = fill_groups.get(key, [])
         if idx < len(group):
             fq = group[idx]
+            if fq.get("assigned_marks") is None:
+                # AI emitted this slot but with an unparseable / empty mark.
+                # Treat as if the AI hadn't emitted it: leave bq unfilled so
+                # the completeness retry re-asks. The fq slot is consumed
+                # (idx already advanced) — intentional, otherwise a later bp
+                # entry sharing the same key would be paired with the wrong
+                # fq on the positional walk.
+                unfilled.append(bq.get("number"))
+                continue
             # Guarded: pre-fill from step 26 (extract_student_answers) takes
             # precedence over the AI's re-emission in the marking response.
             # In presupplied mode the AI is told NOT to emit student_answer at
@@ -395,9 +415,10 @@ def _apply_marking_response(
 def _finalize_marking(result: dict, warn: Callable[[str], None]) -> None:
     """Run the final validation pass on a fully-merged marking result.
 
-    Steps: MCQ deterministic recompute, blank-answer default text, range
-    clamp on ``assigned_marks``. Mutates *result* in place. Fires the clamp
-    warning for any out-of-range marks that survived all retries.
+    Steps: MCQ deterministic recompute, blank-answer default text, unmarked-
+    question surfacing, range clamp on ``assigned_marks``. Mutates *result* in
+    place. Fires a warn for unmarked questions (AI failed to produce a mark
+    after the completeness retry) and for out-of-range marks.
     """
     _fix_mc_marks(result)
     for bq in result.get("questions", []):
@@ -407,7 +428,23 @@ def _finalize_marking(result: dict, warn: Callable[[str], None]) -> None:
         max_m = bq.get("max_marks")
         if max_m is None:
             continue
-        m = bq.get("assigned_marks", 0)
+        m = bq.get("assigned_marks")
+        if m is None:
+            # AI never produced a mark for this question (and the completeness
+            # retry didn't recover it). Default to 0 so totals are computable,
+            # but tag the explanation so per-question reports flag it for
+            # manual review rather than presenting a silent 0/max grade.
+            warn(
+                f"Marking: Q{bq.get('number')} unmarked after retry — "
+                f"defaulted to 0 (manual review required)"
+            )
+            bq["assigned_marks"] = 0
+            if (bq.get("student_answer") or "").strip():
+                bq["explanation"] = (
+                    "AI marking failed — defaulted to 0; manual review required."
+                )
+            # else: leave the "Blank answer." explanation set in the first loop
+            continue
         if not isinstance(m, int) or m < 0 or m > int(max_m):
             warn(
                 f"Marking: Q{bq.get('number')} assigned_marks={m} out of range "

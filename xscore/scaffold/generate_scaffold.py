@@ -37,9 +37,11 @@ from xscore.scaffold.pdf_parser.content import (
 from xscore.scaffold.scaffold_cache import (
     _cache_path_under_exam_folder,
     _clear_legacy_scaffold_outputs,
+    _compute_pdf_sha256,
     _effective_cache_path,
     _load_cache,
     _migrate_scaffold_cache_to_artifact,
+    _read_cached_source_hashes,
     _save_cache,
     _scaffold_to_payload,
 )
@@ -94,6 +96,24 @@ def _is_cache_valid(
     sources = _source_pdfs(folder, exam_pdf_override)
     if not sources:
         return False
+
+    # Prefer content-hash validation when the cache stores hashes. mtime is
+    # fragile: ``cp -p`` preserves mtime across content changes, ``touch``
+    # bumps mtime without changing content, and ``--resume-dir`` against a
+    # folder whose empty exam was edited would silently load a stale
+    # scaffold under the old mtime check. New caches always include hashes;
+    # legacy XML/JSON caches without them fall through to mtime.
+    cached_hashes = _read_cached_source_hashes(cache)
+    if cached_hashes:
+        for pdf in sources:
+            stored = cached_hashes.get(pdf.name)
+            if stored is None:
+                return False
+            current = _compute_pdf_sha256(pdf)
+            if not current or current != stored:
+                return False
+        return True
+
     cache_mtime = cache.stat().st_mtime
     for pdf in sources:
         if pdf.stat().st_mtime > cache_mtime:
@@ -218,6 +238,11 @@ def finalize_scaffold(
         layout=layout,
     )
     ad = artifact_dir or exam_artifact_dir(folder)
-    _save_cache(ad, scaffold, students)
+    # Snapshot SHA-256 of every source PDF so the next run's cache-validity
+    # check can detect a content change even when mtime hasn't moved.
+    source_hashes = {
+        p.name: _compute_pdf_sha256(p) for p in _source_pdfs(folder, exam_pdf)
+    }
+    _save_cache(ad, scaffold, students, source_hashes=source_hashes)
     _clear_legacy_scaffold_outputs(folder)
     return scaffold

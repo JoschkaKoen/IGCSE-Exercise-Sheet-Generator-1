@@ -220,10 +220,14 @@ class MarkingFormat:
             if not isinstance(q, dict):
                 continue
             am = q.get("assigned_marks", "")
+            # Mirror _yaml_questions_to_list: empty / null / unparseable becomes
+            # None ("AI did not produce a mark"), distinct from a legitimate 0.
+            # _apply_marking_response treats None as "still pending" so the
+            # completeness retry can re-ask, instead of recording a silent 0.
             try:
-                am_int: int = int(am) if str(am).strip() not in ("", "null", "None") else 0
+                am_int: int | None = int(am) if str(am).strip() not in ("", "null", "None") else None
             except (ValueError, TypeError):
-                am_int = 0
+                am_int = None
             result.append({
                 "number":        str(q.get("number", "")),
                 "subpage_row":   int(q.get("subpage_row", 1)),

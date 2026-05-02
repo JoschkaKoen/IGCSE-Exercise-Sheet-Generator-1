@@ -18,6 +18,7 @@ redundant.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 import xml.etree.ElementTree as ET
@@ -322,14 +323,61 @@ def _question_to_xml_element(q: Question) -> ET.Element:
     return el
 
 
-def _scaffold_to_xml(scaffold: ExamScaffold, students: list[str] | None = None) -> str:
-    """Serialise ExamScaffold to an XML string."""
+def _compute_pdf_sha256(path: Path) -> str:
+    """SHA-256 hex digest of a file's bytes; empty string on read error."""
+    try:
+        h = hashlib.sha256()
+        with open(path, "rb") as f:
+            for chunk in iter(lambda: f.read(64 * 1024), b""):
+                h.update(chunk)
+        return h.hexdigest()
+    except OSError:
+        return ""
+
+
+def _read_cached_source_hashes(cache_path: Path) -> dict[str, str]:
+    """Return ``{filename: sha256}`` recorded at the cache root, empty on miss.
+
+    Only XML caches store source hashes; legacy JSON caches return ``{}`` so
+    callers fall back to the older mtime-based validity check.
+    """
+    if cache_path.suffix != ".xml":
+        return {}
+    try:
+        root = ET.parse(cache_path).getroot()
+    except (ET.ParseError, OSError):
+        return {}
+    out: dict[str, str] = {}
+    suffix = "_sha256"
+    for k, v in root.attrib.items():
+        if k.endswith(suffix) and v:
+            name = k[: -len(suffix)]
+            if name:
+                out[name] = v
+    return out
+
+
+def _scaffold_to_xml(
+    scaffold: ExamScaffold,
+    students: list[str] | None = None,
+    source_hashes: dict[str, str] | None = None,
+) -> str:
+    """Serialise ExamScaffold to an XML string.
+
+    *source_hashes* maps source-PDF basename → SHA-256 hex digest; each entry
+    is written as a ``<basename>_sha256`` attribute on the root so the next
+    cache-validity check can compare current file content against the
+    snapshot taken at save time. mtime is too fragile (cp -p / touch).
+    """
     root = ET.Element("scaffold")
     root.set("schema_version", str(SCHEMA_VERSION))
     root.set("total_marks", str(scaffold.total_marks))
     root.set("page_count", str(scaffold.page_count))
     root.set("rows", str(scaffold.layout.rows))
     root.set("cols", str(scaffold.layout.cols))
+    for name, h in (source_hashes or {}).items():
+        if h:
+            root.set(f"{name}_sha256", h)
     if students:
         studs_el = ET.SubElement(root, "students")
         for s in students:
@@ -418,10 +466,16 @@ def _scaffold_to_payload(scaffold: ExamScaffold, students: list[str] | None = No
     }
 
 
-def _save_cache(artifact_dir: Path, scaffold: ExamScaffold, students: list[str] | None = None) -> None:
+def _save_cache(
+    artifact_dir: Path,
+    scaffold: ExamScaffold,
+    students: list[str] | None = None,
+    *,
+    source_hashes: dict[str, str] | None = None,
+) -> None:
     out = artifact_scaffold_xml_path(artifact_dir)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_scaffold_to_xml(scaffold, students), encoding="utf-8")
+    out.write_text(_scaffold_to_xml(scaffold, students, source_hashes), encoding="utf-8")
     payload = _scaffold_to_payload(scaffold, students)
     write_scaffold_markdown(artifact_dir, payload)
     write_short_scaffold_markdown(artifact_dir, payload)

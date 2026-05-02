@@ -908,7 +908,12 @@ def kimi_pdf_text(client: Any, path: "Path", *, label: str = "pdf") -> str:
         path = Path(path)
     file_obj = client.files.create(file=path, purpose="file-extract")
     try:
-        return client.files.content(file_obj.id).text
+        # Guard ``.text``: an SDK upgrade or a gateway error could return an
+        # object without that attribute, and a bare attribute access would
+        # raise AttributeError mid-pipeline. Returning empty text lets the
+        # caller fall back to the rasterized-image path instead of crashing.
+        content = client.files.content(file_obj.id)
+        return getattr(content, "text", "") or ""
     finally:
         try:
             client.files.delete(file_obj.id)
