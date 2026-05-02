@@ -1,7 +1,7 @@
 ---
 name: extract_exam_questions
-version: v2
-description: Step 20 — per-page worker fills text + options for the question numbers extracted in step 19. Combined system + user prompt. Placeholder $question_stub holds the per-page filtered question stub. SYSTEM has named sub-blocks (In scope / What NOT to change); USER has named sub-blocks (The stub / Output schema / Markdown vs LaTeX / Quoting rules / Worked example).
+version: v3
+description: Step 20 — per-page worker fills text + options for the question numbers extracted in step 19. Combined system + user prompt. Placeholder $question_stub holds the per-page filtered question stub. SYSTEM has named sub-blocks (In scope / What NOT to change); USER has named sub-blocks (The stub / Output schema / LaTeX formatting / Quoting rules / Worked example). v3 switched the output convention from markdown-for-prose to raw LaTeX (`\textbf{...}`, `\begin{itemize}`, `\begin{tabular}`, `\dotfill`) — mirrors parse_mark_scheme.md, removing the markdown→LaTeX conversion gap that left literal `| ... | ... |` tables and dot runs in `exam_questions.tex`.
 ---
 ## SYSTEM
 
@@ -10,7 +10,6 @@ You receive ONE page from an exam paper (Cambridge IGCSE and similar) plus a lis
 ## In scope
 
 - Return the question text and answer options exactly as printed on the page.
-- Preserve markdown for prose (`**bold**`, `*italic*`) and `$...$` / `$$...$$` for inline / display math.
 - The page may arrive as a rendered PDF, an extracted-text rendering of the PDF, or a rasterised image — treat all three as "this page of the exam".
 
 ## What NOT to change
@@ -41,9 +40,24 @@ For each entry in the output:
 - `text` — complete question text as printed. Use `$...$` for inline math and `$$...$$` for display math. If the stem is not visible on this page (continued from a previous page, or onto the next), use the empty string `""`.
 - `options` — for `type: multiple_choice` only, a list of `{letter, text}` entries (one per printed answer option, in printed order). For every other `type`, **omit the `options` key entirely** — do NOT emit `options: []`.
 
-## Markdown vs LaTeX in `text`
+## LaTeX formatting in `text` and option `text`
 
-Emit prose formatting as markdown: `**bold**`, *italic*, `$...$` / `$$...$$` for math. Do not pre-convert markdown to LaTeX commands like `\textbf{...}` in the `text` field — the pipeline converts markdown to LaTeX at render time. (Code formatting is the exception, governed by its own rules below when this exam contains code.)
+Block scalars handle backslashes literally, so write LaTeX commands directly:
+
+- bold text → `\textbf{...}`
+- italic text → `\textit{...}`
+- unordered lists → `\begin{itemize}\item first\item second\end{itemize}`
+- ordered/numbered lists → `\begin{enumerate}\item first\item second\end{enumerate}`
+- tables (option grids, binary registers, fill-in cells) → `\begin{tabular}{col-spec} cell & cell \\ next row \end{tabular}` with `\hline` between rows
+- inline math → `$...$`; display math → `$$...$$`
+- explicit line breaks between prose sentences → `\newline`
+- answer lines that span a full line (printed as a long run of dots in the paper) → `\dotfill`. Inline dots within prose stay as literal text — `\dotfill` is for full-line placeholders only.
+
+Constraints:
+
+- Never use `\newline` immediately after `\begin{...}` or before `\end{...}`.
+- Never use more than one `\newline` in a row.
+- List items begin directly with `\item` — no `\newline` between items.
 
 ## Quoting rules
 
@@ -79,11 +93,11 @@ questions:
     type: calculation
     text: ""
   - number: "8"
-    type: long_answer
+    type: short_answer
     text: ""
 ```
 
-A correct response (one MCQ, one plain short-answer, one calculation with a LaTeX backslash, one multi-line block scalar):
+A correct response (one MCQ, one plain short-answer, one calculation with `\dotfill` answer lines, one short-answer with a `\begin{tabular}` option grid):
 
 ```yaml
 questions:
@@ -104,23 +118,34 @@ questions:
     text: State Newton's second law of motion.
   - number: "7"
     type: calculation
-    text: 'A car of mass $1200\,\text{kg}$ accelerates from rest to $20\,\text{m s}^{-1}$ in $8.0\,\text{s}$. Calculate the resultant force on the car.'
-  - number: "8"
-    type: long_answer
     text: |
-      A student investigates the relationship between the period $T$ of a simple
-      pendulum and its length $L$. The student measures $T$ for five values of $L$.
+      Convert the \textbf{two} binary numbers to hexadecimal.
 
-      Describe how the student should plot a graph to test the relationship
-      $T = 2\pi\sqrt{L/g}$ and explain how to obtain $g$ from the graph.
+      10010011 \dotfill
+
+      00001101 \dotfill
+  - number: "8"
+    type: short_answer
+    text: |
+      Circle \textbf{three} devices that are output devices.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      actuator & digital versatile disk (DVD) & keyboard \\
+      \hline
+      microphone & mouse & printer \\
+      \hline
+      scanner & sensor & solid-state drive (SSD) \\
+      \hline
+      \end{tabular}
 ```
 
 Notes:
 - Entry 5: MCQ shape with the full `{letter, text}` list. The stem is single-quoted because it contains `\text{...}` LaTeX commands.
 - Entry 6: plain prose with an apostrophe — YAML plain scalars handle a non-leading apostrophe fine, no quoting needed.
 - Entries 6–8: no `options` key at all. Omit it; do not emit `options: []`.
-- Entry 7: single quotes around the whole `text` because it contains backslashes (`\,`, `\text{...}`).
-- Entry 8: block scalar (`|`) because the text is multi-line.
+- Entry 7: block scalar (`|`) because the text is multi-line; `\dotfill` per answer line; blank lines inside the block scalar are paragraph breaks.
+- Entry 8: block scalar (`|`); `\begin{tabular}` matches the printed grid the candidate circles. `\textbf{three}` (not `**three**`) — emit LaTeX directly per the rules above.
 
 ## CODE_FORMATTING
 
@@ -132,7 +157,5 @@ In `text:` content (and in `options:` text for multiple-choice questions):
 - Even a single line like "DECLARE x : INTEGER" or "Counter <- Counter + 1" counts as code and must be wrapped in \texttt{...} (inline) or \begin{alltt}...\end{alltt} (own line).
 - NEVER use \textbf{...} for code — bold is not monospace.
 - For pseudocode assignment, use the ASCII arrow `<-`. NEVER emit math commands like \leftarrow, \rightarrow, \gets, \to inside alltt — alltt is text mode and these break compilation.
-
-Markdown still applies to prose: **bold**, *italic*, $...$ for inline math. Code formatting overrides markdown only inside the wrapped regions.
 
 Inside \begin{alltt}...\end{alltt}: do NOT escape <, >, &, %, _, #, $ for LaTeX (alltt is verbatim-with-commands); only escape { → \{, } → \}, backslash → \textbackslash{}.

@@ -100,30 +100,41 @@ def _build_yaml_blueprint(page_num: int, layout, questions: list[dict]) -> str:
         entry: dict = {
             "number": str(q.get("number", "")),
             "type": str(q.get("question_type", "short_answer")),
-            "subpage_row": int(q.get("subpage_row", 1)),
-            "subpage_col": int(q.get("subpage_col", 1)),
-            "order_in_subpage": int(q.get("order_in_subpage", 1)),
             "max_marks": int(q.get("max_marks", 0)),
-            "correct_answer": str(q.get("correct_answer") or ""),
-            "text": _clean_text(str(q.get("question_text", ""))),
-            "criteria": [
-                {"mark": str(c.get("mark", "")), "criterion": _clean_text(str(c.get("criterion", "")))}
-                for c in (q.get("mark_scheme") or [])
-            ],
-            "options": [
-                {"letter": str(o.get("letter", "")), "text": _clean_text(str(o.get("text", "")))}
-                for o in (q.get("answer_options") or [])
-            ],
-            "student_answer": "",
-            "assigned_marks": "",
-            "explanation": "",
-            # Side-channel signals (advisory; never influence marks or PDFs).
-            # Empty placeholders for the AI to overwrite. confidence is
-            # parsed back as int 0–10 (default 5 on missing/unparseable);
-            # problem is a short freeform string, default "".
-            "confidence": "",
-            "problem": "",
         }
+        if layout.rows > 1 or layout.cols > 1:
+            entry["subpage_row"] = int(q.get("subpage_row", 1))
+            entry["subpage_col"] = int(q.get("subpage_col", 1))
+            entry["order_in_subpage"] = int(q.get("order_in_subpage", 1))
+        entry["question_text"] = _clean_text(str(q.get("question_text", "")))
+
+        _options = [
+            {"letter": str(o.get("letter", "")), "text": _clean_text(str(o.get("text", "")))}
+            for o in (q.get("answer_options") or [])
+        ]
+        if _options:
+            entry["options"] = _options
+
+        _criteria = [
+            {"mark": str(c.get("mark", "")), "criterion": _clean_text(str(c.get("criterion", "")))}
+            for c in (q.get("mark_scheme") or [])
+        ]
+        if _criteria:
+            entry["criteria"] = _criteria
+
+        _ca = str(q.get("correct_answer") or "")
+        if _ca:
+            entry["correct_answer"] = _ca
+
+        # AI-target placeholders — always emitted, even when empty, so the
+        # AI sees a fixed contract of slots to fill. confidence is parsed
+        # back as int 0–10 (default 5 on missing/unparseable); problem is
+        # a short freeform string, default "".
+        entry["student_answer"] = ""
+        entry["assigned_marks"] = ""
+        entry["explanation"] = ""
+        entry["confidence"] = ""
+        entry["problem"] = ""
         doc["questions"].append(entry)
 
     return yaml.dump(
@@ -150,7 +161,7 @@ def _yaml_questions_to_list(data: dict) -> list[dict]:
             "subpage_row":      int(q.get("subpage_row", 1)),
             "subpage_col":      int(q.get("subpage_col", 1)),
             "order_in_subpage": int(q.get("order_in_subpage", 1)),
-            "question_text":    str(q.get("text", "")),
+            "question_text":    str(q.get("question_text", "")),
             "answer_options":   [
                 {"letter": str(o.get("letter", "")), "text": str(o.get("text", ""))}
                 for o in (q.get("options") or [])
@@ -243,38 +254,52 @@ class MarkingFormat:
     # --- Serialisation ---
 
     def serialize_filled(self, filled: dict) -> str:
+        _layout = filled.get("layout") or {"rows": 1, "cols": 1}
         doc: dict = {
             "page": filled.get("page", ""),
             "student_name": filled.get("student_name", ""),
-            "layout": filled.get("layout") or {"rows": 1, "cols": 1},
+            "layout": _layout,
             "questions": [],
         }
+        _is_grid = int(_layout.get("rows", 1)) > 1 or int(_layout.get("cols", 1)) > 1
         for q in filled.get("questions") or []:
             am = q.get("assigned_marks")
             cf = q.get("confidence")
-            doc["questions"].append({
-                "number":           str(q.get("number", "")),
-                "type":             str(q.get("question_type", "")),
-                "subpage_row":      int(q.get("subpage_row", 1)),
-                "subpage_col":      int(q.get("subpage_col", 1)),
-                "order_in_subpage": int(q.get("order_in_subpage", 1)),
-                "max_marks":        int(q.get("max_marks", 0)),
-                "correct_answer":   str(q.get("correct_answer") or ""),
-                "text":             str(q.get("question_text") or ""),
-                "criteria":         [
-                    {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", ""))}
-                    for c in (q.get("mark_scheme") or [])
-                ],
-                "options":          [
-                    {"letter": str(o.get("letter", "")), "text": str(o.get("text", ""))}
-                    for o in (q.get("answer_options") or [])
-                ],
-                "student_answer":   str(q.get("student_answer") or ""),
-                "assigned_marks":   int(am) if am is not None else 0,
-                "explanation":      str(q.get("explanation") or ""),
-                "confidence":       parse_confidence_int(cf),
-                "problem":          str(q.get("problem") or ""),
-            })
+            entry: dict = {
+                "number":    str(q.get("number", "")),
+                "type":      str(q.get("question_type", "")),
+                "max_marks": int(q.get("max_marks", 0)),
+            }
+            if _is_grid:
+                entry["subpage_row"] = int(q.get("subpage_row", 1))
+                entry["subpage_col"] = int(q.get("subpage_col", 1))
+                entry["order_in_subpage"] = int(q.get("order_in_subpage", 1))
+            entry["question_text"] = str(q.get("question_text") or "")
+
+            _options = [
+                {"letter": str(o.get("letter", "")), "text": str(o.get("text", ""))}
+                for o in (q.get("answer_options") or [])
+            ]
+            if _options:
+                entry["options"] = _options
+
+            _criteria = [
+                {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", ""))}
+                for c in (q.get("mark_scheme") or [])
+            ]
+            if _criteria:
+                entry["criteria"] = _criteria
+
+            _ca = str(q.get("correct_answer") or "")
+            if _ca:
+                entry["correct_answer"] = _ca
+
+            entry["student_answer"] = str(q.get("student_answer") or "")
+            entry["assigned_marks"] = int(am) if am is not None else 0
+            entry["explanation"] = str(q.get("explanation") or "")
+            entry["confidence"] = parse_confidence_int(cf)
+            entry["problem"] = str(q.get("problem") or "")
+            doc["questions"].append(entry)
         return yaml.dump(
             doc, Dumper=_MarkingDumper,
             allow_unicode=True, default_flow_style=False,

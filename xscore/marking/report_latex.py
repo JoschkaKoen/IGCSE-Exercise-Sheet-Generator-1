@@ -342,7 +342,7 @@ def _render_question_with_options(q: dict | None, cell_width_cm: float = 3.6) ->
     if text:
         parts.append(_ai_cell(text, cell_width_cm))
     if str(q.get("type") or "") == "multiple_choice":
-        opts = q.get("answer_options") or []
+        opts = q.get("answer_options") or q.get("options") or []
         if opts:
             items: list[str] = []
             for opt in opts:
