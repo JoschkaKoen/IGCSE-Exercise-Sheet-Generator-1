@@ -28,6 +28,7 @@ from xscore.shared.exam_paths import (
     artifact_class_grade_histogram_raw_path,
     artifact_class_marks_xlsx_path,
     artifact_class_question_difficulty_path,
+    artifact_class_question_difficulty_top_path,
     artifact_class_report_combined_landscape_pdf_path,
     artifact_class_report_combined_landscape_with_questions_pdf_path,
     artifact_class_report_combined_portrait_2up_pdf_path,
@@ -503,6 +504,7 @@ def _build_class_report(
     histogram_raw_path: str | None = None
     histogram_curved_path: str | None = None
     difficulty_path: str | None = None
+    difficulty_top_path: str | None = None
     try:
         from xscore.marking.class_charts import (
             render_grade_histogram, render_question_difficulty,
@@ -522,11 +524,19 @@ def _build_class_report(
         if h_curved is not None:
             histogram_curved_path = str(h_curved)
         d = render_question_difficulty(
-            leaf_pct, all_max,
+            leaf_pct,
             artifact_class_question_difficulty_path(ctx.artifact_dir),
+            kind="leaves",
         )
         if d is not None:
             difficulty_path = str(d)
+        d_top = render_question_difficulty(
+            top_pct,
+            artifact_class_question_difficulty_top_path(ctx.artifact_dir),
+            kind="top",
+        )
+        if d_top is not None:
+            difficulty_top_path = str(d_top)
     except ImportError:
         warn_line("matplotlib not installed — class report figures skipped")
     except Exception as exc:  # noqa: BLE001
@@ -549,6 +559,7 @@ def _build_class_report(
         "histogram_raw_path": histogram_raw_path,
         "histogram_curved_path": histogram_curved_path,
         "difficulty_path": difficulty_path,
+        "difficulty_top_path": difficulty_top_path,
     }
     artifact_class_report_xml_path(ctx.artifact_dir).write_text(
         class_report_to_xml(class_report), encoding="utf-8"

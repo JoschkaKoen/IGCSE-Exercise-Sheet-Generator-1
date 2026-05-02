@@ -1,12 +1,14 @@
 """matplotlib chart renderers for the class report (step 30).
 
-Three PNG figures are produced and embedded into the class-report PDF:
+Four PNG figures are produced and embedded into the class-report PDF:
 
 - :func:`render_grade_histogram` (called twice — once per ``kind``):
   10-bin histogram of student percentages with a class-average vertical
   line. ``kind="raw"`` renders raw %, ``kind="curved"`` renders curved %.
-- :func:`render_question_difficulty`: horizontal bar chart of the hardest
-  leaf questions sorted by class average percentage.
+- :func:`render_question_difficulty` (called twice — once per ``kind``):
+  horizontal bar chart of hardest questions. ``kind="leaves"`` shows the
+  10 hardest leaf (sub/sub-sub) questions; ``kind="top"`` shows the
+  top-level questions.
 
 All functions return the output path on success, or ``None`` when the
 figure should be skipped (single-student class, no marks, no curved
@@ -24,11 +26,27 @@ from pathlib import Path
 from typing import Literal
 
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 
 
 _HIST_STYLE = {
     "raw":    {"color": "#4477aa", "title": "Raw %"},
     "curved": {"color": "#ee7733", "title": "Curved %"},
+}
+
+_DIFFICULTY_STYLE = {
+    "leaves": {"title": "Sub-questions — hardest 10", "top_n": 10},
+    "top":    {"title": "Top-level questions",        "top_n": 20},
+}
+
+_FONT_SIZES = {
+    "axis_label": 13,
+    "tick":       12,
+    "title":      14,
+    "bar_label":  11,
+    "y_qnum":     13,   # question-number y-tick labels in difficulty chart
+    "legend":     11,
+    "footer":      9,   # "...and N more questions not shown"
 }
 
 
@@ -52,7 +70,7 @@ def render_grade_histogram(
     bin_centers = [b + 5 for b in bins[:-1]] # 5,15,…,95
     counts = [0] * 10
     for v in values:
-        idx = min(int(v) // 10, 9)
+        idx = max(0, min(int(v) // 10, 9))
         counts[idx] += 1
 
     fig, ax = plt.subplots(figsize=(6, 4), dpi=144)
@@ -63,13 +81,15 @@ def render_grade_histogram(
     ax.axvline(class_avg, color="black", linestyle="--", linewidth=1,
                label=f"Class avg ({class_avg:.0f}%)")
 
-    ax.set_xlabel("Percentage")
-    ax.set_ylabel("Number of students")
-    ax.set_title(style["title"])
+    ax.set_xlabel("Percentage", fontsize=_FONT_SIZES["axis_label"])
+    ax.set_ylabel("Number of students", fontsize=_FONT_SIZES["axis_label"])
+    ax.set_title(style["title"], fontsize=_FONT_SIZES["title"])
     ax.set_xticks(bins)
     ax.set_xlim(0, 100)
     ax.set_ylim(0, max(counts) + 1)
-    ax.legend(loc="upper left", fontsize=9)
+    ax.tick_params(axis="both", labelsize=_FONT_SIZES["tick"])
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.legend(loc="upper left", fontsize=_FONT_SIZES["legend"])
     ax.grid(axis="y", linestyle=":", alpha=0.4)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -81,18 +101,25 @@ def render_grade_histogram(
 
 def render_question_difficulty(
     per_question_pct: dict[str, int],
-    per_question_max: dict[str, int],
     out_path: Path,
     *,
-    top_n: int = 20,
+    kind: Literal["leaves", "top"] = "leaves",
+    top_n: int | None = None,
 ) -> Path | None:
-    """Render a horizontal bar chart of the ``top_n`` hardest questions.
+    """Render a horizontal bar chart of the hardest questions.
 
-    ``per_question_pct`` should contain leaf questions only (parent rollups
-    would double-count). Returns None if there are no questions to plot.
+    ``per_question_pct`` should contain only the relevant questions for the
+    chart kind — leaves for ``kind="leaves"``, top-level for ``kind="top"``.
+    Title and default ``top_n`` come from ``_DIFFICULTY_STYLE[kind]``; pass
+    ``top_n`` explicitly to override. Returns None if there are no questions
+    to plot.
     """
     if not per_question_pct:
         return None
+
+    style = _DIFFICULTY_STYLE[kind]
+    if top_n is None:
+        top_n = style["top_n"]
 
     # Sort hardest first (lowest class avg %).
     items = sorted(
@@ -104,27 +131,27 @@ def render_question_difficulty(
     qnums  = [q.replace("_", ".") for q, _ in shown]
     values = [v for _, v in shown]
 
-    height_in = max(3.0, 0.30 * len(shown) + 1.5)
+    height_in = max(3.0, 0.40 * len(shown) + 1.5)
     fig, ax = plt.subplots(figsize=(6, height_in), dpi=144)
     y_pos = list(range(len(shown)))
     ax.barh(y_pos, values, color="#cc6677")
     ax.set_yticks(y_pos)
-    ax.set_yticklabels(qnums, fontsize=9)
+    ax.set_yticklabels(qnums, fontsize=_FONT_SIZES["y_qnum"])
+    ax.tick_params(axis="x", labelsize=_FONT_SIZES["tick"])
     ax.invert_yaxis()  # hardest at top
-    ax.set_xlabel("Class average (%)")
+    ax.set_xlabel("Class average (%)", fontsize=_FONT_SIZES["axis_label"])
     ax.set_xlim(0, 100)
-    ax.set_title("Question difficulty — hardest first")
+    ax.set_title(style["title"], fontsize=_FONT_SIZES["title"])
     ax.grid(axis="x", linestyle=":", alpha=0.4)
     for y, v in zip(y_pos, values):
-        max_marks = per_question_max.get(shown[y][0])
-        suffix = f" ({max_marks})" if max_marks else ""
-        ax.text(min(v + 1, 96), y, f"{v}%{suffix}", va="center", fontsize=8, color="#333333")
+        ax.text(min(v + 1, 96), y, f"{v}%",
+                va="center", fontsize=_FONT_SIZES["bar_label"], color="#333333")
 
     if total > top_n:
         fig.text(
             0.5, 0.01,
             f"…and {total - top_n} more questions not shown",
-            ha="center", fontsize=8, color="#666666",
+            ha="center", fontsize=_FONT_SIZES["footer"], color="#666666",
         )
 
     out_path.parent.mkdir(parents=True, exist_ok=True)

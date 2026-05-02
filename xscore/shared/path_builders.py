@@ -721,8 +721,13 @@ def artifact_class_grade_histogram_curved_path(artifact_dir: Path) -> Path:
 
 
 def artifact_class_question_difficulty_path(artifact_dir: Path) -> Path:
-    """Per-question difficulty bar chart PNG embedded in the class report"""
+    """Sub-question difficulty bar chart PNG (leaves) embedded in the class report"""
     return artifact_class_report_dir(artifact_dir) / "question_difficulty.png"
+
+
+def artifact_class_question_difficulty_top_path(artifact_dir: Path) -> Path:
+    """Top-level-question difficulty bar chart PNG embedded in the class report"""
+    return artifact_class_report_dir(artifact_dir) / "question_difficulty_top.png"
 
 
 # ---------------------------------------------------------------------------

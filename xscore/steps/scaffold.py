@@ -450,7 +450,39 @@ def scaffold_setup(ctx: _Ctx) -> bool:
         "fmt":        get_scaffold_format(),
         "phase_t0":   time.perf_counter(),
     })
+    _rehydrate_scaffold_state_on_resume(ctx)
     return True
+
+
+def _rehydrate_scaffold_state_on_resume(ctx: _Ctx) -> None:
+    """Populate ``scaffold_state`` keys that would normally be set by step 20.
+
+    When the user resumes into ``scaffold_phase_b`` (currently only
+    ``--from-step 21``), steps 19/20 are skipped, so their on-disk artifacts
+    must be loaded back into ``scaffold_state`` — otherwise step 22 onwards
+    crashes with ``KeyError: 'raw_questions'``.
+    """
+    if ctx.from_step is None or ctx.from_step <= 20 or ctx.artifact_dir is None:
+        return
+    from xscore.scaffold.formats import load_exam_questions_artifact
+    from xscore.shared.exam_paths import artifact_exam_questions_path
+    state = ctx.scaffold_state
+    fmt = state["fmt"]
+    questions_path = artifact_exam_questions_path(
+        ctx.artifact_dir, fmt=fmt.artifact_ext(),
+    )
+    data = load_exam_questions_artifact(questions_path)
+    if not data:
+        warn_line(
+            f"Resume: {questions_path} not found — scaffold_phase_b state "
+            "will be incomplete and steps 22+ may fail."
+        )
+        return
+    state["raw_questions"] = data.get("questions") or []
+    state["raw_layout"] = {
+        "rows": int(data.get("rows", 1)),
+        "cols": int(data.get("cols", 1)),
+    }
 
 
 def scaffold_cleanup(ctx: _Ctx) -> None:

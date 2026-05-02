@@ -464,14 +464,10 @@ def build_marking_register_v1(ctx: _Ctx) -> None:
     )
     from xscore.shared.path_builders import artifact_marking_page_register_v1_path
     t0 = time.perf_counter()
-    try:
-        register = build_initial_register(ctx)
-        write_register(
-            artifact_marking_page_register_v1_path(ctx.artifact_dir), register
-        )
-    except Exception as exc:  # noqa: BLE001
-        warn_line(f"Marking page register (v1) write failed: {exc}")
-        return
+    register = build_initial_register(ctx)
+    write_register(
+        artifact_marking_page_register_v1_path(ctx.artifact_dir), register
+    )
     dur = format_duration(time.perf_counter() - t0)
     n_students = len(register.get("students", []))
     n_calls = register.get("metadata", {}).get("total_calls", 0)

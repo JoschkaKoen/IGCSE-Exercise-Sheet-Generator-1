@@ -88,7 +88,7 @@ def _scheme_graphics_by_qnum(artifact_dir: Path) -> dict[str, list[str]]:
     except (OSError, json.JSONDecodeError):
         return out
     for q in data.get("questions", []):
-        raw = str(q.get("number", "")).strip()
+        raw = str((q.get("number") or "")).strip()
         if not raw or not q.get("graphics"):
             continue
         key = _norm_qnum(raw)
@@ -157,7 +157,7 @@ def _student_report_to_tex(
     q_to_graphics = q_to_graphics or {}
     rows = []
     for q in report["questions"]:
-        qnum = _latex_escape(str(q.get("number", "")).replace("_", "."))
+        qnum = _latex_escape(str((q.get("number") or "")).replace("_", "."))
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
@@ -177,7 +177,7 @@ def _student_report_to_tex(
         else:
             # Non-MCQ with criteria: show the full breakdown regardless of correct_answer.
             correct_ans = _format_criteria_cell(criteria_raw, exp_w)
-        gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum(q.get("number", "")), [])
+        gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum((q.get("number") or "")), [])
         if gfx_files:
             correct_ans = correct_ans + r" \newline " + _scheme_graphics_tex(gfx_files)
         reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
@@ -283,6 +283,7 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
         histogram_raw_path=report.get("histogram_raw_path"),
         histogram_curved_path=report.get("histogram_curved_path"),
         difficulty_path=report.get("difficulty_path"),
+        difficulty_top_path=report.get("difficulty_top_path"),
     )
 
 
@@ -296,7 +297,7 @@ def _build_question_index(parsed_questions: list[dict]) -> dict[str, dict]:
     index: dict[str, dict] = {}
 
     def _visit(q: dict) -> None:
-        num = str(q.get("number", "")).strip()
+        num = str((q.get("number") or "")).strip()
         if num:
             index[num] = q
         for sub in q.get("subquestions") or []:
@@ -359,7 +360,7 @@ def _question_to_tex(q: dict, depth: int = 0) -> str:
     ``\\setlength{\\leftskip}{...em}`` inside a TeX group so wrapped lines stay
     aligned without pulling in ``changepage``.
     """
-    num = _latex_escape(str(q.get("number", "")))
+    num = _latex_escape(str((q.get("number") or "")))
     marks = q.get("marks") or 0
     marks_label = ""
     if marks:
@@ -418,7 +419,7 @@ def _student_report_with_questions_to_tex(
     q_to_graphics = q_to_graphics or {}
     rows = []
     for q in report["questions"]:
-        qnum_raw = str(q.get("number", ""))
+        qnum_raw = str((q.get("number") or ""))
         qnum = _latex_escape(qnum_raw.replace("_", "."))
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
@@ -486,7 +487,7 @@ def _student_report_list_to_tex(
 
     blocks: list[str] = []
     for q in report["questions"]:
-        qnum_raw = str(q.get("number", ""))
+        qnum_raw = str((q.get("number") or ""))
         qnum_dotted = _latex_escape(qnum_raw.replace("_", "."))
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")

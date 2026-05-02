@@ -16,7 +16,6 @@ Name detection model: ``NAME_DETECTION_MODEL`` env var (default
 from __future__ import annotations
 
 import json
-import math
 import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -106,7 +105,7 @@ def assign_pages(
             n_pages = _d.page_count
     else:
         n_pages = len(pages)
-    n_blocks = math.ceil(n_pages / pages_per_student)
+    n_blocks = n_pages // pages_per_student
     positional_covers = {b * pages_per_student + 1 for b in range(n_blocks)}
     first_page_set: set[int] = positional_covers
 

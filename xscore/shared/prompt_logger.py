@@ -127,7 +127,13 @@ def save_prompt(
                         body_lines.append(part.get("text", ""))
                         continue
                     if ptype == "image_url":
-                        url = (part.get("image_url") or {}).get("url", "")
+                        iu = part.get("image_url")
+                        if isinstance(iu, dict):
+                            url = iu.get("url", "")
+                        elif isinstance(iu, str):
+                            url = iu
+                        else:
+                            url = ""
                         decoded = _decode_image_url(url) if isinstance(url, str) else None
                         if decoded is None:
                             body_lines.append(f"[image_url] {url[:120]}")

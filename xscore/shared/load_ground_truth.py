@@ -120,16 +120,16 @@ def load_ground_truth(
         tokens = split_line(line)
         if not tokens:
             continue
+        # Header rows (e.g. "Name 1 2 3") look like data rows when question
+        # labels are numeric — _is_data_row would accept "1 2 3" as marks.
+        # Check the header-token branch first so the header is never treated as data.
+        is_header_candidate = (i == 0 or not data_lines) and len(tokens) >= 2
+        if is_header_candidate and tokens[0].lower() in _HEADER_TOKENS:
+            q_numbers = [t for t in tokens[1:]]
+            continue
         if _is_data_row(tokens):
             data_lines.append(line)
-        elif i == 0 or not data_lines:
-            # Could be a header row (question numbers in columns 1+)
-            # Only treat as a real header if there are enough columns
-            # to match the data rows that follow
-            if len(tokens) >= 2 and tokens[0].lower() in _HEADER_TOKENS:
-                q_numbers = [t for t in tokens[1:]]
-            # Otherwise it's a label/title line — skip it
-        # Other non-data rows (mid-file labels) are also skipped
+        # Other non-data, non-header rows (mid-file labels) are skipped
 
     if not data_lines:
         return None

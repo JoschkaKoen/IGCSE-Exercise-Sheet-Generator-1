@@ -58,11 +58,13 @@ def compute_cost(
     total = 0.0
     for model, counts in usage.items():
         inp_rate, out_rate = pricing.get(model, (0.0, 0.0))
-        cost = counts["input"] / 1_000_000 * inp_rate + counts["output"] / 1_000_000 * out_rate
+        in_tokens = counts.get("input", 0)
+        out_tokens = counts.get("output", 0)
+        cost = in_tokens / 1_000_000 * inp_rate + out_tokens / 1_000_000 * out_rate
         total += cost
         breakdown[model] = {
-            "input_tokens":    counts["input"],
-            "output_tokens":   counts["output"],
+            "input_tokens":    in_tokens,
+            "output_tokens":   out_tokens,
             "thinking_tokens": counts.get("thinking", 0),
             "cost_rmb":        round(cost, 6),
         }
