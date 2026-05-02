@@ -1,4 +1,4 @@
-"""matplotlib chart renderers for the class report (step 30).
+"""matplotlib chart renderers for the class report (step 31).
 
 Four PNG figures are produced and embedded into the class-report PDF:
 

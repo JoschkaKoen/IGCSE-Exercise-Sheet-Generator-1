@@ -1,7 +1,7 @@
 ---
 name: ai_marking_fragments
-version: v5
-description: Step 28 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES and FIELD_RULES_PRESUPPLIED use $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v5 replaced the three-value `confidence` (high/medium/low) with an integer 0–10 (0 = no confidence, 10 = fully certain) and added a new freeform `problem` string field for human-review diagnostics — read by step 33's confidence audit. v4 changed FIELD_RULES_PRESUPPLIED so the marker no longer re-emits student_answer. v3 added FIELD_RULES_PRESUPPLIED for the post-step-26 path where student_answer is pre-filled. v2 restructured FIELD_RULES into named sub-sections (Principles, per-field rules, Text rules). Used by xscore.marking.mark_page._build_marking_system_prompt.
+version: v6
+description: Step 29 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES and FIELD_RULES_PRESUPPLIED use $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v6 extended GRAPHICS to optionally inline a per-image `Transcription:` block (produced by step 25 transcribe_scheme_graphics) — when transcription is empty the section renders byte-identically to v5. v5 replaced the three-value `confidence` (high/medium/low) with an integer 0–10 (0 = no confidence, 10 = fully certain) and added a new freeform `problem` string field for human-review diagnostics — read by step 34's confidence audit. v4 changed FIELD_RULES_PRESUPPLIED so the marker no longer re-emits student_answer. v3 added FIELD_RULES_PRESUPPLIED for the post-step-28 path where student_answer is pre-filled. v2 restructured FIELD_RULES into named sub-sections (Principles, per-field rules, Text rules). Used by xscore.marking.mark_page._build_marking_system_prompt.
 ---
 ## FIELD_RULES
 
@@ -127,7 +127,7 @@ This page is divided into a ${rows}×${cols} grid — the ${subpage_ref} at the 
 
 The mark scheme for the following question(s) includes a diagram or graph as the expected answer. The corresponding mark-scheme images are appended after the student's page in the order listed below:
 ${graphics_lines}
-Use these images when assessing the student's diagram or graph for the listed questions.
+Use these images when assessing the student's diagram or graph for the listed questions. When a `Transcription:` block is provided, treat it as a faithful textual rendering of the image — but the image itself remains authoritative for visual judgement.
 
 ## CONTINUATION
 

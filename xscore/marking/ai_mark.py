@@ -1,4 +1,4 @@
-"""Step 28 — AI marking: iterate over student scan pages and fill blueprint JSONs.
+"""Step 29 — AI marking: iterate over student scan pages and fill blueprint JSONs.
 
 Uses the MARKING_MODEL env var (default: qwen3.6-plus, off) via make_ai_client().
 Requires DASHSCOPE_API_KEY to be set in .env.
@@ -39,6 +39,7 @@ from xscore.shared.exam_paths import (
     artifact_marked_path,
     artifact_marking_prompt_path,
     artifact_parent_refs_json_path,
+    artifact_scheme_graphic_transcriptions_path,
 )
 from xscore.shared.prompt_logger import save_prompt
 from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, warn_line
@@ -134,7 +135,7 @@ def _mark_page_pdf(
     blueprint_str: str,
     prompt_save_path: Path | None,
     warn: Callable[[str], None],
-    scheme_graphics: "list[tuple[str, int, str]]" = (),
+    scheme_graphics: "list[tuple[str, int, str, str]]" = (),
     has_continuation: bool = False,
     fmt=None,
     is_cs: bool = False,
@@ -144,8 +145,12 @@ def _mark_page_pdf(
 
     Raises MarkingFailure if all retries are exhausted.
     *has_student_answers* — when True, the blueprint's student_answer fields
-    are pre-filled by step 26; switches the system prompt to
+    are pre-filled by step 28; switches the system prompt to
     FIELD_RULES_PRESUPPLIED. See ``_mark_page`` docstring.
+
+    *scheme_graphics* — 4-tuples (qnum, ms_page, b64_png, transcription). The
+    PDF path attaches the image bytes alongside the user text and embeds the
+    transcription via the system prompt.
     """
     import os
     from google.genai import types as gai_types
@@ -185,7 +190,7 @@ def _mark_page_pdf(
          "image_url": {"url": f"data:application/pdf;base64,{_pdf_b64}"}},
         {"type": "text", "text": user_text},
     ]
-    for _, _, _g_b64 in scheme_graphics:
+    for _qn, _ms_page, _g_b64, _ in scheme_graphics:
         _logged_user.append(
             {"type": "image_url",
              "image_url": {"url": f"data:image/png;base64,{_g_b64}"}}
@@ -213,7 +218,7 @@ def _mark_page_pdf(
             pdf_part,
             gai_types.Part.from_text(text=user_text),
         ]
-        for _, _, g_b64 in scheme_graphics:
+        for _qn, _ms_page, g_b64, _ in scheme_graphics:
             contents.append(
                 gai_types.Part.from_bytes(
                     data=base64.b64decode(g_b64), mime_type="image/png"
@@ -259,12 +264,18 @@ def _scheme_graphics_for_page(
     blueprint: dict,
     graphics_map: dict[str, list[Path]],
     b64_cache: dict[Path, str] | None = None,
-) -> list[tuple[str, int, str]]:
-    """Return (question_number, ms_page, base64_png) tuples for mark-scheme graphics on this page.
+    transcriptions: dict[Path, str] | None = None,
+) -> list[tuple[str, int, str, str]]:
+    """Return (question_number, ms_page, base64_png, transcription) tuples for
+    mark-scheme graphics on this page.
 
     *b64_cache* is a pre-computed ``{path: base64}`` map so PNG read+encode happens
     once per file rather than once per (student × page) call. Falls back to live
     read+encode for paths not in the cache (or when cache is None).
+
+    *transcriptions* maps PNG path → textual description (from step 25). PNGs
+    without a transcription get an empty string, which makes the GRAPHICS prompt
+    section render exactly as it did before step 25 existed.
     """
     out = []
     for q in blueprint.get("questions", []):
@@ -277,7 +288,8 @@ def _scheme_graphics_for_page(
                 b64 = b64_cache[png_path]
             else:
                 b64 = base64.b64encode(png_path.read_bytes()).decode()
-            out.append((qnum, ms_page, b64))
+            transcription = (transcriptions or {}).get(png_path, "")
+            out.append((qnum, ms_page, b64, transcription))
     return out
 
 
@@ -332,7 +344,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     from xscore.shared.response_cache import reuse_cache_enabled
     _reuse_cache_active = reuse_cache_enabled(ctx)
     if _reuse_cache_active:
-        info_line("Response cache enabled · step 28 marking calls will check ~/.cache/xscore/responses/")
+        info_line("Response cache enabled · step 29 marking calls will check ~/.cache/xscore/responses/")
 
     # Load page assignments produced by step 15 name detection. The register
     # already encodes most of the per-call data, but we need the original
@@ -368,7 +380,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         if not raw_assignments:
             warn_line(
                 f"--student filter {sorted(wanted)} matched 0 of {before} students — "
-                f"nothing to mark; aborting step 28."
+                f"nothing to mark; aborting step 29."
             )
             raise SystemExit(2)
         kept = [a["student_name"] for a in raw_assignments]
@@ -429,6 +441,25 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 _graphics_b64_cache[_p] = base64.b64encode(_p.read_bytes()).decode()
         for _v in _graphics_map.values():
             _v.sort()
+
+    # Pre-load step-25 transcriptions (PNG path → description string). Missing
+    # or malformed file degrades silently to {} so marking still runs against
+    # the raw images alone.
+    _transcriptions_path = artifact_scheme_graphic_transcriptions_path(ctx.artifact_dir)
+    _transcriptions_by_path: dict[Path, str] = {}
+    if _transcriptions_path.exists():
+        try:
+            import yaml as _yaml
+            _t_doc = _yaml.safe_load(_transcriptions_path.read_text(encoding="utf-8")) or {}
+            for _entry in _t_doc.get("graphics", []) or []:
+                if not isinstance(_entry, dict):
+                    continue
+                _fname = str(_entry.get("file") or "")
+                _t = str(_entry.get("transcription") or "").strip()
+                if _fname and _t:
+                    _transcriptions_by_path[_graphics_dir / _fname] = _t
+        except Exception:  # noqa: BLE001 — degraded mode is fine
+            pass
 
     # Validate cover-page state before building the task list.
     # empty_exam_has_cover drives the per-student page offset; if it is None
@@ -556,7 +587,10 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         t0 = time.perf_counter()
         prompt_save = artifact_marking_prompt_path(ctx.artifact_dir, student_name, p_label)
         try:
-            _page_graphics = _scheme_graphics_for_page(blueprint, _graphics_map, _graphics_b64_cache)
+            _page_graphics = _scheme_graphics_for_page(
+                blueprint, _graphics_map, _graphics_b64_cache,
+                transcriptions=_transcriptions_by_path,
+            )
             _use_pdf_path = _provider == "gemini"
             if _use_pdf_path:
                 import tempfile

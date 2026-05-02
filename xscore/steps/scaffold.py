@@ -34,6 +34,9 @@ from xscore.scaffold.ai_scaffold_scheme import (
     detect_scheme_graphics_phase,
     parse_mark_scheme_phase,
 )
+from xscore.scaffold.scheme_graphic_transcribe import (
+    transcribe_scheme_graphics_phase,
+)
 from xscore.scaffold.formats import get_scaffold_format
 from xscore.scaffold.generate_scaffold import (
     find_answer_pdf,
@@ -323,14 +326,11 @@ def detect_mark_scheme_graphics(ctx: _Ctx) -> None:
         fmt=state["fmt"],
     )
     state["graphics_by_qnum"] = graphics_by_qnum
-    if graphics_questions is None:
-        ok_line("Skipped (DETECT_SCHEME_GRAPHICS_MODEL not set)")
-    else:
-        n = sum(len(q.get("graphics") or []) for q in graphics_questions)
-        ok_line(
-            f"{n} graphic{'s' if n != 1 else ''} detected"
-            f"  ·  {format_duration(time.perf_counter() - t0)}"
-        )
+    n = sum(len(q.get("graphics") or []) for q in (graphics_questions or []))
+    ok_line(
+        f"{n} graphic{'s' if n != 1 else ''} detected"
+        f"  ·  {format_duration(time.perf_counter() - t0)}"
+    )
 
 
 def assign_scheme_questions(ctx: _Ctx) -> None:
@@ -379,6 +379,40 @@ def parse_mark_scheme(ctx: _Ctx) -> None:
         f"{len(scheme_qs)} answers in mark scheme"
         f"  ·  {format_duration(time.perf_counter() - t0)}"
     )
+
+
+def transcribe_scheme_graphics(ctx: _Ctx) -> None:
+    announce_step_model(
+        model_env="TRANSCRIBE_SCHEME_GRAPHIC_MODEL",
+        default_model="qwen3.6-plus, 0, 8192",
+    )
+    state = ctx.scaffold_state
+    t0 = time.perf_counter()
+    scheme_data = state.get("scheme_data")
+    if scheme_data is None:
+        from xscore.shared.exam_paths import artifact_mark_scheme_path
+        import yaml as _yaml
+        ms_path = artifact_mark_scheme_path(ctx.artifact_dir)
+        if ms_path.exists():
+            try:
+                scheme_data = _yaml.safe_load(ms_path.read_text(encoding="utf-8"))
+            except _yaml.YAMLError:
+                scheme_data = None
+    new, total = transcribe_scheme_graphics_phase(
+        state.get("raw_questions") or [], scheme_data, ctx.artifact_dir,
+    )
+    if total == 0:
+        ok_line("No graphics to transcribe")
+    elif new == total:
+        ok_line(
+            f"{total} graphic{'s' if total != 1 else ''} transcribed"
+            f"  ·  {format_duration(time.perf_counter() - t0)}"
+        )
+    else:
+        ok_line(
+            f"{new}/{total} graphic{'s' if total != 1 else ''} transcribed"
+            f" ({total - new} reused)  ·  {format_duration(time.perf_counter() - t0)}"
+        )
 
 
 def create_report(ctx: _Ctx) -> None:

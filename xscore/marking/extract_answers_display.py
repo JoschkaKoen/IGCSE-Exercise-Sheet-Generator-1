@@ -1,6 +1,6 @@
-"""Display-ordering helpers for step 27 (extract_student_answers).
+"""Display-ordering helpers for step 28 (extract_student_answers).
 
-Step 27 runs per-(student, page) extraction in a thread pool and prints a
+Step 28 runs per-(student, page) extraction in a thread pool and prints a
 progress line for every page in the scan PDF — extracted, cover-skipped, and
 no-handwriting-skipped alike. Workers complete in arbitrary order, but the
 output is grouped by student name and ascending page number via a streaming

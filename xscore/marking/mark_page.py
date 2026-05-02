@@ -64,7 +64,7 @@ def _bq_key(bq: dict) -> tuple:
 
 def _build_marking_system_prompt(
     blueprint: dict,
-    scheme_graphics: "list[tuple[str, int, str]]" = (),
+    scheme_graphics: "list[tuple[str, int, str, str]]" = (),
     *,
     has_continuation: bool = False,
     fmt: "MarkingFormat | None" = None,
@@ -115,14 +115,20 @@ def _build_marking_system_prompt(
     # --- Section F: mark-scheme graphics (only when present) ---
     if scheme_graphics:
         _seen: dict[str, int] = {}
-        for _qn, _, _ in scheme_graphics:
+        for _qn, _, _, _ in scheme_graphics:
             _seen[_qn] = _seen.get(_qn, 0) + 1
         _idx: dict[str, int] = {}
         _lines: list[str] = []
-        for _qn, _, _ in scheme_graphics:
+        for _qn, _, _, _transcript in scheme_graphics:
             _idx[_qn] = _idx.get(_qn, 0) + 1
             _label = f"image {_idx[_qn]}" if _seen[_qn] > 1 else "image"
-            _lines.append(f"  • Question {_qn} expected answer → {_label}")
+            _hdr = f"  • Question {_qn} expected answer → {_label}"
+            _t = (_transcript or "").strip()
+            if _t:
+                _indented = "\n".join(f"      {ln}" for ln in _t.splitlines())
+                _lines.append(f"{_hdr}\n    Transcription:\n{_indented}")
+            else:
+                _lines.append(_hdr)
         _, _f = load_prompt(
             "ai_marking_fragments", section="graphics", graphics_lines="\n".join(_lines),
         )
@@ -151,7 +157,7 @@ def _mark_page(
     use_stream: bool = False,
     prompt_save_path: Path | None = None,
     warn: Callable[[str], None] = warn_line,
-    scheme_graphics: list[tuple[str, int, str]] = (),
+    scheme_graphics: list[tuple[str, int, str, str]] = (),
     fmt: "MarkingFormat | None" = None,
     extra_b64: list[str] = (),
     reuse_cache: bool = False,
@@ -184,7 +190,7 @@ def _mark_page(
     ]
     for _cb64 in extra_b64:
         _user_content.append({"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{_cb64}"}})
-    for _, _, _g_b64 in scheme_graphics:
+    for _qn, _ms_page, _g_b64, _ in scheme_graphics:
         _user_content.append({"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_g_b64}"}})
     kwargs: dict[str, Any] = dict(
         model=model_id,
@@ -395,7 +401,7 @@ def _apply_marking_response(
             bq["assigned_marks"] = fq['assigned_marks']
             bq["explanation"] = fq['explanation']
             # Side-channel signals — copied from the AI response when
-            # present. Read only by step 33's confidence audit.
+            # present. Read only by step 34's confidence audit.
             if "confidence" in fq:
                 bq["confidence"] = fq["confidence"]
             if "problem" in fq:

@@ -46,27 +46,28 @@ FILL_SCAFFOLD_DIR      = "20_fill_exam_scaffold"
 CROSS_PAGE_CONTEXT_DIR = "21_detect_cross_page_context"
 
 # Mark scheme parsing.
-SCHEME_GRAPHICS_DIR    = "22_detect_mark_scheme_graphics"
-ASSIGN_QUESTIONS_DIR   = "23_assign_scheme_questions"
-PARSE_SCHEME_DIR       = "24_parse_mark_scheme"
-CREATE_REPORT_DIR      = "25_create_report"
+SCHEME_GRAPHICS_DIR        = "22_detect_mark_scheme_graphics"
+ASSIGN_QUESTIONS_DIR       = "23_assign_scheme_questions"
+PARSE_SCHEME_DIR           = "24_parse_mark_scheme"
+TRANSCRIBE_SCHEME_GRAPHICS_DIR = "25_transcribe_scheme_graphics"
+CREATE_REPORT_DIR          = "26_create_report"
 
 # AI marking.
-BLUEPRINTS_DIR         = "26_ai_marking_blueprints"
-EXTRACT_ANSWERS_DIR    = "27_extract_student_answers"
-AI_MARKING_DIR         = "28_ai_marking"
+BLUEPRINTS_DIR         = "27_ai_marking_blueprints"
+EXTRACT_ANSWERS_DIR    = "28_extract_student_answers"
+AI_MARKING_DIR         = "29_ai_marking"
 
 # Reports & PDFs.
-STUDENT_REPORTS_DIR    = "29_student_report_preparation"
-CLASS_STATS_DIR        = "30_class_stats"
-STUDENT_PDFS_DIR       = "31_student_pdfs"
-CLASS_REPORT_DIR       = "32_class_report"
-REVIEW_QUEUE_DIR       = "33_review_queue"
+STUDENT_REPORTS_DIR    = "30_student_report_preparation"
+CLASS_STATS_DIR        = "31_class_stats"
+STUDENT_PDFS_DIR       = "32_student_pdfs"
+CLASS_REPORT_DIR       = "33_class_report"
+REVIEW_QUEUE_DIR       = "34_review_queue"
 
 # Summary.
-TIMING_DIR             = "34_timing_summary"
-ACCURACY_DIR           = "35_accuracy"
-AI_COSTS_DIR           = "36_ai_costs"
+TIMING_DIR             = "35_timing_summary"
+ACCURACY_DIR           = "36_accuracy"
+AI_COSTS_DIR           = "37_ai_costs"
 
 
 # Path of cleaned scan relative to artifact_dir.

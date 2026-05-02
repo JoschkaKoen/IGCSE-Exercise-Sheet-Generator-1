@@ -216,88 +216,110 @@ STEPS: tuple[Step, ...] = (
                  "23_parse_mark_scheme/*"),  # legacy
          title="Parse mark scheme",
          phase="scaffold_phase_b"),
-    Step(25, "create_report",
-         writes=("25_create_report/*",
-                 "24_create_report/*"),  # legacy
+    Step(25, "transcribe_scheme_graphics", resumable=True,
+         writes=("25_transcribe_scheme_graphics/*",),
+         title="Transcribe mark scheme graphics",
+         phase="scaffold_phase_b"),
+    Step(26, "create_report",
+         writes=(
+             "26_create_report/*",
+             "25_create_report/*",  # legacy folder (pre-transcribe_scheme_graphics)
+             "24_create_report/*",  # legacy folder (pre-detect_subject)
+         ),
          title="Build grading scaffold",
          phase="scaffold_phase_b"),
-    Step(26, "ai_marking_blueprints",      resumable=True,
-         writes=("26_ai_marking_blueprints/*",
-                 "25_ai_marking_blueprints/*"),  # legacy
+    Step(27, "ai_marking_blueprints",      resumable=True,
+         writes=(
+             "27_ai_marking_blueprints/*",
+             "26_ai_marking_blueprints/*",  # legacy folder (pre-transcribe_scheme_graphics)
+             "25_ai_marking_blueprints/*",  # legacy folder (pre-detect_subject)
+         ),
          title="Build AI marking blueprints", section="AI marking",
          phase="marking_reports_summary"),
-    Step(27, "extract_student_answers",    resumable=True,
-         writes=("27_extract_student_answers/*",
-                 "26_extract_student_answers/*"),  # legacy
+    Step(28, "extract_student_answers",    resumable=True,
+         writes=(
+             "28_extract_student_answers/*",
+             "27_extract_student_answers/*",  # legacy folder (pre-transcribe_scheme_graphics)
+             "26_extract_student_answers/*",  # legacy folder (pre-detect_subject)
+         ),
          title="Extract student answers (transcribe-only pass)",
          phase="marking_reports_summary"),
-    Step(28, "ai_marking",                 resumable=True,
+    Step(29, "ai_marking",                 resumable=True,
          writes=(
-             "28_ai_marking/*",
+             "29_ai_marking/*",
+             "28_ai_marking/*",  # legacy folder (pre-transcribe_scheme_graphics)
              "27_ai_marking/*",  # legacy folder (pre-detect_subject)
              "26_ai_marking/*",  # legacy folder (pre-extract-answers refactor)
          ),
          title="Run AI marking",
          phase="marking_reports_summary"),
-    Step(29, "per_student_reports",        resumable=True,
+    Step(30, "per_student_reports",        resumable=True,
          writes=(
-             "29_student_report_preparation/*",
+             "30_student_report_preparation/*",
+             "29_student_report_preparation/*",  # legacy folder (pre-transcribe_scheme_graphics)
              "28_student_report_preparation/*",  # legacy folder (pre-detect_subject)
              "27_student_report_preparation/*",  # legacy folder
          ),
          title="Fuse AI marking output to student reports", section="Reports & PDFs",
          phase="marking_reports_summary"),
-    Step(30, "class_stats_curve",          resumable=True,
+    Step(31, "class_stats_curve",          resumable=True,
          writes=(
-             "30_class_stats/*",
+             "31_class_stats/*",
+             "30_class_stats/*",  # legacy folder (pre-transcribe_scheme_graphics)
              "29_class_stats/*",  # legacy folder (pre-detect_subject)
              "28_class_stats/*",  # legacy folder
          ),
          title="Compute class statistics + curve",
          phase="marking_reports_summary"),
-    Step(31, "per_student_pdfs",           resumable=True,
+    Step(32, "per_student_pdfs",           resumable=True,
          writes=(
-             "31_student_pdfs/*",
+             "32_student_pdfs/*",
+             "31_student_pdfs/*",  # legacy folder (pre-transcribe_scheme_graphics)
              "30_student_pdfs/*",  # legacy folder (pre-detect_subject)
              "29_student_pdfs/*",  # legacy folder
          ),
          title="Generate per-student reports (landscape + portrait + 2UP)",
          phase="marking_reports_summary"),
-    Step(32, "class_report",               resumable=True,
+    Step(33, "class_report",               resumable=True,
          writes=(
-             "32_class_report/*",
+             "33_class_report/*",
+             "32_class_report/*",  # legacy folder (pre-transcribe_scheme_graphics)
              "31_class_report/*",  # legacy folder (pre-detect_subject)
              "30_class_report/*",  # legacy folder
          ),
          title="Generate class report",
          phase="marking_reports_summary"),
-    Step(33, "review_queue",               resumable=True,
+    Step(34, "review_queue",               resumable=True,
          writes=(
-             "33_review_queue/*",
+             "34_review_queue/*",
+             "33_review_queue/*",  # legacy folder (pre-transcribe_scheme_graphics)
              "32_review_queue/*",  # legacy folder (pre-detect_subject)
              "31_review_queue/*",  # legacy folder
          ),
          title="Build review queue",
          phase="marking_reports_summary"),
-    Step(34, "timing_summary",
+    Step(35, "timing_summary",
          writes=(
-             "34_timing_summary/*",
+             "35_timing_summary/*",
+             "34_timing_summary/*",  # legacy folder (pre-transcribe_scheme_graphics)
              "33_timing_summary/*",  # legacy folder (pre-detect_subject)
              "32_timing_summary/*",  # legacy folder
          ),
          title="Summarise step timings", section="Summary",
          phase="marking_reports_summary"),
-    Step(35, "accuracy_evaluation",
+    Step(36, "accuracy_evaluation",
          writes=(
-             "35_accuracy/*",
+             "36_accuracy/*",
+             "35_accuracy/*",  # legacy folder (pre-transcribe_scheme_graphics)
              "34_accuracy/*",  # legacy folder (pre-detect_subject)
              "33_accuracy/*",  # legacy folder
          ),
          title="Evaluate marking accuracy",
          phase="marking_reports_summary"),
-    Step(36, "ai_costs",
+    Step(37, "ai_costs",
          writes=(
-             "36_ai_costs/*",
+             "37_ai_costs/*",
+             "36_ai_costs/*",  # legacy folder (pre-transcribe_scheme_graphics)
              "35_ai_costs/*",  # legacy folder (pre-detect_subject)
              "34_ai_costs/*",  # legacy folder
          ),
@@ -528,6 +550,7 @@ def wire_step_fns() -> None:
             "detect_mark_scheme_graphics",
             "assign_scheme_questions",
             "parse_mark_scheme",
+            "transcribe_scheme_graphics",
             "create_report",
         )),
         ("xscore.steps.marking", (

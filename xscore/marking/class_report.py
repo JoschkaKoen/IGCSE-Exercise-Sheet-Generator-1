@@ -589,7 +589,7 @@ def _build_class_report(
         suffix="portrait",
     )
 
-    # With-questions variants — step 28 only emits these when parsed_questions
+    # With-questions variants — step 29 only emits these when parsed_questions
     # is available, so guard each merge by checking that at least one student
     # PDF of that variant exists. Otherwise the merge would produce a single-
     # page combined PDF with just the class overview, which is misleading.

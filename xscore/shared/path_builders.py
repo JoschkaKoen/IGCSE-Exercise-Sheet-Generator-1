@@ -52,6 +52,7 @@ from xscore.shared.step_folders import (
     SUBDIR_NAMES,
     SUBDIR_STUDENTS,
     TIMING_DIR,
+    TRANSCRIBE_SCHEME_GRAPHICS_DIR,
 )
 
 
@@ -412,6 +413,15 @@ def artifact_mark_scheme_xml_path(artifact_dir: Path) -> Path:
 
 def artifact_mark_scheme_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
     return artifact_dir / PARSE_SCHEME_DIR / f"mark_scheme.{fmt}"
+
+
+# ---------------------------------------------------------------------------
+# Transcribe mark scheme graphics
+# ---------------------------------------------------------------------------
+
+def artifact_scheme_graphic_transcriptions_path(artifact_dir: Path) -> Path:
+    """Per-graphic textual descriptions consumed by step 29 (ai_marking)."""
+    return artifact_dir / TRANSCRIBE_SCHEME_GRAPHICS_DIR / "transcriptions.yaml"
 
 
 # ---------------------------------------------------------------------------

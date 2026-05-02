@@ -1,7 +1,7 @@
 ---
 name: extract_student_answers
 version: v2
-description: Step 27 — extract_student_answers. Combined system + user prompt for the per-(student, page) student-answer transcriber. SYSTEM section instructs the model to transcribe verbatim without grading and emit a YAML doc shaped like the marking blueprint's questions list. USER section embeds the page blueprint via $blueprint. v2 restructured SYSTEM into named sub-blocks (Core principles / What NOT to do / Output schema / Quoting rules / Per-question-type rules / Worked example) and fixed the YAML 1.1 boolean corruption trap (`yes`/`no`/`on`/`off`/`true`/`false`/`null` must be single-quoted to survive `yaml.safe_load`). Used by xscore.marking.extract_answers._extract_page_answers.
+description: Step 28 — extract_student_answers. Combined system + user prompt for the per-(student, page) student-answer transcriber. SYSTEM section instructs the model to transcribe verbatim without grading and emit a YAML doc shaped like the marking blueprint's questions list. USER section embeds the page blueprint via $blueprint. v2 restructured SYSTEM into named sub-blocks (Core principles / What NOT to do / Output schema / Quoting rules / Per-question-type rules / Worked example) and fixed the YAML 1.1 boolean corruption trap (`yes`/`no`/`on`/`off`/`true`/`false`/`null` must be single-quoted to survive `yaml.safe_load`). Used by xscore.marking.extract_answers._extract_page_answers.
 ---
 ## SYSTEM
 

@@ -1,7 +1,7 @@
-"""Step 19 — Detect graphics (figures, diagrams) on each mark scheme page.
+"""Step 22 — Detect graphics (figures, diagrams) on each mark scheme page.
 
 Per-page parallel vision call. OpenAI-compatible only (no Gemini path today).
-Skipped entirely if ``DETECT_SCHEME_GRAPHICS_MODEL`` is unset.
+Always runs; the model is configured via ``DETECT_SCHEME_GRAPHICS_MODEL``.
 """
 
 from __future__ import annotations
@@ -56,21 +56,19 @@ def detect_scheme_graphics(
     *,
     artifact_dir: "Path | None",
     fmt=None,
-) -> tuple[dict, list[dict] | None]:
+) -> tuple[dict, list[dict]]:
     """Detect graphics in the mark scheme via vision API.
 
     Splits the mark scheme into per-page PDFs (always — needed by steps 23 and 24 too)
-    then, if ``DETECT_SCHEME_GRAPHICS_MODEL`` is set, runs graphics detection on
-    each rasterized page in parallel.
+    then runs graphics detection on each rasterized page in parallel.
 
     Returns ``(graphics_by_qnum, graphics_questions)`` where:
       * ``graphics_by_qnum`` is ``{normalised_qnum: [{page, x0, y0, x1, y1}, ...]}``
-        — empty when graphics detection is skipped.
+        — empty when no graphics found.
       * ``graphics_questions`` is the per-question list used by downstream artifact
-        extraction — ``None`` when detection was skipped (no model configured),
-        ``[]`` when run but no graphics found.
+        extraction — ``[]`` when no graphics found.
 
-    Side effects: writes per-page PDFs to step-18's pages dir, plus graphics JSON
+    Side effects: writes per-page PDFs to step-22's pages dir, plus graphics JSON
     and extracted graphic images when graphics are detected.
     """
     if fmt is None:
@@ -84,7 +82,10 @@ def detect_scheme_graphics(
         if _tmp_dir is not None:
             import shutil
             shutil.rmtree(_tmp_dir, ignore_errors=True)
-        return {}, None
+        raise RuntimeError(
+            "DETECT_SCHEME_GRAPHICS_MODEL client could not be created — "
+            "check DASHSCOPE_API_KEY / GEMINI_API_KEY in .env"
+        )
 
     page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
 

@@ -116,7 +116,7 @@ def parse_args() -> argparse.Namespace:
         help=(
             "Mark only the given student (case-insensitive exact match). "
             "Repeat the flag or pass a comma-separated list to mark a small cohort. "
-            "When set, step 29 emits only the filtered students' reports — the class "
+            "When set, step 30 emits only the filtered students' reports — the class "
             "report is skipped."
         ),
     )
@@ -128,7 +128,7 @@ def parse_args() -> argparse.Namespace:
         help=(
             "Mark only the first N students. Composes with --student and any "
             "prompt-derived first_n filter (slice is applied last). When set, "
-            "step 29 (class report) is skipped — same reasoning as --student."
+            "step 30 (class report) is skipped — same reasoning as --student."
         ),
     )
     args = parser.parse_args()

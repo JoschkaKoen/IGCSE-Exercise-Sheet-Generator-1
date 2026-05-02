@@ -139,8 +139,9 @@ def resume_pipeline(ctx: "_Ctx") -> None:
          resume_dir / "12_student_names" / "exam_student_list.json",
          resume_dir / "11_student_names" / "exam_student_list.json",
          resume_dir / "8_exam_student_list.json"),
-        # Scaffold report — new (25_) and legacy (24_, 23_, 22_) locations.
-        (resume_dir / "25_create_report" / "report.xml",
+        # Scaffold report — new (26_) and legacy (25_, 24_, 23_, 22_) locations.
+        (resume_dir / "26_create_report" / "report.xml",
+         resume_dir / "25_create_report" / "report.xml",
          resume_dir / "24_create_report" / "report.xml",
          resume_dir / "23_create_report" / "report.xml",
          resume_dir / "22_create_report" / "report.xml",
@@ -155,6 +156,8 @@ def resume_pipeline(ctx: "_Ctx") -> None:
         bp_found = (
             list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.yaml"))
             or list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.json"))
+            or list(resume_dir.glob("26_ai_marking_blueprints/blueprint_page_*.yaml"))
+            or list(resume_dir.glob("26_ai_marking_blueprints/blueprint_page_*.json"))
             or list(resume_dir.glob("25_ai_marking_blueprints/blueprint_page_*.json"))
             or list(resume_dir.glob("23_ai_marking_blueprints/blueprint_page_*.json"))
             or list(resume_dir.glob("18_ai_marking_blueprint_*.json"))
@@ -169,6 +172,7 @@ def resume_pipeline(ctx: "_Ctx") -> None:
         # subdir layout; the very old XML layout was flat at students/.
         mk_found = (
             list(resume_dir.glob(f"{AI_MARKING_DIR}/students/*/page_*.yaml"))
+            or list(resume_dir.glob("28_ai_marking/students/*/page_*.yaml"))
             or list(resume_dir.glob("27_ai_marking/students/*/page_*.yaml"))
             or list(resume_dir.glob("24_ai_marking/students/*/page_*.yaml"))
             or list(resume_dir.glob("students/14_marked_*.xml"))

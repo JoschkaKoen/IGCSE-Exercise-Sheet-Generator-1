@@ -20,7 +20,7 @@ Lifecycle:
    extra (so the AI sees flowcharts, tables, or stems that introduce the
    sub-questions). Writes
    ``21_detect_cross_page_context/marking_page_register.json``.
-3. **Step 28** (AI marking) loads the most-refined register available and
+3. **Step 29** (AI marking) loads the most-refined register available and
    iterates the calls. Two filters that *cannot* be baked in (scaffold-bounds
    cap and CLI cohort filter) are applied at iteration time.
 
@@ -71,7 +71,7 @@ def _cover_offset(has_cover: bool, empty_exam_has_cover: bool) -> int:
 
 
 # ---------------------------------------------------------------------------
-# Builder — used by step 18 (writes v1) and the step 28 backwards-compat path
+# Builder — used by step 18 (writes v1) and the step 29 backwards-compat path
 # ---------------------------------------------------------------------------
 
 def build_initial_register(ctx: "_Ctx") -> dict:
@@ -83,7 +83,7 @@ def build_initial_register(ctx: "_Ctx") -> dict:
     Reproduces the loop from the legacy bundling logic in
     :func:`xscore.marking.ai_mark.run_ai_marking` (cover-skip, handwriting
     skip, handwriting-extras attach), but does NOT apply the scaffold-bounds
-    cap or any cohort filter — those are runtime concerns of step 28.
+    cap or any cohort filter — those are runtime concerns of step 29.
     """
     from xscore.shared.exam_paths import (
         artifact_exam_blank_json_path,
@@ -568,7 +568,7 @@ def load_register(artifact_dir: Path) -> dict | None:
 
 
 # ---------------------------------------------------------------------------
-# Iteration with runtime filters (consumed by step 28)
+# Iteration with runtime filters (consumed by step 29)
 # ---------------------------------------------------------------------------
 
 def iter_marking_calls(

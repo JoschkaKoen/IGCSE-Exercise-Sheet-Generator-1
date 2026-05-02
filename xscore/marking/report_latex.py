@@ -288,7 +288,7 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
 
 
 # ---------------------------------------------------------------------------
-# Parsed-exam question rendering (step 28: exam_questions.pdf,
+# Parsed-exam question rendering (step 29: exam_questions.pdf,
 # *_landscape_with_questions.pdf, *_portrait_list.pdf).
 # ---------------------------------------------------------------------------
 

@@ -1,10 +1,10 @@
-"""Step 27 — extract_student_answers: transcribe student answers verbatim.
+"""Step 28 — extract_student_answers: transcribe student answers verbatim.
 
-A pre-pass before AI marking (step 28). For each (student, answer_page) the
+A pre-pass before AI marking (step 29). For each (student, answer_page) the
 register yields, send the rendered scan JPEG(s) to a vision model with the
 page blueprint as context, and ask only for the verbatim student answer per
 question. Output is one YAML file per (student, page) under
-``27_extract_student_answers/students/``.
+``28_extract_student_answers/students/``.
 
 The marking step then loads these artifacts, pre-fills ``student_answer`` on
 each blueprint question, and asks the marker only to assign marks + write

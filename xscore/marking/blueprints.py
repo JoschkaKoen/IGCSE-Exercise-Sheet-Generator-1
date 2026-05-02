@@ -69,7 +69,7 @@ def _build_blueprint_xml(page_num: int, layout: Any, page_qs: list[dict]) -> str
         ET.SubElement(qel, "assigned_marks")
         ET.SubElement(qel, "explanation")
         # Side-channel signals — do NOT affect marking or PDFs. Read only
-        # by step 33 (review queue / confidence audit).
+        # by step 34 (review queue / confidence audit).
         # confidence: int 0–10 (0 = no confidence, 10 = fully certain).
         # problem: short freeform string the AI fills in when there's a
         # specific concern worth a human glance; empty otherwise.
