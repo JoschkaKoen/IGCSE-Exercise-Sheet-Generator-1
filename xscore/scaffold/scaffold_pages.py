@@ -11,11 +11,12 @@ is unset or step 19 produced no question numbers.
 from __future__ import annotations
 
 import base64 as _base64
-import json
 import os
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+
+import yaml as _yaml
 
 from google.genai import types as gai_types
 
@@ -60,13 +61,16 @@ def assign_questions_to_pages(
 
     Provider routing (auto-detected from ``ASSIGN_SCHEME_QUESTIONS_MODEL``):
       * ``gemini*``         → inline per-page PDFs via ``gemini_pdf_part``,
-        ``client.models.generate_content`` with ``response_mime_type='application/json'``.
+        ``client.models.generate_content`` (no JSON mime / schema — YAML output).
       * ``kimi*``/``moonshot*`` → per-page PDF extracted to text via
-        ``kimi_pdf_text`` and injected as a system message; ``chat.completions.create``
-        with ``response_format={"type": "json_object"}``.
-      * everything else → rasterize PNGs, ``chat.completions.create`` on
-        an OpenAI-compatible client with ``response_format={"type": "json_object"}``.
+        ``kimi_pdf_text`` and injected as a system message;
+        ``chat.completions.create`` (YAML output, no ``response_format``).
+      * everything else → rasterize PNGs, ``chat.completions.create`` on an
+        OpenAI-compatible client (YAML output, no ``response_format``).
     """
+    from xscore.scaffold.formats.base import ScaffoldFormat
+    fmt = ScaffoldFormat()
+
     _result = make_ai_client(model_env="ASSIGN_SCHEME_QUESTIONS_MODEL")
     if _result is None:
         info_line("Skipped (ASSIGN_SCHEME_QUESTIONS_MODEL not set)")
@@ -159,15 +163,7 @@ def assign_questions_to_pages(
                         gai_types.Part.from_text(text=user_msg),
                     ],
                     config=_make_gen_config(
-                        thinking, system_msg,
-                        schema={
-                            "type": "object",
-                            "properties": {
-                                "questions": {"type": "array", "items": {"type": "string"}}
-                            },
-                            "required": ["questions"],
-                        },
-                        max_tokens=max_tokens,
+                        thinking, system_msg, max_tokens=max_tokens,
                     ),
                 )
                 _raw, _th = split_gemini_response(_resp)
@@ -176,11 +172,7 @@ def assign_questions_to_pages(
             # so K2 thinking-on (which forces streaming) is honoured here too —
             # non-streaming K2 thinking blocks the whole reply and looks like a
             # hang.
-            kwargs: dict = dict(
-                model=model,
-                messages=_messages,
-                response_format={"type": "json_object"},
-            )
+            kwargs: dict = dict(model=model, messages=_messages)
             kwargs.update(_oa_thinking_kw)
             if _oa_use_stream:
                 _th: list[str] = []
@@ -190,10 +182,10 @@ def assign_questions_to_pages(
                 # below); content streams silently to keep terminal clean.
                 stream = _oa_client_aux.chat.completions.create(**kwargs, stream=True)
                 _raw = collect_streamed_response(stream, thinking_out=_th)
-                return _raw or '{"questions":[]}', "".join(_th)
+                return _raw or "questions: []", "".join(_th)
             _resp = _oa_client_aux.chat.completions.create(**kwargs)
             return (
-                _resp.choices[0].message.content or '{"questions":[]}',
+                _resp.choices[0].message.content or "questions: []",
                 getattr(_resp.choices[0].message, "reasoning_content", "") or "",
             )
 
@@ -216,14 +208,9 @@ def assign_questions_to_pages(
             save_prompt(_prompt_path, model=model, messages=_audit_messages)
             save_response(_prompt_path, raw or "", thinking=thinking_text)
             if raw:
-                save_output_data(_prompt_path, raw, ext="json")
+                save_output_data(_prompt_path, raw, ext="yaml")
 
-        try:
-            data = json.loads(raw)
-        except (json.JSONDecodeError, TypeError):
-            ok_line(f"p{page_num}  ·  parse error  ·  {format_duration(time.perf_counter() - _t0)}")
-            return page_num, []
-        result = [str(q) for q in (data.get("questions") or []) if str(q) in allowed]
+        result = [q for q in fmt.parse_assign_response(raw) if q in allowed]
         _qs_str = (", ".join(f"q{q}" for q in result)) if result else "—"
         ok_line(f"p{page_num}  ·  {_qs_str}  ·  {format_duration(time.perf_counter() - _t0)}")
         return page_num, result
@@ -251,14 +238,14 @@ def assign_questions_to_pages(
             p = artifact_questions_per_page_path(artifact_dir)
             p.parent.mkdir(parents=True, exist_ok=True)
             p.write_text(
-                json.dumps(
+                _yaml.safe_dump(
                     {str(k): v for k, v in sorted(mapping.items())},
-                    ensure_ascii=False, indent=2,
+                    allow_unicode=True, default_flow_style=False, sort_keys=False,
                 ),
                 encoding="utf-8",
             )
         except OSError as e:
-            warn_line(f"Could not save questions_per_page.json: {e}")
+            warn_line(f"Could not save questions_per_page.yaml: {e}")
 
     if _tmp_dir is not None:
         import shutil

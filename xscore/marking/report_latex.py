@@ -19,11 +19,11 @@ imports from both and renders the final TeX via Jinja.
 from __future__ import annotations
 
 import datetime
-import json
 import re
 from pathlib import Path
 
 import jinja2
+import yaml
 
 from xscore.marking.report_latex_cells import (
     _ai_cell,
@@ -35,7 +35,7 @@ from xscore.marking.report_latex_text import _latex_escape
 from xscore.scaffold.scaffold_qtree import _norm_qnum
 from xscore.shared.path_builders import (
     artifact_mark_scheme_graphics_dir,
-    artifact_mark_scheme_graphics_json_path,
+    artifact_mark_scheme_graphics_yaml_path,
 )
 
 
@@ -73,19 +73,21 @@ def _scheme_graphics_by_qnum(artifact_dir: Path) -> dict[str, list[str]]:
     """Map canonical qnum (e.g. ``"7(a)" -> "7a"`` via ``_norm_qnum``) ->
     list of PNG filenames step 22 extracted for that question.
 
-    Sources raw qnums from ``mark_scheme_graphics.json`` so dict keys match
+    Sources raw qnums from ``mark_scheme_graphics.yaml`` so dict keys match
     the marking pipeline's canonical ``q["number"]`` form. Files are matched
     by the same ``[^\\w]->_`` transform that
     ``scaffold_xml._extract_scheme_graphics`` applied when writing them.
     """
     out: dict[str, list[str]] = {}
     graphics_dir = artifact_mark_scheme_graphics_dir(artifact_dir)
-    json_path = artifact_mark_scheme_graphics_json_path(artifact_dir)
-    if not graphics_dir.is_dir() or not json_path.is_file():
+    yaml_path = artifact_mark_scheme_graphics_yaml_path(artifact_dir)
+    if not graphics_dir.is_dir() or not yaml_path.is_file():
         return out
     try:
-        data = json.loads(json_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+        data = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError):
+        return out
+    if not isinstance(data, dict):
         return out
     for q in data.get("questions", []):
         raw = str((q.get("number") or "")).strip()

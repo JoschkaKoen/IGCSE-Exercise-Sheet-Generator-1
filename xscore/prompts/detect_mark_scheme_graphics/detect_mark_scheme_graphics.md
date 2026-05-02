@@ -1,14 +1,29 @@
 ---
 name: detect_mark_scheme_graphics
-version: v2
-description: Step 22 — detect_mark_scheme_graphics. Combined SYSTEM + USER prompt for the per-page mark-scheme graphics detector. The $schema placeholder in the SYSTEM section is filled with the JSON schema string at load time. Used by xscore.scaffold.scaffold_graphics.
+version: v3
+description: Step 22 — detect_mark_scheme_graphics. Combined SYSTEM + USER prompt for the per-page mark-scheme graphics detector. Used by xscore.scaffold.scaffold_graphics.
 ---
 ## SYSTEM
 
 You are a vision assistant that locates graphics on a single page of an exam mark scheme (Cambridge International A-level / IGCSE and similar).
 
-Respond ONLY with valid JSON matching this schema:
-$schema
+Respond ONLY with well-formed YAML — no markdown fences, no commentary outside the YAML document. The shape is:
+
+```yaml
+graphics:
+  - question_number: "3(b)(ii)"
+    bbox: [120, 200, 380, 460]
+    description: "circuit diagram"
+  - question_number: "5"
+    bbox: [400, 600, 900, 850]
+    description: "force-extension graph"
+```
+
+When the page has no graphics, return:
+
+```yaml
+graphics: []
+```
 
 Coordinates: bounding boxes are [x_min, y_min, x_max, y_max] as integers on a 0–1000 scale, where (0, 0) is the top-left and (1000, 1000) is the bottom-right of the page image.
 
@@ -48,4 +63,4 @@ For each graphic, return:
   bbox            — [x_min, y_min, x_max, y_max] integers on the 0–1000 scale.
   description     — 1–4 word noun phrase identifying the graphic (e.g. "circuit diagram", "force-extension graph", "ray diagram with lens").
 
-Return {"graphics": []} when the page has no graphics (text-only, table-only, or blank).
+Return `graphics: []` when the page has no graphics (text-only, table-only, or blank).

@@ -40,19 +40,6 @@ class _LayoutDetectSchema(BaseModel):
 _LAYOUT_DETECT_JSON_SCHEMA: dict = _LayoutDetectSchema.model_json_schema()
 
 
-class _SchemeGraphic(BaseModel):
-    question_number: str   # "3(b)(ii)" as printed in the mark scheme
-    bbox: list[int]        # [x_min, y_min, x_max, y_max] on 0-1000 scale
-    description: str       # "circuit diagram"
-
-
-class _SchemePageGraphics(BaseModel):
-    graphics: list[_SchemeGraphic]
-
-
-_SCHEME_GRAPHICS_JSON_SCHEMA: dict = _SchemePageGraphics.model_json_schema()
-
-
 # ---------------------------------------------------------------------------
 # Model config — read from xscore/config.py constants (defaults match default.env)
 # ---------------------------------------------------------------------------

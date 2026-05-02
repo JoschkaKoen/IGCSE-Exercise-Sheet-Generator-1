@@ -613,6 +613,59 @@ class ScaffoldFormat:
             })
         return out
 
+    # ---- detect_mark_scheme_graphics (step 22) ------------------------------
+
+    def parse_graphics_response(self, raw: str) -> list[dict]:
+        """Parse one page's graphics-detection response.
+
+        Returns ``[{"question_number": str, "bbox": [int,int,int,int],
+        "description": str}, ...]``. Empty/garbled input → ``[]``; the call site
+        treats parse failure as "no graphics on this page" rather than fatal.
+        """
+        cleaned = _strip_fences(raw or "").strip()
+        if not cleaned:
+            return []
+        try:
+            data = yaml.safe_load(cleaned)
+        except yaml.YAMLError:
+            return []
+        if not isinstance(data, dict):
+            return []
+        out: list[dict] = []
+        for g in data.get("graphics") or []:
+            if not isinstance(g, dict):
+                continue
+            bbox_raw = g.get("bbox") or []
+            try:
+                bbox = [int(v) for v in bbox_raw]
+            except (TypeError, ValueError):
+                continue
+            out.append({
+                "question_number": str(g.get("question_number", "")).strip(),
+                "bbox":            bbox,
+                "description":     str(g.get("description", "")).strip(),
+            })
+        return out
+
+    # ---- assign_scheme_questions (step 23) ----------------------------------
+
+    def parse_assign_response(self, raw: str) -> list[str]:
+        """Parse one page's question-assignment response.
+
+        Returns the list of question-number strings the model emitted. Empty/
+        garbled input → ``[]``; call sites filter against the allowed set.
+        """
+        cleaned = _strip_fences(raw or "").strip()
+        if not cleaned:
+            return []
+        try:
+            data = yaml.safe_load(cleaned)
+        except yaml.YAMLError:
+            return []
+        if not isinstance(data, dict):
+            return []
+        return [str(q).strip() for q in (data.get("questions") or [])]
+
     def artifact_ext(self) -> str:
         return "yaml"
 

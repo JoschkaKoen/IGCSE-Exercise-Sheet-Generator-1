@@ -385,9 +385,9 @@ def artifact_mark_scheme_graphics_dir(artifact_dir: Path) -> Path:
     return artifact_dir / SCHEME_GRAPHICS_DIR / "graphics"
 
 
-def artifact_mark_scheme_graphics_json_path(artifact_dir: Path) -> Path:
+def artifact_mark_scheme_graphics_yaml_path(artifact_dir: Path) -> Path:
     """Detected graphics positions per question."""
-    return artifact_dir / SCHEME_GRAPHICS_DIR / "mark_scheme_graphics.json"
+    return artifact_dir / SCHEME_GRAPHICS_DIR / "mark_scheme_graphics.yaml"
 
 
 # ---------------------------------------------------------------------------
@@ -395,9 +395,9 @@ def artifact_mark_scheme_graphics_json_path(artifact_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_questions_per_page_path(artifact_dir: Path) -> Path:
-    """``{page_num: [question_numbers]}`` JSON used by parse_mark_scheme to filter
+    """``{page_num: [question_numbers]}`` YAML used by parse_mark_scheme to filter
     its per-page scaffold to only the relevant questions."""
-    return artifact_dir / ASSIGN_QUESTIONS_DIR / "questions_per_page.json"
+    return artifact_dir / ASSIGN_QUESTIONS_DIR / "questions_per_page.yaml"
 
 
 # ---------------------------------------------------------------------------

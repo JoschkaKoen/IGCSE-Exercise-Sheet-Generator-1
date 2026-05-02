@@ -1,13 +1,13 @@
 ---
 name: assign_scheme_questions
-version: v1
-description: Step 20 — assign_scheme_questions. Combined system + user prompt for per-page question-number identification on a single mark scheme page. Placeholder $question_numbers is the comma-separated, double-quoted list of valid question numbers from the exam. Used by xscore.scaffold.scaffold_gemini.assign_questions_to_pages.
+version: v2
+description: Step 23 — assign_scheme_questions. Combined system + user prompt for per-page question-number identification on a single mark scheme page. Placeholder $question_numbers is the comma-separated, double-quoted list of valid question numbers from the exam. Used by xscore.scaffold.scaffold_pages.assign_questions_to_pages.
 ---
 ## SYSTEM
 
 You are reading one page of a Cambridge IGCSE mark scheme.
 Your only task: identify which question numbers' marking criteria appear on this page.
-Return JSON only — no markdown fences, no commentary.
+Return well-formed YAML only — no markdown fences, no commentary outside the YAML document.
 
 ## USER
 
@@ -21,8 +21,14 @@ Rules:
 - A page may contain zero, one, or several questions.
 - Return numbers exactly as printed in the list above (preserve casing of suffixes like `2a`, `3bii`).
 
-Output JSON shape:
-{"questions": ["1", "2a"]}
+Output YAML shape:
+```yaml
+questions:
+  - "1"
+  - "2a"
+```
 
 If no question's criteria appear on this page (cover page, blank page, instructions page), return:
-{"questions": []}
+```yaml
+questions: []
+```
