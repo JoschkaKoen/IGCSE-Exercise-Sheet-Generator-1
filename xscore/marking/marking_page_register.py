@@ -152,8 +152,8 @@ def build_initial_register(ctx: "_Ctx") -> dict:
     return {
         "metadata": {
             "schema_version": SCHEMA_VERSION,
-            "produced_by_step": 15,
-            "produced_by_step_name": "student_handwriting_check",
+            "produced_by_step": 18,
+            "produced_by_step_name": "build_marking_register_v1",
             "empty_exam_has_cover": empty_exam_has_cover,
             "applied_extras": ["handwriting"],
             "total_students": len(students_out),
@@ -220,10 +220,16 @@ def _load_handwriting(
             if entry is None:
                 continue
             has_hw = entry.get("has_handwriting")
-            if has_hw is False:
-                skip.add(scan_page)
             exam_page = p_label - cover_offset
-            if exam_page in blank_exam_pages and has_hw is True:
+            is_blank_in_empty = exam_page in blank_exam_pages
+            if is_blank_in_empty:
+                # Trust step 17 over step 14: a structurally blank exam page
+                # has nothing to mark even if step 14 detected faint marks
+                # or bleed-through. Skipping here saves a no-op marking call.
+                skip.add(scan_page)
+            elif has_hw is False:
+                skip.add(scan_page)
+            if is_blank_in_empty and has_hw is True:
                 # Attach this overflow to the previous non-blank answer page.
                 candidates = [p for p in non_blank_exam_pages if p < exam_page]
                 if candidates:

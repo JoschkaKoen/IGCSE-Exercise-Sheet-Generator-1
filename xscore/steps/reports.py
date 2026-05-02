@@ -121,7 +121,7 @@ def review_queue(ctx: _Ctx) -> None:
         ok_line("No marked questions to audit")
         return
     below_7 = sum(1 for e in entries if e["confidence"] < 7)
-    ok_line(f"Confidence audit · {n} mark{'s' if n != 1 else ''} · {below_7} below conf=7")
+    ok_line(f"Confidence audit · {n} entr{'ies' if n != 1 else 'y'} · {below_7} below conf=7")
     _print_review_queue_breakdown(ctx, entries, below_7)
 
 

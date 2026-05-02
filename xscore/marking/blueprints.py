@@ -122,6 +122,13 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
         }
         blueprints.append(bp)
 
+        # Skip the blueprint file for cover/blank/question-free pages. The
+        # in-memory list is still indexed 1-to-page_count for downstream
+        # consumers; only the on-disk artifact is omitted because nothing
+        # would mark a page with no questions.
+        if not page_qs:
+            continue
+
         bp_path = artifact_blueprint_path(artifact_dir, page_num, fmt=fmt.artifact_ext())
         bp_path.parent.mkdir(parents=True, exist_ok=True)
         _bp_text = fmt.build_blueprint(page_num, layout, page_qs)

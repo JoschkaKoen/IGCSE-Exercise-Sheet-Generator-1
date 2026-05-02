@@ -9,7 +9,9 @@ from pathlib import Path
 from xscore.shared.step_folders import (
     AUTOROTATE_DIR,
     BLANK_DETECT_DIR,
+    CLEANED_SCAN_PDF,
     DESKEW_DIR,
+    LEGACY_CLEANED_SCAN_PDF,
     MERGE_DUPLEX_DIR,
 )
 
@@ -21,7 +23,6 @@ SCAN_ORIENTATIONS_JSON    = MERGE_DUPLEX_DIR + "/scan_orientations.json"
 ORIENTED_SCAN_PDF         = MERGE_DUPLEX_DIR + "/oriented_scan.pdf"  # single-PDF flow only
 SCAN_BLANKS_JSON          = BLANK_DETECT_DIR + "/scan_blanks.json"
 SCAN_ROTATED_PDF          = AUTOROTATE_DIR + "/scan_rotated.pdf"
-CLEANED_SCAN_PDF          = DESKEW_DIR + "/cleaned_scan.pdf"
 SCAN_ANCHORS_JSON         = DESKEW_DIR + "/scan_anchors.json"
 SCAN_TRANSFORMS_JSON      = DESKEW_DIR + "/scan_transforms.json"
 SCAN_LINES_REMOVED_PDF    = DESKEW_DIR + "/scan_lines_removed.pdf"

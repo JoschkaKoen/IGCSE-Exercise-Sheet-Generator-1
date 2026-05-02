@@ -17,7 +17,7 @@ from xscore.config import MARKING_JPEG_QUALITY
 from xscore.marking.formats.base import FormatParseError, MarkingFailure, MarkingFormat
 from xscore.prompts.loader import load_prompt
 from xscore.shared.prompt_logger import (
-    save_input_data, save_output_data, save_prompt, save_response,
+    save_input_data, save_prompt, save_response,
 )
 from xscore.shared.terminal_ui import info_line, warn_line
 
@@ -325,12 +325,9 @@ def _mark_page(
         # --- Final validation pass: MCQ fix + blank-answer + clamp --------
         _finalize_marking(result, warn)
 
-        try:
-            save_output_data(
-                prompt_save_path, fmt.serialize_filled(result), ext="yaml",
-            )
-        except Exception:  # noqa: BLE001 - logging must never break the call
-            pass
+        # The canonical marked YAML is written by run_ai_marking() under
+        # 29_ai_marking/students/<S>/page_N.yaml; the prompt-logger sidecar
+        # would only duplicate the same content with student_name='', so skip it.
 
         if reuse_cache and not cache_hit and _cache_key is not None:
             from xscore.shared.response_cache import cache_put

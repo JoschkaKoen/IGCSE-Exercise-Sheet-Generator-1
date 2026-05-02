@@ -199,8 +199,15 @@ def detect_scheme_graphics(
         graphics_page_results = list(pool.map(_detect_graphics_page, range(1, n_pages + 1)))
 
     _graphics_merged = _merge_scheme_results(graphics_page_results)
+    # Normalise question numbers to the canonical form used everywhere else
+    # in the pipeline (`7a`, not `7(a)`). The AI's raw output keeps parens
+    # because that's how the mark scheme PDF labels questions; downstream
+    # code expects the normalised form.
+    for q in _graphics_merged.get("questions", []):
+        if q.get("number") is not None:
+            q["number"] = _norm_qnum(q["number"])
     _graphics_by_qnum = {
-        _norm_qnum(q["number"]): q["graphics"]
+        q["number"]: q["graphics"]
         for q in _graphics_merged.get("questions", [])
         if q.get("graphics")
     }

@@ -150,11 +150,6 @@ def detect_subject(ctx: _Ctx) -> None:
     )
 
     assert ctx.artifact_dir is not None and ctx.folder is not None
-    announce_step_model(
-        model_env="SUBJECT_DETECTION_MODEL",
-        default_model="gemini-3.1-flash-lite-preview",
-        default_max_tokens=256,
-    )
 
     available = available_subjects_from_env()
     if not available:
@@ -173,6 +168,13 @@ def detect_subject(ctx: _Ctx) -> None:
         method = "filename"
         ok_line(f"Subject: {matched.name}  (matched filename)")
     else:
+        # Only announce the model when an actual API call will follow —
+        # filename match short-circuits before any AI traffic.
+        announce_step_model(
+            model_env="SUBJECT_DETECTION_MODEL",
+            default_model="gemini-3.1-flash-lite-preview",
+            default_max_tokens=256,
+        )
         ctx.subject, ai_meta = _detect_subject_via_ai(ctx, available, exam_pdf)
         method = "ai"
         ok_line(f"Subject: {ctx.subject.name}  (Gemini classification)")

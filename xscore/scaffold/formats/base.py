@@ -481,16 +481,30 @@ class ScaffoldFormat:
         for q in data.get("questions", []):
             if not isinstance(q, dict):
                 continue
+            mark_scheme = [
+                {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", "")).strip()}
+                for c in (q.get("criteria") or [])
+                if isinstance(c, dict)
+            ]
+            # Preserve top-level ``marks`` for questions whose ``criteria`` list
+            # is empty — typical for MCQ where the answer letter IS the
+            # criterion. Without this synthetic entry the merged mark scheme
+            # drops those marks, and the per-question total falls short of the
+            # scaffold (one mark per affected MCQ).
+            if not mark_scheme:
+                raw_marks = q.get("marks")
+                try:
+                    m = int(raw_marks) if raw_marks not in (None, "") else 0
+                except (TypeError, ValueError):
+                    m = 0
+                if m > 0:
+                    mark_scheme = [{"mark": str(m), "criterion": ""}]
             questions.append({
                 "number":         str(q.get("number", "")),
                 # str() wrap: model occasionally emits unquoted YAML int (e.g. `correct_answer: 5`); parser must coerce.
                 "correct_answer": str(q.get("correct_answer") or "").strip() or None,
-                "mark_scheme": [
-                    {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", "")).strip()}
-                    for c in (q.get("criteria") or [])
-                    if isinstance(c, dict)
-                ],
-                "graphics": [],
+                "mark_scheme":    mark_scheme,
+                "graphics":       [],
             })
         return {"questions": questions}
 

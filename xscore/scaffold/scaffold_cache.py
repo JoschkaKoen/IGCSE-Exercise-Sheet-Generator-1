@@ -1,14 +1,15 @@
 """On-disk cache for the parsed :class:`ExamScaffold`.
 
-Two formats are written side-by-side:
+Formats:
 
-- ``scaffold.xml`` — primary format read by :func:`_load_cache` / :func:`_load_cache_xml`.
+- ``report.yaml`` — primary format (matches the rest of the pipeline's YAML artifacts).
+- ``report.xml`` — legacy format, still readable for resume from older runs.
 - ``scaffold.md`` and a short markdown — produced by ``write_scaffold_markdown``
   for human inspection.
 
 Legacy JSON caches (``scaffold_cache.json`` at various historical locations)
 are still readable for backwards compatibility; :func:`_save_cache` migrates
-them to the current XML format on the next save.
+them — and any sibling legacy ``report.xml`` — to YAML on the next save.
 
 Note: this module is the **disk-cache** serializer for an ``ExamScaffold``. The
 ``xscore/scaffold/formats/`` package implements ``ScaffoldFormat`` classes used
@@ -25,9 +26,12 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 from xscore.shared.exam_paths import (
     artifact_scaffold_json_path,
     artifact_scaffold_xml_path,
+    artifact_scaffold_yaml_path,
 )
 from xscore.shared.models import (
     BBox,
@@ -197,7 +201,8 @@ def _legacy_artifact_scaffold_subdir_cache_path(artifact_dir: Path) -> Path:
 
 def _effective_cache_path(folder: Path, artifact_dir: Path) -> Path | None:
     for p in (
-        artifact_scaffold_xml_path(artifact_dir),
+        artifact_scaffold_yaml_path(artifact_dir),   # primary
+        artifact_scaffold_xml_path(artifact_dir),    # legacy
         artifact_scaffold_json_path(artifact_dir),
         _legacy_flat_artifact_scaffold_cache_path(artifact_dir),
         _legacy_artifact_scaffold_subdir_cache_path(artifact_dir),
@@ -255,6 +260,8 @@ def _load_cache(folder: Path, artifact_dir: Path) -> ExamScaffold:
     path = _effective_cache_path(folder, artifact_dir)
     if path is None:
         raise FileNotFoundError(f"No scaffold cache for {folder}")
+    if path.suffix == ".yaml":
+        return _load_cache_yaml(path)
     if path.suffix == ".xml":
         return _load_cache_xml(path)
     with open(path, encoding="utf-8") as f:
@@ -336,18 +343,35 @@ def _compute_pdf_sha256(path: Path) -> str:
 
 
 def _read_cached_source_hashes(cache_path: Path) -> dict[str, str]:
-    """Return ``{filename: sha256}`` recorded at the cache root, empty on miss.
+    """Return ``{filename: sha256}`` recorded with the cache, empty on miss.
 
-    Only XML caches store source hashes; legacy JSON caches return ``{}`` so
-    callers fall back to the older mtime-based validity check.
+    YAML caches store hashes under a top-level ``sources`` list. Legacy XML
+    caches store them as ``<basename>_sha256`` attributes on the root element.
+    Legacy JSON caches return ``{}`` so callers fall back to the older
+    mtime-based validity check.
     """
+    if cache_path.suffix == ".yaml":
+        try:
+            with open(cache_path, encoding="utf-8") as f:
+                data = yaml.safe_load(f) or {}
+        except (yaml.YAMLError, OSError):
+            return {}
+        out: dict[str, str] = {}
+        for entry in (data.get("sources") or []):
+            if not isinstance(entry, dict):
+                continue
+            name = entry.get("file")
+            sha = entry.get("sha256")
+            if name and sha:
+                out[str(name)] = str(sha)
+        return out
     if cache_path.suffix != ".xml":
         return {}
     try:
         root = ET.parse(cache_path).getroot()
     except (ET.ParseError, OSError):
         return {}
-    out: dict[str, str] = {}
+    out = {}
     suffix = "_sha256"
     for k, v in root.attrib.items():
         if k.endswith(suffix) and v:
@@ -451,6 +475,138 @@ def _load_cache_xml(path: Path) -> ExamScaffold:
 
 
 # ---------------------------------------------------------------------------
+# YAML (de)serialization — primary format
+# ---------------------------------------------------------------------------
+
+def _question_to_yaml_dict(q: Question) -> dict:
+    """Mirror the XML schema in dict form, suitable for ``yaml.safe_dump``.
+
+    Keeps the same field set as ``_question_to_xml_element`` for round-trip
+    equivalence between formats. Sparse: omits empty/null fields.
+    """
+    d: dict[str, Any] = {
+        "number": q.number,
+        "type": q.question_type,
+        "page": q.page or (q.bbox.page if q.bbox else 1),
+        "subpage_row": q.subpage_row,
+        "subpage_col": q.subpage_col,
+        "marks": q.marks,
+    }
+    if q.correct_answer is not None and str(q.correct_answer).strip():
+        d["correct_answer"] = str(q.correct_answer)
+    d["text"] = q.text or ""
+    if q.answer_options:
+        d["options"] = [{"letter": o.letter, "text": o.text} for o in q.answer_options]
+    if q.question_type != "multiple_choice" and q.marking_criteria and str(q.marking_criteria).strip():
+        d["marking_criteria"] = str(q.marking_criteria)
+    if q.reasoning and str(q.reasoning).strip():
+        d["reasoning"] = str(q.reasoning)
+    if q.subquestions:
+        d["subquestions"] = [_question_to_yaml_dict(s) for s in q.subquestions]
+    return d
+
+
+def _question_from_yaml_dict(d: dict) -> Question:
+    page = int(d.get("page") or 1)
+    answer_options = [
+        McAnswerOption(letter=str(o.get("letter", "")), text=str(o.get("text") or ""))
+        for o in (d.get("options") or [])
+        if isinstance(o, dict) and o.get("letter")
+    ]
+    marking_criteria_raw = d.get("marking_criteria")
+    marking_criteria: str | None = (
+        str(marking_criteria_raw).strip() or None if marking_criteria_raw is not None else None
+    )
+    reasoning_raw = d.get("reasoning")
+    reasoning: str | None = (
+        str(reasoning_raw).strip() or None if reasoning_raw is not None else None
+    )
+    subquestions = [_question_from_yaml_dict(s) for s in (d.get("subquestions") or []) if isinstance(s, dict)]
+    return Question(
+        number=str(d.get("number", "")),
+        question_type=d.get("type", "short_answer"),
+        text=str(d.get("text") or ""),
+        marks=int(d.get("marks", 0)),
+        bbox=BBox(0.0, 0.0, 0.0, 0.0, page),
+        page=page,
+        subpage_row=int(d.get("subpage_row", 1)),
+        subpage_col=int(d.get("subpage_col", 1)),
+        answer_options=answer_options,
+        subquestions=subquestions,
+        correct_answer=(d.get("correct_answer") or None),
+        marking_criteria=marking_criteria,
+        reasoning=reasoning,
+    )
+
+
+def _scaffold_to_yaml(
+    scaffold: ExamScaffold,
+    students: list[str] | None = None,
+    source_hashes: dict[str, str] | None = None,
+) -> str:
+    """Serialise ExamScaffold to a YAML string.
+
+    Filenames in *source_hashes* live as YAML string values under
+    ``sources[].file`` — never as keys — so they tolerate spaces, leading
+    digits, dots, and any other characters that are illegal in XML attribute
+    names. This is the structural fix for the malformed-attribute bug in the
+    legacy XML cache writer.
+    """
+    payload: dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION,
+        "total_marks": scaffold.total_marks,
+        "page_count": scaffold.page_count,
+        "layout": {"rows": scaffold.layout.rows, "cols": scaffold.layout.cols},
+    }
+    if source_hashes:
+        payload["sources"] = [
+            {"file": name, "sha256": h}
+            for name, h in source_hashes.items()
+            if h
+        ]
+    if students:
+        payload["students"] = list(students)
+    payload["questions"] = [_question_to_yaml_dict(q) for q in scaffold.questions]
+    return yaml.safe_dump(
+        payload,
+        default_flow_style=False,
+        sort_keys=False,
+        allow_unicode=True,
+        width=10**9,
+    )
+
+
+def _load_cache_yaml(path: Path) -> ExamScaffold:
+    with open(path, encoding="utf-8") as f:
+        data = yaml.safe_load(f) or {}
+    if not isinstance(data, dict):
+        raise ValueError(f"scaffold YAML cache malformed: {path}")
+    if data.get("schema_version") != SCHEMA_VERSION:
+        raise ValueError(
+            f"scaffold YAML schema_version mismatch — rebuild required "
+            f"(got {data.get('schema_version')!r}, need {SCHEMA_VERSION!r})"
+        )
+    questions = [
+        _question_from_yaml_dict(q)
+        for q in (data.get("questions") or [])
+        if isinstance(q, dict)
+    ]
+    total = int(data.get("total_marks", 0))
+    if not total and questions:
+        total = sum(q.marks for q in gradable_questions(questions))
+    layout_d = data.get("layout") or {}
+    return ExamScaffold(
+        questions=questions,
+        total_marks=total,
+        page_count=int(data.get("page_count", 0)),
+        layout=ExamLayout(
+            rows=int(layout_d.get("rows", 1)),
+            cols=int(layout_d.get("cols", 1)),
+        ),
+    )
+
+
+# ---------------------------------------------------------------------------
 # Save
 # ---------------------------------------------------------------------------
 
@@ -473,9 +629,17 @@ def _save_cache(
     *,
     source_hashes: dict[str, str] | None = None,
 ) -> None:
-    out = artifact_scaffold_xml_path(artifact_dir)
+    out = artifact_scaffold_yaml_path(artifact_dir)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(_scaffold_to_xml(scaffold, students, source_hashes), encoding="utf-8")
+    out.write_text(_scaffold_to_yaml(scaffold, students, source_hashes), encoding="utf-8")
+    # Clean up any sibling legacy report.xml from a pre-migration run so the
+    # cache directory has a single canonical file.
+    old_xml = artifact_scaffold_xml_path(artifact_dir)
+    if old_xml.is_file():
+        try:
+            old_xml.unlink()
+        except OSError:
+            pass
     payload = _scaffold_to_payload(scaffold, students)
     write_scaffold_markdown(artifact_dir, payload)
     write_short_scaffold_markdown(artifact_dir, payload)

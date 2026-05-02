@@ -131,7 +131,7 @@ def resume_pipeline(ctx: "_Ctx") -> None:
 
     required: list[Path] = []
     for paths in [
-        (resume_dir / "07_deskew" / "cleaned_scan.pdf",          resume_dir / "7_cleaned_scan.pdf"),
+        (resume_dir / "cleaned_scan.pdf",                        resume_dir / "07_deskew" / "cleaned_scan.pdf",          resume_dir / "7_cleaned_scan.pdf"),
         (resume_dir / "03_read_student_list" / "students.json",  resume_dir / "3_students.json"),
         # Student list — new (15_) and legacy (14_, 12_, 11_, 8_) locations.
         (resume_dir / "15_student_names" / "exam_student_list.json",
@@ -139,8 +139,9 @@ def resume_pipeline(ctx: "_Ctx") -> None:
          resume_dir / "12_student_names" / "exam_student_list.json",
          resume_dir / "11_student_names" / "exam_student_list.json",
          resume_dir / "8_exam_student_list.json"),
-        # Scaffold report — new (26_) and legacy (25_, 24_, 23_, 22_) locations.
-        (resume_dir / "26_create_report" / "report.xml",
+        # Scaffold report — primary YAML (26_), legacy XML (26_, 25_, 24_, 23_, 22_), and oldest JSON.
+        (resume_dir / "26_create_report" / "report.yaml",
+         resume_dir / "26_create_report" / "report.xml",
          resume_dir / "25_create_report" / "report.xml",
          resume_dir / "24_create_report" / "report.xml",
          resume_dir / "23_create_report" / "report.xml",
@@ -191,9 +192,15 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     assert ctx.artifact_dir is not None
     copy_artifacts(resume_dir, ctx.artifact_dir, ctx.from_step)
 
-    cleaned_new = ctx.artifact_dir / DESKEW_DIR / "cleaned_scan.pdf"
+    cleaned_new = ctx.artifact_dir / "cleaned_scan.pdf"
+    cleaned_legacy_step = ctx.artifact_dir / DESKEW_DIR / "cleaned_scan.pdf"
     cleaned_old = ctx.artifact_dir / "7_cleaned_scan.pdf"
-    ctx.cleaned_pdf = cleaned_new if cleaned_new.exists() else cleaned_old
+    if cleaned_new.exists():
+        ctx.cleaned_pdf = cleaned_new
+    elif cleaned_legacy_step.exists():
+        ctx.cleaned_pdf = cleaned_legacy_step
+    else:
+        ctx.cleaned_pdf = cleaned_old
 
     students_path = artifact_students_json_path(ctx.artifact_dir)
     if not students_path.exists():

@@ -70,8 +70,11 @@ ACCURACY_DIR           = "36_accuracy"
 AI_COSTS_DIR           = "37_ai_costs"
 
 
-# Path of cleaned scan relative to artifact_dir.
-CLEANED_SCAN_PDF = DESKEW_DIR + "/cleaned_scan.pdf"
+# Path of cleaned scan relative to artifact_dir (run root).
+CLEANED_SCAN_PDF = "cleaned_scan.pdf"
+# Legacy location used by pre-2026 runs that wrote into the deskew step folder.
+# Resume code falls back to this when the run-root copy is missing.
+LEGACY_CLEANED_SCAN_PDF = DESKEW_DIR + "/cleaned_scan.pdf"
 
 # Backwards-compatible aliases kept for callers not yet migrated to per-step paths.
 SUBDIR_STUDENTS = "students"

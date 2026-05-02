@@ -433,8 +433,13 @@ def artifact_scheme_graphic_transcriptions_path(artifact_dir: Path) -> Path:
 # Create report / scaffold cache
 # ---------------------------------------------------------------------------
 
+def artifact_scaffold_yaml_path(artifact_dir: Path) -> Path:
+    """Merged exam + mark scheme YAML scaffold cache (primary format)."""
+    return artifact_dir / CREATE_REPORT_DIR / "report.yaml"
+
+
 def artifact_scaffold_xml_path(artifact_dir: Path) -> Path:
-    """Merged exam + mark scheme XML scaffold cache."""
+    """Legacy XML scaffold cache — kept for resume compatibility with old runs."""
     return artifact_dir / CREATE_REPORT_DIR / "report.xml"
 
 
@@ -855,8 +860,9 @@ def find_scaffold_cache_file(
     for base in (output_base, "output"):
         ad = exam_artifact_dir(exam_folder, base)
         for p in (
-            artifact_scaffold_xml_path(ad),                   # CREATE_REPORT_DIR/report.xml (currently 25_)
-            artifact_scaffold_json_path(ad),                  # CREATE_REPORT_DIR/report.json (currently 25_)
+            artifact_scaffold_yaml_path(ad),                  # CREATE_REPORT_DIR/report.yaml (primary)
+            artifact_scaffold_xml_path(ad),                   # CREATE_REPORT_DIR/report.xml (legacy)
+            artifact_scaffold_json_path(ad),                  # CREATE_REPORT_DIR/report.json (legacy)
             ad / "24_create_report" / "report.xml",           # post-detect-subject legacy
             ad / "24_create_report" / "report.json",          # post-detect-subject legacy
             ad / "23_create_report" / "report.xml",           # post-extract-student-answers legacy
@@ -900,7 +906,8 @@ def is_completed_run(run_dir: Path) -> bool:
     each caller maintaining its own legacy probe list.
     """
     candidates = (
-        artifact_scaffold_xml_path(run_dir),           # current — derived from CREATE_REPORT_DIR
+        artifact_scaffold_yaml_path(run_dir),          # current primary — YAML
+        artifact_scaffold_xml_path(run_dir),           # legacy XML
         run_dir / "24_create_report" / "report.xml",   # post-detect-subject legacy
         run_dir / "23_create_report" / "report.xml",   # post-extract-student-answers legacy
         run_dir / "22_create_report" / "report.xml",   # post-assign-scheme-questions legacy
