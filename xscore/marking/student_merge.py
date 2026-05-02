@@ -258,11 +258,11 @@ def _derive_student_names(artifact_dir: Path, fmt=None) -> list[str]:
     seen: dict[str, str] = {}   # safe_name → original name
     result: list[str] = []
     failed: list[str] = []
-    # New layout: Alice_Smith_page_1.yaml; legacy: 14_marked_Alice_Smith_1.yaml
+    # Layout: students/<safe_name>/page_<N>.yaml — see artifact_marked_path.
+    # Prompt-logger sidecars (page_*_input.yaml, page_*_output.yaml) also match
+    # this glob but are filtered below by the empty-student_name guard.
     _students_dir = artifact_marking_students_dir(artifact_dir)
-    _files = sorted(_students_dir.glob(f"*_page_*.{_ext}"))
-    if not _files:
-        _files = sorted(_students_dir.glob(f"14_marked_*_*.{_ext}"))
+    _files = sorted(_students_dir.glob(f"*/page_*.{_ext}"))
     for f in _files:
         try:
             data = fmt.deserialize_blueprint(f.read_text(encoding="utf-8"))

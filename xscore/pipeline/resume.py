@@ -151,8 +151,10 @@ def resume_pipeline(ctx: "_Ctx") -> None:
 
     missing_globs: list[str] = []
     if ctx.from_step > _blueprints_n:
+        # Blueprints migrated from JSON to YAML; older runs may still be on disk.
         bp_found = (
-            list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.json"))
+            list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.yaml"))
+            or list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.json"))
             or list(resume_dir.glob("25_ai_marking_blueprints/blueprint_page_*.json"))
             or list(resume_dir.glob("23_ai_marking_blueprints/blueprint_page_*.json"))
             or list(resume_dir.glob("18_ai_marking_blueprint_*.json"))
@@ -160,20 +162,21 @@ def resume_pipeline(ctx: "_Ctx") -> None:
         if bp_found:
             required += bp_found
         else:
-            missing_globs.append(f"blueprint_page_*.json (in {BLUEPRINTS_DIR}/ or legacy locations)")
+            missing_globs.append(f"blueprint_page_*.yaml (in {BLUEPRINTS_DIR}/ or legacy locations)")
     if ctx.from_step > _marking_n:
-        # Look in the current marking folder first, then the pre-detect_subject
-        # folder ("27_ai_marking/"), then older renumbers, then the very old flat layout.
+        # Marked pages live one level deep (students/<safe_name>/page_<N>.yaml,
+        # see artifact_marked_path). Earlier renumbers used the same per-student
+        # subdir layout; the very old XML layout was flat at students/.
         mk_found = (
-            list(resume_dir.glob(f"{AI_MARKING_DIR}/students/*.yaml"))
-            or list(resume_dir.glob("27_ai_marking/students/*.yaml"))
-            or list(resume_dir.glob("24_ai_marking/students/*.yaml"))
+            list(resume_dir.glob(f"{AI_MARKING_DIR}/students/*/page_*.yaml"))
+            or list(resume_dir.glob("27_ai_marking/students/*/page_*.yaml"))
+            or list(resume_dir.glob("24_ai_marking/students/*/page_*.yaml"))
             or list(resume_dir.glob("students/14_marked_*.xml"))
         )
         if mk_found:
             required += mk_found
         else:
-            missing_globs.append(f"students/*.yaml (in {AI_MARKING_DIR}/ or legacy locations)")
+            missing_globs.append(f"students/*/page_*.yaml (in {AI_MARKING_DIR}/ or legacy locations)")
     missing = [p.name for p in required if not p.exists()] + missing_globs
     if missing:
         raise SystemExit(

@@ -182,7 +182,7 @@ def render_per_student_pdfs(ctx: Any) -> None:
     # builds resolve `<dir><name>.png` against `<dir>` as a file prefix.
     scheme_graphics_dir_path = artifact_mark_scheme_graphics_dir(ctx.artifact_dir).resolve()
     scheme_graphics_dir = str(scheme_graphics_dir_path) + "/"
-    q_to_graphics = _scheme_graphics_by_qnum(scheme_graphics_dir_path)
+    q_to_graphics = _scheme_graphics_by_qnum(ctx.artifact_dir)
     if q_to_graphics:
         n = sum(len(v) for v in q_to_graphics.values())
         info_line(f"Embedding {n} mark-scheme graphic(s) into the Expected column:")

@@ -96,7 +96,11 @@ def use_emoji() -> bool:
 def icon(name: str) -> str:
     if use_emoji():
         return _EMOJI.get(name, "•")
-    return _ASCII_FALLBACK.get(name, "*")
+    # Escape so bracketed ASCII fallbacks (e.g. "[#]", "[/]") don't collide with
+    # Rich's markup parser when interpolated into a styled string. Without this,
+    # "[#]" is consumed as an incomplete hex-color spec and "[/]" raises.
+    from rich.markup import escape as _escape  # noqa: PLC0415
+    return _escape(_ASCII_FALLBACK.get(name, "*"))
 
 
 def paint(text: str, *codes: str) -> str:
@@ -213,6 +217,20 @@ def pipeline_section(title: str) -> None:
 
 def info_line(message: str, *, key: str = "info") -> None:
     get_console().print(f"[dim]  {icon(key)}  {message}[/]")
+
+
+def file_header_line(name: str) -> None:
+    """File-scope header — non-dim, doc icon — visually breaks per-file blocks
+    in steps that loop over input files (e.g. orient-and-merge, scan cleanup)."""
+    get_console().print(f"[bold]  {icon('doc')}  {name}[/]")
+    sys.stdout.flush()
+
+
+def blank_line() -> None:
+    """Print a single blank line. Use to separate logical groups (e.g. between
+    per-file blocks in a multi-file step)."""
+    get_console().print()
+    sys.stdout.flush()
 
 
 def announce_step_model(

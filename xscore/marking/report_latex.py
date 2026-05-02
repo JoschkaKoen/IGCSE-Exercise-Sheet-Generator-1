@@ -19,6 +19,7 @@ imports from both and renders the final TeX via Jinja.
 from __future__ import annotations
 
 import datetime
+import json
 import re
 from pathlib import Path
 
@@ -31,6 +32,11 @@ from xscore.marking.report_latex_cells import (
     _split_oversized_cell,
 )
 from xscore.marking.report_latex_text import _latex_escape
+from xscore.scaffold.scaffold_qtree import _norm_qnum
+from xscore.shared.path_builders import (
+    artifact_mark_scheme_graphics_dir,
+    artifact_mark_scheme_graphics_json_path,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -49,34 +55,46 @@ _ENV = jinja2.Environment(
 )
 
 
-# Step 22 normalises question numbers for filenames via `[^\w]` -> `_`
-# (xscore/scaffold/scaffold_xml.py:_extract_scheme_graphics). The renderer
-# applies the same transform when looking up extracted PNGs by question
-# number, so a question recorded as "7(a)" finds its file `3_7_a__1.png`.
+# Step 22 writes PNG filenames via `[^\w] -> _` (defensive against unsafe
+# chars in raw qnums) but uses `_norm_qnum` (parens stripped) for the
+# canonical question number everywhere else. The marking pipeline's
+# `q["number"]` is the canonical form (e.g. `"7a"` for a leaf `"7(a)"`), so
+# `_scheme_graphics_by_qnum` keys its dict by `_norm_qnum(raw)` for lookup
+# parity and globs files using the original `[^\w]->_` transform.
 _QNUM_SAFE_RE = re.compile(r"[^\w]")
 
 
 def _scheme_graphics_safe_qnum(qnum: str) -> str:
-    return _QNUM_SAFE_RE.sub("_", str(qnum))
+    """Canonical key into the dict from ``_scheme_graphics_by_qnum``."""
+    return _norm_qnum(str(qnum))
 
 
-def _scheme_graphics_by_qnum(graphics_dir: Path) -> dict[str, list[str]]:
-    """Map normalised qnum -> list of PNG filenames extracted by step 22.
+def _scheme_graphics_by_qnum(artifact_dir: Path) -> dict[str, list[str]]:
+    """Map canonical qnum (e.g. ``"7(a)" -> "7a"`` via ``_norm_qnum``) ->
+    list of PNG filenames step 22 extracted for that question.
 
-    Filename pattern: ``<page>_<safe_qnum>_<idx>.png``. Split on the first and
-    last underscore so a safe_qnum that itself contains underscores survives
-    intact (e.g. "7_a_" from a leaf "7(a)" round-trips correctly).
+    Sources raw qnums from ``mark_scheme_graphics.json`` so dict keys match
+    the marking pipeline's canonical ``q["number"]`` form. Files are matched
+    by the same ``[^\\w]->_`` transform that
+    ``scaffold_xml._extract_scheme_graphics`` applied when writing them.
     """
     out: dict[str, list[str]] = {}
-    if not graphics_dir.is_dir():
+    graphics_dir = artifact_mark_scheme_graphics_dir(artifact_dir)
+    json_path = artifact_mark_scheme_graphics_json_path(artifact_dir)
+    if not graphics_dir.is_dir() or not json_path.is_file():
         return out
-    for p in sorted(graphics_dir.glob("*.png")):
-        stem = p.stem
-        first = stem.find("_")
-        last = stem.rfind("_")
-        if first < 0 or last <= first:
+    try:
+        data = json.loads(json_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return out
+    for q in data.get("questions", []):
+        raw = str(q.get("number", "")).strip()
+        if not raw or not q.get("graphics"):
             continue
-        out.setdefault(stem[first + 1 : last], []).append(p.name)
+        key = _norm_qnum(raw)
+        safe = _QNUM_SAFE_RE.sub("_", raw)
+        for pf in sorted(graphics_dir.glob(f"*_{safe}_*.png")):
+            out.setdefault(key, []).append(pf.name)
     return out
 
 

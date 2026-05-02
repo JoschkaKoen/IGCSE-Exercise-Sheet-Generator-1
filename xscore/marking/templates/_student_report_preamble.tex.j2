@@ -108,3 +108,7 @@
   \renewcommand{\headrulewidth}{0pt}%
   \renewcommand{\footrulewidth}{0pt}%
 }
+% \pagestyle{fancy} above snapshots \headwidth from \textwidth, but \geometry
+% runs later (in the body, before \begin{document}) and resizes \textwidth.
+% Re-sync after geometry so \fancyfoot[C] truly centers on the page.
+\AtBeginDocument{\headwidth=\textwidth}

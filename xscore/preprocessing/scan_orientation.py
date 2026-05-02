@@ -921,7 +921,13 @@ def detect_scan_orientations(
     as dict keys verbatim.
     """
     from xscore.config import SCAN_ORIENTATION_DETECTOR  # noqa: PLC0415
-    from xscore.shared.terminal_ui import info_line, ok_line, warn_line  # noqa: PLC0415
+    from xscore.shared.terminal_ui import (  # noqa: PLC0415
+        blank_line,
+        file_header_line,
+        info_line,
+        ok_line,
+        warn_line,
+    )
 
     if not scan_pdfs:
         return {}
@@ -940,8 +946,10 @@ def detect_scan_orientations(
         )
 
     out: dict[Path, OrientationResult] = {}
-    for pdf in scan_pdfs:
-        info_line(pdf.name)
+    for i, pdf in enumerate(scan_pdfs):
+        if i:
+            blank_line()
+        file_header_line(pdf.name)
         try:
             res = detect_scan_orientation(pdf)
         except BaseException as exc:  # noqa: BLE001 — final safety net
@@ -954,8 +962,14 @@ def detect_scan_orientations(
 
         # Escalation, if any.
         if res.escalated_votes:
+            from collections import Counter  # noqa: PLC0415
+            tally = Counter(v.rotation_cw for v in res.initial_votes)
+            breakdown = " / ".join(
+                f"{n}× {rot}°"
+                for rot, n in sorted(tally.items(), key=lambda kv: (-kv[1], kv[0]))
+            )
             info_line(
-                f"  not unanimous — collecting {len(res.escalated_votes)} more usable votes"
+                f"  split {breakdown} — escalating with {len(res.escalated_votes)} more votes"
             )
             for v in sorted(res.escalated_votes, key=lambda v: v.page_idx):
                 info_line(_fmt_page_line(v, res.detector))
@@ -976,8 +990,8 @@ def _fmt_page_line(v: PageVote, detector: str) -> str:
     """Format one per-page line, choosing the layout based on detector path."""
     if detector == "tesseract":
         return (
-            f"  p{v.page_idx:<3d} →  {v.rotation_cw:>3d}° CW   "
-            f"(conf {v.confidence:.1f})"
+            f"  p{v.page_idx:<3d} → {v.rotation_cw:>3d}° CW   "
+            f"(conf {v.confidence:>4.1f})"
         )
     # AI path
     return (
@@ -999,20 +1013,25 @@ def _emit_decision_line(
         )
         return
 
-    n_votes = len(res.votes)
-    top_n = sum(1 for v in res.votes if v.rotation_cw == res.rotation_cw)
-    tag = "unanimous" if top_n == n_votes else "majority"
+    from collections import Counter  # noqa: PLC0415
+    counts = Counter(v.rotation_cw for v in res.votes)
+    n_votes = sum(counts.values())
+    top_n = counts[res.rotation_cw]
+    if top_n == n_votes:
+        summary = f"unanimous, {top_n}/{n_votes}"
+    else:
+        breakdown = " vs ".join(
+            f"{n}× {rot}°"
+            for rot, n in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
+        )
+        summary = f"majority {top_n}/{n_votes} — {breakdown}"
     skipped_note = (
-        f", {len(res.pages_skipped)} page(s) skipped"
-        if res.pages_skipped else ""
+        f", {len(res.pages_skipped)} skipped" if res.pages_skipped else ""
     )
     if res.rotation_cw == 0:
-        ok_line(
-            f"{pdf.name}: already upright  "
-            f"({top_n}/{n_votes} {tag}{skipped_note})"
-        )
+        ok_line(f"{pdf.name}: already upright ({summary}{skipped_note})")
     else:
         ok_line(
-            f"{pdf.name}: applying rotation {res.rotation_cw:>3d}° CW  "
-            f"({top_n}/{n_votes} {tag}{skipped_note})"
+            f"{pdf.name}: applying rotation {res.rotation_cw}° CW "
+            f"({summary}{skipped_note})"
         )

@@ -186,7 +186,7 @@ def _prepare_duplex(
     regenerate cleanly.
     """
     import fitz
-    from xscore.shared.terminal_ui import info_line, ok_line, warn_line
+    from xscore.shared.terminal_ui import blank_line, info_line, ok_line, warn_line
 
     out = artifact_dir / MERGED_SCAN_PDF
     audit = artifact_dir / SCAN_ORIENTATIONS_JSON
@@ -203,16 +203,17 @@ def _prepare_duplex(
 
     unique_files = sorted({p for pair in pairs for p in pair}, key=lambda p: p.name)
     _emit_orientation_phase_header(info_line)
+    blank_line()
     results = detect_scan_orientations(unique_files)
     audit.parent.mkdir(parents=True, exist_ok=True)
     _write_orientations_audit(audit, results)
 
     pairs_desc = ", ".join(f"{f.stem}+{b.stem}" for f, b in pairs)
-    info_line(
-        f"Merging {len(unique_files)} files "
-        f"({len(pairs)} duplex pair{'' if len(pairs) == 1 else 's'})  ·  "
-        f"{pairs_desc}"
-    )
+    blank_line()
+    if len(pairs) == 1:
+        info_line(f"Merging duplex pair: {pairs_desc}")
+    else:
+        info_line(f"Merging {len(pairs)} duplex pairs: {pairs_desc}")
 
     merged = fitz.open()
     try:
@@ -262,7 +263,7 @@ def _prepare_single(
     the rotated copy is missing, we regenerate.
     """
     import fitz
-    from xscore.shared.terminal_ui import info_line, ok_line
+    from xscore.shared.terminal_ui import blank_line, info_line, ok_line
 
     audit = artifact_dir / SCAN_ORIENTATIONS_JSON
     oriented = artifact_dir / ORIENTED_SCAN_PDF
@@ -288,6 +289,7 @@ def _prepare_single(
     from xscore.preprocessing.scan_orientation import detect_scan_orientations
 
     _emit_orientation_phase_header(info_line)
+    blank_line()
     results = detect_scan_orientations([src])
     audit.parent.mkdir(parents=True, exist_ok=True)
     _write_orientations_audit(audit, results)
@@ -296,6 +298,7 @@ def _prepare_single(
     if rot == 0:
         oriented.unlink(missing_ok=True)
         return src
+    blank_line()
     info_line(f"Writing rotated copy to {oriented.name}")
     with fitz.open(str(src)) as doc:
         for p in doc:
@@ -335,18 +338,17 @@ def _emit_orientation_phase_header(info_line) -> None:
     escalation = max(0, SCAN_ORIENTATION_ESCALATION_VOTES)
     detector = _resolve_detector()  # final detector (after auto-resolution)
 
-    info_line("Detecting per-file orientation")
     if detector == "tesseract":
         if escalation == 0:
             tess_desc = (
-                f"Tesseract OSD · targeting {initial} usable votes per file "
-                f"at {TESS_OSD_DPI} DPI (no escalation)"
+                f"Detecting orientation · Tesseract OSD · "
+                f"{initial} votes/file @ {TESS_OSD_DPI} DPI (no escalation)"
             )
         else:
             tess_desc = (
-                f"Tesseract OSD · targeting {initial} usable votes per file "
-                f"at {TESS_OSD_DPI} DPI · escalating with {escalation} more "
-                "if not unanimous"
+                f"Detecting orientation · Tesseract OSD · "
+                f"{initial} votes/file @ {TESS_OSD_DPI} DPI · "
+                f"+{escalation} on split"
             )
         info_line(tess_desc)
         if SCAN_ORIENTATION_DETECTOR == "auto":
@@ -355,13 +357,15 @@ def _emit_orientation_phase_header(info_line) -> None:
         model_name, _, _ = parse_model_spec(SCAN_ORIENTATION_MODEL)
         if escalation == 0:
             ai_desc = (
-                f"AI vision · model {model_name} · {initial} sample pages "
-                f"per file at {ROTATION_DETECTION_DPI} DPI (no escalation)"
+                f"Detecting orientation · AI vision · model {model_name} · "
+                f"{initial} sample pages/file @ {ROTATION_DETECTION_DPI} DPI "
+                "(no escalation)"
             )
         else:
             ai_desc = (
-                f"AI vision · model {model_name} · {initial} initial + up to "
-                f"{escalation} escalation pages per file at {ROTATION_DETECTION_DPI} DPI"
+                f"Detecting orientation · AI vision · model {model_name} · "
+                f"{initial} initial + up to {escalation} escalation pages/file "
+                f"@ {ROTATION_DETECTION_DPI} DPI"
             )
         info_line(ai_desc)
 
@@ -428,18 +432,21 @@ def _log_cached_orientation_summary(cached: dict[str, int]) -> None:
     """Log a one-line-per-file replay from cached audit JSON.
 
     The audit JSON intentionally doesn't store per-page votes (kept compact),
-    so this replay shows just the per-file decision.
+    so this replay shows just the per-file decision — mirroring the fresh-run
+    decision-line shape, with a `(cached)` suffix.
     """
-    from xscore.shared.terminal_ui import info_line
+    from xscore.shared.terminal_ui import blank_line, ok_line
     if not cached:
         return
-    info_line("Cached orientations:")
-    for name in sorted(cached):
+    blank_line()
+    for i, name in enumerate(sorted(cached)):
+        if i:
+            blank_line()
         rot = cached[name]
         if rot == 0:
-            info_line(f"  {name}: already upright")
+            ok_line(f"{name}: already upright (cached)")
         else:
-            info_line(f"  {name}: rotated {rot}° CW")
+            ok_line(f"{name}: applying rotation {rot}° CW (cached)")
 
 
 def _scan_blanks_to_md(
