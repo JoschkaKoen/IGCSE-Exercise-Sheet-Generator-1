@@ -564,14 +564,14 @@ def check_student_handwriting(
         return f"pg {ai_label}", match
 
     def _detect(
-        idx: int, args: tuple
+        idx: int, args: tuple, suffix: str = ""
     ) -> tuple[int, int, int, bool | None, int | None, bool | None, str]:
         """Returns (idx, scan_page, exam_page, hw, detected_pn, is_cover, dur_str)."""
         scan_page, exam_page = args
         jpeg_bytes = _render_page_jpeg(scan_pdf, scan_page)
         (jpeg_dir / f"page_{scan_page:03d}.jpg").write_bytes(jpeg_bytes)
         save_path = artifact_handwriting_prompt_path(
-            artifact_dir, f"page_{scan_page:03d}"
+            artifact_dir, f"page_{scan_page:03d}{suffix}"
         )
         t0 = time.perf_counter()
         hw, detected_pn, is_cover = _has_handwriting(state, model_id, jpeg_bytes, save_path)
@@ -611,6 +611,28 @@ def check_student_handwriting(
                 _emit(sp, ep, h, pn, ic, d)
                 results.append((sp, ep, h, pn, ic))
                 next_idx += 1
+
+    # ── Recheck pass: one retry per page whose first attempt was inconclusive ─
+    inconclusive_idx = [i for i, r in enumerate(results) if r[2] is None]
+    if inconclusive_idx:
+        info_line(
+            f"Re-checking {len(inconclusive_idx)} inconclusive page"
+            f"{'s' if len(inconclusive_idx) != 1 else ''} …"
+        )
+        for i in inconclusive_idx:
+            scan_page, exam_page, *_ = results[i]
+            _, sp, ep, hw, pn, ic, dur = _detect(
+                i, (scan_page, exam_page), suffix="_recheck"
+            )
+            _, match = _classify(ep, pn, ic)
+            if hw is None:
+                line_fn = warn_line
+                status = "still inconclusive"
+            else:
+                status = "has handwriting" if hw else "no handwriting"
+                line_fn = warn_line if match is False else ok_line
+            line_fn(f"  ↳ recheck page {sp:>{page_width}d}  ·  {status}  ·  {dur}")
+            results[i] = (sp, ep, hw, pn, ic)
 
     # ── Build artifact ───────────────────────────────────────────────────────
     scan_pages_out: list[dict] = []

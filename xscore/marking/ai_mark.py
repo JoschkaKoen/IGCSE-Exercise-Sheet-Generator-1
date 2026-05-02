@@ -686,7 +686,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
 
         mark_dur = round(time.perf_counter() - t0, 2)
         if _page_graphics:
-            _graphic_labels = [f"ms p{pg} Q{qn}" for qn, pg, _ in _page_graphics]
+            _graphic_labels = [f"ms p{pg} Q{qn}" for qn, pg, _, _ in _page_graphics]
             _graphic_note = f"  · +graphic ({', '.join(_graphic_labels)})"
         else:
             _graphic_note = ""

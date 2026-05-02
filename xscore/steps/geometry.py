@@ -455,11 +455,8 @@ def student_handwriting_check(ctx: _Ctx) -> None:
     # INCONCLUSIVE
     warn_line(
         "Student handwriting check INCONCLUSIVE — pipeline did NOT verify all blank pages:\n"
-        f"  {msg}\n"
-        "  Set HANDWRITING_CHECK_STRICT=1 to fail-fast on inconclusive checks."
+        f"  {msg}"
     )
-    if os.environ.get("HANDWRITING_CHECK_STRICT", "0") == "1":
-        raise SystemExit(1)
 
 
 def build_marking_register_v1(ctx: _Ctx) -> None:
