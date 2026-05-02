@@ -102,7 +102,7 @@ def print_step_durations(
     table.add_section()
     table.add_row(
         "[bold]Total step time[/]",
-        f"[bold]{format_duration(total)}[/]  ·  {len(api_calls)} API calls",
+        f"[bold]{format_duration(total)}[/]  ·  {len(api_calls)} marking API calls",
     )
     if wall_clock_s is not None:
         table.add_row("Wall clock", format_duration(wall_clock_s))
@@ -146,7 +146,7 @@ def write_timing_report(
     payload: dict = {
         **{k: round(v, 2) for k, v in step_durations.items()},
         "total_marking_s": round(total, 2),
-        "total_api_calls": len(api_calls),
+        "marking_api_calls": len(api_calls),
         "total_failures": len(failures),
         "api_calls": api_calls,
     }
@@ -260,7 +260,7 @@ def _timing_to_md(payload: dict) -> str:
         lines.append("_Output tokens already include thinking tokens; the Thinking column is informational._")
 
     if payload.get("api_calls"):
-        lines.append(f"\n**Total API calls: {payload['total_api_calls']}**\n")
+        lines.append(f"\n**Marking API calls: {payload['marking_api_calls']}**\n")
         lines.append("## Per-Call Timings\n")
         lines.append("| Phase | Student | Page | Duration |")
         lines.append("|-------|---------|------|----------|")

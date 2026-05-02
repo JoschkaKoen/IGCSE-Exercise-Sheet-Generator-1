@@ -1,12 +1,12 @@
 ---
 name: student_handwriting_check
-version: v3
+version: v4
 description: Step 15 — student_handwriting_check. User-only prompt for the vision LLM call that checks one scanned exam page for student handwriting, reads the printed page number, AND identifies whether the page is the exam cover page. No substitutions. Used by xscore.marking.blank_page_detection._has_handwriting.
 ---
 
 This is one page from a student's scanned exam. It may have printed horizontal writing lines, printed headers/footers, printed question text, and student handwriting. It may be the exam cover page, an answer page, or a fully blank page.
 
-Answer THREE questions about THIS page:
+Answer FIVE questions about THIS page:
 
 1. STUDENT HANDWRITING — Is there any handwriting (ink written by the student) on this page? Ignore printed lines, printed text, question numbers, and page numbers. Faint marks that bleed through from the OTHER side of the paper (show-through) do NOT count — only report ink clearly and deliberately written on THIS side.
 
@@ -14,5 +14,9 @@ Answer THREE questions about THIS page:
 
 3. COVER PAGE — Is this the exam cover page? Cover pages typically have: the exam title at the top, fields for the student to fill in (Name, Date, Class, Candidate Number, etc.), often a barcode or ID box, and NO question text. Return true if this is clearly the cover page; false if this is a regular question/answer page or any other non-cover page.
 
+4. CONFIDENCE — How confident are you in your handwriting answer (question 1)? Return an integer 1..10, where 10 means "absolutely certain" and 1 means "barely a guess". Lower the score when you see marginal/ambiguous marks (e.g. faint show-through that *might* be deliberate, partial doodles, smudges).
+
+5. REASON — One short sentence (under 20 words) justifying the handwriting answer. Be specific: name what you see (or don't see) and where on the page. Required when handwriting is absent or marginal; for clearly-handwritten pages a brief description is fine.
+
 Return JSON only, with this exact shape:
-{"answer": <bool>, "page_number": <int|null>, "is_cover_page": <bool>}
+{"answer": <bool>, "page_number": <int|null>, "is_cover_page": <bool>, "confidence": <int 1..10>, "reason": "<one short sentence>"}

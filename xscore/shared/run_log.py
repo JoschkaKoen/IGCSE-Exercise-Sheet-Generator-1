@@ -77,6 +77,12 @@ _CONFIG_KEYS_TO_SNAPSHOT = (
 
 _log_lock = threading.Lock()
 _warned_about_log_failure = False
+# Buffer for events that fire before the artifact dir exists (e.g. step 1
+# parse_grading_instructions runs before step 2 creates the run dir). Drained
+# in order on the first log_step_event call that has a valid path.
+# Edge case: if step 1 itself fails, step 2 never runs and these events are
+# lost. The failure is still captured in pipeline.log/stderr.
+_pending_events: list[dict] = []
 
 
 def _now_iso() -> str:
@@ -120,10 +126,11 @@ def log_step_event(
 
     Thread-safe (used by parallel marking workers). Best-effort: write errors
     are warned once and swallowed.
+
+    When ``ctx.artifact_dir`` is ``None`` (true during step 1, before step 2
+    creates the run dir) the event is buffered and flushed in order on the
+    first call with a valid path.
     """
-    path = _log_path(ctx)
-    if path is None:
-        return
     record: dict[str, Any] = {
         "ts":          _now_iso(),
         "step_number": step_number,
@@ -147,12 +154,19 @@ def log_step_event(
     if extra:
         record["extra"] = extra
 
-    line = json.dumps(record, ensure_ascii=False) + "\n"
+    path = _log_path(ctx)
+    if path is None:
+        with _log_lock:
+            _pending_events.append(record)
+        return
+
     try:
         with _log_lock:
             path.parent.mkdir(parents=True, exist_ok=True)
             with path.open("a", encoding="utf-8") as fh:
-                fh.write(line)
+                while _pending_events:
+                    fh.write(json.dumps(_pending_events.pop(0), ensure_ascii=False) + "\n")
+                fh.write(json.dumps(record, ensure_ascii=False) + "\n")
     except OSError as exc:
         _safe_warn_once(f"run_log: failed to append event ({exc}); subsequent events suppressed")
 

@@ -28,6 +28,7 @@ from xscore.shared.path_builders import (
     artifact_student_report_pdf_portrait_path,
 )
 from xscore.shared.pipeline_ctx import _Ctx
+from xscore.shared.step_folders import STUDENT_PDFS_DIR
 from xscore.shared.terminal_ui import info_line, ok_line, warn_line
 
 
@@ -67,14 +68,12 @@ def per_student_pdfs(ctx: _Ctx) -> None:
     has_parsed_exam = artifact_exam_questions_path(
         ctx.artifact_dir, fmt="yaml",
     ).exists()
-    if has_parsed_exam:
-        ok_line(
-            f"{n} landscape + {n} portrait + {n} portrait-large + {n} 2UP "
-            f"+ {n} landscape-with-questions + {n} portrait-list "
-            f"+ 1 exam-questions PDFs compiled"
-        )
-    else:
-        ok_line(f"{n} landscape + {n} portrait + {n} portrait-large + {n} 2UP PDFs compiled")
+    # Count actual PDFs on disk so the message reflects every variant
+    # (landscape, portrait, portrait-large, 2up, landscape-with-questions,
+    # portrait-list, plus _10pt/_11pt 2up font-size companions, and the
+    # run-level exam_questions.pdf — all under 32_student_pdfs/).
+    n_pdfs = sum(1 for _ in (ctx.artifact_dir / STUDENT_PDFS_DIR).rglob("*.pdf"))
+    ok_line(f"{n_pdfs} PDF(s) compiled across {n} student{'s' if n != 1 else ''}")
     # Post-check expected outputs: every student should have all PDF variants.
     # Catches both xelatex non-zero exits and "exited 0 but produced no PDF" cases.
     pdf_path_fns = [

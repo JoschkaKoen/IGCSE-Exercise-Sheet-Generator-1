@@ -352,10 +352,35 @@ def assign_scheme_questions(ctx: _Ctx) -> None:
     n_pages = len(mapping)
     n_qs = sum(len(v) for v in mapping.values())
     if n_pages:
+        n_parents = _count_parent_stems(state["raw_questions"])
+        suffix = (
+            f"  ·  {n_parents} parent stem(s) with marks=0 not assigned"
+            if n_parents else ""
+        )
         ok_line(
             f"{n_qs} question(s) mapped across {n_pages} page(s)"
+            f"{suffix}"
             f"  ·  {format_duration(time.perf_counter() - t0)}"
         )
+
+
+def _count_parent_stems(raw_questions: list[dict]) -> int:
+    """Count nodes whose ``marks`` is 0 — parent stems whose children carry
+    the marks. The scheme assignment step skips these because they aren't
+    answered as a single unit."""
+    n = 0
+    def visit(node: dict) -> None:
+        nonlocal n
+        try:
+            if int(node.get("marks") or 0) == 0:
+                n += 1
+        except (TypeError, ValueError):
+            pass
+        for s in node.get("subquestions") or []:
+            visit(s)
+    for q in raw_questions or []:
+        visit(q)
+    return n
 
 
 def parse_mark_scheme(ctx: _Ctx) -> None:

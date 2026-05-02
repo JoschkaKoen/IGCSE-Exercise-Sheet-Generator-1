@@ -198,6 +198,8 @@ def _write_review_queue(
         report = full_reports[student_name]
         pages = student_to_pages.get(student_name, [])
         for q in report.get("questions") or []:
+            if q.get("_unanswered"):
+                continue  # injected row for a skipped scan page — not graded
             am = q.get("assigned_marks")
             if am is None:
                 continue  # question was not marked — exclude from audit

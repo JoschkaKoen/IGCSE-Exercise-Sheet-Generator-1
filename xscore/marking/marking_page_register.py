@@ -834,7 +834,7 @@ def print_register_summary(
     table.add_column("Student", justify="left")
     table.add_column("Calls", justify="right")
     table.add_column("Pages", justify="right")
-    table.add_column("Handwriting", justify="right")
+    table.add_column("+HW", justify="right")
     table.add_column("Cross-page", justify="right")
 
     for s in sorted(students, key=lambda x: _first_primary(x)):

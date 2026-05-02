@@ -32,6 +32,7 @@ SCAN_BOXES_REFINED_PDF    = DESKEW_DIR + "/scan_boxes_refined.pdf"
 SCAN_HANDWRITING_JSON     = DESKEW_DIR + "/scan_handwriting.json"
 SCAN_EXERCISE_BOXES_JSON  = DESKEW_DIR + "/scan_exercise_boxes.json"
 SCAN_EXERCISE_BOXES_PDF   = DESKEW_DIR + "/scan_exercise_boxes.pdf"
+DESKEW_ANGLES_JSON        = DESKEW_DIR + "/deskew_angles.json"
 
 
 def _scan_phase_paths(artifact_dir: Path) -> dict[str, Path]:
@@ -604,6 +605,7 @@ def deskew_phase(
         output_pdf=tmp_deskew,
         dpi=dpi,
         saved_as=out.name,
+        angles_json_path=artifact_dir / DESKEW_ANGLES_JSON,
     )
     shutil.move(str(tmp_deskew), str(out))
     return out

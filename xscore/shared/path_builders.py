@@ -568,16 +568,6 @@ def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
     return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}.md"
 
 
-def artifact_student_report_xml_full_path(artifact_dir: Path, student: str) -> Path:
-    """Augmented per-student XML — includes blueprint-derived rows for unanswered questions."""
-    return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}_full.xml"
-
-
-def artifact_student_report_md_full_path(artifact_dir: Path, student: str) -> Path:
-    """Augmented per-student Markdown — companion to the _full XML."""
-    return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}_full.md"
-
-
 # Backward-compat alias for callers that haven't migrated to the new name.
 artifact_reports_students_dir = artifact_student_reports_dir
 
@@ -685,69 +675,89 @@ def artifact_class_report_dir(artifact_dir: Path) -> Path:
     return artifact_dir / CLASS_REPORT_DIR
 
 
+def artifact_class_report_summary_dir(artifact_dir: Path) -> Path:
+    """Class summary core (xml/md/tex/pdf/2up/aux/log + xlsx + charts/)."""
+    return artifact_class_report_dir(artifact_dir) / "class_report"
+
+
+def artifact_class_report_charts_dir(artifact_dir: Path) -> Path:
+    """Embedded chart PNGs — nested under the summary folder."""
+    return artifact_class_report_summary_dir(artifact_dir) / "charts"
+
+
+def artifact_class_report_portrait_dir(artifact_dir: Path) -> Path:
+    """Combined-with-students PDFs whose source pages are portrait."""
+    return artifact_class_report_dir(artifact_dir) / "portrait"
+
+
+def artifact_class_report_landscape_dir(artifact_dir: Path) -> Path:
+    """Combined-with-students PDFs whose source pages are landscape."""
+    return artifact_class_report_dir(artifact_dir) / "landscape"
+
+
 def artifact_class_report_xml_path(artifact_dir: Path) -> Path:
-    return artifact_class_report_dir(artifact_dir) / "class_report.xml"
+    return artifact_class_report_summary_dir(artifact_dir) / "class_report.xml"
 
 
 def artifact_class_report_md_path(artifact_dir: Path) -> Path:
-    return artifact_class_report_dir(artifact_dir) / "class_report.md"
+    return artifact_class_report_summary_dir(artifact_dir) / "class_report.md"
 
 
 def artifact_class_marks_xlsx_path(artifact_dir: Path) -> Path:
     """Machine-friendly per-student × per-question marks grid."""
-    return artifact_class_report_dir(artifact_dir) / "class_marks.xlsx"
+    return artifact_class_report_summary_dir(artifact_dir) / "class_marks.xlsx"
 
 
 def artifact_class_report_tex_path(artifact_dir: Path) -> Path:
-    return artifact_class_report_dir(artifact_dir) / "class_report.tex"
+    return artifact_class_report_summary_dir(artifact_dir) / "class_report.tex"
 
 
 def artifact_class_report_pdf_path(artifact_dir: Path) -> Path:
-    return artifact_class_report_dir(artifact_dir) / "class_report.pdf"
+    return artifact_class_report_summary_dir(artifact_dir) / "class_report.pdf"
 
 
 def artifact_class_report_combined_landscape_pdf_path(artifact_dir: Path) -> Path:
-    return artifact_class_report_dir(artifact_dir) / "class_report_combined_landscape.pdf"
+    return artifact_class_report_landscape_dir(artifact_dir) / "class_report_combined_landscape.pdf"
 
 
 def artifact_class_report_combined_portrait_pdf_path(artifact_dir: Path) -> Path:
-    return artifact_class_report_dir(artifact_dir) / "class_report_combined_portrait.pdf"
+    return artifact_class_report_portrait_dir(artifact_dir) / "class_report_combined_portrait.pdf"
 
 
 def artifact_class_report_combined_landscape_with_questions_pdf_path(artifact_dir: Path) -> Path:
-    return artifact_class_report_dir(artifact_dir) / "class_report_combined_landscape_with_questions.pdf"
+    return artifact_class_report_landscape_dir(artifact_dir) / "class_report_combined_landscape_with_questions.pdf"
 
 
 def artifact_class_report_combined_portrait_list_pdf_path(artifact_dir: Path) -> Path:
-    return artifact_class_report_dir(artifact_dir) / "class_report_combined_portrait_list.pdf"
+    return artifact_class_report_portrait_dir(artifact_dir) / "class_report_combined_portrait_list.pdf"
 
 
 def artifact_class_report_pdf_2up_path(artifact_dir: Path) -> Path:
-    return artifact_class_report_dir(artifact_dir) / "class_report_2up.pdf"
+    return artifact_class_report_summary_dir(artifact_dir) / "class_report_2up.pdf"
 
 
 def artifact_class_report_combined_portrait_2up_pdf_path(artifact_dir: Path) -> Path:
-    return artifact_class_report_dir(artifact_dir) / "class_report_combined_portrait_2up.pdf"
+    return artifact_class_report_portrait_dir(artifact_dir) / "class_report_combined_portrait_2up.pdf"
 
 
 def artifact_class_grade_histogram_raw_path(artifact_dir: Path) -> Path:
     """Raw-percentage grade-distribution histogram PNG"""
-    return artifact_class_report_dir(artifact_dir) / "grade_histogram_raw.png"
+    return artifact_class_report_charts_dir(artifact_dir) / "grade_histogram_raw.png"
 
 
 def artifact_class_grade_histogram_curved_path(artifact_dir: Path) -> Path:
     """Curved-percentage grade-distribution histogram PNG"""
-    return artifact_class_report_dir(artifact_dir) / "grade_histogram_curved.png"
+    return artifact_class_report_charts_dir(artifact_dir) / "grade_histogram_curved.png"
 
 
 def artifact_class_question_difficulty_path(artifact_dir: Path) -> Path:
     """Sub-question difficulty bar chart PNG (leaves) embedded in the class report"""
-    return artifact_class_report_dir(artifact_dir) / "question_difficulty.png"
+    return artifact_class_report_charts_dir(artifact_dir) / "question_difficulty.png"
 
 
 def artifact_class_question_difficulty_top_path(artifact_dir: Path) -> Path:
     """Top-level-question difficulty bar chart PNG embedded in the class report"""
-    return artifact_class_report_dir(artifact_dir) / "question_difficulty_top.png"
+    return artifact_class_report_charts_dir(artifact_dir) / "question_difficulty_top.png"
 
 
 # ---------------------------------------------------------------------------

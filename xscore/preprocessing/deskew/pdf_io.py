@@ -103,6 +103,7 @@ def deskew_pdf_raster(
     *,
     reflines_sidecar: Path | None = None,
     saved_as: str | None = None,
+    angles_json_path: Path | None = None,
 ) -> Path:
     """Rasterize *input_pdf*, deskew each page (per half), write *output_pdf* and
     a sidecar JSON (``*_anchors.json``) with reflines and **null** IGCSE anchors.
@@ -192,6 +193,7 @@ def deskew_pdf_raster(
     # refinement iterations and which signal was used: "wl" (writing lines,
     # the primary path) or "proj" (projection-variance fallback for pages
     # without detectable answer-line structure).
+    angles_records: list[dict] = []
     for i in range(n):
         (_, _, _, input_h_px,
          top_angle, bot_angle, _, _,
@@ -204,7 +206,26 @@ def deskew_pdf_raster(
             )
         else:
             info_line(f"Page {i+1:>2} · {top_angle:+.2f}° ({top_iters}i,{top_method})")
+        angles_records.append({
+            "page":       i + 1,
+            "is_a3":      bool(is_a3),
+            "angle":      round(float(top_angle), 4),
+            "iters":      int(top_iters),
+            "method":     str(top_method),
+            "bot_angle":  round(float(bot_angle), 4) if is_a3 else None,
+            "bot_iters":  int(bot_iters)            if is_a3 else None,
+            "bot_method": str(bot_method)           if is_a3 else None,
+        })
     ok_line(f"Correcting angles · {format_duration(angle_elapsed)}")
+
+    if angles_json_path is not None:
+        try:
+            angles_json_path.parent.mkdir(parents=True, exist_ok=True)
+            angles_json_path.write_text(
+                json.dumps(angles_records, indent=2), encoding="utf-8"
+            )
+        except OSError as exc:
+            info_line(f"[deskew] could not save angles JSON ({exc})")
 
     # Build sidecar JSON only when an explicit path is requested.
     # (Step 8 anchor detection is not part of the current pipeline.)

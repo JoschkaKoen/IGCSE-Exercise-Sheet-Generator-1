@@ -16,9 +16,7 @@ from xscore.shared.exam_paths import (
     artifact_marked_path,
     artifact_marking_students_dir,
     artifact_student_report_dir,
-    artifact_student_report_md_full_path,
     artifact_student_report_md_path,
-    artifact_student_report_xml_full_path,
     artifact_student_report_xml_path,
     safe_student_name as _safe_name,
 )
@@ -322,14 +320,19 @@ def _pass1_merge_students(
     marking_criteria_by_num: dict[str, str],
     reasoning_by_num: dict[str, str],
     workers: int,
-) -> tuple[list[dict], dict[str, dict], dict[str, dict], dict[str, list[float]], list[dict], list[dict]]:
+    n_unanswered_students_out: list[int] | None = None,
+) -> tuple[list[dict], dict[str, dict], dict[str, list[float]], list[dict], list[dict]]:
     """Parallel: merge per-page marks, write XML + MD per student, accumulate q_totals.
 
-    Returns ``(student_summaries, full_reports, full_reports_augmented,
-    q_totals, failed, collisions)``. ``full_reports_augmented`` only contains
-    students whose augmented report differs from the filtered one (i.e. they
-    have at least one skipped scan page that the marking page register can
-    map to a blueprint with questions).
+    Returns ``(student_summaries, full_reports, q_totals, failed, collisions)``.
+    The per-student report stored in ``full_reports`` is the *augmented*
+    version when the marking page register knows about skipped pages with
+    questions — those questions appear inline as ``(not answered)`` rows.
+
+    ``n_unanswered_students_out`` is an optional out-parameter (single-element
+    list) the caller passes to receive the count of students whose report had
+    augmented rows injected. Used only for the post-merge "N student(s) had
+    unanswered questions …" terminal message.
 
     Per-student failures are collected into ``failed`` and the run continues
     — one bad student does not block the rest. ``collisions`` records
@@ -339,12 +342,13 @@ def _pass1_merge_students(
 
     student_summaries: list[dict] = []
     full_reports: dict[str, dict] = {}
-    full_reports_augmented: dict[str, dict] = {}
     q_totals: dict[str, list[float]] = {}
     collisions: list[dict] = []
+    n_unanswered_students = 0
     _summaries_lock = threading.Lock()
     _q_totals_lock = threading.Lock()
     _collisions_lock = threading.Lock()
+    _unanswered_count_lock = threading.Lock()
 
     # Load the marking page register once. Used by _augment_with_unanswered
     # to find each student's skipped_scan_pages. None when resuming from a
@@ -352,6 +356,7 @@ def _pass1_merge_students(
     register = load_register(ctx.artifact_dir)
 
     def _process_one(name: str) -> None:
+        nonlocal n_unanswered_students
         report = _merge_student_pages(
             ctx.artifact_dir, name, ctx.pages_per_student, total_max_marks, fmt=fmt,
             collisions=collisions, collisions_lock=_collisions_lock,
@@ -365,16 +370,9 @@ def _pass1_merge_students(
                 if r:
                     q["explanation"] = r
 
-        artifact_student_report_dir(ctx.artifact_dir, name).mkdir(parents=True, exist_ok=True)
-        artifact_student_report_xml_path(ctx.artifact_dir, name).write_text(
-            student_report_to_xml(report), encoding="utf-8"
-        )
-        artifact_student_report_md_path(ctx.artifact_dir, name).write_text(
-            _student_report_to_md(report), encoding="utf-8"
-        )
-
-        # q_totals: filtered only — augmented rows have assigned_marks=0
-        # and would skew the per-question class averages used by step 31/33.
+        # q_totals must be computed from the FILTERED report — augmented
+        # rows carry assigned_marks=0 and would skew per-question class
+        # averages used by step 31/33. Compute before swapping to canonical.
         with _q_totals_lock:
             for q in report["questions"]:
                 am = q.get("assigned_marks")
@@ -389,25 +387,33 @@ def _pass1_merge_students(
                 report, ctx.artifact_dir, register, fmt,
                 correct_answers, marking_criteria_by_num, reasoning_by_num,
             )
-            if aug is not None:
-                artifact_student_report_xml_full_path(ctx.artifact_dir, name).write_text(
-                    student_report_to_xml(aug), encoding="utf-8"
-                )
-                artifact_student_report_md_full_path(ctx.artifact_dir, name).write_text(
-                    _student_report_to_md(aug), encoding="utf-8"
-                )
+
+        # The augmented version is canonical when present — unanswered
+        # questions render inline as ``(not answered)`` so a teacher reading
+        # the regular report can see them. Falls back to the filtered report
+        # when the register doesn't know about skipped pages.
+        canonical = aug if aug is not None else report
+        if aug is not None:
+            with _unanswered_count_lock:
+                n_unanswered_students += 1
+
+        artifact_student_report_dir(ctx.artifact_dir, name).mkdir(parents=True, exist_ok=True)
+        artifact_student_report_xml_path(ctx.artifact_dir, name).write_text(
+            student_report_to_xml(canonical), encoding="utf-8"
+        )
+        artifact_student_report_md_path(ctx.artifact_dir, name).write_text(
+            _student_report_to_md(canonical), encoding="utf-8"
+        )
 
         with _summaries_lock:
             student_summaries.append({
                 "name": name,
-                "total_marks": report["total_marks"],
-                "percentage": report["percentage"],
+                "total_marks": canonical["total_marks"],
+                "percentage": canonical["percentage"],
             })
-            full_reports[name] = report
-            if aug is not None:
-                full_reports_augmented[name] = aug
+            full_reports[name] = canonical
 
-        ok_line(f"{name}: {report['total_marks']}/{total_max_marks} ({_fmt_pct(report['percentage'])})")
+        ok_line(f"{name}: {canonical['total_marks']}/{total_max_marks} ({_fmt_pct(canonical['percentage'])})")
 
     failed: list[dict] = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
@@ -422,7 +428,9 @@ def _pass1_merge_students(
                 })
                 warn_line(f"merge failed for {name}: {type(exc).__name__}: {exc}")
 
+    if n_unanswered_students_out is not None:
+        n_unanswered_students_out.append(n_unanswered_students)
+
     return (
-        student_summaries, full_reports, full_reports_augmented,
-        q_totals, failed, collisions,
+        student_summaries, full_reports, q_totals, failed, collisions,
     )

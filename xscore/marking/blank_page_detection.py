@@ -120,23 +120,28 @@ def _parse_blank_pages(raw: str) -> set[int] | None:
 
 def _parse_handwriting(
     raw: str,
-) -> tuple[bool | None, int | None, bool | None]:
+) -> tuple[bool | None, int | None, bool | None, int | None, str]:
     """Parse the handwriting + page-number + cover-page vision response.
 
-    Returns ``(handwriting, page_number, is_cover_page)``. Each component is
-    parsed independently — a malformed field does not invalidate the others.
-    Any component may be ``None`` when the field was missing or malformed.
+    Returns ``(handwriting, page_number, is_cover_page, confidence, reason)``.
+    Each component is parsed independently — a malformed field does not
+    invalidate the others. Any component may be ``None`` when the field was
+    missing or malformed (``reason`` defaults to ``""`` since downstream
+    formatting always treats it as a string).
     """
+    empty: tuple[bool | None, int | None, bool | None, int | None, str] = (
+        None, None, None, None, ""
+    )
     if not raw:
-        return None, None, None
+        return empty
     try:
         data = json.loads(raw)
     except (json.JSONDecodeError, ValueError):
-        return None, None, None
+        return empty
     if isinstance(data, bool):
-        return data, None, None
+        return data, None, None, None, ""
     if not isinstance(data, dict):
-        return None, None, None
+        return empty
     hw_raw = data.get("answer")
     if hw_raw is None:
         hw_raw = data.get("has_handwriting")
@@ -156,7 +161,22 @@ def _parse_handwriting(
         pn = None
     cover_raw = data.get("is_cover_page")
     cover: bool | None = cover_raw if isinstance(cover_raw, bool) else None
-    return hw, pn, cover
+    conf_raw = data.get("confidence")
+    conf: int | None = None
+    if isinstance(conf_raw, bool):
+        conf = None
+    elif isinstance(conf_raw, int):
+        conf = conf_raw
+    elif isinstance(conf_raw, (float, str)):
+        try:
+            conf = int(float(str(conf_raw).strip()))
+        except (TypeError, ValueError):
+            conf = None
+    if conf is not None:
+        conf = max(1, min(10, conf))
+    reason_raw = data.get("reason")
+    reason = str(reason_raw).strip() if isinstance(reason_raw, str) else ""
+    return hw, pn, cover, conf, reason
 
 
 # ─────────── Step 17: find blank pages in empty exam ─────────────────────────
@@ -291,12 +311,14 @@ def _has_handwriting(
     model_id: str,
     jpeg_bytes: bytes,
     save_path: Path | None,
-) -> tuple[bool | None, int | None, bool | None]:
-    """Vision call: handwriting + printed page number + cover-page flag.
+) -> tuple[bool | None, int | None, bool | None, int | None, str]:
+    """Vision call: handwriting + printed page number + cover-page flag,
+    plus a 1..10 confidence and one-sentence reason.
 
-    Returns ``(handwriting, page_number, is_cover_page)``. Each component is
-    ``None`` if the call failed or the field was missing/malformed; the three
-    are independent so any subset can succeed.
+    Returns ``(handwriting, page_number, is_cover_page, confidence, reason)``.
+    Each component is ``None`` (or ``""`` for ``reason``) if the call failed or
+    the field was missing/malformed; the components are independent so any
+    subset can succeed.
     """
     from xscore.shared.prompt_logger import (
         attachment_part, save_output_data, save_prompt, save_response,
@@ -319,7 +341,7 @@ def _has_handwriting(
             label="Handwriting check",
         )
     except Exception:
-        return None, None, None
+        return None, None, None, None, ""
     save_response(save_path, raw, thinking=thinking_text)
     save_output_data(save_path, raw, ext="json")
     return _parse_handwriting(raw)
@@ -330,6 +352,8 @@ class _HandwritingPageNumberResp(BaseModel):
     answer: bool
     page_number: int | None = None
     is_cover_page: bool = False
+    confidence: int = 5
+    reason: str = ""
 
 
 def _call_handwriting(
@@ -348,7 +372,7 @@ def _call_handwriting(
                 gai_types.Part.from_text(text=prompt_text),
             ],
             config=gai_types.GenerateContentConfig(
-                max_output_tokens=96,
+                max_output_tokens=192,
                 response_mime_type="application/json",
                 response_schema=_HandwritingPageNumberResp,
             ),
@@ -356,8 +380,9 @@ def _call_handwriting(
         return split_gemini_response(resp)
     import base64 as _base64
     from eXercise.ai_client import build_completion_kwargs
-    # Force thinking off — the JSON shape is in the prompt, 96 tokens is plenty.
-    _use_stream, kw = build_completion_kwargs(state.provider, 0, 96)
+    # Force thinking off — the JSON shape is in the prompt; 192 tokens fits
+    # the 5-field response (the new confidence + reason sentence).
+    _use_stream, kw = build_completion_kwargs(state.provider, 0, 192)
     b64 = _base64.b64encode(jpeg_bytes).decode()
     msgs = [{"role": "user", "content": [
         {"type": "text", "text": prompt_text},
@@ -565,8 +590,8 @@ def check_student_handwriting(
 
     def _detect(
         idx: int, args: tuple, suffix: str = ""
-    ) -> tuple[int, int, int, bool | None, int | None, bool | None, str]:
-        """Returns (idx, scan_page, exam_page, hw, detected_pn, is_cover, dur_str)."""
+    ) -> tuple[int, int, int, bool | None, int | None, bool | None, int | None, str, str]:
+        """Returns (idx, scan_page, exam_page, hw, detected_pn, is_cover, conf, reason, dur_str)."""
         scan_page, exam_page = args
         jpeg_bytes = _render_page_jpeg(scan_pdf, scan_page)
         (jpeg_dir / f"page_{scan_page:03d}.jpg").write_bytes(jpeg_bytes)
@@ -574,9 +599,11 @@ def check_student_handwriting(
             artifact_dir, f"page_{scan_page:03d}{suffix}"
         )
         t0 = time.perf_counter()
-        hw, detected_pn, is_cover = _has_handwriting(state, model_id, jpeg_bytes, save_path)
+        hw, detected_pn, is_cover, conf, reason = _has_handwriting(
+            state, model_id, jpeg_bytes, save_path,
+        )
         dur = format_duration(time.perf_counter() - t0)
-        return idx, scan_page, exam_page, hw, detected_pn, is_cover, dur
+        return idx, scan_page, exam_page, hw, detected_pn, is_cover, conf, reason, dur
 
     def _emit(
         scan_page: int,
@@ -584,6 +611,8 @@ def check_student_handwriting(
         hw: bool | None,
         detected_pn: int | None,
         is_cover: bool | None,
+        conf: int | None,
+        reason: str,
         dur: str,
     ) -> None:
         pn_str, match = _classify(exam_page, detected_pn, is_cover)
@@ -593,23 +622,30 @@ def check_student_handwriting(
         else:
             label = "has handwriting" if hw else "no handwriting "
             line_fn = warn_line if match is False else ok_line
+        conf_str = f"conf={conf}" if conf is not None else "conf=?"
         line_fn(
-            f"Page {scan_page:>{page_width}d}/{scan_n_pages}  ·  {label}  ·  {pn_str:<20}  ·  {dur}"
+            f"Page {scan_page:>{page_width}d}/{scan_n_pages}  ·  {label}"
+            f"  ·  {pn_str:<20}  ·  {conf_str:<7}  ·  {dur}"
         )
+        # Show the model's reason when the answer is "no handwriting" or
+        # confidence is low — those are the cases a reviewer should sanity-
+        # check. High-confidence "yes" doesn't need a justification.
+        if reason and (hw is False or (conf is not None and conf < 7)):
+            info_line(f"    ↳ {reason}")
 
-    results: list[tuple[int, int, bool | None, int | None, bool | None]] = []
-    pending: dict[int, tuple[int, int, bool | None, int | None, bool | None, str]] = {}
+    results: list[tuple[int, int, bool | None, int | None, bool | None, int | None, str]] = []
+    pending: dict[int, tuple[int, int, bool | None, int | None, bool | None, int | None, str, str]] = {}
     next_idx = 0
     workers = min(len(tasks), int(os.environ.get("HANDWRITING_WORKERS", "32")))
     with ThreadPoolExecutor(max_workers=workers) as ex:
         futs = {ex.submit(_detect, i, t): i for i, t in enumerate(tasks)}
         for fut in as_completed(futs):
-            idx, scan_page, exam_page, hw, detected_pn, is_cover, dur = fut.result()
-            pending[idx] = (scan_page, exam_page, hw, detected_pn, is_cover, dur)
+            idx, scan_page, exam_page, hw, detected_pn, is_cover, conf, reason, dur = fut.result()
+            pending[idx] = (scan_page, exam_page, hw, detected_pn, is_cover, conf, reason, dur)
             while next_idx in pending:
-                sp, ep, h, pn, ic, d = pending.pop(next_idx)
-                _emit(sp, ep, h, pn, ic, d)
-                results.append((sp, ep, h, pn, ic))
+                sp, ep, h, pn, ic, cf, rs, d = pending.pop(next_idx)
+                _emit(sp, ep, h, pn, ic, cf, rs, d)
+                results.append((sp, ep, h, pn, ic, cf, rs))
                 next_idx += 1
 
     # ── Recheck pass: one retry per page whose first attempt was inconclusive ─
@@ -621,7 +657,7 @@ def check_student_handwriting(
         )
         for i in inconclusive_idx:
             scan_page, exam_page, *_ = results[i]
-            _, sp, ep, hw, pn, ic, dur = _detect(
+            _, sp, ep, hw, pn, ic, cf, rs, dur = _detect(
                 i, (scan_page, exam_page), suffix="_recheck"
             )
             _, match = _classify(ep, pn, ic)
@@ -631,14 +667,20 @@ def check_student_handwriting(
             else:
                 status = "has handwriting" if hw else "no handwriting"
                 line_fn = warn_line if match is False else ok_line
-            line_fn(f"  ↳ recheck page {sp:>{page_width}d}  ·  {status}  ·  {dur}")
-            results[i] = (sp, ep, hw, pn, ic)
+            conf_str = f"conf={cf}" if cf is not None else "conf=?"
+            line_fn(
+                f"  ↳ recheck page {sp:>{page_width}d}  ·  {status}"
+                f"  ·  {conf_str}  ·  {dur}"
+            )
+            if rs and (hw is False or (cf is not None and cf < 7)):
+                info_line(f"      ↳ {rs}")
+            results[i] = (sp, ep, hw, pn, ic, cf, rs)
 
     # ── Build artifact ───────────────────────────────────────────────────────
     scan_pages_out: list[dict] = []
     inconclusive_pages: list[dict] = []
     mismatch_total: list[tuple[int, str, str]] = []
-    for scan_page, exam_page, has_hw, detected_pn, is_cover in results:
+    for scan_page, exam_page, has_hw, detected_pn, is_cover, conf, reason in results:
         expected_is_cover = (exam_page == 0)
         expected_pn: int | None = None if expected_is_cover else exam_page
         _, pn_match = _classify(exam_page, detected_pn, is_cover)
@@ -649,6 +691,8 @@ def check_student_handwriting(
             "has_handwriting": has_hw,
             "detected_page_number": detected_pn,
             "is_cover_page": is_cover,
+            "confidence": conf,
+            "reason": reason,
             "match": pn_match,
         })
         if has_hw is None:

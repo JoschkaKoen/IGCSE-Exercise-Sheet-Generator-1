@@ -30,7 +30,10 @@ from xscore.marking.student_merge import (
     _build_answer_lookup, _derive_student_names, _pass1_merge_students,
 )
 from xscore.shared.exam_paths import (
-    artifact_class_report_dir,
+    artifact_class_report_charts_dir,
+    artifact_class_report_landscape_dir,
+    artifact_class_report_portrait_dir,
+    artifact_class_report_summary_dir,
     artifact_class_stats_json_path,
     artifact_marking_students_dir,
     artifact_student_pdfs_dir,
@@ -71,27 +74,29 @@ def build_per_student_reports(ctx: Any) -> None:
     artifact_marking_students_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
     artifact_student_reports_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
 
+    n_unanswered_out: list[int] = []
     (
-        student_summaries, full_reports, full_reports_augmented,
+        student_summaries, full_reports,
         q_totals, failed, collisions,
     ) = _pass1_merge_students(
         ctx, fmt, names, total_max_marks,
         correct_answers, marking_criteria_by_num, reasoning_by_num,
         workers,
+        n_unanswered_students_out=n_unanswered_out,
     )
     ctx.student_summaries = student_summaries
     ctx.full_reports = full_reports
-    ctx.full_reports_augmented = full_reports_augmented
     ctx.q_totals = q_totals
     ctx.failed_students = failed
     ctx.mark_collisions = collisions
 
-    if full_reports_augmented:
+    n_aug = n_unanswered_out[0] if n_unanswered_out else 0
+    if n_aug:
         from xscore.shared.terminal_ui import info_line
-        n = len(full_reports_augmented)
+        verb = "have" if n_aug != 1 else "has"
         info_line(
-            f"{n} student{'s' if n != 1 else ''} have unanswered questions — "
-            f"_full reports will be generated"
+            f"{n_aug} student{'s' if n_aug != 1 else ''} {verb} unanswered "
+            f"questions on skipped pages — listed inline as (not answered)"
         )
 
 
@@ -200,23 +205,6 @@ def render_per_student_pdfs(ctx: Any) -> None:
         scheme_graphics_dir=scheme_graphics_dir,
     )
 
-    # Second pass — companion "_full" PDFs containing rows for unanswered
-    # questions on skipped scan pages. Only fires for students whose
-    # augmented report differs from the filtered one.
-    aug = getattr(ctx, "full_reports_augmented", None) or {}
-    if aug:
-        aug_summaries = [s for s in ctx.student_summaries if s["name"] in aug]
-        _pass2_write_tex(
-            aug_summaries, aug, ctx.artifact_dir, exam_name, workers,
-            show_curved_grade=show_curved_grade,
-            parsed_questions=parsed_questions,
-            qmap_by_num=qmap_by_num,
-            name_suffix="_full",
-            class_avg=class_avg,
-            q_to_graphics=q_to_graphics,
-            scheme_graphics_dir=scheme_graphics_dir,
-        )
-
 
 # ---------------------------------------------------------------------------
 # Step 29 — Class report
@@ -243,7 +231,10 @@ def render_class_report(ctx: Any) -> str:
     if not ctx.student_summaries:
         return "skipped_empty"
     exam_name = ctx.artifact_dir.parent.name
-    artifact_class_report_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+    artifact_class_report_summary_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+    artifact_class_report_charts_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+    artifact_class_report_portrait_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
+    artifact_class_report_landscape_dir(ctx.artifact_dir).mkdir(parents=True, exist_ok=True)
     _build_class_report(ctx, ctx.student_summaries, ctx.q_totals, exam_name)
     return "done"
 

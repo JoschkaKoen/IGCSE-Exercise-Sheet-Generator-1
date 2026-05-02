@@ -88,12 +88,11 @@ class _Ctx:
     # Set by per_student_reports, consumed by class_stats_curve, per_student_pdfs,
     # class_report, and review_queue.
     student_summaries: list[dict] | None = None
+    # Per-student reports. When the marking page register knows about skipped
+    # scan pages with questions, the report stored here is the *augmented*
+    # version — those questions appear inline as ``(not answered)`` rows so
+    # the regular per-student PDF/MD/XML lists every gradable item.
     full_reports: dict[str, dict] | None = None
-    # Augmented per-student reports (_unanswered rows added from blueprints
-    # for skipped scan pages). Only contains entries for students whose
-    # augmented report differs from the filtered one. per_student_pdfs uses
-    # this to render the parallel "_full" PDF batch.
-    full_reports_augmented: dict[str, dict] = field(default_factory=dict)
     q_totals: dict[str, list[float]] | None = None
     # Failure surfaces for the report-pipeline tail. Populated by
     # per_student_reports (merge), surfaced by per_student_reports / per_student_pdfs,

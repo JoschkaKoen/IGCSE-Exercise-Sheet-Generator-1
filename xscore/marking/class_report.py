@@ -307,11 +307,9 @@ def _pass2_write_tex(
     run-level ``exam_questions.tex`` — all compiled in the same parallel pass.
 
     *name_suffix* is appended to every per-student output filename (before
-    the extension). With ``""`` (default) behaviour is unchanged. With
-    ``"_full"`` the augmented PDF batch lands next to the filtered one in
-    the same per-student folder. The standalone ``exam_questions.pdf`` is
-    only emitted when ``name_suffix == ""`` (it's a per-run artifact, not
-    per-student, and the second pass shouldn't produce a duplicate).
+    the extension). Default ``""`` is the only value used by current callers;
+    the parameter is kept for the inner ``_{fs}pt`` font-size loop and for
+    callers that want to render an alternate batch into the same folder.
     """
     qmap_by_num = qmap_by_num or {}
     q_to_graphics = q_to_graphics or {}
@@ -341,9 +339,9 @@ def _pass2_write_tex(
             tex_paths.append(tex_path)
 
         # Extra portrait_large variants at smaller font sizes for the
-        # combined 2up class PDF. Skipped on the augmented "_full" pass
-        # (see merge_reports.py:179) — those would over-match the new
-        # portrait_2up_<N>pt glob in _build_class_report.
+        # combined 2up class PDF. Skipped when an outer suffix is present
+        # (e.g. an alternate batch) so the portrait_2up_<N>pt glob in
+        # _build_class_report doesn't pick up duplicates.
         if not name_suffix:
             for fs in _EXTRA_2UP_FONT_SIZES:
                 tex_path = _suffixed(
@@ -400,8 +398,7 @@ def _pass2_write_tex(
             tex_paths.append(list_tex_path)
 
     # The standalone exam-questions PDF is per-run, not per-student. Only
-    # emit it on the first call (no suffix) — the second pass would produce
-    # an identical duplicate.
+    # emit it when we're rendering the unsuffixed batch.
     if parsed_questions is not None and not name_suffix:
         eq_tex_path = artifact_exam_questions_tex_path(artifact_dir)
         eq_tex_path.parent.mkdir(parents=True, exist_ok=True)
@@ -426,8 +423,8 @@ def _pass2_write_tex(
         )
         if p_in.is_file():
             portrait_2up_jobs.append((p_in, p_out))
-        # Companion 2up jobs for each extra font size. Skipped on the
-        # augmented "_full" pass (see merge_reports.py:179).
+        # Companion 2up jobs for each extra font size. Skipped when an
+        # outer suffix is present.
         if not name_suffix:
             for fs in _EXTRA_2UP_FONT_SIZES:
                 p_in_extra = _suffixed(
