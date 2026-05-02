@@ -9,6 +9,7 @@ from __future__ import annotations
 import base64 as _base64
 import json
 import os
+import re
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -32,6 +33,21 @@ from xscore.shared.prompt_logger import save_prompt, save_response
 from xscore.shared.terminal_ui import (
     format_duration, info_line, ok_line, warn_line,
 )
+
+
+def _question_number_parents(leaves: list[str]) -> set[str]:
+    """For each leaf qnum like '2(b)(i)', emit every non-empty prefix
+    parent — e.g. {'2(b)', '2'}. Leaves themselves are NOT included."""
+    parents: set[str] = set()
+    for leaf in leaves:
+        cur = leaf
+        while True:
+            stripped = re.sub(r"\s*\([^()]*\)\s*$", "", cur).rstrip()
+            if not stripped or stripped == cur:
+                break
+            parents.add(stripped)
+            cur = stripped
+    return parents
 
 
 def detect_scheme_graphics(
@@ -79,7 +95,9 @@ def detect_scheme_graphics(
     )
 
     _all_qnums = fmt.extract_question_numbers(scaffold_str)
-    _qnum_hint = ", ".join(f'"{n}"' for n in _all_qnums)
+    _leaf_qnums = set(_all_qnums)
+    _parent_qnums = _question_number_parents(_all_qnums) - _leaf_qnums
+    _qnum_hint = ", ".join(f'"{n}"' for n in [*_all_qnums, *sorted(_parent_qnums)])
 
     _det_client, _det_model, _det_provider, _det_thinking, _det_max_tok = _gfx_client_result
     _, _det_thinking_kw = build_completion_kwargs(
@@ -92,7 +110,7 @@ def detect_scheme_graphics(
         _t0 = time.perf_counter()
         _hint = (
             f"Valid question numbers in this mark scheme: {_qnum_hint}\n"
-            "Return exactly one of these as the question_number for each graphic.\n\n"
+            "Prefer the most specific match; a broader parent is acceptable when the sub-part is unclear.\n\n"
         ) if _qnum_hint else ""
         _user_msg = _hint + _USER_GRAPHICS
 
@@ -131,12 +149,19 @@ def detect_scheme_graphics(
             ok_line(f"p{page_num}  ·  {format_duration(time.perf_counter() - _t0)}")
             return {"questions": []}
         if artifact_dir is not None:
+            from xscore.shared.prompt_logger import attachment_part
             _prompt_path = artifact_scaffold_prompt_path(
                 artifact_dir, f"mark_scheme_graphics_detect_p{page_num}"
             )
             save_prompt(
-                _prompt_path, model=_det_model, system=_gfx_system,
-                messages=[{"role": "user", "content": f"[PNG: p{page_num}]\n\n{_user_msg}"}],
+                _prompt_path, model=_det_model,
+                messages=[
+                    {"role": "system", "content": _gfx_system},
+                    {"role": "user", "content": [
+                        attachment_part(page_pngs[page_num], "image/png"),
+                        {"type": "text", "text": _user_msg},
+                    ]},
+                ],
             )
             save_response(_prompt_path, raw, thinking=_thinking_text)
         questions_map: dict[str, list] = {}
@@ -145,6 +170,11 @@ def detect_scheme_graphics(
             bbox = g.get("bbox") or []
             if not qnum or len(bbox) != 4:
                 continue
+            if qnum not in _leaf_qnums and qnum in _parent_qnums:
+                warn_line(
+                    f"Scheme graphics p{page_num}: graphic assigned to parent {qnum!r} "
+                    "— sub-part not determined"
+                )
             x_min, y_min, x_max, y_max = bbox
             questions_map.setdefault(qnum, []).append({
                 "page": page_num,

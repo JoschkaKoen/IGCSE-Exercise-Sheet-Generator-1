@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import json
 import time
 from collections import Counter
@@ -60,10 +61,15 @@ class GeminiProvider:
 
         if prompt_save_dir is not None:
             from xscore.shared.prompt_logger import save_prompt
+            _img_b64 = base64.b64encode(image_bytes).decode()
             save_prompt(
                 prompt_save_dir / f"page_{page_num}.json",
                 model=AI_MODEL,
-                messages=[{"role": "user", "content": prompt}],
+                messages=[{"role": "user", "content": [
+                    {"type": "image_url",
+                     "image_url": {"url": f"data:image/jpeg;base64,{_img_b64}"}},
+                    {"type": "text", "text": prompt},
+                ]}],
             )
 
         gen_config = types.GenerateContentConfig(

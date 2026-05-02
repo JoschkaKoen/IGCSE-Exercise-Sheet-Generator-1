@@ -296,6 +296,8 @@ def _pass2_write_tex(
     qmap_by_num: dict[str, dict] | None = None,
     name_suffix: str = "",
     class_avg: int | None = None,
+    q_to_graphics: dict[str, list[str]] | None = None,
+    scheme_graphics_dir: str = "",
 ) -> None:
     """Write per-student .tex files (landscape + portrait + portrait-large), then compile all in parallel.
 
@@ -311,6 +313,7 @@ def _pass2_write_tex(
     per-student, and the second pass shouldn't produce a duplicate).
     """
     qmap_by_num = qmap_by_num or {}
+    q_to_graphics = q_to_graphics or {}
     tex_paths: list[Path] = []
     for s in student_summaries:
         report = full_reports[s["name"]]
@@ -329,6 +332,8 @@ def _pass2_write_tex(
                     report, exam_name=exam_name, orientation=orientation,
                     font_size=font_size, show_curved_grade=show_curved_grade,
                     class_avg=class_avg,
+                    q_to_graphics=q_to_graphics,
+                    scheme_graphics_dir=scheme_graphics_dir,
                 ),
                 encoding="utf-8",
             )
@@ -349,6 +354,8 @@ def _pass2_write_tex(
                         report, exam_name=exam_name, orientation="portrait",
                         font_size=fs, show_curved_grade=show_curved_grade,
                         class_avg=class_avg,
+                        q_to_graphics=q_to_graphics,
+                        scheme_graphics_dir=scheme_graphics_dir,
                     ),
                     encoding="utf-8",
                 )
@@ -366,6 +373,8 @@ def _pass2_write_tex(
                     report, qmap_by_num, exam_name=exam_name,
                     font_size=10, show_curved_grade=show_curved_grade,
                     class_avg=class_avg,
+                    q_to_graphics=q_to_graphics,
+                    scheme_graphics_dir=scheme_graphics_dir,
                 ),
                 encoding="utf-8",
             )
@@ -382,6 +391,8 @@ def _pass2_write_tex(
                     report, qmap_by_num, exam_name=exam_name,
                     show_curved_grade=show_curved_grade,
                     class_avg=class_avg,
+                    q_to_graphics=q_to_graphics,
+                    scheme_graphics_dir=scheme_graphics_dir,
                 ),
                 encoding="utf-8",
             )

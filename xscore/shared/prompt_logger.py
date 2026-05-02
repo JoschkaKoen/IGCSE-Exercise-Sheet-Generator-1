@@ -2,8 +2,80 @@
 
 from __future__ import annotations
 
+import base64
+import hashlib
+import re
 from pathlib import Path
 from typing import Any
+
+
+_MIME_TO_EXT: dict[str, str] = {
+    "image/jpeg": ".jpg",
+    "image/png": ".png",
+    "image/webp": ".webp",
+    "image/gif": ".gif",
+    "application/pdf": ".pdf",
+}
+
+_DATA_URL_RE = re.compile(r"^data:([^;]+);base64,(.*)$", re.DOTALL)
+
+
+def _sidecar_stem(path: Path) -> str:
+    """Stem to use for attachment sidecars next to *path*.
+
+    ``Kim_page_8_prompt.md`` → ``Kim_page_8`` (drop trailing ``_prompt``);
+    ``page_5.json`` → ``page_5`` (no suffix to strip).
+    """
+    stem = path.stem
+    if stem.endswith("_prompt"):
+        stem = stem[: -len("_prompt")]
+    return stem
+
+
+def attachment_part(data: bytes, mime: str) -> dict:
+    """OpenAI-shape ``image_url`` content part wrapping raw bytes as a
+    base64 data URL. Used by callers that need to log binary attachments
+    via :func:`save_prompt`. ``save_prompt`` keys off the data URL's mime
+    to pick the sidecar extension, so this single helper covers all
+    attachment types (jpg/png/pdf/…)."""
+    return {
+        "type": "image_url",
+        "image_url": {
+            "url": f"data:{mime};base64,{base64.b64encode(data).decode()}",
+        },
+    }
+
+
+def _decode_image_url(url: str) -> tuple[str, bytes] | None:
+    """Decode a ``data:<mime>;base64,...`` URL into (mime, raw_bytes).
+
+    Returns None for non-data-URL forms (e.g. ``http://...``) — those are
+    rendered as a reference line without a sidecar.
+    """
+    match = _DATA_URL_RE.match(url)
+    if not match:
+        return None
+    mime = match.group(1).strip()
+    try:
+        raw = base64.b64decode(match.group(2), validate=False)
+    except (ValueError, TypeError):
+        return None
+    return mime, raw
+
+
+def _cleanup_stale_sidecars(path: Path) -> None:
+    """Remove any ``<stem>_attachment_*`` files next to *path* before writing
+    fresh ones. Guards against stale leftovers from a prior run when
+    ``--resume-dir`` reuses the same prompt path."""
+    try:
+        stem = _sidecar_stem(path)
+        for old in path.parent.glob(f"{stem}_attachment_*"):
+            try:
+                old.unlink()
+            except OSError:
+                pass
+    except Exception:  # noqa: BLE001
+        pass
 
 
 def save_prompt(
@@ -13,33 +85,74 @@ def save_prompt(
     system: str = "",
     messages: list[dict[str, Any]],
 ) -> None:
-    """Write the text portions of an AI prompt to *path* as Markdown.
+    """Write an AI prompt to *path* as Markdown, with binary attachments
+    emitted as sidecar files in the same directory.
 
-    Strips image data (base64 ``image_url`` items, binary parts) — only text
-    content is saved.  Silently does nothing if *path* is ``None`` or if any
-    I/O error occurs, so this never crashes the pipeline.
+    Text parts are inlined verbatim. ``image_url`` parts whose URL is a
+    ``data:<mime>;base64,...`` form are decoded and written to
+    ``<stem>_attachment_<NNN>.<ext>`` (extension by mime). The markdown
+    body gets a one-line reference per attachment recording filename,
+    mime, byte size, and a short sha256. Other / unknown part shapes
+    emit a visible placeholder rather than being silently dropped.
+
+    Numbering is global across all messages × all parts in send order,
+    so the on-disk numbering matches API send order.
+
+    Silently does nothing if *path* is ``None`` or on any I/O error so a
+    logging fault never breaks the pipeline.
     """
     if path is None:
         return
     try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        _cleanup_stale_sidecars(path)
+        stem = _sidecar_stem(path)
+
         sections: list[str] = [f"# Prompt — {model}\n"]
         if system:
             sections.append(f"## system\n\n{system}\n")
+
+        attachment_idx = 0
         for msg in messages:
             content = msg.get("content", "")
+            role = msg.get("role", "user")
+            body_lines: list[str] = []
             if isinstance(content, list):
-                texts = [
-                    part.get("text", "")
-                    for part in content
-                    if isinstance(part, dict) and part.get("type") == "text"
-                ]
-                text_only = "\n".join(texts)
+                for part in content:
+                    if not isinstance(part, dict):
+                        body_lines.append(f"[unknown part type={type(part).__name__}]")
+                        continue
+                    ptype = part.get("type", "")
+                    if ptype == "text":
+                        body_lines.append(part.get("text", ""))
+                        continue
+                    if ptype == "image_url":
+                        url = (part.get("image_url") or {}).get("url", "")
+                        decoded = _decode_image_url(url) if isinstance(url, str) else None
+                        if decoded is None:
+                            body_lines.append(f"[image_url] {url[:120]}")
+                            continue
+                        mime, raw = decoded
+                        attachment_idx += 1
+                        ext = _MIME_TO_EXT.get(mime, ".bin")
+                        filename = f"{stem}_attachment_{attachment_idx:03d}{ext}"
+                        sidecar = path.parent / filename
+                        try:
+                            sidecar.write_bytes(raw)
+                        except OSError:
+                            pass
+                        sha = hashlib.sha256(raw).hexdigest()[:16]
+                        body_lines.append(
+                            f"[attachment {attachment_idx:03d}] {filename} · "
+                            f"{mime} · {len(raw)} bytes · sha256:{sha}"
+                        )
+                        continue
+                    body_lines.append(f"[unknown part type={ptype}]")
+                text_only = "\n".join(body_lines)
             else:
                 text_only = str(content)
-            role = msg.get("role", "user")
             sections.append(f"## {role}\n\n{text_only}\n")
 
-        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("\n".join(sections), encoding="utf-8")
     except Exception:  # noqa: BLE001
         pass

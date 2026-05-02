@@ -136,10 +136,17 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
             ]
 
         if _save_prompt_path is not None:
-            from xscore.shared.prompt_logger import save_prompt
+            from xscore.shared.prompt_logger import attachment_part, save_prompt
+            if ext in (".xlsx", ".xls", ".csv"):
+                _audit_user: object = _prompt_user_text
+            else:  # .pdf — mirror the Gemini contents (PDF first, then text)
+                _audit_user = [
+                    attachment_part(target.read_bytes(), "application/pdf"),
+                    {"type": "text", "text": _PROMPT},
+                ]
             save_prompt(
                 _save_prompt_path, model=model_name,
-                messages=[{"role": "user", "content": _prompt_user_text}],
+                messages=[{"role": "user", "content": _audit_user}],
             )
 
         from eXercise.api_retry import retry_api_call  # noqa: PLC0415
@@ -203,9 +210,11 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
 
         if _save_prompt_path is not None:
             from xscore.shared.prompt_logger import save_prompt
+            # user_content is already the right shape for both branches:
+            # plain text for csv/xlsx, list-of-parts (text + image_url) for pdf.
             save_prompt(
                 _save_prompt_path, model=model_name,
-                messages=[{"role": "user", "content": _prompt_user_text}],
+                messages=[{"role": "user", "content": user_content}],
             )
 
         _msgs = [{"role": "user", "content": user_content}]

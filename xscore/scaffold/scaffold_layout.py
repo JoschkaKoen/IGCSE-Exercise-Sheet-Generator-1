@@ -19,7 +19,7 @@ def _detect_layout(
     client, exam_pdf: Path, model: str,
     thinking_tokens: int | None = None,
     max_tokens: int | None = None,
-) -> tuple["_LayoutDetectSchema", float, "str | None", str, "str | None"]:
+) -> tuple["_LayoutDetectSchema", float, "str | None", str, "str | None", list]:
     """Cheap layout detection: send first page of *exam_pdf* and ask for rows/cols/order.
 
     Routes to the right provider based on *model*; *client* is used only on the
@@ -28,16 +28,20 @@ def _detect_layout(
     OA-compat models get a 72-DPI JPEG; ``qwen-doc-turbo`` / ``qwen-long`` get
     a 1-page PDF uploaded via DashScope ``fileid://``.
 
-    Returns (result, elapsed_s, raw_response_text, thinking_text, error_summary).
+    Returns (result, elapsed_s, raw_response_text, thinking_text, error_summary, audit_messages).
     On success: error_summary is None.
     On failure: falls back to 1×1; error_summary is a one-line description; raw_response_text
     may still be set if the API succeeded but JSON parsing failed.
+    *audit_messages* is the OpenAI-shape messages list that was sent (or its
+    synthetic equivalent for the Gemini path), suitable for save_prompt.
+    Empty list when the call was short-circuited before constructing one.
     """
     import fitz
 
     from eXercise.qwen_input import (
         model_supports_pdf_input, qwen_pdf_system_message, upload_pdf_for_extract,
     )
+    from xscore.shared.prompt_logger import attachment_part
 
     _use_qwen_pdf = (
         not model.startswith("gemini") and model_supports_pdf_input(model)
@@ -55,6 +59,7 @@ def _detect_layout(
     thinking_text: str = ""
     t0 = time.perf_counter()
     last_exc: Exception = RuntimeError("no attempts made")
+    _audit_messages: list = []
 
     if model.startswith("gemini"):
         from google.genai import types as gai_types
@@ -67,6 +72,14 @@ def _detect_layout(
         if thinking_tokens is not None:
             cfg_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
         cfg = gai_types.GenerateContentConfig(system_instruction=_SYSTEM_LAYOUT, **cfg_kwargs)
+
+        _audit_messages = [
+            {"role": "system", "content": _SYSTEM_LAYOUT},
+            {"role": "user", "content": [
+                attachment_part(img_bytes, "image/jpeg"),
+                {"type": "text", "text": _USER_LAYOUT},
+            ]},
+        ]
 
         def _do_gemini() -> tuple[str | None, str, "_LayoutDetectSchema"]:
             _resp = client.models.generate_content(
@@ -85,7 +98,7 @@ def _detect_layout(
                 _do_gemini, label="Layout detection",
             )
             elapsed = time.perf_counter() - t0
-            return result, elapsed, raw_text, thinking_text, None
+            return result, elapsed, raw_text, thinking_text, None, _audit_messages
         except Exception as exc:
             last_exc = exc
     else:
@@ -103,6 +116,7 @@ def _detect_layout(
                 _LayoutDetectSchema(rows=1, cols=1, reading_order=[]),
                 elapsed, None, "",
                 f"DETECT_LAYOUT_MODEL={model} requires API key for its provider",
+                _audit_messages,
             )
         _oa_client, _, _provider, _, _ = _result
         _use_stream, _kw = build_completion_kwargs(
@@ -131,6 +145,7 @@ def _detect_layout(
                     {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{_b64}"}},
                 ]},
             ]
+        _audit_messages = _msgs
         _strict_rf = {
             "type": "json_schema",
             "json_schema": {
@@ -183,13 +198,16 @@ def _detect_layout(
             try:
                 result = _LayoutDetectSchema.model_validate_json(raw_text)
                 elapsed = time.perf_counter() - t0
-                return result, elapsed, raw_text, thinking_text, None
+                return result, elapsed, raw_text, thinking_text, None, _audit_messages
             except Exception as exc:
                 last_exc = exc
 
     elapsed = time.perf_counter() - t0
     err_summary = str(last_exc).split("\n")[0]
-    return _LayoutDetectSchema(rows=1, cols=1, reading_order=[]), elapsed, raw_text, thinking_text, err_summary
+    return (
+        _LayoutDetectSchema(rows=1, cols=1, reading_order=[]),
+        elapsed, raw_text, thinking_text, err_summary, _audit_messages,
+    )
 
 
 def _order_cells(page_rect, layout: "_LayoutDetectSchema") -> list:

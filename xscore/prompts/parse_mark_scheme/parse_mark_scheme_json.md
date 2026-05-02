@@ -1,7 +1,7 @@
 ---
 name: parse_mark_scheme_json
-version: v2
-description: Step 20 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction in JSON format. Placeholder $scaffold (Template syntax) holds the question scaffold inserted into the user prompt. JSON-string backslashes appear as \\ (two literal backslashes — needed because the AI emits them inside JSON strings). Body has `$v` in the LaTeX example; Template's safe_substitute leaves it literal as long as no `v=` is passed (only $scaffold is intended). v2 added the MCQ-specific rule asking the model to put the mark scheme's explanation of the correct answer into a single `mark: 0` criteria entry — downstream code routes it into `Question.reasoning`. Used by xscore.scaffold.formats.json_format.JsonScaffoldFormat.
+version: v3
+description: Step 20 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction in JSON format. Placeholder $scaffold (Template syntax) holds the question scaffold inserted into the user prompt. JSON-string backslashes appear as \\ (two literal backslashes — needed because the AI emits them inside JSON strings). Body has `$v` in the LaTeX example; Template's safe_substitute leaves it literal as long as no `v=` is passed (only $scaffold is intended). v3 added a constraint forbidding the model from transcribing diagrams: no `\includegraphics`/`\graphicspath` and no verbal "Diagram text: …" criteria — diagrams are extracted by step 22 and inserted by the renderer. v2 added the MCQ-specific rule asking the model to put the mark scheme's explanation of the correct answer into a single `mark: 0` criteria entry — downstream code routes it into `Question.reasoning`. Used by xscore.scaffold.formats.json_format.JsonScaffoldFormat.
 ---
 ## SYSTEM
 
@@ -19,6 +19,8 @@ $scaffold
 
 LaTeX in criterion strings: use \\ for backslash in JSON strings.
 Examples: "\\textbf{word}", "$v = 2\\pi r / T$"
+
+When a question's mark scheme contains a diagram, figure, or graph, do NOT transcribe it. Do not emit \\includegraphics, \\graphicspath, or any image command, and do not produce criteria that verbally describe the diagram (e.g. "Diagram text: …", "The diagram demonstrates: bots send requests…"). Diagrams are extracted separately and inserted alongside the bullet criteria automatically. Include only criteria that are genuinely separate text in the printed mark scheme — list-style mark allocations, "MAX six" rules, accept/reject notes, and similar.
 
 ## CODE_FORMATTING
 

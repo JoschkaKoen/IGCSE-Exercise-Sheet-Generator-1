@@ -19,6 +19,7 @@ imports from both and renders the final TeX via Jinja.
 from __future__ import annotations
 
 import datetime
+import re
 from pathlib import Path
 
 import jinja2
@@ -46,6 +47,46 @@ _ENV = jinja2.Environment(
     keep_trailing_newline=True,
     autoescape=False,
 )
+
+
+# Step 22 normalises question numbers for filenames via `[^\w]` -> `_`
+# (xscore/scaffold/scaffold_xml.py:_extract_scheme_graphics). The renderer
+# applies the same transform when looking up extracted PNGs by question
+# number, so a question recorded as "7(a)" finds its file `3_7_a__1.png`.
+_QNUM_SAFE_RE = re.compile(r"[^\w]")
+
+
+def _scheme_graphics_safe_qnum(qnum: str) -> str:
+    return _QNUM_SAFE_RE.sub("_", str(qnum))
+
+
+def _scheme_graphics_by_qnum(graphics_dir: Path) -> dict[str, list[str]]:
+    """Map normalised qnum -> list of PNG filenames extracted by step 22.
+
+    Filename pattern: ``<page>_<safe_qnum>_<idx>.png``. Split on the first and
+    last underscore so a safe_qnum that itself contains underscores survives
+    intact (e.g. "7_a_" from a leaf "7(a)" round-trips correctly).
+    """
+    out: dict[str, list[str]] = {}
+    if not graphics_dir.is_dir():
+        return out
+    for p in sorted(graphics_dir.glob("*.png")):
+        stem = p.stem
+        first = stem.find("_")
+        last = stem.rfind("_")
+        if first < 0 or last <= first:
+            continue
+        out.setdefault(stem[first + 1 : last], []).append(p.name)
+    return out
+
+
+def _scheme_graphics_tex(filenames: list[str]) -> str:
+    """Build the LaTeX fragment that embeds extracted scheme graphics in the
+    Expected column of a per-student report. Returned text is meant to be
+    appended to a `_format_criteria_cell` result, separated by `\\newline`."""
+    return " ".join(
+        rf"\includegraphics[width=\linewidth]{{{f}}}" for f in filenames
+    )
 
 
 def _student_header_kwargs(
@@ -81,6 +122,8 @@ def _student_report_to_tex(
     font_size: int = 10,
     show_curved_grade: bool = True,
     class_avg: int | None = None,
+    q_to_graphics: dict[str, list[str]] | None = None,
+    scheme_graphics_dir: str = "",
 ) -> str:
     # Column widths threaded into _ai_cell / _format_criteria_cell so alltt
     # font-size selection scales with cell width. Match the col_spec below.
@@ -93,6 +136,7 @@ def _student_report_to_tex(
     else:
         ans_w, exp_w, reason_w = 5.7, 7.0, 8.1
         panel_budget = 22.0
+    q_to_graphics = q_to_graphics or {}
     rows = []
     for q in report["questions"]:
         qnum = _latex_escape(str(q.get("number", "")).replace("_", "."))
@@ -115,6 +159,9 @@ def _student_report_to_tex(
         else:
             # Non-MCQ with criteria: show the full breakdown regardless of correct_answer.
             correct_ans = _format_criteria_cell(criteria_raw, exp_w)
+        gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum(q.get("number", "")), [])
+        if gfx_files:
+            correct_ans = correct_ans + r" \newline " + _scheme_graphics_tex(gfx_files)
         reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
         awarded_cell = _awarded_tex(awarded, max_q)
         panels = _split_oversized_cell(correct_ans, panel_budget)
@@ -156,6 +203,7 @@ def _student_report_to_tex(
         col_spec=col_spec,
         rows_str=rows_str,
         table_close=table_close,
+        scheme_graphics_dir=scheme_graphics_dir,
         **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg),
     )
 
@@ -341,12 +389,15 @@ def _student_report_with_questions_to_tex(
     font_size: int = 10,
     show_curved_grade: bool = True,
     class_avg: int | None = None,
+    q_to_graphics: dict[str, list[str]] | None = None,
+    scheme_graphics_dir: str = "",
 ) -> str:
     """Landscape per-student PDF with an extra Question column (no MCQ options)."""
     # Column widths threaded into _ai_cell / _format_criteria_cell /
     # _render_question_text so alltt font-size selection scales with cell
     # width. Match the col_spec below.
     qstem_w, ans_w, exp_w, reason_w = 4.5, 4.7, 5.0, 6.2
+    q_to_graphics = q_to_graphics or {}
     rows = []
     for q in report["questions"]:
         qnum_raw = str(q.get("number", ""))
@@ -367,6 +418,9 @@ def _student_report_with_questions_to_tex(
             correct_ans = _ai_cell(correct_raw, exp_w) if correct_raw else "---"
         else:
             correct_ans = _format_criteria_cell(criteria_raw, exp_w)
+        gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum(qnum_raw), [])
+        if gfx_files:
+            correct_ans = correct_ans + r" \newline " + _scheme_graphics_tex(gfx_files)
         reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
         awarded_cell = _awarded_tex(awarded, max_q)
         question_cell = _render_question_text(_question_text_for_row(qnum_raw, qmap), qstem_w)
@@ -387,6 +441,7 @@ def _student_report_with_questions_to_tex(
         col_spec=col_spec,
         rows_str=rows_str,
         table_close=table_close,
+        scheme_graphics_dir=scheme_graphics_dir,
         **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg),
     )
 
@@ -397,6 +452,8 @@ def _student_report_list_to_tex(
     exam_name: str = "",
     show_curved_grade: bool = True,
     class_avg: int | None = None,
+    q_to_graphics: dict[str, list[str]] | None = None,
+    scheme_graphics_dir: str = "",
 ) -> str:
     """Portrait per-student PDF in a list/block layout (no longtable).
 
@@ -407,6 +464,7 @@ def _student_report_list_to_tex(
     # Block layout, no longtable: each labeled paragraph spans the full text
     # width. A4 portrait with 1.5cm margins = 21 - 3 = 18cm.
     block_w = 18.0
+    q_to_graphics = q_to_graphics or {}
 
     blocks: list[str] = []
     for q in report["questions"]:
@@ -429,6 +487,9 @@ def _student_report_list_to_tex(
             expected = _ai_cell(correct_raw, block_w) if correct_raw else "---"
         else:
             expected = _format_criteria_cell(criteria_raw, block_w)
+        gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum(qnum_raw), [])
+        if gfx_files:
+            expected = expected + r" \newline " + _scheme_graphics_tex(gfx_files)
         reasoning = _ai_cell(str(q.get("explanation") or ""), block_w)
         question_body = _render_question_with_options(
             _question_text_for_row(qnum_raw, qmap), block_w
@@ -449,5 +510,6 @@ def _student_report_list_to_tex(
 
     return _ENV.get_template("student_report_list.tex.j2").render(
         body=body,
+        scheme_graphics_dir=scheme_graphics_dir,
         **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg),
     )

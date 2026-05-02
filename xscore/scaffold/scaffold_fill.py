@@ -206,37 +206,54 @@ def fill_exam_scaffold(
             stub, page_num, n_pages, qnums, input_label=_input_label,
         )
 
+        # Hoist messages construction so it feeds both the API call and the
+        # audit log. For the Gemini path build a parallel OpenAI-shape audit
+        # list mirroring what the native Part-based call sends.
+        from xscore.shared.prompt_logger import attachment_part
+        _messages: list = []
+        if _oa_client is None:
+            _audit_messages: list = [
+                {"role": "system", "content": fmt.system_fill_prompt(is_cs=is_cs)},
+                {"role": "user", "content": [
+                    attachment_part(
+                        page_path_by_num[page_num].read_bytes(), "application/pdf"),
+                    {"type": "text", "text": user_msg},
+                ]},
+            ]
+        else:
+            if _oa_provider == "kimi":
+                _page_text = kimi_pdf_text(
+                    _oa_client, page_path_by_num[page_num],
+                    label=f"fill p{page_num}",
+                )
+                _messages = [
+                    {"role": "system", "content": fmt.system_fill_prompt(is_cs=is_cs)},
+                    {"role": "system", "content": _page_text},
+                    {"role": "user", "content": user_msg},
+                ]
+            elif _use_qwen_pdf:
+                file_id = upload_pdf_for_extract(
+                    _oa_client, page_path_by_num[page_num],
+                )
+                _messages = [
+                    {"role": "system", "content": fmt.system_fill_prompt(is_cs=is_cs)},
+                    qwen_pdf_system_message(file_id),
+                    {"role": "user", "content": user_msg},
+                ]
+            else:
+                b64 = _base64.b64encode(page_pngs[page_num]).decode()
+                _messages = [
+                    {"role": "system", "content": fmt.system_fill_prompt(is_cs=is_cs)},
+                    {"role": "user", "content": [
+                        {"type": "image_url",
+                         "image_url": {"url": f"data:image/png;base64,{b64}"}},
+                        {"type": "text", "text": user_msg},
+                    ]},
+                ]
+            _audit_messages = _messages
+
         def _do_call() -> tuple[str, str]:
             if _oa_client is not None:
-                if _oa_provider == "kimi":
-                    _page_text = kimi_pdf_text(
-                        _oa_client, page_path_by_num[page_num],
-                        label=f"fill p{page_num}",
-                    )
-                    _messages = [
-                        {"role": "system", "content": fmt.system_fill_prompt(is_cs=is_cs)},
-                        {"role": "system", "content": _page_text},
-                        {"role": "user", "content": user_msg},
-                    ]
-                elif _use_qwen_pdf:
-                    file_id = upload_pdf_for_extract(
-                        _oa_client, page_path_by_num[page_num],
-                    )
-                    _messages = [
-                        {"role": "system", "content": fmt.system_fill_prompt(is_cs=is_cs)},
-                        qwen_pdf_system_message(file_id),
-                        {"role": "user", "content": user_msg},
-                    ]
-                else:
-                    b64 = _base64.b64encode(page_pngs[page_num]).decode()
-                    _messages = [
-                        {"role": "system", "content": fmt.system_fill_prompt(is_cs=is_cs)},
-                        {"role": "user", "content": [
-                            {"type": "image_url",
-                             "image_url": {"url": f"data:image/png;base64,{b64}"}},
-                            {"type": "text", "text": user_msg},
-                        ]},
-                    ]
                 kwargs: dict = dict(model=fill_model, messages=_messages)
                 kwargs.update(_oa_thinking_kw)
                 if _oa_use_stream:
@@ -280,24 +297,12 @@ def fill_exam_scaffold(
             return {}
 
         if artifact_dir is not None:
-            if _oa_client is None:
-                _src_kind = "PDF (gemini)"
-            elif _oa_provider == "kimi":
-                _src_kind = "PDF→text (kimi)"
-            elif _use_qwen_pdf:
-                _src_kind = "PDF (qwen fileid)"
-            else:
-                _src_kind = "PNG"
             _prompt_path = artifact_scaffold_prompt_path(
                 artifact_dir, f"exam_fill_p{page_num}",
             )
             save_prompt(
                 _prompt_path,
-                model=fill_model, system=fmt.system_fill_prompt(is_cs=is_cs),
-                messages=[{
-                    "role": "user",
-                    "content": f"[{_src_kind}: {actual_exam_pdf.name} p{page_num}]\n\n{user_msg}",
-                }],
+                model=fill_model, messages=_audit_messages,
             )
             save_response(_prompt_path, raw or "", thinking=thinking_text)
 

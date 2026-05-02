@@ -179,8 +179,21 @@ def _mark_page_pdf(
     )
     from xscore.prompts.loader import load_prompt
     _, user_text = load_prompt(fmt.prompt_name(), section="user", blueprint=blueprint_str)
-    save_prompt(prompt_save_path, model=model_id, system=system_prompt,
-                messages=[{"role": "user", "content": user_text}])
+    _pdf_b64 = base64.b64encode(Path(pdf_path).read_bytes()).decode()
+    _logged_user: list[dict] = [
+        {"type": "image_url",
+         "image_url": {"url": f"data:application/pdf;base64,{_pdf_b64}"}},
+        {"type": "text", "text": user_text},
+    ]
+    for _, _, _g_b64 in scheme_graphics:
+        _logged_user.append(
+            {"type": "image_url",
+             "image_url": {"url": f"data:image/png;base64,{_g_b64}"}}
+        )
+    save_prompt(
+        prompt_save_path, model=model_id, system=system_prompt,
+        messages=[{"role": "user", "content": _logged_user}],
+    )
 
     cfg: dict = {
         "system_instruction": system_prompt,

@@ -216,7 +216,7 @@ def _detect_subject_via_ai(
         split_gemini_response,
     )
     from eXercise.api_retry import retry_api_call
-    from eXercise.prompt_logger import save_prompt, save_response
+    from xscore.shared.prompt_logger import attachment_part, save_prompt, save_response
     from xscore.shared.subjects import get_subject
 
     src_pdf = ctx.scaffold_state.get("actual_exam_pdf") or exam_pdf
@@ -291,11 +291,13 @@ def _detect_subject_via_ai(
     save_prompt(
         prompt_path,
         model=model,
-        system=system_prompt,
-        messages=[{
-            "role": "user",
-            "content": f"[pdf: {preview_pdf.name}]\n\n{user_prompt}",
-        }],
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": [
+                attachment_part(preview_pdf.read_bytes(), "application/pdf"),
+                {"type": "text", "text": user_prompt},
+            ]},
+        ],
     )
     save_response(prompt_path, answer_text, thinking=thinking_text)
 

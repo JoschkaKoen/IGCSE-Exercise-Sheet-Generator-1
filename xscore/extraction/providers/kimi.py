@@ -109,7 +109,11 @@ class KimiProvider:
             save_prompt(
                 prompt_save_dir / f"page_{page_num}.json",
                 model=AI_MODEL,
-                messages=[{"role": "user", "content": prompt}],
+                messages=[{"role": "user", "content": [
+                    {"type": "text", "text": prompt},
+                    {"type": "image_url",
+                     "image_url": {"url": f"data:image/jpeg;base64,{image_b64}"}},
+                ]}],
             )
 
         # kimi-k2.5 has fixed temperature (1.0 thinking / 0.6 non-thinking);

@@ -287,12 +287,18 @@ def _has_handwriting(
     ``None`` if the call failed or the field was missing/malformed; the three
     are independent so any subset can succeed.
     """
-    from xscore.shared.prompt_logger import save_prompt, save_response
+    from xscore.shared.prompt_logger import attachment_part, save_prompt, save_response
     from xscore.prompts.loader import load_prompt
 
     _, prompt_text = load_prompt("student_handwriting_check")
     prompt_text = prompt_text.rstrip("\n")
-    save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt_text}])
+    save_prompt(
+        save_path, model=model_id,
+        messages=[{"role": "user", "content": [
+            {"type": "text", "text": prompt_text},
+            attachment_part(jpeg_bytes, "image/jpeg"),
+        ]}],
+    )
 
     try:
         raw, thinking_text = retry_api_call(

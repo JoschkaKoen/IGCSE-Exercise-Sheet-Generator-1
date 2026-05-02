@@ -1,9 +1,11 @@
 """Save AI request prompts / responses / thinking to files for debugging.
 
 Local copy in the eXercise package so the exercise-sheet pipeline does not
-depend on the xscore (marking) package.  ``xscore.shared.prompt_logger``
-remains the source of truth for marker-side code; the two implementations
-are intentionally identical and should be kept in sync.
+depend on the xscore (marking) package. ``xscore.shared.prompt_logger`` is
+the marker-side counterpart; it diverges from this copy in that it writes
+binary attachments (page scans, scheme PDFs, scheme graphics) to sidecar
+files for full audit fidelity. This eXercise copy stays text-only — the
+exercise-sheet pipeline does not currently send images that warrant audit.
 """
 
 from __future__ import annotations

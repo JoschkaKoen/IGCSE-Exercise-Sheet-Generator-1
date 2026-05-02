@@ -146,11 +146,15 @@ def render_per_student_pdfs(ctx: Any) -> None:
     Missing exam-questions artifact → warn-and-skip; the original four
     per-student PDFs still produce.
     """
-    from xscore.marking.report_latex import _build_question_index
+    from xscore.marking.report_latex import (
+        _build_question_index, _scheme_graphics_by_qnum,
+    )
     from xscore.scaffold.formats import load_exam_questions_artifact
     from xscore.shared.output_format import get_output_format
-    from xscore.shared.path_builders import artifact_exam_questions_path
-    from xscore.shared.terminal_ui import warn_line
+    from xscore.shared.path_builders import (
+        artifact_exam_questions_path, artifact_mark_scheme_graphics_dir,
+    )
+    from xscore.shared.terminal_ui import info_line, warn_line
 
     exam_name = ctx.artifact_dir.parent.name
     workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
@@ -172,6 +176,20 @@ def render_per_student_pdfs(ctx: Any) -> None:
             f"{questions_path} not found."
         )
 
+    # Mark-scheme graphics extracted by step 22. The renderer embeds them at
+    # the bottom of the Expected column for each affected question; the
+    # preamble's \graphicspath points at this directory so .tex needs only
+    # the bare filename. Trailing slash matters — without it some xelatex
+    # builds resolve `<dir><name>.png` against `<dir>` as a file prefix.
+    scheme_graphics_dir_path = artifact_mark_scheme_graphics_dir(ctx.artifact_dir).resolve()
+    scheme_graphics_dir = str(scheme_graphics_dir_path) + "/"
+    q_to_graphics = _scheme_graphics_by_qnum(scheme_graphics_dir_path)
+    if q_to_graphics:
+        n = sum(len(v) for v in q_to_graphics.values())
+        info_line(f"Embedding {n} mark-scheme graphic(s) into the Expected column:")
+        for qnum, files in sorted(q_to_graphics.items()):
+            info_line(f"  Q{qnum} → {', '.join(files)}")
+
     class_avg = getattr(ctx, "class_average_pct", None)
     _pass2_write_tex(
         ctx.student_summaries, ctx.full_reports, ctx.artifact_dir, exam_name, workers,
@@ -179,6 +197,8 @@ def render_per_student_pdfs(ctx: Any) -> None:
         parsed_questions=parsed_questions,
         qmap_by_num=qmap_by_num,
         class_avg=class_avg,
+        q_to_graphics=q_to_graphics,
+        scheme_graphics_dir=scheme_graphics_dir,
     )
 
     # Second pass — companion "_full" PDFs containing rows for unanswered
@@ -194,6 +214,8 @@ def render_per_student_pdfs(ctx: Any) -> None:
             qmap_by_num=qmap_by_num,
             name_suffix="_full",
             class_avg=class_avg,
+            q_to_graphics=q_to_graphics,
+            scheme_graphics_dir=scheme_graphics_dir,
         )
 
 

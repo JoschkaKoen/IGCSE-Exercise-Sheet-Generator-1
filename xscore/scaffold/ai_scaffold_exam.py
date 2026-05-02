@@ -67,17 +67,19 @@ def detect_layout_phase(
     """
     layout_model, layout_thinking, layout_max_tokens = _layout_detect_model_config()
 
-    if artifact_dir is not None:
-        save_prompt(
-            artifact_scaffold_prompt_path(artifact_dir, "detect_layout"),
-            model=layout_model, system=_SYSTEM_LAYOUT,
-            messages=[{"role": "user", "content": _USER_LAYOUT}],
-        )
-
-    layout_result, layout_elapsed, layout_raw_text, layout_thinking_text, layout_error = _detect_layout(
+    (
+        layout_result, layout_elapsed, layout_raw_text, layout_thinking_text,
+        layout_error, layout_audit_messages,
+    ) = _detect_layout(
         client, exam_pdf, layout_model,
         thinking_tokens=layout_thinking, max_tokens=layout_max_tokens,
     )
+
+    if artifact_dir is not None and layout_audit_messages:
+        save_prompt(
+            artifact_scaffold_prompt_path(artifact_dir, "detect_layout"),
+            model=layout_model, messages=layout_audit_messages,
+        )
 
     if artifact_dir is not None and layout_raw_text is not None:
         try:

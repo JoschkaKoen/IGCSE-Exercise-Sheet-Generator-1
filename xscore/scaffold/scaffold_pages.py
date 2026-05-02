@@ -102,6 +102,52 @@ def assign_questions_to_pages(
     page_path_by_num: dict[int, Path] = {pn: p for pn, p in enumerate(page_paths, 1)}
 
     def _assign_page(page_num: int) -> tuple[int, list[str]]:
+        # Hoist messages construction so it feeds both the API call and the
+        # audit log. For the Gemini path build a parallel OpenAI-shape audit
+        # list mirroring what the native Part-based call sends.
+        from xscore.shared.prompt_logger import attachment_part
+        _messages: list = []
+        if use_gemini:
+            _audit_messages: list = [
+                {"role": "system", "content": system_msg},
+                {"role": "user", "content": [
+                    attachment_part(
+                        page_path_by_num[page_num].read_bytes(), "application/pdf"),
+                    {"type": "text", "text": user_msg},
+                ]},
+            ]
+        elif use_kimi:
+            _page_text = kimi_pdf_text(
+                _oa_client_aux, page_path_by_num[page_num], label=f"assign p{page_num}",
+            )
+            _messages = [
+                {"role": "system", "content": system_msg},
+                {"role": "system", "content": _page_text},
+                {"role": "user", "content": user_msg},
+            ]
+            _audit_messages = _messages
+        elif use_qwen_pdf:
+            file_id = upload_pdf_for_extract(
+                _oa_client_aux, page_path_by_num[page_num],
+            )
+            _messages = [
+                {"role": "system", "content": system_msg},
+                qwen_pdf_system_message(file_id),
+                {"role": "user", "content": user_msg},
+            ]
+            _audit_messages = _messages
+        else:
+            b64 = _base64.b64encode(page_pngs[page_num]).decode()
+            _messages = [
+                {"role": "system", "content": system_msg},
+                {"role": "user", "content": [
+                    {"type": "image_url",
+                     "image_url": {"url": f"data:image/png;base64,{b64}"}},
+                    {"type": "text", "text": user_msg},
+                ]},
+            ]
+            _audit_messages = _messages
+
         def _do_call() -> tuple[str, str]:
             if use_gemini:
                 _resp = client.models.generate_content(
@@ -124,38 +170,10 @@ def assign_questions_to_pages(
                 )
                 _raw, _th = split_gemini_response(_resp)
                 return _raw, _th
-            # OpenAI-compat path. Build the per-page messages list, then
-            # dispatch streaming vs non-streaming uniformly so K2 thinking-on
-            # (which forces streaming) is honoured here too — non-streaming
-            # K2 thinking blocks the whole reply and looks like a hang.
-            if use_kimi:
-                _page_text = kimi_pdf_text(
-                    _oa_client_aux, page_path_by_num[page_num], label=f"assign p{page_num}",
-                )
-                _messages = [
-                    {"role": "system", "content": system_msg},
-                    {"role": "system", "content": _page_text},
-                    {"role": "user", "content": user_msg},
-                ]
-            elif use_qwen_pdf:
-                file_id = upload_pdf_for_extract(
-                    _oa_client_aux, page_path_by_num[page_num],
-                )
-                _messages = [
-                    {"role": "system", "content": system_msg},
-                    qwen_pdf_system_message(file_id),
-                    {"role": "user", "content": user_msg},
-                ]
-            else:
-                b64 = _base64.b64encode(page_pngs[page_num]).decode()
-                _messages = [
-                    {"role": "system", "content": system_msg},
-                    {"role": "user", "content": [
-                        {"type": "image_url",
-                         "image_url": {"url": f"data:image/png;base64,{b64}"}},
-                        {"type": "text", "text": user_msg},
-                    ]},
-                ]
+            # OpenAI-compat path. Dispatch streaming vs non-streaming uniformly
+            # so K2 thinking-on (which forces streaming) is honoured here too —
+            # non-streaming K2 thinking blocks the whole reply and looks like a
+            # hang.
             kwargs: dict = dict(
                 model=model,
                 messages=_messages,
@@ -193,21 +211,7 @@ def assign_questions_to_pages(
             _prompt_path = artifact_scaffold_prompt_path(
                 artifact_dir, f"assign_scheme_questions_p{page_num}"
             )
-            if use_gemini:
-                _src_label = "PDF (gemini)"
-            elif use_kimi:
-                _src_label = "PDF→text (kimi)"
-            elif use_qwen_pdf:
-                _src_label = "PDF (qwen fileid)"
-            else:
-                _src_label = "PNG"
-            save_prompt(
-                _prompt_path, model=model, system=system_msg,
-                messages=[{
-                    "role": "user",
-                    "content": f"[{_src_label}: p{page_num}]\n\n{user_msg}",
-                }],
-            )
+            save_prompt(_prompt_path, model=model, messages=_audit_messages)
             save_response(_prompt_path, raw or "", thinking=thinking_text)
 
         try:
