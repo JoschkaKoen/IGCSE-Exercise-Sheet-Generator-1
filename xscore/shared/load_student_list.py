@@ -139,6 +139,8 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
             _prompt_user_text = csv_text
             contents = [csv_text]
         else:  # .pdf
+            from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+            announce_ai_input(kind="PDF", note="Gemini, native bytes")
             _prompt_user_text = "(PDF attached)"
             contents = [
                 gemini_pdf_part(client, target, label="student list"),
@@ -203,6 +205,8 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
             user_content = csv_text
         else:  # .pdf — rasterize at 200 DPI to keep request size sane
             import fitz as _fitz
+            from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+            announce_ai_input(kind="PNG", dpi=200, note="raster fallback")
             _prompt_user_text = f"[PDF: {target.name}]"
             with _fitz.open(str(target)) as _doc:
                 _pages_b64 = [

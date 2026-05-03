@@ -52,11 +52,20 @@ def _exam_page_texts(exam_pdf: Path) -> list[str]:
         return [doc[i].get_text().strip() for i in range(doc.page_count)]
 
 
-def _render_page_jpeg(pdf_path: Path, page_1based: int, dpi: int = 150) -> bytes:
+HANDWRITING_JPEG_DPI = 150
+HANDWRITING_JPEG_QUALITY = 75  # PyMuPDF default for tobytes("jpeg") — explicit so it's announceable
+
+
+def _render_page_jpeg(
+    pdf_path: Path,
+    page_1based: int,
+    dpi: int = HANDWRITING_JPEG_DPI,
+    quality: int = HANDWRITING_JPEG_QUALITY,
+) -> bytes:
     import fitz
     with fitz.open(str(pdf_path)) as doc:
         pix = doc[page_1based - 1].get_pixmap(dpi=dpi, colorspace=fitz.csGRAY)
-    return pix.tobytes("jpeg")
+    return pix.tobytes("jpeg", jpg_quality=quality)
 
 
 # ─────────── Model client (shared by both helpers) ───────────────────────────

@@ -35,6 +35,12 @@ def extract_student_answers(ctx: _Ctx) -> None:
         default_model="qwen3.6-plus, off",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
+    from xscore.config import MARKING_JPEG_QUALITY  # noqa: PLC0415
+    from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+    announce_ai_input(
+        kind="JPEG", dpi=ctx.instruction.dpi, quality=MARKING_JPEG_QUALITY,
+        note="re-encode; embedded JPEGs passed verbatim on fast path",
+    )
     ctx.extract_answers_api_calls = run_extract_student_answers(ctx, dpi=ctx.instruction.dpi)
     n_calls = len(ctx.extract_answers_api_calls)
     n_failed = len(getattr(ctx, "extract_answers_failures", []))
@@ -53,6 +59,29 @@ def ai_marking(ctx: _Ctx) -> None:
         default_model=MARKING_MODEL_DEFAULT,
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
+    import os as _os  # noqa: PLC0415
+    from eXercise.ai_client import resolve_active_model  # noqa: PLC0415
+    from xscore.config import MARKING_JPEG_QUALITY  # noqa: PLC0415
+    from xscore.shared.exam_paths import artifact_mark_scheme_graphics_dir  # noqa: PLC0415
+    from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+    _marking_model, _marking_provider, _ = resolve_active_model(
+        ("MARKING_MODEL",), default=MARKING_MODEL_DEFAULT,
+    )
+    if _marking_provider == "gemini":
+        announce_ai_input(
+            kind="PDF",
+            note="Gemini, native bytes — re-extracted from cleaned scan",
+        )
+    else:
+        announce_ai_input(
+            kind="JPEG", dpi=ctx.instruction.dpi, quality=MARKING_JPEG_QUALITY,
+        )
+    _gfx_dir = artifact_mark_scheme_graphics_dir(ctx.artifact_dir)
+    if _gfx_dir.is_dir() and any(_gfx_dir.glob("*.png")):
+        announce_ai_input(
+            label="scheme graphics", kind="PNG",
+            dpi=int(_os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300")),
+        )
     t0 = time.perf_counter()
     ctx.marking_api_calls = run_ai_marking(ctx, dpi=ctx.instruction.dpi)
     elapsed = time.perf_counter() - t0

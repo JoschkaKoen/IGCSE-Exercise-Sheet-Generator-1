@@ -1,358 +1,132 @@
 # -*- coding: utf-8 -*-
-"""Run the full xScore pipeline (steps 1–15) for the web grade worker thread.
+"""Thin adapter: drive the canonical xScore pipeline from the web grade page.
 
-Step 2 (find folder) is bypassed — the folder is already known from the uploaded files.
-Order matches ``xScore.py``: step 4 merges duplex scans (when 2 scan PDFs present),
-steps 5–7 scan cleaning, step 8 exam geometry + name assignment,
-steps 9–11 scaffold (requires ``empty_exam.pdf``), steps 12–15 marking and reports.
+Builds an ``argparse.Namespace`` from form fields, captures stdout for the
+human-readable scrollback, and dispatches ``xscore.pipeline.runner.run_pipeline``
+with a step-event observer. All 37 pipeline steps + resume support come for free
+because we use the same orchestrator the CLI uses.
+
+The ``GradeFormOpts`` dataclass mirrors the CLI flags exposed by ``xScore.py``
+(``--dpi``, ``--force-clean-scan``, ``--stop-after``, ``--from-step``,
+``--resume-dir``, ``--student``, ``--limit-students``) plus a single web-only
+convenience: ``use_cache`` (which prepends ``"use cache "`` to the prompt; the
+canonical opt-in mechanism is the prompt-phrase heuristic in
+``xscore/marking/parse_instruction.py`` — there is no CLI flag for it).
 """
 
 from __future__ import annotations
 
+import argparse
 import datetime
-import logging
-import time
-import uuid
+import sys
 from collections.abc import Callable
+from dataclasses import dataclass
 from pathlib import Path
-from types import SimpleNamespace
+
+from xscore.pipeline.runner import run_pipeline
+from xscore.shared.exam_paths import DESKEW_DIR
 
 
-def run_full_pipeline(
+@dataclass
+class GradeFormOpts:
+    """Form fields for a grade-pipeline submission, mirroring xScore.py CLI flags."""
+
+    prompt: str | None = None
+    dpi: int | None = None
+    force_clean_scan: bool = False
+    stop_after: int | None = None
+    from_step: int | None = None
+    resume_dir: Path | None = None
+    students: list[str] | None = None
+    limit_students: int | None = None
+    use_cache: bool = False  # prepends "use cache " to prompt server-side
+
+
+def _effective_prompt(opts: GradeFormOpts) -> str:
+    """Apply the use_cache convenience: prepend the cache opt-in phrase if needed."""
+    prompt = (opts.prompt or "").strip()
+    if opts.use_cache:
+        # Idempotent: only prepend if the substring isn't already in the prompt.
+        cache_phrases = ("use cache", "reuse cache", "from cache", "cache reuse")
+        if not any(p in prompt.lower() for p in cache_phrases):
+            prompt = ("use cache " + prompt).strip()
+    return prompt
+
+
+def run_xscore_pipeline(
     folder: Path,
-    prompt: str | None,
-    on_line: Callable[[str], None],
-    on_step: Callable[[int, str, float | None], None],
-    *,
-    dpi: int | None = None,
-) -> tuple[Path, Path]:
-    """Run all xScore pipeline steps against *folder* (uploaded exam files).
+    opts: GradeFormOpts,
+    on_step_event: Callable[[dict], None],
+    stdout_tee_factory: Callable[[], object] | None = None,
+) -> tuple[Path | None, Path | None]:
+    """Build args + dispatch the canonical run_pipeline; return (cleaned_pdf, artifact_dir).
 
-    on_step(num, event, elapsed_s) is called for each step state change.
-    event is one of: "running", "done", "failed".
+    *folder* is the upload folder (already populated with ``scan*.pdf``,
+    ``StudentList.*``, ``empty_exam.pdf``, ``answer_sheet.pdf``).
 
-    Returns (cleaned_pdf, artifact_dir).
+    *on_step_event* is invoked for every step transition with a dict
+    (``step_number``, ``step_name``, ``status``, ``duration_s``, ``artifact_dir``,
+    ``error``). The web layer translates these into JobStore updates.
+
+    *stdout_tee_factory*, when provided, returns an object that replaces
+    ``sys.stdout`` for the duration of the run (intended for the web's
+    ``_StdoutTee`` which captures the human-readable scrollback). The tee MUST
+    expose a ``_log = True`` attribute so ``xscore.marking.ai_mark`` disables
+    its Rich Live in-place updates (otherwise they clobber the captured stream).
+
+    Returns:
+        ``(cleaned_pdf, artifact_dir)``. Either may be ``None`` if the pipeline
+        failed before the corresponding artifact was produced.
     """
-    from xscore.marking.ai_mark import run_ai_marking
-    from xscore.preprocessing.assign_pages_to_students import (
-        assign_pages,
-        page_assignments_to_json,
-        page_assignments_to_md,
+    # _Ctx.__post_init__ at pipeline_ctx.py:103 only overrides its dataclass
+    # defaults when args.* is not None. So None is the correct sentinel for
+    # stop_after / from_step / resume_dir / student / limit_students.
+    # force_clean_scan must default to False (bool, not None — checked truthily
+    # at prelude.py:44 via `args.force_clean_scan or inst.force_clean_scan`).
+    args = argparse.Namespace(
+        prompt=_effective_prompt(opts),
+        folder=folder,                       # CLI override → bypasses NL folder resolve
+        dpi=opts.dpi,                        # int | None
+        force_clean_scan=opts.force_clean_scan,  # bool
+        stop_after=opts.stop_after,          # int | None
+        from_step=opts.from_step,            # int | None
+        resume_dir=opts.resume_dir,          # Path | None
+        student=opts.students,               # list[str] | None
+        limit_students=opts.limit_students,  # int | None
     )
-    from xscore.preprocessing.cover_detection import (
-        detect_empty_exam_cover,
-        detect_first_page_cover,
-    )
-    from xscore.marking.blueprints import build_blueprints
-    from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
-    from xscore.marking.merge_reports import compile_reports
-    from xscore.marking.parse_instruction import _heuristic_fallback, parse_prompt
-    from xscore.shared.timing_report import write_timing_report
-    from xscore.config import ROTATION_ANALYSIS_DPI
-    from xscore.preprocessing.coordinator import (
-        autorotate_phase,
-        deskew_phase,
-        detect_blank_pages_phase,
-        prepare_scans_phase,
-    )
-    from xscore.scaffold.generate_scaffold import build_scaffold
-    from xscore.shared.exam_paths import (
-        artifact_exam_student_list_json_path,
-        artifact_exam_student_list_md_path,
-    )
-    from xscore.shared.find_exam_folder import validate_input_files
-    from xscore.shared.load_student_list import read_student_list
 
-    step_timings: dict[str, float] = {}
-
-    def _step(num: int, fn: Callable) -> any:
-        """Call fn() wrapped with on_step events; record duration in *step_timings*."""
-        t0 = time.perf_counter()
-        on_step(num, "running", None)
-        try:
-            result = fn()
-            elapsed = round(time.perf_counter() - t0, 2)
-            step_timings[f"step_{num}_s"] = elapsed
-            on_step(num, "done", elapsed)
-            return result
-        except Exception:
-            on_step(num, "failed", round(time.perf_counter() - t0, 2))
-            raise
-
-    # ---------------------------------------------------------------------- step 1
-    effective_dpi = dpi or 400
-    instruction = _heuristic_fallback(prompt or "", dpi_override=dpi)
-    if prompt and prompt.strip():
-        on_line("Step 1 — Parsing grading instructions…")
-        t0_1 = time.perf_counter()
-        on_step(1, "running", None)
-        try:
-            instruction = parse_prompt(prompt, dpi_override=dpi)
-            if dpi is None:
-                effective_dpi = instruction.dpi
-            on_step(1, "done", round(time.perf_counter() - t0_1, 2))
-        except Exception as exc:  # noqa: BLE001
-            logging.exception("Step 1 prompt parse failed")
-            on_line(f"Step 1 — Prompt parse error ({exc}); using heuristic defaults.")
-            on_step(1, "done", round(time.perf_counter() - t0_1, 2))
-    else:
-        t0_1 = time.perf_counter()
-        on_step(1, "running", None)
-        on_line("Step 1 — No prompt; using defaults.")
-        on_step(1, "done", round(time.perf_counter() - t0_1, 2))
-
-    # ---------------------------------------------------------------------- step 2
-    # Folder is already known from upload; validate required input files.
-    on_step(2, "running", None)
-    try:
-        validate_input_files(folder)
-        on_step(2, "done", 0.0)
-    except FileNotFoundError as exc:
-        on_line(f"Step 2 — {exc}")
-        on_step(2, "failed", 0.0)
-        raise
-
-    # ---------------------------------------------------------------------- step 3
-    on_line("Step 3 — Loading student roster…")
-    students: list[str] = []
-
-    def _load_roster() -> list[str]:
-        result = read_student_list(folder)
-        on_line(f"Step 3 — {len(result)} students on the roster.")
-        return result
-
-    students = _step(3, _load_roster)
-
-    # ---------------------------------------------------------------------- artifact dir
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    artifact_dir = folder / f"{timestamp}_{uuid.uuid4().hex[:8]}"
-    artifact_dir.mkdir(parents=True, exist_ok=False)
-    _cmd_parts = ["web"]
-    if prompt and prompt.strip():
-        _cmd_parts.append(prompt.strip())
-    if dpi is not None:
-        _cmd_parts.append(f"--dpi {dpi}")
-    artifact_dir.mkdir(parents=True, exist_ok=True)
-    (artifact_dir / "command.txt").write_text(" ".join(_cmd_parts), encoding="utf-8")
+    artifact_dir_holder: dict[str, Path] = {}
 
-    # ---------------------------------------------------------------------- step 4 (orient + optional duplex merge)
-    empty_exam_path = folder / "empty_exam.pdf"
-    scaffold = None
+    def _wrapped_event(evt: dict) -> None:
+        if evt.get("artifact_dir"):
+            artifact_dir_holder["dir"] = Path(evt["artifact_dir"])
+        on_step_event(evt)
 
-    on_line("Step 4 — Detecting per-file orientation and preparing scans…")
-
-    def _prepare() -> Path:
-        return prepare_scans_phase(
-            folder, artifact_dir, effective_dpi, force_rebuild=True
-        )
-
-    source_scan = _step(4, _prepare)
-    on_line("Step 4 — Scans prepared.")
-
-    # ---------------------------------------------------------------------- steps 5–7 (scan cleaning)
-    on_line("Step 5 — Detecting blank pages…")
-
-    def _blank() -> None:
-        detect_blank_pages_phase(
-            source_scan,
-            artifact_dir,
-            analysis_dpi=ROTATION_ANALYSIS_DPI,
-            force_clean_scan=True,
-        )
-
-    _step(5, _blank)
-    on_line("Step 5 — Blank pages detected.")
-
-    def _rotate() -> None:
-        autorotate_phase(artifact_dir)
-
-    on_line("Step 6 — Autorotating…")
-    _step(6, _rotate)
-
-    on_line("Step 7 — Deskewing…")
-
-    def _deskew() -> Path:
-        return deskew_phase(artifact_dir, effective_dpi)
-
-    cleaned_pdf: Path = _step(7, _deskew)
-    on_line("Step 7 — Cleaned scan ready.")
-
-    # ---------------------------------------------------------------------- step 8 (geometry + name assignment — before scaffold)
-    on_line("Step 8 — Computing geometry and assigning pages to students (AI)…")
-
-    def _empty_exam_page_count() -> int:
-        import fitz
-
-        if not empty_exam_path.is_file():
-            raise FileNotFoundError(
-                "empty_exam.pdf is required but was not uploaded. "
-                "Please re-submit with the blank exam PDF attached."
-            )
-        with fitz.open(str(empty_exam_path)) as doc:
-            return doc.page_count
-
-    exam_pages = _empty_exam_page_count()
-
-    def _geometry(empty_has_cover: bool | None, scan_has_cover: bool) -> dict:
-        geo = compute_geometry(
-            cleaned_pdf, exam_pages, empty_has_cover, scan_has_cover, students
-        )
-        write_geometry_artifacts(artifact_dir, geo)
-        return geo
-
-    t8 = time.perf_counter()
-    on_step(8, "running", None)
+    real_stdout = sys.stdout
+    tee = stdout_tee_factory() if stdout_tee_factory else None
+    if tee is not None:
+        sys.stdout = tee  # type: ignore[assignment]
     try:
-        empty_has_cover = detect_empty_exam_cover(empty_exam_path, artifact_dir=artifact_dir)
-        scan_has_cover = detect_first_page_cover(cleaned_pdf, artifact_dir=artifact_dir)
-        geo = _geometry(empty_has_cover, scan_has_cover)
-        pages_per_student: int = geo["pages_per_student"]
-        num_students: int = geo["num_students"]
+        run_pipeline(args, timestamp, on_step_event=_wrapped_event)
+    finally:
+        if tee is not None:
+            try:
+                flush = getattr(tee, "flush", None)
+                if callable(flush):
+                    flush()
+            finally:
+                sys.stdout = real_stdout
 
-        page_assignments = assign_pages(
-            cleaned_pdf,
-            students,
-            pages_per_student=pages_per_student,
-            artifact_dir=artifact_dir,
-            cover_page_mode=scan_has_cover,
-        )
-        artifact_exam_student_list_json_path(artifact_dir).write_text(
-            page_assignments_to_json(page_assignments), encoding="utf-8"
-        )
-        artifact_exam_student_list_md_path(artifact_dir).write_text(
-            page_assignments_to_md(page_assignments), encoding="utf-8"
-        )
-        elapsed_8 = round(time.perf_counter() - t8, 2)
-        step_timings["step_8_s"] = elapsed_8
-        on_step(8, "done", elapsed_8)
-        on_line(f"Step 8 — {len(page_assignments)} students detected from scan.")
-    except Exception:
-        on_step(8, "failed", round(time.perf_counter() - t8, 2))
-        raise
-
-    # ---------------------------------------------------------------------- steps 9–11 (scaffold)
-    t9_start: list[float] = []
-    t10_start: list[float] = []
-
-    def _on_exam_done(raw_questions: list) -> None:
-        elapsed = round(time.perf_counter() - t9_start[0], 2) if t9_start else 0.0
-        step_timings["step_9_s"] = elapsed
-        on_step(9, "done", elapsed)
-        on_line(f"Step 9 — {len(raw_questions)} top-level questions extracted.")
-        on_step(10, "running", None)
-        t10_start.append(time.perf_counter())
-
-    def _on_scheme_done(scheme_questions: list) -> None:
-        elapsed = round(time.perf_counter() - t10_start[0], 2) if t10_start else 0.0
-        step_timings["step_10_s"] = elapsed
-        on_step(10, "done", elapsed)
-        on_line(f"Step 10 — {len(scheme_questions)} answers in mark scheme.")
-        on_step(11, "running", None)
-
-    def _build() -> any:
-        t9_start.append(time.perf_counter())
-        on_step(9, "running", None)
-        on_line("Step 9 — Parsing exam PDF (AI)…")
-        result = build_scaffold(
-            folder,
-            artifact_dir=artifact_dir,
-            force_rebuild=True,
-            exam_pdf_override=empty_exam_path,
-            on_exam_complete=_on_exam_done,
-            on_scheme_complete=_on_scheme_done,
-            students=students,
-        )
-        return result
-
-    t11_0 = time.perf_counter()
-    try:
-        scaffold = _build()
-        elapsed_11 = round(time.perf_counter() - t11_0, 2)
-        on_step(11, "done", elapsed_11)
-        step_timings["step_11_s"] = elapsed_11
-        on_line(
-            f"Step 11 — {len(scaffold.gradable_questions)} gradable parts  ·  "
-            f"{scaffold.total_marks} marks."
-        )
-    except Exception:
-        if "step_9_s" not in step_timings:
-            on_step(9, "failed", 0.0)
-        if "step_10_s" not in step_timings:
-            on_step(10, "failed", 0.0)
-        if "step_11_s" not in step_timings:
-            on_step(11, "failed", 0.0)
-        raise
-
-    # ---------------------------------------------------------------------- step 12
-    on_line("Step 12 — Building marking blueprints…")
-
-    def _blueprints() -> list:
-        bps = build_blueprints(scaffold, artifact_dir)
-        on_line(f"Step 12 — {len(bps)} page blueprint(s) written.")
-        return bps
-
-    _step(12, _blueprints)
-
-    # ---------------------------------------------------------------------- step 13
-    on_line("Step 13 — AI marking…")
-    ctx = SimpleNamespace(
-        cleaned_pdf=cleaned_pdf,
-        artifact_dir=artifact_dir,
-        scaffold=scaffold,
-        pages_per_student=pages_per_student,
-        num_students=num_students,
-        instruction=instruction,
-        marking_failures=[],
-    )
-
-    def _mark() -> list:
-        return run_ai_marking(ctx, dpi=effective_dpi)
-
-    api_calls: list[dict] = _step(13, _mark)
-    on_line(f"Step 13 — {len(api_calls)} API calls completed.")
-
-    # ---------------------------------------------------------------------- step 14
-    if instruction.no_report:
-        on_line("Step 14 — Skipped (no_report requested).")
-        on_step(14, "running", None)
-        on_step(14, "done", 0.0)
-    else:
-        on_line("Step 14 — Compiling reports…")
-
-        def _reports() -> list:
-            summaries = compile_reports(ctx)
-            on_line(f"Step 14 — {len(summaries)} student report(s) written.")
-            return summaries
-
-        _step(14, _reports)
-
-    # ---------------------------------------------------------------------- step 15
-    on_line("Step 15 — Writing timing summary…")
-
-    def _timing() -> None:
-        write_timing_report(artifact_dir, step_timings, api_calls)
-
-    _step(15, _timing)
-
-    on_line("Done — all 15 steps complete.")
-    return cleaned_pdf, artifact_dir
-
-
-def run_full_pipeline_logged(
-    folder: Path,
-    prompt: str | None,
-    on_line: Callable[[str], None],
-    on_step: Callable[[int, str, float | None], None],
-    **kwargs,
-) -> tuple[Path, Path]:
-    """Wrapper that times the full pipeline and logs elapsed time."""
-    t0 = time.perf_counter()
-    try:
-        result = run_full_pipeline(folder, prompt, on_line, on_step, **kwargs)
-        elapsed = time.perf_counter() - t0
-        on_line(f"Pipeline finished in {elapsed:.1f}s.")
-        return result
-    except Exception:
-        elapsed = time.perf_counter() - t0
-        on_line(f"Pipeline failed after {elapsed:.1f}s.")
-        raise
+    artifact_dir = artifact_dir_holder.get("dir")
+    cleaned: Path | None = None
+    if artifact_dir:
+        # Mirror the fallback chain in xscore/pipeline/resume.py:198-203.
+        for candidate in (
+            artifact_dir / DESKEW_DIR / "cleaned_scan.pdf",
+            artifact_dir / "cleaned_scan.pdf",
+        ):
+            if candidate.is_file():
+                cleaned = candidate
+                break
+    return cleaned, artifact_dir

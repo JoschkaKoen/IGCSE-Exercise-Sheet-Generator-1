@@ -370,6 +370,9 @@ def _emit_orientation_phase_header(info_line) -> None:
                 f"@ {ROTATION_DETECTION_DPI} DPI"
             )
         info_line(ai_desc)
+        from xscore.preprocessing.scan_orientation import _JPEG_QUALITY  # noqa: PLC0415
+        from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+        announce_ai_input(kind="JPEG", dpi=ROTATION_DETECTION_DPI, quality=_JPEG_QUALITY)
 
 
 # ---------------------------------------------------------------------------

@@ -143,7 +143,13 @@ async def job_status(
         "log_lines": rec.log_lines[start:end],
         "log_offset": end,
         "steps": [
-            {"num": s.num, "name": s.name, "status": s.status, "elapsed_s": s.elapsed_s}
+            {
+                "num": s.num,
+                "name": s.name,
+                "status": s.status,
+                "elapsed_s": s.elapsed_s,
+                "section": s.section,
+            }
             for s in rec.steps
         ],
     }

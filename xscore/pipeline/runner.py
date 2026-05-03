@@ -31,6 +31,7 @@ import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from typing import Callable
 
 from xscore.shared.pipeline_ctx import _Ctx, _EarlyExit
 
@@ -117,8 +118,21 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
     pool.shutdown(wait=False)
 
 
-def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | None = None) -> None:
-    """Orchestrate the full pipeline (see ``xscore.shared.pipeline_steps.STEPS``)."""
+def run_pipeline(
+    args: argparse.Namespace,
+    timestamp: str,
+    *,
+    log_path: Path | None = None,
+    on_step_event: "Callable[[dict], None] | None" = None,
+) -> None:
+    """Orchestrate the full pipeline (see ``xscore.shared.pipeline_steps.STEPS``).
+
+    *on_step_event*, when provided, receives one event dict per step transition
+    ({step_number, step_name, status, duration_s, artifact_dir, error}). Used by
+    in-process consumers (e.g. the FastAPI web grade page) to track per-step
+    state without parsing stdout. Observer faults are swallowed inside
+    ``run_step``; a misbehaving consumer cannot crash the pipeline.
+    """
     from eXercise.ai_client import reset_run_call_stats, reset_run_usage
     from xscore.shared.pipeline_steps import (
         run_step,
@@ -144,6 +158,7 @@ def run_pipeline(args: argparse.Namespace, timestamp: str, *, log_path: Path | N
     reset_run_call_stats()
 
     ctx = _Ctx(args=args, timestamp=timestamp)
+    ctx.on_step_event = on_step_event
     t0 = time.perf_counter()
     ctx.run_started_at = t0
     started_iso = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds")

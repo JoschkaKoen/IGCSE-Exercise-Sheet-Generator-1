@@ -410,6 +410,36 @@ def _record_step_call_delta(
         ctx.step_call_stats[step_name] = delta
 
 
+def _emit_step_event(
+    ctx: "_Ctx",
+    step: Step,
+    *,
+    status: str,
+    duration_s: float | None,
+    error: str | None = None,
+) -> None:
+    """Fan a step transition out to ``ctx.on_step_event`` if one is registered.
+
+    Observer faults are swallowed (matching ``log_step_event`` resilience).
+    ``BaseException`` is intentionally not caught — KeyboardInterrupt and
+    SystemExit must still propagate.
+    """
+    cb = getattr(ctx, "on_step_event", None)
+    if cb is None:
+        return
+    try:
+        cb({
+            "step_number": step.number,
+            "step_name":   step.name,
+            "status":      status,
+            "duration_s":  duration_s,
+            "artifact_dir": str(ctx.artifact_dir) if ctx.artifact_dir else None,
+            "error":       error,
+        })
+    except Exception:
+        pass
+
+
 def run_step(ctx: "_Ctx", step: Step) -> None:
     """Run *step* under the unified guard set.
 
@@ -450,6 +480,7 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
         pipeline_section(step.section)
     display = step.title or step.name.replace("_", " ").capitalize()
     pipeline_step(step.number, display)
+    _emit_step_event(ctx, step, status="running", duration_s=None)
 
     usage_before = get_run_usage()
     call_stats_before = get_run_call_stats()
@@ -477,6 +508,7 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
             step_number=step.number, step_name=step.name,
             status="error", duration_s=elapsed, error=err_str,
         )
+        _emit_step_event(ctx, step, status="error", duration_s=elapsed, error=err_str)
         raise
     else:
         elapsed = time.perf_counter() - t0
@@ -488,6 +520,7 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
             step_number=step.number, step_name=step.name,
             status="ok", duration_s=elapsed,
         )
+        _emit_step_event(ctx, step, status="ok", duration_s=elapsed)
 
     # If this step IS the stop_after sentinel, end the run cleanly.
     if step.number == ctx.stop_after:

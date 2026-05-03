@@ -175,6 +175,8 @@ def detect_subject(ctx: _Ctx) -> None:
             default_model="gemini-3.1-flash-lite-preview",
             default_max_tokens=256,
         )
+        from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+        announce_ai_input(kind="PDF", note="Gemini, native bytes")
         ctx.subject, ai_meta = _detect_subject_via_ai(ctx, available, exam_pdf)
         method = "ai"
         ok_line(f"Subject: {ctx.subject.name}  (Gemini classification)")
@@ -314,6 +316,12 @@ def student_names(ctx: _Ctx) -> None:
         default_model="gemini-2.5-flash",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
+    from xscore.config import NAME_JPEG_QUALITY, NAME_RECOGNITION_DPI  # noqa: PLC0415
+    from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+    announce_ai_input(
+        kind="JPEG", dpi=NAME_RECOGNITION_DPI, quality=NAME_JPEG_QUALITY,
+        note="name-band crop",
+    )
     t0 = time.perf_counter()
     ctx.page_assignments = assign_pages(
         ctx.cleaned_pdf,
@@ -430,7 +438,15 @@ def student_handwriting_check(ctx: _Ctx) -> None:
         legacy_model_env="AI_DEFAULT_MODEL",
         default_max_tokens=96,
     )
-    from xscore.marking.blank_page_detection import BlankCheckStatus
+    from xscore.marking.blank_page_detection import (
+        BlankCheckStatus,
+        HANDWRITING_JPEG_DPI,
+        HANDWRITING_JPEG_QUALITY,
+    )
+    from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+    announce_ai_input(
+        kind="JPEG", dpi=HANDWRITING_JPEG_DPI, quality=HANDWRITING_JPEG_QUALITY,
+    )
     from xscore.marking.marking_page_register import _cover_offset
     cover_page_mode = bool(ctx.cover_page_mode)
     cover_offset = _cover_offset(cover_page_mode, bool(ctx.empty_exam_has_cover))

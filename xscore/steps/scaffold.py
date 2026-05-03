@@ -55,6 +55,16 @@ def detect_exam_layout(ctx: _Ctx) -> None:
         default_model="gemini-2.5-flash, low",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
+    from eXercise.ai_client import resolve_active_model  # noqa: PLC0415
+    from eXercise.qwen_input import model_supports_pdf_input  # noqa: PLC0415
+    from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+    _layout_model, _, _ = resolve_active_model(
+        ("DETECT_LAYOUT_MODEL",), default="gemini-2.5-flash",
+    )
+    if not _layout_model.startswith("gemini") and model_supports_pdf_input(_layout_model):
+        announce_ai_input(kind="PDF", note="Qwen, fileid upload")
+    else:
+        announce_ai_input(kind="JPEG", dpi=72, quality=75)
     state = ctx.scaffold_state
     layout_result, layout_elapsed, layout_model = detect_layout_phase(
         state["client"], state["exam_pdf"], ctx.artifact_dir,
@@ -94,7 +104,14 @@ def extract_exam_question_numbers(ctx: _Ctx) -> None:
     from xscore.shared.subjects import needs_code_formatting
     fmt = state["fmt"]
     detect_model, detect_thinking, detect_max_tokens = _extract_question_numbers_model_config()
-    from xscore.shared.terminal_ui import info_line
+    from eXercise.ai_client import describe_pdf_input_mode  # noqa: PLC0415
+    from xscore.shared.terminal_ui import announce_ai_input, info_line  # noqa: PLC0415
+    _kind, _note = describe_pdf_input_mode(detect_model)
+    _fallback_dpi = int(os.environ.get("EXTRACT_EXAM_QUESTION_NUMBERS_DPI", "300"))
+    announce_ai_input(
+        kind=_kind, note=_note,
+        dpi=_fallback_dpi if _kind == "PNG" else None,
+    )
     info_line(f"Extract question numbers ({detect_model}) …")
     scaffold_nodes, raw_layout = extract_exam_question_numbers(
         state["client"],
@@ -147,6 +164,14 @@ def extract_exam_questions(ctx: _Ctx) -> None:
     from xscore.shared.subjects import needs_code_formatting
     fmt = state["fmt"]
     fill_model, fill_thinking, fill_max_tokens = _extract_questions_model_config()
+    from eXercise.ai_client import describe_pdf_input_mode  # noqa: PLC0415
+    from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+    _kind, _note = describe_pdf_input_mode(fill_model)
+    _fallback_dpi = int(os.environ.get("EXTRACT_EXAM_QUESTIONS_DPI", "300"))
+    announce_ai_input(
+        kind=_kind, note=_note,
+        dpi=_fallback_dpi if _kind == "PNG" else None,
+    )
     raw_questions = extract_exam_questions(
         state["client"],
         fill_model,
@@ -317,6 +342,10 @@ def detect_mark_scheme_graphics(ctx: _Ctx) -> None:
         default_model="gemini-2.5-flash, off",
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
+    from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+    announce_ai_input(
+        kind="PNG", dpi=int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300")),
+    )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
     graphics_by_qnum, graphics_questions = detect_scheme_graphics_phase(
@@ -343,6 +372,16 @@ def assign_scheme_questions(ctx: _Ctx) -> None:
         ok_line("Skipped (no mark scheme PDF)")
         state["questions_per_page"] = {}
         return
+    from eXercise.ai_client import describe_pdf_input_mode, resolve_active_model  # noqa: PLC0415
+    from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+    _assign_model, _, _ = resolve_active_model(
+        ("ASSIGN_SCHEME_QUESTIONS_MODEL",), default="gemini-2.5-flash",
+    )
+    _kind, _note = describe_pdf_input_mode(_assign_model)
+    announce_ai_input(
+        kind=_kind, note=_note,
+        dpi=int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300")) if _kind == "PNG" else None,
+    )
     mapping = assign_scheme_questions_phase(
         state["client"], state["answer_pdf"], state["raw_questions"], ctx.artifact_dir,
     )
@@ -389,6 +428,17 @@ def parse_mark_scheme(ctx: _Ctx) -> None:
     )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
+    if state["answer_pdf"] is not None:
+        from eXercise.ai_client import describe_pdf_input_mode, resolve_active_model  # noqa: PLC0415
+        from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+        _scheme_model, _, _ = resolve_active_model(
+            ("READ_MARK_SCHEME_MODEL", "AI_DEFAULT_MODEL"),
+        )
+        _kind, _note = describe_pdf_input_mode(_scheme_model)
+        announce_ai_input(
+            kind=_kind, note=_note,
+            dpi=int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300")) if _kind == "PNG" else None,
+        )
     from xscore.shared.subjects import needs_code_formatting
     scheme_data = parse_mark_scheme_phase(
         state["client"], state["answer_pdf"], state["raw_questions"],
@@ -409,6 +459,11 @@ def transcribe_scheme_graphics(ctx: _Ctx) -> None:
         model_env="TRANSCRIBE_SCHEME_GRAPHIC_MODEL",
         default_model="qwen3.6-plus, 0, 8192",
     )
+    from xscore.shared.exam_paths import artifact_mark_scheme_graphics_dir  # noqa: PLC0415
+    from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+    _gfx_dir = artifact_mark_scheme_graphics_dir(ctx.artifact_dir)
+    if _gfx_dir.is_dir() and any(_gfx_dir.glob("*.png")):
+        announce_ai_input(kind="PNG", note="pre-rendered, step 22")
     state = ctx.scaffold_state
     t0 = time.perf_counter()
     scheme_data = state.get("scheme_data")

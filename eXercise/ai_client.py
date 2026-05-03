@@ -257,6 +257,33 @@ def provider_supports_json_schema_with_system(provider: str) -> bool:
 _LEGACY_EFFORT = {"off": 0, "low": 1024, "high": 8192}
 
 
+def describe_pdf_input_mode(model: str) -> tuple[str, str | None]:
+    """Mirror the PDF dispatch used by step bodies that send PDF input.
+
+    Returns ``(kind, note)`` describing what an AI call would actually receive
+    for *model*:
+
+    - ``("PDF", "Gemini, native bytes")``       — Gemini native PDF
+    - ``("PDF", "Kimi → server-extracted text")`` — Kimi file-extract path
+    - ``("PDF", "Qwen, fileid upload")``         — Qwen models in the PDF prefix list
+    - ``("PNG", None)``                          — raster-PNG fallback
+
+    The actual dispatch happens in the per-call helpers (e.g.
+    ``xscore/scaffold/scaffold_detect.py``); this function exists so step
+    bodies can announce the chosen input mode upfront, the same way
+    ``announce_step_model`` mirrors ``make_ai_client`` resolution.
+    """
+    from eXercise.qwen_input import model_supports_pdf_input
+    provider = provider_for_model(model)
+    if provider == "gemini":
+        return ("PDF", "Gemini, native bytes")
+    if provider == "kimi":
+        return ("PDF", "Kimi → server-extracted text")
+    if provider == "qwen" and model_supports_pdf_input(model):
+        return ("PDF", "Qwen, fileid upload")
+    return ("PNG", None)
+
+
 def parse_model_spec(value: str) -> tuple[str, int | None, int | None]:
     """Parse ``"<model>[, <thinking_tokens>][, <max_output_tokens>]"``.
 

@@ -74,8 +74,18 @@ def is_retryable_error(exc: BaseException) -> bool:
     try:
         from openai import APIStatusError  # noqa: PLC0415
 
-        if isinstance(exc, APIStatusError) and exc.status_code in (400, 401, 403, 404, 422):
-            return False
+        if isinstance(exc, APIStatusError):
+            # DashScope wraps transient server-side flakes (image-URL parse
+            # blip, content-filter race, server-overload) in HTTP 400 with
+            # an `InternalError.Algo.*` body code. The same exam page that
+            # failed once succeeds on the next attempt — let the standard
+            # exponential backoff have a shot before the broad 4xx
+            # exclusion short-circuits it.
+            is_dashscope_transient_400 = (
+                exc.status_code == 400 and "InternalError.Algo" in str(exc)
+            )
+            if not is_dashscope_transient_400 and exc.status_code in (400, 401, 403, 404, 422):
+                return False
     except ImportError:
         pass
 

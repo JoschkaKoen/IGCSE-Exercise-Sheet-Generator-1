@@ -29,6 +29,7 @@ class StepRecord:
     name: str
     status: JobStatus = JobStatus.PENDING
     elapsed_s: float | None = None
+    section: str | None = None  # phase-grouping label (only set for grade jobs)
 
 
 @dataclass
@@ -52,6 +53,11 @@ class JobRecord:
     overview: dict[str, Any] | None = None
     steps: list[StepRecord] = field(default_factory=list)
     created_at: datetime.datetime = field(default_factory=datetime.datetime.now)
+    # Grade-job specific: set as soon as locate_exam_folder produces it (~step 2 ok)
+    # so the resume endpoint and download endpoints can resolve artifacts without
+    # waiting for the run to finish.
+    artifact_dir: Path | None = None
+    upload_folder: Path | None = None
 
 
 class JobStore:
@@ -155,11 +161,40 @@ class JobStore:
                 j.status = JobStatus.FAILED
                 j.error = message
 
-    def init_steps(self, job_id: str, step_defs: list[tuple[int, str]]) -> None:
+    def init_steps(
+        self,
+        job_id: str,
+        step_defs: list[tuple[int, str]] | list[tuple[int, str, str | None]],
+    ) -> None:
+        """Seed the job's step list.
+
+        Accepts either ``(num, name)`` 2-tuples (NL flow, no section grouping)
+        or ``(num, name, section)`` 3-tuples (grade flow). Backwards-compatible.
+        """
         with self._lock:
             j = self._jobs.get(job_id)
             if j:
-                j.steps = [StepRecord(num=n, name=name) for n, name in step_defs]
+                steps: list[StepRecord] = []
+                for entry in step_defs:
+                    if len(entry) == 3:
+                        n, name, section = entry  # type: ignore[misc]
+                    else:
+                        n, name = entry  # type: ignore[misc]
+                        section = None
+                    steps.append(StepRecord(num=n, name=name, section=section))
+                j.steps = steps
+
+    def set_artifact_dir(self, job_id: str, artifact_dir: Path) -> None:
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j:
+                j.artifact_dir = artifact_dir
+
+    def set_upload_folder(self, job_id: str, upload_folder: Path) -> None:
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j:
+                j.upload_folder = upload_folder
 
     def _find_step(self, j: JobRecord, num: int) -> StepRecord | None:
         for s in j.steps:

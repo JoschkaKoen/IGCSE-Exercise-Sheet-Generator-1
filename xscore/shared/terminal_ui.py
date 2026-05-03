@@ -269,6 +269,35 @@ def announce_step_model(
     sys.stdout.flush()
 
 
+def announce_ai_input(
+    *,
+    kind: str,
+    dpi: int | None = None,
+    quality: int | None = None,
+    note: str | None = None,
+    label: str | None = None,
+) -> None:
+    """Print one dim info line describing what the step sends to the AI.
+
+    *kind* is ``"JPEG"``, ``"PNG"`` or ``"PDF"``. For native-PDF inputs the
+    DPI/quality parameters do not apply — the original PDF goes in as-is.
+    *note* renders in parentheses (e.g. provider/source qualifier); *label*
+    renders as a prefix (e.g. ``"scheme graphics"``).
+    """
+    parts: list[str] = [kind]
+    if dpi is not None:
+        parts.append(f"{dpi} DPI")
+    if quality is not None:
+        parts.append(f"q{quality}")
+    body = ", ".join(parts)
+    if note:
+        body = f"{body} ({note})"
+    if label:
+        body = f"{label} — {body}"
+    get_console().print(f"[dim]  {icon('info')}  Input: {body}[/]")
+    sys.stdout.flush()
+
+
 def ok_line(message: str) -> None:
     get_console().print(f"[green]  {icon('ok')}  {message}[/]")
     sys.stdout.flush()
