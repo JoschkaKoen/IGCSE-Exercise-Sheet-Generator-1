@@ -1,7 +1,7 @@
 ---
 name: ai_marking
-version: v8
-description: Step 29 — ai_marking. Combined system + user prompt for per-page marking PLUS the 5 conditionally-appended fragments. SYSTEM/USER drive the per-page call (placeholders $field_rules, $blueprint, $include_shared_latex_rules); FIELD_RULES (placeholder $criterion_ref) is loaded separately and substituted into SYSTEM; GRID (placeholders $rows, $cols, $subpage_ref), GRAPHICS (placeholder $graphics_lines), CONTINUATION, CODE_FORMATTING are appended conditionally. NOTE — body contains literal LaTeX math like `$v = 2\pi r / T$`; Template's safe_substitute leaves bare `$<non-identifier>` literal. Used by xscore.marking.mark_page. v8 merged the former ai_marking_fragments.md (v10) into this file. (See git log for older history.)
+version: v9
+description: Step 29 — ai_marking. Combined system + user prompt for per-page marking PLUS the 5 conditionally-appended fragments. SYSTEM/USER drive the per-page call (placeholders $field_rules, $blueprint, $include_shared_latex_rules); FIELD_RULES (placeholder $criterion_ref) is loaded separately and substituted into SYSTEM; GRID (placeholders $rows, $cols, $subpage_ref), GRAPHICS (placeholder $graphics_lines), CONTINUATION, CODE_FORMATTING are appended conditionally. NOTE — body contains literal LaTeX math like `$v = 2\pi r / T$`; Template's safe_substitute leaves bare `$<non-identifier>` literal. Used by xscore.marking.mark_page. v9 tightened `problem` and `explanation` to two shapes — `''` (empty) or `|` block scalar (non-empty). Replaces v8's `problem: ""` empty form and the only-weakly-stated `|` rule for non-empty values; the same `|` shape applies uniformly across all model-authored free-text fields project-wide. v8 merged the former ai_marking_fragments.md (v10) into this file. (See git log for older history.)
 ---
 ## SYSTEM
 
@@ -14,10 +14,18 @@ $include_shared_latex_rules
 ## Output rules
 
 - Return ONLY the filled Blueprint YAML — no markdown fences, no surrounding text. Do not change any content other than the four target fields.
-- Use a block scalar (`|`) for `explanation` and `problem` (when non-empty). A block scalar passes its contents through to YAML untouched, so the LaTeX you write (including the `\{`, `\$`, `\textbackslash{}` escapes from FIELD_RULES § Text rules) round-trips without any further YAML-level quoting or doubling.
 - `assigned_marks` must be a bare integer (not a string).
 - `confidence` must be a bare integer in [0, 10] (not a string).
-- `problem` must be a string. Use an empty plain scalar (`problem: ""`) when there is no problem to flag.
+- For `explanation` and `problem`, use exactly one of two shapes — never anything else:
+  - **Empty** → `explanation: ''` / `problem: ''`
+  - **Non-empty** → `|` block scalar (passes contents through to YAML untouched, so LaTeX backslashes and the `\{`, `\$`, `\textbackslash{}` escapes from FIELD_RULES § Text rules round-trip without further quoting or doubling):
+
+    ```yaml
+    explanation: |
+      \begin{itemize}\item ...\end{itemize}
+    problem: |
+      Format: missing units in final answer
+    ```
 - LaTeX math examples: `$v = 2\pi r / T$`, `$3.0 \times 10^4$ m/s`, `$\frac{d}{v}$`. Common commands: `\times`, `\approx`, `\frac{}{}`, `\pi`, `\rightarrow`, `\%`.
 
 ## USER
@@ -73,7 +81,7 @@ Pick any integer in between. Calibrate the scale yourself.
 
 ### problem — a short freeform string
 
-Use this field to record any problem you noticed during marking. Leave it empty (`""`) when you have no specific concern.
+Use this field to record any problem you noticed during marking. Leave it as `problem: ''` when you have no specific concern; otherwise use a `|` block scalar (see Output rules).
 
 - May be written at any confidence level. **Should** be written when confidence is below 7. Above 7 it is optional.
 - Keep it under ~120 characters. If there are multiple concerns, separate them with semicolons in the same string.

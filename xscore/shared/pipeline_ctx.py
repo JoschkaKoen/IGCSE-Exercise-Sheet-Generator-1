@@ -10,7 +10,7 @@ import argparse
 from concurrent.futures import Future
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Callable
 
 if TYPE_CHECKING:
     from xscore.shared.models import ExamScaffold, PageAssignment, TaskInstruction
@@ -99,6 +99,13 @@ class _Ctx:
     # persisted by review_queue.
     failed_students: list[dict] = field(default_factory=list)
     mark_collisions: list[dict] = field(default_factory=list)
+    # Optional per-step observer. Set by callers that want progress events
+    # without parsing stdout (the FastAPI web grade page is the first user).
+    # Receives a dict per event: {step_number, step_name, status, duration_s,
+    # artifact_dir, error}. ``run_step`` invokes this alongside its existing
+    # ``log_step_event`` writes; observer faults are swallowed so a misbehaving
+    # consumer can never crash the pipeline.
+    on_step_event: "Callable[[dict], None] | None" = None
 
     def __post_init__(self) -> None:
         # All four fields are guaranteed by parse_args() in xScore.py.

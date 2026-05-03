@@ -1,7 +1,7 @@
 ---
 name: parse_mark_scheme
-version: v7
-description: Step 24 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction. Placeholder $scaffold (Template syntax) holds the full exam scaffold inserted into the user prompt; per-page workers fill criteria for questions on the current page and leave the rest empty. Body also contains literal LaTeX math `$...$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. v7 renamed the include placeholder `$include_latex_yaml_style` → `$include_shared_latex_rules` (the fragment moved from `_shared/latex_yaml_style.md` to `shared_latex_rules.md`). v6 replaced inlined LaTeX/quoting/code-formatting rules with the shared fragment. v5 trimmed Question 2a's worked example. v4 added a diagram-transcription ban. v3 changed the MCQ rule to a single `mark: 0` entry. v2 restructured into named sub-blocks. Used by xscore.scaffold.formats.base.ScaffoldFormat. (Step number was 23 in earlier pipeline versions; current run-folder is `24_parse_mark_scheme`.)
+version: v8
+description: Step 24 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction. Placeholder $scaffold (Template syntax) holds the full exam scaffold inserted into the user prompt; per-page workers fill criteria for questions on the current page and leave the rest empty. Body also contains literal LaTeX math `$...$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. v8 forced two shapes for `correct_answer` — `''` (empty) or `|` block scalar (anything else, including MCQ letters). Removes v7's plain/single-quoted/block decision tree; the same `|` shape applies uniformly to MCQ letters, definitions, binary literals, calculation answers, and pseudocode. v7 renamed the include placeholder `$include_latex_yaml_style` → `$include_shared_latex_rules` (the fragment moved from `_shared/latex_yaml_style.md` to `shared_latex_rules.md`). v6 replaced inlined LaTeX/quoting/code-formatting rules with the shared fragment. v5 trimmed Question 2a's worked example. v4 added a diagram-transcription ban. v3 changed the MCQ rule to a single `mark: 0` entry. v2 restructured into named sub-blocks. Used by xscore.scaffold.formats.base.ScaffoldFormat. (Step number was 23 in earlier pipeline versions; current run-folder is `24_parse_mark_scheme`.)
 ---
 ## SYSTEM
 
@@ -16,7 +16,7 @@ You are an expert at reading exam mark schemes. Your job is to extract per-quest
 ## What NOT to change
 
 - **Keep every scaffold entry.** The scaffold lists every question in the exam; return one entry per scaffold entry, in the same order, with `number`, `type`, and `marks` copied through unchanged. Do not drop any.
-- **Per-page filtering.** The scaffold is the FULL exam scaffold, but the page in front of you only contains criteria for some of the questions. For questions whose criteria are NOT on this page, leave `correct_answer: ""` and `criteria: []` (the scaffold's empty defaults) — do not guess.
+- **Per-page filtering.** The scaffold is the FULL exam scaffold, but the page in front of you only contains criteria for some of the questions. For questions whose criteria are NOT on this page, emit `correct_answer: ''` and `criteria: []` — do not guess.
 - **Do NOT emit any structural keys other than `number`, `type`, `marks`, `correct_answer`, `criteria`.**
 - **Do NOT transcribe diagrams.** When a question's mark scheme contains a diagram, figure, or graph, do not emit `\includegraphics`/`\graphicspath`/any image command, and do not produce bullet criteria that verbally describe the diagram (e.g. `[Diagram text: …]`, "*The diagram demonstrates…*"). Diagrams are extracted by step 22 and inserted by the renderer. Include only criteria that are genuinely separate text in the printed mark scheme — list-style mark allocations, "MAX six" rules, accept/reject notes, and similar.
 
@@ -46,11 +46,25 @@ For each entry in the output:
 
 `correct_answer` is the **final answer value** — not the working, derivation, or arithmetic tableau (those go in `criteria`).
 
-- Multiple-choice: just the letter, e.g. `correct_answer: C`.
-- Single definitive answer: that answer, e.g. `correct_answer: 930D`, `correct_answer: '00001111'`.
-- "Any N from" / open-ended: a brief sample answer, e.g. `correct_answer: 'Actuator, Printer, Speaker'` or `correct_answer: 'Any three from: A, B, C'`.
-- Binary arithmetic: the resulting binary number, e.g. `correct_answer: '10101011'`. The addition layout, carries, and intermediate steps belong in `criteria`.
-- Pseudocode-as-answer (where the question asks "write pseudocode that …"): the pseudocode itself is the answer value, in a multi-line block scalar.
+Use exactly one of two shapes — never anything else:
+
+- **Empty (criteria not on this page, or no single canonical answer)** → `correct_answer: ''`
+- **Non-empty (anything: MCQ letter, definition, "Any N from" list, binary literal, hex literal, calculation answer, multi-line pseudocode)** → `|` block scalar:
+
+  ```yaml
+  correct_answer: |
+    <answer value>
+  ```
+
+The same `|` shape applies uniformly. There is no special case for short MCQ letters or any other "safe-looking" content — every non-empty value uses `|`. The block scalar consumes every character until dedent, so colons (`Compiler: translates whole program at once`), leading-zero binary literals (`00001111`), comma-separated lists with colons (`Any three from: A, B, C`), and multi-line pseudocode all round-trip without per-shape quoting.
+
+Examples by question type (all use the same `|` shape):
+
+- Multiple-choice: `correct_answer: |` newline `  C`
+- Single definitive answer: `correct_answer: |` newline `  930D` or `  00001111`
+- "Any N from" / open-ended: `correct_answer: |` newline `  Actuator, Printer, Speaker`
+- Binary arithmetic: `correct_answer: |` newline `  10101011` (the addition layout, carries, and intermediate steps belong in `criteria`)
+- Pseudocode-as-answer (where the question asks "write pseudocode that …"): the pseudocode itself is the answer value, written across multiple lines inside the `|` block scalar.
 
 ## criteria rules
 
@@ -104,7 +118,8 @@ questions:
   - number: "1"
     type: multiple_choice
     marks: 1
-    correct_answer: C
+    correct_answer: |
+      C
     criteria:
       - mark: 0
         criterion: |
@@ -116,12 +131,13 @@ questions:
   - number: "2"
     type: short_answer
     marks: 0
-    correct_answer: ""
+    correct_answer: ''
     criteria: []
   - number: "2a"
     type: calculation
     marks: 3
-    correct_answer: '12.5 m/s'
+    correct_answer: |
+      12.5 m/s
     criteria:
       - mark: 1
         criterion: |
@@ -133,6 +149,6 @@ questions:
 ```
 
 Notes:
-- Question 1: MCQ — `correct_answer` is just the letter (no quoting); `criteria` contains a single `mark: 0` entry with the mark scheme's explanation as a LaTeX itemize list (so students see why C is correct). Use `criteria: []` only when the mark scheme has no explanation.
-- Question 2: parent stem with criteria not on this page — `correct_answer: ""` (the scaffold's empty default, round-tripped), `criteria: []`. Same shape applies to ANY question whose criteria are not on the current page.
-- Question 2a: filled — `correct_answer` is single-quoted because it contains a space and a slash. Two `criteria` entries with mark + criterion (LaTeX inline math + `\textbf{...}` inside block scalars).
+- Question 1: MCQ — `correct_answer` uses `|` block scalar even for a single letter, for uniformity with every other non-empty answer. `criteria` contains a single `mark: 0` entry with the mark scheme's explanation as a LaTeX itemize list (so students see why C is correct). Use `criteria: []` only when the mark scheme has no explanation.
+- Question 2: parent stem with criteria not on this page — `correct_answer: ''`, `criteria: []`. Same shape applies to ANY question whose criteria are not on the current page.
+- Question 2a: filled — `correct_answer` uses `|` (the same shape as MCQ); two `criteria` entries with mark + criterion (LaTeX inline math + `\textbf{...}` inside block scalars). The same `|` shape applies regardless of length or content type.

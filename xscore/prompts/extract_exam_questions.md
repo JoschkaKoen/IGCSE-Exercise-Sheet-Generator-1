@@ -1,7 +1,7 @@
 ---
 name: extract_exam_questions
-version: v7
-description: Step 20 — per-page worker fills text + options for the question numbers extracted in step 19. Combined system + user prompt. Placeholder $question_stub holds the per-page filtered question stub. SYSTEM has named sub-blocks (In scope / What NOT to change); USER has named sub-blocks (The stub / Output schema / Step-20 specifics / Worked example). v7 renamed the include placeholder `$include_latex_yaml_style` → `$include_shared_latex_rules` (the fragment moved from `_shared/latex_yaml_style.md` to `shared_latex_rules.md`). v6 replaced the inlined LaTeX/quoting/code-formatting rules with the shared fragment, keeping only the step-20-specific bits (`\dotfill`, `$$$$...$$$$` display-math reminder, CS pseudocode `<-` arrow). v5 replaced the "leave text empty if continued" rule with a STUB ERROR flag, trimmed the worked example from 4 entries to 2 (MCQ + calculation), and trimmed the WRONG/RIGHT pairs from 3 to 2. v4 fixes the display-math instruction. v3 switched the output convention from markdown-for-prose to raw LaTeX.
+version: v8
+description: Step 20 — per-page worker fills text + options for the question numbers extracted in step 19. Combined system + user prompt. Placeholder $question_stub holds the per-page filtered question stub. SYSTEM has named sub-blocks (In scope / What NOT to change); USER has named sub-blocks (The stub / Output schema / Step-20 specifics / Worked example). v8 forced two shapes for `text` and `options[].text` — `''` (empty) or `|` block scalar (non-empty). Removes v7's single-quoted-vs-block decision tree, eliminating the colon-space failure mode for option text; the same `|` shape applies uniformly across all model-authored free-text fields. The `letter` field in option entries (A/B/C/D) stays as plain — it's a structural enum, not free text. v7 renamed the include placeholder `$include_latex_yaml_style` → `$include_shared_latex_rules` (the fragment moved from `_shared/latex_yaml_style.md` to `shared_latex_rules.md`). v6 replaced the inlined LaTeX/quoting/code-formatting rules with the shared fragment, keeping only the step-20-specific bits (`\dotfill`, `$$$$...$$$$` display-math reminder, CS pseudocode `<-` arrow). v5 replaced the "leave text empty if continued" rule with a STUB ERROR flag, trimmed the worked example from 4 entries to 2 (MCQ + calculation), and trimmed the WRONG/RIGHT pairs from 3 to 2. v4 fixes the display-math instruction. v3 switched the output convention from markdown-for-prose to raw LaTeX.
 ---
 ## SYSTEM
 
@@ -15,7 +15,7 @@ You receive ONE page from an exam paper (Cambridge IGCSE and similar) plus a lis
 ## What NOT to change
 
 - **Do NOT add or remove questions.** The user message contains a stub listing every question expected on this page; return one entry per stub entry, in the same order, with the same `number` and `type` values.
-- **The stub is curated for this page.** Every entry's stem should be visible. If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit `text: 'STUB ERROR'` so QA surfaces it. Do NOT guess.
+- **The stub is curated for this page.** Every entry's stem should be visible. If you cannot find a stub entry's stem on this page, this indicates a stub-generation bug upstream — emit a `|` block scalar containing `STUB ERROR` so QA surfaces it. Do NOT guess.
 - **Do NOT emit any structural keys other than `number`, `type`, `text`, `options`.** The `options` key is emitted only for `type: multiple_choice`; omit it for every other type.
 
 ## USER
@@ -37,8 +37,8 @@ For each entry in the output:
 
 - `number` — copy verbatim from the stub. String, in quotes.
 - `type` — copy verbatim from the stub.
-- `text` — complete question text as printed. Use `$...$` for inline math and `$$$$...$$$$` for display math. (The stub is curated to include only questions whose stem appears on this page; if you cannot find a stem, see the STUB ERROR rule in `## What NOT to change`.)
-- `options` — for `type: multiple_choice` only, a list of `{letter, text}` entries (one per printed answer option, in printed order). For every other `type`, **omit the `options` key entirely** — do NOT emit `options: []`.
+- `text` — complete question text as printed. Use `|` block scalar for the value (single-line or multi-line). Use `$...$` for inline math and `$$$$...$$$$` for display math. (The stub is curated to include only questions whose stem appears on this page; if you cannot find a stem, see the STUB ERROR rule in `## What NOT to change`.)
+- `options` — for `type: multiple_choice` only, a list of `{letter, text}` entries (one per printed answer option, in printed order). Each option's `letter` stays plain (`letter: A`); each option's `text` value is a `|` block scalar. For every other `type`, **omit the `options` key entirely** — do NOT emit `options: []`.
 
 $include_shared_latex_rules
 
@@ -68,16 +68,21 @@ A correct response (one MCQ, one calculation with `\dotfill` answer lines):
 questions:
   - number: "5"
     type: multiple_choice
-    text: 'Which quantity has the unit $\text{kg}\,\text{m}\,\text{s}^{-1}$?'
+    text: |
+      Which quantity has the unit $\text{kg}\,\text{m}\,\text{s}^{-1}$?
     options:
       - letter: A
-        text: energy
+        text: |
+          energy
       - letter: B
-        text: force
+        text: |
+          force
       - letter: C
-        text: momentum
+        text: |
+          momentum
       - letter: D
-        text: power
+        text: |
+          power
   - number: "7"
     type: calculation
     text: |
@@ -89,5 +94,5 @@ questions:
 ```
 
 Notes:
-- Entry 5: MCQ shape with the full `{letter, text}` list. The stem is single-quoted because it contains `\text{...}` LaTeX commands.
-- Entry 7: no `options` key — omit it for non-MCQ types; do not emit `options: []`. Block scalar (`|`) because the text is multi-line; `\dotfill` per answer line; blank lines inside the block scalar are paragraph breaks.
+- Every non-empty `text` and option `text` uses `|` block scalar — the same shape regardless of length, single-line or multi-line, presence of LaTeX commands, or any other content judgement. `letter` stays plain (it's a structural enum, not free text).
+- Entry 7 omits the `options` key entirely (non-MCQ); do NOT emit `options: []`. Blank lines inside the block scalar are paragraph breaks; `\dotfill` per answer line.
