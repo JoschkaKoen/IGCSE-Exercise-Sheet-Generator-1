@@ -696,6 +696,7 @@ PAGE_TYPE_VOCABULARY: tuple[str, ...] = (
     "instruction page",
     "question page",
     "blank page",
+    "writing space page",
 )
 
 
@@ -710,7 +711,7 @@ def classify_empty_exam_pages(
     """Step 14 phase A: vision-classify each empty-exam page in parallel.
 
     For each page in *empty_exam_pdf*, asks the vision LLM to pick a page type
-    (cover/instruction/question/blank) and read its printed page number. The
+    (cover/instruction/question/blank/writing-space) and read its printed page number. The
     Gemini path sends each page as a single-page native PDF slice; non-Gemini
     models fall back to rasterized JPEG.
 
@@ -1082,11 +1083,11 @@ def check_student_handwriting(
         pt_label, pn_label, match = _match_summary(exam_page, page_type, page_number)
         # Handwriting label
         if hw is None:
-            hw_label = "hw=?      "
+            hw_label = "? hw=?    "
         elif hw:
-            hw_label = "hw        "
+            hw_label = "✓ hw      "
         else:
-            hw_label = "no hw     "
+            hw_label = "x  no hw  "
         line_fn = warn_line if (match is False or problem) else ok_line
         confs = [c for c in (conf_pt, conf_pn, conf_hw) if c is not None]
         conf_min = min(confs) if confs else None

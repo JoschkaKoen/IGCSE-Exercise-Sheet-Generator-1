@@ -1,7 +1,7 @@
 ---
 name: student_handwriting_check
-version: v8
-description: Step 14 phase B — student_handwriting_check (matcher). User-only prompt for the per-scan-page vision LLM call. Given the closed vocabularies built from the empty exam (phase A's catalog), the model MATCHES this scan page to one known page type and one known page number — open-ended classification is no longer permitted. Also detects student handwriting (kept to drive step 18 marking_page_register's skip-set). Substitutions $page_type_options and $page_number_options are bullet lists rendered by the caller. Used by xscore.marking.blank_page_detection._has_handwriting. v8 (2026-05) replaced v7's open-ended detection with closed-vocabulary matching against the empty-exam catalog produced by phase A; renamed `is_cover_page` boolean → `page_type` enum and `page_number` (free integer) → matched value from a fixed list with special tokens "cover" / "none". v7 added per-field confidences.
+version: v9
+description: Step 14 phase B — student_handwriting_check (matcher). User-only prompt for the per-scan-page vision LLM call. Given the closed vocabularies built from the empty exam (phase A's catalog), the model MATCHES this scan page to one known page type and one known page number — open-ended classification is no longer permitted. Also detects student handwriting (kept to drive step 18 marking_page_register's skip-set). Substitutions $page_type_options and $page_number_options are bullet lists rendered by the caller. Used by xscore.marking.blank_page_detection._has_handwriting. v9 added `writing space page` to the closed page-type vocabulary. v8 (2026-05) replaced v7's open-ended detection with closed-vocabulary matching against the empty-exam catalog produced by phase A; renamed `is_cover_page` boolean → `page_type` enum and `page_number` (free integer) → matched value from a fixed list with special tokens "cover" / "none". v7 added per-field confidences.
 ---
 
 This is one page from a student's scanned exam. It may have printed horizontal writing lines, printed headers/footers, printed question text, and student handwriting. It may be the cover page, an answer page, or a fully blank page.
@@ -21,6 +21,7 @@ Definitions:
 - `instruction page` — no name field, no question text. General instructions, formula sheet, candidate notice, periodic table, or similar.
 - `question page` — has printed question text.
 - `blank page` — contains the words "BLANK PAGE" prominently.
+- `writing space page` — printed writing lines (solid or dotted) covering most of the page, no question text, no question label, no instructions, no "BLANK PAGE" label. Short scaffolding ("Turn over", "Section B", "Working space", continuation notes) does not disqualify the page. Continuation/answer space.
 
 ### Page numbers (pick exactly one)
 

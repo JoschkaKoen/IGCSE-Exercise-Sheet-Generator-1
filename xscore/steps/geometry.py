@@ -31,6 +31,7 @@ from xscore.preprocessing.cover_detection import (
     detect_first_page_cover,
 )
 from xscore.marking.blank_page_detection import (
+    PAGE_TYPE_VOCABULARY,
     check_exam_blank_pages,
     check_student_handwriting,
     classify_empty_exam_pages,
@@ -52,6 +53,7 @@ from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.terminal_ui import (
     announce_step_model,
+    blank_line,
     confirm_continue,
     format_duration,
     info_line,
@@ -438,7 +440,7 @@ def student_handwriting_check(ctx: _Ctx) -> None:
     """Step 14 — two-phase scan-page identification.
 
     Phase A: vision-classify each page of the empty exam paper into one of
-    {cover/instruction/question/blank page} and read its printed page number.
+    {cover/instruction/question/blank/writing-space page} and read its printed page number.
     Builds a closed catalog used by phase B as the matching vocabulary.
 
     Phase B: per-scan-page vision call that MATCHES against phase A's catalog
@@ -497,6 +499,28 @@ def student_handwriting_check(ctx: _Ctx) -> None:
         warn_line(f"Empty-exam classification INCONCLUSIVE: {a_msg}  ·  {a_dur}")
         # Continue to phase B — partial catalog + always-present "cover page"
         # type and the +3 page-number buffer keep the matcher functional.
+
+    detected_types = [
+        t for t in PAGE_TYPE_VOCABULARY
+        if any(c["page_type"] == t for c in empty_classifications)
+    ]
+    detected_numbers = sorted({
+        c["page_number"] for c in empty_classifications
+        if c["page_number"] is not None
+    })
+    types_str = ", ".join(detected_types) if detected_types else "none"
+    if not detected_numbers:
+        range_str = "none"
+    elif detected_numbers[0] == detected_numbers[-1]:
+        range_str = str(detected_numbers[0])
+    else:
+        range_str = f"{detected_numbers[0]}–{detected_numbers[-1]}"
+    info_line(
+        "In empty exam:\n"
+        f"  page types detected: {types_str}\n"
+        f"  page number range detected: {range_str}"
+    )
+    blank_line()
 
     # ── Phase B — per-scan-page matcher ─────────────────────────────────────
     announce_step_model(
