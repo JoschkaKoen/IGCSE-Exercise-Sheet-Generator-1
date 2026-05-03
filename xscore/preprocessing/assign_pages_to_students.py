@@ -28,6 +28,7 @@ from xscore.marking.ai_helpers import ai_image_call, page_to_jpeg_b64
 from xscore.prompts.loader import load_prompt
 from xscore.shared.exam_paths import artifact_names_prompt_path
 from xscore.shared.models import PageAssignment
+from xscore.shared.path_builders import safe_student_name
 
 
 def _make_name_prompt(students: list[str]) -> str:
@@ -58,6 +59,25 @@ def _name_crop_fraction(page: Any, dpi: int) -> float:
     w, h = page.size
     long_side_mm = max(w, h) / dpi * 25.4
     return _NAME_CROP_FRACTION_A3 if long_side_mm > _A3_LONG_SIDE_THRESHOLD_MM else _NAME_CROP_FRACTION_A4
+
+
+def _rename_logging_files(save_path: Path, old_stem: str, new_stem: str) -> None:
+    """Rename prompt/response/attachment files from <old_stem>_*.* to <new_stem>_*.*.
+
+    Silently no-ops on error so logging never breaks the pipeline.
+    """
+    if old_stem == new_stem:
+        return
+    parent = save_path.parent
+    try:
+        for fname in (f"{old_stem}_prompt.txt", f"{old_stem}_response.txt"):
+            src = parent / fname
+            if src.exists():
+                src.rename(parent / fname.replace(old_stem, new_stem, 1))
+        for src in parent.glob(f"{old_stem}_attachment_*"):
+            src.rename(parent / src.name.replace(old_stem, new_stem, 1))
+    except OSError:
+        pass
 
 
 def assign_pages(
@@ -176,6 +196,14 @@ def assign_pages(
             data = {}
         raw_name = str(data.get("name", "") or "").strip()
         matched_name = fuzzy_match_name(raw_name, students) if raw_name else None
+        if save_path is not None:
+            display = matched_name or raw_name
+            if display:
+                _rename_logging_files(
+                    save_path,
+                    old_stem=f"name_{i}",
+                    new_stem=f"name_{i}_{safe_student_name(display)}",
+                )
         return idx, i, raw_name, matched_name, elapsed
 
     def _emit(i: int, raw_name: str, matched_name: str | None, elapsed: float) -> None:

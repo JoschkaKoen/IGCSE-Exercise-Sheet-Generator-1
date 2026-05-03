@@ -18,6 +18,7 @@ the body returns).
 from __future__ import annotations
 
 import json
+import os
 import time
 
 from xscore.config import ROTATION_ANALYSIS_DPI
@@ -26,13 +27,14 @@ from xscore.preprocessing.coordinator import (
     deskew_phase,
     detect_blank_pages_phase,
     prepare_scans_phase,
+    write_skipped_blanks_state,
 )
 from xscore.shared.step_folders import AUTOROTATE_DIR, BLANK_DETECT_DIR, DESKEW_DIR
 from xscore.shared.load_student_list import read_student_list as _read_student_list
 from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.pipeline_steps import run_step, step_by_number
 from xscore.shared.student_artifacts import write_student_artifacts
-from xscore.shared.terminal_ui import announce_step_model, ok_line
+from xscore.shared.terminal_ui import announce_step_model, info_line, ok_line
 
 
 def read_student_list(ctx: _Ctx) -> None:
@@ -65,6 +67,12 @@ def prepare_scans(ctx: _Ctx) -> None:
 
 def detect_blank_pages(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None and ctx.scan_match is not None
+    if os.environ.get("BLANK_DETECTION_SKIP", "").strip().lower() in ("1", "true", "yes", "on"):
+        info_line("skipped")
+        write_skipped_blanks_state(
+            ctx.scan_match, ctx.artifact_dir, analysis_dpi=ROTATION_ANALYSIS_DPI,
+        )
+        return
     t0 = time.perf_counter()
     detect_blank_pages_phase(
         ctx.scan_match, ctx.artifact_dir,

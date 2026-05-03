@@ -8,7 +8,7 @@ import io
 import json
 import os
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
 from pathlib import Path
 
@@ -182,40 +182,37 @@ def deskew_pdf_raster(
 
     t_angle = time.perf_counter()
     results: dict[int, tuple] = {}
-    with ThreadPoolExecutor(max_workers=num_workers) as ex:
-        futures = {ex.submit(_process_one, i): i for i in range(n)}
-        for fut in as_completed(futures):
-            t = fut.result()
-            results[t[0]] = t
-    angle_elapsed = time.perf_counter() - t_angle
-
-    # Per-page angle log (in page order). `(Ni,method)` shows the number of
-    # refinement iterations and which signal was used: "wl" (writing lines,
-    # the primary path) or "proj" (projection-variance fallback for pages
-    # without detectable answer-line structure).
     angles_records: list[dict] = []
-    for i in range(n):
-        (_, _, _, input_h_px,
-         top_angle, bot_angle, _, _,
-         top_iters, bot_iters, top_method, bot_method) = results[i]
-        is_a3 = input_h_px > _A3_HEIGHT_THRESHOLD_FACTOR * dpi
-        if is_a3:
-            info_line(
-                f"Page {i+1:>2} · top {top_angle:+.2f}° ({top_iters}i,{top_method})  "
-                f"bot {bot_angle:+.2f}° ({bot_iters}i,{bot_method})"
-            )
-        else:
-            info_line(f"Page {i+1:>2} · {top_angle:+.2f}° ({top_iters}i,{top_method})")
-        angles_records.append({
-            "page":       i + 1,
-            "is_a3":      bool(is_a3),
-            "angle":      round(float(top_angle), 4),
-            "iters":      int(top_iters),
-            "method":     str(top_method),
-            "bot_angle":  round(float(bot_angle), 4) if is_a3 else None,
-            "bot_iters":  int(bot_iters)            if is_a3 else None,
-            "bot_method": str(bot_method)           if is_a3 else None,
-        })
+    # Per-page angle log streams in page order as workers finish.
+    # `(Ni,method)` shows refinement iterations and which signal was used:
+    # "wl" (writing lines, primary path) or "proj" (projection-variance
+    # fallback for pages without detectable answer-line structure).
+    with ThreadPoolExecutor(max_workers=num_workers) as ex:
+        for t in ex.map(_process_one, range(n)):
+            i = t[0]
+            results[i] = t
+            (_, _, _, input_h_px,
+             top_angle, bot_angle, _, _,
+             top_iters, bot_iters, top_method, bot_method) = t
+            is_a3 = input_h_px > _A3_HEIGHT_THRESHOLD_FACTOR * dpi
+            if is_a3:
+                info_line(
+                    f"Page {i+1:>2} · top {top_angle:+.2f}° ({top_iters}i,{top_method})  "
+                    f"bot {bot_angle:+.2f}° ({bot_iters}i,{bot_method})"
+                )
+            else:
+                info_line(f"Page {i+1:>2} · {top_angle:+.2f}° ({top_iters}i,{top_method})")
+            angles_records.append({
+                "page":       i + 1,
+                "is_a3":      bool(is_a3),
+                "angle":      round(float(top_angle), 4),
+                "iters":      int(top_iters),
+                "method":     str(top_method),
+                "bot_angle":  round(float(bot_angle), 4) if is_a3 else None,
+                "bot_iters":  int(bot_iters)            if is_a3 else None,
+                "bot_method": str(bot_method)           if is_a3 else None,
+            })
+    angle_elapsed = time.perf_counter() - t_angle
     ok_line(f"Correcting angles · {format_duration(angle_elapsed)}")
 
     if angles_json_path is not None:

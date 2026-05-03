@@ -217,6 +217,7 @@ def pipeline_section(title: str) -> None:
 
 def info_line(message: str, *, key: str = "info") -> None:
     get_console().print(f"[dim]  {icon(key)}  {message}[/]")
+    sys.stdout.flush()
 
 
 def file_header_line(name: str) -> None:

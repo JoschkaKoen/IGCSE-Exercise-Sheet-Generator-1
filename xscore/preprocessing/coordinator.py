@@ -551,6 +551,57 @@ def detect_blank_pages_phase(
     return paths["blanks_json"]
 
 
+def write_skipped_blanks_state(
+    source_pdf: Path,
+    artifact_dir: Path,
+    *,
+    analysis_dpi: int,
+) -> Path:
+    """Write a synthetic ``scan_blanks.json`` marking every page as content.
+
+    Used when step 5 is disabled via ``BLANK_DETECTION_SKIP=true``. Page
+    sizes are derived from PDF page dimensions × ``BLANK_DPI/72`` rather
+    than from a rendering pass — the only downstream consumer of these sizes
+    is the landscape-check in ``write_rotated_pdf_after_blanks``.
+    """
+    import pikepdf
+    from xscore.config import SCAN_USE_TESSERACT_ROTATION
+    from xscore.preprocessing.remove_blanks_autorotate import (
+        BLANK_DPI,
+        BLANK_MEAN_THRESHOLD,
+        BLANK_STD_THRESHOLD,
+        scan_blanks_state_to_json,
+    )
+
+    paths = _scan_phase_paths(artifact_dir)
+    with pikepdf.open(str(source_pdf)) as pdf:
+        total_pages = len(pdf.pages)
+        page_render_sizes: list[tuple[int, int]] = []
+        for page in pdf.pages:
+            mb = page.MediaBox
+            w_pt = float(mb[2]) - float(mb[0])
+            h_pt = float(mb[3]) - float(mb[1])
+            page_render_sizes.append((
+                int(round(w_pt * BLANK_DPI / 72)),
+                int(round(h_pt * BLANK_DPI / 72)),
+            ))
+
+    body = scan_blanks_state_to_json(
+        source_pdf=source_pdf,
+        total_pages=total_pages,
+        content_page_nums=list(range(1, total_pages + 1)),
+        blank_page_nums=[],
+        page_render_sizes=page_render_sizes,
+        blank_mean=BLANK_MEAN_THRESHOLD,
+        blank_std=BLANK_STD_THRESHOLD,
+        use_tesseract_rotation=SCAN_USE_TESSERACT_ROTATION,
+        analysis_dpi=analysis_dpi,
+    )
+    paths["blanks_json"].parent.mkdir(parents=True, exist_ok=True)
+    paths["blanks_json"].write_text(body, encoding="utf-8")
+    return paths["blanks_json"]
+
+
 def autorotate_phase(
     artifact_dir: Path,
     *,
