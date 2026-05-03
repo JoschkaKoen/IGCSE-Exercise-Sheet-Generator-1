@@ -1,7 +1,7 @@
 ---
 name: parse_mark_scheme
-version: v6
-description: Step 24 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction. Placeholder $scaffold (Template syntax) holds the full exam scaffold inserted into the user prompt; per-page workers fill criteria for questions on the current page and leave the rest empty. Body also contains literal LaTeX math `$...$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. v6 replaced inlined LaTeX/quoting/code-formatting rules with `$include_latex_yaml_style`. v5 trimmed Question 2a's worked example. v4 added a diagram-transcription ban. v3 changed the MCQ rule to a single `mark: 0` entry. v2 restructured into named sub-blocks. Used by xscore.scaffold.formats.base.ScaffoldFormat. (Step number was 23 in earlier pipeline versions; current run-folder is `24_parse_mark_scheme`.)
+version: v7
+description: Step 24 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction. Placeholder $scaffold (Template syntax) holds the full exam scaffold inserted into the user prompt; per-page workers fill criteria for questions on the current page and leave the rest empty. Body also contains literal LaTeX math `$...$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. v7 renamed the include placeholder `$include_latex_yaml_style` → `$include_shared_latex_rules` (the fragment moved from `_shared/latex_yaml_style.md` to `shared_latex_rules.md`). v6 replaced inlined LaTeX/quoting/code-formatting rules with the shared fragment. v5 trimmed Question 2a's worked example. v4 added a diagram-transcription ban. v3 changed the MCQ rule to a single `mark: 0` entry. v2 restructured into named sub-blocks. Used by xscore.scaffold.formats.base.ScaffoldFormat. (Step number was 23 in earlier pipeline versions; current run-folder is `24_parse_mark_scheme`.)
 ---
 ## SYSTEM
 
@@ -60,7 +60,7 @@ Extract the COMPLETE marking scheme text for each question — introductory sent
 
 (Diagram-handling rule lives at the top under `## What NOT to change` — do not transcribe diagrams or emit `\includegraphics`.)
 
-$include_latex_yaml_style
+$include_shared_latex_rules
 
 ### Column-aligned content (binary arithmetic, ASCII tables, indented code)
 

@@ -1,7 +1,7 @@
 ---
 name: extract_exam_questions
-version: v6
-description: Step 20 — per-page worker fills text + options for the question numbers extracted in step 19. Combined system + user prompt. Placeholder $question_stub holds the per-page filtered question stub. SYSTEM has named sub-blocks (In scope / What NOT to change); USER has named sub-blocks (The stub / Output schema / Step-20 specifics / Worked example). v6 replaced the inlined LaTeX/quoting/code-formatting rules with `$include_latex_yaml_style` (the shared fragment), keeping only the step-20-specific bits (`\dotfill`, `$$$$...$$$$` display-math reminder, CS pseudocode `<-` arrow). v5 replaced the "leave text empty if continued" rule with a STUB ERROR flag, trimmed the worked example from 4 entries to 2 (MCQ + calculation), and trimmed the WRONG/RIGHT pairs from 3 to 2. v4 fixes the display-math instruction: `$$...$$` written in source was collapsing to `$...$` because string.Template treats `$$` as the escape for a literal `$`. v3 switched the output convention from markdown-for-prose to raw LaTeX.
+version: v7
+description: Step 20 — per-page worker fills text + options for the question numbers extracted in step 19. Combined system + user prompt. Placeholder $question_stub holds the per-page filtered question stub. SYSTEM has named sub-blocks (In scope / What NOT to change); USER has named sub-blocks (The stub / Output schema / Step-20 specifics / Worked example). v7 renamed the include placeholder `$include_latex_yaml_style` → `$include_shared_latex_rules` (the fragment moved from `_shared/latex_yaml_style.md` to `shared_latex_rules.md`). v6 replaced the inlined LaTeX/quoting/code-formatting rules with the shared fragment, keeping only the step-20-specific bits (`\dotfill`, `$$$$...$$$$` display-math reminder, CS pseudocode `<-` arrow). v5 replaced the "leave text empty if continued" rule with a STUB ERROR flag, trimmed the worked example from 4 entries to 2 (MCQ + calculation), and trimmed the WRONG/RIGHT pairs from 3 to 2. v4 fixes the display-math instruction. v3 switched the output convention from markdown-for-prose to raw LaTeX.
 ---
 ## SYSTEM
 
@@ -40,7 +40,7 @@ For each entry in the output:
 - `text` — complete question text as printed. Use `$...$` for inline math and `$$$$...$$$$` for display math. (The stub is curated to include only questions whose stem appears on this page; if you cannot find a stem, see the STUB ERROR rule in `## What NOT to change`.)
 - `options` — for `type: multiple_choice` only, a list of `{letter, text}` entries (one per printed answer option, in printed order). For every other `type`, **omit the `options` key entirely** — do NOT emit `options: []`.
 
-$include_latex_yaml_style
+$include_shared_latex_rules
 
 ## Step-20 specifics
 

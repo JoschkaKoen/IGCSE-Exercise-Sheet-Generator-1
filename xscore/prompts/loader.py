@@ -1,4 +1,4 @@
-"""Lightweight prompt loader — reads ``xscore/prompts/**/<name>.md``.
+"""Lightweight prompt loader — reads ``xscore/prompts/<name>.md``.
 
 The file may begin with a YAML-style front-matter block delimited by ``---``
 lines on their own. Recognised keys: ``version``, ``model_hint``,
@@ -13,11 +13,11 @@ in full regardless of ``section``.
 
 Shared fragments — ``$include_<fragment_name>`` placeholders are resolved
 recursively before user substitutions, by loading the named fragment's body
-and inlining it. Fragments live alongside other prompts under
-``_shared/`` (or any subfolder); the only requirement is that their file stem
+and inlining it. The only requirement is that the fragment's file stem
 matches ``<fragment_name>``. Cycles are detected and broken (the recursive
-include is left literal). Used to deduplicate the LaTeX/YAML style guide
-across steps 20, 24, 28, 29.
+include is left literal). The shared LaTeX/YAML style guide at
+``xscore/prompts/shared_latex_rules.md`` is included via
+``$include_shared_latex_rules`` from steps 20, 24, 28, 29.
 
 Substitution uses :class:`string.Template` semantics (``$placeholder``,
 ``${placeholder}``) via :meth:`safe_substitute` — missing placeholders are
@@ -25,9 +25,10 @@ left literal rather than raising. This keeps prompts that legitimately
 contain ``$...`` (e.g. LaTeX math like ``$v = 2\\pi r / T$``) safe to load
 even when no substitutions are passed.
 
-Lookup is recursive: prompt files live in step-named subfolders
-(e.g. ``ai_marking/ai_marking.md``) and callers reference them by bare
-filename stem. Stems must be unique across all subfolders.
+Lookup walks ``xscore/prompts/`` recursively and indexes by file stem;
+callers reference prompts by bare filename stem. Stems must be globally
+unique. Today every prompt sits directly under ``xscore/prompts/`` (no
+subfolders), but the recursive scan tolerates nesting if it is ever needed.
 """
 
 from __future__ import annotations

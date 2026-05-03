@@ -745,6 +745,19 @@ def artifact_class_report_combined_portrait_2up_pdf_path(artifact_dir: Path) -> 
     return artifact_class_report_portrait_dir(artifact_dir) / "class_report_combined_portrait_2up.pdf"
 
 
+def artifact_class_report_scheme_graphics_check_dir(artifact_dir: Path) -> Path:
+    """Verification PDF showing each extracted scheme graphic next to its transcription."""
+    return artifact_class_report_dir(artifact_dir) / "scheme_graphics_check"
+
+
+def artifact_scheme_graphics_check_tex_path(artifact_dir: Path) -> Path:
+    return artifact_class_report_scheme_graphics_check_dir(artifact_dir) / "scheme_graphics_check.tex"
+
+
+def artifact_scheme_graphics_check_pdf_path(artifact_dir: Path) -> Path:
+    return artifact_class_report_scheme_graphics_check_dir(artifact_dir) / "scheme_graphics_check.pdf"
+
+
 def artifact_class_grade_histogram_raw_path(artifact_dir: Path) -> Path:
     """Raw-percentage grade-distribution histogram PNG"""
     return artifact_class_report_charts_dir(artifact_dir) / "grade_histogram_raw.png"

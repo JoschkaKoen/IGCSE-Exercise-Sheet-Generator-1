@@ -103,12 +103,12 @@ def _build_marking_system_prompt(
     rows, cols = int(layout.get("rows", 1)), int(layout.get("cols", 1))
 
     # --- Sections A + B + C + D: role/task, field rules, output format, format validity ---
-    # The per-format ai_marking_<fmt>.md SYSTEM section embeds A, C, D around a
-    # $field_rules placeholder. ai_marking_fragments.md FIELD_RULES is loaded
-    # first with $criterion_ref so the assembled system prompt is byte-
-    # identical to the pre-consolidation 4-method append.
+    # The ai_marking.md SYSTEM section embeds A, C, D around a $field_rules
+    # placeholder. The FIELD_RULES section (same file) is loaded first with
+    # $criterion_ref so the assembled system prompt is byte-identical to the
+    # pre-merge two-file layout.
     _, _b = load_prompt(
-        "ai_marking_fragments", section="field_rules", criterion_ref=fmt.criterion_ref(),
+        "ai_marking", section="field_rules", criterion_ref=fmt.criterion_ref(),
     )
     _, system_prompt = load_prompt(
         fmt.prompt_name(), section="system", field_rules=_b.rstrip("\n"),
@@ -118,7 +118,7 @@ def _build_marking_system_prompt(
     # --- Section E: grid navigation (only for multi-subpage layouts) ---
     if rows > 1 or cols > 1:
         _, _e = load_prompt(
-            "ai_marking_fragments",
+            "ai_marking",
             section="grid",
             rows=rows,
             cols=cols,
@@ -144,18 +144,18 @@ def _build_marking_system_prompt(
             else:
                 _lines.append(_hdr)
         _, _f = load_prompt(
-            "ai_marking_fragments", section="graphics", graphics_lines="\n".join(_lines),
+            "ai_marking", section="graphics", graphics_lines="\n".join(_lines),
         )
         system_prompt += "\n\n" + _f.rstrip("\n")
 
     # --- Section G: continuation pages ---
     if has_continuation:
-        _, _g = load_prompt("ai_marking_fragments", section="continuation")
+        _, _g = load_prompt("ai_marking", section="continuation")
         system_prompt += "\n\n" + _g.rstrip("\n")
 
     # --- Section H: code formatting (only for Computer Science exams) ---
     if is_cs:
-        _, _h = load_prompt("ai_marking_fragments", section="code_formatting")
+        _, _h = load_prompt("ai_marking", section="code_formatting")
         system_prompt += "\n\n" + _h.rstrip("\n")
 
     return system_prompt

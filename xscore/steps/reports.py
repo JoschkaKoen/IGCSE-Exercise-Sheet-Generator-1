@@ -16,6 +16,7 @@ from xscore.marking.merge_reports import (
     render_class_report,
     render_per_student_pdfs,
 )
+from xscore.marking.scheme_graphics_check import render_scheme_graphics_check_pdf
 from xscore.shared.path_builders import (
     artifact_exam_questions_path,
     artifact_exam_questions_pdf_path,
@@ -111,6 +112,12 @@ def class_report(ctx: _Ctx) -> None:
     elif result == "skipped_empty":
         info_line("Skipped — no student summaries to compile")
     # "skipped_filter": render_class_report already printed a warn_line; don't double up
+
+    check_result = render_scheme_graphics_check_pdf(ctx)
+    if check_result == "done":
+        ok_line("Scheme graphics verification PDF written")
+    elif check_result == "skipped_empty":
+        info_line("Skipped scheme graphics check — no graphics to verify")
 
 
 def review_queue(ctx: _Ctx) -> None:

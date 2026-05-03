@@ -43,7 +43,7 @@ AI structured-output steps (scaffold 19/20, scheme parsing 23/24, marking 27/28)
 
 ## Prompts
 
-Live in `xscore/prompts/<name>/*.md`, loaded via `xscore/prompts/loader.py`. Files have optional YAML frontmatter (`version`, `model_hint`, `output_format`, `description`). Use `load_prompt(name, /, *, section=None, **substitutions)` from the loader; templates use `$placeholder` substitution (`string.Template.safe_substitute`).
+Live in `xscore/prompts/<name>.md`, loaded via `xscore/prompts/loader.py`. Files have optional YAML frontmatter (`version`, `model_hint`, `output_format`, `description`). Use `load_prompt(name, /, *, section=None, **substitutions)` from the loader; templates use `$placeholder` substitution (`string.Template.safe_substitute`). Files with multiple roles use `## SECTION_NAME` H2 headers (uppercase) — pass `section=` to extract one. Shared fragments are inlined via `$include_<stem>` (resolved recursively before substitution).
 
 ## Model configuration
 

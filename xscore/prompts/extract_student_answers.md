@@ -1,7 +1,7 @@
 ---
 name: extract_student_answers
-version: v4
-description: Step 28 — extract_student_answers. Combined system + user prompt for the per-(student, page) student-answer transcriber. SYSTEM section instructs the model to transcribe verbatim without grading and emit a YAML doc shaped like the transcription form's questions list. USER section embeds the page transcription form via $blueprint (placeholder name kept for code-side compatibility; the AI-facing prose calls it the "transcription form" to disambiguate from step 29's marking blueprint). v4 replaced inlined LaTeX/quoting rules with `$include_latex_yaml_style`, kept the step-28-specific YAML 1.1 boolean/null/numeric/empty-answer traps, and added the `\sout{...}` crossed-out prose rule. v3 renamed AI-facing wording to "transcription form" and dropped the dead `student_name` field. v2 restructured into named sub-blocks. Used by xscore.marking.extract_answers._extract_page_answers.
+version: v5
+description: Step 28 — extract_student_answers. Combined system + user prompt for the per-(student, page) student-answer transcriber. SYSTEM section instructs the model to transcribe verbatim without grading and emit a YAML doc shaped like the transcription form's questions list. USER section embeds the page transcription form via $blueprint (placeholder name kept for code-side compatibility; the AI-facing prose calls it the "transcription form" to disambiguate from step 29's marking blueprint). v5 renamed the include placeholder `$include_latex_yaml_style` → `$include_shared_latex_rules` (the fragment moved from `_shared/latex_yaml_style.md` to `shared_latex_rules.md`). v4 replaced inlined LaTeX/quoting rules with the shared fragment, kept the step-28-specific YAML 1.1 boolean/null/numeric/empty-answer traps, and added the `\sout{...}` crossed-out prose rule. v3 renamed AI-facing wording to "transcription form" and dropped the dead `student_name` field. v2 restructured into named sub-blocks. Used by xscore.marking.extract_answers._extract_page_answers.
 ---
 ## SYSTEM
 
@@ -65,7 +65,7 @@ These rules are on top of the general LaTeX/YAML style guide below. They guard a
 
 **Empty answer** (unanswered, blank, or crossed out without a replacement): `student_answer: ''`. Do not omit the field; do not write `null`.
 
-$include_latex_yaml_style
+$include_shared_latex_rules
 
 ## Worked example
 

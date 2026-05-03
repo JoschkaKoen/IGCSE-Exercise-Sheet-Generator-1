@@ -1,7 +1,7 @@
 ---
-name: latex_yaml_style
-version: v1
-description: Shared LaTeX-in-YAML style guide. Inlined into prompts via `$include_latex_yaml_style` (resolved by xscore.prompts.loader). Covers the "never double-quote" rule, single-quote vs block-scalar choice, LaTeX commands inside block scalars, alltt for code, and common math syntax. Used by steps 20, 24, 28, 29.
+name: shared_latex_rules
+version: v2
+description: Shared LaTeX-in-YAML style guide. Inlined into prompts via `$include_shared_latex_rules` (resolved by xscore.prompts.loader). Covers the "never double-quote" rule, single-quote vs block-scalar choice, LaTeX commands inside block scalars, alltt for code, and common math syntax. Used by steps 20, 24, 28, 29. v2 (filename + name renamed from latex_yaml_style → shared_latex_rules; moved out of _shared/ subfolder to live alongside other prompts).
 ---
 ## YAML quoting
 

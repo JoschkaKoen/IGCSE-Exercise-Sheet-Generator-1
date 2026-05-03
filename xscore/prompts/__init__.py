@@ -1,12 +1,11 @@
 """Prompt templates as data — load via :func:`xscore.prompts.loader.load_prompt`.
 
-Prompt files live in step-named subfolders (one folder per pipeline step in
-``xscore/shared/pipeline_steps.py``), e.g.::
+Prompt files live directly under ``xscore/prompts/`` as ``<name>.md``::
 
     xscore/prompts/
-      parse_grading_instructions/parse_grading_instructions.md
-      ai_marking/ai_marking.md
-      ai_marking/ai_marking_fragments.md  (multi-section: FIELD_RULES, GRID, …)
+      parse_grading_instructions.md
+      ai_marking.md
+      shared_latex_rules.md          (shared fragment, included via $include_*)
 
 Each ``.md`` has optional YAML front-matter and a body. Files with multiple
 roles use Markdown H2 section headers (``## SYSTEM`` / ``## USER`` /
@@ -25,7 +24,8 @@ roles use Markdown H2 section headers (``## SYSTEM`` / ``## USER`` /
 
 Substitution uses ``$name`` (``string.Template`` syntax) via
 ``safe_substitute`` — missing placeholders are kept literal. Lookup is by
-bare filename stem (recursive across subfolders); stems must be globally unique.
+bare filename stem; the loader walks recursively, but stems must be globally
+unique.
 """
 
 from xscore.prompts.loader import load_prompt

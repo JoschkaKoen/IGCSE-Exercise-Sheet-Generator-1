@@ -32,7 +32,7 @@ from xscore.shared.models import PageAssignment
 
 def _make_name_prompt(students: list[str]) -> str:
     roster = "\n".join(f"  - {s}" for s in students)
-    return load_prompt("student_names_with_roster", roster=roster)[1]
+    return load_prompt("student_names", section="with_roster", roster=roster)[1]
 
 
 def _crop_top(page, fraction: float = 0.15):
@@ -147,7 +147,7 @@ def assign_pages(
     # ------------------------------------------------------------------
     info_line("Detecting student names from scan pages …")
     workers = int(os.environ.get("NAME_WORKERS", str(min(n_blocks, 8))))
-    prompt = _make_name_prompt(students) if students else load_prompt("student_names_freeform")[1]
+    prompt = _make_name_prompt(students) if students else load_prompt("student_names", section="freeform")[1]
 
     def _ocr_and_match(idx: int, i: int) -> tuple[int, int, str, str | None, float]:
         """Returns (idx, page, raw_name, matched_name, elapsed_s)."""

@@ -77,8 +77,13 @@ def _transcribe_one(
     thinking_kw: dict,
     use_stream: bool,
     prompt_save_path: Path | None,
-) -> str:
-    """Single AI call: describe one mark-scheme graphic. Returns the raw text."""
+) -> tuple[str, str]:
+    """Single AI call: describe one mark-scheme graphic.
+
+    Returns ``(transcription, problem)``. ``problem`` is the QA flag from the
+    v2 prompt (audit item [72]) — empty string when nothing was flagged or the
+    response was the legacy v1 plain-bullet shape.
+    """
     _, system_prompt = load_prompt("transcribe_scheme_graphic", section="system")
     _, user_text = load_prompt(
         "transcribe_scheme_graphic", section="user",
@@ -122,11 +127,11 @@ def _transcribe_one(
     from xscore.shared.response_parsing import strip_code_fences
     cleaned = strip_code_fences(raw or "").strip()
     if not cleaned:
-        return ""
+        return "", ""
     # Audit item [72]: prompt v2 emits {bullets, problem} YAML. Legacy v1
     # emitted plain bullet lines. Try YAML parse first; on success extract
     # bullets and surface `problem` via warn_line. On parse failure fall
-    # back to plain text (legacy shape).
+    # back to plain text (legacy shape) with no problem flag.
     try:
         parsed = _yaml.safe_load(cleaned)
     except _yaml.YAMLError:
@@ -135,10 +140,9 @@ def _transcribe_one(
         bullets = [str(b).strip() for b in parsed["bullets"] if str(b).strip()]
         problem = str(parsed.get("problem") or "").strip()
         if problem:
-            from xscore.shared.terminal_ui import warn_line
             warn_line(f"Transcribe {qnum}: problem flagged — {problem}")
-        return "\n".join(f"- {b}" for b in bullets)
-    return cleaned
+        return "\n".join(f"- {b}" for b in bullets), problem
+    return cleaned, ""
 
 
 # ---------------------------------------------------------------------------
@@ -314,17 +318,21 @@ def transcribe_scheme_graphics_phase(
             "mark_scheme": ctx["mark_scheme"],
         })
 
-    def _run(task: dict[str, Any]) -> tuple[str, str]:
+    def _run(task: dict[str, Any]) -> tuple[str, str, str]:
         png_path: Path = task["png"]
         prior = existing.get(png_path.name)
         if prior is not None and (prior.get("transcription") or "").strip():
-            return png_path.name, str(prior.get("transcription") or "")
+            return (
+                png_path.name,
+                str(prior.get("transcription") or ""),
+                str(prior.get("problem") or ""),
+            )
         prompt_save = (
             artifact_dir / TRANSCRIBE_SCHEME_GRAPHICS_DIR
             / f"transcribe_{task['safe_qnum']}_{task['graphic_index']}_prompt.txt"
         )
         try:
-            text = _transcribe_one(
+            text, problem = _transcribe_one(
                 client, model_id, png_path,
                 qnum=task["human_qnum"],
                 question_text=task["question_text"],
@@ -339,26 +347,32 @@ def transcribe_scheme_graphics_phase(
         except Exception as exc:  # noqa: BLE001
             warn_line(f"Transcribe {png_path.name}: failed ({exc})")
             text = ""
-        return png_path.name, text
+            problem = ""
+        return png_path.name, text, problem
 
     transcribed: dict[str, str] = {}
+    problems: dict[str, str] = {}
     new_count = 0
     if workers <= 1 or len(tasks) == 1:
         for task in tasks:
-            fname, text = _run(task)
+            fname, text, problem = _run(task)
             transcribed[fname] = text
+            problems[fname] = problem
             if existing.get(fname, {}).get("transcription", "") != text and text:
                 new_count += 1
     else:
         with ThreadPoolExecutor(max_workers=min(workers, len(tasks))) as pool:
             futures = {pool.submit(_run, t): t for t in tasks}
             for fut in as_completed(futures):
-                fname, text = fut.result()
+                fname, text, problem = fut.result()
                 transcribed[fname] = text
+                problems[fname] = problem
                 if existing.get(fname, {}).get("transcription", "") != text and text:
                     new_count += 1
 
     # Re-emit in deterministic filename order so diffs are stable across runs.
+    # `problem` is persisted for human review only — downstream steps must not
+    # consume it (audit item [72]).
     entries: list[dict[str, Any]] = []
     for task in tasks:
         fname = task["png"].name
@@ -369,6 +383,7 @@ def transcribe_scheme_graphics_phase(
             "file": fname,
             "ms_page": task["ms_page"],
             "transcription": transcribed.get(fname, ""),
+            "problem": problems.get(fname, ""),
         })
 
     out_path.write_text(
