@@ -62,25 +62,18 @@ def _bq_key(bq: dict) -> tuple:
     )
 
 
-# Match `student_answer:` only when it sits at the question-dict indent — exactly
-# 2 spaces in the YAML emitted by build_blueprint / patch_blueprint_with_answers
-# (sibling to `type:`, `correct_answer:`, etc.). Block-scalar content lives at
-# 4+ spaces, so this regex won't rename text that happens to mention
-# `student_answer:` inside a question_text.
-_STUDENT_ANSWER_LINE = re.compile(r'(?m)^(  )student_answer:')
-
-
 def _rename_blueprint_for_prompt(blueprint_str: str) -> str:
-    """Rename ``student_answer:`` → ``transcribed_answer:`` in the YAML blueprint
-    string passed into the marking prompt.
+    """No-op shim — retained so callers keep working during the audit-[81] migration.
 
-    The pipeline stores the field as ``student_answer`` everywhere (matching
-    step 28's output and the downstream report format); the rename only
-    happens on the prompt-bound copy so the marking AI sees a different field
-    name from the marking fields it owns. ``parse_response`` accepts either
-    name when reading the AI's reply, so the round-trip is transparent.
+    Previously this renamed ``student_answer:`` → ``transcribed_answer:`` so the
+    marking AI saw a different field name from the marking fields it owns.
+    Audit item [81] consolidated the naming: the AI now sees ``student_answer``
+    directly, and the FIELD_RULES fragment instructs it explicitly NOT to
+    re-emit that field. The parser already accepted both names, so removing the
+    rename is safe; this shim stays only because nothing yet has been needed to
+    take its place at call sites.
     """
-    return _STUDENT_ANSWER_LINE.sub(r'\1transcribed_answer:', blueprint_str)
+    return blueprint_str
 
 
 def _build_marking_system_prompt(

@@ -40,6 +40,12 @@ questions:
 - `number` — a quoted string copied verbatim from the transcription form (`'1a'`, `'1'`, `'2.3'`). Even if the number looks like an integer, quote it.
 - `student_answer` — the verbatim transcription. See `## Per-question-type rules` and `## Step-28 quoting specifics` below.
 
+## Cross-page attachments
+
+The first attachment is the primary scan page (the one named in the transcription form's `page:` field). Any additional attachments are continuation pages — the student's answer overflowed onto a later page and step 21 detected the continuation. When transcribing an answer that spans pages, read text from BOTH images and concatenate it as a single `student_answer` value (preserve the original visual order: primary page first, then continuation).
+
+For pages with no continuation, only one attachment is present and this rule is moot.
+
 ## Per-question-type rules
 
 - **multiple_choice** — write the single letter the student physically marked (e.g. `B`), upper-case. **If the letter is `Y` or `N` (true/false-style question), single-quote it: `'Y'` or `'N'` — these are YAML 1.1 boolean-shaped tokens (see `## Step-28 quoting specifics`).** If the student crossed one out and chose another, write the final selection. If you cannot tell what was marked, leave `student_answer: ''` — do NOT guess from the question text or from your own subject knowledge.

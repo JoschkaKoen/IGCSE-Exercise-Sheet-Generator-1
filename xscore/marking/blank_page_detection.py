@@ -161,19 +161,32 @@ def _parse_handwriting(
         pn = None
     cover_raw = data.get("is_cover_page")
     cover: bool | None = cover_raw if isinstance(cover_raw, bool) else None
-    conf_raw = data.get("confidence")
-    conf: int | None = None
-    if isinstance(conf_raw, bool):
-        conf = None
-    elif isinstance(conf_raw, int):
-        conf = conf_raw
-    elif isinstance(conf_raw, (float, str)):
-        try:
-            conf = int(float(str(conf_raw).strip()))
-        except (TypeError, ValueError):
-            conf = None
-    if conf is not None:
-        conf = max(1, min(10, conf))
+
+    # Audit item [32]: per-field confidences. Schema v7 emits three integers
+    # (confidence_handwriting / _page_number / _is_cover); the legacy schema
+    # emitted a single `confidence` integer. Read all three; fall back to the
+    # legacy single `confidence` for either-shape compat. Return the minimum
+    # of the three (or the legacy single) so the caller's existing threshold
+    # logic still treats low-confidence-anywhere as low-confidence overall.
+    def _coerce_conf(v) -> int | None:
+        if isinstance(v, bool):
+            return None
+        if isinstance(v, int):
+            return max(1, min(10, v))
+        if isinstance(v, (float, str)):
+            try:
+                return max(1, min(10, int(float(str(v).strip()))))
+            except (TypeError, ValueError):
+                return None
+        return None
+
+    conf_hw = _coerce_conf(data.get("confidence_handwriting"))
+    conf_pn = _coerce_conf(data.get("confidence_page_number"))
+    conf_cv = _coerce_conf(data.get("confidence_is_cover"))
+    conf_legacy = _coerce_conf(data.get("confidence"))
+    _per_field = [c for c in (conf_hw, conf_pn, conf_cv) if c is not None]
+    conf: int | None = min(_per_field) if _per_field else conf_legacy
+
     reason_raw = data.get("reason")
     reason = str(reason_raw).strip() if isinstance(reason_raw, str) else ""
     return hw, pn, cover, conf, reason
@@ -355,11 +368,21 @@ def _has_handwriting(
 
 
 class _HandwritingPageNumberResp(BaseModel):
-    """Structured-output schema for the step-15 vision call (Gemini path)."""
-    answer: bool
+    """Structured-output schema for the step-14 vision call (Gemini path).
+
+    Field shape matches `student_handwriting_check.md` v7 (audit item [32]):
+    three per-field confidences instead of a single one. The `answer` /
+    `confidence` legacy keys are accepted for back-compat with older prompt
+    versions cached in saved manifests.
+    """
+    answer: bool | None = None
+    has_handwriting: bool | None = None
     page_number: int | None = None
     is_cover_page: bool = False
-    confidence: int = 5
+    confidence: int | None = None
+    confidence_handwriting: int = 5
+    confidence_page_number: int = 5
+    confidence_is_cover: int = 5
     reason: str = ""
 
 

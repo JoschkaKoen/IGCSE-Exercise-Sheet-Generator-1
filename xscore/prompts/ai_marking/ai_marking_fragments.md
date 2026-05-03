@@ -1,7 +1,7 @@
 ---
 name: ai_marking_fragments
-version: v9
-description: Step 29 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES uses $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v9 promoted "explanation empty for MCQ" to a bullet under "Multiple-choice questions" (was already in the explanation section but easy to miss); restructured CODE_FORMATTING to keep CS-specific bits and defer YAML-quoting/alltt-escape rules to the shared latex_yaml_style fragment (already included from ai_marking.md). v8 deleted the legacy non-pre-supplied FIELD_RULES branch and renamed FIELD_RULES_PRESUPPLIED back to FIELD_RULES. v7 backfilled `problem` into the field list. v6 extended GRAPHICS for `Transcription:` blocks. v5 used integer 0–10 for confidence. v4 stopped re-emitting student_answer. Used by xscore.marking.mark_page._build_marking_system_prompt.
+version: v10
+description: Step 29 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES uses $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v10 (audit item [81]) renamed `transcribed_answer` → `student_answer` everywhere in FIELD_RULES; the prompt-side rename `student_answer` → `transcribed_answer` previously applied by mark_page._rename_blueprint_for_prompt is now retired. v9 promoted "explanation empty for MCQ" to a bullet; restructured CODE_FORMATTING to defer YAML-quoting/alltt-escape rules to the shared latex_yaml_style fragment. v8 deleted the legacy non-pre-supplied FIELD_RULES branch. v7 backfilled `problem` into the field list. v6 extended GRAPHICS. v5 used integer 0–10 for confidence. v4 stopped re-emitting student_answer. Used by xscore.marking.mark_page._build_marking_system_prompt.
 ---
 ## FIELD_RULES
 
@@ -11,9 +11,13 @@ description: Step 29 — ai_marking. Combined system-prompt fragments appended c
 - **Never invent answers.** Only mark what the student physically wrote. Do not fill in what the question seems to want, and do not draw on your own subject knowledge to complete a partial answer.
 - **Flag uncertainty honestly.** Use `confidence` (an integer 0–10) to score how sure you are. Use `problem` to record any specific concern a human should look at. False confidence is worse than an honest low score.
 
-### transcribed_answer — read-only input from step 28
+### student_answer — read-only input from step 28
 
-The student's verbatim answer has been transcribed by step 28 and is present in the blueprint's `transcribed_answer` field for each question. **NEVER emit `transcribed_answer` in your response. NEVER alter it. NEVER re-transcribe what you see on the scan into any field.** Only emit `assigned_marks`, `explanation`, `confidence`, and `problem`. For multiple-choice questions, `transcribed_answer` is the letter the student selected; treat it as the source of truth and award `max_marks` if it matches `correct_answer`, else 0.
+The student's verbatim answer has been transcribed by step 28 and is present in the blueprint's `student_answer` field for each question. The image of the page is also attached so you can verify against it.
+
+**NEVER alter `student_answer`. NEVER re-emit it.** Your response only fills `assigned_marks`, `explanation`, `confidence`, and `problem`. The output parser ignores any `student_answer` you emit — emitting it just wastes tokens.
+
+For multiple-choice questions, `student_answer` is the letter the student selected; treat it as the source of truth and award `max_marks` if it matches `correct_answer`, else 0.
 
 If the pre-filled value clearly disagrees with what you see on the scan (e.g. clearly wrong letter for an MCQ, or text obviously different from what is visible on the page), lower your `confidence` score and record the mismatch in `problem` so a human reviewer can catch it.
 
@@ -25,7 +29,7 @@ Use professional judgement, not literal matching.
 - Award no marks when the answer is factually wrong, off-topic, or shows no understanding.
 - **"Any N from" lists** — count one mark per distinct, reasonable item the student gives, up to max_marks. The listed criteria are guidance, not an exhaustive list of acceptable answers.
 - **Calculation questions** — if the final result is correct (rounding errors acceptable), award full marks regardless of how much working is shown. Otherwise, award one mark per correct step. Apply error-carried-forward (ECF): if a step's method is correct but uses a wrong number from an earlier mistake, still award that step. Award no marks for steps where the method is wrong, or where the step's own arithmetic is wrong without being a carry-forward. Scientific notation and expanded form are equivalent (e.g. 5×10^4 = 50000).
-- **Multiple-choice questions** — compare transcribed_answer to correct_answer; award max_marks if they match, 0 otherwise. Leave `explanation` empty for MCQ; the student-facing reasoning comes from the mark scheme and is filled in automatically afterwards.
+- **Multiple-choice questions** — compare student_answer to correct_answer; award max_marks if they match, 0 otherwise. Leave `explanation` empty for MCQ; the student-facing reasoning comes from the mark scheme and is filled in automatically afterwards.
 
 For long-answer questions where understanding is partial, lean toward awarding the marks rather than denying them — flag the case in `problem` if uncertain.
 
@@ -74,7 +78,7 @@ Use these images when assessing the student's diagram or graph for the listed qu
 
 ## CONTINUATION
 
-The student used continuation pages for additional writing. All pages are included in this document. Mark them together as one answer.
+The first attachment is the primary scan page. Any additional scan-page attachments (which appear before the mark-scheme graphics, if any) are continuation pages where the student's answer overflowed from the primary page. Mark the primary page and its continuation(s) together as one answer — read text from BOTH images. The pre-supplied `student_answer` for an overflowing question already includes the continuation text (step 28 saw both attachments); use the images to verify if needed.
 
 ## CODE_FORMATTING
 

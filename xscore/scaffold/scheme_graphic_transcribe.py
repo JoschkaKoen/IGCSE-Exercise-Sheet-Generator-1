@@ -120,7 +120,25 @@ def _transcribe_one(
     raw, thinking_text = retry_api_call(_do_call, label=f"Transcribe ({qnum})")
     save_response(prompt_save_path, raw, thinking=thinking_text)
     from xscore.shared.response_parsing import strip_code_fences
-    return strip_code_fences(raw or "").strip()
+    cleaned = strip_code_fences(raw or "").strip()
+    if not cleaned:
+        return ""
+    # Audit item [72]: prompt v2 emits {bullets, problem} YAML. Legacy v1
+    # emitted plain bullet lines. Try YAML parse first; on success extract
+    # bullets and surface `problem` via warn_line. On parse failure fall
+    # back to plain text (legacy shape).
+    try:
+        parsed = _yaml.safe_load(cleaned)
+    except _yaml.YAMLError:
+        parsed = None
+    if isinstance(parsed, dict) and isinstance(parsed.get("bullets"), list):
+        bullets = [str(b).strip() for b in parsed["bullets"] if str(b).strip()]
+        problem = str(parsed.get("problem") or "").strip()
+        if problem:
+            from xscore.shared.terminal_ui import warn_line
+            warn_line(f"Transcribe {qnum}: problem flagged — {problem}")
+        return "\n".join(f"- {b}" for b in bullets)
+    return cleaned
 
 
 # ---------------------------------------------------------------------------

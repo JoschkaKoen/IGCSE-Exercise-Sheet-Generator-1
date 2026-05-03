@@ -161,13 +161,18 @@ def _parse_exam_xml(raw: str) -> tuple[list[dict], dict]:
 
     def _parse_q(el: ET.Element) -> dict:
         text_el = el.find("text")
+        qtype = el.get("type", "short_answer")
+        marks = int(el.get("marks", 0))
+        if qtype == "multiple_choice" and marks == 0:
+            from xscore.scaffold.formats.base import _mcq_default_points  # noqa: PLC0415
+            marks = _mcq_default_points()
         return {
             "number":        el.get("number", ""),
-            "question_type": el.get("type", "short_answer"),
+            "question_type": qtype,
             "page":          int(el.get("page", 1)),
             "subpage_row":   int(el.get("subpage_row", 1)),
             "subpage_col":   int(el.get("subpage_col", 1)),
-            "marks":         int(el.get("marks", 0)),
+            "marks":         marks,
             "text":          (text_el.text or "").strip() if text_el is not None else "",
             "answer_options": [
                 {"letter": opt.get("letter", ""), "text": (opt.text or "").strip()}

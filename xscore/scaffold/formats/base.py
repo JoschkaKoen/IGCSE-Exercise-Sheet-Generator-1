@@ -699,17 +699,37 @@ def _parse_yaml_question(q: dict) -> dict:
     }
 
 
+def _mcq_default_points() -> int:
+    """Audit item [68]: override marks=0 for MCQ questions to this value.
+
+    Cambridge papers usually print "[1]" next to MCQ stems but some omit it;
+    the AI extracts marks=0 in those cases, silently dropping the question
+    from per-question totals. Setting MCQ_DEFAULT_POINTS=N forces marks=N for
+    any MCQ where the AI returned 0. Set to 0 in env to disable the override.
+    """
+    import os
+    raw = os.environ.get("MCQ_DEFAULT_POINTS", "1").strip()
+    try:
+        return max(0, int(raw))
+    except ValueError:
+        return 1
+
+
 def _parse_yaml_scaffold_node(q: dict) -> dict:
     """Parse a detect-scaffold YAML node — same shape as the exam parser but
     text/options are forced empty (the model is instructed not to emit them;
     this defends against accidental emission)."""
+    qtype = str(q.get("type", "short_answer"))
+    marks = int(q.get("marks", 0))
+    if qtype == "multiple_choice" and marks == 0:
+        marks = _mcq_default_points()
     return {
         "number":        str(q.get("number", "")),
-        "question_type": str(q.get("type", "short_answer")),
+        "question_type": qtype,
         "page":          int(q.get("page", 1)),
         "subpage_row":   int(q.get("subpage_row", 1)),
         "subpage_col":   int(q.get("subpage_col", 1)),
-        "marks":         int(q.get("marks", 0)),
+        "marks":         marks,
         "text":          "",
         "answer_options": [],
         "subquestions": [

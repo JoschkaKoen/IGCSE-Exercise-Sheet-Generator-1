@@ -96,7 +96,10 @@ def is_cover_page(
             system_instruction=system_prompt,
             max_output_tokens=max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
             response_mime_type="application/json",
-            response_schema=bool,
+            # Audit item [28]: schema is a plain string so the model can return
+            # the enum token; the parser maps cover/instructions → True. The
+            # bool fallback in _parse_cover_bool still handles legacy responses.
+            response_schema=str,
             thinking_config=build_gemini_thinking_config(thinking_tokens),
         )
         resp = gai_client.models.generate_content(
@@ -132,7 +135,7 @@ def is_cover_page(
         _use_stream, _kw = build_completion_kwargs(_provider, thinking_tokens, max_tokens)
         _msgs = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt + '\n\nReturn JSON only with this shape: {"answer": <bool>}'},
+            {"role": "user", "content": user_prompt + '\n\nReturn JSON only with this shape: {"page_type": "cover" | "instructions" | "question"}'},
         ]
         if _use_stream:
             _th: list[str] = []
@@ -172,8 +175,16 @@ def is_cover_page(
 def _parse_cover_bool(raw: str) -> bool:
     """Parse the model response for cover-page detection.
 
-    Tolerates both Gemini's bare ``true``/``false`` (from ``response_schema=bool``)
-    and the OpenAI-compat ``{"answer": <bool>}`` shape.
+    Audit item [28]/[30] introduced a three-way enum `page_type` (cover /
+    instructions / question). For the existing boolean call site, both
+    `cover` and `instructions` map to True (neither has questions, so the
+    downstream "skip non-question pages" logic still works during the
+    alias-then-flip migration).
+
+    Also tolerates the legacy shapes:
+    - Gemini's bare ``true``/``false`` (from ``response_schema=bool``).
+    - OpenAI-compat ``{"answer": <bool>}``.
+    - Older prompt versions emitting ``is_cover`` / ``is_cover_page`` directly.
     """
     if not raw:
         return False
@@ -183,10 +194,15 @@ def _parse_cover_bool(raw: str) -> bool:
         return False
     if isinstance(data, bool):
         return data
+    if isinstance(data, str):
+        # Gemini path with response_schema=str returns a bare string ("cover" etc.).
+        return data.strip().lower() in ("cover", "instructions")
     if isinstance(data, dict):
-        # Accept any of the historical/current key names. Current prompt
-        # (cover_page_scan v2) emits `is_cover`; older models still emit
-        # `answer` or `is_cover_page` from when the schema was implicit.
+        # New prompt shape (cover_page_scan v5+): {"page_type": "cover" | "instructions" | "question"}.
+        page_type = data.get("page_type")
+        if isinstance(page_type, str):
+            return page_type.strip().lower() in ("cover", "instructions")
+        # Legacy shapes — accept any of the historical key names.
         return bool(data.get("is_cover", data.get("answer", data.get("is_cover_page", False))))
     return False
 
@@ -233,7 +249,10 @@ def check_cover_page_text(
             system_instruction=system_prompt,
             max_output_tokens=max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
             response_mime_type="application/json",
-            response_schema=bool,
+            # Audit item [28]: schema is a plain string so the model can return
+            # the enum token; the parser maps cover/instructions → True. The
+            # bool fallback in _parse_cover_bool still handles legacy responses.
+            response_schema=str,
             thinking_config=build_gemini_thinking_config(thinking_tokens),
         )
         resp = retry_api_call(
@@ -272,7 +291,7 @@ def check_cover_page_text(
         _use_stream, _kw = build_completion_kwargs(_provider, thinking_tokens, max_tokens)
         _msgs = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt + '\n\nReturn JSON only with this shape: {"answer": <bool>}'},
+            {"role": "user", "content": user_prompt + '\n\nReturn JSON only with this shape: {"page_type": "cover" | "instructions" | "question"}'},
         ]
         if _use_stream:
             def _do_stream() -> tuple[str, str]:
