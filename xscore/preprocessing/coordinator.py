@@ -607,7 +607,13 @@ def autorotate_phase(
     *,
     output_pdf: Path | None = None,
 ) -> Path:
-    """autorotate body: read ``scan_blanks.json``, write rotated PDF (blanks dropped)."""
+    """autorotate body: read ``scan_blanks.json``, write rotated PDF (all pages retained).
+
+    Step 14 now matches every scan page against the empty exam (phase A's catalog),
+    which decides each page's identity. Pre-emptively dropping blanks here would
+    hide pages that carry faint handwriting the matcher should still see, so we
+    pass every page through. ``scan_blanks.json`` stays informational.
+    """
     from xscore.preprocessing.remove_blanks_autorotate import (
         scan_blanks_state_from_json,
         write_rotated_pdf_after_blanks,
@@ -624,12 +630,13 @@ def autorotate_phase(
 
     out = output_pdf if output_pdf is not None else paths["rotated"]
     out.parent.mkdir(parents=True, exist_ok=True)
+    total = int(state["total_pages"])
     write_rotated_pdf_after_blanks(
         source,
         out,
-        total_pages=int(state["total_pages"]),
-        content_page_nums=list(state["content_page_nums"]),
-        blank_page_nums=list(state["blank_page_nums"]),
+        total_pages=total,
+        content_page_nums=list(range(1, total + 1)),  # retain ALL pages — step 14 matcher decides identity
+        blank_page_nums=[],                            # informational-only; see scan_blanks.json
         page_render_sizes=state["page_render_sizes"],
         analysis_dpi=int(state["analysis_dpi"]),
         use_tesseract_rotation=bool(state["use_tesseract_rotation"]),

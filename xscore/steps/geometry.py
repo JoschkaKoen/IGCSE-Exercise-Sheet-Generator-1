@@ -30,7 +30,11 @@ from xscore.preprocessing.cover_detection import (
     detect_empty_exam_cover,
     detect_first_page_cover,
 )
-from xscore.marking.blank_page_detection import check_exam_blank_pages, check_student_handwriting
+from xscore.marking.blank_page_detection import (
+    check_exam_blank_pages,
+    check_student_handwriting,
+    classify_empty_exam_pages,
+)
 from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
 from xscore.marking.page_order_check import check_page_order
 from xscore.pipeline.resume import exam_pdf_page_count
@@ -431,34 +435,90 @@ def exam_blank_detection(ctx: _Ctx) -> None:
 
 
 def student_handwriting_check(ctx: _Ctx) -> None:
-    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
-    assert ctx.pages_per_student is not None and ctx.pages_per_student > 0
-    announce_step_model(
-        model_env="HANDWRITING_CHECK_MODEL",
-        legacy_model_env="AI_DEFAULT_MODEL",
-        default_max_tokens=96,
-    )
+    """Step 14 — two-phase scan-page identification.
+
+    Phase A: vision-classify each page of the empty exam paper into one of
+    {cover/instruction/question/blank page} and read its printed page number.
+    Builds a closed catalog used by phase B as the matching vocabulary.
+
+    Phase B: per-scan-page vision call that MATCHES against phase A's catalog
+    (page type + page number, plus an N+3 overflow buffer) and detects student
+    handwriting. The combined output lives in
+    ``14_student_handwriting/handwriting.json``.
+    """
+    from eXercise.ai_client import parse_model_spec
     from xscore.marking.blank_page_detection import (
         BlankCheckStatus,
         HANDWRITING_JPEG_DPI,
         HANDWRITING_JPEG_QUALITY,
     )
+    from xscore.marking.marking_page_register import _cover_offset
     from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+
+    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    assert ctx.pages_per_student is not None and ctx.pages_per_student > 0
+    assert ctx.scaffold_state is not None and "actual_exam_pdf" in ctx.scaffold_state, (
+        "step 14 needs the post-cut empty exam PDF (set by step 9 cut_exam_pdf)"
+    )
+
+    # ── Phase A — empty-exam page classification ────────────────────────────
+    announce_step_model(
+        model_env="EMPTY_EXAM_PAGE_CLASSIFICATION_MODEL",
+        legacy_model_env="HANDWRITING_CHECK_MODEL",
+        default_max_tokens=256,
+    )
+    a_model_id, a_thinking, a_max_tok = parse_model_spec(
+        os.environ.get(
+            "EMPTY_EXAM_PAGE_CLASSIFICATION_MODEL",
+            "gemini-3-flash-preview, 0, 256",
+        )
+    )
+    if a_model_id.startswith("gemini"):
+        announce_ai_input(kind="PDF", note="native per-page slice")
+    else:
+        announce_ai_input(
+            kind="JPEG", dpi=HANDWRITING_JPEG_DPI, quality=HANDWRITING_JPEG_QUALITY,
+            note="rasterized fallback",
+        )
+    empty_pdf = ctx.scaffold_state["actual_exam_pdf"]
+    import fitz as _fitz  # noqa: PLC0415
+    with _fitz.open(str(empty_pdf)) as _d:
+        n_empty = _d.page_count
+    info_line(f"Classifying {n_empty} empty-exam pages …")
+    t_a = time.perf_counter()
+    a_status, a_msg, empty_classifications = classify_empty_exam_pages(
+        empty_pdf, ctx.artifact_dir,
+        model_id=a_model_id, thinking_tokens=a_thinking, max_tokens=a_max_tok,
+    )
+    a_dur = format_duration(time.perf_counter() - t_a)
+    if a_status is BlankCheckStatus.PASSED:
+        ok_line(f"Empty-exam classification: {a_msg}  ·  {a_dur}")
+    else:
+        warn_line(f"Empty-exam classification INCONCLUSIVE: {a_msg}  ·  {a_dur}")
+        # Continue to phase B — partial catalog + always-present "cover page"
+        # type and the +3 page-number buffer keep the matcher functional.
+
+    # ── Phase B — per-scan-page matcher ─────────────────────────────────────
+    announce_step_model(
+        model_env="HANDWRITING_CHECK_MODEL",
+        legacy_model_env="AI_DEFAULT_MODEL",
+        default_max_tokens=192,
+    )
     announce_ai_input(
         kind="JPEG", dpi=HANDWRITING_JPEG_DPI, quality=HANDWRITING_JPEG_QUALITY,
     )
-    from xscore.marking.marking_page_register import _cover_offset
     cover_page_mode = bool(ctx.cover_page_mode)
     cover_offset = _cover_offset(cover_page_mode, bool(ctx.empty_exam_has_cover))
-    t0 = time.perf_counter()
+    t_b = time.perf_counter()
     status, msg = check_student_handwriting(
         ctx.cleaned_pdf,
         ctx.artifact_dir,
         cover_page_mode=cover_page_mode,
         pages_per_student=ctx.pages_per_student,
         cover_offset=cover_offset,
+        empty_exam_classifications=empty_classifications,
     )
-    dur = format_duration(time.perf_counter() - t0)
+    b_dur = format_duration(time.perf_counter() - t_b)
 
     # Note: register building (v1) used to live here. It moved to a dedicated
     # build_marking_register_v1 so it can run AFTER student_names provides
@@ -466,11 +526,11 @@ def student_handwriting_check(ctx: _Ctx) -> None:
     # needs but the register still does.
 
     if status is BlankCheckStatus.PASSED:
-        ok_line(f"Student handwriting check: {msg}  ·  {dur}")
+        ok_line(f"Scan-page matching: {msg}  ·  {b_dur}")
         return
     # INCONCLUSIVE
     warn_line(
-        "Student handwriting check INCONCLUSIVE — pipeline did NOT verify all blank pages:\n"
+        "Scan-page matching INCONCLUSIVE — pipeline did NOT verify all blank pages:\n"
         f"  {msg}"
     )
 

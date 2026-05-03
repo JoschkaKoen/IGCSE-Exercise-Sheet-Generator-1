@@ -152,7 +152,7 @@ STEPS: tuple[Step, ...] = (
     Step(14, "student_handwriting_check",
          writes=("14_student_handwriting/*",
                  "13_student_handwriting/*"),  # legacy folder (pre-detect_subject)
-         title="Vision classify each scan page (handwriting + page# + cover)",
+         title="Classify empty-exam pages, then match each scan page (page type + page# + handwriting)",
          phase="cover_geometry"),
     # Cover-anchored student-name detection (consumes student_handwriting_check's covers).
     # Sets ctx.page_assignments — the runner kicks off background pre-rendering

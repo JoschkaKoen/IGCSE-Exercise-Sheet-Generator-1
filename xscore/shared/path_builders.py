@@ -253,8 +253,18 @@ def artifact_handwriting_prompt_path(artifact_dir: Path, name: str) -> Path:
 
 
 def artifact_handwriting_dir(artifact_dir: Path) -> Path:
-    """Directory of JPEG images rendered for handwriting checks."""
+    """Directory of JPEG images rendered for handwriting checks (phase B)."""
     return artifact_dir / HANDWRITING_DIR / "scan_pages"
+
+
+def artifact_handwriting_empty_exam_dir(artifact_dir: Path) -> Path:
+    """Directory of per-page artifacts for the phase-A empty-exam classifier.
+
+    Stored alongside the scan-page JPEGs under the same step folder so the
+    full audit trail of step 14 lives in one place. Files are PDFs on the
+    Gemini path (one-page slices) and JPEGs on the rasterized fallback.
+    """
+    return artifact_dir / HANDWRITING_DIR / "empty_exam_pages"
 
 
 def artifact_marking_page_register_v1_path(artifact_dir: Path) -> Path:

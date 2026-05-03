@@ -129,11 +129,11 @@ def assign_pages(
     positional_covers = {b * pages_per_student + 1 for b in range(n_blocks)}
     first_page_set: set[int] = positional_covers
 
-    # Cover-anchored sanity check: student_handwriting_check's handwriting.json vision-classifies
-    # every scan page (is_cover_page). If those AI detections agree with the
-    # positional cover positions, we proceed; if they disagree, that's a
-    # strong signal the scan is misordered or a cover is missing — log it as
-    # a warning so the user knows before downstream steps fail mysteriously.
+    # Cover-anchored sanity check: step 14 phase B writes per-scan-page
+    # page_type into handwriting.json. If the pages it picks as "cover page"
+    # agree with the positional cover positions, we proceed; if they disagree,
+    # the scan is likely misordered or a cover is missing — log it as a
+    # warning so the user knows before downstream steps fail mysteriously.
     if cover_page_mode and artifact_dir is not None:
         try:
             from xscore.shared.exam_paths import artifact_handwriting_json_path
@@ -143,7 +143,7 @@ def assign_pages(
                 ai_covers = {
                     int(entry["scan_page"])
                     for entry in hw_data.get("scan_pages", [])
-                    if entry.get("is_cover_page") is True
+                    if entry.get("page_type") == "cover page"
                     and entry.get("scan_page") is not None
                 }
                 if ai_covers and ai_covers != positional_covers:

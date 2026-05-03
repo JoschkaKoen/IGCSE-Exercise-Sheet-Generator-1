@@ -144,16 +144,18 @@ def check_page_order(
         missing_st: list[Issue] = []
         for p_label, scan_page in enumerate(a.page_numbers, 1):
             entry = by_scan.get(scan_page)
+            # Step 14 phase B emits page_type (enum) + matched_page_number (int|None).
+            page_type = entry.get("page_type") if entry is not None else None
+            matched_pn = entry.get("matched_page_number") if entry is not None else None
             if has_cover and p_label == 1:
-                # Cover slot: AI should mark is_cover_page=True.
+                # Cover slot: matcher should pick page_type == "cover page".
                 if entry is None:
                     missing_st.append(Issue(
                         student=a.student_name, scan_page=scan_page,
                         expected="cover", detected="(none)",
                     ))
-                elif entry.get("is_cover_page") is False:
-                    detected_pn = entry.get("detected_page_number")
-                    if detected_pn is None:
+                elif page_type is not None and page_type != "cover page":
+                    if matched_pn is None:
                         missing_st.append(Issue(
                             student=a.student_name, scan_page=scan_page,
                             expected="cover", detected="(none)",
@@ -161,7 +163,7 @@ def check_page_order(
                     else:
                         wrong_order_st.append(Issue(
                             student=a.student_name, scan_page=scan_page,
-                            expected="cover", detected=f"page {detected_pn}",
+                            expected="cover", detected=f"page {matched_pn}",
                         ))
                 continue
             expected_pn = p_label - cover_offset
@@ -173,23 +175,22 @@ def check_page_order(
                     expected=f"page {expected_pn}", detected="(none)",
                 ))
                 continue
-            if entry.get("is_cover_page") is True:
+            if page_type == "cover page":
                 wrong_order_st.append(Issue(
                     student=a.student_name, scan_page=scan_page,
                     expected=f"page {expected_pn}", detected="cover",
                 ))
                 continue
-            detected_pn = entry.get("detected_page_number")
-            if detected_pn is None:
+            if matched_pn is None:
                 missing_st.append(Issue(
                     student=a.student_name, scan_page=scan_page,
                     expected=f"page {expected_pn}", detected="(none)",
                 ))
                 continue
-            if int(detected_pn) != expected_pn:
+            if int(matched_pn) != expected_pn:
                 wrong_order_st.append(Issue(
                     student=a.student_name, scan_page=scan_page,
-                    expected=f"page {expected_pn}", detected=f"page {detected_pn}",
+                    expected=f"page {expected_pn}", detected=f"page {matched_pn}",
                 ))
 
         nw, nm = len(wrong_order_st), len(missing_st)

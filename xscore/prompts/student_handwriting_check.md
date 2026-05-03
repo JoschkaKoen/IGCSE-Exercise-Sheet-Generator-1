@@ -1,35 +1,71 @@
 ---
 name: student_handwriting_check
-version: v7
-description: Step 14 — student_handwriting_check. User-only prompt for the vision LLM call that checks one scanned exam page for student handwriting, reads the printed page number, AND identifies whether the page is the exam cover page. No substitutions. Used by xscore.marking.blank_page_detection._has_handwriting. v7 (audit item [32]) replaced the single `confidence` integer with three per-field confidences (`confidence_handwriting`, `confidence_page_number`, `confidence_is_cover`) so the model can express uncertainty about each judgement separately. Reason now explains the lowest-confidence judgement. Downstream parser was updated to read all three keys (or fall back to the legacy `confidence` key while transitional). v6 promoted the cross-field constraint to a top-level section and added two `reason` examples. v5 renamed `answer` to `has_handwriting`, hard-bound `page_number: null` on cover pages, normalised the confidence scale to [0, 10] to match step 29.
+version: v8
+description: Step 14 phase B — student_handwriting_check (matcher). User-only prompt for the per-scan-page vision LLM call. Given the closed vocabularies built from the empty exam (phase A's catalog), the model MATCHES this scan page to one known page type and one known page number — open-ended classification is no longer permitted. Also detects student handwriting (kept to drive step 18 marking_page_register's skip-set). Substitutions $page_type_options and $page_number_options are bullet lists rendered by the caller. Used by xscore.marking.blank_page_detection._has_handwriting. v8 (2026-05) replaced v7's open-ended detection with closed-vocabulary matching against the empty-exam catalog produced by phase A; renamed `is_cover_page` boolean → `page_type` enum and `page_number` (free integer) → matched value from a fixed list with special tokens "cover" / "none". v7 added per-field confidences.
 ---
 
-This is one page from a student's scanned exam. It may have printed horizontal writing lines, printed headers/footers, printed question text, and student handwriting. It may be the exam cover page, an answer page, or a fully blank page.
+This is one page from a student's scanned exam. It may have printed horizontal writing lines, printed headers/footers, printed question text, and student handwriting. It may be the cover page, an answer page, or a fully blank page.
 
-## Cross-field constraints
+## What you are doing
 
-If `is_cover_page` is true, `page_number` MUST be null. Cover pages don't print page numbers — by convention the cover is page 1, and any digits visible on the cover (e.g. "This document has 12 pages") are NOT this page's number.
+We have already analyzed the EMPTY exam paper and built two closed vocabularies. Your job is to MATCH this scan page to one entry from each list — you may NOT invent new page types or new page numbers.
+
+## Closed vocabularies
+
+### Page types (pick exactly one)
+
+$page_type_options
+
+Definitions:
+- `cover page` — exam title at the top, fields for the student to fill in (Name, Date, Class, Candidate Number, etc.), and NO question text. Cover pages typically have NO printed page number.
+- `instruction page` — no name field, no question text. General instructions, formula sheet, candidate notice, periodic table, or similar.
+- `question page` — has printed question text.
+- `blank page` — contains the words "BLANK PAGE" prominently.
+
+### Page numbers (pick exactly one)
+
+$page_number_options
+
+Plus these two special tokens (use as a string):
+- `"cover"` — this page is the cover page (cover pages have no printed page number).
+- `"none"` — this is NOT a cover page but no printed page number is visible.
+
+The integers in the list above are the page numbers actually printed in the empty exam, plus a small overflow buffer (3 numbers above the highest detected). If the printed page number you see is NOT in this list, pick `"none"` and explain in `problem`.
+
+## Cross-field constraint
+
+If `page_number` is the string `"cover"`, then `page_type` MUST be `"cover page"` — and vice versa. If you violate this, the post-processor will flag the entry and surface it for manual review.
 
 ## Questions
 
-Answer SEVEN questions about THIS page:
+Answer THREE matching questions and THREE confidence questions:
 
-1. STUDENT HANDWRITING — Is there any handwriting (ink written by the student) on this page? Ignore printed lines, printed text, question numbers, and page numbers. Faint marks that bleed through from the OTHER side of the paper (show-through) do NOT count — only report ink clearly and deliberately written on THIS side.
+1. PAGE TYPE — which entry from the page-type list above does this scan page best match?
+2. PAGE NUMBER — which entry from the page-number list above (including the special tokens `"cover"` / `"none"`) does this scan page best match? Read the typeset page number printed in the margin (top or bottom). Do NOT return question numbers (e.g. "Q3", "Question 5"), section markers, paper codes, or dates — only the printed page number. Cover pages typically have no number; pick `"cover"` for them.
+3. STUDENT HANDWRITING — Is there any handwriting (ink written by the student) on this page? Ignore printed lines, printed text, question numbers, page numbers, and the printed material visible in the empty-exam paper. Faint marks that bleed through from the OTHER side of the paper (show-through) do NOT count — only report ink clearly and deliberately written on THIS side. (Cover pages WILL usually have handwriting, since the student fills in their name there.)
+4. CONFIDENCE — PAGE TYPE — integer 0..10 (10 = absolutely certain, 5 = cannot decide).
+5. CONFIDENCE — PAGE NUMBER — integer 0..10. Lower when the digit is faint, partially cropped, or if you fell back to `"none"`.
+6. CONFIDENCE — HANDWRITING — integer 0..10. Lower for marginal/ambiguous marks (faint show-through, partial doodles, smudges).
 
-2. PRINTED PAGE NUMBER — What is the typeset page number printed on this page (usually in the very top margin or very bottom margin, often centered or in a corner)? Return only the integer. Do NOT return question numbers (e.g. "Q3", "Question 5"), section markers, or dates — only the page number. If formatted as "Page 5 of 30", return 5. If no printed page number is visible, or you cannot read it confidently, return null. (Reminder: see `## Cross-field constraints` above when `is_cover_page` is true.)
+## Problem field
 
-3. COVER PAGE — Is this the exam cover page? Cover pages typically have: the exam title at the top, fields for the student to fill in (Name, Date, Class, Candidate Number, etc.), often a barcode or ID box, and NO question text. Return true if this is clearly the cover page; false if this is a regular question/answer page or any other non-cover page.
+Fill `problem` with one short sentence (under 25 words) when ANY of:
+- any of the three confidences is `< 7`
+- a field could not be matched (e.g. the printed page number isn't in the list and you fell back to `"none"`)
+- the cross-field constraint is at risk (e.g. you picked `page_number == "cover"` but the page doesn't actually look like a cover)
 
-4. CONFIDENCE — HANDWRITING — How confident are you in the handwriting answer? Integer 0–10 (10 = absolutely certain, 5 = cannot decide, 0 = no idea). Lower for marginal/ambiguous marks (faint show-through, partial doodles, smudges).
+**Exception**: a page where `page_type == "cover page"` AND `page_number` is `"cover"` (or `"none"`) is the expected, normal case — leave `problem` empty in that situation.
 
-5. CONFIDENCE — PAGE NUMBER — How confident are you in the page-number answer? Integer 0–10. Lower when the digit is faint, partially cropped, or if you returned null because nothing was visible.
+If none of the conditions trigger, leave `problem` as the empty string `""`.
 
-6. CONFIDENCE — IS COVER PAGE — How confident are you in the cover-page answer? Integer 0–10. Lower when the page has SOME but not all cover-page features (e.g. paper code printed but no name fields).
+## Return JSON only — exact shape
 
-7. REASON — One short sentence (under 25 words) justifying whichever of the three judgements you have lowest confidence in. (If two or three judgements share the same evidence, one sentence covering them all is fine.) Be specific: name what you see (or don't see) and where on the page.
-
-   Good: `"Three lines of cursive ink in left margin, mid-page."` (specific, names location and form)
-   Bad:  `"Yes, there is writing."` (generic, gives no detail)
-
-Return JSON only, with this exact shape:
-{"has_handwriting": <bool>, "page_number": <int|null>, "is_cover_page": <bool>, "confidence_handwriting": <int 0..10>, "confidence_page_number": <int 0..10>, "confidence_is_cover": <int 0..10>, "reason": "<one short sentence>"}
+```
+{"page_type": "<one entry from the page-type list>",
+ "page_number": <int from the page-number list> | "cover" | "none",
+ "has_handwriting": <bool>,
+ "confidence_page_type": <int 0..10>,
+ "confidence_page_number": <int 0..10>,
+ "confidence_handwriting": <int 0..10>,
+ "problem": "<one short sentence or empty string>"}
+```
