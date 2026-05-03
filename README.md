@@ -255,6 +255,83 @@ flowchart TD
     s34 --> s35
 ```
 
+Same pipeline as a data-flow graph — arrows are artifact handoffs and cross-phase arrows are labeled with the artifact passed. The user's exam folder feeds s4 (raw scans), s8/s10/s14/s19 (empty exam), and s22 (mark scheme).
+
+```mermaid
+flowchart TD
+    subgraph setup["Setup (1–3)"]
+        s1["1 —\nInterpret\nprompt"] --> s2["2 —\nSelect exam\nfolder"] --> s3["3 —\nRead student\nlist"]
+    end
+    subgraph scan["Scan cleaning (4–7)"]
+        s4["4 —\nMerge duplex\nscans"] --> s5["5 —\nDetect blank\npages"] --> s6["6 —\nAutorotate"] --> s7["7 —\nDeskew"]
+    end
+    subgraph emptyexam["Empty-exam analysis (8–9)"]
+        s8["8 —\nDetect exam\nlayout"] --> s9["9 —\nCut empty\nexam"]
+    end
+    subgraph geometry["Cover & geometry + subject (10–13)"]
+        s10["10 —\nCover page\n(empty exam)"]
+        s11["11 —\nCover page\n(scan)"] --> s12["12 —\nPages per\nstudent"]
+        s13["13 —\nDetect exam\nsubject"]
+    end
+    subgraph identity["Per-page vision + identity (14–18)"]
+        s14["14 —\nVision classify\neach page"] --> s15["15 —\nDetect student\nnames"]
+        s14 --> s17["17 —\nBlank pages\n(empty exam)"]
+        s15 --> s16["16 —\nCheck page\norder"]
+        s15 --> s17
+        s15 --> s18["18 —\nBuild marking\nregister"]
+        s16 --> s18
+    end
+    subgraph scaffold["Exam parse + cross-page + mark scheme (19–26)"]
+        s19["19 —\nDetect exam\nscaffold"] --> s20["20 —\nFill exam\nscaffold"] --> s21["21 —\nCross-page\ncontext"]
+        s22["22 —\nMark scheme\ngraphics"] --> s23["23 —\nAssign questions\nto scheme pages"] --> s24["24 —\nParse mark\nscheme"]
+        s22 --> s25["25 —\nTranscribe mark\nscheme graphics"]
+        s24 --> s26["26 —\nBuild grading\nscaffold"]
+        s25 --> s26
+    end
+    subgraph marking["AI marking (27–29)"]
+        s27["27 —\nBuild marking\nblueprints"] --> s28["28 —\nExtract student\nanswers"] --> s29["29 —\nRun AI\nmarking"]
+        s27 --> s29
+    end
+    subgraph reports["Reports (30–34)"]
+        s30["30 —\nFuse marks\nto reports"] --> s31["31 —\nClass stats\n& curve"]
+        s30 --> s32["32 —\nPer-student\nPDFs"]
+        s31 --> s32
+        s33["33 —\nClass\nreport"]
+        s34["34 —\nReview\nqueue"]
+    end
+    subgraph summary["Summary (35–37)"]
+        s35["35 —\nTiming\nsummary"]
+        s36["36 —\nAccuracy\nevaluation"]
+        s37["37 —\nAI cost\nsummary"]
+    end
+
+    %% Cross-phase data flows (label = artifact passed)
+    s3  -->|student roster| s16
+    s3  -->|student roster| s30
+    s7  -->|cleaned_scan.pdf| s11
+    s7  -->|cleaned_scan.pdf| s15
+    s7  -->|cleaned_scan.pdf| s28
+    s7  -->|cleaned_scan.pdf| s29
+    s8  -->|exam_layout| s19
+    s9  -->|split_exam.pdf| s20
+    s12 -->|pages/student| s15
+    s12 -->|pages/student| s16
+    s12 -->|pages/student| s18
+    s14 -->|page classes| s21
+    s18 -->|register v1| s21
+    s20 -->|exam questions| s23
+    s20 -->|exam questions| s26
+    s20 -->|exam questions| s32
+    s21 -->|register v2| s27
+    s26 -->|grading scaffold| s27
+    s26 -->|grading scaffold| s29
+    s29 -->|per-page marks| s30
+    s29 -->|per-page marks| s34
+    s29 -->|per-page marks| s36
+    s30 -->|per-student reports| s33
+    s31 -->|class stats| s33
+```
+
 **Steps (1–37):**
 
 **Prompt, folder & roster (1–3)**

@@ -166,6 +166,11 @@ def assign_pages(
     # inside each worker (per-worker fitz doc — fitz is not thread-safe).
     # ------------------------------------------------------------------
     info_line("Detecting student names from scan pages …")
+    page_width = len(str(n_pages))
+    name_field_width = max(
+        max((len(f"'{s}'") for s in students), default=0),
+        len("no name detected"),
+    )
     workers = int(os.environ.get("NAME_WORKERS", str(min(n_blocks, 8))))
     prompt = _make_name_prompt(students) if students else load_prompt("student_names", section="freeform")[1]
 
@@ -210,7 +215,19 @@ def assign_pages(
         # Yellow warn line for any "no match" case (sentinel, empty, or
         # below-threshold fuzzy match); green ok line for a real roster hit.
         log = ok_line if matched_name is not None else warn_line
-        log(f"Page {i:3d}/{n_pages}: {raw_name!r}  →  {matched_name!r}  ·  {format_duration(elapsed)}")
+        if matched_name is not None and raw_name == matched_name:
+            name_part = f"{matched_name!r}"
+        elif matched_name is not None:
+            name_part = f"{raw_name!r} → {matched_name!r}"
+        elif raw_name:
+            name_part = f"{raw_name!r} → no match"
+        else:
+            name_part = "no name detected"
+        log(
+            f"Page {i:>{page_width}d}/{n_pages}"
+            f"  ·  {name_part:<{name_field_width}}"
+            f"  ·  {format_duration(elapsed)}"
+        )
 
     sorted_pages = sorted(first_page_set)
     pending: dict[int, tuple[int, str, str | None, float]] = {}
