@@ -304,6 +304,8 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
             register,
             raw_assignments=raw_assignments,
             scaffold_page_count=_scaffold_pc,
+            artifact_dir=ctx.artifact_dir,
+            fmt_ext=fmt.artifact_ext(),
         )
     )
 
@@ -312,14 +314,18 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
     all_failures: list[dict] = []
 
     # Enumerate every page in the scan PDF (extracted, cover-skipped,
-    # no-handwriting-skipped) so the output is a complete picture, with a
-    # banner row per student. The reorder buffer prints lines in (student,
-    # p_label) order regardless of worker completion order.
-    display_entries, idx_by_key, total_pdf_pages, n_cover, n_no_hw, n_students = (
-        build_display_entries(register, raw_assignments)
+    # no-handwriting-skipped, no-blueprint-skipped) so the output is a complete
+    # picture, with a banner row per student. The reorder buffer prints lines
+    # in (student, p_label) order regardless of worker completion order.
+    display_entries, idx_by_key, total_pdf_pages, n_cover, n_no_hw, n_no_bp, n_students = (
+        build_display_entries(
+            register, raw_assignments,
+            artifact_dir=ctx.artifact_dir,
+            fmt_ext=fmt.artifact_ext(),
+        )
     )
 
-    n_skipped = n_cover + n_no_hw
+    n_skipped = n_cover + n_no_hw + n_no_bp
     n_page_rows = sum(1 for e in display_entries if e["status"] != "banner")
     student_word = "students" if n_students != 1 else "student"
     info_line(

@@ -508,6 +508,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             register,
             raw_assignments=raw_assignments,
             scaffold_page_count=_scaffold_pc,
+            artifact_dir=ctx.artifact_dir,
+            fmt_ext=fmt.artifact_ext(),
         )
     )
     _filtered_call_count = len(page_tasks)

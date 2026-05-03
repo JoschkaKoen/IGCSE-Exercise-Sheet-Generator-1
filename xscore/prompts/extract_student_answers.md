@@ -1,7 +1,7 @@
 ---
 name: extract_student_answers
-version: v6
-description: Step 28 — extract_student_answers. Combined system + user prompt for the per-(student, page) student-answer transcriber. SYSTEM section instructs the model to transcribe verbatim without grading and emit a YAML doc shaped like the transcription form's questions list. USER section embeds the page transcription form via $blueprint (placeholder name kept for code-side compatibility; the AI-facing prose calls it the "transcription form" to disambiguate from step 29's marking blueprint). v6 forced two shapes for `student_answer` — `''` (empty) or `|` block scalar (anything else, including single-letter MCQ answers). Removes v5's per-token quoting list and the plain-scalar option for short answers; the same `|` shape applies uniformly to all non-empty values, eliminating the YAML 1.1 boolean/null/numeric/colon traps by construction. v5 renamed the include placeholder `$include_latex_yaml_style` → `$include_shared_latex_rules` (the fragment moved from `_shared/latex_yaml_style.md` to `shared_latex_rules.md`). v4 replaced inlined LaTeX/quoting rules with the shared fragment, kept the step-28-specific YAML 1.1 boolean/null/numeric/empty-answer traps, and added the `\sout{...}` crossed-out prose rule. v3 renamed AI-facing wording to "transcription form" and dropped the dead `student_name` field. v2 restructured into named sub-blocks. Used by xscore.marking.extract_answers._extract_page_answers.
+version: v7
+description: Step 28 — extract_student_answers. Combined system + user prompt for the per-(student, page) student-answer transcriber. SYSTEM section instructs the model to transcribe verbatim without grading and emit a YAML doc shaped like the transcription form's questions list. USER section embeds the page transcription form via $blueprint (placeholder name kept for code-side compatibility; the AI-facing prose calls it the "transcription form" to disambiguate from step 29's marking blueprint). v7 added an explicit block-scalar indentation rule with a WRONG/RIGHT anti-example, after observing the model emit `\begin{alltt}` correctly indented but flushing pseudocode lines to column 0, terminating the block scalar early and breaking YAML parsing on long pseudocode answers. v6 forced two shapes for `student_answer` — `''` (empty) or `|` block scalar (anything else, including single-letter MCQ answers). Removes v5's per-token quoting list and the plain-scalar option for short answers; the same `|` shape applies uniformly to all non-empty values, eliminating the YAML 1.1 boolean/null/numeric/colon traps by construction. v5 renamed the include placeholder `$include_latex_yaml_style` → `$include_shared_latex_rules` (the fragment moved from `_shared/latex_yaml_style.md` to `shared_latex_rules.md`). v4 replaced inlined LaTeX/quoting rules with the shared fragment, kept the step-28-specific YAML 1.1 boolean/null/numeric/empty-answer traps, and added the `\sout{...}` crossed-out prose rule. v3 renamed AI-facing wording to "transcription form" and dropped the dead `student_name` field. v2 restructured into named sub-blocks. Used by xscore.marking.extract_answers._extract_page_answers.
 ---
 ## SYSTEM
 
@@ -78,6 +78,30 @@ student_answer: |
 The `|` block scalar consumes every character until dedent, so colons (e.g. `Compiler: translates whole program at once`), boolean-shaped tokens (`yes`, `no`, `Y`, `N`, `true`, `false`), null tokens (`null`, `~`), leading-zero numerics (`00001111`), and LaTeX special characters (`\%`, `\$`, `\{`, `\}`) all survive verbatim with no further quoting required.
 
 The same shape applies uniformly. There is no special case for short MCQ letters or any other "safe-looking" content — every non-empty `student_answer` uses `|`. Emptiness is the only thing that toggles to `''`. Do not omit the field; do not write `null`.
+
+### Block-scalar indentation rule
+
+Inside a `student_answer: |` block, every content line must start at the **same column** as the first content line. YAML terminates the block scalar at the first line less indented than the opener — so a single column-0 line breaks the parse on the next line. This applies especially to `\begin{alltt}…\end{alltt}` blocks: the `\begin{alltt}` line, every pseudocode/code line between, and the `\end{alltt}` line must all be at the same indent. Do **not** flush code to column 0 to "preserve" code formatting.
+
+WRONG (terminates the block after `\begin{alltt}`, breaks the YAML parser on the next line):
+
+```
+    student_answer: |
+      \begin{alltt}
+DECLARE money
+INPUT account ID
+      \end{alltt}
+```
+
+RIGHT (every line at the same indent — column 6 here):
+
+```
+    student_answer: |
+      \begin{alltt}
+      DECLARE money
+      INPUT account ID
+      \end{alltt}
+```
 
 $include_shared_latex_rules
 

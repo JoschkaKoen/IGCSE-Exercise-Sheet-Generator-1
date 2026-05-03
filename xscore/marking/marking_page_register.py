@@ -42,6 +42,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 from xscore.shared.path_builders import (
+    artifact_blueprint_path,
     artifact_marking_page_register_v1_path,
     artifact_marking_page_register_v2_path,
 )
@@ -634,6 +635,8 @@ def iter_marking_calls(
     raw_assignments: list[dict],
     scaffold_page_count: int | None = None,
     student_filter: set[str] | None = None,
+    artifact_dir: Path | None = None,
+    fmt_ext: str = "yaml",
 ) -> Iterator[tuple[dict, int, int, int, list[int], list[str]]]:
     """Yield ``(assignment, p_label, answer_label, answer_page_count,
     extra_scan_pages, extra_sources)``.
@@ -654,6 +657,13 @@ def iter_marking_calls(
       is provided).
     - **cohort filter**: drops students whose ``student_name`` is not in
       *student_filter* (only when the set is provided; ``None`` = include all).
+    - **blueprint presence**: when *artifact_dir* is provided, drops calls
+      whose ``answer_label`` has no blueprint file on disk. This filters out
+      structurally-redundant primary calls for empty-exam pages with no leaf
+      gradable questions (parent-stem pages whose children live elsewhere) —
+      step 21 has already attached such pages' scans as ``extras`` to the
+      child question's call, so the primary is redundant. Without the filter,
+      downstream ``bp_path.read_text()`` raises ``FileNotFoundError``.
     """
     by_name = {a["student_name"]: a for a in raw_assignments}
     for student in register["students"]:
@@ -668,6 +678,9 @@ def iter_marking_calls(
             answer_label = call["answer_label"]
             if scaffold_page_count is not None and answer_label > scaffold_page_count:
                 continue
+            if artifact_dir is not None:
+                if not artifact_blueprint_path(artifact_dir, answer_label, fmt=fmt_ext).is_file():
+                    continue
             yield (
                 assignment,
                 call["p_label"],
