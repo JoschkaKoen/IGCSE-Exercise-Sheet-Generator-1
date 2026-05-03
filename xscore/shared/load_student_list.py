@@ -124,6 +124,7 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
             raise RuntimeError("GEMINI_API_KEY (or GOOGLE_API_KEY) not set")
 
         gen_config_kwargs: dict = {
+            "system_instruction": _PROMPT,
             "max_output_tokens": max_tokens or 2048,
             "response_mime_type": "application/json",
             "response_schema": list[str],
@@ -135,27 +136,28 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
         _prompt_user_text = ""
         if ext in (".xlsx", ".xls", ".csv"):
             csv_text = _spreadsheet_to_csv(target)
-            _prompt_user_text = _PROMPT + "\n\n" + csv_text
-            contents = [_prompt_user_text]
+            _prompt_user_text = csv_text
+            contents = [csv_text]
         else:  # .pdf
-            _prompt_user_text = _PROMPT
+            _prompt_user_text = "(PDF attached)"
             contents = [
                 gemini_pdf_part(client, target, label="student list"),
-                gai_types.Part.from_text(text=_PROMPT),
             ]
 
         if _save_prompt_path is not None:
             from xscore.shared.prompt_logger import attachment_part, save_prompt
             if ext in (".xlsx", ".xls", ".csv"):
                 _audit_user: object = _prompt_user_text
-            else:  # .pdf — mirror the Gemini contents (PDF first, then text)
+            else:  # .pdf — mirror the Gemini contents (system + PDF)
                 _audit_user = [
                     attachment_part(target.read_bytes(), "application/pdf"),
-                    {"type": "text", "text": _PROMPT},
                 ]
             save_prompt(
                 _save_prompt_path, model=model_name,
-                messages=[{"role": "user", "content": _audit_user}],
+                messages=[
+                    {"role": "system", "content": _PROMPT},
+                    {"role": "user", "content": _audit_user},
+                ],
             )
 
         from eXercise.api_retry import retry_api_call  # noqa: PLC0415
@@ -194,39 +196,39 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
             _provider, thinking_tokens, max_tokens or 2048,
         )
 
-        _oa_prompt = _PROMPT + (
-            '\n\nReturn JSON only with this shape: {"names": [<str>, <str>, ...]}'
-        )
         _prompt_user_text = ""
         if ext in (".xlsx", ".xls", ".csv"):
             csv_text = _spreadsheet_to_csv(target)
-            _prompt_user_text = _oa_prompt + "\n\n" + csv_text
-            user_content = _prompt_user_text
+            _prompt_user_text = csv_text
+            user_content = csv_text
         else:  # .pdf — rasterize at 200 DPI to keep request size sane
             import fitz as _fitz
-            _prompt_user_text = _oa_prompt + f"\n\n[PDF: {target.name}]"
+            _prompt_user_text = f"[PDF: {target.name}]"
             with _fitz.open(str(target)) as _doc:
                 _pages_b64 = [
                     _base64.b64encode(_doc[i].get_pixmap(dpi=200).tobytes("png")).decode()
                     for i in range(_doc.page_count)
                 ]
             user_content = [
-                {"type": "text", "text": _oa_prompt},
-            ] + [
                 {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}
                 for b64 in _pages_b64
             ]
 
         if _save_prompt_path is not None:
             from xscore.shared.prompt_logger import save_prompt
-            # user_content is already the right shape for both branches:
-            # plain text for csv/xlsx, list-of-parts (text + image_url) for pdf.
+            # user_content is plain text for csv/xlsx or list-of-parts (image_url) for pdf.
             save_prompt(
                 _save_prompt_path, model=model_name,
-                messages=[{"role": "user", "content": user_content}],
+                messages=[
+                    {"role": "system", "content": _PROMPT},
+                    {"role": "user", "content": user_content},
+                ],
             )
 
-        _msgs = [{"role": "user", "content": user_content}]
+        _msgs = [
+            {"role": "system", "content": _PROMPT},
+            {"role": "user", "content": user_content},
+        ]
         _t0 = time.perf_counter()
         thinking_text = ""
         from eXercise.api_retry import retry_api_call  # noqa: PLC0415

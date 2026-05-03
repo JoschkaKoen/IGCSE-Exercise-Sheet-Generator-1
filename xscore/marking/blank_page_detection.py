@@ -271,13 +271,18 @@ def _call_blank_detection(
     if model_id.startswith("gemini"):
         from google.genai import types as gai_types
         from eXercise.ai_client import build_gemini_thinking_config, split_gemini_response
+        # Default thinking off when no explicit budget — matches the
+        # OpenAI-compat branch below (build_thinking_kwargs disables thinking
+        # for thinking_tokens=None) and avoids MAX_TOKENS truncation on
+        # thinking-by-default Gemini models with the small 256-token budget.
         cfg_kwargs: dict = {
             "max_output_tokens": max_tokens or 256,
             "response_mime_type": "application/json",
             "response_schema": list[int],
+            "thinking_config": build_gemini_thinking_config(
+                thinking_tokens if thinking_tokens is not None else 0
+            ),
         }
-        if thinking_tokens is not None:
-            cfg_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
         resp = state.gai.models.generate_content(
             model=model_id,
             contents=[gai_types.Part.from_text(text=prompt)],
@@ -328,11 +333,12 @@ def _has_handwriting(
 
     _, prompt_text = load_prompt("student_handwriting_check")
     prompt_text = prompt_text.rstrip("\n")
+    # Attachment ordering (per audit item [5]): image before text in user content.
     save_prompt(
         save_path, model=model_id,
         messages=[{"role": "user", "content": [
-            {"type": "text", "text": prompt_text},
             attachment_part(jpeg_bytes, "image/jpeg"),
+            {"type": "text", "text": prompt_text},
         ]}],
     )
 
@@ -365,7 +371,11 @@ def _call_handwriting(
 ) -> tuple[str, str]:
     if model_id.startswith("gemini"):
         from google.genai import types as gai_types
-        from eXercise.ai_client import split_gemini_response
+        from eXercise.ai_client import build_gemini_thinking_config, split_gemini_response
+        # Mirror the OpenAI-compat branch below: thinking off so the 192-token
+        # budget feeds the JSON answer, not hidden thoughts. Without this,
+        # gemini-3-flash-preview spends ~185 tokens thinking and truncates
+        # the answer to "Here" (finish_reason=MAX_TOKENS).
         resp = state.gai.models.generate_content(
             model=model_id,
             contents=[
@@ -376,6 +386,7 @@ def _call_handwriting(
                 max_output_tokens=192,
                 response_mime_type="application/json",
                 response_schema=_HandwritingPageNumberResp,
+                thinking_config=build_gemini_thinking_config(0),
             ),
         )
         return split_gemini_response(resp)
@@ -385,9 +396,10 @@ def _call_handwriting(
     # the 5-field response (the new confidence + reason sentence).
     _use_stream, kw = build_completion_kwargs(state.provider, 0, 192)
     b64 = _base64.b64encode(jpeg_bytes).decode()
+    # Image first, text after — matches the Gemini path and audit item [5].
     msgs = [{"role": "user", "content": [
-        {"type": "text", "text": prompt_text},
         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
+        {"type": "text", "text": prompt_text},
     ]}]
     try:
         resp = state.oa.chat.completions.create(

@@ -154,14 +154,15 @@ def _extract_page_answers(
     _, user_text = load_prompt(prompt_name, section="user", blueprint=blueprint_str)
     _, system_prompt = load_prompt(prompt_name, section="system")
 
+    # Image first, text after — system → image(s) → user-text per audit item [5].
     user_content: list[dict] = [
-        {"type": "text", "text": user_text},
         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
     ]
     for cb64 in extra_b64:
         user_content.append(
             {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{cb64}"}}
         )
+    user_content.append({"type": "text", "text": user_text})
 
     kwargs: dict[str, Any] = dict(
         model=model_id,

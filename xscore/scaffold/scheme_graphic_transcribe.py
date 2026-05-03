@@ -89,9 +89,10 @@ def _transcribe_one(
     )
 
     b64 = base64.b64encode(png_path.read_bytes()).decode()
+    # Image first, text after — system → image → user-text per audit item [5].
     user_content: list[dict] = [
-        {"type": "text", "text": user_text},
         {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}},
+        {"type": "text", "text": user_text},
     ]
 
     kwargs: dict[str, Any] = dict(
@@ -118,7 +119,8 @@ def _transcribe_one(
 
     raw, thinking_text = retry_api_call(_do_call, label=f"Transcribe ({qnum})")
     save_response(prompt_save_path, raw, thinking=thinking_text)
-    return (raw or "").strip()
+    from xscore.shared.response_parsing import strip_code_fences
+    return strip_code_fences(raw or "").strip()
 
 
 # ---------------------------------------------------------------------------

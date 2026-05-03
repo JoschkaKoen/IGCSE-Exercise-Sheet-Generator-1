@@ -1,7 +1,7 @@
 ---
 name: detect_mark_scheme_graphics
-version: v4
-description: Step 22 — detect_mark_scheme_graphics. Combined SYSTEM + USER prompt for the per-page mark-scheme graphics detector. Used by xscore.scaffold.scaffold_graphics. v4 switched the example/instruction question-number format from Cambridge bracket form ("3(b)(ii)") to the compact form passed in the user message ("3bii"); the previous contradiction caused the AI to emit "7(a)" which had to be normalised downstream.
+version: v5
+description: Step 22 — detect_mark_scheme_graphics. Combined SYSTEM + USER prompt for the per-page mark-scheme graphics detector. Used by xscore.scaffold.scaffold_graphics. v5 added rough-region coordinate anchors to calibrate the model's bbox sense, plus a stop-word list and 5 strong description examples. v4 switched the example/instruction question-number format from Cambridge bracket form ("3(b)(ii)") to the compact form passed in the user message ("3bii").
 ---
 ## SYSTEM
 
@@ -26,6 +26,15 @@ graphics: []
 ```
 
 Coordinates: bounding boxes are [x_min, y_min, x_max, y_max] as integers on a 0–1000 scale, where (0, 0) is the top-left and (1000, 1000) is the bottom-right of the page image.
+
+Rough-region anchors (use to calibrate your bbox sense — graphics are usually one of these sizes):
+- upper-right quarter ≈ `[500, 50, 980, 480]`
+- top half ≈ `[50, 50, 950, 500]`
+- bottom half ≈ `[50, 500, 950, 950]`
+- full-page graph ≈ `[50, 100, 950, 900]`
+- left column ≈ `[50, 100, 480, 900]`
+
+Don't return tiny boxes around just a label or a single line — graphics include their axis labels, callouts, and captions.
 
 ## USER
 
@@ -61,6 +70,10 @@ Question-number rules:
 For each graphic, return:
   question_number — the question number, per the rules above.
   bbox            — [x_min, y_min, x_max, y_max] integers on the 0–1000 scale.
-  description     — 1–4 word noun phrase identifying the graphic (e.g. "circuit diagram", "force-extension graph", "ray diagram with lens").
+  description     — 1–4 word noun phrase identifying the graphic.
+
+Description rules:
+- Strong examples: `circuit diagram`, `ray diagram with lens`, `free-body diagram`, `flowchart for password validation`, `force-extension graph`.
+- Drop these stop words: `diagram of …`, `showing …`, `labeled …`. Just name the thing (e.g. `circuit diagram`, not `diagram of a circuit`).
 
 Return `graphics: []` when the page has no graphics (text-only, table-only, or blank).

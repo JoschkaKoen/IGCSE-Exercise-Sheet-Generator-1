@@ -73,6 +73,8 @@ def _detect_layout(
             cfg_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
         cfg = gai_types.GenerateContentConfig(system_instruction=_SYSTEM_LAYOUT, **cfg_kwargs)
 
+        # Attachment ordering matches the Gemini contents above and audit item [5]:
+        # system → image → user-text.
         _audit_messages = [
             {"role": "system", "content": _SYSTEM_LAYOUT},
             {"role": "user", "content": [
@@ -138,11 +140,12 @@ def _detect_layout(
             ]
         else:
             _b64 = _base64.b64encode(img_bytes).decode()
+            # Image first, text after — system → image → user-text ordering per audit item [5].
             _msgs = [
                 {"role": "system", "content": _SYSTEM_LAYOUT},
                 {"role": "user", "content": [
-                    {"type": "text", "text": _USER_LAYOUT},
                     {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{_b64}"}},
+                    {"type": "text", "text": _USER_LAYOUT},
                 ]},
             ]
         _audit_messages = _msgs

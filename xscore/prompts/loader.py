@@ -11,6 +11,14 @@ headers like ``## SYSTEM`` or ``## USER`` (case-insensitive). Pass
 specific section's body. Files without any ``## NAME`` header are returned
 in full regardless of ``section``.
 
+Shared fragments — ``$include_<fragment_name>`` placeholders are resolved
+recursively before user substitutions, by loading the named fragment's body
+and inlining it. Fragments live alongside other prompts under
+``_shared/`` (or any subfolder); the only requirement is that their file stem
+matches ``<fragment_name>``. Cycles are detected and broken (the recursive
+include is left literal). Used to deduplicate the LaTeX/YAML style guide
+across steps 20, 24, 28, 29.
+
 Substitution uses :class:`string.Template` semantics (``$placeholder``,
 ``${placeholder}``) via :meth:`safe_substitute` — missing placeholders are
 left literal rather than raising. This keeps prompts that legitimately
@@ -32,6 +40,7 @@ from string import Template
 _PROMPTS_DIR = Path(__file__).resolve().parent
 
 _SECTION_HEADER = re.compile(r'^## ([A-Z_][A-Z0-9_]*)\s*$', re.MULTILINE | re.IGNORECASE)
+_INCLUDE_PATTERN = re.compile(r'\$include_(\w+)')
 
 
 def _split_front_matter(text: str) -> tuple[dict[str, str], str]:
@@ -111,6 +120,28 @@ def _load_raw(name: str) -> tuple[dict[str, str], str]:
     return _split_front_matter(path.read_text(encoding="utf-8"))
 
 
+def _resolve_includes(body: str, _seen: frozenset[str] = frozenset()) -> str:
+    """Recursively expand ``$include_<name>`` placeholders to fragment bodies.
+
+    Cycles are broken by leaving the placeholder literal once the fragment is
+    already on the resolution stack. Missing fragments are also left literal
+    (silent — the rendered prompt will show ``$include_<name>`` unchanged so
+    the bug surfaces in the output rather than the loader).
+    """
+
+    def replace(match: re.Match[str]) -> str:
+        fragment_name = match.group(1)
+        if fragment_name in _seen:
+            return match.group(0)
+        try:
+            _, fragment_body = _load_raw(fragment_name)
+        except FileNotFoundError:
+            return match.group(0)
+        return _resolve_includes(fragment_body, _seen | {fragment_name})
+
+    return _INCLUDE_PATTERN.sub(replace, body)
+
+
 def load_prompt(
     name: str, /, *, section: str | None = None, **substitutions: object,
 ) -> tuple[str, str]:
@@ -125,11 +156,15 @@ def load_prompt(
     so missing placeholders remain literal (no KeyError). This means a prompt
     can contain ``$something`` it wants preserved as long as the caller doesn't
     pass ``something=...``.
+
+    ``$include_<fragment_name>`` placeholders are resolved (recursively) before
+    user substitutions. See module docstring for fragment mechanics.
     """
     fm, body = _load_raw(name)
     if section is not None:
         sections = _split_sections(body)
         body = sections.get(section.lower(), body)
+    body = _resolve_includes(body)
     if substitutions:
         body = Template(body).safe_substitute(
             {k: str(v) for k, v in substitutions.items()}

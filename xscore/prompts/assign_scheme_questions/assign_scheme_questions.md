@@ -1,7 +1,7 @@
 ---
 name: assign_scheme_questions
-version: v2
-description: Step 23 — assign_scheme_questions. Combined system + user prompt for per-page question-number identification on a single mark scheme page. Placeholder $question_numbers is the comma-separated, double-quoted list of valid question numbers from the exam. Used by xscore.scaffold.scaffold_pages.assign_questions_to_pages.
+version: v3
+description: Step 23 — assign_scheme_questions. Combined system + user prompt for per-page question-number identification on a single mark scheme page. Placeholder $question_numbers is the comma-separated, double-quoted list of valid question numbers from the exam. Used by xscore.scaffold.scaffold_pages.assign_questions_to_pages. v3 added a worked example showing a single-question page.
 ---
 ## SYSTEM
 
@@ -32,3 +32,5 @@ If no question's criteria appear on this page (cover page, blank page, instructi
 ```yaml
 questions: []
 ```
+
+Worked example: a page that only has the marking criteria for question 5b → `questions: ["5b"]` (single entry, no others). A page with criteria for 1, 2a, and 2b → `questions: ["1", "2a", "2b"]`.

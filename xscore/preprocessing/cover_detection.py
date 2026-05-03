@@ -77,16 +77,23 @@ def is_cover_page(
         text for _, text, conf in (result or []) if float(conf) > 0.8
     )
 
-    prompt = load_prompt("cover_page_scan", text=printed_text or "(no text extracted)")[1]
+    _, system_prompt = load_prompt("cover_page_scan", section="system")
+    _, user_prompt = load_prompt(
+        "cover_page_scan", section="user", text=printed_text or "(no text extracted)",
+    )
 
     save_prompt(prompt_save_path, model=model_id,
-                messages=[{"role": "user", "content": prompt}])
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ])
 
     thinking_text = ""
     if model_id.startswith("gemini"):
         from google.genai import types as gai_types
         from eXercise.ai_client import build_gemini_thinking_config
         config = gai_types.GenerateContentConfig(
+            system_instruction=system_prompt,
             max_output_tokens=max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
             response_mime_type="application/json",
             response_schema=bool,
@@ -94,7 +101,7 @@ def is_cover_page(
         )
         resp = gai_client.models.generate_content(
             model=model_id,
-            contents=[gai_types.Part.from_text(text=prompt)],
+            contents=[gai_types.Part.from_text(text=user_prompt)],
             config=config,
         )
         thinking_parts: list[str] = []
@@ -123,8 +130,10 @@ def is_cover_page(
             return False
         _oa_client, _, _provider, _, _ = _result
         _use_stream, _kw = build_completion_kwargs(_provider, thinking_tokens, max_tokens)
-        _oa_prompt = prompt + '\n\nReturn JSON only with this shape: {"answer": <bool>}'
-        _msgs = [{"role": "user", "content": _oa_prompt}]
+        _msgs = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt + '\n\nReturn JSON only with this shape: {"answer": <bool>}'},
+        ]
         if _use_stream:
             _th: list[str] = []
             _stream = _oa_client.chat.completions.create(
@@ -205,16 +214,23 @@ def check_cover_page_text(
     with fitz.open(str(pdf_path)) as doc:
         page_text = doc[page_idx].get_text().strip()
 
-    prompt = load_prompt("cover_page_scan", text=page_text or "(no text extracted)")[1]
+    _, system_prompt = load_prompt("cover_page_scan", section="system")
+    _, user_prompt = load_prompt(
+        "cover_page_scan", section="user", text=page_text or "(no text extracted)",
+    )
 
     save_prompt(prompt_save_path, model=model_id,
-                messages=[{"role": "user", "content": prompt}])
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ])
 
     thinking_text = ""
     if model_id.startswith("gemini"):
         from google.genai import types as gai_types
         from eXercise.ai_client import build_gemini_thinking_config
         config = gai_types.GenerateContentConfig(
+            system_instruction=system_prompt,
             max_output_tokens=max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
             response_mime_type="application/json",
             response_schema=bool,
@@ -223,7 +239,7 @@ def check_cover_page_text(
         resp = retry_api_call(
             lambda: gai_client.models.generate_content(
                 model=model_id,
-                contents=[gai_types.Part.from_text(text=prompt)],
+                contents=[gai_types.Part.from_text(text=user_prompt)],
                 config=config,
             ),
             label=f"Cover page check ({model_id})",
@@ -254,8 +270,10 @@ def check_cover_page_text(
             return False
         _oa_client, _, _provider, _, _ = _result
         _use_stream, _kw = build_completion_kwargs(_provider, thinking_tokens, max_tokens)
-        _oa_prompt = prompt + '\n\nReturn JSON only with this shape: {"answer": <bool>}'
-        _msgs = [{"role": "user", "content": _oa_prompt}]
+        _msgs = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt + '\n\nReturn JSON only with this shape: {"answer": <bool>}'},
+        ]
         if _use_stream:
             def _do_stream() -> tuple[str, str]:
                 _th: list[str] = []

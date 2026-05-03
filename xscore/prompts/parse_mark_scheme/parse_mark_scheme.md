@@ -1,7 +1,7 @@
 ---
 name: parse_mark_scheme
-version: v4
-description: Step 24 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction. Placeholder $scaffold (Template syntax) holds the full exam scaffold inserted into the user prompt; per-page workers fill criteria for questions on the current page and leave the rest empty. Body also contains literal LaTeX math `$...$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. v4 added a constraint forbidding the model from transcribing diagrams: no `\includegraphics`/`\graphicspath` and no verbal "[Diagram text: …]" criteria — diagrams are extracted by step 22 and inserted by the renderer. v3 changed the MCQ rule from `criteria: []` to a single `mark: 0` entry containing the mark scheme's explanation of the correct answer, formatted as a LaTeX itemize list — downstream code routes that text into the new `Question.reasoning` field for MCQ. v2 restructured SYSTEM into named sub-blocks (In scope / What NOT to change) and USER into named sub-blocks (The scaffold / Output schema / correct_answer rules / Quoting rules / criteria rules / LaTeX formatting in criterion text / Worked example). Used by xscore.scaffold.formats.base.ScaffoldFormat. (Step number was 23 in earlier pipeline versions; current run-folder is `24_parse_mark_scheme`.)
+version: v6
+description: Step 24 — parse_mark_scheme. Combined system + user prompt for mark-scheme extraction. Placeholder $scaffold (Template syntax) holds the full exam scaffold inserted into the user prompt; per-page workers fill criteria for questions on the current page and leave the rest empty. Body also contains literal LaTeX math `$...$` — Template's safe_substitute leaves bare `$<non-identifier>` literal; only $scaffold is substituted. v6 replaced inlined LaTeX/quoting/code-formatting rules with `$include_latex_yaml_style`. v5 trimmed Question 2a's worked example. v4 added a diagram-transcription ban. v3 changed the MCQ rule to a single `mark: 0` entry. v2 restructured into named sub-blocks. Used by xscore.scaffold.formats.base.ScaffoldFormat. (Step number was 23 in earlier pipeline versions; current run-folder is `24_parse_mark_scheme`.)
 ---
 ## SYSTEM
 
@@ -24,7 +24,7 @@ You are an expert at reading exam mark schemes. Your job is to extract per-quest
 
 ## The scaffold
 
-Below is the full exam scaffold. Fill `correct_answer` and `criteria` for the questions whose criteria appear on this page; for every other question, leave `correct_answer: ""` and `criteria: []` (the scaffold's empty defaults). **Keep every entry** — copy `number`, `type`, and `marks` through unchanged.
+Below is the full exam scaffold. Apply the per-page-filtering rule from `## What NOT to change`.
 
 ```yaml
 $scaffold
@@ -37,8 +37,10 @@ Return ONLY well-formed YAML matching this shape — no markdown fences in your 
 For each entry in the output:
 
 - `number`, `type`, `marks` — copy verbatim from the scaffold.
-- `correct_answer` — the final answer value the candidate is expected to give. See `## correct_answer rules` below. For questions whose criteria are not on this page, use the empty string `""` (the scaffold's empty default; round-trip unchanged).
-- `criteria` — a YAML list of `{mark, criterion}` entries, one per item in the printed mark scheme. See `## criteria rules` below. For `multiple_choice` questions, put the mark scheme's explanation of the correct answer (typically a short bulleted breakdown) into a single `criteria` entry with `mark: 0` (the mark belongs to the `correct_answer` letter, not the explanation). Format the explanation as a LaTeX itemize list inside a block scalar — see the worked example for Question 1. If the page does not include an explanation, use `criteria: []`. For questions whose criteria are not on this page, also `criteria: []`.
+- `correct_answer` — the final answer value the candidate is expected to give. See `## correct_answer rules` below.
+- `criteria` — a YAML list of `{mark, criterion}` entries, one per item in the printed mark scheme. See `## criteria rules` below.
+
+**MCQ rule:** for `multiple_choice` questions, the mark belongs to the `correct_answer` letter, not the explanation. Always emit `mark: 0` for any MCQ `criteria` entries — those entries hold the mark scheme's explanation of the correct answer (a short bulleted breakdown), formatted as a LaTeX itemize list inside a block scalar. See the worked example for Question 1. If the page does not include an explanation, use `criteria: []`.
 
 ## correct_answer rules
 
@@ -50,27 +52,15 @@ For each entry in the output:
 - Binary arithmetic: the resulting binary number, e.g. `correct_answer: '10101011'`. The addition layout, carries, and intermediate steps belong in `criteria`.
 - Pseudocode-as-answer (where the question asks "write pseudocode that …"): the pseudocode itself is the answer value, in a multi-line block scalar.
 
-For questions whose criteria are not on this page, set `correct_answer: ""` (matching the scaffold's empty default, per `## What NOT to change`).
+## criteria rules
 
-## Quoting rules
+`criteria` is a YAML list of `{mark, criterion}` entries — one entry per item in the printed mark scheme. Use a block scalar (`|`) for each `criterion` to preserve LaTeX backslashes and braces literally.
 
-**Never use double quotes for any non-empty string field.** Double quotes interpret `\` as an escape introducer in YAML, so `"\newline"` becomes a real newline + `ewline` and `"\leftarrow"` errors out — silently destroying every LaTeX command. (Empty `""` is fine — there's no `\` to misinterpret.)
+Extract the COMPLETE marking scheme text for each question — introductory sentences, bullet lists, numbered lists, tables, bold text. Do not skip any text. Do not paraphrase or summarise.
 
-The bullets below cover when to use plain / single-quoted / block-scalar form for `correct_answer`. Each `criterion` is always a block scalar (per `## criteria rules`), so its quoting form is fixed — the never-double-quote rule applies trivially there.
+(Diagram-handling rule lives at the top under `## What NOT to change` — do not transcribe diagrams or emit `\includegraphics`.)
 
-- Plain short value with no special characters → no quoting: `correct_answer: C`, `correct_answer: 930D`, `correct_answer: SongNumber`.
-- Single-line value containing `:` (colon-space), `'`, `\textbf`, or any backslash → single quotes: `correct_answer: '18 (: 1)'`, `correct_answer: '\leftarrow'`. Single quotes do not interpret escapes; the backslash is preserved literally.
-- Single-line value containing both a single quote and a backslash, or any multi-line value → block scalar (`|`), which preserves backslashes and braces literally:
-
-      correct_answer: |
-        DECLARE P : STRING
-        P \leftarrow "The world"
-        DECLARE Q : CHAR
-        Q \leftarrow 'W'
-
-WRONG: `correct_answer: "\leftarrow"`     ← becomes a TAB-prefixed `eftarrow` on parse
-RIGHT: `correct_answer: '\leftarrow'`     ← preserves `\leftarrow`
-RIGHT: block scalar (above)               ← preserves `\leftarrow`
+$include_latex_yaml_style
 
 ### Column-aligned content (binary arithmetic, ASCII tables, indented code)
 
@@ -83,31 +73,6 @@ YAML's block-scalar indent rule terminates the scalar the moment a content line 
            + 0 1 1 1 1 0 0 0
              1 0 1 0 1 0 1 1
         \end{alltt}
-
-## criteria rules
-
-`criteria` is a YAML list of `{mark, criterion}` entries — one entry per item in the printed mark scheme. Use a block scalar (`|`) for each `criterion` to preserve LaTeX backslashes and braces literally.
-
-Extract the COMPLETE marking scheme text for each question — introductory sentences, bullet lists, numbered lists, tables, bold text. Do not skip any text. Do not paraphrase or summarise.
-
-## LaTeX formatting in `criterion` text
-
-Block scalars handle backslashes literally, so write LaTeX commands directly:
-
-- bold text → `\textbf{...}`
-- unordered lists → `\begin{itemize}\item first\item second\end{itemize}`
-- ordered/numbered lists → `\begin{enumerate}\item first\item second\end{enumerate}`
-- tables → `\begin{tabular}{col-spec} cell & cell \\ next row \end{tabular}`
-- inline math → `$...$`
-- explicit line breaks between prose sentences → `\newline`
-
-Constraints:
-
-- Never use `\newline` immediately after `\begin{...}` or before `\end{...}`.
-- Never use more than one `\newline` in a row.
-- List items begin directly with `\item` — no `\newline` between items.
-- Plain prose and introductory sentences are written verbatim (no wrapping command needed).
-- (Diagram-handling rule lives at the top under `## What NOT to change` — do not transcribe diagrams or emit `\includegraphics`.)
 
 ## Worked example
 
@@ -162,24 +127,12 @@ questions:
         criterion: |
           \textbf{One mark for} substituting values into the formula:
           $v = \frac{d}{t} = \frac{50}{4}$
-      - mark: 1
+      - mark: 2
         criterion: |
-          \textbf{One mark for} the correct numerical answer: $12.5$
-      - mark: 1
-        criterion: |
-          \textbf{One mark for} the correct units: m/s
+          \textbf{Two marks for} the correct numerical answer with units: $12.5$ m/s.
 ```
 
 Notes:
 - Question 1: MCQ — `correct_answer` is just the letter (no quoting); `criteria` contains a single `mark: 0` entry with the mark scheme's explanation as a LaTeX itemize list (so students see why C is correct). Use `criteria: []` only when the mark scheme has no explanation.
 - Question 2: parent stem with criteria not on this page — `correct_answer: ""` (the scaffold's empty default, round-tripped), `criteria: []`. Same shape applies to ANY question whose criteria are not on the current page.
-- Question 2a: filled — `correct_answer` is single-quoted because it contains a space and a slash. Three `criteria` entries with mark + criterion (LaTeX inline math + `\textbf{...}` inside block scalars).
-
-## CODE_FORMATTING
-
-This exam contains code and pseudocode. Mark scheme `correct_answer` and `criterion` text must render code in monospace.
-
-In `correct_answer` and `criterion` text:
-- Wrap inline code tokens (variables, function calls, code keywords) in \texttt{...}.
-- Wrap multi-line code blocks in \begin{alltt}...\end{alltt}; preserve indentation with literal spaces; do NOT use \textbf for code.
-- Inside \begin{alltt}...\end{alltt}: do NOT escape <, >, &, %, _, #, $; only escape { → \{, } → \}, backslash → \textbackslash{}.
+- Question 2a: filled — `correct_answer` is single-quoted because it contains a space and a slash. Two `criteria` entries with mark + criterion (LaTeX inline math + `\textbf{...}` inside block scalars).

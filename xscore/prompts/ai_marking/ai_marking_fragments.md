@@ -1,7 +1,7 @@
 ---
 name: ai_marking_fragments
-version: v8
-description: Step 29 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES uses $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v8 deleted the legacy non-pre-supplied FIELD_RULES branch (transcribe-while-marking is no longer supported — step 28 always runs first) and renamed the surviving section back from FIELD_RULES_PRESUPPLIED to FIELD_RULES. v7 dropped the JSON/XML response-format parenthetical and backfilled `problem` into the section's "focus only on" field list (omitted since v5). v6 extended GRAPHICS to optionally inline a per-image `Transcription:` block (produced by step 25 transcribe_scheme_graphics). v5 replaced the three-value `confidence` (high/medium/low) with an integer 0–10. v4 changed FIELD_RULES_PRESUPPLIED so the marker no longer re-emits student_answer. v3 added FIELD_RULES_PRESUPPLIED for the post-step-28 path. v2 restructured FIELD_RULES into named sub-sections. Used by xscore.marking.mark_page._build_marking_system_prompt.
+version: v9
+description: Step 29 — ai_marking. Combined system-prompt fragments appended conditionally to the per-format ai_marking system prompt. Each section is loaded individually via section=. Placeholders — FIELD_RULES uses $criterion_ref; GRID uses $rows, $cols, $subpage_ref; GRAPHICS uses $graphics_lines; CONTINUATION and CODE_FORMATTING take none. v9 promoted "explanation empty for MCQ" to a bullet under "Multiple-choice questions" (was already in the explanation section but easy to miss); restructured CODE_FORMATTING to keep CS-specific bits and defer YAML-quoting/alltt-escape rules to the shared latex_yaml_style fragment (already included from ai_marking.md). v8 deleted the legacy non-pre-supplied FIELD_RULES branch and renamed FIELD_RULES_PRESUPPLIED back to FIELD_RULES. v7 backfilled `problem` into the field list. v6 extended GRAPHICS for `Transcription:` blocks. v5 used integer 0–10 for confidence. v4 stopped re-emitting student_answer. Used by xscore.marking.mark_page._build_marking_system_prompt.
 ---
 ## FIELD_RULES
 
@@ -25,7 +25,7 @@ Use professional judgement, not literal matching.
 - Award no marks when the answer is factually wrong, off-topic, or shows no understanding.
 - **"Any N from" lists** — count one mark per distinct, reasonable item the student gives, up to max_marks. The listed criteria are guidance, not an exhaustive list of acceptable answers.
 - **Calculation questions** — if the final result is correct (rounding errors acceptable), award full marks regardless of how much working is shown. Otherwise, award one mark per correct step. Apply error-carried-forward (ECF): if a step's method is correct but uses a wrong number from an earlier mistake, still award that step. Award no marks for steps where the method is wrong, or where the step's own arithmetic is wrong without being a carry-forward. Scientific notation and expanded form are equivalent (e.g. 5×10^4 = 50000).
-- **Multiple-choice questions** — compare transcribed_answer to correct_answer; award max_marks if they match, 0 otherwise.
+- **Multiple-choice questions** — compare transcribed_answer to correct_answer; award max_marks if they match, 0 otherwise. Leave `explanation` empty for MCQ; the student-facing reasoning comes from the mark scheme and is filled in automatically afterwards.
 
 For long-answer questions where understanding is partial, lean toward awarding the marks rather than denying them — flag the case in `problem` if uncertain.
 
@@ -78,16 +78,23 @@ The student used continuation pages for additional writing. All pages are includ
 
 ## CODE_FORMATTING
 
-This exam has code and pseudocode. Format student answers and your explanations so code shows in monospace (typewriter-style font):
+This exam has code and pseudocode. Format student answers and your explanations so code shows in monospace. The general alltt / `\texttt` / "no `\textbf` for code" rules are in the shared style guide (already included). The CS-specific rules and examples below are on top of that.
 
-- **Code or pseudocode answer** — wrap the whole answer in \begin{alltt}…\end{alltt}. Put \begin{alltt} and \end{alltt} on their own lines, with code lines in between separated by real newlines (no \newline, no \\). Even a single line of code (e.g. "DECLARE x : INTEGER", "P <- UCASE(P)", "Counter <- Counter + 1") goes in \begin{alltt}…\end{alltt}.
+### Wrong example (anti-pattern)
 
-  Example — student writes:
-      DECLARE x : INTEGER
-      INPUT x
-      IF x > 0 THEN
-        OUTPUT "yes"
-      ENDIF
+When a student wrote pseudocode, do NOT render it as prose with `\newline` separators or as a bare YAML block scalar — both render as plain prose, not code. Wrap in `\begin{alltt}...\end{alltt}` instead.
+
+  Wrong (renders as plain prose, not code):
+      DECLARE x : INTEGER\newline INPUT x\newline IF x > 0 THEN\newline   OUTPUT "yes"\newline ENDIF
+
+  Also wrong — a bare YAML block scalar of code (still renders as plain prose):
+      student_answer: |-
+        DECLARE x : INTEGER
+        INPUT x
+        IF x > 0 THEN
+          OUTPUT "yes"
+        ENDIF
+
   Correct:
       \begin{alltt}
       DECLARE x : INTEGER
@@ -96,30 +103,19 @@ This exam has code and pseudocode. Format student answers and your explanations 
         OUTPUT "yes"
       ENDIF
       \end{alltt}
-  Wrong (renders as plain prose, not code):
-      DECLARE x : INTEGER\newline INPUT x\newline IF x > 0 THEN\newline   OUTPUT "yes"\newline ENDIF
-  Also wrong — a YAML block scalar of bare code (the pipeline still renders it as plain prose):
-      student_answer: |-
-        DECLARE x : INTEGER
-        INPUT x
-        IF x > 0 THEN
-          OUTPUT "yes"
-        ENDIF
 
-- **Prose answer** — use \newline between lines.
+### CS-specific keyword list — wrap each in `\texttt{...}`
 
-- **Code words inside prose** — wrap each in \texttt{...}. This covers:
-  - Variable names: \texttt{Counter}, \texttt{AccDetails[AccID,1]}.
-  - Function/procedure calls: \texttt{UCASE(P)}, \texttt{CheckDetails(123)}.
-  - Pseudocode keywords mentioned in English sentences: REPEAT, UNTIL, FOR, NEXT, ENDFOR, WHILE, ENDWHILE, IF, THEN, ELSE, ENDIF, CASE, OTHERWISE, ENDCASE, PROCEDURE, ENDPROCEDURE, FUNCTION, ENDFUNCTION, RETURN, RETURNS, DECLARE, CONSTANT, ARRAY, INPUT, OUTPUT, AND, OR, NOT, MOD, DIV, TRUE, FALSE, INTEGER, REAL, STRING, BOOLEAN, CHAR (and similar).
+Variable names, function/procedure calls, and pseudocode keywords mentioned in English sentences:
+- Variables: `\texttt{Counter}`, `\texttt{AccDetails[AccID,1]}`.
+- Calls: `\texttt{UCASE(P)}`, `\texttt{CheckDetails(123)}`.
+- Keywords: REPEAT, UNTIL, FOR, NEXT, ENDFOR, WHILE, ENDWHILE, IF, THEN, ELSE, ENDIF, CASE, OTHERWISE, ENDCASE, PROCEDURE, ENDPROCEDURE, FUNCTION, ENDFUNCTION, RETURN, RETURNS, DECLARE, CONSTANT, ARRAY, INPUT, OUTPUT, AND, OR, NOT, MOD, DIV, TRUE, FALSE, INTEGER, REAL, STRING, BOOLEAN, CHAR.
 
-  Wrap each keyword on its own — \texttt{REPEAT}/\texttt{UNTIL}, not \texttt{REPEAT/UNTIL}.
+Wrap each keyword on its own — `\texttt{REPEAT}/\texttt{UNTIL}`, not `\texttt{REPEAT/UNTIL}`.
 
-  Examples:
-  - "use a REPEAT/UNTIL loop instead of an IF check" → "use a \texttt{REPEAT}/\texttt{UNTIL} loop instead of an \texttt{IF} check".
-  - "you need to add an ENDIF after the last branch" → "you need to add an \texttt{ENDIF} after the last branch".
+### Trace tables / truth tables / decision tables — use `tabular`, not `alltt`
 
-- **Tables (trace tables, truth tables, decision tables, any column-aligned data)** — use a tabular block, not alltt. `&` between cells, `\\ \hline` between rows, `\hline` for borders. Empty cells stay blank between `&`. Don't use \begin{alltt} for tables — alltt aligns columns by counting spaces, which fails when cells have different widths.
+`alltt` aligns columns by counting spaces, which fails when cells have different widths. Use `\begin{tabular}` instead — `&` between cells, `\\ \hline` between rows, empty cells stay blank.
 
   Example — partially-filled trace table with 8 columns:
       \begin{tabular}{|c|c|c|c|c|c|c|c|}
@@ -131,9 +127,9 @@ This exam has code and pseudocode. Format student answers and your explanations 
       1 & 4 &      &      &      &      &      &    \\ \hline
       \end{tabular}
 
-- **Don't use \textbf{...} for code.** Bold is not monospace. Save \textbf{...} for emphasis on prose words.
+### YAML indentation inside alltt block scalars
 
-- **YAML indentation must be consistent.** When a field is a YAML block scalar (`student_answer: |`), every line of the value — \begin{alltt}, code lines, \end{alltt}, blank lines — must be at the same YAML indent or greater than the first content line. If a line is dedented below that, YAML thinks the value ended there and the parse breaks. Don't vary YAML indents to align columns; put column alignment inside the alltt body where leading spaces are plain text.
+When a field is a YAML block scalar (e.g. `student_answer: |`), every line of the value — `\begin{alltt}`, code lines, `\end{alltt}`, blank lines — must be at the same YAML indent or greater than the first content line. If a line is dedented below that, YAML thinks the value ended there and the parse breaks. Don't vary YAML indents to align columns; put column alignment inside the alltt body where leading spaces are plain text.
 
   Example — student adds two binary numbers vertically:
       \begin{alltt}
@@ -144,4 +140,6 @@ This exam has code and pseudocode. Format student answers and your explanations 
       \end{alltt}
   Every line above is at the same YAML indent or greater. The `+` and the two-space alignment happen inside alltt, not via YAML.
 
-- **Inside \begin{alltt}…\end{alltt}:** write code with real newlines between lines. Do NOT escape `<`, `>`, `&`, `%`, `_`, `#`, `$`. Only escape `{` → `\{`, `}` → `\}`, backslash → `\textbackslash{}`.
+### Prose answers
+
+Use `\newline` between lines.

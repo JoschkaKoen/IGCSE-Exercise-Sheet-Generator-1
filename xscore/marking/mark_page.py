@@ -207,14 +207,15 @@ def _mark_page(
         fmt.prompt_name(), section="user",
         blueprint=_rename_blueprint_for_prompt(blueprint_xml),
     )
+    # Image(s) first, text after — system → page image → continuation pages → mark-scheme graphics → user-text per audit item [5].
     _user_content: list[dict] = [
-        {"type": "text", "text": user_text},
         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
     ]
     for _cb64 in extra_b64:
         _user_content.append({"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{_cb64}"}})
     for _qn, _ms_page, _g_b64, _ in scheme_graphics:
         _user_content.append({"type": "image_url", "image_url": {"url": f"data:image/png;base64,{_g_b64}"}})
+    _user_content.append({"type": "text", "text": user_text})
     kwargs: dict[str, Any] = dict(
         model=model_id,
         messages=[
@@ -528,13 +529,14 @@ def _do_retry_call(
         else:
             image_parts = []
         retry_kwargs = dict(base_kwargs)
+        # Image-first ordering matches the primary call (audit item [5]).
         retry_kwargs["messages"] = [
             base_kwargs["messages"][0],
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": retry_user_text},
                     *image_parts,
+                    {"type": "text", "text": retry_user_text},
                 ],
             },
         ]
