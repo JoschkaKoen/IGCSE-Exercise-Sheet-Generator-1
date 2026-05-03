@@ -931,8 +931,8 @@ def print_register_summary(
     if active_calls:
         avg = page_image_count / max(active_calls, 1)
         console.print(
-            f"    [dim]{active_calls} calls × {avg:.2f} avg pages/call = "
-            f"{page_image_count} page-images about to be sent to the marking AI.[/]"
+            f"    [dim]Marking {page_image_count} pages in {active_calls} "
+            f"calls (avg {avg:.2f} pages/call)[/]"
         )
 
 

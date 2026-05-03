@@ -8,6 +8,7 @@ via xelatex, and emits the review queue side-channel.
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -38,6 +39,7 @@ from xscore.shared.exam_paths import (
     artifact_class_report_pdf_2up_path,
     artifact_class_report_tex_path,
     artifact_class_report_xml_path,
+    artifact_exam_questions_pdf_path,
     artifact_exam_questions_tex_path,
     artifact_student_pdf_dir,
     artifact_student_pdfs_dir,
@@ -410,6 +412,18 @@ def _pass2_write_tex(
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
         list(ex.map(lambda p: _compile_tex(p, p.parent), tex_paths))
+
+    # Mirror exam_questions.{tex,pdf} into 32_student_pdfs/ alongside the
+    # per-student PDFs so both folders carry a copy.
+    if parsed_questions is not None and not name_suffix:
+        students_root = artifact_student_pdfs_dir(artifact_dir)
+        students_root.mkdir(parents=True, exist_ok=True)
+        for src in (
+            artifact_exam_questions_tex_path(artifact_dir),
+            artifact_exam_questions_pdf_path(artifact_dir),
+        ):
+            if src.is_file():
+                shutil.copy2(str(src), str(students_root / src.name))
 
     portrait_2up_jobs: list[tuple[Path, Path]] = []
     for s in student_summaries:

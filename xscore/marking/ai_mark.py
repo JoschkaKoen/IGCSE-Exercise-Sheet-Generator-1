@@ -527,6 +527,16 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     _display_lock = threading.Lock()
     _student_lines: dict[str, str] = {}
 
+    # Column widths for the per-page progress lines (computed once so the
+    # name / page / duration columns line up across rows).
+    _max_student_width = max(
+        (len(a["student_name"]) for a in raw_assignments), default=1,
+    )
+    _max_total_pages = max(
+        (len(a["page_numbers"]) for a in raw_assignments), default=1,
+    )
+    _page_label_width = len(str(_max_total_pages))
+
     def _render() -> str:  # caller must hold _display_lock
         return "\n".join(_student_lines.values()) if _student_lines else ""
 
@@ -557,8 +567,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         _total_pages = len(assignment["page_numbers"])
         with _display_lock:
             _student_lines[key] = (
-                f"[dim]  {icon('info')}  Student '{student_name}'"
-                f" · scan page {p_label}/{_total_pages}[/]"
+                f"[dim]  {icon('info')}  {student_name.ljust(_max_student_width)}"
+                f"   page {p_label:>{_page_label_width}d} / {_total_pages:>{_page_label_width}d}[/]"
             )
             if _use_live:
                 live.update(_render())
@@ -679,8 +689,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             failed_path.write_text(json.dumps(failure, indent=2, ensure_ascii=False), encoding="utf-8")
             with _display_lock:
                 _student_lines[key] = (
-                    f"[red]  {icon('warn')}  Student '{student_name}'"
-                    f" · scan page {p_label}/{_total_pages}  ·  FAILED[/]"
+                    f"[red]  {icon('warn')}  {student_name.ljust(_max_student_width)}"
+                    f"   page {p_label:>{_page_label_width}d} / {_total_pages:>{_page_label_width}d}"
+                    f"   ·  FAILED[/]"
                 )
                 if _use_live:
                     live.update(_render())
@@ -689,26 +700,26 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             return None, failure
 
         mark_dur = round(time.perf_counter() - t0, 2)
-        if _page_graphics:
-            _graphic_labels = [f"ms p{pg} Q{qn}" for qn, pg, _, _ in _page_graphics]
-            _graphic_note = f"  · +graphic ({', '.join(_graphic_labels)})"
-        else:
-            _graphic_note = ""
+        _extras: list[str] = []
         _context_labels = [
             lab for src in extra_sources
             if (lab := _pretty_source_label(src, _figure_refs, _parent_refs, compact=True)) is not None
         ]
-        _context_note = f"  · +context ({', '.join(_context_labels)})" if _context_labels else ""
+        if _context_labels:
+            _extras.append(f"+context {', '.join(_context_labels)}")
         _n_writing = sum(1 for src in extra_sources if src == "handwriting")
-        _writing_note = (
-            f"  · +writing ({_n_writing} page{'s' if _n_writing != 1 else ''})"
-            if _n_writing else ""
-        )
+        if _n_writing:
+            _extras.append(f"+writing {_n_writing} page{'s' if _n_writing != 1 else ''}")
+        if _page_graphics:
+            _graphic_labels = [f"ms p{pg} Q{qn}" for qn, pg, _, _ in _page_graphics]
+            _extras.append(f"+graphic {', '.join(_graphic_labels)}")
+        _extras_text = ("   " + "   ".join(_extras)) if _extras else ""
         with _display_lock:
             _student_lines[key] = (
-                f"[green]  {icon('ok')}  Student '{student_name}'"
-                f" · scan page {p_label}/{_total_pages}  ·  {format_duration(mark_dur)}"
-                f"{_context_note}{_writing_note}{_graphic_note}[/]"
+                f"[green]  {icon('ok')}  {student_name.ljust(_max_student_width)}"
+                f"   page {p_label:>{_page_label_width}d} / {_total_pages:>{_page_label_width}d}"
+                f"   ·  {format_duration(mark_dur).rjust(6)}"
+                f"{_extras_text}[/]"
             )
             if _use_live:
                 live.update(_render())

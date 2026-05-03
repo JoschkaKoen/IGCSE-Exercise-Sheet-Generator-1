@@ -393,8 +393,8 @@ def _protect_envs(text: str, transform) -> str:
     # text (not ``\begin{tabular}``) since the wrapper sits between any
     # preceding ``\newline`` and the env start.
     _wrapper_pat = re.escape("{\\par\\addvspace{" + _TABULAR_VSPACE + "}}")
-    text = re.sub(r"\\newline\s+(?=" + _wrapper_pat + ")", "", text)
-    text = re.sub("(" + _wrapper_pat + r")\s*\\newline\b\s?", r"\1 ", text)
+    text = re.sub(r"(?:\\newline\s*)+(?=" + _wrapper_pat + ")", "", text)
+    text = re.sub("(" + _wrapper_pat + r")(?:\s*\\newline\b\s?)+", r"\1 ", text)
     # A wrapper at the very start of the cell text means the tabular is the
     # first content in its longtable cell. The wrapper's leading \par then
     # closes the cell's initial empty paragraph and manufactures a full

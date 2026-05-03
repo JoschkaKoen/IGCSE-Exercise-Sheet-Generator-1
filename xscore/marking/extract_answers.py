@@ -32,6 +32,7 @@ from eXercise.ai_client import collect_streamed_response, make_ai_client, build_
 from eXercise.api_retry import retry_api_call
 from xscore.marking.extract_answers_display import (
     build_display_entries,
+    emit_banner_lines,
     emit_skipped_lines,
     make_reorder_buffer,
 )
@@ -48,7 +49,7 @@ from xscore.shared.prompt_logger import (
     save_input_data, save_output_data, save_prompt, save_response,
 )
 from xscore.shared.response_parsing import strip_code_fences
-from xscore.shared.terminal_ui import format_duration, get_console, icon, info_line, warn_line
+from xscore.shared.terminal_ui import blank_line, format_duration, get_console, icon, info_line, warn_line
 
 
 _DEFAULT_EXTRACT_MODEL = "qwen3.6-plus, off"
@@ -310,19 +311,25 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
     all_failures: list[dict] = []
 
     # Enumerate every page in the scan PDF (extracted, cover-skipped,
-    # no-handwriting-skipped) so the output is a complete picture. The
-    # reorder buffer prints lines in (student, p_label) order regardless of
-    # worker completion order.
-    display_entries, idx_by_key, total_pdf_pages, n_cover, n_no_hw = (
+    # no-handwriting-skipped) so the output is a complete picture, with a
+    # banner row per student. The reorder buffer prints lines in (student,
+    # p_label) order regardless of worker completion order.
+    display_entries, idx_by_key, total_pdf_pages, n_cover, n_no_hw, n_students = (
         build_display_entries(register, raw_assignments)
     )
 
+    n_skipped = n_cover + n_no_hw
+    n_page_rows = sum(1 for e in display_entries if e["status"] != "banner")
+    student_word = "students" if n_students != 1 else "student"
     info_line(
-        f"Extracting answers for {len(page_tasks)} of {len(display_entries)} pages "
-        f"({n_cover} cover, {n_no_hw} no-handwriting skipped) …"
+        f"Extracting {len(page_tasks)} of {n_page_rows} pages"
+        f"  ·  {n_students} {student_word}"
+        f"  ·  {n_skipped} skipped"
     )
 
     _emit_ordered = make_reorder_buffer(get_console())
+    blank_line()  # gap before the first banner; subsequent banners carry their own \n
+    emit_banner_lines(display_entries, _emit_ordered, icon)
     emit_skipped_lines(display_entries, idx_by_key, total_pdf_pages, _emit_ordered, icon)
 
     def _extract_one(
@@ -353,8 +360,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
         scan_page_global = assignment["page_numbers"][p_label - 1]
         student_total = len(assignment["page_numbers"])
         prefix = (
-            f"Student '{student_name}'"
-            f"  ·  page {scan_page_global:>3}/{total_pdf_pages}"
+            f"page {scan_page_global:>3}/{total_pdf_pages}"
             f"  ·  ans p {p_label:>2}/{student_total}"
         )
 
@@ -363,7 +369,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
                 "student": student_name, "page": p_label,
                 "error": "no scan pages rendered (cache miss)",
             }
-            _emit_ordered(idx, f"[yellow]  {icon('warn')}  {prefix}  ·  FAILED (cache miss)[/]")
+            _emit_ordered(idx, f"[yellow]     {icon('warn')}  {prefix}  ·  FAILED (cache miss)[/]")
             return None, failure
         b64 = all_b64[0]
         extra_b64 = tuple(all_b64[1:])
@@ -385,7 +391,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
             failed_path = artifact_student_answers_failed_path(ctx.artifact_dir, safe_name, p_label)
             failed_path.parent.mkdir(parents=True, exist_ok=True)
             failed_path.write_text(json.dumps(failure, indent=2, ensure_ascii=False), encoding="utf-8")
-            _emit_ordered(idx, f"[yellow]  {icon('warn')}  {prefix}  ·  FAILED[/]")
+            _emit_ordered(idx, f"[yellow]     {icon('warn')}  {prefix}  ·  FAILED[/]")
             return None, failure
         except Exception as exc:  # noqa: BLE001
             failure = {
@@ -395,7 +401,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
             failed_path = artifact_student_answers_failed_path(ctx.artifact_dir, safe_name, p_label)
             failed_path.parent.mkdir(parents=True, exist_ok=True)
             failed_path.write_text(json.dumps(failure, indent=2, ensure_ascii=False), encoding="utf-8")
-            _emit_ordered(idx, f"[yellow]  {icon('warn')}  {prefix}  ·  FAILED[/]")
+            _emit_ordered(idx, f"[yellow]     {icon('warn')}  {prefix}  ·  FAILED[/]")
             return None, failure
 
         dur = round(time.perf_counter() - t0, 2)
@@ -408,9 +414,11 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
             _build_answers(student_name, p_label, answers, fmt), encoding="utf-8",
         )
 
+        n = len(answers)
+        unit = "answer" if n == 1 else "answers"
         _emit_ordered(idx, (
-            f"[green]  {icon('ok')}  {prefix}"
-            f"  ·  {format_duration(dur)}  ·  {len(answers)} answer(s)[/]"
+            f"[green]     {icon('ok')}  {prefix}"
+            f"  ·  {format_duration(dur)}  ·  {n} {unit}[/]"
         ))
         return {"phase": "extract_answers", "student": student_name, "page": p_label,
                 "duration_s": dur}, None
@@ -437,8 +445,8 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
                 failure = {"student": student, "page": page, "error": f"unhandled worker: {exc}"}
                 timing = None
                 _emit_ordered(idx, (
-                    f"[yellow]  {icon('warn')}  Student '{student}'"
-                    f"  ·  ans p {page}  ·  FAILED (worker crash)[/]"
+                    f"[yellow]     {icon('warn')}  ans p {page}"
+                    f"  ·  FAILED (worker crash)[/]"
                 ))
             with timings_lock:
                 if timing:

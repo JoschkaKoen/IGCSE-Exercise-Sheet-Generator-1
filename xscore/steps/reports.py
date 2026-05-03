@@ -8,7 +8,7 @@ canonical keys (``per_student_reports``, ``class_stats_curve``, …).
 
 from __future__ import annotations
 
-from xscore.marking.class_report_export import format_review_entry_line
+from xscore.marking.class_report_export import format_review_entry_lines
 from xscore.marking.merge_reports import (
     build_per_student_reports,
     build_review_queue,
@@ -70,9 +70,9 @@ def per_student_pdfs(ctx: _Ctx) -> None:
     ).exists()
     # Count actual PDFs on disk so the message reflects every variant
     # (landscape, portrait, portrait-large, 2up, landscape-with-questions,
-    # portrait-list, plus _10pt/_11pt 2up font-size companions — all under
-    # 32_student_pdfs/). The run-level exam_questions.pdf lives under
-    # 33_class_report/exam_questions/ and is not counted here.
+    # portrait-list, plus _10pt/_11pt 2up font-size companions, and a copy
+    # of the run-level exam_questions.pdf — all under 32_student_pdfs/).
+    # The canonical exam_questions.pdf lives under 33_class_report/exam_questions/.
     n_pdfs = sum(1 for _ in (ctx.artifact_dir / STUDENT_PDFS_DIR).rglob("*.pdf"))
     ok_line(f"{n_pdfs} PDF(s) compiled across {n} student{'s' if n != 1 else ''}")
     # Post-check expected outputs: every student should have all PDF variants.
@@ -134,8 +134,8 @@ def _print_review_queue_breakdown(
     assert ctx.artifact_dir is not None
     n = len(entries)
     shown = min(n, TERMINAL_TOP_N)
-    for entry in entries[:shown]:
-        info_line(format_review_entry_line(entry))
+    for line in format_review_entry_lines(entries[:shown]):
+        info_line(line)
     txt_rel = artifact_review_queue_txt_path(ctx.artifact_dir).relative_to(ctx.artifact_dir)
     info_line(
         f"Showing top {shown} of {n} questions "

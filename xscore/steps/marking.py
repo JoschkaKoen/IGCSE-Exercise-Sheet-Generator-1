@@ -7,12 +7,19 @@ no per-step ``t0`` needed.
 
 from __future__ import annotations
 
+import time
+
 from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, MARKING_MODEL_DEFAULT
 from xscore.marking.ai_mark import run_ai_marking
 from xscore.marking.blueprints import build_blueprints
 from xscore.marking.extract_answers import run_extract_student_answers
 from xscore.shared.pipeline_ctx import _Ctx
-from xscore.shared.terminal_ui import announce_step_model, ok_line
+from xscore.shared.terminal_ui import (
+    announce_step_model,
+    blank_line,
+    format_duration,
+    ok_line,
+)
 
 
 def ai_marking_blueprints(ctx: _Ctx) -> None:
@@ -32,6 +39,7 @@ def extract_student_answers(ctx: _Ctx) -> None:
     n_calls = len(ctx.extract_answers_api_calls)
     n_failed = len(getattr(ctx, "extract_answers_failures", []))
     n_total = n_calls + n_failed
+    blank_line()
     ok_line(
         f"{n_calls}/{n_total} pages extracted"
         + (f"  ·  {n_failed} failed (will fall back to AI transcription during marking)" if n_failed else "")
@@ -45,11 +53,13 @@ def ai_marking(ctx: _Ctx) -> None:
         default_model=MARKING_MODEL_DEFAULT,
         default_max_tokens=GEMINI_MAX_OUTPUT_TOKENS,
     )
+    t0 = time.perf_counter()
     ctx.marking_api_calls = run_ai_marking(ctx, dpi=ctx.instruction.dpi)
+    elapsed = time.perf_counter() - t0
     n_calls = len(ctx.marking_api_calls)
     n_failed = len(ctx.marking_failures)
     n_total = n_calls + n_failed
     ok_line(
-        f"{n_calls}/{n_total} pages marked"
+        f"{n_calls} / {n_total} pages marked  ·  {format_duration(elapsed)}"
         + (f"  ·  {n_failed} failed" if n_failed else "")
     )

@@ -141,22 +141,46 @@ def _qnum_natural_key(qnum: str) -> tuple:
         return (1, qnum, "")
 
 
-def format_review_entry_line(entry: dict) -> str:
-    """Format one queue entry as a single line for terminal echo / review.txt.
+def format_review_entry_lines(entries: list[dict]) -> list[str]:
+    """Format queue entries as one aligned line each, for terminal echo /
+    ``review.txt``.
 
-    Layout: ``{student}  Q{qnum}  (p.{page})  conf={int}  · {problem}``.
-    The trailing ``· {problem}`` segment is omitted when ``problem`` is empty.
+    Layout per row: ``{student}  Q{qnum}  (p.{page})  conf={int}  · {problem}``.
+    Each column is padded to the widest value in ``entries`` so the ``·``
+    separator (and the problem text after it) line up; the trailing
+    ``· {problem}`` segment is omitted when ``problem`` is empty.
+
+    Width scope is the list passed in — callers slice first if they want
+    tight alignment for a subset (e.g. terminal top-N) rather than the full
+    queue.
     """
-    student = entry["student"]
-    qnum = entry["question"]
-    page = entry.get("page")
-    conf = entry["confidence"]
-    problem = entry.get("problem") or ""
-    page_str = f"(p.{page})" if page is not None else "(p.?)"
-    base = f"{student}  Q{qnum}  {page_str}  conf={conf}"
-    if problem:
-        return f"{base}  · {problem}"
-    return base
+    if not entries:
+        return []
+    prepped = [
+        (
+            e["student"],
+            f"Q{e['question']}",
+            f"(p.{e['page']})" if e.get("page") is not None else "(p.?)",
+            e["confidence"],
+            e.get("problem") or "",
+        )
+        for e in entries
+    ]
+    name_w = max(len(t[0]) for t in prepped)
+    qnum_w = max(len(t[1]) for t in prepped)
+    page_w = max(len(t[2]) for t in prepped)
+    conf_w = max(len(str(t[3])) for t in prepped)
+
+    lines: list[str] = []
+    for student, q_label, page_str, conf, problem in prepped:
+        base = (
+            f"{student:<{name_w}}  "
+            f"{q_label:<{qnum_w}}  "
+            f"{page_str:<{page_w}}  "
+            f"conf={conf:>{conf_w}}"
+        )
+        lines.append(f"{base}  · {problem}" if problem else base)
+    return lines
 
 
 def _write_review_queue(
@@ -309,8 +333,9 @@ def _write_review_queue(
         "\n".join(md_lines) + "\n", encoding="utf-8"
     )
 
-    # Plain-text artifact — one line per entry, byte-identical to terminal echo.
-    txt_lines = [format_review_entry_line(e) for e in entries]
+    # Plain-text artifact — one line per entry, columns aligned across the
+    # full sorted list (terminal echo computes its own widths over top-N).
+    txt_lines = format_review_entry_lines(entries)
     artifact_review_queue_txt_path(artifact_dir).write_text(
         "\n".join(txt_lines) + ("\n" if txt_lines else ""), encoding="utf-8",
     )
