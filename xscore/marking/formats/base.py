@@ -79,12 +79,9 @@ _MarkingDumper.add_representer(str, _str_representer)
 
 def _build_yaml_blueprint(page_num: int, layout, questions: list[dict]) -> str:
     """Build a YAML blueprint string for one exam page."""
-    doc: dict = {
-        "page": page_num,
-        "layout": {"rows": layout.rows, "cols": layout.cols},
-        "questions": [],
-    }
+    doc: dict = {"page": page_num}
     if layout.rows > 1 or layout.cols > 1:
+        doc["layout"] = {"rows": layout.rows, "cols": layout.cols}
         subpages = []
         for r in range(1, layout.rows + 1):
             for c in range(1, layout.cols + 1):
@@ -94,6 +91,7 @@ def _build_yaml_blueprint(page_num: int, layout, questions: list[dict]) -> str:
                     "label": _quadrant_label(r, c, layout.rows, layout.cols),
                 })
         doc["subpages"] = subpages
+    doc["questions"] = []
 
     from xscore.marking.blueprints import _clean_text
     for q in questions:
@@ -262,13 +260,14 @@ class MarkingFormat:
 
     def serialize_filled(self, filled: dict) -> str:
         _layout = filled.get("layout") or {"rows": 1, "cols": 1}
+        _is_grid = int(_layout.get("rows", 1)) > 1 or int(_layout.get("cols", 1)) > 1
         doc: dict = {
             "page": filled.get("page", ""),
             "student_name": filled.get("student_name", ""),
-            "layout": _layout,
-            "questions": [],
         }
-        _is_grid = int(_layout.get("rows", 1)) > 1 or int(_layout.get("cols", 1)) > 1
+        if _is_grid:
+            doc["layout"] = _layout
+        doc["questions"] = []
         for q in filled.get("questions") or []:
             am = q.get("assigned_marks")
             cf = q.get("confidence")
