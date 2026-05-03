@@ -318,17 +318,6 @@ def _question_text_for_row(qnum: str, qmap: dict[str, dict]) -> dict | None:
     return qmap.get(base)
 
 
-def _render_question_text(q: dict | None, cell_width_cm: float = 3.6) -> str:
-    """Render only the question stem — for the narrow Question column in the
-    landscape with-questions table."""
-    if not q:
-        return r"\textit{(text unavailable)}"
-    text = str(q.get("text") or "").strip()
-    if not text:
-        return r"\textit{(no stem)}"
-    return _ai_cell(text, cell_width_cm)
-
-
 def _render_question_with_options(q: dict | None, cell_width_cm: float = 3.6) -> str:
     """Render question stem plus an ``(A)/(B)/...`` itemize for MCQs.
 
@@ -354,7 +343,10 @@ def _render_question_with_options(q: dict | None, cell_width_cm: float = 3.6) ->
                 + "\n".join(items)
                 + "\n\\end{itemize}"
             )
-    return "\n".join(parts)
+    # Visible gap between stem text and MCQ options. `\vspace*` (starred) is
+    # non-discardable; bare `\smallskip` glue before `\begin{itemize}` is
+    # absorbed by the list's topsep handling and renders as zero space.
+    return "\n\\par\\vspace*{0.5em}\n".join(parts)
 
 
 def _question_to_tex(q: dict, depth: int = 0) -> str:
@@ -417,7 +409,7 @@ def _student_report_with_questions_to_tex(
 ) -> str:
     """Landscape per-student PDF with an extra Question column (no MCQ options)."""
     # Column widths threaded into _ai_cell / _format_criteria_cell /
-    # _render_question_text so alltt font-size selection scales with cell
+    # _render_question_with_options so alltt font-size selection scales with cell
     # width. Match the col_spec below.
     qstem_w, ans_w, exp_w, reason_w = 4.5, 4.7, 5.0, 6.2
     q_to_graphics = q_to_graphics or {}
@@ -446,7 +438,7 @@ def _student_report_with_questions_to_tex(
             correct_ans = correct_ans + " " + _scheme_graphics_tex(gfx_files)
         reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
         awarded_cell = _awarded_tex(awarded, max_q)
-        question_cell = _render_question_text(_question_text_for_row(qnum_raw, qmap), qstem_w)
+        question_cell = _render_question_with_options(_question_text_for_row(qnum_raw, qmap), qstem_w)
         rows.append(
             f"    {qnum} & {question_cell} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"
         )

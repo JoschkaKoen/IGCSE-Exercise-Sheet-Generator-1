@@ -8,6 +8,13 @@
 \usepackage{enumitem}
 \usepackage{alltt}
 \geometry{a4paper,margin=1.5cm}
+
+% Extra vertical gap below each \hrulefill answer line. _ai_cell injects a
+% zero-width strut with this depth after every \hrulefill\newline pair so
+% consecutive answer lines (numbered slots, value-blank pairs) get a small
+% visible gap. Tune to taste; default 0.4em.
+\newlength{\xanswerlinegap}
+\setlength{\xanswerlinegap}{0.4em}
 \begin{document}
 \section*{Exam Questions<<header_extra>>}
 \textcolor{gray}{\small <<date_str>>}

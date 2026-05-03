@@ -75,12 +75,40 @@ def _ai_cell(text: str, cell_width_cm: float = 3.6) -> str:
         # Match one-or-more so consecutive \newlines (e.g. AI paragraph
         # break `\n\n` → `\newline \newline ` after line `t.replace("\n", ...)`)
         # are all stripped, not just the first.
+        # Itemize specifically gets `\par\vspace*{0.5em}` injected (instead of
+        # bare strip) so word/option lists are visibly separated from surrounding
+        # prose. The starred form is non-discardable: bare `\smallskip` glue
+        # before `\begin{itemize}` is absorbed by the list's topsep handling
+        # and renders as zero space; `\vspace*{}` survives.
+        t = re.sub(r"(?:\\newline\s*)+(?=\\begin\{itemize\})",
+                   r"\\par\\vspace*{0.5em}", t)
+        t = re.sub(r"(\\end\{itemize\})(?:\s*\\newline\b\s?)+",
+                   r"\1\\par\\vspace*{0.5em}", t)
         t = re.sub(r"(?:\\newline\s*)+(?=\\begin\{)", "", t)
         t = re.sub(r"(?<=\})(?:\\newline\s*)+(?=\\begin\{)", "", t)
         t = re.sub(r"(\\begin\{[^}]+\})(?:\s*\\newline\b\s?)+", r"\1", t)
         t = re.sub(r"(\\end\{[^}]+\})(?:\s*\\newline\b\s?)+", r"\1 ", t)
         t = re.sub(r"(?:\\newline\s*)+(?=\\item\b)", "", t)
         t = re.sub(r"(?:\\newline\s*)+(?=\\end\{)", "", t)
+        # Uniform gap of length \xanswerlinegap (preamble-tunable) at the two
+        # transitions involving \hrulefill answer lines:
+        #  (a) between an instruction paragraph and the first answer line
+        #      ("Give three reasons:\n\n1. \hrulefill" or
+        #       "Convert the two binary numbers:\n\n10010011 \hrulefill")
+        #  (b) between consecutive answer lines (1./2./3. or value/value pairs)
+        # Both convert to \par\vspace*{\xanswerlinegap}. The starred form is
+        # non-discardable so the gap survives glue absorption. Trailing
+        # \hrulefill (last in cell, no following \newline) gets no injection.
+        t = re.sub(
+            r"\\newline\s*\\newline\s*(?=(?:(?!\\newline).)*?\\hrulefill)",
+            r"\\par\\vspace*{\\xanswerlinegap} ",
+            t,
+        )
+        t = re.sub(
+            r"\\hrulefill(\s*)\\newline\b",
+            r"\\hrulefill\\par\\vspace*{\\xanswerlinegap}",
+            t,
+        )
         return t
 
     result = _protect_envs(text, lambda t: _protect_alltt(t, _outside_alltt, cell_width_cm))

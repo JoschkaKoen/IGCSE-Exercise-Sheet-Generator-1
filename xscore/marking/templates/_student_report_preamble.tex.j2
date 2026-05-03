@@ -20,6 +20,13 @@
 \setlist[itemize]{topsep=0pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.2em}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
+% Extra vertical gap below each \hrulefill answer line. _ai_cell injects a
+% zero-width strut with this depth after every \hrulefill\newline pair so
+% consecutive answer lines (numbered slots, value-blank pairs) get a small
+% visible gap. Tune to taste; default 0.4em.
+\newlength{\xanswerlinegap}
+\setlength{\xanswerlinegap}{0.4em}
+
 % ---------------------------------------------------------------
 % Score marker: student percentage vs class average on a 0-100 line
 % Usage: \scoremarker[width in cm]{student}{average}
