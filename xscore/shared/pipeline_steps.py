@@ -148,37 +148,41 @@ STEPS: tuple[Step, ...] = (
     Step(13, "detect_subject",             writes=("13_detect_subject/*",),
          title="Detect exam subject (filename → AI fallback)",
          phase="cover_geometry"),
-    # Per-page vision classification — drives student_names and page_order_check.
-    Step(14, "student_handwriting_check",
-         writes=("14_student_handwriting/*",
-                 "13_student_handwriting/*"),  # legacy folder (pre-detect_subject)
-         title="Classify empty-exam pages, then match each scan page (page type + page# + handwriting)",
+    # Empty-exam page classification (vision LLM, runs once per exam).
+    # Builds the catalog used by step 15's matcher and step 21's continuation pass.
+    Step(14, "classify_empty_exam_pages",
+         writes=("14_empty_exam_classification/*",),
+         title="Classify empty-exam pages (cover/instruction/question/blank/writing-space)",
+         phase="cover_geometry"),
+    # Per-scan-page vision classification — drives student_names and page_order_check.
+    Step(15, "student_handwriting_check",
+         writes=("15_student_handwriting/*",
+                 "14_student_handwriting/*",   # legacy: pre-step-14-split
+                 "13_student_handwriting/*"),  # legacy: pre-detect_subject
+         title="Match each scan page against empty exam (page type + page# + handwriting)",
          phase="cover_geometry"),
     # Cover-anchored student-name detection (consumes student_handwriting_check's covers).
     # Sets ctx.page_assignments — the runner kicks off background pre-rendering
     # immediately after this step (see kick_off_render_bg in pipeline/runner.py).
-    Step(15, "student_names",
-         writes=("15_student_names/*",
-                 "14_student_names/*"),  # legacy
+    Step(16, "student_names",
+         writes=("16_student_names/*",
+                 "15_student_names/*",   # legacy: pre-step-14-split
+                 "14_student_names/*"),  # legacy: pre-detect_subject
          title="Detect student names",
          phase="cover_geometry"),
     # Heuristic page-order check (consumes student_handwriting_check's page numbers).
-    Step(16, "page_order_check",
-         writes=("16_page_order/*",
-                 "15_page_order/*"),  # legacy
+    Step(17, "page_order_check",
+         writes=("17_page_order/*",
+                 "16_page_order/*",   # legacy: pre-step-14-split
+                 "15_page_order/*"),  # legacy: pre-detect_subject
          title="Check page order",
          phase="cover_geometry"),
-    # Empty-exam blank pages (text-only LLM call).
-    Step(17, "exam_blank_detection",
-         writes=("17_exam_blank_detection/*",
-                 "16_exam_blank_detection/*"),  # legacy
-         title="Detect blank pages in empty exam",
-         phase="cover_geometry"),
-    # Pure data transform: combines handwriting + names + exam_blank_detection
-    # into the marking-page register v1.
+    # Pure data transform: combines handwriting + names into the marking-page
+    # register v1. One primary call per non-cover scan page that has handwriting;
+    # continuation/figure/parent extras are added by step 21.
     Step(18, "build_marking_register_v1",
          writes=("18_build_marking_register/*",
-                 "17_build_marking_register/*"),  # legacy
+                 "17_build_marking_register/*"),  # legacy: pre-step-14-split
          title="Build marking page register",
          phase="cover_geometry"),
     # Empty-exam parse split: question numbers (cheap call) + per-question text (per-page parallel).
@@ -567,10 +571,10 @@ def wire_step_fns() -> None:
             "cover_page_scan_first",
             "exam_geometry",
             "detect_subject",
+            "classify_empty_exam_pages",
             "student_handwriting_check",
             "student_names",
             "page_order_check",
-            "exam_blank_detection",
             "build_marking_register_v1",
         )),
         ("xscore.steps.scaffold", (

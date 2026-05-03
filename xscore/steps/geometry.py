@@ -32,9 +32,8 @@ from xscore.preprocessing.cover_detection import (
 )
 from xscore.marking.blank_page_detection import (
     PAGE_TYPE_VOCABULARY,
-    check_exam_blank_pages,
     check_student_handwriting,
-    classify_empty_exam_pages,
+    classify_empty_exam_pages as _classify_empty_exam_pages,
 )
 from xscore.marking.geometry import compute_geometry, write_geometry_artifacts
 from xscore.marking.page_order_check import check_page_order
@@ -401,111 +400,84 @@ def page_order_check(ctx: _Ctx) -> None:
     raise SystemExit(1)
 
 
-def exam_blank_detection(ctx: _Ctx) -> None:
-    assert ctx.artifact_dir is not None and ctx.folder is not None
-    announce_step_model(
-        model_env="EXAM_BLANK_DETECTION_MODEL",
-        legacy_model_env="AI_DEFAULT_MODEL",
-        default_max_tokens=256,
-    )
-    from xscore.marking.blank_page_detection import BlankCheckStatus
-    # Prefer the cut/split exam PDF from cut_exam_pdf — it has the same logical
-    # page count as the rest of the pipeline operates on. Falls back to the
-    # original empty exam if scaffold setup didn't run (e.g. during partial
-    # resume scenarios).
-    exam_pdf_for_blanks = (
-        ctx.scaffold_state.get("actual_exam_pdf")
-        or find_exam_pdf(ctx.folder)
-    )
-    t0 = time.perf_counter()
-    status, msg = check_exam_blank_pages(
-        exam_pdf_for_blanks,
-        ctx.artifact_dir,
-    )
-    dur = format_duration(time.perf_counter() - t0)
-    if status is BlankCheckStatus.PASSED:
-        ok_line(f"Exam blank detection: {msg}  ·  {dur}")
-        return
-    # INCONCLUSIVE
-    warn_line(
-        "Exam blank detection INCONCLUSIVE — pipeline did NOT identify blank exam pages:\n"
-        f"  {msg}\n"
-        "  Set EXAM_BLANK_DETECTION_STRICT=1 to fail-fast on inconclusive checks."
-    )
-    if os.environ.get("EXAM_BLANK_DETECTION_STRICT", "0") == "1":
-        raise SystemExit(1)
+def classify_empty_exam_pages(ctx: _Ctx) -> None:
+    """Step 14 — vision-classify each page of the empty exam paper.
 
+    For each page in the post-cut empty exam, picks a ``page_type`` from the
+    closed vocabulary {cover/instruction/question/blank/writing-space page}
+    and reads its printed page number. Builds the catalog that step 15
+    (student_handwriting_check) uses as its matching vocabulary, and that
+    step 21 (detect_cross_page_context) uses to decide which scan pages are
+    continuation pages.
 
-def student_handwriting_check(ctx: _Ctx) -> None:
-    """Step 14 — two-phase scan-page identification.
-
-    Phase A: vision-classify each page of the empty exam paper into one of
-    {cover/instruction/question/blank/writing-space page} and read its printed page number.
-    Builds a closed catalog used by phase B as the matching vocabulary.
-
-    Phase B: per-scan-page vision call that MATCHES against phase A's catalog
-    (page type + page number, plus an N+3 overflow buffer) and detects student
-    handwriting. The combined output lives in
-    ``14_student_handwriting/handwriting.json``.
+    Writes ``14_empty_exam_classification/empty_exam_classifications.json``.
     """
+    import json as _json
+
     from eXercise.ai_client import parse_model_spec
     from xscore.marking.blank_page_detection import (
         BlankCheckStatus,
         HANDWRITING_JPEG_DPI,
         HANDWRITING_JPEG_QUALITY,
     )
-    from xscore.marking.marking_page_register import _cover_offset
+    from xscore.shared.exam_paths import artifact_empty_exam_classifications_json_path
     from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
 
-    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
-    assert ctx.pages_per_student is not None and ctx.pages_per_student > 0
+    assert ctx.artifact_dir is not None
     assert ctx.scaffold_state is not None and "actual_exam_pdf" in ctx.scaffold_state, (
         "step 14 needs the post-cut empty exam PDF (set by step 9 cut_exam_pdf)"
     )
 
-    # ── Phase A — empty-exam page classification ────────────────────────────
     announce_step_model(
         model_env="EMPTY_EXAM_PAGE_CLASSIFICATION_MODEL",
         legacy_model_env="HANDWRITING_CHECK_MODEL",
         default_max_tokens=256,
     )
-    a_model_id, a_thinking, a_max_tok = parse_model_spec(
+    model_id, thinking, max_tok = parse_model_spec(
         os.environ.get(
             "EMPTY_EXAM_PAGE_CLASSIFICATION_MODEL",
             "gemini-3-flash-preview, 0, 256",
         )
     )
-    if a_model_id.startswith("gemini"):
+    if model_id.startswith("gemini"):
         announce_ai_input(kind="PDF", note="native per-page slice")
     else:
         announce_ai_input(
             kind="JPEG", dpi=HANDWRITING_JPEG_DPI, quality=HANDWRITING_JPEG_QUALITY,
             note="rasterized fallback",
         )
+
     empty_pdf = ctx.scaffold_state["actual_exam_pdf"]
     import fitz as _fitz  # noqa: PLC0415
     with _fitz.open(str(empty_pdf)) as _d:
         n_empty = _d.page_count
     info_line(f"Classifying {n_empty} empty-exam pages …")
-    t_a = time.perf_counter()
-    a_status, a_msg, empty_classifications = classify_empty_exam_pages(
+
+    t0 = time.perf_counter()
+    status, msg, classifications = _classify_empty_exam_pages(
         empty_pdf, ctx.artifact_dir,
-        model_id=a_model_id, thinking_tokens=a_thinking, max_tokens=a_max_tok,
+        model_id=model_id, thinking_tokens=thinking, max_tokens=max_tok,
     )
-    a_dur = format_duration(time.perf_counter() - t_a)
-    if a_status is BlankCheckStatus.PASSED:
-        ok_line(f"Empty-exam classification: {a_msg}  ·  {a_dur}")
+    dur = format_duration(time.perf_counter() - t0)
+
+    out_path = artifact_empty_exam_classifications_json_path(ctx.artifact_dir)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(
+        _json.dumps({"empty_exam_pages": classifications}, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    if status is BlankCheckStatus.PASSED:
+        ok_line(f"Empty-exam classification: {msg}  ·  {dur}")
     else:
-        warn_line(f"Empty-exam classification INCONCLUSIVE: {a_msg}  ·  {a_dur}")
-        # Continue to phase B — partial catalog + always-present "cover page"
-        # type and the +3 page-number buffer keep the matcher functional.
+        warn_line(f"Empty-exam classification INCONCLUSIVE: {msg}  ·  {dur}")
 
     detected_types = [
         t for t in PAGE_TYPE_VOCABULARY
-        if any(c["page_type"] == t for c in empty_classifications)
+        if any(c["page_type"] == t for c in classifications)
     ]
     detected_numbers = sorted({
-        c["page_number"] for c in empty_classifications
+        c["page_number"] for c in classifications
         if c["page_number"] is not None
     })
     types_str = ", ".join(detected_types) if detected_types else "none"
@@ -522,7 +494,54 @@ def student_handwriting_check(ctx: _Ctx) -> None:
     )
     blank_line()
 
-    # ── Phase B — per-scan-page matcher ─────────────────────────────────────
+
+def student_handwriting_check(ctx: _Ctx) -> None:
+    """Step 15 — per-scan-page closed-vocabulary matcher.
+
+    Loads the catalog written by step 14 and asks the vision LLM to MATCH
+    each scan page against it (page type + page number, plus an N+3 overflow
+    buffer). Detects student handwriting in the same call. The output lives
+    in ``15_student_handwriting/handwriting.json``.
+    """
+    import json as _json
+
+    from xscore.marking.blank_page_detection import (
+        BlankCheckStatus,
+        HANDWRITING_JPEG_DPI,
+        HANDWRITING_JPEG_QUALITY,
+    )
+    from xscore.marking.marking_page_register import _cover_offset
+    from xscore.shared.exam_paths import (
+        artifact_empty_exam_classifications_json_path,
+        artifact_handwriting_json_path,
+    )
+    from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
+
+    assert ctx.cleaned_pdf is not None and ctx.artifact_dir is not None
+    assert ctx.pages_per_student is not None and ctx.pages_per_student > 0
+
+    classifications_path = artifact_empty_exam_classifications_json_path(ctx.artifact_dir)
+    if classifications_path.is_file():
+        empty_classifications = _json.loads(
+            classifications_path.read_text(encoding="utf-8")
+        ).get("empty_exam_pages", [])
+    else:
+        # Legacy fallback: pre-step-14-split runs wrote the catalog into
+        # 14_student_handwriting/handwriting.json. Read it from there if
+        # the new artifact is missing.
+        legacy_path = artifact_handwriting_json_path(ctx.artifact_dir)
+        if legacy_path.is_file():
+            empty_classifications = _json.loads(
+                legacy_path.read_text(encoding="utf-8")
+            ).get("empty_exam_pages", [])
+        else:
+            warn_line(
+                "step 15: no empty-exam classifications found — running with empty "
+                "catalog (matcher will fall back to its always-available cover-page "
+                "vocabulary + page-number overflow buffer)."
+            )
+            empty_classifications = []
+
     announce_step_model(
         model_env="HANDWRITING_CHECK_MODEL",
         legacy_model_env="AI_DEFAULT_MODEL",
@@ -533,7 +552,7 @@ def student_handwriting_check(ctx: _Ctx) -> None:
     )
     cover_page_mode = bool(ctx.cover_page_mode)
     cover_offset = _cover_offset(cover_page_mode, bool(ctx.empty_exam_has_cover))
-    t_b = time.perf_counter()
+    t0 = time.perf_counter()
     status, msg = check_student_handwriting(
         ctx.cleaned_pdf,
         ctx.artifact_dir,
@@ -542,17 +561,11 @@ def student_handwriting_check(ctx: _Ctx) -> None:
         cover_offset=cover_offset,
         empty_exam_classifications=empty_classifications,
     )
-    b_dur = format_duration(time.perf_counter() - t_b)
-
-    # Note: register building (v1) used to live here. It moved to a dedicated
-    # build_marking_register_v1 so it can run AFTER student_names provides
-    # ctx.page_assignments — which student_handwriting_check no longer
-    # needs but the register still does.
+    dur = format_duration(time.perf_counter() - t0)
 
     if status is BlankCheckStatus.PASSED:
-        ok_line(f"Scan-page matching: {msg}  ·  {b_dur}")
+        ok_line(f"Scan-page matching: {msg}  ·  {dur}")
         return
-    # INCONCLUSIVE
     warn_line(
         "Scan-page matching INCONCLUSIVE — pipeline did NOT verify all blank pages:\n"
         f"  {msg}"
@@ -562,11 +575,12 @@ def student_handwriting_check(ctx: _Ctx) -> None:
 def build_marking_register_v1(ctx: _Ctx) -> None:
     """Build and persist the v1 marking page register.
 
-    Pure data transform — combines student_handwriting_check (per scan page),
-    student_names (page_assignments), exam_blank_detection (blank-in-empty exam pages), and
-    ``ctx.empty_exam_has_cover``. Was previously embedded at the end of
-    student_handwriting_check but has been split out so the handwriting check can run before
-    student_names without requiring page_assignments.
+    Pure data transform — combines student_handwriting_check (per-scan-page
+    handwriting flags) with student_names (page_assignments) and
+    ``ctx.empty_exam_has_cover``. Each non-cover scan page with handwriting
+    becomes one primary marking call. Continuation-page attachment (blank or
+    writing-space pages with handwriting → attach to the previous question
+    page) is applied later by step 21 (detect_cross_page_context).
     """
     assert ctx.artifact_dir is not None
     from xscore.marking.marking_page_register import (

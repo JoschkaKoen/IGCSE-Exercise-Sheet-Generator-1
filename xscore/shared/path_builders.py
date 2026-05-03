@@ -32,7 +32,7 @@ from xscore.shared.step_folders import (
     CUT_EXAM_DIR,
     DESKEW_DIR,
     DETECT_SUBJECT_DIR,
-    EXAM_BLANK_DIR,
+    EMPTY_EXAM_CLASSIFY_DIR,
     EXTRACT_ANSWERS_DIR,
     EXTRACT_QUESTION_NUMBERS_DIR,
     EXTRACT_QUESTIONS_DIR,
@@ -220,26 +220,25 @@ def artifact_page_order_issues_path(artifact_dir: Path) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# Exam blank detection (text-only)
+# Empty-exam page classification (step 14, vision)
 # ---------------------------------------------------------------------------
 
-def artifact_exam_blank_json_path(artifact_dir: Path) -> Path:
-    """Blank exam pages list JSON."""
-    return artifact_dir / EXAM_BLANK_DIR / "blank_exam_pages.json"
+def artifact_empty_exam_classifications_json_path(artifact_dir: Path) -> Path:
+    """Per-empty-exam-page classifications (page_type + page_number) JSON."""
+    return artifact_dir / EMPTY_EXAM_CLASSIFY_DIR / "empty_exam_classifications.json"
 
 
-def artifact_exam_blank_prompt_path(artifact_dir: Path, name: str) -> Path:
-    """Prompt file for exam blank-detection AI calls."""
-    return artifact_dir / EXAM_BLANK_DIR / f"{name}_prompt.txt"
+def artifact_empty_exam_pages_dir(artifact_dir: Path) -> Path:
+    """Directory of per-page artifacts for the empty-exam classifier (step 14).
 
-
-def artifact_blank_detection_txt_path(artifact_dir: Path) -> Path:
-    """Empty-exam blank-detection output text file."""
-    return artifact_dir / EXAM_BLANK_DIR / "blank_detection_empty_exam.txt"
+    Files are PDFs on the Gemini path (one-page slices) and JPEGs on the
+    rasterized fallback. Prompt sidecars land here too.
+    """
+    return artifact_dir / EMPTY_EXAM_CLASSIFY_DIR / "empty_exam_pages"
 
 
 # ---------------------------------------------------------------------------
-# Student handwriting check (vision)
+# Student handwriting check (step 15, vision per scan page)
 # ---------------------------------------------------------------------------
 
 def artifact_handwriting_json_path(artifact_dir: Path) -> Path:
@@ -253,18 +252,8 @@ def artifact_handwriting_prompt_path(artifact_dir: Path, name: str) -> Path:
 
 
 def artifact_handwriting_dir(artifact_dir: Path) -> Path:
-    """Directory of JPEG images rendered for handwriting checks (phase B)."""
+    """Directory of JPEG images rendered for handwriting checks."""
     return artifact_dir / HANDWRITING_DIR / "scan_pages"
-
-
-def artifact_handwriting_empty_exam_dir(artifact_dir: Path) -> Path:
-    """Directory of per-page artifacts for the phase-A empty-exam classifier.
-
-    Stored alongside the scan-page JPEGs under the same step folder so the
-    full audit trail of step 14 lives in one place. Files are PDFs on the
-    Gemini path (one-page slices) and JPEGs on the rasterized fallback.
-    """
-    return artifact_dir / HANDWRITING_DIR / "empty_exam_pages"
 
 
 def artifact_marking_page_register_v1_path(artifact_dir: Path) -> Path:
@@ -290,6 +279,11 @@ def artifact_cross_page_refs_json_path(artifact_dir: Path) -> Path:
 def artifact_parent_refs_json_path(artifact_dir: Path) -> Path:
     """Diagnostic listing each detected parent-context reference."""
     return artifact_dir / CROSS_PAGE_CONTEXT_DIR / "parent_refs.json"
+
+
+def artifact_continuation_refs_json_path(artifact_dir: Path) -> Path:
+    """Diagnostic listing each blank/writing-space page attached as continuation."""
+    return artifact_dir / CROSS_PAGE_CONTEXT_DIR / "continuation_refs.json"
 
 
 def artifact_cross_page_changes_md_path(artifact_dir: Path) -> Path:

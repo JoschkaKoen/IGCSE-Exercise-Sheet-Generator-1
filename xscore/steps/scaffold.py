@@ -198,14 +198,21 @@ def extract_exam_questions(ctx: _Ctx) -> None:
 
 
 def detect_cross_page_context(ctx: _Ctx) -> None:
-    """Detect cross-page context — figure references AND parent stems.
+    """Detect cross-page context — continuation pages, figure refs, parent stems.
 
     Pure data transform: reads the v1 marking page register from
-    ``build_marking_register_v1`` plus ``extract_exam_questions``'s
-    ``exam_questions.{yaml|json|xml}`` artifact, runs two augmentation passes
-    (figure mentions on a different page from where the figure is drawn;
-    child questions on a different page from a parent's stem/flowchart),
-    and writes the v2 register at
+    ``build_marking_register_v1``, the empty-exam classifications from step
+    14, and ``extract_exam_questions``'s ``exam_questions.{yaml|json|xml}``
+    artifact. Runs three augmentation passes:
+
+    1. **continuation** — calls whose ``answer_label`` matches an empty-exam
+       page classified as ``blank page`` or ``writing space page`` are
+       removed and re-attached to the previous question page as extras.
+    2. **figures** — figure mentions on a page other than where the figure
+       is drawn.
+    3. **parents** — child questions on a page after their parent's stem.
+
+    Writes the v2 register at
     ``<detect_cross_page_context_dir>/marking_page_register.json`` along
     with diagnostic JSON files and a markdown summary. No AI calls.
     """
@@ -218,9 +225,12 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
     )
     from xscore.scaffold.formats import load_exam_questions_artifact
     from xscore.shared.path_builders import (
+        artifact_continuation_refs_json_path,
         artifact_cross_page_changes_md_path,
         artifact_cross_page_refs_json_path,
+        artifact_empty_exam_classifications_json_path,
         artifact_exam_questions_path,
+        artifact_handwriting_json_path,
         artifact_marking_page_register_v2_path,
         artifact_parent_refs_json_path,
     )
@@ -242,18 +252,35 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
         )
         return
 
+    # Empty-exam classifications drive the continuation pass. New artifact
+    # location first, then the legacy pre-step-14-split location for older runs.
+    import json
+    classifications_path = artifact_empty_exam_classifications_json_path(ctx.artifact_dir)
+    if classifications_path.is_file():
+        empty_classifications = json.loads(
+            classifications_path.read_text(encoding="utf-8")
+        ).get("empty_exam_pages", [])
+    else:
+        legacy_path = artifact_handwriting_json_path(ctx.artifact_dir)
+        if legacy_path.is_file():
+            empty_classifications = json.loads(
+                legacy_path.read_text(encoding="utf-8")
+            ).get("empty_exam_pages", [])
+        else:
+            empty_classifications = []
+
     _cppd = os.environ.get("CROSS_PAGE_PARENT_DETECTION", "1").strip().lower()
     detect_parents = _cppd in {"1", "true", "yes", "on"}
 
     exam_questions = load_exam_questions_artifact(questions_path)
-    register, figure_refs, parent_refs = apply_cross_page_extras(
+    register, figure_refs, parent_refs, continuation_refs = apply_cross_page_extras(
         register, exam_questions, bool(ctx.empty_exam_has_cover),
+        empty_classifications=empty_classifications,
         detect_parents=detect_parents,
     )
 
     write_register(artifact_marking_page_register_v2_path(ctx.artifact_dir), register)
 
-    import json
     refs_path = artifact_cross_page_refs_json_path(ctx.artifact_dir)
     refs_path.parent.mkdir(parents=True, exist_ok=True)
     refs_path.write_text(
@@ -263,9 +290,17 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
     parent_refs_path.write_text(
         json.dumps(parent_refs, indent=2, ensure_ascii=False), encoding="utf-8"
     )
+    continuation_refs_path = artifact_continuation_refs_json_path(ctx.artifact_dir)
+    continuation_refs_path.write_text(
+        json.dumps(continuation_refs, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
 
-    # Per-source counts. A single call can be augmented by both passes; report
-    # each pass independently so the totals match what shows up in the register.
+    # Per-source counts. A single call can be augmented by multiple passes;
+    # report each pass independently so the totals match the register.
+    n_cont_calls = sum(
+        1 for s in register["students"] for c in s["calls"]
+        if any(src == "continuation" for src in c.get("extra_sources") or [])
+    )
     n_fig_calls = sum(
         1 for s in register["students"] for c in s["calls"]
         if any((src or "").startswith("cross_page_fig_") for src in c.get("extra_sources") or [])
@@ -278,10 +313,22 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
     md_lines = [
         "# Cross-page context references",
         "",
+        f"- Continuation pages attached: {len(continuation_refs)}  ·  calls augmented: {n_cont_calls}",
         f"- Figures detected: {len(figure_refs)}  ·  calls augmented: {n_fig_calls}",
         f"- Parent stems detected: {len(parent_refs)}  ·  calls augmented: {n_parent_calls}",
         "",
     ]
+    if continuation_refs:
+        md_lines.append("## Detected continuation pages")
+        md_lines.append("")
+        for ref in continuation_refs:
+            md_lines.append(
+                f"- **{ref['student_name']}** scan p.{ref['scan_page']} "
+                f"({ref['page_type']}, answer label {ref['answer_label']}) "
+                f"→ attached to answer p.{ref['attached_to_answer_label']} "
+                f"(scan p.{ref['attached_to_scan_page']})"
+            )
+        md_lines.append("")
     if figure_refs:
         md_lines.append("## Detected figure references")
         md_lines.append("")
@@ -309,7 +356,15 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
         "\n".join(md_lines), encoding="utf-8"
     )
 
-    # Two separate ok_lines so each detection is visible in the terminal.
+    # Three separate ok_lines so each detection is visible in the terminal.
+    if continuation_refs:
+        ok_line(
+            f"{len(continuation_refs)} continuation page"
+            f"{'s' if len(continuation_refs) != 1 else ''} attached  ·  "
+            f"{n_cont_calls} call{'s' if n_cont_calls != 1 else ''} augmented"
+        )
+    else:
+        ok_line("No continuation pages attached")
     if figure_refs:
         ok_line(
             f"{len(figure_refs)} cross-page figure"
@@ -332,6 +387,7 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
     render_cross_page_step_summary(
         figure_refs=figure_refs,
         parent_refs=parent_refs,
+        continuation_refs=continuation_refs,
         register=register,
     )
 

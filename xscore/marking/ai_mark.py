@@ -707,9 +707,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         ]
         if _context_labels:
             _extras.append(f"+context {', '.join(_context_labels)}")
-        _n_writing = sum(1 for src in extra_sources if src == "handwriting")
-        if _n_writing:
-            _extras.append(f"+writing {_n_writing} page{'s' if _n_writing != 1 else ''}")
+        _n_cont = sum(1 for src in extra_sources if src == "continuation")
+        if _n_cont:
+            _extras.append(f"+continuation {_n_cont} page{'s' if _n_cont != 1 else ''}")
         if _page_graphics:
             _graphic_labels = [f"ms p{pg} Q{qn}" for qn, pg, _, _ in _page_graphics]
             _extras.append(f"+graphic {', '.join(_graphic_labels)}")

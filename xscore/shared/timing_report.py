@@ -38,7 +38,7 @@ _STEP_LABELS: dict[str, str] = {
     "student_names":               "Student names",
     "page_count_validation":       "Page count validation",
     "page_order_check":            "Page order",
-    "exam_blank_detection":        "Exam blank pages",
+    "classify_empty_exam_pages":   "Empty exam classification",
     "student_handwriting_check":   "Student handwriting check",
     "detect_exam_layout":          "Detect exam layout",
     "cut_exam_pdf":                "Cut exam PDF",

@@ -4,22 +4,27 @@ The register answers the question "for student S, marking answer-page P, which
 scan pages will the AI see in one call?" Today this decision is computed
 inline at marking time in :func:`xscore.marking.ai_mark.run_ai_marking`; this
 module hoists that logic into a persisted artifact so it can be inspected,
-diffed, and refined by additional steps (e.g. cross-page figure detection in
-step 21) before any expensive marking work happens.
+diffed, and refined by additional steps before any expensive marking work
+happens.
 
 Lifecycle:
 
 1. **Step 18** (build_marking_register_v1) writes the *initial* register
    (``18_build_marking_register/marking_page_register.json``) with one primary
-   scan page per call plus extras coming from blank-page-with-handwriting
-   attachments.
-2. **Step 21** (cross-page context detection) reads register v1 and augments
-   calls in two passes: (a) pages that mention figures drawn elsewhere get
-   the figure's drawn-on page as an extra; (b) pages whose questions are
-   children of a parent on an earlier page get the parent's page as an
-   extra (so the AI sees flowcharts, tables, or stems that introduce the
-   sub-questions). Writes
-   ``21_detect_cross_page_context/marking_page_register.json``.
+   call per non-cover scan page that has student handwriting. No extras —
+   that's all step 21's job.
+2. **Step 21** (detect_cross_page_context) reads register v1 and augments it
+   in three passes:
+   (a) **continuation** — calls whose ``answer_label`` matches an empty-exam
+       page classified as ``blank page`` or ``writing space page`` are
+       removed from primary calls and re-attached as extras to the most
+       recent preceding ``question page`` call.
+   (b) **figures** — pages that mention figures drawn elsewhere get the
+       figure's drawn-on page as an extra.
+   (c) **parent stems** — pages whose questions are children of a parent on
+       an earlier page get the parent's page as an extra (so the AI sees
+       flowcharts, tables, or stems that introduce the sub-questions).
+   Writes ``21_detect_cross_page_context/marking_page_register.json``.
 3. **Step 29** (AI marking) loads the most-refined register available and
    iterates the calls. Two filters that *cannot* be baked in (scaffold-bounds
    cap and CLI cohort filter) are applied at iteration time.
@@ -77,16 +82,16 @@ def _cover_offset(has_cover: bool, empty_exam_has_cover: bool) -> int:
 def build_initial_register(ctx: "_Ctx") -> dict:
     """Build register v1 from page assignments + handwriting check.
 
-    Pure function: reads the on-disk artifacts of steps 14, 15, and 17 plus
+    Pure function: reads the on-disk artifacts of steps 15 and 16 plus
     ``ctx.empty_exam_has_cover``. Returns the in-memory register dict.
 
-    Reproduces the loop from the legacy bundling logic in
-    :func:`xscore.marking.ai_mark.run_ai_marking` (cover-skip, handwriting
-    skip, handwriting-extras attach), but does NOT apply the scaffold-bounds
-    cap or any cohort filter — those are runtime concerns of step 29.
+    Each non-cover scan page with handwriting becomes one primary marking
+    call. Continuation-page attachment (blank or writing-space pages with
+    handwriting → attach to the previous question page) is applied later by
+    step 21; this builder produces no extras. Scaffold-bounds cap and cohort
+    filter are runtime concerns of step 29.
     """
     from xscore.shared.exam_paths import (
-        artifact_exam_blank_json_path,
         artifact_exam_student_list_json_path,
         artifact_handwriting_json_path,
     )
@@ -95,19 +100,10 @@ def build_initial_register(ctx: "_Ctx") -> dict:
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
 
-    blank_path = artifact_exam_blank_json_path(ctx.artifact_dir)
-    if blank_path.exists():
-        blank_data = json.loads(blank_path.read_text(encoding="utf-8"))
-        blank_exam_pages: set[int] = set(blank_data.get("blank_exam_pages", []))
-    else:
-        blank_exam_pages = set()
-
     empty_exam_has_cover = bool(ctx.empty_exam_has_cover)
-    skip_by_student, extras_by_student = _load_handwriting(
+    skip_by_student = _load_handwriting_skips(
         artifact_handwriting_json_path(ctx.artifact_dir),
         raw_assignments,
-        blank_exam_pages,
-        empty_exam_has_cover,
     )
 
     students_out: list[dict] = []
@@ -119,7 +115,6 @@ def build_initial_register(ctx: "_Ctx") -> dict:
         has_cover = cover_page_number is not None
         cover_offset = _cover_offset(has_cover, empty_exam_has_cover)
         student_skip = skip_by_student.get(student_name, set())
-        student_extras = extras_by_student.get(student_name, {})
 
         calls: list[dict] = []
         for p_label, scan_page in enumerate(page_numbers, 1):
@@ -127,16 +122,14 @@ def build_initial_register(ctx: "_Ctx") -> dict:
                 continue   # cover page never marked
             answer_label = p_label - cover_offset
             if scan_page in student_skip:
-                continue   # blank page with no handwriting
-            extras = list(student_extras.get(scan_page, []))
-            sources = ["handwriting"] * len(extras)
+                continue   # page with no handwriting
             calls.append({
                 "p_label": p_label,
                 "answer_label": answer_label,
                 "primary_scan_page": scan_page,
-                "extra_scan_pages": extras,
-                "extra_sources": sources,
-                "scan_pages": [scan_page] + extras,
+                "extra_scan_pages": [],
+                "extra_sources": [],
+                "scan_pages": [scan_page],
             })
 
         students_out.append({
@@ -155,7 +148,7 @@ def build_initial_register(ctx: "_Ctx") -> dict:
             "produced_by_step": 18,
             "produced_by_step_name": "build_marking_register_v1",
             "empty_exam_has_cover": empty_exam_has_cover,
-            "applied_extras": ["handwriting"],
+            "applied_extras": [],
             "total_students": len(students_out),
             "total_calls": total_calls,
         },
@@ -163,32 +156,21 @@ def build_initial_register(ctx: "_Ctx") -> dict:
     }
 
 
-def _load_handwriting(
+def _load_handwriting_skips(
     handwriting_path: Path,
     raw_assignments: list[dict],
-    blank_exam_pages: set[int],
-    empty_exam_has_cover: bool,
-) -> tuple[dict[str, set[int]], dict[str, dict[int, list[int]]]]:
-    """Parse handwriting.json into (skip_set, extras_map) keyed by student.
+) -> dict[str, set[int]]:
+    """Parse handwriting.json into a per-student set of scan pages to skip.
 
-    ``skip_set`` lists scan pages with no handwriting (the AI should never
-    see them); ``extras_map`` says "for student S, when marking scan-page P,
-    also include these blank-but-handwritten extras".
-
-    The handwriting.json schema is per-scan-page (a flat ``scan_pages`` list
-    plus a ``metadata`` block). Per-student grouping is derived here using the
-    page-assignment list from step 15 — which scan pages belong to which
-    student, and which scan position is the cover.
-
-    The extras map is built by joining the per-scan-page handwriting flags
-    with the blank-in-empty exam-page set: if a blank-in-empty page received
-    student handwriting, it's an overflow that attaches to the previous
-    non-blank answer page.
+    A scan page is skipped iff its ``has_handwriting`` flag is ``False`` —
+    a page the model is confident contains no student work. Pages where the
+    flag is ``None`` (inconclusive) are NOT skipped: they fall through into
+    primary marking calls so a human reviewer sees them. Per-student
+    grouping is derived using the page-assignment list from step 16.
     """
     skip_by_student: dict[str, set[int]] = {}
-    extras_by_student: dict[str, dict[int, list[int]]] = {}
     if not handwriting_path.exists():
-        return skip_by_student, extras_by_student
+        return skip_by_student
 
     data = json.loads(handwriting_path.read_text(encoding="utf-8"))
     by_scan: dict[int, dict] = {
@@ -197,51 +179,18 @@ def _load_handwriting(
         if entry.get("scan_page") is not None
     }
 
-    if blank_exam_pages:
-        non_blank_exam_pages = set(range(1, max(blank_exam_pages) + 1)) - blank_exam_pages
-    else:
-        non_blank_exam_pages = set()
-
     for a in raw_assignments:
         student_name = a.get("student_name")
         if student_name is None:
             continue
         page_numbers: list[int] = a.get("page_numbers", [])
-        cover_page_number = a.get("cover_page_number")
-        has_cover = cover_page_number is not None
-        cover_offset = _cover_offset(has_cover, empty_exam_has_cover)
-
         skip: set[int] = set()
-        extras: dict[int, list[int]] = {}
-        for p_label, scan_page in enumerate(page_numbers, 1):
-            if has_cover and p_label == 1:
-                continue  # cover never marked, never skipped, never an extra
+        for scan_page in page_numbers:
             entry = by_scan.get(scan_page)
-            if entry is None:
-                continue
-            has_hw = entry.get("has_handwriting")
-            exam_page = p_label - cover_offset
-            is_blank_in_empty = exam_page in blank_exam_pages
-            if is_blank_in_empty:
-                # Trust step 17 over step 14: a structurally blank exam page
-                # has nothing to mark even if step 14 detected faint marks
-                # or bleed-through. Skipping here saves a no-op marking call.
+            if entry is not None and entry.get("has_handwriting") is False:
                 skip.add(scan_page)
-            elif has_hw is False:
-                skip.add(scan_page)
-            if is_blank_in_empty and has_hw is True:
-                # Attach this overflow to the previous non-blank answer page.
-                candidates = [p for p in non_blank_exam_pages if p < exam_page]
-                if candidates:
-                    attach_exam = max(candidates)
-                    attach_p_label = attach_exam + cover_offset
-                    if 1 <= attach_p_label <= len(page_numbers):
-                        attach_scan = page_numbers[attach_p_label - 1]
-                        extras.setdefault(attach_scan, []).append(scan_page)
-
         skip_by_student[student_name] = skip
-        extras_by_student[student_name] = extras
-    return skip_by_student, extras_by_student
+    return skip_by_student
 
 
 # ---------------------------------------------------------------------------
@@ -264,17 +213,24 @@ def apply_cross_page_extras(
     exam_questions_yaml: dict,
     empty_exam_has_cover: bool,
     *,
+    empty_classifications: list[dict],
     detect_parents: bool = True,
-) -> tuple[dict, list[dict], list[dict]]:
+) -> tuple[dict, list[dict], list[dict], list[dict]]:
     """Augment *register* (in-place) with cross-page context extras.
 
-    Two passes that share the per-student attach loop:
+    Three passes:
 
-    1. **Figure pass** — for each "Fig. N.N" mention found on a page other
+    1. **Continuation pass** — for each call whose ``answer_label`` matches
+       an empty-exam page classified as ``blank page`` or ``writing space
+       page``, remove the primary call and attach the scan page to the most
+       recent preceding ``question page`` call as an extra with
+       ``source="continuation"``. Runs FIRST so later passes don't waste
+       work attaching to calls that are about to be removed.
+    2. **Figure pass** — for each "Fig. N.N" mention found on a page other
        than the figure's first-mention (drawn-on) page, attach the drawn-on
        page as an extra. Respects the student's ``skipped_scan_pages``: a
        page the student left blank carries no useful figure pixels.
-    2. **Parent pass** — for each child question whose page is later than an
+    3. **Parent pass** — for each child question whose page is later than an
        ancestor's, attach the ancestor's page as an extra. *Bypasses* the
        ``skipped_scan_pages`` check because parent pages typically have no
        student handwriting (printed flowchart / stem only) — that's the
@@ -282,13 +238,16 @@ def apply_cross_page_extras(
        ``detect_parents=False`` (controlled by the
        ``CROSS_PAGE_PARENT_DETECTION`` env toggle at the step boundary).
 
-    Returns ``(register, figure_refs, parent_refs)`` where each ``*_refs`` is
-    a flat list of diagnostic dicts (sorted, deduped) suitable for writing
-    next to the register.
+    Returns ``(register, figure_refs, parent_refs, continuation_refs)``
+    where each ``*_refs`` is a flat list of diagnostic dicts suitable for
+    writing next to the register.
     """
     questions = exam_questions_yaml.get("questions") or []
 
-    # ── Pass 1: figure mentions ─────────────────────────────────────────────
+    # ── Pass 1: continuation pages ──────────────────────────────────────────
+    continuation_refs = _apply_continuation_extras(register, empty_classifications)
+
+    # ── Pass 2: figure mentions ─────────────────────────────────────────────
     figure_attachments, figure_refs = _compute_figure_attachments(
         questions, empty_exam_has_cover,
     )
@@ -297,7 +256,7 @@ def apply_cross_page_extras(
         bypass_skipped=False,
     )
 
-    # ── Pass 2: parent stems ────────────────────────────────────────────────
+    # ── Pass 3: parent stems ────────────────────────────────────────────────
     if detect_parents:
         parent_attachments, parent_refs = _compute_parent_attachments(
             questions, empty_exam_has_cover,
@@ -311,9 +270,11 @@ def apply_cross_page_extras(
 
     # ── Refresh metadata ───────────────────────────────────────────────────
     md = register["metadata"]
-    md["produced_by_step"] = 19
+    md["produced_by_step"] = 21
     md["produced_by_step_name"] = "detect_cross_page_context"
     applied = list(md.get("applied_extras", []))
+    if continuation_refs and "continuation" not in applied:
+        applied.append("continuation")
     if figure_refs and "cross_page_figures" not in applied:
         applied.append("cross_page_figures")
     if parent_refs and "cross_page_parents" not in applied:
@@ -321,7 +282,97 @@ def apply_cross_page_extras(
     md["applied_extras"] = applied
     md["total_calls"] = sum(len(s["calls"]) for s in register["students"])
 
-    return register, figure_refs, parent_refs
+    return register, figure_refs, parent_refs, continuation_refs
+
+
+# ---------------------------------------------------------------------------
+# Pass 1: continuation pages (blank + writing-space pages with handwriting)
+# ---------------------------------------------------------------------------
+
+_CONTINUATION_PAGE_TYPES = frozenset({"blank page", "writing space page"})
+
+
+def _apply_continuation_extras(
+    register: dict,
+    empty_classifications: list[dict],
+) -> list[dict]:
+    """Remove primary calls for blank/writing-space pages and attach as extras.
+
+    For each call whose ``answer_label`` matches an empty-exam page
+    classified as ``blank page`` or ``writing space page``: remove the
+    primary call and attach its scan page to the most recent preceding
+    ``question page`` call as an extra with ``source="continuation"``.
+
+    A run of consecutive overflow pages all attach to the same preceding
+    question page in scan-page order, so the AI marker sees the question
+    page first followed by all overflow pages top-to-bottom.
+
+    Inputs come from step 14's classifications and the register itself —
+    has_handwriting filtering is already done by step 18 (every call left
+    in the register has handwriting), so this pass does not need
+    handwriting.json.
+
+    Edge cases (all skip silently, matching prior behavior):
+    - Orphan overflow at the start of an exam (no preceding question page).
+    - The preceding question page itself was filtered out (no handwriting).
+    """
+    if not empty_classifications:
+        return []
+    page_type_by_page: dict[int, str] = {
+        c["page"]: c["page_type"]
+        for c in empty_classifications
+        if c.get("page") is not None and c.get("page_type") is not None
+    }
+    content_pages = sorted(
+        p for p, pt in page_type_by_page.items() if pt == "question page"
+    )
+    if not content_pages:
+        return []
+
+    continuation_refs: list[dict] = []
+    for student in register["students"]:
+        # Iterate over a copy — we mutate student["calls"] inside the loop.
+        for call in list(student["calls"]):
+            answer_label = call["answer_label"]
+            page_type = page_type_by_page.get(answer_label)
+            if page_type not in _CONTINUATION_PAGE_TYPES:
+                continue
+            primary_scan = call["primary_scan_page"]
+            student["calls"].remove(call)
+            skipped = list(student.get("skipped_scan_pages") or [])
+            if primary_scan not in skipped:
+                skipped.append(primary_scan)
+                skipped.sort()
+                student["skipped_scan_pages"] = skipped
+            # Most recent preceding question page in empty-exam order.
+            attach_answer = next(
+                (p for p in reversed(content_pages) if p < answer_label),
+                None,
+            )
+            if attach_answer is None:
+                continue
+            attach_call = next(
+                (c for c in student["calls"] if c["answer_label"] == attach_answer),
+                None,
+            )
+            if attach_call is None:
+                continue
+            if primary_scan in attach_call["extra_scan_pages"]:
+                continue
+            attach_call["extra_scan_pages"].append(primary_scan)
+            attach_call["extra_sources"].append("continuation")
+            attach_call["scan_pages"] = (
+                [attach_call["primary_scan_page"]] + attach_call["extra_scan_pages"]
+            )
+            continuation_refs.append({
+                "student_name": student["student_name"],
+                "scan_page": primary_scan,
+                "answer_label": answer_label,
+                "page_type": page_type,
+                "attached_to_answer_label": attach_answer,
+                "attached_to_scan_page": attach_call["primary_scan_page"],
+            })
+    return continuation_refs
 
 
 # ---------------------------------------------------------------------------
@@ -593,7 +644,7 @@ def iter_marking_calls(
     raw list provides the per-student pixel-level metadata.
 
     *extra_sources* is index-aligned with *extra_scan_pages* — entry ``i``
-    names the detector that contributed page ``i`` (e.g. ``"handwriting"``,
+    names the detector that contributed page ``i`` (e.g. ``"continuation"``,
     ``"cross_page_parent_9"``, ``"cross_page_fig_1.1"``). Consumers can use
     this to render per-call provenance without re-walking the register.
 
@@ -628,7 +679,7 @@ def iter_marking_calls(
 
 
 # ---------------------------------------------------------------------------
-# Step-19 terminal display
+# Step-21 terminal display
 # ---------------------------------------------------------------------------
 
 def _pretty_source_label(
@@ -640,14 +691,16 @@ def _pretty_source_label(
 ) -> str | None:
     """Resolve an ``extra_sources`` string to a human-readable display label.
 
-    Returns ``None`` for sources that did not come from step 21 (e.g. step
-    18's ``"handwriting"`` extras) — callers filter those out before
-    rendering, so step 21's terminal output stays scoped to step 21's work.
+    Returns ``None`` for sources outside the step-21 vocabulary; callers
+    filter those out before rendering. The step-21 sources are
+    ``"continuation"``, ``"cross_page_fig_*"``, and ``"cross_page_parent_*"``.
 
     *compact* picks the format for inline use in streaming log lines:
     ``"Q9 p.8"`` / ``"Fig. 1.1 p.2"`` instead of the default
     ``"Q9 (page 8)"`` / ``"Fig. 1.1 (page 2)"``.
     """
+    if source == "continuation":
+        return "continuation" if compact else "continuation page"
     if source.startswith("cross_page_fig_"):
         label = source[len("cross_page_fig_"):]
         ref = next((r for r in figure_refs if r["figure_label"] == label), None)
@@ -666,22 +719,25 @@ def render_cross_page_step_summary(
     figure_refs: list[dict],
     parent_refs: list[dict],
     register: dict,
+    continuation_refs: list[dict] | None = None,
     console: Any = None,
 ) -> None:
-    """Render step-19 detail tables to the terminal (no-op when no detections).
+    """Render step-21 detail tables to the terminal (no-op when no detections).
 
     Two indented Rich tables, both styled to match :func:`print_register_summary`:
 
-    1. **Detected references** — combined figure + parent rows with a
-       ``Type`` column. Sorted figures-first, then by source page.
+    1. **Detected references** — combined continuation + figure + parent rows
+       with a ``Type`` column. Sorted continuations first (by student),
+       then figures, then parents.
     2. **Calls augmented** — one row per ``(student, call)`` whose call has
-       at least one step-19 source. Multiple step-19 sources on the same
+       at least one step-21 source. Multiple step-21 sources on the same
        call are joined in the "Extras added" cell.
 
     Each table is skipped when its data is empty, so the no-detection case
     produces no output and the caller's ``ok_line`` summary stands alone.
     """
-    if not figure_refs and not parent_refs:
+    continuation_refs = continuation_refs or []
+    if not figure_refs and not parent_refs and not continuation_refs:
         return
 
     from rich import box
@@ -694,6 +750,12 @@ def render_cross_page_step_summary(
 
     # ── Detected references table ──────────────────────────────────────────
     refs_rows: list[tuple[str, str, str]] = []
+    for r in continuation_refs:
+        refs_rows.append((
+            "continuation",
+            f"{r['student_name']} scan p.{r['scan_page']} ({r['page_type']})",
+            f"attached to answer p.{r['attached_to_answer_label']}",
+        ))
     for r in figure_refs:
         refs_rows.append((
             "figure",
@@ -727,6 +789,8 @@ def render_cross_page_step_summary(
         console.print()
         console.print(
             f"    [dim]Detected references — "
+            f"{len(continuation_refs)} continuation"
+            f"{'s' if len(continuation_refs) != 1 else ''}, "
             f"{len(figure_refs)} figure{'s' if len(figure_refs) != 1 else ''}, "
             f"{len(parent_refs)} parent{'s' if len(parent_refs) != 1 else ''}[/]"
         )
@@ -834,7 +898,7 @@ def print_register_summary(
     table.add_column("Student", justify="left")
     table.add_column("Calls", justify="right")
     table.add_column("Pages", justify="right")
-    table.add_column("+HW", justify="right")
+    table.add_column("+Cont", justify="right")
     table.add_column("Cross-page", justify="right")
 
     for s in sorted(students, key=lambda x: _first_primary(x)):
@@ -847,9 +911,9 @@ def print_register_summary(
             if min(primaries) != max(primaries)
             else str(primaries[0])
         )
-        hw_count = sum(
+        cont_count = sum(
             1 for c in calls
-            if any(src == "handwriting" for src in c.get("extra_sources") or [])
+            if any(src == "continuation" for src in c.get("extra_sources") or [])
         )
         cp_count = sum(
             1 for c in calls
@@ -862,7 +926,7 @@ def print_register_summary(
             s["student_name"],
             str(len(calls)),
             page_range,
-            str(hw_count),
+            str(cont_count),
             str(cp_count),
         )
 

@@ -133,8 +133,9 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     for paths in [
         (resume_dir / "cleaned_scan.pdf",                        resume_dir / "07_deskew" / "cleaned_scan.pdf",          resume_dir / "7_cleaned_scan.pdf"),
         (resume_dir / "03_read_student_list" / "students.json",  resume_dir / "3_students.json"),
-        # Student list — new (15_) and legacy (14_, 12_, 11_, 8_) locations.
-        (resume_dir / "15_student_names" / "exam_student_list.json",
+        # Student list — new (16_) and legacy (15_, 14_, 12_, 11_, 8_) locations.
+        (resume_dir / "16_student_names" / "exam_student_list.json",
+         resume_dir / "15_student_names" / "exam_student_list.json",
          resume_dir / "14_student_names" / "exam_student_list.json",
          resume_dir / "12_student_names" / "exam_student_list.json",
          resume_dir / "11_student_names" / "exam_student_list.json",

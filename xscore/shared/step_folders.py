@@ -34,11 +34,11 @@ GEOMETRY_DIR           = "12_exam_geometry"
 DETECT_SUBJECT_DIR     = "13_detect_subject"
 
 # Per-page validation.
-HANDWRITING_DIR        = "14_student_handwriting"
-STUDENT_NAMES_DIR      = "15_student_names"
-PAGE_ORDER_DIR         = "16_page_order"
-EXAM_BLANK_DIR         = "17_exam_blank_detection"
-BUILD_REGISTER_DIR     = "18_build_marking_register"
+EMPTY_EXAM_CLASSIFY_DIR = "14_empty_exam_classification"
+HANDWRITING_DIR         = "15_student_handwriting"
+STUDENT_NAMES_DIR       = "16_student_names"
+PAGE_ORDER_DIR          = "17_page_order"
+BUILD_REGISTER_DIR      = "18_build_marking_register"
 
 # Empty-exam parse (question numbers + per-question text/options).
 EXTRACT_QUESTION_NUMBERS_DIR = "19_extract_exam_question_numbers"

@@ -1,26 +1,25 @@
-"""Steps 14 + 17: check student scans for handwriting, and detect blank pages in the empty exam.
+"""Steps 14 + 15: classify empty-exam pages, then check student scans for handwriting.
 
-Step 14 (student_handwriting_check): vision LLM call per (student × answer page).
-Renders scan pages as JPEGs and checks for student handwriting. Under
-``HANDWRITING_CHECK_WIDE=1`` (default) every answer page is checked; under
-``=0`` only step-17 blank pages are checked.
-Writes ``14_student_handwriting/handwriting.json``.
+Step 14 (classify_empty_exam_pages): vision LLM call per empty-exam page. Picks
+a ``page_type`` from the closed vocabulary
+{cover|instruction|question|blank|writing-space} and reads the printed page
+number. Writes ``14_empty_exam_classification/empty_exam_classifications.json``.
 
-Step 17 (exam_blank_detection): text-only LLM call. Reads every page's extracted
-text from the empty exam PDF and identifies which pages are blank (no question text,
-only writing lines or "BLANK PAGE" heading). Writes
-``17_exam_blank_detection/blank_exam_pages.json``.
+Step 15 (student_handwriting_check): vision LLM call per scan page. Matches
+each scan page against the catalog produced by step 14 (page type + page
+number, plus an N+3 overflow buffer) and detects student handwriting in the
+same call. Writes ``15_student_handwriting/handwriting.json``.
 
 Both functions emit per-page / per-task progress lines via the terminal_ui
-``info_line`` / ``ok_line`` / ``warn_line`` helpers (mirrors step 15's
-``_ocr_and_match`` idiom). Policy stays at the dispatcher: INCONCLUSIVE
-returns from these functions; the dispatcher in ``xscore/steps/geometry.py``
-decides warn-vs-SystemExit based on the per-step ``*_STRICT`` env var.
+``info_line`` / ``ok_line`` / ``warn_line`` helpers. Policy stays at the
+dispatcher: INCONCLUSIVE returns from these functions; the dispatcher in
+``xscore/steps/geometry.py`` decides warn-vs-SystemExit based on the per-step
+``*_STRICT`` env var.
 
-Pages where ``_has_handwriting`` could not be determined are **omitted** from
-``blank_scan_pages`` and ``pages_without_handwriting`` (so the consumer in
-``xscore/marking/marking_page_register.py`` is unaffected) and listed under a
-sibling ``inconclusive_pages`` field per student.
+Pages where the handwriting flag could not be determined are listed under a
+sibling ``inconclusive_pages`` field in the step-15 artifact so the
+register-builder in ``xscore/marking/marking_page_register.py`` can omit them
+from skip / extras decisions.
 """
 
 from __future__ import annotations
@@ -44,13 +43,7 @@ class BlankCheckStatus(Enum):
 from eXercise.api_retry import retry_api_call
 
 
-# ─────────── Text + image extraction ─────────────────────────────────────────
-
-def _exam_page_texts(exam_pdf: Path) -> list[str]:
-    import fitz
-    with fitz.open(str(exam_pdf)) as doc:
-        return [doc[i].get_text().strip() for i in range(doc.page_count)]
-
+# ─────────── Image extraction ───────────────────────────────────────────────
 
 HANDWRITING_JPEG_DPI = 150
 HANDWRITING_JPEG_QUALITY = 75  # PyMuPDF default for tobytes("jpeg") — explicit so it's announceable
@@ -71,7 +64,7 @@ def _render_page_jpeg(
 def _extract_page_as_pdf_bytes(pdf_path: Path, page_1based: int) -> bytes:
     """Extract one page out of *pdf_path* as a self-contained single-page PDF.
 
-    Used by the phase-A empty-exam classifier on the Gemini path so each
+    Used by the step-14 empty-exam classifier on the Gemini path so each
     parallel call sees exactly one page (rather than the whole exam) without
     rasterizing the vector PDF first.
     """
@@ -117,38 +110,6 @@ def _build_client_state(model_id: str) -> _ClientState | str:
 
 # ─────────── Response parsers ────────────────────────────────────────────────
 
-def _parse_blank_pages(raw: str) -> set[int] | None:
-    """Parse blank-page list. Returns ``set[int]`` on success (possibly empty),
-    or ``None`` when the response is malformed / unusable.
-
-    Accepts either Gemini ``[1, 2, 3]`` or OA ``{"blank_pages": [...]}`` shapes.
-    An empty result list is *legitimate* (means "no blanks found") and returns
-    ``set()``; only structural failures return ``None``.
-    """
-    if not raw:
-        return None
-    try:
-        data = json.loads(raw)
-    except (json.JSONDecodeError, ValueError):
-        return None
-    if isinstance(data, list):
-        pages = data
-    elif isinstance(data, dict):
-        pages = data.get("blank_pages")
-        if pages is None:
-            pages = data.get("pages")
-        if pages is None:
-            return None
-    else:
-        return None
-    if not isinstance(pages, list):
-        return None
-    try:
-        return {int(p) for p in pages}
-    except (TypeError, ValueError):
-        return None
-
-
 def _coerce_conf(v) -> int | None:
     """Coerce a model-returned confidence to an int in [0, 10], or None on garbage."""
     if isinstance(v, bool):
@@ -166,7 +127,7 @@ def _coerce_conf(v) -> int | None:
 def _parse_empty_exam_class(
     raw: str,
 ) -> tuple[str | None, int | None, int | None, int | None, str]:
-    """Parse the phase-A empty-exam page-classification response.
+    """Parse the step-14 empty-exam page-classification response.
 
     Returns ``(page_type, page_number, conf_page_type, conf_page_number, problem)``.
     Fields parse independently — a malformed one does not poison the others.
@@ -216,7 +177,7 @@ def _parse_empty_exam_class(
 def _parse_scan_match(
     raw: str,
 ) -> tuple[str | None, int | str | None, bool | None, int | None, int | None, int | None, str]:
-    """Parse the phase-B scan-page matcher response.
+    """Parse the step-15 scan-page matcher response.
 
     Returns
     ``(page_type, page_number, has_handwriting, conf_page_type, conf_page_number,
@@ -275,142 +236,11 @@ def _parse_scan_match(
     return page_type, page_number, hw, conf_pt, conf_pn, conf_hw, problem
 
 
-# ─────────── Step 17: find blank pages in empty exam ─────────────────────────
-
-def find_blank_exam_pages(
-    state: _ClientState,
-    exam_texts: list[str],
-    model_id: str,
-    artifact_dir: Path | None,
-    *,
-    thinking_tokens: int | None = None,
-    max_tokens: int | None = None,
-) -> set[int] | None:
-    """One LLM text call to identify blank exam pages.
-
-    Returns ``set[int]`` of 1-based page numbers (possibly empty) on success;
-    ``None`` when the call could not be completed or the response was malformed.
-
-    The prompt includes the full candidate list so the model cannot hallucinate
-    out-of-range numbers. The parsed result is additionally clipped to the valid
-    set as a second layer of defence.
-    """
-    from xscore.shared.prompt_logger import save_prompt, save_response
-    from xscore.shared.exam_paths import (
-        artifact_blank_detection_txt_path,
-        artifact_exam_blank_prompt_path,
-    )
-    from xscore.prompts.loader import load_prompt
-
-    num_pages = len(exam_texts)
-    candidates = list(range(1, num_pages + 1))
-
-    page_lines: list[str] = []
-    for i, text in enumerate(exam_texts, 1):
-        page_lines += [f"Page {i}:", text or "(no printed text)", ""]
-    exam_pages_block = "\n".join(page_lines)
-
-    _, prompt = load_prompt(
-        "exam_blank_detection",
-        exam_pages_block=exam_pages_block,
-        num_pages=num_pages,
-        page_word="page" if num_pages == 1 else "pages",
-        candidates=candidates,
-    )
-    prompt = prompt.rstrip("\n")
-
-    if artifact_dir:
-        det_path = artifact_blank_detection_txt_path(artifact_dir)
-        det_path.parent.mkdir(parents=True, exist_ok=True)
-        det_path.write_text(prompt, encoding="utf-8")
-
-    save_path = (
-        artifact_exam_blank_prompt_path(artifact_dir, "blank_detection_exam")
-        if artifact_dir else None
-    )
-    save_prompt(save_path, model=model_id, messages=[{"role": "user", "content": prompt}])
-
-    try:
-        raw, thinking_text = retry_api_call(
-            lambda: _call_blank_detection(state, prompt, model_id, thinking_tokens, max_tokens),
-            label="Blank page detection (exam)",
-        )
-    except Exception:
-        return None
-    save_response(save_path, raw, thinking=thinking_text)
-
-    result = _parse_blank_pages(raw)
-    if result is None:
-        return None
-    valid = set(range(1, num_pages + 1))
-    final = result & valid
-    try:
-        import json as _json
-        from xscore.shared.prompt_logger import save_output_data
-        save_output_data(
-            save_path,
-            _json.dumps({"blank_pages": sorted(final)}, indent=2),
-            ext="json",
-        )
-    except Exception:  # noqa: BLE001
-        pass
-    return final
-
-
-def _call_blank_detection(
-    state: _ClientState,
-    prompt: str,
-    model_id: str,
-    thinking_tokens: int | None,
-    max_tokens: int | None,
-) -> tuple[str, str]:
-    if model_id.startswith("gemini"):
-        from google.genai import types as gai_types
-        from eXercise.ai_client import build_gemini_thinking_config, split_gemini_response
-        # Default thinking off when no explicit budget — matches the
-        # OpenAI-compat branch below (build_thinking_kwargs disables thinking
-        # for thinking_tokens=None) and avoids MAX_TOKENS truncation on
-        # thinking-by-default Gemini models with the small 256-token budget.
-        cfg_kwargs: dict = {
-            "max_output_tokens": max_tokens or 256,
-            "response_mime_type": "application/json",
-            "response_schema": list[int],
-            "thinking_config": build_gemini_thinking_config(
-                thinking_tokens if thinking_tokens is not None else 0
-            ),
-        }
-        resp = state.gai.models.generate_content(
-            model=model_id,
-            contents=[gai_types.Part.from_text(text=prompt)],
-            config=gai_types.GenerateContentConfig(**cfg_kwargs),
-        )
-        return split_gemini_response(resp)
-    from eXercise.ai_client import build_completion_kwargs, collect_streamed_response
-    use_stream, kw = build_completion_kwargs(state.provider, thinking_tokens, max_tokens or 256)
-    # The exam_blank_detection.md prompt already requests `{"blank_pages": [...]}`
-    # since v2; the previous OA-only suffix is redundant.
-    msgs = [{"role": "user", "content": prompt}]
-    if use_stream:
-        _th: list[str] = []
-        stream = state.oa.chat.completions.create(model=model_id, messages=msgs, stream=True, **kw)
-        return collect_streamed_response(stream, thinking_out=_th), "".join(_th)
-    try:
-        resp = state.oa.chat.completions.create(
-            model=model_id, messages=msgs,
-            response_format={"type": "json_object"}, **kw,
-        )
-    except Exception:  # noqa: BLE001
-        resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw)
-    raw = resp.choices[0].message.content or ""
-    thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
-    return raw, thinking_text
-
-
-# ─────────── Step 14 phase A: classify each empty-exam page ──────────────────
+# ─────────── Step 14: classify each empty-exam page ──────────────────────────
 
 
 class _EmptyExamPageClassResp(BaseModel):
-    """Structured-output schema for the phase-A empty-exam classifier (Gemini path).
+    """Structured-output schema for the step-14 empty-exam classifier (Gemini path).
 
     Mirrors ``empty_exam_page_classification.md`` v1's return shape.
     """
@@ -430,7 +260,7 @@ def _call_empty_exam_class(
     *,
     max_tokens: int,
 ) -> tuple[str, str]:
-    """Single-page vision call for phase A. Sends native PDF on Gemini, JPEG elsewhere."""
+    """Single-page vision call for step 14. Sends native PDF on Gemini, JPEG elsewhere."""
     if model_id.startswith("gemini"):
         from google.genai import types as gai_types
         from eXercise.ai_client import build_gemini_thinking_config, split_gemini_response
@@ -484,7 +314,7 @@ def _classify_empty_page(
     *,
     max_tokens: int,
 ) -> tuple[str | None, int | None, int | None, int | None, str]:
-    """Phase-A per-page call. Returns (page_type, page_number, conf_pt, conf_pn, problem).
+    """Step-14 per-page call. Returns (page_type, page_number, conf_pt, conf_pn, problem).
 
     Each field is ``None`` (or ``""`` for ``problem``) if the call failed or the
     field was missing/malformed; fields parse independently.
@@ -523,11 +353,11 @@ def _classify_empty_page(
     return _parse_empty_exam_class(raw)
 
 
-# ─────────── Step 14 phase B: per-scan-page matcher ──────────────────────────
+# ─────────── Step 15: per-scan-page matcher ─────────────────────────────────
 
 
 class _ScanPageMatchResp(BaseModel):
-    """Structured-output schema for the phase-B scan-page matcher (Gemini path).
+    """Structured-output schema for the step-15 scan-page matcher (Gemini path).
 
     ``page_number`` is a string here (rather than a union) because the Gemini
     structured-output schema rejects unions. The OpenAI-compat path reads the
@@ -601,7 +431,7 @@ def _match_scan_page(
     *,
     max_tokens: int,
 ) -> tuple[str | None, int | str | None, bool | None, int | None, int | None, int | None, str]:
-    """Phase-B per-scan-page call. Returns the parsed
+    """Step-15 per-scan-page call. Returns the parsed
     ``(page_type, page_number, has_handwriting, conf_pt, conf_pn, conf_hw, problem)``
     tuple; all components are independent and may be ``None`` on parse failure.
     """
@@ -632,64 +462,6 @@ def _match_scan_page(
 
 # ─────────── Public entry points ──────────────────────────────────────────────
 
-def check_exam_blank_pages(
-    exam_pdf: Path,
-    artifact_dir: Path | None = None,
-) -> tuple[BlankCheckStatus, str | None]:
-    """Step 14: detect blank pages in the empty exam PDF (text-only LLM).
-
-    Writes ``14_exam_blank_detection/blank_exam_pages.json`` to artifact_dir.
-    Emits ``Checking N empty-exam pages …`` and a ``✓ Page i/N · {blank|content}``
-    line per page. Returns ``(BlankCheckStatus, message)``; never raises
-    SystemExit (the dispatcher owns warn-vs-SystemExit policy).
-    """
-    from eXercise.ai_client import parse_model_spec
-    from xscore.shared.exam_paths import artifact_exam_blank_json_path
-    from xscore.shared.terminal_ui import info_line, ok_line
-
-    model_id, thinking, max_tok = parse_model_spec(
-        os.environ.get("EXAM_BLANK_DETECTION_MODEL", "qwen3.6-flash")
-    )
-
-    client_or_err = _build_client_state(model_id)
-    if isinstance(client_or_err, str):
-        return BlankCheckStatus.INCONCLUSIVE, client_or_err
-    state = client_or_err
-
-    exam_texts = _exam_page_texts(exam_pdf)
-    n_pages = len(exam_texts)
-    info_line(f"Checking {n_pages} empty-exam pages for blanks …")
-    blank_exam_pages = find_blank_exam_pages(
-        state, exam_texts, model_id, artifact_dir,
-        thinking_tokens=thinking, max_tokens=max_tok,
-    )
-    if blank_exam_pages is None:
-        return (
-            BlankCheckStatus.INCONCLUSIVE,
-            "could not determine which exam pages are blank "
-            "(model call failed or returned malformed response)",
-        )
-
-    width = len(str(n_pages))
-    for i in range(1, n_pages + 1):
-        label = "blank" if i in blank_exam_pages else "content"
-        ok_line(f"Page {i:>{width}d}/{n_pages}  ·  {label}")
-
-    result_doc = {"blank_exam_pages": sorted(blank_exam_pages)}
-    if artifact_dir:
-        bp_path = artifact_exam_blank_json_path(artifact_dir)
-        bp_path.parent.mkdir(parents=True, exist_ok=True)
-        bp_path.write_text(json.dumps(result_doc, indent=2), encoding="utf-8")
-
-    if not blank_exam_pages:
-        return BlankCheckStatus.PASSED, "no blank pages found in empty exam"
-    n = len(blank_exam_pages)
-    pages_label = (
-        f"exam page{'s' if n != 1 else ''} {sorted(blank_exam_pages)} "
-        f"{'are' if n != 1 else 'is'} blank"
-    )
-    return BlankCheckStatus.PASSED, pages_label
-
 
 PAGE_TYPE_VOCABULARY: tuple[str, ...] = (
     "cover page",
@@ -708,22 +480,19 @@ def classify_empty_exam_pages(
     thinking_tokens: int | None = None,
     max_tokens: int | None = None,
 ) -> tuple[BlankCheckStatus, str | None, list[dict]]:
-    """Step 14 phase A: vision-classify each empty-exam page in parallel.
+    """Step 14: vision-classify each empty-exam page in parallel.
 
     For each page in *empty_exam_pdf*, asks the vision LLM to pick a page type
-    (cover/instruction/question/blank/writing-space) and read its printed page number. The
-    Gemini path sends each page as a single-page native PDF slice; non-Gemini
-    models fall back to rasterized JPEG.
+    (cover/instruction/question/blank/writing-space) and read its printed page
+    number. The Gemini path sends each page as a single-page native PDF slice;
+    non-Gemini models fall back to rasterized JPEG.
 
     Returns ``(status, message, classifications)``. The classifications list is
     one dict per page (1-based ``page`` field). Per-page artifacts (the slice
     PDF or JPEG, plus prompt-logger sidecars) are written to
-    ``14_student_handwriting/empty_exam_pages/``.
+    ``14_empty_exam_classification/empty_exam_pages/``.
     """
-    from xscore.shared.exam_paths import (
-        artifact_handwriting_empty_exam_dir,
-        artifact_handwriting_prompt_path,
-    )
+    from xscore.shared.exam_paths import artifact_empty_exam_pages_dir
     from xscore.shared.terminal_ui import format_duration, ok_line, warn_line
 
     client_or_err = _build_client_state(model_id)
@@ -739,7 +508,7 @@ def classify_empty_exam_pages(
     page_width = max(1, len(str(n_pages)))
 
     if artifact_dir is not None:
-        out_dir = artifact_handwriting_empty_exam_dir(artifact_dir)
+        out_dir = artifact_empty_exam_pages_dir(artifact_dir)
         out_dir.mkdir(parents=True, exist_ok=True)
     else:
         out_dir = None
@@ -761,13 +530,9 @@ def classify_empty_exam_pages(
             if out_dir is not None:
                 (out_dir / f"page_{page:03d}.jpg").write_bytes(jpeg_bytes)
         save_path = (
-            artifact_handwriting_prompt_path(artifact_dir, f"empty_page_{page:03d}")
-            if artifact_dir is not None else None
+            out_dir / f"empty_page_{page:03d}_prompt.txt"
+            if out_dir is not None else None
         )
-        # Route the empty-exam call's prompt sidecar into its own subdir so it
-        # sits next to the per-page PDF/JPEG rather than in the step root.
-        if save_path is not None and out_dir is not None:
-            save_path = out_dir / save_path.name
         t0 = time.perf_counter()
         page_type, page_number, conf_pt, conf_pn, problem = _classify_empty_page(
             state, model_id, pdf_bytes, jpeg_bytes, save_path, max_tokens=max_tok,
@@ -814,7 +579,7 @@ def classify_empty_exam_pages(
                     problem_suffix = f"  ·  {p_short}"
                 line_fn(
                     f"Page {pg:>{page_width}d}/{n_pages}"
-                    f"  ·  {pt_label:<16}  ·  pg {pn_label:<5}"
+                    f"  ·  {pt_label:<18}  ·  pg {pn_label:<5}"
                     f"  ·  {conf_str:<7}  ·  {d}{problem_suffix}"
                 )
                 classifications[next_idx] = {
@@ -842,7 +607,7 @@ def classify_empty_exam_pages(
     return BlankCheckStatus.PASSED, f"{n_pages} pages classified", classifications
 
 
-def _build_phase_b_prompt(
+def _build_match_prompt(
     page_type_options: list[str],
     page_number_options: list[int],
     n_max_seen: int,
@@ -875,17 +640,17 @@ def check_student_handwriting(
     cover_offset: int = 0,
     empty_exam_classifications: list[dict] | None = None,
 ) -> tuple[BlankCheckStatus, str | None]:
-    """Step 14 phase B: per-scan-page closed-vocabulary matcher.
+    """Step 15: per-scan-page closed-vocabulary matcher.
 
-    Given the catalog produced by :func:`classify_empty_exam_pages`, asks the
-    vision LLM to MATCH each scan page against one of the known empty-exam
-    page types and one of the known empty-exam page numbers (plus an N+3
-    overflow buffer). Also detects student handwriting in the same call so
-    step 18's marking_page_register stays unchanged.
+    Given the catalog produced by step 14's :func:`classify_empty_exam_pages`,
+    asks the vision LLM to MATCH each scan page against one of the known
+    empty-exam page types and one of the known empty-exam page numbers (plus
+    an N+3 overflow buffer). Also detects student handwriting in the same
+    call.
 
-    Writes ``14_student_handwriting/handwriting.json`` containing both the
-    phase-A ``empty_exam_pages`` block and the phase-B ``scan_pages`` block.
-    Returns ``(BlankCheckStatus, message)``; never raises (dispatcher policy).
+    Writes ``15_student_handwriting/handwriting.json`` containing the
+    ``scan_pages`` block. Returns ``(BlankCheckStatus, message)``; never
+    raises (dispatcher policy).
     """
     from eXercise.ai_client import parse_model_spec
     from xscore.shared.exam_paths import (
@@ -916,13 +681,13 @@ def check_student_handwriting(
         return BlankCheckStatus.INCONCLUSIVE, client_or_err
     state = client_or_err
 
-    # Build closed vocabularies from phase A's catalog.
+    # Build closed vocabularies from step 14's catalog.
     empty_exam_classifications = empty_exam_classifications or []
     page_type_set = {
         p["page_type"] for p in empty_exam_classifications
         if p.get("page_type")
     }
-    page_type_set.add("cover page")  # always available even if phase A missed it
+    page_type_set.add("cover page")  # always available even if step 14 missed it
     page_type_options = sorted(page_type_set)
 
     page_numbers_seen = sorted({
@@ -933,7 +698,7 @@ def check_student_handwriting(
     page_number_options = page_numbers_seen + [n_max + 1, n_max + 2, n_max + 3]
     page_number_options_set: set[int] = set(page_number_options)
 
-    prompt_text = _build_phase_b_prompt(page_type_options, page_number_options, n_max)
+    prompt_text = _build_match_prompt(page_type_options, page_number_options, n_max)
     max_tok = max_tok_env or 192
 
     import fitz
@@ -967,7 +732,6 @@ def check_student_handwriting(
     if not tasks:
         artifact = {
             "metadata": metadata,
-            "empty_exam_pages": empty_exam_classifications,
             "scan_pages": [],
             "inconclusive_pages": [],
         }
@@ -1083,9 +847,9 @@ def check_student_handwriting(
         pt_label, pn_label, match = _match_summary(exam_page, page_type, page_number)
         # Handwriting label
         if hw is None:
-            hw_label = "? hw=?    "
+            hw_label = "?  hw=?   "
         elif hw:
-            hw_label = "✓ hw      "
+            hw_label = "✓  hw     "
         else:
             hw_label = "x  no hw  "
         line_fn = warn_line if (match is False or problem) else ok_line
@@ -1098,7 +862,7 @@ def check_student_handwriting(
             problem_suffix = f"  ·  {p_short}"
         line_fn(
             f"Page {scan_page:>{page_width}d}/{scan_n_pages}"
-            f"  ·  {pt_label:<16}  ·  pg {pn_label:<5}  ·  {hw_label}"
+            f"  ·  {pt_label:<18}  ·  pg {pn_label:<5}  ·  {hw_label}"
             f"  ·  {conf_str:<7}  ·  {dur}{problem_suffix}"
         )
 
@@ -1152,7 +916,7 @@ def check_student_handwriting(
                 problem_suffix = f"  ·  {p_short}"
             line_fn(
                 f"  ↳ recheck page {sp:>{page_width}d}  ·  {status}"
-                f"  ·  {pt_label:<16}  ·  pg {pn_label:<5}  ·  {conf_str}  ·  {dur}{problem_suffix}"
+                f"  ·  {pt_label:<18}  ·  pg {pn_label:<5}  ·  {conf_str}  ·  {dur}{problem_suffix}"
             )
             results[i] = (sp, ep, pt, pn, h, c_pt, c_pn, c_hw, prob)
 
@@ -1189,7 +953,6 @@ def check_student_handwriting(
 
     artifact = {
         "metadata": metadata,
-        "empty_exam_pages": empty_exam_classifications,
         "scan_pages": scan_pages_out,
         "inconclusive_pages": inconclusive_pages,
     }

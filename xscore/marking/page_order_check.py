@@ -65,10 +65,10 @@ def check_page_order(
     page_assignments: list["PageAssignment"],
     artifact_dir: Path | None = None,
 ) -> PageOrderResult:
-    """Validate page order from step 14's per-page page-number detections.
+    """Validate page order from step 15's per-page page-number detections.
 
     Heuristic only — no LLM, no OCR. For each student, looks up the AI-detected
-    printed page number from ``14_student_handwriting/handwriting.json`` for
+    printed page number from ``15_student_handwriting/handwriting.json`` for
     every scan page they own, computes the expected sequence using
     ``cover_offset`` from the same metadata block, and bins per-page failures
     into wrong-order vs missing buckets.
@@ -98,7 +98,7 @@ def check_page_order(
             status=PageOrderStatus.INCONCLUSIVE,
             total_count=total,
             setup_error=(
-                "step 14 artifact not found (14_student_handwriting/handwriting.json); "
+                "step 15 artifact not found (15_student_handwriting/handwriting.json); "
                 "run student_handwriting_check first"
             ),
         )
