@@ -724,17 +724,20 @@ def render_cross_page_step_summary(
 ) -> None:
     """Render step-21 detail tables to the terminal (no-op when no detections).
 
-    Two indented Rich tables, both styled to match :func:`print_register_summary`:
+    Three indented Rich tables, all styled to match :func:`print_register_summary`.
+    Per-student data and exam-structure data are split into separate tables
+    so the columns mean a single thing per table:
 
-    1. **Detected references** — combined continuation + figure + parent rows
-       with a ``Type`` column. Sorted continuations first (by student),
-       then figures, then parents.
-    2. **Calls augmented** — one row per ``(student, call)`` whose call has
+    1. **Continuation pages** — per-student, one row per continuation
+       attachment (Student / Scan page / Page type / Attached to).
+       Skipped when ``continuation_refs`` is empty.
+    2. **Exam-structure references** — figures + parents combined under
+       a ``Type`` column (Type / Source / Target). The header line omits
+       zero-count types. Skipped when both ``figure_refs`` and
+       ``parent_refs`` are empty.
+    3. **Calls augmented** — one row per ``(student, call)`` whose call has
        at least one step-21 source. Multiple step-21 sources on the same
        call are joined in the "Extras added" cell.
-
-    Each table is skipped when its data is empty, so the no-detection case
-    produces no output and the caller's ``ok_line`` summary stands alone.
     """
     continuation_refs = continuation_refs or []
     if not figure_refs and not parent_refs and not continuation_refs:
@@ -748,16 +751,37 @@ def render_cross_page_step_summary(
         from xscore.shared.terminal_ui import get_console
         console = get_console()
 
-    # ── Detected references table ──────────────────────────────────────────
-    refs_rows: list[tuple[str, str, str]] = []
-    for r in continuation_refs:
-        refs_rows.append((
-            "continuation",
-            f"{r['student_name']} scan p.{r['scan_page']} ({r['page_type']})",
-            f"attached to answer p.{r['attached_to_answer_label']}",
-        ))
+    # ── Continuation pages table (per-student) ────────────────────────────
+    if continuation_refs:
+        cont_table = Table(
+            box=box.HORIZONTALS,
+            header_style="dim",
+            show_edge=False,
+            pad_edge=False,
+        )
+        cont_table.add_column("Student", justify="left")
+        cont_table.add_column("Scan page", justify="left")
+        cont_table.add_column("Page type", justify="left")
+        cont_table.add_column("Attached to", justify="left")
+        for r in continuation_refs:
+            cont_table.add_row(
+                r["student_name"],
+                f"p.{r['scan_page']}",
+                r["page_type"],
+                f"answer p.{r['attached_to_answer_label']}",
+            )
+
+        n_cont = len(continuation_refs)
+        console.print()
+        console.print(
+            f"    [dim]Continuation pages — {n_cont} attached[/]"
+        )
+        console.print(Padding(cont_table, (0, 0, 0, 4), expand=False))
+
+    # ── Exam-structure references table (figures + parents) ───────────────
+    struct_rows: list[tuple[str, str, str]] = []
     for r in figure_refs:
-        refs_rows.append((
+        struct_rows.append((
             "figure",
             f"Fig. {r['figure_label']} (page {r['drawn_on_answer_label']})",
             "referenced on page "
@@ -767,34 +791,39 @@ def render_cross_page_step_summary(
         children = ", ".join(r["child_numbers"])
         child_pages = sorted(set(r["child_answer_labels"]))
         page_word = "page" if len(child_pages) == 1 else "pages"
-        refs_rows.append((
+        struct_rows.append((
             "parent",
             f"Q{r['parent_number']} (page {r['parent_answer_label']})",
             f"{children} ({page_word} {', '.join(str(p) for p in child_pages)})",
         ))
 
-    if refs_rows:
-        refs_table = Table(
+    if struct_rows:
+        struct_table = Table(
             box=box.HORIZONTALS,
             header_style="dim",
             show_edge=False,
             pad_edge=False,
         )
-        refs_table.add_column("Type", justify="left")
-        refs_table.add_column("Source", justify="left")
-        refs_table.add_column("Target", justify="left")
-        for row in refs_rows:
-            refs_table.add_row(*row)
+        struct_table.add_column("Type", justify="left")
+        struct_table.add_column("Source", justify="left")
+        struct_table.add_column("Target", justify="left")
+        for row in struct_rows:
+            struct_table.add_row(*row)
+
+        n_fig = len(figure_refs)
+        n_par = len(parent_refs)
+        parts = []
+        if n_fig:
+            parts.append(f"{n_fig} figure{'s' if n_fig != 1 else ''}")
+        if n_par:
+            parts.append(f"{n_par} parent{'s' if n_par != 1 else ''}")
+        summary = ", ".join(parts)
 
         console.print()
         console.print(
-            f"    [dim]Detected references — "
-            f"{len(continuation_refs)} continuation"
-            f"{'s' if len(continuation_refs) != 1 else ''}, "
-            f"{len(figure_refs)} figure{'s' if len(figure_refs) != 1 else ''}, "
-            f"{len(parent_refs)} parent{'s' if len(parent_refs) != 1 else ''}[/]"
+            f"    [dim]Exam-structure references — {summary}[/]"
         )
-        console.print(Padding(refs_table, (0, 0, 0, 4), expand=False))
+        console.print(Padding(struct_table, (0, 0, 0, 4), expand=False))
 
     # ── Calls augmented table ──────────────────────────────────────────────
     aug_rows: list[tuple[str, str, str]] = []
