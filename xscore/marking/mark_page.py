@@ -9,7 +9,10 @@ import time
 from collections import defaultdict
 from collections.abc import Callable
 from pathlib import Path
-from typing import Any
+from typing import Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import httpx
 
 from eXercise.ai_client import collect_streamed_response
 from eXercise.api_retry import retry_api_call
@@ -192,6 +195,7 @@ def _mark_page(
     is_cs: bool = False,
     has_student_answers: bool = False,
     is_all_mcq: bool = False,
+    request_timeout: httpx.Timeout | None = None,
 ) -> tuple[dict, list[dict]]:
     """Vision call to fill in a marking blueprint for one scan page.
 
@@ -210,6 +214,10 @@ def _mark_page(
     *is_all_mcq* — when True, swap in the short ``ai_marking_mcq`` prompt
     (no FIELD_RULES, no CONTINUATION, no CODE_FORMATTING) since MCQ marks
     are auto-computed and the AI's role is verify-only.
+    *request_timeout* — per-call HTTP timeout forwarded to the OpenAI client.
+    The ``read`` component fires per streaming chunk, so a stalled upstream
+    raises ``httpx.ReadTimeout`` mid-iteration and triggers the standard
+    retry envelope. None (default) means no override (SDK default applies).
     """
     if fmt is None:
         fmt = MarkingFormat()
@@ -283,13 +291,15 @@ def _mark_page(
                 cache_hit = True
                 raw_from_cache = _cached_raw
 
+    _call_kw: dict = {"timeout": request_timeout} if request_timeout is not None else {}
+
     def _do_call() -> tuple[str, str]:
         if use_stream:
             # Stream consumed inside the closure so a mid-stream failure retries.
             _th: list[str] = []
-            _stream = client.chat.completions.create(**kwargs, stream=True)
+            _stream = client.chat.completions.create(**kwargs, stream=True, **_call_kw)
             return collect_streamed_response(_stream, thinking_out=_th), "".join(_th)
-        _resp = client.chat.completions.create(**kwargs)
+        _resp = client.chat.completions.create(**kwargs, **_call_kw)
         return (
             _resp.choices[0].message.content or "",
             getattr(_resp.choices[0].message, "reasoning_content", "") or "",
@@ -350,9 +360,9 @@ def _mark_page(
                 def _do_call_reparse() -> tuple[str, str]:
                     if use_stream:
                         _th: list[str] = []
-                        _stream = client.chat.completions.create(**_reparse_kwargs, stream=True)
+                        _stream = client.chat.completions.create(**_reparse_kwargs, stream=True, **_call_kw)
                         return collect_streamed_response(_stream, thinking_out=_th), "".join(_th)
-                    _resp = client.chat.completions.create(**_reparse_kwargs)
+                    _resp = client.chat.completions.create(**_reparse_kwargs, **_call_kw)
                     return (
                         _resp.choices[0].message.content or "",
                         getattr(_resp.choices[0].message, "reasoning_content", "") or "",
@@ -400,6 +410,7 @@ def _mark_page(
             retry_raw, _retry_thinking = _do_retry_call(
                 client, model_id, kwargs, fmt, slim_questions, unfilled,
                 _page_num, _layout, prompt_save_path, use_stream,
+                request_timeout=request_timeout,
             )
             still_unfilled: list[str] = list(unfilled)
             if retry_raw:
@@ -683,6 +694,7 @@ def _do_retry_call(
     layout: dict,
     prompt_save_path: Path | None,
     use_stream: bool,
+    request_timeout: httpx.Timeout | None = None,
 ) -> tuple[str, str]:
     """Single follow-up call that re-asks the marking AI for the missing
     questions, with a slim blueprint scoped to just those entries.
@@ -741,13 +753,14 @@ def _do_retry_call(
         else:
             retry_prompt_path = None
 
+        _call_kw: dict = {"timeout": request_timeout} if request_timeout is not None else {}
         if use_stream:
             _th: list[str] = []
-            _stream = client.chat.completions.create(**retry_kwargs, stream=True)
+            _stream = client.chat.completions.create(**retry_kwargs, stream=True, **_call_kw)
             raw = collect_streamed_response(_stream, thinking_out=_th)
             thinking_text = "".join(_th)
         else:
-            _resp = client.chat.completions.create(**retry_kwargs)
+            _resp = client.chat.completions.create(**retry_kwargs, **_call_kw)
             raw = _resp.choices[0].message.content or ""
             thinking_text = (
                 getattr(_resp.choices[0].message, "reasoning_content", "") or ""

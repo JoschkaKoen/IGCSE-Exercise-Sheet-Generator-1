@@ -26,6 +26,8 @@ from pathlib import Path
 from collections.abc import Callable
 from typing import Any
 
+import httpx
+
 from xscore.config import (
     GEMINI_MAX_OUTPUT_TOKENS,
     MARKING_MODEL_DEFAULT,
@@ -418,6 +420,26 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             f"integer — falling back to default {_default_workers}."
         )
         workers = _default_workers
+
+    _DEFAULT_MARKING_READ_TIMEOUT_S = 300.0
+    try:
+        _read_s = float(os.environ.get(
+            "MARKING_CALL_READ_TIMEOUT_S", str(_DEFAULT_MARKING_READ_TIMEOUT_S)
+        ))
+    except ValueError:
+        warn_line(
+            f"MARKING_CALL_READ_TIMEOUT_S={os.environ.get('MARKING_CALL_READ_TIMEOUT_S')!r} is not a "
+            f"number — falling back to default {_DEFAULT_MARKING_READ_TIMEOUT_S}s."
+        )
+        _read_s = _DEFAULT_MARKING_READ_TIMEOUT_S
+    # ≤ 0 means "do not enforce a timeout" — useful for debugging.
+    if _read_s > 0:
+        _marking_request_timeout: httpx.Timeout | None = httpx.Timeout(
+            connect=30.0, read=_read_s, write=30.0, pool=30.0,
+        )
+    else:
+        _marking_request_timeout = None
+
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []
 
@@ -713,6 +735,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     is_cs=_is_cs,
                     has_student_answers=_has_student_answers,
                     is_all_mcq=_is_all_mcq,
+                    request_timeout=_marking_request_timeout,
                 )
         except MarkingFailure as mf:
             filled = blueprint.copy()
