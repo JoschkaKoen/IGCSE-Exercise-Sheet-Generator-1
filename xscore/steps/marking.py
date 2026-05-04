@@ -117,10 +117,15 @@ def ai_marking(ctx: _Ctx) -> None:
         encoding="utf-8",
     )
     if corrections:
+        blank_line()
         info_line(f"MCQ corrections ({len(corrections)}):")
         _w = max(len(str(c.get("student", ""))) for c in corrections)
+        _wp = max(len(str(c.get("page", ""))) for c in corrections)
+        _ws = max(len(str(c.get("scan_page", ""))) for c in corrections)
         for c in corrections:
             info_line(
-                f"  {str(c.get('student', '')):<{_w}}  p{c.get('page'):>2}  "
+                f"  {str(c.get('student', '')):<{_w}}  "
+                f"ans p{str(c.get('page', '')):>{_wp}}  "
+                f"scan p{str(c.get('scan_page', '')):>{_ws}}  "
                 f"Q{c.get('number')}: {c.get('from')} → {c.get('to')}"
             )

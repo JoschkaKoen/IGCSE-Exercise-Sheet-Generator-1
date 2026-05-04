@@ -781,17 +781,23 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         )
         # Tag corrections with student/page for the run-level aggregator and
         # emit one info_line per correction so they're visible in the live log.
+        # `page` is the per-student answer-page label (1..N for that student);
+        # `scan_page` is the absolute page index in the cleaned scan PDF, which
+        # is what shows up in the per-page artifact paths and is the right
+        # reference when locating the student's actual handwriting.
+        _scan_page = assignment["page_numbers"][p_label - 1]
         tagged_corrections: list[dict] = []
         for _c in _page_corrections:
             tagged_corrections.append({
                 "student": student_name,
                 "page": p_label,
+                "scan_page": _scan_page,
                 "number": _c.get("number"),
                 "from": _c.get("from"),
                 "to": _c.get("to"),
             })
             info_line(
-                f"  MCQ correction: {student_name} p{p_label} "
+                f"  MCQ correction: {student_name} ans p{p_label} (scan p{_scan_page}) "
                 f"Q{_c.get('number')}: {_c.get('from')} → {_c.get('to')}"
             )
         return ({"phase": "marking", "student": student_name, "page": p_label,
