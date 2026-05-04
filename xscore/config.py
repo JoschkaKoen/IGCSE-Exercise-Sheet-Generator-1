@@ -211,6 +211,12 @@ NAME_JPEG_QUALITY: int = int(os.getenv("NAME_JPEG_QUALITY", "85"))
 MARKING_DPI: int = int(os.getenv("MARKING_DPI", "300"))
 MARKING_JPEG_QUALITY: int = int(os.getenv("MARKING_JPEG_QUALITY", "90"))
 
+# student_handwriting_check (step 15): per-scan-page JPEG render parameters.
+# Independent of the step-14 empty-exam classifier, which still uses the
+# 150/75 defaults baked into _render_page_jpeg in blank_page_detection.py.
+HANDWRITING_CHECK_JPEG_DPI: int = int(os.getenv("HANDWRITING_CHECK_JPEG_DPI", "150"))
+HANDWRITING_CHECK_JPEG_QUALITY: int = int(os.getenv("HANDWRITING_CHECK_JPEG_QUALITY", "75"))
+
 # Per-page thinking-budget boost. When a page contains a question worth
 # at least *_THRESHOLD marks, the thinking budget for that page's marking
 # call is multiplied by *_MULTIPLIER. No-op when the model's base thinking

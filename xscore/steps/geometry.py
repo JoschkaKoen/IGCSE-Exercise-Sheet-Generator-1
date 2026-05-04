@@ -508,10 +508,10 @@ def student_handwriting_check(ctx: _Ctx) -> None:
     """
     import json as _json
 
-    from xscore.marking.blank_page_detection import (
-        BlankCheckStatus,
-        HANDWRITING_JPEG_DPI,
-        HANDWRITING_JPEG_QUALITY,
+    from xscore.marking.blank_page_detection import BlankCheckStatus  # noqa: PLC0415
+    from xscore.config import (  # noqa: PLC0415
+        HANDWRITING_CHECK_JPEG_DPI,
+        HANDWRITING_CHECK_JPEG_QUALITY,
     )
     from xscore.marking.marking_page_register import _cover_offset
     from xscore.shared.exam_paths import (
@@ -551,7 +551,9 @@ def student_handwriting_check(ctx: _Ctx) -> None:
         default_max_tokens=192,
     )
     announce_ai_input(
-        kind="JPEG", dpi=HANDWRITING_JPEG_DPI, quality=HANDWRITING_JPEG_QUALITY,
+        kind="JPEG",
+        dpi=HANDWRITING_CHECK_JPEG_DPI,
+        quality=HANDWRITING_CHECK_JPEG_QUALITY,
     )
     cover_page_mode = bool(ctx.cover_page_mode)
     cover_offset = _cover_offset(cover_page_mode, bool(ctx.empty_exam_has_cover))

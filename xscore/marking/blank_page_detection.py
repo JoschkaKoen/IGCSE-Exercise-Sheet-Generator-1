@@ -41,6 +41,7 @@ class BlankCheckStatus(Enum):
 
 
 from eXercise.api_retry import retry_api_call
+from xscore.config import HANDWRITING_CHECK_JPEG_DPI, HANDWRITING_CHECK_JPEG_QUALITY
 
 
 # ─────────── Image extraction ───────────────────────────────────────────────
@@ -794,7 +795,12 @@ def check_student_handwriting(
         """Returns (idx, scan_page, exam_page, page_type, page_number, has_handwriting,
                     conf_pt, conf_pn, conf_hw, problem, dur_str)."""
         scan_page, exam_page = args
-        jpeg_bytes = _render_page_jpeg(scan_pdf, scan_page)
+        jpeg_bytes = _render_page_jpeg(
+            scan_pdf,
+            scan_page,
+            dpi=HANDWRITING_CHECK_JPEG_DPI,
+            quality=HANDWRITING_CHECK_JPEG_QUALITY,
+        )
         (jpeg_dir / f"page_{scan_page:03d}.jpg").write_bytes(jpeg_bytes)
         save_path = artifact_handwriting_prompt_path(
             artifact_dir, f"page_{scan_page:03d}{suffix}"
