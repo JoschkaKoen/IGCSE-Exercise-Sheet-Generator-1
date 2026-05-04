@@ -243,6 +243,31 @@ def _parse_scan_match(
     return page_type, page_number, hw, conf_pt, conf_pn, conf_hw, problem
 
 
+def _parse_compare(raw: str) -> tuple[bool | None, int | None, str]:
+    """Parse the step-15 recheck two-image comparison response.
+
+    Returns ``(same, confidence, reason)``. Fields parse independently;
+    a malformed one does not poison the others.
+    """
+    if not raw:
+        return None, None, ""
+    try:
+        data = json.loads(raw)
+    except (json.JSONDecodeError, ValueError):
+        return None, None, ""
+    if not isinstance(data, dict):
+        return None, None, ""
+
+    same_raw = data.get("same_page")
+    same: bool | None = same_raw if isinstance(same_raw, bool) else None
+
+    conf = _coerce_conf(data.get("confidence"))
+
+    reason_raw = data.get("reason")
+    reason = str(reason_raw).strip() if isinstance(reason_raw, str) else ""
+    return same, conf, reason
+
+
 # ─────────── Step 14: classify each empty-exam page ──────────────────────────
 
 
@@ -467,6 +492,104 @@ def _match_scan_page(
     return _parse_scan_match(raw)
 
 
+class _PageCompareResp(BaseModel):
+    """Structured-output schema for the step-15 recheck comparison call (Gemini path)."""
+    same_page: bool | None = None
+    confidence: int = 5
+    reason: str = ""
+
+
+def _call_page_compare(
+    state: _ClientState,
+    prompt_text: str,
+    model_id: str,
+    empty_jpeg: bytes,
+    scan_jpeg: bytes,
+    *,
+    max_tokens: int,
+) -> tuple[str, str]:
+    """Two-image comparison call. Image 1 is the empty-exam page; image 2 is the scan page."""
+    if model_id.startswith("gemini"):
+        from google.genai import types as gai_types
+        from eXercise.ai_client import build_gemini_thinking_config, split_gemini_response
+
+        resp = state.gai.models.generate_content(
+            model=model_id,
+            contents=[
+                gai_types.Part.from_bytes(data=empty_jpeg, mime_type="image/jpeg"),
+                gai_types.Part.from_bytes(data=scan_jpeg, mime_type="image/jpeg"),
+                gai_types.Part.from_text(text=prompt_text),
+            ],
+            config=gai_types.GenerateContentConfig(
+                max_output_tokens=max_tokens,
+                response_mime_type="application/json",
+                response_schema=_PageCompareResp,
+                thinking_config=build_gemini_thinking_config(0),
+            ),
+        )
+        return split_gemini_response(resp)
+
+    import base64 as _base64
+
+    from eXercise.ai_client import build_completion_kwargs
+
+    _use_stream, kw = build_completion_kwargs(state.provider, 0, max_tokens)
+    e_b64 = _base64.b64encode(empty_jpeg).decode()
+    s_b64 = _base64.b64encode(scan_jpeg).decode()
+    msgs = [{"role": "user", "content": [
+        {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{e_b64}"}},
+        {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{s_b64}"}},
+        {"type": "text", "text": prompt_text},
+    ]}]
+    try:
+        resp = state.oa.chat.completions.create(
+            model=model_id, messages=msgs,
+            response_format={"type": "json_object"}, **kw,
+        )
+    except Exception:  # noqa: BLE001
+        resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw)
+    raw = resp.choices[0].message.content or ""
+    thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
+    return raw, thinking_text
+
+
+def _compare_pages(
+    state: _ClientState,
+    model_id: str,
+    empty_jpeg: bytes,
+    scan_jpeg: bytes,
+    prompt_text: str,
+    save_path: Path | None,
+    *,
+    max_tokens: int,
+) -> tuple[bool | None, int | None, str]:
+    """Step-15 recheck two-image comparison. Returns ``(same, confidence, reason)``."""
+    from xscore.shared.prompt_logger import (
+        attachment_part, save_output_data, save_prompt, save_response,
+    )
+
+    save_prompt(
+        save_path, model=model_id,
+        messages=[{"role": "user", "content": [
+            attachment_part(empty_jpeg, "image/jpeg"),
+            attachment_part(scan_jpeg, "image/jpeg"),
+            {"type": "text", "text": prompt_text},
+        ]}],
+    )
+    try:
+        raw, thinking_text = retry_api_call(
+            lambda: _call_page_compare(
+                state, prompt_text, model_id, empty_jpeg, scan_jpeg, max_tokens=max_tokens,
+            ),
+            label="Recheck page-compare",
+        )
+    except Exception:
+        return None, None, ""
+    save_response(save_path, raw, thinking=thinking_text)
+    save_output_data(save_path, raw, ext="json")
+    return _parse_compare(raw)
+
+
 # ─────────── Public entry points ──────────────────────────────────────────────
 
 
@@ -646,6 +769,7 @@ def check_student_handwriting(
     pages_per_student: int = 0,
     cover_offset: int = 0,
     empty_exam_classifications: list[dict] | None = None,
+    empty_exam_pdf: Path | None = None,
 ) -> tuple[BlankCheckStatus, str | None]:
     """Step 15: per-scan-page closed-vocabulary matcher.
 
@@ -935,10 +1059,10 @@ def check_student_handwriting(
             )
             results[i] = (sp, ep, pt, pn, h, c_pt, c_pn, c_hw, prob)
 
-    # ── Out-of-order recheck: re-call with stronger model + higher-fidelity JPEG ─
+    # ── Out-of-order recheck: compare scan page against expected empty-exam page ─
     recheck_spec = HANDWRITING_CHECK_RECHECK_MODEL.strip()
     out_of_order_idx: list[int] = []
-    if recheck_spec:
+    if recheck_spec and empty_exam_pdf is not None:
         for i, r in enumerate(results):
             sp_r, ep_r, pt_r, pn_r, *_ = r
             _, _, m = _match_summary(ep_r, pt_r, pn_r)
@@ -947,6 +1071,12 @@ def check_student_handwriting(
 
     rechecked_pages: set[int] = set()
     if out_of_order_idx:
+        # Map printed page number → empty-exam PDF page index, using step 14's catalog.
+        pn_to_pdf_page: dict[int, int] = {
+            p["page_number"]: p["page"]
+            for p in (empty_exam_classifications or [])
+            if isinstance(p.get("page_number"), int) and isinstance(p.get("page"), int)
+        }
         rmodel_id, _rthink, rmax_tok_env = parse_model_spec(recheck_spec)
         rmax_tok = rmax_tok_env or max_tok
         rclient_or_err = _build_client_state(rmodel_id)
@@ -957,49 +1087,72 @@ def check_student_handwriting(
             )
         else:
             rstate = rclient_or_err
+            from xscore.prompts.loader import load_prompt  # noqa: PLC0415
+            _, compare_prompt = load_prompt("student_handwriting_check_compare")
             info_line(
                 f"Re-checking {len(out_of_order_idx)} out-of-order page"
-                f"{'s' if len(out_of_order_idx) != 1 else ''} with "
-                f"{rmodel_id} @ {HANDWRITING_CHECK_RECHECK_JPEG_DPI} DPI / q{HANDWRITING_CHECK_RECHECK_JPEG_QUALITY} …"
+                f"{'s' if len(out_of_order_idx) != 1 else ''} via empty-exam comparison "
+                f"({rmodel_id} @ {HANDWRITING_CHECK_RECHECK_JPEG_DPI} DPI / q{HANDWRITING_CHECK_RECHECK_JPEG_QUALITY}) …"
             )
             for i in out_of_order_idx:
-                sp_orig, ep, *_ = results[i]
-                jpeg_bytes = _render_page_jpeg(
-                    scan_pdf, sp_orig,
-                    dpi=HANDWRITING_CHECK_RECHECK_JPEG_DPI,
-                    quality=HANDWRITING_CHECK_RECHECK_JPEG_QUALITY,
-                )
-                (jpeg_dir / f"page_{sp_orig:03d}_order_recheck.jpg").write_bytes(jpeg_bytes)
+                sp_orig, ep, pt_cur, pn_cur, h_cur, c_pt_cur, c_pn_cur, c_hw_cur, prob_cur = results[i]
+                pdf_page = pn_to_pdf_page.get(ep)
+                if ep == 0 or pdf_page is None:
+                    # cover, or step 14 didn't classify a page with this printed number → skip
+                    continue
+                try:
+                    scan_jpeg = _render_page_jpeg(
+                        scan_pdf, sp_orig,
+                        dpi=HANDWRITING_CHECK_RECHECK_JPEG_DPI,
+                        quality=HANDWRITING_CHECK_RECHECK_JPEG_QUALITY,
+                    )
+                    empty_jpeg = _render_page_jpeg(
+                        empty_exam_pdf, pdf_page,
+                        dpi=HANDWRITING_CHECK_RECHECK_JPEG_DPI,
+                        quality=HANDWRITING_CHECK_RECHECK_JPEG_QUALITY,
+                    )
+                except Exception as e:  # noqa: BLE001
+                    warn_line(f"  ↳ recheck page {sp_orig}: render failed ({e}); skipping")
+                    continue
+                (jpeg_dir / f"page_{sp_orig:03d}_order_recheck_scan.jpg").write_bytes(scan_jpeg)
+                (jpeg_dir / f"page_{sp_orig:03d}_order_recheck_empty.jpg").write_bytes(empty_jpeg)
                 save_path = artifact_handwriting_prompt_path(
                     artifact_dir, f"page_{sp_orig:03d}_order_recheck"
                 )
                 t0 = time.perf_counter()
-                pt2, pn2, h2, c_pt2, c_pn2, c_hw2, prob2 = _match_scan_page(
-                    rstate, rmodel_id, jpeg_bytes, prompt_text,
-                    save_path, max_tokens=rmax_tok,
+                same, conf_cmp, reason = _compare_pages(
+                    rstate, rmodel_id, empty_jpeg, scan_jpeg,
+                    compare_prompt, save_path, max_tokens=rmax_tok,
                 )
                 dur2 = format_duration(time.perf_counter() - t0)
-                pt2, pn2, prob2 = _post_validate(pt2, pn2, prob2)
-                pt_label, pn_label, match2 = _match_summary(ep, pt2, pn2)
-                line_fn = ok_line if (match2 is True and not prob2) else warn_line
-                confs = [c for c in (c_pt2, c_pn2, c_hw2) if c is not None]
-                conf_min = min(confs) if confs else None
-                conf_str = f"conf={conf_min}" if conf_min is not None else "conf=?"
-                problem_suffix = ""
-                if prob2:
-                    p_short = prob2 if len(prob2) <= 120 else prob2[:119].rstrip() + "…"
-                    problem_suffix = f"  ·  {p_short}"
-                if match2 is True:
-                    status = "in order"
-                elif match2 is False:
-                    status = "still out of order"
+
+                if same is True:
+                    pt_new, pn_new, prob_new = _post_validate(pt_cur, ep, prob_cur)
+                    status = f"same as exam pg {ep}"
+                elif same is False:
+                    pt_new, pn_new = pt_cur, pn_cur
+                    reason_short = (reason or "").strip()
+                    if len(reason_short) > 60:
+                        reason_short = reason_short[:59].rstrip() + "…"
+                    addendum = f"rechecked: differs from empty exam page {ep}"
+                    if reason_short:
+                        addendum += f": {reason_short}"
+                    prob_new = f"{prob_cur}; {addendum}" if prob_cur else addendum
+                    status = f"differs from exam pg {ep}"
                 else:
+                    pt_new, pn_new = pt_cur, pn_cur
+                    addendum = "recheck inconclusive"
+                    prob_new = f"{prob_cur}; {addendum}" if prob_cur else addendum
                     status = "inconclusive"
+
+                _, pn_label, match_after = _match_summary(ep, pt_new, pn_new)
+                line_fn = ok_line if (match_after is True and not prob_new) else warn_line
+                conf_str = f"conf={conf_cmp}" if conf_cmp is not None else "conf=?"
                 line_fn(
-                    f"  ↳ strong recheck page {sp_orig:>{page_width}d}  ·  {status}"
-                    f"  ·  {pt_label:<18}  ·  pg {pn_label:<5}  ·  {conf_str}  ·  {dur2}{problem_suffix}"
+                    f"  ↳ recheck page {sp_orig:>{page_width}d}  ·  {status:<24}"
+                    f"  ·  pg {pn_label:<5}  ·  {conf_str}  ·  {dur2}"
                 )
-                results[i] = (sp_orig, ep, pt2, pn2, h2, c_pt2, c_pn2, c_hw2, prob2)
+                results[i] = (sp_orig, ep, pt_new, pn_new, h_cur, c_pt_cur, c_pn_cur, c_hw_cur, prob_new)
                 rechecked_pages.add(sp_orig)
 
     # ── Build artifact ───────────────────────────────────────────────────────

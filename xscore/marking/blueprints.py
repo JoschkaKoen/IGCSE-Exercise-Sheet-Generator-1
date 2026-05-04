@@ -9,6 +9,20 @@ from pathlib import Path
 from typing import Any
 
 
+def is_all_mcq_page(page_questions: list[dict]) -> bool:
+    """True iff every question on the page is multiple_choice (and the list is non-empty).
+
+    Accepts both the in-memory blueprint dict shape (key 'question_type') and
+    the YAML-deserialized shape (key 'type').
+    """
+    if not page_questions:
+        return False
+    return all(
+        (q.get("question_type") or q.get("type")) == "multiple_choice"
+        for q in page_questions
+    )
+
+
 def _clean_text(text: str) -> str:
     """Decode HTML entities left as literals after scaffold XML round-trip,
     then collapse long fill-in-the-blank ellipsis runs to a short placeholder."""

@@ -85,6 +85,7 @@ def _build_marking_system_prompt(
     fmt: "MarkingFormat | None" = None,
     is_cs: bool = False,
     has_student_answers: bool = False,
+    is_all_mcq: bool = False,
 ) -> str:
     """Build the system prompt shared by the JPEG and Gemini PDF marking paths.
 
@@ -93,7 +94,13 @@ def _build_marking_system_prompt(
     already transcribed and renamed to ``transcribed_answer``. The
     FIELD_RULES fragment instructs the marker to treat that field as
     read-only input and emit only ``assigned_marks``, ``explanation``,
-    ``confidence``, and ``problem``.
+    ``confidence``, and ``problem`` (plus ``corrected_student_answer`` for
+    MCQs only).
+
+    *is_all_mcq* — when True, swap in the short ``ai_marking_mcq`` system
+    prompt (no FIELD_RULES, CONTINUATION, or CODE_FORMATTING). MCQ pages
+    don't carry continuation overflow and aren't code; their marks are
+    auto-computed downstream.
 
     *has_student_answers* — accepted for backward compat with callers that
     haven't been updated yet; ignored.
@@ -107,13 +114,17 @@ def _build_marking_system_prompt(
     # The ai_marking.md SYSTEM section embeds A, C, D around a $field_rules
     # placeholder. The FIELD_RULES section (same file) is loaded first with
     # $criterion_ref so the assembled system prompt is byte-identical to the
-    # pre-merge two-file layout.
-    _, _b = load_prompt(
-        "ai_marking", section="field_rules", criterion_ref=fmt.criterion_ref(),
-    )
-    _, system_prompt = load_prompt(
-        fmt.prompt_name(), section="system", field_rules=_b.rstrip("\n"),
-    )
+    # pre-merge two-file layout. The all-MCQ fast path skips FIELD_RULES
+    # entirely — ai_marking_mcq.md is self-contained.
+    if is_all_mcq:
+        _, system_prompt = load_prompt("ai_marking_mcq", section="system")
+    else:
+        _, _b = load_prompt(
+            "ai_marking", section="field_rules", criterion_ref=fmt.criterion_ref(),
+        )
+        _, system_prompt = load_prompt(
+            fmt.prompt_name(), section="system", field_rules=_b.rstrip("\n"),
+        )
     system_prompt = system_prompt.rstrip("\n")
 
     # --- Section E: grid navigation (only for multi-subpage layouts) ---
@@ -150,12 +161,14 @@ def _build_marking_system_prompt(
         system_prompt += "\n\n" + _f.rstrip("\n")
 
     # --- Section G: continuation pages ---
-    if has_continuation:
+    # Skipped on all-MCQ pages: single-letter answers can't overflow.
+    if has_continuation and not is_all_mcq:
         _, _g = load_prompt("ai_marking", section="continuation")
         system_prompt += "\n\n" + _g.rstrip("\n")
 
     # --- Section H: code formatting (only for Computer Science exams) ---
-    if is_cs:
+    # Skipped on all-MCQ pages: MCQs aren't code.
+    if is_cs and not is_all_mcq:
         _, _h = load_prompt("ai_marking", section="code_formatting")
         system_prompt += "\n\n" + _h.rstrip("\n")
 
@@ -178,8 +191,14 @@ def _mark_page(
     reuse_cache: bool = False,
     is_cs: bool = False,
     has_student_answers: bool = False,
-) -> dict:
+    is_all_mcq: bool = False,
+) -> tuple[dict, list[dict]]:
     """Vision call to fill in a marking blueprint for one scan page.
+
+    Returns ``(result, mcq_corrections)``. ``mcq_corrections`` is a list of
+    ``{"number", "from", "to"}`` dicts collected from MCQ slots where the AI
+    emitted a ``corrected_student_answer`` letter different from the
+    extraction. Empty list when nothing was corrected.
 
     Raises :class:`MarkingFailure` if all attempts are exhausted.
     *extra_b64* — additional continuation-page images appended after the main image.
@@ -188,17 +207,21 @@ def _mark_page(
     the API response after a successful parse. Default False (no cache).
     *has_student_answers* — kept for backward compat; ignored. The marking
     AI always treats `transcribed_answer` as read-only input from step 28.
+    *is_all_mcq* — when True, swap in the short ``ai_marking_mcq`` prompt
+    (no FIELD_RULES, no CONTINUATION, no CODE_FORMATTING) since MCQ marks
+    are auto-computed and the AI's role is verify-only.
     """
     if fmt is None:
         fmt = MarkingFormat()
     use_stream = use_stream and fmt.prefer_stream()
     system_prompt = _build_marking_system_prompt(
         blueprint, scheme_graphics, has_continuation=bool(extra_b64), fmt=fmt, is_cs=is_cs,
-        has_student_answers=has_student_answers,
+        has_student_answers=has_student_answers, is_all_mcq=is_all_mcq,
     )
 
+    _user_prompt_name = "ai_marking_mcq" if is_all_mcq else fmt.prompt_name()
     _, user_text = load_prompt(
-        fmt.prompt_name(), section="user",
+        _user_prompt_name, section="user",
         blueprint=_rename_blueprint_for_prompt(blueprint_xml),
     )
     # Image(s) first, text after — system → page image → continuation pages → mark-scheme graphics → user-text per audit item [5].
@@ -283,7 +306,7 @@ def _mark_page(
         _last_raw = raw
 
         try:
-            result, unfilled, unmatched = _apply_marking_response(raw, blueprint, fmt)
+            result, unfilled, unmatched, mcq_corrections = _apply_marking_response(raw, blueprint, fmt)
         except FormatParseError:
             if cache_hit:
                 # Stale cache shape — discard and fall through to a live call.
@@ -291,7 +314,7 @@ def _mark_page(
                 raw, thinking_text = retry_api_call(_do_call, label=f"Marking ({model_id})")
                 save_response(prompt_save_path, raw, thinking=thinking_text)
                 _last_raw = raw
-                result, unfilled, unmatched = _apply_marking_response(raw, blueprint, fmt)
+                result, unfilled, unmatched, mcq_corrections = _apply_marking_response(raw, blueprint, fmt)
             else:
                 raise
 
@@ -323,9 +346,12 @@ def _mark_page(
                     "questions": slim_questions,
                 }
                 try:
-                    _, still_unfilled, retry_unmatched = _apply_marking_response(
+                    _, still_unfilled, retry_unmatched, _retry_corrections = _apply_marking_response(
                         retry_raw, slim_bp, fmt,
                     )
+                    # Retry's slim blueprint contains only non-MCQ unfilled
+                    # questions, so _retry_corrections will be empty by
+                    # construction. Discard.
                 except FormatParseError as exc:
                     warn(f"Marking p{_page_num} retry parse error: {exc} — keeping first-call result")
                     retry_unmatched = []
@@ -350,7 +376,7 @@ def _mark_page(
         if reuse_cache and not cache_hit and _cache_key is not None:
             from xscore.shared.response_cache import cache_put
             cache_put(_cache_key, model=model_id, response=raw)
-        return result
+        return result, mcq_corrections
     except FormatParseError as exc:
         warn(f"Marking parse error — marking aborted ({exc})")
         raise MarkingFailure(attempts=1, last_exc=exc, last_raw=_last_raw)
@@ -364,14 +390,20 @@ def _apply_marking_response(
     raw: str,
     blueprint: dict,
     fmt: "MarkingFormat",
-) -> tuple[dict, list[str], list[str]]:
+) -> tuple[dict, list[str], list[str], list[dict]]:
     """Parse a raw marking response and apply it to *blueprint*.
 
     Pure-ish: parses *raw*, walks *blueprint*, fills entries by ``_bq_key``
-    positional match, returns ``(result, unfilled, unmatched)``. Does NOT warn,
-    does NOT MCQ-fix, does NOT clamp — those are caller responsibilities so
-    that retry logic can run before final validation. Raises
-    :class:`FormatParseError` if *raw* is unparseable.
+    positional match, returns ``(result, unfilled, unmatched, mcq_corrections)``.
+    Does NOT warn, does NOT MCQ-fix, does NOT clamp — those are caller
+    responsibilities so that retry logic can run before final validation.
+    Raises :class:`FormatParseError` if *raw* is unparseable.
+
+    *mcq_corrections* is a list of ``{"number", "from", "to"}`` dicts, one per
+    MCQ question where the AI emitted a ``corrected_student_answer`` letter
+    different from the extracted ``student_answer``. Marks/explanation for
+    MCQs are then deterministically recomputed by ``_fix_mc_marks`` against
+    the (possibly corrected) letter.
 
     Idempotent on repeated calls against partially-filled blueprints — the
     inner walk only fills bp entries whose ``assigned_marks is None``, so a
@@ -417,6 +449,7 @@ def _apply_marking_response(
 
     fill_group_idx: dict[tuple, int] = defaultdict(int)
     unfilled: list[str] = []
+    mcq_corrections: list[dict] = []
     for bq in result.get("questions", []):
         key = _bq_key(bq)
         idx = fill_group_idx[key]
@@ -427,33 +460,65 @@ def _apply_marking_response(
         if bq.get("assigned_marks") is not None:
             continue
         group = fill_groups.get(key, [])
-        if idx < len(group):
-            fq = group[idx]
-            if fq.get("assigned_marks") is None:
-                # AI emitted this slot but with an unparseable / empty mark.
-                # Treat as if the AI hadn't emitted it: leave bq unfilled so
-                # the completeness retry re-asks. The fq slot is consumed
-                # (idx already advanced) — intentional, otherwise a later bp
-                # entry sharing the same key would be paired with the wrong
-                # fq on the positional walk.
+        is_mcq = (bq.get("question_type") or "") == "multiple_choice"
+
+        if idx >= len(group):
+            # AI emitted nothing for this slot. MCQs are exempt from the
+            # completeness retry — _fix_mc_marks computes their marks
+            # deterministically from student_answer regardless of whether the
+            # AI's response carried an entry, so a missing MCQ entry is a
+            # missed correction opportunity, not a reason to retry.
+            if not is_mcq:
                 unfilled.append(bq.get("number"))
-                continue
-            # Guarded: pre-fill from step 26 (extract_student_answers) takes
-            # precedence over the AI's re-emission in the marking response.
-            # In presupplied mode the AI is told NOT to emit student_answer at
-            # all — fall back to "" so the missing key doesn't crash the merge.
-            if not bq.get("student_answer"):
-                bq["student_answer"] = fq.get("student_answer", "")
-            bq["assigned_marks"] = fq['assigned_marks']
-            bq["explanation"] = fq['explanation']
-            # Side-channel signals — copied from the AI response when
-            # present. Read only by step 34's confidence audit.
+            continue
+
+        fq = group[idx]
+
+        if is_mcq:
+            # Apply correction (regardless of whether AI emitted assigned_marks).
+            corrected = (fq.get("corrected_student_answer") or "").strip()
+            if corrected:
+                new_letter = corrected[0].upper() if corrected[:1].isalpha() else "?"
+                original = (bq.get("student_answer") or "").strip()
+                if new_letter != original.upper():
+                    mcq_corrections.append({
+                        "number": bq.get("number"),
+                        "from": original or "(blank)",
+                        "to": new_letter,
+                    })
+                    bq["student_answer"] = new_letter
+            # MCQs don't need assigned_marks/explanation from the AI; the
+            # downstream _fix_mc_marks computes them. Side-channel signals
+            # (confidence, problem) flow through to the per-page YAML.
             if "confidence" in fq:
                 bq["confidence"] = fq["confidence"]
             if "problem" in fq:
                 bq["problem"] = fq["problem"]
-        else:
+            continue
+
+        if fq.get("assigned_marks") is None:
+            # AI emitted this slot but with an unparseable / empty mark.
+            # Treat as if the AI hadn't emitted it: leave bq unfilled so
+            # the completeness retry re-asks. The fq slot is consumed
+            # (idx already advanced) — intentional, otherwise a later bp
+            # entry sharing the same key would be paired with the wrong
+            # fq on the positional walk.
             unfilled.append(bq.get("number"))
+            continue
+        # Guarded: pre-fill from step 26 (extract_student_answers) takes
+        # precedence over the AI's re-emission in the marking response.
+        # In presupplied mode the AI is told NOT to emit student_answer at
+        # all — fall back to "" so the missing key doesn't crash the merge.
+        if not bq.get("student_answer"):
+            bq["student_answer"] = fq.get("student_answer", "")
+        bq["assigned_marks"] = fq['assigned_marks']
+        bq["explanation"] = fq['explanation']
+        # Side-channel signals — copied from the AI response when
+        # present. Read only by step 34's confidence audit.
+        if "confidence" in fq:
+            bq["confidence"] = fq["confidence"]
+        if "problem" in fq:
+            bq["problem"] = fq["problem"]
 
     unmatched: list[str] = []
     for key, grp in fill_groups.items():
@@ -461,7 +526,7 @@ def _apply_marking_response(
         for fq in grp[fill_group_idx.get(key, 0):fill_group_idx.get(key, 0) + max(0, excess)]:
             unmatched.append(fq.get("number") or str(key))
 
-    return result, unfilled, unmatched
+    return result, unfilled, unmatched, mcq_corrections
 
 
 def _finalize_marking(result: dict, warn: Callable[[str], None]) -> None:

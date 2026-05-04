@@ -146,6 +146,7 @@ def _extract_page_answers(
     extra_b64: tuple[str, ...] = (),
     prompt_save_path: Path | None = None,
     warn=warn_line,
+    is_all_mcq: bool = False,
 ) -> dict[str, str]:
     """Single API call: extract verbatim student answers for one page.
 
@@ -154,12 +155,19 @@ def _extract_page_answers(
     *extra_b64* — continuation pages, appended after the primary page in the
     user-content array. Same pattern as the marking call.
 
+    *is_all_mcq* — when True, swap in the short ``extract_student_answers_mcq``
+    prompt (subject-agnostic) since MCQ answers are single letters and the
+    LaTeX/math/cross-page sections of the general prompt are dead weight.
+
     Returns ``{question_number: student_answer}``. Empty dict if the response
     parses but contains no questions (rare; usually a model bug).
     """
-    prompt_name = (
-        "extract_student_answers_cs" if is_cs else "extract_student_answers_physics"
-    )
+    if is_all_mcq:
+        prompt_name = "extract_student_answers_mcq"
+    elif is_cs:
+        prompt_name = "extract_student_answers_cs"
+    else:
+        prompt_name = "extract_student_answers_physics"
     _, user_text = load_prompt(prompt_name, section="user", blueprint=blueprint_str)
     _, system_prompt = load_prompt(prompt_name, section="system")
 
@@ -368,6 +376,10 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
         blueprint_str = bp_path.read_text(encoding="utf-8")
         blueprint_str = blueprint_for_transcription(blueprint_str, fmt)
 
+        from xscore.marking.blueprints import is_all_mcq_page
+        _bp_data = _yaml.safe_load(blueprint_str) or {}
+        _is_all_mcq = is_all_mcq_page(_bp_data.get("questions") or [])
+
         # Assemble the page bundle: primary scan page + continuation pages,
         # in ascending scan-page order so the model reads top-to-bottom.
         exercise_scan_page = assignment["page_numbers"][p_label - 1]
@@ -404,6 +416,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
                 use_stream=use_stream,
                 extra_b64=extra_b64,
                 prompt_save_path=prompt_save,
+                is_all_mcq=_is_all_mcq,
             )
         except FormatParseError as exc:
             failure = {
@@ -438,9 +451,10 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
 
         n = len(answers)
         unit = "answer" if n == 1 else "answers"
+        _mcq_tag = "   +mcq-only" if _is_all_mcq else ""
         _emit_ordered(idx, (
             f"[green]     {icon('ok')}  {prefix}"
-            f"  ·  {format_duration(dur):>6}  ·  {n} {unit}[/]"
+            f"  ·  {format_duration(dur):>6}  ·  {n} {unit}{_mcq_tag}[/]"
         ))
         return {"phase": "extract_answers", "student": student_name, "page": p_label,
                 "duration_s": dur}, None

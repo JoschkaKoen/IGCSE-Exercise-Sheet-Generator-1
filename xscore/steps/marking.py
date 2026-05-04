@@ -18,6 +18,7 @@ from xscore.shared.terminal_ui import (
     announce_step_model,
     blank_line,
     format_duration,
+    info_line,
     ok_line,
 )
 
@@ -97,3 +98,29 @@ def ai_marking(ctx: _Ctx) -> None:
         f"{n_calls} / {n_total} pages marked  ·  {format_duration(elapsed)}"
         + (f"  ·  {n_failed} failed" if n_failed else "")
     )
+
+    # Audit log + console summary of MCQ corrections the marker applied via
+    # the corrected_student_answer field. The audit YAML is always written
+    # (empty list when nothing was corrected) so a downstream tool can rely
+    # on its existence; the console table only renders when there's something
+    # to report.
+    import yaml as _yaml
+    from xscore.shared.path_builders import artifact_mcq_corrections_path
+    corrections = list(getattr(ctx, "mcq_corrections", []) or [])
+    _path = artifact_mcq_corrections_path(ctx.artifact_dir)
+    _path.parent.mkdir(parents=True, exist_ok=True)
+    _path.write_text(
+        _yaml.safe_dump(
+            {"total_corrections": len(corrections), "corrections": corrections},
+            default_flow_style=False, sort_keys=False, allow_unicode=True,
+        ),
+        encoding="utf-8",
+    )
+    if corrections:
+        info_line(f"MCQ corrections ({len(corrections)}):")
+        _w = max(len(str(c.get("student", ""))) for c in corrections)
+        for c in corrections:
+            info_line(
+                f"  {str(c.get('student', '')):<{_w}}  p{c.get('page'):>2}  "
+                f"Q{c.get('number')}: {c.get('from')} → {c.get('to')}"
+            )

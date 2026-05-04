@@ -527,6 +527,13 @@ def artifact_marking_students_dir(artifact_dir: Path) -> Path:
     return artifact_dir / AI_MARKING_DIR / "students"
 
 
+def artifact_mcq_corrections_path(artifact_dir: Path) -> Path:
+    """29_ai_marking/mcq_corrections.yaml — audit log of MCQ corrections
+    applied during marking based on the AI's corrected_student_answer field.
+    Regenerated each step-29 run; an empty list when no corrections occurred."""
+    return artifact_dir / AI_MARKING_DIR / "mcq_corrections.yaml"
+
+
 def _marking_student_subdir(artifact_dir: Path, student: str) -> Path:
     return artifact_marking_students_dir(artifact_dir) / safe_student_name(student)
 

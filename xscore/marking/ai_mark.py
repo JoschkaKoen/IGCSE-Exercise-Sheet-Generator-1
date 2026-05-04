@@ -146,8 +146,11 @@ def _mark_page_pdf(
     is_cs: bool = False,
     has_student_answers: bool = False,
     should_cache: bool = False,
-) -> dict:
+    is_all_mcq: bool = False,
+) -> tuple[dict, list[dict]]:
     """Upload a PDF page (+ optional continuation pages) to Gemini and mark it.
+
+    Returns ``(result, mcq_corrections)`` — same shape as :func:`_mark_page`.
 
     Raises MarkingFailure if all retries are exhausted.
     *has_student_answers* — kept for backward compat; ignored. The marking
@@ -157,6 +160,9 @@ def _mark_page_pdf(
     *scheme_graphics* — 4-tuples (qnum, ms_page, b64_png, transcription). The
     PDF path attaches the image bytes alongside the user text and embeds the
     transcription via the system prompt.
+
+    *is_all_mcq* — when True, swap in the short ``ai_marking_mcq`` prompt;
+    same semantics as :func:`_mark_page`.
     """
     import os
     from google.genai import types as gai_types
@@ -186,12 +192,13 @@ def _mark_page_pdf(
 
     system_prompt = _build_marking_system_prompt(
         blueprint, scheme_graphics, has_continuation=has_continuation, fmt=fmt, is_cs=is_cs,
-        has_student_answers=has_student_answers,
+        has_student_answers=has_student_answers, is_all_mcq=is_all_mcq,
     )
     from xscore.prompts.loader import load_prompt
     from xscore.marking.mark_page import _rename_blueprint_for_prompt
+    _user_prompt_name = "ai_marking_mcq" if is_all_mcq else fmt.prompt_name()
     _, user_text = load_prompt(
-        fmt.prompt_name(), section="user",
+        _user_prompt_name, section="user",
         blueprint=_rename_blueprint_for_prompt(blueprint_str),
     )
     _pdf_b64 = base64.b64encode(Path(pdf_path).read_bytes()).decode()
@@ -248,7 +255,7 @@ def _mark_page_pdf(
         # PDF upload path runs a single call with no completeness retry — the
         # retry helper in mark_page.py is wired for chat.completions only.
         # Mirrors the JPEG path's apply→warn→finalize sequence otherwise.
-        result, unfilled, unmatched = _apply_marking_response(raw, blueprint, fmt)
+        result, unfilled, unmatched, mcq_corrections = _apply_marking_response(raw, blueprint, fmt)
         if unmatched:
             warn(f"Marking: AI returned question(s) with no blueprint match: {unmatched}")
         if unfilled:
@@ -257,7 +264,7 @@ def _mark_page_pdf(
         # The canonical marked YAML is written by run_ai_marking() under
         # 29_ai_marking/students/<S>/page_N.yaml; the prompt-logger sidecar
         # would only duplicate the same content with student_name='', so skip it.
-        return result
+        return result, mcq_corrections
     except FormatParseError as exc:
         warn(f"Marking parse error (PDF upload path) — marking aborted ({exc})")
         raise MarkingFailure(attempts=1, last_exc=exc, last_raw=_last_raw)
@@ -567,7 +574,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         assignment: dict, p_label: int, answer_label: int, answer_page_count: int,
         extra_scan_pages: list[int],
         extra_sources: list[str],
-    ) -> tuple[dict | None, dict | None]:
+    ) -> tuple[dict | None, dict | None, list[dict]]:
         student_name: str = assignment["student_name"]
         safe_name = student_name or f"Unknown_{p_label}"
         key = f"{student_name}_{p_label}"
@@ -584,6 +591,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         bp_path = artifact_blueprint_path(ctx.artifact_dir, answer_label, fmt=fmt.artifact_ext())
         blueprint_str = bp_path.read_text(encoding="utf-8")
         blueprint = fmt.deserialize_blueprint(blueprint_str)
+
+        from xscore.marking.blueprints import is_all_mcq_page
+        _is_all_mcq = is_all_mcq_page(blueprint.get("questions") or [])
 
         # Pre-fill student_answer from step 26 (extract_student_answers) when
         # the per-(student, page) artifact exists. Soft fallback: a missing
@@ -628,7 +638,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                             _out.save(tmp_path)
                         finally:
                             _out.close()
-                    filled = _mark_page_pdf(
+                    filled, _page_corrections = _mark_page_pdf(
                         tmp_path, blueprint, blueprint_str,
                         prompt_save_path=prompt_save,
                         warn=_warn,
@@ -638,6 +648,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         is_cs=_is_cs,
                         has_student_answers=_has_student_answers,
                         should_cache=_reuse_cache_active,
+                        is_all_mcq=_is_all_mcq,
                     )
                 finally:
                     try:
@@ -689,7 +700,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 else:
                     _use_stream_call = _use_stream
                     _thinking_kw_call = _thinking_kw
-                filled = _mark_page(
+                filled, _page_corrections = _mark_page(
                     client, model_id, b64, blueprint, _thinking_kw_call,
                     blueprint_xml=blueprint_str,
                     use_stream=_use_stream_call,
@@ -701,6 +712,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     reuse_cache=_reuse_cache_active,
                     is_cs=_is_cs,
                     has_student_answers=_has_student_answers,
+                    is_all_mcq=_is_all_mcq,
                 )
         except MarkingFailure as mf:
             filled = blueprint.copy()
@@ -729,10 +741,12 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     live.update(_render())
             if not _use_live:
                 _emit_ordered(idx, _student_lines[key])
-            return None, failure
+            return None, failure, []
 
         mark_dur = round(time.perf_counter() - t0, 2)
         _extras: list[str] = []
+        if _is_all_mcq:
+            _extras.append("+mcq-only")
         _context_labels = [
             lab for src in extra_sources
             if (lab := _pretty_source_label(src, _figure_refs, _parent_refs, compact=True)) is not None
@@ -765,10 +779,26 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         artifact_marked_md_path(ctx.artifact_dir, safe_name, p_label).write_text(
             marked_to_md(filled), encoding="utf-8"
         )
-        return {"phase": "marking", "student": student_name, "page": p_label,
-                "duration_s": mark_dur}, None
+        # Tag corrections with student/page for the run-level aggregator and
+        # emit one info_line per correction so they're visible in the live log.
+        tagged_corrections: list[dict] = []
+        for _c in _page_corrections:
+            tagged_corrections.append({
+                "student": student_name,
+                "page": p_label,
+                "number": _c.get("number"),
+                "from": _c.get("from"),
+                "to": _c.get("to"),
+            })
+            info_line(
+                f"  MCQ correction: {student_name} p{p_label} "
+                f"Q{_c.get('number')}: {_c.get('from')} → {_c.get('to')}"
+            )
+        return ({"phase": "marking", "student": student_name, "page": p_label,
+                "duration_s": mark_dur}, None, tagged_corrections)
 
     all_failures: list[dict] = []
+    all_corrections: list[dict] = []
     _live_ctx = Live("", console=get_console(), refresh_per_second=4) if _use_live else contextlib.nullcontext()
     with _live_ctx as live:
         def _warn(msg: str) -> None:
@@ -792,7 +822,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             }
             for fut in as_completed(futures):
                 try:
-                    timing, failure = fut.result()
+                    timing, failure, corrections = fut.result()
                 except Exception as exc:  # noqa: BLE001
                     student, page = futures[fut]
                     failure = {
@@ -801,12 +831,16 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         "raw_response": None,
                     }
                     timing = None
+                    corrections = []
                     _warn(f"Unhandled exception for '{student}' page {page}: {exc}")
                 with timings_lock:
                     if timing:
                         api_call_timings.append(timing)
                     if failure:
                         all_failures.append(failure)
+                    if corrections:
+                        all_corrections.extend(corrections)
 
     ctx.marking_failures = all_failures
+    ctx.mcq_corrections = all_corrections
     return api_call_timings

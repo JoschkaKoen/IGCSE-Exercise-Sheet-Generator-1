@@ -558,6 +558,10 @@ def student_handwriting_check(ctx: _Ctx) -> None:
     cover_page_mode = bool(ctx.cover_page_mode)
     cover_offset = _cover_offset(cover_page_mode, bool(ctx.empty_exam_has_cover))
     t0 = time.perf_counter()
+    empty_exam_pdf = (
+        ctx.scaffold_state.get("actual_exam_pdf")
+        if ctx.scaffold_state is not None else None
+    )
     status, msg = check_student_handwriting(
         ctx.cleaned_pdf,
         ctx.artifact_dir,
@@ -565,6 +569,7 @@ def student_handwriting_check(ctx: _Ctx) -> None:
         pages_per_student=ctx.pages_per_student,
         cover_offset=cover_offset,
         empty_exam_classifications=empty_classifications,
+        empty_exam_pdf=empty_exam_pdf,
     )
     dur = format_duration(time.perf_counter() - t0)
 

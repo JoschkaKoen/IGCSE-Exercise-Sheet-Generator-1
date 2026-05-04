@@ -254,6 +254,7 @@ class MarkingFormat:
             "subpage_col":   int(q.get("subpage_col", 1)),
             "assigned_marks": am_int,
             "student_answer": str(_sa or "").strip(),
+            "corrected_student_answer": str(q.get("corrected_student_answer") or "").strip(),
             "explanation":    str(q.get("explanation") or "").strip(),
             "confidence":     parse_confidence_int(q.get("confidence")),
             "problem":        parse_problem(q.get("problem")),
@@ -310,6 +311,7 @@ class MarkingFormat:
         return {
             "assigned_marks": am_int,
             "student_answer": "",
+            "corrected_student_answer": str(data.get("corrected_student_answer") or "").strip(),
             "explanation":    str(data.get("explanation") or "").strip(),
             "confidence":     parse_confidence_int(data.get("confidence")),
             "problem":        parse_problem(data.get("problem")),
