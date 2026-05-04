@@ -243,18 +243,25 @@ def build_ai_scaffold(
 
 
 def _fix_zero_mark_leaves(questions: list) -> None:
-    """Upgrade any leaf question with marks=0 but a marking criterion to marks=1.
+    """Bump MCQ leaves with marks=0 to 1; warn and keep 0 for non-MCQ leaves.
 
-    Gemini sometimes returns marks=0 for sub-questions whose mark allocation is
-    not explicitly bracketed in the PDF. When a marking criterion exists the
-    question is worth at least 1 mark.
+    Some Cambridge MCQs have a faintly-printed "[1]" that is OCR'd as 0; rescue
+    those silently. Non-MCQ marks=0 is treated as authoritative (e.g. a question
+    withdrawn from the paper) and surfaced as a warning so a human can verify.
     """
-    import logging as _log
+    from xscore.shared.terminal_ui import warn_line
     for q in questions:
         if q.subquestions:
             _fix_zero_mark_leaves(q.subquestions)
-        elif q.marks == 0 and q.marking_criteria:
-            _log.warning(
-                "ai_scaffold: %s has marks=0 but a marking criterion — upgraded to 1", q.number
-            )
+            continue
+        if q.marks != 0:
+            continue
+        if q.question_type == "multiple_choice":
+            # Defensive — step 19's _parse_yaml_scaffold_node usually already
+            # bumps MCQ leaves; this catches paths that bypass that parser.
             q.marks = 1
+        else:
+            warn_line(
+                f"Scaffold: Q{q.number} ({q.question_type}) page {q.page} "
+                f"has marks=0 — skipping in marker (verify or fix manually)"
+            )

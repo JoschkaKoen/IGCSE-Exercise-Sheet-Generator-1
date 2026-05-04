@@ -14,7 +14,6 @@ import re
 from pathlib import Path
 
 from xscore.shared.step_folders import (
-    ACCURACY_DIR,
     AI_COSTS_DIR,
     AI_MARKING_DIR,
     ASSIGN_QUESTIONS_DIR,
@@ -560,16 +559,22 @@ def artifact_student_reports_dir(artifact_dir: Path) -> Path:
 
 
 def artifact_student_report_dir(artifact_dir: Path, student: str) -> Path:
-    """Per-student subfolder for XML + Markdown reports"""
+    """Per-student subfolder for YAML + Markdown reports"""
     return artifact_student_reports_dir(artifact_dir) / safe_student_name(student)
 
 
-def artifact_student_report_xml_path(artifact_dir: Path, student: str) -> Path:
-    return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}.xml"
+def artifact_student_report_yaml_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}.yaml"
 
 
 def artifact_student_report_md_path(artifact_dir: Path, student: str) -> Path:
     return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}.md"
+
+
+def artifact_student_report_md_attempted_path(artifact_dir: Path, student: str) -> Path:
+    """`_attempted` sibling of the per-student Markdown report — same dir,
+    `_attempted` suffix on the stem."""
+    return artifact_student_report_dir(artifact_dir, student) / f"{safe_student_name(student)}_attempted.md"
 
 
 # Backward-compat alias for callers that haven't migrated to the new name.
@@ -608,6 +613,16 @@ _VARIANT_PORTRAIT                  = "portrait"
 _VARIANT_PORTRAIT_2UP              = "portrait_2up"
 _VARIANT_PORTRAIT_LARGE            = "portrait_large"
 _VARIANT_PORTRAIT_LIST             = "portrait_list"
+
+# `_attempted` siblings: per-student reports filtered to only the questions
+# the student wrote a non-empty answer for. Filenames carry the same
+# `_attempted` suffix on the stem so a directory listing groups each pair.
+_VARIANT_LANDSCAPE_ATTEMPTED                = "landscape_attempted"
+_VARIANT_LANDSCAPE_WITH_QUESTIONS_ATTEMPTED = "landscape_with_questions_attempted"
+_VARIANT_PORTRAIT_ATTEMPTED                 = "portrait_attempted"
+_VARIANT_PORTRAIT_2UP_ATTEMPTED             = "portrait_2up_attempted"
+_VARIANT_PORTRAIT_LARGE_ATTEMPTED           = "portrait_large_attempted"
+_VARIANT_PORTRAIT_LIST_ATTEMPTED            = "portrait_list_attempted"
 
 
 def artifact_student_pdf_variant_dir(
@@ -659,6 +674,52 @@ def artifact_student_report_tex_portrait_list_path(artifact_dir: Path, student: 
 
 def artifact_student_report_pdf_portrait_list_path(artifact_dir: Path, student: str) -> Path:
     return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_LIST) / f"{safe_student_name(student)}_portrait_list.pdf"
+
+
+# `_attempted` per-student variants: same shape as above, with `_attempted`
+# appended to both the variant subfolder and the file stem.
+def artifact_student_report_tex_landscape_attempted_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_LANDSCAPE_ATTEMPTED) / f"{safe_student_name(student)}_landscape_attempted.tex"
+
+
+def artifact_student_report_pdf_landscape_attempted_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_LANDSCAPE_ATTEMPTED) / f"{safe_student_name(student)}_landscape_attempted.pdf"
+
+
+def artifact_student_report_tex_portrait_attempted_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_ATTEMPTED) / f"{safe_student_name(student)}_portrait_attempted.tex"
+
+
+def artifact_student_report_pdf_portrait_attempted_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_ATTEMPTED) / f"{safe_student_name(student)}_portrait_attempted.pdf"
+
+
+def artifact_student_report_pdf_portrait_2up_attempted_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_2UP_ATTEMPTED) / f"{safe_student_name(student)}_portrait_2up_attempted.pdf"
+
+
+def artifact_student_report_tex_portrait_large_attempted_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_LARGE_ATTEMPTED) / f"{safe_student_name(student)}_portrait_large_attempted.tex"
+
+
+def artifact_student_report_pdf_portrait_large_attempted_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_LARGE_ATTEMPTED) / f"{safe_student_name(student)}_portrait_large_attempted.pdf"
+
+
+def artifact_student_report_tex_landscape_with_questions_attempted_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_LANDSCAPE_WITH_QUESTIONS_ATTEMPTED) / f"{safe_student_name(student)}_landscape_with_questions_attempted.tex"
+
+
+def artifact_student_report_pdf_landscape_with_questions_attempted_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_LANDSCAPE_WITH_QUESTIONS_ATTEMPTED) / f"{safe_student_name(student)}_landscape_with_questions_attempted.pdf"
+
+
+def artifact_student_report_tex_portrait_list_attempted_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_LIST_ATTEMPTED) / f"{safe_student_name(student)}_portrait_list_attempted.tex"
+
+
+def artifact_student_report_pdf_portrait_list_attempted_path(artifact_dir: Path, student: str) -> Path:
+    return artifact_student_pdf_variant_dir(artifact_dir, student, _VARIANT_PORTRAIT_LIST_ATTEMPTED) / f"{safe_student_name(student)}_portrait_list_attempted.pdf"
 
 
 # ---------------------------------------------------------------------------
@@ -817,14 +878,6 @@ def artifact_timing_json_path(artifact_dir: Path) -> Path:
 
 def artifact_timing_md_path(artifact_dir: Path) -> Path:
     return artifact_dir / TIMING_DIR / "timing.md"
-
-
-# ---------------------------------------------------------------------------
-# Accuracy evaluation (only when ground truth present)
-# ---------------------------------------------------------------------------
-
-def artifact_accuracy_json_path(artifact_dir: Path) -> Path:
-    return artifact_dir / ACCURACY_DIR / "accuracy.json"
 
 
 # ---------------------------------------------------------------------------

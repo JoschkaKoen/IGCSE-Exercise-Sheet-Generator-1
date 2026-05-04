@@ -10,17 +10,40 @@ from pathlib import Path
 from typing import Any
 
 from xscore.marking.report_markdown import _fmt_pct, _student_report_to_md
-from xscore.marking.report_xml import student_report_to_xml
+from xscore.marking.report_xml import student_report_to_yaml
 from xscore.shared.exam_paths import (
     artifact_blueprint_path,
     artifact_marked_path,
     artifact_marking_students_dir,
     artifact_student_report_dir,
+    artifact_student_report_md_attempted_path,
     artifact_student_report_md_path,
-    artifact_student_report_xml_path,
+    artifact_student_report_yaml_path,
     safe_student_name as _safe_name,
 )
 from xscore.shared.terminal_ui import ok_line, warn_line
+
+
+def _was_attempted(q: dict) -> bool:
+    """True iff the student wrote a non-empty answer for this question.
+
+    Empty `student_answer` and the `_unanswered=True` flag injected by
+    `_augment_with_unanswered` both count as "didn't attempt".
+    """
+    if q.get("_unanswered"):
+        return False
+    return bool(str(q.get("student_answer") or "").strip())
+
+
+def filter_to_attempted(report: dict) -> dict:
+    """Return a shallow copy of *report* with `questions` filtered to only
+    those the student wrote a non-empty answer for. Totals, percentage,
+    student name, max marks — all unchanged. Used to render the
+    `_attempted` per-student variants alongside the canonical ones.
+    """
+    out = dict(report)
+    out["questions"] = [q for q in (report.get("questions") or []) if _was_attempted(q)]
+    return out
 
 
 def _resolve_mark_collision(
@@ -397,12 +420,22 @@ def _pass1_merge_students(
             with _unanswered_count_lock:
                 n_unanswered_students += 1
 
-        artifact_student_report_dir(ctx.artifact_dir, name).mkdir(parents=True, exist_ok=True)
-        artifact_student_report_xml_path(ctx.artifact_dir, name).write_text(
-            student_report_to_xml(canonical), encoding="utf-8"
+        student_dir = artifact_student_report_dir(ctx.artifact_dir, name)
+        student_dir.mkdir(parents=True, exist_ok=True)
+        # Drop sibling .xml from a pre-migration run on this dir.
+        (student_dir / f"{_safe_name(name)}.xml").unlink(missing_ok=True)
+        artifact_student_report_yaml_path(ctx.artifact_dir, name).write_text(
+            student_report_to_yaml(canonical), encoding="utf-8"
         )
         artifact_student_report_md_path(ctx.artifact_dir, name).write_text(
             _student_report_to_md(canonical), encoding="utf-8"
+        )
+        artifact_student_report_md_attempted_path(ctx.artifact_dir, name).write_text(
+            _student_report_to_md(
+                filter_to_attempted(canonical),
+                subtitle="showing attempted questions only",
+            ),
+            encoding="utf-8",
         )
 
         with _summaries_lock:

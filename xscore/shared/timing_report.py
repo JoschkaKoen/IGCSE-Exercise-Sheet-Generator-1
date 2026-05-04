@@ -54,7 +54,6 @@ _STEP_LABELS: dict[str, str] = {
     "class_report":                "Class report",
     "review_queue":                "Review queue",
     "timing_summary":              "Timing summary",
-    "accuracy_evaluation":         "Accuracy evaluation",
     "ai_costs":                    "AI costs",
 }
 
@@ -114,7 +113,6 @@ def write_timing_report(
     artifact_dir: Path,
     step_durations: dict[str, float],
     api_calls: list[dict],
-    accuracy_summary: dict | None = None,
     failures: list[dict] | None = None,
     token_usage: dict | None = None,
     total_cost_rmb: float = 0.0,
@@ -126,7 +124,6 @@ def write_timing_report(
     (e.g. ``"ai_marking"``, ``"per_student_reports"``) written by
     :func:`xscore.shared.pipeline_steps.run_step`.
     *api_calls* is the list returned by :func:`run_ai_marking`.
-    *accuracy_summary* is the optional dict from :func:`evaluate_results`.
     *failures* is the list of page-level marking failures set on ctx by :func:`run_ai_marking`.
     *token_usage* maps model name → ``{"input": N, "output": N, "thinking": N}``
     (from :func:`get_run_usage`). ``output`` already includes ``thinking``;
@@ -160,8 +157,6 @@ def write_timing_report(
         payload["total_cost_rmb"]        = total_cost_rmb
     if failures:
         payload["failures"] = failures
-    if accuracy_summary is not None:
-        payload["accuracy_summary"] = accuracy_summary
 
     timing_json = artifact_timing_json_path(artifact_dir)
     timing_json.parent.mkdir(parents=True, exist_ok=True)
@@ -278,20 +273,6 @@ def _timing_to_md(payload: dict) -> str:
             lines.append(
                 f"| {f.get('student', '')} | {f.get('page', '')} "
                 f"| {f.get('attempts', '')} | {f.get('error', '')} |"
-            )
-
-    if payload.get("accuracy_summary"):
-        acc = payload["accuracy_summary"]
-        lines.append("\n## Recognition Accuracy vs Ground Truth\n")
-        lines.append(
-            f"**Overall: {acc['overall_correct']}/{acc['overall_total']}"
-            f" ({acc['overall_accuracy_pct']:.1f}%)**\n"
-        )
-        lines.append("| Student | Correct | Total | Accuracy |")
-        lines.append("|---------|---------|-------|----------|")
-        for s in acc.get("per_student", []):
-            lines.append(
-                f"| {s['name']} | {s['correct']} | {s['total']} | {s['accuracy_pct']:.1f}% |"
             )
 
     return "\n".join(lines) + "\n"

@@ -310,15 +310,6 @@ STEPS: tuple[Step, ...] = (
          ),
          title="Summarise step timings", section="Summary",
          phase="marking_reports_summary"),
-    Step(36, "accuracy_evaluation",
-         writes=(
-             "36_accuracy/*",
-             "35_accuracy/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "34_accuracy/*",  # legacy folder (pre-detect_subject)
-             "33_accuracy/*",  # legacy folder
-         ),
-         title="Evaluate marking accuracy",
-         phase="marking_reports_summary"),
     Step(37, "ai_costs",
          writes=(
              "37_ai_costs/*",
@@ -603,7 +594,6 @@ def wire_step_fns() -> None:
         )),
         ("xscore.steps.summary", (
             "timing_summary",
-            "accuracy_evaluation",
             "ai_costs",
         )),
     )

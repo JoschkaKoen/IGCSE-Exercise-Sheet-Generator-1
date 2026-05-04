@@ -11,18 +11,22 @@ def _fmt_pct(pct: float | None) -> str:
     return "N/A" if pct is None else f"{pct}%"
 
 
-def _student_report_to_md(report: dict) -> str:
+def _student_report_to_md(report: dict, subtitle: str | None = None) -> str:
     name = report["student_name"]
     total = report["total_marks"]
     max_m = report["max_marks"]
     pct = report["percentage"]
+    title = f"# Student Report: {name}"
+    if subtitle:
+        title += f" — {subtitle}"
     lines = [
-        f"# Student Report: {name}\n",
+        f"{title}\n",
         f"**Total: {total}/{max_m} ({_fmt_pct(pct)})**\n",
         "| Question | Max | Awarded | Student Answer | Correct Answer | Reasoning |",
         "|----------|-----|---------|----------------|----------------|-----------|",
     ]
-    for q in report["questions"]:
+    questions = report["questions"]
+    for q in questions:
         answer_raw = str(q.get("student_answer") or "").strip()
         if q.get("_unanswered"):
             answer = "*(not answered)*"
@@ -38,6 +42,8 @@ def _student_report_to_md(report: dict) -> str:
             f"| {q.get('number', '')} | "
             f"{q.get('max_marks', '')} | {awarded_str} | {answer} | {correct} | {reasoning} |"
         )
+    if not questions:
+        lines.append("| *(no answers extracted)* |  |  |  |  |  |")
     return "\n".join(lines) + "\n"
 
 

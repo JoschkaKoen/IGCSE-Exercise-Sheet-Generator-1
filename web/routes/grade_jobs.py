@@ -546,13 +546,6 @@ async def download_review_queue(job_id: str) -> Response:
     )
 
 
-@router.get("/api/grade/jobs/{job_id}/accuracy.json")
-async def download_accuracy(job_id: str) -> FileResponse:
-    from xscore.shared.exam_paths import artifact_accuracy_json_path
-    art = _require_artifact_dir(job_id)
-    return _file_or_404(artifact_accuracy_json_path(art), "Accuracy summary", job_id)
-
-
 @router.get("/api/grade/jobs/{job_id}/cost.json")
 async def download_cost(job_id: str) -> FileResponse:
     from xscore.shared.exam_paths import artifact_cost_json_path
@@ -584,7 +577,6 @@ async def list_artifacts(job_id: str) -> JSONResponse:
     }
     if rec.artifact_dir is not None:
         from xscore.shared.exam_paths import (
-            artifact_accuracy_json_path,
             artifact_class_report_pdf_path,
             artifact_cost_json_path,
             artifact_review_queue_json_path,
@@ -611,7 +603,6 @@ async def list_artifacts(job_id: str) -> JSONResponse:
                     artifact_review_queue_txt_path(art),
                 )
             ),
-            "accuracy_json": artifact_accuracy_json_path(art).is_file(),
             "cost_json": artifact_cost_json_path(art).is_file(),
             "run_log_jsonl": (art / "run.log.jsonl").is_file(),
         }

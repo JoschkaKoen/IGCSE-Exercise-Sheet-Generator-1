@@ -1,7 +1,7 @@
 ---
 name: shared_latex_rules
-version: v3
-description: Shared LaTeX-in-YAML style guide. Inlined into prompts via `$include_shared_latex_rules` (resolved by xscore.prompts.loader). Covers YAML quoting (now split into free-text vs structural fields), LaTeX commands inside block scalars, alltt for code, and common math syntax. Used by steps 20, 24, 28, 29. v3 reorganised the YAML quoting guidance into two scoped subsections — `### Free-text fields` (model-authored content, two shapes: `''` or `|`) and `### Structural fields` (verbatim-copied metadata, plain or single-quoted). Replaces v2's single decision tree that mixed both kinds and gave free-text examples like `text: A particle moves in a circle` that contradicted the new free-text rule. v2 (filename + name renamed from latex_yaml_style → shared_latex_rules; moved out of _shared/ subfolder to live alongside other prompts).
+version: v4
+description: Shared LaTeX-in-YAML style guide. Inlined into prompts via `$include_shared_latex_rules` (resolved by xscore.prompts.loader). Covers YAML quoting (split into free-text vs structural fields), LaTeX commands inside block scalars, alltt for code, and math wrapping. Used by steps 20, 24, 28, 29. v4 expanded the math rule from a one-liner to a full section with physics/chemistry/mixed-text examples after the s23_22 run found `$$X = (A \text{ OR } B)$$` corruption (the renderer's `_wrap_loose_math` heuristic was the proximate cause and got fixed in tandem, but the prompt was doing zero teaching). Also strengthened the alltt opener from "code or pseudocode" to "any multi-line code or programming-language answer" with an explicit language enumeration, after the same run found Andy_2's Python answer transcribed without alltt because the model read "code or pseudocode" as CAIE-pseudocode-only. v3 reorganised the YAML quoting guidance into two scoped subsections — `### Free-text fields` (model-authored content, two shapes: `''` or `|`) and `### Structural fields` (verbatim-copied metadata, plain or single-quoted). Replaces v2's single decision tree that mixed both kinds and gave free-text examples like `text: A particle moves in a circle` that contradicted the new free-text rule. v2 (filename + name renamed from latex_yaml_style → shared_latex_rules; moved out of _shared/ subfolder to live alongside other prompts).
 ---
 ## YAML quoting
 
@@ -44,8 +44,8 @@ Block scalars (`|`) handle backslashes literally — write LaTeX commands direct
 - unordered lists → `\begin{itemize}\item first\item second\end{itemize}`
 - ordered/numbered lists → `\begin{enumerate}\item first\item second\end{enumerate}`
 - tables → `\begin{tabular}{col-spec} cell & cell \\ next row \end{tabular}` with `\hline` between rows
-- inline math → `$...$`; display math → `$$$$...$$$$`
 - explicit line breaks between prose sentences → `\newline`
+- math → see `## Math` below
 
 Constraints:
 - Never use `\newline` immediately after `\begin{...}` or before `\end{...}`.
@@ -53,9 +53,34 @@ Constraints:
 - List items begin directly with `\item` — no `\newline` between items.
 - Plain prose and introductory sentences are written verbatim (no wrapping command needed).
 
+## Math
+
+Two delimiter shapes:
+- inline math → `$...$` — for formulas embedded in a sentence
+- display math → `$$$$...$$$$` — for standalone equations on their own line
+
+**Always wrap math.** Any expression containing math commands (`\frac`, `\sqrt`, `\sum`, `\int`, `\times`, `\cdot`, `\div`, `\leq`, `\geq`, `\neq`, `\approx`, `\to`, `\rightarrow`, `\leftarrow`, `\alpha`, `\beta`, `\pi`, `\rho`, `\theta`, `\sigma`, etc.), super/subscripts (`x^2`, `H_2O`, `^{12}_{6}C`), or `\text{...}` MUST be inside `$...$` or `$$...$$`. Bare math in prose crashes the PDF renderer.
+
+**Examples — physics formulas:**
+RIGHT: `Using $F = ma$ and $a = \frac{F}{m}$, we get $a = \frac{54 \text{ N}}{120 \text{ kg}} = 0.45 \text{ m/s}^2$.`
+WRONG: `Using F = ma and a = \frac{F}{m}, we get a = \frac{54 \text{ N}}{120 \text{ kg}} = 0.45 \text{ m/s}^2.`
+
+**Examples — chemistry / nuclear:**
+RIGHT: `$^{212}_{86}\text{Rn} \rightarrow ^{208}_{84}\text{Po} + ^{4}_{2}\alpha$`
+WRONG: `^{212}_{86}Rn \rightarrow ^{208}_{84}Po + ^{4}_{2}\alpha`
+
+**Mixed math with text labels** — keep `\text{...}` *inside* the delimiters; never close math just to write a word and reopen it:
+RIGHT: `$$X = (A \text{ OR } B) \text{ AND } C$$`
+WRONG: `$$X = (A$$ \text{ OR } $$B) \text{ AND } C$$`
+WRONG: `$$X = (A $\text{ OR }$ B) $\text{ AND }$ C$$`
+
+If a single word like "OR" needs to break out of math, do it cleanly: `$A$ OR $B$`, not `$A \text{ OR } B$` followed by closing/reopening tricks.
+
+**Display math is one block.** Inside `$$...$$`, the entire expression — variables, operators, `\text{...}` labels — stays between the two delimiter pairs. Don't insert `$...$` inline math inside `$$...$$`; the inner `$` reads as math-end and breaks the display block.
+
 ## Code and pseudocode (alltt)
 
-Wrap multi-line code or pseudocode in `\begin{alltt}...\end{alltt}`; preserve indentation with literal spaces; use real newlines between lines.
+Wrap **any multi-line code or programming-language answer** in `\begin{alltt}...\end{alltt}` — this includes CAIE pseudocode (`INPUT`, `OUTPUT`, `IF…ENDIF`, `FOR…NEXT`, `DECLARE`, `PROCEDURE`), Python (`def`, `for x in …`, `print()`, `#`-comments), Java/C/C++ (`public class`, `System.out.println`, `//`-comments, `{` / `}` braces), JavaScript, SQL, or any other language. The decision is "is this code?" not "is this CAIE pseudocode?". When in doubt, wrap. Preserve indentation with literal spaces; use real newlines between lines.
 
 Inside `\begin{alltt}...\end{alltt}`: do NOT escape `<`, `>`, `&`, `%`, `_`, `#`, `$` — alltt is verbatim-with-commands. Only escape `{` → `\{`, `}` → `\}`, backslash → `\textbackslash{}`.
 

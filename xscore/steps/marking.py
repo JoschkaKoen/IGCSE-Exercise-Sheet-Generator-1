@@ -25,7 +25,12 @@ from xscore.shared.terminal_ui import (
 def ai_marking_blueprints(ctx: _Ctx) -> None:
     assert ctx.scaffold is not None and ctx.artifact_dir is not None
     blueprints = build_blueprints(ctx.scaffold, ctx.artifact_dir)
-    ok_line(f"{len(blueprints)} page blueprint(s) written")
+    # build_blueprints returns one entry per page in the exam (1..page_count);
+    # only entries with questions get a file written to disk (cover/blank/
+    # question-free pages are skipped). Count the latter so the message
+    # matches the on-disk artifact count.
+    n_written = sum(1 for bp in blueprints if bp.get("questions"))
+    ok_line(f"{n_written} page blueprint(s) written")
 
 
 def extract_student_answers(ctx: _Ctx) -> None:

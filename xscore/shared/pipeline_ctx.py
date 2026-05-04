@@ -75,7 +75,6 @@ class _Ctx:
     limit_students: int | None = None        # --limit-students N; slice raw_assignments to first N (after other filters)
     geo: dict[str, Any] = field(default_factory=dict)   # scan geometry from exam_geometry
     b64_future: "Future[dict[int, str]] | None" = None  # render_pages_b64 submitted by kick_off_render_bg
-    accuracy_summary: dict[str, Any] | None = None      # set by accuracy_evaluation; read by ai_costs
     scan_match: Path | None = None                      # set by prepare_scans (or scan_phases single-PDF
                                                         # branch), read by detect_blank_pages
     scaffold_state: dict[str, Any] = field(default_factory=dict)

@@ -8,6 +8,8 @@ canonical keys (``per_student_reports``, ``class_stats_curve``, …).
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from xscore.marking.class_report_export import format_review_entry_lines
 from xscore.marking.merge_reports import (
     build_per_student_reports,
@@ -36,6 +38,31 @@ from xscore.shared.terminal_ui import info_line, ok_line, warn_line
 # Terminal echoes the N lowest-confidence rows; the full list lives in
 # review.txt. Pure display knob — does not influence what's written to disk.
 TERMINAL_TOP_N = 10
+
+
+# Stub PDFs from a crashed xelatex are exactly 15 bytes (the `%PDF-1.5\n%äðíø\n`
+# header xelatex writes before any document content). Real PDFs are tens of KB
+# even for a single page. 2 KB is well above the stub size and well below any
+# legitimate report.
+_PDF_MIN_BYTES = 2048
+
+
+def _is_valid_pdf(path: Path) -> bool:
+    """Treat as valid if at least 2 KB and the trailer ends with %%EOF.
+
+    xelatex writes %%EOF only when the document finishes — its absence means
+    the run aborted before producing a real PDF. Catches the failure mode
+    where xelatex returns -13 (or even 0 in edge cases) but leaves a 15-byte
+    stub or a truncated body on disk that downstream steps then fail on.
+    """
+    if not path.is_file() or path.stat().st_size < _PDF_MIN_BYTES:
+        return False
+    try:
+        with path.open("rb") as f:
+            f.seek(-1024, 2)
+            return b"%%EOF" in f.read()
+    except OSError:
+        return False
 
 
 def per_student_reports(ctx: _Ctx) -> None:
@@ -74,8 +101,18 @@ def per_student_pdfs(ctx: _Ctx) -> None:
     # portrait-list, plus _10pt/_11pt 2up font-size companions, and a copy
     # of the run-level exam_questions.pdf — all under 32_student_pdfs/).
     # The canonical exam_questions.pdf lives under 33_class_report/exam_questions/.
-    n_pdfs = sum(1 for _ in (ctx.artifact_dir / STUDENT_PDFS_DIR).rglob("*.pdf"))
-    ok_line(f"{n_pdfs} PDF(s) compiled across {n} student{'s' if n != 1 else ''}")
+    # Validity check (size + %%EOF trailer) distinguishes real PDFs from
+    # 15-byte stubs that xelatex leaves behind on crash.
+    all_pdfs = list((ctx.artifact_dir / STUDENT_PDFS_DIR).rglob("*.pdf"))
+    n_total = len(all_pdfs)
+    n_valid = sum(1 for p in all_pdfs if _is_valid_pdf(p))
+    if n_valid == n_total:
+        ok_line(f"{n_valid} PDF(s) compiled across {n} student{'s' if n != 1 else ''}")
+    else:
+        warn_line(
+            f"{n_valid} / {n_total} PDFs compiled "
+            f"({n_total - n_valid} failed — see warnings above)"
+        )
     # Post-check expected outputs: every student should have all PDF variants.
     # Catches both xelatex non-zero exits and "exited 0 but produced no PDF" cases.
     pdf_path_fns = [
@@ -92,14 +129,14 @@ def per_student_pdfs(ctx: _Ctx) -> None:
     students_missing: list[str] = []
     for summary in ctx.student_summaries or []:
         name = summary["name"]
-        if any(not fn(ctx.artifact_dir, name).is_file() for fn in pdf_path_fns):
+        if any(not _is_valid_pdf(fn(ctx.artifact_dir, name)) for fn in pdf_path_fns):
             students_missing.append(name)
     if students_missing:
         warn_line(
             f"{len(students_missing)} student(s) missing one or more PDFs: "
             + ", ".join(students_missing)
         )
-    if has_parsed_exam and not artifact_exam_questions_pdf_path(ctx.artifact_dir).is_file():
+    if has_parsed_exam and not _is_valid_pdf(artifact_exam_questions_pdf_path(ctx.artifact_dir)):
         warn_line("exam_questions.pdf was not produced")
 
 

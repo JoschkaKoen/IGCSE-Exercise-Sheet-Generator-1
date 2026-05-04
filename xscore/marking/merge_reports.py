@@ -23,9 +23,6 @@ from xscore.marking.class_report import (
 )
 from xscore.marking.class_report_export import _write_review_queue
 from xscore.marking.formats import get_marking_format
-from xscore.marking.report_xml import (  # re-export for legacy importers
-    load_student_results_from_reports,  # noqa: F401
-)
 from xscore.marking.student_merge import (
     _build_answer_lookup, _derive_student_names, _pass1_merge_students,
 )
@@ -115,10 +112,13 @@ def compute_class_stats(ctx: Any) -> None:
     """
     summaries = ctx.student_summaries
     target = _effective_curve_target(ctx)
-    _apply_grade_curve(summaries, target)
+    # _apply_grade_curve solves for the offset that lands the post-clip mean
+    # on target, returning the actual offset applied (which is generally
+    # larger than the naive `target - class_avg` whenever any student would
+    # overflow the 100% cap).
+    curve_offset = _apply_grade_curve(summaries, target)
     known = [s["percentage"] for s in summaries if s["percentage"] is not None]
     class_avg = int(round(sum(known) / len(known))) if known else None
-    curve_offset = (target - class_avg) if class_avg is not None else 0
     ctx.class_average_pct = class_avg
     p = artifact_class_stats_json_path(ctx.artifact_dir)
     p.parent.mkdir(parents=True, exist_ok=True)

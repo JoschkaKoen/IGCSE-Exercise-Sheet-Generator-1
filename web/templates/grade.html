@@ -666,9 +666,6 @@
     if (available && available.review_queue) {
       btns += dlBtn('/api/grade/jobs/' + jobId + '/review-queue', 'Review queue', 'secondary') + ' ';
     }
-    if (available && available.accuracy_json) {
-      btns += dlBtn('/api/grade/jobs/' + jobId + '/accuracy.json', 'Accuracy summary', 'secondary') + ' ';
-    }
     if (available && available.cost_json) {
       btns += dlBtn('/api/grade/jobs/' + jobId + '/cost.json', 'AI cost summary', 'secondary') + ' ';
     }

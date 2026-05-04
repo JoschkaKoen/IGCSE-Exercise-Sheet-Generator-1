@@ -257,8 +257,32 @@ _MATH_RUN_RE = re.compile(
 _MATH_INDICATOR_RE = re.compile(rf"[\^_]|\\(?:{_MATH_CMDS})\b")
 _STASH_RE = re.compile(r"\x00TXT(\d+)\x00")
 
+# Math-region forms beyond the inline ``$…$`` that ``_DOLLAR_SPLIT_RE`` already
+# handles. Stashed before the main heuristic runs so it operates only on prose,
+# not on math regions the AI already wrapped with an alternative syntax.
+# Without this, valid AI output like ``$$X = (A \text{ OR } B)$$`` gets shredded
+# (Q8 in run 2026-05-04_10-34-59 demonstrated the failure mode: the leading
+# ``$$`` matched ``$…$`` as empty inline math, the middle was treated as text,
+# and ``_MATH_RUN_RE`` then wrapped each ``\text{…}`` in fresh ``$…$``).
+# ``\(…\)`` and ``\[…\]`` are LaTeX-canonical alternatives the AI also emits.
+_OTHER_MATH_RE = re.compile(
+    r"\$\$.*?\$\$"      # $$…$$ display (TeX)
+    r"|\\\(.*?\\\)"     # \(…\) inline (LaTeX)
+    r"|\\\[.*?\\\]",    # \[…\] display (LaTeX)
+    re.DOTALL,
+)
+_OTHER_MATH_PLACEHOLDER_RE = re.compile(r"\x00MATH(\d+)\x00")
+
 
 def _wrap_loose_math(text: str) -> str:
+    other_math: list[str] = []
+
+    def _stash_other(m: re.Match) -> str:
+        other_math.append(m.group(0))
+        return f"\x00MATH{len(other_math) - 1}\x00"
+
+    text = _OTHER_MATH_RE.sub(_stash_other, text)
+
     stashed: list[str] = []
 
     def _stash(m: re.Match) -> str:
@@ -277,7 +301,10 @@ def _wrap_loose_math(text: str) -> str:
             part = re.sub(r"(?<!\\)\$", r"\\$", part)
             parts[i] = _MATH_RUN_RE.sub(_maybe_wrap_math, part)
     text = "".join(parts)
-    return _STASH_RE.sub(lambda m: stashed[int(m.group(1))], text)
+    text = _STASH_RE.sub(lambda m: stashed[int(m.group(1))], text)
+    return _OTHER_MATH_PLACEHOLDER_RE.sub(
+        lambda m: other_math[int(m.group(1))], text
+    )
 
 
 def _maybe_wrap_math(m: re.Match) -> str:

@@ -66,7 +66,6 @@ REVIEW_QUEUE_DIR       = "34_review_queue"
 
 # Summary.
 TIMING_DIR             = "35_timing_summary"
-ACCURACY_DIR           = "36_accuracy"
 AI_COSTS_DIR           = "37_ai_costs"
 
 

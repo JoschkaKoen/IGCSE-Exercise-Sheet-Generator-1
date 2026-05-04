@@ -41,14 +41,22 @@ from xscore.shared.exam_paths import (
     artifact_exam_questions_tex_path,
     artifact_student_pdf_dir,
     artifact_student_pdfs_dir,
+    artifact_student_report_pdf_portrait_2up_attempted_path,
     artifact_student_report_pdf_portrait_2up_path,
+    artifact_student_report_pdf_portrait_large_attempted_path,
     artifact_student_report_pdf_portrait_large_path,
+    artifact_student_report_tex_landscape_attempted_path,
     artifact_student_report_tex_landscape_path,
+    artifact_student_report_tex_landscape_with_questions_attempted_path,
     artifact_student_report_tex_landscape_with_questions_path,
+    artifact_student_report_tex_portrait_attempted_path,
+    artifact_student_report_tex_portrait_large_attempted_path,
     artifact_student_report_tex_portrait_large_path,
+    artifact_student_report_tex_portrait_list_attempted_path,
     artifact_student_report_tex_portrait_list_path,
     artifact_student_report_tex_portrait_path,
 )
+from xscore.marking.student_merge import filter_to_attempted
 from eXercise.pdfjam_post import make_2up_landscape_pdf
 from xscore.shared.terminal_ui import warn_line
 
@@ -242,16 +250,54 @@ def _build_all_question_tables(
     return all_avgs, all_max
 
 
-def _apply_grade_curve(student_summaries: list[dict], target: int) -> None:
-    """Compute curve offset (target − class_avg); add curved_pct to each summary in place."""
-    known_pcts = [s["percentage"] for s in student_summaries if s["percentage"] is not None]
-    class_avg = int(round(sum(known_pcts) / len(known_pcts))) if known_pcts else None
-    curve_offset = (target - class_avg) if class_avg is not None else 0
+def _apply_grade_curve(student_summaries: list[dict], target: int) -> int:
+    """Mutate summaries in place; return the offset actually applied (post-clip).
+
+    Solves for the offset *x* such that ``mean(min(100, raw + x)) == target``
+    so the curved class mean lands on the target even when top students would
+    overflow the 100% cap. The naive ``target − raw_mean`` is computed pre-clip;
+    when any student's curved score would exceed 100, the per-student
+    ``min(100, …)`` truncates the excess and the actual class mean falls below
+    target by the lost amount divided by *n*.
+
+    The function ``mean(min(100, raw + x))`` is monotone non-decreasing in *x*,
+    so a closed-form iteration over candidate cap-counts ``k ∈ {0..n}`` gives
+    an exact answer in at most *n* iterations. For each *k* (top-k students
+    capped), with *S* = sum of the *n−k* lowest raws, solve
+    ``x = (n·target − 100k − S) / (n−k)``. Accept the *k* where the boundary
+    raws are consistent: the (k+1)-th-highest does not exceed ``100−x``, the
+    k-th-highest does (when both exist).
+
+    The returned offset is rounded to int for display in ``class_stats.json``;
+    the per-student ``curved_pct`` uses the unrounded value for accuracy.
+    """
+    raws = [s["percentage"] for s in student_summaries if s["percentage"] is not None]
+    if not raws:
+        for s in student_summaries:
+            s["curved_pct"] = None
+        return 0
+    n = len(raws)
+    sorted_desc = sorted(raws, reverse=True)
+    offset = target - sum(raws) / n  # k=0 baseline (matches pre-fix behaviour)
+    for k in range(n + 1):
+        n_unc = n - k
+        if n_unc == 0:
+            continue
+        sum_unc = sum(sorted_desc[k:])
+        x = (n * target - 100 * k - sum_unc) / n_unc
+        top_unc = sorted_desc[k] if k < n else None
+        bot_cap = sorted_desc[k - 1] if k > 0 else None
+        if (top_unc is None or top_unc + x <= 100 + 1e-9) and \
+           (bot_cap is None or bot_cap + x >= 100 - 1e-9):
+            offset = x
+            break
+    offset = max(0.0, offset)  # never bump anyone *down* — curve is one-way
     for s in student_summaries:
-        s["curved_pct"] = (
-            min(100, max(0, s["percentage"] + curve_offset))
-            if s["percentage"] is not None else None
-        )
+        if s["percentage"] is None:
+            s["curved_pct"] = None
+        else:
+            s["curved_pct"] = min(100, max(0, s["percentage"] + offset))
+    return int(round(offset))
 
 
 # ---------------------------------------------------------------------------
@@ -268,6 +314,11 @@ def _apply_grade_curve(student_summaries: list[dict], target: int) -> None:
 _EXTRA_2UP_FONT_SIZES: tuple[int, ...] = (10, 11)
 
 
+# Header subtitle injected into every per-student `_attempted` variant so a
+# teacher reading the PDF/MD knows which version they're looking at.
+_ATTEMPTED_SUBTITLE = "showing attempted questions only"
+
+
 def _suffixed(p: Path, suffix: str) -> Path:
     """Return *p* with *suffix* inserted before its extension. ``suffix=""`` is a no-op."""
     return p if not suffix else p.with_name(p.stem + suffix + p.suffix)
@@ -277,10 +328,15 @@ def _ensure_student_pdf_subdirs(
     artifact_dir: Path, student: str, *, with_questions: bool
 ) -> None:
     """Create the per-student variant subfolders that ``_pass2_write_tex``
-    will write into. Idempotent."""
-    variants = ["landscape", "portrait", "portrait_large", "portrait_2up"]
+    will write into. Idempotent.
+
+    Each base variant gets a sibling ``<variant>_attempted`` subfolder for
+    the questions-the-student-answered renderings produced alongside the
+    canonical ones."""
+    base_variants = ["landscape", "portrait", "portrait_large", "portrait_2up"]
     if with_questions:
-        variants += ["landscape_with_questions", "portrait_list"]
+        base_variants += ["landscape_with_questions", "portrait_list"]
+    variants = base_variants + [f"{v}_attempted" for v in base_variants]
     student_dir = artifact_student_pdf_dir(artifact_dir, student)
     for v in variants:
         (student_dir / v).mkdir(parents=True, exist_ok=True)
@@ -317,13 +373,18 @@ def _pass2_write_tex(
     for s in student_summaries:
         report = full_reports[s["name"]]
         report["curved_pct"] = s["curved_pct"]
+        # Pre-filter once for all the `_attempted` variants below.
+        attempted_report = filter_to_attempted(report)
         _ensure_student_pdf_subdirs(
             artifact_dir, s["name"], with_questions=parsed_questions is not None
         )
-        for orientation, path_fn, font_size in (
-            ("landscape", artifact_student_report_tex_landscape_path,      10),
-            ("portrait",  artifact_student_report_tex_portrait_path,       10),
-            ("portrait",  artifact_student_report_tex_portrait_large_path, 12),
+        for orientation, path_fn, att_path_fn, font_size in (
+            ("landscape", artifact_student_report_tex_landscape_path,
+             artifact_student_report_tex_landscape_attempted_path, 10),
+            ("portrait",  artifact_student_report_tex_portrait_path,
+             artifact_student_report_tex_portrait_attempted_path, 10),
+            ("portrait",  artifact_student_report_tex_portrait_large_path,
+             artifact_student_report_tex_portrait_large_attempted_path, 12),
         ):
             tex_path = _suffixed(path_fn(artifact_dir, s["name"]), name_suffix)
             tex_path.write_text(
@@ -337,6 +398,20 @@ def _pass2_write_tex(
                 encoding="utf-8",
             )
             tex_paths.append(tex_path)
+
+            att_tex_path = _suffixed(att_path_fn(artifact_dir, s["name"]), name_suffix)
+            att_tex_path.write_text(
+                _student_report_to_tex(
+                    attempted_report, exam_name=exam_name, orientation=orientation,
+                    font_size=font_size, show_curved_grade=show_curved_grade,
+                    class_avg=class_avg,
+                    q_to_graphics=q_to_graphics,
+                    scheme_graphics_dir=scheme_graphics_dir,
+                    subtitle=_ATTEMPTED_SUBTITLE,
+                ),
+                encoding="utf-8",
+            )
+            tex_paths.append(att_tex_path)
 
         # Extra portrait_large variants at smaller font sizes for the
         # combined 2up class PDF. Skipped when an outer suffix is present
@@ -379,6 +454,25 @@ def _pass2_write_tex(
             )
             tex_paths.append(wq_tex_path)
 
+            wq_att_tex_path = _suffixed(
+                artifact_student_report_tex_landscape_with_questions_attempted_path(
+                    artifact_dir, s["name"]
+                ),
+                name_suffix,
+            )
+            wq_att_tex_path.write_text(
+                _student_report_with_questions_to_tex(
+                    attempted_report, qmap_by_num, exam_name=exam_name,
+                    font_size=10, show_curved_grade=show_curved_grade,
+                    class_avg=class_avg,
+                    q_to_graphics=q_to_graphics,
+                    scheme_graphics_dir=scheme_graphics_dir,
+                    subtitle=_ATTEMPTED_SUBTITLE,
+                ),
+                encoding="utf-8",
+            )
+            tex_paths.append(wq_att_tex_path)
+
             list_tex_path = _suffixed(
                 artifact_student_report_tex_portrait_list_path(
                     artifact_dir, s["name"]
@@ -396,6 +490,25 @@ def _pass2_write_tex(
                 encoding="utf-8",
             )
             tex_paths.append(list_tex_path)
+
+            list_att_tex_path = _suffixed(
+                artifact_student_report_tex_portrait_list_attempted_path(
+                    artifact_dir, s["name"]
+                ),
+                name_suffix,
+            )
+            list_att_tex_path.write_text(
+                _student_report_list_to_tex(
+                    attempted_report, qmap_by_num, exam_name=exam_name,
+                    show_curved_grade=show_curved_grade,
+                    class_avg=class_avg,
+                    q_to_graphics=q_to_graphics,
+                    scheme_graphics_dir=scheme_graphics_dir,
+                    subtitle=_ATTEMPTED_SUBTITLE,
+                ),
+                encoding="utf-8",
+            )
+            tex_paths.append(list_att_tex_path)
 
     # The standalone exam-questions PDF is per-run, not per-student. Only
     # emit it when we're rendering the unsuffixed batch.
@@ -423,8 +536,23 @@ def _pass2_write_tex(
         )
         if p_in.is_file():
             portrait_2up_jobs.append((p_in, p_out))
+
+        # Mirror the 2up post-processing for the `_attempted` variant: input
+        # `<S>_portrait_large_attempted.pdf` → output `<S>_portrait_2up_attempted.pdf`.
+        p_in_att = _suffixed(
+            artifact_student_report_pdf_portrait_large_attempted_path(artifact_dir, s["name"]),
+            name_suffix,
+        )
+        p_out_att = _suffixed(
+            artifact_student_report_pdf_portrait_2up_attempted_path(artifact_dir, s["name"]),
+            name_suffix,
+        )
+        if p_in_att.is_file():
+            portrait_2up_jobs.append((p_in_att, p_out_att))
+
         # Companion 2up jobs for each extra font size. Skipped when an
-        # outer suffix is present.
+        # outer suffix is present. Full-only — these feed the combined
+        # class 2up PDF, which intentionally doesn't have an _attempted twin.
         if not name_suffix:
             for fs in _EXTRA_2UP_FONT_SIZES:
                 p_in_extra = _suffixed(

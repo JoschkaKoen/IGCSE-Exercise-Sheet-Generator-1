@@ -1,4 +1,4 @@
-"""Summary step bodies: timing summary, accuracy evaluation, AI cost report."""
+"""Summary step bodies: timing summary, AI cost report."""
 
 from __future__ import annotations
 
@@ -6,19 +6,16 @@ import json
 import time
 
 from eXercise.ai_client import get_run_usage
-from xscore.marking.report_xml import load_student_results_from_reports
 from xscore.shared.timing_report import _step_label, print_step_durations, write_timing_report
 from xscore.pipeline.cost_table import print_cost_table, print_per_step_cost_table
 from xscore.shared.cost_report import compute_cost
 from xscore.shared.exam_paths import (
-    artifact_accuracy_json_path,
     artifact_cost_json_path,
     artifact_cost_md_path,
 )
-from xscore.shared.load_ground_truth import evaluate_results, load_ground_truth
 from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.pipeline_steps import step_by_name
-from xscore.shared.terminal_ui import format_duration, info_line
+from xscore.shared.terminal_ui import format_duration
 
 
 def timing_summary(ctx: _Ctx) -> None:
@@ -33,29 +30,6 @@ def timing_summary(ctx: _Ctx) -> None:
         ctx.marking_api_calls,
         failures=ctx.marking_failures,
         print_timing=False,
-    )
-
-
-def accuracy_evaluation(ctx: _Ctx) -> None:
-    assert ctx.artifact_dir is not None
-    if ctx.folder is None:
-        info_line("Skipped — no exam folder")
-        return
-    ground_truth = load_ground_truth(ctx.folder, ctx.scaffold)
-    if not ground_truth or not ctx.scaffold:
-        info_line("Skipped — no ground truth file")
-        return
-    student_results = load_student_results_from_reports(ctx.artifact_dir)
-    ctx.accuracy_summary = evaluate_results(student_results, ground_truth, ctx.scaffold)
-    acc_path = artifact_accuracy_json_path(ctx.artifact_dir)
-    acc_path.parent.mkdir(parents=True, exist_ok=True)
-    acc_path.write_text(
-        json.dumps(ctx.accuracy_summary, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
-    info_line(
-        f"Accuracy: {ctx.accuracy_summary['overall_correct']}/"
-        f"{ctx.accuracy_summary['overall_total']} "
-        f"({ctx.accuracy_summary['overall_accuracy_pct']:.1f}%)"
     )
 
 

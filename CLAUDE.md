@@ -83,6 +83,8 @@ Provider is auto-detected from the model name: `gemini*` → Gemini, `kimi*`/`mo
 
 Every AI call auto-saves its prompt and response to the step's artifact dir as `<task>_prompt.md` (with binary attachments as sidecar files) and `<task>_response.txt`. Two parallel implementations kept in sync: `eXercise/prompt_logger.py` (generation pipeline) and `xscore/shared/prompt_logger.py` (marking pipeline). Logging silently no-ops on I/O error so a logging fault never breaks the pipeline.
 
+Each `<task>_response.txt` is the concatenation of the model's thinking trace (as a leading `[thinking]…[/thinking]` block) and the structured response that follows it. Both are saved together for review convenience; downstream parsers operate on the post-`[/thinking]` body only. Don't conflate verbose thinking-trace prose with content actually emitted into structured fields when auditing output.
+
 ## Test exam
 
 `Space Physics Unit Test/` is the canonical regression input for the marking pipeline. After any structural change to `xscore/`, run:

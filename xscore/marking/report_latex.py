@@ -116,15 +116,26 @@ def _student_header_kwargs(
     exam_name: str,
     show_curved_grade: bool,
     class_avg: int | None,
+    subtitle: str | None = None,
 ) -> dict:
-    """Build the Jinja2 kwargs shared by all three per-student-report templates."""
+    """Build the Jinja2 kwargs shared by all three per-student-report templates.
+
+    *subtitle* (when set) is appended to ``header_extra`` so the title line
+    distinguishes the ``_attempted`` variants from the canonical ones —
+    avoids touching the templates and preserves byte-identity when None.
+    """
     pct = report["percentage"]
     curved_pct = report.get("curved_pct")
     pct_display = "N/A" if pct is None else f"{pct}\\%"
     curved_display = "N/A" if curved_pct is None else f"{curved_pct}\\%"
+    header_extra = (
+        f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
+    )
+    if subtitle:
+        header_extra += f" — {_latex_escape(subtitle)}"
     return {
         "name": _latex_escape(report["student_name"]),
-        "header_extra": f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else "",
+        "header_extra": header_extra,
         "total": report["total_marks"],
         "max_m": report["max_marks"],
         "percentage": pct,
@@ -146,6 +157,7 @@ def _student_report_to_tex(
     class_avg: int | None = None,
     q_to_graphics: dict[str, list[str]] | None = None,
     scheme_graphics_dir: str = "",
+    subtitle: str | None = None,
 ) -> str:
     # Column widths threaded into _ai_cell / _format_criteria_cell so alltt
     # font-size selection scales with cell width. Match the col_spec below.
@@ -202,6 +214,10 @@ def _student_report_to_tex(
             for i, panel in enumerate(panels[1:], 1):
                 terminator = "\\\\ \\hline" if i == len(panels) - 1 else "\\\\"
                 rows.append(f"     &  &  &  & {panel} &  {terminator}")
+    if not rows:
+        rows.append(
+            "    \\multicolumn{6}{c}{\\textit{(no answers extracted)}} \\\\"
+        )
     rows_str = "\n".join(rows)
     # Column widths fill the available text width minus ~2.5 cm of
     # \tabcolsep separator overhead across 6 columns:
@@ -226,7 +242,7 @@ def _student_report_to_tex(
         rows_str=rows_str,
         table_close=table_close,
         scheme_graphics_dir=scheme_graphics_dir,
-        **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg),
+        **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg, subtitle),
     )
 
 
@@ -406,6 +422,7 @@ def _student_report_with_questions_to_tex(
     class_avg: int | None = None,
     q_to_graphics: dict[str, list[str]] | None = None,
     scheme_graphics_dir: str = "",
+    subtitle: str | None = None,
 ) -> str:
     """Landscape per-student PDF with an extra Question column (no MCQ options)."""
     # Column widths threaded into _ai_cell / _format_criteria_cell /
@@ -442,6 +459,10 @@ def _student_report_with_questions_to_tex(
         rows.append(
             f"    {qnum} & {question_cell} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"
         )
+    if not rows:
+        rows.append(
+            "    \\multicolumn{7}{c}{\\textit{(no answers extracted)}} \\\\"
+        )
     rows_str = "\n".join(rows)
     # Landscape A4: 25.7 cm text - ~3.0 cm \tabcolsep overhead across 7 cols
     # → ~22.7 cm column budget = 0.5+4.5+0.5+0.6+4.7+5.0+6.2 (cm).
@@ -457,7 +478,7 @@ def _student_report_with_questions_to_tex(
         rows_str=rows_str,
         table_close=table_close,
         scheme_graphics_dir=scheme_graphics_dir,
-        **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg),
+        **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg, subtitle),
     )
 
 
@@ -469,6 +490,7 @@ def _student_report_list_to_tex(
     class_avg: int | None = None,
     q_to_graphics: dict[str, list[str]] | None = None,
     scheme_graphics_dir: str = "",
+    subtitle: str | None = None,
 ) -> str:
     """Portrait per-student PDF in a list/block layout (no longtable).
 
@@ -521,10 +543,12 @@ def _student_report_list_to_tex(
             f"{reasoning}\\par\n"
             f"\\vspace{{0.4em}}\\hrule\\vspace{{0.6em}}"
         )
+    if not blocks:
+        blocks.append("\\noindent\\textit{(no answers extracted)}")
     body = "\n".join(blocks)
 
     return _ENV.get_template("student_report_list.tex.j2").render(
         body=body,
         scheme_graphics_dir=scheme_graphics_dir,
-        **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg),
+        **_student_header_kwargs(report, exam_name, show_curved_grade, class_avg, subtitle),
     )

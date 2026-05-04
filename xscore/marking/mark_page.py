@@ -459,10 +459,26 @@ def _finalize_marking(result: dict, warn: Callable[[str], None]) -> None:
     after the completeness retry) and for out-of-range marks.
     """
     _fix_mc_marks(result)
-    for bq in result.get("questions", []):
+    questions = result.get("questions", [])
+
+    # Withdrawn questions (max_marks=0): force-zero, blank explanation/problem,
+    # and skip the downstream blank-answer override and unmarked/clamp warnings.
+    withdrawn_ids: set[int] = set()
+    for bq in questions:
+        if bq.get("max_marks") == 0:
+            bq["assigned_marks"] = 0
+            bq["explanation"] = ""
+            bq["problem"] = ""
+            withdrawn_ids.add(id(bq))
+
+    for bq in questions:
+        if id(bq) in withdrawn_ids:
+            continue
         if not (bq.get("student_answer") or "").strip() and bq.get("assigned_marks") in (None, 0):
             bq["explanation"] = "Blank answer."
-    for bq in result.get("questions", []):
+    for bq in questions:
+        if id(bq) in withdrawn_ids:
+            continue
         max_m = bq.get("max_marks")
         if max_m is None:
             continue
