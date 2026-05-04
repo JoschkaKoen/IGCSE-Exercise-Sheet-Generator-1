@@ -208,6 +208,13 @@ NAME_JPEG_QUALITY: int = int(os.getenv("NAME_JPEG_QUALITY", "85"))
 MARKING_DPI: int = int(os.getenv("MARKING_DPI", "300"))
 MARKING_JPEG_QUALITY: int = int(os.getenv("MARKING_JPEG_QUALITY", "90"))
 
+# Per-page thinking-budget boost. When a page contains a question worth
+# at least *_THRESHOLD marks, the thinking budget for that page's marking
+# call is multiplied by *_MULTIPLIER. No-op when the model's base thinking
+# budget is None or 0, or when MULTIPLIER is 1.
+MARKING_THINKING_BOOST_THRESHOLD: int = int(os.getenv("MARKING_THINKING_BOOST_THRESHOLD", "10"))
+MARKING_THINKING_BOOST_MULTIPLIER: float = float(os.getenv("MARKING_THINKING_BOOST_MULTIPLIER", "2"))
+
 # Inter-call delays in the marking pipeline (rate limiting). Override via env if needed.
 GRADE_QUESTION_DELAY_S: float = float(os.getenv("GRADE_QUESTION_DELAY_S", "0.0"))
 PAGE_API_DELAY_S: float = float(os.getenv("PAGE_API_DELAY_S", "0.0"))

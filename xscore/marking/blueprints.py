@@ -115,11 +115,9 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
                 "assigned_marks": None,
                 "explanation": "",
             })
-        bp = {
-            "page": page_num,
-            "layout": {"rows": layout.rows, "cols": layout.cols},
-            "questions": page_qs,
-        }
+        bp = {"page": page_num, "questions": page_qs}
+        if layout.rows > 1 or layout.cols > 1:
+            bp["layout"] = {"rows": layout.rows, "cols": layout.cols}
         blueprints.append(bp)
 
         # Skip the blueprint file for cover/blank/question-free pages. The

@@ -256,6 +256,42 @@ class MarkingFormat:
             })
         return result
 
+    def parse_flat_fallback(self, raw: str) -> dict | None:
+        """Recover the four fill fields from a response where the AI dropped
+        the ``questions:`` wrapper and emitted them at the document root.
+
+        Returns the four-field dict (matching one entry of ``parse_response``'s
+        list, minus ``number``/``subpage_row``/``subpage_col`` which the caller
+        attributes from the blueprint) or None when *raw* doesn't look like a
+        flat-keyed response. Caller is responsible for gating this on a
+        single-question blueprint, since flat-keyed shape gives no way to
+        disambiguate which question the fields belong to.
+        """
+        try:
+            data = yaml.safe_load(_strip_fences(raw))
+        except yaml.YAMLError:
+            return None
+        if not isinstance(data, dict):
+            return None
+        target_keys = {"assigned_marks", "explanation", "confidence", "problem"}
+        if not (target_keys & data.keys()):
+            return None
+        if data.get("questions"):
+            return None
+        am = data.get("assigned_marks", "")
+        try:
+            am_int: int | None = int(am) if str(am).strip() not in ("", "null", "None") else None
+        except (ValueError, TypeError):
+            am_int = None
+        # student_answer="" — blueprint pre-fill from step 28 wins via merge.
+        return {
+            "assigned_marks": am_int,
+            "student_answer": "",
+            "explanation":    str(data.get("explanation") or "").strip(),
+            "confidence":     parse_confidence_int(data.get("confidence")),
+            "problem":        parse_problem(data.get("problem")),
+        }
+
     # --- Serialisation ---
 
     def serialize_filled(self, filled: dict) -> str:

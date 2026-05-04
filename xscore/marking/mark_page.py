@@ -16,6 +16,7 @@ from eXercise.api_retry import retry_api_call
 from xscore.config import MARKING_JPEG_QUALITY
 from xscore.marking.formats.base import FormatParseError, MarkingFailure, MarkingFormat
 from xscore.prompts.loader import load_prompt
+from xscore.shared.models import ExamLayout
 from xscore.shared.prompt_logger import (
     save_input_data, save_prompt, save_response,
 )
@@ -378,6 +379,23 @@ def _apply_marking_response(
     is a clean retry-merge.
     """
     parsed_questions = fmt.parse_response(raw)
+    # Fallback: model dropped the `questions:` wrapper and emitted the four
+    # fill fields at document root. Safe only when the blueprint has exactly
+    # one question — flat-keyed shape is otherwise positionally ambiguous.
+    if not parsed_questions and len(blueprint.get("questions") or []) == 1:
+        fallback_fields = fmt.parse_flat_fallback(raw)
+        if fallback_fields is not None:
+            bq0 = blueprint["questions"][0]
+            parsed_questions = [{
+                "number":      str(bq0.get("number", "")),
+                "subpage_row": int(bq0.get("subpage_row", 1)),
+                "subpage_col": int(bq0.get("subpage_col", 1)),
+                **fallback_fields,
+            }]
+            info_line(
+                f"Marking p{blueprint.get('page')}: 1×1 single-question fallback "
+                f"rescued response (AI dropped `questions:` wrapper)"
+            )
     result = blueprint.copy()
     fill_groups: dict[tuple, list] = defaultdict(list)
     for q in parsed_questions:
@@ -499,7 +517,9 @@ def _do_retry_call(
     would compound on top of the completeness retry.
     """
     try:
-        slim_xml = fmt.build_blueprint(page_num, layout, slim_questions)
+        # build_blueprint expects ExamLayout (attribute access on .rows/.cols).
+        layout_obj = ExamLayout(rows=int(layout.get("rows", 1)), cols=int(layout.get("cols", 1)))
+        slim_xml = fmt.build_blueprint(page_num, layout_obj, slim_questions)
         _, base_user_text = load_prompt(
             fmt.prompt_name(), section="user",
             blueprint=_rename_blueprint_for_prompt(slim_xml),
@@ -561,6 +581,10 @@ def _do_retry_call(
 
         return raw, thinking_text
     except KeyboardInterrupt:
+        raise
+    except (AttributeError, TypeError, NameError, ImportError, KeyError):
+        # Programming bugs are deterministic — re-raise so they crash loudly
+        # instead of silently degrading every retry attempt forever.
         raise
     except Exception as exc:  # noqa: BLE001
         warn_line(f"Marking p{page_num} retry failed: {exc} — keeping first-call result")

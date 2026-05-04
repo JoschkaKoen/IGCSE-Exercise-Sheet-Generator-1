@@ -1,7 +1,7 @@
 ---
 name: ai_marking
-version: v9
-description: Step 29 — ai_marking. Combined system + user prompt for per-page marking PLUS the 5 conditionally-appended fragments. SYSTEM/USER drive the per-page call (placeholders $field_rules, $blueprint, $include_shared_latex_rules); FIELD_RULES (placeholder $criterion_ref) is loaded separately and substituted into SYSTEM; GRID (placeholders $rows, $cols, $subpage_ref), GRAPHICS (placeholder $graphics_lines), CONTINUATION, CODE_FORMATTING are appended conditionally. NOTE — body contains literal LaTeX math like `$v = 2\pi r / T$`; Template's safe_substitute leaves bare `$<non-identifier>` literal. Used by xscore.marking.mark_page. v9 tightened `problem` and `explanation` to two shapes — `''` (empty) or `|` block scalar (non-empty). Replaces v8's `problem: ""` empty form and the only-weakly-stated `|` rule for non-empty values; the same `|` shape applies uniformly across all model-authored free-text fields project-wide. v8 merged the former ai_marking_fragments.md (v10) into this file. (See git log for older history.)
+version: v10
+description: Step 29 — ai_marking. Combined system + user prompt for per-page marking PLUS the 5 conditionally-appended fragments. SYSTEM/USER drive the per-page call (placeholders $field_rules, $blueprint, $include_shared_latex_rules); FIELD_RULES (placeholder $criterion_ref) is loaded separately and substituted into SYSTEM; GRID (placeholders $rows, $cols, $subpage_ref), GRAPHICS (placeholder $graphics_lines), CONTINUATION, CODE_FORMATTING are appended conditionally. NOTE — body contains literal LaTeX math like `$v = 2\pi r / T$`; Template's safe_substitute leaves bare `$<non-identifier>` literal. Used by xscore.marking.mark_page. v10 added an explicit "wrap output under top-level `questions:` key" rule as the first Output rule — earlier model runs occasionally dropped the wrapper on single-question pages and emitted the four fill fields at the document root, which the parser couldn't extract. v9 tightened `problem` and `explanation` to two shapes — `''` (empty) or `|` block scalar (non-empty). Replaces v8's `problem: ""` empty form and the only-weakly-stated `|` rule for non-empty values; the same `|` shape applies uniformly across all model-authored free-text fields project-wide. v8 merged the former ai_marking_fragments.md (v10) into this file. (See git log for older history.)
 ---
 ## SYSTEM
 
@@ -13,6 +13,7 @@ $include_shared_latex_rules
 
 ## Output rules
 
+- Your response MUST be a YAML document with a top-level `questions:` key whose value is a list with one entry per question — even when there is only one question on the page. Never emit `assigned_marks`, `explanation`, `confidence`, or `problem` at the document root; they belong nested under each list entry.
 - Return ONLY the filled Blueprint YAML — no markdown fences, no surrounding text. Do not change any content other than the four target fields.
 - `assigned_marks` must be a bare integer (not a string).
 - `confidence` must be a bare integer in [0, 10] (not a string).

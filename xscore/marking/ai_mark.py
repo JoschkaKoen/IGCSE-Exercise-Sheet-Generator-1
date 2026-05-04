@@ -26,7 +26,12 @@ from pathlib import Path
 from collections.abc import Callable
 from typing import Any
 
-from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, MARKING_MODEL_DEFAULT
+from xscore.config import (
+    GEMINI_MAX_OUTPUT_TOKENS,
+    MARKING_MODEL_DEFAULT,
+    MARKING_THINKING_BOOST_MULTIPLIER,
+    MARKING_THINKING_BOOST_THRESHOLD,
+)
 from xscore.marking.blueprints import marked_to_md
 from xscore.marking.formats import get_marking_format
 from xscore.marking.formats.base import FormatParseError
@@ -659,10 +664,33 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     )
                 b64 = _all_b64[0]
                 extra_b64 = _all_b64[1:]
+                # Boost thinking budget on pages with hard questions. Long-answer
+                # questions (≥ THRESHOLD marks) tend to exhaust the base budget
+                # and force the model into minimum-viable output, which loses
+                # structural fidelity (e.g. dropping the YAML wrapper).
+                _max_marks_on_page = max(
+                    (int(q.get("max_marks") or 0) for q in (blueprint.get("questions") or [])),
+                    default=0,
+                )
+                if _thinking and _max_marks_on_page >= MARKING_THINKING_BOOST_THRESHOLD \
+                        and MARKING_THINKING_BOOST_MULTIPLIER != 1:
+                    _boosted = int(_thinking * MARKING_THINKING_BOOST_MULTIPLIER)
+                    _use_stream_call, _thinking_kw_call = build_completion_kwargs(
+                        _provider, _boosted, max_tok,
+                    )
+                    info_line(
+                        f"Marking p{p_label} ({student_name}): boosting thinking budget "
+                        f"{_thinking} → {_boosted} (max question = {_max_marks_on_page} marks, "
+                        f"threshold = {MARKING_THINKING_BOOST_THRESHOLD}, "
+                        f"×{MARKING_THINKING_BOOST_MULTIPLIER})"
+                    )
+                else:
+                    _use_stream_call = _use_stream
+                    _thinking_kw_call = _thinking_kw
                 filled = _mark_page(
-                    client, model_id, b64, blueprint, _thinking_kw,
+                    client, model_id, b64, blueprint, _thinking_kw_call,
                     blueprint_xml=blueprint_str,
-                    use_stream=_use_stream,
+                    use_stream=_use_stream_call,
                     prompt_save_path=prompt_save,
                     warn=_warn,
                     scheme_graphics=_page_graphics,
