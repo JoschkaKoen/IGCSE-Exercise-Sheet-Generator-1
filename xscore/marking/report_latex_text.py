@@ -245,7 +245,8 @@ _DOLLAR_SPLIT_RE = re.compile(r"((?<!\\)\$[^$\n]*(?<!\\)\$)")
 _MATH_RUN_RE = re.compile(
     rf"""
     (?:
-        \\[A-Za-z]+(?:{_BRACE})*    # \cmd{{args}} (text-mode ones already stashed)
+        \\[#_&%${{}}~^\\]           # escaped LaTeX special — consume `\_` etc. as one unit
+      | \\[A-Za-z]+(?:{_BRACE})*    # \cmd{{args}} (text-mode ones already stashed)
       | [\^_]{_BRACE}               # ^{{x}} or _{{x}}
       | [\^_][A-Za-z0-9]            # ^x or _x (single char)
       | {_BRACE}                    # bare brace group
@@ -254,7 +255,7 @@ _MATH_RUN_RE = re.compile(
     """,
     re.VERBOSE,
 )
-_MATH_INDICATOR_RE = re.compile(rf"[\^_]|\\(?:{_MATH_CMDS})\b")
+_MATH_INDICATOR_RE = re.compile(rf"(?<!\\)[\^_]|\\(?:{_MATH_CMDS})\b")
 _STASH_RE = re.compile(r"\x00TXT(\d+)\x00")
 
 # Math-region forms beyond the inline ``$…$`` that ``_DOLLAR_SPLIT_RE`` already

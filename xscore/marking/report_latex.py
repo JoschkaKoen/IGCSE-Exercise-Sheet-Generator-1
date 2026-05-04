@@ -127,7 +127,7 @@ def _student_header_kwargs(
     pct = report["percentage"]
     curved_pct = report.get("curved_pct")
     pct_display = "N/A" if pct is None else f"{pct}\\%"
-    curved_display = "N/A" if curved_pct is None else f"{curved_pct}\\%"
+    curved_display = "N/A" if curved_pct is None else f"{round(curved_pct)}\\%"
     header_extra = (
         f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
     )
@@ -268,7 +268,7 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
     for s in report["students"]:
         name = _latex_escape(s["name"])
         pct_display = "N/A" if s["percentage"] is None else f"{s['percentage']}\\%"
-        curved_display = "N/A" if s.get("curved_pct") is None else f"{s['curved_pct']}\\%"
+        curved_display = "N/A" if s.get("curved_pct") is None else f"{round(s['curved_pct'])}\\%"
         rank_cell = str(s["rank"]) if s.get("rank") is not None else "---"
         student_rows.append(f"    {rank_cell} & {name} & {s['total_marks']} & {pct_display} & {curved_display} \\\\")
     student_rows_str = "\n".join(student_rows)
@@ -304,6 +304,33 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
         histogram_curved_path=report.get("histogram_curved_path"),
         difficulty_path=report.get("difficulty_path"),
         difficulty_top_path=report.get("difficulty_top_path"),
+    )
+
+
+def _class_toc_to_tex(
+    students: list[dict], exam_name: str = "", title_suffix: str = ""
+) -> str:
+    """TOC for the combined class report — one clickable line per student.
+
+    *students* is a list of dicts with ``safe_name``, ``display_name``,
+    and ``page`` keys. Display names are pre-escaped here so the
+    template stays a plain substitution.
+
+    *title_suffix* lets callers distinguish per-variant TOCs in the
+    section heading (e.g. ``" (landscape)"``); empty by default.
+    """
+    header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
+    header = f"Students{header_extra}{title_suffix}"
+    rendered = [
+        {
+            "safe_name": s["safe_name"],
+            "display_name": _latex_escape(s["display_name"]),
+            "page": s["page"],
+        }
+        for s in students
+    ]
+    return _ENV.get_template("class_toc.tex.j2").render(
+        header=header, students=rendered
     )
 
 

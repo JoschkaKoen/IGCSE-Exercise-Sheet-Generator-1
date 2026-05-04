@@ -426,7 +426,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
         unit = "answer" if n == 1 else "answers"
         _emit_ordered(idx, (
             f"[green]     {icon('ok')}  {prefix}"
-            f"  ·  {format_duration(dur)}  ·  {n} {unit}[/]"
+            f"  ·  {format_duration(dur):>6}  ·  {n} {unit}[/]"
         ))
         return {"phase": "extract_answers", "student": student_name, "page": p_label,
                 "duration_s": dur}, None

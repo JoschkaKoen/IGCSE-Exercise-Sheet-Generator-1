@@ -61,6 +61,7 @@ def _ai_cell(text: str, cell_width_cm: float = 3.6) -> str:
         # legitimately part of LaTeX commands. Math ($, \, {, }) is left alone
         # so the AI can still emit `\frac{1}{2}` etc.
         t = re.sub(r"(?<!\\)%", r"\\%", t)         # bare % starts a LaTeX comment
+        t = re.sub(r"(?<!\\)#", r"\\#", t)         # bare # is a macro-parameter char
         # Bare `\\` inside a p{} cell terminates the longtable row and shifts
         # subsequent content into the wrong columns. AIs sometimes emit `\\`
         # to mean a line break — convert it to one.

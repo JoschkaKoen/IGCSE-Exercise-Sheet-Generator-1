@@ -1,0 +1,16 @@
+\documentclass[11pt]{article}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{geometry}
+\geometry{a4paper, margin=2cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\begin{document}
+\pagenumbering{Roman}
+\section*{<<header>>}
+\noindent\textcolor{gray}{\small Click a name to jump to that student's report.}\\[0.6em]
+<% for s in students %>
+\noindent\hbox to \linewidth{\hyperlink{stu.<<s.safe_name>>}{<<s.display_name>>}\dotfill\hyperlink{stu.<<s.safe_name>>}{<<s.page>>}}
+<% endfor %>
+\end{document}
