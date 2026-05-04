@@ -145,6 +145,7 @@ def _mark_page_pdf(
     fmt=None,
     is_cs: bool = False,
     has_student_answers: bool = False,
+    should_cache: bool = False,
 ) -> dict:
     """Upload a PDF page (+ optional continuation pages) to Gemini and mark it.
 
@@ -173,7 +174,7 @@ def _mark_page_pdf(
         from xscore.marking.formats.base import MarkingFormat
         fmt = MarkingFormat()
 
-    gai_client = make_gemini_native_client()
+    gai_client = make_gemini_native_client(should_cache=should_cache)
     if gai_client is None:
         raise RuntimeError("GEMINI_API_KEY not set — required for Gemini MARKING_MODEL")
 
@@ -350,7 +351,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     from xscore.shared.response_cache import reuse_cache_enabled
     _reuse_cache_active = reuse_cache_enabled(ctx)
     if _reuse_cache_active:
-        info_line("Response cache enabled · step 29 marking calls will check ~/.cache/xscore/responses/")
+        info_line("Response cache enabled · all xscore AI calls will check ~/.cache/xscore/responses/")
 
     # Load page assignments produced by step 15 name detection. The register
     # already encodes most of the per-call data, but we need the original
@@ -636,6 +637,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         fmt=fmt,
                         is_cs=_is_cs,
                         has_student_answers=_has_student_answers,
+                        should_cache=_reuse_cache_active,
                     )
                 finally:
                     try:

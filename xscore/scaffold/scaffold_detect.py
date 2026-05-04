@@ -47,6 +47,7 @@ def extract_exam_question_numbers(
     artifact_dir: "Path | None",
     fmt=None,
     is_cs: bool = False,
+    should_cache: bool = False,
 ) -> tuple[list[dict], dict]:
     """Run the extract-question-numbers call. Returns ``(scaffold_nodes, layout_dict)``.
 
@@ -66,7 +67,9 @@ def extract_exam_question_numbers(
     _oa_thinking_kw: dict = {}
     _use_qwen_pdf = False
     if not detect_model.startswith("gemini"):
-        _oa_result = make_ai_client(model_env="EXTRACT_EXAM_QUESTION_NUMBERS_MODEL")
+        _oa_result = make_ai_client(
+            model_env="EXTRACT_EXAM_QUESTION_NUMBERS_MODEL", should_cache=should_cache,
+        )
         if _oa_result is None:
             raise RuntimeError(
                 f"No API key set for extract-question-numbers model {detect_model!r}"

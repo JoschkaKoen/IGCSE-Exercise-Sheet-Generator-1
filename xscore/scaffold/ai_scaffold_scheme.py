@@ -62,6 +62,8 @@ def assign_scheme_questions_phase(
     marking_scheme_pdf: "Path | None",
     raw_questions: list[dict],
     artifact_dir: "Path | None",
+    *,
+    should_cache: bool = False,
 ) -> dict[int, list[str]]:
     """Identify which question numbers' criteria appear on each mark scheme page.
 
@@ -74,6 +76,7 @@ def assign_scheme_questions_phase(
     try:
         return assign_questions_to_pages(
             client, marking_scheme_pdf, raw_questions, artifact_dir,
+            should_cache=should_cache,
         )
     except Exception as exc:
         import logging as _log
@@ -92,6 +95,7 @@ def parse_mark_scheme_phase(
     *,
     fmt=None,
     is_cs: bool = False,
+    should_cache: bool = False,
 ) -> dict:
     """Parse the mark scheme into ``{questions: [{number, correct_answer, mark_scheme, ...}]}``.
 
@@ -128,6 +132,7 @@ def parse_mark_scheme_phase(
             artifact_dir=artifact_dir,
             fmt=fmt,
             is_cs=is_cs,
+            should_cache=should_cache,
         )
     except Exception as exc:
         import logging as _log

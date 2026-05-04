@@ -58,6 +58,7 @@ def parse_mark_scheme_pages(
     artifact_dir: "Path | None",
     fmt=None,
     is_cs: bool = False,
+    should_cache: bool = False,
 ) -> dict:
     """Parse the mark scheme via Gemini (or OpenAI-compatible client) page by page.
 
@@ -101,7 +102,9 @@ def parse_mark_scheme_pages(
     _use_qwen_pdf = False
     page_pngs: dict[int, bytes] = {}
     if not scheme_model.startswith("gemini"):
-        _oa_result = make_ai_client(model_env="READ_MARK_SCHEME_MODEL")
+        _oa_result = make_ai_client(
+            model_env="READ_MARK_SCHEME_MODEL", should_cache=should_cache,
+        )
         if _oa_result is None:
             raise RuntimeError(f"No API key set for mark scheme model {scheme_model!r}")
         _oa_client, _, _oa_provider, _, _ = _oa_result

@@ -113,6 +113,7 @@ def extract_exam_question_numbers(ctx: _Ctx) -> None:
         dpi=_fallback_dpi if _kind == "PNG" else None,
     )
     info_line(f"Extract question numbers ({detect_model}) …")
+    from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
     scaffold_nodes, raw_layout = extract_exam_question_numbers(
         state["client"],
         detect_model,
@@ -125,6 +126,7 @@ def extract_exam_question_numbers(ctx: _Ctx) -> None:
         artifact_dir=ctx.artifact_dir,
         fmt=fmt,
         is_cs=needs_code_formatting(ctx),
+        should_cache=reuse_cache_enabled(ctx),
     )
     if state["layout_result"] is not None:
         raw_layout = {
@@ -172,6 +174,7 @@ def extract_exam_questions(ctx: _Ctx) -> None:
         kind=_kind, note=_note,
         dpi=_fallback_dpi if _kind == "PNG" else None,
     )
+    from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
     raw_questions = extract_exam_questions(
         state["client"],
         fill_model,
@@ -182,6 +185,7 @@ def extract_exam_questions(ctx: _Ctx) -> None:
         artifact_dir=ctx.artifact_dir,
         fmt=fmt,
         is_cs=needs_code_formatting(ctx),
+        should_cache=reuse_cache_enabled(ctx),
     )
     if ctx.artifact_dir is not None:
         try:
@@ -438,8 +442,10 @@ def assign_scheme_questions(ctx: _Ctx) -> None:
         kind=_kind, note=_note,
         dpi=int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300")) if _kind == "PNG" else None,
     )
+    from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
     mapping = assign_scheme_questions_phase(
         state["client"], state["answer_pdf"], state["raw_questions"], ctx.artifact_dir,
+        should_cache=reuse_cache_enabled(ctx),
     )
     state["questions_per_page"] = mapping
     n_pages = len(mapping)
@@ -496,11 +502,13 @@ def parse_mark_scheme(ctx: _Ctx) -> None:
             dpi=int(os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300")) if _kind == "PNG" else None,
         )
     from xscore.shared.subjects import needs_code_formatting
+    from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
     scheme_data = parse_mark_scheme_phase(
         state["client"], state["answer_pdf"], state["raw_questions"],
         state["graphics_by_qnum"], state.get("questions_per_page"),
         ctx.artifact_dir, fmt=state["fmt"],
         is_cs=needs_code_formatting(ctx),
+        should_cache=reuse_cache_enabled(ctx),
     )
     state["scheme_data"] = scheme_data
     scheme_qs = scheme_data.get("questions", []) if isinstance(scheme_data, dict) else []
@@ -532,8 +540,10 @@ def transcribe_scheme_graphics(ctx: _Ctx) -> None:
                 scheme_data = _yaml.safe_load(ms_path.read_text(encoding="utf-8"))
             except _yaml.YAMLError:
                 scheme_data = None
+    from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
     new, total = transcribe_scheme_graphics_phase(
         state.get("raw_questions") or [], scheme_data, ctx.artifact_dir,
+        should_cache=reuse_cache_enabled(ctx),
     )
     if total == 0:
         ok_line("No graphics to transcribe")
@@ -603,7 +613,8 @@ def scaffold_setup(ctx: _Ctx) -> bool:
         return False
     answer_pdf = find_answer_pdf(ctx.folder)
 
-    client = make_gemini_native_client()
+    from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
+    client = make_gemini_native_client(should_cache=reuse_cache_enabled(ctx))
     if client is None:
         warn_line(
             "GEMINI_API_KEY (or GOOGLE_API_KEY) not set — scaffold and "

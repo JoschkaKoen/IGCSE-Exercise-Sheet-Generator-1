@@ -490,11 +490,111 @@ class _UsageTrackingStream:
             return self._stream.__exit__(*args)
 
 
+class _CachingStream:
+    """Wraps an already-_UsageTrackingStream-wrapped real stream, accumulating
+    ``delta.content`` so the assembled answer text can be written to the
+    response cache on full exhaustion.
+
+    Writes only on a clean iteration to ``StopIteration``. Early break,
+    ``GeneratorExit``, or a mid-stream exception leave the cache untouched —
+    a partially-consumed stream may not represent the model's full reply.
+    """
+
+    def __init__(self, stream: Any, key: str, model: str) -> None:
+        self._stream = stream
+        self._key = key
+        self._model = model
+        self._parts: list[str] = []
+        self._complete = False
+
+    def __iter__(self):
+        try:
+            for chunk in self._stream:
+                if getattr(chunk, "choices", None):
+                    delta = chunk.choices[0].delta
+                    c = getattr(delta, "content", None)
+                    if c:
+                        self._parts.append(c)
+                yield chunk
+            self._complete = True
+        finally:
+            if self._complete and self._parts:
+                from xscore.shared.response_cache import cache_put
+                cache_put(self._key, model=self._model, response="".join(self._parts).strip())
+
+    def __enter__(self) -> "_CachingStream":
+        if hasattr(self._stream, "__enter__"):
+            self._stream.__enter__()
+        return self
+
+    def __exit__(self, *args: Any) -> Any:
+        if hasattr(self._stream, "__exit__"):
+            return self._stream.__exit__(*args)
+
+
+def _build_oa_cache_hit_response(text: str, *, stream: bool) -> Any:
+    """Duck-type a cache-hit return value matching the OpenAI-compat response shape.
+
+    Non-streaming: SimpleNamespace mimicking ``ChatCompletion`` enough that
+    ``resp.choices[0].message.content`` works. ``usage=None`` so the wrapper
+    skips ``record_usage`` (cached calls don't bill tokens).
+
+    Streaming: a single-chunk iterator yielding the cached text via
+    ``delta.content``. ``collect_streamed_response`` reads exactly that.
+    """
+    from types import SimpleNamespace
+
+    if stream:
+        def _gen():
+            yield SimpleNamespace(
+                choices=[SimpleNamespace(
+                    delta=SimpleNamespace(content=text, reasoning_content=None),
+                    finish_reason="stop",
+                )],
+                usage=None,
+            )
+        return _gen()
+
+    return SimpleNamespace(
+        choices=[SimpleNamespace(
+            message=SimpleNamespace(content=text, reasoning_content=""),
+            finish_reason="stop",
+        )],
+        usage=None,
+    )
+
+
+def _build_gemini_cache_hit_response(text: str) -> Any:
+    """Duck-type a cache-hit return value matching the Gemini native response shape.
+
+    ``split_gemini_response`` (defined below) walks
+    ``resp.candidates[*].content.parts[*]`` and falls back to ``resp.text``.
+    Both populated. ``usage_metadata=None`` so the wrapper skips
+    ``record_usage`` for cached calls.
+    """
+    from types import SimpleNamespace
+
+    return SimpleNamespace(
+        candidates=[SimpleNamespace(
+            content=SimpleNamespace(parts=[SimpleNamespace(text=text, thought=False)]),
+        )],
+        text=text,
+        usage_metadata=None,
+    )
+
+
 class _TrackedCompletions:
-    def __init__(self, completions: Any, model: str, deterministic: bool = True) -> None:
+    def __init__(
+        self,
+        completions: Any,
+        model: str,
+        deterministic: bool = True,
+        should_cache: bool = False,
+    ) -> None:
         self._c = completions
         self._model = model
         self._deterministic = deterministic
+        self._should_cache = should_cache
 
     def create(self, *args: Any, **kwargs: Any) -> Any:
         # kimi-k2.x rejects any temperature other than its fixed default
@@ -521,10 +621,29 @@ class _TrackedCompletions:
             opts = dict(kwargs.get("stream_options") or {})
             opts.setdefault("include_usage", True)
             kwargs["stream_options"] = opts
+
+        # Response cache (opt-in via client._should_cache, set by the factory
+        # when the user passed ``should_cache=reuse_cache_enabled(ctx)``).
+        # Computed AFTER determinism injection so the key reflects what the
+        # model actually sees.
+        cache_key_str: str | None = None
+        if self._should_cache:
+            from xscore.shared.response_cache import (
+                cache_get, derive_oa_cache_key,
+            )
+            cache_key_str = derive_oa_cache_key(self._model, kwargs.get("messages") or [])
+            if cache_key_str is not None:
+                hit = cache_get(cache_key_str)
+                if hit and isinstance(hit.get("response"), str) and hit["response"]:
+                    return _build_oa_cache_hit_response(hit["response"], stream=is_stream)
+
         t0 = time.perf_counter()
         resp = self._c.create(*args, **kwargs)
         if is_stream:
-            return _UsageTrackingStream(resp, self._model, t0)
+            wrapped = _UsageTrackingStream(resp, self._model, t0)
+            if cache_key_str is not None:
+                return _CachingStream(wrapped, cache_key_str, self._model)
+            return wrapped
         u = getattr(resp, "usage", None)
         if u:
             record_usage(
@@ -534,6 +653,11 @@ class _TrackedCompletions:
                 _extract_reasoning_tokens(u),
             )
             record_call(self._model, time.perf_counter() - t0)
+        if cache_key_str is not None:
+            from xscore.shared.response_cache import cache_put
+            text = (resp.choices[0].message.content or "") if resp.choices else ""
+            if text:
+                cache_put(cache_key_str, model=self._model, response=text)
         return resp
 
     def __getattr__(self, name: str) -> Any:
@@ -541,9 +665,17 @@ class _TrackedCompletions:
 
 
 class _TrackedChat:
-    def __init__(self, chat: Any, model: str, deterministic: bool = True) -> None:
+    def __init__(
+        self,
+        chat: Any,
+        model: str,
+        deterministic: bool = True,
+        should_cache: bool = False,
+    ) -> None:
         self._chat = chat
-        self.completions = _TrackedCompletions(chat.completions, model, deterministic=deterministic)
+        self.completions = _TrackedCompletions(
+            chat.completions, model, deterministic=deterministic, should_cache=should_cache,
+        )
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self._chat, name)
@@ -556,11 +688,25 @@ class _TrackedOpenAIClient:
     ``seed`` is not supplied, ``ALL_AI_TEMPERATURE`` / ``ALL_AI_SEED`` env vars are
     injected into ``chat.completions.create``. Pass ``deterministic=False`` to
     skip injection entirely (use for ad-hoc creative-sampling calls).
+
+    When ``should_cache=True``, every ``chat.completions.create`` consults
+    the response cache (see :mod:`xscore.shared.response_cache`) before
+    hitting the API, and writes the response on miss. ``kimi_pdf_text`` also
+    reads ``client._should_cache`` to gate its own file-extract caching.
     """
 
-    def __init__(self, client: Any, model: str, deterministic: bool = True) -> None:
+    def __init__(
+        self,
+        client: Any,
+        model: str,
+        deterministic: bool = True,
+        should_cache: bool = False,
+    ) -> None:
         self._client = client
-        self.chat = _TrackedChat(client.chat, model, deterministic=deterministic)
+        self._should_cache = should_cache
+        self.chat = _TrackedChat(
+            client.chat, model, deterministic=deterministic, should_cache=should_cache,
+        )
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self._client, name)
@@ -575,9 +721,15 @@ class _TrackedGeminiModels:
     recorded separately as ``thinking`` for the cost-report breakdown.
     """
 
-    def __init__(self, models: Any, deterministic: bool = True) -> None:
+    def __init__(
+        self,
+        models: Any,
+        deterministic: bool = True,
+        should_cache: bool = False,
+    ) -> None:
         self._m = models
         self._deterministic = deterministic
+        self._should_cache = should_cache
 
     def _apply_deterministic(self, kwargs: dict) -> None:
         """Inject ALL_AI_TEMPERATURE / ALL_AI_SEED into the ``config`` kwarg if not set.
@@ -611,9 +763,23 @@ class _TrackedGeminiModels:
 
     def generate_content(self, *args: Any, **kwargs: Any) -> Any:
         self._apply_deterministic(kwargs)
+        model = kwargs.get("model") or (args[0] if args else "unknown")
+
+        cache_key_str: str | None = None
+        if self._should_cache:
+            from xscore.shared.response_cache import (
+                cache_get, derive_gemini_cache_key,
+            )
+            cache_key_str = derive_gemini_cache_key(
+                str(model), kwargs.get("contents"), kwargs.get("config"),
+            )
+            if cache_key_str is not None:
+                hit = cache_get(cache_key_str)
+                if hit and isinstance(hit.get("response"), str) and hit["response"]:
+                    return _build_gemini_cache_hit_response(hit["response"])
+
         t0 = time.perf_counter()
         resp = self._m.generate_content(*args, **kwargs)
-        model = kwargs.get("model") or (args[0] if args else "unknown")
         um = getattr(resp, "usage_metadata", None)
         if um:
             # candidates_token_count is *visible* output only; thoughts_token_count
@@ -628,6 +794,11 @@ class _TrackedGeminiModels:
                 thoughts,
             )
             record_call(str(model), time.perf_counter() - t0)
+        if cache_key_str is not None:
+            from xscore.shared.response_cache import cache_put
+            text, _thinking = split_gemini_response(resp)
+            if text:
+                cache_put(cache_key_str, model=str(model), response=text)
         return resp
 
     def __getattr__(self, name: str) -> Any:
@@ -637,14 +808,22 @@ class _TrackedGeminiModels:
 class _TrackedGeminiClient:
     """Thin proxy over google.genai.Client that records token usage.
 
-    See :class:`_TrackedOpenAIClient` for the determinism contract — same
-    semantics, different transport (``GenerateContentConfig`` instead of
-    ``chat.completions.create`` kwargs).
+    See :class:`_TrackedOpenAIClient` for the determinism + cache contracts
+    — same semantics, different transport (``GenerateContentConfig`` instead
+    of ``chat.completions.create`` kwargs).
     """
 
-    def __init__(self, client: Any, deterministic: bool = True) -> None:
+    def __init__(
+        self,
+        client: Any,
+        deterministic: bool = True,
+        should_cache: bool = False,
+    ) -> None:
         self._client = client
-        self.models = _TrackedGeminiModels(client.models, deterministic=deterministic)
+        self._should_cache = should_cache
+        self.models = _TrackedGeminiModels(
+            client.models, deterministic=deterministic, should_cache=should_cache,
+        )
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self._client, name)
@@ -656,6 +835,7 @@ def make_ai_client(
     legacy_model_env: str = "XAI_MODEL",
     default_model: str | None = None,
     deterministic: bool = True,
+    should_cache: bool = False,
 ) -> tuple[Any, str, str, int | None, int | None] | None:
     """Return ``(client, model, provider, thinking_tokens, max_tokens)`` or ``None``.
 
@@ -676,6 +856,11 @@ def make_ai_client(
         ``temperature`` and ``seed`` injected from ``ALL_AI_TEMPERATURE`` /
         ``ALL_AI_SEED`` env vars unless the caller supplied them. Pass False to
         disable injection (rare — use only when you actively want sampling).
+    should_cache:
+        When True, every ``chat.completions.create`` consults the response
+        cache (see :mod:`xscore.shared.response_cache`); ``kimi_pdf_text``
+        also reads ``client._should_cache`` to gate its own file-extract
+        caching. Resolve via ``reuse_cache_enabled(ctx)`` at the call site.
 
     Returned ``thinking_tokens`` / ``max_tokens`` are ``None`` when the env
     string didn't specify them — callers should fall back to their own default.
@@ -714,7 +899,7 @@ def make_ai_client(
         return None
 
     return (
-        _TrackedOpenAIClient(client, model, deterministic=deterministic),
+        _TrackedOpenAIClient(client, model, deterministic=deterministic, should_cache=should_cache),
         model,
         provider,
         thinking_tokens,
@@ -839,7 +1024,11 @@ def build_gemini_thinking_config(thinking_tokens: int | None) -> Any:
     )
 
 
-def make_gemini_native_client(*, deterministic: bool = True) -> Any:
+def make_gemini_native_client(
+    *,
+    deterministic: bool = True,
+    should_cache: bool = False,
+) -> Any:
     """Return a ``google.genai.Client`` for the Gemini native SDK, or ``None`` if no API key.
 
     Reads ``GEMINI_API_KEY`` with ``GOOGLE_API_KEY`` as fallback — the same key
@@ -852,6 +1041,10 @@ def make_gemini_native_client(*, deterministic: bool = True) -> Any:
     When ``deterministic`` is True (default), ``ALL_AI_TEMPERATURE`` and ``ALL_AI_SEED``
     are injected into every ``generate_content`` call's ``GenerateContentConfig``
     unless the caller already set those fields.
+
+    When ``should_cache=True``, every ``models.generate_content`` consults the
+    response cache (see :mod:`xscore.shared.response_cache`). Resolve via
+    ``reuse_cache_enabled(ctx)`` at the call site.
 
     A request-level HTTP timeout is configured from ``GEMINI_REQUEST_TIMEOUT_S``
     (default 300 s). This caps any single ``generate_content`` call so a stalled
@@ -872,6 +1065,7 @@ def make_gemini_native_client(*, deterministic: bool = True) -> Any:
     return _TrackedGeminiClient(
         gai.Client(api_key=api_key, http_options=http_options),
         deterministic=deterministic,
+        should_cache=should_cache,
     )
 
 
@@ -933,6 +1127,25 @@ def kimi_pdf_text(client: Any, path: "Path", *, label: str = "pdf") -> str:
     from pathlib import Path
     if not isinstance(path, Path):
         path = Path(path)
+
+    # Opt-in cache: same flag as the chat.completions wrapper. Key folds in
+    # the PDF bytes (the only thing that can change the extracted text);
+    # *label* is included as user_prompt so two callers extracting the same
+    # PDF for different purposes don't collide.
+    should_cache = getattr(client, "_should_cache", False)
+    cache_key_str: str | None = None
+    if should_cache:
+        from xscore.shared.response_cache import cache_get, cache_key as _cache_key
+        cache_key_str = _cache_key(
+            model="kimi-file-extract",
+            system_prompt="",
+            user_prompt=label,
+            image_bytes=path.read_bytes(),
+        )
+        hit = cache_get(cache_key_str)
+        if hit and isinstance(hit.get("response"), str):
+            return hit["response"]
+
     file_obj = client.files.create(file=path, purpose="file-extract")
     try:
         # Guard ``.text``: an SDK upgrade or a gateway error could return an
@@ -940,7 +1153,11 @@ def kimi_pdf_text(client: Any, path: "Path", *, label: str = "pdf") -> str:
         # raise AttributeError mid-pipeline. Returning empty text lets the
         # caller fall back to the rasterized-image path instead of crashing.
         content = client.files.content(file_obj.id)
-        return getattr(content, "text", "") or ""
+        text = getattr(content, "text", "") or ""
+        if cache_key_str is not None and text:
+            from xscore.shared.response_cache import cache_put
+            cache_put(cache_key_str, model="kimi-file-extract", response=text)
+        return text
     finally:
         try:
             client.files.delete(file_obj.id)

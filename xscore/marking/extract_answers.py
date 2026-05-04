@@ -48,7 +48,11 @@ from xscore.shared.exam_paths import (
 from xscore.shared.prompt_logger import (
     save_input_data, save_output_data, save_prompt, save_response,
 )
-from xscore.shared.response_parsing import repair_alltt_block_indent, strip_code_fences
+from xscore.shared.response_parsing import (
+    repair_alltt_block_indent,
+    repair_block_scalar_first_line_indent,
+    strip_code_fences,
+)
 from xscore.shared.terminal_ui import blank_line, format_duration, get_console, icon, info_line, warn_line
 
 
@@ -104,6 +108,7 @@ def _parse_extract_response(raw: str, fmt: Any) -> dict[str, str]:
     if not cleaned:
         raise FormatParseError("Empty response from extractor")
     cleaned = repair_alltt_block_indent(cleaned)
+    cleaned = repair_block_scalar_first_line_indent(cleaned)
     return _parse_yaml_response(cleaned)
 
 

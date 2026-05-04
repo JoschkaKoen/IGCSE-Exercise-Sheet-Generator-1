@@ -246,6 +246,8 @@ def transcribe_scheme_graphics_phase(
     raw_questions: Any,
     scheme_data: Any,
     artifact_dir: Path,
+    *,
+    should_cache: bool = False,
 ) -> tuple[int, int]:
     """Transcribe every PNG in ``22_detect_mark_scheme_graphics/graphics/``.
 
@@ -275,6 +277,7 @@ def transcribe_scheme_graphics_phase(
     result = make_ai_client(
         model_env="TRANSCRIBE_SCHEME_GRAPHIC_MODEL",
         default_model=_DEFAULT_MODEL,
+        should_cache=should_cache,
     )
     if result is None:
         raise RuntimeError(

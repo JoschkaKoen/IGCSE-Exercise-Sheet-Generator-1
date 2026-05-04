@@ -44,8 +44,9 @@ class TaskInstruction:
     # (9999 = run everything) unless the CLI flag is also set.
     stop_after: int | None = None
     # Set to True when the user includes a cache opt-in phrase in the NL prompt
-    # (e.g. "grade the exam, reuse cache"). Currently honoured only by the
-    # ai_marking step — see :mod:`xscore.shared.response_cache`.
+    # (e.g. "grade the exam, reuse cache"). Honoured by the marking step plus
+    # the scaffold/name-OCR/scheme-graphics steps — see
+    # :mod:`xscore.shared.response_cache`.
     reuse_cache: bool = False
     # Grade-curve controls (class_stats_curve / per_student_pdfs). Both default
     # to ``None`` meaning "prompt did not specify, fall back to env var":

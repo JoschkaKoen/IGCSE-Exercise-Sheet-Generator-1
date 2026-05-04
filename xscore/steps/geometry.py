@@ -251,7 +251,8 @@ def _detect_subject_via_ai(
     )
     model, thinking_tokens, max_tokens = parse_model_spec(model_spec)
 
-    client = make_gemini_native_client()
+    from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
+    client = make_gemini_native_client(should_cache=reuse_cache_enabled(ctx))
     if client is None:
         raise RuntimeError(
             "GEMINI_API_KEY (or GOOGLE_API_KEY) not set — required by detect_subject "
@@ -328,12 +329,14 @@ def student_names(ctx: _Ctx) -> None:
         note="name-band crop",
     )
     t0 = time.perf_counter()
+    from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
     ctx.page_assignments = assign_pages(
         ctx.cleaned_pdf,
         ctx.students or [],
         pages_per_student=ctx.pages_per_student,
         artifact_dir=ctx.artifact_dir,
         cover_page_mode=ctx.cover_page_mode,
+        should_cache=reuse_cache_enabled(ctx),
     )
     json_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     json_path.write_text(page_assignments_to_json(ctx.page_assignments), encoding="utf-8")

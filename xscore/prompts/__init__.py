@@ -5,7 +5,6 @@ Prompt files live directly under ``xscore/prompts/`` as ``<name>.md``::
     xscore/prompts/
       parse_grading_instructions.md
       ai_marking.md
-      shared_latex_rules.md          (shared fragment, included via $include_*)
 
 Each ``.md`` has optional YAML front-matter and a body. Files with multiple
 roles use Markdown H2 section headers (``## SYSTEM`` / ``## USER`` /

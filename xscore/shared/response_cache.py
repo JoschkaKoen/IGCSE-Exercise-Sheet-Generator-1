@@ -1,17 +1,32 @@
-"""Opt-in response cache for the ai_marking step only.
+"""Opt-in response cache for xscore AI calls.
 
 Activated by ``ctx.instruction.reuse_cache == True``, which is set when the
 user includes "reuse cache" / "use cache" in the natural-language prompt
 (parsed in parse_grading_instructions). Default is OFF — running without the
 phrase produces identical behaviour to the pre-cache pipeline.
 
-Scope is deliberately narrow: only the OpenAI-compatible marking call in
-``xscore.marking.mark_page._mark_page`` is cached today. The Gemini-native
-PDF upload path (``xscore.marking.ai_mark._mark_page_pdf``, used only when
-``MARKING_MODEL`` is gemini-* AND a student has continuation pages) is NOT
-cached yet — the bytes-on-disk caching path for that route is intentional
-future work. Scaffold parsing, name detection, cover-page checks, and every
-other AI call still hit the API on every run.
+Two activation surfaces:
+
+1. ``xscore.marking.mark_page._mark_page`` calls the cache primitives
+   directly (legacy call-site path) — preserved so existing entries stay
+   bit-exact and the ``FormatParseError``-driven retry-after-stale logic that
+   lives only in ``_mark_page`` keeps working.
+2. ``eXercise.ai_client._TrackedCompletions.create`` and
+   ``_TrackedGeminiModels.generate_content`` consult the cache when their
+   wrapping client carries ``_should_cache=True``. This covers every AI
+   call site whose factory was constructed with ``should_cache=...``,
+   including the Gemini-native marking PDF upload path
+   (``xscore.marking.ai_mark._mark_page_pdf``) and the scaffold/name-OCR/
+   scheme-graphics steps.
+
+Two paths intentionally skip caching even when the flag is on:
+
+- **Qwen ``fileid://``** — DashScope mints a fresh file id per upload, so
+  the system message differs every run and caching is futile.
+  ``derive_oa_cache_key`` returns ``None`` for these calls.
+- **Gemini Files-API (>18 MB PDFs)** — ``Part.from_uri`` carries only the
+  URI; original bytes are gone before the wrapper sees the Part.
+  ``derive_gemini_cache_key`` returns ``None`` for these calls.
 
 Cache layout
 ------------
@@ -129,6 +144,148 @@ def cache_put(
             tmp.replace(path)
     except OSError:
         pass
+
+
+def derive_oa_cache_key(model: str, messages: list[dict]) -> str | None:
+    """Derive a cache key from OpenAI-compat ``chat.completions`` kwargs.
+
+    Walks *messages* to extract:
+
+    - ``system_prompt`` — concatenation of every ``content`` string from
+      ``role == "system"`` messages, in order.
+    - ``user_prompt``   — concatenation of every ``text`` part from user
+      messages (and any plain-string user content), in order.
+    - ``image_bytes``   — base64-decoded bytes of the FIRST ``image_url``
+      part (PDFs sent as ``data:application/pdf;base64,...`` count too).
+    - ``extra``         — comma-joined sha256 hex of any subsequent
+      ``image_url`` parts' decoded bytes.
+
+    Returns ``None`` when the call shouldn't be cached: today that's any
+    Qwen ``fileid://`` system message — DashScope mints a new file id per
+    upload, so caching by id-as-text is futile.
+    """
+    sys_parts: list[str] = []
+    user_parts: list[str] = []
+    image_b64s: list[str] = []
+    for msg in messages:
+        role = msg.get("role")
+        content = msg.get("content")
+        if role == "system":
+            if isinstance(content, str):
+                sys_parts.append(content)
+            elif isinstance(content, list):
+                for p in content:
+                    if isinstance(p, dict) and p.get("type") == "text":
+                        sys_parts.append(p.get("text", "") or "")
+            continue
+        if role == "user":
+            if isinstance(content, str):
+                user_parts.append(content)
+            elif isinstance(content, list):
+                for p in content:
+                    if not isinstance(p, dict):
+                        continue
+                    ptype = p.get("type")
+                    if ptype == "text":
+                        user_parts.append(p.get("text", "") or "")
+                    elif ptype == "image_url":
+                        url = (p.get("image_url") or {}).get("url", "")
+                        if isinstance(url, str) and "," in url and url.startswith("data:"):
+                            image_b64s.append(url.split(",", 1)[1])
+
+    system_prompt = "\n".join(sys_parts)
+    if "fileid://" in system_prompt:
+        # Qwen DashScope file-extract upload mode — file id changes per run.
+        return None
+
+    user_prompt = "\n".join(user_parts)
+
+    def _decode(b64: str) -> bytes:
+        try:
+            import base64
+            return base64.b64decode(b64)
+        except Exception:
+            return b""
+
+    image_bytes: bytes | None = None
+    extra = ""
+    if image_b64s:
+        image_bytes = _decode(image_b64s[0])
+        if len(image_b64s) > 1:
+            extras = [
+                hashlib.sha256(_decode(b)).hexdigest() for b in image_b64s[1:]
+            ]
+            extra = ",".join(extras)
+
+    return cache_key(
+        model=model,
+        system_prompt=system_prompt,
+        user_prompt=user_prompt,
+        image_bytes=image_bytes,
+        extra=extra,
+    )
+
+
+def derive_gemini_cache_key(model: str, contents: Any, config: Any) -> str | None:
+    """Derive a cache key from native Gemini ``generate_content`` kwargs.
+
+    Walks *contents* (a list of ``Part``s — or a single Part) to extract
+    text parts and inline-data (PDF / image) parts. Pulls
+    ``system_instruction`` from *config* when present.
+
+    Returns ``None`` when any Part is a Files-API URI
+    (``Part.from_uri`` for >18 MB PDFs) — the original bytes are gone by
+    the time the wrapper sees the Part, so caching is unsupported.
+    """
+    if contents is None:
+        contents_list: list = []
+    elif isinstance(contents, (list, tuple)):
+        contents_list = list(contents)
+    else:
+        contents_list = [contents]
+
+    system_prompt = ""
+    if config is not None:
+        sys_instr = getattr(config, "system_instruction", None)
+        if isinstance(sys_instr, str):
+            system_prompt = sys_instr
+
+    user_parts: list[str] = []
+    image_bytes_list: list[bytes] = []
+    for part in contents_list:
+        # Plain-string content is permitted; treat as text.
+        if isinstance(part, str):
+            user_parts.append(part)
+            continue
+        # Files-API URI part — bytes unrecoverable.
+        file_data = getattr(part, "file_data", None)
+        if file_data is not None and getattr(file_data, "file_uri", None):
+            return None
+        text = getattr(part, "text", None)
+        if isinstance(text, str) and text:
+            user_parts.append(text)
+            continue
+        inline = getattr(part, "inline_data", None)
+        if inline is not None:
+            data = getattr(inline, "data", None)
+            if isinstance(data, (bytes, bytearray)) and data:
+                image_bytes_list.append(bytes(data))
+
+    image_bytes: bytes | None = None
+    extra = ""
+    if image_bytes_list:
+        image_bytes = image_bytes_list[0]
+        if len(image_bytes_list) > 1:
+            extras = [hashlib.sha256(b).hexdigest() for b in image_bytes_list[1:]]
+            extra = ",".join(extras)
+
+    return cache_key(
+        model=model,
+        system_prompt=system_prompt,
+        user_prompt="\n".join(user_parts),
+        image_bytes=image_bytes,
+        extra=extra,
+    )
 
 
 def reuse_cache_enabled(ctx: Any) -> bool:

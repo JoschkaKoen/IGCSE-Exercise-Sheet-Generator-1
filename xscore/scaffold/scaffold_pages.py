@@ -51,6 +51,8 @@ def assign_questions_to_pages(
     marking_scheme_pdf: Path,
     raw_questions: list[dict],
     artifact_dir: "Path | None",
+    *,
+    should_cache: bool = False,
 ) -> dict[int, list[str]]:
     """For each mark scheme page, ask a cheap vision model which question
     numbers' marking criteria appear on it.
@@ -71,7 +73,9 @@ def assign_questions_to_pages(
     from xscore.scaffold.formats.base import ScaffoldFormat
     fmt = ScaffoldFormat()
 
-    _result = make_ai_client(model_env="ASSIGN_SCHEME_QUESTIONS_MODEL")
+    _result = make_ai_client(
+        model_env="ASSIGN_SCHEME_QUESTIONS_MODEL", should_cache=should_cache,
+    )
     if _result is None:
         info_line("Skipped (ASSIGN_SCHEME_QUESTIONS_MODEL not set)")
         return {}

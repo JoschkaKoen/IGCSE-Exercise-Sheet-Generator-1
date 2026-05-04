@@ -23,6 +23,59 @@ def strip_code_fences(raw: str) -> str:
 
 _ALLTT_OPEN_RE = re.compile(r"^(\s+)\\begin\{alltt\}\s*$")
 _ALLTT_CLOSE_RE = re.compile(r"^\s*\\end\{alltt\}\s*$")
+_BLOCK_OPEN_RE = re.compile(r":\s*[|>][+-]?(\d?)\s*$")
+
+
+def repair_block_scalar_first_line_indent(raw: str) -> str:
+    """Strip excess indent from the first content line of a block scalar.
+
+    PyYAML uses the first non-empty body line of a ``|`` (or ``>``) block to
+    set the indentation baseline; any later line indented less than that
+    baseline terminates the scalar. Some models add a leading space to the
+    first content line — typically because the student's handwriting began
+    with a visible gap on the dotted line — leaving subsequent lines below
+    the baseline and breaking the parse. This pass detects that pattern and
+    dedents the first body line to match the minimum indent of the rest.
+
+    Idempotent on already-valid content: after one pass ``first_indent ==
+    min_rest`` so the rule never fires again. Skips blocks with explicit
+    indent indicators (``|2``, ``|2-`` …) and bails on any block whose body
+    has a tab in its leading whitespace.
+    """
+    lines = raw.splitlines()
+    i = 0
+    while i < len(lines):
+        m = _BLOCK_OPEN_RE.search(lines[i])
+        if not m or m.group(1):  # no opener, or explicit indent indicator
+            i += 1
+            continue
+        opener_indent = len(lines[i]) - len(lines[i].lstrip(" "))
+        end = i + 1
+        while end < len(lines):
+            line = lines[end]
+            if not line.strip():
+                end += 1
+                continue
+            line_indent = len(line) - len(line.lstrip(" "))
+            if line_indent <= opener_indent:
+                break
+            end += 1
+        body_idxs = [j for j in range(i + 1, end) if lines[j].strip()]
+        if len(body_idxs) < 2:
+            i = end
+            continue
+        if any(lines[j].lstrip(" ").startswith("\t") for j in body_idxs):
+            i = end
+            continue
+        first = body_idxs[0]
+        first_indent = len(lines[first]) - len(lines[first].lstrip(" "))
+        min_rest = min(
+            len(lines[j]) - len(lines[j].lstrip(" ")) for j in body_idxs[1:]
+        )
+        if first_indent > min_rest:
+            lines[first] = lines[first][first_indent - min_rest:]
+        i = end
+    return "\n".join(lines) + ("\n" if raw.endswith("\n") else "")
 
 
 def repair_alltt_block_indent(raw: str) -> str:

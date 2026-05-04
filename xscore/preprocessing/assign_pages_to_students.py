@@ -90,6 +90,7 @@ def assign_pages(
     pages: list | None = None,
     artifact_dir: Path | None = None,
     cover_page_mode: bool = False,
+    should_cache: bool = False,
 ) -> list[PageAssignment]:
     """Return one ``PageAssignment`` per student block.
 
@@ -110,7 +111,10 @@ def assign_pages(
     from xscore.extraction.ground_truth import fuzzy_match_name
     from eXercise.ai_client import make_ai_client
 
-    ai_result = make_ai_client(model_env="NAME_DETECTION_MODEL", default_model="gemini-2.5-flash")
+    ai_result = make_ai_client(
+        model_env="NAME_DETECTION_MODEL", default_model="gemini-2.5-flash",
+        should_cache=should_cache,
+    )
     if ai_result is None:
         raise RuntimeError(
             "NAME_DETECTION_MODEL client could not be created — check API key in .env"

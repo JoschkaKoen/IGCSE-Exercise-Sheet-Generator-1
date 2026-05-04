@@ -152,6 +152,7 @@ def extract_exam_questions(
     artifact_dir: "Path | None",
     fmt=None,
     is_cs: bool = False,
+    should_cache: bool = False,
 ) -> list[dict]:
     """Per-page parallel extract of question text + options. Returns *scaffold_nodes* (mutated in place)."""
     if fmt is None:
@@ -171,7 +172,9 @@ def extract_exam_questions(
     _use_qwen_pdf = False
     page_pngs: dict[int, bytes] = {}
     if not fill_model.startswith("gemini"):
-        _oa_result = make_ai_client(model_env="EXTRACT_EXAM_QUESTIONS_MODEL")
+        _oa_result = make_ai_client(
+            model_env="EXTRACT_EXAM_QUESTIONS_MODEL", should_cache=should_cache,
+        )
         if _oa_result is None:
             raise RuntimeError(
                 f"No API key set for extract-questions model {fill_model!r}"

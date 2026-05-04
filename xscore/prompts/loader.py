@@ -15,9 +15,7 @@ Shared fragments — ``$include_<fragment_name>`` placeholders are resolved
 recursively before user substitutions, by loading the named fragment's body
 and inlining it. The only requirement is that the fragment's file stem
 matches ``<fragment_name>``. Cycles are detected and broken (the recursive
-include is left literal). The shared LaTeX/YAML style guide at
-``xscore/prompts/shared_latex_rules.md`` is included via
-``$include_shared_latex_rules`` from steps 20, 24, 28, 29.
+include is left literal).
 
 Substitution uses :class:`string.Template` semantics (``$placeholder``,
 ``${placeholder}``) via :meth:`safe_substitute` — missing placeholders are
