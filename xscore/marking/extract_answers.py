@@ -157,14 +157,11 @@ def _extract_page_answers(
     Returns ``{question_number: student_answer}``. Empty dict if the response
     parses but contains no questions (rare; usually a model bug).
     """
-    prompt_name = "extract_student_answers"
+    prompt_name = (
+        "extract_student_answers_cs" if is_cs else "extract_student_answers_physics"
+    )
     _, user_text = load_prompt(prompt_name, section="user", blueprint=blueprint_str)
     _, system_prompt = load_prompt(prompt_name, section="system")
-
-    # CS-only: append the CODE_FORMATTING section. Mirrors mark_page._build_marking_system_prompt.
-    if is_cs:
-        _, _h = load_prompt(prompt_name, section="code_formatting")
-        system_prompt += "\n\n" + _h.rstrip("\n")
 
     # Image first, text after — system → image(s) → user-text per audit item [5].
     user_content: list[dict] = [

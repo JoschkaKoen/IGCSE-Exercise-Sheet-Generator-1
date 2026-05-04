@@ -1,7 +1,7 @@
 ---
-name: extract_student_answers
-version: v15
-description: Step 28 — extract_student_answers.
+name: extract_student_answers_cs
+version: v1
+description: Step 28 — extract_student_answers (CS; includes alltt; minimal math).
 ---
 ## SYSTEM
 
@@ -152,20 +152,16 @@ Two delimiter shapes:
 - inline math → `$...$` — for formulas embedded in a sentence
 - display math → `$$$$...$$$$` — for standalone equations on their own line
 
-**Always wrap math.** Any expression containing math commands (`\frac`, `\sqrt`, `\sum`, `\int`, `\times`, `\cdot`, `\div`, `\leq`, `\geq`, `\neq`, `\approx`, `\to`, `\rightarrow`, `\leftarrow`, `\alpha`, `\beta`, `\pi`, `\rho`, `\theta`, `\sigma`, etc.), super/subscripts (`x^2`, `H_2O`, `^{12}_{6}C`), or `\text{...}` MUST be inside `$...$` or `$$...$$`. Bare math in prose crashes the PDF renderer.
+**Always wrap math.** Any expression with super/subscripts (`x^2`, `2^{32}`, `O(n^2)`, `A_i`) or math symbols (`\leq`, `\geq`, `\neq`, `\approx`, `\to`, `\rightarrow`, `\sum`, `\log`, `\neg`) MUST be inside `$...$` or `$$...$$`. Bare math in prose crashes the PDF renderer.
 
-**Examples — physics formulas:**
-RIGHT: `Using $F = ma$ and $a = \frac{F}{m}$, we get $a = \frac{54 \text{ N}}{120 \text{ kg}} = 0.45 \text{ m/s}^2$.`
-WRONG: `Using F = ma and a = \frac{F}{m}, we get a = \frac{54 \text{ N}}{120 \text{ kg}} = 0.45 \text{ m/s}^2.`
-
-**Examples — chemistry / nuclear:**
-RIGHT: `$^{212}_{86}\text{Rn} \rightarrow ^{208}_{84}\text{Po} + ^{4}_{2}\alpha$`
-WRONG: `^{212}_{86}Rn \rightarrow ^{208}_{84}Po + ^{4}_{2}\alpha`
+**Examples — boolean / complexity:**
+RIGHT: `Worst case is $O(n \log n)$; counter overflows at $2^{32}$.`
+RIGHT: `$X = (A \text{ OR } B) \text{ AND } \neg C$`
+WRONG: `Worst case is O(n log n); counter overflows at 2^32.`
 
 **Mixed math with text labels** — keep `\text{...}` *inside* the delimiters; never close math just to write a word and reopen it:
 RIGHT: `$$X = (A \text{ OR } B) \text{ AND } C$$`
 WRONG: `$$X = (A$$ \text{ OR } $$B) \text{ AND } C$$`
-WRONG: `$$X = (A $\text{ OR }$ B) $\text{ AND }$ C$$`
 
 If a single word like "OR" needs to break out of math, do it cleanly: `$A$ OR $B$`, not `$A \text{ OR } B$` followed by closing/reopening tricks.
 
@@ -193,37 +189,6 @@ YAML's block-scalar indent rule terminates the scalar the moment a content line 
            + 0 1 1 1 1 0 0 0
              1 0 1 0 1 0 1 1
         \end{alltt}
-
-## Worked example
-
-A 4-question page: 1a is a calculation with multi-line working, 1b is unanswered, 2 is an MCQ where the student circled C, and 3 is a definition the student wrote out (containing a colon — the kind of value that would crash a plain-scalar transcription):
-
-```yaml
-page: 4
-questions:
-  - number: '1a'
-    student_answer: |
-      Using $F = ma$, $a = F/m = 12 / 3 = 4 \text{ m/s}^2$.
-      So the resultant force gives an acceleration of $4 \text{ m/s}^2$.
-  - number: '1b'
-    student_answer: ''
-  - number: '2'
-    student_answer: |
-      C
-  - number: '3'
-    student_answer: |
-      Compiler: translates whole program at once
-```
-
-Notes:
-- 1a: block scalar with multi-line LaTeX math.
-- 1b: empty string `''` — student left it blank.
-- 2: block scalar with a single-letter MCQ answer — the same `|` shape as everything else.
-- 3: block scalar with a colon-bearing definition. `|` swallows the colon with no quoting decision; without `|`, YAML would read the second `:` as a nested mapping key and the parse would fail.
-
-## CODE_FORMATTING
-
-This exam contains code and pseudocode. The general alltt / `\texttt` / "no `\textbf` for code" rules are in the always-on Code section above (already part of this prompt). The CS-specific rules and examples below are on top of that.
 
 ### CS-specific keyword list — wrap each in `\texttt{...}`
 
@@ -303,7 +268,7 @@ When an answer interleaves prose labels with code lines (e.g. "Error: line N. Co
       IF Number[Counter] = 0 AND Number[Counter] = -1
       \end{alltt}
 
-### Worked example — page with code answer
+## Worked example
 
 For a page with one pseudocode answer and one MCQ:
 
