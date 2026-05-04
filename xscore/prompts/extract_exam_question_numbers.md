@@ -1,7 +1,7 @@
 ---
 name: extract_exam_question_numbers
 version: v3
-description: Step 19 — extract question hierarchy + page assignments + type + marks from the empty exam paper. NO text or options. System-only prompt (the user prompt is built dynamically by xscore.scaffold.formats.base._build_user_question_numbers_prompt_yaml). SYSTEM body is structured into named sub-blocks (What to emit / What NOT to emit / What counts as a question / When in doubt); IGCSE gate is "Cambridge IGCSE and similar". v3 clarified the `marks: 0` rule, added an EITHER/OR worked example, and appended `Working space` verbatim to the skip list. v2 removed redundant "no commentary outside YAML" bullet (now covered by the user-message directive).
+description: Step 19 — extract question hierarchy + page assignments + type + marks from the empty exam paper. 
 ---
 ## SYSTEM
 

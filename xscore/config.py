@@ -217,6 +217,13 @@ MARKING_JPEG_QUALITY: int = int(os.getenv("MARKING_JPEG_QUALITY", "90"))
 HANDWRITING_CHECK_JPEG_DPI: int = int(os.getenv("HANDWRITING_CHECK_JPEG_DPI", "150"))
 HANDWRITING_CHECK_JPEG_QUALITY: int = int(os.getenv("HANDWRITING_CHECK_JPEG_QUALITY", "75"))
 
+# Step 15 out-of-order recheck. When the primary call's page_number does
+# not match the expected order (yellow line), re-call with this model
+# at this DPI/quality. Empty model disables the recheck entirely.
+HANDWRITING_CHECK_RECHECK_MODEL: str = os.getenv("HANDWRITING_CHECK_RECHECK_MODEL", "qwen3.6-plus, 0, 96")
+HANDWRITING_CHECK_RECHECK_JPEG_DPI: int = int(os.getenv("HANDWRITING_CHECK_RECHECK_JPEG_DPI", "300"))
+HANDWRITING_CHECK_RECHECK_JPEG_QUALITY: int = int(os.getenv("HANDWRITING_CHECK_RECHECK_JPEG_QUALITY", "95"))
+
 # Per-page thinking-budget boost. When a page contains a question worth
 # at least *_THRESHOLD marks, the thinking budget for that page's marking
 # call is multiplied by *_MULTIPLIER. No-op when the model's base thinking

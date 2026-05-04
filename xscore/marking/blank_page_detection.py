@@ -41,7 +41,13 @@ class BlankCheckStatus(Enum):
 
 
 from eXercise.api_retry import retry_api_call
-from xscore.config import HANDWRITING_CHECK_JPEG_DPI, HANDWRITING_CHECK_JPEG_QUALITY
+from xscore.config import (
+    HANDWRITING_CHECK_JPEG_DPI,
+    HANDWRITING_CHECK_JPEG_QUALITY,
+    HANDWRITING_CHECK_RECHECK_JPEG_DPI,
+    HANDWRITING_CHECK_RECHECK_JPEG_QUALITY,
+    HANDWRITING_CHECK_RECHECK_MODEL,
+)
 
 
 # ─────────── Image extraction ───────────────────────────────────────────────
@@ -728,6 +734,9 @@ def check_student_handwriting(
         "model": model_id,
         "page_type_options": page_type_options,
         "page_number_options": page_number_options,
+        "recheck_model": HANDWRITING_CHECK_RECHECK_MODEL.strip() or None,
+        "recheck_jpeg_dpi": HANDWRITING_CHECK_RECHECK_JPEG_DPI,
+        "recheck_jpeg_quality": HANDWRITING_CHECK_RECHECK_JPEG_QUALITY,
     }
 
     if not tasks:
@@ -926,6 +935,73 @@ def check_student_handwriting(
             )
             results[i] = (sp, ep, pt, pn, h, c_pt, c_pn, c_hw, prob)
 
+    # ── Out-of-order recheck: re-call with stronger model + higher-fidelity JPEG ─
+    recheck_spec = HANDWRITING_CHECK_RECHECK_MODEL.strip()
+    out_of_order_idx: list[int] = []
+    if recheck_spec:
+        for i, r in enumerate(results):
+            sp_r, ep_r, pt_r, pn_r, *_ = r
+            _, _, m = _match_summary(ep_r, pt_r, pn_r)
+            if m is False:
+                out_of_order_idx.append(i)
+
+    rechecked_pages: set[int] = set()
+    if out_of_order_idx:
+        rmodel_id, _rthink, rmax_tok_env = parse_model_spec(recheck_spec)
+        rmax_tok = rmax_tok_env or max_tok
+        rclient_or_err = _build_client_state(rmodel_id)
+        if isinstance(rclient_or_err, str):
+            warn_line(
+                f"Skipping out-of-order recheck ({len(out_of_order_idx)} page"
+                f"{'s' if len(out_of_order_idx) != 1 else ''}): {rclient_or_err}"
+            )
+        else:
+            rstate = rclient_or_err
+            info_line(
+                f"Re-checking {len(out_of_order_idx)} out-of-order page"
+                f"{'s' if len(out_of_order_idx) != 1 else ''} with "
+                f"{rmodel_id} @ {HANDWRITING_CHECK_RECHECK_JPEG_DPI} DPI / q{HANDWRITING_CHECK_RECHECK_JPEG_QUALITY} …"
+            )
+            for i in out_of_order_idx:
+                sp_orig, ep, *_ = results[i]
+                jpeg_bytes = _render_page_jpeg(
+                    scan_pdf, sp_orig,
+                    dpi=HANDWRITING_CHECK_RECHECK_JPEG_DPI,
+                    quality=HANDWRITING_CHECK_RECHECK_JPEG_QUALITY,
+                )
+                (jpeg_dir / f"page_{sp_orig:03d}_order_recheck.jpg").write_bytes(jpeg_bytes)
+                save_path = artifact_handwriting_prompt_path(
+                    artifact_dir, f"page_{sp_orig:03d}_order_recheck"
+                )
+                t0 = time.perf_counter()
+                pt2, pn2, h2, c_pt2, c_pn2, c_hw2, prob2 = _match_scan_page(
+                    rstate, rmodel_id, jpeg_bytes, prompt_text,
+                    save_path, max_tokens=rmax_tok,
+                )
+                dur2 = format_duration(time.perf_counter() - t0)
+                pt2, pn2, prob2 = _post_validate(pt2, pn2, prob2)
+                pt_label, pn_label, match2 = _match_summary(ep, pt2, pn2)
+                line_fn = ok_line if (match2 is True and not prob2) else warn_line
+                confs = [c for c in (c_pt2, c_pn2, c_hw2) if c is not None]
+                conf_min = min(confs) if confs else None
+                conf_str = f"conf={conf_min}" if conf_min is not None else "conf=?"
+                problem_suffix = ""
+                if prob2:
+                    p_short = prob2 if len(prob2) <= 120 else prob2[:119].rstrip() + "…"
+                    problem_suffix = f"  ·  {p_short}"
+                if match2 is True:
+                    status = "in order"
+                elif match2 is False:
+                    status = "still out of order"
+                else:
+                    status = "inconclusive"
+                line_fn(
+                    f"  ↳ strong recheck page {sp_orig:>{page_width}d}  ·  {status}"
+                    f"  ·  {pt_label:<18}  ·  pg {pn_label:<5}  ·  {conf_str}  ·  {dur2}{problem_suffix}"
+                )
+                results[i] = (sp_orig, ep, pt2, pn2, h2, c_pt2, c_pn2, c_hw2, prob2)
+                rechecked_pages.add(sp_orig)
+
     # ── Build artifact ───────────────────────────────────────────────────────
     scan_pages_out: list[dict] = []
     inconclusive_pages: list[dict] = []
@@ -947,6 +1023,7 @@ def check_student_handwriting(
             "confidence_handwriting": conf_hw,
             "problem": problem,
             "match": pn_match,
+            "rechecked": scan_page in rechecked_pages,
         })
         if has_hw is None or page_type is None or page_number is None:
             inconclusive_pages.append({
