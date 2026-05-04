@@ -224,37 +224,60 @@ class MarkingFormat:
         questions = data.get("questions", [])
         if not isinstance(questions, list):
             raise FormatParseError("YAML: 'questions' key is not a list")
-        result = []
-        for q in questions:
-            if not isinstance(q, dict):
-                continue
-            am = q.get("assigned_marks", "")
-            # Mirror _yaml_questions_to_list: empty / null / unparseable becomes
-            # None ("AI did not produce a mark"), distinct from a legitimate 0.
-            # _apply_marking_response treats None as "still pending" so the
-            # completeness retry can re-ask, instead of recording a silent 0.
-            try:
-                am_int: int | None = int(am) if str(am).strip() not in ("", "null", "None") else None
-            except (ValueError, TypeError):
-                am_int = None
-            # The marking prompt presents the field as `transcribed_answer` to
-            # signal it's read-only input. The AI may copy that key through, or
-            # fall back to the legacy `student_answer` name from training data.
-            # Accept either; downstream uses `student_answer` everywhere.
-            _sa = q.get("student_answer")
-            if _sa is None:
-                _sa = q.get("transcribed_answer")
-            result.append({
-                "number":        str(q.get("number", "")),
-                "subpage_row":   int(q.get("subpage_row", 1)),
-                "subpage_col":   int(q.get("subpage_col", 1)),
-                "assigned_marks": am_int,
-                "student_answer": str(_sa or "").strip(),
-                "explanation":    str(q.get("explanation") or "").strip(),
-                "confidence":     parse_confidence_int(q.get("confidence")),
-                "problem":        parse_problem(q.get("problem")),
-            })
-        return result
+        return [self._normalize_question_dict(q) for q in questions if isinstance(q, dict)]
+
+    def _normalize_question_dict(self, q: dict) -> dict:
+        """One raw AI question dict → canonical parse_response output entry.
+
+        Shared with :meth:`parse_list_fallback` so the two stay in lockstep on
+        field aliases (transcribed_answer/student_answer) and integer parsing.
+        """
+        am = q.get("assigned_marks", "")
+        # Mirror _yaml_questions_to_list: empty / null / unparseable becomes
+        # None ("AI did not produce a mark"), distinct from a legitimate 0.
+        # _apply_marking_response treats None as "still pending" so the
+        # completeness retry can re-ask, instead of recording a silent 0.
+        try:
+            am_int: int | None = int(am) if str(am).strip() not in ("", "null", "None") else None
+        except (ValueError, TypeError):
+            am_int = None
+        # The marking prompt presents the field as `transcribed_answer` to
+        # signal it's read-only input. The AI may copy that key through, or
+        # fall back to the legacy `student_answer` name from training data.
+        # Accept either; downstream uses `student_answer` everywhere.
+        _sa = q.get("student_answer")
+        if _sa is None:
+            _sa = q.get("transcribed_answer")
+        return {
+            "number":        str(q.get("number", "")),
+            "subpage_row":   int(q.get("subpage_row", 1)),
+            "subpage_col":   int(q.get("subpage_col", 1)),
+            "assigned_marks": am_int,
+            "student_answer": str(_sa or "").strip(),
+            "explanation":    str(q.get("explanation") or "").strip(),
+            "confidence":     parse_confidence_int(q.get("confidence")),
+            "problem":        parse_problem(q.get("problem")),
+        }
+
+    def parse_list_fallback(self, raw: str) -> list[dict] | None:
+        """Recover a question list from a response where the AI dropped the
+        ``questions:`` wrapper and emitted the list at the document root.
+
+        Returns a list of canonical entries (each shaped like one
+        :meth:`parse_response` output entry) or None when *raw* doesn't look
+        like a list-at-root response. Each entry's ``number`` field is what
+        makes this safe without 1×1 gating — entries self-identify, no
+        positional ambiguity.
+        """
+        try:
+            data = yaml.safe_load(_strip_fences(raw))
+        except yaml.YAMLError:
+            return None
+        if not isinstance(data, list) or not data:
+            return None
+        if not all(isinstance(q, dict) and q.get("number") is not None for q in data):
+            return None
+        return [self._normalize_question_dict(q) for q in data]
 
     def parse_flat_fallback(self, raw: str) -> dict | None:
         """Recover the four fill fields from a response where the AI dropped

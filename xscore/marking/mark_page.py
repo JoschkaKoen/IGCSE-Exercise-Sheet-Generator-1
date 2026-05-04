@@ -378,7 +378,21 @@ def _apply_marking_response(
     second invocation against a slim blueprint of previously-unfilled entries
     is a clean retry-merge.
     """
-    parsed_questions = fmt.parse_response(raw)
+    try:
+        parsed_questions = fmt.parse_response(raw)
+    except FormatParseError:
+        # Fallback: model dropped the `questions:` wrapper and emitted a list
+        # of question dicts at document root. Each entry self-identifies via
+        # `number`, so this is positionally unambiguous regardless of
+        # blueprint size — no 1×1 gating needed (unlike parse_flat_fallback).
+        list_fallback = fmt.parse_list_fallback(raw)
+        if list_fallback is None:
+            raise
+        parsed_questions = list_fallback
+        info_line(
+            f"Marking p{blueprint.get('page')}: list-at-root fallback "
+            f"rescued response (AI dropped `questions:` wrapper)"
+        )
     # Fallback: model dropped the `questions:` wrapper and emitted the four
     # fill fields at document root. Safe only when the blueprint has exactly
     # one question — flat-keyed shape is otherwise positionally ambiguous.
