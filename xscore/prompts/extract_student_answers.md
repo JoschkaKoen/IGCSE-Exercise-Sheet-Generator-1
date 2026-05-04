@@ -1,7 +1,7 @@
 ---
 name: extract_student_answers
-version: v12
-description: Step 28 — extract_student_answers. Combined system + user prompt for the per-(student, page) student-answer transcriber. SYSTEM section instructs the model to transcribe verbatim without grading and emit a YAML doc shaped like the transcription form's questions list. USER section embeds the page transcription form via $blueprint (placeholder name kept for code-side compatibility; the AI-facing prose calls it the "transcription form" to disambiguate from step 29's marking blueprint). v12 inverted the v4 `\sout{}` crossed-out prose rule: the model now ignores crossed-out text instead of transcribing it. Driven by user feedback after the 2026-05-04_15-38-35 run that strikethrough cluttered per-student reports without adding value; the original scan remains on disk for forensic review. The empty / no-replacement case is unchanged. v11 added a per-question-type rule for matching / line-drawing exercises (two groups of boxes, lines drawn between them). Each box is named by the word inside it, else the symbol inside it, else a positional ordinal (`1st left`, `2nd right`); within-group uniqueness is taken as given. Each drawn line becomes one `<left-name> -> <right-name>` entry inside the existing `student_answer: |` block scalar. Driven by a transcription run where the model exhausted its thinking budget on a matching question while inventing both the naming scheme and output shape from scratch. v10 added a Python-with-#-comments WRONG/RIGHT worked example to the block-scalar indentation section, after the s23_22 run 2026-05-04_14-04-40 found Andy_2's Q12 Python answer transcribed without alltt despite v9's language-agnostic clarification — the abstract rule didn't override the model's CAIE-pseudocode prior; a concrete pattern was needed. v9 prepended a sentence to the block-scalar-indentation rule clarifying that the alltt trigger is "is this code?" not "is this CAIE pseudocode?" — points the model at the language-agnostic trigger list now in shared_latex_rules.md v4. After the s23_22 run found Andy_2's Python Q12 answer transcribed without alltt because the model read the v8 rule's "pseudocode/code" wording as CAIE-pseudocode-only, leaving `#`-comments unwrapped and crashing every one of his per-student PDFs with `! You can't use 'macro parameter character #'`. v8 dropped the WRONG anti-example from the block-scalar indentation rule (anti-examples leaked into generation; Luna p12 in run 2026-05-04_10-02-35 reproduced the WRONG shape verbatim) and replaced it with a second longer RIGHT example covering a multi-line procedure. The code-side `repair_alltt_block_indent` repair in xscore.shared.response_parsing is the load-bearing fix; this prompt change is a belt-and-suspenders complement. v7 added an explicit block-scalar indentation rule with a WRONG/RIGHT anti-example, after observing the model emit `\begin{alltt}` correctly indented but flushing pseudocode lines to column 0, terminating the block scalar early and breaking YAML parsing on long pseudocode answers. v6 forced two shapes for `student_answer` — `''` (empty) or `|` block scalar (anything else, including single-letter MCQ answers). Removes v5's per-token quoting list and the plain-scalar option for short answers; the same `|` shape applies uniformly to all non-empty values, eliminating the YAML 1.1 boolean/null/numeric/colon traps by construction. v5 renamed the include placeholder `$include_latex_yaml_style` → `$include_shared_latex_rules` (the fragment moved from `_shared/latex_yaml_style.md` to `shared_latex_rules.md`). v4 replaced inlined LaTeX/quoting rules with the shared fragment, kept the step-28-specific YAML 1.1 boolean/null/numeric/empty-answer traps, and added the `\sout{...}` crossed-out prose rule. v3 renamed AI-facing wording to "transcription form" and dropped the dead `student_name` field. v2 restructured into named sub-blocks. Used by xscore.marking.extract_answers._extract_page_answers.
+version: v13
+description: Step 28 — extract_student_answers. Combined system + user prompt for the per-(student, page) student-answer transcriber. SYSTEM section instructs the model to transcribe verbatim without grading and emit a YAML doc shaped like the transcription form's questions list. USER section embeds the page transcription form via $blueprint (placeholder name kept for code-side compatibility; the AI-facing prose calls it the "transcription form" to disambiguate from step 29's marking blueprint). v13 consolidated all code-formatting guidance into a CS-only `## CODE_FORMATTING` section, gated by `needs_code_formatting(ctx)` in `xscore.marking.extract_answers._extract_page_answers` (mirrors `mark_page.py`'s `is_cs` pattern). Lifted the YAML opener-column rule + FUNCTION nested-IF example + Python WRONG/RIGHT pair from the old always-loaded `### Block-scalar indentation rule` subsection (introduced v7-v10) into the new section, then added a three-rule summary (alltt for code blocks / `\texttt` for inline keywords / `\leftarrow`-style math symbols stay in alltt) and a `### Mixed prose and code` subsection covering answers that interleave prose labels with code lines. The Andy_2 v10 Python regression fix is preserved — Andy_2's exam was s23_22 (CS), so CS gating still covers it. Driven by the s23_22 run 2026-05-04_15-38-35 where Linus's page 6 q7b emitted three error/correction pairs as a bare YAML block scalar — the surrounding "Error N: line NN" prose framing led the model to treat the corrections as text. Non-CS exams now skip code-formatting guidance entirely; the rule has only ever fired on CS pseudocode/code transcription, so this is a scope correction rather than a regression. v12 inverted the v4 `\sout{}` crossed-out prose rule: the model now ignores crossed-out text instead of transcribing it. Driven by user feedback after the 2026-05-04_15-38-35 run that strikethrough cluttered per-student reports without adding value; the original scan remains on disk for forensic review. The empty / no-replacement case is unchanged. v11 added a per-question-type rule for matching / line-drawing exercises (two groups of boxes, lines drawn between them). Each box is named by the word inside it, else the symbol inside it, else a positional ordinal (`1st left`, `2nd right`); within-group uniqueness is taken as given. Each drawn line becomes one `<left-name> -> <right-name>` entry inside the existing `student_answer: |` block scalar. Driven by a transcription run where the model exhausted its thinking budget on a matching question while inventing both the naming scheme and output shape from scratch. v10 added a Python-with-#-comments WRONG/RIGHT worked example to the block-scalar indentation section, after the s23_22 run 2026-05-04_14-04-40 found Andy_2's Q12 Python answer transcribed without alltt despite v9's language-agnostic clarification — the abstract rule didn't override the model's CAIE-pseudocode prior; a concrete pattern was needed. v9 prepended a sentence to the block-scalar-indentation rule clarifying that the alltt trigger is "is this code?" not "is this CAIE pseudocode?" — points the model at the language-agnostic trigger list now in shared_latex_rules.md v4. After the s23_22 run found Andy_2's Python Q12 answer transcribed without alltt because the model read the v8 rule's "pseudocode/code" wording as CAIE-pseudocode-only, leaving `#`-comments unwrapped and crashing every one of his per-student PDFs with `! You can't use 'macro parameter character #'`. v8 dropped the WRONG anti-example from the block-scalar indentation rule (anti-examples leaked into generation; Luna p12 in run 2026-05-04_10-02-35 reproduced the WRONG shape verbatim) and replaced it with a second longer RIGHT example covering a multi-line procedure. The code-side `repair_alltt_block_indent` repair in xscore.shared.response_parsing is the load-bearing fix; this prompt change is a belt-and-suspenders complement. v7 added an explicit block-scalar indentation rule with a WRONG/RIGHT anti-example, after observing the model emit `\begin{alltt}` correctly indented but flushing pseudocode lines to column 0, terminating the block scalar early and breaking YAML parsing on long pseudocode answers. v6 forced two shapes for `student_answer` — `''` (empty) or `|` block scalar (anything else, including single-letter MCQ answers). Removes v5's per-token quoting list and the plain-scalar option for short answers; the same `|` shape applies uniformly to all non-empty values, eliminating the YAML 1.1 boolean/null/numeric/colon traps by construction. v5 renamed the include placeholder `$include_latex_yaml_style` → `$include_shared_latex_rules` (the fragment moved from `_shared/latex_yaml_style.md` to `shared_latex_rules.md`). v4 replaced inlined LaTeX/quoting rules with the shared fragment, kept the step-28-specific YAML 1.1 boolean/null/numeric/empty-answer traps, and added the `\sout{...}` crossed-out prose rule. v3 renamed AI-facing wording to "transcription form" and dropped the dead `student_name` field. v2 restructured into named sub-blocks. Used by xscore.marking.extract_answers._extract_page_answers.
 ---
 ## SYSTEM
 
@@ -96,67 +96,6 @@ The `|` block scalar consumes every character until dedent, so colons (e.g. `Com
 
 The same shape applies uniformly. There is no special case for short MCQ letters or any other "safe-looking" content — every non-empty `student_answer` uses `|`. Emptiness is the only thing that toggles to `''`. Do not omit the field; do not write `null`.
 
-### Block-scalar indentation rule
-
-The decision to use `\begin{alltt}…\end{alltt}` triggers on syntax, not on whether the language is the one the question expected. If the student answered in Python or Java when the question asked for CAIE pseudocode, transcribe what's on the page and wrap it in alltt anyway — the marker will judge correctness; you transcribe. See the `## Code and pseudocode (alltt)` section in the shared rules above for the language-agnostic trigger list.
-
-Inside a `student_answer: |` block, every line — `\begin{alltt}`, every pseudocode/code line between, and `\end{alltt}` — must start at the same column as the first content line. YAML terminates the block scalar at any less-indented line. Do **not** flush code to column 0; the alltt environment renders typography from the text, not from YAML indentation.
-
-Short example (every line at column 6):
-
-```
-    student_answer: |
-      \begin{alltt}
-      DECLARE money
-      INPUT account ID
-      \end{alltt}
-```
-
-Longer example for multi-line procedures (every line at column 6, including the function body):
-
-```
-    student_answer: |
-      \begin{alltt}
-      FUNCTION checkMatch (AccountID: INTEGER) RETURN BOOLEAN
-      DECLARE Name, Password : STRING
-      IF (AccountID < 0) OR (AccountID >= Size)
-      THEN
-        OUTPUT "Error! Please re-enter."
-        RETURN FALSE
-      ENDIF
-      OUTPUT "Please enter your name"
-      INPUT Name
-      OUTPUT "Please enter your password"
-      INPUT Password
-      RETURN TRUE
-      ENDFUNCTION
-      \end{alltt}
-```
-
-Note that the two `OUTPUT` and `RETURN FALSE` lines inside the `IF…ENDIF` are at column 8 (deeper than the rest), which is fine — block scalars preserve any indentation **at or above** the opener column. What is NOT allowed is dedenting any line **below** the opener column.
-
-A note on Python and other non-CAIE languages — `\begin{alltt}` triggers on "is this code?", not on "is this CAIE pseudocode?". Same example written by a student in Python:
-
-WRONG (do not emit — leaves `#`-comments unwrapped, crashes the renderer):
-
-```
-    student_answer: |
-      for i in range(5):
-          print(i)  # show counter
-```
-
-RIGHT:
-
-```
-    student_answer: |
-      \begin{alltt}
-      for i in range(5):
-          print(i)  # show counter
-      \end{alltt}
-```
-
-Same rule for Java, JavaScript, SQL, or hand-mixed pseudocode/Python. Multi-line indented blocks with `#`/`//` comments, `for`/`while`/`if`/`def`/`print`/`return` keywords, or `()`/`{}`/`[]` punctuation are code — wrap them.
-
 $include_shared_latex_rules
 
 ## Worked example
@@ -185,6 +124,66 @@ Notes:
 - 1b: empty string `''` — student left it blank.
 - 2: block scalar with a single-letter MCQ answer — the same `|` shape as everything else.
 - 3: block scalar with a colon-bearing definition. `|` swallows the colon with no quoting decision; without `|`, YAML would read the second `:` as a nested mapping key and the parse would fail.
+
+## CODE_FORMATTING
+
+This exam contains code. **Helper what is code:**: any programming language — pseudocode, Python, Java, C, C++, SQL, or any other language the student writes. The trigger is "is this code?", not "is this the language the question asked for". If the student answered in Python when the paper asked for pseudocode, transcribe it as code anyway.
+
+Two LaTeX shapes for code in `student_answer`:
+
+- **Code on its own line(s)** → `\begin{alltt}…\end{alltt}`. A bare `student_answer: |` block of code (with no `\begin{alltt}` line) renders as plain prose, not monospace, and crashes the renderer on raw `#` / `_` / `%` / `$`.
+- **A single keyword or identifier mid-sentence** → `\texttt{...}` (e.g. "the student wrote a `\texttt{FOR}` loop"). Reserved for inline cases — anything multi-line, or anything containing math-mode symbols like `\leftarrow` (CAIE assignment) or `\geq`, goes in alltt. Math commands inside `\texttt{}` have to escape back into `$...$` mode and break easily; alltt absorbs `\(\leftarrow\)` cleanly.
+
+### YAML indentation inside alltt
+
+Inside a `student_answer: |` block, every line — `\begin{alltt}`, code lines, `\end{alltt}` — must start at the same column as the first content line. YAML terminates the block scalar at any less-indented line. Block scalars preserve indentation **at or above** the opener column; dedenting any line below it ends the value early. Don't flush code to column 0.
+
+Multi-line procedure (every line at column 6; nested control flow inside `IF…ENDIF` is at column 8, deeper than the opener, which is fine):
+
+    student_answer: |
+      \begin{alltt}
+      FUNCTION checkMatch (AccountID: INTEGER) RETURN BOOLEAN
+      DECLARE Name, Password : STRING
+      IF (AccountID < 0) OR (AccountID >= Size)
+      THEN
+        OUTPUT "Error! Please re-enter."
+        RETURN FALSE
+      ENDIF
+      RETURN TRUE
+      ENDFUNCTION
+      \end{alltt}
+
+Python — the rule is "is this code?", not "is this pseudocode?":
+
+WRONG — `#`-comments unwrapped, crashes the renderer:
+
+    student_answer: |
+      for i in range(5):
+          print(i)  # show counter
+
+RIGHT:
+
+    student_answer: |
+      \begin{alltt}
+      for i in range(5):
+          print(i)  # show counter
+      \end{alltt}
+
+### Mixed prose and code
+
+When an answer interleaves prose labels with code lines (e.g. "Error: line N. Correction: <code>"), wrap each code line in its own alltt block; prose labels stay outside. The prose framing does NOT make the code lines into prose — they still need alltt.
+
+    student_answer: |
+      Error 1: line 07
+      Correction:
+      \begin{alltt}
+      Total \(\leftarrow\) Total + Number[Counter] * Counter
+      \end{alltt}
+      Error 2: line 08
+      Correction:
+      \begin{alltt}
+      IF Number[Counter] = 0 AND Number[Counter] = -1
+      \end{alltt}
 
 ## USER
 

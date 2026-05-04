@@ -136,6 +136,7 @@ def _extract_page_answers(
     blueprint_str: str,
     thinking_kw: dict,
     fmt: Any,
+    is_cs: bool = False,
     use_stream: bool = False,
     extra_b64: tuple[str, ...] = (),
     prompt_save_path: Path | None = None,
@@ -154,6 +155,11 @@ def _extract_page_answers(
     prompt_name = "extract_student_answers"
     _, user_text = load_prompt(prompt_name, section="user", blueprint=blueprint_str)
     _, system_prompt = load_prompt(prompt_name, section="system")
+
+    # CS-only: append the CODE_FORMATTING section. Mirrors mark_page._build_marking_system_prompt.
+    if is_cs:
+        _, _h = load_prompt(prompt_name, section="code_formatting")
+        system_prompt += "\n\n" + _h.rstrip("\n")
 
     # Image first, text after — system → image(s) → user-text per audit item [5].
     user_content: list[dict] = [
@@ -245,6 +251,11 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
     from xscore.shared.exam_paths import artifact_exam_student_list_json_path
 
     fmt = get_marking_format()
+
+    # Gate the CODE_FORMATTING prompt section on the detected subject. Mirrors
+    # ai_mark.run_ai_marking — reads ctx.subject set by step 13 (detect_subject).
+    from xscore.shared.subjects import needs_code_formatting
+    _is_cs = needs_code_formatting(ctx)
 
     result = make_ai_client(
         model_env="EXTRACT_ANSWERS_MODEL",
@@ -387,6 +398,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
         try:
             answers = _extract_page_answers(
                 client, model_id, b64, blueprint_str, thinking_kw, fmt,
+                is_cs=_is_cs,
                 use_stream=use_stream,
                 extra_b64=extra_b64,
                 prompt_save_path=prompt_save,
