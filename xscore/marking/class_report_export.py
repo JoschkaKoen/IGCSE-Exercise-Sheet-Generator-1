@@ -36,29 +36,40 @@ def _write_class_marks_xlsx(
 ) -> None:
     """Write a per-student × per-question marks grid as ``class_marks.xlsx``.
 
-    One column per scaffold node (parents *and* leaves) in DFS order, plus
-    Total / Raw % / Curved %. Parent columns roll up to the sum of their leaf
-    descendants so a row's Total equals the sum of any complete level of the
-    tree. Headers, max-marks row, and a class-average row at the bottom.
+    Two stacked tables on a single sheet, separated by two blank rows and a
+    bold "Top-level questions" heading:
+
+    - **Table A** — one column per scaffold node (parents *and* leaves) in
+      DFS order. Parent columns roll up to the sum of their leaf descendants.
+    - **Table B** — one column per top-level scaffold question only; each
+      cell is the sum of its subtree's leaf marks. Compact bird's-eye view.
+
+    Each table has the same shape: header / max-marks / per-student rows /
+    class-average, with Total / Raw % / Curved % at the right.
     """
     from openpyxl import Workbook
     from openpyxl.styles import Font, PatternFill
 
     from xscore.shared.models import flatten_questions, gradable_questions
 
-    # Walk scaffold once. Column key matches per_question_max_marks keys
-    # (same _N duplicate suffixing). For both parents and leaves,
-    # gradable_questions([q]) returns the leaf set used for rollup.
-    seen: dict[str, int] = {}
-    columns: list[tuple[str, list[str]]] = []   # (column_key, leaf_keys_for_rollup)
-    for q in flatten_questions(scaffold_questions):
-        num = str(q.number or "")
-        if not num:
-            continue
-        seen[num] = seen.get(num, 0) + 1
-        key = num if seen[num] == 1 else f"{num}_{seen[num]}"
-        leaf_keys = [str(c.number or "") for c in gradable_questions([q])]
-        columns.append((key, leaf_keys))
+    def _build_columns(qs: list) -> list[tuple[str, list[str]]]:
+        # Column key matches per_question_max_marks keys (same _N duplicate
+        # suffixing). For both parents and leaves, gradable_questions([q])
+        # returns the leaf set used for rollup.
+        seen: dict[str, int] = {}
+        cols: list[tuple[str, list[str]]] = []
+        for q in qs:
+            num = str(q.number or "")
+            if not num:
+                continue
+            seen[num] = seen.get(num, 0) + 1
+            key = num if seen[num] == 1 else f"{num}_{seen[num]}"
+            leaf_keys = [str(c.number or "") for c in gradable_questions([q])]
+            cols.append((key, leaf_keys))
+        return cols
+
+    cols_all = _build_columns(flatten_questions(scaffold_questions))
+    cols_top = _build_columns(scaffold_questions)
 
     students = class_report["students"]
     max_marks = class_report["per_question_max_marks"]
@@ -66,16 +77,10 @@ def _write_class_marks_xlsx(
     total_max = class_report["total_max_marks"]
     class_pct = class_report["class_average_pct"]
 
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "Class marks"
-
-    ws.append(["Student"] + [k for k, _ in columns] + ["Total", "Raw %", "Curved %"])
-    ws.append(
-        ["Max marks"]
-        + [max_marks.get(k, "") for k, _ in columns]
-        + [total_max, None, None]
-    )
+    # Total row aggregate — mean of known student totals avoids double-
+    # counting parent rollups. Same value is correct for both tables.
+    known_totals = [s["total_marks"] for s in students if s.get("total_marks") is not None]
+    avg_total = round(sum(known_totals) / len(known_totals), 1) if known_totals else None
 
     def _sum_leaves(report: dict, leaf_keys: list[str]) -> float | None:
         by_num = {q["number"]: q.get("assigned_marks") for q in report.get("questions", [])}
@@ -83,50 +88,82 @@ def _write_class_marks_xlsx(
         nums = [v for v in vals if v is not None]
         return sum(nums) if nums else None
 
-    for s in students:
-        report = full_reports.get(s["name"], {})
-        row: list = [s["name"]]
-        for _key, leaf_keys in columns:
-            row.append(_sum_leaves(report, leaf_keys))
-        row += [
-            s.get("total_marks"),
-            s["percentage"] / 100 if s.get("percentage") is not None else None,
-            s["curved_pct"] / 100 if s.get("curved_pct") is not None else None,
-        ]
-        ws.append(row)
-
-    # Class-average row — per_question_averages already covers parents
-    # (subtree sums) so the row is internally consistent. Total is the
-    # mean of known student totals to avoid double-counting parent rollups.
-    known_totals = [s["total_marks"] for s in students if s.get("total_marks") is not None]
-    avg_total = round(sum(known_totals) / len(known_totals), 1) if known_totals else None
-    ws.append(
-        ["Class average"]
-        + [avgs.get(k, None) for k, _ in columns]
-        + [avg_total, class_pct / 100 if class_pct is not None else None, None]
-    )
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Class marks"
 
     bold = Font(bold=True)
     head_fill = PatternFill("solid", fgColor="EEEEEE")
-    for cell in list(ws[1]) + list(ws[2]) + list(ws[ws.max_row]):
-        cell.font = bold
-        cell.fill = head_fill
+
+    def _append_table(columns: list[tuple[str, list[str]]]) -> tuple[int, int, int]:
+        """Append header, max-marks, per-student, class-average rows.
+
+        Returns ``(header_row, last_row, total_col_idx)``. The two %
+        columns sit at ``total_col_idx + 1`` and ``total_col_idx + 2``.
+        """
+        ws.append(["Student"] + [k for k, _ in columns] + ["Total", "Raw %", "Curved %"])
+        header_row = ws.max_row
+        ws.append(
+            ["Max marks"]
+            + [max_marks.get(k, "") for k, _ in columns]
+            + [total_max, None, None]
+        )
+        for s in students:
+            report = full_reports.get(s["name"], {})
+            row: list = [s["name"]] + [
+                _sum_leaves(report, leaf_keys) for _, leaf_keys in columns
+            ]
+            row += [
+                s.get("total_marks"),
+                s["percentage"] / 100 if s.get("percentage") is not None else None,
+                s["curved_pct"] / 100 if s.get("curved_pct") is not None else None,
+            ]
+            ws.append(row)
+        ws.append(
+            ["Class average"]
+            + [avgs.get(k, None) for k, _ in columns]
+            + [avg_total, class_pct / 100 if class_pct is not None else None, None]
+        )
+        return header_row, ws.max_row, 2 + len(columns)
+
+    top_a, bot_a, total_a = _append_table(cols_all)
+    # Two blank rows + bold heading. Direct cell write — ws.append([]) is
+    # a no-op for max_row in openpyxl, so use a deliberate row index.
+    ws.cell(row=bot_a + 3, column=1, value="Top-level questions").font = bold
+    top_b, bot_b, total_b = _append_table(cols_top)
+
+    for top, bot in [(top_a, bot_a), (top_b, bot_b)]:
+        for row_idx in (top, top + 1, bot):
+            for cell in ws[row_idx]:
+                cell.font = bold
+                cell.fill = head_fill
+
     ws.freeze_panes = "B3"
 
+    # Column widths — coalesce by column letter so Table B's Total / % cells
+    # (which fall under column letters that hold question cells in Table A)
+    # get the wider width.
     name_col_w = max(12, max((len(s["name"]) for s in students), default=10) + 2)
-    ws.column_dimensions["A"].width = name_col_w
-    for col_idx in range(2, 2 + len(columns)):
-        ws.column_dimensions[ws.cell(row=1, column=col_idx).column_letter].width = 6
-    for offset, w in enumerate([10, 8, 8]):  # Total, Raw %, Curved %
-        ws.column_dimensions[
-            ws.cell(row=1, column=2 + len(columns) + offset).column_letter
-        ].width = w
+    widths_by_letter: dict[str, float] = {}
 
-    raw_col = 2 + len(columns) + 1
-    curve_col = 2 + len(columns) + 2
-    for r in range(2, ws.max_row + 1):
-        ws.cell(row=r, column=raw_col).number_format = "0%"
-        ws.cell(row=r, column=curve_col).number_format = "0%"
+    def _want(col_idx: int, w: float) -> None:
+        letter = ws.cell(row=1, column=col_idx).column_letter
+        widths_by_letter[letter] = max(widths_by_letter.get(letter, 0), w)
+
+    _want(1, name_col_w)
+    for cols, total_col in [(cols_all, total_a), (cols_top, total_b)]:
+        for i in range(len(cols)):
+            _want(2 + i, 6)
+        for offset, w in enumerate([10, 8, 8]):  # Total, Raw %, Curved %
+            _want(total_col + offset, w)
+    for letter, w in widths_by_letter.items():
+        ws.column_dimensions[letter].width = w
+
+    # Percentage formatting — apply per-table so the right cells are picked.
+    for top, bot, total_col in [(top_a, bot_a, total_a), (top_b, bot_b, total_b)]:
+        for r in range(top + 1, bot + 1):  # skip header row
+            ws.cell(row=r, column=total_col + 1).number_format = "0%"
+            ws.cell(row=r, column=total_col + 2).number_format = "0%"
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(out_path)

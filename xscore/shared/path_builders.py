@@ -714,7 +714,7 @@ def artifact_class_report_md_path(artifact_dir: Path) -> Path:
 
 def artifact_class_marks_xlsx_path(artifact_dir: Path) -> Path:
     """Machine-friendly per-student × per-question marks grid."""
-    return artifact_class_report_summary_dir(artifact_dir) / "class_marks.xlsx"
+    return artifact_class_report_dir(artifact_dir) / "class_marks.xlsx"
 
 
 def artifact_class_report_tex_path(artifact_dir: Path) -> Path:
