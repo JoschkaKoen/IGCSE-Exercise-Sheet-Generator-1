@@ -1,7 +1,7 @@
 ---
 name: extract_student_answers
-version: v14
-description: Step 28 — extract_student_answers. 
+version: v15
+description: Step 28 — extract_student_answers.
 ---
 ## SYSTEM
 
@@ -182,6 +182,18 @@ Wrap inline code tokens (variable names, function calls, single keywords like `I
 NEVER use `\textbf{...}` for code — bold is not monospace. Save `\textbf{...}` for emphasis on prose words.
 
 
+### Column-aligned content (binary arithmetic, ASCII tables, indented code)
+
+YAML's block-scalar indent rule terminates the scalar the moment a content line is indented less than the first content line — so column-aligned visual layout cannot live inside a raw block scalar. Wrap such content in `\begin{alltt}...\end{alltt}` and indent **every** YAML content line of the block scalar to the same depth. The alignment lives inside `alltt`, where it is plain text:
+
+      student_answer: |
+        \begin{alltt}
+             1 1 1
+             0 0 1 1 0 0 1 1
+           + 0 1 1 1 1 0 0 0
+             1 0 1 0 1 0 1 1
+        \end{alltt}
+
 ## Worked example
 
 A 4-question page: 1a is a calculation with multi-line working, 1b is unanswered, 2 is an MCQ where the student circled C, and 3 is a definition the student wrote out (containing a colon — the kind of value that would crash a plain-scalar transcription):
@@ -211,12 +223,34 @@ Notes:
 
 ## CODE_FORMATTING
 
-This exam contains code. **Helper what is code:**: any programming language — pseudocode, Python, Java, C, C++, SQL, or any other language the student writes. The trigger is "is this code?", not "is this the language the question asked for". If the student answered in Python when the paper asked for pseudocode, transcribe it as code anyway.
+This exam contains code and pseudocode. The general alltt / `\texttt` / "no `\textbf` for code" rules are in the always-on Code section above (already part of this prompt). The CS-specific rules and examples below are on top of that.
 
-Two LaTeX shapes for code in `student_answer`:
+### CS-specific keyword list — wrap each in `\texttt{...}`
 
-- **Code on its own line(s)** → `\begin{alltt}…\end{alltt}`. A bare `student_answer: |` block of code (with no `\begin{alltt}` line) renders as plain prose, not monospace, and crashes the renderer on raw `#` / `_` / `%` / `$`.
-- **A single keyword or identifier mid-sentence** → `\texttt{...}` (e.g. "the student wrote a `\texttt{FOR}` loop"). Reserved for inline cases — anything multi-line, or anything containing math-mode symbols like `\leftarrow` (CAIE assignment) or `\geq`, goes in alltt. Math commands inside `\texttt{}` have to escape back into `$...$` mode and break easily; alltt absorbs `\(\leftarrow\)` cleanly.
+Variable names, function/procedure calls, and pseudocode keywords mentioned inline in prose:
+- Variables: `\texttt{Counter}`, `\texttt{AccDetails[AccID,1]}`.
+- Calls: `\texttt{UCASE(P)}`, `\texttt{CheckDetails(123)}`.
+- Keywords: REPEAT, UNTIL, FOR, NEXT, ENDFOR, WHILE, ENDWHILE, IF, THEN, ELSE, ENDIF, CASE, OTHERWISE, ENDCASE, PROCEDURE, ENDPROCEDURE, FUNCTION, ENDFUNCTION, RETURN, RETURNS, DECLARE, CONSTANT, ARRAY, INPUT, OUTPUT, AND, OR, NOT, MOD, DIV, TRUE, FALSE, INTEGER, REAL, STRING, BOOLEAN, CHAR.
+
+Wrap each keyword on its own — `\texttt{REPEAT}/\texttt{UNTIL}`, not `\texttt{REPEAT/UNTIL}`.
+
+Keywords inside `\begin{alltt}…\end{alltt}` are already monospace — don't wrap them in `\texttt{...}` again. The list above is for keywords mentioned in surrounding prose.
+
+### Trace tables / truth tables / decision tables — use `tabular`, not `alltt`
+
+`alltt` aligns columns by counting spaces, which fails when cells have different widths. Use `\begin{tabular}` instead — `&` between cells, `\\ \hline` between rows, empty cells stay blank.
+
+Example — partially-filled trace table with 8 columns:
+
+    student_answer: |
+      \begin{tabular}{|c|c|c|c|c|c|c|c|}
+      \hline
+      F & C & X[1] & X[2] & X[3] & X[4] & X[5] & T \\ \hline
+      0 & 1 & 1    & 10   &      &      &      & 10 \\ \hline
+      1 & 2 &      & 5    & 10   &      &      & 10 \\ \hline
+      1 & 3 &      &      & 7    & 10   &      & 10 \\ \hline
+      1 & 4 &      &      &      &      &      &    \\ \hline
+      \end{tabular}
 
 ### YAML indentation inside alltt
 
@@ -268,6 +302,30 @@ When an answer interleaves prose labels with code lines (e.g. "Error: line N. Co
       \begin{alltt}
       IF Number[Counter] = 0 AND Number[Counter] = -1
       \end{alltt}
+
+### Worked example — page with code answer
+
+For a page with one pseudocode answer and one MCQ:
+
+    page: 6
+    questions:
+      - number: '5a'
+        student_answer: |
+          \begin{alltt}
+          FOR Counter \(\leftarrow\) 1 TO 10
+            IF Counter MOD 2 = 0
+              THEN
+                OUTPUT Counter
+            ENDIF
+          NEXT Counter
+          \end{alltt}
+      - number: '5b'
+        student_answer: |
+          C
+
+Notes:
+- 5a: every YAML line of the block scalar is at the same indent as `\begin{alltt}`. The assignment arrow uses `\(\leftarrow\)` (math mode inside alltt). Keywords inside alltt are already monospace — no per-keyword `\texttt{}`.
+- 5b: single-letter MCQ answer uses `|` block scalar, same as every other non-empty value.
 
 ## USER
 

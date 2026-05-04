@@ -6,10 +6,13 @@ lines on their own. Recognised keys: ``version``, ``model_hint``,
 defaults to ``"v1"``.
 
 Files may be combined (multiple roles per file) using Markdown H2 section
-headers like ``## SYSTEM`` or ``## USER`` (case-insensitive). Pass
-``section="system"`` (or ``"user"``, ``"field_rules"``, etc.) to extract a
-specific section's body. Files without any ``## NAME`` header are returned
-in full regardless of ``section``.
+headers in ALL CAPS — ``## SYSTEM``, ``## USER``, ``## FIELD_RULES``,
+``## CODE_FORMATTING``, etc. Pass ``section="system"`` (lowercase, matched
+case-insensitively against the all-caps header) to extract a section's
+body. Title-case or mixed-case H2 headers (``## Math``, ``## Worked
+example``) are treated as in-section subheadings, not section dividers,
+so they stay inside whichever section preceded them. Files without any
+all-caps ``## NAME`` header are returned in full regardless of ``section``.
 
 Shared fragments — ``$include_<fragment_name>`` placeholders are resolved
 recursively before user substitutions, by loading the named fragment's body
@@ -38,7 +41,7 @@ from string import Template
 
 _PROMPTS_DIR = Path(__file__).resolve().parent
 
-_SECTION_HEADER = re.compile(r'^## ([A-Z_][A-Z0-9_]*)\s*$', re.MULTILINE | re.IGNORECASE)
+_SECTION_HEADER = re.compile(r'^## ([A-Z_][A-Z0-9_]*)\s*$', re.MULTILINE)
 _INCLUDE_PATTERN = re.compile(r'\$include_(\w+)')
 
 
