@@ -34,6 +34,7 @@ from __future__ import annotations
 import base64
 import json
 import os
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -118,13 +119,17 @@ class PageVote:
     score on the Tesseract path (0.0 on the AI path — AI doesn't expose
     a numeric confidence). ``edge`` is populated only on the AI path with
     the model's edge label ("top" / "right" / "bottom" / "left"); empty
-    string on the Tesseract path.
+    string on the Tesseract path. ``elapsed_s`` is the wall time of the
+    detector call (``retry_api_call`` for AI incl. backoff,
+    ``_tesseract_rotation_cw`` for Tesseract); excludes rendering and the
+    blank-page check, which run before the worker.
     """
 
     page_idx: int
     rotation_cw: int
     confidence: float = 0.0
     edge: str = ""
+    elapsed_s: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -744,10 +749,14 @@ def _run_tesseract_batch(
                 return idx, None
         except BaseException:  # noqa: BLE001
             return idx, None
+        t0 = time.perf_counter()
         rot, conf = _tesseract_rotation_cw(pil_img)
+        elapsed = time.perf_counter() - t0
         if rot is None:
             return idx, None
-        return idx, PageVote(page_idx=idx, rotation_cw=rot, confidence=conf)
+        return idx, PageVote(
+            page_idx=idx, rotation_cw=rot, confidence=conf, elapsed_s=elapsed,
+        )
 
     with ThreadPoolExecutor(max_workers=pool_size) as executor:
         for idx, vote in executor.map(_osd_one, renders):
@@ -828,6 +837,7 @@ def _detect_one_ai(
             )
 
     def _query_page(idx: int, b64: str) -> "PageVote | BaseException":
+        t0 = time.perf_counter()
         try:
             raw = retry_api_call(
                 lambda b=b64: _call_for_b64(b),
@@ -836,6 +846,7 @@ def _detect_one_ai(
             edge, rot = _parse_rotation(raw)
             return PageVote(
                 page_idx=idx, rotation_cw=rot, confidence=0.0, edge=edge,
+                elapsed_s=time.perf_counter() - t0,
             )
         except BaseException as exc:  # noqa: BLE001
             return exc
@@ -988,14 +999,17 @@ def detect_scan_orientations(
 
 def _fmt_page_line(v: PageVote, detector: str) -> str:
     """Format one per-page line, choosing the layout based on detector path."""
+    from xscore.shared.terminal_ui import format_duration  # noqa: PLC0415
+    dur = format_duration(v.elapsed_s)
     if detector == "tesseract":
         return (
             f"  p{v.page_idx:<3d} → {v.rotation_cw:>3d}° CW   "
-            f"(conf {v.confidence:>4.1f})"
+            f"(conf {v.confidence:>4.1f})  ·  {dur}"
         )
     # AI path
     return (
         f"  p{v.page_idx:<3d} →  {v.edge:<7s}  (rotate {v.rotation_cw:>3d}°)"
+        f"  ·  {dur}"
     )
 
 

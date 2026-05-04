@@ -34,7 +34,12 @@ from xscore.shared.load_student_list import read_student_list as _read_student_l
 from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.pipeline_steps import run_step, step_by_number
 from xscore.shared.student_artifacts import write_student_artifacts
-from xscore.shared.terminal_ui import announce_step_model, info_line, ok_line
+from xscore.shared.terminal_ui import (
+    announce_step_model,
+    format_duration,
+    info_line,
+    ok_line,
+)
 
 
 def read_student_list(ctx: _Ctx) -> None:
@@ -57,12 +62,14 @@ def prepare_scans(ctx: _Ctx) -> None:
     See ``xscore.preprocessing.coordinator.prepare_scans_phase``.
     """
     assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
+    t0 = time.perf_counter()
     ctx.scan_match = prepare_scans_phase(
         ctx.folder,
         ctx.artifact_dir,
         ctx.instruction.dpi,
         force_rebuild=ctx.force_clean_scan,
     )
+    ok_line(f"Scans prepared  ·  {format_duration(time.perf_counter() - t0)}")
 
 
 def detect_blank_pages(ctx: _Ctx) -> None:

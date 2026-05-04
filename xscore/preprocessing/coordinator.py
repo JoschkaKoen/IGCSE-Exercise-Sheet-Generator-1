@@ -462,7 +462,6 @@ def _scan_blanks_to_md(
     page_render_sizes: list,
     blank_mean: float,
     blank_std: float,
-    use_tesseract_rotation: bool,
     analysis_dpi: int,
 ) -> str:
     """Render a compact human-readable summary of scan blank-detection results."""
@@ -480,7 +479,6 @@ def _scan_blanks_to_md(
         f"| Blank pages | {len(blank_page_nums)} |",
         f"| Analysis DPI | {analysis_dpi} |",
         f"| Blank detection | mean \u2265 {blank_mean}, std \u2264 {blank_std} |",
-        f"| Tesseract rotation | {'Yes' if use_tesseract_rotation else 'No'} |",
         f"| Page sizes | {size_summary} |",
     ]
     return "\n".join(lines) + "\n"
@@ -496,7 +494,6 @@ def detect_blank_pages_phase(
     blank_std: float | None = None,
 ) -> Path:
     """detect_blank_pages body: write ``scan_blanks.json`` with blank/content lists and render sizes."""
-    from xscore.config import SCAN_USE_TESSERACT_ROTATION
     from xscore.preprocessing.remove_blanks_autorotate import (
         BLANK_MEAN_THRESHOLD,
         BLANK_STD_THRESHOLD,
@@ -526,7 +523,6 @@ def detect_blank_pages_phase(
         page_render_sizes=page_render_sizes,
         blank_mean=bm,
         blank_std=bs,
-        use_tesseract_rotation=SCAN_USE_TESSERACT_ROTATION,
         analysis_dpi=analysis_dpi,
     )
     paths["blanks_json"].parent.mkdir(parents=True, exist_ok=True)
@@ -540,7 +536,6 @@ def detect_blank_pages_phase(
             page_render_sizes=page_render_sizes,
             blank_mean=bm,
             blank_std=bs,
-            use_tesseract_rotation=SCAN_USE_TESSERACT_ROTATION,
             analysis_dpi=analysis_dpi,
         ),
         encoding="utf-8",
@@ -561,11 +556,10 @@ def write_skipped_blanks_state(
 
     Used when step 5 is disabled via ``BLANK_DETECTION_SKIP=true``. Page
     sizes are derived from PDF page dimensions × ``BLANK_DPI/72`` rather
-    than from a rendering pass — the only downstream consumer of these sizes
-    is the landscape-check in ``write_rotated_pdf_after_blanks``.
+    than from a rendering pass — kept informational; step 6 no longer
+    consumes them.
     """
     import pikepdf
-    from xscore.config import SCAN_USE_TESSERACT_ROTATION
     from xscore.preprocessing.remove_blanks_autorotate import (
         BLANK_DPI,
         BLANK_MEAN_THRESHOLD,
@@ -594,7 +588,6 @@ def write_skipped_blanks_state(
         page_render_sizes=page_render_sizes,
         blank_mean=BLANK_MEAN_THRESHOLD,
         blank_std=BLANK_STD_THRESHOLD,
-        use_tesseract_rotation=SCAN_USE_TESSERACT_ROTATION,
         analysis_dpi=analysis_dpi,
     )
     paths["blanks_json"].parent.mkdir(parents=True, exist_ok=True)
@@ -607,12 +600,17 @@ def autorotate_phase(
     *,
     output_pdf: Path | None = None,
 ) -> Path:
-    """autorotate body: read ``scan_blanks.json``, write rotated PDF (all pages retained).
+    """autorotate body: copy the source scan to ``scan_rotated.pdf`` preserving ``/Rotate``.
 
-    Step 14 now matches every scan page against the empty exam (phase A's catalog),
-    which decides each page's identity. Pre-emptively dropping blanks here would
-    hide pages that carry faint handwriting the matcher should still see, so we
-    pass every page through. ``scan_blanks.json`` stays informational.
+    Step 4 (``prepare_scans``) is the single rotation authority — it bakes
+    detected angles into the merged PDF's ``/Rotate`` metadata. This step
+    forwards every page through without touching ``/Rotate``; the historical
+    "landscape→portrait" heuristic and the second Tesseract OSD pass were
+    removed because they overrode step 4's decision.
+
+    Step 14 matches every scan page against the empty exam catalog and decides
+    identity, so we keep all pages here (``scan_blanks.json`` stays
+    informational).
     """
     from xscore.preprocessing.remove_blanks_autorotate import (
         scan_blanks_state_from_json,
@@ -637,9 +635,6 @@ def autorotate_phase(
         total_pages=total,
         content_page_nums=list(range(1, total + 1)),  # retain ALL pages — step 14 matcher decides identity
         blank_page_nums=[],                            # informational-only; see scan_blanks.json
-        page_render_sizes=state["page_render_sizes"],
-        analysis_dpi=int(state["analysis_dpi"]),
-        use_tesseract_rotation=bool(state["use_tesseract_rotation"]),
     )
     return out
 

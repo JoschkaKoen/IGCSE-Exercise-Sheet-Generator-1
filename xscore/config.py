@@ -96,9 +96,10 @@ _csef = os.getenv("CLEANED_SCAN_EMBED_FORMAT", "jpeg").strip().lower()
 CLEANED_SCAN_EMBED_FORMAT: str = _csef if _csef in ("jpeg", "png") else "jpeg"
 CLEANED_SCAN_JPEG_QUALITY = int(os.getenv("CLEANED_SCAN_JPEG_QUALITY", "95"))
 
-# Class scan rotation (see preprocessing/remove_blanks_autorotate.py).
-# False (default): trust PDF /Rotate per page; only one Poppler raster (72 DPI) for blank detection.
-# True: add a full-DPI raster + Tesseract OSD for extra rotation hints (slow; rare mis-scanned PDFs).
+# Deprecated: step 4 (prepare_scans) is now the single rotation authority and
+# already supports both AI-vision and Tesseract-OSD detection. The flag is
+# retained so existing user envs don't fail at import, but it is no longer
+# read by the scan pipeline.
 _scan_tess_rot = os.getenv("SCAN_USE_TESSERACT_ROTATION", "").strip().lower()
 SCAN_USE_TESSERACT_ROTATION: bool = _scan_tess_rot in ("1", "true", "yes", "on")
 
@@ -152,7 +153,9 @@ PIPELINE_DEFAULT_DPI: int = int(os.getenv("PIPELINE_DEFAULT_DPI", "300"))
 # detect_blank_pages: raster (mean/std; 72 DPI is sufficient).
 BLANK_DETECTION_DPI: int = int(os.getenv("BLANK_DETECTION_DPI", "72"))
 
-# autorotate: Tesseract OSD rotation (only when SCAN_USE_TESSERACT_ROTATION=true).
+# Recorded in scan_blanks.json as informational metadata. The autorotate step
+# no longer rasterizes at this DPI (step 4 is the rotation authority); kept so
+# existing audit JSONs and downstream consumers stay happy.
 ROTATION_ANALYSIS_DPI: int = int(os.getenv("ROTATION_ANALYSIS_DPI", "150"))
 
 # prepare_scans: orientation detector selection.

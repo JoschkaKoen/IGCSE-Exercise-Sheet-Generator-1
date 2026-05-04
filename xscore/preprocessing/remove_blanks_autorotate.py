@@ -1,25 +1,14 @@
-"""Blank-page removal and page rotation for class-scan PDFs (pikepdf).
+"""Blank-page detection + page-preserving copy for class-scan PDFs.
 
-**``prepare_scans`` now handles per-scan-file orientation upstream**
-via Qwen vision (see :mod:`xscore.preprocessing.scan_orientation`), so by the
-time pages reach this module they are already correctly oriented in the
-common case. The branches below are now defensive fallbacks rather than the
-primary rotation path.
+``prepare_scans`` (step 4) is the single authority for orientation. It detects
+per-scan-file rotation via AI vision or Tesseract OSD and bakes the result into
+``merged_scan.pdf``'s ``/Rotate`` metadata. This module only renders pages once
+at low DPI to classify blanks and then writes the kept pages through pikepdf,
+preserving each page's existing ``/Rotate`` exactly as step 4 left it. No
+rotation override happens here.
 
-By default rotation follows each page's PDF ``/Rotate`` metadata (scanner output).
-If the blank pass (72 DPI) renders a **content** page wider than tall, Poppler has
-already applied a non-zero ``/Rotate`` to a portrait ``MediaBox``; we then write
-``/Rotate=0`` on output so deskew sees portrait rasters. True landscape scans
-with the same shape are rare here; use ``SCAN_USE_TESSERACT_ROTATION`` if needed.
-
-Optional Tesseract OSD can add an extra CCW adjustment on top (slow); see
-``config.SCAN_USE_TESSERACT_ROTATION``. Note that Tesseract OSD only addresses
-90° landscape→portrait, **not 180° flips** — the upstream Qwen detection in
-``prepare_scans`` is the only thing that catches a bottom-fed scan. If ``SCAN_ORIENTATION_MODEL``
-falls back (e.g. missing API key) on a 180°-flipped file, the fallback will
-not be repaired here.
-
-Used by :mod:`preprocessing.coordinator` before fine deskew. Formerly ``autograder.py``.
+Used by :mod:`preprocessing.coordinator` before fine deskew. Formerly
+``autograder.py``.
 """
 
 from __future__ import annotations
@@ -27,58 +16,21 @@ from __future__ import annotations
 import json
 import os
 import time
-from collections import Counter
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import numpy as np
 import pikepdf
 from pdf2image import convert_from_path
 from PIL import Image
-from rich.progress import (
-    BarColumn,
-    Progress,
-    TaskProgressColumn,
-    TextColumn,
-)
-from xscore.shared.terminal_ui import CompactElapsedColumn
-from xscore.config import BLANK_DETECTION_DPI as BLANK_DPI, ROTATION_ANALYSIS_DPI as ANALYSIS_DPI
+
+from xscore.config import BLANK_DETECTION_DPI as BLANK_DPI
 
 # ---------------------------------------------------------------------------
 # Configuration defaults
 # ---------------------------------------------------------------------------
 BLANK_MEAN_THRESHOLD = 250  # Pages with grayscale mean above this are considered blank (0-255)
 BLANK_STD_THRESHOLD = 6     # Pages with grayscale std below this are considered blank
-
-
-def _normalized_page_rotate(page: pikepdf.Page) -> int:
-    try:
-        r = int(page.get("/Rotate", 0))
-    except (TypeError, ValueError):
-        r = 0
-    return r % 360
-
-
-def _detect_rotation_osd(image: Image.Image) -> int:
-    """Tesseract OSD: CCW rotation (0, 90, 180, 270) to upright the *raster*, or 0 on failure."""
-    import pytesseract
-
-    try:
-        osd = pytesseract.image_to_osd(image, output_type=pytesseract.Output.DICT)
-        angle = int(osd.get("rotate", 0))
-        confidence = float(osd.get("orientation_conf", 0))
-
-        if confidence < 2.0:
-            return 0
-
-        return angle
-
-    except pytesseract.TesseractError:
-        return 0
-
-
-# Public alias (legacy name; Tesseract path only).
-detect_rotation = _detect_rotation_osd
 
 
 def is_blank_page(
@@ -91,47 +43,6 @@ def is_blank_page(
     mean = gray.mean()
     std = gray.std()
     return (mean >= mean_threshold) and (std <= std_threshold)
-
-
-def _rotation_worker(args: tuple[int, Image.Image]) -> tuple[int, int]:
-    page_num, pil_img = args
-    return page_num, _detect_rotation_osd(pil_img)
-
-
-def _rotation_map_from_tesseract_osd(
-    hi_res_pages: list,
-    content_page_nums: list[int],
-    *,
-    console,
-) -> dict[int, int]:
-    """Run parallel Tesseract OSD on content pages; return page_num → extra CCW rotation."""
-    from xscore.shared.terminal_ui import PROGRESS_TASK_TEXT
-
-    _tc = os.cpu_count() or 4
-    num_workers = min(_tc, len(content_page_nums))
-
-    rotation_map: dict[int, int] = {}
-    osd_inputs = [(pn, hi_res_pages[pn - 1]) for pn in content_page_nums]
-
-    with ThreadPoolExecutor(max_workers=num_workers) as executor:
-        futures = {
-            executor.submit(_rotation_worker, item): item[0] for item in osd_inputs
-        }
-        with Progress(
-            TextColumn(PROGRESS_TASK_TEXT),
-            BarColumn(bar_width=28),
-            TaskProgressColumn(),
-            CompactElapsedColumn(),
-            console=console,
-            transient=False,
-        ) as prog:
-            task_id = prog.add_task("", total=len(futures))
-            for future in as_completed(futures):
-                page_num, angle = future.result()
-                rotation_map[page_num] = angle
-                prog.advance(task_id)
-
-    return rotation_map
 
 
 def _raster_timed(label: str, fn) -> list:
@@ -193,20 +104,18 @@ def write_rotated_pdf_after_blanks(
     total_pages: int,
     content_page_nums: list[int],
     blank_page_nums: list[int],
-    page_render_sizes: list[tuple[int, int]],
-    analysis_dpi: int = ANALYSIS_DPI,
-    use_tesseract_rotation: bool | None = None,
 ) -> None:
-    """Build PDF with blank pages dropped and rotation applied (scanner /Rotate or OSD)."""
+    """Copy *input_path* to *output_path* keeping only ``content_page_nums``.
+
+    ``/Rotate`` metadata is preserved verbatim — step 4 already detected and
+    applied per-file orientation, so this step must not influence or overwrite
+    the result. The pikepdf round-trip is retained (rather than ``shutil.copy``)
+    so the file is structurally normalized as before.
+    """
     input_path = Path(input_path)
     output_path = Path(output_path)
 
-    if use_tesseract_rotation is None:
-        from xscore.config import SCAN_USE_TESSERACT_ROTATION
-
-        use_tesseract_rotation = SCAN_USE_TESSERACT_ROTATION
-
-    from xscore.shared.terminal_ui import err_line, get_console, ok_line, warn_line
+    from xscore.shared.terminal_ui import err_line, ok_line, warn_line
 
     if input_path.resolve() == output_path.resolve():
         err_line(
@@ -221,84 +130,11 @@ def write_rotated_pdf_after_blanks(
         warn_line("All pages were removed (all blank?). Nothing to save.")
         raise RuntimeError("All pages were detected as blank; nothing to save.")
 
-    c = get_console()
-    _tc = os.cpu_count() or 4
     with pikepdf.open(str(input_path)) as src_pdf:
-        landscape_pages: set[int] = set()
-
-        if use_tesseract_rotation:
-            hi_res_pages = _raster_timed(
-                f"Rotation detection ({analysis_dpi} DPI)",
-                lambda: convert_from_path(
-                    str(input_path),
-                    dpi=analysis_dpi,
-                    grayscale=True,
-                    thread_count=_tc,
-                ),
-            )
-
-            rotation_map = _rotation_map_from_tesseract_osd(
-                hi_res_pages, content_page_nums, console=c
-            )
-            del hi_res_pages
-        else:
-            rotation_map = {pn: 0 for pn in content_page_nums}
-            landscape_pages = {
-                pn
-                for pn in content_page_nums
-                if page_render_sizes[pn - 1][0] > page_render_sizes[pn - 1][1]
-            }
-
-        if use_tesseract_rotation:
-            rotated = sum(1 for a in rotation_map.values() if a != 0)
-            rot_s = (
-                f"{rotated} page(s) rotated via Tesseract OSD"
-                if rotated
-                else "All pages already upright"
-            )
-        else:
-            rots: list[int] = []
-            for pn in content_page_nums:
-                if pn in landscape_pages:
-                    rots.append(0)
-                else:
-                    rots.append(_normalized_page_rotate(src_pdf.pages[pn - 1]))
-            cnt = Counter(rots)
-            n_land = len(landscape_pages)
-            n_kept = len(content_page_nums)
-            if n_land == n_kept:
-                rot_s = f"All {n_kept} pages corrected from landscape to portrait"
-            elif n_land:
-                rot_s = f"{n_land} of {n_kept} pages corrected from landscape to portrait"
-            elif len(cnt) == 1:
-                only_deg = next(iter(cnt))
-                rot_s = (
-                    "All pages already upright"
-                    if only_deg == 0
-                    else f"All pages at {only_deg}°"
-                )
-            else:
-                parts = [f"{n} at {deg}°" for deg, n in sorted(cnt.items())]
-                rot_s = "Mixed orientation: " + ", ".join(parts)
-
         out_pdf = pikepdf.new()
         try:
             for pn in content_page_nums:
-                src_page = src_pdf.pages[pn - 1]
-                angle = rotation_map.get(pn, 0)
-
-                if angle != 0:
-                    try:
-                        existing_rotate = int(src_page.get("/Rotate", 0))
-                    except (TypeError, ValueError):
-                        existing_rotate = 0
-                    new_rotate = (existing_rotate + angle) % 360
-                    src_page["/Rotate"] = new_rotate
-                elif pn in landscape_pages:
-                    src_page["/Rotate"] = pikepdf.Integer(0)
-
-                out_pdf.pages.append(src_page)
-
+                out_pdf.pages.append(src_pdf.pages[pn - 1])
             out_pdf.save(str(output_path))
         finally:
             out_pdf.close()
@@ -312,7 +148,6 @@ def write_rotated_pdf_after_blanks(
     else:
         page_s = f"{kept} pages  ·  no blanks"
     ok_line(page_s)
-    ok_line(rot_s)
 
 
 def scan_blanks_state_to_json(
@@ -324,7 +159,6 @@ def scan_blanks_state_to_json(
     page_render_sizes: list[tuple[int, int]],
     blank_mean: float,
     blank_std: float,
-    use_tesseract_rotation: bool,
     analysis_dpi: int,
 ) -> str:
     """Serialize blank-detection state for the phased scan pipeline (detect_blank_pages → autorotate)."""
@@ -337,7 +171,6 @@ def scan_blanks_state_to_json(
         "page_render_sizes": [list(s) for s in page_render_sizes],
         "blank_mean": blank_mean,
         "blank_std": blank_std,
-        "use_tesseract_rotation": use_tesseract_rotation,
         "analysis_dpi": analysis_dpi,
     }
     return json.dumps(data, indent=2)
@@ -351,67 +184,3 @@ def scan_blanks_state_from_json(text: str) -> dict:
     page_render_sizes = [tuple(int(x) for x in pair) for pair in sizes_raw]
     data["page_render_sizes"] = page_render_sizes
     return data
-
-
-def process_pdf(
-    input_path: str,
-    output_path: str,
-    analysis_dpi: int = ANALYSIS_DPI,
-    blank_mean: float = BLANK_MEAN_THRESHOLD,
-    blank_std: float = BLANK_STD_THRESHOLD,
-    *,
-    use_tesseract_rotation: bool | None = None,
-) -> None:
-    """Blank detection; optional Tesseract OSD rotation; write PDF to *output_path*.
-
-    Default (``use_tesseract_rotation`` false / ``config.SCAN_USE_TESSERACT_ROTATION`` off):
-    one Poppler raster at :data:`BLANK_DPI` for blanks. Content pages whose render is
-    landscape (width > height) get ``/Rotate`` cleared to 0 so downstream deskew gets
-    portrait bitmaps; other pages keep scanner ``/Rotate``. No second raster;
-    ``analysis_dpi`` unused.
-
-    When ``use_tesseract_rotation`` is true: second raster at *analysis_dpi*, parallel
-    Tesseract OSD, then ``existing /Rotate + OSD angle`` on each kept page (no landscape
-    shortcut).
-    """
-    input_path = Path(input_path)
-    output_path = Path(output_path)
-
-    if use_tesseract_rotation is None:
-        from xscore.config import SCAN_USE_TESSERACT_ROTATION
-
-        use_tesseract_rotation = SCAN_USE_TESSERACT_ROTATION
-
-    from xscore.shared.terminal_ui import err_line
-
-    if input_path.resolve() == output_path.resolve():
-        err_line(
-            "Input and output paths are the same — refusing to overwrite the source PDF. "
-            "Choose a different output path."
-        )
-        raise RuntimeError(
-            "Input and output paths are the same — refusing to overwrite the source PDF."
-        )
-
-    if not input_path.exists():
-        err_line(f"Input file not found: {input_path}")
-        raise FileNotFoundError(f"Input file not found: {input_path}")
-
-    total_pages, content_page_nums, blank_page_nums, page_render_sizes = (
-        detect_blank_page_lists(
-            input_path,
-            blank_mean=blank_mean,
-            blank_std=blank_std,
-        )
-    )
-
-    write_rotated_pdf_after_blanks(
-        input_path,
-        output_path,
-        total_pages=total_pages,
-        content_page_nums=content_page_nums,
-        blank_page_nums=blank_page_nums,
-        page_render_sizes=page_render_sizes,
-        analysis_dpi=analysis_dpi,
-        use_tesseract_rotation=use_tesseract_rotation,
-    )
