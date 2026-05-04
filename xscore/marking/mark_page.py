@@ -307,7 +307,7 @@ def _mark_page(
 
         try:
             result, unfilled, unmatched, mcq_corrections = _apply_marking_response(raw, blueprint, fmt)
-        except FormatParseError:
+        except FormatParseError as exc:
             if cache_hit:
                 # Stale cache shape — discard and fall through to a live call.
                 cache_hit = False
@@ -316,7 +316,70 @@ def _mark_page(
                 _last_raw = raw
                 result, unfilled, unmatched, mcq_corrections = _apply_marking_response(raw, blueprint, fmt)
             else:
-                raise
+                # Live-call parse failure (after repair + list/flat fallbacks
+                # have all failed inside _apply_marking_response). One fresh
+                # API call with a parse-failure emphasis prefix on the user
+                # text; if that also fails to parse, raise MarkingFailure(
+                # attempts=2) so the _mark_one_page handler can run the
+                # extraction-only fallback (D3).
+                warn(f"Marking parse error — retrying once ({exc})")
+                _emphasis = (
+                    "RETRY: your previous response could not be parsed as YAML. "
+                    "Re-emit per the SYSTEM rules — wrap under a top-level "
+                    "`questions:` key, use `''` for empty fields and `|` block "
+                    "scalars for non-empty free-text fields, never use double "
+                    "quotes, and keep `problem` to ONE short sentence.\n\n"
+                )
+                _reparse_user_content = list(kwargs["messages"][1]["content"])
+                _text_idxs = [
+                    _i for _i, _c in enumerate(_reparse_user_content)
+                    if isinstance(_c, dict) and _c.get("type") == "text"
+                ]
+                if _text_idxs:
+                    _idx = _text_idxs[-1]
+                    _reparse_user_content[_idx] = {
+                        "type": "text",
+                        "text": _emphasis + _reparse_user_content[_idx].get("text", ""),
+                    }
+                _reparse_kwargs = dict(kwargs)
+                _reparse_kwargs["messages"] = [
+                    kwargs["messages"][0],
+                    {"role": "user", "content": _reparse_user_content},
+                ]
+
+                def _do_call_reparse() -> tuple[str, str]:
+                    if use_stream:
+                        _th: list[str] = []
+                        _stream = client.chat.completions.create(**_reparse_kwargs, stream=True)
+                        return collect_streamed_response(_stream, thinking_out=_th), "".join(_th)
+                    _resp = client.chat.completions.create(**_reparse_kwargs)
+                    return (
+                        _resp.choices[0].message.content or "",
+                        getattr(_resp.choices[0].message, "reasoning_content", "") or "",
+                    )
+
+                _reparse_save_path = (
+                    prompt_save_path.with_name(
+                        prompt_save_path.stem + "_reparse" + prompt_save_path.suffix
+                    )
+                    if prompt_save_path is not None else None
+                )
+                if _reparse_save_path is not None:
+                    save_prompt(
+                        _reparse_save_path, model=model_id,
+                        messages=_reparse_kwargs["messages"],
+                    )
+                raw, thinking_text = retry_api_call(
+                    _do_call_reparse, label=f"Marking reparse ({model_id})"
+                )
+                save_response(_reparse_save_path, raw, thinking=thinking_text)
+                _last_raw = raw
+                try:
+                    result, unfilled, unmatched, mcq_corrections = _apply_marking_response(
+                        raw, blueprint, fmt,
+                    )
+                except FormatParseError as exc2:
+                    raise MarkingFailure(attempts=2, last_exc=exc2, last_raw=_last_raw)
 
         if unmatched:
             warn(f"Marking: AI returned question(s) with no blueprint match: {unmatched}")
@@ -413,18 +476,37 @@ def _apply_marking_response(
     try:
         parsed_questions = fmt.parse_response(raw)
     except FormatParseError:
-        # Fallback: model dropped the `questions:` wrapper and emitted a list
-        # of question dicts at document root. Each entry self-identifies via
-        # `number`, so this is positionally unambiguous regardless of
-        # blueprint size — no 1×1 gating needed (unlike parse_flat_fallback).
-        list_fallback = fmt.parse_list_fallback(raw)
-        if list_fallback is None:
-            raise
-        parsed_questions = list_fallback
-        info_line(
-            f"Marking p{blueprint.get('page')}: list-at-root fallback "
-            f"rescued response (AI dropped `questions:` wrapper)"
-        )
+        # Tier-1 fallback: truncation repair. Walks back from the end of the
+        # response one line at a time, retrying yaml.safe_load until a valid
+        # prefix appears. Recovers the maximum useful data when the stream
+        # was cut mid-block-scalar (most often inside a `problem:` field).
+        from xscore.shared.response_parsing import repair_truncated_marking_response
+        parsed_questions = None
+        repaired = repair_truncated_marking_response(raw)
+        if repaired != raw:
+            try:
+                parsed_questions = fmt.parse_response(repaired)
+                info_line(
+                    f"Marking p{blueprint.get('page')}: truncation-repair recovered "
+                    f"{len(parsed_questions)} of "
+                    f"{len(blueprint.get('questions') or [])} question(s)"
+                )
+            except FormatParseError:
+                parsed_questions = None
+        if parsed_questions is None:
+            # Tier-2 fallback (existing): model dropped the `questions:`
+            # wrapper and emitted a list of question dicts at document root.
+            # Each entry self-identifies via `number`, so this is positionally
+            # unambiguous regardless of blueprint size — no 1×1 gating needed
+            # (unlike parse_flat_fallback).
+            list_fallback = fmt.parse_list_fallback(raw)
+            if list_fallback is None:
+                raise
+            parsed_questions = list_fallback
+            info_line(
+                f"Marking p{blueprint.get('page')}: list-at-root fallback "
+                f"rescued response (AI dropped `questions:` wrapper)"
+            )
     # Fallback: model dropped the `questions:` wrapper and emitted the four
     # fill fields at document root. Safe only when the blueprint has exactly
     # one question — flat-keyed shape is otherwise positionally ambiguous.

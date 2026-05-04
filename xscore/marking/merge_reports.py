@@ -180,6 +180,12 @@ def render_per_student_pdfs(ctx: Any) -> None:
             f"{questions_path} not found."
         )
 
+    # MCQ-only exams get a tighter table layout in the per-student PDFs:
+    # the answer/expected columns shrink to one-letter cells and Reasoning
+    # absorbs the freed width. Unset (None) → False, preserving default layout.
+    from xscore.marking.blueprints import is_all_mcq_exam
+    is_all_mcq = is_all_mcq_exam(parsed_questions or [])
+
     # Mark-scheme graphics extracted by step 22. The renderer embeds them at
     # the bottom of the Expected column for each affected question; the
     # preamble's \graphicspath points at this directory so .tex needs only
@@ -203,6 +209,7 @@ def render_per_student_pdfs(ctx: Any) -> None:
         class_avg=class_avg,
         q_to_graphics=q_to_graphics,
         scheme_graphics_dir=scheme_graphics_dir,
+        is_all_mcq=is_all_mcq,
     )
 
 

@@ -594,6 +594,7 @@ def _pass2_write_tex(
     class_avg: int | None = None,
     q_to_graphics: dict[str, list[str]] | None = None,
     scheme_graphics_dir: str = "",
+    is_all_mcq: bool = False,
 ) -> None:
     """Write per-student .tex files (landscape + portrait + portrait-large), then compile all in parallel.
 
@@ -633,6 +634,7 @@ def _pass2_write_tex(
                     class_avg=class_avg,
                     q_to_graphics=q_to_graphics,
                     scheme_graphics_dir=scheme_graphics_dir,
+                    is_all_mcq=is_all_mcq,
                 ),
                 encoding="utf-8",
             )
@@ -647,6 +649,7 @@ def _pass2_write_tex(
                     q_to_graphics=q_to_graphics,
                     scheme_graphics_dir=scheme_graphics_dir,
                     subtitle=_ATTEMPTED_SUBTITLE,
+                    is_all_mcq=is_all_mcq,
                 ),
                 encoding="utf-8",
             )
@@ -669,6 +672,7 @@ def _pass2_write_tex(
                         class_avg=class_avg,
                         q_to_graphics=q_to_graphics,
                         scheme_graphics_dir=scheme_graphics_dir,
+                        is_all_mcq=is_all_mcq,
                     ),
                     encoding="utf-8",
                 )
@@ -688,6 +692,7 @@ def _pass2_write_tex(
                     class_avg=class_avg,
                     q_to_graphics=q_to_graphics,
                     scheme_graphics_dir=scheme_graphics_dir,
+                    is_all_mcq=is_all_mcq,
                 ),
                 encoding="utf-8",
             )
@@ -707,6 +712,7 @@ def _pass2_write_tex(
                     q_to_graphics=q_to_graphics,
                     scheme_graphics_dir=scheme_graphics_dir,
                     subtitle=_ATTEMPTED_SUBTITLE,
+                    is_all_mcq=is_all_mcq,
                 ),
                 encoding="utf-8",
             )

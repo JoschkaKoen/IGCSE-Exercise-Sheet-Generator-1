@@ -23,6 +23,29 @@ def is_all_mcq_page(page_questions: list[dict]) -> bool:
     )
 
 
+def is_all_mcq_exam(parsed_questions: list[dict]) -> bool:
+    """True iff every leaf in the parsed-exam tree is multiple_choice
+    (and there is at least one leaf). Mirrors :func:`is_all_mcq_page` but
+    recurses into the nested-tree shape produced by step 20
+    (``exam_questions.yaml``); accepts both ``'type'`` (YAML) and
+    ``'question_type'`` (in-memory blueprint) keys for parity.
+    """
+    if not parsed_questions:
+        return False
+
+    def _walk(qs: list[dict]) -> bool:
+        for q in qs:
+            subs = q.get("subquestions") or []
+            if subs:
+                if not _walk(subs):
+                    return False
+            elif (q.get("type") or q.get("question_type")) != "multiple_choice":
+                return False
+        return True
+
+    return _walk(parsed_questions)
+
+
 def _clean_text(text: str) -> str:
     """Decode HTML entities left as literals after scaffold XML round-trip,
     then collapse long fill-in-the-blank ellipsis runs to a short placeholder."""

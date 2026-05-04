@@ -158,17 +158,28 @@ def _student_report_to_tex(
     q_to_graphics: dict[str, list[str]] | None = None,
     scheme_graphics_dir: str = "",
     subtitle: str | None = None,
+    is_all_mcq: bool = False,
 ) -> str:
     # Column widths threaded into _ai_cell / _format_criteria_cell so alltt
     # font-size selection scales with cell width. Match the col_spec below.
     # `panel_budget` is forwarded to `_split_oversized_cell` so very tall
     # Expected cells are emitted as multi-row panels (avoids cell overflow
     # off-page; longtable allows page breaks between rows but not within).
+    # In MCQ-only exams Your Answer / Expected hold a single letter; the
+    # columns shrink to fit the bold "You" / "True" headers (sized for the
+    # 12pt body used by `portrait_large`) and Reasoning absorbs the freed
+    # width. Total budget per orientation is preserved.
     if orientation == "portrait":
-        ans_w, exp_w, reason_w = 3.6, 5.0, 5.5
+        if is_all_mcq:
+            ans_w, exp_w, reason_w = 1.0, 1.4, 11.7
+        else:
+            ans_w, exp_w, reason_w = 3.6, 5.0, 5.5
         panel_budget = 40.0
     else:
-        ans_w, exp_w, reason_w = 5.7, 7.0, 8.1
+        if is_all_mcq:
+            ans_w, exp_w, reason_w = 1.0, 1.4, 18.4
+        else:
+            ans_w, exp_w, reason_w = 5.7, 7.0, 8.1
         panel_budget = 22.0
     q_to_graphics = q_to_graphics or {}
     rows = []
@@ -228,10 +239,18 @@ def _student_report_to_tex(
     # Portrait widths × (16.5 / 22.7) ≈ 0.727 of landscape widths.
     if orientation == "portrait":
         geometry_line = "\\geometry{a4paper,margin=1cm,footskip=6pt}\n"
-        col_spec = "L{0.4cm}L{0.4cm}L{0.5cm}L{3.6cm}L{5cm}L{5.5cm}"
+        if is_all_mcq:
+            col_spec = "L{0.4cm}L{0.4cm}L{0.5cm}L{1.0cm}L{1.4cm}L{11.7cm}"
+        else:
+            col_spec = "L{0.4cm}L{0.4cm}L{0.5cm}L{3.6cm}L{5cm}L{5.5cm}"
     else:
         geometry_line = "\\geometry{a4paper,landscape,margin=2cm}\n"
-        col_spec = "L{0.6cm}L{0.6cm}L{0.7cm}L{5.7cm}L{7.0cm}L{8.1cm}"
+        if is_all_mcq:
+            col_spec = "L{0.6cm}L{0.6cm}L{0.7cm}L{1.0cm}L{1.4cm}L{18.4cm}"
+        else:
+            col_spec = "L{0.6cm}L{0.6cm}L{0.7cm}L{5.7cm}L{7.0cm}L{8.1cm}"
+    answer_header = "You" if is_all_mcq else "Your Answer"
+    expected_header = "True" if is_all_mcq else "Expected"
     table_open  = "{\\small\n" if font_size < 12 else ""
     table_close = "}\n"        if font_size < 12 else ""
     return _ENV.get_template("student_report.tex.j2").render(
@@ -239,6 +258,8 @@ def _student_report_to_tex(
         geometry_line=geometry_line,
         table_open=table_open,
         col_spec=col_spec,
+        answer_header=answer_header,
+        expected_header=expected_header,
         rows_str=rows_str,
         table_close=table_close,
         scheme_graphics_dir=scheme_graphics_dir,
@@ -450,12 +471,19 @@ def _student_report_with_questions_to_tex(
     q_to_graphics: dict[str, list[str]] | None = None,
     scheme_graphics_dir: str = "",
     subtitle: str | None = None,
+    is_all_mcq: bool = False,
 ) -> str:
     """Landscape per-student PDF with an extra Question column (no MCQ options)."""
     # Column widths threaded into _ai_cell / _format_criteria_cell /
     # _render_question_with_options so alltt font-size selection scales with cell
-    # width. Match the col_spec below.
-    qstem_w, ans_w, exp_w, reason_w = 4.5, 4.7, 5.0, 6.2
+    # width. Match the col_spec below. MCQ-only exams shrink the answer/expected
+    # columns to one-letter cells (sized for the bold "You"/"True" headers) and
+    # let Reasoning absorb the freed width; Question column keeps its width so
+    # the stem stays legible.
+    if is_all_mcq:
+        qstem_w, ans_w, exp_w, reason_w = 4.5, 1.0, 1.4, 13.5
+    else:
+        qstem_w, ans_w, exp_w, reason_w = 4.5, 4.7, 5.0, 6.2
     q_to_graphics = q_to_graphics or {}
     rows = []
     for q in report["questions"]:
@@ -492,9 +520,15 @@ def _student_report_with_questions_to_tex(
         )
     rows_str = "\n".join(rows)
     # Landscape A4: 25.7 cm text - ~3.0 cm \tabcolsep overhead across 7 cols
-    # → ~22.7 cm column budget = 0.5+4.5+0.5+0.6+4.7+5.0+6.2 (cm).
+    # → ~22.0 cm column budget = 0.5+4.5+0.5+0.6+4.7+5.0+6.2 (cm).
+    # MCQ variant: 0.5+4.5+0.5+0.6+1.0+1.4+13.5 = 22.0 cm.
     geometry_line = "\\geometry{a4paper,landscape,margin=2cm}\n"
-    col_spec = "L{0.5cm}L{4.5cm}L{0.5cm}L{0.6cm}L{4.7cm}L{5.0cm}L{6.2cm}"
+    if is_all_mcq:
+        col_spec = "L{0.5cm}L{4.5cm}L{0.5cm}L{0.6cm}L{1.0cm}L{1.4cm}L{13.5cm}"
+    else:
+        col_spec = "L{0.5cm}L{4.5cm}L{0.5cm}L{0.6cm}L{4.7cm}L{5.0cm}L{6.2cm}"
+    answer_header = "You" if is_all_mcq else "Your Answer"
+    expected_header = "True" if is_all_mcq else "Expected"
     table_open  = "{\\small\n" if font_size < 12 else ""
     table_close = "}\n"        if font_size < 12 else ""
     return _ENV.get_template("student_report_with_questions.tex.j2").render(
@@ -502,6 +536,8 @@ def _student_report_with_questions_to_tex(
         geometry_line=geometry_line,
         table_open=table_open,
         col_spec=col_spec,
+        answer_header=answer_header,
+        expected_header=expected_header,
         rows_str=rows_str,
         table_close=table_close,
         scheme_graphics_dir=scheme_graphics_dir,

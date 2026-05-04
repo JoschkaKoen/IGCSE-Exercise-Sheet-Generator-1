@@ -717,6 +717,16 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         except MarkingFailure as mf:
             filled = blueprint.copy()
             filled["student_name"] = student_name
+            # Extraction-only fallback: even when the AI's response is
+            # irrecoverable, the extraction step has already supplied
+            # `student_answer` for each question on this page. Run
+            # _finalize_marking so MCQs get marks computed deterministically
+            # from (extracted student_answer vs correct_answer); non-MCQs
+            # land at 0 with the manual-review explanation. No-op warn
+            # callback because the page-level MarkingFailure log already
+            # conveys the broad failure.
+            from xscore.marking.mark_page import _finalize_marking
+            _finalize_marking(filled, lambda _msg: None)
             failure = {
                 "student": student_name, "page": p_label,
                 "attempts": mf.attempts, "error": str(mf.last_exc),

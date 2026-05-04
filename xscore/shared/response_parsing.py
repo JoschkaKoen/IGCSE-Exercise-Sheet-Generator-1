@@ -6,6 +6,8 @@ import json
 import re
 from typing import Any
 
+import yaml
+
 
 def strip_code_fences(raw: str) -> str:
     """Strip ``` code fences from a response string.
@@ -124,6 +126,50 @@ def repair_alltt_block_indent(raw: str) -> str:
             out.extend(lines[i:end_idx + 1])
         i = end_idx + 1
     return "\n".join(out) + ("\n" if raw.endswith("\n") else "")
+
+
+def repair_truncated_marking_response(raw: str) -> str:
+    """Best-effort recovery from a marking response truncated mid-stream.
+
+    Stream cutoff lands at an arbitrary token boundary that very rarely
+    matches the YAML indentation needed to terminate cleanly. The most common
+    symptom: a ``|`` block scalar (e.g. inside a `problem:` field) is left
+    open with a final dangling line one column shy of the body's indent,
+    which closes the scalar and leaves a stray scalar at the parent mapping
+    level — YAML errors with ``expected <block end>, but found '<scalar>'``.
+
+    This function walks back from the end one line at a time, retrying
+    ``yaml.safe_load`` after each successive line is dropped. The first
+    parseable prefix that contains a non-empty ``questions`` list wins.
+    YAML treats end-of-input as a clean termination for open block scalars,
+    so dropping the offending tail is equivalent to closing it correctly
+    without our code reconstructing any indent context.
+
+    Returns the trimmed text on success (or the original input if it was
+    already parseable). Returns the original input unchanged on failure
+    (no prefix parses) — caller falls through to deeper fallbacks.
+
+    Idempotent: a known-good response is returned unchanged.
+    """
+    cleaned = strip_code_fences(raw)
+    try:
+        data = yaml.safe_load(cleaned)
+        if isinstance(data, dict) and isinstance(data.get("questions"), list) and data["questions"]:
+            return raw
+    except yaml.YAMLError:
+        pass
+
+    lines = cleaned.split("\n")
+    max_drop = min(len(lines), 200)
+    for n in range(1, max_drop + 1):
+        candidate = "\n".join(lines[:-n])
+        try:
+            data = yaml.safe_load(candidate)
+        except yaml.YAMLError:
+            continue
+        if isinstance(data, dict) and isinstance(data.get("questions"), list) and data["questions"]:
+            return candidate
+    return raw
 
 
 def parse_json_safe(raw: str) -> dict | None:

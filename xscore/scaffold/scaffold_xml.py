@@ -35,16 +35,19 @@ def _merge_scheme(questions: list[dict], scheme_map: dict[str, dict]) -> None:
         entry = scheme_map.get(key)
         if entry:
             node["correct_answer"] = entry.get("correct_answer")
+            is_mcq = node.get("question_type") == "multiple_choice"
             criteria_lines = []
             for m in (entry.get("mark_scheme") or []):
                 criterion = m.get("criterion", "").lstrip("\t ")
                 if not criterion:
                     continue
                 mark_label = m.get("mark") or ""
-                prefix = f"[{mark_label}] " if mark_label else ""
+                # MCQ reasoning is rendered as-is; the [N] prefix that
+                # _format_criteria_cell strips for non-MCQ would leak through.
+                prefix = "" if is_mcq else (f"[{mark_label}] " if mark_label else "")
                 criteria_lines.append(f"{prefix}{criterion}")
             joined = "\n".join(criteria_lines) or None
-            if node.get("question_type") == "multiple_choice":
+            if is_mcq:
                 node["reasoning"] = joined
                 node["marking_criteria"] = None
             else:
