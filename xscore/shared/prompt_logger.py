@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -61,6 +62,21 @@ def _decode_image_url(url: str) -> tuple[str, bytes] | None:
     except (ValueError, TypeError):
         return None
     return mime, raw
+
+
+def _save_images_enabled() -> bool:
+    """Whether ``save_prompt`` should write per-image sidecar files.
+
+    Read per-call so a test or operator can flip ``SAVE_AI_IMAGES`` mid-run.
+    Default off — set ``SAVE_AI_IMAGES`` to ``true`` / ``1`` / ``yes`` /
+    ``on`` (case-insensitive) to keep the per-prompt audit copies on disk.
+    Anything else, including unset and empty string, leaves them off.
+    Cropped mark-scheme graphic PNGs in step 22's mark_scheme_graphics/
+    directory are written by a different code path and are not affected
+    by this flag.
+    """
+    val = os.environ.get("SAVE_AI_IMAGES", "").strip().lower()
+    return val in {"1", "true", "yes", "on"}
 
 
 def _cleanup_stale_sidecars(path: Path) -> None:
@@ -142,16 +158,21 @@ def save_prompt(
                         attachment_idx += 1
                         ext = _MIME_TO_EXT.get(mime, ".bin")
                         filename = f"{stem}_attachment_{attachment_idx:03d}{ext}"
-                        sidecar = path.parent / filename
-                        try:
-                            sidecar.write_bytes(raw)
-                        except OSError:
-                            pass
                         sha = hashlib.sha256(raw).hexdigest()[:16]
-                        body_lines.append(
-                            f"[attachment {attachment_idx:03d}] {filename} · "
-                            f"{mime} · {len(raw)} bytes · sha256:{sha}"
-                        )
+                        if _save_images_enabled():
+                            try:
+                                (path.parent / filename).write_bytes(raw)
+                            except OSError:
+                                pass
+                            body_lines.append(
+                                f"[attachment {attachment_idx:03d}] {filename} · "
+                                f"{mime} · {len(raw)} bytes · sha256:{sha}"
+                            )
+                        else:
+                            body_lines.append(
+                                f"[attachment {attachment_idx:03d} omitted] "
+                                f"{mime} · {len(raw)} bytes · sha256:{sha}"
+                            )
                         continue
                     body_lines.append(f"[unknown part type={ptype}]")
                 text_only = "\n".join(body_lines)

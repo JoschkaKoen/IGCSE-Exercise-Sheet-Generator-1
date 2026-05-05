@@ -83,6 +83,8 @@ Provider is auto-detected from the model name: `gemini*` → Gemini, `kimi*`/`mo
 
 Every AI call auto-saves its prompt and response to the step's artifact dir as `<task>_prompt.md` (with binary attachments as sidecar files) and `<task>_response.txt`. Two parallel implementations kept in sync: `eXercise/prompt_logger.py` (generation pipeline) and `xscore/shared/prompt_logger.py` (marking pipeline). Logging silently no-ops on I/O error so a logging fault never breaks the pipeline.
 
+Image sidecars are gated by the `SAVE_AI_IMAGES` env var (default off; set `SAVE_AI_IMAGES=true` to keep them). When off, `<task>_prompt.md` still records mime, byte size, and sha256 of each image part, but no `<task>_attachment_*.{jpg,png,pdf,…}` file is written. Step 13's `preview_first_pages.pdf` is also routed through a tempfile when the flag is off (it's the only AI-input image written outside `save_prompt`). Step 22's cropped mark-scheme graphic PNGs in `mark_scheme_graphics/` are NOT controlled by this flag — step 25 reads them, so they always go to disk.
+
 Each `<task>_response.txt` is the concatenation of the model's thinking trace (as a leading `[thinking]…[/thinking]` block) and the structured response that follows it. Both are saved together for review convenience; downstream parsers operate on the post-`[/thinking]` body only. Don't conflate verbose thinking-trace prose with content actually emitted into structured fields when auditing output.
 
 ## Test exam

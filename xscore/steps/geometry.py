@@ -233,86 +233,104 @@ def _detect_subject_via_ai(
     if src_pdf is None:
         raise RuntimeError("No empty-exam PDF available for AI subject detection")
 
-    subject_dir = artifact_subject_dir(ctx.artifact_dir)
-    subject_dir.mkdir(parents=True, exist_ok=True)
-    preview_pdf = subject_dir / "preview_first_pages.pdf"
-    doc_in = fitz.open(str(src_pdf))
-    doc_out = fitz.open()
+    from xscore.shared.prompt_logger import _save_images_enabled
+
+    if _save_images_enabled():
+        subject_dir = artifact_subject_dir(ctx.artifact_dir)
+        subject_dir.mkdir(parents=True, exist_ok=True)
+        preview_pdf = subject_dir / "preview_first_pages.pdf"
+        _preview_is_tmp = False
+    else:
+        import tempfile
+        _tmp = tempfile.NamedTemporaryFile(suffix=".pdf", delete=False)
+        _tmp.close()
+        preview_pdf = Path(_tmp.name)
+        _preview_is_tmp = True
+
     try:
-        last = min(2, doc_in.page_count) - 1
-        doc_out.insert_pdf(doc_in, from_page=0, to_page=last)
-        doc_out.save(str(preview_pdf), garbage=4, deflate=True)
-    finally:
-        doc_in.close()
-        doc_out.close()
+        doc_in = fitz.open(str(src_pdf))
+        doc_out = fitz.open()
+        try:
+            last = min(2, doc_in.page_count) - 1
+            doc_out.insert_pdf(doc_in, from_page=0, to_page=last)
+            doc_out.save(str(preview_pdf), garbage=4, deflate=True)
+        finally:
+            doc_in.close()
+            doc_out.close()
 
-    model_spec = os.environ.get(
-        "SUBJECT_DETECTION_MODEL", "gemini-3.1-flash-lite-preview, 0, 256",
-    )
-    model, thinking_tokens, max_tokens = parse_model_spec(model_spec)
+        model_spec = os.environ.get(
+            "SUBJECT_DETECTION_MODEL", "gemini-3.1-flash-lite-preview, 0, 256",
+        )
+        model, thinking_tokens, max_tokens = parse_model_spec(model_spec)
 
-    from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
-    client = make_gemini_native_client(should_cache=reuse_cache_enabled(ctx))
-    if client is None:
-        raise RuntimeError(
-            "GEMINI_API_KEY (or GOOGLE_API_KEY) not set — required by detect_subject "
-            "AI fallback. Set the env var, or add a filename pattern to "
-            "xscore/shared/subjects.py:KNOWN_SUBJECTS so the heuristic matches."
+        from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
+        client = make_gemini_native_client(should_cache=reuse_cache_enabled(ctx))
+        if client is None:
+            raise RuntimeError(
+                "GEMINI_API_KEY (or GOOGLE_API_KEY) not set — required by detect_subject "
+                "AI fallback. Set the env var, or add a filename pattern to "
+                "xscore/shared/subjects.py:KNOWN_SUBJECTS so the heuristic matches."
+            )
+
+        subject_names = [s.name for s in available]
+        system_prompt = (
+            "You are classifying an exam paper by its academic subject. "
+            f"Choose exactly one subject from this list: {', '.join(subject_names)}."
+        )
+        user_prompt = (
+            "Look at the exam cover page and page 2. Identify the subject from the "
+            "subject heading, paper title, and question content. Reply with one of "
+            f"the allowed subjects: {', '.join(subject_names)}."
         )
 
-    subject_names = [s.name for s in available]
-    system_prompt = (
-        "You are classifying an exam paper by its academic subject. "
-        f"Choose exactly one subject from this list: {', '.join(subject_names)}."
-    )
-    user_prompt = (
-        "Look at the exam cover page and page 2. Identify the subject from the "
-        "subject heading, paper title, and question content. Reply with one of "
-        f"the allowed subjects: {', '.join(subject_names)}."
-    )
+        config_kwargs: dict = {
+            "max_output_tokens": max_tokens or 256,
+            "response_mime_type": "application/json",
+            "response_schema": {
+                "type": "object",
+                "properties": {"subject": {"type": "string", "enum": subject_names}},
+                "required": ["subject"],
+            },
+        }
+        if thinking_tokens is not None:
+            config_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
+        gen_config = gai_types.GenerateContentConfig(**config_kwargs)
 
-    config_kwargs: dict = {
-        "max_output_tokens": max_tokens or 256,
-        "response_mime_type": "application/json",
-        "response_schema": {
-            "type": "object",
-            "properties": {"subject": {"type": "string", "enum": subject_names}},
-            "required": ["subject"],
-        },
-    }
-    if thinking_tokens is not None:
-        config_kwargs["thinking_config"] = build_gemini_thinking_config(thinking_tokens)
-    gen_config = gai_types.GenerateContentConfig(**config_kwargs)
+        contents = [
+            gemini_pdf_part(client, preview_pdf, label="subject detection"),
+            gai_types.Part.from_text(text=user_prompt),
+        ]
+        response = retry_api_call(
+            lambda: client.models.generate_content(
+                model=model, contents=contents, config=gen_config,
+            ),
+            label="Subject Detection",
+        )
+        answer_text, thinking_text = split_gemini_response(response)
+        detected_name = json.loads(answer_text)["subject"]
+        subject = get_subject(detected_name)
 
-    contents = [
-        gemini_pdf_part(client, preview_pdf, label="subject detection"),
-        gai_types.Part.from_text(text=user_prompt),
-    ]
-    response = retry_api_call(
-        lambda: client.models.generate_content(
-            model=model, contents=contents, config=gen_config,
-        ),
-        label="Subject Detection",
-    )
-    answer_text, thinking_text = split_gemini_response(response)
-    detected_name = json.loads(answer_text)["subject"]
-    subject = get_subject(detected_name)
+        prompt_path = artifact_subject_prompt_path(ctx.artifact_dir, "subject")
+        save_prompt(
+            prompt_path,
+            model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": [
+                    attachment_part(preview_pdf.read_bytes(), "application/pdf"),
+                    {"type": "text", "text": user_prompt},
+                ]},
+            ],
+        )
+        save_response(prompt_path, answer_text, thinking=thinking_text)
 
-    prompt_path = artifact_subject_prompt_path(ctx.artifact_dir, "subject")
-    save_prompt(
-        prompt_path,
-        model=model,
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": [
-                attachment_part(preview_pdf.read_bytes(), "application/pdf"),
-                {"type": "text", "text": user_prompt},
-            ]},
-        ],
-    )
-    save_response(prompt_path, answer_text, thinking=thinking_text)
-
-    return subject, {"model": model, "raw_response": answer_text}
+        return subject, {"model": model, "raw_response": answer_text}
+    finally:
+        if _preview_is_tmp:
+            try:
+                preview_pdf.unlink()
+            except OSError:
+                pass
 
 
 def student_names(ctx: _Ctx) -> None:
