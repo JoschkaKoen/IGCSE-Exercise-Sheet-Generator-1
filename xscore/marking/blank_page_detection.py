@@ -782,6 +782,11 @@ def check_student_handwriting(
     Writes ``15_student_handwriting/handwriting.json`` containing the
     ``scan_pages`` block. Returns ``(BlankCheckStatus, message)``; never
     raises (dispatcher policy).
+
+    For out-of-order pages, two recheck compares can run: scan vs expected
+    empty-exam page (can recover the match if "same"), and — when the first
+    says "differs" — scan vs AI-detected empty-exam page (records the
+    outcome in ``rechecked_against_detected`` per scan page).
     """
     from eXercise.ai_client import parse_model_spec
     from xscore.shared.exam_paths import (
@@ -1070,6 +1075,7 @@ def check_student_handwriting(
                 out_of_order_idx.append(i)
 
     rechecked_pages: set[int] = set()
+    recheck2_status: dict[int, bool | None] = {}  # scan_page → True/False/None
     if out_of_order_idx:
         # Map printed page number → empty-exam PDF page index, using step 14's catalog.
         pn_to_pdf_page: dict[int, int] = {
@@ -1145,6 +1151,54 @@ def check_student_handwriting(
                     prob_new = f"{prob_cur}; {addendum}" if prob_cur else addendum
                     status = "inconclusive"
 
+                # ── Second recheck: scan page vs empty exam at AI-detected page number ─
+                detected_pn: int | None = pn_cur if isinstance(pn_cur, int) else None
+                if same is False and detected_pn is not None and detected_pn != ep:
+                    detected_pdf_page = pn_to_pdf_page.get(detected_pn)
+                    if detected_pdf_page is not None:
+                        try:
+                            empty_jpeg2 = _render_page_jpeg(
+                                empty_exam_pdf, detected_pdf_page,
+                                dpi=HANDWRITING_CHECK_RECHECK_JPEG_DPI,
+                                quality=HANDWRITING_CHECK_RECHECK_JPEG_QUALITY,
+                            )
+                        except Exception as e:  # noqa: BLE001
+                            warn_line(f"  ↳ recheck2 page {sp_orig}: render failed ({e}); skipping")
+                        else:
+                            (jpeg_dir / f"page_{sp_orig:03d}_order_recheck2_empty.jpg").write_bytes(empty_jpeg2)
+                            save_path2 = artifact_handwriting_prompt_path(
+                                artifact_dir, f"page_{sp_orig:03d}_order_recheck2"
+                            )
+                            t1 = time.perf_counter()
+                            same2, conf2, reason2 = _compare_pages(
+                                rstate, rmodel_id, empty_jpeg2, scan_jpeg,
+                                compare_prompt, save_path2, max_tokens=rmax_tok,
+                            )
+                            dur3 = format_duration(time.perf_counter() - t1)
+                            if same2 is True:
+                                recheck2_status[sp_orig] = True
+                                addendum2 = f"recheck2: confirmed as detected pg {detected_pn} (out of order)"
+                                status2 = f"same as detected pg {detected_pn}"
+                            elif same2 is False:
+                                recheck2_status[sp_orig] = False
+                                reason2_short = (reason2 or "").strip()
+                                if len(reason2_short) > 60:
+                                    reason2_short = reason2_short[:59].rstrip() + "…"
+                                addendum2 = f"recheck2: differs from detected pg {detected_pn}"
+                                if reason2_short:
+                                    addendum2 += f": {reason2_short}"
+                                status2 = f"differs from detected pg {detected_pn}"
+                            else:
+                                recheck2_status[sp_orig] = None
+                                addendum2 = f"recheck2: inconclusive (vs detected pg {detected_pn})"
+                                status2 = "inconclusive"
+                            prob_new = f"{prob_new}; {addendum2}" if prob_new else addendum2
+                            conf_str2 = f"conf={conf2}" if conf2 is not None else "conf=?"
+                            warn_line(
+                                f"  ↳ recheck2 page {sp_orig:>{page_width}d}  ·  {status2:<24}"
+                                f"  ·  pg {detected_pn:<5}  ·  {conf_str2}  ·  {dur3}"
+                            )
+
                 _, pn_label, match_after = _match_summary(ep, pt_new, pn_new)
                 line_fn = ok_line if (match_after is True and not prob_new) else warn_line
                 conf_str = f"conf={conf_cmp}" if conf_cmp is not None else "conf=?"
@@ -1154,6 +1208,28 @@ def check_student_handwriting(
                 )
                 results[i] = (sp_orig, ep, pt_new, pn_new, h_cur, c_pt_cur, c_pn_cur, c_hw_cur, prob_new)
                 rechecked_pages.add(sp_orig)
+
+    if recheck2_status:
+        confirmed = sum(1 for v in recheck2_status.values() if v is True)
+        contradicted = sum(1 for v in recheck2_status.values() if v is False)
+        inconclusive = sum(1 for v in recheck2_status.values() if v is None)
+        total = len(recheck2_status)
+        if contradicted == 0 and inconclusive == 0:
+            info_line(
+                f"Recheck2: all {total} out-of-order page"
+                f"{'s' if total != 1 else ''} confirmed against AI-detected page "
+                "numbers — scan appears misordered but page identities are reliable."
+            )
+        else:
+            parts = [f"{confirmed} confirmed"]
+            if contradicted:
+                parts.append(f"{contradicted} contradicted")
+            if inconclusive:
+                parts.append(f"{inconclusive} inconclusive")
+            warn_line(
+                f"Recheck2: {', '.join(parts)} of {total} out-of-order page"
+                f"{'s' if total != 1 else ''}."
+            )
 
     # ── Build artifact ───────────────────────────────────────────────────────
     scan_pages_out: list[dict] = []
@@ -1177,6 +1253,7 @@ def check_student_handwriting(
             "problem": problem,
             "match": pn_match,
             "rechecked": scan_page in rechecked_pages,
+            "rechecked_against_detected": recheck2_status.get(scan_page),
         })
         if has_hw is None or page_type is None or page_number is None:
             inconclusive_pages.append({

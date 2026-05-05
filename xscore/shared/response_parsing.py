@@ -12,14 +12,15 @@ import yaml
 def strip_code_fences(raw: str) -> str:
     """Strip ``` code fences from a response string.
 
-    Removes one optional leading fence (``` or ```lang) and one optional
-    trailing fence. The fences must be on their own around the content.
-    Idempotent on already-stripped input.
+    Strips one optional leading fence (``` or ```lang) and one optional
+    trailing fence, independently — handles the asymmetric case where the
+    model emits only the closing delimiter (a known Gemini quirk for
+    prompts whose example is inside ``` … ```). Idempotent on already-
+    stripped input.
     """
     raw = raw.strip()
-    if raw.startswith("```"):
-        raw = re.sub(r"^```[^\n]*\n?", "", raw)
-        raw = re.sub(r"\n?```$", "", raw.strip())
+    raw = re.sub(r"^```[^\n]*\n?", "", raw)
+    raw = re.sub(r"\n?```$", "", raw.strip())
     return raw
 
 

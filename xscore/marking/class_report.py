@@ -42,6 +42,7 @@ from xscore.shared.exam_paths import (
     artifact_class_report_pdf_2up_path,
     artifact_class_report_tex_path,
     artifact_class_report_xml_path,
+    artifact_class_stats_json_path,
     artifact_exam_questions_tex_path,
     artifact_exam_student_list_json_path,
     artifact_student_pdf_dir,
@@ -970,11 +971,24 @@ def _build_class_report(
     artifact_class_report_md_path(ctx.artifact_dir).write_text(
         _class_report_to_md(class_report), encoding="utf-8"
     )
+    # Curve target written to class_stats.json by build_class_stats; pull it
+    # out so the workbook's editable curve cell starts from the same value.
+    curve_target_pct: int | None = None
+    try:
+        stats = json.loads(
+            artifact_class_stats_json_path(ctx.artifact_dir).read_text(encoding="utf-8")
+        )
+        ct = stats.get("curve_target")
+        if isinstance(ct, int):
+            curve_target_pct = ct
+    except (OSError, ValueError):
+        pass
     _write_class_marks_xlsx(
         class_report=class_report,
         full_reports=getattr(ctx, "full_reports", None) or {},
         scaffold_questions=getattr(ctx.scaffold, "questions", []),
         out_path=artifact_class_marks_xlsx_path(ctx.artifact_dir),
+        curve_target_pct=curve_target_pct,
     )
     tex_path = artifact_class_report_tex_path(ctx.artifact_dir)
     tex_path.write_text(_class_report_to_tex(class_report, exam_name=exam_name), encoding="utf-8")
