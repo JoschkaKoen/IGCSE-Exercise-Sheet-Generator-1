@@ -188,8 +188,11 @@ def _student_report_to_tex(
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
-        if q.get("_unanswered"):
+        answer_lower = answer_raw.lower()
+        if q.get("_unanswered") or answer_lower == "no answer":
             answer = "\\textit{(not answered)}"
+        elif answer_lower in ("not clear", "?"):
+            answer = "\\textit{(unclear)}"
         elif not answer_raw:
             answer = "\\textit{(blank)}"
         else:
@@ -329,7 +332,10 @@ def _class_report_to_tex(report: dict, exam_name: str = "") -> str:
 
 
 def _class_toc_to_tex(
-    students: list[dict], exam_name: str = "", title_suffix: str = ""
+    students: list[dict],
+    exam_name: str = "",
+    title_suffix: str = "",
+    scan_rows: list[dict] | None = None,
 ) -> str:
     """TOC for the combined class report — one clickable line per student.
 
@@ -339,6 +345,10 @@ def _class_toc_to_tex(
 
     *title_suffix* lets callers distinguish per-variant TOCs in the
     section heading (e.g. ``" (landscape)"``); empty by default.
+
+    *scan_rows* renders an optional second TOC below the first listing
+    each student's page range in ``cleaned_scan.pdf``. Each dict needs
+    ``display_name`` and ``page_range`` (e.g. ``"2–14"``).
     """
     header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""
     header = f"Students{header_extra}{title_suffix}"
@@ -350,8 +360,15 @@ def _class_toc_to_tex(
         }
         for s in students
     ]
+    rendered_scan = [
+        {
+            "display_name": _latex_escape(r["display_name"]),
+            "page_range": r["page_range"],
+        }
+        for r in (scan_rows or [])
+    ]
     return _ENV.get_template("class_toc.tex.j2").render(
-        header=header, students=rendered
+        header=header, students=rendered, scan_rows=rendered_scan
     )
 
 
@@ -492,8 +509,11 @@ def _student_report_with_questions_to_tex(
         max_q = q.get("max_marks", "")
         awarded = q.get("assigned_marks")
         answer_raw = str(q.get("student_answer") or "").strip()
-        if q.get("_unanswered"):
+        answer_lower = answer_raw.lower()
+        if q.get("_unanswered") or answer_lower == "no answer":
             answer = "\\textit{(not answered)}"
+        elif answer_lower in ("not clear", "?"):
+            answer = "\\textit{(unclear)}"
         elif not answer_raw:
             answer = "\\textit{(blank)}"
         else:
@@ -574,8 +594,11 @@ def _student_report_list_to_tex(
         awarded = q.get("assigned_marks")
         awarded_cell = _awarded_tex(awarded, max_q)
         answer_raw = str(q.get("student_answer") or "").strip()
-        if q.get("_unanswered"):
+        answer_lower = answer_raw.lower()
+        if q.get("_unanswered") or answer_lower == "no answer":
             answer = "\\textit{(not answered)}"
+        elif answer_lower in ("not clear", "?"):
+            answer = "\\textit{(unclear)}"
         elif not answer_raw:
             answer = "\\textit{(blank)}"
         else:

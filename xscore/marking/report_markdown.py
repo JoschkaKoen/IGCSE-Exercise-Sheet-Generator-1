@@ -28,8 +28,11 @@ def _student_report_to_md(report: dict, subtitle: str | None = None) -> str:
     questions = report["questions"]
     for q in questions:
         answer_raw = str(q.get("student_answer") or "").strip()
-        if q.get("_unanswered"):
+        answer_lower = answer_raw.lower()
+        if q.get("_unanswered") or answer_lower == "no answer":
             answer = "*(not answered)*"
+        elif answer_lower in ("not clear", "?"):
+            answer = "*(unclear)*"
         elif not answer_raw:
             answer = "*(blank)*"
         else:

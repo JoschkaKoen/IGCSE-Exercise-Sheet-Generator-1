@@ -569,17 +569,17 @@ def _apply_marking_response(
 
         if is_mcq:
             # Apply correction (regardless of whether AI emitted assigned_marks).
-            corrected = (fq.get("corrected_student_answer") or "").strip()
-            if corrected:
-                new_letter = corrected[0].upper() if corrected[:1].isalpha() else "?"
-                original = (bq.get("student_answer") or "").strip()
-                if new_letter != original.upper():
+            corrected_raw = (fq.get("corrected_student_answer") or "").strip()
+            if corrected_raw:
+                new_value = _normalize_mc_answer(corrected_raw)
+                original_value = _normalize_mc_answer(bq.get("student_answer"))
+                if new_value != original_value:
                     mcq_corrections.append({
                         "number": bq.get("number"),
-                        "from": original or "(blank)",
-                        "to": new_letter,
+                        "from": original_value,
+                        "to": new_value,
                     })
-                    bq["student_answer"] = new_letter
+                    bq["student_answer"] = new_value
             # MCQs don't need assigned_marks/explanation from the AI; the
             # downstream _fix_mc_marks computes them. Side-channel signals
             # (confidence, problem) flow through to the per-page YAML.
@@ -781,12 +781,40 @@ def _do_retry_call(
         return "", ""
 
 
+def _normalize_mc_answer(s: str | None) -> str:
+    """Coerce any MCQ answer string into the canonical three-value enum.
+
+    Returns one of:
+      - a single uppercase letter (A, B, C, …) — when the input begins with a letter
+      - "not clear" — for "not clear", "unclear", or the legacy "?" sentinel
+      - "no answer" — for "no answer", empty/whitespace, or any non-alphabetic input
+
+    Used by both `_apply_marking_response` (when validating
+    `corrected_student_answer`) and `_fix_mc_marks` (when finalising
+    `student_answer`) so the two functions agree on what each input maps to.
+    """
+    s = (s or "").strip()
+    sl = s.lower()
+    if sl in ("not clear", "unclear", "?"):
+        return "not clear"
+    if sl in ("no answer", ""):
+        return "no answer"
+    if s[:1].isalpha():
+        return s[0].upper()
+    return "no answer"
+
+
 def _fix_mc_marks(result: dict) -> None:
     """Normalise student_answer and recompute assigned_marks for MCQ questions in-place.
 
-    The AI is not shown the correct answer for MCQs, so it cannot award marks
-    reliably. This function overrides assigned_marks deterministically and
-    normalises the extracted letter (e.g. "b." → "B").
+    The AI does not award MCQ marks; this function does it deterministically by
+    comparing the (already-normalised) student_answer against correct_answer.
+
+    student_answer is coerced into the three-value enum via _normalize_mc_answer:
+    a single uppercase letter, "not clear", or "no answer". Marks: max_marks for
+    a correct letter; 0 for any other case ("not clear", "no answer", or a wrong
+    letter). Explanation: "Correct.", "Incorrect.", "Unclear answer — flagged
+    for review.", or "No answer." respectively.
 
     Keyed by question_text (not number) because duplicate question numbers
     (e.g. two Q38s on the same page) share the same stripped number after
@@ -803,10 +831,17 @@ def _fix_mc_marks(result: dict) -> None:
         qt = (q.get("question_text") or "").strip()
         if qt not in mc_correct:
             continue
-        raw_ans = (q.get("student_answer") or "").strip()
-        student_ans = raw_ans[0].upper() if raw_ans and raw_ans[0].isalpha() else "?"
+        student_ans = _normalize_mc_answer(q.get("student_answer"))
         q["student_answer"] = student_ans
         max_m = int(q.get("max_marks") or 1)
-        correct = student_ans == mc_correct[qt]
-        q["assigned_marks"] = max_m if correct else 0
-        q["explanation"] = "Correct." if correct else "Incorrect."
+
+        if student_ans == "not clear":
+            q["assigned_marks"] = 0
+            q["explanation"] = "Unclear answer — flagged for review."
+        elif student_ans == "no answer":
+            q["assigned_marks"] = 0
+            q["explanation"] = "No answer."
+        else:
+            correct = student_ans == mc_correct[qt]
+            q["assigned_marks"] = max_m if correct else 0
+            q["explanation"] = "Correct." if correct else "Incorrect."

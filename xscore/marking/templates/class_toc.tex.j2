@@ -13,4 +13,16 @@
 <% for s in students %>
 \noindent\hbox to \linewidth{\hyperlink{stu.<<s.safe_name>>}{<<s.display_name>>}\dotfill\hyperlink{stu.<<s.safe_name>>}{<<s.page>>}}
 <% endfor %>
+<% if scan_rows %>
+\vspace{1.5em}
+\section*{Pages in scanned exam}
+\noindent\textcolor{gray}{\small Page numbers refer to \texttt{cleaned\_scan.pdf}.}\\[0.6em]
+\begin{center}
+\begin{minipage}{0.55\linewidth}
+<% for r in scan_rows %>
+\noindent\hbox to \linewidth{<<r.display_name>>\dotfill <<r.page_range>>}
+<% endfor %>
+\end{minipage}
+\end{center}
+<% endif %>
 \end{document}

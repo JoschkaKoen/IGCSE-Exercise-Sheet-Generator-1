@@ -168,6 +168,19 @@ def prepare_scans_phase(
     return _prepare_single(src, artifact_dir, force_rebuild=force_rebuild)
 
 
+def _append_blank_like(target_doc, source_doc) -> None:
+    """Append a blank page to *target_doc* matching *source_doc*[0]'s
+    dimensions and rotation. Falls back to A4 portrait when source is empty."""
+    if len(source_doc) > 0:
+        ref = source_doc[0]
+        w, h, rot = ref.rect.width, ref.rect.height, ref.rotation
+    else:
+        w, h, rot = 595.0, 842.0, 0
+    page = target_doc.new_page(width=w, height=h)
+    if rot:
+        page.set_rotation(rot)
+
+
 def _prepare_duplex(
     pairs: list[tuple[Path, Path]],
     artifact_dir: Path,
@@ -234,12 +247,20 @@ def _prepare_duplex(
                 if nf != nb:
                     warn_line(
                         f"Page count mismatch: {front.name}={nf}, {back.name}={nb}; "
-                        f"pairing first {min(nf, nb)} from each"
+                        f"padding {abs(nf - nb)} blank page(s) at end-of-stack so no "
+                        f"real page is dropped (blanks are filtered in step 5)"
                     )
-                n = min(nf, nb)
+                n = max(nf, nb)
                 for i in range(n):
-                    merged.insert_pdf(doc_f, from_page=i, to_page=i)
-                    merged.insert_pdf(doc_b, from_page=nb - 1 - i, to_page=nb - 1 - i)
+                    if i < nf:
+                        merged.insert_pdf(doc_f, from_page=i, to_page=i)
+                    else:
+                        _append_blank_like(merged, doc_f)
+                    back_idx = nb - 1 - i
+                    if 0 <= back_idx < nb:
+                        merged.insert_pdf(doc_b, from_page=back_idx, to_page=back_idx)
+                    else:
+                        _append_blank_like(merged, doc_b)
                 total_pages += n * 2
         out.parent.mkdir(parents=True, exist_ok=True)
         merged.save(str(out))

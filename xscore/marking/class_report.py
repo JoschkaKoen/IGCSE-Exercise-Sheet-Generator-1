@@ -7,6 +7,7 @@ via xelatex, and emits the review queue side-channel.
 
 from __future__ import annotations
 
+import json
 import math
 import os
 import subprocess
@@ -42,6 +43,7 @@ from xscore.shared.exam_paths import (
     artifact_class_report_tex_path,
     artifact_class_report_xml_path,
     artifact_exam_questions_tex_path,
+    artifact_exam_student_list_json_path,
     artifact_student_pdf_dir,
     artifact_student_pdfs_dir,
     artifact_student_report_pdf_portrait_2up_attempted_path,
@@ -255,6 +257,7 @@ def _render_toc_pdf(
     exam_name: str,
     output_pdf: Path,
     class_overview_pages: int,
+    scan_rows: list[dict] | None = None,
 ) -> tuple[Path | None, int, list[_StudentEntry]]:
     """Render the variant-local TOC PDF; return (toc_pdf_path, toc_pages, entries).
 
@@ -284,7 +287,8 @@ def _render_toc_pdf(
             for e in starts
         ]
         tex_path.write_text(
-            _class_toc_to_tex(toc_input, exam_name=exam_name), encoding="utf-8"
+            _class_toc_to_tex(toc_input, exam_name=exam_name, scan_rows=scan_rows),
+            encoding="utf-8",
         )
         _compile_tex(tex_path, out_dir)
         if not pdf_path.exists():
@@ -359,6 +363,7 @@ def _merge_pdfs(
     exam_name: str = "",
     *,
     with_toc: bool = False,
+    scan_rows: list[dict] | None = None,
 ) -> None:
     """Concatenate the class overview PDF with per-student PDFs + add navigation.
 
@@ -393,7 +398,8 @@ def _merge_pdfs(
         if with_toc and entries:
             try:
                 toc_pdf, _toc_pages, entries = _render_toc_pdf(
-                    entries, exam_name, output_pdf, class_overview_pages
+                    entries, exam_name, output_pdf, class_overview_pages,
+                    scan_rows=scan_rows,
                 )
             except Exception as exc:  # noqa: BLE001
                 warn_line(f"Could not render TOC for {output_pdf.name}: {exc}")
@@ -819,6 +825,32 @@ def _pass2_write_tex(
 # Class report assembly
 # ---------------------------------------------------------------------------
 
+def _load_scan_page_ranges(artifact_dir: Path) -> list[dict]:
+    """Build the second-TOC rows from ``15_student_names/exam_student_list.json``.
+
+    Returns a list of ``{"display_name", "page_range"}`` dicts ordered by the
+    student's first scan page — i.e. the same ordering as step 29's terminal
+    table. Returns ``[]`` if the JSON is missing or unreadable so the second
+    TOC silently disappears rather than blocking the class report.
+    """
+    list_path = artifact_exam_student_list_json_path(artifact_dir)
+    if not list_path.is_file():
+        return []
+    try:
+        raw = json.loads(list_path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        warn_line(f"Could not load scan page ranges from {list_path.name}: {exc}")
+        return []
+    rows: list[dict] = []
+    for a in sorted(raw, key=lambda x: (x.get("page_numbers") or [0])[0]):
+        pages = a.get("page_numbers") or []
+        if not pages:
+            continue
+        page_range = f"{pages[0]}–{pages[-1]}" if pages[0] != pages[-1] else str(pages[0])
+        rows.append({"display_name": a["student_name"], "page_range": page_range})
+    return rows
+
+
 def _build_class_report(
     ctx: Any,
     student_summaries: list[dict],
@@ -826,6 +858,7 @@ def _build_class_report(
     exam_name: str,
 ) -> None:
     """Build and write class XML/MD/TeX/PDF. Runs after both passes."""
+    scan_rows = _load_scan_page_ranges(ctx.artifact_dir)
     total_max_marks = ctx.scaffold.total_marks
     leaf_avgs = {k: round(sum(v) / len(v), 1) for k, v in q_totals.items()}
     all_avgs, all_max = _build_all_question_tables(
@@ -954,6 +987,7 @@ def _build_class_report(
         student_summaries=student_summaries,
         exam_name=exam_name,
         with_toc=True,
+        scan_rows=scan_rows,
     )
     _merge_pdfs(
         tex_path.with_suffix(".pdf"),
@@ -963,6 +997,7 @@ def _build_class_report(
         student_summaries=student_summaries,
         exam_name=exam_name,
         with_toc=True,
+        scan_rows=scan_rows,
     )
 
     # With-questions variants — step 29 only emits these when parsed_questions
@@ -979,6 +1014,7 @@ def _build_class_report(
             student_summaries=student_summaries,
             exam_name=exam_name,
             with_toc=True,
+            scan_rows=scan_rows,
         )
     if any(students_dir.glob("*/portrait_list/*_portrait_list.pdf")):
         _merge_pdfs(
@@ -989,6 +1025,7 @@ def _build_class_report(
             student_summaries=student_summaries,
             exam_name=exam_name,
             with_toc=True,
+            scan_rows=scan_rows,
         )
 
     class_pdf_path = tex_path.with_suffix(".pdf")
