@@ -245,10 +245,19 @@ def _prepare_duplex(
                         p.set_rotation((p.rotation + back_rot) % 360)
                 nf, nb = len(doc_f), len(doc_b)
                 if nf != nb:
+                    import os as _os  # local import — avoid touching the public preamble
+                    if _os.environ.get("DUPLEX_PAD_STRICT", "0") == "1":
+                        warn_line(
+                            f"DUPLEX_PAD_STRICT=1: aborting; page count mismatch "
+                            f"{front.name}={nf}, {back.name}={nb}."
+                        )
+                        raise SystemExit(1)
                     warn_line(
                         f"Page count mismatch: {front.name}={nf}, {back.name}={nb}; "
-                        f"padding {abs(nf - nb)} blank page(s) at end-of-stack so no "
-                        f"real page is dropped (blanks are filtered in step 5)"
+                        f"padding {abs(nf - nb)} blank page(s) at end-of-merged-stack — "
+                        f"note this may not be the position the page is actually missing "
+                        f"from. Step 18 will flag any per-student page_set_anomaly that "
+                        f"results (set DUPLEX_PAD_STRICT=1 to abort here instead)."
                     )
                 n = max(nf, nb)
                 for i in range(n):

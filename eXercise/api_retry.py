@@ -162,7 +162,10 @@ def retry_api_call(
             sleep_s = min(base_sleep * (backoff_factor ** (attempt - 1)), max_sleep)
             if jitter:
                 sleep_s *= random.uniform(1.0 - jitter, 1.0 + jitter)
-            warn_line(f"{label}: API error (attempt {attempt}/{max_attempts})  —  {exc}")
+            # Interim retries are routine (transient SSL hiccups, brief 5xx);
+            # log as info so a recovered call does not surface as a warning.
+            # The exhausted-retries branch above keeps warn_line.
+            info_line(f"{label}: API error (attempt {attempt}/{max_attempts})  —  {exc}")
             info_line(f"{label}: retrying in {sleep_s:.2f}s …")
             if on_retry is not None:
                 on_retry(attempt, exc, sleep_s)

@@ -78,10 +78,7 @@ def print_step_durations(
     from xscore.shared.terminal_ui import format_duration, get_console
 
     total = sum(step_durations.values())
-    _vis_steps = [
-        (_step_label(k), v)
-        for k, v in step_durations.items() if v >= 0.5
-    ]
+    _vis_steps = [(_step_label(k), v) for k, v in step_durations.items()]
 
     table = Table(
         title="Step durations",

@@ -75,7 +75,9 @@ def prepare_scans(ctx: _Ctx) -> None:
 def detect_blank_pages(ctx: _Ctx) -> None:
     assert ctx.artifact_dir is not None and ctx.scan_match is not None
     if os.environ.get("BLANK_DETECTION_SKIP", "").strip().lower() in ("1", "true", "yes", "on"):
-        info_line("skipped")
+        # Wording matches the jsonl status (``ok``) so the two surfaces agree
+        # — the orchestrator always logs ``ok`` for a successful step return.
+        info_line("ok · skipped via BLANK_DETECTION_SKIP")
         write_skipped_blanks_state(
             ctx.scan_match, ctx.artifact_dir, analysis_dpi=ROTATION_ANALYSIS_DPI,
         )

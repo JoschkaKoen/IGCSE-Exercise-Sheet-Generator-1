@@ -24,6 +24,21 @@ def strip_code_fences(raw: str) -> str:
     return raw
 
 
+_THINK_LINE_RE = re.compile(r"^[ \t]*</?think>[ \t]*$\n?", re.MULTILINE)
+
+
+def strip_thinking_tags(raw: str) -> str:
+    """Remove stray ``<think>`` / ``</think>`` tag lines from a response.
+
+    Qwen sometimes leaks a literal ``</think>`` (occasionally ``<think>``)
+    onto its own line inside the structured body — column 0 — which breaks
+    YAML parsing with ``while scanning a simple key``. Strip any such line
+    whose only content is the tag plus optional surrounding whitespace.
+    Idempotent on tag-free input.
+    """
+    return _THINK_LINE_RE.sub("", raw)
+
+
 _ALLTT_OPEN_RE = re.compile(r"^(\s+)\\begin\{alltt\}\s*$")
 _ALLTT_CLOSE_RE = re.compile(r"^\s*\\end\{alltt\}\s*$")
 _BLOCK_OPEN_RE = re.compile(r":\s*[|>][+-]?(\d?)\s*$")
@@ -152,7 +167,7 @@ def repair_truncated_marking_response(raw: str) -> str:
 
     Idempotent: a known-good response is returned unchanged.
     """
-    cleaned = strip_code_fences(raw)
+    cleaned = strip_thinking_tags(strip_code_fences(raw))
     try:
         data = yaml.safe_load(cleaned)
         if isinstance(data, dict) and isinstance(data.get("questions"), list) and data["questions"]:

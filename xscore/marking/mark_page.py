@@ -17,6 +17,7 @@ if TYPE_CHECKING:
 from eXercise.ai_client import collect_streamed_response
 from eXercise.api_retry import retry_api_call
 from xscore.config import MARKING_JPEG_QUALITY
+from xscore.marking.extract_answers import blueprint_for_marking
 from xscore.marking.formats.base import FormatParseError, MarkingFailure, MarkingFormat
 from xscore.prompts.loader import load_prompt
 from xscore.shared.models import ExamLayout
@@ -573,7 +574,15 @@ def _apply_marking_response(
             if corrected_raw:
                 new_value = _normalize_mc_answer(corrected_raw)
                 original_value = _normalize_mc_answer(bq.get("student_answer"))
-                if new_value != original_value:
+                if new_value != original_value and new_value not in ("no answer", "not clear"):
+                    # Defense-in-depth guard: drop AI corrections that downgrade
+                    # to no_answer/not_clear. Observed pattern across runs
+                    # 2026-05-05_20-54-28 and 2026-05-05_20-33-40: ~all such
+                    # downgrades were wrong (28 of 44 corrections were wrong
+                    # downgrades per user review). Letter swaps and rescues
+                    # (no_answer/not_clear → letter) still flow through. The
+                    # AI's confidence/problem flags below still surface to
+                    # human reviewers regardless of whether the answer changed.
                     mcq_corrections.append({
                         "number": bq.get("number"),
                         "from": original_value,
@@ -709,6 +718,9 @@ def _do_retry_call(
         # build_blueprint expects ExamLayout (attribute access on .rows/.cols).
         layout_obj = ExamLayout(rows=int(layout.get("rows", 1)), cols=int(layout.get("cols", 1)))
         slim_xml = fmt.build_blueprint(page_num, layout_obj, slim_questions)
+        # Strip the answer key before the AI sees the blueprint — see
+        # blueprint_for_marking docstring for the failure mode this prevents.
+        slim_xml = blueprint_for_marking(slim_xml)
         _, base_user_text = load_prompt(
             fmt.prompt_name(), section="user",
             blueprint=_rename_blueprint_for_prompt(slim_xml),

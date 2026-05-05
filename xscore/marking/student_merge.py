@@ -368,6 +368,11 @@ def _pass1_merge_students(
     q_totals: dict[str, list[float]] = {}
     collisions: list[dict] = []
     n_unanswered_students = 0
+    # Per-name done lines; emitted in deterministic ``names`` order after the
+    # executor drains. Workers complete in non-deterministic parallel order so
+    # printing inside ``_process_one`` produces a different transcript on every
+    # run — pulling the print out keeps wallclock identical and the log stable.
+    done_lines: dict[str, str] = {}
     _summaries_lock = threading.Lock()
     _q_totals_lock = threading.Lock()
     _collisions_lock = threading.Lock()
@@ -420,6 +425,20 @@ def _pass1_merge_students(
             with _unanswered_count_lock:
                 n_unanswered_students += 1
 
+        # Surface page-set anomalies from step 18 (e.g. duplex misorder
+        # leaving a real exam page absent from this student's stack). The
+        # banner appears at the top of the per-student md report; the field
+        # also lands in the YAML artifact for downstream consumers.
+        if register is not None:
+            student_record = next(
+                (s for s in (register.get("students") or [])
+                 if s.get("student_name") == name),
+                None,
+            )
+            anomaly = (student_record or {}).get("page_set_anomaly")
+            if anomaly:
+                canonical["page_set_anomaly"] = anomaly
+
         student_dir = artifact_student_report_dir(ctx.artifact_dir, name)
         student_dir.mkdir(parents=True, exist_ok=True)
         # Drop sibling .xml from a pre-migration run on this dir.
@@ -445,8 +464,10 @@ def _pass1_merge_students(
                 "percentage": canonical["percentage"],
             })
             full_reports[name] = canonical
-
-        ok_line(f"{name}: {canonical['total_marks']}/{total_max_marks} ({_fmt_pct(canonical['percentage'])})")
+            done_lines[name] = (
+                f"{name}: {canonical['total_marks']}/{total_max_marks} "
+                f"({_fmt_pct(canonical['percentage'])})"
+            )
 
     failed: list[dict] = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
@@ -460,6 +481,14 @@ def _pass1_merge_students(
                     "error_message": str(exc),
                 })
                 warn_line(f"merge failed for {name}: {type(exc).__name__}: {exc}")
+
+    # Emit per-student lines in submission order — i.e. the caller's ``names``
+    # ordering. Failures (no entry in ``done_lines``) already surfaced via the
+    # warn_line above.
+    for name in names:
+        line = done_lines.get(name)
+        if line is not None:
+            ok_line(line)
 
     if n_unanswered_students_out is not None:
         n_unanswered_students_out.append(n_unanswered_students)

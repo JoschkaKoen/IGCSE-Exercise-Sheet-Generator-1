@@ -52,6 +52,7 @@ from xscore.shared.response_parsing import (
     repair_alltt_block_indent,
     repair_block_scalar_first_line_indent,
     strip_code_fences,
+    strip_thinking_tags,
 )
 from xscore.shared.terminal_ui import blank_line, format_duration, get_console, icon, info_line, warn_line
 
@@ -104,7 +105,7 @@ def _parse_extract_response(raw: str, fmt: Any) -> dict[str, str]:
     coerced to strings (YAML may decode ``1`` as int). Duplicate numbers
     keep the last occurrence.
     """
-    cleaned = strip_code_fences(raw).strip()
+    cleaned = strip_thinking_tags(strip_code_fences(raw)).strip()
     if not cleaned:
         raise FormatParseError("Empty response from extractor")
     cleaned = repair_alltt_block_indent(cleaned)
@@ -549,6 +550,27 @@ def blueprint_for_transcription(blueprint_str: str, fmt: Any) -> str:
     for q in data.get("questions", []) or []:
         for _key in ("correct_answer", "assigned_marks", "explanation", "confidence", "problem"):
             q.pop(_key, None)
+    return _yaml.dump(
+        data, Dumper=_ExtractAnswersDumper,
+        allow_unicode=True, default_flow_style=False, sort_keys=False,
+    )
+
+
+def blueprint_for_marking(blueprint_str: str) -> str:
+    """Return *blueprint_str* with the answer key stripped before sending to AI.
+
+    ``correct_answer`` is needed only by the deterministic ``_fix_mc_marks``
+    pass that runs after the AI call. Sending it to the AI causes the model to
+    pattern-match ``student_answer == correct_answer`` as evidence that step 28
+    cheated by copying the key, and override correct extractions to
+    ``no answer`` (observed in run 2026-05-05_20-54-28 Silence p13 thinking
+    trace, where the model wrote: "the student_answer in the blueprint matches
+    the correct_answer for Q31, Q33, Q34. This strongly suggests the
+    'extractor' might have just copied the correct answers"). Strip it.
+    """
+    data = _yaml.safe_load(blueprint_str) or {}
+    for q in data.get("questions", []) or []:
+        q.pop("correct_answer", None)
     return _yaml.dump(
         data, Dumper=_ExtractAnswersDumper,
         allow_unicode=True, default_flow_style=False, sort_keys=False,

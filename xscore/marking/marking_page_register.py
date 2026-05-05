@@ -36,6 +36,7 @@ for the source of truth.
 from __future__ import annotations
 
 import json
+import os
 import re
 from collections.abc import Iterator
 from pathlib import Path
@@ -102,10 +103,9 @@ def build_initial_register(ctx: "_Ctx") -> dict:
     raw_assignments: list[dict] = json.loads(list_path.read_text(encoding="utf-8"))
 
     empty_exam_has_cover = bool(ctx.empty_exam_has_cover)
-    skip_by_student = _load_handwriting_skips(
-        artifact_handwriting_json_path(ctx.artifact_dir),
-        raw_assignments,
-    )
+    handwriting_path = artifact_handwriting_json_path(ctx.artifact_dir)
+    skip_by_student = _load_handwriting_skips(handwriting_path, raw_assignments)
+    detected_by_scan = _load_detected_pages(handwriting_path)
 
     students_out: list[dict] = []
     total_calls = 0
@@ -121,7 +121,20 @@ def build_initial_register(ctx: "_Ctx") -> dict:
         for p_label, scan_page in enumerate(page_numbers, 1):
             if has_cover and p_label == 1:
                 continue   # cover page never marked
-            answer_label = p_label - cover_offset
+            # Trust step 15's AI-detected page identity (after recheck) over
+            # the physical scan position. For correctly-ordered scans the two
+            # values are identical; for misordered scans (e.g. duplex back
+            # sides shifted by one) the detected value is the only correct
+            # routing key — without this branch, the marker is asked
+            # questions that aren't on the image. Falls back to position when
+            # detection was inconclusive (None) or identified the cover.
+            detected = detected_by_scan.get(scan_page)
+            if detected is not None and detected >= 1 and not (
+                empty_exam_has_cover and detected == 1
+            ):
+                answer_label = detected
+            else:
+                answer_label = p_label - cover_offset
             if scan_page in student_skip:
                 continue   # page with no handwriting
             calls.append({
@@ -133,15 +146,37 @@ def build_initial_register(ctx: "_Ctx") -> dict:
                 "scan_pages": [scan_page],
             })
 
-        students_out.append({
+        page_set_anomaly = _detect_page_set_anomaly(
+            calls,
+            page_numbers=page_numbers,
+            has_cover=has_cover,
+            empty_exam_has_cover=empty_exam_has_cover,
+            student_skip=student_skip,
+            detected_by_scan=detected_by_scan,
+        )
+
+        student_record: dict = {
             "student_name": student_name,
             "cover_page_number": cover_page_number,
             "page_numbers": list(page_numbers),
             "answer_page_count": len(page_numbers) - (1 if has_cover else 0),
             "skipped_scan_pages": sorted(student_skip),
             "calls": calls,
-        })
+        }
+        if page_set_anomaly is not None:
+            student_record["page_set_anomaly"] = page_set_anomaly
+        students_out.append(student_record)
         total_calls += len(calls)
+
+    if os.environ.get("MARKING_PAGE_SET_STRICT", "0") == "1":
+        bad = [s["student_name"] for s in students_out if "page_set_anomaly" in s]
+        if bad:
+            from xscore.shared.terminal_ui import warn_line
+            warn_line(
+                "MARKING_PAGE_SET_STRICT=1: aborting; page-set anomalies for: "
+                + ", ".join(bad)
+            )
+            raise SystemExit(1)
 
     return {
         "metadata": {
@@ -192,6 +227,74 @@ def _load_handwriting_skips(
                 skip.add(scan_page)
         skip_by_student[student_name] = skip
     return skip_by_student
+
+
+def _load_detected_pages(handwriting_path: Path) -> dict[int, int]:
+    """Parse handwriting.json into a ``{scan_page: matched_page_number}`` map.
+
+    Step 15 emits ``matched_page_number`` for every scan page after the
+    classifier (and its recheck pass) settle on a page identity. Entries
+    where the matcher was inconclusive are absent — caller falls back to
+    the position-based ``answer_label = p_label - cover_offset`` rule.
+
+    Cover pages have a ``cover`` page_type but no numeric ``matched_page_number``
+    (the field is None for them); they're naturally excluded.
+    """
+    detected: dict[int, int] = {}
+    if not handwriting_path.exists():
+        return detected
+    data = json.loads(handwriting_path.read_text(encoding="utf-8"))
+    for entry in data.get("scan_pages", []):
+        sp = entry.get("scan_page")
+        pn = entry.get("matched_page_number")
+        if isinstance(sp, int) and isinstance(pn, int):
+            detected[sp] = pn
+    return detected
+
+
+def _detect_page_set_anomaly(
+    calls: list[dict],
+    *,
+    page_numbers: list[int],
+    has_cover: bool,
+    empty_exam_has_cover: bool,
+    student_skip: set[int],
+    detected_by_scan: dict[int, int],
+) -> dict | None:
+    """Return ``{"duplicates": [...], "missing": [...]}`` or ``None`` if clean.
+
+    A clean per-student page set means every non-cover position covers a
+    distinct empty-exam page in the expected range. Anomalies arise from
+    physical scan misorder, missing back-side pages (e.g. duplex pad-at-end
+    masking an upstream missing page), or ambiguous page detection.
+
+    Determined post-A1: ``calls`` already carries the trusted ``answer_label``
+    (matched page number when available). Skipped pages are folded back in
+    via their detected page so a "no handwriting" page still counts toward
+    the cover-set check.
+    """
+    actual: list[int] = [c["answer_label"] for c in calls]
+    for sp in student_skip:
+        d = detected_by_scan.get(sp)
+        if isinstance(d, int) and d >= 1:
+            actual.append(d)
+    seen: dict[int, int] = {}
+    for v in actual:
+        seen[v] = seen.get(v, 0) + 1
+    duplicates = sorted(p for p, n in seen.items() if n > 1)
+
+    answer_slots = len(page_numbers) - (1 if has_cover else 0)
+    if empty_exam_has_cover:
+        # cover is empty-exam page 1; non-cover pages start at 2
+        expected = set(range(2, answer_slots + 2))
+    else:
+        expected = set(range(1, answer_slots + 1))
+    actual_set = set(actual)
+    missing = sorted(expected - actual_set)
+
+    if not duplicates and not missing:
+        return None
+    return {"duplicates": duplicates, "missing": missing}
 
 
 # ---------------------------------------------------------------------------
@@ -547,12 +650,17 @@ def _apply_attachments(
     if not attachments:
         return
     for student in register["students"]:
-        cover_page_number = student.get("cover_page_number")
-        page_numbers = student.get("page_numbers") or []
-        student_cover_offset = _cover_offset(
-            cover_page_number is not None, empty_exam_has_cover
-        )
         skipped = set(student.get("skipped_scan_pages") or [])
+        # Map answer_label → primary_scan_page within this student's calls,
+        # then layer on skipped pages via their detected page number so a
+        # blank-but-required page can still be referenced as a cross-page
+        # extra. This replaces the older p_label-arithmetic lookup which
+        # silently broke whenever the scan was physically misordered (the
+        # detected page number, not the scan position, is the routing key
+        # post-A1).
+        scan_by_answer: dict[int, int] = {
+            c["answer_label"]: c["primary_scan_page"] for c in student["calls"]
+        }
         for call in student["calls"]:
             x = call["answer_label"]
             attach_list = attachments.get(x)
@@ -561,10 +669,9 @@ def _apply_attachments(
             existing_extras = list(call["extra_scan_pages"])
             existing_sources = list(call["extra_sources"])
             for y, source in sorted(attach_list):
-                p_label_y = y + student_cover_offset
-                if not (1 <= p_label_y <= len(page_numbers)):
-                    continue
-                scan_page_y = page_numbers[p_label_y - 1]
+                scan_page_y = scan_by_answer.get(y)
+                if scan_page_y is None:
+                    continue   # this exam page is absent from the student's scan
                 if scan_page_y == call["primary_scan_page"]:
                     continue
                 if scan_page_y in existing_extras:

@@ -52,24 +52,13 @@ if TYPE_CHECKING:
 
 _LOG_FILE_NAME = "run.log.jsonl"
 _MANIFEST_FILE_NAME = "run.json"
-_CONFIG_KEYS_TO_SNAPSHOT = (
-    "AI_DEFAULT_MODEL",
+# Non-model environment knobs that affect a run's behavior. Every ``*_MODEL``
+# env var is also captured at snapshot time (dynamic enumeration, see
+# ``_config_snapshot``) so newly-added model knobs land in run.json without
+# requiring an edit here.
+_FIXED_SNAPSHOT_KEYS = (
     "ALL_AI_TEMPERATURE",
     "ALL_AI_SEED",
-    "INTERPRET_PROMPT_MODEL",
-    "READ_STUDENT_LIST_MODEL",
-    "EMPTY_EXAM_COVER_MODEL",
-    "COVER_PAGE_DETECTION_MODEL",
-    "NAME_DETECTION_MODEL",
-    "PAGE_ORDER_CHECK_MODEL",
-    "EMPTY_EXAM_PAGE_CLASSIFICATION_MODEL",
-    "HANDWRITING_CHECK_MODEL",
-    "DETECT_LAYOUT_MODEL",
-    "EXTRACT_EXAM_QUESTION_NUMBERS_MODEL",
-    "EXTRACT_EXAM_QUESTIONS_MODEL",
-    "DETECT_SCHEME_GRAPHICS_MODEL",
-    "READ_MARK_SCHEME_MODEL",
-    "MARKING_MODEL",
     "MARKING_DPI",
     "MARKING_CALL_READ_TIMEOUT_S",
     "MARKING_WORKERS",
@@ -187,8 +176,17 @@ def _git_sha() -> str:
 
 
 def _config_snapshot() -> dict[str, str]:
-    """Return env-var values for inspection-grade reproducibility (no secrets)."""
-    return {k: os.environ.get(k, "") for k in _CONFIG_KEYS_TO_SNAPSHOT}
+    """Return env-var values for inspection-grade reproducibility (no secrets).
+
+    Captures the fixed set of pipeline knobs (DPI, workers, profile…) plus
+    every ``*_MODEL`` env var present at the time of the call. Dynamic
+    enumeration so newly-added model variables (e.g. a future
+    ``EXTRACT_FIGURES_MODEL``) appear in run.json without requiring an
+    edit here.
+    """
+    keys: set[str] = set(_FIXED_SNAPSHOT_KEYS)
+    keys.update(k for k in os.environ if k.endswith("_MODEL"))
+    return {k: os.environ.get(k, "") for k in sorted(keys)}
 
 
 def _coerce_temperature() -> float | None:
@@ -258,8 +256,13 @@ def write_run_manifest(
     try:
         from xscore.shared.pipeline_steps import STEPS
         step_count = len(STEPS)
+        # The registry has gaps (a removed step 36 leaves the list at
+        # ``[1..35, 37]``). ``step_count`` alone is misleading on its own —
+        # surface the explicit list so consumers can see the gap.
+        step_numbers = sorted(s.number for s in STEPS)
     except Exception:
         step_count = None
+        step_numbers = None
 
     manifest: dict[str, Any] = {
         "git_sha":            _git_sha(),
@@ -268,6 +271,7 @@ def write_run_manifest(
         "duration_s":         round(duration_s, 4) if duration_s is not None else None,
         "status":             status,
         "step_count":         step_count,
+        "step_numbers":       step_numbers,
         "failed_steps":       failed_steps,
         "prompt_versions":    prompt_versions,
         "config":             _config_snapshot(),

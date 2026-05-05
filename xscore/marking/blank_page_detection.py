@@ -1194,7 +1194,12 @@ def check_student_handwriting(
                                 status2 = "inconclusive"
                             prob_new = f"{prob_new}; {addendum2}" if prob_new else addendum2
                             conf_str2 = f"conf={conf2}" if conf2 is not None else "conf=?"
-                            warn_line(
+                            # When recheck2 confirms the AI's original page-number
+                            # was correct (the scan is just physically misordered),
+                            # the line is good news — keep it ok_line. Disagreement
+                            # or inconclusive results stay at warn level.
+                            line_fn2 = ok_line if recheck2_status.get(sp_orig) is True else warn_line
+                            line_fn2(
                                 f"  ↳ recheck2 page {sp_orig:>{page_width}d}  ·  {status2:<24}"
                                 f"  ·  pg {detected_pn:<5}  ·  {conf_str2}  ·  {dur3}"
                             )

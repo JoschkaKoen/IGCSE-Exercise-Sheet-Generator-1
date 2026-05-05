@@ -56,7 +56,7 @@ from xscore.marking.mark_page import (
     _build_marking_system_prompt, _mark_page, _render_page_b64,
 )
 from xscore.marking.extract_answers import (
-    _safe_load_json, load_student_answers, patch_blueprint_with_answers,
+    _safe_load_json, blueprint_for_marking, load_student_answers, patch_blueprint_with_answers,
 )
 
 _DEFAULT_MARKING_MODEL = MARKING_MODEL_DEFAULT
@@ -634,6 +634,10 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             # only the student_answer fields. The AI sees pre-filled values
             # in the prompt.
             blueprint_str = patch_blueprint_with_answers(blueprint_str, _answers_map, fmt)
+
+        # Strip the answer key before the AI sees the blueprint — see
+        # blueprint_for_marking docstring for the failure mode this prevents.
+        blueprint_str = blueprint_for_marking(blueprint_str)
 
         t0 = time.perf_counter()
         prompt_save = artifact_marking_prompt_path(ctx.artifact_dir, student_name, p_label)

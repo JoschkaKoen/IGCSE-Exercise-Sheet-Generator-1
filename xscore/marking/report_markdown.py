@@ -22,6 +22,29 @@ def _student_report_to_md(report: dict, subtitle: str | None = None) -> str:
     lines = [
         f"{title}\n",
         f"**Total: {total}/{max_m} ({_fmt_pct(pct)})**\n",
+    ]
+    # Step 18 page-set anomaly banner: surfaces duplex misorder, missing
+    # back-side pages, and page-detection duplicates so the marker knows
+    # the score may be missing partial credit for absent answer slots.
+    anomaly = report.get("page_set_anomaly")
+    if anomaly:
+        missing = anomaly.get("missing") or []
+        duplicates = anomaly.get("duplicates") or []
+        parts: list[str] = []
+        if missing:
+            parts.append(
+                "missing exam page(s) " + ", ".join(str(p) for p in missing)
+            )
+        if duplicates:
+            parts.append(
+                "duplicate exam page(s) " + ", ".join(str(p) for p in duplicates)
+            )
+        lines.append(
+            f"> ⚠ **Scan page-set anomaly** — {'; '.join(parts)}. "
+            f"Questions on these pages may be unmarked or graded against the wrong image; "
+            f"check the original scan against the answer-book layout.\n"
+        )
+    lines += [
         "| Question | Max | Awarded | Student Answer | Correct Answer | Reasoning |",
         "|----------|-----|---------|----------------|----------------|-----------|",
     ]
