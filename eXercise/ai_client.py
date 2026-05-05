@@ -602,12 +602,15 @@ class _TrackedCompletions:
         # determinism injection for those ids. Older moonshot-v1-* accept
         # temperature normally.
         inject_determinism = self._deterministic and not self._model.startswith("kimi-k2")
+        # Gemini's OpenAI-compat endpoint rejects the ``seed`` parameter with
+        # a 400 INVALID_ARGUMENT error — skip seed injection for those models.
+        inject_seed = inject_determinism and not self._model.lower().startswith("gemini")
         if inject_determinism:
             if "temperature" not in kwargs:
                 t = _read_default_temperature()
                 if t is not None:
                     kwargs["temperature"] = t
-            if "seed" not in kwargs:
+            if inject_seed and "seed" not in kwargs:
                 s = _read_default_seed()
                 if s is not None:
                     kwargs["seed"] = s
