@@ -114,11 +114,11 @@ _ALLTT_MATH_RE = re.compile(
 
 
 # Font-size step-down for alltt blocks whose longest line would overflow the
-# cell. Empirical thresholds (20 / 32 chars at the 3.6cm baseline, scaled by
+# cell. Empirical thresholds (20 / 24 chars at the 3.6cm baseline, scaled by
 # `cell_width_cm / 3.6`):
 #   - body 10pt: fits up to ~20 chars before overflow
-#   - \footnotesize: up to ~32 chars
-#   - \scriptsize: anything longer; horizontally wrapped to ~32 chars by
+#   - \footnotesize 8pt: fits up to ~24 chars
+#   - \scriptsize 7pt: anything longer; horizontally wrapped to ~27 chars by
 #     `_wrap_alltt_at_spaces` (post-pass in `_protect_alltt._restore`).
 # Scriptsize is the readability floor — `\tiny` is no longer selected. The
 # old `\tiny` branch was retired because (a) tiny is hard to read and (b)
@@ -127,10 +127,17 @@ _ALLTT_MATH_RE = re.compile(
 # fits the longest input line; everything above the foot threshold goes to
 # scriptsize and gets wrapped.
 #
-# Empirical observation backing the 32-char scriptsize budget: in Cosmo's
-# Q10 landscape report (5.7cm cell), `Average <- Total / 24, Average <-
-# Round(Average, -2)` (52 chars) overflows at scriptsize, so the 5.7cm
-# scriptsize budget is ≤51 → 32 at 3.6cm via the same scaling.
+# Empirical observation backing the recalibrated 24/27 baselines: Cosmo's
+# Q10 landscape report (run 2026-05-06 with the high-mark 7.3 cm Answer
+# column under the new wider-Answer rule) emitted scriptsize lines of
+# 58–64 chars overflowing by 8–34 pt. Back-calculating from
+# 207.7 pt cell + 7.88 pt overflow over 58 chars at lmtt-7 → ≈3.72 pt/char,
+# so the safe scriptsize budget at 3.6 cm = 102.4 pt / 3.72 ≈ 27.5 → 27.
+# Same exam, line 157 = a 60-char footnotesize line in a 7.0 cm Expected
+# column overflowed 55.7 pt: (199.2 + 55.7) / 60 ≈ 4.25 pt/char at lmtt-8,
+# so the safe footnotesize budget at 3.6 cm = 102.4 / 4.25 ≈ 24.1 → 24.
+# Prior 32-char baselines were 5–8 chars too generous and let long
+# pseudocode comments (`// ...`) and AND/OR-laden lines spill the cell.
 def _alltt_size_command(block: str, cell_width_cm: float = 3.6) -> str:
     inner = re.sub(r"\\(?:begin|end)\{alltt\}", "", block)
     inner = inner.replace(r"\textbackslash{}", "\\")  # 16-char escape → 1
@@ -138,7 +145,7 @@ def _alltt_size_command(block: str, cell_width_cm: float = 3.6) -> str:
     scale = cell_width_cm / 3.6
     if max_len <= math.ceil(20 * scale):
         return ""
-    if max_len <= math.ceil(32 * scale):
+    if max_len <= math.ceil(24 * scale):
         return "\\footnotesize "
     # Anything wider than the foot threshold goes to scriptsize and is
     # horizontally wrapped by `_wrap_alltt_at_spaces`. We do not go below
@@ -150,9 +157,9 @@ def _alltt_size_command(block: str, cell_width_cm: float = 3.6) -> str:
 # cell width. Used as the wrap target by `_wrap_alltt_at_spaces`. For
 # body/foot the budget equals the selection threshold (so wrap is a no-op
 # — selection guarantees the input already fits). For scriptsize the
-# budget is also 32 chars at 3.6cm: scriptsize is the catch-all for
-# overflowing input, so wrapping reduces every line back into the cell.
-_ALLTT_SCRIPT_BUDGET_BASE = 32  # chars at 3.6 cm; empirical from rendered scriptsize
+# budget is 27 chars at 3.6cm: scriptsize is the catch-all for overflowing
+# input, so wrapping reduces every line back into the cell.
+_ALLTT_SCRIPT_BUDGET_BASE = 27  # chars at 3.6 cm; empirical from rendered scriptsize
 
 
 def _alltt_budget_for_size(size_cmd: str, cell_width_cm: float) -> int:
@@ -161,7 +168,7 @@ def _alltt_budget_for_size(size_cmd: str, cell_width_cm: float) -> int:
     if size_cmd == "":
         return math.ceil(20 * scale)
     if "footnotesize" in size_cmd:
-        return math.ceil(32 * scale)
+        return math.ceil(24 * scale)
     return math.ceil(_ALLTT_SCRIPT_BUDGET_BASE * scale)  # scriptsize
 
 
@@ -221,7 +228,7 @@ def _wrap_alltt_at_spaces(block: str, budget: int) -> str:
 # after the first such operator before `_alltt_size_command` measures, so the
 # size selection sees the post-break (shorter) longest line and can keep the
 # block at \footnotesize instead of dropping to \scriptsize / \tiny.
-# Threshold = `\footnotesize` ceiling (`ceil(32 * scale)`); above this the
+# Threshold = `\footnotesize` ceiling (`ceil(24 * scale)`); above this the
 # block would currently shrink. The break is single-pass per line — the user
 # asked for "after the first occurrence", and a second break inside a
 # bool-expression continuation rarely buys more readability.
@@ -233,7 +240,7 @@ def _break_alltt_long_lines(block: str, cell_width_cm: float = 3.6) -> str:
     if not m:
         return block
     prefix, body, suffix = m.groups()
-    threshold = math.ceil(32 * cell_width_cm / 3.6)
+    threshold = math.ceil(24 * cell_width_cm / 3.6)
     new_lines: list[str] = []
     for line in body.split("\n"):
         effective = len(line.replace(r"\textbackslash{}", "\\"))

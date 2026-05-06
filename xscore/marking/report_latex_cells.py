@@ -137,12 +137,21 @@ def _ai_cell(text: str, cell_width_cm: float = 3.6) -> str:
 
 _ALLTT_SIZE_WEIGHTS: tuple[tuple[str, float], ...] = (
     (r"\tiny ", 0.4),               # retained for safety; size is retired
-    (r"\scriptsize ", 0.31),        # was 0.55 — recalibrated empirically against
-                                    # Cosmo's Q10: source line 61 ("The Min is" Min[7])
-                                    # is the last that fits in a landscape panel,
-                                    # i.e. 69 post-wrap lines × weight ≤ 22 budget,
-                                    # so weight = 22/69 ≈ 0.319 → 0.31. Sensitive:
-                                    # 0.32 would shift Q10's split to source line 48.
+    (r"\scriptsize ", 0.40),        # was 0.31 — recalibrated against Cosmo's Q10
+                                    # mark-scheme cell after the horizontal-wrap
+                                    # tightening (`_ALLTT_SCRIPT_BUDGET_BASE`
+                                    # 32→27): the same source content now wraps
+                                    # to ~65 rendered lines and overflowed page 9
+                                    # of the recalibrated landscape PDF. Math
+                                    # check: a landscape A4 page holds ~454 pt of
+                                    # body height after margins/footer, and
+                                    # scriptsize uses an 8 pt baselineskip
+                                    # (size10.clo), giving ~56 scriptsize lines
+                                    # max → weight = 22 / 56 ≈ 0.39 → 0.40.
+                                    # `_sub_split_alltt_block`'s recursive
+                                    # keyword-split is the safety net when the
+                                    # weight bump alone leaves a sub-group still
+                                    # over budget.
     (r"\footnotesize ", 0.7),
 )
 _ALLTT_HEADER_RE = re.compile(
@@ -188,10 +197,17 @@ def _split_prose_lines(prose: str) -> list[str]:
     return out
 
 
-def _sub_split_alltt_block(block: str) -> list[str]:
+def _sub_split_alltt_block(block: str, budget: float = float("inf")) -> list[str]:
     """Sub-split an oversized alltt block at blank lines (preferred) or
     PROCEDURE/FUNCTION/SUBROUTINE keyword boundaries; preserve the parent's
-    size command verbatim on each sub-block."""
+    size command verbatim on each sub-block.
+
+    *budget* allows recursive subdivision: any group emerging from the
+    blank-line split that itself still exceeds *budget* is keyword-split
+    a second time. Callers passing the panel budget here let
+    `_split_oversized_cell` produce panels that actually fit on a page
+    when a single blank-line group has too many lines (e.g. Cosmo's Q10
+    mark scheme: one DECLARE block + one 50-line FOR-loop body)."""
     h = _ALLTT_HEADER_RE.match(block)
     if not h or not block.endswith(r"\end{alltt}"):
         return [block]
@@ -199,26 +215,51 @@ def _sub_split_alltt_block(block: str) -> list[str]:
     body = block[h.end() : -len(r"\end{alltt}")]
     lines = body.split("\n")
 
-    groups: list[list[str]] = [[]]
-    for ln in lines:
-        if ln.strip() == "" and groups[-1]:
-            groups.append([])
-        else:
-            groups[-1].append(ln)
-    groups = [g for g in groups if g]
+    def _build(group_lines: list[str]) -> str:
+        return (
+            r"\begin{alltt}" + size_prefix + "\n".join(group_lines) + r"\end{alltt}"
+        )
+
+    def _split_blank(line_list: list[str]) -> list[list[str]]:
+        out: list[list[str]] = [[]]
+        for ln in line_list:
+            if ln.strip() == "" and out[-1]:
+                out.append([])
+            else:
+                out[-1].append(ln)
+        return [g for g in out if g]
+
+    def _split_keyword(line_list: list[str]) -> list[list[str]]:
+        out: list[list[str]] = [[]]
+        for ln in line_list:
+            if _ALLTT_KEYWORD_RE.match(ln) and out[-1]:
+                out.append([])
+            out[-1].append(ln)
+        return [g for g in out if g]
+
+    groups = _split_blank(lines)
     if len(groups) < 2:
-        groups = [[]]
-        for ln in lines:
-            if _ALLTT_KEYWORD_RE.match(ln) and groups[-1]:
-                groups.append([])
-            groups[-1].append(ln)
-        groups = [g for g in groups if g]
+        groups = _split_keyword(lines)
+
+    # Recursive pass: any group at-or-over budget gets keyword-split a
+    # second time. `>=` (not `>`) so a group whose weight exactly equals
+    # the panel budget still gets subdivided — its presence on a panel
+    # would leave zero room for anything else, and the keyword break
+    # usually produces pieces that pack better. Skip if the keyword pass
+    # produced no further breaks.
+    refined: list[list[str]] = []
+    for g in groups:
+        if _chunk_weight(_build(g)) >= budget:
+            sub = _split_keyword(g)
+            if len(sub) >= 2:
+                refined.extend(sub)
+                continue
+        refined.append(g)
+    groups = refined
+
     if len(groups) < 2:
         return [block]
-    return [
-        r"\begin{alltt}" + size_prefix + "\n".join(g) + r"\end{alltt}"
-        for g in groups
-    ]
+    return [_build(g) for g in groups]
 
 
 def _decompose_cell(cell: str, budget: float):
@@ -228,7 +269,7 @@ def _decompose_cell(cell: str, budget: float):
             yield from _split_prose_lines(cell[pos : m.start()])
         block = m.group(0)
         if _chunk_weight(block) > budget:
-            yield from _sub_split_alltt_block(block)
+            yield from _sub_split_alltt_block(block, budget)
         else:
             yield block
         pos = m.end()

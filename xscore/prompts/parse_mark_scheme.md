@@ -1,7 +1,7 @@
 ---
 name: parse_mark_scheme
-version: v9
-description: Step 24 — parse_mark_scheme. Type-driven schema; MCQ entries fill correct_answer + explanation; non-MCQ entries fill a single mark_scheme_answer block.
+version: v10
+description: Step 24 — parse_mark_scheme. Type-driven schema; MCQ entries fill correct_answer + explanation; non-MCQ entries fill a single mark_scheme_answer block. v10 added a canonical 2-space-per-nesting-level indentation rule for `\begin{alltt}` blocks (replacing v9's "preserve indentation" — which was being ignored: w23_23_Unit_Test 2026-05-06_22-50-43 had Q10 emitted with 1-space indentation under `FOR`/`IF`/`CASE` even though the printed source uses 4-space, making the expected-answer column read flat next to the canonically-indented student column from `extract_student_answers_cs`).
 ---
 ## SYSTEM
 
@@ -165,7 +165,9 @@ If a single word like "OR" needs to break out of math, do it cleanly: `$A$ OR $B
 
 ## Code and pseudocode (alltt)
 
-Wrap **any multi-line code or programming-language answer** in `\begin{alltt}...\end{alltt}` — this includes CAIE pseudocode (`INPUT`, `OUTPUT`, `IF…ENDIF`, `FOR…NEXT`, `DECLARE`, `PROCEDURE`), Python (`def`, `for x in …`, `print()`, `#`-comments), Java/C/C++ (`public class`, `System.out.println`, `//`-comments, `{` / `}` braces), JavaScript, SQL, or any other language. The decision is "is this code?" not "is this CAIE pseudocode?". When in doubt, wrap. Preserve indentation with literal spaces; use real newlines between lines.
+Wrap **any multi-line code or programming-language answer** in `\begin{alltt}...\end{alltt}` — this includes CAIE pseudocode (`INPUT`, `OUTPUT`, `IF…ENDIF`, `FOR…NEXT`, `DECLARE`, `PROCEDURE`), Python (`def`, `for x in …`, `print()`, `#`-comments), Java/C/C++ (`public class`, `System.out.println`, `//`-comments, `{` / `}` braces), JavaScript, SQL, or any other language. The decision is "is this code?" not "is this CAIE pseudocode?". When in doubt, wrap. Use real newlines between lines.
+
+**Indentation — apply canonical 2-space-per-nesting-level indentation.** Outermost block at column 0; each nesting level is 2 spaces deeper than its enclosing keyword. The body of `IF…ENDIF`, `WHILE…ENDWHILE`, `REPEAT…UNTIL`, `FOR…NEXT`, `PROCEDURE…ENDPROCEDURE`, `FUNCTION…ENDFUNCTION`, `CASE…ENDCASE` is one indent level deeper than the opener; the closing keyword returns to the same column. Apply this regardless of how the printed mark scheme is spaced (4-space, tabs, flush-left — re-indent to 2-space). The marking report shows this column next to the student's answer (which is canonically 2-space-indented), so they should match.
 
 Inside `\begin{alltt}...\end{alltt}`: do NOT escape `<`, `>`, `&`, `%`, `_`, `#`, `$` — alltt is verbatim-with-commands. Only escape `{` → `\{`, `}` → `\}`, backslash → `\textbackslash{}`.
 
