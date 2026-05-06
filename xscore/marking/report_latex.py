@@ -114,6 +114,24 @@ def _scheme_graphics_tex(filenames: list[str]) -> str:
     )
 
 
+_HIGH_MARK_THRESHOLD = 10  # marks; at-or-above triggers wider Answer / narrower Reasoning
+
+
+def _has_high_mark_question(questions: list[dict]) -> bool:
+    """True when any question in the report meets the high-mark threshold.
+
+    Falls through silently for missing/non-numeric ``max_marks`` (the
+    rendering call sites already fall back to ``""`` when absent).
+    """
+    for q in questions:
+        try:
+            if float(q.get("max_marks")) >= _HIGH_MARK_THRESHOLD:
+                return True
+        except (TypeError, ValueError):
+            continue
+    return False
+
+
 def _student_header_kwargs(
     report: dict,
     exam_name: str,
@@ -172,15 +190,20 @@ def _student_report_to_tex(
     # columns shrink to fit the bold "You" / "True" headers (sized for the
     # 12pt body used by `portrait_large`) and Reasoning absorbs the freed
     # width. Total budget per orientation is preserved.
+    has_high_pt = _has_high_mark_question(report["questions"])
     if orientation == "portrait":
         if is_all_mcq:
             ans_w, exp_w, reason_w = 1.0, 1.4, 11.7
+        elif has_high_pt:
+            ans_w, exp_w, reason_w = 4.7, 5.0, 4.4
         else:
             ans_w, exp_w, reason_w = 3.6, 5.0, 5.5
         panel_budget = 40.0
     else:
         if is_all_mcq:
             ans_w, exp_w, reason_w = 1.0, 1.4, 18.4
+        elif has_high_pt:
+            ans_w, exp_w, reason_w = 7.3, 7.0, 6.5
         else:
             ans_w, exp_w, reason_w = 5.7, 7.0, 8.1
         panel_budget = 22.0
@@ -247,16 +270,24 @@ def _student_report_to_tex(
     #   portrait  A4 (19.0 cm text - 2.5 cm overhead) → ~16.5 cm column budget
     #     = p{0.4} + p{0.4} + p{0.5} + p{3.6} + p{5.0} + p{5.5}
     # Portrait widths × (16.5 / 22.7) ≈ 0.727 of landscape widths.
+    # When any question has max_marks ≥ _HIGH_MARK_THRESHOLD, the non-MCQ
+    # widths flip to wider Answer / narrower Reasoning (Expected fixed):
+    #   landscape: p{5.7}+p{7.0}+p{8.1} → p{7.3}+p{7.0}+p{6.5}
+    #   portrait:  p{3.6}+p{5.0}+p{5.5} → p{4.7}+p{5.0}+p{4.4}
     if orientation == "portrait":
         geometry_line = "\\geometry{a4paper,margin=1cm,footskip=6pt}\n"
         if is_all_mcq:
             col_spec = "L{0.4cm}L{0.4cm}L{0.5cm}L{1.0cm}L{1.4cm}L{11.7cm}"
+        elif has_high_pt:
+            col_spec = "L{0.4cm}L{0.4cm}L{0.5cm}L{4.7cm}L{5cm}L{4.4cm}"
         else:
             col_spec = "L{0.4cm}L{0.4cm}L{0.5cm}L{3.6cm}L{5cm}L{5.5cm}"
     else:
         geometry_line = "\\geometry{a4paper,landscape,margin=2cm}\n"
         if is_all_mcq:
             col_spec = "L{0.6cm}L{0.6cm}L{0.7cm}L{1.0cm}L{1.4cm}L{18.4cm}"
+        elif has_high_pt:
+            col_spec = "L{0.6cm}L{0.6cm}L{0.7cm}L{7.3cm}L{7.0cm}L{6.5cm}"
         else:
             col_spec = "L{0.6cm}L{0.6cm}L{0.7cm}L{5.7cm}L{7.0cm}L{8.1cm}"
     answer_header = "You" if is_all_mcq else "Your Answer"
@@ -504,8 +535,11 @@ def _student_report_with_questions_to_tex(
     # columns to one-letter cells (sized for the bold "You"/"True" headers) and
     # let Reasoning absorb the freed width; Question column keeps its width so
     # the stem stays legible.
+    has_high_pt = _has_high_mark_question(report["questions"])
     if is_all_mcq:
         qstem_w, ans_w, exp_w, reason_w = 4.5, 1.0, 1.4, 13.5
+    elif has_high_pt:
+        qstem_w, ans_w, exp_w, reason_w = 4.5, 5.9, 5.0, 5.0
     else:
         qstem_w, ans_w, exp_w, reason_w = 4.5, 4.7, 5.0, 6.2
     # Always landscape — same vertical budget as `_student_report_to_tex`'s
@@ -568,9 +602,14 @@ def _student_report_with_questions_to_tex(
     # Landscape A4: 25.7 cm text - ~3.0 cm \tabcolsep overhead across 7 cols
     # → ~22.0 cm column budget = 0.5+4.5+0.5+0.6+4.7+5.0+6.2 (cm).
     # MCQ variant: 0.5+4.5+0.5+0.6+1.0+1.4+13.5 = 22.0 cm.
+    # When any question has max_marks ≥ _HIGH_MARK_THRESHOLD, the non-MCQ
+    # widths flip to wider Answer / narrower Reasoning (qstem and Expected
+    # fixed): p{4.7}+p{5.0}+p{6.2} → p{5.9}+p{5.0}+p{5.0}.
     geometry_line = "\\geometry{a4paper,landscape,margin=2cm}\n"
     if is_all_mcq:
         col_spec = "L{0.5cm}L{4.5cm}L{0.5cm}L{0.6cm}L{1.0cm}L{1.4cm}L{13.5cm}"
+    elif has_high_pt:
+        col_spec = "L{0.5cm}L{4.5cm}L{0.5cm}L{0.6cm}L{5.9cm}L{5.0cm}L{5.0cm}"
     else:
         col_spec = "L{0.5cm}L{4.5cm}L{0.5cm}L{0.6cm}L{4.7cm}L{5.0cm}L{6.2cm}"
     answer_header = "You" if is_all_mcq else "Your Answer"
