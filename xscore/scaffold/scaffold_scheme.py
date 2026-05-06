@@ -311,7 +311,12 @@ def parse_mark_scheme_pages(
             _qnums_with_content = [
                 str(_q.get("number", ""))
                 for _q in parsed.get("questions", [])
-                if str(_q.get("correct_answer") or "").strip() or (_q.get("mark_scheme") or [])
+                if (
+                    str(_q.get("mark_scheme_answer") or "").strip()
+                    or str(_q.get("explanation") or "").strip()
+                    or str(_q.get("correct_answer") or "").strip()
+                    or (_q.get("mark_scheme") or [])
+                )
             ]
             _qs_str = (", ".join(f"q{q}" for q in _qnums_with_content)) if _qnums_with_content else "—"
             ok_line(f"p{page_label_slug}  ·  {_qs_str}  ·  {format_duration(time.perf_counter() - _t0)}")
@@ -345,7 +350,12 @@ def parse_mark_scheme_pages(
     _with_content = {
         str(_q.get("number", "")).strip()
         for _q in result.get("questions", [])
-        if str(_q.get("correct_answer") or "").strip() or (_q.get("mark_scheme") or [])
+        if (
+            str(_q.get("mark_scheme_answer") or "").strip()
+            or str(_q.get("explanation") or "").strip()
+            or str(_q.get("correct_answer") or "").strip()
+            or (_q.get("mark_scheme") or [])
+        )
     }
     _missing_content = sorted(_expected - _with_content)
     if _missing_content:

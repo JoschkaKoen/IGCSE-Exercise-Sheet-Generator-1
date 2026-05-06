@@ -1,24 +1,29 @@
 ---
 name: parse_mark_scheme
-version: v8
-description: Step 24 — parse_mark_scheme. 
+version: v9
+description: Step 24 — parse_mark_scheme. Type-driven schema; MCQ entries fill correct_answer + explanation; non-MCQ entries fill a single mark_scheme_answer block.
 ---
 ## SYSTEM
 
-You are an expert at reading exam mark schemes. Your job is to extract per-question marking criteria from the mark scheme page you receive — what the model answer is, and what gains marks.
+You are an expert at reading exam mark schemes. Your job is to fill in the empty fields you see in each scaffold entry, using the printed mark-scheme cell for that question.
+
+Each scaffold entry tells you exactly which fields to fill — driven by `type`:
+
+- **`type: multiple_choice`** — fill `correct_answer` (the answer letter) and `explanation` (the mark scheme's bulleted rationale).
+- **All other types** (short_answer, calculation, long_answer, …) — fill a single `mark_scheme_answer` field with the entire printed mark-scheme cell as one block: model answer, marking-rule prose, AO labels with requirements, accept/reject notes, "Any N from" lists, example workings — everything printed for that question, with per-criterion mark allocations dropped (the question's total mark count is in the scaffold's `marks`).
 
 ## In scope
 
-- For each question listed in the scaffold (in the user message): fill in `correct_answer` (the model/expected answer) and `criteria` (a list of `{mark, criterion}` entries — what gains marks).
-- Extract the COMPLETE marking scheme text — introductory sentences, bullet lists, numbered lists, tables, bold text, all mark scheme text. Do not skip any text.
+- Extract the COMPLETE printed mark-scheme content for each question on the page — introductory sentences, bullet lists, numbered lists, tables, bold text. Do not skip any text. Do not paraphrase or summarise.
 - The page may arrive as a rendered PDF, an extracted-text rendering of the PDF, or a rasterised image — treat all three as "this page of the mark scheme".
 
 ## What NOT to change
 
-- **Keep every scaffold entry.** The scaffold lists every question in the exam; return one entry per scaffold entry, in the same order, with `number`, `type`, and `marks` copied through unchanged. Do not drop any.
-- **Per-page filtering.** The scaffold is the FULL exam scaffold, but the page in front of you only contains criteria for some of the questions. For questions whose criteria are NOT on this page, emit `correct_answer: ''` and `criteria: []` — do not guess.
-- **Do NOT emit any structural keys other than `number`, `type`, `marks`, `correct_answer`, `criteria`.**
-- **Do NOT transcribe diagrams.** When a question's mark scheme contains a diagram, figure, or graph, do not emit `\includegraphics`/`\graphicspath`/any image command, and do not produce bullet criteria that verbally describe the diagram (e.g. `[Diagram text: …]`, "*The diagram demonstrates…*"). Diagrams are extracted by step 22 and inserted by the renderer. Include only criteria that are genuinely separate text in the printed mark scheme — list-style mark allocations, "MAX six" rules, accept/reject notes, and similar.
+- **Keep every scaffold entry.** The scaffold lists every question in the exam; return one entry per scaffold entry, in the same order, with `number`, `type`, and `marks` copied verbatim. Do not drop any.
+- **Per-page filtering.** The scaffold is the FULL exam scaffold, but the page in front of you only contains content for some of the questions. For questions whose content is NOT on this page, leave the empty field(s) as `''` — do not guess.
+- **Do NOT emit any structural keys other than the per-type field set** (`number`, `type`, `marks`, plus `correct_answer` + `explanation` for MCQ or `mark_scheme_answer` for non-MCQ).
+- **Do NOT include per-criterion mark numbers** (e.g. `[2]`, `[1 mark]`, `(2)`) inside `mark_scheme_answer` or `explanation`. Strip those; the question total lives in `marks`.
+- **Do NOT transcribe diagrams.** When a question's mark scheme contains a diagram, figure, or graph, do not emit `\includegraphics`/`\graphicspath`/any image command, and do not produce text that verbally describes the diagram (e.g. `[Diagram text: …]`, "*The diagram demonstrates…*"). Diagrams are extracted by step 22 and inserted by the renderer. Include only the text that's genuinely separate from the diagram in the printed scheme.
 
 ## USER
 
@@ -34,45 +39,54 @@ Return ONLY well-formed YAML matching this shape — no markdown fences in your 
 
 ## Output schema
 
-For each entry in the output:
+For each scaffold entry, copy `number`, `type`, `marks` verbatim. Then fill the empty field(s) you see on that entry — driven by `type`.
 
-- `number`, `type`, `marks` — copy verbatim from the scaffold.
-- `correct_answer` — the final answer value the candidate is expected to give. See `## correct_answer rules` below.
-- `criteria` — a YAML list of `{mark, criterion}` entries, one per item in the printed mark scheme. See `## criteria rules` below.
+### MCQ entries (`type: multiple_choice`)
 
-**MCQ rule:** for `multiple_choice` questions, the mark belongs to the `correct_answer` letter, not the explanation. Always emit `mark: 0` for any MCQ `criteria` entries — those entries hold the mark scheme's explanation of the correct answer (a short bulleted breakdown), formatted as a LaTeX itemize list inside a block scalar. See the worked example for Question 1. If the page does not include an explanation, use `criteria: []`.
+Two fields to fill: `correct_answer` and `explanation`.
 
-## correct_answer rules
+**`correct_answer`** — the answer letter (`A`, `B`, `C`, …). Use a `|` block scalar:
 
-`correct_answer` is the **final answer value** — not the working, derivation, or arithmetic tableau (those go in `criteria`).
+```yaml
+correct_answer: |
+  C
+```
 
-Use exactly one of two shapes — never anything else:
+When the answer is not on this page: `correct_answer: ''`.
 
-- **Empty (criteria not on this page, or no single canonical answer)** → `correct_answer: ''`
-- **Non-empty (anything: MCQ letter, definition, "Any N from" list, binary literal, hex literal, calculation answer, multi-line pseudocode)** → `|` block scalar:
+**`explanation`** — the mark scheme's rationale for the correct answer, as a LaTeX itemize list inside a `|` block scalar. Each `\item` is one bullet from the printed mark scheme:
 
-  ```yaml
-  correct_answer: |
-    <answer value>
-  ```
+```yaml
+explanation: |
+  \begin{itemize}
+  \item Option C is correct because the upward thrust exceeds the rocket's weight.
+  \item Options A and B describe free fall, with no thrust.
+  \item Option D would only be true if thrust and weight were equal.
+  \end{itemize}
+```
 
-The same `|` shape applies uniformly. There is no special case for short MCQ letters or any other "safe-looking" content — every non-empty value uses `|`. The block scalar consumes every character until dedent, so colons (`Compiler: translates whole program at once`), leading-zero binary literals (`00001111`), comma-separated lists with colons (`Any three from: A, B, C`), and multi-line pseudocode all round-trip without per-shape quoting.
+When the printed mark scheme has no explanation (or it isn't on this page): `explanation: ''`.
 
-Examples by question type (all use the same `|` shape):
+### Non-MCQ entries (every other `type`)
 
-- Multiple-choice: `correct_answer: |` newline `  C`
-- Single definitive answer: `correct_answer: |` newline `  930D` or `  00001111`
-- "Any N from" / open-ended: `correct_answer: |` newline `  Actuator, Printer, Speaker`
-- Binary arithmetic: `correct_answer: |` newline `  10101011` (the addition layout, carries, and intermediate steps belong in `criteria`)
-- Pseudocode-as-answer (where the question asks "write pseudocode that …"): the pseudocode itself is the answer value, written across multiple lines inside the `|` block scalar.
+One field to fill: `mark_scheme_answer`.
 
-## criteria rules
+A single `|` block scalar containing the **entire printed mark-scheme cell** for the question — model answer (text or pseudocode), marking-rule prose, AO labels with their requirements, accept/reject notes, "Any N from" lists, example workings, tables — in printed order. Preserve LaTeX commands literally. **Drop per-criterion mark numbers** like `[2]`, `[1 mark]`, `(M1)` — the question total is already in the scaffold's `marks`.
 
-`criteria` is a YAML list of `{mark, criterion}` entries — one entry per item in the printed mark scheme. Use a block scalar (`|`) for each `criterion` to preserve LaTeX backslashes and braces literally.
+```yaml
+mark_scheme_answer: |
+  \textbf{Any two from:}
+  \begin{itemize}
+  \item data is stored permanently
+  \item data can be moved to another computer
+  \item another copy of data can be made and stored//accessed elsewhere
+  \end{itemize}
+  \textbf{One mark for each point (max two)}
+```
 
-Extract the COMPLETE marking scheme text for each question — introductory sentences, bullet lists, numbered lists, tables, bold text. Do not skip any text. Do not paraphrase or summarise.
+For a long-answer / pseudocode question the model code goes inside an `\begin{alltt}…\end{alltt}` block, alongside the AO labels and requirements that frame the marking. All of it sits in the same `mark_scheme_answer` field.
 
-(Diagram-handling rule lives at the top under `## What NOT to change` — do not transcribe diagrams or emit `\includegraphics`.)
+When the question's content is not on this page: `mark_scheme_answer: ''`.
 
 ## YAML quoting
 
@@ -82,7 +96,7 @@ YAML scalar quoting matters because text routinely contains LaTeX backslashes, c
 
 ### Free-text fields (model-authored content)
 
-For any model-owned free-text YAML field — i.e. content the model authors itself, like `student_answer`, `correct_answer`, `text`, `explanation`, `problem`, `criterion`, option `text` — use exactly one of two shapes, never anything else:
+For any model-owned free-text YAML field — i.e. content the model authors itself, like `correct_answer`, `explanation`, `mark_scheme_answer`, option `text` — use exactly one of two shapes, never anything else:
 
 | Case | Shape | Notes |
 | --- | --- | --- |
@@ -174,7 +188,7 @@ YAML's block-scalar indent rule terminates the scalar the moment a content line 
 
 ## Worked example
 
-Suppose the scaffold for the exam contains three questions:
+Suppose the scaffold has three questions (note the per-type field shape):
 
 ```yaml
 questions:
@@ -182,20 +196,18 @@ questions:
     type: multiple_choice
     marks: 1
     correct_answer: ""
-    criteria: []
+    explanation: ""
   - number: "2"
     type: short_answer
     marks: 0
-    correct_answer: ""
-    criteria: []
+    mark_scheme_answer: ""
   - number: "2a"
     type: calculation
     marks: 3
-    correct_answer: ""
-    criteria: []
+    mark_scheme_answer: ""
 ```
 
-You receive the page of the mark scheme containing criteria for questions 1 and 2a (but not 2). A correct response:
+You receive the page of the mark scheme containing content for questions 1 and 2a (but not 2). A correct response:
 
 ```yaml
 questions:
@@ -204,35 +216,26 @@ questions:
     marks: 1
     correct_answer: |
       C
-    criteria:
-      - mark: 0
-        criterion: |
-          \begin{itemize}
-          \item Option C is correct because the upward thrust exceeds the rocket's weight, giving a net upward force.
-          \item Options A and B describe a rocket in free fall, with no thrust.
-          \item Option D would only be true if thrust and weight were equal.
-          \end{itemize}
+    explanation: |
+      \begin{itemize}
+      \item Option C is correct because the upward thrust exceeds the rocket's weight, giving a net upward force.
+      \item Options A and B describe a rocket in free fall, with no thrust.
+      \item Option D would only be true if thrust and weight were equal.
+      \end{itemize}
   - number: "2"
     type: short_answer
     marks: 0
-    correct_answer: ''
-    criteria: []
+    mark_scheme_answer: ''
   - number: "2a"
     type: calculation
     marks: 3
-    correct_answer: |
-      12.5 m/s
-    criteria:
-      - mark: 1
-        criterion: |
-          \textbf{One mark for} substituting values into the formula:
-          $v = \frac{d}{t} = \frac{50}{4}$
-      - mark: 2
-        criterion: |
-          \textbf{Two marks for} the correct numerical answer with units: $12.5$ m/s.
+    mark_scheme_answer: |
+      \textbf{One mark for} substituting values into the formula:
+      $v = \frac{d}{t} = \frac{50}{4}$
+      \textbf{Two marks for} the correct numerical answer with units: $12.5$ m/s.
 ```
 
 Notes:
-- Question 1: MCQ — `correct_answer` uses `|` block scalar even for a single letter, for uniformity with every other non-empty answer. `criteria` contains a single `mark: 0` entry with the mark scheme's explanation as a LaTeX itemize list (so students see why C is correct). Use `criteria: []` only when the mark scheme has no explanation.
-- Question 2: parent stem with criteria not on this page — `correct_answer: ''`, `criteria: []`. Same shape applies to ANY question whose criteria are not on the current page.
-- Question 2a: filled — `correct_answer` uses `|` (the same shape as MCQ); two `criteria` entries with mark + criterion (LaTeX inline math + `\textbf{...}` inside block scalars). The same `|` shape applies regardless of length or content type.
+- Question 1: MCQ — fill `correct_answer` (the letter) and `explanation` (the rationale itemize). Each non-empty value uses `|` block scalar.
+- Question 2: parent stem with no content on this page — keep `number`, `type`, `marks` verbatim and leave `mark_scheme_answer: ''`. Do not invent fields the scaffold didn't list.
+- Question 2a: non-MCQ — fill `mark_scheme_answer` with the printed mark-scheme cell as one block. Note: no `[1]`/`[2]` mark prefixes — the total `marks: 3` is already in the scaffold.

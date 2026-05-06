@@ -199,7 +199,7 @@ class MarkingFormat:
         return "ai_marking"
 
     def criterion_ref(self) -> str:
-        return "`criteria` entries"
+        return "the mark scheme"
 
     def subpage_ref(self) -> str:
         return "`subpage` entries"

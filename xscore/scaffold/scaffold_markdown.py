@@ -91,15 +91,24 @@ def _render_question(q: dict[str, Any], depth: int, lines: list[str]) -> None:
                 lines.append(f"**{label}:** `{im['path']}`")
                 lines.append("")
 
-    ca = q.get("correct_answer")
-    if isinstance(ca, str) and ca.strip():
-        lines.extend(_format_prose_block("Answer", ca.strip()))
+    msa = q.get("mark_scheme_answer")
+    if isinstance(msa, str) and msa.strip():
+        # Non-MCQ post-refactor: the entire mark-scheme cell is one block.
+        lines.extend(_format_prose_block("Mark scheme", msa.strip()))
         lines.append("")
-
-    mc = q.get("marking_criteria")
-    if isinstance(mc, str) and mc.strip():
-        lines.extend(_format_prose_block("Marking criteria", mc.strip()))
-        lines.append("")
+    else:
+        ca = q.get("correct_answer")
+        if isinstance(ca, str) and ca.strip():
+            lines.extend(_format_prose_block("Answer", ca.strip()))
+            lines.append("")
+        exp = q.get("explanation") or q.get("reasoning")
+        if isinstance(exp, str) and exp.strip():
+            lines.extend(_format_prose_block("Explanation", exp.strip()))
+            lines.append("")
+        mc = q.get("marking_criteria")
+        if isinstance(mc, str) and mc.strip():
+            lines.extend(_format_prose_block("Marking criteria", mc.strip()))
+            lines.append("")
 
     subs = q.get("subquestions")
     if isinstance(subs, list) and subs:
@@ -221,11 +230,24 @@ def write_mark_scheme_markdown(artifact_dir: Path, scheme_questions: list[Any]) 
         lines.append(f"### Q{num}{marks_str}")
         lines.append("")
 
+        # New schema (non-MCQ): single `mark_scheme_answer` block.
+        msa = q.get("mark_scheme_answer")
+        if isinstance(msa, str) and msa.strip():
+            lines.extend(_format_prose_block("Mark scheme", msa.strip()))
+            lines.append("")
+            continue
+
+        # MCQ (new schema): correct_answer + explanation.
         ca = q.get("correct_answer")
         if isinstance(ca, str) and ca.strip():
             lines.extend(_format_prose_block("Answer", ca.strip()))
             lines.append("")
+        exp = q.get("explanation")
+        if isinstance(exp, str) and exp.strip():
+            lines.extend(_format_prose_block("Explanation", exp.strip()))
+            lines.append("")
 
+        # Legacy shape — mark_scheme list of {mark, criterion}.
         raw_criteria = q.get("mark_scheme") or []
         if isinstance(raw_criteria, list) and raw_criteria:
             criteria_lines = []

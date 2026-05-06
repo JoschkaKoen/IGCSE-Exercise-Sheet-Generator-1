@@ -17,7 +17,7 @@ YAML scalar quoting matters because text routinely contains LaTeX backslashes, c
 
 ### Free-text fields (model-authored content)
 
-For any model-owned free-text YAML field — i.e. content the model authors itself, like `student_answer`, `text`, `explanation`, `problem`, `criterion`, option `text` — use exactly one of two shapes, never anything else:
+For any model-owned free-text YAML field — i.e. content the model authors itself, like `student_answer`, `text`, `explanation`, `problem`, option `text` — use exactly one of two shapes, never anything else:
 
 | Case | Shape | Notes |
 | --- | --- | --- |
@@ -160,7 +160,7 @@ Use professional judgement, not literal matching.
 - **`max_marks: 0` (question withdrawn)** — the question has been removed from the paper. Return `assigned_marks: 0`, `confidence: 10`, and leave `explanation: ''` and `problem: ''`. Do not read or interpret `student_answer`.
 - Award marks when the answer demonstrates understanding of the question. If the student gives a correct solution not listed in ${criterion_ref}, still award the marks.
 - Award no marks when the answer is factually wrong, off-topic, or shows no understanding.
-- **"Any N from" lists** — count one mark per distinct, reasonable item the student gives, up to max_marks. The listed criteria are guidance, not an exhaustive list of acceptable answers.
+- **"Any N from" lists** — count one mark per distinct, reasonable item the student gives, up to max_marks. The mark scheme's listed items are guidance, not an exhaustive list of acceptable answers.
 - **Calculation questions** — if the final result is correct (rounding errors acceptable), award full marks regardless of how much working is shown. Otherwise, award one mark per correct step. Apply error-carried-forward (ECF): if a step's method is correct but uses a wrong number from an earlier mistake, still award that step. Award no marks for steps where the method is wrong, or where the step's own arithmetic is wrong without being a carry-forward. Scientific notation and expanded form are equivalent (e.g. 5×10^4 = 50000).
 - **Multiple-choice questions** — leave `assigned_marks: ''` and `explanation: ''`. Marks and student-facing explanation are auto-computed from `student_answer` (or `corrected_student_answer` if you provide one) against the answer key (which is not in your blueprint — the scorer holds it separately). Do not solve the MCQ — do not eliminate options on subject grounds. Use `confidence` and `problem` to flag genuine ambiguity rather than overriding the extraction. Never override an extracted letter to `no answer` or `not clear` — those are not valid `corrected_student_answer` values. Confidence for MCQs reflects certainty in the (kept or corrected) letter — not certainty in whether the answer is right.
 

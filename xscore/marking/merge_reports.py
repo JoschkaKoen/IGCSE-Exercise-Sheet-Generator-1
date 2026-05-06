@@ -54,7 +54,7 @@ def build_per_student_reports(ctx: Any) -> None:
     """
     fmt = get_marking_format()
     total_max_marks = ctx.scaffold.total_marks
-    correct_answers, marking_criteria_by_num, reasoning_by_num = _build_answer_lookup(ctx)
+    correct_answers, mark_scheme_answer_by_num, explanation_by_num = _build_answer_lookup(ctx)
     names = _derive_student_names(ctx.artifact_dir, fmt=fmt)
     workers = int(os.environ.get("REPORT_COMPILE_WORKERS", os.environ.get("MARKING_WORKERS", "4")))
 
@@ -77,7 +77,7 @@ def build_per_student_reports(ctx: Any) -> None:
         q_totals, failed, collisions,
     ) = _pass1_merge_students(
         ctx, fmt, names, total_max_marks,
-        correct_answers, marking_criteria_by_num, reasoning_by_num,
+        correct_answers, mark_scheme_answer_by_num, explanation_by_num,
         workers,
         n_unanswered_students_out=n_unanswered_out,
     )

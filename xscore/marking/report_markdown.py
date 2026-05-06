@@ -62,7 +62,10 @@ def _student_report_to_md(report: dict, subtitle: str | None = None) -> str:
             answer = answer_raw.replace("|", "/")
         awarded = q.get("assigned_marks")
         awarded_str = "*?*" if awarded is None else str(awarded)
-        correct = str(q.get("correct_answer") or "—").replace("|", "/")
+        if str(q.get("question_type", "")).strip() == "multiple_choice":
+            correct = str(q.get("correct_answer") or "—").replace("|", "/")
+        else:
+            correct = str(q.get("mark_scheme_answer") or q.get("correct_answer") or "—").replace("|", "/")
         reasoning = str(q.get("explanation") or "").replace("|", "/")
         lines.append(
             f"| {q.get('number', '')} | "

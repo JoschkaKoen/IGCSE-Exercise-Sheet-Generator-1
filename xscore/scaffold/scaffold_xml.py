@@ -23,39 +23,77 @@ def _norm(n: str) -> str:
 
 
 def _merge_scheme(questions: list[dict], scheme_map: dict[str, dict]) -> None:
-    """Recursively annotate *questions* in-place with correct_answer + marking_criteria/reasoning.
+    """Recursively annotate *questions* in-place with the parsed mark scheme.
 
-    For MCQ questions the parsed criteria carry the mark scheme's student-facing
-    explanation (mark=0 entries by convention) — route that text into ``reasoning``
-    and leave ``marking_criteria`` empty, preserving the long-standing invariant
-    that MCQ have no marking criteria. For all other types the criteria text
-    lands in ``marking_criteria`` as before.
+    Type-driven schema:
+
+    - **MCQ** — ``correct_answer`` (letter) + ``explanation`` (rationale bullets).
+    - **Non-MCQ** — ``mark_scheme_answer`` (single block: the entire printed
+      mark-scheme cell with per-criterion mark counts dropped).
+
+    Reads the new-shape intermediate dict produced by
+    ``_merge_scheme_results``: ``correct_answer``, ``explanation``,
+    ``mark_scheme_answer`` are direct keys. Falls back to the legacy
+    ``mark_scheme: [{mark, criterion}]`` list when present (in-flight runs
+    on the old AI output shape).
+
+    Legacy fields ``marking_criteria`` and ``reasoning`` are populated
+    alongside during the transition so consumers that haven't migrated still
+    work; both are removed in the cleanup step once all consumers are on the
+    new fields.
     """
     for node in questions:
         key = _norm(node.get("number", ""))
         entry = scheme_map.get(key)
         if entry:
-            node["correct_answer"] = entry.get("correct_answer")
+            ca = entry.get("correct_answer")
             is_mcq = node.get("question_type") == "multiple_choice"
-            criteria_lines = []
+
+            # Prefer direct new-shape fields; fall back to building from the
+            # legacy ``mark_scheme: [...]`` list if neither is present.
+            new_msa = entry.get("mark_scheme_answer")
+            new_exp = entry.get("explanation")
+
+            criteria_with_prefix: list[str] = []
+            criteria_no_prefix: list[str] = []
             for m in (entry.get("mark_scheme") or []):
                 criterion = m.get("criterion", "").lstrip("\t ")
                 if not criterion:
                     continue
                 mark_label = m.get("mark") or ""
-                # MCQ reasoning is rendered as-is; the [N] prefix that
-                # _format_criteria_cell strips for non-MCQ would leak through.
                 prefix = "" if is_mcq else (f"[{mark_label}] " if mark_label else "")
-                criteria_lines.append(f"{prefix}{criterion}")
-            joined = "\n".join(criteria_lines) or None
+                criteria_with_prefix.append(f"{prefix}{criterion}")
+                criteria_no_prefix.append(criterion)
+            joined_with = "\n".join(criteria_with_prefix) or None
+            joined_no = "\n".join(criteria_no_prefix) or None
+
             if is_mcq:
-                node["reasoning"] = joined
+                explanation = new_exp or joined_no
+                node["correct_answer"] = ca
+                node["explanation"] = explanation
+                node["mark_scheme_answer"] = None
+                # Legacy fields, populated alongside for transitional consumers.
+                node["reasoning"] = explanation
                 node["marking_criteria"] = None
             else:
+                if new_msa:
+                    msa = new_msa
+                else:
+                    ca_str = str(ca).strip() if ca and str(ca).strip() else ""
+                    if ca_str and joined_no:
+                        msa = ca_str + "\n" + joined_no
+                    else:
+                        msa = ca_str or joined_no
+                node["mark_scheme_answer"] = msa
+                node["explanation"] = None
+                # Legacy fields, populated alongside for transitional consumers.
+                node["correct_answer"] = ca
+                node["marking_criteria"] = joined_with
                 node["reasoning"] = None
-                node["marking_criteria"] = joined
         else:
             node.setdefault("correct_answer", None)
+            node.setdefault("mark_scheme_answer", None)
+            node.setdefault("explanation", None)
             node.setdefault("marking_criteria", None)
             node.setdefault("reasoning", None)
         _merge_scheme(node.get("subquestions") or [], scheme_map)
@@ -100,6 +138,8 @@ def _json_to_question(node: dict, layout: ExamLayout) -> Question:
         ],
         subquestions=[_json_to_question(s, layout) for s in (node.get("subquestions") or [])],
         correct_answer=node.get("correct_answer"),
+        mark_scheme_answer=node.get("mark_scheme_answer"),
+        explanation=node.get("explanation"),
         marking_criteria=node.get("marking_criteria"),
         reasoning=node.get("reasoning"),
     )
@@ -225,19 +265,37 @@ def _parse_scheme_xml(raw: str) -> dict:
 
 
 def _merge_scheme_results(page_results: list[dict]) -> dict:
-    """Merge per-page _parse_scheme_xml results into one dict.
+    """Merge per-page (or per-group) parse-scheme results into one dict.
 
-    Per question: first non-null correct_answer; concatenated mark_scheme + graphics lists.
+    The new schema is type-driven (see ``parse_scheme_response``):
+
+    - **MCQ**       → ``{number, question_type, correct_answer, explanation, graphics}``.
+    - **Non-MCQ**   → ``{number, question_type, mark_scheme_answer, graphics}``.
+
+    With the page-grouping logic from step 24, each question's content lands
+    in exactly one group result, so the merge is simple: first non-null wins
+    for content fields, graphics concatenate. Legacy ``mark_scheme: [...]``
+    inputs (mid-transition) are also tolerated and pass through.
     """
     merged: dict[str, dict] = {}
     for result in page_results:
         for q in result.get("questions", []):
             num = q["number"]
             if num not in merged:
-                merged[num] = {"number": num, "correct_answer": None,
-                               "mark_scheme": [], "graphics": []}
-            if not merged[num]["correct_answer"] and q.get("correct_answer"):
-                merged[num]["correct_answer"] = q["correct_answer"]
+                merged[num] = {
+                    "number":             num,
+                    "question_type":      q.get("question_type"),
+                    "correct_answer":     None,
+                    "explanation":        None,
+                    "mark_scheme_answer": None,
+                    "mark_scheme":        [],   # legacy shape passthrough
+                    "graphics":           [],
+                }
+            if merged[num].get("question_type") in (None, "") and q.get("question_type"):
+                merged[num]["question_type"] = q["question_type"]
+            for key in ("correct_answer", "explanation", "mark_scheme_answer"):
+                if not merged[num].get(key) and q.get(key):
+                    merged[num][key] = q[key]
             merged[num]["mark_scheme"].extend(q.get("mark_scheme") or [])
             merged[num]["graphics"].extend(q.get("graphics") or [])
     return {"questions": list(merged.values())}

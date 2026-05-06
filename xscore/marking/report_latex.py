@@ -28,7 +28,6 @@ import yaml
 from xscore.marking.report_latex_cells import (
     _ai_cell,
     _awarded_tex,
-    _format_criteria_cell,
     _split_oversized_cell,
 )
 from xscore.marking.report_latex_text import _latex_escape
@@ -164,7 +163,7 @@ def _student_report_to_tex(
     subtitle: str | None = None,
     is_all_mcq: bool = False,
 ) -> str:
-    # Column widths threaded into _ai_cell / _format_criteria_cell so alltt
+    # Column widths threaded into _ai_cell so alltt
     # font-size selection scales with cell width. Match the col_spec below.
     # `panel_budget` is forwarded to `_split_oversized_cell` so very tall
     # Expected cells are emitted as multi-row panels (avoids cell overflow
@@ -202,23 +201,16 @@ def _student_report_to_tex(
         else:
             answer = _ai_cell(answer_raw, ans_w)
         correct_raw = str(q.get("correct_answer") or "").strip()
-        criteria_raw = str(q.get("marking_criteria") or "").strip()
+        msa_raw = str(q.get("mark_scheme_answer") or "").strip()
         question_type = str(q.get("question_type", "")).strip()
         if question_type == "multiple_choice":
-            # MCQ: show the answer letter (criteria are MCQ rationale, kept in Reasoning).
+            # MCQ: Expected = answer letter; the rationale lives in Reasoning.
             correct_ans = _ai_cell(correct_raw, exp_w) if correct_raw else "---"
-        elif criteria_raw:
-            # Non-MCQ: render the full mark scheme content — model answer first,
-            # then the criteria breakdown — so the Expected column carries
-            # everything that was in the printed cell minus per-criterion mark
-            # counts (stripped by _format_criteria_cell). For pseudocode-as-answer
-            # questions like Q10 the model code lives in correct_raw and the
-            # criteria are AO/marking notes; both are needed.
-            combined = (correct_raw + "\n" + criteria_raw) if correct_raw else criteria_raw
-            correct_ans = _format_criteria_cell(combined, exp_w)
+        elif msa_raw:
+            # Non-MCQ: the entire printed mark-scheme cell sits in mark_scheme_answer.
+            correct_ans = _ai_cell(msa_raw, exp_w)
         else:
-            # Non-MCQ without criteria: fall back to correct_answer.
-            correct_ans = _ai_cell(correct_raw, exp_w) if correct_raw else "---"
+            correct_ans = "---"
         gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum((q.get("number") or "")), [])
         if gfx_files:
             correct_ans = correct_ans + " " + _scheme_graphics_tex(gfx_files)
@@ -506,7 +498,7 @@ def _student_report_with_questions_to_tex(
     is_all_mcq: bool = False,
 ) -> str:
     """Landscape per-student PDF with an extra Question column (no MCQ options)."""
-    # Column widths threaded into _ai_cell / _format_criteria_cell /
+    # Column widths threaded into _ai_cell /
     # _render_question_with_options so alltt font-size selection scales with cell
     # width. Match the col_spec below. MCQ-only exams shrink the answer/expected
     # columns to one-letter cells (sized for the bold "You"/"True" headers) and
@@ -537,15 +529,14 @@ def _student_report_with_questions_to_tex(
         else:
             answer = _ai_cell(answer_raw, ans_w)
         correct_raw = str(q.get("correct_answer") or "").strip()
-        criteria_raw = str(q.get("marking_criteria") or "").strip()
+        msa_raw = str(q.get("mark_scheme_answer") or "").strip()
         question_type = str(q.get("question_type", "")).strip()
         if question_type == "multiple_choice":
             correct_ans = _ai_cell(correct_raw, exp_w) if correct_raw else "---"
-        elif criteria_raw:
-            combined = (correct_raw + "\n" + criteria_raw) if correct_raw else criteria_raw
-            correct_ans = _format_criteria_cell(combined, exp_w)
+        elif msa_raw:
+            correct_ans = _ai_cell(msa_raw, exp_w)
         else:
-            correct_ans = _ai_cell(correct_raw, exp_w) if correct_raw else "---"
+            correct_ans = "---"
         gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum(qnum_raw), [])
         if gfx_files:
             correct_ans = correct_ans + " " + _scheme_graphics_tex(gfx_files)
@@ -639,12 +630,14 @@ def _student_report_list_to_tex(
         else:
             answer = _ai_cell(answer_raw, block_w)
         correct_raw = str(q.get("correct_answer") or "").strip()
-        criteria_raw = str(q.get("marking_criteria") or "").strip()
+        msa_raw = str(q.get("mark_scheme_answer") or "").strip()
         question_type = str(q.get("question_type", "")).strip()
-        if question_type == "multiple_choice" or not criteria_raw:
+        if question_type == "multiple_choice":
             expected = _ai_cell(correct_raw, block_w) if correct_raw else "---"
+        elif msa_raw:
+            expected = _ai_cell(msa_raw, block_w)
         else:
-            expected = _format_criteria_cell(criteria_raw, block_w)
+            expected = "---"
         gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum(qnum_raw), [])
         if gfx_files:
             expected = expected + " " + _scheme_graphics_tex(gfx_files)

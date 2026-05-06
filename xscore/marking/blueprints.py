@@ -61,13 +61,6 @@ def _quadrant_label(row: int, col: int, total_rows: int, total_cols: int) -> str
     return f"{v}-{h}"
 
 
-def _criteria_from_marking_str(criteria_str: str | None) -> list[tuple[str, str]]:
-    """Return the full marking criteria block as a single (mark, text) entry."""
-    if not criteria_str or not criteria_str.strip():
-        return []
-    return [("", criteria_str.strip())]
-
-
 def _build_blueprint_xml(page_num: int, layout: Any, page_qs: list[dict]) -> str:
     """Build <marking page rows cols> XML for one exam page."""
     root = ET.Element("marking")
@@ -98,10 +91,10 @@ def _build_blueprint_xml(page_num: int, layout: Any, page_qs: list[dict]) -> str
             opt_el.set("letter", str(opt.get("letter", "")))
             opt_el.text = _clean_text(opt.get("text", ""))
         if q.get("question_type") != "multiple_choice":
-            for mark, ctext in _criteria_from_marking_str(q.get("marking_criteria")):
-                cel = ET.SubElement(qel, "criterion")
-                cel.set("mark", mark)
-                cel.text = _clean_text(ctext)
+            msa = q.get("mark_scheme_answer")
+            if msa and str(msa).strip():
+                msa_el = ET.SubElement(qel, "mark_scheme_answer")
+                msa_el.text = _clean_text(str(msa).strip())
         ET.SubElement(qel, "student_answer")
         ET.SubElement(qel, "assigned_marks")
         ET.SubElement(qel, "explanation")
@@ -146,7 +139,8 @@ def build_blueprints(scaffold: Any, artifact_dir: Path) -> list[dict]:
                     for o in (q.answer_options or [])
                 ],
                 "correct_answer": q.correct_answer,
-                "marking_criteria": q.marking_criteria,
+                "mark_scheme_answer": q.mark_scheme_answer,
+                "marking_criteria": q.marking_criteria,    # legacy, transitional
                 "max_marks": q.marks,
                 "student_answer": "",
                 "assigned_marks": None,

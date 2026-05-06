@@ -204,10 +204,20 @@ def _scheme_question_lookup(scheme_data: Any, raw_questions: Any) -> dict[str, d
             if not num:
                 continue
             safe = _safe(num)
+            # New (post-refactor) shape: non-MCQ has `mark_scheme_answer` (one
+            # block); MCQ has `correct_answer` (letter) + `explanation`.
+            # Legacy shape: `correct_answer` + `mark_scheme: [{mark, criterion}]`.
+            ms_block = q.get("mark_scheme_answer")
+            if ms_block:
+                ms_text = str(ms_block)
+                ca_text = ""
+            else:
+                ms_text = _format_mark_scheme(q.get("mark_scheme") or q.get("explanation") or [])
+                ca_text = str(q.get("correct_answer") or "")
             out[safe] = {
                 "question_text": str(q.get("question_text") or raw_text_by_safe.get(safe) or ""),
-                "correct_answer": str(q.get("correct_answer") or ""),
-                "mark_scheme": _format_mark_scheme(q.get("mark_scheme") or []),
+                "correct_answer": ca_text,
+                "mark_scheme": ms_text,
                 "human_qnum": num,
             }
 

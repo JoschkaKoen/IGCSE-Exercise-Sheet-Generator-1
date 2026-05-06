@@ -49,7 +49,7 @@ from xscore.scaffold.scaffold_markdown import (
 )
 
 
-SCHEMA_VERSION = 19
+SCHEMA_VERSION = 20
 
 
 # ---------------------------------------------------------------------------
@@ -126,6 +126,10 @@ def question_to_dict(q: Question) -> dict[str, Any]:
         d["subquestions"] = [question_to_dict(s) for s in q.subquestions]
     if q.correct_answer is not None and str(q.correct_answer).strip():
         d["correct_answer"] = q.correct_answer
+    if q.mark_scheme_answer is not None and str(q.mark_scheme_answer).strip():
+        d["mark_scheme_answer"] = q.mark_scheme_answer
+    if q.explanation is not None and str(q.explanation).strip():
+        d["explanation"] = q.explanation
     if q.question_type != "multiple_choice" and q.marking_criteria is not None and str(q.marking_criteria).strip():
         d["marking_criteria"] = q.marking_criteria
     if q.reasoning is not None and str(q.reasoning).strip():
@@ -169,6 +173,8 @@ def question_from_dict(d: dict) -> Question:
         writing_areas=[_wa_from_dict(x) for x in d.get("writing_areas") or []],
         subquestions=[question_from_dict(s) for s in d.get("subquestions") or []],
         correct_answer=ca,
+        mark_scheme_answer=d.get("mark_scheme_answer"),
+        explanation=d.get("explanation"),
         marking_criteria=d.get("marking_criteria"),
         reasoning=d.get("reasoning"),
         answer_images=[_img_from_dict(x) for x in d.get("answer_images") or []],
@@ -319,10 +325,17 @@ def _question_to_xml_element(q: Question) -> ET.Element:
         opt_el = ET.SubElement(el, "option")
         opt_el.set("letter", opt.letter)
         opt_el.text = opt.text
-    if q.question_type != "multiple_choice" and q.marking_criteria and str(q.marking_criteria).strip():
+    if q.question_type != "multiple_choice" and q.mark_scheme_answer and str(q.mark_scheme_answer).strip():
+        msa_el = ET.SubElement(el, "mark_scheme_answer")
+        msa_el.text = str(q.mark_scheme_answer)
+    elif q.question_type != "multiple_choice" and q.marking_criteria and str(q.marking_criteria).strip():
+        # Legacy fallback for in-flight transitions where annotator hasn't yet set mark_scheme_answer.
         for crit_el in _criterion_str_to_elements(str(q.marking_criteria)):
             el.append(crit_el)
-    if q.reasoning and str(q.reasoning).strip():
+    if q.explanation and str(q.explanation).strip():
+        exp_el = ET.SubElement(el, "explanation")
+        exp_el.text = str(q.explanation)
+    elif q.reasoning and str(q.reasoning).strip():
         reasoning_el = ET.SubElement(el, "reasoning")
         reasoning_el.text = str(q.reasoning)
     for sub in (q.subquestions or []):
@@ -421,6 +434,11 @@ def _question_from_xml_element(el: ET.Element) -> Question:
         McAnswerOption(letter=o.get("letter", ""), text=(o.text or "").strip())
         for o in el.findall("option")
     ]
+    msa_el = el.find("mark_scheme_answer")
+    mark_scheme_answer: str | None = (
+        (msa_el.text or "").strip() or None
+        if msa_el is not None else None
+    )
     criterion_parts = []
     for c in el.findall("criterion"):
         mark = c.get("mark", "")
@@ -428,6 +446,11 @@ def _question_from_xml_element(el: ET.Element) -> Question:
         if ctext:
             criterion_parts.append(f"[{mark}] {ctext}" if mark else ctext)
     marking_criteria: str | None = "\n".join(criterion_parts) or None
+    exp_el = el.find("explanation")
+    explanation: str | None = (
+        (exp_el.text or "").strip() or None
+        if exp_el is not None else None
+    )
     reasoning_el = el.find("reasoning")
     reasoning: str | None = (
         (reasoning_el.text or "").strip() or None
@@ -446,6 +469,8 @@ def _question_from_xml_element(el: ET.Element) -> Question:
         answer_options=answer_options,
         subquestions=subquestions,
         correct_answer=el.get("correct_answer") or None,
+        mark_scheme_answer=mark_scheme_answer,
+        explanation=explanation,
         marking_criteria=marking_criteria,
         reasoning=reasoning,
     )
@@ -497,6 +522,10 @@ def _question_to_yaml_dict(q: Question) -> dict:
     d["text"] = q.text or ""
     if q.answer_options:
         d["options"] = [{"letter": o.letter, "text": o.text} for o in q.answer_options]
+    if q.question_type != "multiple_choice" and q.mark_scheme_answer and str(q.mark_scheme_answer).strip():
+        d["mark_scheme_answer"] = str(q.mark_scheme_answer)
+    if q.explanation and str(q.explanation).strip():
+        d["explanation"] = str(q.explanation)
     if q.question_type != "multiple_choice" and q.marking_criteria and str(q.marking_criteria).strip():
         d["marking_criteria"] = str(q.marking_criteria)
     if q.reasoning and str(q.reasoning).strip():
@@ -513,9 +542,17 @@ def _question_from_yaml_dict(d: dict) -> Question:
         for o in (d.get("options") or [])
         if isinstance(o, dict) and o.get("letter")
     ]
+    msa_raw = d.get("mark_scheme_answer")
+    mark_scheme_answer: str | None = (
+        str(msa_raw).strip() or None if msa_raw is not None else None
+    )
     marking_criteria_raw = d.get("marking_criteria")
     marking_criteria: str | None = (
         str(marking_criteria_raw).strip() or None if marking_criteria_raw is not None else None
+    )
+    explanation_raw = d.get("explanation")
+    explanation: str | None = (
+        str(explanation_raw).strip() or None if explanation_raw is not None else None
     )
     reasoning_raw = d.get("reasoning")
     reasoning: str | None = (
@@ -534,6 +571,8 @@ def _question_from_yaml_dict(d: dict) -> Question:
         answer_options=answer_options,
         subquestions=subquestions,
         correct_answer=(d.get("correct_answer") or None),
+        mark_scheme_answer=mark_scheme_answer,
+        explanation=explanation,
         marking_criteria=marking_criteria,
         reasoning=reasoning,
     )

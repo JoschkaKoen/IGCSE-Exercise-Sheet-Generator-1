@@ -420,30 +420,46 @@ class ScaffoldFormat:
         page_note = (
             f"\n\n## Page context\n"
             f"The {input_label} you receive contains page(s) {page_label} of {n_pages} of the mark scheme.\n"
-            f"Fill `correct_answer` and `criteria` for each scaffold question. "
-            f"If a question's content (answer or criteria) spans multiple pages "
-            f"within this {input_label}, assemble the COMPLETE content into a "
-            f"SINGLE entry — do NOT emit the same question twice. "
-            f"For every scaffold question whose content does not appear here, "
-            f"leave `correct_answer: ''` and `criteria: []`. "
-            f"Keep every scaffold entry — do not remove any."
+            f"Each scaffold entry tells you exactly which empty fields to fill — MCQ "
+            f"entries have `correct_answer` + `explanation`; every other type has a "
+            f"single `mark_scheme_answer`. Fill the fields that exist on each entry; "
+            f"do not invent extra keys. "
+            f"If a question's content spans multiple pages within this {input_label}, "
+            f"assemble the COMPLETE content into a SINGLE entry — do NOT emit the same "
+            f"question twice. For every scaffold question whose content does not appear "
+            f"here, leave its empty field(s) as `''`. Keep every scaffold entry — do not remove any."
         )
         return load_prompt(
             "parse_mark_scheme", section="user", scaffold=scaffold_str,
         )[1] + page_note
 
     def build_scheme_scaffold(self, questions: list[dict]) -> str:
-        """Build YAML scaffold from exam questions for the scheme AI."""
+        """Build YAML scaffold from exam questions for the scheme AI.
+
+        Field shape is type-driven so the AI knows exactly which slots to
+        fill — no judgement call about "is this content the answer or a
+        criterion":
+
+        - **MCQ** entries carry ``correct_answer`` (the letter) and
+          ``explanation`` (a bullet rationale).
+        - **Non-MCQ** entries carry a single ``mark_scheme_answer`` slot
+          for the entire printed mark-scheme cell.
+        """
         entries = []
 
         def _visit(node: dict) -> None:
-            entries.append({
+            qtype = str(node.get("question_type", ""))
+            entry = {
                 "number": str(node.get("number", "")),
-                "type": str(node.get("question_type", "")),
+                "type": qtype,
                 "marks": int(node.get("marks", 0)),
-                "correct_answer": "",
-                "criteria": [],
-            })
+            }
+            if qtype == "multiple_choice":
+                entry["correct_answer"] = ""
+                entry["explanation"] = ""
+            else:
+                entry["mark_scheme_answer"] = ""
+            entries.append(entry)
             for sub in (node.get("subquestions") or []):
                 _visit(sub)
 
@@ -485,6 +501,20 @@ class ScaffoldFormat:
         return questions, layout
 
     def parse_scheme_response(self, raw: str) -> dict:
+        """Parse the AI's scheme response into a per-page intermediate shape.
+
+        Type-driven schema (matches what ``build_scheme_scaffold`` asked for):
+
+        - **MCQ** entries carry ``correct_answer`` (letter) + ``explanation``
+          (rationale) + ``graphics``.
+        - **Non-MCQ** entries carry ``mark_scheme_answer`` (single block) +
+          ``graphics``.
+
+        Also accepts the legacy ``correct_answer`` + ``criteria: [...]`` shape
+        on input (mid-transition runs / older AI outputs) and folds it into
+        the new shape: criteria are joined into ``mark_scheme_answer`` for
+        non-MCQ, into ``explanation`` for MCQ.
+        """
         data = _load_scheme_yaml_recovering(_strip_fences(raw))
         if not isinstance(data, dict):
             return {"questions": []}
@@ -492,31 +522,49 @@ class ScaffoldFormat:
         for q in data.get("questions", []):
             if not isinstance(q, dict):
                 continue
-            mark_scheme = [
-                {"mark": str(c.get("mark", "")), "criterion": str(c.get("criterion", "")).strip()}
-                for c in (q.get("criteria") or [])
-                if isinstance(c, dict)
-            ]
-            # Preserve top-level ``marks`` for questions whose ``criteria`` list
-            # is empty — typical for MCQ where the answer letter IS the
-            # criterion. Without this synthetic entry the merged mark scheme
-            # drops those marks, and the per-question total falls short of the
-            # scaffold (one mark per affected MCQ).
-            if not mark_scheme:
-                raw_marks = q.get("marks")
-                try:
-                    m = int(raw_marks) if raw_marks not in (None, "") else 0
-                except (TypeError, ValueError):
-                    m = 0
-                if m > 0:
-                    mark_scheme = [{"mark": str(m), "criterion": ""}]
-            questions.append({
-                "number":         str(q.get("number", "")),
-                # str() wrap: model occasionally emits unquoted YAML int (e.g. `correct_answer: 5`); parser must coerce.
-                "correct_answer": str(q.get("correct_answer") or "").strip() or None,
-                "mark_scheme":    mark_scheme,
-                "graphics":       [],
-            })
+            qtype = str(q.get("type", "") or q.get("question_type", "")).strip()
+            number = str(q.get("number", ""))
+            ca_raw = q.get("correct_answer")
+            ca = str(ca_raw).strip() if ca_raw is not None else ""
+
+            # Preferred new-shape fields.
+            msa = q.get("mark_scheme_answer")
+            msa = str(msa).strip() if msa is not None else ""
+            explanation = q.get("explanation")
+            explanation = str(explanation).strip() if explanation is not None else ""
+
+            # Legacy shape: criteria as a list of {mark, criterion}. Fold into
+            # the right new-shape field when the new field wasn't populated.
+            legacy_criteria = q.get("criteria") or q.get("mark_scheme") or []
+            legacy_text_parts: list[str] = []
+            for c in legacy_criteria:
+                if isinstance(c, dict):
+                    ct = str(c.get("criterion", "")).strip()
+                    if ct:
+                        legacy_text_parts.append(ct)
+            legacy_block = "\n".join(legacy_text_parts)
+
+            if qtype == "multiple_choice":
+                if not explanation and legacy_block:
+                    explanation = legacy_block
+                questions.append({
+                    "number":         number,
+                    "question_type":  "multiple_choice",
+                    "correct_answer": ca or None,
+                    "explanation":    explanation or None,
+                    "graphics":       [],
+                })
+            else:
+                # Non-MCQ. New shape: mark_scheme_answer carries everything.
+                if not msa:
+                    parts = [p for p in (ca, legacy_block) if p]
+                    msa = "\n".join(parts)
+                questions.append({
+                    "number":             number,
+                    "question_type":      qtype or None,
+                    "mark_scheme_answer": msa or None,
+                    "graphics":           [],
+                })
         return {"questions": questions}
 
     def serialize_exam(self, questions: list[dict], layout: dict) -> str:

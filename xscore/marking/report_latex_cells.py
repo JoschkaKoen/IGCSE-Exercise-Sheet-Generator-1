@@ -5,8 +5,6 @@ go into a single ``p{}`` longtable cell:
 
 - :func:`_ai_cell` — turn raw AI-generated text into a render-safe cell body
   (escape, math-wrap, alltt-protect, bullet-convert, ``\\newline`` cleanup).
-- :func:`_format_criteria_cell` — group marking-criteria entries (short tokens
-  on one line; multi-word criteria each on their own line).
 - :func:`_split_oversized_cell` — when the formatted cell exceeds the
   per-orientation height budget, sub-split it into panels so the longtable
   emits one row per panel (panels stack across page breaks).
@@ -21,7 +19,6 @@ from xscore.marking.report_latex_text import (
     _ALLTT_BLOCK_RE,
     _ALLTT_MATH_RE,
     _ALLTT_MATH_SUB,
-    _ALLTT_PLACEHOLDER_RE,
     _LEADING_LIST_ENV_RE,
     _convert_literal_bullets,
     _escape_bare_amp_outside_tabular,
@@ -128,61 +125,6 @@ def _ai_cell(text: str, cell_width_cm: float = 3.6) -> str:
             + result
         )
     return result
-
-
-def _format_criteria_cell(raw: str, cell_width_cm: float = 3.6) -> str:
-    """Format a marking_criteria string for the Expected column.
-
-    Single-token criteria (one word or one number, no spaces) are grouped
-    on one line joined with ' / '. Multi-word criteria each get their own line.
-
-    ``\\begin{alltt}…\\end{alltt}`` blocks are stashed before the strip-and-group
-    pass so their internal indentation survives — otherwise ``line.strip()``
-    would eat the leading whitespace on every code line.
-
-    *cell_width_cm* is forwarded to `_ai_cell` for alltt font-size selection.
-    """
-    stashed: list[str] = []
-
-    def _stash(m: re.Match) -> str:
-        stashed.append(m.group(0))
-        return f"\x00ALLTT{len(stashed) - 1}\x00"
-
-    text = _ALLTT_BLOCK_RE.sub(_stash, raw)
-
-    lines = []
-    for line in text.split("\n"):
-        line = re.sub(r"^\s*\[[^\]]*\]\s*", "", line).strip()
-        if line:
-            lines.append(line)
-
-    if not lines:
-        return "---"
-
-    segments: list[str] = []
-    short_group: list[str] = []
-    for criterion in lines:
-        # single token: one word or one number (not a LaTeX command, not a stashed alltt placeholder)
-        is_short = (
-            " " not in criterion
-            and not criterion.startswith("\\")
-            and not criterion.startswith("\x00")
-        )
-        if is_short:
-            short_group.append(criterion)
-        else:
-            if short_group:
-                segments.append(" / ".join(short_group))
-                short_group = []
-            segments.append(criterion)
-    if short_group:
-        segments.append(" / ".join(short_group))
-
-    result = "\n".join(segments)
-    result = _ALLTT_PLACEHOLDER_RE.sub(
-        lambda m: stashed[int(m.group(1))], result
-    )
-    return _ai_cell(result, cell_width_cm)
 
 
 # Per-orientation panel budgets used by `_split_oversized_cell` to detect

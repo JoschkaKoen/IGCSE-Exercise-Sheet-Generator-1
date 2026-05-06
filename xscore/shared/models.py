@@ -109,9 +109,11 @@ class Question:
     equation_blank_bboxes: list[BBox] = field(default_factory=list)  # one per "label = …… [n]" line
     writing_areas: list[WritingArea] = field(default_factory=list)
     subquestions: list[Question] = field(default_factory=list)
-    correct_answer: str | None = None
-    marking_criteria: str | None = None
-    reasoning: str | None = None
+    correct_answer: str | None = None       # MCQ answer letter; None for non-MCQ (use mark_scheme_answer instead)
+    mark_scheme_answer: str | None = None    # non-MCQ: whole printed mark-scheme cell as one block
+    explanation: str | None = None           # MCQ: parsed scheme rationale (renders in Reasoning column for unmarked MCQ)
+    marking_criteria: str | None = None      # DEPRECATED — kept for transitional reads; populated alongside mark_scheme_answer
+    reasoning: str | None = None             # DEPRECATED — kept for transitional reads; populated alongside explanation
     answer_images: list[ExamImage] = field(default_factory=list)
     answer_options: list[McAnswerOption] = field(default_factory=list)  # MC only
 
