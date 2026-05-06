@@ -14,8 +14,8 @@ Optional env:
         "qwen3-vl-flash,qwen3.6-flash,qwen3-vl-plus,gemini-3-flash-preview"
     HANDWRITING_DIAG_PAGES   comma-separated 1-based scan pages; default
         "2,8,12,14,24,26,36"
-    HANDWRITING_DIAG_PDF     scan PDF; default merged_scan.pdf from the run
-        listed in the module docstring
+    HANDWRITING_DIAG_PDF     scan PDF; default scanned_exam_merged_and_angles_adjusted.pdf
+        from the run listed in the module docstring
 """
 
 from __future__ import annotations
@@ -51,7 +51,7 @@ EXPECTED: dict[int, bool] = {
 }
 
 DEFAULT_PDF = Path(
-    "output/xscore/s23_12/2026-05-03_01-50-02/04_merge_duplex_scans/merged_scan.pdf"
+    "output/xscore/s23_12/2026-05-03_01-50-02/scanned_exam_merged_and_angles_adjusted.pdf"
 )
 DEFAULT_MODELS = "qwen3-vl-flash,qwen3.6-flash,qwen3-vl-plus,gemini-3-flash-preview"
 DEFAULT_PAGES = "2,8,12,14,24,26,36"

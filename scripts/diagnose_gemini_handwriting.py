@@ -28,7 +28,7 @@ load_project_env()
 from xscore.marking.blank_page_detection import _render_page_jpeg
 
 PDF = Path(
-    "output/xscore/s23_12/2026-05-03_01-50-02/04_merge_duplex_scans/merged_scan.pdf"
+    "output/xscore/s23_12/2026-05-03_01-50-02/scanned_exam_merged_and_angles_adjusted.pdf"
 )
 PAGE = 36  # the page with the false-positive in the original run
 MODEL = "gemini-3-flash-preview"

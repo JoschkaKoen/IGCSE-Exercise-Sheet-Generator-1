@@ -10,6 +10,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from xscore.shared.models import BBox, ExamLayout, McAnswerOption, Question
+from xscore.shared.terminal_ui import warn_line
 
 
 # ---------------------------------------------------------------------------
@@ -276,3 +277,22 @@ def _extract_scheme_graphics(
                     continue
                 pix = page.get_pixmap(dpi=dpi, clip=clip)
                 pix.save(str(out_dir / f"{g['page']}_{safe_num}_{idx}.png"))
+                # Vector PDF crop alongside the PNG — graphicx picks .pdf
+                # over .png automatically (xelatex extension default), so
+                # the print path renders vectors instead of the 300-DPI
+                # raster. PNG above remains both the AI input and the
+                # silent fallback if this PDF write fails.
+                out_pdf_path = out_dir / f"{g['page']}_{safe_num}_{idx}.pdf"
+                try:
+                    with fitz.open() as out_pdf:
+                        # Destination rect equals clip dims — keep_proportion
+                        # default (True) renders 1:1, no scaling, vectors
+                        # preserved.
+                        new_page = out_pdf.new_page(width=clip.width, height=clip.height)
+                        new_page.show_pdf_page(new_page.rect, doc, page_idx, clip=clip)
+                        out_pdf.save(str(out_pdf_path),
+                                     garbage=4, deflate=True, clean=True)
+                except Exception as exc:  # noqa: BLE001
+                    warn_line(f"Mark scheme: vector PDF crop failed for "
+                              f"{out_pdf_path.name} ({exc.__class__.__name__}) — "
+                              f"falling back to PNG")

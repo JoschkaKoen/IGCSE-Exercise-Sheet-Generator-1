@@ -106,8 +106,12 @@ def _scheme_graphics_tex(filenames: list[str]) -> str:
     after a single space — the preceding `\\end{itemize}` already returns
     the parbox to vertical mode, so `\\includegraphics` starts a new line on
     its own. (`\\newline` after `\\end{...}` would raise "no line here to end".)"""
+    # Bare stem (no .png/.pdf) — graphicx's default extension order picks
+    # the .pdf vector crop when present and falls back to the .png raster
+    # when it isn't. Step 22 writes both formats; the PDF gives crisp
+    # print output, the PNG covers any per-graphic PDF write failure.
     return " ".join(
-        rf"\includegraphics[width=\linewidth]{{{f}}}" for f in filenames
+        rf"\includegraphics[width=\linewidth]{{{Path(f).stem}}}" for f in filenames
     )
 
 
@@ -347,7 +351,7 @@ def _class_toc_to_tex(
     section heading (e.g. ``" (landscape)"``); empty by default.
 
     *scan_rows* renders an optional second TOC below the first listing
-    each student's page range in ``cleaned_scan.pdf``. Each dict needs
+    each student's page range in ``scanned_exam_merged_and_angles_adjusted.pdf``. Each dict needs
     ``display_name`` and ``page_range`` (e.g. ``"2–14"``).
     """
     header_extra = f" — {_latex_escape(exam_name.replace('_', ' '))}" if exam_name else ""

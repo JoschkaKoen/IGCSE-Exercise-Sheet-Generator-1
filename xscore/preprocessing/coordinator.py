@@ -1,4 +1,4 @@
-"""Clean a class scan PDF (rotate + de-blank + optional deskew) into *artifact_dir*."""
+"""Merge + deskew a class scan PDF into a single PDF under *artifact_dir*."""
 
 from __future__ import annotations
 
@@ -7,11 +7,8 @@ import shutil
 from pathlib import Path
 
 from xscore.shared.step_folders import (
-    AUTOROTATE_DIR,
-    BLANK_DETECT_DIR,
     CLEANED_SCAN_PDF,
     DESKEW_DIR,
-    LEGACY_CLEANED_SCAN_PDF,
     MERGE_DUPLEX_DIR,
 )
 
@@ -21,52 +18,16 @@ _NUMBERED_RE = re.compile(r"^scan[\s_\-]*(\d+)\b", re.IGNORECASE)
 MERGED_SCAN_PDF           = MERGE_DUPLEX_DIR + "/merged_scan.pdf"
 SCAN_ORIENTATIONS_JSON    = MERGE_DUPLEX_DIR + "/scan_orientations.json"
 ORIENTED_SCAN_PDF         = MERGE_DUPLEX_DIR + "/oriented_scan.pdf"  # single-PDF flow only
-SCAN_BLANKS_JSON          = BLANK_DETECT_DIR + "/scan_blanks.json"
-SCAN_ROTATED_PDF          = AUTOROTATE_DIR + "/scan_rotated.pdf"
-SCAN_ANCHORS_JSON         = DESKEW_DIR + "/scan_anchors.json"
-SCAN_TRANSFORMS_JSON      = DESKEW_DIR + "/scan_transforms.json"
-SCAN_LINES_REMOVED_PDF    = DESKEW_DIR + "/scan_lines_removed.pdf"
-SCAN_BOXES_PROJECTED_PDF  = DESKEW_DIR + "/scan_boxes_projected.pdf"
-SCAN_BOXES_PROJECTED_JSON = DESKEW_DIR + "/scan_boxes_projected.json"
-SCAN_BOXES_REFINED_PDF    = DESKEW_DIR + "/scan_boxes_refined.pdf"
-SCAN_HANDWRITING_JSON     = DESKEW_DIR + "/scan_handwriting.json"
-SCAN_EXERCISE_BOXES_JSON  = DESKEW_DIR + "/scan_exercise_boxes.json"
-SCAN_EXERCISE_BOXES_PDF   = DESKEW_DIR + "/scan_exercise_boxes.pdf"
 DESKEW_ANGLES_JSON        = DESKEW_DIR + "/deskew_angles.json"
 
 
 def _scan_phase_paths(artifact_dir: Path) -> dict[str, Path]:
-    out = artifact_dir / CLEANED_SCAN_PDF  # stem still used for transient paths only
+    cleaned = artifact_dir / CLEANED_SCAN_PDF
     return {
-        "merged":                 artifact_dir / MERGED_SCAN_PDF,
-        "blanks_json":            artifact_dir / SCAN_BLANKS_JSON,
-        "rotated":                artifact_dir / SCAN_ROTATED_PDF,
-        "cleaned":                artifact_dir / CLEANED_SCAN_PDF,
-        "sidecar":                artifact_dir / SCAN_ANCHORS_JSON,
-        "sidecar_legacy":         out.with_name(f"{out.stem}_reflines.json"),  # transient
-        "deskew_tmp":             out.with_name(f"{out.stem}_deskew_tmp{out.suffix}"),  # transient
-        "transforms":             artifact_dir / SCAN_TRANSFORMS_JSON,
-        "vlines_removed":         artifact_dir / SCAN_LINES_REMOVED_PDF,
-        "projected":              artifact_dir / SCAN_BOXES_PROJECTED_PDF,
-        "projected_boxes_json":   artifact_dir / SCAN_BOXES_PROJECTED_JSON,
-        "refined":                artifact_dir / SCAN_BOXES_REFINED_PDF,
-        "hw_results":             artifact_dir / SCAN_HANDWRITING_JSON,
-        "adjusted_exercise_json": artifact_dir / SCAN_EXERCISE_BOXES_JSON,
-        "adjusted_exercise_pdf":  artifact_dir / SCAN_EXERCISE_BOXES_PDF,
+        "merged":     artifact_dir / MERGED_SCAN_PDF,
+        "cleaned":    cleaned,
+        "deskew_tmp": cleaned.with_name(f"{cleaned.stem}_deskew_tmp{cleaned.suffix}"),
     }
-
-
-def _remove_scan_pipeline_outputs(artifact_dir: Path, *, include_projected: bool = True) -> None:
-    """Delete intermediate and final scan outputs under *artifact_dir* (force-clean)."""
-    p = _scan_phase_paths(artifact_dir)
-    for key, path in p.items():
-        if key == "projected" and not include_projected:
-            continue
-        if path.is_file():
-            try:
-                path.unlink()
-            except OSError:
-                pass
 
 
 def find_source_scan_match(
@@ -484,209 +445,26 @@ def _log_cached_orientation_summary(cached: dict[str, int]) -> None:
             ok_line(f"{name}: applying rotation {rot}° CW (cached)")
 
 
-def _scan_blanks_to_md(
-    source_pdf: Path,
-    total_pages: int,
-    content_page_nums: list,
-    blank_page_nums: list,
-    page_render_sizes: list,
-    blank_mean: float,
-    blank_std: float,
-    analysis_dpi: int,
-) -> str:
-    """Render a compact human-readable summary of scan blank-detection results."""
-    from collections import Counter
-    size_counts = Counter(f"{w}\u00d7{h}" for w, h in page_render_sizes)
-    size_summary = ", ".join(f"{s} ({n} pages)" for s, n in size_counts.most_common())
-    lines = [
-        "# Scan Blanks Analysis",
-        "",
-        "| Field | Value |",
-        "|-------|-------|",
-        f"| Source PDF | {source_pdf.name} |",
-        f"| Total pages | {total_pages} |",
-        f"| Content pages | {len(content_page_nums)} |",
-        f"| Blank pages | {len(blank_page_nums)} |",
-        f"| Analysis DPI | {analysis_dpi} |",
-        f"| Blank detection | mean \u2265 {blank_mean}, std \u2264 {blank_std} |",
-        f"| Page sizes | {size_summary} |",
-    ]
-    return "\n".join(lines) + "\n"
-
-
-def detect_blank_pages_phase(
-    source_pdf: Path,
-    artifact_dir: Path,
-    *,
-    analysis_dpi: int,
-    force_clean_scan: bool = False,
-    blank_mean: float | None = None,
-    blank_std: float | None = None,
-) -> Path:
-    """detect_blank_pages body: write ``scan_blanks.json`` with blank/content lists and render sizes."""
-    from xscore.preprocessing.remove_blanks_autorotate import (
-        BLANK_MEAN_THRESHOLD,
-        BLANK_STD_THRESHOLD,
-        detect_blank_page_lists,
-        scan_blanks_state_to_json,
-    )
-    from xscore.shared.terminal_ui import ok_line
-
-    paths = _scan_phase_paths(artifact_dir)
-    if force_clean_scan:
-        _remove_scan_pipeline_outputs(artifact_dir)
-
-    bm = blank_mean if blank_mean is not None else BLANK_MEAN_THRESHOLD
-    bs = blank_std if blank_std is not None else BLANK_STD_THRESHOLD
-
-    total_pages, content_page_nums, blank_page_nums, page_render_sizes = (
-        detect_blank_page_lists(source_pdf, blank_mean=bm, blank_std=bs)
-    )
-    if not content_page_nums:
-        raise RuntimeError("All scan pages classified as blank — nothing to process.")
-
-    body = scan_blanks_state_to_json(
-        source_pdf=source_pdf,
-        total_pages=total_pages,
-        content_page_nums=content_page_nums,
-        blank_page_nums=blank_page_nums,
-        page_render_sizes=page_render_sizes,
-        blank_mean=bm,
-        blank_std=bs,
-        analysis_dpi=analysis_dpi,
-    )
-    paths["blanks_json"].parent.mkdir(parents=True, exist_ok=True)
-    paths["blanks_json"].write_text(body, encoding="utf-8")
-    paths["blanks_json"].with_suffix(".md").write_text(
-        _scan_blanks_to_md(
-            source_pdf=source_pdf,
-            total_pages=total_pages,
-            content_page_nums=content_page_nums,
-            blank_page_nums=blank_page_nums,
-            page_render_sizes=page_render_sizes,
-            blank_mean=bm,
-            blank_std=bs,
-            analysis_dpi=analysis_dpi,
-        ),
-        encoding="utf-8",
-    )
-    ok_line(
-        f"{len(content_page_nums)} content pages · {len(blank_page_nums)} blank"
-    )
-    return paths["blanks_json"]
-
-
-def write_skipped_blanks_state(
-    source_pdf: Path,
-    artifact_dir: Path,
-    *,
-    analysis_dpi: int,
-) -> Path:
-    """Write a synthetic ``scan_blanks.json`` marking every page as content.
-
-    Used when step 5 is disabled via ``BLANK_DETECTION_SKIP=true``. Page
-    sizes are derived from PDF page dimensions × ``BLANK_DPI/72`` rather
-    than from a rendering pass — kept informational; step 6 no longer
-    consumes them.
-    """
-    import pikepdf
-    from xscore.preprocessing.remove_blanks_autorotate import (
-        BLANK_DPI,
-        BLANK_MEAN_THRESHOLD,
-        BLANK_STD_THRESHOLD,
-        scan_blanks_state_to_json,
-    )
-
-    paths = _scan_phase_paths(artifact_dir)
-    with pikepdf.open(str(source_pdf)) as pdf:
-        total_pages = len(pdf.pages)
-        page_render_sizes: list[tuple[int, int]] = []
-        for page in pdf.pages:
-            mb = page.MediaBox
-            w_pt = float(mb[2]) - float(mb[0])
-            h_pt = float(mb[3]) - float(mb[1])
-            page_render_sizes.append((
-                int(round(w_pt * BLANK_DPI / 72)),
-                int(round(h_pt * BLANK_DPI / 72)),
-            ))
-
-    body = scan_blanks_state_to_json(
-        source_pdf=source_pdf,
-        total_pages=total_pages,
-        content_page_nums=list(range(1, total_pages + 1)),
-        blank_page_nums=[],
-        page_render_sizes=page_render_sizes,
-        blank_mean=BLANK_MEAN_THRESHOLD,
-        blank_std=BLANK_STD_THRESHOLD,
-        analysis_dpi=analysis_dpi,
-    )
-    paths["blanks_json"].parent.mkdir(parents=True, exist_ok=True)
-    paths["blanks_json"].write_text(body, encoding="utf-8")
-    return paths["blanks_json"]
-
-
-def autorotate_phase(
-    artifact_dir: Path,
-    *,
-    output_pdf: Path | None = None,
-) -> Path:
-    """autorotate body: copy the source scan to ``scan_rotated.pdf`` preserving ``/Rotate``.
-
-    Step 4 (``prepare_scans``) is the single rotation authority — it bakes
-    detected angles into the merged PDF's ``/Rotate`` metadata. This step
-    forwards every page through without touching ``/Rotate``; the historical
-    "landscape→portrait" heuristic and the second Tesseract OSD pass were
-    removed because they overrode step 4's decision.
-
-    Step 14 matches every scan page against the empty exam catalog and decides
-    identity, so we keep all pages here (``scan_blanks.json`` stays
-    informational).
-    """
-    from xscore.preprocessing.remove_blanks_autorotate import (
-        scan_blanks_state_from_json,
-        write_rotated_pdf_after_blanks,
-    )
-
-    paths = _scan_phase_paths(artifact_dir)
-    blanks_path = paths["blanks_json"]
-    if not blanks_path.is_file():
-        raise FileNotFoundError(f"Missing {blanks_path.name} — run blank detection first.")
-    state = scan_blanks_state_from_json(blanks_path.read_text(encoding="utf-8"))
-    source = Path(state["source_pdf"])
-    if not source.is_file():
-        raise FileNotFoundError(f"Source scan missing: {source}")
-
-    out = output_pdf if output_pdf is not None else paths["rotated"]
-    out.parent.mkdir(parents=True, exist_ok=True)
-    total = int(state["total_pages"])
-    write_rotated_pdf_after_blanks(
-        source,
-        out,
-        total_pages=total,
-        content_page_nums=list(range(1, total + 1)),  # retain ALL pages — step 14 matcher decides identity
-        blank_page_nums=[],                            # informational-only; see scan_blanks.json
-    )
-    return out
-
-
 def deskew_phase(
     artifact_dir: Path,
     dpi: int,
     *,
     input_pdf: Path | None = None,
 ) -> Path:
-    """deskew body: deskew ``scan_rotated.pdf`` (or *input_pdf*) into ``cleaned_scan.pdf``.
+    """deskew body: deskew the merged/oriented scan into the final consolidated PDF.
 
-    The canonical location is the run root (``CLEANED_SCAN_PDF``); a duplicate
-    copy is also written under ``07_deskew/`` so the step folder is
-    self-contained when browsing artifacts.
+    Reads the path returned by :func:`prepare_scans_phase` (passed via *input_pdf*),
+    deskews each page, and writes the result to ``CLEANED_SCAN_PDF`` at the
+    artifact-dir root. Step 4's transient ``merged_scan.pdf`` /
+    ``oriented_scan.pdf`` are deleted on success so step 7 owns the only PDF
+    saved by steps 1-7.
     """
     from xscore.preprocessing.deskew import deskew_pdf_raster
 
     paths = _scan_phase_paths(artifact_dir)
-    inp = input_pdf if input_pdf is not None else paths["rotated"]
+    inp = input_pdf if input_pdf is not None else paths["merged"]
     if not inp.is_file():
-        raise FileNotFoundError(f"Missing rotated scan: {inp}")
+        raise FileNotFoundError(f"Missing prepared scan: {inp}")
 
     out = paths["cleaned"]
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -699,7 +477,11 @@ def deskew_phase(
         angles_json_path=artifact_dir / DESKEW_ANGLES_JSON,
     )
     shutil.move(str(tmp_deskew), str(out))
-    deskew_copy = artifact_dir / DESKEW_DIR / CLEANED_SCAN_PDF
-    deskew_copy.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(str(out), str(deskew_copy))
+
+    # Step 7 owns the only saved PDF in steps 1-7.
+    # Note: _prepare_single's no-rotation branch returns the user's source path
+    # (outside artifact_dir) — it's never one of the paths below, so this loop
+    # cannot accidentally clobber the source PDF.
+    for tmp in (artifact_dir / MERGED_SCAN_PDF, artifact_dir / ORIENTED_SCAN_PDF):
+        tmp.unlink(missing_ok=True)
     return out

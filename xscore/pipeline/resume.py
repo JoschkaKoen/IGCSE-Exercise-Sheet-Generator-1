@@ -30,11 +30,15 @@ def copy_input_files(folder: Path, artifact_dir: Path) -> None:
     from xscore.shared.exam_paths import artifact_input_dir
     dst = artifact_input_dir(artifact_dir)
     dst.mkdir(parents=True, exist_ok=True)
+    from xscore.shared.step_folders import CLEANED_SCAN_PDF
     _EXAM_SKIP = ("scan", "answer", "student", "cleaned", "_ms_")
     for f in folder.iterdir():
         if not f.is_file():
             continue
-        if f.suffix.lower() == ".pdf" and "scan" in f.name.lower() and "cleaned" not in f.name.lower():
+        if (f.suffix.lower() == ".pdf"
+                and "scan" in f.name.lower()
+                and "cleaned" not in f.name.lower()
+                and f.name != CLEANED_SCAN_PDF):
             shutil.copy2(f, dst / f.name)
             continue
         if f.suffix.lower() == ".pdf" and not any(kw in f.name.lower() for kw in _EXAM_SKIP):
@@ -131,7 +135,10 @@ def resume_pipeline(ctx: "_Ctx") -> None:
 
     required: list[Path] = []
     for paths in [
-        (resume_dir / "cleaned_scan.pdf",                        resume_dir / "07_deskew" / "cleaned_scan.pdf",          resume_dir / "7_cleaned_scan.pdf"),
+        (resume_dir / "scanned_exam_merged_and_angles_adjusted.pdf",
+         resume_dir / "cleaned_scan.pdf",
+         resume_dir / "07_deskew" / "cleaned_scan.pdf",
+         resume_dir / "7_cleaned_scan.pdf"),
         (resume_dir / "03_read_student_list" / "students.json",  resume_dir / "3_students.json"),
         # Student list — new (16_) and legacy (15_, 14_, 12_, 11_, 8_) locations.
         (resume_dir / "16_student_names" / "exam_student_list.json",
@@ -193,11 +200,14 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     assert ctx.artifact_dir is not None
     copy_artifacts(resume_dir, ctx.artifact_dir, ctx.from_step)
 
-    cleaned_new = ctx.artifact_dir / "cleaned_scan.pdf"
+    cleaned_new = ctx.artifact_dir / "scanned_exam_merged_and_angles_adjusted.pdf"
+    cleaned_legacy = ctx.artifact_dir / "cleaned_scan.pdf"
     cleaned_legacy_step = ctx.artifact_dir / DESKEW_DIR / "cleaned_scan.pdf"
     cleaned_old = ctx.artifact_dir / "7_cleaned_scan.pdf"
     if cleaned_new.exists():
         ctx.cleaned_pdf = cleaned_new
+    elif cleaned_legacy.exists():
+        ctx.cleaned_pdf = cleaned_legacy
     elif cleaned_legacy_step.exists():
         ctx.cleaned_pdf = cleaned_legacy_step
     else:

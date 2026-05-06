@@ -117,10 +117,6 @@ STEPS: tuple[Step, ...] = (
          title="Read student list"),
     Step(4,  "prepare_scans",              writes=("04_merge_duplex_scans/*",),
          title="Orient and merge scans", section="Scan cleaning"),
-    Step(5,  "detect_blank_pages",         writes=("05_detect_blank_pages/*",),
-         title="Detect white pages in scanned exam"),
-    Step(6,  "autorotate",                 writes=("06_autorotate/*",),
-         title="Autorotate scanned exam pages"),
     Step(7,  "deskew",                     writes=("07_deskew/*",),
          title="Deskew scanned pages"),
     # Empty-exam analysis (no scan dependency) — pulled up so problems with
@@ -553,8 +549,6 @@ def wire_step_fns() -> None:
         ("xscore.steps.scan", (
             "read_student_list",
             "prepare_scans",
-            "detect_blank_pages",
-            "autorotate",
             "deskew",
         )),
         ("xscore.steps.geometry", (

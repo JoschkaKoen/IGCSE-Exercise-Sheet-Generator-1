@@ -19,8 +19,6 @@ SUBDIR_INPUT = "input"   # copies of all input files used by this run
 PARSE_INSTRUCTIONS_DIR = "01_parse_grading_instructions"
 STUDENT_LIST_DIR       = "03_read_student_list"
 MERGE_DUPLEX_DIR       = "04_merge_duplex_scans"
-BLANK_DETECT_DIR       = "05_detect_blank_pages"
-AUTOROTATE_DIR         = "06_autorotate"
 DESKEW_DIR             = "07_deskew"
 
 # Empty-exam analysis (no scan dependency).
@@ -69,11 +67,8 @@ TIMING_DIR             = "35_timing_summary"
 AI_COSTS_DIR           = "37_ai_costs"
 
 
-# Path of cleaned scan relative to artifact_dir (run root).
-CLEANED_SCAN_PDF = "cleaned_scan.pdf"
-# Legacy location used by pre-2026 runs that wrote into the deskew step folder.
-# Resume code falls back to this when the run-root copy is missing.
-LEGACY_CLEANED_SCAN_PDF = DESKEW_DIR + "/cleaned_scan.pdf"
+# Path of the merged + angle-adjusted scan relative to artifact_dir (run root).
+CLEANED_SCAN_PDF = "scanned_exam_merged_and_angles_adjusted.pdf"
 
 # Backwards-compatible aliases kept for callers not yet migrated to per-step paths.
 SUBDIR_STUDENTS = "students"

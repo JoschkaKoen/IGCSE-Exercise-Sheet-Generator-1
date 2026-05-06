@@ -117,16 +117,15 @@ def deskew_pdf_raster(
     to a sibling temp path and ``Path.replace`` afterward.
 
     Args:
-        input_pdf: Source PDF after :func:`preprocessing.coordinator.autorotate_phase`
-            (blanks dropped; ``/Rotate`` preserved verbatim from step 4's detection).
+        input_pdf: The merged/oriented scan from :func:`preprocessing.coordinator.prepare_scans_phase`
+            (rotation already baked into ``/Rotate``).
         output_pdf: Destination PDF (must not resolve to the same path as *input_pdf*).
         dpi: Render/output DPI.
         reflines_sidecar: Optional path for the sidecar JSON (reflines + placeholder
-            anchors).  Defaults to :func:`anchors_sidecar_path` applied to
-            *output_pdf*.  Use this when *output_pdf* is a temp file but the sidecar
-            should use the final stem (e.g. ``cleaned_scan_anchors.json``).
-        saved_as: If set, compact-mode success line shows this filename (e.g. final
-            ``cleaned_scan.pdf``) when *output_pdf* is a temp path.
+            anchors).  Use this when *output_pdf* is a temp file but the sidecar
+            should use the final stem (currently no callers pass this in production).
+        saved_as: If set, compact-mode success line shows this filename
+            when *output_pdf* is a temp path.
 
     Returns:
         Path to the written output PDF.

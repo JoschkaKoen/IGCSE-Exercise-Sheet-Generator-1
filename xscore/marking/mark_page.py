@@ -30,7 +30,7 @@ from xscore.shared.terminal_ui import info_line, warn_line
 def _render_page_b64(doc: Any, page_idx: int, dpi: int = 300) -> str:
     """Render a fitz Document page at *page_idx* as base64 JPEG.
 
-    Fast path: cleaned_scan.pdf (built by deskew_pdf_raster) embeds exactly one
+    Fast path: scanned_exam_merged_and_angles_adjusted.pdf (built by deskew_pdf_raster) embeds exactly one
     full-page JPEG per page at the source DPI. When that matches the requested
     DPI within 5 %, return the embedded bytes verbatim — no decode, no raster,
     no re-encode. Slow path (foreign PDFs / explicit DPI override): rasterize

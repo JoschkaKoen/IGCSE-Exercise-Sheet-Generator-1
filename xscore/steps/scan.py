@@ -1,5 +1,4 @@
-"""Scan-cleaning step bodies: roster, optional duplex merge, blank detection,
-autorotate, deskew.
+"""Scan-cleaning step bodies: roster, optional duplex merge, deskew.
 
 ``prepare_scans`` is conditional on whether the scan folder contains numbered duplex
 pairs (``find_scan_pairs``). One pair (scan1+scan2) or many (scan1+scan2,
@@ -9,8 +8,7 @@ The single-PDF branch (no numbered files; falls through to
 summary.json. The conditional dispatch lives in ``scan_phases``; the runner
 calls that helper rather than looping over the scan-cleaning steps individually.
 
-The blank-detect / autorotate / deskew steps each write a per-step ``summary.json``
-whose ``elapsed_s`` field
+The deskew step writes a per-step ``summary.json`` whose ``elapsed_s`` field
 is captured locally (run_step's outer timing only becomes available *after*
 the body returns).
 """
@@ -18,18 +16,13 @@ the body returns).
 from __future__ import annotations
 
 import json
-import os
 import time
 
-from xscore.config import ROTATION_ANALYSIS_DPI
 from xscore.preprocessing.coordinator import (
-    autorotate_phase,
     deskew_phase,
-    detect_blank_pages_phase,
     prepare_scans_phase,
-    write_skipped_blanks_state,
 )
-from xscore.shared.step_folders import AUTOROTATE_DIR, BLANK_DETECT_DIR, DESKEW_DIR
+from xscore.shared.step_folders import DESKEW_DIR
 from xscore.shared.load_student_list import read_student_list as _read_student_list
 from xscore.shared.pipeline_ctx import _Ctx
 from xscore.shared.pipeline_steps import run_step, step_by_number
@@ -37,7 +30,6 @@ from xscore.shared.student_artifacts import write_student_artifacts
 from xscore.shared.terminal_ui import (
     announce_step_model,
     format_duration,
-    info_line,
     ok_line,
 )
 
@@ -72,45 +64,12 @@ def prepare_scans(ctx: _Ctx) -> None:
     ok_line(f"Scans prepared  ·  {format_duration(time.perf_counter() - t0)}")
 
 
-def detect_blank_pages(ctx: _Ctx) -> None:
-    assert ctx.artifact_dir is not None and ctx.scan_match is not None
-    if os.environ.get("BLANK_DETECTION_SKIP", "").strip().lower() in ("1", "true", "yes", "on"):
-        # Wording matches the jsonl status (``ok``) so the two surfaces agree
-        # — the orchestrator always logs ``ok`` for a successful step return.
-        info_line("ok · skipped via BLANK_DETECTION_SKIP")
-        write_skipped_blanks_state(
-            ctx.scan_match, ctx.artifact_dir, analysis_dpi=ROTATION_ANALYSIS_DPI,
-        )
-        return
-    t0 = time.perf_counter()
-    detect_blank_pages_phase(
-        ctx.scan_match, ctx.artifact_dir,
-        analysis_dpi=ROTATION_ANALYSIS_DPI, force_clean_scan=ctx.force_clean_scan,
-    )
-    p = ctx.artifact_dir / BLANK_DETECT_DIR / "summary.json"
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(
-        json.dumps({"step": 5, "elapsed_s": round(time.perf_counter() - t0, 3), "status": "ok"}, indent=2),
-        encoding="utf-8",
-    )
-
-
-def autorotate(ctx: _Ctx) -> None:
-    assert ctx.artifact_dir is not None
-    t0 = time.perf_counter()
-    autorotate_phase(ctx.artifact_dir)
-    p = ctx.artifact_dir / AUTOROTATE_DIR / "summary.json"
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(
-        json.dumps({"step": 6, "elapsed_s": round(time.perf_counter() - t0, 3), "status": "ok"}, indent=2),
-        encoding="utf-8",
-    )
-
-
 def deskew(ctx: _Ctx) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
     t0 = time.perf_counter()
-    ctx.cleaned_pdf = deskew_phase(ctx.artifact_dir, ctx.instruction.dpi)
+    ctx.cleaned_pdf = deskew_phase(
+        ctx.artifact_dir, ctx.instruction.dpi, input_pdf=ctx.scan_match,
+    )
     p = ctx.artifact_dir / DESKEW_DIR / "summary.json"
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(
@@ -131,6 +90,4 @@ def scan_phases(ctx: _Ctx) -> None:
         return
 
     run_step(ctx, step_by_number(4))
-    run_step(ctx, step_by_number(5))
-    run_step(ctx, step_by_number(6))
     run_step(ctx, step_by_number(7))

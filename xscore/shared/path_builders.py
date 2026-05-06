@@ -17,8 +17,6 @@ from xscore.shared.step_folders import (
     AI_COSTS_DIR,
     AI_MARKING_DIR,
     ASSIGN_QUESTIONS_DIR,
-    AUTOROTATE_DIR,
-    BLANK_DETECT_DIR,
     BLUEPRINTS_DIR,
     BUILD_REGISTER_DIR,
     CLASS_REPORT_DIR,

@@ -138,7 +138,7 @@ def detect_handwriting_in_rects(
     """Rasterize one PDF page, crop each rect, detect handwriting.
 
     Args:
-        scan_pdf:       Path to the deskewed scan PDF (cleaned_scan.pdf).
+        scan_pdf:       Path to the deskewed scan PDF (scanned_exam_merged_and_angles_adjusted.pdf).
         page_idx:       Zero-based page index to rasterize.
         rects:          Yellow margin-strip rects in PDF points.
         dpi:            Raster DPI — must match the DPI used to build the transforms.
@@ -359,7 +359,7 @@ def write_adjusted_exercise_pdf(
     no yellow overlays, no teal equation boxes.
 
     Args:
-        scan_pdf:             ``cleaned_scan.pdf`` — deskewed base scan.
+        scan_pdf:             ``scanned_exam_merged_and_angles_adjusted.pdf`` — deskewed base scan.
         projected_boxes_json: ``scan_projected_boxes.json`` from step 10.
         output_pdf:           Destination path.
         adjusted_data:        Mapping of page_idx → adjusted exercise entries

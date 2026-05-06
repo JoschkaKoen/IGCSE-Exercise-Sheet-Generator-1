@@ -99,7 +99,7 @@ def _build_body_tex(entries: list[dict]) -> str:
             f"\\section*{{Mark Scheme Page {ms_page}  ·  Question {qnum}}}\n"
             f"\\begin{{center}}\n"
             f"\\includegraphics[max width=\\linewidth,"
-            f"max totalheight=0.55\\textheight]{{{fname}}}\n"
+            f"max totalheight=0.55\\textheight]{{{Path(fname).stem}}}\n"
             f"\\end{{center}}\n"
             f"\\vspace{{0.6em}}\n"
             f"\\textbf{{Transcription:}}\\par\n"
