@@ -169,7 +169,7 @@ For pages with no continuation, only one attachment is present and this rule is 
 - **text answers** — capture the student's exact words, preserving spelling and units. Apply the shape rules above (list-shaped → itemize/enumerate; math in `$...$`). Common LaTeX commands inside math: `\times`, `\frac{}{}`, `\pi`, `\approx`, `\rightarrow`, `\%`. Failing to wrap math in `$...$` will crash the downstream PDF renderer.
 - **calculation answers** — capture the student's full working AND final answer word-for-word, including intermediate steps if the student wrote them. Math wrapping rules apply.
 - **crossed-out prose** — ignore crossed-out text. Capture only what is not crossed out.
-- **matching / line-drawing** — when the question shows two groups of boxes and the student draws lines between them, render each drawn line as one `<left-name> $→$ <right-name>` entry, one per line, ordered top-to-bottom by the left endpoint.
+- **matching / line-drawing** — when the question shows two groups of boxes and the student draws lines between them, wrap the answer in `\begin{itemize}…\end{itemize}` with one `\item` per drawn line as `<left-name> $→$ <right-name>`, ordered top-to-bottom by the left endpoint.
 
   Name each box by the first option that applies:
 
@@ -177,18 +177,70 @@ For pages with no continuation, only one attachment is present and this rule is 
   2. **Symbol** — a name for the symbol if there's no word (e.g. `∑` → `sigma`; `×` → `times`).
   3. **Position** — `1st left`, `2nd left`, … or `1st right`, `2nd right`, … if the box has neither.
 
-  Names are picked per-box, so the two ends of one connection can use different schemes:
+  Names are picked per-box, so the two ends of one connection can use different schemes.
 
-      AND $→$ 2nd right
-      OR $→$ 3rd right
+  Positive example:
+
+      student_answer: |
+        \begin{itemize}
+        \item stores data in a file $→$ \texttt{WRITE}
+        \item retrieves data from a file $→$ \texttt{READ}
+        \item displays data on a screen $→$ \texttt{OUTPUT}
+        \item enters data from a keyboard $→$ \texttt{INPUT}
+        \end{itemize}
 
   All-positional when no box has a label:
 
-      1st left $→$ 3rd right
-      2nd left $→$ 4th right
+      student_answer: |
+        \begin{itemize}
+        \item 1st left $→$ 3rd right
+        \item 2nd left $→$ 4th right
+        \end{itemize}
 
-- **diagram** — when the student draws a diagram (circuit, logic gate, tree, structure diagram, graph, etc.), describe it in prose: name each labelled element, its value, and the relationships or layout. State what the diagram **conveys**, not how it's **drawn**.
-- **flowchart** — when the student draws a flowchart, render it as Cambridge IGCSE pseudocode in `\begin{alltt}...\end{alltt}` when the control flow is clear; otherwise list each step and the connections between them in prose (e.g. `Start $→$ INPUT N $→$ IF N > 0 THEN OUTPUT N ELSE OUTPUT 0 ENDIF $→$ Stop`).
+- **diagram** — when the student draws a diagram (circuit, logic gate, tree, structure diagram, graph, etc.), wrap the answer in `\begin{itemize}…\end{itemize}` with one `\item` per labelled element, connection, or relationship. State what the diagram **conveys**, not how it's **drawn**.
+
+  Positive example (logic-gate circuit):
+
+      student_answer: |
+        \begin{itemize}
+        \item Inputs: A, B, C
+        \item A $→$ NOT gate
+        \item B $→$ NOT gate
+        \item C $→$ NOT gate
+        \item NOT(A) and NOT(B) $→$ first OR gate
+        \item Output of first OR gate and NOT(C) $→$ second OR gate
+        \item Output of second OR gate is X
+        \end{itemize}
+
+- **chart** — when the student draws a graph, bar chart, scatter plot, or set of axes, wrap the answer in `\begin{itemize}…\end{itemize}` with one `\item` for each axis label & unit, plotted point or series, line of best fit, and annotation. **Truth tables, trace tables, and decision tables are not charts** — they keep using `\begin{tabular}` per the Trace tables / truth tables / decision tables rule below.
+
+  Positive example (distance-vs-time graph):
+
+      student_answer: |
+        \begin{itemize}
+        \item x-axis: time / s, 0 to 10
+        \item y-axis: distance / m, 0 to 50
+        \item Points plotted: (0, 0), (2, 10), (4, 20), (6, 30), (8, 40), (10, 50)
+        \item Straight line of best fit through all points
+        \item Annotation: "constant velocity" near the line
+        \end{itemize}
+
+- **flowchart** — when the student draws a flowchart, wrap the answer in `\begin{itemize}…\end{itemize}` with one `\item` per node, decision, or connection in execution order. **Always bullets — no alltt-pseudocode and no prose-with-arrows fallback.** Use a flat list with `Yes:` / `No:` prefixes for branches by default; this survives messy real-world flowcharts (loop-backs, "also drawn" alternatives, crossed-out paths). Nested `\begin{itemize}` under a decision item is allowed only when the student's branching is unambiguous.
+
+  Positive example (password-check flowchart):
+
+      student_answer: |
+        \begin{itemize}
+        \item Start
+        \item OUTPUT "Input the password"
+        \item INPUT password
+        \item Posn $\leftarrow$ 1, Found $\leftarrow$ FALSE
+        \item IF password = OldList[Posn]
+        \item Yes: Found $\leftarrow$ TRUE
+        \item No: Posn $\leftarrow$ Posn + 1
+        \item OUTPUT "New password accepted"
+        \item Stop
+        \end{itemize}
 
 ## `student_answer` YAML form
 
@@ -399,7 +451,7 @@ Notes:
 
 Before producing the YAML, scan each non-empty `student_answer`:
 
-1. **Shape check.** Is it list-shaped, code-shaped, or math-containing? If yes — is the corresponding wrapper (`\begin{itemize}`/`\begin{enumerate}`/`\begin{alltt}`/`$…$`) present? If none of those — is it plain prose without a wrapper (correct)?
+1. **Shape check.** Is it list-shaped, matching/flowchart/chart/diagram-shaped, code-shaped, or math-containing? If yes — is the corresponding wrapper present (`\begin{itemize}` for matching/flowchart/chart/diagram, `\begin{itemize}`/`\begin{enumerate}` for list-shaped, `\begin{alltt}` for code, `$…$`/`$$…$$` for math)? If none of those — is it plain prose without a wrapper (correct)?
 2. **Code-indent check.** If wrapped in `\begin{alltt}`, is each nested block 2 spaces deeper than its enclosing keyword? Are closing keywords (`ENDIF`, `UNTIL`, `NEXT`, …) at the same column as their opener? Apply canonical indentation regardless of what the student wrote — it's the teaching cue in the rendered report.
 3. **Math-wrap check.** Are all math expressions inside `$…$` or `$$…$$`?
 4. **No over-wrapping.** A single-sentence answer should NOT be wrapped in `\begin{itemize}`. A definition that mentions `<-` once in passing is NOT code. Wrap only when a trigger fires.

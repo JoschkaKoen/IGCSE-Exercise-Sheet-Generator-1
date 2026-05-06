@@ -68,6 +68,7 @@ def copy_artifacts(src: Path, dst: Path, from_step: int) -> None:
 
     patterns: list[str] = [g for s in STEPS if s.number < from_step for g in s.writes]
     patterns += [
+        "scanned_exam_merged_and_angles_adjusted.pdf",
         "3_students.*",
         "7_cleaned_scan.pdf",
         "8_exam_geometry.*", "8_exam_student_list.*", "8_blank_pages.json",

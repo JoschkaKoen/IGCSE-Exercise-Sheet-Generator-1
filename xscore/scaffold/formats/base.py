@@ -408,14 +408,24 @@ class ScaffoldFormat:
         return _build_user_exam_prompt_yaml(layout_result, is_split, n_split_pages)
 
     def build_scheme_user_msg(
-        self, scaffold_str: str, page_num: int, n_pages: int,
+        self, scaffold_str: str, pages: list[int], n_pages: int,
         input_label: str = "PDF",
     ) -> str:
+        if len(pages) == 1:
+            page_label = str(pages[0])
+        elif pages == list(range(pages[0], pages[-1] + 1)):
+            page_label = f"{pages[0]}–{pages[-1]}"
+        else:
+            page_label = ", ".join(str(p) for p in pages)
         page_note = (
             f"\n\n## Page context\n"
-            f"The {input_label} you receive is page {page_num} of {n_pages} of the mark scheme.\n"
-            f"Fill `correct_answer` and `criteria` for the questions whose criteria appear on this page. "
-            f'For every other question in the scaffold, leave `correct_answer: ""` and `criteria: []`.\n'
+            f"The {input_label} you receive contains page(s) {page_label} of {n_pages} of the mark scheme.\n"
+            f"Fill `correct_answer` and `criteria` for each scaffold question. "
+            f"If a question's content (answer or criteria) spans multiple pages "
+            f"within this {input_label}, assemble the COMPLETE content into a "
+            f"SINGLE entry — do NOT emit the same question twice. "
+            f"For every scaffold question whose content does not appear here, "
+            f"leave `correct_answer: ''` and `criteria: []`. "
             f"Keep every scaffold entry — do not remove any."
         )
         return load_prompt(

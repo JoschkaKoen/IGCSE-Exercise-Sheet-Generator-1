@@ -204,13 +204,21 @@ def _student_report_to_tex(
         correct_raw = str(q.get("correct_answer") or "").strip()
         criteria_raw = str(q.get("marking_criteria") or "").strip()
         question_type = str(q.get("question_type", "")).strip()
-        if question_type == "multiple_choice" or not criteria_raw:
-            # MCQ: always show the answer letter.
+        if question_type == "multiple_choice":
+            # MCQ: show the answer letter (criteria are MCQ rationale, kept in Reasoning).
+            correct_ans = _ai_cell(correct_raw, exp_w) if correct_raw else "---"
+        elif criteria_raw:
+            # Non-MCQ: render the full mark scheme content — model answer first,
+            # then the criteria breakdown — so the Expected column carries
+            # everything that was in the printed cell minus per-criterion mark
+            # counts (stripped by _format_criteria_cell). For pseudocode-as-answer
+            # questions like Q10 the model code lives in correct_raw and the
+            # criteria are AO/marking notes; both are needed.
+            combined = (correct_raw + "\n" + criteria_raw) if correct_raw else criteria_raw
+            correct_ans = _format_criteria_cell(combined, exp_w)
+        else:
             # Non-MCQ without criteria: fall back to correct_answer.
             correct_ans = _ai_cell(correct_raw, exp_w) if correct_raw else "---"
-        else:
-            # Non-MCQ with criteria: show the full breakdown regardless of correct_answer.
-            correct_ans = _format_criteria_cell(criteria_raw, exp_w)
         gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum((q.get("number") or "")), [])
         if gfx_files:
             correct_ans = correct_ans + " " + _scheme_graphics_tex(gfx_files)
@@ -531,10 +539,13 @@ def _student_report_with_questions_to_tex(
         correct_raw = str(q.get("correct_answer") or "").strip()
         criteria_raw = str(q.get("marking_criteria") or "").strip()
         question_type = str(q.get("question_type", "")).strip()
-        if question_type == "multiple_choice" or not criteria_raw:
+        if question_type == "multiple_choice":
             correct_ans = _ai_cell(correct_raw, exp_w) if correct_raw else "---"
+        elif criteria_raw:
+            combined = (correct_raw + "\n" + criteria_raw) if correct_raw else criteria_raw
+            correct_ans = _format_criteria_cell(combined, exp_w)
         else:
-            correct_ans = _format_criteria_cell(criteria_raw, exp_w)
+            correct_ans = _ai_cell(correct_raw, exp_w) if correct_raw else "---"
         gfx_files = q_to_graphics.get(_scheme_graphics_safe_qnum(qnum_raw), [])
         if gfx_files:
             correct_ans = correct_ans + " " + _scheme_graphics_tex(gfx_files)

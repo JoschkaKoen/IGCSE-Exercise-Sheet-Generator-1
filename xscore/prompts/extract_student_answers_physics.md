@@ -111,25 +111,59 @@ For pages with no continuation, only one attachment is present and this rule is 
 - **text answers** — capture the student's exact words, preserving spelling and units. Apply the shape rules above (list-shaped → itemize/enumerate; math in `$...$`). Common LaTeX commands: `\times`, `\frac{}{}`, `\pi`, `\approx`, `\rightarrow`, `\%`. Failing to wrap math in `$...$` will crash the downstream PDF renderer.
 - **calculation answers** — capture the student's full working AND final answer word-for-word, including intermediate steps if the student wrote them. Math wrapping rules apply.
 - **crossed-out prose** — ignore crossed-out text. Capture only what is not crossed out.
-- **matching / line-drawing** — when the question shows two groups of boxes and the student draws lines between them, render each drawn line as one `<left-name> $→$ <right-name>` entry, one per line, ordered top-to-bottom by the left endpoint.
+- **matching / line-drawing** — when the question shows two groups of boxes and the student draws lines between them, wrap the answer in `\begin{itemize}…\end{itemize}` with one `\item` per drawn line as `<left-name> $→$ <right-name>`, ordered top-to-bottom by the left endpoint.
 
   Name each box by the first option that applies:
 
-  1. **Word** — the word or short label inside the box (e.g. `AND` → `AND`).
-  2. **Symbol** — a name for the symbol if there's no word (e.g. `∑` → `sigma`; `×` → `times`).
+  1. **Word** — the word or short label inside the box (e.g. `force` → `force`).
+  2. **Symbol** — a name for the symbol if there's no word (e.g. `Ω` → `ohm`; `×` → `times`).
   3. **Position** — `1st left`, `2nd left`, … or `1st right`, `2nd right`, … if the box has neither.
 
-  Names are picked per-box, so the two ends of one connection can use different schemes:
+  Names are picked per-box, so the two ends of one connection can use different schemes.
 
-      AND $→$ 2nd right
-      OR $→$ 3rd right
+  Positive example:
+
+      student_answer: |
+        \begin{itemize}
+        \item force $→$ newton
+        \item energy $→$ joule
+        \item power $→$ watt
+        \item charge $→$ coulomb
+        \end{itemize}
 
   All-positional when no box has a label:
 
-      1st left $→$ 3rd right
-      2nd left $→$ 4th right
+      student_answer: |
+        \begin{itemize}
+        \item 1st left $→$ 3rd right
+        \item 2nd left $→$ 4th right
+        \end{itemize}
 
-- **diagram** — when the student draws a diagram (circuit, ray, force / free-body, vector, graph, apparatus, etc.), describe it in prose: name each labelled element, its value, and the relationships or layout. State what the diagram **conveys**, not how it's **drawn**.
+- **diagram** — when the student draws a diagram (circuit, ray, force / free-body, vector, graph, apparatus, etc.), wrap the answer in `\begin{itemize}…\end{itemize}` with one `\item` per labelled element, connection, or relationship. State what the diagram **conveys**, not how it's **drawn**.
+
+  Positive example (free-body diagram):
+
+      student_answer: |
+        \begin{itemize}
+        \item Object: a block on a horizontal surface
+        \item Weight $W$ acting vertically downward
+        \item Normal force $N$ acting vertically upward, equal to $W$
+        \item Friction $f$ acting horizontally, opposing motion
+        \item Applied force $F$ acting horizontally in direction of motion
+        \end{itemize}
+
+- **chart** — when the student draws a graph, bar chart, scatter plot, or set of axes, wrap the answer in `\begin{itemize}…\end{itemize}` with one `\item` for each axis label & unit, plotted point or series, line of best fit, and annotation.
+
+  Positive example (distance-vs-time graph):
+
+      student_answer: |
+        \begin{itemize}
+        \item x-axis: time / s, 0 to 10
+        \item y-axis: distance / m, 0 to 50
+        \item Points plotted: (0, 0), (2, 10), (4, 20), (6, 30), (8, 40), (10, 50)
+        \item Straight line of best fit through all points
+        \item Annotation: "constant velocity" near the line
+        \end{itemize}
 
 ## `student_answer` YAML form
 
@@ -242,7 +276,7 @@ Notes:
 
 Before producing the YAML, scan each non-empty `student_answer`:
 
-1. **Shape check.** Is it list-shaped or math-containing? If yes — is the corresponding wrapper (`\begin{itemize}`/`\begin{enumerate}`/`$…$`) present? If neither — is it plain prose without a wrapper (correct)?
+1. **Shape check.** Is it list-shaped, matching/chart/diagram-shaped, or math-containing? If yes — is the corresponding wrapper present (`\begin{itemize}` for matching/chart/diagram, `\begin{itemize}`/`\begin{enumerate}` for list-shaped, `$…$`/`$$…$$` for math)? If none of those — is it plain prose without a wrapper (correct)?
 2. **Math-wrap check.** Are all math expressions (super/subscripts, `\frac`, `\sqrt`, `\rightarrow`, `\alpha`, `\pi`, etc.) inside `$…$` or `$$…$$`?
 3. **No over-wrapping.** A single-sentence answer should NOT be wrapped in `\begin{itemize}`. Wrap only when a trigger fires.
 

@@ -1,4 +1,5 @@
-"""Generic single-page PDF splitter, shared by mark-scheme and exam-fill paths."""
+"""Generic single-page PDF splitter and selective combiner, shared by
+mark-scheme and exam-fill paths."""
 
 from __future__ import annotations
 
@@ -38,3 +39,31 @@ def split_pdf_into_pages(
                 _out.close()
             page_paths.append(_out_path)
     return n_pages, page_paths, _tmp_dir
+
+
+def combine_pdf_pages(pdf_path: Path, page_nums: list[int]) -> bytes:
+    """Build a multi-page PDF from selected 1-indexed pages, in given order.
+
+    Returns the resulting PDF as bytes; caller writes to a tempfile if a path
+    is needed. Single-page calls go through the same ``insert_pdf`` round-trip
+    as multi-page calls so dispatch shape stays uniform.
+    """
+    import fitz
+
+    if not page_nums:
+        raise ValueError("combine_pdf_pages: page_nums must be non-empty")
+
+    out = fitz.open()
+    try:
+        with fitz.open(str(pdf_path)) as src:
+            for p in page_nums:
+                idx = p - 1
+                if not (0 <= idx < src.page_count):
+                    raise IndexError(
+                        f"combine_pdf_pages: page {p} out of range "
+                        f"(doc has {src.page_count} pages)"
+                    )
+                out.insert_pdf(src, from_page=idx, to_page=idx)
+        return out.tobytes()
+    finally:
+        out.close()

@@ -256,3 +256,59 @@ def assign_questions_to_pages(
         shutil.rmtree(_tmp_dir, ignore_errors=True)
 
     return mapping
+
+
+def _group_pages_by_shared_question(
+    questions_per_page: dict[int, list[str]],
+) -> list[tuple[list[int], list[str]]]:
+    """Connected-components grouping: pages sharing any qnum end up together.
+
+    Returns ``[(sorted_pages, ordered_qnums), ...]`` — qnums in first-occurrence
+    order across the group's pages. Empty-qnum pages stay as singletons so the
+    caller can short-circuit them. Groups themselves are returned in ascending
+    order of their lowest page number.
+    """
+    if not questions_per_page:
+        return []
+
+    parent: dict[int, int] = {p: p for p in questions_per_page}
+
+    def _find(p: int) -> int:
+        while parent[p] != p:
+            parent[p] = parent[parent[p]]
+            p = parent[p]
+        return p
+
+    def _union(a: int, b: int) -> None:
+        ra, rb = _find(a), _find(b)
+        if ra != rb:
+            parent[ra] = rb
+
+    pages_per_q: dict[str, list[int]] = {}
+    for p, qs in questions_per_page.items():
+        for q in qs:
+            pages_per_q.setdefault(q, []).append(p)
+
+    for pages in pages_per_q.values():
+        first = pages[0]
+        for p in pages[1:]:
+            _union(first, p)
+
+    buckets: dict[int, list[int]] = {}
+    for p in questions_per_page:
+        buckets.setdefault(_find(p), []).append(p)
+
+    groups: list[tuple[list[int], list[str]]] = []
+    for pages in buckets.values():
+        pages_sorted = sorted(pages)
+        seen: set[str] = set()
+        qnums: list[str] = []
+        for p in pages_sorted:
+            for q in questions_per_page.get(p, []):
+                if q not in seen:
+                    qnums.append(q)
+                    seen.add(q)
+        groups.append((pages_sorted, qnums))
+
+    groups.sort(key=lambda g: g[0][0])
+    return groups
