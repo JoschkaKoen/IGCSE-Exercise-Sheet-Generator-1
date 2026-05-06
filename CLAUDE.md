@@ -101,6 +101,19 @@ end-to-end and diff outputs against a baseline run.
 
 Convention is `exams/<subject_slug>/`. Current subjects: `physics`, `chemistry`, `biology`, `mathematics`, `computer_science`, `a_level_physics`, `a_level_computer_science`. The natural-language exam resolver looks here when the user names an exam in the prompt.
 
+## Python environment
+
+The project uses a venv at `.venv/` in the repo root, which is a symlink to a shared venv at `/Users/joschka/Desktop/Programming/Exercise Sheet Generator/.venv` (an adjacent project). Always invoke Python via `.venv/bin/python` — `python3` from the system path will not have the project's dependencies (`fitz` / `pymupdf`, `yaml`, `openai`, `google-genai`, etc.).
+
+Examples:
+
+```
+.venv/bin/python XScore.py "grade Space Physics Unit Test"
+.venv/bin/python -c "from xscore.prompts.loader import load_prompt; ..."
+```
+
+Pip-installable dependencies are pinned in `requirements.txt`; the canonical install list also lives in `Dockerfile`.
+
 ## System dependencies
 
 Beyond pip, the pipelines need:

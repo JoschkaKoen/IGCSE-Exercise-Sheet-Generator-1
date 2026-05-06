@@ -59,7 +59,7 @@ def _write_class_marks_xlsx(
     import os
 
     from openpyxl import Workbook
-    from openpyxl.styles import Alignment, Font, PatternFill
+    from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
     from openpyxl.utils import get_column_letter
 
     from xscore.shared.models import flatten_questions, gradable_questions
@@ -241,27 +241,29 @@ def _write_class_marks_xlsx(
 
         return header_row, class_avg_row, total_col
 
-    top_a, bot_a, total_a = _append_table(cols_all, next_row)
+    # Top-level rollup table comes first — it's the at-a-glance view. The
+    # detailed (per-subpart) breakdown follows under a heading.
+    top_b, bot_b, total_b = _append_table(cols_top, next_row)
 
-    # Fill in the curve-offset formula now that we know Table A's student
-    # row range. Both tables share this offset since they list the same
-    # students, so we anchor on Table A's Raw % column.
+    # Fill in the curve-offset formula now that Table B's student row range
+    # is known. Both tables share this offset (same students); anchoring on
+    # the first-written table keeps cross-table references simple.
     n = len(students)
     if n > 0:
-        raw_letter_a = get_column_letter(total_a + 1)
-        student_first_a = top_a + 2
-        student_last_a = student_first_a + n - 1
+        raw_letter_b = get_column_letter(total_b + 1)
+        student_first_b = top_b + 2
+        student_last_b = student_first_b + n - 1
         ws.cell(
             row=2, column=2,
-            value=f"=B1-AVERAGE({raw_letter_a}{student_first_a}:{raw_letter_a}{student_last_a})",
+            value=f"=B1-AVERAGE({raw_letter_b}{student_first_b}:{raw_letter_b}{student_last_b})",
         )
     else:
         ws.cell(row=2, column=2, value=0)
 
-    # Two blank rows + bold heading, then Table B.
-    heading_row = bot_a + 3
-    ws.cell(row=heading_row, column=1, value="Top-level questions").font = bold
-    top_b, bot_b, total_b = _append_table(cols_top, heading_row + 2)
+    # Two blank rows + bold heading, then Table A (detailed breakdown).
+    heading_row = bot_b + 3
+    ws.cell(row=heading_row, column=1, value="Detailed breakdown").font = bold
+    top_a, bot_a, total_a = _append_table(cols_all, heading_row + 2)
 
     # Bold + grey fill on header / max-marks / class-average rows.
     for top, bot in [(top_a, bot_a), (top_b, bot_b)]:
@@ -270,10 +272,17 @@ def _write_class_marks_xlsx(
                 cell.font = bold
                 cell.fill = head_fill
 
+    # Thin rule under each table's question-number header row, separating
+    # the headers from the max-marks / student / class-average block.
+    hdr_border = Border(bottom=Side(style="thin"))
+    for top, total_col in [(top_b, total_b), (top_a, total_a)]:
+        for c in range(1, total_col + 3):
+            ws.cell(row=top, column=c).border = hdr_border
+
     ws.freeze_panes = "B6"
 
     # Left-align every written cell — curve block, both tables (incl. names,
-    # Total / Raw % / Curved %), and the "Top-level questions" heading.
+    # Total / Raw % / Curved %), and the "Detailed breakdown" heading.
     left = Alignment(horizontal="left")
     for r, c in [(1, 1), (1, 2), (2, 1), (2, 2), (heading_row, 1)]:
         ws.cell(row=r, column=c).alignment = left
@@ -282,24 +291,32 @@ def _write_class_marks_xlsx(
             for c in range(1, total_col + 3):
                 ws.cell(row=r, column=c).alignment = left
 
-    # Column widths — coalesce by letter so Table B's Total / % cells (which
-    # share letters with q-cells in Table A) get the wider width via max().
-    # Q-cols 3.17 (user spec); summary cols sized just to fit the header.
-    name_col_w = max(12, max((len(s["name"]) for s in students), default=10) + 2)
+    # Auto-fit column widths from cell content. Formulas (`=…`) skip
+    # themselves — their column width comes from headers and static cells in
+    # the same column, which is sufficient given the bounded values these
+    # formulas produce (totals up to total_max, percentages up to 100%).
     widths_by_letter: dict[str, float] = {}
 
-    def _want(col_idx: int, w: float) -> None:
-        letter = get_column_letter(col_idx)
-        widths_by_letter[letter] = max(widths_by_letter.get(letter, 0), w)
+    def _track(cell: Any) -> None:
+        v = cell.value
+        if v is None or v == "":
+            return
+        if isinstance(v, str) and v.startswith("="):
+            return
+        if isinstance(v, (int, float)) and cell.number_format == "0%":
+            text = f"{int(round(v * 100))}%"
+        else:
+            text = str(v)
+        widths_by_letter[cell.column_letter] = max(
+            widths_by_letter.get(cell.column_letter, 0), len(text)
+        )
 
-    _want(1, name_col_w)
-    for cols, total_col in [(cols_all, total_a), (cols_top, total_b)]:
-        for i in range(len(cols)):
-            _want(2 + i, 3.17)
-        for offset, header in enumerate(("Total", "Raw %", "Curved %")):
-            _want(total_col + offset, len(header))
+    for row in ws.iter_rows():
+        for cell in row:
+            _track(cell)
+
     for letter, w in widths_by_letter.items():
-        ws.column_dimensions[letter].width = w
+        ws.column_dimensions[letter].width = w + 1
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(out_path)
