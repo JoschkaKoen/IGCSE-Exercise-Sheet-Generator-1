@@ -101,13 +101,13 @@ def _ai_cell(text: str, cell_width_cm: float = 3.6) -> str:
         # non-discardable so the gap survives glue absorption. Trailing
         # \hrulefill (last in cell, no following \newline) gets no injection.
         t = re.sub(
-            r"\\newline\s*\\newline\s*(?=(?:(?!\\newline).)*?\\hrulefill)",
+            r"(?:\\newline\s*){2,}(?=(?:(?!\\newline).)*?\\hrulefill)",
             r"\\par\\vspace*{\\xanswerlinegap} ",
             t,
         )
         t = re.sub(
-            r"\\hrulefill(\s*)\\newline\b",
-            r"\\hrulefill\\par\\vspace*{\\xanswerlinegap}",
+            r"\\hrulefill(?:\s*\\newline\b\s?)+",
+            r"\\hrulefill\\par\\vspace*{\\xanswerlinegap} ",
             t,
         )
         return t
