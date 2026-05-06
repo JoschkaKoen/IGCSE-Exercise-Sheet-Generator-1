@@ -60,7 +60,7 @@ For pages with no continuation, only one attachment is present and this rule is 
 - **text answers** — transcribe verbatim, preserving the student's wording, spelling, and any units. Wrap math in `$...$` (e.g. `$v = 2\pi r / T$`, `$3.0 \times 10^4$ m/s`, `$\frac{d}{v}$`). Common LaTeX commands: `\times`, `\frac{}{}`, `\pi`, `\approx`, `\rightarrow`, `\%`. Failing to wrap math in `$...$` will crash the downstream PDF renderer.
 - **calculation answers** — transcribe the student's full working AND final answer verbatim, including intermediate steps if the student wrote them. Math wrapping rules apply (see text answers above).
 - **crossed-out prose** — ignore crossed-out text. Transcribe only what is not crossed out.
-- **matching / line-drawing** — when the question shows two groups of boxes and the student draws lines between them, transcribe each drawn line as one `<left-name> -> <right-name>` entry, one per line, ordered top-to-bottom by the left endpoint.
+- **matching / line-drawing** — when the question shows two groups of boxes and the student draws lines between them, transcribe each drawn line as one `<left-name> $→$ <right-name>` entry, one per line, ordered top-to-bottom by the left endpoint.
 
   Name each box by the first option that applies:
 
@@ -70,13 +70,13 @@ For pages with no continuation, only one attachment is present and this rule is 
 
   Names are picked per-box, so the two ends of one connection can use different schemes:
 
-      AND -> 2nd right
-      OR -> 3rd right
+      AND $→$ 2nd right
+      OR $→$ 3rd right
 
   All-positional when no box has a label:
 
-      1st left -> 3rd right
-      2nd left -> 4th right
+      1st left $→$ 3rd right
+      2nd left $→$ 4th right
 
 ## `student_answer` format
 

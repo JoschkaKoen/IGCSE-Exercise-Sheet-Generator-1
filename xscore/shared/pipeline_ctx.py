@@ -1,6 +1,6 @@
 """Pipeline context dataclass and early-exit sentinel.
 
-Kept here so pipeline internals are importable without triggering xScore.py's
+Kept here so pipeline internals are importable without triggering XScore.py's
 _Tee logging setup.
 """
 
@@ -42,9 +42,9 @@ class _Ctx:
     # AI-marking pipeline state
     num_students: int = 0
     pages_per_student: int = 0
-    # Per-step wall-clock timings. Written by xScore.py's step bodies and by
+    # Per-step wall-clock timings. Written by XScore.py's step bodies and by
     # :func:`xscore.shared.pipeline_steps.run_step` once steps migrate out of
-    # xScore.py's nested closures into the registry.
+    # XScore.py's nested closures into the registry.
     step_timings: dict[str, float] = field(default_factory=dict)
     # Per-step token usage: step_name → model → {"input": N, "output": N}.
     # Written by run_step as a delta of get_run_usage() across the step body.
@@ -107,7 +107,7 @@ class _Ctx:
     on_step_event: "Callable[[dict], None] | None" = None
 
     def __post_init__(self) -> None:
-        # All four fields are guaranteed by parse_args() in xScore.py.
+        # All four fields are guaranteed by parse_args() in XScore.py.
         if self.args.stop_after is not None:
             self.stop_after = self.args.stop_after
         if self.args.from_step is not None:

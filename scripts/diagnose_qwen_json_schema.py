@@ -21,7 +21,7 @@ sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent.par
 
 from PIL import Image
 
-# Load default.env + .env exactly like xScore.py does (env_load handles ordering).
+# Load default.env + .env exactly like XScore.py does (env_load handles ordering).
 from eXercise.env_load import load_project_env
 
 load_project_env()

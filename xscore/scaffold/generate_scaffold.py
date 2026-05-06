@@ -200,7 +200,7 @@ def finalize_scaffold(
 ) -> ExamScaffold:
     """Step 20 finishing work: mark rollups → page count → ``ExamScaffold`` → cache.
 
-    Splits the post-merge work out of :func:`build_scaffold` so xScore.py can
+    Splits the post-merge work out of :func:`build_scaffold` so XScore.py can
     call the six scaffold step functions directly and still produce the cached
     ``ExamScaffold`` artifact.
     """

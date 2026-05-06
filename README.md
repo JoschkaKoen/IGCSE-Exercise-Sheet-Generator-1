@@ -573,7 +573,7 @@ python -m eXercise --help
 ### Grading (CLI)
 
 ```bash
-python xScore.py "grade Space Physics Unit Test"
+python XScore.py "grade Space Physics Unit Test"
 ```
 
 Useful flags: `--resume-dir output/xscore/<exam>/<timestamp>` re-uses already-completed step artifacts; `--from-step N` starts at step N (assumes earlier artifacts exist on disk); `--stop-after N` halts after step N. Together they make iterating on the late marking/report stages cheap — the scan-cleaning steps don't have to re-run.
@@ -773,7 +773,7 @@ The two pipelines write to separate sub-folders under `output/`:
 |------|------|
 | `eXercise.py` | eXercise CLI entry |
 | `eXercise/` | Config, NL resolver, MCQ explanations, difficulty ranking, PDF layout. Also hosts shared infra (`ai_client`, `prompt_logger`, `env_load`, `config`, `fonts`) used by both pipelines. |
-| `xScore.py` | xScore pipeline entry (steps 1–36) |
+| `XScore.py` | xScore pipeline entry (steps 1–36) |
 | `xscore/pipeline/` | Orchestration (`runner.py`) — walks the `STEPS` registry, dispatches each step on its `phase` field, and owns the page-render background thread. |
 | `xscore/steps/` | Phase modules: `prelude.py` (1–2), `scan.py` (3–7), `geometry.py` (10–18), `scaffold.py` (8–9 + 19–25), `marking.py` (26–28), `reports.py` (29–33), `summary.py` (34–36). Function names match `step.name` exactly — renumbering a step only edits the `STEPS` registry. |
 | `xscore/shared/` | `pipeline_steps.py` (the canonical 36-step registry), exam path helpers (`step_folders.py`, `path_builders.py`), terminal UI, run log. |

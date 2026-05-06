@@ -100,18 +100,35 @@ def ai_marking(ctx: _Ctx) -> None:
     )
 
     # Audit log + console summary of MCQ corrections the marker applied via
-    # the corrected_student_answer field. The audit YAML is always written
-    # (empty list when nothing was corrected) so a downstream tool can rely
-    # on its existence; the console table only renders when there's something
-    # to report.
+    # the corrected_student_answer field, plus two parallel lists of MCQs
+    # whose final student_answer remained "not clear" or "no answer" (scored
+    # 0 by _fix_mc_marks — surfaced so a human reviewer can re-check the
+    # scan). The audit YAML is always written (empty lists when nothing
+    # qualifies) so downstream tooling can rely on its existence; each
+    # console section only renders when its list is non-empty.
     import yaml as _yaml
     from xscore.shared.path_builders import artifact_mcq_corrections_path
     corrections = list(getattr(ctx, "mcq_corrections", []) or [])
+    not_clear: list[dict] = []
+    no_answer: list[dict] = []
+    for _u in list(getattr(ctx, "mcq_unresolved", []) or []):
+        _state = _u.pop("_state", None)
+        if _state == "not clear":
+            not_clear.append(_u)
+        elif _state == "no answer":
+            no_answer.append(_u)
     _path = artifact_mcq_corrections_path(ctx.artifact_dir)
     _path.parent.mkdir(parents=True, exist_ok=True)
     _path.write_text(
         _yaml.safe_dump(
-            {"total_corrections": len(corrections), "corrections": corrections},
+            {
+                "total_corrections": len(corrections),
+                "corrections": corrections,
+                "total_not_clear": len(not_clear),
+                "not_clear": not_clear,
+                "total_no_answer": len(no_answer),
+                "no_answer": no_answer,
+            },
             default_flow_style=False, sort_keys=False, allow_unicode=True,
         ),
         encoding="utf-8",
@@ -129,3 +146,23 @@ def ai_marking(ctx: _Ctx) -> None:
                 f"scan p{str(c.get('scan_page', '')):>{_ws}}  "
                 f"Q{c.get('number')}: {c.get('from')} → {c.get('to')}"
             )
+
+    def _render_unresolved(label: str, items: list[dict]) -> None:
+        if not items:
+            return
+        blank_line()
+        info_line(f"{label} ({len(items)}):")
+        _w = max(len(str(i.get("student", ""))) for i in items)
+        _wp = max(len(str(i.get("page", ""))) for i in items)
+        _ws = max(len(str(i.get("scan_page", ""))) for i in items)
+        for i in items:
+            _ca = str(i.get("correct_answer") or "").strip() or "—"
+            info_line(
+                f"  {str(i.get('student', '')):<{_w}}  "
+                f"ans p{str(i.get('page', '')):>{_wp}}  "
+                f"scan p{str(i.get('scan_page', '')):>{_ws}}  "
+                f"Q{i.get('number')}  (correct: {_ca})"
+            )
+
+    _render_unresolved("not clear", not_clear)
+    _render_unresolved("no answer", no_answer)

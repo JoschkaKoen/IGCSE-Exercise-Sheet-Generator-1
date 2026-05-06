@@ -528,9 +528,12 @@ def artifact_marking_students_dir(artifact_dir: Path) -> Path:
 
 
 def artifact_mcq_corrections_path(artifact_dir: Path) -> Path:
-    """29_ai_marking/mcq_corrections.yaml — audit log of MCQ corrections
-    applied during marking based on the AI's corrected_student_answer field.
-    Regenerated each step-29 run; an empty list when no corrections occurred."""
+    """29_ai_marking/mcq_corrections.yaml — audit log of MCQ outcomes that need
+    human attention. Three parallel lists (each with its own ``total_*`` count):
+    ``corrections`` (AI overrode the extracted answer), ``not_clear`` (final
+    student_answer == "not clear", scored 0), and ``no_answer`` (final
+    student_answer == "no answer", scored 0). Regenerated each step-29 run;
+    empty lists when nothing qualifies."""
     return artifact_dir / AI_MARKING_DIR / "mcq_corrections.yaml"
 
 

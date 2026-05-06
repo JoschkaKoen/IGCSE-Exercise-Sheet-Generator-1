@@ -7,7 +7,7 @@ This repo holds two Python pipelines plus a small FastAPI web UI that consumes b
 ## The two pipelines
 
 - `eXercise/` — exercise sheet **generation**. Flat package, ~28 modules. Entry point: `python eXercise.py "<natural-language prompt>"`.
-- `xscore/` — exam scan **marking**. Structured package, 8 subpackages (`pipeline/`, `steps/`, `shared/`, `marking/`, `scaffold/`, `preprocessing/`, `extraction/`, `prompts/`). Entry point: `python xScore.py "grade <exam name>"`.
+- `xscore/` — exam scan **marking**. Structured package, 8 subpackages (`pipeline/`, `steps/`, `shared/`, `marking/`, `scaffold/`, `preprocessing/`, `extraction/`, `prompts/`). Entry point: `python XScore.py "grade <exam name>"`.
 
 `eXercise/` *also* hosts shared infrastructure that `xscore/` depends on: `eXercise.ai_client`, `eXercise.prompt_logger`, `eXercise.env_load`, `eXercise.config`, `eXercise.fonts`, `eXercise.latex_utils`. Treat `eXercise/` as both a peer pipeline **and** a foundation library — don't move it.
 
@@ -29,7 +29,7 @@ Steps are numbered 1–36. Each step writes its artifacts under `output/xscore/<
 
 Step registry: `xscore/shared/pipeline_steps.py` holds a `Step` dataclass list — canonical ordering and naming. Step bodies live in one module per phase under `xscore/steps/`: `prelude`, `scan`, `geometry`, `scaffold`, `marking`, `reports`, `summary`. `wire_step_fns()` looks each one up by name at startup. All steps are migrated; there are no `_unmigrated` placeholders.
 
-Resume mid-pipeline: `python xScore.py "grade <exam>" --resume-dir output/xscore/<exam>/<timestamp>` — re-uses already-completed step artifacts.
+Resume mid-pipeline: `python XScore.py "grade <exam>" --resume-dir output/xscore/<exam>/<timestamp>` — re-uses already-completed step artifacts.
 
 Stop early / start late: `--stop-after <N>` and `--from-step <N>`.
 
@@ -92,7 +92,7 @@ Each `<task>_response.txt` is the concatenation of the model's thinking trace (a
 `Space Physics Unit Test/` is the canonical regression input for the marking pipeline. After any structural change to `xscore/`, run:
 
 ```
-python xScore.py "grade Space Physics Unit Test"
+python XScore.py "grade Space Physics Unit Test"
 ```
 
 end-to-end and diff outputs against a baseline run.

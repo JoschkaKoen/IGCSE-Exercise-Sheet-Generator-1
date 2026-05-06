@@ -36,7 +36,7 @@ _GRADE_UPLOADS_ROOT = (
 )
 _OUTPUT_XSCORE_ROOT = Path(__file__).resolve().parent.parent.parent / "output" / "xscore"
 
-# ANSI CSI + OSC strippers — mirrors xScore.py:_Tee for the captured-stream path.
+# ANSI CSI + OSC strippers — mirrors XScore.py:_Tee for the captured-stream path.
 _ANSI_CSI_RE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
 _ANSI_OSC_RE = re.compile(r"\x1b\][^\x07]*\x07")
 
@@ -332,7 +332,7 @@ async def create_grade_job(
     separator (``scan1.pdf``, ``scan 2.pdf``, ``scan_3.pdf``, ``scan-4.pdf``,
     ...). Each numbered file is saved canonically as ``scan{N}.pdf``.
 
-    Advanced form fields mirror the ``xScore.py`` CLI flags. Validation fails
+    Advanced form fields mirror the ``XScore.py`` CLI flags. Validation fails
     fast with HTTPException(400) before launching the worker.
     """
     opts = GradeFormOpts(

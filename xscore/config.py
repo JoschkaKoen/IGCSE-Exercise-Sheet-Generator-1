@@ -28,12 +28,12 @@ How to run (from repo root, with venv activated and dependencies installed):
     source .venv/bin/activate
 
   Grade an exam folder from a natural-language prompt (uses Kimi only; KIMI_API_KEY):
-    python3 xscore.py "check all multiple choice question answers"
-    python3 xscore.py "..." --folder "path/to/exam_folder"
+    python3 XScore.py "check all multiple choice question answers"
+    python3 XScore.py "..." --folder "path/to/exam_folder"
     # Optional CLI (also inferable from prompt JSON): --dpi  --folder
     #   --force-clean-scan  --no-report
 
-Tunables below apply to extraction/, the other top-level packages, and xscore.py
+Tunables below apply to extraction/, the other top-level packages, and XScore.py
 (PIPELINE_*, NAME_*, etc.).
 """
 
@@ -54,7 +54,7 @@ from typing import Any
 # To change the model, either:
 #   1. Edit the line below, OR
 #   2. Set AI_MODEL environment variable (takes precedence)
-# Scope: extraction/benchmarking (extraction/providers/kimi.py, Kimi path) — not xscore.py marking.
+# Scope: extraction/benchmarking (extraction/providers/kimi.py, Kimi path) — not XScore.py marking.
 AI_MODEL = os.getenv("AI_MODEL", "kimi-k2.5")
 
 # Exam layout + prompt + schema (see extraction/profiles/)
@@ -143,7 +143,7 @@ GEMINI_MAX_OUTPUT_TOKENS: int = int(os.getenv("ALL_GEMINI_MAX_OUTPUT_TOKENS", "6
 KIMI_MAX_TOKENS: int = int(os.getenv("KIMI_MAX_TOKENS", "64000"))
 
 # =============================================================================
-# Generic Pipeline Configuration (xscore.py)
+# Generic Pipeline Configuration (XScore.py)
 # =============================================================================
 
 # deskew + all coordinate-dependent geometric steps.

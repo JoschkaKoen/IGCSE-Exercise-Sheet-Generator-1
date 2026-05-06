@@ -148,7 +148,7 @@ def merge_scaffold_phase(
 # ---------------------------------------------------------------------------
 # Backward-compat orchestrator — kept so generate_scaffold.build_scaffold and
 # the web service can keep their existing call signature with callbacks.
-# xScore.py calls the six step functions directly via _scaffold_steps.
+# XScore.py calls the six step functions directly via _scaffold_steps.
 # ---------------------------------------------------------------------------
 
 def build_ai_scaffold(
@@ -167,7 +167,7 @@ def build_ai_scaffold(
 
     Thin orchestrator preserved for backward compatibility with
     ``generate_scaffold.build_scaffold`` and external callers (e.g. the web
-    grade service). xScore.py's pipeline calls the per-step functions
+    grade service). XScore.py's pipeline calls the per-step functions
     directly so each step has its own header, timing, and resume semantics.
 
     *is_cs* gates the ``CODE_FORMATTING`` prompt section in the exam-PDF and

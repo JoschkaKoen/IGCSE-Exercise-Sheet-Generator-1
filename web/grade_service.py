@@ -6,7 +6,7 @@ human-readable scrollback, and dispatches ``xscore.pipeline.runner.run_pipeline`
 with a step-event observer. All 37 pipeline steps + resume support come for free
 because we use the same orchestrator the CLI uses.
 
-The ``GradeFormOpts`` dataclass mirrors the CLI flags exposed by ``xScore.py``
+The ``GradeFormOpts`` dataclass mirrors the CLI flags exposed by ``XScore.py``
 (``--dpi``, ``--force-clean-scan``, ``--stop-after``, ``--from-step``,
 ``--resume-dir``, ``--student``, ``--limit-students``) plus a single web-only
 convenience: ``use_cache`` (which prepends ``"use cache "`` to the prompt; the
@@ -29,7 +29,7 @@ from xscore.shared.exam_paths import DESKEW_DIR
 
 @dataclass
 class GradeFormOpts:
-    """Form fields for a grade-pipeline submission, mirroring xScore.py CLI flags."""
+    """Form fields for a grade-pipeline submission, mirroring XScore.py CLI flags."""
 
     prompt: str | None = None
     dpi: int | None = None

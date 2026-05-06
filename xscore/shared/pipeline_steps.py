@@ -30,9 +30,9 @@ if TYPE_CHECKING:
 
 
 def _unmigrated(ctx: "_Ctx") -> None:  # pragma: no cover - placeholder
-    """Sentinel for steps still inlined in xScore.py. See module docstring."""
+    """Sentinel for steps still inlined in XScore.py. See module docstring."""
     raise NotImplementedError(
-        "This step is still implemented inline in xScore.py. "
+        "This step is still implemented inline in XScore.py. "
         "Lift its body out and register the function here."
     )
 
@@ -50,7 +50,7 @@ class Step:
         and as the ``step_name`` field in run-log entries.
     fn:
         Step body. Receives the ``_Ctx`` and mutates it in place; returns
-        nothing. Steps that are still inlined in xScore.py keep
+        nothing. Steps that are still inlined in XScore.py keep
         ``fn=_unmigrated``.
     resumable:
         True iff a prior run's artifacts can be reused starting from this step.

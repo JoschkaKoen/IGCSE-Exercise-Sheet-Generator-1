@@ -1,6 +1,6 @@
 """PaddleOCR worker — runs inside paddle_env, called as a subprocess by detect_handwriting.py.
 
-NOT INVOKED by the main xScore.py pipeline — available for standalone use only.
+NOT INVOKED by the main XScore.py pipeline — available for standalone use only.
 
 Usage:
     paddle_env/bin/python scaffold/paddle_worker.py <img1.png> [<img2.png> ...]

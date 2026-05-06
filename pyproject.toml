@@ -41,19 +41,19 @@ dependencies = [
 
 [project.scripts]
 # Console entry points installed by ``pip install -e .``
-# (the bare ``eXercise.py`` and ``xScore.py`` scripts at the repo root remain usable
+# (the bare ``eXercise.py`` and ``XScore.py`` scripts at the repo root remain usable
 # via ``python <script>.py`` for callers that don't run ``pip install``.)
 eXercise = "eXercise.cli:main"
-xScore = "xScore:main"
+XScore = "XScore:main"
 
 [tool.setuptools.packages.find]
 include = ["eXercise*", "xscore*", "web*"]
 exclude = ["tests*", "scripts*", "logs*", "output*", "exams*", "fonts*", "screenshots*"]
 
 [tool.setuptools]
-# ``xScore.py`` is a top-level script alongside the ``xscore`` package; expose it as
+# ``XScore.py`` is a top-level script alongside the ``xscore`` package; expose it as
 # a module so the ``xScore`` console script can reference ``xScore:main``.
-py-modules = ["xScore"]
+py-modules = ["XScore"]
 
 [tool.setuptools.package-data]
 # Ship prompt templates so installed packages can find them at runtime.

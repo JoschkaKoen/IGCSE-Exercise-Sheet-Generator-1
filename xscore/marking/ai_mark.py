@@ -62,6 +62,29 @@ from xscore.marking.extract_answers import (
 _DEFAULT_MARKING_MODEL = MARKING_MODEL_DEFAULT
 
 
+def _collect_unresolved_mcqs(
+    filled: dict, student_name: str, p_label: int, scan_page: int,
+) -> list[dict]:
+    """Return one tagged dict per MCQ on this page whose final student_answer
+    is "not clear" or "no answer" — i.e. questions the AI didn't rescue and
+    `_fix_mc_marks` therefore scored 0. Carries an internal `_state` key
+    (one of those two values) that the step body uses to split the run-level
+    list into the two named output lists; stripped before serialization.
+    """
+    return [
+        {
+            "student": student_name,
+            "page": p_label,
+            "scan_page": scan_page,
+            "number": q.get("number"),
+            "correct_answer": str(q.get("correct_answer") or ""),
+            "_state": q.get("student_answer"),
+        }
+        for q in (filled.get("questions") or [])
+        if q.get("question_type") == "multiple_choice"
+        and q.get("student_answer") in ("not clear", "no answer")
+    ]
+
 
 def render_pages_b64(
     cleaned_pdf: Path,
@@ -596,7 +619,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         assignment: dict, p_label: int, answer_label: int, answer_page_count: int,
         extra_scan_pages: list[int],
         extra_sources: list[str],
-    ) -> tuple[dict | None, dict | None, list[dict]]:
+    ) -> tuple[dict | None, dict | None, list[dict], list[dict]]:
         student_name: str = assignment["student_name"]
         safe_name = student_name or f"Unknown_{p_label}"
         key = f"{student_name}_{p_label}"
@@ -778,7 +801,10 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     live.update(_render())
             if not _use_live:
                 _emit_ordered(idx, _student_lines[key])
-            return None, failure, []
+            tagged_unresolved = _collect_unresolved_mcqs(
+                filled, student_name, p_label, assignment["page_numbers"][p_label - 1],
+            )
+            return None, failure, [], tagged_unresolved
 
         mark_dur = round(time.perf_counter() - t0, 2)
         _extras: list[str] = []
@@ -837,11 +863,13 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                 f"  MCQ correction: {student_name} ans p{p_label} (scan p{_scan_page}) "
                 f"Q{_c.get('number')}: {_c.get('from')} → {_c.get('to')}"
             )
+        tagged_unresolved = _collect_unresolved_mcqs(filled, student_name, p_label, _scan_page)
         return ({"phase": "marking", "student": student_name, "page": p_label,
-                "duration_s": mark_dur}, None, tagged_corrections)
+                "duration_s": mark_dur}, None, tagged_corrections, tagged_unresolved)
 
     all_failures: list[dict] = []
     all_corrections: list[dict] = []
+    all_unresolved: list[dict] = []
     _live_ctx = Live("", console=get_console(), refresh_per_second=4) if _use_live else contextlib.nullcontext()
     with _live_ctx as live:
         def _warn(msg: str) -> None:
@@ -865,7 +893,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
             }
             for fut in as_completed(futures):
                 try:
-                    timing, failure, corrections = fut.result()
+                    timing, failure, corrections, unresolved = fut.result()
                 except Exception as exc:  # noqa: BLE001
                     student, page = futures[fut]
                     failure = {
@@ -875,6 +903,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                     }
                     timing = None
                     corrections = []
+                    unresolved = []
                     _warn(f"Unhandled exception for '{student}' page {page}: {exc}")
                 with timings_lock:
                     if timing:
@@ -883,7 +912,10 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
                         all_failures.append(failure)
                     if corrections:
                         all_corrections.extend(corrections)
+                    if unresolved:
+                        all_unresolved.extend(unresolved)
 
     ctx.marking_failures = all_failures
     ctx.mcq_corrections = all_corrections
+    ctx.mcq_unresolved = all_unresolved
     return api_call_timings

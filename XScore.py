@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-xScore.py
+XScore.py
 ---------
 Exam scan grading pipeline — run from the eXercise project root.
 
@@ -10,8 +10,8 @@ The canonical step list lives in ``xscore/shared/pipeline_steps.py`` (the
 log mirror, banner, dispatch.
 
 Usage:
-    python xScore.py "grade Space Physics Unit Test"
-    python xScore.py "grade the exam" --folder "exams/space_physics" --dpi 300
+    python XScore.py "grade Space Physics Unit Test"
+    python XScore.py "grade the exam" --folder "exams/space_physics" --dpi 300
 """
 
 from __future__ import annotations
@@ -60,7 +60,7 @@ class _Tee:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        prog="xScore.py",
+        prog="XScore.py",
         description="Grade an exam scan.",
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")

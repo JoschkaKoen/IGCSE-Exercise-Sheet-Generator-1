@@ -16,6 +16,7 @@ here.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -58,7 +59,7 @@ def _write_class_marks_xlsx(
     import os
 
     from openpyxl import Workbook
-    from openpyxl.styles import Font, PatternFill
+    from openpyxl.styles import Alignment, Font, PatternFill
     from openpyxl.utils import get_column_letter
 
     from xscore.shared.models import flatten_questions, gradable_questions
@@ -93,7 +94,12 @@ def _write_class_marks_xlsx(
     cols_all = _build_columns(flatten_questions(scaffold_questions))
     cols_top = _build_columns(scaffold_questions)
 
-    students = class_report["students"]
+    # Workbook is the editable / lookup-by-name view, so order students
+    # alphabetically here. Other class_report artifacts keep their rank order.
+    students = sorted(
+        class_report["students"],
+        key=lambda s: str(s.get("name", "")).casefold(),
+    )
     max_marks = class_report["per_question_max_marks"]
     avgs = class_report["per_question_averages"]
     total_max = class_report["total_max_marks"]
@@ -266,9 +272,19 @@ def _write_class_marks_xlsx(
 
     ws.freeze_panes = "B6"
 
-    # Column widths — coalesce by column letter so Table B's Total / % cells
-    # (which fall under column letters that hold question cells in Table A)
-    # get the wider width.
+    # Left-align every written cell — curve block, both tables (incl. names,
+    # Total / Raw % / Curved %), and the "Top-level questions" heading.
+    left = Alignment(horizontal="left")
+    for r, c in [(1, 1), (1, 2), (2, 1), (2, 2), (heading_row, 1)]:
+        ws.cell(row=r, column=c).alignment = left
+    for top, bot, total_col in [(top_a, bot_a, total_a), (top_b, bot_b, total_b)]:
+        for r in range(top, bot + 1):
+            for c in range(1, total_col + 3):
+                ws.cell(row=r, column=c).alignment = left
+
+    # Column widths — coalesce by letter so Table B's Total / % cells (which
+    # share letters with q-cells in Table A) get the wider width via max().
+    # Q-cols 3.17 (user spec); summary cols sized just to fit the header.
     name_col_w = max(12, max((len(s["name"]) for s in students), default=10) + 2)
     widths_by_letter: dict[str, float] = {}
 
@@ -279,9 +295,9 @@ def _write_class_marks_xlsx(
     _want(1, name_col_w)
     for cols, total_col in [(cols_all, total_a), (cols_top, total_b)]:
         for i in range(len(cols)):
-            _want(2 + i, 6)
-        for offset, w in enumerate([10, 8, 8]):  # Total, Raw %, Curved %
-            _want(total_col + offset, w)
+            _want(2 + i, 3.17)
+        for offset, header in enumerate(("Total", "Raw %", "Curved %")):
+            _want(total_col + offset, len(header))
     for letter, w in widths_by_letter.items():
         ws.column_dimensions[letter].width = w
 
@@ -298,14 +314,36 @@ def _qnum_natural_key(qnum: str) -> tuple:
         return (1, qnum, "")
 
 
+_ANS_MAX = 16  # max chars per side of the A→B pair before truncation
+
+
+def _short_answer(text: Any) -> str:
+    """Flatten whitespace and truncate so multi-line LaTeX/code answers
+    don't blow up the per-row column width. Empty → ``"?"``."""
+    s = re.sub(r"\s+", " ", str(text or "")).strip()
+    if not s:
+        return "?"
+    return s if len(s) <= _ANS_MAX else s[: _ANS_MAX - 1].rstrip() + "…"
+
+
+def _marks_cell(am: Any, mm: Any) -> str:
+    a = "?" if am is None else str(am)
+    m = "?" if mm is None else str(mm)
+    return f"{a}/{m}"
+
+
 def format_review_entry_lines(entries: list[dict]) -> list[str]:
     """Format queue entries as one aligned line each, for terminal echo /
     ``review.txt``.
 
-    Layout per row: ``{student}  Q{qnum}  (p.{page})  conf={int}  · {problem}``.
+    Layout per row:
+    ``{student}  Q{qnum}  (p.{page})  conf={int}  {sa→ca}  {am/mm}  · {problem}``.
     Each column is padded to the widest value in ``entries`` so the ``·``
     separator (and the problem text after it) line up; the trailing
-    ``· {problem}`` segment is omitted when ``problem`` is empty.
+    ``· {problem}`` segment is omitted when ``problem`` is empty. Multi-line
+    or long ``student_answer`` / ``correct_answer`` strings are flattened
+    and truncated by :func:`_short_answer` so a single big answer can't
+    widen every row.
 
     Width scope is the list passed in — callers slice first if they want
     tight alignment for a subset (e.g. terminal top-N) rather than the full
@@ -319,24 +357,31 @@ def format_review_entry_lines(entries: list[dict]) -> list[str]:
             f"Q{e['question']}",
             f"(p.{e['page']})" if e.get("page") is not None else "(p.?)",
             e["confidence"],
+            f"{_short_answer(e.get('student_answer'))}→"
+            f"{_short_answer(e.get('correct_answer'))}",
+            _marks_cell(e.get("assigned_marks"), e.get("max_marks")),
             e.get("problem") or "",
         )
         for e in entries
     ]
-    name_w = max(len(t[0]) for t in prepped)
-    qnum_w = max(len(t[1]) for t in prepped)
-    page_w = max(len(t[2]) for t in prepped)
-    conf_w = max(len(str(t[3])) for t in prepped)
+    name_w  = max(len(t[0]) for t in prepped)
+    qnum_w  = max(len(t[1]) for t in prepped)
+    page_w  = max(len(t[2]) for t in prepped)
+    conf_w  = max(len(str(t[3])) for t in prepped)
+    ans_w   = max(len(t[4]) for t in prepped)
+    marks_w = max(len(t[5]) for t in prepped)
 
     lines: list[str] = []
-    for student, q_label, page_str, conf, problem in prepped:
+    for student, q_label, page_str, conf, ans_pair, marks, problem in prepped:
         base = (
             f"{student:<{name_w}}  "
             f"{q_label:<{qnum_w}}  "
             f"{page_str:<{page_w}}  "
-            f"conf={conf:>{conf_w}}"
+            f"conf={conf:>{conf_w}}  "
+            f"{ans_pair:<{ans_w}}  "
+            f"{marks:<{marks_w}}"
         )
-        lines.append(f"{base}  · {problem}" if problem else base)
+        lines.append(f"{base}  · {problem}" if problem else base.rstrip())
     return lines
 
 
