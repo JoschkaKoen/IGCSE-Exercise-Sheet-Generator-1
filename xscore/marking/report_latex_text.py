@@ -114,21 +114,23 @@ _ALLTT_MATH_RE = re.compile(
 
 
 # Font-size step-down for alltt blocks whose longest line would overflow the
-# cell. The empirical thresholds (20 / 32 / 47 chars) were calibrated against
-# /tmp/adjustbox_test/test4.pdf in a 3.6cm cell — the narrowest column that
-# hosts alltt (portrait Student Answer):
-#   - body 10pt: ~5.7 chars/cm  → fits up to ~20 chars before overflow
-#   - \footnotesize ~8pt: ~9.4 chars/cm → up to ~32 chars
-#   - \scriptsize ~7pt: ~12 chars/cm → up to ~47 chars
-#   - \tiny ~5pt: ~17 chars/cm → up to ~55 chars (floor; readability cost)
-# For wider cells (e.g. 7cm landscape Expected) the thresholds scale linearly
-# by `cell_width_cm / 3.6`. math.ceil absorbs the discreteness of integer
-# char counts vs continuous chars/cm — at 7cm a 39-char line measures
-# 7×(20/3.6) = 38.89cm-equivalent which JUST exceeds the linear-extrapolated
-# body threshold; the original 3.6cm calibration "<= 20" was almost certainly
-# a rounded-down conservative value, so ceiling is the honest interpretation.
-# Default cell_width_cm=3.6 reproduces the original behaviour exactly:
-# ceil(20*1.0)=20, ceil(32*1.0)=32, ceil(47*1.0)=47.
+# cell. Empirical thresholds (20 / 32 chars at the 3.6cm baseline, scaled by
+# `cell_width_cm / 3.6`):
+#   - body 10pt: fits up to ~20 chars before overflow
+#   - \footnotesize: up to ~32 chars
+#   - \scriptsize: anything longer; horizontally wrapped to ~32 chars by
+#     `_wrap_alltt_at_spaces` (post-pass in `_protect_alltt._restore`).
+# Scriptsize is the readability floor — `\tiny` is no longer selected. The
+# old `\tiny` branch was retired because (a) tiny is hard to read and (b)
+# even at tiny, lines longer than ~55 chars at 3.6cm still overflowed the
+# cell visually. The new contract: pick the largest size whose threshold
+# fits the longest input line; everything above the foot threshold goes to
+# scriptsize and gets wrapped.
+#
+# Empirical observation backing the 32-char scriptsize budget: in Cosmo's
+# Q10 landscape report (5.7cm cell), `Average <- Total / 24, Average <-
+# Round(Average, -2)` (52 chars) overflows at scriptsize, so the 5.7cm
+# scriptsize budget is ≤51 → 32 at 3.6cm via the same scaling.
 def _alltt_size_command(block: str, cell_width_cm: float = 3.6) -> str:
     inner = re.sub(r"\\(?:begin|end)\{alltt\}", "", block)
     inner = inner.replace(r"\textbackslash{}", "\\")  # 16-char escape → 1
@@ -138,9 +140,81 @@ def _alltt_size_command(block: str, cell_width_cm: float = 3.6) -> str:
         return ""
     if max_len <= math.ceil(32 * scale):
         return "\\footnotesize "
-    if max_len <= math.ceil(47 * scale):
-        return "\\scriptsize "
-    return "\\tiny "
+    # Anything wider than the foot threshold goes to scriptsize and is
+    # horizontally wrapped by `_wrap_alltt_at_spaces`. We do not go below
+    # scriptsize — tiny is below the readability floor.
+    return "\\scriptsize "
+
+
+# Char budget for the size returned by `_alltt_size_command`, scaled by
+# cell width. Used as the wrap target by `_wrap_alltt_at_spaces`. For
+# body/foot the budget equals the selection threshold (so wrap is a no-op
+# — selection guarantees the input already fits). For scriptsize the
+# budget is also 32 chars at 3.6cm: scriptsize is the catch-all for
+# overflowing input, so wrapping reduces every line back into the cell.
+_ALLTT_SCRIPT_BUDGET_BASE = 32  # chars at 3.6 cm; empirical from rendered scriptsize
+
+
+def _alltt_budget_for_size(size_cmd: str, cell_width_cm: float) -> int:
+    """Char budget for the size returned by `_alltt_size_command`."""
+    scale = cell_width_cm / 3.6
+    if size_cmd == "":
+        return math.ceil(20 * scale)
+    if "footnotesize" in size_cmd:
+        return math.ceil(32 * scale)
+    return math.ceil(_ALLTT_SCRIPT_BUDGET_BASE * scale)  # scriptsize
+
+
+def _effective_len(s: str) -> int:
+    """Length of *s* counting `\\textbackslash{}` (16 raw chars, 1 rendered)
+    as one effective char. Other LaTeX escapes are not collapsed because
+    inside alltt only `\\textbackslash{}` is regularly emitted by upstream
+    AI prompts; bare `&`, `%`, `<`, `>` etc. pass through verbatim."""
+    return len(s.replace(r"\textbackslash{}", "\\"))
+
+
+def _find_last_space_within(s: str, budget: int) -> int | None:
+    """Position in *s* of the last space whose effective char index is
+    <= *budget*, or None if no space falls within budget. The cursor walks
+    forward; a `\\textbackslash{}` escape is consumed as one effective
+    char (16 raw)."""
+    pos, eff, last_space = 0, 0, None
+    while pos < len(s) and eff <= budget:
+        if s.startswith(r"\textbackslash{}", pos):
+            eff += 1
+            pos += 16
+            continue
+        if s[pos] == " ":
+            last_space = pos
+        eff += 1
+        pos += 1
+    return last_space
+
+
+def _wrap_alltt_at_spaces(block: str, budget: int) -> str:
+    """Wrap each line of the alltt body at the last space at-or-before
+    *budget* effective chars. Continuation indent is the original line's
+    leading whitespace + 2 spaces, matching the AND/OR break style used
+    by `_break_alltt_long_lines`. Lines whose first overflow has no space
+    within budget (single token too long) pass through unchanged — the
+    user's rule is "spaces only, not inside words"."""
+    m = re.match(r"(\\begin\{alltt\})(.*)(\\end\{alltt\})", block, re.DOTALL)
+    if not m:
+        return block
+    prefix, body, suffix = m.groups()
+    out: list[str] = []
+    for line in body.split("\n"):
+        rest = line
+        leading = re.match(r"^\s*", line).group(0)
+        cont_indent = leading + "  "
+        while _effective_len(rest) > budget:
+            cut = _find_last_space_within(rest, budget)
+            if cut is None:
+                break  # single token too long — accept overflow on this line
+            out.append(rest[:cut].rstrip())
+            rest = cont_indent + rest[cut:].lstrip()
+        out.append(rest)
+    return prefix + "\n".join(out) + suffix
 
 
 # Long pseudocode lines containing AND/OR (boolean expressions) are broken
@@ -343,6 +417,13 @@ def _protect_alltt(text: str, transform, cell_width_cm: float = 3.6) -> str:
         block = _ALLTT_MATH_RE.sub(lambda mm: _ALLTT_MATH_SUB[mm.group(1)], block)
         block = _break_alltt_long_lines(block, cell_width_cm)
         size = _alltt_size_command(block, cell_width_cm)
+        # Post-size-selection wrap: any line still exceeding the chosen
+        # size's char budget is broken at the last space at-or-before
+        # budget. For body / footnote this is a no-op (selection
+        # guarantees max_line ≤ budget); for scriptsize (the catch-all
+        # for overflowing input) it cuts long lines down to size.
+        block = _wrap_alltt_at_spaces(
+            block, _alltt_budget_for_size(size, cell_width_cm))
         if size:
             block = block.replace(r"\begin{alltt}", r"\begin{alltt}" + size, 1)
         return block

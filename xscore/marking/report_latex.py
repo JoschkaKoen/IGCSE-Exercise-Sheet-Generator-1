@@ -216,22 +216,25 @@ def _student_report_to_tex(
             correct_ans = correct_ans + " " + _scheme_graphics_tex(gfx_files)
         reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
         awarded_cell = _awarded_tex(awarded, max_q)
-        panels = _split_oversized_cell(correct_ans, panel_budget)
-        if len(panels) == 1:
-            rows.append(
-                f"    {qnum} & {max_q} & {awarded_cell} & {answer} & {panels[0]} & {reasoning} \\\\ \\hline"
-            )
-        else:
-            # Q12-style mega Expected: emit one row per panel; continuation
-            # rows have empty Q/Max/Got/Answer/Reasoning so panels appear as
-            # one logical row. Only the final continuation row carries
-            # \hline (separates from the next question).
-            rows.append(
-                f"    {qnum} & {max_q} & {awarded_cell} & {answer} & {panels[0]} & {reasoning} \\\\"
-            )
-            for i, panel in enumerate(panels[1:], 1):
-                terminator = "\\\\ \\hline" if i == len(panels) - 1 else "\\\\"
-                rows.append(f"     &  &  &  & {panel} &  {terminator}")
+        # Panel-split applies to both Answer and Expected: long pseudocode
+        # student answers (Q10-style) overflow vertically too, not just the
+        # mark-scheme Expected column. Each becomes 1+ panels independently.
+        # Continuation rows zero the boilerplate (Q/Max/Got/Reasoning) and
+        # carry whichever Answer/Expected panel exists at that row index;
+        # only the final row gets `\hline`.
+        answer_panels   = _split_oversized_cell(answer,      panel_budget)
+        expected_panels = _split_oversized_cell(correct_ans, panel_budget)
+        n_rows = max(len(answer_panels), len(expected_panels))
+        for i in range(n_rows):
+            a = answer_panels[i]   if i < len(answer_panels)   else ""
+            e = expected_panels[i] if i < len(expected_panels) else ""
+            term = "\\\\ \\hline" if i == n_rows - 1 else "\\\\"
+            if i == 0:
+                rows.append(
+                    f"    {qnum} & {max_q} & {awarded_cell} & {a} & {e} & {reasoning} {term}"
+                )
+            else:
+                rows.append(f"     &  &  & {a} & {e} &  {term}")
     if not rows:
         rows.append(
             "    \\multicolumn{6}{c}{\\textit{(no answers extracted)}} \\\\"
@@ -505,6 +508,9 @@ def _student_report_with_questions_to_tex(
         qstem_w, ans_w, exp_w, reason_w = 4.5, 1.0, 1.4, 13.5
     else:
         qstem_w, ans_w, exp_w, reason_w = 4.5, 4.7, 5.0, 6.2
+    # Always landscape — same vertical budget as `_student_report_to_tex`'s
+    # landscape branch. See that function for the calibration rationale.
+    panel_budget = 22.0
     q_to_graphics = q_to_graphics or {}
     rows = []
     for q in report["questions"]:
@@ -535,9 +541,23 @@ def _student_report_with_questions_to_tex(
         reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
         awarded_cell = _awarded_tex(awarded, max_q)
         question_cell = _render_question_with_options(_question_text_for_row(qnum_raw, qmap), qstem_w)
-        rows.append(
-            f"    {qnum} & {question_cell} & {max_q} & {awarded_cell} & {answer} & {correct_ans} & {reasoning} \\\\ \\hline"
-        )
+        # Panel-split applies to both Answer and Expected (mirrors
+        # `_student_report_to_tex`). Continuation rows zero the boilerplate
+        # (Q / Question / Max / Got / Reasoning) and only the final row
+        # carries `\hline`.
+        answer_panels   = _split_oversized_cell(answer,      panel_budget)
+        expected_panels = _split_oversized_cell(correct_ans, panel_budget)
+        n_rows = max(len(answer_panels), len(expected_panels))
+        for i in range(n_rows):
+            a = answer_panels[i]   if i < len(answer_panels)   else ""
+            e = expected_panels[i] if i < len(expected_panels) else ""
+            term = "\\\\ \\hline" if i == n_rows - 1 else "\\\\"
+            if i == 0:
+                rows.append(
+                    f"    {qnum} & {question_cell} & {max_q} & {awarded_cell} & {a} & {e} & {reasoning} {term}"
+                )
+            else:
+                rows.append(f"     &  &  &  & {a} & {e} &  {term}")
     if not rows:
         rows.append(
             "    \\multicolumn{7}{c}{\\textit{(no answers extracted)}} \\\\"

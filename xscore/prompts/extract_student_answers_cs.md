@@ -78,6 +78,9 @@ For pages with no continuation, only one attachment is present and this rule is 
       1st left $→$ 3rd right
       2nd left $→$ 4th right
 
+- **diagram** — when the student draws a diagram (circuit, logic gate, tree, structure diagram, graph, etc.), transcribe it as prose: name each labelled element, its value, and the relationships or layout. State what the diagram **conveys**, not how it's **drawn**.
+- **flowchart** — when the student draws a flowchart, transcribe it as Cambridge IGCSE pseudocode in `\begin{alltt}...\end{alltt}` when the control flow is clear; otherwise list each step and the connections between them in prose (e.g. `Start $→$ INPUT N $→$ IF N > 0 THEN OUTPUT N ELSE OUTPUT 0 ENDIF $→$ Stop`).
+
 ## `student_answer` format
 
 Always use exactly one of two shapes — never anything else.
@@ -134,8 +137,8 @@ Block scalars (`|`) handle backslashes literally — write LaTeX commands direct
 
 - bold text → `\textbf{...}`
 - italic text → `\textit{...}`
-- unordered lists → `\begin{itemize}\item first\item second\end{itemize}`
-- ordered/numbered lists → `\begin{enumerate}\item first\item second\end{enumerate}`
+- unordered lists → `\begin{itemize}\item first\item second\end{itemize}` — the default presentation for any list-shaped answer (a vertical stack of discrete points / sentences / short phrases). Use this even when the student didn't draw bullet markers.
+- ordered/numbered lists → `\begin{enumerate}\item first\item second\end{enumerate}` — use when the student numbered their items consecutively from 1 (`1.`, `(i)`, `a)`, …); otherwise use `\begin{itemize}`.
 - tables → `\begin{tabular}{col-spec} cell & cell \\ next row \end{tabular}` with `\hline` between rows
 - explicit line breaks between prose sentences → `\newline`
 - math → see `## Math` below
@@ -145,6 +148,9 @@ Constraints:
 - Never use more than one `\newline` in a row.
 - List items begin directly with `\item` — no `\newline` between items.
 - Plain prose and introductory sentences are written verbatim (no wrapping command needed).
+- A list-shaped answer is a vertical stack of discrete points. Continuous prose, worked calculations / derivations (multi-line equations), and code or pseudocode are NOT list-shaped — keep them as their existing forms.
+- Listification changes the layout, not the words. Do not paraphrase, condense, split, or merge what the student wrote. Math wrapping and all other formatting rules above still apply inside each `\item`.
+- Code and pseudocode go in `\begin{alltt}…\end{alltt}` (see `## Code and pseudocode (alltt)` below), not in `\begin{itemize}` or `\begin{enumerate}`, even when each line ends in `;` or a keyword like `ENDIF`.
 
 ## Math
 
@@ -287,10 +293,18 @@ For a page with one pseudocode answer and one MCQ:
       - number: '5b'
         student_answer: |
           C
+      - number: '5c'
+        student_answer: |
+          \begin{itemize}
+          \item It detects syntax errors before runtime.
+          \item It optimises the program once at translation time.
+          \item It produces a standalone executable.
+          \end{itemize}
 
 Notes:
 - 5a: every YAML line of the block scalar is at the same indent as `\begin{alltt}`. The assignment arrow uses `\(\leftarrow\)` (math mode inside alltt). Keywords inside alltt are already monospace — no per-keyword `\texttt{}`.
 - 5b: single-letter MCQ answer uses `|` block scalar, same as every other non-empty value.
+- 5c: three discrete advantages on separate lines → `\begin{itemize}`, not prose with `\newline`. Code-shaped answers (5a) still go in `alltt`, not bullets.
 
 ## USER
 

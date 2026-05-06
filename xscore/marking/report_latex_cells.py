@@ -194,14 +194,29 @@ def _format_criteria_cell(raw: str, cell_width_cm: float = 3.6) -> str:
 # Portrait A4 is ~28 cm tall → ~40.
 
 _ALLTT_SIZE_WEIGHTS: tuple[tuple[str, float], ...] = (
-    (r"\tiny ", 0.4),
-    (r"\scriptsize ", 0.55),
+    (r"\tiny ", 0.4),               # retained for safety; size is retired
+    (r"\scriptsize ", 0.31),        # was 0.55 — recalibrated empirically against
+                                    # Cosmo's Q10: source line 61 ("The Min is" Min[7])
+                                    # is the last that fits in a landscape panel,
+                                    # i.e. 69 post-wrap lines × weight ≤ 22 budget,
+                                    # so weight = 22/69 ≈ 0.319 → 0.31. Sensitive:
+                                    # 0.32 would shift Q10's split to source line 48.
     (r"\footnotesize ", 0.7),
 )
 _ALLTT_HEADER_RE = re.compile(
     r"\\begin\{alltt\}((?:\\(?:tiny|scriptsize|footnotesize|small|normalsize)\s)?)"
 )
-_ALLTT_KEYWORD_RE = re.compile(r"^\s*(?:PROCEDURE|FUNCTION|SUBROUTINE)\b")
+# Top-level start-keyword anchors for sub-splitting an oversized alltt block.
+# `^` (no `\s*`) requires column-0 indent so nested loops don't qualify —
+# only top-level structural starts. Block-opening keywords only; closing
+# forms (NEXT/UNTIL/ENDIF/ENDCASE) are intentionally excluded because the
+# natural break is *before* a new structure starts, not after one ends.
+# IGNORECASE so the AI's lower/title-case variants (`For`, `Repeat`, etc.)
+# match alongside the canonical uppercase forms used by mark schemes.
+_ALLTT_KEYWORD_RE = re.compile(
+    r"^(?:PROCEDURE|FUNCTION|SUBROUTINE|FOR|REPEAT|IF|WHILE|CASE)\b",
+    re.IGNORECASE,
+)
 
 
 def _chunk_weight(chunk: str) -> float:

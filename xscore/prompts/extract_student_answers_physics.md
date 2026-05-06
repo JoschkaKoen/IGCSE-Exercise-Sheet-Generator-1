@@ -78,6 +78,8 @@ For pages with no continuation, only one attachment is present and this rule is 
       1st left $→$ 3rd right
       2nd left $→$ 4th right
 
+- **diagram** — when the student draws a diagram (circuit, ray, force / free-body, vector, graph, apparatus, etc.), transcribe it as prose: name each labelled element, its value, and the relationships or layout. State what the diagram **conveys**, not how it's **drawn**.
+
 ## `student_answer` format
 
 Always use exactly one of two shapes — never anything else.
@@ -134,8 +136,8 @@ Block scalars (`|`) handle backslashes literally — write LaTeX commands direct
 
 - bold text → `\textbf{...}`
 - italic text → `\textit{...}`
-- unordered lists → `\begin{itemize}\item first\item second\end{itemize}`
-- ordered/numbered lists → `\begin{enumerate}\item first\item second\end{enumerate}`
+- unordered lists → `\begin{itemize}\item first\item second\end{itemize}` — the default presentation for any list-shaped answer (a vertical stack of discrete points / sentences / short phrases). Use this even when the student didn't draw bullet markers.
+- ordered/numbered lists → `\begin{enumerate}\item first\item second\end{enumerate}` — use when the student numbered their items consecutively from 1 (`1.`, `(i)`, `a)`, …); otherwise use `\begin{itemize}`.
 - tables → `\begin{tabular}{col-spec} cell & cell \\ next row \end{tabular}` with `\hline` between rows
 - explicit line breaks between prose sentences → `\newline`
 - math → see `## Math` below
@@ -145,6 +147,8 @@ Constraints:
 - Never use more than one `\newline` in a row.
 - List items begin directly with `\item` — no `\newline` between items.
 - Plain prose and introductory sentences are written verbatim (no wrapping command needed).
+- A list-shaped answer is a vertical stack of discrete points. Continuous prose, worked calculations / derivations (multi-line equations), and code or pseudocode are NOT list-shaped — keep them as their existing forms.
+- Listification changes the layout, not the words. Do not paraphrase, condense, split, or merge what the student wrote. Math wrapping and all other formatting rules above still apply inside each `\item`.
 
 ## Math
 
@@ -190,6 +194,13 @@ questions:
   - number: '3'
     student_answer: |
       Compiler: translates whole program at once
+  - number: '4'
+    student_answer: |
+      \begin{itemize}
+      \item The reading on the spring scale increases.
+      \item The block accelerates downward.
+      \item The weight remains constant.
+      \end{itemize}
 ```
 
 Notes:
@@ -197,6 +208,7 @@ Notes:
 - 1b: empty string `''` — student left it blank.
 - 2: block scalar with a single-letter MCQ answer — the same `|` shape as everything else.
 - 3: block scalar with a colon-bearing definition. `|` swallows the colon with no quoting decision; without `|`, YAML would read the second `:` as a nested mapping key and the parse would fail.
+- 4: three discrete observations on separate lines → wrapped in `\begin{itemize}` even though the student did not draw bullet markers; each `\item` carries the student's wording unchanged.
 
 ## USER
 
