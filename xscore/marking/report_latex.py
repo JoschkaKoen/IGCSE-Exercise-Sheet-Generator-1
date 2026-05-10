@@ -198,7 +198,15 @@ def _student_report_to_tex(
             ans_w, exp_w, reason_w = 4.7, 5.0, 4.4
         else:
             ans_w, exp_w, reason_w = 3.6, 5.0, 5.5
-        panel_budget = 40.0
+        # Portrait calibration: budget 28 is empirically the largest value
+        # that splits Cosmo's Q10 mark-scheme cell with panel 1 ending at the
+        # `NEXT HourCounter` group boundary (the user's preferred break point —
+        # the inner FOR-Hour loop closes there, before the CASE OF Day branch
+        # starts). Wider budgets (29-31) hit the same boundary; budget 32+
+        # extends panel 1 to include the CASE OF block. Was 40.0 originally
+        # (no split, alltt overflowed page 1) → 32.0 (split at ENDCASE) →
+        # 28.0 (split at NEXT HourCounter, matching user's target).
+        panel_budget = 28.0
     else:
         if is_all_mcq:
             ans_w, exp_w, reason_w = 1.0, 1.4, 18.4
@@ -206,7 +214,14 @@ def _student_report_to_tex(
             ans_w, exp_w, reason_w = 7.3, 7.0, 6.5
         else:
             ans_w, exp_w, reason_w = 5.7, 7.0, 8.1
-        panel_budget = 22.0
+        # Landscape: budget 18 is the largest value that splits Cosmo's Q10
+        # mark-scheme cell with panel 1 ending at "DayTotal <- 0" (one line
+        # after the user's "MinDay <- 1000" target — they're in the same
+        # blank-line group `FOR DayCounter / MaxDay / // initialise / MinDay /
+        # DayTotal`, so we can't cut between MinDay and DayTotal without a
+        # finer-than-blank-line splitter). Was 22.0 (split at ENDIF after the
+        # IF MaxDay block, much later than user wanted).
+        panel_budget = 18.0
     q_to_graphics = q_to_graphics or {}
     rows = []
     for q in report["questions"]:
@@ -438,7 +453,7 @@ def _question_text_for_row(qnum: str, qmap: dict[str, dict]) -> dict | None:
 
 
 def _render_question_with_options(q: dict | None, cell_width_cm: float = 3.6) -> str:
-    """Render question stem plus an ``(A)/(B)/...`` itemize for MCQs.
+    """Render question stem plus an ``A/B/...`` itemize for MCQs.
 
     Returns empty string for parent-only nodes (text == "" and no options) so
     the recursive ``_question_to_tex`` can omit a blank body line for them.
@@ -456,7 +471,7 @@ def _render_question_with_options(q: dict | None, cell_width_cm: float = 3.6) ->
             for opt in opts:
                 letter = _latex_escape(str(opt.get("letter") or "").strip())
                 opt_text = _ai_cell(str(opt.get("text") or "").strip(), cell_width_cm)
-                items.append(f"  \\item[({letter})] {opt_text}")
+                items.append(f"  \\item[{letter}] {opt_text}")
             parts.append(
                 "\\begin{itemize}[leftmargin=2em,itemsep=0pt]\n"
                 + "\n".join(items)
@@ -542,9 +557,13 @@ def _student_report_with_questions_to_tex(
         qstem_w, ans_w, exp_w, reason_w = 4.5, 5.9, 5.0, 5.0
     else:
         qstem_w, ans_w, exp_w, reason_w = 4.5, 4.7, 5.0, 6.2
-    # Always landscape — same vertical budget as `_student_report_to_tex`'s
-    # landscape branch. See that function for the calibration rationale.
-    panel_budget = 22.0
+    # Always landscape, with-questions variant — narrower Expected column
+    # (5cm vs 7cm in plain landscape) means more wrap, more rendered lines per
+    # source line. Budget 16 lets Cosmo's Q10 mark-scheme cell split with
+    # panel 1 ending at "CONSTANT Days <- 7" (user's target). The Question
+    # column is also panel-split now (see the row-emit loop) since Q10's
+    # program-writing prompt would otherwise dominate row 1's height.
+    panel_budget = 16.0
     q_to_graphics = q_to_graphics or {}
     rows = []
     for q in report["questions"]:
@@ -577,23 +596,27 @@ def _student_report_with_questions_to_tex(
         reasoning = _ai_cell(str(q.get("explanation") or ""), reason_w)
         awarded_cell = _awarded_tex(awarded, max_q)
         question_cell = _render_question_with_options(_question_text_for_row(qnum_raw, qmap), qstem_w)
-        # Panel-split applies to both Answer and Expected (mirrors
-        # `_student_report_to_tex`). Continuation rows zero the boilerplate
-        # (Q / Question / Max / Got / Reasoning) and only the final row
-        # carries `\hline`.
-        answer_panels   = _split_oversized_cell(answer,      panel_budget)
-        expected_panels = _split_oversized_cell(correct_ans, panel_budget)
-        n_rows = max(len(answer_panels), len(expected_panels))
+        # Panel-split applies to Question, Answer, and Expected. Long
+        # prose-heavy question stems (e.g. Q10's program-writing prompt)
+        # otherwise force row 1 to a height that overflows page 1, even
+        # when Answer/Expected panels themselves fit. Continuation rows
+        # zero the unsplit boilerplate (Max / Got / Reasoning) and only
+        # the final row carries `\hline`.
+        question_panels = _split_oversized_cell(question_cell, panel_budget)
+        answer_panels   = _split_oversized_cell(answer,        panel_budget)
+        expected_panels = _split_oversized_cell(correct_ans,   panel_budget)
+        n_rows = max(len(question_panels), len(answer_panels), len(expected_panels))
         for i in range(n_rows):
-            a = answer_panels[i]   if i < len(answer_panels)   else ""
-            e = expected_panels[i] if i < len(expected_panels) else ""
+            q_p = question_panels[i] if i < len(question_panels) else ""
+            a   = answer_panels[i]   if i < len(answer_panels)   else ""
+            e   = expected_panels[i] if i < len(expected_panels) else ""
             term = "\\\\ \\hline" if i == n_rows - 1 else "\\\\"
             if i == 0:
                 rows.append(
-                    f"    {qnum} & {question_cell} & {max_q} & {awarded_cell} & {a} & {e} & {reasoning} {term}"
+                    f"    {qnum} & {q_p} & {max_q} & {awarded_cell} & {a} & {e} & {reasoning} {term}"
                 )
             else:
-                rows.append(f"     &  &  &  & {a} & {e} &  {term}")
+                rows.append(f"     & {q_p} &  &  & {a} & {e} &  {term}")
     if not rows:
         rows.append(
             "    \\multicolumn{7}{c}{\\textit{(no answers extracted)}} \\\\"

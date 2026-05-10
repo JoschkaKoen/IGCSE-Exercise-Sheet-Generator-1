@@ -1,7 +1,7 @@
 ---
 name: parse_mark_scheme
-version: v10
-description: Step 24 — parse_mark_scheme. Type-driven schema; MCQ entries fill correct_answer + explanation; non-MCQ entries fill a single mark_scheme_answer block. v10 added a canonical 2-space-per-nesting-level indentation rule for `\begin{alltt}` blocks (replacing v9's "preserve indentation" — which was being ignored: w23_23_Unit_Test 2026-05-06_22-50-43 had Q10 emitted with 1-space indentation under `FOR`/`IF`/`CASE` even though the printed source uses 4-space, making the expected-answer column read flat next to the canonically-indented student column from `extract_student_answers_cs`).
+version: v11
+description: Step 24 — parse_mark_scheme. Type-driven schema; MCQ entries fill correct_answer + explanation; non-MCQ entries fill a single mark_scheme_answer block. v10 added a canonical 2-space-per-nesting-level indentation rule for `\begin{alltt}` blocks (replacing v9's "preserve indentation" — which was being ignored: w23_23_Unit_Test 2026-05-06_22-50-43 had Q10 emitted with 1-space indentation under `FOR`/`IF`/`CASE` even though the printed source uses 4-space, making the expected-answer column read flat next to the canonically-indented student column from `extract_student_answers_cs`); v11 added blank-line readability conventions inside alltt blocks.
 ---
 ## SYSTEM
 
@@ -168,6 +168,54 @@ If a single word like "OR" needs to break out of math, do it cleanly: `$A$ OR $B
 Wrap **any multi-line code or programming-language answer** in `\begin{alltt}...\end{alltt}` — this includes CAIE pseudocode (`INPUT`, `OUTPUT`, `IF…ENDIF`, `FOR…NEXT`, `DECLARE`, `PROCEDURE`), Python (`def`, `for x in …`, `print()`, `#`-comments), Java/C/C++ (`public class`, `System.out.println`, `//`-comments, `{` / `}` braces), JavaScript, SQL, or any other language. The decision is "is this code?" not "is this CAIE pseudocode?". When in doubt, wrap. Use real newlines between lines.
 
 **Indentation — apply canonical 2-space-per-nesting-level indentation.** Outermost block at column 0; each nesting level is 2 spaces deeper than its enclosing keyword. The body of `IF…ENDIF`, `WHILE…ENDWHILE`, `REPEAT…UNTIL`, `FOR…NEXT`, `PROCEDURE…ENDPROCEDURE`, `FUNCTION…ENDFUNCTION`, `CASE…ENDCASE` is one indent level deeper than the opener; the closing keyword returns to the same column. Apply this regardless of how the printed mark scheme is spaced (4-space, tabs, flush-left — re-indent to 2-space). The marking report shows this column next to the student's answer (which is canonically 2-space-indented), so they should match.
+
+**Blank lines — add for readability, regardless of how the source is spaced:**
+
+- Insert a blank line **before** every comment-only line (a line whose content is entirely `// …`), UNLESS the previous line is also a comment (consecutive comments form one block — no blank between them).
+- Insert a blank line **before** every loop opener (`FOR`, `WHILE`, `REPEAT`), UNLESS the previous line is a comment, another loop opener, or an `IF`/`THEN`/`ELSE` block-opener.
+- Insert a blank line **after** every loop closer (`NEXT`, `ENDWHILE`, `UNTIL`), UNLESS the next line is another block closer (`NEXT`, `UNTIL`, `ENDWHILE`, `ENDIF`, `ENDCASE`).
+
+Never insert a blank line immediately after `\begin{alltt}` or immediately before `\end{alltt}`. When two rules call for a blank at the same spot, insert one blank line, not two.
+
+Positive example:
+
+    \begin{alltt}
+    DECLARE Counter : INTEGER
+
+    // Initialise per-day max
+    // (bubble-sort variant)
+    FOR Day <- 1 TO 7
+      MaxDay <- -1000
+
+      FOR Hour <- 1 TO 24
+        IF Temp[Day, Hour] > MaxDay
+          THEN
+            MaxDay <- Temp[Day, Hour]
+        ENDIF
+      NEXT Hour
+
+      Max[Day] <- MaxDay
+    NEXT Day
+
+    OUTPUT Max
+    \end{alltt}
+
+Trace: blank before `// Initialise per-day max` (rule 1); no blank between the two comment lines (rule 1 exception — consecutive comments); no blank between `// (bubble-sort variant)` and `FOR Day` (rule 2 exception — prev is comment); blank before inner `FOR Hour` (rule 2 — prev is code); blank after `NEXT Hour` before `Max[Day]` (rule 3 — next is non-closer code); blank after `NEXT Day` before `OUTPUT` (rule 3).
+
+Second example, showing the `THEN`/loop and loop-closer/`ENDIF` exceptions:
+
+    \begin{alltt}
+    IF UseAccumulator
+      THEN
+        FOR Hour <- 1 TO 24
+          Total <- Total + Temp[Hour]
+        NEXT Hour
+    ENDIF
+    \end{alltt}
+
+No blank between `THEN` and `FOR Hour` (rule 2 exception — `THEN` is a block-opener). No blank between `NEXT Hour` and `ENDIF` (rule 3 exception — `ENDIF` is a block closer).
+
+Apply blank lines even when the source is dense.
 
 Inside `\begin{alltt}...\end{alltt}`: do NOT escape `<`, `>`, `&`, `%`, `_`, `#`, `$` — alltt is verbatim-with-commands. Only escape `{` → `\{`, `}` → `\}`, backslash → `\textbackslash{}`.
 

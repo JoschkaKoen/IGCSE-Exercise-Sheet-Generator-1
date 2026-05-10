@@ -197,6 +197,60 @@ def _split_prose_lines(prose: str) -> list[str]:
     return out
 
 
+def _split_at_top_items(chunk: str) -> list[str]:
+    """Split a prose chunk containing a top-level itemize at item boundaries.
+
+    Each result chunk gets a complete ``\\begin{itemize}…\\end{itemize}``
+    wrapping a subset of the original items. Pre-itemize text stays with the
+    first chunk; post-itemize text stays with the last. Nested itemizes
+    inside a top-level item travel with that item — the splitter only cuts
+    at depth-0 ``\\item`` boundaries.
+
+    Returns ``[chunk]`` unchanged if the chunk has no itemize or the
+    itemize has only one top-level item (nothing to split).
+    """
+    m = re.search(r"\\begin\{itemize\}(.*?)\\end\{itemize\}", chunk, re.DOTALL)
+    if not m:
+        return [chunk]
+    pre, body, post = chunk[: m.start()], m.group(1), chunk[m.end() :]
+
+    items: list[str] = []
+    depth = 0
+    cur = ""
+    i = 0
+    while i < len(body):
+        if body.startswith(r"\begin{itemize}", i):
+            depth += 1
+            cur += r"\begin{itemize}"
+            i += len(r"\begin{itemize}")
+            continue
+        if body.startswith(r"\end{itemize}", i):
+            depth -= 1
+            cur += r"\end{itemize}"
+            i += len(r"\end{itemize}")
+            continue
+        if depth == 0 and body.startswith(r"\item", i):
+            if cur.strip():
+                items.append(cur)
+            cur = r"\item"
+            i += len(r"\item")
+            continue
+        cur += body[i]
+        i += 1
+    if cur.strip():
+        items.append(cur)
+
+    if len(items) <= 1:
+        return [chunk]
+
+    out: list[str] = []
+    for j, item in enumerate(items):
+        head = pre if j == 0 else ""
+        tail = post if j == len(items) - 1 else ""
+        out.append(f"{head}\\begin{{itemize}}{item}\\end{{itemize}}{tail}")
+    return out
+
+
 def _sub_split_alltt_block(block: str, budget: float = float("inf")) -> list[str]:
     """Sub-split an oversized alltt block at blank lines (preferred) or
     PROCEDURE/FUNCTION/SUBROUTINE keyword boundaries; preserve the parent's
@@ -282,6 +336,24 @@ def _split_oversized_cell(cell: str, budget: float) -> list[str]:
     can break across pages by being emitted as several rows with empty leading
     columns. Returns ``[cell]`` if the cell fits within *budget*."""
     chunks = list(_decompose_cell(cell, budget))
+    # Pre-pass: subdivide any prose chunk containing a top-level itemize
+    # whose own weight would force the chunk to be a single panel. Long
+    # question stems with multi-item requirement lists (e.g. Q10's
+    # program-writing prompt) otherwise produce one giant chunk that the
+    # greedy packer below can't break — leading to an oversized panel that
+    # overflows the page. Each item becomes its own packable sub-chunk
+    # (re-wrapped in `\begin{itemize}…\end{itemize}`).
+    expanded: list[str] = []
+    for c in chunks:
+        if (
+            r"\begin{alltt}" not in c
+            and r"\begin{itemize}" in c
+            and _chunk_weight(c) > budget * 0.4
+        ):
+            expanded.extend(_split_at_top_items(c))
+        else:
+            expanded.append(c)
+    chunks = expanded
     if sum(_chunk_weight(c) for c in chunks) <= budget:
         return [cell]
     panels: list[list[str]] = [[]]

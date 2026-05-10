@@ -1,7 +1,7 @@
 ---
 name: extract_student_answers_cs
-version: v2
-description: Step 28 — extract_student_answers (CS; includes alltt; minimal math).
+version: v3
+description: Step 28 — extract_student_answers (CS; includes alltt; minimal math). v3 added blank-line readability conventions inside alltt blocks.
 ---
 ## SYSTEM
 
@@ -64,6 +64,56 @@ Canonical structure:
 - The closing keyword (`ENDIF`, `ENDWHILE`, `UNTIL`, `NEXT`, `ENDPROCEDURE`, `ENDFUNCTION`, `ENDCASE`) returns to the same column as its opener.
 
 Apply canonical indentation even when: the student wrote everything flush-left; the student's indentation is inconsistent or wrong; the student split one logical line across two physical lines; the handwriting makes indentation impossible to read off the scan.
+
+**Blank lines — add for readability, regardless of how the student wrote it:**
+
+- Insert a blank line **before** every comment-only line (a line whose content is entirely `// …`), UNLESS the previous line is also a comment (consecutive comments form one block — no blank between them).
+- Insert a blank line **before** every loop opener (`FOR`, `WHILE`, `REPEAT`), UNLESS the previous line is a comment, another loop opener, or an `IF`/`THEN`/`ELSE` block-opener.
+- Insert a blank line **after** every loop closer (`NEXT`, `ENDWHILE`, `UNTIL`), UNLESS the next line is another block closer (`NEXT`, `UNTIL`, `ENDWHILE`, `ENDIF`, `ENDCASE`).
+
+Never insert a blank line immediately after `\begin{alltt}` or immediately before `\end{alltt}`. When two rules call for a blank at the same spot, insert one blank line, not two.
+
+Positive example:
+
+    student_answer: |
+      \begin{alltt}
+      DECLARE Counter : INTEGER
+
+      // Initialise per-day max
+      // (bubble-sort variant)
+      FOR Day <- 1 TO 7
+        MaxDay <- -1000
+
+        FOR Hour <- 1 TO 24
+          IF Temp[Day, Hour] > MaxDay
+            THEN
+              MaxDay <- Temp[Day, Hour]
+          ENDIF
+        NEXT Hour
+
+        Max[Day] <- MaxDay
+      NEXT Day
+
+      OUTPUT Max
+      \end{alltt}
+
+Trace: blank before `// Initialise per-day max` (rule 1); no blank between the two comment lines (rule 1 exception — consecutive comments); no blank between `// (bubble-sort variant)` and `FOR Day` (rule 2 exception — prev is comment); blank before inner `FOR Hour` (rule 2 — prev is code); blank after `NEXT Hour` before `Max[Day]` (rule 3 — next is non-closer code); blank after `NEXT Day` before `OUTPUT` (rule 3).
+
+Second example, showing the `THEN`/loop and loop-closer/`ENDIF` exceptions:
+
+    student_answer: |
+      \begin{alltt}
+      IF UseAccumulator
+        THEN
+          FOR Hour <- 1 TO 24
+            Total <- Total + Temp[Hour]
+          NEXT Hour
+      ENDIF
+      \end{alltt}
+
+No blank between `THEN` and `FOR Hour` (rule 2 exception — `THEN` is a block-opener). No blank between `NEXT Hour` and `ENDIF` (rule 3 exception — `ENDIF` is a block closer).
+
+Apply blank lines even when the student wrote the answer with no blank lines at all.
 
 **Positive example (Q4b RIGHT — canonical 2-space indents per nesting level):**
 
