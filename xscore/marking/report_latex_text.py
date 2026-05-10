@@ -89,18 +89,22 @@ def _escape_bare_amp_outside_tabular(text: str) -> str:
 _ALLTT_BLOCK_RE = re.compile(r"\\begin\{alltt\}.*?\\end\{alltt\}", re.DOTALL)
 _ALLTT_PLACEHOLDER_RE = re.compile(r"\x00ALLTT(\d+)\x00")
 
-# AI sometimes emits math arrows in text mode. Originally seen inside alltt
+# AI sometimes emits math symbols in text mode. Originally seen inside alltt
 # pseudocode (`P \leftarrow "x"`) — alltt is text-mode only, so xelatex would
 # insert an implicit `$` and then error at `\end{alltt}` ("invalid in math
 # mode"). Also seen inside `\texttt{...}` in AI explanations, where
 # `_wrap_loose_math` can't reach (the whole `\texttt{...}` is stashed as a
 # single text-command unit). Substitute with Unicode in both contexts —
 # fontspec renders these glyphs directly, identically in text and math modes.
+# Note: `$` is catcode-12 (literal) inside alltt per `\dospecials` in alltt.sty,
+# so a substituted command with `$...$` around it (e.g. `$\neq$` from the AI)
+# becomes literal `$≠$` — the dollars stay but render as harmless characters.
 _ALLTT_MATH_SUB = {
     "leftarrow": "←", "gets": "←",
     "rightarrow": "→", "to": "→",
     "Leftarrow": "⇐",
     "Rightarrow": "⇒",
+    "neq": "≠",
 }
 # Match either the raw form `\leftarrow` or the prompt-escaped form
 # `\textbackslash{}leftarrow`. Step 22's mark-scheme parsing prompt tells the
@@ -440,8 +444,8 @@ def _protect_alltt(text: str, transform, cell_width_cm: float = 3.6) -> str:
     # while they were stashed as placeholders. Re-apply them post-restore so
     # `\end{alltt}\newline` ("There's no line here to end") and
     # `\newline\begin{alltt}` get cleaned up.
-    text = re.sub(r"(\\end\{alltt\})\s*\\newline\b\s?", r"\1 ", text)
-    text = re.sub(r"\\newline\s*(?=\\begin\{alltt\})", "", text)
+    text = re.sub(r"(\\end\{alltt\})(?:\s*\\newline\b\s?)+", r"\1 ", text)
+    text = re.sub(r"(?:\\newline\s*)+(?=\\begin\{alltt\})", "", text)
     return text
 
 

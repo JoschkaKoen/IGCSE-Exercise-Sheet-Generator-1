@@ -552,6 +552,9 @@ def generate_mcq_explanations(
         _save_mcq_prompt(save_dir, system, user_content, exam_key, q_texts=q_texts)
 
     use_stream, thinking_kw = build_thinking_kwargs(provider, thinking_tokens)
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    _timeout = make_request_timeout("long")
+    _timeout_kw: dict = {"timeout": _timeout} if _timeout is not None else {}
     _max_tokens_resolved = max_tokens or 16384
     thinking_parts: list[str] = []
 
@@ -568,6 +571,7 @@ def generate_mcq_explanations(
                 messages=msgs,
                 stream=True,
                 **thinking_kw,
+                **_timeout_kw,
                 **kwargs,
             )
             finish_out: list[str] = []
@@ -581,6 +585,7 @@ def generate_mcq_explanations(
             max_tokens=_max_tokens_resolved,
             messages=msgs,
             **thinking_kw,
+            **_timeout_kw,
             **kwargs,
         )
         choice = completion.choices[0]

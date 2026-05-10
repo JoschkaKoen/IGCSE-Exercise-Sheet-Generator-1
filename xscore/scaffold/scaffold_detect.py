@@ -65,6 +65,7 @@ def extract_exam_question_numbers(
     _oa_provider = ""
     _oa_use_stream = False
     _oa_thinking_kw: dict = {}
+    _oa_timeout_kw: dict = {}
     _use_qwen_pdf = False
     if not detect_model.startswith("gemini"):
         _oa_result = make_ai_client(
@@ -78,6 +79,9 @@ def extract_exam_question_numbers(
         _oa_use_stream, _oa_thinking_kw = build_completion_kwargs(
             _oa_provider, detect_thinking, detect_max_tokens,
         )
+        from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+        _oa_timeout = make_request_timeout("standard")
+        _oa_timeout_kw = {"timeout": _oa_timeout} if _oa_timeout is not None else {}
         _use_qwen_pdf = (
             _oa_provider == "qwen" and model_supports_pdf_input(detect_model)
         )
@@ -148,6 +152,7 @@ def extract_exam_question_numbers(
             if _oa_client is not None:
                 kwargs: dict = dict(model=detect_model, messages=_messages)
                 kwargs.update(_oa_thinking_kw)
+                kwargs.update(_oa_timeout_kw)
                 if _oa_use_stream:
                     _th: list[str] = []
                     stream = _oa_client.chat.completions.create(**kwargs, stream=True)

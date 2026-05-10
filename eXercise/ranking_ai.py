@@ -370,6 +370,10 @@ def _rank_exercises_ai(
 
     _vision_max_tokens = max_tokens or 8192
 
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    _timeout = make_request_timeout("long")
+    _timeout_kw: dict = {"timeout": _timeout} if _timeout is not None else {}
+
     def _call(messages: list[dict]) -> str:
         use_stream, thinking_kw = build_thinking_kwargs(provider, thinking_tokens)
         print("  Waiting for AI response…", flush=True)
@@ -380,6 +384,7 @@ def _rank_exercises_ai(
                 stream=True,
                 max_tokens=_vision_max_tokens,
                 **thinking_kw,
+                **_timeout_kw,
             )
             return print_streamed_response(
                 stream, stream_thinking=stream_thinking, print_content=False, thinking_out=ranking_thinking,
@@ -389,6 +394,7 @@ def _rank_exercises_ai(
             messages=messages,
             max_tokens=_vision_max_tokens,
             **thinking_kw,
+            **_timeout_kw,
         )
         return (completion.choices[0].message.content or "").strip()
 

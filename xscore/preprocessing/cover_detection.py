@@ -123,6 +123,7 @@ def is_cover_page(
             build_completion_kwargs,
             collect_streamed_response,
             make_ai_client,
+            make_request_timeout,
         )
         _result = make_ai_client(model_env="COVER_PAGE_DETECTION_MODEL")
         if _result is None:
@@ -133,6 +134,8 @@ def is_cover_page(
             return False
         _oa_client, _, _provider, _, _ = _result
         _use_stream, _kw = build_completion_kwargs(_provider, thinking_tokens, max_tokens)
+        _timeout = make_request_timeout("quick")
+        _timeout_kw: dict = {"timeout": _timeout} if _timeout is not None else {}
         _msgs = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt + '\n\nReturn JSON only with this shape: {"page_type": "cover" | "instructions" | "question"}'},
@@ -140,7 +143,7 @@ def is_cover_page(
         if _use_stream:
             _th: list[str] = []
             _stream = _oa_client.chat.completions.create(
-                model=model_id, messages=_msgs, stream=True, **_kw,
+                model=model_id, messages=_msgs, stream=True, **_kw, **_timeout_kw,
             )
             raw = collect_streamed_response(_stream, thinking_out=_th)
             thinking_text = "".join(_th)
@@ -148,11 +151,11 @@ def is_cover_page(
             try:
                 _resp = _oa_client.chat.completions.create(
                     model=model_id, messages=_msgs,
-                    response_format={"type": "json_object"}, **_kw,
+                    response_format={"type": "json_object"}, **_kw, **_timeout_kw,
                 )
             except Exception:
                 _resp = _oa_client.chat.completions.create(
-                    model=model_id, messages=_msgs, **_kw,
+                    model=model_id, messages=_msgs, **_kw, **_timeout_kw,
                 )
             raw = _resp.choices[0].message.content or ""
             thinking_text = getattr(_resp.choices[0].message, "reasoning_content", "") or ""
@@ -279,6 +282,7 @@ def check_cover_page_text(
             build_completion_kwargs,
             collect_streamed_response,
             make_ai_client,
+            make_request_timeout,
         )
         _result = make_ai_client(model_env="EMPTY_EXAM_COVER_MODEL")
         if _result is None:
@@ -289,6 +293,8 @@ def check_cover_page_text(
             return False
         _oa_client, _, _provider, _, _ = _result
         _use_stream, _kw = build_completion_kwargs(_provider, thinking_tokens, max_tokens)
+        _timeout = make_request_timeout("quick")
+        _timeout_kw: dict = {"timeout": _timeout} if _timeout is not None else {}
         _msgs = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt + '\n\nReturn JSON only with this shape: {"page_type": "cover" | "instructions" | "question"}'},
@@ -297,7 +303,7 @@ def check_cover_page_text(
             def _do_stream() -> tuple[str, str]:
                 _th: list[str] = []
                 _stream = _oa_client.chat.completions.create(
-                    model=model_id, messages=_msgs, stream=True, **_kw,
+                    model=model_id, messages=_msgs, stream=True, **_kw, **_timeout_kw,
                 )
                 _raw = collect_streamed_response(_stream, thinking_out=_th)
                 return _raw, "".join(_th)
@@ -309,7 +315,7 @@ def check_cover_page_text(
             def _do_json() -> tuple[str, str]:
                 _resp = _oa_client.chat.completions.create(
                     model=model_id, messages=_msgs,
-                    response_format={"type": "json_object"}, **_kw,
+                    response_format={"type": "json_object"}, **_kw, **_timeout_kw,
                 )
                 return (
                     _resp.choices[0].message.content or "",
@@ -318,7 +324,7 @@ def check_cover_page_text(
 
             def _do_plain() -> tuple[str, str]:
                 _resp = _oa_client.chat.completions.create(
-                    model=model_id, messages=_msgs, **_kw,
+                    model=model_id, messages=_msgs, **_kw, **_timeout_kw,
                 )
                 return (
                     _resp.choices[0].message.content or "",

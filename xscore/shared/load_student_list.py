@@ -235,12 +235,15 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
         ]
         _t0 = time.perf_counter()
         thinking_text = ""
+        from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
         from eXercise.api_retry import retry_api_call  # noqa: PLC0415
+        _timeout = make_request_timeout("quick")
+        _timeout_kw: dict = {"timeout": _timeout} if _timeout is not None else {}
         if _use_stream:
             def _do_stream() -> tuple[str, str]:
                 _th: list[str] = []
                 _stream = _oa_client.chat.completions.create(
-                    model=model_name, messages=_msgs, stream=True, **_kw,
+                    model=model_name, messages=_msgs, stream=True, **_kw, **_timeout_kw,
                 )
                 _raw = collect_streamed_response(_stream, thinking_out=_th)
                 return _raw, "".join(_th)
@@ -250,7 +253,7 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
             def _do_json() -> tuple[str, str]:
                 _resp = _oa_client.chat.completions.create(
                     model=model_name, messages=_msgs,
-                    response_format={"type": "json_object"}, **_kw,
+                    response_format={"type": "json_object"}, **_kw, **_timeout_kw,
                 )
                 return (
                     _resp.choices[0].message.content or "",
@@ -259,7 +262,7 @@ def read_student_list(folder: Path, artifact_dir: Path | None = None) -> list[st
 
             def _do_plain() -> tuple[str, str]:
                 _resp = _oa_client.chat.completions.create(
-                    model=model_name, messages=_msgs, **_kw,
+                    model=model_name, messages=_msgs, **_kw, **_timeout_kw,
                 )
                 return (
                     _resp.choices[0].message.content or "",

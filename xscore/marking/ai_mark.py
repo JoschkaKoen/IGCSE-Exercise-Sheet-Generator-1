@@ -444,24 +444,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         )
         workers = _default_workers
 
-    _DEFAULT_MARKING_READ_TIMEOUT_S = 300.0
-    try:
-        _read_s = float(os.environ.get(
-            "MARKING_CALL_READ_TIMEOUT_S", str(_DEFAULT_MARKING_READ_TIMEOUT_S)
-        ))
-    except ValueError:
-        warn_line(
-            f"MARKING_CALL_READ_TIMEOUT_S={os.environ.get('MARKING_CALL_READ_TIMEOUT_S')!r} is not a "
-            f"number — falling back to default {_DEFAULT_MARKING_READ_TIMEOUT_S}s."
-        )
-        _read_s = _DEFAULT_MARKING_READ_TIMEOUT_S
-    # ≤ 0 means "do not enforce a timeout" — useful for debugging.
-    if _read_s > 0:
-        _marking_request_timeout: httpx.Timeout | None = httpx.Timeout(
-            connect=30.0, read=_read_s, write=30.0, pool=30.0,
-        )
-    else:
-        _marking_request_timeout = None
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    _marking_request_timeout: httpx.Timeout | None = make_request_timeout("long")
 
     timings_lock = threading.Lock()
     api_call_timings: list[dict] = []

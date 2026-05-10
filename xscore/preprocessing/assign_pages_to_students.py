@@ -178,6 +178,9 @@ def assign_pages(
     workers = int(os.environ.get("NAME_WORKERS", str(min(n_blocks, 8))))
     prompt = _make_name_prompt(students) if students else load_prompt("student_names", section="freeform")[1]
 
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    request_timeout = make_request_timeout("standard")
+
     def _ocr_and_match(idx: int, i: int) -> tuple[int, int, str, str | None, float]:
         """Returns (idx, page, raw_name, matched_name, elapsed_s)."""
         if pages is not None:
@@ -197,6 +200,7 @@ def assign_pages(
             client, img_b64, prompt, max_tokens=(_max_tok or 64),
             model_id=model_id, provider=_provider, thinking_tokens=_thinking,
             prompt_save_path=save_path, print_latency=False,
+            request_timeout=request_timeout,
         )
         elapsed = time.perf_counter() - _t0
         try:

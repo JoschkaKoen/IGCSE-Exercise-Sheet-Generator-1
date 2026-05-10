@@ -102,6 +102,9 @@ def _call_text(user_message: str, out: dict | None = None) -> str:
         )
     client, _, provider, _, _ = result
     use_stream, kw = build_completion_kwargs(provider, thinking_tokens, max_tokens)
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    _timeout = make_request_timeout("quick")
+    _timeout_kw: dict = {"timeout": _timeout} if _timeout is not None else {}
     msgs = [
         {"role": "system", "content": _SYSTEM_PROMPT},
         {"role": "user", "content": user_message},
@@ -113,7 +116,7 @@ def _call_text(user_message: str, out: dict | None = None) -> str:
             # Stream consumed inside the closure so a mid-stream failure retries.
             _th: list[str] = []
             _stream = client.chat.completions.create(
-                model=model_name, messages=msgs, stream=True, **kw,
+                model=model_name, messages=msgs, stream=True, **kw, **_timeout_kw,
             )
             return collect_streamed_response(_stream, thinking_out=_th), "".join(_th)
 
@@ -125,7 +128,7 @@ def _call_text(user_message: str, out: dict | None = None) -> str:
     def _do_json() -> tuple[str, str]:
         _resp = client.chat.completions.create(
             model=model_name, messages=msgs,
-            response_format={"type": "json_object"}, **kw,
+            response_format={"type": "json_object"}, **kw, **_timeout_kw,
         )
         return (
             _resp.choices[0].message.content or "",
@@ -134,7 +137,7 @@ def _call_text(user_message: str, out: dict | None = None) -> str:
 
     def _do_plain() -> tuple[str, str]:
         _resp = client.chat.completions.create(
-            model=model_name, messages=msgs, **kw,
+            model=model_name, messages=msgs, **kw, **_timeout_kw,
         )
         return (
             _resp.choices[0].message.content or "",

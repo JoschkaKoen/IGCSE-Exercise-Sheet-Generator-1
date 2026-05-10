@@ -832,6 +832,45 @@ class _TrackedGeminiClient:
         return getattr(self._client, name)
 
 
+_TIMEOUT_TIERS: dict[str, tuple[str, float]] = {
+    "quick":    ("AI_TIMEOUT_QUICK_S", 60.0),
+    "standard": ("AI_TIMEOUT_STANDARD_S", 180.0),
+    "long":     ("AI_TIMEOUT_LONG_S", 360.0),
+}
+
+
+def make_request_timeout(tier: str) -> "Any | None":
+    """Build an ``httpx.Timeout`` for one of the three call tiers.
+
+    quick    → ``AI_TIMEOUT_QUICK_S``    (default 60 s)  — single-decision calls
+    standard → ``AI_TIMEOUT_STANDARD_S`` (default 180 s) — vision matching, medium output
+    long     → ``AI_TIMEOUT_LONG_S``     (default 360 s) — heavy generation, marking
+
+    The read timeout is the **inter-chunk** timeout for streaming responses,
+    not the total request duration. A streamed call that takes longer than
+    the tier value is fine as long as no single gap between chunks exceeds it.
+
+    Returns ``None`` when the env value is ≤ 0 (debug escape hatch — callers
+    that spread ``{"timeout": result} if result else {}`` then send no
+    per-call timeout, falling back to the OpenAI SDK default).
+    """
+    import httpx  # noqa: PLC0415
+
+    try:
+        env_var, default_s = _TIMEOUT_TIERS[tier]
+    except KeyError as exc:
+        raise ValueError(
+            f"unknown tier {tier!r}; expected one of {sorted(_TIMEOUT_TIERS)}"
+        ) from exc
+    try:
+        s = float(os.environ.get(env_var, str(default_s)))
+    except ValueError:
+        s = default_s
+    if s <= 0:
+        return None
+    return httpx.Timeout(connect=30.0, read=s, write=30.0, pool=30.0)
+
+
 def make_ai_client(
     *,
     model_env: str = "AI_DEFAULT_MODEL",

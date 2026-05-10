@@ -102,6 +102,9 @@ def _precheck_instruction(
         _sp(save_dir / "nl_precheck_prompt.json", model=model,
             system=_PRECHECK_SYSTEM, messages=msgs[1:])
     use_stream, thinking_kw = build_completion_kwargs(provider, thinking_tokens, max_tokens)
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    _timeout = make_request_timeout("quick")
+    _timeout_kw: dict = {"timeout": _timeout} if _timeout is not None else {}
     _t0 = time.monotonic()
     thinking_text = ""
     try:
@@ -111,6 +114,7 @@ def _precheck_instruction(
                 messages=msgs,
                 stream=True,
                 **thinking_kw,
+                **_timeout_kw,
             )
             _th: list[str] = []
             raw = print_streamed_response(
@@ -123,6 +127,7 @@ def _precheck_instruction(
                 messages=msgs,
                 response_format={"type": "json_object"},
                 **thinking_kw,
+                **_timeout_kw,
             )
             raw = (completion.choices[0].message.content or "").strip()
             thinking_text = getattr(completion.choices[0].message, "reasoning_content", "") or ""
@@ -295,6 +300,9 @@ def resolve_natural_language(
 
     emit("Calling language model…")
     use_stream, thinking_kw = build_completion_kwargs(provider, thinking_tokens, max_tokens)
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    _timeout = make_request_timeout("standard")
+    _timeout_kw: dict = {"timeout": _timeout} if _timeout is not None else {}
     _t0 = time.monotonic()
     response_format_demoted_err: Exception | None = None
     thinking_text = ""
@@ -305,6 +313,7 @@ def resolve_natural_language(
                 messages=msgs_nl,
                 stream=True,
                 **thinking_kw,
+                **_timeout_kw,
             )
             _th: list[str] = []
             raw = print_streamed_response(
@@ -318,6 +327,7 @@ def resolve_natural_language(
                     messages=msgs_nl,
                     response_format={"type": "json_object"},
                     **thinking_kw,
+                    **_timeout_kw,
                 )
             except Exception as _rf_err:  # noqa: BLE001
                 # Some providers return HTTP 400 for response_format; retry without it.
@@ -332,6 +342,7 @@ def resolve_natural_language(
                     model=model,
                     messages=msgs_nl,
                     **thinking_kw,
+                    **_timeout_kw,
                 )
             raw = (completion.choices[0].message.content or "").strip()
             thinking_text = getattr(completion.choices[0].message, "reasoning_content", "") or ""

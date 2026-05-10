@@ -148,6 +148,7 @@ def _extract_page_answers(
     prompt_save_path: Path | None = None,
     warn=warn_line,
     is_all_mcq: bool = False,
+    request_timeout: "Any | None" = None,
 ) -> dict[str, str]:
     """Single API call: extract verbatim student answers for one page.
 
@@ -190,6 +191,8 @@ def _extract_page_answers(
         ],
     )
     kwargs.update(thinking_kw)
+    if request_timeout is not None:
+        kwargs["timeout"] = request_timeout
 
     save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
     save_input_data(prompt_save_path, blueprint_str, ext="yaml")
@@ -280,6 +283,8 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
         )
     client, model_id, _provider, _thinking, max_tok = result
     use_stream, thinking_kw = build_completion_kwargs(_provider, _thinking, max_tok)
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    request_timeout = make_request_timeout("long")
 
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     if not list_path.exists():
@@ -418,6 +423,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
                 extra_b64=extra_b64,
                 prompt_save_path=prompt_save,
                 is_all_mcq=_is_all_mcq,
+                request_timeout=request_timeout,
             )
         except FormatParseError as exc:
             failure = {

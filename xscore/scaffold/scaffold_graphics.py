@@ -100,6 +100,9 @@ def detect_scheme_graphics(
     _, _det_thinking_kw = build_completion_kwargs(
         _det_provider, _det_thinking, _det_max_tok
     )
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    _det_timeout = make_request_timeout("standard")
+    _det_timeout_kw: dict = {"timeout": _det_timeout} if _det_timeout is not None else {}
     info_line(f"Detecting graphics ({_det_model}) …")
 
     def _detect_graphics_page(page_num: int) -> dict:
@@ -123,6 +126,7 @@ def detect_scheme_graphics(
                     ]},
                 ],
                 **_det_thinking_kw,
+                **_det_timeout_kw,
             )
             return (
                 _resp.choices[0].message.content or "graphics: []",

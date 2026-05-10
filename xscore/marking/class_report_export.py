@@ -317,6 +317,7 @@ def _write_class_marks_xlsx(
 
     for letter, w in widths_by_letter.items():
         ws.column_dimensions[letter].width = w + 1
+    ws.column_dimensions["B"].width = 3.33
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(out_path)

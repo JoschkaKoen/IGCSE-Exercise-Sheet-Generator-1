@@ -44,6 +44,7 @@ def ai_image_call(
     thinking_tokens: int | None = None,
     prompt_save_path: Path | None = None,
     print_latency: bool = True,
+    request_timeout: "Any | None" = None,
 ) -> str:
     """Non-streaming vision call with retries.
 
@@ -86,6 +87,8 @@ def ai_image_call(
         create_kwargs["response_format"] = {"type": "json_object"}
     elif response_format is not None:
         create_kwargs["response_format"] = response_format
+    if request_timeout is not None:
+        create_kwargs["timeout"] = request_timeout
 
     save_prompt(prompt_save_path, model=model_id, messages=create_kwargs["messages"])
 

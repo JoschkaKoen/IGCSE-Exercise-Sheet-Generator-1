@@ -125,6 +125,7 @@ def parse_mark_scheme_pages(
     _oa_provider = ""
     _oa_use_stream = False
     _oa_thinking_kw: dict = {}
+    _oa_timeout_kw: dict = {}
     _use_qwen_pdf = False
     page_pngs: dict[int, bytes] = {}
     if not scheme_model.startswith("gemini"):
@@ -137,6 +138,9 @@ def parse_mark_scheme_pages(
         _oa_use_stream, _oa_thinking_kw = build_completion_kwargs(
             _oa_provider, scheme_thinking, scheme_max_tokens
         )
+        from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+        _oa_timeout = make_request_timeout("standard")
+        _oa_timeout_kw = {"timeout": _oa_timeout} if _oa_timeout is not None else {}
         _use_qwen_pdf = _oa_provider == "qwen" and model_supports_pdf_input(scheme_model)
         if _oa_provider != "kimi" and not _use_qwen_pdf:
             page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
@@ -246,6 +250,7 @@ def parse_mark_scheme_pages(
                         messages=_messages,
                     )
                     kwargs.update(_oa_thinking_kw)
+                    kwargs.update(_oa_timeout_kw)
                     if _oa_use_stream:
                         _th: list[str] = []
                         # Stream consumed *inside* the closure so a mid-stream SSL EOF

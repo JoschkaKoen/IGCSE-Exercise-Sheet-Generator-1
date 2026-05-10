@@ -462,6 +462,7 @@ def _make_openai_compat_caller(
         build_completion_kwargs,
         collect_streamed_response,
         make_ai_client,
+        make_request_timeout,
         provider_supports_json_schema_with_system,
     )
 
@@ -481,6 +482,8 @@ def _make_openai_compat_caller(
     use_stream, kw = build_completion_kwargs(
         provider, _thinking, _max_tokens or 256
     )
+    _timeout = make_request_timeout("quick")
+    _timeout_kw: dict = {"timeout": _timeout} if _timeout is not None else {}
     strict_rf = {
         "type": "json_schema",
         "json_schema": {
@@ -513,13 +516,13 @@ def _make_openai_compat_caller(
             try:
                 if use_stream:
                     stream = client.chat.completions.create(
-                        model=resolved_model, messages=messages, stream=True, **kw,
+                        model=resolved_model, messages=messages, stream=True, **kw, **_timeout_kw,
                     )
                     raw = collect_streamed_response(stream)
                 else:
                     extra = {"response_format": fmt_rf} if fmt_rf is not None else {}
                     resp = client.chat.completions.create(
-                        model=resolved_model, messages=messages, **extra, **kw,
+                        model=resolved_model, messages=messages, **extra, **kw, **_timeout_kw,
                     )
                     raw = resp.choices[0].message.content or ""
                 _parse_rotation(raw)

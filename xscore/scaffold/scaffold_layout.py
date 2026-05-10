@@ -110,6 +110,7 @@ def _detect_layout(
             build_completion_kwargs,
             collect_streamed_response,
             make_ai_client,
+            make_request_timeout,
         )
         _result = make_ai_client(model_env="DETECT_LAYOUT_MODEL")
         if _result is None:
@@ -124,6 +125,8 @@ def _detect_layout(
         _use_stream, _kw = build_completion_kwargs(
             _provider, thinking_tokens, max_tokens or GEMINI_MAX_OUTPUT_TOKENS,
         )
+        _timeout = make_request_timeout("quick")
+        _timeout_kw: dict = {"timeout": _timeout} if _timeout is not None else {}
         if _use_qwen_pdf:
             from eXercise.output_paths import temp_pdf_path  # noqa: PLC0415
             with temp_pdf_path() as _tmp_pdf:
@@ -162,13 +165,13 @@ def _detect_layout(
             if _use_stream:
                 _th: list[str] = []
                 _stream = _oa_client.chat.completions.create(
-                    model=model, messages=_msgs, stream=True, **_kw,
+                    model=model, messages=_msgs, stream=True, **_kw, **_timeout_kw,
                 )
                 _raw = collect_streamed_response(_stream, thinking_out=_th)
                 return _raw, "".join(_th)
             extra = {"response_format": rf} if rf is not None else {}
             _resp = _oa_client.chat.completions.create(
-                model=model, messages=_msgs, **extra, **_kw,
+                model=model, messages=_msgs, **extra, **_kw, **_timeout_kw,
             )
             return (
                 _resp.choices[0].message.content or "",

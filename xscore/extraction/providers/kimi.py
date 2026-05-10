@@ -126,7 +126,9 @@ class KimiProvider:
         # Retries: first sleep is RETRY_BACKOFF_S (default 1s), then doubling. The marking
         # pipeline uses 2**attempt seconds (2s, 4s) — intentional; see marking/kimi_helpers.
 
+        from eXercise.ai_client import make_request_timeout
         from eXercise.api_retry import retry_api_call
+        request_timeout = make_request_timeout("standard")
 
         def _do_call() -> dict:
             kwargs: dict = dict(
@@ -147,6 +149,8 @@ class KimiProvider:
                 response_format={"type": "json_object"},
             )
             apply_kimi_k2_extra(AI_MODEL, kwargs, thinking=False)
+            if request_timeout is not None:
+                kwargs["timeout"] = request_timeout
             _t0 = time.perf_counter()
             response = client.chat.completions.create(**kwargs)
             api_latency_line(time.perf_counter() - _t0)

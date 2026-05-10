@@ -169,6 +169,7 @@ def extract_exam_questions(
     _oa_provider = ""
     _oa_use_stream = False
     _oa_thinking_kw: dict = {}
+    _oa_timeout_kw: dict = {}
     _use_qwen_pdf = False
     page_pngs: dict[int, bytes] = {}
     if not fill_model.startswith("gemini"):
@@ -183,6 +184,9 @@ def extract_exam_questions(
         _oa_use_stream, _oa_thinking_kw = build_completion_kwargs(
             _oa_provider, fill_thinking, fill_max_tokens,
         )
+        from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+        _oa_timeout = make_request_timeout("standard")
+        _oa_timeout_kw = {"timeout": _oa_timeout} if _oa_timeout is not None else {}
         _use_qwen_pdf = _oa_provider == "qwen" and model_supports_pdf_input(fill_model)
         if _oa_provider != "kimi" and not _use_qwen_pdf:
             page_pngs = _rasterize_exam_pages(actual_exam_pdf, n_pages)
@@ -261,6 +265,7 @@ def extract_exam_questions(
             if _oa_client is not None:
                 kwargs: dict = dict(model=fill_model, messages=_messages)
                 kwargs.update(_oa_thinking_kw)
+                kwargs.update(_oa_timeout_kw)
                 if _oa_use_stream:
                     _th: list[str] = []
                     stream = _oa_client.chat.completions.create(**kwargs, stream=True)

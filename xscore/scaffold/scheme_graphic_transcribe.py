@@ -77,6 +77,7 @@ def _transcribe_one(
     thinking_kw: dict,
     use_stream: bool,
     prompt_save_path: Path | None,
+    request_timeout: "Any | None" = None,
 ) -> tuple[str, str]:
     """Single AI call: describe one mark-scheme graphic.
 
@@ -108,6 +109,8 @@ def _transcribe_one(
         ],
     )
     kwargs.update(thinking_kw)
+    if request_timeout is not None:
+        kwargs["timeout"] = request_timeout
 
     save_prompt(prompt_save_path, model=model_id, messages=kwargs["messages"])
 
@@ -313,6 +316,8 @@ def transcribe_scheme_graphics_phase(
         )
     client, model_id, provider, thinking, max_tok = result
     use_stream, thinking_kw = build_completion_kwargs(provider, thinking, max_tok)
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    request_timeout = make_request_timeout("long")
 
     info_line(f"Transcribing {len(pngs)} graphic(s) ({model_id}) …")
 
@@ -371,6 +376,7 @@ def transcribe_scheme_graphics_phase(
                 thinking_kw=thinking_kw,
                 use_stream=use_stream,
                 prompt_save_path=prompt_save,
+                request_timeout=request_timeout,
             )
         except KeyboardInterrupt:
             raise

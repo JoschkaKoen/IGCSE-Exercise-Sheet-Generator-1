@@ -101,11 +101,15 @@ def assign_questions_to_pages(
     page_pngs: dict[int, bytes] = {}
     _oa_use_stream = False
     _oa_thinking_kw: dict = {}
+    _oa_timeout_kw: dict = {}
 
     info_line(f"Assigning questions to {n_pages} page(s) ({model}) …")
 
     if not use_gemini:
         _oa_use_stream, _oa_thinking_kw = build_completion_kwargs(provider, thinking, max_tokens)
+        from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+        _oa_timeout = make_request_timeout("quick")
+        _oa_timeout_kw = {"timeout": _oa_timeout} if _oa_timeout is not None else {}
         if not use_kimi and not use_qwen_pdf:
             page_pngs = _rasterize_scheme_pages(marking_scheme_pdf, n_pages)
 
@@ -178,6 +182,7 @@ def assign_questions_to_pages(
             # hang.
             kwargs: dict = dict(model=model, messages=_messages)
             kwargs.update(_oa_thinking_kw)
+            kwargs.update(_oa_timeout_kw)
             if _oa_use_stream:
                 _th: list[str] = []
                 # Stream consumed inside the closure so a mid-stream SSL EOF

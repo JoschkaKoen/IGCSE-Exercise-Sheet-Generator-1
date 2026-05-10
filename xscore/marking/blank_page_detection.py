@@ -291,6 +291,7 @@ def _call_empty_exam_class(
     jpeg_bytes: bytes | None,
     *,
     max_tokens: int,
+    request_timeout: "httpx.Timeout | None" = None,
 ) -> tuple[str, str]:
     """Single-page vision call for step 14. Sends native PDF on Gemini, JPEG elsewhere."""
     if model_id.startswith("gemini"):
@@ -320,6 +321,7 @@ def _call_empty_exam_class(
 
     assert jpeg_bytes is not None
     _use_stream, kw = build_completion_kwargs(state.provider, 0, max_tokens)
+    _timeout_kw: dict = {"timeout": request_timeout} if request_timeout is not None else {}
     b64 = _base64.b64encode(jpeg_bytes).decode()
     msgs = [{"role": "user", "content": [
         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
@@ -328,10 +330,10 @@ def _call_empty_exam_class(
     try:
         resp = state.oa.chat.completions.create(
             model=model_id, messages=msgs,
-            response_format={"type": "json_object"}, **kw,
+            response_format={"type": "json_object"}, **kw, **_timeout_kw,
         )
     except Exception:  # noqa: BLE001
-        resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw)
+        resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw, **_timeout_kw)
     raw = resp.choices[0].message.content or ""
     thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
     return raw, thinking_text
@@ -345,6 +347,7 @@ def _classify_empty_page(
     save_path: Path | None,
     *,
     max_tokens: int,
+    request_timeout: "httpx.Timeout | None" = None,
 ) -> tuple[str | None, int | None, int | None, int | None, str]:
     """Step-14 per-page call. Returns (page_type, page_number, conf_pt, conf_pn, problem).
 
@@ -375,6 +378,7 @@ def _classify_empty_page(
             lambda: _call_empty_exam_class(
                 state, prompt_text, model_id, pdf_bytes, jpeg_bytes,
                 max_tokens=max_tokens,
+                request_timeout=request_timeout,
             ),
             label="Empty-exam page classification",
         )
@@ -412,6 +416,7 @@ def _call_scan_match(
     jpeg_bytes: bytes,
     *,
     max_tokens: int,
+    request_timeout: "httpx.Timeout | None" = None,
 ) -> tuple[str, str]:
     if model_id.startswith("gemini"):
         from google.genai import types as gai_types
@@ -437,6 +442,7 @@ def _call_scan_match(
     from eXercise.ai_client import build_completion_kwargs
 
     _use_stream, kw = build_completion_kwargs(state.provider, 0, max_tokens)
+    _timeout_kw: dict = {"timeout": request_timeout} if request_timeout is not None else {}
     b64 = _base64.b64encode(jpeg_bytes).decode()
     msgs = [{"role": "user", "content": [
         {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64}"}},
@@ -445,10 +451,10 @@ def _call_scan_match(
     try:
         resp = state.oa.chat.completions.create(
             model=model_id, messages=msgs,
-            response_format={"type": "json_object"}, **kw,
+            response_format={"type": "json_object"}, **kw, **_timeout_kw,
         )
     except Exception:  # noqa: BLE001
-        resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw)
+        resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw, **_timeout_kw)
     raw = resp.choices[0].message.content or ""
     thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
     return raw, thinking_text
@@ -462,6 +468,7 @@ def _match_scan_page(
     save_path: Path | None,
     *,
     max_tokens: int,
+    request_timeout: "httpx.Timeout | None" = None,
 ) -> tuple[str | None, int | str | None, bool | None, int | None, int | None, int | None, str]:
     """Step-15 per-scan-page call. Returns the parsed
     ``(page_type, page_number, has_handwriting, conf_pt, conf_pn, conf_hw, problem)``
@@ -482,6 +489,7 @@ def _match_scan_page(
         raw, thinking_text = retry_api_call(
             lambda: _call_scan_match(
                 state, prompt_text, model_id, jpeg_bytes, max_tokens=max_tokens,
+                request_timeout=request_timeout,
             ),
             label="Scan-page match",
         )
@@ -507,6 +515,7 @@ def _call_page_compare(
     scan_jpeg: bytes,
     *,
     max_tokens: int,
+    request_timeout: "httpx.Timeout | None" = None,
 ) -> tuple[str, str]:
     """Two-image comparison call. Image 1 is the empty-exam page; image 2 is the scan page."""
     if model_id.startswith("gemini"):
@@ -534,6 +543,7 @@ def _call_page_compare(
     from eXercise.ai_client import build_completion_kwargs
 
     _use_stream, kw = build_completion_kwargs(state.provider, 0, max_tokens)
+    _timeout_kw: dict = {"timeout": request_timeout} if request_timeout is not None else {}
     e_b64 = _base64.b64encode(empty_jpeg).decode()
     s_b64 = _base64.b64encode(scan_jpeg).decode()
     msgs = [{"role": "user", "content": [
@@ -544,10 +554,10 @@ def _call_page_compare(
     try:
         resp = state.oa.chat.completions.create(
             model=model_id, messages=msgs,
-            response_format={"type": "json_object"}, **kw,
+            response_format={"type": "json_object"}, **kw, **_timeout_kw,
         )
     except Exception:  # noqa: BLE001
-        resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw)
+        resp = state.oa.chat.completions.create(model=model_id, messages=msgs, **kw, **_timeout_kw)
     raw = resp.choices[0].message.content or ""
     thinking_text = getattr(resp.choices[0].message, "reasoning_content", "") or ""
     return raw, thinking_text
@@ -562,6 +572,7 @@ def _compare_pages(
     save_path: Path | None,
     *,
     max_tokens: int,
+    request_timeout: "httpx.Timeout | None" = None,
 ) -> tuple[bool | None, int | None, str]:
     """Step-15 recheck two-image comparison. Returns ``(same, confidence, reason)``."""
     from xscore.shared.prompt_logger import (
@@ -580,6 +591,7 @@ def _compare_pages(
         raw, thinking_text = retry_api_call(
             lambda: _call_page_compare(
                 state, prompt_text, model_id, empty_jpeg, scan_jpeg, max_tokens=max_tokens,
+                request_timeout=request_timeout,
             ),
             label="Recheck page-compare",
         )
@@ -646,6 +658,9 @@ def classify_empty_exam_pages(
     use_pdf = model_id.startswith("gemini")
     max_tok = max_tokens or 256
 
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    request_timeout = make_request_timeout("standard")
+
     def _do_one(
         idx: int, page: int
     ) -> tuple[int, int, str | None, int | None, int | None, int | None, str, str]:
@@ -666,6 +681,7 @@ def classify_empty_exam_pages(
         t0 = time.perf_counter()
         page_type, page_number, conf_pt, conf_pn, problem = _classify_empty_page(
             state, model_id, pdf_bytes, jpeg_bytes, save_path, max_tokens=max_tok,
+            request_timeout=request_timeout,
         )
         dur = format_duration(time.perf_counter() - t0)
         return idx, page, page_type, page_number, conf_pt, conf_pn, problem, dur
@@ -817,6 +833,9 @@ def check_student_handwriting(
         return BlankCheckStatus.INCONCLUSIVE, client_or_err
     state = client_or_err
 
+    from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
+    request_timeout = make_request_timeout("standard")
+
     # Build closed vocabularies from step 14's catalog.
     empty_exam_classifications = empty_exam_classifications or []
     page_type_set = {
@@ -946,6 +965,7 @@ def check_student_handwriting(
         t0 = time.perf_counter()
         page_type, page_number, hw, conf_pt, conf_pn, conf_hw, problem = _match_scan_page(
             state, model_id, jpeg_bytes, prompt_text, save_path, max_tokens=max_tok,
+            request_timeout=request_timeout,
         )
         dur = format_duration(time.perf_counter() - t0)
         return idx, scan_page, exam_page, page_type, page_number, hw, conf_pt, conf_pn, conf_hw, problem, dur
@@ -1129,6 +1149,7 @@ def check_student_handwriting(
                 same, conf_cmp, reason = _compare_pages(
                     rstate, rmodel_id, empty_jpeg, scan_jpeg,
                     compare_prompt, save_path, max_tokens=rmax_tok,
+                    request_timeout=request_timeout,
                 )
                 dur2 = format_duration(time.perf_counter() - t0)
 
@@ -1173,6 +1194,7 @@ def check_student_handwriting(
                             same2, conf2, reason2 = _compare_pages(
                                 rstate, rmodel_id, empty_jpeg2, scan_jpeg,
                                 compare_prompt, save_path2, max_tokens=rmax_tok,
+                                request_timeout=request_timeout,
                             )
                             dur3 = format_duration(time.perf_counter() - t1)
                             if same2 is True:
