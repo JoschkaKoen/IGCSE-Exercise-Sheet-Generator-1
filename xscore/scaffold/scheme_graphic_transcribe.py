@@ -128,20 +128,37 @@ def _transcribe_one(
     cleaned = strip_code_fences(raw or "").strip()
     if not cleaned:
         return "", ""
-    # Audit item [72]: prompt v2 emits {bullets, problem} YAML. Legacy v1
-    # emitted plain bullet lines. Try YAML parse first; on success extract
-    # bullets and surface `problem` via warn_line. On parse failure fall
-    # back to plain text (legacy shape) with no problem flag.
+    # Prompt v3 emits {bullets: '|' block scalar containing LaTeX itemize,
+    # problem: '' or '|' block scalar}. v2 (legacy) emitted bullets as a
+    # YAML list of double-quoted strings — that shape is still accepted but
+    # joined with newlines for downstream consumption. v1 (legacy) emitted
+    # plain bullet lines with no wrapper. On parse failure or unknown shape,
+    # fall back to the raw text and warn so the silent-degradation path
+    # that hid the run-2026-05-10_20-46-57 transcribe_5b_1 YAML break is
+    # visible next time.
     try:
         parsed = _yaml.safe_load(cleaned)
-    except _yaml.YAMLError:
-        parsed = None
-    if isinstance(parsed, dict) and isinstance(parsed.get("bullets"), list):
-        bullets = [str(b).strip() for b in parsed["bullets"] if str(b).strip()]
+    except _yaml.YAMLError as exc:
+        warn_line(
+            f"Transcribe {qnum}: YAML parse failed — falling back to raw text "
+            f"(degraded transcription). Error: {str(exc).splitlines()[0][:100]}"
+        )
+        return cleaned, ""
+    if isinstance(parsed, dict):
+        _b = parsed.get("bullets")
+        if isinstance(_b, str):
+            bullets_text = _b.strip()
+        elif isinstance(_b, list):
+            bullets_text = "\n".join(
+                f"- {str(b).strip()}" for b in _b if str(b).strip()
+            )
+        else:
+            bullets_text = ""
         problem = str(parsed.get("problem") or "").strip()
         if problem:
             warn_line(f"Transcribe {qnum}: problem flagged — {problem}")
-        return "\n".join(f"- {b}" for b in bullets), problem
+        if bullets_text:
+            return bullets_text, problem
     return cleaned, ""
 
 

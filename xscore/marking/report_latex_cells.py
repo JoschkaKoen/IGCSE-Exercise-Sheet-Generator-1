@@ -336,6 +336,17 @@ def _split_oversized_cell(cell: str, budget: float) -> list[str]:
     can break across pages by being emitted as several rows with empty leading
     columns. Returns ``[cell]`` if the cell fits within *budget*."""
     chunks = list(_decompose_cell(cell, budget))
+    # Early-out: if the original chunks already fit in the budget, return
+    # the cell as one panel. Without this check, the pre-pass below would
+    # split a single multi-item itemize into N separate single-item
+    # itemizes — each re-paying the `1.0` base in `_chunk_weight` —
+    # turning a 1-chunk cell that fits (weight 1+items) into N chunks
+    # that don't (N*(1+1)=2N). The packer would then orphan the last
+    # item into a continuation row with empty sibling cells (run
+    # 2026-05-10_20-46-57 Cosmo Q5b: a 12-item flowchart of weight 13
+    # was split into 12 chunks of total weight 24, orphaning `\item STOP`).
+    if sum(_chunk_weight(c) for c in chunks) <= budget:
+        return [cell]
     # Pre-pass: subdivide any prose chunk containing a top-level itemize
     # whose own weight would force the chunk to be a single panel. Long
     # question stems with multi-item requirement lists (e.g. Q10's
@@ -354,8 +365,6 @@ def _split_oversized_cell(cell: str, budget: float) -> list[str]:
         else:
             expanded.append(c)
     chunks = expanded
-    if sum(_chunk_weight(c) for c in chunks) <= budget:
-        return [cell]
     panels: list[list[str]] = [[]]
     used = 0.0
     for c in chunks:
