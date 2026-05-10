@@ -220,11 +220,11 @@ def _mark_page_pdf(
         has_student_answers=has_student_answers, is_all_mcq=is_all_mcq,
     )
     from xscore.prompts.loader import load_prompt
-    from xscore.marking.mark_page import _rename_blueprint_for_prompt
+    from xscore.marking.mark_page import _blueprint_for_prompt
     _user_prompt_name = "ai_marking_mcq" if is_all_mcq else fmt.prompt_name()
     _, user_text = load_prompt(
         _user_prompt_name, section="user",
-        blueprint=_rename_blueprint_for_prompt(blueprint_str),
+        blueprint=_blueprint_for_prompt(blueprint_str),
     )
     _pdf_b64 = base64.b64encode(Path(pdf_path).read_bytes()).decode()
     _logged_user: list[dict] = [
@@ -636,6 +636,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         bp_path = artifact_blueprint_path(ctx.artifact_dir, answer_label, fmt=fmt.artifact_ext())
         blueprint_str = bp_path.read_text(encoding="utf-8")
         blueprint = fmt.deserialize_blueprint(blueprint_str)
+        blueprint["student_name"] = student_name
 
         from xscore.marking.blueprints import is_all_mcq_page
         _is_all_mcq = is_all_mcq_page(blueprint.get("questions") or [])

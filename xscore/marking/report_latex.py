@@ -206,7 +206,9 @@ def _student_report_to_tex(
         # extends panel 1 to include the CASE OF block. Was 40.0 originally
         # (no split, alltt overflowed page 1) → 32.0 (split at ENDCASE) →
         # 28.0 (split at NEXT HourCounter, matching user's target).
-        panel_budget = 28.0
+        panel_budget    = 28.0
+        answer_budget   = 28.0
+        expected_budget = 28.0
     else:
         if is_all_mcq:
             ans_w, exp_w, reason_w = 1.0, 1.4, 18.4
@@ -214,14 +216,18 @@ def _student_report_to_tex(
             ans_w, exp_w, reason_w = 7.3, 7.0, 6.5
         else:
             ans_w, exp_w, reason_w = 5.7, 7.0, 8.1
-        # Landscape: budget 18 is the largest value that splits Cosmo's Q10
-        # mark-scheme cell with panel 1 ending at "DayTotal <- 0" (one line
-        # after the user's "MinDay <- 1000" target — they're in the same
-        # blank-line group `FOR DayCounter / MaxDay / // initialise / MinDay /
-        # DayTotal`, so we can't cut between MinDay and DayTotal without a
-        # finer-than-blank-line splitter). Was 22.0 (split at ENDIF after the
-        # IF MaxDay block, much later than user wanted).
-        panel_budget = 18.0
+        # Landscape per-column budgets:
+        # - Expected = 18: splits Cosmo's Q10 mark-scheme cell at "DayTotal
+        #   <- 0" (one line after user's "MinDay <- 1000" target).
+        # - Answer = 22: lets Cosmo's Q10 student-answer panel 1 include the
+        #   "Max[i]/Min[i]/NEXT i" block (chunk 4) before splitting. Tighter
+        #   18 was cutting off the Answer column too early at "Average" with
+        #   visible whitespace below (the Expected column extends further so
+        #   the row was Expected-heights — Answer had unused vertical space).
+        # Both columns get independent budgets passed to _split_oversized_cell.
+        panel_budget   = 18.0  # default for any other column (e.g. reasoning)
+        answer_budget  = 22.0
+        expected_budget = 18.0
     q_to_graphics = q_to_graphics or {}
     rows = []
     for q in report["questions"]:
@@ -256,12 +262,13 @@ def _student_report_to_tex(
         awarded_cell = _awarded_tex(awarded, max_q)
         # Panel-split applies to both Answer and Expected: long pseudocode
         # student answers (Q10-style) overflow vertically too, not just the
-        # mark-scheme Expected column. Each becomes 1+ panels independently.
-        # Continuation rows zero the boilerplate (Q/Max/Got/Reasoning) and
-        # carry whichever Answer/Expected panel exists at that row index;
-        # only the final row gets `\hline`.
-        answer_panels   = _split_oversized_cell(answer,      panel_budget)
-        expected_panels = _split_oversized_cell(correct_ans, panel_budget)
+        # mark-scheme Expected column. Each becomes 1+ panels independently
+        # using its column's per-orientation budget. Continuation rows zero
+        # the boilerplate (Q/Max/Got/Reasoning) and carry whichever
+        # Answer/Expected panel exists at that row index; only the final
+        # row gets `\hline`.
+        answer_panels   = _split_oversized_cell(answer,      answer_budget)
+        expected_panels = _split_oversized_cell(correct_ans, expected_budget)
         n_rows = max(len(answer_panels), len(expected_panels))
         for i in range(n_rows):
             a = answer_panels[i]   if i < len(answer_panels)   else ""

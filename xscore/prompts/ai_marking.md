@@ -1,7 +1,7 @@
 ---
 name: ai_marking
-version: v15
-description: Step 29 — ai_marking. Combined system + user prompt for per-page marking PLUS the 5 conditionally-appended fragments. SYSTEM/USER drive the per-page call (placeholders $field_rules, $blueprint); FIELD_RULES (placeholder $criterion_ref) is loaded separately and substituted into SYSTEM; GRID (placeholders $rows, $cols, $subpage_ref), GRAPHICS (placeholder $graphics_lines), CONTINUATION, CODE_FORMATTING are appended conditionally. NOTE — body contains literal LaTeX math like `$v = 2\pi r / T$`; Template's safe_substitute leaves bare `$<non-identifier>` literal. Used by xscore.marking.mark_page. v15 dropped `correct_answer` from the MCQ blueprint (now stripped by `blueprint_for_marking` before send) and forbade downgrading an extracted letter to `no answer` / `not clear`; `corrected_student_answer` is now letter-only. Triggered by runs 2026-05-05_20-54-28 / 2026-05-05_20-33-40 where 28 of 44 MCQ corrections were wrong downgrades; the model used `student_answer == correct_answer` as evidence of extractor cheating (per the saved Silence p13 thinking trace) and overrode correct extractions to `no answer`. Pairs with `ai_marking_mcq.md` v4. v14 adopted the three-way `letter | "not clear" | "no answer"` enum for MCQ student_answer / corrected_student_answer, and explicitly forbade solving the MCQ or eliminating options on subject grounds. Triggered by run 2026-05-05_02-41-43 producing two wrong corrections (Elin Q32 D→C justified by physics reasoning; Leo Q16 C→A treating a crossed-out letter as a selection). Pairs with extract_student_answers_mcq.md v2, ai_marking_mcq.md v3, and the _apply_marking_response / _fix_mc_marks updates that recognise the new sentinels. v13 added corrected_student_answer (MCQ-only response field) and removed the AI's role in computing MCQ marks; marks now always auto-computed from student_answer vs correct_answer. The marker may emit corrected_student_answer when the page image clearly shows a letter different from the extracted student_answer. v12 added a worked example of the full wrapped output shape (`page:` + `questions:` + two entries) inline with the existing top-priority wrapper rule, after run 2026-05-04_18-04-42 saw 8 wrapper-drops including 2 multi-question pages (Sean p6, Simon Shen p3) that the existing 1×1 flat-keyed `parse_flat_fallback` couldn't rescue. The code-side `parse_list_fallback` in `xscore.marking.formats.base.MarkingFormat` is the load-bearing fix; this prompt example is belt-and-suspenders, mirroring the v8/v10 alltt-repair convention. Single positive example only — per the v8 prompt note that anti-examples leak into generation. v11 added a top-priority `assigned_marks` rule for withdrawn questions — when `max_marks: 0`, return zeros and empty fields without analysing `student_answer`; pairs with the scaffold-side change that keeps non-MCQ leaves at marks=0 instead of bumping them to 1. v10 added an explicit "wrap output under top-level `questions:` key" rule as the first Output rule — earlier model runs occasionally dropped the wrapper on single-question pages and emitted the four fill fields at the document root, which the parser couldn't extract. v9 tightened `problem` and `explanation` to two shapes — `''` (empty) or `|` block scalar (non-empty). Replaces v8's `problem: ""` empty form and the only-weakly-stated `|` rule for non-empty values; the same `|` shape applies uniformly across all model-authored free-text fields project-wide. v8 merged the former ai_marking_fragments.md (v10) into this file. (See git log for older history.)
+version: v16
+description: Step 29 — ai_marking. Combined system + user prompt for per-page marking PLUS the 5 conditionally-appended fragments. SYSTEM/USER drive the per-page call (placeholders $field_rules, $blueprint); FIELD_RULES (placeholder $criterion_ref) is loaded separately and substituted into SYSTEM; GRID (placeholders $rows, $cols, $subpage_ref), GRAPHICS (placeholder $graphics_lines), CONTINUATION, CODE_FORMATTING are appended conditionally. NOTE — body contains literal LaTeX math like `$v = 2\pi r / T$`; Template's safe_substitute leaves bare `$<non-identifier>` literal. Used by xscore.marking.mark_page. v16 sharpened the output-shape rule from "Do not change any content other than the four target fields" to "Do not add other fields!" (paired with a USER-section rewrite and a `_blueprint_for_prompt` renderer that splits the input into prose context + minimal YAML form, so the model has nothing extra to echo). Triggered by run 2026-05-10_18-58-37 (Linus p11 q8a/q8b defaulted to 0 after the model echoed `question_text` and added a literal `......` abbreviation line that broke YAML parsing); cross-run analysis on that run measured a 42% rate of responses re-emitting at least one input-blueprint field. Worked example also expanded to include MCQ entries (agree + disagree-with-corrected_student_answer) so the rule "match the worked example" naturally covers all valid output shapes. Pairs with `ai_marking_mcq.md` v4 (no change there — the all-MCQ prompt is already minimal and the bug never occurred on those pages). v15 dropped `correct_answer` from the MCQ blueprint (now stripped by `blueprint_for_marking` before send) and forbade downgrading an extracted letter to `no answer` / `not clear`; `corrected_student_answer` is now letter-only. Triggered by runs 2026-05-05_20-54-28 / 2026-05-05_20-33-40 where 28 of 44 MCQ corrections were wrong downgrades; the model used `student_answer == correct_answer` as evidence of extractor cheating (per the saved Silence p13 thinking trace) and overrode correct extractions to `no answer`. Pairs with `ai_marking_mcq.md` v4. v14 adopted the three-way `letter | "not clear" | "no answer"` enum for MCQ student_answer / corrected_student_answer, and explicitly forbade solving the MCQ or eliminating options on subject grounds. Triggered by run 2026-05-05_02-41-43 producing two wrong corrections (Elin Q32 D→C justified by physics reasoning; Leo Q16 C→A treating a crossed-out letter as a selection). Pairs with extract_student_answers_mcq.md v2, ai_marking_mcq.md v3, and the _apply_marking_response / _fix_mc_marks updates that recognise the new sentinels. v13 added corrected_student_answer (MCQ-only response field) and removed the AI's role in computing MCQ marks; marks now always auto-computed from student_answer vs correct_answer. The marker may emit corrected_student_answer when the page image clearly shows a letter different from the extracted student_answer. v12 added a worked example of the full wrapped output shape (`page:` + `questions:` + two entries) inline with the existing top-priority wrapper rule, after run 2026-05-04_18-04-42 saw 8 wrapper-drops including 2 multi-question pages (Sean p6, Simon Shen p3) that the existing 1×1 flat-keyed `parse_flat_fallback` couldn't rescue. The code-side `parse_list_fallback` in `xscore.marking.formats.base.MarkingFormat` is the load-bearing fix; this prompt example is belt-and-suspenders, mirroring the v8/v10 alltt-repair convention. Single positive example only — per the v8 prompt note that anti-examples leak into generation. v11 added a top-priority `assigned_marks` rule for withdrawn questions — when `max_marks: 0`, return zeros and empty fields without analysing `student_answer`; pairs with the scaffold-side change that keeps non-MCQ leaves at marks=0 instead of bumping them to 1. v10 added an explicit "wrap output under top-level `questions:` key" rule as the first Output rule — earlier model runs occasionally dropped the wrapper on single-question pages and emitted the four fill fields at the document root, which the parser couldn't extract. v9 tightened `problem` and `explanation` to two shapes — `''` (empty) or `|` block scalar (non-empty). Replaces v8's `problem: ""` empty form and the only-weakly-stated `|` rule for non-empty values; the same `|` shape applies uniformly across all model-authored free-text fields project-wide. v8 merged the former ai_marking_fragments.md (v10) into this file. (See git log for older history.)
 ---
 ## SYSTEM
 
@@ -102,20 +102,29 @@ NEVER use `\textbf{...}` for code — bold is not monospace. Save `\textbf{...}`
     ```yaml
     page: 6
     questions:
-      - number: '7a'
+      - number: '7a'                       # short_answer
         assigned_marks: 2
         explanation: |
           \begin{itemize}\item ...\end{itemize}
         confidence: 9
         problem: ''
-      - number: '7b'
+      - number: '7b'                       # short_answer
         assigned_marks: 1
         explanation: |
           ...
         confidence: 8
         problem: ''
+      - number: '12'                       # MCQ — agree with extraction
+        confidence: 10
+        problem: ''
+      - number: '13'                       # MCQ — disagree (rare); add corrected_student_answer
+        corrected_student_answer: |
+          C
+        confidence: 8
+        problem: |
+          Extraction said A but the scan clearly shows C circled.
     ```
-- Return ONLY the filled Blueprint YAML — no markdown fences, no surrounding text. Do not change any content other than the four target fields.
+- Return ONLY the filled YAML — no markdown fences, no surrounding text. Do not add other fields!
 - `assigned_marks` must be a bare integer (not a string).
 - `confidence` must be a bare integer in [0, 10] (not a string).
 - For `explanation` and `problem`, use exactly one of two shapes — never anything else:
@@ -132,7 +141,7 @@ NEVER use `\textbf{...}` for code — bold is not monospace. Save `\textbf{...}`
 
 ## USER
 
-Mark each question below per the SYSTEM rules. The `student_answer` field is pre-supplied for context; do not alter or re-emit it.
+Mark each question on this page. Below you have, for each question: the question content, mark scheme guidance (when present), the options (for MCQs), and the student's transcribed answer (read-only). At the end is a YAML form. Read the questions and the page image, then fill in the form and reply with ONLY the filled form — match its shape exactly, do not add any fields beyond those shown.
 $blueprint
 
 ## FIELD_RULES

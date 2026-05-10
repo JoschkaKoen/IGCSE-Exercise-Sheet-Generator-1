@@ -11,6 +11,8 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any, TYPE_CHECKING
 
+import yaml
+
 if TYPE_CHECKING:
     import httpx
 
@@ -67,18 +69,114 @@ def _bq_key(bq: dict) -> tuple:
     )
 
 
-def _rename_blueprint_for_prompt(blueprint_str: str) -> str:
-    """No-op shim — retained so callers keep working during the audit-[81] migration.
+def _blueprint_for_prompt(blueprint_str: str) -> str:
+    """Render the YAML blueprint as a prose context section + minimal YAML
+    form, for the marking prompt's ``$blueprint`` substitution.
 
-    Previously this renamed ``student_answer:`` → ``transcribed_answer:`` so the
-    marking AI saw a different field name from the marking fields it owns.
-    Audit item [81] consolidated the naming: the AI now sees ``student_answer``
-    directly, and the FIELD_RULES fragment instructs it explicitly NOT to
-    re-emit that field. The parser already accepted both names, so removing the
-    rename is safe; this shim stays only because nothing yet has been needed to
-    take its place at call sites.
+    The on-disk blueprint format (a single YAML document with question_text,
+    options, criteria, student_answer, plus the four empty fill-target slots)
+    is preserved on disk. Only the model-facing rendering is restructured:
+
+    - **Prose context** (markdown): per-question header (number, type,
+      max_marks, subpage if grid) + question_text + options + mark-scheme
+      guidance + student_answer (read-only, from step 28).
+    - **Minimal YAML form**: per-question entry with only ``number`` and the
+      empty fill-target slots (``assigned_marks``/``explanation`` for
+      non-MCQ, ``confidence``/``problem`` always; MCQ entries omit
+      ``assigned_marks``/``explanation`` since marks/explanations are
+      auto-computed downstream).
+
+    Removing question_text and other long content from the YAML form
+    eliminates the corruption surface where the model's echo of those fields
+    could break parsing (see run 2026-05-10_18-58-37 — Linus p11 q8a/q8b
+    defaulted to 0 after the model re-emitted question_text and added a
+    literal ``......`` abbreviation line that broke the YAML block scalar).
+
+    The parser is unchanged: it already only consumes ``number`` plus the
+    fill fields and silently ignores any echoed extras.
     """
-    return blueprint_str
+    data = yaml.safe_load(blueprint_str) or {}
+    page = data.get("page", 1)
+    layout = data.get("layout") or {"rows": 1, "cols": 1}
+    is_grid = int(layout.get("rows", 1)) > 1 or int(layout.get("cols", 1)) > 1
+    questions = data.get("questions") or []
+
+    out: list[str] = [f"# Page {page} — questions to mark", ""]
+
+    for q in questions:
+        num = q.get("number", "")
+        qtype = str(q.get("type", "short_answer"))
+        mm = int(q.get("max_marks", 0) or 0)
+        header = f"## Q{num} — {qtype}, max {mm} mark" + ("s" if mm != 1 else "")
+        if is_grid:
+            header += (
+                f" (subpage row {q.get('subpage_row', 1)},"
+                f" col {q.get('subpage_col', 1)})"
+            )
+        out.append(header)
+        out.append("")
+
+        qtext = str(q.get("question_text") or "").rstrip()
+        if qtext:
+            out.append("Question:")
+            out.append(qtext)
+            out.append("")
+
+        opts = q.get("options") or []
+        if opts:
+            out.append("Options:")
+            for o in opts:
+                out.append(f"- {o.get('letter', '')}: {o.get('text', '')}")
+            out.append("")
+
+        crits = q.get("criteria") or []
+        if crits:
+            out.append("Mark scheme guidance:")
+            for c in crits:
+                out.append(f"- {c.get('mark', '')}: {c.get('criterion', '')}")
+            out.append("")
+
+        sa = str(q.get("student_answer") or "").rstrip()
+        out.append(
+            "Student answer (read-only — verbatim from step 28; "
+            "do not modify or re-emit):"
+        )
+        out.append(sa if sa else "[blank]")
+        out.append("")
+
+    out.append("---")
+    out.append("")
+    out.append(
+        "Fill the form below for the questions above. "
+        "Reply with ONLY this YAML structure:"
+    )
+    out.append("")
+    out.append("```yaml")
+    out.append(f"page: {page}")
+    if is_grid:
+        out.append(
+            f"layout: {{rows: {int(layout.get('rows', 1))}, "
+            f"cols: {int(layout.get('cols', 1))}}}"
+        )
+    out.append("questions:")
+    for q in questions:
+        num = q.get("number", "")
+        qtype = str(q.get("type", "short_answer"))
+        out.append(f"  - number: '{num}'")
+        if is_grid:
+            out.append(f"    subpage_row: {int(q.get('subpage_row', 1))}")
+            out.append(f"    subpage_col: {int(q.get('subpage_col', 1))}")
+        if qtype == "multiple_choice":
+            out.append("    confidence:")
+            out.append("    problem:")
+        else:
+            out.append("    assigned_marks:")
+            out.append("    explanation:")
+            out.append("    confidence:")
+            out.append("    problem:")
+    out.append("```")
+
+    return "\n".join(out)
 
 
 def _build_marking_system_prompt(
@@ -231,7 +329,7 @@ def _mark_page(
     _user_prompt_name = "ai_marking_mcq" if is_all_mcq else fmt.prompt_name()
     _, user_text = load_prompt(
         _user_prompt_name, section="user",
-        blueprint=_rename_blueprint_for_prompt(blueprint_xml),
+        blueprint=_blueprint_for_prompt(blueprint_xml),
     )
     # Image(s) first, text after — system → page image → continuation pages → mark-scheme graphics → user-text per audit item [5].
     _user_content: list[dict] = [
@@ -333,7 +431,7 @@ def _mark_page(
                 # text; if that also fails to parse, raise MarkingFailure(
                 # attempts=2) so the _mark_one_page handler can run the
                 # extraction-only fallback (D3).
-                warn(f"Marking parse error — retrying once ({exc})")
+                warn(f"Marking {blueprint.get('student_name', '?')} parse error — retrying once ({exc})")
                 _emphasis = (
                     "RETRY: your previous response could not be parsed as YAML. "
                     "Re-emit per the SYSTEM rules — wrap under a top-level "
@@ -393,7 +491,7 @@ def _mark_page(
                     raise MarkingFailure(attempts=2, last_exc=exc2, last_raw=_last_raw)
 
         if unmatched:
-            warn(f"Marking: AI returned question(s) with no blueprint match: {unmatched}")
+            warn(f"Marking {blueprint.get('student_name', '?')}: AI returned question(s) with no blueprint match: {unmatched}")
 
         # --- Completeness retry: one shot to recover skipped questions ----
         if unfilled:
@@ -404,14 +502,16 @@ def _mark_page(
                 q for q in result.get("questions", [])
                 if q.get("number") in unfilled_set
             ]
+            _student_name = blueprint.get("student_name", "?")
             info_line(
-                f"Marking p{_page_num} retry: {len(unfilled)} missing question(s) — "
+                f"Marking {_student_name} p{_page_num} retry: {len(unfilled)} missing question(s) — "
                 + ", ".join(f"q{n}" for n in unfilled)
             )
             retry_raw, _retry_thinking = _do_retry_call(
                 client, model_id, kwargs, fmt, slim_questions, unfilled,
                 _page_num, _layout, prompt_save_path, use_stream,
                 request_timeout=request_timeout,
+                student_name=_student_name,
             )
             still_unfilled: list[str] = list(unfilled)
             if retry_raw:
@@ -419,6 +519,7 @@ def _mark_page(
                     "page": _page_num,
                     "layout": _layout,
                     "questions": slim_questions,
+                    "student_name": _student_name,
                 }
                 try:
                     _, still_unfilled, retry_unmatched, _retry_corrections = _apply_marking_response(
@@ -428,16 +529,16 @@ def _mark_page(
                     # questions, so _retry_corrections will be empty by
                     # construction. Discard.
                 except FormatParseError as exc:
-                    warn(f"Marking p{_page_num} retry parse error: {exc} — keeping first-call result")
+                    warn(f"Marking {_student_name} p{_page_num} retry parse error: {exc} — keeping first-call result")
                     retry_unmatched = []
                 if retry_unmatched:
                     warn(
-                        f"Marking: AI returned question(s) with no blueprint match (retry): "
+                        f"Marking {_student_name}: AI returned question(s) with no blueprint match (retry): "
                         f"{retry_unmatched}"
                     )
             if still_unfilled:
                 warn(
-                    f"Marking: {len(still_unfilled)} blueprint question(s) skipped by AI "
+                    f"Marking {_student_name}: {len(still_unfilled)} blueprint question(s) skipped by AI "
                     f"(after retry): {still_unfilled}"
                 )
 
@@ -453,7 +554,7 @@ def _mark_page(
             cache_put(_cache_key, model=model_id, response=raw)
         return result, mcq_corrections
     except FormatParseError as exc:
-        warn(f"Marking parse error — marking aborted ({exc})")
+        warn(f"Marking {blueprint.get('student_name', '?')} parse error — marking aborted ({exc})")
         raise MarkingFailure(attempts=1, last_exc=exc, last_raw=_last_raw)
     except KeyboardInterrupt:
         raise
@@ -499,7 +600,8 @@ def _apply_marking_response(
             try:
                 parsed_questions = fmt.parse_response(repaired)
                 info_line(
-                    f"Marking p{blueprint.get('page')}: truncation-repair recovered "
+                    f"Marking {blueprint.get('student_name', '?')} p{blueprint.get('page')}: "
+                    f"truncation-repair recovered "
                     f"{len(parsed_questions)} of "
                     f"{len(blueprint.get('questions') or [])} question(s)"
                 )
@@ -516,8 +618,8 @@ def _apply_marking_response(
                 raise
             parsed_questions = list_fallback
             info_line(
-                f"Marking p{blueprint.get('page')}: list-at-root fallback "
-                f"rescued response (AI dropped `questions:` wrapper)"
+                f"Marking {blueprint.get('student_name', '?')} p{blueprint.get('page')}: "
+                f"list-at-root fallback rescued response (AI dropped `questions:` wrapper)"
             )
     # Fallback: model dropped the `questions:` wrapper and emitted the four
     # fill fields at document root. Safe only when the blueprint has exactly
@@ -533,8 +635,8 @@ def _apply_marking_response(
                 **fallback_fields,
             }]
             info_line(
-                f"Marking p{blueprint.get('page')}: 1×1 single-question fallback "
-                f"rescued response (AI dropped `questions:` wrapper)"
+                f"Marking {blueprint.get('student_name', '?')} p{blueprint.get('page')}: "
+                f"1×1 single-question fallback rescued response (AI dropped `questions:` wrapper)"
             )
     result = blueprint.copy()
     fill_groups: dict[tuple, list] = defaultdict(list)
@@ -670,7 +772,8 @@ def _finalize_marking(result: dict, warn: Callable[[str], None]) -> None:
             # but tag the explanation so per-question reports flag it for
             # manual review rather than presenting a silent 0/max grade.
             warn(
-                f"Marking: Q{bq.get('number')} unmarked after retry — "
+                f"Marking {result.get('student_name', '?')}: "
+                f"Q{bq.get('number')} unmarked after retry — "
                 f"defaulted to 0 (manual review required)"
             )
             bq["assigned_marks"] = 0
@@ -682,7 +785,8 @@ def _finalize_marking(result: dict, warn: Callable[[str], None]) -> None:
             continue
         if not isinstance(m, int) or m < 0 or m > int(max_m):
             warn(
-                f"Marking: Q{bq.get('number')} assigned_marks={m} out of range "
+                f"Marking {result.get('student_name', '?')}: "
+                f"Q{bq.get('number')} assigned_marks={m} out of range "
                 f"[0, {max_m}] — clamping"
             )
             try:
@@ -704,6 +808,7 @@ def _do_retry_call(
     prompt_save_path: Path | None,
     use_stream: bool,
     request_timeout: httpx.Timeout | None = None,
+    student_name: str = "?",
 ) -> tuple[str, str]:
     """Single follow-up call that re-asks the marking AI for the missing
     questions, with a slim blueprint scoped to just those entries.
@@ -723,7 +828,7 @@ def _do_retry_call(
         slim_xml = blueprint_for_marking(slim_xml)
         _, base_user_text = load_prompt(
             fmt.prompt_name(), section="user",
-            blueprint=_rename_blueprint_for_prompt(slim_xml),
+            blueprint=_blueprint_for_prompt(slim_xml),
         )
         # Display labels with a leading "q" so they read naturally in the
         # emphasis line ("missing q4c, q10" rather than "missing 4c, 10").
@@ -789,7 +894,7 @@ def _do_retry_call(
         # instead of silently degrading every retry attempt forever.
         raise
     except Exception as exc:  # noqa: BLE001
-        warn_line(f"Marking p{page_num} retry failed: {exc} — keeping first-call result")
+        warn_line(f"Marking {student_name} p{page_num} retry failed: {exc} — keeping first-call result")
         return "", ""
 
 
