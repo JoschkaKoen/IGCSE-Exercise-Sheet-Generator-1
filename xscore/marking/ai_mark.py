@@ -62,6 +62,117 @@ from xscore.marking.extract_answers import (
 _DEFAULT_MARKING_MODEL = MARKING_MODEL_DEFAULT
 
 
+def _load_mark_scheme_graphics(
+    artifact_dir: Path,
+) -> tuple[dict[str, list[Path]], dict[Path, str], dict[Path, str]]:
+    """Load the per-question mark-scheme graphics map and step-25 transcriptions.
+
+    Returns ``(graphics_map, graphics_b64_cache, transcriptions_by_path)``:
+
+    - ``graphics_map``: safe_qnum → sorted list of PNG paths (one entry per
+      graphic detected for that question).
+    - ``graphics_b64_cache``: PNG path → base64-encoded contents, pre-encoded
+      once so :func:`_scheme_graphics_for_page` doesn't re-read+encode per call.
+    - ``transcriptions_by_path``: PNG path → free-text description from step
+      25 (``transcribe_mark_scheme_graphics``). Missing/malformed file
+      degrades silently to ``{}``.
+    """
+    graphics_dir = artifact_mark_scheme_graphics_dir(artifact_dir)
+    graphics_map: dict[str, list[Path]] = {}
+    graphics_b64_cache: dict[Path, str] = {}
+    if graphics_dir.is_dir():
+        gfx_re = re.compile(r"^\d+_(.+)_(\d+)\.png$")
+        for p in sorted(graphics_dir.glob("*.png")):
+            m = gfx_re.match(p.name)
+            if m:
+                graphics_map.setdefault(m.group(1), []).append(p)
+                graphics_b64_cache[p] = base64.b64encode(p.read_bytes()).decode()
+        for v in graphics_map.values():
+            v.sort()
+
+    transcriptions_path = artifact_scheme_graphic_transcriptions_path(artifact_dir)
+    transcriptions_by_path: dict[Path, str] = {}
+    if transcriptions_path.exists():
+        try:
+            import yaml as _yaml
+            t_doc = _yaml.safe_load(transcriptions_path.read_text(encoding="utf-8")) or {}
+            for entry in t_doc.get("graphics", []) or []:
+                if not isinstance(entry, dict):
+                    continue
+                fname = str(entry.get("file") or "")
+                t = str(entry.get("transcription") or "").strip()
+                if fname and t:
+                    transcriptions_by_path[graphics_dir / fname] = t
+        except Exception:  # noqa: BLE001 — degraded mode is fine
+            pass
+
+    return graphics_map, graphics_b64_cache, transcriptions_by_path
+
+
+def _apply_student_filters(raw_assignments: list[dict], ctx: Any) -> list[dict]:
+    """Apply the three-stage student cohort filter to *raw_assignments*.
+
+    Order matters: the NL-prompt ``instruction.student_filter`` runs first
+    (mode ``specific`` by name list, or ``first_n`` by count), then the
+    CLI ``--student`` filter (case-insensitive exact match on
+    ``student_name``), then the CLI ``--limit-students`` slice. Each stage
+    narrows the cohort further and emits the standard ``info_line`` /
+    ``warn_line`` announcements.
+
+    Raises ``SystemExit(2)`` if ``--student`` filters down to an empty
+    cohort (matches the historic pre-refactor behaviour).
+    """
+    instr = getattr(ctx, "instruction", None)
+    if instr is not None:
+        sf = instr.student_filter
+        if sf.mode == "specific" and sf.names:
+            raw_assignments = [a for a in raw_assignments if a["student_name"] in sf.names]
+        elif sf.mode == "first_n" and sf.n:
+            raw_assignments = raw_assignments[: sf.n]
+
+    # CLI-driven --student filter (case-insensitive exact match on student_name).
+    # Layered AFTER the NL-prompt student_filter so both narrow the cohort.
+    cli_filter = getattr(ctx, "student_filter", None)
+    if cli_filter:
+        wanted = {n.strip().lower() for n in cli_filter}
+        before = len(raw_assignments)
+        raw_assignments = [
+            a for a in raw_assignments
+            if (a.get("student_name") or "").strip().lower() in wanted
+        ]
+        if not raw_assignments:
+            warn_line(
+                f"--student filter {sorted(wanted)} matched 0 of {before} students — "
+                f"nothing to mark; aborting step 29."
+            )
+            raise SystemExit(2)
+        kept = [a["student_name"] for a in raw_assignments]
+        info_line(f"--student filter active · marking {len(kept)} of {before}: {', '.join(kept)}")
+
+    # CLI-driven --limit-students slice. Applied last so it composes with
+    # both the NL-prompt filter and the --student filter.
+    limit_students = getattr(ctx, "limit_students", None)
+    if limit_students:
+        before = len(raw_assignments)
+        raw_assignments = raw_assignments[:limit_students]
+        kept = [a["student_name"] for a in raw_assignments]
+        info_line(f"--limit-students active · marking {len(kept)} of {before}: {', '.join(kept)}")
+
+    return raw_assignments
+
+
+def _load_refs(path: Path) -> list[dict]:
+    """Load a step-21 diagnostic refs JSON (figures or parents). Missing or
+    malformed file degrades silently to ``[]``."""
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return data if isinstance(data, list) else []
+    except (OSError, json.JSONDecodeError):
+        return []
+
+
 def _collect_unresolved_mcqs(
     filled: dict, student_name: str, p_label: int, scan_page: int,
 ) -> list[dict]:
@@ -397,42 +508,8 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         )
     raw_assignments: list[dict] = _safe_load_json(list_path)
 
-    _instr = getattr(ctx, "instruction", None)
     _unfiltered_student_count = len(raw_assignments)
-    if _instr is not None:
-        sf = _instr.student_filter
-        if sf.mode == "specific" and sf.names:
-            raw_assignments = [a for a in raw_assignments if a["student_name"] in sf.names]
-        elif sf.mode == "first_n" and sf.n:
-            raw_assignments = raw_assignments[: sf.n]
-
-    # CLI-driven --student filter (case-insensitive exact match on student_name).
-    # Layered AFTER the NL-prompt student_filter so both narrow the cohort.
-    cli_filter = getattr(ctx, "student_filter", None)
-    if cli_filter:
-        wanted = {n.strip().lower() for n in cli_filter}
-        before = len(raw_assignments)
-        raw_assignments = [
-            a for a in raw_assignments
-            if (a.get("student_name") or "").strip().lower() in wanted
-        ]
-        if not raw_assignments:
-            warn_line(
-                f"--student filter {sorted(wanted)} matched 0 of {before} students — "
-                f"nothing to mark; aborting step 29."
-            )
-            raise SystemExit(2)
-        kept = [a["student_name"] for a in raw_assignments]
-        info_line(f"--student filter active · marking {len(kept)} of {before}: {', '.join(kept)}")
-
-    # CLI-driven --limit-students slice. Applied last so it composes with
-    # both the NL-prompt filter and the --student filter.
-    limit_students = getattr(ctx, "limit_students", None)
-    if limit_students:
-        before = len(raw_assignments)
-        raw_assignments = raw_assignments[:limit_students]
-        kept = [a["student_name"] for a in raw_assignments]
-        info_line(f"--limit-students active · marking {len(kept)} of {before}: {', '.join(kept)}")
+    raw_assignments = _apply_student_filters(raw_assignments, ctx)
 
     _default_workers = min(os.cpu_count() or 4, 16)
     try:
@@ -469,40 +546,14 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     else:
         _b64_cache = _render_inline()
 
-    # Pre-build mark-scheme graphics map: safe_qnum → sorted list of PNG paths.
-    # Also pre-encode each PNG to base64 once (reused across all student×page calls
-    # via _scheme_graphics_for_page's b64_cache parameter).
-    _graphics_dir = artifact_mark_scheme_graphics_dir(ctx.artifact_dir)
-    _graphics_map: dict[str, list[Path]] = {}
-    _graphics_b64_cache: dict[Path, str] = {}
-    if _graphics_dir.is_dir():
-        _gfx_re = re.compile(r"^\d+_(.+)_(\d+)\.png$")
-        for _p in sorted(_graphics_dir.glob("*.png")):
-            _m = _gfx_re.match(_p.name)
-            if _m:
-                _graphics_map.setdefault(_m.group(1), []).append(_p)
-                _graphics_b64_cache[_p] = base64.b64encode(_p.read_bytes()).decode()
-        for _v in _graphics_map.values():
-            _v.sort()
-
-    # Pre-load step-25 transcriptions (PNG path → description string). Missing
-    # or malformed file degrades silently to {} so marking still runs against
-    # the raw images alone.
-    _transcriptions_path = artifact_scheme_graphic_transcriptions_path(ctx.artifact_dir)
-    _transcriptions_by_path: dict[Path, str] = {}
-    if _transcriptions_path.exists():
-        try:
-            import yaml as _yaml
-            _t_doc = _yaml.safe_load(_transcriptions_path.read_text(encoding="utf-8")) or {}
-            for _entry in _t_doc.get("graphics", []) or []:
-                if not isinstance(_entry, dict):
-                    continue
-                _fname = str(_entry.get("file") or "")
-                _t = str(_entry.get("transcription") or "").strip()
-                if _fname and _t:
-                    _transcriptions_by_path[_graphics_dir / _fname] = _t
-        except Exception:  # noqa: BLE001 — degraded mode is fine
-            pass
+    # Pre-build the mark-scheme graphics map (safe_qnum → sorted PNG paths),
+    # pre-encode each PNG to base64 (re-used across all student×page calls
+    # via _scheme_graphics_for_page's b64_cache parameter), and load the
+    # step-25 transcriptions (PNG path → description string). See
+    # :func:`_load_mark_scheme_graphics` for the schema.
+    _graphics_map, _graphics_b64_cache, _transcriptions_by_path = (
+        _load_mark_scheme_graphics(ctx.artifact_dir)
+    )
 
     # Validate cover-page state before building the task list.
     # empty_exam_has_cover drives the per-student page offset; if it is None
@@ -527,14 +578,6 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     # Step-21 diagnostics — used by the per-call line to render +context labels.
     # Missing files map to empty lists; _pretty_source_label degrades to a "?"
     # page placeholder rather than raising.
-    def _load_refs(path: Path) -> list[dict]:
-        if not path.exists():
-            return []
-        try:
-            data = json.loads(path.read_text(encoding="utf-8"))
-            return data if isinstance(data, list) else []
-        except (OSError, json.JSONDecodeError):
-            return []
     _figure_refs = _load_refs(artifact_cross_page_refs_json_path(ctx.artifact_dir))
     _parent_refs = _load_refs(artifact_parent_refs_json_path(ctx.artifact_dir))
 
