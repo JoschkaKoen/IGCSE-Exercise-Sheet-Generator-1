@@ -220,8 +220,11 @@ def _wrap_alltt_at_spaces(block: str, budget: int) -> str:
         cont_indent = leading + "  "
         while _effective_len(rest) > budget:
             cut = _find_last_space_within(rest, budget)
-            if cut is None:
-                break  # single token too long — accept overflow on this line
+            if cut is None or cut < len(cont_indent):
+                # cut is None       → single token too long; accept overflow.
+                # cut < cont_indent → cut would land inside the indent we'd re-prepend
+                #                     (`leading` ≥ budget); rebuilt rest can't shrink.
+                break
             out.append(rest[:cut].rstrip())
             rest = cont_indent + rest[cut:].lstrip()
         out.append(rest)
