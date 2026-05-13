@@ -9,11 +9,11 @@ happens.
 
 Lifecycle:
 
-1. **Step 18** (build_marking_register_v1) writes the *initial* register
-   (``18_build_marking_register/marking_page_register.json``) with one primary
+1. **Step build_marking_register_v1** (build_marking_register_v1) writes the *initial* register
+   (``16_build_marking_register_v1/marking_page_register.json``) with one primary
    call per non-cover scan page that has student handwriting. No extras —
-   that's all step 21's job.
-2. **Step 21** (detect_cross_page_context) reads register v1 and augments it
+   that's all detect_cross_page_context's job.
+2. **Step detect_cross_page_context** (detect_cross_page_context) reads register v1 and augments it
    in three passes:
    (a) **continuation** — calls whose ``answer_label`` matches an empty-exam
        page classified as ``blank page`` or ``writing space page`` are
@@ -24,8 +24,8 @@ Lifecycle:
    (c) **parent stems** — pages whose questions are children of a parent on
        an earlier page get the parent's page as an extra (so the AI sees
        flowcharts, tables, or stems that introduce the sub-questions).
-   Writes ``21_detect_cross_page_context/marking_page_register.json``.
-3. **Step 29** (AI marking) loads the most-refined register available and
+   Writes ``19_detect_cross_page_context/marking_page_register.json``.
+3. **Step ai_marking** (AI marking) loads the most-refined register available and
    iterates the calls. Two filters that *cannot* be baked in (scaffold-bounds
    cap and CLI cohort filter) are applied at iteration time.
 
@@ -78,7 +78,7 @@ def _cover_offset(has_cover: bool, empty_exam_has_cover: bool) -> int:
 
 
 # ---------------------------------------------------------------------------
-# Builder — used by step 18 (writes v1) and the step 29 backwards-compat path
+# Builder — used by build_marking_register_v1 (writes v1) and the ai_marking backwards-compat path
 # ---------------------------------------------------------------------------
 
 def build_initial_register(ctx: "_Ctx") -> dict:
@@ -90,8 +90,8 @@ def build_initial_register(ctx: "_Ctx") -> dict:
     Each non-cover scan page with handwriting becomes one primary marking
     call. Continuation-page attachment (blank or writing-space pages with
     handwriting → attach to the previous question page) is applied later by
-    step 21; this builder produces no extras. Scaffold-bounds cap and cohort
-    filter are runtime concerns of step 29.
+    detect_cross_page_context; this builder produces no extras. Scaffold-bounds cap and cohort
+    filter are runtime concerns of ai_marking.
     """
     from xscore.shared.exam_paths import (
         artifact_exam_student_list_json_path,
@@ -121,7 +121,7 @@ def build_initial_register(ctx: "_Ctx") -> dict:
         for p_label, scan_page in enumerate(page_numbers, 1):
             if has_cover and p_label == 1:
                 continue   # cover page never marked
-            # Trust step 15's AI-detected page identity (after recheck) over
+            # Trust student_handwriting_check's AI-detected page identity (after recheck) over
             # the physical scan position. For correctly-ordered scans the two
             # values are identical; for misordered scans (e.g. duplex back
             # sides shifted by one) the detected value is the only correct
@@ -202,7 +202,7 @@ def _load_handwriting_skips(
     a page the model is confident contains no student work. Pages where the
     flag is ``None`` (inconclusive) are NOT skipped: they fall through into
     primary marking calls so a human reviewer sees them. Per-student
-    grouping is derived using the page-assignment list from step 16.
+    grouping is derived using the page-assignment list from student_names.
     """
     skip_by_student: dict[str, set[int]] = {}
     if not handwriting_path.exists():
@@ -232,7 +232,7 @@ def _load_handwriting_skips(
 def _load_detected_pages(handwriting_path: Path) -> dict[int, int]:
     """Parse handwriting.json into a ``{scan_page: matched_page_number}`` map.
 
-    Step 15 emits ``matched_page_number`` for every scan page after the
+    Step student_handwriting_check emits ``matched_page_number`` for every scan page after the
     classifier (and its recheck pass) settle on a page identity. Entries
     where the matcher was inconclusive are absent — caller falls back to
     the position-based ``answer_label = p_label - cover_offset`` rule.
@@ -298,7 +298,7 @@ def _detect_page_set_anomaly(
 
 
 # ---------------------------------------------------------------------------
-# Cross-page context detection (step 21) — figure references + parent stems
+# Cross-page context detection (detect_cross_page_context) — figure references + parent stems
 # ---------------------------------------------------------------------------
 
 # Matches "Fig. 1.1", "Fig 1.1", "Figure 1.1", "Fig. 5" — case-insensitive.
@@ -321,15 +321,12 @@ def write_register(path: Path, register: dict) -> None:
 def load_register(artifact_dir: Path) -> dict | None:
     """Return the most-refined register available, or ``None`` if none exists.
 
-    Tries the step 21 register first (cross-page-context-augmented), falling
-    back to the step 18 register (handwriting-extras only). Includes the
-    pre-rename legacy folder name as an intermediate fallback so resuming an
-    old run still finds the register. Returns ``None`` when none of the
-    candidates exists.
+    Tries the detect_cross_page_context register first (cross-page-context-augmented), falling
+    back to the build_marking_register_v1 register (handwriting-extras only).
+    Returns ``None`` when none of the candidates exists.
     """
     candidates = (
         artifact_marking_page_register_v2_path(artifact_dir),
-        artifact_dir / "19_detect_cross_page_figures" / REGISTER_FILENAME,
         artifact_marking_page_register_v1_path(artifact_dir),
     )
     for candidate in candidates:
@@ -342,7 +339,7 @@ def load_register(artifact_dir: Path) -> dict | None:
 
 
 # ---------------------------------------------------------------------------
-# Iteration with runtime filters (consumed by step 29)
+# Iteration with runtime filters (consumed by ai_marking)
 # ---------------------------------------------------------------------------
 
 def iter_marking_calls(
@@ -377,7 +374,7 @@ def iter_marking_calls(
       whose ``answer_label`` has no blueprint file on disk. This filters out
       structurally-redundant primary calls for empty-exam pages with no leaf
       gradable questions (parent-stem pages whose children live elsewhere) —
-      step 21 has already attached such pages' scans as ``extras`` to the
+      detect_cross_page_context has already attached such pages' scans as ``extras`` to the
       child question's call, so the primary is redundant. Without the filter,
       downstream ``bp_path.read_text()`` raises ``FileNotFoundError``.
     """
@@ -409,7 +406,7 @@ def iter_marking_calls(
 
 # ---------------------------------------------------------------------------
 
-# Step-21 cross-page extras (continuation / figures / parents) live in
+# detect_cross_page_context cross-page extras (continuation / figures / parents) live in
 # :mod:`_register_cross_page_extras`. Re-exported for backward compat.
 from xscore.marking._register_cross_page_extras import (  # noqa: E402, F401
     apply_cross_page_extras,

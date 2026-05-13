@@ -1,9 +1,9 @@
 """Verification PDF for extracted mark-scheme graphics.
 
-Side-artifact rendered as part of step 33 (``class_report``). Walks the
-transcriptions YAML produced by step 25 and emits a single PDF with one page
+Side-artifact rendered as part of class_report (``class_report``). Walks the
+transcriptions YAML produced by transcribe_scheme_graphics and emits a single PDF with one page
 per graphic — header, image, and the AI's transcription text — so the user
-can visually confirm both extraction (step 22) and transcription (step 25)
+can visually confirm both extraction (detect_mark_scheme_graphics) and transcription (transcribe_scheme_graphics)
 worked correctly.
 
 Pure side-artifact: never read by another step; safe to delete or skip.
@@ -114,7 +114,7 @@ def render_scheme_graphics_check_pdf(ctx: Any) -> str:
     showing the graphic + its transcription, sorted by ms_page then question.
 
     Returns ``"done"`` | ``"skipped_empty"`` | ``"skipped_missing"``. Never
-    raises — errors become ``warn_line`` so step 33's main output is unaffected.
+    raises — errors become ``warn_line`` so class_report's main output is unaffected.
     """
     artifact_dir: Path = ctx.artifact_dir
     try:

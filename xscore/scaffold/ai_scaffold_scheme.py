@@ -99,8 +99,8 @@ def parse_mark_scheme_phase(
 ) -> dict:
     """Parse the mark scheme into ``{questions: [{number, correct_answer, mark_scheme, ...}]}``.
 
-    Reads per-page PDFs from step 22's pages dir; falls back to splitting the
-    PDF if step 22 was skipped. Uses *questions_per_page* (from step 23) to
+    Reads per-page PDFs from detect_mark_scheme_graphics's pages dir; falls back to splitting the
+    PDF if detect_mark_scheme_graphics was skipped. Uses *questions_per_page* (from assign_scheme_questions) to
     send only the relevant question entries to the AI per page; falls back
     to the full scaffold for any page missing from the mapping.
 

@@ -1,8 +1,8 @@
-"""Step 15: per-scan-page closed-vocabulary matcher + handwriting detection.
+"""student_handwriting_check: per-scan-page closed-vocabulary matcher + handwriting detection.
 
 Public entry point: :func:`check_student_handwriting`.
 
-Given the catalog produced by step 14's
+Given the catalog produced by classify_empty_exam_pages's
 :func:`xscore.marking.empty_exam_page_classifier.classify_empty_exam_pages`,
 asks the vision LLM to MATCH each scan page against one of the known
 empty-exam page types and one of the known empty-exam page numbers (plus an
@@ -53,7 +53,7 @@ from xscore.marking._handwriting_recheck import (
 def _parse_scan_match(
     raw: str,
 ) -> tuple[str | None, int | str | None, bool | None, int | None, int | None, int | None, str]:
-    """Parse the step-15 scan-page matcher response.
+    """Parse the student_handwriting_check scan-page matcher response.
 
     Returns
     ``(page_type, page_number, has_handwriting, conf_page_type, conf_page_number,
@@ -116,7 +116,7 @@ def _parse_scan_match(
 
 
 class _ScanPageMatchResp(BaseModel):
-    """Structured-output schema for the step-15 scan-page matcher (Gemini path).
+    """Structured-output schema for the student_handwriting_check scan-page matcher (Gemini path).
 
     ``page_number`` is a string here (rather than a union) because the Gemini
     structured-output schema rejects unions. The OpenAI-compat path reads the
@@ -193,7 +193,7 @@ def _match_scan_page(
     max_tokens: int,
     request_timeout: "httpx.Timeout | None" = None,
 ) -> tuple[str | None, int | str | None, bool | None, int | None, int | None, int | None, str]:
-    """Step-15 per-scan-page call. Returns the parsed
+    """student_handwriting_check per-scan-page call. Returns the parsed
     ``(page_type, page_number, has_handwriting, conf_pt, conf_pn, conf_hw, problem)``
     tuple; all components are independent and may be ``None`` on parse failure.
     """
@@ -334,15 +334,15 @@ def check_student_handwriting(
     empty_exam_classifications: list[dict] | None = None,
     empty_exam_pdf: Path | None = None,
 ) -> tuple[BlankCheckStatus, str | None]:
-    """Step 15: per-scan-page closed-vocabulary matcher.
+    """student_handwriting_check: per-scan-page closed-vocabulary matcher.
 
-    Given the catalog produced by step 14's :func:`classify_empty_exam_pages`,
+    Given the catalog produced by classify_empty_exam_pages's :func:`classify_empty_exam_pages`,
     asks the vision LLM to MATCH each scan page against one of the known
     empty-exam page types and one of the known empty-exam page numbers (plus
     an N+3 overflow buffer). Also detects student handwriting in the same
     call.
 
-    Writes ``15_student_handwriting/handwriting.json`` containing the
+    Writes ``13_student_handwriting_check/handwriting.json`` containing the
     ``scan_pages`` block. Returns ``(BlankCheckStatus, message)``; never
     raises (dispatcher policy).
 
@@ -371,7 +371,7 @@ def check_student_handwriting(
         )
 
     model_id, _thinking, max_tok_env = parse_model_spec(
-        os.environ.get("HANDWRITING_CHECK_MODEL", "qwen3-vl-flash")
+        os.environ.get("HANDWRITING_CHECK_MODEL", "qwen3.6-flash, 0, 96")
     )
     client_or_err = _build_client_state(model_id)
     if isinstance(client_or_err, str):
@@ -381,13 +381,13 @@ def check_student_handwriting(
     from eXercise.ai_client import make_request_timeout  # noqa: PLC0415
     request_timeout = make_request_timeout("standard")
 
-    # Build closed vocabularies from step 14's catalog.
+    # Build closed vocabularies from classify_empty_exam_pages's catalog.
     empty_exam_classifications = empty_exam_classifications or []
     page_type_set = {
         p["page_type"] for p in empty_exam_classifications
         if p.get("page_type")
     }
-    page_type_set.add("cover page")  # always available even if step 14 missed it
+    page_type_set.add("cover page")  # always available even if classify_empty_exam_pages missed it
     page_type_options = sorted(page_type_set)
 
     page_numbers_seen = sorted({

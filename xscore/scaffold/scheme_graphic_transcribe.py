@@ -1,9 +1,9 @@
-"""Step 25 — transcribe_scheme_graphics: per-graphic textual descriptions.
+"""Step transcribe_scheme_graphics — transcribe_scheme_graphics: per-graphic textual descriptions.
 
-For each PNG that step 22 (``detect_mark_scheme_graphics``) extracted from the
+For each PNG that detect_mark_scheme_graphics (``detect_mark_scheme_graphics``) extracted from the
 mark scheme, run one vision call that — given the question text and parsed
 mark-scheme answer text — emits a short, faithful textual description of the
-graphic. Step 29 (``ai_marking``) then attaches the description alongside the
+graphic. Step ai_marking (``ai_marking``) then attaches the description alongside the
 image so the marker has both modalities.
 
 Always-on. Skips no work on missing env var; only short-circuits when there are
@@ -172,7 +172,7 @@ def _transcribe_one(
 def _format_mark_scheme(ms: Any) -> str:
     """Render a list of ``{mark, criterion}`` dicts as readable plain text.
 
-    The mark-scheme parser (step 24) produces structured criteria. Plain
+    The mark-scheme parser (parse_mark_scheme) produces structured criteria. Plain
     ``str(list_of_dicts)`` gives Python's ``repr()``: single-quote dict keys,
     doubled backslashes, literal ``\\n`` — the model has to mentally unescape.
     This helper emits the same content as a clean ``[N marks] criterion``
@@ -279,7 +279,7 @@ def transcribe_scheme_graphics_phase(
     *,
     should_cache: bool = False,
 ) -> tuple[int, int]:
-    """Transcribe every PNG in ``22_detect_mark_scheme_graphics/graphics/``.
+    """Transcribe every PNG in ``20_detect_mark_scheme_graphics/graphics/``.
 
     Returns ``(new_count, total_count)``. ``new_count`` excludes entries
     already present from a prior partial run (resume-safe re-use); on a fresh

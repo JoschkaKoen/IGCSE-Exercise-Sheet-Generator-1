@@ -25,6 +25,42 @@ import time
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Callable
 
+from xscore.shared.step_folders import (
+    AI_COSTS_DIR,
+    AI_MARKING_DIR,
+    ASSIGN_QUESTIONS_DIR,
+    BLUEPRINTS_DIR,
+    BUILD_REGISTER_DIR,
+    CLASS_REPORT_DIR,
+    CLASS_STATS_DIR,
+    COVER_EMPTY_DIR,
+    COVER_SCAN_DIR,
+    CREATE_REPORT_DIR,
+    CROSS_PAGE_CONTEXT_DIR,
+    CUT_EXAM_DIR,
+    DESKEW_DIR,
+    DETECT_SUBJECT_DIR,
+    EMPTY_EXAM_CLASSIFY_DIR,
+    EXTRACT_ANSWERS_DIR,
+    EXTRACT_QUESTION_NUMBERS_DIR,
+    EXTRACT_QUESTIONS_DIR,
+    GEOMETRY_DIR,
+    HANDWRITING_DIR,
+    LAYOUT_DIR,
+    PAGE_ORDER_DIR,
+    PARSE_INSTRUCTIONS_DIR,
+    PARSE_SCHEME_DIR,
+    PREPARE_SCANS_DIR,
+    REVIEW_QUEUE_DIR,
+    SCHEME_GRAPHICS_DIR,
+    STUDENT_LIST_DIR,
+    STUDENT_NAMES_DIR,
+    STUDENT_PDFS_DIR,
+    STUDENT_REPORTS_DIR,
+    TIMING_DIR,
+    TRANSCRIBE_SCHEME_GRAPHICS_DIR,
+)
+
 if TYPE_CHECKING:
     from xscore.shared.pipeline_ctx import _Ctx
 
@@ -103,216 +139,150 @@ class Step:
 # ---------------------------------------------------------------------------
 #
 # Order matters — consumers iterate this list to determine pipeline ordering.
-# Step ``number`` matches the ``NN_`` prefix on artifact folder names in
-# ``xscore/shared/step_folders.py``. Gaps in the numbering reflect the live
-# pipeline (locate_exam_folder and prepare_scans don't always have artifact
-# folders; they're transparent operations on the scan PDF).
+# Numbering is contiguous 1..N; each ``Step.number`` matches the ``NN_`` prefix
+# on its artifact folder, and folder names are mechanically ``NN_<step.name>``
+# (defined in ``xscore/shared/step_folders.py`` and referenced from ``writes``
+# below). ``locate_exam_folder`` writes no artifacts of its own.
 
 STEPS: tuple[Step, ...] = (
-    Step(1,  "parse_grading_instructions", writes=("01_parse_grading_instructions/*",),
+    Step(1,  "parse_grading_instructions", writes=(f"{PARSE_INSTRUCTIONS_DIR}/*",),
          title="Interpret prompt", section="Prompt, folder & roster", bootstrap=True),
     Step(2,  "locate_exam_folder",
          title="Select exam folder", bootstrap=True),
-    Step(3,  "read_student_list",          writes=("03_read_student_list/*",),
+    Step(3,  "read_student_list",          writes=(f"{STUDENT_LIST_DIR}/*",),
          title="Read student list"),
-    Step(4,  "prepare_scans",              writes=("04_merge_duplex_scans/*",),
+    Step(4,  "prepare_scans",              writes=(f"{PREPARE_SCANS_DIR}/*",),
          title="Orient and merge scans", section="Scan cleaning"),
-    Step(7,  "deskew",                     writes=("07_deskew/*",),
+    Step(5,  "deskew",                     writes=(f"{DESKEW_DIR}/*",),
          title="Deskew scanned pages"),
     # Empty-exam analysis (no scan dependency) — pulled up so problems with
     # the empty exam PDF surface early.
-    Step(8,  "detect_exam_layout",         writes=("08_detect_exam_layout/*",),
+    Step(6,  "detect_exam_layout",         writes=(f"{LAYOUT_DIR}/*",),
          title="Detect empty exam layout", section="Empty-exam analysis",
          phase="empty_exam"),
-    Step(9,  "cut_exam_pdf",               writes=("09_cut_exam/*",),
+    Step(7,  "cut_exam_pdf",               writes=(f"{CUT_EXAM_DIR}/*",),
          title="Cut empty exam",
          phase="empty_exam"),
     # Cover detection + scan geometry.
-    Step(10, "cover_page_empty_exam",      writes=("10_cover_page_empty/*",),
+    Step(8,  "cover_page_empty_exam",      writes=(f"{COVER_EMPTY_DIR}/*",),
          title="Detect cover page in empty exam", section="Geometry & validation",
          phase="cover_geometry"),
-    Step(11, "cover_page_scan_first",      writes=("11_cover_page_scan/*",),
+    Step(9,  "cover_page_scan_first",      writes=(f"{COVER_SCAN_DIR}/*",),
          title="Detect cover page in scanned exam",
          phase="cover_geometry"),
-    Step(12, "exam_geometry",              writes=("12_exam_geometry/*",),
+    Step(10, "exam_geometry",              writes=(f"{GEOMETRY_DIR}/*",),
          title="Calculate number of scanned exam pages per student",
          phase="cover_geometry"),
     # Two-tier subject detection (filename heuristic → Gemini AI fallback on
     # cover + page 2 of the empty exam). Sets ctx.subject; gates the
     # CODE_FORMATTING prompt section in extract_exam_question_numbers,
     # extract_exam_questions, parse_mark_scheme, ai_marking, extract_student_answers.
-    Step(13, "detect_subject",             writes=("13_detect_subject/*",),
+    Step(11, "detect_subject",             writes=(f"{DETECT_SUBJECT_DIR}/*",),
          title="Detect exam subject (filename → AI fallback)",
          phase="cover_geometry"),
     # Empty-exam page classification (vision LLM, runs once per exam).
-    # Builds the catalog used by step 15's matcher and step 21's continuation pass.
-    Step(14, "classify_empty_exam_pages",
-         writes=("14_empty_exam_classification/*",),
+    # Builds the catalog used by student_handwriting_check's matcher and
+    # detect_cross_page_context's continuation pass.
+    Step(12, "classify_empty_exam_pages",
+         writes=(f"{EMPTY_EXAM_CLASSIFY_DIR}/*",),
          title="Classify empty-exam pages (cover/instruction/question/blank/writing-space)",
          phase="cover_geometry"),
     # Per-scan-page vision classification — drives student_names and page_order_check.
-    Step(15, "student_handwriting_check",
-         writes=("15_student_handwriting/*",
-                 "14_student_handwriting/*",   # legacy: pre-step-14-split
-                 "13_student_handwriting/*"),  # legacy: pre-detect_subject
+    Step(13, "student_handwriting_check",
+         writes=(f"{HANDWRITING_DIR}/*",),
          title="Match each scan page against empty exam (page type + page# + handwriting)",
          phase="cover_geometry"),
     # Cover-anchored student-name detection (consumes student_handwriting_check's covers).
     # Sets ctx.page_assignments — the runner kicks off background pre-rendering
     # immediately after this step (see kick_off_render_bg in pipeline/runner.py).
-    Step(16, "student_names",
-         writes=("16_student_names/*",
-                 "15_student_names/*",   # legacy: pre-step-14-split
-                 "14_student_names/*"),  # legacy: pre-detect_subject
+    Step(14, "student_names",
+         writes=(f"{STUDENT_NAMES_DIR}/*",),
          title="Detect student names",
          phase="cover_geometry"),
     # Heuristic page-order check (consumes student_handwriting_check's page numbers).
-    Step(17, "page_order_check",
-         writes=("17_page_order/*",
-                 "16_page_order/*",   # legacy: pre-step-14-split
-                 "15_page_order/*"),  # legacy: pre-detect_subject
+    Step(15, "page_order_check",
+         writes=(f"{PAGE_ORDER_DIR}/*",),
          title="Check page order",
          phase="cover_geometry"),
     # Pure data transform: combines handwriting + names into the marking-page
     # register v1. One primary call per non-cover scan page that has handwriting;
-    # continuation/figure/parent extras are added by step 21.
-    Step(18, "build_marking_register_v1",
-         writes=("18_build_marking_register/*",
-                 "17_build_marking_register/*"),  # legacy: pre-step-14-split
+    # continuation/figure/parent extras are added by detect_cross_page_context.
+    Step(16, "build_marking_register_v1",
+         writes=(f"{BUILD_REGISTER_DIR}/*",),
          title="Build marking page register",
          phase="cover_geometry"),
     # Empty-exam parse split: question numbers (cheap call) + per-question text (per-page parallel).
-    Step(19, "extract_exam_question_numbers",
-         writes=("19_extract_exam_question_numbers/*",),
+    Step(17, "extract_exam_question_numbers",
+         writes=(f"{EXTRACT_QUESTION_NUMBERS_DIR}/*",),
          title="Extract question numbers from empty exam",
          section="Exam & mark scheme parsing",
          phase="scaffold_phase_b"),
-    Step(20, "extract_exam_questions",
-         writes=("20_extract_exam_questions/*",),
+    Step(18, "extract_exam_questions",
+         writes=(f"{EXTRACT_QUESTIONS_DIR}/*",),
          title="Extract questions from empty exam",
          phase="scaffold_phase_b"),
-    Step(21, "detect_cross_page_context",  resumable=True,
-         writes=(
-             "21_detect_cross_page_context/*",
-             "20_detect_cross_page_context/*",   # legacy folder (pre-detect_subject)
-             "19_detect_cross_page_context/*",   # legacy folder (pre-renumber)
-             "19_detect_cross_page_figures/*",   # legacy folder (pre-rename)
-         ),
+    Step(19, "detect_cross_page_context",  resumable=True,
+         writes=(f"{CROSS_PAGE_CONTEXT_DIR}/*",),
          title="Detect cross-page context",
          phase="scaffold_phase_b"),
-    Step(22, "detect_mark_scheme_graphics",
-         writes=("22_detect_mark_scheme_graphics/*",
-                 "21_detect_mark_scheme_graphics/*"),  # legacy
+    Step(20, "detect_mark_scheme_graphics",
+         writes=(f"{SCHEME_GRAPHICS_DIR}/*",),
          title="Detect mark scheme graphics",
          phase="scaffold_phase_b"),
-    Step(23, "assign_scheme_questions",
-         writes=("23_assign_scheme_questions/*",
-                 "22_assign_scheme_questions/*"),  # legacy
+    Step(21, "assign_scheme_questions",
+         writes=(f"{ASSIGN_QUESTIONS_DIR}/*",),
          title="Assign questions to mark scheme pages",
          phase="scaffold_phase_b"),
-    Step(24, "parse_mark_scheme",
-         writes=("24_parse_mark_scheme/*",
-                 "23_parse_mark_scheme/*"),  # legacy
+    Step(22, "parse_mark_scheme",
+         writes=(f"{PARSE_SCHEME_DIR}/*",),
          title="Parse mark scheme",
          phase="scaffold_phase_b"),
-    Step(25, "transcribe_scheme_graphics", resumable=True,
-         writes=("25_transcribe_scheme_graphics/*",),
+    Step(23, "transcribe_scheme_graphics", resumable=True,
+         writes=(f"{TRANSCRIBE_SCHEME_GRAPHICS_DIR}/*",),
          title="Transcribe mark scheme graphics",
          phase="scaffold_phase_b"),
-    Step(26, "create_report",
-         writes=(
-             "26_create_report/*",
-             "25_create_report/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "24_create_report/*",  # legacy folder (pre-detect_subject)
-         ),
+    Step(24, "create_report",
+         writes=(f"{CREATE_REPORT_DIR}/*",),
          title="Build grading scaffold",
          phase="scaffold_phase_b"),
-    Step(27, "ai_marking_blueprints",      resumable=True,
-         writes=(
-             "27_ai_marking_blueprints/*",
-             "26_ai_marking_blueprints/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "25_ai_marking_blueprints/*",  # legacy folder (pre-detect_subject)
-         ),
+    Step(25, "ai_marking_blueprints",      resumable=True,
+         writes=(f"{BLUEPRINTS_DIR}/*",),
          title="Build AI marking blueprints", section="AI marking",
          phase="marking_reports_summary"),
-    Step(28, "extract_student_answers",    resumable=True,
-         writes=(
-             "28_extract_student_answers/*",
-             "27_extract_student_answers/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "26_extract_student_answers/*",  # legacy folder (pre-detect_subject)
-         ),
+    Step(26, "extract_student_answers",    resumable=True,
+         writes=(f"{EXTRACT_ANSWERS_DIR}/*",),
          title="Extract student answers (transcribe-only pass)",
          phase="marking_reports_summary"),
-    Step(29, "ai_marking",                 resumable=True,
-         writes=(
-             "29_ai_marking/*",
-             "28_ai_marking/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "27_ai_marking/*",  # legacy folder (pre-detect_subject)
-             "26_ai_marking/*",  # legacy folder (pre-extract-answers refactor)
-         ),
+    Step(27, "ai_marking",                 resumable=True,
+         writes=(f"{AI_MARKING_DIR}/*",),
          title="Run AI marking",
          phase="marking_reports_summary"),
-    Step(30, "per_student_reports",        resumable=True,
-         writes=(
-             "30_student_report_preparation/*",
-             "29_student_report_preparation/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "28_student_report_preparation/*",  # legacy folder (pre-detect_subject)
-             "27_student_report_preparation/*",  # legacy folder
-         ),
+    Step(28, "per_student_reports",        resumable=True,
+         writes=(f"{STUDENT_REPORTS_DIR}/*",),
          title="Fuse AI marking output to student reports", section="Reports & PDFs",
          phase="marking_reports_summary"),
-    Step(31, "class_stats_curve",          resumable=True,
-         writes=(
-             "31_class_stats/*",
-             "30_class_stats/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "29_class_stats/*",  # legacy folder (pre-detect_subject)
-             "28_class_stats/*",  # legacy folder
-         ),
+    Step(29, "class_stats_curve",          resumable=True,
+         writes=(f"{CLASS_STATS_DIR}/*",),
          title="Compute class statistics + curve",
          phase="marking_reports_summary"),
-    Step(32, "per_student_pdfs",           resumable=True,
-         writes=(
-             "32_student_pdfs/*",
-             "31_student_pdfs/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "30_student_pdfs/*",  # legacy folder (pre-detect_subject)
-             "29_student_pdfs/*",  # legacy folder
-         ),
+    Step(30, "per_student_pdfs",           resumable=True,
+         writes=(f"{STUDENT_PDFS_DIR}/*",),
          title="Generate per-student reports (landscape + portrait + 2UP)",
          phase="marking_reports_summary"),
-    Step(33, "class_report",               resumable=True,
-         writes=(
-             "33_class_report/*",
-             "32_class_report/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "31_class_report/*",  # legacy folder (pre-detect_subject)
-             "30_class_report/*",  # legacy folder
-         ),
+    Step(31, "class_report",               resumable=True,
+         writes=(f"{CLASS_REPORT_DIR}/*",),
          title="Generate class report",
          phase="marking_reports_summary"),
-    Step(34, "review_queue",               resumable=True,
-         writes=(
-             "34_review_queue/*",
-             "33_review_queue/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "32_review_queue/*",  # legacy folder (pre-detect_subject)
-             "31_review_queue/*",  # legacy folder
-         ),
+    Step(32, "review_queue",               resumable=True,
+         writes=(f"{REVIEW_QUEUE_DIR}/*",),
          title="Build review queue",
          phase="marking_reports_summary"),
-    Step(35, "timing_summary",
-         writes=(
-             "35_timing_summary/*",
-             "34_timing_summary/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "33_timing_summary/*",  # legacy folder (pre-detect_subject)
-             "32_timing_summary/*",  # legacy folder
-         ),
+    Step(33, "timing_summary",
+         writes=(f"{TIMING_DIR}/*",),
          title="Summarise step timings", section="Summary",
          phase="marking_reports_summary"),
-    Step(37, "ai_costs",
-         writes=(
-             "37_ai_costs/*",
-             "36_ai_costs/*",  # legacy folder (pre-transcribe_scheme_graphics)
-             "35_ai_costs/*",  # legacy folder (pre-detect_subject)
-             "34_ai_costs/*",  # legacy folder
-         ),
+    Step(34, "ai_costs",
+         writes=(f"{AI_COSTS_DIR}/*",),
          title="Summarise AI costs",
          phase="marking_reports_summary"),
 )

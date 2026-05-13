@@ -73,11 +73,11 @@ with tempfile.TemporaryDirectory() as tmpdir:
         encoding="utf-8",
     )
 
-    # Case 1: from_step=21 → should rehydrate
-    ctx = _FakeCtx(artifact_dir, from_step=21)
+    # Case 1: from_step=19 (detect_cross_page_context) → should rehydrate
+    ctx = _FakeCtx(artifact_dir, from_step=19)
     _rehydrate_scaffold_state_on_resume(ctx)
     assert "raw_questions" in ctx.scaffold_state, (
-        "raw_questions not populated after resume into step 21"
+        "raw_questions not populated after resume into detect_cross_page_context"
     )
     assert len(ctx.scaffold_state["raw_questions"]) == 2, (
         f"Expected 2 questions, got {ctx.scaffold_state['raw_questions']}"
@@ -86,11 +86,11 @@ with tempfile.TemporaryDirectory() as tmpdir:
         f"Unexpected raw_layout: {ctx.scaffold_state['raw_layout']}"
     )
 
-    # Case 2: from_step=20 → should NOT rehydrate (step 20 itself sets state)
-    ctx = _FakeCtx(artifact_dir, from_step=20)
+    # Case 2: from_step=18 (extract_exam_questions itself) → should NOT rehydrate
+    ctx = _FakeCtx(artifact_dir, from_step=18)
     _rehydrate_scaffold_state_on_resume(ctx)
     assert "raw_questions" not in ctx.scaffold_state, (
-        "rehydration ran for from_step=20 — should only fire for >20"
+        "rehydration ran for from_step=18 — should only fire for >18"
     )
 
     # Case 3: from_step=None (fresh run) → should NOT rehydrate
@@ -100,5 +100,5 @@ with tempfile.TemporaryDirectory() as tmpdir:
         "rehydration ran for fresh run — should only fire when resuming"
     )
 
-print("FIX VERIFIED: rehydration populates state for from_step>20, not otherwise.")
+print("FIX VERIFIED: rehydration populates state for from_step>extract_exam_questions, not otherwise.")
 sys.exit(0)

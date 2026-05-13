@@ -54,7 +54,7 @@ _ENV = jinja2.Environment(
 )
 
 
-# Step 22 writes PNG filenames via `[^\w] -> _` (defensive against unsafe
+# Step detect_mark_scheme_graphics writes PNG filenames via `[^\w] -> _` (defensive against unsafe
 # chars in raw qnums) but uses `_norm_qnum` (parens stripped) for the
 # canonical question number everywhere else. The marking pipeline's
 # `q["number"]` is the canonical form (e.g. `"7a"` for a leaf `"7(a)"`), so
@@ -70,7 +70,7 @@ def _scheme_graphics_safe_qnum(qnum: str) -> str:
 
 def _scheme_graphics_by_qnum(artifact_dir: Path) -> dict[str, list[str]]:
     """Map canonical qnum (e.g. ``"7(a)" -> "7a"`` via ``_norm_qnum``) ->
-    list of PNG filenames step 22 extracted for that question.
+    list of PNG filenames detect_mark_scheme_graphics extracted for that question.
 
     Sources raw qnums from ``mark_scheme_graphics.yaml`` so dict keys match
     the marking pipeline's canonical ``q["number"]`` form. Files are matched
@@ -107,7 +107,7 @@ def _scheme_graphics_tex(filenames: list[str]) -> str:
     its own. (`\\newline` after `\\end{...}` would raise "no line here to end".)"""
     # Bare stem (no .png/.pdf) — graphicx's default extension order picks
     # the .pdf vector crop when present and falls back to the .png raster
-    # when it isn't. Step 22 writes both formats; the PDF gives crisp
+    # when it isn't. Step detect_mark_scheme_graphics writes both formats; the PDF gives crisp
     # print output, the PNG covers any per-graphic PDF write failure.
     return " ".join(
         rf"\includegraphics[width=\linewidth]{{{Path(f).stem}}}" for f in filenames
@@ -433,7 +433,7 @@ def _class_toc_to_tex(
 
 
 # ---------------------------------------------------------------------------
-# Parsed-exam question rendering (step 29: exam_questions.pdf,
+# Parsed-exam question rendering (ai_marking: exam_questions.pdf,
 # *_landscape_with_questions.pdf, *_portrait_list.pdf).
 # ---------------------------------------------------------------------------
 

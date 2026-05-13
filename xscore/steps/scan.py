@@ -25,7 +25,7 @@ from xscore.preprocessing.coordinator import (
 from xscore.shared.step_folders import DESKEW_DIR
 from xscore.shared.load_student_list import read_student_list as _read_student_list
 from xscore.shared.pipeline_ctx import _Ctx
-from xscore.shared.pipeline_steps import run_step, step_by_number
+from xscore.shared.pipeline_steps import run_step, step_by_name
 from xscore.shared.student_artifacts import write_student_artifacts
 from xscore.shared.terminal_ui import (
     announce_step_model,
@@ -73,7 +73,14 @@ def deskew(ctx: _Ctx) -> None:
     p = ctx.artifact_dir / DESKEW_DIR / "summary.json"
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(
-        json.dumps({"step": 7, "elapsed_s": round(time.perf_counter() - t0, 3), "status": "ok"}, indent=2),
+        json.dumps(
+            {
+                "step": step_by_name("deskew").number,
+                "elapsed_s": round(time.perf_counter() - t0, 3),
+                "status": "ok",
+            },
+            indent=2,
+        ),
         encoding="utf-8",
     )
 
@@ -89,5 +96,5 @@ def scan_phases(ctx: _Ctx) -> None:
     if ctx.from_step:
         return
 
-    run_step(ctx, step_by_number(4))
-    run_step(ctx, step_by_number(7))
+    run_step(ctx, step_by_name("prepare_scans"))
+    run_step(ctx, step_by_name("deskew"))

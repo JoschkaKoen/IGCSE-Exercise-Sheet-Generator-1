@@ -64,8 +64,8 @@ class _Ctx:
     # Set by cover_page_scan_first from the scan page-1 check; final once that
     # step finishes (no retroactive update). False = no cover (also the default).
     cover_page_mode: bool = False
-    # Set by detect_subject (step 13). None means the step hasn't run yet (or
-    # was skipped on resume from a pre-step-13 run); downstream prompts treat
+    # Set by detect_subject (detect_subject). None means the step hasn't run yet (or
+    # was skipped on resume from a pre-detect_subject run); downstream prompts treat
     # None as "no code formatting" via :func:`xscore.shared.subjects.needs_code_formatting`.
     subject: "Subject | None" = None
     stop_after: int = 9999                   # --stop-after N; 9999 = run everything

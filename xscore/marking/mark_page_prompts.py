@@ -52,7 +52,7 @@ def _blueprint_for_prompt(blueprint_str: str) -> str:
 
     - **Prose context** (markdown): per-question header (number, type,
       max_marks, subpage if grid) + question_text + options + mark-scheme
-      guidance + student_answer (read-only, from step 28).
+      guidance + student_answer (read-only, from extract_student_answers).
     - **Minimal YAML form**: per-question entry with only ``number`` and the
       empty fill-target slots (``assigned_marks``/``explanation`` for
       non-MCQ, ``confidence``/``problem`` always; MCQ entries omit
@@ -111,7 +111,7 @@ def _blueprint_for_prompt(blueprint_str: str) -> str:
 
         sa = str(q.get("student_answer") or "").rstrip()
         out.append(
-            "Student answer (read-only — verbatim from step 28; "
+            "Student answer (read-only — verbatim from extract_student_answers; "
             "do not modify or re-emit):"
         )
         out.append(sa if sa else "[blank]")
@@ -164,7 +164,7 @@ def _build_marking_system_prompt(
 ) -> str:
     """Build the system prompt shared by the JPEG and Gemini PDF marking paths.
 
-    Step 28 (``extract_student_answers``) always runs before step 29 in the
+    Step extract_student_answers (``extract_student_answers``) always runs before ai_marking in the
     live pipeline; the blueprint reaches this function with student answers
     already transcribed and renamed to ``transcribed_answer``. The
     FIELD_RULES fragment instructs the marker to treat that field as

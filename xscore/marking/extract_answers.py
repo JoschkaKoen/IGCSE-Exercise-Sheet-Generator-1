@@ -1,10 +1,10 @@
-"""Step 28 — extract_student_answers: transcribe student answers verbatim.
+"""Step extract_student_answers — extract_student_answers: transcribe student answers verbatim.
 
-A pre-pass before AI marking (step 29). For each (student, answer_page) the
+A pre-pass before AI marking (ai_marking). For each (student, answer_page) the
 register yields, send the rendered scan JPEG(s) to a vision model with the
 page blueprint as context, and ask only for the verbatim student answer per
 question. Output is one YAML file per (student, page) under
-``28_extract_student_answers/students/``.
+``26_extract_student_answers/students/``.
 
 The marking step then loads these artifacts, pre-fills ``student_answer`` on
 each blueprint question, and asks the marker only to assign marks + write
@@ -267,7 +267,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
     fmt = get_marking_format()
 
     # Gate the CODE_FORMATTING prompt section on the detected subject. Mirrors
-    # ai_mark.run_ai_marking — reads ctx.subject set by step 13 (detect_subject).
+    # ai_mark.run_ai_marking — reads ctx.subject set by detect_subject (detect_subject).
     from xscore.shared.subjects import needs_code_formatting
     _is_cs = needs_code_formatting(ctx)
 
@@ -289,7 +289,7 @@ def run_extract_student_answers(ctx: Any, *, dpi: int | None = None) -> list[dic
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     if not list_path.exists():
         raise FileNotFoundError(
-            f"student_names artifact not found at {list_path} — run step 15 first"
+            f"student_names artifact not found at {list_path} — run student_handwriting_check first"
         )
     raw_assignments: list[dict] = _safe_load_json(list_path)
 
@@ -548,7 +548,7 @@ def blueprint_for_transcription(blueprint_str: str, fmt: Any) -> str:
 
     Strips ``correct_answer`` and ``mark_scheme_answer`` so the transcriber AI
     is not biased by the model answer / marking criteria while transcribing.
-    Also strips the step-29 marking fields (``assigned_marks``, ``explanation``,
+    Also strips the ai_marking marking fields (``assigned_marks``, ``explanation``,
     ``confidence``, ``problem``) — the transcriber owns only ``student_answer``
     and shouldn't see (or have a chance to fill) the marking-only target fields.
     """
@@ -570,7 +570,7 @@ def blueprint_for_marking(blueprint_str: str) -> str:
 
     ``correct_answer`` is needed only by the deterministic ``_fix_mc_marks``
     pass that runs after the AI call. Sending it to the AI causes the model to
-    pattern-match ``student_answer == correct_answer`` as evidence that step 28
+    pattern-match ``student_answer == correct_answer`` as evidence that extract_student_answers
     cheated by copying the key, and override correct extractions to
     ``no answer`` (observed in run 2026-05-05_20-54-28 Silence p13 thinking
     trace, where the model wrote: "the student_answer in the blueprint matches

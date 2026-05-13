@@ -61,23 +61,12 @@ def copy_artifacts(src: Path, dst: Path, from_step: int) -> None:
 
     Patterns are derived from ``pipeline_steps.STEPS[*].writes`` for every step
     *before* *from_step* (those outputs become inputs for the resumed run).
-    Pre-restructure legacy flat paths are appended for backwards-compat with
-    runs created before the per-step folder layout.
+    The merged/deskewed scan PDF lives at the run root and is also copied.
     """
     from xscore.shared.pipeline_steps import STEPS
 
     patterns: list[str] = [g for s in STEPS if s.number < from_step for g in s.writes]
-    patterns += [
-        "scanned_exam_merged_and_angles_adjusted.pdf",
-        "3_students.*",
-        "7_cleaned_scan.pdf",
-        "8_exam_geometry.*", "8_exam_student_list.*", "8_blank_pages.json",
-        "9_exam_layout.*", "9_exam_input.pdf", "9_split_exam.pdf",
-        "10_exam_questions.*", "11_mark_scheme.*",
-        "12_report.*", "12_short_report.*",
-        "13_ai_marking_blueprint_*.*",
-        "students/14_marked_*.*", "students/14_failed_*.*",
-    ]
+    patterns.append("scanned_exam_merged_and_angles_adjusted.pdf")
     for pat in patterns:
         for src_path in src.glob(pat):
             dst_path = dst / src_path.relative_to(src)
@@ -91,7 +80,6 @@ def copy_artifacts(src: Path, dst: Path, from_step: int) -> None:
 def resume_pipeline(ctx: "_Ctx") -> None:
     """Bootstrap *ctx* from a prior run's artifacts and set ctx.from_step skip logic."""
     from xscore.shared.exam_paths import (
-        DESKEW_DIR,
         artifact_exam_student_list_json_path,
         artifact_geometry_json_path,
         artifact_students_json_path,
@@ -99,7 +87,13 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     )
     from xscore.shared.models import PageAssignment as _PA
     from xscore.shared.pipeline_steps import resumable_step_numbers, step_by_name
-    from xscore.shared.step_folders import BLUEPRINTS_DIR, AI_MARKING_DIR
+    from xscore.shared.step_folders import (
+        AI_MARKING_DIR,
+        BLUEPRINTS_DIR,
+        CREATE_REPORT_DIR,
+        STUDENT_LIST_DIR,
+        STUDENT_NAMES_DIR,
+    )
     from xscore.shared.terminal_ui import ok_line
     from xscore.scaffold.generate_scaffold import build_scaffold
 
@@ -131,66 +125,26 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     _blueprints_n = step_by_name("ai_marking_blueprints").number
     _marking_n = step_by_name("ai_marking").number
 
-    def _first_existing(*paths: Path) -> Path | None:
-        return next((p for p in paths if p.exists()), None)
-
-    required: list[Path] = []
-    for paths in [
-        (resume_dir / "scanned_exam_merged_and_angles_adjusted.pdf",
-         resume_dir / "cleaned_scan.pdf",
-         resume_dir / "07_deskew" / "cleaned_scan.pdf",
-         resume_dir / "7_cleaned_scan.pdf"),
-        (resume_dir / "03_read_student_list" / "students.json",  resume_dir / "3_students.json"),
-        # Student list — new (16_) and legacy (15_, 14_, 12_, 11_, 8_) locations.
-        (resume_dir / "16_student_names" / "exam_student_list.json",
-         resume_dir / "15_student_names" / "exam_student_list.json",
-         resume_dir / "14_student_names" / "exam_student_list.json",
-         resume_dir / "12_student_names" / "exam_student_list.json",
-         resume_dir / "11_student_names" / "exam_student_list.json",
-         resume_dir / "8_exam_student_list.json"),
-        # Scaffold report — primary YAML (26_), legacy XML (26_, 25_, 24_, 23_, 22_), and oldest JSON.
-        (resume_dir / "26_create_report" / "report.yaml",
-         resume_dir / "26_create_report" / "report.xml",
-         resume_dir / "25_create_report" / "report.xml",
-         resume_dir / "24_create_report" / "report.xml",
-         resume_dir / "23_create_report" / "report.xml",
-         resume_dir / "22_create_report" / "report.xml",
-         resume_dir / "12_report.json"),
-    ]:
-        found = _first_existing(*paths)
-        required.append(found if found else paths[0])
+    required: list[Path] = [
+        resume_dir / "scanned_exam_merged_and_angles_adjusted.pdf",
+        resume_dir / STUDENT_LIST_DIR / "students.json",
+        resume_dir / STUDENT_NAMES_DIR / "exam_student_list.json",
+        resume_dir / CREATE_REPORT_DIR / "report.yaml",
+    ]
 
     missing_globs: list[str] = []
     if ctx.from_step > _blueprints_n:
-        # Blueprints migrated from JSON to YAML; older runs may still be on disk.
-        bp_found = (
-            list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.yaml"))
-            or list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.json"))
-            or list(resume_dir.glob("26_ai_marking_blueprints/blueprint_page_*.yaml"))
-            or list(resume_dir.glob("26_ai_marking_blueprints/blueprint_page_*.json"))
-            or list(resume_dir.glob("25_ai_marking_blueprints/blueprint_page_*.json"))
-            or list(resume_dir.glob("23_ai_marking_blueprints/blueprint_page_*.json"))
-            or list(resume_dir.glob("18_ai_marking_blueprint_*.json"))
-        )
+        bp_found = list(resume_dir.glob(f"{BLUEPRINTS_DIR}/blueprint_page_*.yaml"))
         if bp_found:
             required += bp_found
         else:
-            missing_globs.append(f"blueprint_page_*.yaml (in {BLUEPRINTS_DIR}/ or legacy locations)")
+            missing_globs.append(f"blueprint_page_*.yaml (in {BLUEPRINTS_DIR}/)")
     if ctx.from_step > _marking_n:
-        # Marked pages live one level deep (students/<safe_name>/page_<N>.yaml,
-        # see artifact_marked_path). Earlier renumbers used the same per-student
-        # subdir layout; the very old XML layout was flat at students/.
-        mk_found = (
-            list(resume_dir.glob(f"{AI_MARKING_DIR}/students/*/page_*.yaml"))
-            or list(resume_dir.glob("28_ai_marking/students/*/page_*.yaml"))
-            or list(resume_dir.glob("27_ai_marking/students/*/page_*.yaml"))
-            or list(resume_dir.glob("24_ai_marking/students/*/page_*.yaml"))
-            or list(resume_dir.glob("students/14_marked_*.xml"))
-        )
+        mk_found = list(resume_dir.glob(f"{AI_MARKING_DIR}/students/*/page_*.yaml"))
         if mk_found:
             required += mk_found
         else:
-            missing_globs.append(f"students/*/page_*.yaml (in {AI_MARKING_DIR}/ or legacy locations)")
+            missing_globs.append(f"students/*/page_*.yaml (in {AI_MARKING_DIR}/)")
     missing = [p.name for p in required if not p.exists()] + missing_globs
     if missing:
         raise SystemExit(
@@ -201,38 +155,11 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     assert ctx.artifact_dir is not None
     copy_artifacts(resume_dir, ctx.artifact_dir, ctx.from_step)
 
-    cleaned_new = ctx.artifact_dir / "scanned_exam_merged_and_angles_adjusted.pdf"
-    cleaned_legacy = ctx.artifact_dir / "cleaned_scan.pdf"
-    cleaned_legacy_step = ctx.artifact_dir / DESKEW_DIR / "cleaned_scan.pdf"
-    cleaned_old = ctx.artifact_dir / "7_cleaned_scan.pdf"
-    if cleaned_new.exists():
-        ctx.cleaned_pdf = cleaned_new
-    elif cleaned_legacy.exists():
-        ctx.cleaned_pdf = cleaned_legacy
-    elif cleaned_legacy_step.exists():
-        ctx.cleaned_pdf = cleaned_legacy_step
-    else:
-        ctx.cleaned_pdf = cleaned_old
+    ctx.cleaned_pdf = ctx.artifact_dir / "scanned_exam_merged_and_angles_adjusted.pdf"
 
-    students_path = artifact_students_json_path(ctx.artifact_dir)
-    if not students_path.exists():
-        students_path = ctx.artifact_dir / "3_students.json"
-    ctx.students = json.loads(students_path.read_text())
+    ctx.students = json.loads(artifact_students_json_path(ctx.artifact_dir).read_text())
 
-    student_list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
-    if not student_list_path.exists():
-        student_list_path = ctx.artifact_dir / "14_student_names" / "exam_student_list.json"
-    if not student_list_path.exists():
-        student_list_path = ctx.artifact_dir / "12_student_names" / "exam_student_list.json"
-    if not student_list_path.exists():
-        student_list_path = ctx.artifact_dir / "11_student_names" / "exam_student_list.json"
-    if not student_list_path.exists():
-        student_list_path = ctx.artifact_dir / "10_student_names" / "exam_student_list.json"
-    if not student_list_path.exists():
-        student_list_path = ctx.artifact_dir / "10_exam_student_list.json"
-    if not student_list_path.exists():
-        student_list_path = ctx.artifact_dir / "8_exam_student_list.json"
-    _raw_pa = json.loads(student_list_path.read_text())
+    _raw_pa = json.loads(artifact_exam_student_list_json_path(ctx.artifact_dir).read_text())
     ctx.page_assignments = [
         _PA(
             student_name=a["student_name"],
@@ -248,22 +175,11 @@ def resume_pipeline(ctx: "_Ctx") -> None:
     )
 
     geo_path = artifact_geometry_json_path(ctx.artifact_dir)
-    if not geo_path.exists():
-        geo_path = ctx.artifact_dir / "08_exam_geometry" / "exam_geometry.json"
-    if not geo_path.exists():
-        geo_path = ctx.artifact_dir / "8_exam_geometry.json"
     if geo_path.exists():
         geo = json.loads(geo_path.read_text())
         ctx.empty_exam_has_cover = geo.get("empty_exam_has_cover")
-        # New runs persist `scan_has_cover`; pre-restructure runs persisted
-        # `cover_page_mode` (same meaning, old key) — keep the legacy fallback.
-        ctx.cover_page_mode = bool(
-            geo.get("scan_has_cover", geo.get("cover_page_mode", False))
-        )
+        ctx.cover_page_mode = bool(geo.get("scan_has_cover", False))
 
-    # Subject (set by detect_subject). Pre-detect_subject runs have no
-    # subject.json — leave ctx.subject as None; needs_code_formatting()
-    # treats None as "no code formatting" for those legacy runs.
     from xscore.shared.exam_paths import artifact_subject_json_path
     subject_path = artifact_subject_json_path(ctx.artifact_dir)
     if subject_path.exists():

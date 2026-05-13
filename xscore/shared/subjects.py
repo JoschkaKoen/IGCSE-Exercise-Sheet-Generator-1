@@ -3,7 +3,7 @@
 A :class:`Subject` describes pipeline behavior that varies with the exam's
 academic discipline — most importantly, whether prompts should include the
 ``CODE_FORMATTING`` section (true for Computer Science; false for Physics
-and others). Detected by step 13 (``detect_subject``) and exposed to
+and others). Detected by detect_subject (``detect_subject``) and exposed to
 downstream steps via ``ctx.subject``.
 
 Detection is two-tier:
@@ -108,7 +108,7 @@ def needs_code_formatting(ctx: "_Ctx") -> bool:
 
     Single-source-of-truth replacement for the legacy
     ``is_cs_exam(*pdf_paths)`` filename heuristic. Reads ``ctx.subject``
-    set by step 13 (``detect_subject``).
+    set by detect_subject (``detect_subject``).
     """
     if ctx.subject is None:
         return False

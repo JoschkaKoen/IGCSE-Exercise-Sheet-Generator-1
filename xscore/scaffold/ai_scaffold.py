@@ -55,7 +55,7 @@ from xscore.shared.models import ExamLayout, Question
 
 
 # ---------------------------------------------------------------------------
-# Step 22 — Merge scaffold
+# Step detect_mark_scheme_graphics — Merge scaffold
 # ---------------------------------------------------------------------------
 
 def merge_scaffold_phase(
@@ -257,7 +257,7 @@ def _fix_zero_mark_leaves(questions: list) -> None:
         if q.marks != 0:
             continue
         if q.question_type == "multiple_choice":
-            # Defensive — step 19's _parse_yaml_scaffold_node usually already
+            # Defensive — extract_exam_question_numbers's _parse_yaml_scaffold_node usually already
             # bumps MCQ leaves; this catches paths that bypass that parser.
             q.marks = 1
         else:

@@ -2,6 +2,8 @@
 
 This document lists bugs verified through reproduction scripts, unit tests, or clear static analysis of the xscore pipeline codebase.
 
+> **Step numbers/names in entries below reflect the pipeline at the time the bug was reported.** Numbering was compressed to a contiguous 1..34 (and several folder constants renamed) after these entries were written — see [xscore/shared/pipeline_steps.py](xscore/shared/pipeline_steps.py) for the current registry. Cross-reference by step *name* rather than number when matching to today's code.
+
 ---
 
 ## 1. Ground Truth Header Mis-Detection

@@ -1,4 +1,4 @@
-"""Step 29 — AI marking: iterate over student scan pages and fill blueprint JSONs.
+"""Step ai_marking — AI marking: iterate over student scan pages and fill blueprint JSONs.
 
 Uses the MARKING_MODEL env var (default: qwen3.6-plus, off) via make_ai_client().
 Requires DASHSCOPE_API_KEY to be set in .env.
@@ -7,7 +7,7 @@ Students are processed in parallel (MARKING_WORKERS workers, default 4).
 Each worker opens its own fitz document handle (fitz is not thread-safe).
 
 The "which scan pages does each AI call see?" question is now answered by
-the marking page register (written by step 18, refined by step 21) — see
+the marking page register (written by build_marking_register_v1, refined by detect_cross_page_context) — see
 :mod:`xscore.marking.marking_page_register`. This step loads the most-refined
 register available and iterates it; runtime filters (scaffold-bounds cap and
 the ``--student`` cohort filter) are applied at iteration time.
@@ -65,7 +65,7 @@ _DEFAULT_MARKING_MODEL = MARKING_MODEL_DEFAULT
 def _load_mark_scheme_graphics(
     artifact_dir: Path,
 ) -> tuple[dict[str, list[Path]], dict[Path, str], dict[Path, str]]:
-    """Load the per-question mark-scheme graphics map and step-25 transcriptions.
+    """Load the per-question mark-scheme graphics map and transcribe_scheme_graphics transcriptions.
 
     Returns ``(graphics_map, graphics_b64_cache, transcriptions_by_path)``:
 
@@ -143,7 +143,7 @@ def _apply_student_filters(raw_assignments: list[dict], ctx: Any) -> list[dict]:
         if not raw_assignments:
             warn_line(
                 f"--student filter {sorted(wanted)} matched 0 of {before} students — "
-                f"nothing to mark; aborting step 29."
+                f"nothing to mark; aborting ai_marking."
             )
             raise SystemExit(2)
         kept = [a["student_name"] for a in raw_assignments]
@@ -162,7 +162,7 @@ def _apply_student_filters(raw_assignments: list[dict], ctx: Any) -> list[dict]:
 
 
 def _load_refs(path: Path) -> list[dict]:
-    """Load a step-21 diagnostic refs JSON (figures or parents). Missing or
+    """Load a detect_cross_page_context diagnostic refs JSON (figures or parents). Missing or
     malformed file degrades silently to ``[]``."""
     if not path.exists():
         return []
@@ -290,7 +290,7 @@ def _mark_page_pdf(
 
     Raises MarkingFailure if all retries are exhausted.
     *has_student_answers* — kept for backward compat; ignored. The marking
-    AI always treats `transcribed_answer` as read-only input (step 28 always
+    AI always treats `transcribed_answer` as read-only input (extract_student_answers always
     runs first). See ``_mark_page`` docstring.
 
     *scheme_graphics* — 4-tuples (qnum, ms_page, b64_png, transcription). The
@@ -398,7 +398,7 @@ def _mark_page_pdf(
             warn(f"Marking: {len(unfilled)} blueprint question(s) skipped by AI: {unfilled}")
         _finalize_marking(result, warn)
         # The canonical marked YAML is written by run_ai_marking() under
-        # 29_ai_marking/students/<S>/page_N.yaml; the prompt-logger sidecar
+        # 27_ai_marking/students/<S>/page_N.yaml; the prompt-logger sidecar
         # would only duplicate the same content with student_name='', so skip it.
         return result, mcq_corrections
     except FormatParseError as exc:
@@ -423,9 +423,9 @@ def _scheme_graphics_for_page(
     once per file rather than once per (student × page) call. Falls back to live
     read+encode for paths not in the cache (or when cache is None).
 
-    *transcriptions* maps PNG path → textual description (from step 25). PNGs
+    *transcriptions* maps PNG path → textual description (from transcribe_scheme_graphics). PNGs
     without a transcription get an empty string, which makes the GRAPHICS prompt
-    section render exactly as it did before step 25 existed.
+    section render exactly as it did before transcribe_scheme_graphics existed.
     """
     out = []
     for q in blueprint.get("questions", []):
@@ -447,10 +447,10 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     """Run the full AI marking loop for all students and pages.
 
     Reads page assignments from ``15_student_names/exam_student_list.json``
-    (written by step 15) so each student's scan pages are determined by name
+    (written by student_handwriting_check) so each student's scan pages are determined by name
     detection, not position. The list of (student, answer_label, scan_pages)
     triples to mark is loaded from the marking page register written by
-    step 18 (and refined by step 21). Pages are processed in parallel
+    build_marking_register_v1 (and refined by detect_cross_page_context). Pages are processed in parallel
     (MARKING_WORKERS env var, default varies with cpu_count). *dpi* defaults
     to ``MARKING_DPI`` when not supplied. Returns a list of API call timing
     records.
@@ -488,7 +488,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     _use_stream, _thinking_kw = build_completion_kwargs(_provider, _thinking, max_tok)
 
     # Resolve the response-cache opt-in once. The user enables it by including
-    # "reuse cache" in the natural-language prompt (parsed in step 1, sets
+    # "reuse cache" in the natural-language prompt (parsed in parse_grading_instructions, sets
     # ctx.instruction.reuse_cache). XSCORE_REUSE_CACHE=1 is also honoured for
     # ad-hoc testing without re-issuing the prompt.
     from xscore.shared.response_cache import reuse_cache_enabled
@@ -496,15 +496,15 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     if _reuse_cache_active:
         info_line("Response cache enabled · all xscore AI calls will check ~/.cache/xscore/responses/")
 
-    # Load page assignments produced by step 15 name detection. The register
+    # Load page assignments produced by student_handwriting_check name detection. The register
     # already encodes most of the per-call data, but we need the original
     # assignment dict (with confidence + raw page_numbers) for downstream
     # code that consumes the page_tasks tuples.
     list_path = artifact_exam_student_list_json_path(ctx.artifact_dir)
     if not list_path.exists():
         raise FileNotFoundError(
-            f"15_student_names/exam_student_list.json not found at {list_path} — "
-            "run step 15 first"
+            f"exam_student_list.json not found at {list_path} — "
+            "run student_names first"
         )
     raw_assignments: list[dict] = _safe_load_json(list_path)
 
@@ -549,7 +549,7 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
     # Pre-build the mark-scheme graphics map (safe_qnum → sorted PNG paths),
     # pre-encode each PNG to base64 (re-used across all student×page calls
     # via _scheme_graphics_for_page's b64_cache parameter), and load the
-    # step-25 transcriptions (PNG path → description string). See
+    # transcribe_scheme_graphics transcriptions (PNG path → description string). See
     # :func:`_load_mark_scheme_graphics` for the schema.
     _graphics_map, _graphics_b64_cache, _transcriptions_by_path = (
         _load_mark_scheme_graphics(ctx.artifact_dir)
@@ -557,25 +557,25 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
 
     # Validate cover-page state before building the task list.
     # empty_exam_has_cover drives the per-student page offset; if it is None
-    # (step 8 did not complete), the offset would silently default to the wrong value.
+    # (detect_exam_layout did not complete), the offset would silently default to the wrong value.
     if ctx.empty_exam_has_cover is None and any(
         a.get("cover_page_number") is not None for a in raw_assignments
     ):
         raise RuntimeError(
-            "empty_exam_has_cover was not determined (step 8 incomplete?) — "
+            "empty_exam_has_cover was not determined (detect_exam_layout incomplete?) — "
             "cannot safely compute page offsets for students with cover pages"
         )
 
-    # Load the marking page register. Step 21 (cross-page figures) refines
-    # what step 18 wrote; load_register tries the most-refined first. If
+    # Load the marking page register. Step detect_cross_page_context (cross-page figures) refines
+    # what build_marking_register_v1 wrote; load_register tries the most-refined first. If
     # neither file exists (e.g. resuming a pre-renumber run), fall back to
-    # building it in memory — same builder step 18 uses, so the result is
+    # building it in memory — same builder build_marking_register_v1 uses, so the result is
     # equivalent to a fresh v1 register.
     register = load_register(ctx.artifact_dir)
     if register is None:
         register = build_initial_register(ctx)
 
-    # Step-21 diagnostics — used by the per-call line to render +context labels.
+    # detect_cross_page_context diagnostics — used by the per-call line to render +context labels.
     # Missing files map to empty lists; _pretty_source_label degrades to a "?"
     # page placeholder rather than raising.
     _figure_refs = _load_refs(artifact_cross_page_refs_json_path(ctx.artifact_dir))
@@ -668,9 +668,9 @@ def run_ai_marking(ctx: Any, *, dpi: int | None = None) -> list[dict]:
         from xscore.marking.blueprints import is_all_mcq_page
         _is_all_mcq = is_all_mcq_page(blueprint.get("questions") or [])
 
-        # Pre-fill student_answer from step 26 (extract_student_answers) when
+        # Pre-fill student_answer from create_report (extract_student_answers) when
         # the per-(student, page) artifact exists. Soft fallback: a missing
-        # extraction artifact (e.g. step 26 had a failure for this page)
+        # extraction artifact (e.g. create_report had a failure for this page)
         # leaves student_answer empty and the AI transcribes during marking
         # as it did pre-refactor.
         _answers_map = load_student_answers(ctx.artifact_dir, student_name, p_label)

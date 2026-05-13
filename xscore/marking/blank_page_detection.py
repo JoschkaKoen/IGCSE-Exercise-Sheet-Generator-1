@@ -4,9 +4,9 @@ The real implementations now live in dedicated step modules:
 
 - :mod:`xscore.marking._blank_page_vision_client` — shared client, image
   extraction, ``BlankCheckStatus``, JPEG-DPI constants.
-- :mod:`xscore.marking.empty_exam_page_classifier` — step 14 entry point
+- :mod:`xscore.marking.empty_exam_page_classifier` — classify_empty_exam_pages entry point
   (``classify_empty_exam_pages``) + ``PAGE_TYPE_VOCABULARY``.
-- :mod:`xscore.marking.student_handwriting_check` — step 15 entry point
+- :mod:`xscore.marking.student_handwriting_check` — student_handwriting_check entry point
   (``check_student_handwriting``) + the closed-vocab matcher and the
   out-of-order recheck logic.
 

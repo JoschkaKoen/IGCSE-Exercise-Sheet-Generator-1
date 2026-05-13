@@ -139,7 +139,7 @@ def exam_geometry(ctx: _Ctx) -> None:
 def detect_subject(ctx: _Ctx) -> None:
     """Two-tier subject detection: filename heuristic first, AI fallback.
 
-    Sets ``ctx.subject`` and writes ``13_detect_subject/subject.{json,md}``.
+    Sets ``ctx.subject`` and writes ``11_detect_subject/subject.{json,md}``.
     Gates the ``CODE_FORMATTING`` prompt section in extract_exam_question_numbers,
     extract_exam_questions, parse_mark_scheme, ai_marking, extract_student_answers
     via :func:`xscore.shared.subjects.needs_code_formatting`.
@@ -422,16 +422,16 @@ def page_order_check(ctx: _Ctx) -> None:
 
 
 def classify_empty_exam_pages(ctx: _Ctx) -> None:
-    """Step 14 — vision-classify each page of the empty exam paper.
+    """Step classify_empty_exam_pages — vision-classify each page of the empty exam paper.
 
     For each page in the post-cut empty exam, picks a ``page_type`` from the
     closed vocabulary {cover/instruction/question/blank/writing-space page}
-    and reads its printed page number. Builds the catalog that step 15
+    and reads its printed page number. Builds the catalog that student_handwriting_check
     (student_handwriting_check) uses as its matching vocabulary, and that
-    step 21 (detect_cross_page_context) uses to decide which scan pages are
+    detect_cross_page_context (detect_cross_page_context) uses to decide which scan pages are
     continuation pages.
 
-    Writes ``14_empty_exam_classification/empty_exam_classifications.json``.
+    Writes ``12_classify_empty_exam_pages/empty_exam_classifications.json``.
     """
     import json as _json
 
@@ -446,7 +446,7 @@ def classify_empty_exam_pages(ctx: _Ctx) -> None:
 
     assert ctx.artifact_dir is not None
     assert ctx.scaffold_state is not None and "actual_exam_pdf" in ctx.scaffold_state, (
-        "step 14 needs the post-cut empty exam PDF (set by step 9 cut_exam_pdf)"
+        "classify_empty_exam_pages needs the post-cut empty exam PDF (set by cut_exam_pdf cut_exam_pdf)"
     )
 
     announce_step_model(
@@ -517,12 +517,12 @@ def classify_empty_exam_pages(ctx: _Ctx) -> None:
 
 
 def student_handwriting_check(ctx: _Ctx) -> None:
-    """Step 15 — per-scan-page closed-vocabulary matcher.
+    """Step student_handwriting_check — per-scan-page closed-vocabulary matcher.
 
-    Loads the catalog written by step 14 and asks the vision LLM to MATCH
+    Loads the catalog written by classify_empty_exam_pages and asks the vision LLM to MATCH
     each scan page against it (page type + page number, plus an N+3 overflow
     buffer). Detects student handwriting in the same call. The output lives
-    in ``15_student_handwriting/handwriting.json``.
+    in ``13_student_handwriting_check/handwriting.json``.
     """
     import json as _json
 
@@ -547,7 +547,7 @@ def student_handwriting_check(ctx: _Ctx) -> None:
             classifications_path.read_text(encoding="utf-8")
         ).get("empty_exam_pages", [])
     else:
-        # Legacy fallback: pre-step-14-split runs wrote the catalog into
+        # Legacy fallback: pre-classify_empty_exam_pages-split runs wrote the catalog into
         # 14_student_handwriting/handwriting.json. Read it from there if
         # the new artifact is missing.
         legacy_path = artifact_handwriting_json_path(ctx.artifact_dir)
@@ -557,7 +557,7 @@ def student_handwriting_check(ctx: _Ctx) -> None:
             ).get("empty_exam_pages", [])
         else:
             warn_line(
-                "step 15: no empty-exam classifications found — running with empty "
+                "student_handwriting_check: no empty-exam classifications found — running with empty "
                 "catalog (matcher will fall back to its always-available cover-page "
                 "vocabulary + page-number overflow buffer)."
             )
@@ -608,7 +608,7 @@ def build_marking_register_v1(ctx: _Ctx) -> None:
     ``ctx.empty_exam_has_cover``. Each non-cover scan page with handwriting
     becomes one primary marking call. Continuation-page attachment (blank or
     writing-space pages with handwriting → attach to the previous question
-    page) is applied later by step 21 (detect_cross_page_context).
+    page) is applied later by detect_cross_page_context (detect_cross_page_context).
     """
     assert ctx.artifact_dir is not None
     from xscore.marking.marking_page_register import (

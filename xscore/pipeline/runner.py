@@ -136,7 +136,7 @@ def run_pipeline(
     from eXercise.ai_client import reset_run_call_stats, reset_run_usage
     from xscore.shared.pipeline_steps import (
         run_step,
-        step_by_number,
+        step_by_name,
         wire_step_fns,
     )
     from xscore.shared.run_log import write_run_manifest
@@ -169,12 +169,12 @@ def run_pipeline(
         # Bootstrap: parse + locate-folder must run before anything phase-gated
         # so resume can populate ctx (instruction, folder, artifact_dir, and
         # — when --from-step is set — cleaned_pdf, scaffold, page_assignments).
-        run_step(ctx, step_by_number(1))
-        run_step(ctx, step_by_number(2))
+        run_step(ctx, step_by_name("parse_grading_instructions"))
+        run_step(ctx, step_by_name("locate_exam_folder"))
 
         # Roster + scan-cleaning. ``scan_phases`` is a helper because
         # ``prepare_scans`` is conditional on duplex match detection.
-        run_step(ctx, step_by_number(3))
+        run_step(ctx, step_by_name("read_student_list"))
         scan_phases(ctx)
 
         # Initialize scaffold state up-front so the empty-exam blank-detection

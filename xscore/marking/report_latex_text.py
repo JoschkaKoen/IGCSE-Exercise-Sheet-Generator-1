@@ -107,7 +107,7 @@ _ALLTT_MATH_SUB = {
     "neq": "≠",
 }
 # Match either the raw form `\leftarrow` or the prompt-escaped form
-# `\textbackslash{}leftarrow`. Step 22's mark-scheme parsing prompt tells the
+# `\textbackslash{}leftarrow`. Step detect_mark_scheme_graphics's mark-scheme parsing prompt tells the
 # AI to escape backslashes inside alltt to `\textbackslash{}`, so pseudocode
 # arrows arrive in either form depending on the AI's mood. Trailing whitespace
 # is left alone — alltt preserves spaces verbatim, and consuming one would

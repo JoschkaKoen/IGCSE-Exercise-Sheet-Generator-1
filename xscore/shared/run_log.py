@@ -68,11 +68,12 @@ _FIXED_SNAPSHOT_KEYS = (
 
 _log_lock = threading.Lock()
 _warned_about_log_failure = False
-# Buffer for events that fire before the artifact dir exists (e.g. step 1
-# parse_grading_instructions runs before step 2 creates the run dir). Drained
-# in order on the first log_step_event call that has a valid path.
-# Edge case: if step 1 itself fails, step 2 never runs and these events are
-# lost. The failure is still captured in pipeline.log/stderr.
+# Buffer for events that fire before the artifact dir exists
+# (parse_grading_instructions runs before locate_exam_folder creates the run
+# dir). Drained in order on the first log_step_event call that has a valid
+# path. Edge case: if parse_grading_instructions itself fails,
+# locate_exam_folder never runs and these events are lost. The failure is
+# still captured in pipeline.log/stderr.
 _pending_events: list[dict] = []
 
 
@@ -118,9 +119,9 @@ def log_step_event(
     Thread-safe (used by parallel marking workers). Best-effort: write errors
     are warned once and swallowed.
 
-    When ``ctx.artifact_dir`` is ``None`` (true during step 1, before step 2
-    creates the run dir) the event is buffered and flushed in order on the
-    first call with a valid path.
+    When ``ctx.artifact_dir`` is ``None`` (true during parse_grading_instructions,
+    before locate_exam_folder creates the run dir) the event is buffered and
+    flushed in order on the first call with a valid path.
     """
     record: dict[str, Any] = {
         "ts":          _now_iso(),
@@ -256,9 +257,6 @@ def write_run_manifest(
     try:
         from xscore.shared.pipeline_steps import STEPS
         step_count = len(STEPS)
-        # The registry has gaps (a removed step 36 leaves the list at
-        # ``[1..35, 37]``). ``step_count`` alone is misleading on its own —
-        # surface the explicit list so consumers can see the gap.
         step_numbers = sorted(s.number for s in STEPS)
     except Exception:
         step_count = None

@@ -198,7 +198,7 @@ def finalize_scaffold(
     students: "list[str] | None" = None,
     artifact_dir: Path | None = None,
 ) -> ExamScaffold:
-    """Step 20 finishing work: mark rollups → page count → ``ExamScaffold`` → cache.
+    """Step extract_exam_questions finishing work: mark rollups → page count → ``ExamScaffold`` → cache.
 
     Splits the post-merge work out of :func:`build_scaffold` so XScore.py can
     call the six scaffold step functions directly and still produce the cached

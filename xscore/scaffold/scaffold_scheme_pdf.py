@@ -13,7 +13,7 @@ from xscore.shared.exam_paths import artifact_mark_scheme_pages_dir
 def split_mark_scheme_into_pages(
     marking_scheme_pdf: Path, artifact_dir: "Path | None"
 ) -> tuple[int, list[Path], "Path | None"]:
-    """Split *marking_scheme_pdf* into single-page PDFs under step-18's pages dir.
+    """Split *marking_scheme_pdf* into single-page PDFs under build_marking_register_v1's pages dir.
 
     Returns ``(n_pages, page_paths, tmp_dir)``. ``tmp_dir`` is non-None only when
     ``artifact_dir`` is None (caller is responsible for cleanup).
@@ -40,7 +40,7 @@ def _rasterize_scheme_pages(marking_scheme_pdf: Path, n_pages: int) -> dict[int,
 def _ensure_scheme_pages(
     marking_scheme_pdf: Path, artifact_dir: "Path | None",
 ) -> tuple[int, list[Path], "Path | None"]:
-    """Reuse step-19 per-page splits if present on disk; otherwise create them.
+    """Reuse extract_exam_question_numbers per-page splits if present on disk; otherwise create them.
 
     Returns ``(n_pages, page_paths, tmp_dir)`` matching ``split_mark_scheme_into_pages``.
     Caller cleans up ``tmp_dir`` (non-None only when ``artifact_dir`` is None).

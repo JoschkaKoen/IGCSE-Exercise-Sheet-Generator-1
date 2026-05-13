@@ -25,7 +25,7 @@ Web grade jobs upload to `output/xscore/grade_uploads/<job_id>/` (segregated fro
 
 ## xscore pipeline structure
 
-Steps are numbered 1–36. Each step writes its artifacts under `output/xscore/<exam_stem>/<timestamp>/<NN_step_name>/`. Folder-name constants and path builders live in `xscore/shared/exam_paths.py`.
+Steps are numbered 1–34 (contiguous). Each step writes its artifacts under `output/xscore/<exam_stem>/<timestamp>/<NN_step_name>/`. Folder names are mechanically `<NN>_<step.name>`; the constants live in `xscore/shared/step_folders.py` and the `Step.writes` tuples in `pipeline_steps.py` reference them so the two stay in lockstep.
 
 Step registry: `xscore/shared/pipeline_steps.py` holds a `Step` dataclass list — canonical ordering and naming. Step bodies live in one module per phase under `xscore/steps/`: `prelude`, `scan`, `geometry`, `scaffold`, `marking`, `reports`, `summary`. `wire_step_fns()` looks each one up by name at startup. All steps are migrated; there are no `_unmigrated` placeholders.
 
@@ -35,11 +35,11 @@ Stop early / start late: `--stop-after <N>` and `--from-step <N>`.
 
 ## Marking & scaffold output formats
 
-AI structured-output steps (scaffold 19/20, scheme parsing 23/24, marking 27/28) emit YAML — block scalars preserve LaTeX without escaping and the diffs are reviewable. Format classes live in `xscore/marking/formats/base.py` (`MarkingFormat`) and `xscore/scaffold/formats/base.py` (`ScaffoldFormat`); call sites get an instance via `get_marking_format()` / `get_scaffold_format()`.
+AI structured-output steps (scaffold 17/18, scheme parsing 21/22, marking 25/26/27) emit YAML — block scalars preserve LaTeX without escaping and the diffs are reviewable. Format classes live in `xscore/marking/formats/base.py` (`MarkingFormat`) and `xscore/scaffold/formats/base.py` (`ScaffoldFormat`); call sites get an instance via `get_marking_format()` / `get_scaffold_format()`.
 
 ## Scaffold subsystem
 
-`xscore/scaffold/` is one of the largest subsystems (~24 modules) and covers steps 19–25: detecting exam structure, filling it from the empty paper, projecting question boxes onto scanned pages, splitting the mark-scheme PDF per-question, generating LaTeX templates, and caching the whole thing for resume. Resume hook: `scaffold_cache.py` (the cache key includes the empty-exam hash so re-running with the same paper short-circuits expensive AI calls).
+`xscore/scaffold/` is one of the largest subsystems (~24 modules) and covers steps 17–23: detecting exam structure, filling it from the empty paper, splitting the mark-scheme PDF per-question, transcribing scheme graphics, generating LaTeX templates, and caching the whole thing for resume. Resume hook: `scaffold_cache.py` (the cache key includes the empty-exam hash so re-running with the same paper short-circuits expensive AI calls).
 
 ## Prompts
 
@@ -67,23 +67,23 @@ Image content is passed as `{"type": "image_url", "image_url": {"url": "data:ima
 
 ## Native PDF input (Gemini / Kimi)
 
-Steps 19 and 20 (scaffold detect / fill) dispatch on the configured model and send the empty exam paper / mark scheme as a native PDF when possible:
+Steps 17 and 18 (scaffold detect / fill) dispatch on the configured model and send the empty exam paper / mark scheme as a native PDF when possible:
 
 - **Gemini** — `gemini_pdf_part(client, path)` in `eXercise/ai_client.py` returns a `Part.from_bytes(application/pdf)` for ≤18 MB or falls back to the Files API. Used via the native `google.genai` client (`make_gemini_native_client()`).
 - **Kimi / Moonshot** — `kimi_pdf_text(client, path)` uploads via `client.files.create(purpose="file-extract")`, retrieves the server-extracted text via `client.files.content(id).text`, deletes the upload, and returns the text. Caller injects the result as a system message in addition to the existing system+user prompt. Same OpenAI-compatible client as Qwen — no separate native SDK.
 - **Qwen / Grok / others** — fall back to rasterizing pages to PNG and sending base64 `image_url` parts.
 
-Provider is auto-detected from the model name: `gemini*` → Gemini, `kimi*`/`moonshot*` → Kimi, `qwen*` → Qwen, `grok*` → xAI. Set `KIMI_API_KEY` to use Kimi. The default Kimi endpoint is `https://api.moonshot.cn/v1` (China); override via `KIMI_BASE_URL=https://api.moonshot.ai/v1` for the international endpoint — keys are region-specific and not interchangeable. Step 24 marking and step 3 student list intentionally do **not** dispatch to Kimi — they keep their existing provider choices.
+Provider is auto-detected from the model name: `gemini*` → Gemini, `kimi*`/`moonshot*` → Kimi, `qwen*` → Qwen, `grok*` → xAI. Set `KIMI_API_KEY` to use Kimi. The default Kimi endpoint is `https://api.moonshot.cn/v1` (China); override via `KIMI_BASE_URL=https://api.moonshot.ai/v1` for the international endpoint — keys are region-specific and not interchangeable. Step 22 (parse_mark_scheme) and step 3 (read_student_list) intentionally do **not** dispatch to Kimi — they keep their existing provider choices.
 
 ## Response cache
 
-`xscore/shared/response_cache.py` — opt-in cache for the AI marking step (28) only. Activated when the user includes "reuse cache" or "use cache" in the natural-language prompt; default is OFF. Cache lives at `~/.cache/xscore/responses/<key[:2]>/<key>.json` (override with `XSCORE_CACHE_DIR`). Scope is deliberately narrow: only the OpenAI-compatible marking call (`xscore.marking.mark_page._mark_page`) is cached. The Gemini-native PDF upload path is intentionally **not** cached yet. Misses, read errors, and write errors are all silent — caching never breaks the pipeline.
+`xscore/shared/response_cache.py` — opt-in cache for the AI marking step (`ai_marking`) only. Activated when the user includes "reuse cache" or "use cache" in the natural-language prompt; default is OFF. Cache lives at `~/.cache/xscore/responses/<key[:2]>/<key>.json` (override with `XSCORE_CACHE_DIR`). Scope is deliberately narrow: only the OpenAI-compatible marking call (`xscore.marking.mark_page._mark_page`) is cached. The Gemini-native PDF upload path is intentionally **not** cached yet. Misses, read errors, and write errors are all silent — caching never breaks the pipeline.
 
 ## Prompt logging
 
 Every AI call auto-saves its prompt and response to the step's artifact dir as `<task>_prompt.md` (with binary attachments as sidecar files) and `<task>_response.txt`. Two parallel implementations kept in sync: `eXercise/prompt_logger.py` (generation pipeline) and `xscore/shared/prompt_logger.py` (marking pipeline). Logging silently no-ops on I/O error so a logging fault never breaks the pipeline.
 
-Image sidecars are gated by the `SAVE_AI_IMAGES` env var (default off; set `SAVE_AI_IMAGES=true` to keep them). When off, `<task>_prompt.md` still records mime, byte size, and sha256 of each image part, but no `<task>_attachment_*.{jpg,png,pdf,…}` file is written. Step 13's `preview_first_pages.pdf` is also routed through a tempfile when the flag is off (it's the only AI-input image written outside `save_prompt`). Step 22's cropped mark-scheme graphic PNGs in `mark_scheme_graphics/` are NOT controlled by this flag — step 25 reads them, so they always go to disk.
+Image sidecars are gated by the `SAVE_AI_IMAGES` env var (default off; set `SAVE_AI_IMAGES=true` to keep them). When off, `<task>_prompt.md` still records mime, byte size, and sha256 of each image part, but no `<task>_attachment_*.{jpg,png,pdf,…}` file is written. `detect_subject`'s `preview_first_pages.pdf` is also routed through a tempfile when the flag is off (it's the only AI-input image written outside `save_prompt`). `detect_mark_scheme_graphics`' cropped mark-scheme graphic PNGs in `mark_scheme_graphics/` are NOT controlled by this flag — `transcribe_scheme_graphics` reads them, so they always go to disk.
 
 Each `<task>_response.txt` is the concatenation of the model's thinking trace (as a leading `[thinking]…[/thinking]` block) and the structured response that follows it. Both are saved together for review convenience; downstream parsers operate on the post-`[/thinking]` body only. Don't conflate verbose thinking-trace prose with content actually emitted into structured fields when auditing output.
 

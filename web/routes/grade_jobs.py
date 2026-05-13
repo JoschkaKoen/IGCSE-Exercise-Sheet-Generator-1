@@ -483,13 +483,6 @@ async def download_student_pdfs_zip(job_id: str) -> Response:
     art = _require_artifact_dir(job_id)
     pdf_dir = artifact_student_pdfs_dir(art)
     pdfs: list[Path] = sorted(pdf_dir.glob("*.pdf")) if pdf_dir.is_dir() else []
-    # Legacy folder fallbacks (per registry's STEPS[31].writes).
-    if not pdfs:
-        for legacy in ("31_student_pdfs", "30_student_pdfs", "29_student_pdfs"):
-            cand = sorted((art / legacy).glob("*.pdf"))
-            if cand:
-                pdfs = cand
-                break
     if not pdfs:
         rec = store.get(job_id)
         failed_at = ""
@@ -587,11 +580,7 @@ async def list_artifacts(job_id: str) -> JSONResponse:
         art = rec.artifact_dir
         student_pdfs_dir = artifact_student_pdfs_dir(art)
         has_student_pdfs = (
-            (student_pdfs_dir.is_dir() and any(student_pdfs_dir.glob("*.pdf")))
-            or any(
-                (art / legacy).is_dir() and any((art / legacy).glob("*.pdf"))
-                for legacy in ("31_student_pdfs", "30_student_pdfs", "29_student_pdfs")
-            )
+            student_pdfs_dir.is_dir() and any(student_pdfs_dir.glob("*.pdf"))
         )
         out["available"] = {
             "student_pdfs_zip": has_student_pdfs,

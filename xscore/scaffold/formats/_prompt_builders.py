@@ -3,7 +3,7 @@
 Two pairs of (entry-point, tail-template) builders:
 
 - ``_build_user_question_numbers_prompt_yaml`` / ``_common_tail_scaffold_yaml``
-  — step 19 (extract question numbers + structural metadata, no text/options).
+  — extract_exam_question_numbers (extract question numbers + structural metadata, no text/options).
 - ``_build_user_exam_prompt_yaml`` / ``_common_tail_yaml`` — extract full
   question text + options.
 

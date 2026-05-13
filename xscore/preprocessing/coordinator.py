@@ -9,15 +9,15 @@ from pathlib import Path
 from xscore.shared.step_folders import (
     CLEANED_SCAN_PDF,
     DESKEW_DIR,
-    MERGE_DUPLEX_DIR,
+    PREPARE_SCANS_DIR,
 )
 
 _NUMBERED_RE = re.compile(r"^scan[\s_\-]*(\d+)\b", re.IGNORECASE)
 
 # File name constants (no longer include the step-number prefix)
-MERGED_SCAN_PDF           = MERGE_DUPLEX_DIR + "/merged_scan.pdf"
-SCAN_ORIENTATIONS_JSON    = MERGE_DUPLEX_DIR + "/scan_orientations.json"
-ORIENTED_SCAN_PDF         = MERGE_DUPLEX_DIR + "/oriented_scan.pdf"  # single-PDF flow only
+MERGED_SCAN_PDF           = PREPARE_SCANS_DIR + "/merged_scan.pdf"
+SCAN_ORIENTATIONS_JSON    = PREPARE_SCANS_DIR + "/scan_orientations.json"
+ORIENTED_SCAN_PDF         = PREPARE_SCANS_DIR + "/oriented_scan.pdf"  # single-PDF flow only
 DESKEW_ANGLES_JSON        = DESKEW_DIR + "/deskew_angles.json"
 
 
@@ -217,7 +217,7 @@ def _prepare_duplex(
                         f"Page count mismatch: {front.name}={nf}, {back.name}={nb}; "
                         f"padding {abs(nf - nb)} blank page(s) at end-of-merged-stack — "
                         f"note this may not be the position the page is actually missing "
-                        f"from. Step 18 will flag any per-student page_set_anomaly that "
+                        f"from. Step build_marking_register_v1 will flag any per-student page_set_anomaly that "
                         f"results (set DUPLEX_PAD_STRICT=1 to abort here instead)."
                     )
                 n = max(nf, nb)
@@ -307,7 +307,7 @@ def _prepare_single(
 # ---------------------------------------------------------------------------
 
 def _emit_orientation_phase_header(info_line) -> None:
-    """Emit the Step-4 'Detecting per-file orientation' header lines.
+    """Emit the prepare_scans 'Detecting per-file orientation' header lines.
 
     Adapts the second info_line to the configured detector:
     - tesseract: "Targeting N usable votes per file at 150 DPI · escalating with M more if not unanimous"
@@ -455,8 +455,8 @@ def deskew_phase(
 
     Reads the path returned by :func:`prepare_scans_phase` (passed via *input_pdf*),
     deskews each page, and writes the result to ``CLEANED_SCAN_PDF`` at the
-    artifact-dir root. Step 4's transient ``merged_scan.pdf`` /
-    ``oriented_scan.pdf`` are deleted on success so step 7 owns the only PDF
+    artifact-dir root. Step prepare_scans's transient ``merged_scan.pdf`` /
+    ``oriented_scan.pdf`` are deleted on success so deskew owns the only PDF
     saved by steps 1-7.
     """
     from xscore.preprocessing.deskew import deskew_pdf_raster
@@ -478,7 +478,7 @@ def deskew_phase(
     )
     shutil.move(str(tmp_deskew), str(out))
 
-    # Step 7 owns the only saved PDF in steps 1-7.
+    # Step deskew owns the only saved PDF in steps 1-7.
     # Note: _prepare_single's no-rotation branch returns the user's source path
     # (outside artifact_dir) — it's never one of the paths below, so this loop
     # cannot accidentally clobber the source PDF.

@@ -99,8 +99,8 @@ def per_student_pdfs(ctx: _Ctx) -> None:
     # Count actual PDFs on disk so the message reflects every variant
     # (landscape, portrait, portrait-large, 2up, landscape-with-questions,
     # portrait-list, plus _10pt/_11pt 2up font-size companions, and a copy
-    # of the run-level exam_questions.pdf — all under 32_student_pdfs/).
-    # The canonical exam_questions.pdf lives under 33_class_report/exam_questions/.
+    # of the run-level exam_questions.pdf — all under 30_per_student_pdfs/).
+    # The canonical exam_questions.pdf lives under 31_class_report/exam_questions/.
     # Validity check (size + %%EOF trailer) distinguishes real PDFs from
     # 15-byte stubs that xelatex leaves behind on crash.
     all_pdfs = list((ctx.artifact_dir / STUDENT_PDFS_DIR).rglob("*.pdf"))

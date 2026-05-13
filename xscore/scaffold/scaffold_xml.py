@@ -272,7 +272,7 @@ def _merge_scheme_results(page_results: list[dict]) -> dict:
     - **MCQ**       → ``{number, question_type, correct_answer, explanation, graphics}``.
     - **Non-MCQ**   → ``{number, question_type, mark_scheme_answer, graphics}``.
 
-    With the page-grouping logic from step 24, each question's content lands
+    With the page-grouping logic from parse_mark_scheme, each question's content lands
     in exactly one group result, so the merge is simple: first non-null wins
     for content fields, graphics concatenate. Legacy ``mark_scheme: [...]``
     inputs (mid-transition) are also tolerated and pass through.

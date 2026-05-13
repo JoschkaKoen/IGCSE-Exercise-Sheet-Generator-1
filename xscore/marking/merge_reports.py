@@ -39,7 +39,7 @@ from xscore.shared.exam_paths import (
 
 
 # ---------------------------------------------------------------------------
-# Step 26 — Per-student reports (XML + MD)
+# Step create_report — Per-student reports (XML + MD)
 # ---------------------------------------------------------------------------
 
 def build_per_student_reports(ctx: Any) -> None:
@@ -98,7 +98,7 @@ def build_per_student_reports(ctx: Any) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Step 27 — Class statistics + grade curve
+# Step ai_marking_blueprints — Class statistics + grade curve
 # ---------------------------------------------------------------------------
 
 def compute_class_stats(ctx: Any) -> None:
@@ -135,7 +135,7 @@ def compute_class_stats(ctx: Any) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Step 28 — Per-student PDFs
+# Step extract_student_answers — Per-student PDFs
 # ---------------------------------------------------------------------------
 
 def render_per_student_pdfs(ctx: Any) -> None:
@@ -186,7 +186,7 @@ def render_per_student_pdfs(ctx: Any) -> None:
     from xscore.marking.blueprints import is_all_mcq_exam
     is_all_mcq = is_all_mcq_exam(parsed_questions or [])
 
-    # Mark-scheme graphics extracted by step 22. The renderer embeds them at
+    # Mark-scheme graphics extracted by detect_mark_scheme_graphics. The renderer embeds them at
     # the bottom of the Expected column for each affected question; the
     # preamble's \graphicspath points at this directory so .tex needs only
     # the bare filename. Trailing slash matters — without it some xelatex
@@ -214,7 +214,7 @@ def render_per_student_pdfs(ctx: Any) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Step 29 — Class report
+# Step ai_marking — Class report
 # ---------------------------------------------------------------------------
 
 def render_class_report(ctx: Any) -> str:
@@ -247,7 +247,7 @@ def render_class_report(ctx: Any) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Step 30 — Review queue
+# Step per_student_reports — Review queue
 # ---------------------------------------------------------------------------
 
 def build_review_queue(ctx: Any) -> list[dict]:

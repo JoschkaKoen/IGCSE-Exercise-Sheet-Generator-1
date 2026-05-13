@@ -1,4 +1,4 @@
-"""Step 12 — AI marking blueprints: one XML per exam page, leaf questions only."""
+"""Step exam_geometry — AI marking blueprints: one XML per exam page, leaf questions only."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ def is_all_mcq_page(page_questions: list[dict]) -> bool:
 def is_all_mcq_exam(parsed_questions: list[dict]) -> bool:
     """True iff every leaf in the parsed-exam tree is multiple_choice
     (and there is at least one leaf). Mirrors :func:`is_all_mcq_page` but
-    recurses into the nested-tree shape produced by step 20
+    recurses into the nested-tree shape produced by extract_exam_questions
     (``exam_questions.yaml``); accepts both ``'type'`` (YAML) and
     ``'question_type'`` (in-memory blueprint) keys for parity.
     """
@@ -99,7 +99,7 @@ def _build_blueprint_xml(page_num: int, layout: Any, page_qs: list[dict]) -> str
         ET.SubElement(qel, "assigned_marks")
         ET.SubElement(qel, "explanation")
         # Side-channel signals — do NOT affect marking or PDFs. Read only
-        # by step 34 (review queue / confidence audit).
+        # by review_queue (review queue / confidence audit).
         # confidence: int 0–10 (0 = no confidence, 10 = fully certain).
         # problem: short freeform string the AI fills in when there's a
         # specific concern worth a human glance; empty otherwise.

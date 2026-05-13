@@ -1,4 +1,4 @@
-"""Step-21 augmentations to the marking page register.
+"""detect_cross_page_context augmentations to the marking page register.
 
 Three augmentation passes (continuation pages, cross-page figures, parent
 question stems) plus the shared attachment-application helper and the
@@ -6,7 +6,7 @@ question stems) plus the shared attachment-application helper and the
 :func:`apply_cross_page_extras`.
 
 Extracted from ``marking_page_register`` as the second-pass split — the
-main module keeps step-18 register construction + I/O + iteration.
+main module keeps build_marking_register_v1 register construction + I/O + iteration.
 """
 
 from __future__ import annotations
@@ -116,8 +116,8 @@ def _apply_continuation_extras(
     question page in scan-page order, so the AI marker sees the question
     page first followed by all overflow pages top-to-bottom.
 
-    Inputs come from step 14's classifications and the register itself —
-    has_handwriting filtering is already done by step 18 (every call left
+    Inputs come from classify_empty_exam_pages's classifications and the register itself —
+    has_handwriting filtering is already done by build_marking_register_v1 (every call left
     in the register has handwriting), so this pass does not need
     handwriting.json.
 

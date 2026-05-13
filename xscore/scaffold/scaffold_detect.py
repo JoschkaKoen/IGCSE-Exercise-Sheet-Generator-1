@@ -1,8 +1,8 @@
-"""Step 19 worker — extract_exam_question_numbers.
+"""Step extract_exam_question_numbers worker — extract_exam_question_numbers.
 
 Single-call inference against the full split exam PDF. Returns the question
 hierarchy with structural metadata only: number, type, page, subpage_row,
-subpage_col, marks. **No text, no options.** Step 20 (extract_exam_questions)
+subpage_col, marks. **No text, no options.** Step extract_exam_questions (extract_exam_questions)
 populates those per-page in parallel.
 
 Provider routing: Gemini inline PDF / Kimi PDF→text / Qwen ``fileid://``

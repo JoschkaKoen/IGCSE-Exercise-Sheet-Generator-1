@@ -5,7 +5,7 @@ layout detection, the cut-exam PDF, exam-scaffold and exam-questions
 extraction, mark-scheme detection / assignment / parsing, scheme-graphic
 transcription, the scaffold cache itself, and the scaffold-prompt router.
 
-Also hosts the legacy scaffold-cache lookup helpers (``find_scaffold_cache_file``,
+Also hosts the scaffold-cache lookup helpers (``find_scaffold_cache_file``,
 ``is_completed_run``).
 """
 
@@ -48,7 +48,7 @@ def artifact_empty_exam_classifications_json_path(artifact_dir: Path) -> Path:
 
 
 def artifact_empty_exam_pages_dir(artifact_dir: Path) -> Path:
-    """Directory of per-page artifacts for the empty-exam classifier (step 14).
+    """Directory of per-page artifacts for the empty-exam classifier (classify_empty_exam_pages).
 
     Files are PDFs on the Gemini path (one-page slices) and JPEGs on the
     rasterized fallback. Prompt sidecars land here too.
@@ -91,7 +91,7 @@ def artifact_exam_input_pdf_path(artifact_dir: Path) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# Extract question numbers from empty exam (step 19)
+# Extract question numbers from empty exam (extract_exam_question_numbers)
 # ---------------------------------------------------------------------------
 
 def artifact_exam_scaffold_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
@@ -104,7 +104,7 @@ def artifact_exam_scaffold_raw_path(artifact_dir: Path, fmt: str = "yaml") -> Pa
 
 
 # ---------------------------------------------------------------------------
-# Extract questions from empty exam (step 20 — text + options per question)
+# Extract questions from empty exam (extract_exam_questions — text + options per question)
 # ---------------------------------------------------------------------------
 
 def artifact_exam_questions_json_path(artifact_dir: Path) -> Path:
@@ -132,7 +132,7 @@ def artifact_exam_questions_raw_path(artifact_dir: Path, fmt: str = "yaml") -> P
 
 
 def artifact_exam_pages_dir(artifact_dir: Path) -> Path:
-    """Per-page PDFs from the post-cut exam PDF — produced and consumed by step 20 (extract_exam_questions)."""
+    """Per-page PDFs from the post-cut exam PDF — produced and consumed by extract_exam_questions (extract_exam_questions)."""
     return artifact_dir / EXTRACT_QUESTIONS_DIR / "pages"
 
 
@@ -190,7 +190,7 @@ def artifact_mark_scheme_path(artifact_dir: Path, fmt: str = "yaml") -> Path:
 # ---------------------------------------------------------------------------
 
 def artifact_scheme_graphic_transcriptions_path(artifact_dir: Path) -> Path:
-    """Per-graphic textual descriptions consumed by step 29 (ai_marking)."""
+    """Per-graphic textual descriptions consumed by ai_marking (ai_marking)."""
     return artifact_dir / TRANSCRIBE_SCHEME_GRAPHICS_DIR / "transcriptions.yaml"
 
 
@@ -247,51 +247,24 @@ def artifact_scaffold_prompt_path(artifact_dir: Path, name: str) -> Path:
         return artifact_dir / EXTRACT_QUESTION_NUMBERS_DIR / f"{name}_prompt.txt"
     if "detect_layout" in name or "layout" in name:
         return artifact_dir / LAYOUT_DIR / f"{name}_prompt.txt"
-    # Catch-all: per-page extract-exam-questions prompts (step 20).
+    # Catch-all: per-page extract-exam-questions prompts (extract_exam_questions).
     return artifact_dir / EXTRACT_QUESTIONS_DIR / f"{name}_prompt.txt"
 
 
 # ---------------------------------------------------------------------------
-# Scaffold cache lookup (with legacy path fallbacks for pre-restructure runs)
+# Scaffold cache lookup
 # ---------------------------------------------------------------------------
 
 def find_scaffold_cache_file(
     exam_folder: Path, output_base: str | Path = "output/xscore"
 ) -> Path | None:
-    """First existing scaffold cache: new step-folder layout first, then legacy locations.
-
-    Checks new per-step folder paths first, then pre-restructure root-level paths,
-    then the legacy ``output/<stem>/`` tree for very old runs.
-    """
+    """First existing scaffold cache in the per-exam artifact tree."""
     for base in (output_base, "output"):
         ad = exam_artifact_dir(exam_folder, base)
         for p in (
-            artifact_scaffold_yaml_path(ad),                  # CREATE_REPORT_DIR/report.yaml (primary)
-            artifact_scaffold_xml_path(ad),                   # CREATE_REPORT_DIR/report.xml (legacy)
-            artifact_scaffold_json_path(ad),                  # CREATE_REPORT_DIR/report.json (legacy)
-            ad / "24_create_report" / "report.xml",           # post-detect-subject legacy
-            ad / "24_create_report" / "report.json",          # post-detect-subject legacy
-            ad / "23_create_report" / "report.xml",           # post-extract-student-answers legacy
-            ad / "23_create_report" / "report.json",          # post-extract-student-answers legacy
-            ad / "22_create_report" / "report.xml",           # post-assign-scheme-questions legacy
-            ad / "22_create_report" / "report.json",          # post-assign-scheme-questions legacy
-            ad / "21_create_report" / "report.xml",
-            ad / "21_create_report" / "report.json",
-            ad / "20_create_report" / "report.xml",
-            ad / "20_create_report" / "report.json",
-            ad / "19_create_report" / "report.xml",
-            ad / "19_create_report" / "report.json",
-            ad / "18_create_report" / "report.xml",
-            ad / "18_create_report" / "report.json",
-            ad / "17_create_report" / "report.xml",
-            ad / "17_create_report" / "report.json",
-            ad / "16_create_report" / "report.xml",
-            ad / "16_create_report" / "report.json",
-            ad / "12_report.xml",                             # pre-restructure legacy
-            ad / "12_report.json",                            # pre-restructure legacy
-            ad / "exam" / "12_report.json",                   # older legacy (pre-2025)
-            ad / "scaffold" / "12_report.json",               # older legacy
-            ad / "6_report.json",                             # oldest legacy (2024)
+            artifact_scaffold_yaml_path(ad),
+            artifact_scaffold_xml_path(ad),
+            artifact_scaffold_json_path(ad),
         ):
             if p.is_file():
                 return p
@@ -305,24 +278,12 @@ def find_scaffold_cache_file(
 
 
 def is_completed_run(run_dir: Path) -> bool:
-    """True iff *run_dir* contains a finished scaffold report from any era.
-
-    Probes the live per-step layout first, then the pre-restructure flat
-    layout. Used by ``--from-step`` to filter "valid prior runs" without
-    each caller maintaining its own legacy probe list.
-    """
-    candidates = (
-        artifact_scaffold_yaml_path(run_dir),          # current primary — YAML
-        artifact_scaffold_xml_path(run_dir),           # legacy XML
-        run_dir / "24_create_report" / "report.xml",   # post-detect-subject legacy
-        run_dir / "23_create_report" / "report.xml",   # post-extract-student-answers legacy
-        run_dir / "22_create_report" / "report.xml",   # post-assign-scheme-questions legacy
-        run_dir / "21_create_report" / "report.xml",
-        run_dir / "20_create_report" / "report.xml",
-        run_dir / "19_create_report" / "report.xml",
-        run_dir / "18_create_report" / "report.xml",
-        run_dir / "17_create_report" / "report.xml",
-        run_dir / "16_create_report" / "report.xml",
-        run_dir / "12_report.json",                    # pre-restructure legacy
+    """True iff *run_dir* contains a finished scaffold report (YAML or legacy XML/JSON sidecar)."""
+    return any(
+        p.exists()
+        for p in (
+            artifact_scaffold_yaml_path(run_dir),
+            artifact_scaffold_xml_path(run_dir),
+            artifact_scaffold_json_path(run_dir),
+        )
     )
-    return any(p.exists() for p in candidates)

@@ -1,4 +1,4 @@
-"""Step 20 worker — extract_exam_questions.
+"""Step extract_exam_questions worker — extract_exam_questions.
 
 Per-page parallel calls that populate ``text`` and ``options`` for each
 question listed on a page. Modeled on
@@ -6,7 +6,7 @@ question listed on a page. Modeled on
 ``ThreadPoolExecutor`` over post-cut PDF pages, four-way provider dispatch
 per page, graceful empty-page degradation on retry exhaustion.
 
-Returns the same scaffold tree step 19 produced, mutated in place to add
+Returns the same scaffold tree extract_exam_question_numbers produced, mutated in place to add
 ``text`` / ``answer_options`` on every node whose ``number`` was covered by
 a successful page response.
 """
@@ -70,7 +70,7 @@ def _expected_qnums_by_page(scaffold_nodes: list[dict]) -> dict[int, list[str]]:
 def _ensure_exam_pages(
     actual_exam_pdf: Path, artifact_dir: "Path | None",
 ) -> tuple[int, list[Path], "Path | None"]:
-    """Reuse per-page splits if already on disk under the step-18 pages dir;
+    """Reuse per-page splits if already on disk under the build_marking_register_v1 pages dir;
     otherwise create them. Returns ``(n_pages, page_paths, tmp_dir)``."""
     if artifact_dir is not None:
         pages_dir = artifact_exam_pages_dir(artifact_dir)

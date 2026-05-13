@@ -307,7 +307,7 @@ class MarkingFormat:
             am_int: int | None = int(am) if str(am).strip() not in ("", "null", "None") else None
         except (ValueError, TypeError):
             am_int = None
-        # student_answer="" — blueprint pre-fill from step 28 wins via merge.
+        # student_answer="" — blueprint pre-fill from extract_student_answers wins via merge.
         return {
             "assigned_marks": am_int,
             "student_answer": "",

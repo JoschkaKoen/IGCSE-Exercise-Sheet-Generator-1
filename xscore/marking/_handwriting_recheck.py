@@ -1,4 +1,4 @@
-"""Out-of-order recheck for the step-15 student handwriting check.
+"""Out-of-order recheck for the student_handwriting_check student handwriting check.
 
 When the primary matcher (in :mod:`xscore.marking.student_handwriting_check`)
 reports a page-number mismatch versus the geometry-derived expected page,
@@ -42,7 +42,7 @@ from xscore.marking._blank_page_vision_client import (
 
 
 def _parse_compare(raw: str) -> tuple[bool | None, int | None, str]:
-    """Parse the step-15 recheck two-image comparison response.
+    """Parse the student_handwriting_check recheck two-image comparison response.
 
     Returns ``(same, confidence, reason)``. Fields parse independently;
     a malformed one does not poison the others.
@@ -67,7 +67,7 @@ def _parse_compare(raw: str) -> tuple[bool | None, int | None, str]:
 
 
 class _PageCompareResp(BaseModel):
-    """Structured-output schema for the step-15 recheck comparison call (Gemini path)."""
+    """Structured-output schema for the student_handwriting_check recheck comparison call (Gemini path)."""
     same_page: bool | None = None
     confidence: int = 5
     reason: str = ""
@@ -143,7 +143,7 @@ def _compare_pages(
     max_tokens: int,
     request_timeout: "httpx.Timeout | None" = None,
 ) -> tuple[bool | None, int | None, str]:
-    """Step-15 recheck two-image comparison. Returns ``(same, confidence, reason)``."""
+    """student_handwriting_check recheck two-image comparison. Returns ``(same, confidence, reason)``."""
     from xscore.shared.prompt_logger import (
         attachment_part, save_output_data, save_prompt, save_response,
     )
@@ -234,7 +234,7 @@ def apply_out_of_order_recheck(
     if not out_of_order_idx:
         return rechecked_pages, recheck2_status
 
-    # Map printed page number → empty-exam PDF page index, using step 14's catalog.
+    # Map printed page number → empty-exam PDF page index, using classify_empty_exam_pages's catalog.
     pn_to_pdf_page: dict[int, int] = {
         p["page_number"]: p["page"]
         for p in (empty_exam_classifications or [])
@@ -262,7 +262,7 @@ def apply_out_of_order_recheck(
         sp_orig, ep, pt_cur, pn_cur, h_cur, c_pt_cur, c_pn_cur, c_hw_cur, prob_cur = results[i]
         pdf_page = pn_to_pdf_page.get(ep)
         if ep == 0 or pdf_page is None:
-            # cover, or step 14 didn't classify a page with this printed number → skip
+            # cover, or classify_empty_exam_pages didn't classify a page with this printed number → skip
             continue
         try:
             scan_jpeg = _render_page_jpeg(

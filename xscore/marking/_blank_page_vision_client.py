@@ -1,5 +1,5 @@
-"""Shared infrastructure for the empty-exam classifier (step 14) and the
-student-handwriting check (step 15).
+"""Shared infrastructure for the empty-exam classifier (classify_empty_exam_pages) and the
+student-handwriting check (student_handwriting_check).
 
 These two steps share:
 
@@ -47,7 +47,7 @@ def _render_page_jpeg(
 def _extract_page_as_pdf_bytes(pdf_path: Path, page_1based: int) -> bytes:
     """Extract one page out of *pdf_path* as a self-contained single-page PDF.
 
-    Used by the step-14 empty-exam classifier on the Gemini path so each
+    Used by the classify_empty_exam_pages empty-exam classifier on the Gemini path so each
     parallel call sees exactly one page (rather than the whole exam) without
     rasterizing the vector PDF first.
     """

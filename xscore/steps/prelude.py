@@ -20,6 +20,7 @@ from xscore.pipeline.resume import copy_input_files, resume_pipeline
 from xscore.shared.exam_paths import artifact_parse_prompt_path, artifact_parse_summary_path
 from xscore.shared.prompt_logger import save_prompt, save_response
 from xscore.shared.pipeline_ctx import _Ctx
+from xscore.shared.pipeline_steps import step_by_name
 from xscore.shared.terminal_ui import announce_step_model, format_duration, ok_line
 
 
@@ -99,7 +100,7 @@ def locate_exam_folder(ctx: _Ctx) -> None:
     # (created here, not earlier).
     inst = ctx.instruction
     step1_summary = {
-        "step": 1,
+        "step": step_by_name("parse_grading_instructions").number,
         "elapsed_s": round(ctx.parse_elapsed, 3),
         "task_type": inst.task_type,
         "dpi": inst.dpi,

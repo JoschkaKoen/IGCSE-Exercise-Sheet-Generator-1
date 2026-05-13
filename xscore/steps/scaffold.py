@@ -86,10 +86,10 @@ def cut_exam_pdf(ctx: _Ctx) -> None:
 
 
 def extract_exam_question_numbers(ctx: _Ctx) -> None:
-    """Step 19: extract question numbers from the empty exam (one cheap call).
+    """extract_exam_question_numbers: extract question numbers from the empty exam (one cheap call).
 
-    Writes ``19_extract_exam_question_numbers/exam_scaffold.{ext}`` and stores
-    the resulting nodes in ``ctx.scaffold_state['scaffold_nodes']`` for step 20.
+    Writes ``17_extract_exam_question_numbers/exam_scaffold.{ext}`` and stores
+    the resulting nodes in ``ctx.scaffold_state['scaffold_nodes']`` for extract_exam_questions.
     """
     announce_step_model(
         model_env="EXTRACT_EXAM_QUESTION_NUMBERS_MODEL",
@@ -148,10 +148,10 @@ def extract_exam_question_numbers(ctx: _Ctx) -> None:
 
 
 def extract_exam_questions(ctx: _Ctx) -> None:
-    """Step 20: extract per-question text + options from the empty exam (per-page parallel).
+    """extract_exam_questions: extract per-question text + options from the empty exam (per-page parallel).
 
-    Reads ``ctx.scaffold_state['scaffold_nodes']`` from step 19; writes
-    ``20_extract_exam_questions/exam_questions.{ext}`` and stores
+    Reads ``ctx.scaffold_state['scaffold_nodes']`` from extract_exam_question_numbers; writes
+    ``18_extract_exam_questions/exam_questions.{ext}`` and stores
     ``raw_questions`` on ``scaffold_state`` for downstream steps.
     """
     announce_step_model(
@@ -257,7 +257,7 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
         return
 
     # Empty-exam classifications drive the continuation pass. New artifact
-    # location first, then the legacy pre-step-14-split location for older runs.
+    # location first, then the legacy pre-classify_empty_exam_pages-split location for older runs.
     import json
     classifications_path = artifact_empty_exam_classifications_json_path(ctx.artifact_dir)
     if classifications_path.is_file():
@@ -527,7 +527,7 @@ def transcribe_scheme_graphics(ctx: _Ctx) -> None:
     from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
     _gfx_dir = artifact_mark_scheme_graphics_dir(ctx.artifact_dir)
     if _gfx_dir.is_dir() and any(_gfx_dir.glob("*.png")):
-        announce_ai_input(kind="PNG", note="pre-rendered, step 22")
+        announce_ai_input(kind="PNG", note="pre-rendered, detect_mark_scheme_graphics")
     state = ctx.scaffold_state
     t0 = time.perf_counter()
     scheme_data = state.get("scheme_data")
@@ -590,7 +590,7 @@ def scaffold_setup(ctx: _Ctx) -> bool:
     we still populate state so the later scaffold steps that DO read it
     (``detect_mark_scheme_graphics`` onward) can run. The cutoff is computed
     from the registry so renumbering can't reintroduce the old bug where
-    ``--from-step 20`` silently no-op'd the user's target step.
+    ``--from-step extract_exam_questions`` silently no-op'd the user's target step.
     """
     from eXercise.ai_client import make_gemini_native_client
     from xscore.shared.pipeline_steps import STEPS
@@ -634,14 +634,19 @@ def scaffold_setup(ctx: _Ctx) -> bool:
 
 
 def _rehydrate_scaffold_state_on_resume(ctx: _Ctx) -> None:
-    """Populate ``scaffold_state`` keys that would normally be set by step 20.
+    """Populate ``scaffold_state`` keys that would normally be set by extract_exam_questions.
 
     When the user resumes into ``scaffold_phase_b`` (currently only
-    ``--from-step 21``), steps 19/20 are skipped, so their on-disk artifacts
-    must be loaded back into ``scaffold_state`` — otherwise step 22 onwards
-    crashes with ``KeyError: 'raw_questions'``.
+    ``--from-step`` at or past ``detect_cross_page_context``),
+    ``extract_exam_question_numbers``/``extract_exam_questions`` are skipped,
+    so their on-disk artifacts must be loaded back into ``scaffold_state`` —
+    otherwise ``detect_mark_scheme_graphics`` onwards crashes with
+    ``KeyError: 'raw_questions'``.
     """
-    if ctx.from_step is None or ctx.from_step <= 20 or ctx.artifact_dir is None:
+    from xscore.shared.pipeline_steps import step_by_name
+    if (ctx.from_step is None
+            or ctx.from_step <= step_by_name("extract_exam_questions").number
+            or ctx.artifact_dir is None):
         return
     from xscore.scaffold.formats import load_exam_questions_artifact
     from xscore.shared.exam_paths import artifact_exam_questions_path

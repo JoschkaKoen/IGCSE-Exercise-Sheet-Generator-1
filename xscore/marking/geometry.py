@@ -1,4 +1,4 @@
-"""Step 10 — Calculate number of scanned exam pages per student.
+"""Step cover_page_empty_exam — Calculate number of scanned exam pages per student.
 
 Pure arithmetic on page counts. Cover-page detection is performed earlier
 (steps 8 and 9), so ``scan_has_cover`` is a known input by the time this
@@ -39,7 +39,7 @@ def compute_geometry(
 
     Raises ``ValueError`` only for inputs we cannot recover from:
     ``exam_pages == 0``, or ``empty_exam_has_cover is None`` while
-    ``scan_has_cover is True`` (step 8 skipped but the scan has a cover —
+    ``scan_has_cover is True`` (detect_exam_layout skipped but the scan has a cover —
     we cannot safely decide whether the empty exam already counts it).
 
     Roster mismatch is reported via the returned dict but is not fatal; the
@@ -58,7 +58,7 @@ def compute_geometry(
 
     if empty_exam_has_cover is None and scan_has_cover:
         raise ValueError(
-            "empty_exam_has_cover was not determined (step 8 skipped?) — "
+            "empty_exam_has_cover was not determined (detect_exam_layout skipped?) — "
             "cannot safely compute pages_per_student when the scan has cover pages"
         )
 

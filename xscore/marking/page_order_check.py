@@ -1,8 +1,8 @@
-"""Step 16: per-student page-order check — heuristic over step 14's handwriting.json.
+"""student_names: per-student page-order check — heuristic over classify_empty_exam_pages's handwriting.json.
 
-For every scan page, step 14's vision call already detected the printed page
+For every scan page, classify_empty_exam_pages's vision call already detected the printed page
 number and whether the page is a cover. This step joins that data with the
-per-student page_numbers from step 15 and verifies that each student's
+per-student page_numbers from student_handwriting_check and verifies that each student's
 sequence of detected page numbers matches what the empty-exam layout
 expects. No OCR, no LLM call.
 
@@ -65,10 +65,10 @@ def check_page_order(
     page_assignments: list["PageAssignment"],
     artifact_dir: Path | None = None,
 ) -> PageOrderResult:
-    """Validate page order from step 15's per-page page-number detections.
+    """Validate page order from student_handwriting_check's per-page page-number detections.
 
     Heuristic only — no LLM, no OCR. For each student, looks up the AI-detected
-    printed page number from ``15_student_handwriting/handwriting.json`` for
+    printed page number from ``13_student_handwriting_check/handwriting.json`` for
     every scan page they own, computes the expected sequence using
     ``cover_offset`` from the same metadata block, and bins per-page failures
     into wrong-order vs missing buckets.
@@ -98,7 +98,7 @@ def check_page_order(
             status=PageOrderStatus.INCONCLUSIVE,
             total_count=total,
             setup_error=(
-                "step 15 artifact not found (15_student_handwriting/handwriting.json); "
+                "student_handwriting_check artifact not found (13_student_handwriting_check/handwriting.json); "
                 "run student_handwriting_check first"
             ),
         )
@@ -144,7 +144,7 @@ def check_page_order(
         missing_st: list[Issue] = []
         for p_label, scan_page in enumerate(a.page_numbers, 1):
             entry = by_scan.get(scan_page)
-            # Step 14 phase B emits page_type (enum) + matched_page_number (int|None).
+            # Step classify_empty_exam_pages phase B emits page_type (enum) + matched_page_number (int|None).
             page_type = entry.get("page_type") if entry is not None else None
             matched_pn = entry.get("matched_page_number") if entry is not None else None
             if has_cover and p_label == 1:

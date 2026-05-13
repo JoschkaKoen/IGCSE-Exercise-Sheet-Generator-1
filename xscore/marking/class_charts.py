@@ -1,4 +1,4 @@
-"""matplotlib chart renderers for the class report (step 31).
+"""matplotlib chart renderers for the class report (class_stats_curve).
 
 Four PNG figures are produced and embedded into the class-report PDF:
 

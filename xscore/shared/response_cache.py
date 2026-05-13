@@ -293,7 +293,7 @@ def reuse_cache_enabled(ctx: Any) -> bool:
 
     Honours ``XSCORE_REUSE_CACHE=1`` as an env-var override for ad-hoc testing
     without re-issuing the natural-language prompt; otherwise the only way to
-    enable the cache is the ``reuse_cache`` flag set by the step-1 NL parser.
+    enable the cache is the ``reuse_cache`` flag set by the parse_grading_instructions NL parser.
     """
     if os.environ.get("XSCORE_REUSE_CACHE", "").strip() in ("1", "true", "yes"):
         return True

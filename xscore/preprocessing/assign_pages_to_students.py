@@ -133,7 +133,7 @@ def assign_pages(
     positional_covers = {b * pages_per_student + 1 for b in range(n_blocks)}
     first_page_set: set[int] = positional_covers
 
-    # Cover-anchored sanity check: step 14 phase B writes per-scan-page
+    # Cover-anchored sanity check: classify_empty_exam_pages phase B writes per-scan-page
     # page_type into handwriting.json. If the pages it picks as "cover page"
     # agree with the positional cover positions, we proceed; if they disagree,
     # the scan is likely misordered or a cover is missing — log it as a
@@ -366,7 +366,7 @@ def page_assignments_to_overview(assignments: list[PageAssignment]) -> str:
     Used for the on-disk artifact (``page_range_overview.txt``). The terminal
     rendering uses :func:`print_page_range_table` instead.
 
-    Pages are guaranteed contiguous by step-12 block grouping. If somehow
+    Pages are guaranteed contiguous by exam_geometry block grouping. If somehow
     they aren't, fall back to listing all pages so the file is still useful.
     """
     if not assignments:

@@ -138,7 +138,7 @@ def cut_exam_pdf_phase(
 
     Caller is responsible for unlinking *split_pdf_temp_path* (the underlying
     temp file produced by ``_split_pdf_by_layout``) once parsing finishes.
-    Also updates the step-15 layout artifact to record ``n_physical_pages``
+    Also updates the student_handwriting_check layout artifact to record ``n_physical_pages``
     and ``n_split_pages`` (was zero before the cut).
     """
     n_cells = layout_result.rows * layout_result.cols
@@ -174,7 +174,7 @@ def cut_exam_pdf_phase(
                 warn_line(f"Could not copy exam PDF to artifacts: {e}")
         actual_exam_pdf = exam_pdf
 
-    # Re-save the step-15 layout artifact with the actual cut counts.
+    # Re-save the student_handwriting_check layout artifact with the actual cut counts.
     if artifact_dir is not None:
         _save_layout_artifact(
             artifact_dir, layout_result, layout_model, layout_elapsed,
@@ -273,21 +273,21 @@ def parse_exam_pdf_full(
         ``options`` for each question on each page. Uses
         ``EXTRACT_EXAM_QUESTIONS_MODEL``.
 
-    Writes the step 19 artifact ``exam_scaffold.{ext}`` (intermediate, no text)
-    and the step 20 artifact ``exam_questions.{ext}`` (final, with text).
+    Writes the extract_exam_question_numbers artifact ``exam_scaffold.{ext}`` (intermediate, no text)
+    and the extract_exam_questions artifact ``exam_questions.{ext}`` (final, with text).
     Concrete folder names come from ``xscore/shared/step_folders.py`` so
     renumbering is centralised.
 
     Returns ``(raw_questions, raw_layout)`` matching the legacy single-call
     contract — same shape every downstream consumer expects.
 
-    *is_cs* gates the CODE_FORMATTING section in the step-20 system prompt
-    (step 19 does not extract text and ignores ``is_cs``).
+    *is_cs* gates the CODE_FORMATTING section in the extract_exam_questions system prompt
+    (extract_exam_question_numbers does not extract text and ignores ``is_cs``).
     """
     if fmt is None:
         fmt = get_scaffold_format()
 
-    # --- Step 19 — extract question numbers (cheap; structure only) ---------
+    # --- Step extract_exam_question_numbers — extract question numbers (cheap; structure only) ---------
     detect_model, detect_thinking, detect_max_tokens = _extract_question_numbers_model_config()
     info_line(f"Extract question numbers ({detect_model}) …")
     scaffold_nodes, raw_layout = extract_exam_question_numbers(
@@ -320,7 +320,7 @@ def parse_exam_pdf_full(
 
     _print_detected_summary(scaffold_nodes)
 
-    # --- Step 20 — extract per-question text + options (per-page parallel) --
+    # --- Step extract_exam_questions — extract per-question text + options (per-page parallel) --
     fill_model, fill_thinking, fill_max_tokens = _extract_questions_model_config()
     raw_questions = extract_exam_questions(
         client,

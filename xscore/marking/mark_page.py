@@ -110,7 +110,7 @@ def _mark_page(
     :mod:`xscore.shared.response_cache` before calling the API; on miss, store
     the API response after a successful parse. Default False (no cache).
     *has_student_answers* — kept for backward compat; ignored. The marking
-    AI always treats `transcribed_answer` as read-only input from step 28.
+    AI always treats `transcribed_answer` as read-only input from extract_student_answers.
     *is_all_mcq* — when True, swap in the short ``ai_marking_mcq`` prompt
     (no FIELD_RULES, no CONTINUATION, no CODE_FORMATTING) since MCQ marks
     are auto-computed and the AI's role is verify-only.
@@ -347,7 +347,7 @@ def _mark_page(
         _finalize_marking(result, warn)
 
         # The canonical marked YAML is written by run_ai_marking() under
-        # 29_ai_marking/students/<S>/page_N.yaml; the prompt-logger sidecar
+        # 27_ai_marking/students/<S>/page_N.yaml; the prompt-logger sidecar
         # would only duplicate the same content with student_name='', so skip it.
 
         if reuse_cache and not cache_hit and _cache_key is not None:

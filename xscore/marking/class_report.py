@@ -127,7 +127,7 @@ def _load_scan_page_ranges(artifact_dir: Path) -> list[dict]:
     """Build the second-TOC rows from ``15_student_names/exam_student_list.json``.
 
     Returns a list of ``{"display_name", "page_range"}`` dicts ordered by the
-    student's first scan page — i.e. the same ordering as step 29's terminal
+    student's first scan page — i.e. the same ordering as ai_marking's terminal
     table. Returns ``[]`` if the JSON is missing or unreadable so the second
     TOC silently disappears rather than blocking the class report.
     """
@@ -311,7 +311,7 @@ def _build_class_report(
         scan_rows=scan_rows,
     )
 
-    # With-questions variants — step 29 only emits these when parsed_questions
+    # With-questions variants — ai_marking only emits these when parsed_questions
     # is available, so guard each merge by checking that at least one student
     # PDF of that variant exists. Otherwise the merge would produce a single-
     # page combined PDF with just the class overview, which is misleading.

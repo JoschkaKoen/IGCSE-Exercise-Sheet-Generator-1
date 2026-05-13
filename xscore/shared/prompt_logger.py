@@ -71,7 +71,7 @@ def _save_images_enabled() -> bool:
     Default off — set ``SAVE_AI_IMAGES`` to ``true`` / ``1`` / ``yes`` /
     ``on`` (case-insensitive) to keep the per-prompt audit copies on disk.
     Anything else, including unset and empty string, leaves them off.
-    Cropped mark-scheme graphic PNGs in step 22's mark_scheme_graphics/
+    Cropped mark-scheme graphic PNGs in detect_mark_scheme_graphics's mark_scheme_graphics/
     directory are written by a different code path and are not affected
     by this flag.
     """

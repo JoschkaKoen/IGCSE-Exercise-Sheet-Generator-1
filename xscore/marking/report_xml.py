@@ -1,10 +1,10 @@
 """Report serialisers for the marking phase.
 
-- :func:`student_report_to_yaml` — per-student report (step 30). Uses
+- :func:`student_report_to_yaml` — per-student report (per_student_reports). Uses
   ``_MarkingDumper`` so LaTeX in ``mark_scheme_answer`` / ``student_answer`` /
   ``explanation`` is preserved as ``|`` block scalars (matches steps 19/20,
   23/24, 27/28, 29).
-- :func:`class_report_to_xml` — class-level summary (step 33). Still XML for
+- :func:`class_report_to_xml` — class-level summary (class_report). Still XML for
   now; migrating it is a separate cleanup.
 """
 

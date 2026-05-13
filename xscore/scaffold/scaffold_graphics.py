@@ -1,4 +1,4 @@
-"""Step 22 — Detect graphics (figures, diagrams) on each mark scheme page.
+"""Step detect_mark_scheme_graphics — Detect graphics (figures, diagrams) on each mark scheme page.
 
 Per-page parallel vision call. OpenAI-compatible only (no Gemini path today).
 Always runs; the model is configured via ``DETECT_SCHEME_GRAPHICS_MODEL``.
@@ -65,7 +65,7 @@ def detect_scheme_graphics(
       * ``graphics_questions`` is the per-question list used by downstream artifact
         extraction — ``[]`` when no graphics found.
 
-    Side effects: writes per-page PDFs to step-22's pages dir, plus the graphics
+    Side effects: writes per-page PDFs to detect_mark_scheme_graphics's pages dir, plus the graphics
     YAML catalog and extracted graphic images when graphics are detected.
     """
     if fmt is None:

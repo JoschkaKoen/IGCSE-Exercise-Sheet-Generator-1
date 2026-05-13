@@ -141,10 +141,10 @@ def _build_user_exam_prompt(
     is_split: bool,
     n_split_pages: int,
 ) -> str:
-    """Build the step-9 user prompt, injecting the layout known from step 8.
+    """Build the cut_exam_pdf user prompt, injecting the layout known from detect_exam_layout.
 
     Falls back to _USER_EXAM (which asks the AI to detect the layout) when
-    layout_result is None, i.e. when split_subpages=False and step 8 was skipped.
+    layout_result is None, i.e. when split_subpages=False and detect_exam_layout was skipped.
     """
     if layout_result is None:
         return _USER_EXAM

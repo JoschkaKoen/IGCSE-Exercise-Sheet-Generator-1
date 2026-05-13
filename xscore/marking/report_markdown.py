@@ -23,7 +23,7 @@ def _student_report_to_md(report: dict, subtitle: str | None = None) -> str:
         f"{title}\n",
         f"**Total: {total}/{max_m} ({_fmt_pct(pct)})**\n",
     ]
-    # Step 18 page-set anomaly banner: surfaces duplex misorder, missing
+    # Step build_marking_register_v1 page-set anomaly banner: surfaces duplex misorder, missing
     # back-side pages, and page-detection duplicates so the marker knows
     # the score may be missing partial credit for absent answer slots.
     anomaly = report.get("page_set_anomaly")

@@ -55,7 +55,7 @@ def _resolve_mark_collision(
 
     Always warns; takes the higher mark when both are set. If a ``collisions``
     accumulator and lock are provided, also records the collision for the
-    review queue (step 29).
+    review queue (ai_marking).
     """
     em = existing.get("assigned_marks")
     nm = new_q.get("assigned_marks")
@@ -119,7 +119,7 @@ def _merge_student_pages(
     slot are merged with the higher-marks strategy.
 
     If ``collisions`` and ``collisions_lock`` are provided, cross-page mark
-    collisions are recorded for the review queue (step 29).
+    collisions are recorded for the review queue (ai_marking).
     """
     if fmt is None:
         from xscore.marking.formats.base import MarkingFormat
@@ -175,7 +175,7 @@ def _augment_with_unanswered(
     explanation_by_num: dict[str, str],
 ) -> dict | None:
     """Return a copy of *filtered_report* with one extra row per question on
-    every scan page the student left blank, sourced from the step-24 blueprint.
+    every scan page the student left blank, sourced from the parse_mark_scheme blueprint.
 
     Each injected row carries ``student_answer=""``, ``assigned_marks=0`` and
     ``_unanswered=True``. The flag drives a different rendering branch in
@@ -401,7 +401,7 @@ def _pass1_merge_students(
 
         # q_totals must be computed from the FILTERED report — augmented
         # rows carry assigned_marks=0 and would skew per-question class
-        # averages used by step 31/33. Compute before swapping to canonical.
+        # averages used by class_stats_curve/33. Compute before swapping to canonical.
         with _q_totals_lock:
             for q in report["questions"]:
                 am = q.get("assigned_marks")
@@ -426,7 +426,7 @@ def _pass1_merge_students(
             with _unanswered_count_lock:
                 n_unanswered_students += 1
 
-        # Surface page-set anomalies from step 18 (e.g. duplex misorder
+        # Surface page-set anomalies from build_marking_register_v1 (e.g. duplex misorder
         # leaving a real exam page absent from this student's stack). The
         # banner appears at the top of the per-student md report; the field
         # also lands in the YAML artifact for downstream consumers.

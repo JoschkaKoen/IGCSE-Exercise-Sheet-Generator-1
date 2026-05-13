@@ -4,7 +4,7 @@ The register itself (build / augmentation / I/O / iteration) lives in
 :mod:`xscore.marking.marking_page_register`. This module owns the
 human-readable summary tables emitted by the pipeline:
 
-- :func:`render_cross_page_step_summary` — step 21 (cross-page context)
+- :func:`render_cross_page_step_summary` — detect_cross_page_context (cross-page context)
   detail tables, shown after augmentation runs.
 - :func:`print_register_summary` — pre-marking summary table, shown by step
   29 before the AI marking loop begins.
@@ -20,7 +20,7 @@ from typing import Any
 
 
 # ---------------------------------------------------------------------------
-# Step-21 source-label resolver (used by both summary renderers)
+# detect_cross_page_context source-label resolver (used by both summary renderers)
 # ---------------------------------------------------------------------------
 
 def _pretty_source_label(
@@ -32,8 +32,8 @@ def _pretty_source_label(
 ) -> str | None:
     """Resolve an ``extra_sources`` string to a human-readable display label.
 
-    Returns ``None`` for sources outside the step-21 vocabulary; callers
-    filter those out before rendering. The step-21 sources are
+    Returns ``None`` for sources outside the detect_cross_page_context vocabulary; callers
+    filter those out before rendering. The detect_cross_page_context sources are
     ``"continuation"``, ``"cross_page_fig_*"``, and ``"cross_page_parent_*"``.
 
     *compact* picks the format for inline use in streaming log lines:
@@ -56,7 +56,7 @@ def _pretty_source_label(
 
 
 # ---------------------------------------------------------------------------
-# Step-21 (cross-page context) detail tables
+# detect_cross_page_context (cross-page context) detail tables
 # ---------------------------------------------------------------------------
 
 def render_cross_page_step_summary(
@@ -67,7 +67,7 @@ def render_cross_page_step_summary(
     continuation_refs: list[dict] | None = None,
     console: Any = None,
 ) -> None:
-    """Render step-21 detail tables to the terminal (no-op when no detections).
+    """Render detect_cross_page_context detail tables to the terminal (no-op when no detections).
 
     Three indented Rich tables, all styled to match :func:`print_register_summary`.
     Per-student data and exam-structure data are split into separate tables
@@ -81,7 +81,7 @@ def render_cross_page_step_summary(
        zero-count types. Skipped when both ``figure_refs`` and
        ``parent_refs`` are empty.
     3. **Calls augmented** — one row per ``(student, call)`` whose call has
-       at least one step-21 source. Multiple step-21 sources on the same
+       at least one detect_cross_page_context source. Multiple detect_cross_page_context sources on the same
        call are joined in the "Extras added" cell.
     """
     continuation_refs = continuation_refs or []
@@ -235,7 +235,7 @@ def print_register_summary(
     that the cohort filter narrowed the call list; they're shown alongside
     the unfiltered totals in the header.
 
-    *cross_page_refs* (the diagnostic emitted by step 21) is rendered as a
+    *cross_page_refs* (the diagnostic emitted by detect_cross_page_context) is rendered as a
     short list under the table when non-empty.
     """
     from rich import box
@@ -379,7 +379,7 @@ def print_register_summary(
 # ---------------------------------------------------------------------------
 
 def _first_primary(student: dict) -> int:
-    """Sort key: first primary scan page (matches step 15's print_page_range_table)."""
+    """Sort key: first primary scan page (matches student_handwriting_check's print_page_range_table)."""
     calls = student.get("calls") or []
     if not calls:
         return 1 << 30   # sort empties to the end

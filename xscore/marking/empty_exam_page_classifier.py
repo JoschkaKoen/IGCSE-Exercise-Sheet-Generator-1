@@ -1,4 +1,4 @@
-"""Step 14: vision-classify each empty-exam page.
+"""classify_empty_exam_pages: vision-classify each empty-exam page.
 
 Public entry point: :func:`classify_empty_exam_pages`.
 
@@ -7,9 +7,9 @@ For each page in the empty exam PDF, asks the vision LLM to pick a page type
 page number. The Gemini path sends each page as a single-page native PDF
 slice; non-Gemini models fall back to rasterized JPEG. Per-page artifacts (the
 slice PDF or JPEG, plus prompt-logger sidecars) land in
-``14_empty_exam_classification/empty_exam_pages/``.
+``12_classify_empty_exam_pages/empty_exam_pages/``.
 
-Refactored out of ``blank_page_detection`` so step 14 owns its own module.
+Refactored out of ``blank_page_detection`` so classify_empty_exam_pages owns its own module.
 ``BlankCheckStatus`` and the vision-client helpers live in
 ``_blank_page_vision_client``.
 """
@@ -50,7 +50,7 @@ PAGE_TYPE_VOCABULARY: tuple[str, ...] = (
 def _parse_empty_exam_class(
     raw: str,
 ) -> tuple[str | None, int | None, int | None, int | None, str]:
-    """Parse the step-14 empty-exam page-classification response.
+    """Parse the classify_empty_exam_pages empty-exam page-classification response.
 
     Returns ``(page_type, page_number, conf_page_type, conf_page_number, problem)``.
     Fields parse independently — a malformed one does not poison the others.
@@ -101,7 +101,7 @@ def _parse_empty_exam_class(
 
 
 class _EmptyExamPageClassResp(BaseModel):
-    """Structured-output schema for the step-14 empty-exam classifier (Gemini path).
+    """Structured-output schema for the classify_empty_exam_pages empty-exam classifier (Gemini path).
 
     Mirrors ``empty_exam_page_classification.md`` v1's return shape.
     """
@@ -122,7 +122,7 @@ def _call_empty_exam_class(
     max_tokens: int,
     request_timeout: "httpx.Timeout | None" = None,
 ) -> tuple[str, str]:
-    """Single-page vision call for step 14. Sends native PDF on Gemini, JPEG elsewhere."""
+    """Single-page vision call for classify_empty_exam_pages. Sends native PDF on Gemini, JPEG elsewhere."""
     if model_id.startswith("gemini"):
         from google.genai import types as gai_types
         from eXercise.ai_client import build_gemini_thinking_config, split_gemini_response
@@ -178,7 +178,7 @@ def _classify_empty_page(
     max_tokens: int,
     request_timeout: "httpx.Timeout | None" = None,
 ) -> tuple[str | None, int | None, int | None, int | None, str]:
-    """Step-14 per-page call. Returns (page_type, page_number, conf_pt, conf_pn, problem).
+    """classify_empty_exam_pages per-page call. Returns (page_type, page_number, conf_pt, conf_pn, problem).
 
     Each field is ``None`` (or ``""`` for ``problem``) if the call failed or the
     field was missing/malformed; fields parse independently.
@@ -229,7 +229,7 @@ def classify_empty_exam_pages(
     thinking_tokens: int | None = None,
     max_tokens: int | None = None,
 ) -> tuple[BlankCheckStatus, str | None, list[dict]]:
-    """Step 14: vision-classify each empty-exam page in parallel.
+    """classify_empty_exam_pages: vision-classify each empty-exam page in parallel.
 
     For each page in *empty_exam_pdf*, asks the vision LLM to pick a page type
     (cover/instruction/question/blank/writing-space) and read its printed page
@@ -239,7 +239,7 @@ def classify_empty_exam_pages(
     Returns ``(status, message, classifications)``. The classifications list is
     one dict per page (1-based ``page`` field). Per-page artifacts (the slice
     PDF or JPEG, plus prompt-logger sidecars) are written to
-    ``14_empty_exam_classification/empty_exam_pages/``.
+    ``12_classify_empty_exam_pages/empty_exam_pages/``.
     """
     from xscore.shared.exam_paths import artifact_empty_exam_pages_dir
     from xscore.shared.terminal_ui import format_duration, ok_line, warn_line

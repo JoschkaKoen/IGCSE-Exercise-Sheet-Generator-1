@@ -1,6 +1,6 @@
-"""Display-ordering helpers for step 28 (extract_student_answers).
+"""Display-ordering helpers for extract_student_answers (extract_student_answers).
 
-Step 28 runs per-(student, page) extraction in a thread pool and prints a
+Step extract_student_answers runs per-(student, page) extraction in a thread pool and prints a
 progress line for every page in the scan PDF — extracted, cover-skipped, and
 no-handwriting-skipped alike. Workers complete in arbitrary order, but the
 output is grouped by student name and ascending page number via a streaming
@@ -61,7 +61,7 @@ def build_display_entries(
         student_skip = set(s["skipped_scan_pages"])
         student_total = len(s["page_numbers"])
         # answer_label per p_label, drawn from the register's active calls
-        # (calls removed by step 21 — e.g. continuation pages — never appear
+        # (calls removed by detect_cross_page_context — e.g. continuation pages — never appear
         # here, and those scan pages land in student_skip instead).
         answer_label_by_p_label = {c["p_label"]: c["answer_label"] for c in s["calls"]}
         for p_label, scan_page in enumerate(s["page_numbers"], 1):

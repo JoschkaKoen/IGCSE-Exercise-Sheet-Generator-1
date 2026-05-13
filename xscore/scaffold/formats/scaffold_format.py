@@ -222,7 +222,7 @@ class ScaffoldFormat:
             sort_keys=False,
         )
 
-    # ---- step 19 — extract question numbers --------------------------------
+    # ---- extract_exam_question_numbers — extract question numbers --------------------------------
 
     def build_question_numbers_user_msg(
         self, layout_result, is_split: bool, n_split_pages: int,
@@ -261,7 +261,7 @@ class ScaffoldFormat:
             sort_keys=False,
         )
 
-    # ---- step 20 — extract question text + options -------------------------
+    # ---- extract_exam_questions — extract question text + options -------------------------
 
     def build_questions_stub(self, filtered_nodes: list[dict]) -> str:
         lines = []
@@ -318,7 +318,7 @@ class ScaffoldFormat:
             })
         return out
 
-    # ---- detect_mark_scheme_graphics (step 22) ------------------------------
+    # ---- detect_mark_scheme_graphics (detect_mark_scheme_graphics) ------------------------------
 
     def parse_graphics_response(self, raw: str) -> list[dict]:
         """Parse one page's graphics-detection response.
@@ -352,7 +352,7 @@ class ScaffoldFormat:
             })
         return out
 
-    # ---- assign_scheme_questions (step 23) ----------------------------------
+    # ---- assign_scheme_questions (assign_scheme_questions) ----------------------------------
 
     def parse_assign_response(self, raw: str) -> list[str]:
         """Parse one page's question-assignment response.

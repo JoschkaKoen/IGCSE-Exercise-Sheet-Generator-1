@@ -1,6 +1,6 @@
-"""Step 24 — Parse the mark scheme into per-question criteria, group by group.
+"""Step parse_mark_scheme — Parse the mark scheme into per-question criteria, group by group.
 
-Pages that share a question form a connected component (computed from step 23's
+Pages that share a question form a connected component (computed from assign_scheme_questions's
 ``questions_per_page`` mapping). Each component is sent as ONE API call carrying
 a single combined PDF of the component's pages — so a multi-page answer
 (e.g. a 15-mark long-answer split across two scheme pages) reaches the model
@@ -9,9 +9,9 @@ intact and produces one coherent entry instead of two contradictory halves.
 Four-way provider routing: Gemini inline PDFs, Kimi server-extracted text
 (injected as a system message), Qwen ``qwen-doc-turbo`` / ``qwen-long`` via
 DashScope ``fileid://`` (native PDF), other OpenAI-compatible clients (Grok,
-``qwen3-vl-plus``, …) rasterized PNGs. When step 23's mapping is missing,
+``qwen3-vl-plus``, …) rasterized PNGs. When assign_scheme_questions's mapping is missing,
 falls back to one singleton group per page using the full scaffold.
-Attaches step 22's graphics positions onto matching scheme entries.
+Attaches detect_mark_scheme_graphics's graphics positions onto matching scheme entries.
 """
 
 from __future__ import annotations
@@ -69,12 +69,12 @@ def parse_mark_scheme_pages(
 ) -> dict:
     """Parse the mark scheme via Gemini (or OpenAI-compatible client) page by page.
 
-    Reads per-page PDFs from step 22's pages dir; falls back to splitting the
-    PDF if that dir doesn't exist (allows running step 24 in isolation).
-    Uses *questions_per_page* (from step 23) to send only the relevant
+    Reads per-page PDFs from detect_mark_scheme_graphics's pages dir; falls back to splitting the
+    PDF if that dir doesn't exist (allows running parse_mark_scheme in isolation).
+    Uses *questions_per_page* (from assign_scheme_questions) to send only the relevant
     question entries to the AI per page; falls back to the full scaffold for
     any page missing from the mapping. Empty mapping for a page → no API call.
-    Attaches ``graphics_by_qnum`` (from step 22) onto matching scheme entries.
+    Attaches ``graphics_by_qnum`` (from detect_mark_scheme_graphics) onto matching scheme entries.
     """
     if fmt is None:
         from xscore.scaffold.formats.base import ScaffoldFormat
@@ -84,7 +84,7 @@ def parse_mark_scheme_pages(
 
     # Group pages that share a question into one API call so multi-page answers
     # (e.g. a 15-mark long-answer split across two scheme pages) arrive
-    # together. Step-23's per-page mapping drives the grouping; when missing,
+    # together. assign_scheme_questions's per-page mapping drives the grouping; when missing,
     # fall back to one singleton group per page using the full scaffold.
     groups: list[tuple[list[int], "list[str] | None"]]
     if questions_per_page is not None:
@@ -338,12 +338,12 @@ def parse_mark_scheme_pages(
 
     # Warn about leaf questions we expected the AI to extract content for but
     # got an empty response back (no correct_answer AND no criteria).
-    # Scoping: when step 23 produced a per-page mapping, expect only its union;
+    # Scoping: when assign_scheme_questions produced a per-page mapping, expect only its union;
     # otherwise expect every leaf in raw_questions (full-scaffold fallback path).
     # Always intersect with leaves — parent questions (those with subquestions)
-    # structurally have no own criteria in Cambridge mark schemes, so step 23
+    # structurally have no own criteria in Cambridge mark schemes, so assign_scheme_questions
     # listing them (it sometimes over-generalises from seeing children) is not
-    # an actionable miss for step 24.
+    # an actionable miss for parse_mark_scheme.
     _leaves = set(_leaf_qnums(raw_questions))
     if questions_per_page:
         _expected: set[str] = set()
@@ -369,14 +369,14 @@ def parse_mark_scheme_pages(
             + ", ".join(f"q{q}" for q in _missing_content)
         )
 
-    # Attach graphics positions from step 22 onto matching scheme entries.
+    # Attach graphics positions from detect_mark_scheme_graphics onto matching scheme entries.
     if graphics_by_qnum:
         for _q in result.get("questions", []):
             _key = _norm_qnum(_q["number"])
             if _key in graphics_by_qnum:
                 _q["graphics"] = graphics_by_qnum[_key]
 
-    # Save merged artifacts under step 24's folder.
+    # Save merged artifacts under parse_mark_scheme's folder.
     if artifact_dir is not None:
         try:
             from xscore.scaffold.scaffold_markdown import write_mark_scheme_markdown

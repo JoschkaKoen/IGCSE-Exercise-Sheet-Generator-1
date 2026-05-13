@@ -96,7 +96,7 @@ _csef = os.getenv("CLEANED_SCAN_EMBED_FORMAT", "jpeg").strip().lower()
 CLEANED_SCAN_EMBED_FORMAT: str = _csef if _csef in ("jpeg", "png") else "jpeg"
 CLEANED_SCAN_JPEG_QUALITY = int(os.getenv("CLEANED_SCAN_JPEG_QUALITY", "95"))
 
-# Deprecated: step 4 (prepare_scans) is now the single rotation authority and
+# Deprecated: prepare_scans (prepare_scans) is now the single rotation authority and
 # already supports both AI-vision and Tesseract-OSD detection. The flag is
 # retained so existing user envs don't fail at import, but it is no longer
 # read by the scan pipeline.
@@ -154,7 +154,7 @@ PIPELINE_DEFAULT_DPI: int = int(os.getenv("PIPELINE_DEFAULT_DPI", "300"))
 BLANK_DETECTION_DPI: int = int(os.getenv("BLANK_DETECTION_DPI", "72"))
 
 # Recorded in scan_blanks.json as informational metadata. The autorotate step
-# no longer rasterizes at this DPI (step 4 is the rotation authority); kept so
+# no longer rasterizes at this DPI (prepare_scans is the rotation authority); kept so
 # existing audit JSONs and downstream consumers stay happy.
 ROTATION_ANALYSIS_DPI: int = int(os.getenv("ROTATION_ANALYSIS_DPI", "150"))
 
@@ -211,13 +211,13 @@ NAME_JPEG_QUALITY: int = int(os.getenv("NAME_JPEG_QUALITY", "85"))
 MARKING_DPI: int = int(os.getenv("MARKING_DPI", "300"))
 MARKING_JPEG_QUALITY: int = int(os.getenv("MARKING_JPEG_QUALITY", "90"))
 
-# student_handwriting_check (step 15): per-scan-page JPEG render parameters.
-# Independent of the step-14 empty-exam classifier, which still uses the
+# student_handwriting_check (student_handwriting_check): per-scan-page JPEG render parameters.
+# Independent of the classify_empty_exam_pages empty-exam classifier, which still uses the
 # 150/75 defaults baked into _render_page_jpeg in blank_page_detection.py.
 HANDWRITING_CHECK_JPEG_DPI: int = int(os.getenv("HANDWRITING_CHECK_JPEG_DPI", "150"))
 HANDWRITING_CHECK_JPEG_QUALITY: int = int(os.getenv("HANDWRITING_CHECK_JPEG_QUALITY", "75"))
 
-# Step 15 out-of-order recheck. When the primary call's page_number does
+# Step student_handwriting_check out-of-order recheck. When the primary call's page_number does
 # not match the expected order (yellow line), send the scan page AND the
 # empty-exam page that should be in this position to this comparison
 # model. If it confirms a match, correct the page number; otherwise keep
