@@ -259,9 +259,13 @@ def build_review_queue(ctx: Any) -> list[dict]:
     to the terminal without rebuilding it. Cross-page mark collisions
     captured earlier in the pipeline are appended to the JSON / Markdown
     artifacts under ``"collisions"``.
+
+    ``full_reports`` may be ``None`` when resuming from a step past
+    ``per_student_reports`` (28) without rehydrating the in-memory dicts —
+    coerce to ``{}`` so an empty review queue artifact is still written.
     """
     return _write_review_queue(
-        ctx.full_reports, ctx.artifact_dir,
+        ctx.full_reports or {}, ctx.artifact_dir,
         collisions=getattr(ctx, "mark_collisions", None) or None,
         page_assignments=getattr(ctx, "page_assignments", None),
     )

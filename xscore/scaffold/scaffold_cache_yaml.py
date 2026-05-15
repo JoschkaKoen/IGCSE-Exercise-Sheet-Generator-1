@@ -19,7 +19,14 @@ from xscore.scaffold.scaffold_cache import (
     question_to_dict,
     _compute_pdf_sha256,
 )
-from xscore.shared.models import ExamScaffold, Question
+from xscore.shared.models import (
+    BBox,
+    ExamLayout,
+    ExamScaffold,
+    McAnswerOption,
+    Question,
+    gradable_questions,
+)
 
 
 def _question_to_yaml_dict(q: Question) -> dict:

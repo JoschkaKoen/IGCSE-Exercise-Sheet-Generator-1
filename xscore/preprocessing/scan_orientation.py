@@ -98,6 +98,25 @@ class PageVote:
 
 
 @dataclass(frozen=True)
+class SkippedPage:
+    """One candidate page that couldn't contribute a usable vote.
+
+    ``reason`` is a short token: ``"blank"`` (blank-page check rejected it),
+    ``"low_conf"`` (Tesseract OSD ran but confidence was below threshold),
+    ``"tess_error"`` (OSD or the blank check raised / Tesseract missing), or
+    ``"render_error"`` (PyMuPDF couldn't render the page). ``confidence`` is
+    populated only for ``"low_conf"``. ``elapsed_s`` is the OSD call wall
+    time when OSD ran (``low_conf``, ``tess_error``); 0 for paths that short-
+    circuited before OSD (``blank``, ``render_error``).
+    """
+
+    page_idx: int
+    reason: str
+    confidence: float = 0.0
+    elapsed_s: float = 0.0
+
+
+@dataclass(frozen=True)
 class OrientationResult:
     """Result of one orientation-detection call.
 
@@ -107,13 +126,24 @@ class OrientationResult:
     final ``rotation_cw`` is the majority vote across every successful
     vote.
 
-    On the Tesseract path we additionally record ``pages_skipped`` —
-    candidate pages that returned low confidence, errored, or were blank.
+    A third **expansion** round runs (Tesseract path only) when the
+    initial + escalation candidates were all blank: every non-sampled
+    page is checked too, so we can either (a) recover a usable vote from
+    a content page the bisection missed or (b) confirm the file is
+    entirely blank and set ``dropped=True``.
+
+    On the Tesseract path we additionally record skipped candidates per
+    round (``initial_skipped``, ``escalated_skipped``, ``expansion_skipped``)
+    — pages that returned low confidence, errored, or were blank. The
+    legacy ``pages_skipped`` accessor returns the combined tuple in
+    page-index order.
 
     ``source`` is ``"model"`` for a confident detector answer,
     ``"fallback"`` for any failure path (Tesseract unavailable, API key
     missing, all candidate pages blank, no usable votes, etc.).
-    ``detector`` records which path produced the result.
+    ``detector`` records which path produced the result. ``dropped=True``
+    signals downstream that the PDF should be excluded from subsequent
+    pipeline steps because every page was confirmed blank.
     """
 
     rotation_cw: int
@@ -123,13 +153,31 @@ class OrientationResult:
     detector: str = "tesseract"  # "tesseract" | "ai" | "fallback"
     initial_votes: tuple[PageVote, ...] = field(default_factory=tuple)
     escalated_votes: tuple[PageVote, ...] = field(default_factory=tuple)
-    pages_skipped: tuple[int, ...] = field(default_factory=tuple)
+    expansion_votes: tuple[PageVote, ...] = field(default_factory=tuple)
+    initial_skipped: tuple[SkippedPage, ...] = field(default_factory=tuple)
+    escalated_skipped: tuple[SkippedPage, ...] = field(default_factory=tuple)
+    expansion_skipped: tuple[SkippedPage, ...] = field(default_factory=tuple)
+    dropped: bool = False
+    total_pages: int = 0  # set when the detector opened the PDF; 0 otherwise
 
     @property
     def votes(self) -> tuple[PageVote, ...]:
-        """All votes (initial + escalated), sorted by page index."""
+        """All votes (initial + escalated + expansion), sorted by page index."""
         return tuple(
-            sorted(self.initial_votes + self.escalated_votes, key=lambda v: v.page_idx)
+            sorted(
+                self.initial_votes + self.escalated_votes + self.expansion_votes,
+                key=lambda v: v.page_idx,
+            )
+        )
+
+    @property
+    def pages_skipped(self) -> tuple[SkippedPage, ...]:
+        """All skipped pages (every round), sorted by page index."""
+        return tuple(
+            sorted(
+                self.initial_skipped + self.escalated_skipped + self.expansion_skipped,
+                key=lambda s: s.page_idx,
+            )
         )
 
 
@@ -138,10 +186,20 @@ def _fallback(
     *,
     model: Optional[str] = None,
     detector: str = "fallback",
+    initial_skipped: tuple[SkippedPage, ...] = (),
+    escalated_skipped: tuple[SkippedPage, ...] = (),
+    expansion_skipped: tuple[SkippedPage, ...] = (),
+    dropped: bool = False,
+    total_pages: int = 0,
 ) -> OrientationResult:
     return OrientationResult(
         rotation_cw=0, source="fallback", reason=reason,
         model=model, detector=detector,
+        initial_skipped=initial_skipped,
+        escalated_skipped=escalated_skipped,
+        expansion_skipped=expansion_skipped,
+        dropped=dropped,
+        total_pages=total_pages,
     )
 
 
@@ -387,29 +445,23 @@ def detect_scan_orientations(
             res = _fallback(f"unexpected: {exc!r}")
         out[pdf] = res
 
-        # Initial round of per-page lines.
-        for v in sorted(res.initial_votes, key=lambda v: v.page_idx):
-            info_line(_fmt_page_line(v, res.detector))
+        _emit_round(res.initial_votes, res.initial_skipped, res.detector, info_line)
 
         # Escalation, if any.
-        if res.escalated_votes:
-            from collections import Counter  # noqa: PLC0415
-            tally = Counter(v.rotation_cw for v in res.initial_votes)
-            breakdown = " / ".join(
-                f"{n}× {rot}°"
-                for rot, n in sorted(tally.items(), key=lambda kv: (-kv[1], kv[0]))
+        if res.escalated_votes or res.escalated_skipped:
+            info_line(_escalation_banner(res))
+            _emit_round(
+                res.escalated_votes, res.escalated_skipped, res.detector, info_line,
             )
-            info_line(
-                f"  split {breakdown} — escalating with {len(res.escalated_votes)} more votes"
-            )
-            for v in sorted(res.escalated_votes, key=lambda v: v.page_idx):
-                info_line(_fmt_page_line(v, res.detector))
 
-        # Skipped pages (Tesseract path only — AI path doesn't skip, it errors).
-        if res.pages_skipped:
+        # Expansion, if any (Tesseract path: every sampled page was blank →
+        # we swept the remaining pages too).
+        if res.expansion_votes or res.expansion_skipped:
             info_line(
-                f"  ({len(res.pages_skipped)} page(s) skipped: "
-                f"{list(res.pages_skipped)})"
+                "  all sampled candidates blank — checking remaining pages with Tesseract"
+            )
+            _emit_round(
+                res.expansion_votes, res.expansion_skipped, res.detector, info_line,
             )
 
         _emit_decision_line(pdf, res, info_line, ok_line, warn_line)
@@ -433,6 +485,64 @@ def _fmt_page_line(v: PageVote, detector: str) -> str:
     )
 
 
+_SKIP_REASON_DETAIL: dict[str, str] = {
+    "blank": "(blank)",
+    "tess_error": "(tesseract error)",
+    "render_error": "(render error)",
+}
+
+
+def _fmt_skipped_line(s: SkippedPage) -> str:
+    """Format one per-page line for a candidate that didn't yield a usable vote.
+
+    Shares the ``p{idx} → {verdict} (detail) · {dur}`` shape with
+    :func:`_fmt_page_line`; ``verdict`` is the literal word ``skipped`` and
+    the parenthesised detail names the reason (with the rejected OSD
+    confidence for ``low_conf``). Duration is included only for reasons
+    that actually ran OSD.
+    """
+    from xscore.shared.terminal_ui import format_duration  # noqa: PLC0415
+    if s.reason == "low_conf":
+        detail = f"(low conf {s.confidence:>4.1f})"
+    else:
+        detail = _SKIP_REASON_DETAIL.get(s.reason, f"({s.reason})")
+    line = f"  p{s.page_idx:<3d} → skipped   {detail}"
+    if s.elapsed_s > 0:
+        line += f"  ·  {format_duration(s.elapsed_s)}"
+    return line
+
+
+def _emit_round(
+    votes: tuple[PageVote, ...],
+    skipped: tuple[SkippedPage, ...],
+    detector: str,
+    info_line,
+) -> None:
+    """Print one round's per-page lines, usable and skipped interleaved by page index."""
+    items: list[tuple[int, str]] = []
+    for v in votes:
+        items.append((v.page_idx, _fmt_page_line(v, detector)))
+    for s in skipped:
+        items.append((s.page_idx, _fmt_skipped_line(s)))
+    for _idx, line in sorted(items, key=lambda kv: kv[0]):
+        info_line(line)
+
+
+def _escalation_banner(res: OrientationResult) -> str:
+    """One-line banner explaining why the escalation round ran."""
+    from collections import Counter  # noqa: PLC0415
+    n_more = len(res.escalated_votes) + len(res.escalated_skipped)
+    if res.initial_votes:
+        tally = Counter(v.rotation_cw for v in res.initial_votes)
+        if len(tally) > 1:
+            breakdown = " / ".join(
+                f"{n}× {rot}°"
+                for rot, n in sorted(tally.items(), key=lambda kv: (-kv[1], kv[0]))
+            )
+            return f"  split {breakdown} — escalating with {n_more} more candidates"
+    return f"  under-filled — escalating with {n_more} more candidates"
+
+
 def _emit_decision_line(
     pdf: Path,
     res: OrientationResult,
@@ -441,6 +551,13 @@ def _emit_decision_line(
     warn_line,
 ) -> None:
     """Emit the per-file decision line."""
+    if res.dropped:
+        confirmed = len(res.pages_skipped)
+        total = res.total_pages or confirmed
+        warn_line(
+            f"{pdf.name}: every page blank ({confirmed}/{total}) — dropping from pipeline"
+        )
+        return
     if res.source == "fallback":
         warn_line(
             f"{pdf.name}: detection failed ({res.reason or 'unknown'}) — using 0°"
@@ -451,7 +568,9 @@ def _emit_decision_line(
     counts = Counter(v.rotation_cw for v in res.votes)
     n_votes = sum(counts.values())
     top_n = counts[res.rotation_cw]
-    if top_n == n_votes:
+    if res.expansion_votes:
+        summary = f"recovered {top_n}/{n_votes} from expansion sweep"
+    elif top_n == n_votes:
         summary = f"unanimous, {top_n}/{n_votes}"
     else:
         breakdown = " vs ".join(

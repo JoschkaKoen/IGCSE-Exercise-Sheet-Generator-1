@@ -301,6 +301,30 @@ def _merge_scheme_results(page_results: list[dict]) -> dict:
     return {"questions": list(merged.values())}
 
 
+def _display_to_mediabox(rect, page):
+    """Convert a display-space rect to mediabox (pre-rotation) coords.
+
+    Mirrors the helper in eXercise/rendering.py; inlined here to avoid
+    importing from eXercise.rendering, which is not part of the shared
+    infrastructure exposed to xscore.
+    """
+    import fitz
+    rot = page.rotation % 360
+    if rot == 0:
+        return rect
+    x0, y0, x1, y1 = rect.x0, rect.y0, rect.x1, rect.y1
+    if rot == 90:
+        h = page.mediabox.height
+        return fitz.Rect(y0, h - x1, y1, h - x0)
+    if rot == 270:
+        w = page.mediabox.width
+        return fitz.Rect(w - y1, x0, w - y0, x1)
+    if rot == 180:
+        w, h = page.mediabox.width, page.mediabox.height
+        return fitz.Rect(w - x1, h - y1, w - x0, h - y0)
+    return rect
+
+
 def _extract_scheme_graphics(
     questions: list[dict],
     scheme_pdf: "Path",
@@ -342,12 +366,25 @@ def _extract_scheme_graphics(
                 # silent fallback if this PDF write fails.
                 out_pdf_path = out_dir / f"{g['page']}_{safe_num}_{idx}.pdf"
                 try:
+                    rot = page.rotation % 360
                     with fitz.open() as out_pdf:
-                        # Destination rect equals clip dims — keep_proportion
-                        # default (True) renders 1:1, no scaling, vectors
-                        # preserved.
                         new_page = out_pdf.new_page(width=clip.width, height=clip.height)
-                        new_page.show_pdf_page(new_page.rect, doc, page_idx, clip=clip)
+                        if rot == 0:
+                            new_page.show_pdf_page(new_page.rect, doc, page_idx, clip=clip)
+                        else:
+                            # show_pdf_page mishandles /Rotate sources (silent
+                            # content drops, misaligned clip). Copy the page,
+                            # strip rotation, clip in mediabox space, restore
+                            # visual orientation via rotate=.
+                            with fitz.open() as derot:
+                                derot.insert_pdf(doc, from_page=page_idx, to_page=page_idx)
+                                derot[0].set_rotation(0)
+                                mb_clip = _display_to_mediabox(clip, page)
+                                show_rot = (360 - rot) % 360
+                                new_page.show_pdf_page(
+                                    new_page.rect, derot, 0,
+                                    clip=mb_clip, rotate=show_rot,
+                                )
                         out_pdf.save(str(out_pdf_path),
                                      garbage=4, deflate=True, clean=True)
                 except Exception as exc:  # noqa: BLE001

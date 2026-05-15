@@ -8,9 +8,12 @@ sequencing rather than on the per-variant TeX rendering details.
 
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any
 
+from eXercise.pdfjam_post import make_2up_landscape_pdf
+from xscore.marking.class_report_pdf_merge import _compile_tex
 from xscore.marking.report_latex import (
     _exam_questions_to_tex,
     _student_report_list_to_tex,
@@ -20,7 +23,12 @@ from xscore.marking.report_latex import (
 from xscore.marking.student_merge import filter_to_attempted
 from xscore.shared.exam_paths import (
     artifact_exam_questions_tex_path,
+    artifact_student_pdf_dir,
     artifact_student_pdfs_dir,
+    artifact_student_report_pdf_portrait_2up_attempted_path,
+    artifact_student_report_pdf_portrait_2up_path,
+    artifact_student_report_pdf_portrait_large_attempted_path,
+    artifact_student_report_pdf_portrait_large_path,
     artifact_student_report_tex_landscape_attempted_path,
     artifact_student_report_tex_landscape_path,
     artifact_student_report_tex_landscape_with_questions_attempted_path,

@@ -33,11 +33,20 @@ from pathlib import Path
 import fitz  # PyMuPDF
 from PIL import Image
 
-# Runtime imports of types defined in the parent module. ``scan_orientation``
-# imports this module at the BOTTOM of its file (after ``PageVote`` /
-# ``OrientationResult`` are defined), so these names are available by the
-# time this module's body executes.
-from xscore.preprocessing.scan_orientation import OrientationResult, PageVote  # noqa: E402
+# Runtime imports of names defined in the parent module. ``scan_orientation``
+# imports this module at the BOTTOM of its file (after these names are
+# defined), so they are available by the time this module's body executes.
+from xscore.preprocessing.scan_orientation import (  # noqa: E402
+    OrientationResult,
+    PageVote,
+    SkippedPage,
+    _check_tesseract_available,
+    _fallback,
+    _initial_and_escalation_votes,
+    _pick_candidate_pages,
+    _split_candidates,
+    _spread_candidates,
+)
 
 # Module-level constants shared across the orientation pipeline.
 # Mirrored from :mod:`xscore.preprocessing.scan_orientation` so detector
@@ -343,32 +352,37 @@ def _detect_one_tesseract(
     *,
     is_blank_page,
 ) -> OrientationResult:
-    """Tesseract-primary detection with usable-vote two-stage sampling.
+    """Tesseract-primary detection with usable-vote two-stage sampling +
+    a full-document expansion when every sampled page is blank.
 
     Walks bisection-ordered candidate pages in parallel batches; each batch
     is rendered at 150 DPI (sequential, fitz isn't thread-safe) and OSD'd in
-    parallel. Pages that return low confidence or errors are recorded in
-    ``pages_skipped`` and we keep walking until we collect ``initial_target``
-    usable votes (or run out of candidates). If the initial votes don't
-    unanimously agree (or we couldn't fill the target), we walk more
-    candidates for an additional ``escalation_target`` usable votes and
-    majority-vote across the full set.
+    parallel. Pages that return low confidence or errors are recorded in the
+    round's skipped list and we keep walking until we collect
+    ``initial_target`` usable votes (or run out of candidates). If the
+    initial votes don't unanimously agree (or we couldn't fill the target),
+    we walk more candidates for an additional ``escalation_target`` usable
+    votes and majority-vote across the full set.
+
+    **Expansion pass**: when the initial + escalation rounds yield zero
+    usable votes AND every recorded skip is ``reason=="blank"``, we sweep
+    every non-sampled page through the same blank-check + OSD pipeline. If
+    that recovers a usable vote we use it; if it finds non-blank but
+    unreadable content we fall back without drop; if every page is
+    confirmed blank we return a fallback with ``dropped=True`` so the
+    orchestrator can exclude the file from the merge.
+
+    Failures (file missing, Tesseract unavailable, empty PDF, no usable
+    votes) return a fallback ``OrientationResult``; the caller's
+    ``_emit_decision_line`` is responsible for the user-facing warn.
     """
-    from xscore.shared.terminal_ui import warn_line  # noqa: PLC0415
     from collections import Counter  # noqa: PLC0415
 
     if not scan_pdf.is_file():
-        warn_line(f"Orientation: {scan_pdf.name} not found — using 0°")
         return _fallback(f"file not found: {scan_pdf}", detector="tesseract")
 
-    # Loud-fail when explicit tesseract mode is set but binary is missing.
+    # Tesseract missing → caller will warn via the decision line.
     if not _check_tesseract_available():
-        from xscore.config import SCAN_ORIENTATION_DETECTOR  # noqa: PLC0415
-        if SCAN_ORIENTATION_DETECTOR == "tesseract":
-            warn_line(
-                f"Orientation: {scan_pdf.name} Tesseract not installed — using "
-                "0°. Set SCAN_ORIENTATION_DETECTOR=auto or =ai to use AI vision."
-            )
         return _fallback("Tesseract not installed", detector="tesseract")
 
     initial_target, escalation_target = _initial_and_escalation_votes()
@@ -377,7 +391,6 @@ def _detect_one_tesseract(
     try:
         n = len(doc)
         if n == 0:
-            warn_line(f"Orientation: {scan_pdf.name} has 0 pages — using 0°")
             return _fallback("empty PDF", detector="tesseract")
 
         # Generous candidate sequence in bisection order. We need slack
@@ -386,32 +399,35 @@ def _detect_one_tesseract(
         candidate_count = max(target_total * 2, target_total + 4)
         candidates = _spread_candidates(n, candidate_count)
         if not candidates:
-            return _fallback("no candidate pages", detector="tesseract")
+            return _fallback("no candidate pages", detector="tesseract", total_pages=n)
 
         cursor = [0]  # mutable holder so nested closure can advance it
-        skipped: list[int] = []
 
-        def _walk_until(target: int) -> list[PageVote]:
-            """Walk candidates in batches, return up to *target* fresh
-            usable votes. Updates `cursor` and `skipped` in place."""
+        def _walk_until(
+            target: int,
+        ) -> tuple[list[PageVote], list[SkippedPage]]:
+            """Walk candidates in batches, return up to *target* fresh usable
+            votes plus every skip encountered along the way. Updates
+            ``cursor`` in place."""
             collected: list[PageVote] = []
+            skipped: list[SkippedPage] = []
             while cursor[0] < len(candidates) and len(collected) < target:
                 batch_end = min(cursor[0] + _TESS_BATCH_SIZE, len(candidates))
                 batch = candidates[cursor[0]:batch_end]
                 cursor[0] = batch_end
                 results = _run_tesseract_batch(doc, batch, is_blank_page=is_blank_page)
-                # Process in batch order so the caller's terminal log shows
-                # pages in the order they were tried, not in completion order.
-                for vote, status_idx in results:
-                    if vote is None:
-                        skipped.append(status_idx)
+                # Process in batch (page) order so the caller's terminal log
+                # shows pages in the order they were tried.
+                for item in results:
+                    if isinstance(item, SkippedPage):
+                        skipped.append(item)
                         continue
-                    collected.append(vote)
+                    collected.append(item)
                     if len(collected) >= target:
                         break
-            return collected
+            return collected, skipped
 
-        initial_votes = _walk_until(initial_target)
+        initial_votes, initial_skipped = _walk_until(initial_target)
 
         distinct = {v.rotation_cw for v in initial_votes}
         need_escalation = (
@@ -419,17 +435,75 @@ def _detect_one_tesseract(
             or len(distinct) > 1                  # didn't unanimously agree
         )
         escalated_votes: list[PageVote] = []
+        escalated_skipped: list[SkippedPage] = []
         if need_escalation and escalation_target > 0:
-            escalated_votes = _walk_until(escalation_target)
+            escalated_votes, escalated_skipped = _walk_until(escalation_target)
 
+        initial_skipped_t = tuple(sorted(initial_skipped, key=lambda s: s.page_idx))
+        escalated_skipped_t = tuple(
+            sorted(escalated_skipped, key=lambda s: s.page_idx)
+        )
         all_votes = initial_votes + escalated_votes
-        if not all_votes:
-            warn_line(
-                f"Orientation: {scan_pdf.name} no usable Tesseract votes — using 0°"
+
+        # Expansion: every sampled page came back blank → walk the rest of
+        # the document to either recover an orientation from a missed
+        # content page, or confirm the file is wholly blank and droppable.
+        sampled = set(candidates[:cursor[0]])
+        sampled_skipped = initial_skipped + escalated_skipped
+        all_sampled_blank = (
+            not all_votes
+            and len(sampled_skipped) == len(sampled)
+            and all(s.reason == "blank" for s in sampled_skipped)
+        )
+        if all_sampled_blank and len(sampled) < n:
+            expansion_vote, expansion_skipped_t, content_unreadable = _expand_walk(
+                doc, sampled, is_blank_page=is_blank_page,
             )
+            if expansion_vote is not None:
+                return OrientationResult(
+                    rotation_cw=expansion_vote.rotation_cw,
+                    source="model",
+                    detector="tesseract",
+                    initial_votes=(),
+                    escalated_votes=(),
+                    expansion_votes=(expansion_vote,),
+                    initial_skipped=initial_skipped_t,
+                    escalated_skipped=escalated_skipped_t,
+                    expansion_skipped=expansion_skipped_t,
+                    total_pages=n,
+                )
+            if content_unreadable:
+                return _fallback(
+                    "no usable Tesseract votes (expansion found unreadable content)",
+                    detector="tesseract",
+                    initial_skipped=initial_skipped_t,
+                    escalated_skipped=escalated_skipped_t,
+                    expansion_skipped=expansion_skipped_t,
+                    total_pages=n,
+                )
+            # Every page (sampled + remaining) was blank.
+            confirmed = (
+                len(initial_skipped_t)
+                + len(escalated_skipped_t)
+                + len(expansion_skipped_t)
+            )
+            return _fallback(
+                f"full-document-blank: {confirmed}/{n} pages confirmed blank",
+                detector="tesseract",
+                initial_skipped=initial_skipped_t,
+                escalated_skipped=escalated_skipped_t,
+                expansion_skipped=expansion_skipped_t,
+                dropped=True,
+                total_pages=n,
+            )
+
+        if not all_votes:
             return _fallback(
                 "no usable Tesseract votes",
                 detector="tesseract",
+                initial_skipped=initial_skipped_t,
+                escalated_skipped=escalated_skipped_t,
+                total_pages=n,
             )
 
         counts = Counter(v.rotation_cw for v in all_votes)
@@ -440,10 +514,48 @@ def _detect_one_tesseract(
             detector="tesseract",
             initial_votes=tuple(sorted(initial_votes, key=lambda v: v.page_idx)),
             escalated_votes=tuple(sorted(escalated_votes, key=lambda v: v.page_idx)),
-            pages_skipped=tuple(sorted(set(skipped))),
+            initial_skipped=initial_skipped_t,
+            escalated_skipped=escalated_skipped_t,
+            total_pages=n,
         )
     finally:
         doc.close()
+
+
+def _expand_walk(
+    doc: fitz.Document,
+    sampled: set[int],
+    *,
+    is_blank_page,
+) -> tuple["PageVote | None", tuple[SkippedPage, ...], bool]:
+    """Sweep every non-sampled page through the blank-check + OSD pipeline.
+
+    Returns ``(vote_or_none, skipped_tuple, content_unreadable)``:
+
+    - ``vote_or_none`` — the first usable :class:`PageVote` recovered, or
+      ``None`` if none found.
+    - ``skipped_tuple`` — every :class:`SkippedPage` produced during the
+      sweep (in page-index order), including the page that triggered an
+      early ``content_unreadable`` exit.
+    - ``content_unreadable`` — ``True`` iff a non-blank skip
+      (``low_conf`` / ``tess_error`` / ``render_error``) was seen, which
+      proves the file has content even though we couldn't orient it.
+
+    Early-exits on the first usable vote *or* the first non-blank skip;
+    if everything is blank we walk every remaining page so the caller can
+    confidently mark the PDF dropped.
+    """
+    remaining = sorted(set(range(len(doc))) - sampled)
+    skipped: list[SkippedPage] = []
+    for start in range(0, len(remaining), _TESS_BATCH_SIZE):
+        batch = remaining[start:start + _TESS_BATCH_SIZE]
+        for item in _run_tesseract_batch(doc, batch, is_blank_page=is_blank_page):
+            if isinstance(item, PageVote):
+                return item, tuple(sorted(skipped, key=lambda s: s.page_idx)), False
+            skipped.append(item)
+            if item.reason != "blank":
+                return None, tuple(sorted(skipped, key=lambda s: s.page_idx)), True
+    return None, tuple(sorted(skipped, key=lambda s: s.page_idx)), False
 
 
 
@@ -452,59 +564,66 @@ def _run_tesseract_batch(
     page_indices: list[int],
     *,
     is_blank_page,
-) -> list[tuple["PageVote | None", int]]:
+) -> list["PageVote | SkippedPage"]:
     """Render+blank-check+OSD a batch of pages in parallel.
 
     Rendering happens **sequentially in the outer thread** (fitz documents
     aren't reliably thread-safe across page operations). OSD calls run in
     parallel via :class:`ThreadPoolExecutor`.
 
-    Returns a list of ``(PageVote_or_None, page_idx)`` pairs in original
-    batch order. ``None`` means the page was blank or Tesseract returned
-    a low-confidence / errored answer. ``page_idx`` is always populated for
-    skip-tracking.
+    Returns one ``PageVote`` per usable page and one ``SkippedPage`` per
+    page that couldn't yield a vote (blank, low OSD confidence, Tesseract
+    error, render error). The returned list preserves the input
+    ``page_indices`` order.
     """
     if not page_indices:
         return []
 
     # Render sequentially.
-    renders: list[tuple[int, Image.Image]] = []
+    renders: list[tuple[int, "Image.Image | None"]] = []
     for idx in page_indices:
         try:
             pil_img = _render_for_osd(doc[idx])
         except BaseException:  # noqa: BLE001 — can't render → treat as skip
-            renders.append((idx, None))  # type: ignore[arg-type]
+            renders.append((idx, None))
             continue
         renders.append((idx, pil_img))
 
     # OSD in parallel.
     pool_size = min(len(renders), _INNER_POOL_MAX_WORKERS)
-    by_idx: dict[int, "PageVote | None"] = {}
+    by_idx: dict[int, "PageVote | SkippedPage"] = {}
 
-    def _osd_one(item: tuple[int, "Image.Image | None"]) -> tuple[int, "PageVote | None"]:
+    def _osd_one(
+        item: tuple[int, "Image.Image | None"],
+    ) -> "PageVote | SkippedPage":
         idx, pil_img = item
         if pil_img is None:
-            return idx, None
+            return SkippedPage(page_idx=idx, reason="render_error")
         try:
             if is_blank_page(pil_img):
-                return idx, None
+                return SkippedPage(page_idx=idx, reason="blank")
         except BaseException:  # noqa: BLE001
-            return idx, None
+            return SkippedPage(page_idx=idx, reason="tess_error")
         t0 = time.perf_counter()
         rot, conf = _tesseract_rotation_cw(pil_img)
         elapsed = time.perf_counter() - t0
         if rot is None:
-            return idx, None
-        return idx, PageVote(
+            # _tesseract_rotation_cw returns (None, 0.0) on import/runtime
+            # error and (None, conf>0) on sub-threshold confidence.
+            reason = "low_conf" if conf > 0 else "tess_error"
+            return SkippedPage(
+                page_idx=idx, reason=reason, confidence=conf, elapsed_s=elapsed,
+            )
+        return PageVote(
             page_idx=idx, rotation_cw=rot, confidence=conf, elapsed_s=elapsed,
         )
 
     with ThreadPoolExecutor(max_workers=pool_size) as executor:
-        for idx, vote in executor.map(_osd_one, renders):
-            by_idx[idx] = vote
+        for result in executor.map(_osd_one, renders):
+            by_idx[result.page_idx] = result
 
     # Re-emit in the original batch (page_indices) order.
-    return [(by_idx.get(idx), idx) for idx in page_indices]
+    return [by_idx[idx] for idx in page_indices]
 
 
 # ---------------------------------------------------------------------------

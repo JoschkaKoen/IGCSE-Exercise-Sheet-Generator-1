@@ -386,6 +386,7 @@ from xscore.marking.class_report_curve import (  # noqa: E402, F401
     _grade_curve_target,
 )
 from xscore.marking.class_report_tex import (  # noqa: E402, F401
+    _EXTRA_2UP_FONT_SIZES,
     _build_all_question_tables,
     _ensure_student_pdf_subdirs,
     _pass2_write_tex,

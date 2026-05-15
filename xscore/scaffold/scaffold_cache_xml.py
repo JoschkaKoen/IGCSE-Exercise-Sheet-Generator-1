@@ -29,9 +29,12 @@ from xscore.scaffold.scaffold_cache import (
 from xscore.shared.models import (
     BBox,
     ExamImage,
+    ExamLayout,
     ExamScaffold,
+    McAnswerOption,
     Question,
     WritingArea,
+    gradable_questions,
 )
 
 

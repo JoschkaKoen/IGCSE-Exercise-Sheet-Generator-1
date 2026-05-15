@@ -184,17 +184,73 @@ def _prepare_duplex(
     audit.parent.mkdir(parents=True, exist_ok=True)
     _write_orientations_audit(audit, results)
 
-    pairs_desc = ", ".join(f"{f.stem}+{b.stem}" for f, b in pairs)
+    dropped_names = {p.name for p, r in results.items() if r.dropped}
+
     blank_line()
-    if len(pairs) == 1:
+    surviving_pairs: list[tuple[Path | None, Path | None]] = []
+    for front, back in pairs:
+        f_drop = front.name in dropped_names
+        b_drop = back.name in dropped_names
+        if f_drop and b_drop:
+            info_line(
+                f"Pair {front.stem}+{back.stem}: both files fully blank — pair dropped"
+            )
+            continue
+        if f_drop:
+            info_line(
+                f"Pair {front.stem}+{back.stem}: {front.name} fully blank — "
+                f"using {back.name} alone (reversed to natural order)"
+            )
+            surviving_pairs.append((None, back))
+            continue
+        if b_drop:
+            info_line(
+                f"Pair {front.stem}+{back.stem}: {back.name} fully blank — "
+                f"using {front.name} alone"
+            )
+            surviving_pairs.append((front, None))
+            continue
+        surviving_pairs.append((front, back))
+
+    if not surviving_pairs:
+        raise RuntimeError(
+            "Every scan PDF was detected as fully blank — nothing to process."
+        )
+
+    pairs_desc = ", ".join(_describe_pair(p) for p in surviving_pairs)
+    if len(surviving_pairs) == 1 and all(p is not None for p in surviving_pairs[0]):
         info_line(f"Merging duplex pair: {pairs_desc}")
+    elif any(None in p for p in surviving_pairs):
+        info_line(f"Merging {len(surviving_pairs)} run(s): {pairs_desc}")
     else:
-        info_line(f"Merging {len(pairs)} duplex pairs: {pairs_desc}")
+        info_line(f"Merging {len(surviving_pairs)} duplex pairs: {pairs_desc}")
 
     merged = fitz.open()
     try:
         total_pages = 0
-        for front, back in pairs:
+        for front, back in surviving_pairs:
+            if front is not None and back is None:
+                # Survivor: front alone, natural order.
+                front_rot = results[front].rotation_cw if front in results else 0
+                with fitz.open(str(front)) as doc_f:
+                    if front_rot:
+                        for p in doc_f:
+                            p.set_rotation((p.rotation + front_rot) % 360)
+                    merged.insert_pdf(doc_f)
+                    total_pages += len(doc_f)
+                continue
+            if front is None and back is not None:
+                # Survivor: back alone, reversed to recover natural order.
+                back_rot = results[back].rotation_cw if back in results else 0
+                with fitz.open(str(back)) as doc_b:
+                    if back_rot:
+                        for p in doc_b:
+                            p.set_rotation((p.rotation + back_rot) % 360)
+                    for i in range(len(doc_b) - 1, -1, -1):
+                        merged.insert_pdf(doc_b, from_page=i, to_page=i)
+                    total_pages += len(doc_b)
+                continue
+            assert front is not None and back is not None
             front_rot = results[front].rotation_cw if front in results else 0
             back_rot  = results[back].rotation_cw  if back  in results else 0
             with fitz.open(str(front)) as doc_f, fitz.open(str(back)) as doc_b:
@@ -241,6 +297,17 @@ def _prepare_duplex(
     return out
 
 
+def _describe_pair(pair: tuple[Path | None, Path | None]) -> str:
+    """Render a pair tuple as ``f+b`` (duplex), ``f`` (front alone), or ``b`` (back alone)."""
+    front, back = pair
+    if front is not None and back is not None:
+        return f"{front.stem}+{back.stem}"
+    if front is not None:
+        return front.stem
+    assert back is not None  # surviving_pairs never contains (None, None)
+    return back.stem
+
+
 def _prepare_single(
     src: Path,
     artifact_dir: Path,
@@ -266,8 +333,14 @@ def _prepare_single(
             cached = _read_orientations_audit(audit)
         except Exception:  # noqa: BLE001 — corrupt audit → regenerate
             cached = {}
-        cached_rot = cached.get(src.name, None)
-        if cached_rot is not None:
+        cached_entry = cached.get(src.name)
+        if cached_entry is not None:
+            if cached_entry.get("dropped"):
+                _log_cached_orientation_summary(cached)
+                raise RuntimeError(
+                    "Every scan PDF was detected as fully blank — nothing to process."
+                )
+            cached_rot = int(cached_entry.get("rotation_cw", 0))
             if cached_rot == 0:
                 ok_line(f"Using cached orientation for {src.name}")
                 _log_cached_orientation_summary(cached)
@@ -286,6 +359,11 @@ def _prepare_single(
     results = detect_scan_orientations([src])
     audit.parent.mkdir(parents=True, exist_ok=True)
     _write_orientations_audit(audit, results)
+
+    if src in results and results[src].dropped:
+        raise RuntimeError(
+            "Every scan PDF was detected as fully blank — nothing to process."
+        )
 
     rot = results[src].rotation_cw if src in results else 0
     if rot == 0:
@@ -380,6 +458,7 @@ def _write_orientations_audit(path: Path, results: dict) -> None:
          "files": [{"name": "...", "rotation_cw": ...,
                     "source": "model" | "fallback",
                     "detector": "tesseract" | "ai" | "fallback",
+                    "dropped": bool,
                     "reason": "..."?}, ...]}
     """
     import json
@@ -392,6 +471,7 @@ def _write_orientations_audit(path: Path, results: dict) -> None:
             "rotation_cw": int(r.rotation_cw),
             "source": str(r.source),
             "detector": str(r.detector),
+            "dropped": bool(getattr(r, "dropped", False)),
         }
         if r.reason is not None:
             entry["reason"] = str(r.reason)
@@ -409,36 +489,47 @@ def _write_orientations_audit(path: Path, results: dict) -> None:
     path.write_text(json.dumps(body, indent=2), encoding="utf-8")
 
 
-def _read_orientations_audit(path: Path) -> dict[str, int]:
-    """Read scan_orientations.json and return ``{name: rotation_cw}``.
+def _read_orientations_audit(path: Path) -> dict[str, dict]:
+    """Read scan_orientations.json and return ``{name: {entry}}``.
 
-    Accepts both schema_version 1 (pre-Tesseract-primary) and 2.
+    Each entry is a dict with ``rotation_cw: int`` and ``dropped: bool``
+    (plus any other fields preserved from the file). Accepts both
+    schema_version 1 (pre-Tesseract-primary) and 2.
     """
     import json
     data = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(data, dict) or data.get("schema_version") not in (1, 2):
         raise ValueError(f"unsupported scan_orientations.json schema: {path}")
-    out: dict[str, int] = {}
+    out: dict[str, dict] = {}
     for entry in data.get("files", []) or []:
-        out[str(entry["name"])] = int(entry.get("rotation_cw", 0))
+        name = str(entry["name"])
+        out[name] = {
+            "rotation_cw": int(entry.get("rotation_cw", 0)),
+            "dropped": bool(entry.get("dropped", False)),
+            "reason": entry.get("reason"),
+        }
     return out
 
 
-def _log_cached_orientation_summary(cached: dict[str, int]) -> None:
+def _log_cached_orientation_summary(cached: dict[str, dict]) -> None:
     """Log a one-line-per-file replay from cached audit JSON.
 
     The audit JSON intentionally doesn't store per-page votes (kept compact),
     so this replay shows just the per-file decision — mirroring the fresh-run
     decision-line shape, with a `(cached)` suffix.
     """
-    from xscore.shared.terminal_ui import blank_line, ok_line
+    from xscore.shared.terminal_ui import blank_line, ok_line, warn_line
     if not cached:
         return
     blank_line()
     for i, name in enumerate(sorted(cached)):
         if i:
             blank_line()
-        rot = cached[name]
+        entry = cached[name]
+        if entry.get("dropped"):
+            warn_line(f"{name}: dropped — fully blank (cached)")
+            continue
+        rot = int(entry.get("rotation_cw", 0))
         if rot == 0:
             ok_line(f"{name}: already upright (cached)")
         else:

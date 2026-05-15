@@ -58,6 +58,31 @@ class _Tee:
         self._log.close()
 
 
+def _suggest_from_step(resume_dir: Path) -> int | None:
+    """Highest NN-prefixed step folder in *resume_dir* that's a resumable
+    step, or None if nothing usable is found.
+
+    Step folders use the mechanical ``NN_<step_name>`` form (see
+    ``xscore.shared.step_folders``); the NN matches ``Step.number``. The
+    highest NN typically maps to the step that was running when the prior
+    run crashed, so re-running from there picks up where it left off.
+    """
+    from xscore.shared.pipeline_steps import resumable_step_numbers
+    if not resume_dir.is_dir():
+        return None
+    resumable = set(resumable_step_numbers())
+    found = [
+        int(c.name[:2])
+        for c in resume_dir.iterdir()
+        if c.is_dir()
+        and len(c.name) >= 3
+        and c.name[:2].isdigit()
+        and c.name[2] == "_"
+        and int(c.name[:2]) in resumable
+    ]
+    return max(found) if found else None
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="XScore.py",
@@ -99,14 +124,24 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=None,
         metavar="N",
-        help="Resume from step N using artifacts from a prior run (supported: blueprints, marking, reports step)",
+        help=(
+            "Resume from step N, reusing artifacts from a prior run. N must "
+            "be a resumable step (validated at runtime). Pair with "
+            "--resume-dir to pick a specific prior run; without --resume-dir, "
+            "the latest completed run for this exam is auto-detected."
+        ),
     )
     parser.add_argument(
         "--resume-dir",
         type=Path,
         default=None,
         metavar="PATH",
-        help="Prior artifact dir to resume from (auto-detects latest valid run if omitted)",
+        help=(
+            "Specific prior-run artifact dir to resume from. REQUIRES "
+            "--from-step (passing --resume-dir alone is an error). When "
+            "--from-step is set without --resume-dir, the latest completed "
+            "run is used automatically."
+        ),
     )
     parser.add_argument(
         "--student",
@@ -134,6 +169,19 @@ def parse_args() -> argparse.Namespace:
     args = parser.parse_args()
     if args.limit_students is not None and args.limit_students <= 0:
         parser.error(f"--limit-students must be a positive integer (got {args.limit_students})")
+    if args.resume_dir is not None and args.from_step is None:
+        suggested = _suggest_from_step(args.resume_dir)
+        if suggested is not None:
+            parser.error(
+                f"--resume-dir requires --from-step. Add: --from-step {suggested} "
+                f"(highest resumable step folder found in {args.resume_dir})"
+            )
+        from xscore.shared.pipeline_steps import resumable_step_numbers
+        valid = ", ".join(str(n) for n in resumable_step_numbers())
+        parser.error(
+            f"--resume-dir requires --from-step N (resumable: {valid}). "
+            f"No resumable step folders found in {args.resume_dir}."
+        )
     return args
 
 

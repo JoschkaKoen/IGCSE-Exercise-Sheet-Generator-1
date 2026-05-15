@@ -16,6 +16,11 @@ from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
+# Runtime imports of names defined in the parent module. ``marking_page_register``
+# imports this module at the BOTTOM of its file (after these names are
+# defined), so they are available by the time this module's body executes.
+from xscore.marking.marking_page_register import _AttachMap, _FIGURE_RE  # noqa: E402
+
 
 def apply_cross_page_extras(
     register: dict,
