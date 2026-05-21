@@ -35,7 +35,6 @@ def parse_grading_instructions(ctx: _Ctx) -> None:
     ctx.parse_prompt_debug = {}
     ctx.instruction = parse_prompt(
         ctx.args.prompt,
-        dpi_override=ctx.args.dpi,
         out=ctx.parse_prompt_debug,
     )
     ctx.parse_elapsed = time.perf_counter() - t0
@@ -103,7 +102,6 @@ def locate_exam_folder(ctx: _Ctx) -> None:
         "step": step_by_name("parse_grading_instructions").number,
         "elapsed_s": round(ctx.parse_elapsed, 3),
         "task_type": inst.task_type,
-        "dpi": inst.dpi,
         "status": "ok",
     }
     p1 = artifact_parse_summary_path(ctx.artifact_dir)

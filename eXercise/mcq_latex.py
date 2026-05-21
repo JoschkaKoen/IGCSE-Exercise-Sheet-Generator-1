@@ -164,10 +164,6 @@ def build_explanation_latex(
 
 \begin{{document}}
 
-{header_row}
-
-\vspace{{4pt}}
-
 {body}
 
 \end{{document}}

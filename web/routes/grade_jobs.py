@@ -3,7 +3,7 @@
 
 The pipeline orchestration lives in ``xscore.pipeline.runner.run_pipeline`` —
 this module is the FastAPI front door that builds the request shape, dispatches
-the worker, and exposes per-artifact downloads. All 37 pipeline steps + resume
+the worker, and exposes per-artifact downloads. All pipeline steps + resume
 support come from the canonical runner; this module owns no step logic of its own.
 """
 
@@ -16,7 +16,6 @@ import logging
 import os
 import re
 import shutil
-import sys
 import zipfile
 from pathlib import Path
 
@@ -25,7 +24,8 @@ from fastapi.responses import FileResponse, JSONResponse, Response
 
 from .._state import create_background_task, store
 from ..grade_auth import require_grade_unlock
-from ..grade_service import GradeFormOpts, run_xscore_pipeline
+from ..grade_service import GradeFormOpts
+from ..grade_subprocess import cancel_process, run_grade_subprocess
 from ..jobs import JobStatus
 
 router = APIRouter()
@@ -36,64 +36,14 @@ _GRADE_UPLOADS_ROOT = (
 )
 _OUTPUT_XSCORE_ROOT = Path(__file__).resolve().parent.parent.parent / "output" / "xscore"
 
-# ANSI CSI + OSC strippers — mirrors XScore.py:_Tee for the captured-stream path.
+# ANSI CSI + OSC strippers — the subprocess sees a pipe (non-TTY) so Rich auto-
+# disables colors, but some libraries emit ANSI unconditionally; strip defensively.
 _ANSI_CSI_RE = re.compile(r"\x1b\[[0-?]*[ -/]*[@-~]")
 _ANSI_OSC_RE = re.compile(r"\x1b\][^\x07]*\x07")
 
 
-class _StdoutTee:
-    """Mirror writes to the original stdout AND emit completed lines to a callback.
-
-    Carries a ``_log = True`` marker attribute so ``xscore/marking/ai_mark.py``
-    auto-disables ``rich.live.Live`` (no in-place cursor updates we'd have to
-    re-strip later).
-    """
-
-    _log = True  # marker for ai_mark.py's `not hasattr(sys.stdout, '_log')` check
-
-    def __init__(self, real_stdout, on_line) -> None:
-        self._real = real_stdout
-        self._on_line = on_line
-        self._buf = ""
-
-    def write(self, text: str) -> int:
-        if not isinstance(text, str):
-            text = str(text)
-        try:
-            n = self._real.write(text)
-        except Exception:
-            n = len(text)
-        self._buf += text
-        if "\n" in self._buf:
-            parts = self._buf.split("\n")
-            self._buf = parts[-1]
-            for line in parts[:-1]:
-                self._emit(line)
-        return n if n is not None else len(text)
-
-    def flush(self) -> None:
-        try:
-            self._real.flush()
-        except Exception:
-            pass
-        if self._buf:
-            self._emit(self._buf)
-            self._buf = ""
-
-    def _emit(self, line: str) -> None:
-        clean = _ANSI_OSC_RE.sub("", _ANSI_CSI_RE.sub("", line)).rstrip("\r")
-        if clean.strip() or line.strip() == "":
-            try:
-                self._on_line(clean)
-            except Exception:
-                pass
-
-    def isatty(self) -> bool:  # pragma: no cover — explicit so Rich sees non-TTY
-        return False
-
-    def __getattr__(self, name):
-        # Forward anything else (e.g., .encoding) to the original stdout.
-        return getattr(self._real, name)
+def _strip_ansi(line: str) -> str:
+    return _ANSI_OSC_RE.sub("", _ANSI_CSI_RE.sub("", line)).rstrip("\r")
 
 
 # ---------------------------------------------------------------------------
@@ -120,29 +70,8 @@ _GRADE_STEPS = _build_grade_steps()
 
 
 # ---------------------------------------------------------------------------
-# Worker — dispatches the canonical pipeline, fans events into JobStore.
+# Worker — spawn xScore as a subprocess, route stdout into JobStore.
 # ---------------------------------------------------------------------------
-
-def _run_with_capture(
-    folder: Path,
-    opts: GradeFormOpts,
-    on_step_event,
-    on_capture,
-):
-    """Run the pipeline with stdout teed into ``on_capture`` for the duration.
-
-    Single-user assumption: ``sys.stdout`` is module-level, so this is safe
-    only because ``JobStore`` is documented single-user (see ``web/jobs.py``).
-    Concurrent grade jobs would race on the global stdout slot.
-    """
-    real_stdout = sys.stdout
-    return run_xscore_pipeline(
-        folder=folder,
-        opts=opts,
-        on_step_event=on_step_event,
-        stdout_tee_factory=lambda: _StdoutTee(real_stdout, on_capture),
-    )
-
 
 async def _run_grade_job(
     job_id: str,
@@ -154,53 +83,93 @@ async def _run_grade_job(
     store.set_log_line(job_id, "Starting pipeline…")
     store.set_upload_folder(job_id, folder)
 
-    def on_line(line: str) -> None:
+    def on_line(raw: str) -> None:
+        line = _strip_ansi(raw)
+        if not line.strip():
+            return
+        store.append_log_line(job_id, line)
         store.set_log_line(job_id, line)
 
-    def on_capture(line: str) -> None:
-        store.append_log_line(job_id, line)
-
-    def on_step_event(evt: dict) -> None:
+    def on_event(evt: dict) -> None:
         n = evt.get("step_number")
         status = evt.get("status")
         if n is None or status is None:
             return
         if status == "running":
             store.step_running(job_id, n)
+            store.record_running_step(job_id, n)
         elif status == "ok":
             store.step_done(job_id, n, evt.get("duration_s") or 0.0)
+            store.clear_running_step(job_id)
         elif status == "error":
             store.step_failed(job_id, n, evt.get("duration_s") or 0.0)
+            store.clear_running_step(job_id)
         ad = evt.get("artifact_dir")
         if ad:
             store.set_artifact_dir(job_id, Path(ad))
 
-    # Forward the most-recent log line from on_capture into on_line too, so the
-    # one-liner status header tracks the captured stream when the canonical UI
-    # only writes via stdout (no `info_line` callback in this path).
-    def _capture_and_set(line: str) -> None:
-        on_capture(line)
-        if line.strip():
-            on_line(line)
+    def register_proc(p) -> None:
+        store.set_process(job_id, p)
 
     try:
-        cleaned_pdf, artifact_dir = await asyncio.to_thread(
-            _run_with_capture, folder, opts, on_step_event, _capture_and_set
+        exit_code = await run_grade_subprocess(
+            folder,
+            opts,
+            on_line=on_line,
+            on_event=on_event,
+            register_proc=register_proc,
         )
-        from xscore.shared.exam_paths import artifact_class_report_pdf_path
+    except Exception as e:  # noqa: BLE001
+        logging.exception("Grade pipeline spawn failed for job %s", job_id)
+        store.fail(job_id, f"Pipeline spawn error: {e}")
+        return
+
+    # Cancel inference: POSIX signal-killed → exit_code < 0; shell-style signal
+    # encoding → exit_code > 128. A clean 0 always wins, even if cancel was
+    # requested mid-flight (race: pipeline finished before SIGTERM landed).
+    was_signal_killed = exit_code < 0 or exit_code > 128
+    current = store.get(job_id)
+    if current is not None and current.status == JobStatus.CANCELED:
+        # The cancel endpoint already marked it; nothing else to do.
+        return
+
+    if exit_code == 0:
+        rec = store.get(job_id)
+        artifact_dir = rec.artifact_dir if rec else None
+        cleaned_pdf: Path | None = None
         class_report_pdf: Path | None = None
         if artifact_dir:
+            from xscore.shared.exam_paths import (
+                DESKEW_DIR,
+                artifact_class_report_pdf_path,
+            )
+            for candidate in (
+                artifact_dir / DESKEW_DIR / "cleaned_scan.pdf",
+                artifact_dir / "cleaned_scan.pdf",
+            ):
+                if candidate.is_file():
+                    cleaned_pdf = candidate
+                    break
             cand = artifact_class_report_pdf_path(artifact_dir)
             if cand.is_file():
                 class_report_pdf = cand
         store.complete(
             job_id,
-            output_pdf=cleaned_pdf or folder,  # cleaned_scan if produced; folder as a stub
+            output_pdf=cleaned_pdf or folder,
             answers_pdf=class_report_pdf,
         )
-    except Exception as e:  # noqa: BLE001
-        logging.exception("Grade pipeline failed for job %s", job_id)
-        store.fail(job_id, f"Pipeline error: {e}")
+    elif was_signal_killed:
+        # Process was signaled but not via the /cancel endpoint (likely OS OOM
+        # killer, external kill, etc.). Surface as canceled rather than failed
+        # so the UI shows the right terminal state.
+        store.cancel(job_id, message=f"Process terminated by signal (exit {exit_code})")
+    else:
+        rec = store.get(job_id)
+        tail = "\n".join(rec.log_lines[-5:]) if rec and rec.log_lines else ""
+        msg = f"Pipeline exited with code {exit_code}"
+        if tail:
+            msg += f"\n…\n{tail}"
+        store.fail(job_id, msg)
 
 
 # ---------------------------------------------------------------------------
@@ -244,8 +213,6 @@ def _validate_opts(opts: GradeFormOpts) -> None:
     """Fail fast on bad form input — the canonical pipeline would SystemExit later."""
     from xscore.shared.pipeline_steps import max_step_number, resumable_step_numbers
 
-    if opts.dpi is not None and not (50 <= opts.dpi <= 1200):
-        raise HTTPException(status_code=400, detail=f"dpi out of range [50, 1200]: {opts.dpi}")
     max_n = max_step_number()
     if opts.stop_after is not None and not (1 <= opts.stop_after <= max_n):
         raise HTTPException(
@@ -315,7 +282,6 @@ async def create_grade_job(
     empty_exam: UploadFile = File(...),
     answer_sheet: UploadFile = File(...),
     prompt: str | None = Form(None),
-    dpi: int | None = Form(None),
     force_clean_scan: bool = Form(False),
     stop_after: int | None = Form(None),
     from_step: int | None = Form(None),
@@ -337,7 +303,6 @@ async def create_grade_job(
     """
     opts = GradeFormOpts(
         prompt=prompt,
-        dpi=dpi,
         force_clean_scan=force_clean_scan,
         stop_after=stop_after,
         from_step=from_step,
@@ -392,6 +357,51 @@ async def create_grade_job(
 
 
 # ---------------------------------------------------------------------------
+# POST /api/grade/jobs/{job_id}/cancel — stop the subprocess immediately
+# ---------------------------------------------------------------------------
+
+@router.post("/api/grade/jobs/{job_id}/cancel")
+async def cancel_grade_job(
+    job_id: str,
+    _gate: None = Depends(require_grade_unlock),
+) -> dict[str, str]:
+    """Cancel a running grade job. Sends SIGTERM to the subprocess group
+    (escalates to SIGKILL after 3 s). Idempotent for terminal states."""
+    rec = store.get(job_id)
+    if rec is None:
+        raise HTTPException(status_code=404, detail="Job not found")
+    if rec.status != JobStatus.RUNNING:
+        return {"status": rec.status, "message": "Job is not running"}
+
+    # Three cancel-during-spawn races:
+    #   (a) subprocess spawned but register_proc hasn't fired yet → retry briefly
+    #   (b) spawn itself raised (FileNotFoundError, EMFILE) → no proc ever appears;
+    #       mark canceled anyway so the UI state matches user intent (the worker
+    #       branch will set FAILED concurrently — both transitions are terminal
+    #       and store.cancel is a no-op once status is terminal).
+    #   (c) two simultaneous cancels → killpg twice is harmless; store.cancel is idempotent.
+    proc = None
+    for _ in range(10):  # 10 * 50ms = 500ms grace
+        proc = store.get_process(job_id)
+        if proc is not None:
+            break
+        await asyncio.sleep(0.05)
+
+    if proc is None:
+        store.cancel(job_id)
+        return {"status": JobStatus.CANCELED, "message": "Process not yet running; cancel recorded"}
+
+    # Set status BEFORE signaling so the worker's exit branch sees CANCELED and
+    # skips the duplicate fail() path on its end.
+    store.cancel(job_id)
+    try:
+        await cancel_process(proc)
+    except Exception as exc:  # noqa: BLE001
+        logging.warning("cancel_process failed for job %s: %s", job_id, exc)
+    return {"status": JobStatus.CANCELED}
+
+
+# ---------------------------------------------------------------------------
 # POST /api/grade/jobs/resume — re-enter a failed/partial run from a step
 # ---------------------------------------------------------------------------
 
@@ -428,6 +438,20 @@ async def resume_grade_job(
         for f in input_subdir.iterdir():
             if f.is_file():
                 shutil.copy2(f, upload_folder / f.name)
+
+    # If a prior canceled job ran on this artifact, refuse to skip past the
+    # step that was interrupted (its output dir is half-written; previous
+    # steps' outputs are intact).
+    clamp = store.cancel_clamp_for_artifact(art)
+    if clamp is not None and from_step > clamp:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"Cannot resume from step {from_step}: a prior canceled job "
+                f"interrupted step {clamp}. Resume must re-run from step {clamp} "
+                f"or earlier."
+            ),
+        )
 
     opts = GradeFormOpts(
         prompt=prompt,

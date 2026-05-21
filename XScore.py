@@ -11,13 +11,15 @@ log mirror, banner, dispatch.
 
 Usage:
     python XScore.py "grade Space Physics Unit Test"
-    python XScore.py "grade the exam" --folder "exams/space_physics" --dpi 300
+    python XScore.py "grade the exam" --folder "exams/space_physics"
 """
 
 from __future__ import annotations
 
 import argparse
 import datetime
+import json
+import os
 import re
 import shlex
 import sys
@@ -98,13 +100,6 @@ def parse_args() -> argparse.Namespace:
         default=None,
         metavar="PATH",
         help="Exam folder path (overrides folder hint from prompt)",
-    )
-    parser.add_argument(
-        "--dpi",
-        type=int,
-        default=None,
-        metavar="N",
-        help="Rendering DPI (overrides dpi from prompt; default 400)",
     )
     parser.add_argument(
         "--force-clean-scan",
@@ -205,9 +200,18 @@ def main() -> None:
             style="blue",
         )
     )
+    on_step_event = None
+    if os.environ.get("XSCORE_EVENTS_TO_STDOUT") == "1":
+        def on_step_event(evt: dict) -> None:
+            try:
+                sys.stdout.write("__XSCORE_EVENT__\t" + json.dumps(evt, default=str) + "\n")
+                sys.stdout.flush()
+            except Exception:
+                pass
+
     try:
         from xscore.pipeline.runner import run_pipeline
-        run_pipeline(args, timestamp, log_path=log_path)
+        run_pipeline(args, timestamp, log_path=log_path, on_step_event=on_step_event)
     finally:
         tee.flush()
         tee.close()

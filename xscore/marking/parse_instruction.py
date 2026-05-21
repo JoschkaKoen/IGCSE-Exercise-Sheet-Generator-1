@@ -6,22 +6,13 @@ Uses a text-only Gemini call (PARSE_PROMPT_MODEL) so this step is fast and cheap
 from __future__ import annotations
 
 import os
-import re
 import time
 
 from .ai_helpers import parse_json_safe
-from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, PIPELINE_DEFAULT_DPI
+from xscore.config import GEMINI_MAX_OUTPUT_TOKENS
 from xscore.prompts.loader import load_prompt
 from xscore.shared.models import StudentFilter, TaskInstruction
 from xscore.shared.terminal_ui import info_line, warn_line
-
-# Matches quoted paths ("…" or '…') first, then bare paths starting with / or ~.
-# Trailing sentence punctuation is excluded from bare paths.
-_PATH_RE = re.compile(
-    r'"((?:/|~)[^"]+)"'                   # double-quoted path
-    r"|'((?:/|~)[^']+)'"                  # single-quoted path
-    r"|(?<!\S)((?:/|~)[^\s,;.!?]+)"       # bare path (no trailing punctuation)
-)
 
 _DEFAULT_MODEL = "gemini-2.5-flash"  # also set as INTERPRET_PROMPT_MODEL in default.env
 
@@ -160,36 +151,33 @@ _SYSTEM_PROMPT = load_prompt("parse_grading_instructions")[1]
 def parse_prompt(
     prompt: str,
     client: object | None = None,  # ignored — kept for backward compatibility
-    dpi_override: int | None = None,
     *,
     out: dict | None = None,
 ) -> TaskInstruction:
     """Parse *prompt* into a ``TaskInstruction`` via a Gemini text call.
 
     Uses PARSE_PROMPT_MODEL (default: gemini-2.5-flash, low).
-    *dpi_override* (CLI ``--dpi``) takes precedence over DPI from the prompt.
-    Falls back to a simple keyword heuristic if the Gemini call fails.
+
+    Raises ``RuntimeError`` if the AI call fails, returns nothing, or returns
+    unparseable JSON — the caller should surface the error to the user and let
+    them re-phrase the prompt. There is no heuristic fallback by design.
 
     When *out* is supplied (a mutable dict), it is populated with debug fields
     (``model``, ``system``, ``user``, ``raw``, ``thinking``) so the caller can
     persist the prompt+response to disk once an artifact dir is available.
     """
-    instruction = _heuristic_fallback(prompt, dpi_override)
-
-    try:
-        raw = _call_text(prompt, out=out)
-    except Exception as exc:  # noqa: BLE001
-        warn_line(f"Prompt parse API error ({exc}) — using heuristic parse.")
-        return instruction
+    raw = _call_text(prompt, out=out)
 
     if not raw.strip():
-        warn_line("Empty AI response — using heuristic parse.")
-        return instruction
+        raise RuntimeError(
+            "Empty AI response from parse_grading_instructions — please re-phrase the prompt."
+        )
 
     data = parse_json_safe(raw)
     if data is None:
-        warn_line("Could not parse AI response — using heuristic parse.")
-        return instruction
+        raise RuntimeError(
+            "Could not parse AI response from parse_grading_instructions — please re-phrase the prompt."
+        )
 
     sf_raw = data.get("student_filter") or {}
     if not isinstance(sf_raw, dict):
@@ -223,12 +211,6 @@ def parse_prompt(
         n=n_students if mode_raw == "first_n" else 0,
     )
 
-    raw_dpi = data.get("dpi")
-    try:
-        parsed_dpi = int(raw_dpi) if raw_dpi is not None and raw_dpi != "" else PIPELINE_DEFAULT_DPI
-    except (TypeError, ValueError):
-        parsed_dpi = PIPELINE_DEFAULT_DPI
-    dpi = dpi_override or parsed_dpi
     raw_hint = data.get("folder_hint")
     folder_hint = str(raw_hint).strip() if raw_hint not in (None, "") else None
     raw_fp = data.get("folder_path")
@@ -246,9 +228,8 @@ def parse_prompt(
         stop_after = int(raw_stop_after) if raw_stop_after not in (None, "") else None
     except (TypeError, ValueError):
         stop_after = None
-    # AI-set value takes priority; fall back to the heuristic in case the AI
-    # ignored or omitted the field.
-    reuse_cache = bool(data.get("reuse_cache", instruction.reuse_cache))
+    # AI-set value takes priority; default to False when the AI omits the field.
+    reuse_cache = bool(data.get("reuse_cache", False))
 
     if "curved_grade_override" in data:
         raw_curve = data.get("curved_grade_override")
@@ -264,7 +245,7 @@ def parse_prompt(
             )
             curved_grade_override = None
     else:
-        curved_grade_override = instruction.curved_grade_override
+        curved_grade_override = None
 
     if "curved_grade_visible" in data:
         raw_vis = data.get("curved_grade_visible")
@@ -273,107 +254,21 @@ def parse_prompt(
         else:
             curved_grade_visible = bool(raw_vis)
     else:
-        curved_grade_visible = instruction.curved_grade_visible
+        curved_grade_visible = None
 
     _VALID_TASK_TYPES = {"count_marks", "check_mc", "check_answers"}
-    raw_task = data.get("task_type", instruction.task_type)
+    raw_task = data.get("task_type", "check_answers")
     if raw_task not in _VALID_TASK_TYPES:
-        info_line(f"AI returned unknown task_type {raw_task!r} — keeping {instruction.task_type!r}")
-        raw_task = instruction.task_type
+        info_line(f"AI returned unknown task_type {raw_task!r} — defaulting to 'check_answers'")
+        raw_task = "check_answers"
 
     return TaskInstruction(
         task_type=raw_task,
         student_filter=student_filter,
-        dpi=dpi,
         folder_hint=folder_hint,
         folder_path=folder_path,
         force_clean_scan=force_clean_scan,
         no_report=no_report,
-        from_step=from_step,
-        stop_after=stop_after,
-        reuse_cache=reuse_cache,
-        curved_grade_override=curved_grade_override,
-        curved_grade_visible=curved_grade_visible,
-    )
-
-
-def _heuristic_fallback(prompt: str, dpi_override: int | None) -> TaskInstruction:
-    """Simple keyword-based parse used when the AI call fails."""
-    p = prompt.lower()
-
-    if "count" in p and "mark" in p:
-        task_type = "count_marks"
-    elif "multiple choice" in p or " mc " in p or "check mc" in p:
-        task_type = "check_mc"
-    else:
-        task_type = "check_answers"
-
-    student_filter = StudentFilter()
-    if "first" in p:
-        m = re.search(r"first\s+(\d+)", p)
-        if m:
-            k = int(m.group(1))
-            if k > 0:
-                student_filter = StudentFilter(mode="first_n", n=k)
-
-    dpi = dpi_override or PIPELINE_DEFAULT_DPI
-
-    force_clean = ("force" in p and "clean" in p) or "re-clean" in p or "reclean" in p.replace(" ", "")
-
-    folder_path: str | None = None
-    pm = _PATH_RE.search(prompt)
-    if pm:
-        folder_path = next(g for g in pm.groups() if g is not None)
-
-    from_step: int | None = None
-    _fs_m = re.search(r'\b(?:resume\s+(?:from\s+)?|from\s+)?step\s+(\d+)', p)
-    if _fs_m:
-        from_step = int(_fs_m.group(1))
-
-    stop_after: int | None = None
-    _sa_m = re.search(r'\b(?:stop|halt|end)\s+(?:(?:after|at|on)\s+)?step\s+(\d+)', p)
-    if _sa_m is None:
-        _sa_m = re.search(r'\bfirst\s+(\d+)\s+steps?\b', p)
-    if _sa_m:
-        stop_after = int(_sa_m.group(1))
-
-    # Cache opt-in phrases — kept narrow so casual mentions of "cache" don't
-    # accidentally enable it.
-    reuse_cache = (
-        "reuse cache" in p
-        or "use cache" in p
-        or "from cache" in p
-        or "cache reuse" in p
-    )
-
-    # Grade-curve controls. Both stay None unless the prompt explicitly asks
-    # for an override — None means "fall back to env var" downstream.
-    curved_grade_override: int | None = None
-    cm = re.search(r"\bcurve\s*(?:at|to|of|target|=)?\s*(\d{1,3})\b", p)
-    if cm is None:
-        cm = re.search(r"\btarget\s*(\d{1,3})\b", p)
-    if cm is not None:
-        v = int(cm.group(1))
-        if 0 <= v <= 100:
-            curved_grade_override = v
-
-    curved_grade_visible: bool | None = None
-    if (
-        "hide curve" in p
-        or "no curve on student" in p
-        or "without curve on student" in p
-        or "don't show curve" in p
-        or "do not show curve" in p
-    ):
-        curved_grade_visible = False
-
-    return TaskInstruction(
-        task_type=task_type,
-        student_filter=student_filter,
-        dpi=dpi,
-        folder_path=folder_path,
-        force_clean_scan=force_clean,
-        no_report="no report" in p or "terminal only" in p,
         from_step=from_step,
         stop_after=stop_after,
         reuse_cache=reuse_cache,

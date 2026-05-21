@@ -11,6 +11,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from eXercise.config import EXAM_ROOT_BY_KEY
+from xscore.shared.pipeline_steps import max_step_number
 
 from ..auth_gate import (
     EXPECTED_CODE,
@@ -139,7 +140,11 @@ async def grade_page(request: Request) -> HTMLResponse:
     return TEMPLATES.TemplateResponse(
         request,
         "grade.html",
-        _template_ctx(request, grade_unlocked=is_grade_unlocked(request)),
+        _template_ctx(
+            request,
+            grade_unlocked=is_grade_unlocked(request),
+            max_step=max_step_number(),
+        ),
         headers=_HTML_NO_CACHE,
     )
 

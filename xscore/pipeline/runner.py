@@ -55,7 +55,7 @@ def kick_off_render_bg(ctx: _Ctx) -> None:
     instr = getattr(ctx, "instruction", None)
     cli_filter = getattr(ctx, "student_filter", None)
     limit_students = getattr(ctx, "limit_students", None)
-    dpi = getattr(instr, "dpi", None) or MARKING_DPI
+    dpi = MARKING_DPI
 
     filtered_assignments = list(ctx.page_assignments)
     if instr is not None:

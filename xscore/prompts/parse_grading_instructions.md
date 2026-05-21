@@ -1,14 +1,13 @@
 ---
 name: parse_grading_instructions
-version: v3
-description: Step 1 — parse_grading_instructions. System-only prompt that converts a natural-language grading instruction into a structured TaskInstruction JSON object. No substitutions. Used by xscore.marking.parse_instruction.parse_prompt. v3 standardised every field's `Default:` line, added an ambiguous-prompt fallback, sharpened the folder_hint definition, reordered field rules to match the schema, and appended worked examples. v2 named `check_answers` as the default task_type.
+version: v4
+description: Step 1 — parse_grading_instructions. System-only prompt that converts a natural-language grading instruction into a structured TaskInstruction JSON object. No substitutions. Used by xscore.marking.parse_instruction.parse_prompt. v4 dropped the `dpi` field — DPI is now env-only (PIPELINE_DEFAULT_DPI / MARKING_DPI). v3 standardised every field's `Default:` line, added an ambiguous-prompt fallback, sharpened the folder_hint definition, reordered field rules to match the schema, and appended worked examples. v2 named `check_answers` as the default task_type.
 ---
 Convert the grading instruction to JSON. Return ONLY the JSON, no explanation.
 
 {
   "task_type": "count_marks|check_mc|check_answers",
   "student_filter": {"mode": "all|specific|first_n", "names": [], "n": 0},
-  "dpi": 400,
   "folder_hint": null,
   "folder_path": null,
   "force_clean_scan": false,
@@ -30,8 +29,6 @@ Field rules — listed in the same order as the schema above. Each rule lists tr
   - `mode: specific` when the user names students; populate `names` with the list.
   - `mode: first_n` for "first N students"; populate `n`.
   - **Default:** `{mode: all, names: [], n: 0}`.
-- **dpi** — 300 if `fast` / `quick`; 600 if `high quality` / `accurate`.
-  - **Default:** `400`.
 - **folder_hint** — the noun phrase that names the exam (typically the words before `exam` / `test`, or the only proper noun in the prompt). Used for fuzzy folder match when no explicit path is given.
   - **Default:** `null`.
 - **folder_path** — absolute or `~`-relative path. Set ONLY when the user gives an explicit path. Prefer `folder_path` over `folder_hint` when both apply.
@@ -57,14 +54,14 @@ If the user's intent is ambiguous (e.g. `rerun the marking step` without naming 
 
 ## Worked examples
 
-Input: `grade '/Users/me/Desktop/exams/s23 12' at 300 dpi`
+Input: `grade '/Users/me/Desktop/exams/s23 12'`
 Output:
 ```json
-{"task_type": "check_answers", "student_filter": {"mode": "all", "names": [], "n": 0}, "dpi": 300, "folder_hint": null, "folder_path": "/Users/me/Desktop/exams/s23 12", "force_clean_scan": false, "no_report": false, "from_step": null, "stop_after": null, "reuse_cache": false, "curved_grade_override": null, "curved_grade_visible": null}
+{"task_type": "check_answers", "student_filter": {"mode": "all", "names": [], "n": 0}, "folder_hint": null, "folder_path": "/Users/me/Desktop/exams/s23 12", "force_clean_scan": false, "no_report": false, "from_step": null, "stop_after": null, "reuse_cache": false, "curved_grade_override": null, "curved_grade_visible": null}
 ```
 
-Input: `count marks for first 5 students of Space Physics test, only run steps 5-10, reuse cache`
+Input: `count marks for first 5 students of Year 12 chemistry test, only run steps 5-10, reuse cache`
 Output:
 ```json
-{"task_type": "count_marks", "student_filter": {"mode": "first_n", "names": [], "n": 5}, "dpi": 400, "folder_hint": "Space Physics", "folder_path": null, "force_clean_scan": false, "no_report": false, "from_step": 5, "stop_after": 10, "reuse_cache": true, "curved_grade_override": null, "curved_grade_visible": null}
+{"task_type": "count_marks", "student_filter": {"mode": "first_n", "names": [], "n": 5}, "folder_hint": "Year 12 chemistry", "folder_path": null, "force_clean_scan": false, "no_report": false, "from_step": 5, "stop_after": 10, "reuse_cache": true, "curved_grade_override": null, "curved_grade_visible": null}
 ```

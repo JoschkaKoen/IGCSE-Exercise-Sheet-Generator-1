@@ -99,7 +99,7 @@
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400/70">
           Instructions <span class="text-slate-500/60 font-normal normal-case tracking-normal">(optional)</span>
         </p>
-        <p class="text-[0.68rem] text-slate-500/70">Override DPI, filter students, change marking style</p>
+        <p class="text-[0.68rem] text-slate-500/70">Filter students, curve grades, count marks only</p>
       </div>
       <textarea id="grade-prompt" name="prompt" rows="3" maxlength="4000"
                 class="w-full resize-y rounded-xl border border-white/[0.09] bg-slate-950/80
@@ -107,36 +107,50 @@
                        placeholder:text-slate-400/85 shadow-inner shadow-black/30
                        focus:border-emerald-500/40 focus:outline-none focus:ring-2 focus:ring-emerald-500/15
                        transition-colors"
-                placeholder="e.g. grade Space Physics Unit Test at 300 DPI"></textarea>
+                placeholder="e.g. only mark Alice, Bob and Charlie"></textarea>
 
-      <div class="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <div class="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
         <button type="button"
                 class="grade-quick-fill group rounded-xl border border-emerald-500/20 bg-emerald-500/[0.04] px-3 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-400/40 hover:bg-emerald-500/[0.08] hover:shadow-[0_10px_28px_-10px_rgba(16,185,129,0.40)]"
-                data-prompt="grade Space Physics Unit Test">
+                data-prompt="grade">
           <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-emerald-300">Baseline</span>
           <span class="block text-[0.68rem] leading-snug text-emerald-300/70">Default settings</span>
           <span class="block text-[0.65rem] leading-snug text-emerald-300/45">Quick start</span>
         </button>
         <button type="button"
                 class="grade-quick-fill group rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] px-3 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-400/40 hover:bg-cyan-500/[0.08] hover:shadow-[0_10px_28px_-10px_rgba(6,182,212,0.40)]"
-                data-prompt="grade Space Physics Unit Test at 300 DPI">
-          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-cyan-300">DPI override</span>
-          <span class="block text-[0.68rem] leading-snug text-cyan-300/70">Higher resolution</span>
-          <span class="block text-[0.65rem] leading-snug text-cyan-300/45">300 DPI</span>
+                data-prompt="only mark Alice, Bob and Charlie">
+          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-cyan-300">Student filter</span>
+          <span class="block text-[0.68rem] leading-snug text-cyan-300/70">Specific students</span>
+          <span class="block text-[0.65rem] leading-snug text-cyan-300/45">3 names</span>
         </button>
         <button type="button"
                 class="grade-quick-fill group rounded-xl border border-amber-500/20 bg-amber-500/[0.04] px-3 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-400/40 hover:bg-amber-500/[0.08] hover:shadow-[0_10px_28px_-10px_rgba(245,158,11,0.40)]"
-                data-prompt="grade and only mark Yuze, Simon and Linus">
-          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-amber-300">Student filter</span>
-          <span class="block text-[0.68rem] leading-snug text-amber-300/70">Only specific students</span>
-          <span class="block text-[0.65rem] leading-snug text-amber-300/45">3 students</span>
+                data-prompt="curve to 75%">
+          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-amber-300">Curve target</span>
+          <span class="block text-[0.68rem] leading-snug text-amber-300/70">Adjust grade curve</span>
+          <span class="block text-[0.65rem] leading-snug text-amber-300/45">Class avg → 75</span>
         </button>
         <button type="button"
                 class="grade-quick-fill group rounded-xl border border-violet-500/20 bg-violet-500/[0.04] px-3 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-violet-400/40 hover:bg-violet-500/[0.08] hover:shadow-[0_10px_28px_-10px_rgba(139,92,246,0.40)]"
-                data-prompt="grade with strict marking and detailed per-question feedback">
-          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-violet-300">Strict marking</span>
-          <span class="block text-[0.68rem] leading-snug text-violet-300/70">Detailed feedback</span>
-          <span class="block text-[0.65rem] leading-snug text-violet-300/45">Per-question</span>
+                data-prompt="hide curve from students">
+          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-violet-300">Hide curve</span>
+          <span class="block text-[0.68rem] leading-snug text-violet-300/70">Hide curved %</span>
+          <span class="block text-[0.65rem] leading-snug text-violet-300/45">Per-student PDFs</span>
+        </button>
+        <button type="button"
+                class="grade-quick-fill group rounded-xl border border-sky-500/20 bg-sky-500/[0.04] px-3 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-sky-400/40 hover:bg-sky-500/[0.08] hover:shadow-[0_10px_28px_-10px_rgba(14,165,233,0.40)]"
+                data-prompt="resume from step 25">
+          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-sky-300">Resume run</span>
+          <span class="block text-[0.68rem] leading-snug text-sky-300/70">Reuse prior artifacts</span>
+          <span class="block text-[0.65rem] leading-snug text-sky-300/45">From step 25</span>
+        </button>
+        <button type="button"
+                class="grade-quick-fill group rounded-xl border border-rose-500/20 bg-rose-500/[0.04] px-3 py-2.5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-rose-400/40 hover:bg-rose-500/[0.08] hover:shadow-[0_10px_28px_-10px_rgba(244,63,94,0.40)]"
+                data-prompt="stop after step 13">
+          <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-rose-300">Partial run</span>
+          <span class="block text-[0.68rem] leading-snug text-rose-300/70">Stop early</span>
+          <span class="block text-[0.65rem] leading-snug text-rose-300/45">After step 13</span>
         </button>
       </div>
     </div>
@@ -149,13 +163,8 @@
       </summary>
       <div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <label class="flex flex-col gap-1.5">
-          <span class="text-[0.7rem] font-medium text-slate-400/85">DPI</span>
-          <input type="number" name="dpi" min="50" max="1200" placeholder="auto"
-                 class="rounded-lg border border-white/[0.09] bg-slate-950/80 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500/70 focus:border-emerald-500/40 focus:outline-none focus:ring-2 focus:ring-emerald-500/15" />
-        </label>
-        <label class="flex flex-col gap-1.5">
           <span class="text-[0.7rem] font-medium text-slate-400/85">Stop after step</span>
-          <input type="number" name="stop_after" min="1" max="37" placeholder="all 37"
+          <input type="number" name="stop_after" min="1" max="{{ max_step }}" placeholder="all {{ max_step }}"
                  class="rounded-lg border border-white/[0.09] bg-slate-950/80 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500/70 focus:border-emerald-500/40 focus:outline-none focus:ring-2 focus:ring-emerald-500/15" />
         </label>
         <label class="flex flex-col gap-1.5">
@@ -427,7 +436,10 @@
       statusBox.id = 'grade-status';
       statusBox.className = 'mt-5 rounded-xl border border-white/[0.09] bg-slate-950/80 px-4 py-4';
       statusBox.innerHTML =
-        '<p id="grade-status-header" class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400/60 mb-3">Pipeline progress</p>' +
+        '<div class="flex items-center justify-between mb-3">' +
+          '<p id="grade-status-header" class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400/60">Pipeline progress</p>' +
+          '<button type="button" id="grade-cancel-btn" hidden class="inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-[0.7rem] font-semibold uppercase tracking-wider text-slate-400 ring-1 ring-white/[0.08] hover:text-rose-300 hover:ring-rose-500/30 hover:bg-rose-500/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">Cancel</button>' +
+        '</div>' +
         '<ul id="grade-steps-list" class="space-y-0"></ul>' +
         '<p id="grade-terminal-header" class="hidden text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-slate-400/55 mt-4 mb-2">Terminal output</p>' +
         '<pre id="grade-terminal" class="hidden mt-0 max-h-[28rem] overflow-y-auto rounded-lg border border-white/[0.06] bg-slate-950/95 px-3.5 py-2.5 text-[0.74rem] leading-[1.55] font-mono whitespace-pre-wrap break-words text-slate-300"></pre>' +
@@ -464,11 +476,15 @@
   var ICON_FAILED   = '<span class="inline-block w-4 h-4 text-red-400" title="failed">' +
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-4 h-4">' +
     '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></span>';
+  var ICON_CANCELED = '<span class="inline-block w-4 h-4 text-amber-400" title="canceled">' +
+    '<svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">' +
+    '<rect x="6" y="6" width="12" height="12" rx="1.5"/></svg></span>';
 
   function stepIcon(status) {
-    if (status === 'running') return ICON_RUNNING;
-    if (status === 'done')    return ICON_DONE;
-    if (status === 'failed')  return ICON_FAILED;
+    if (status === 'running')  return ICON_RUNNING;
+    if (status === 'done')     return ICON_DONE;
+    if (status === 'failed')   return ICON_FAILED;
+    if (status === 'canceled') return ICON_CANCELED;
     return ICON_PENDING;
   }
 
@@ -479,11 +495,14 @@
 
   function renderStepRow(s) {
     var numStr = (s.num < 10 ? '0' : '') + s.num;
-    var elapsed = (s.elapsed_s !== null && s.elapsed_s !== undefined && (s.status === 'done' || s.status === 'failed'))
+    var hasElapsed = s.elapsed_s !== null && s.elapsed_s !== undefined &&
+                     (s.status === 'done' || s.status === 'failed' || s.status === 'canceled');
+    var elapsed = hasElapsed
       ? '<span class="text-slate-500 text-xs ml-auto pl-4 shrink-0">' + s.elapsed_s.toFixed(1) + ' s</span>'
       : '<span class="ml-auto pl-4 shrink-0"></span>';
     var nameClass = s.status === 'done' ? 'text-slate-300' :
                     s.status === 'failed' ? 'text-red-300' :
+                    s.status === 'canceled' ? 'text-amber-300' :
                     s.status === 'running' ? 'text-white font-medium' : 'text-slate-500';
     return '<li class="flex items-center gap-2 py-[3px]">' +
       stepIcon(s.status) +
@@ -494,15 +513,17 @@
   }
 
   function sectionStatus(steps) {
-    /* Returns one of 'pending' | 'running' | 'done' | 'failed'. */
-    var hasFailed = false, hasRunning = false, allDone = steps.length > 0;
+    /* Returns one of 'pending' | 'running' | 'done' | 'failed' | 'canceled'. */
+    var hasFailed = false, hasCanceled = false, hasRunning = false, allDone = steps.length > 0;
     for (var i = 0; i < steps.length; i++) {
       var st = steps[i].status;
       if (st === 'failed') hasFailed = true;
+      else if (st === 'canceled') hasCanceled = true;
       else if (st === 'running') hasRunning = true;
       if (st !== 'done') allDone = false;
     }
     if (hasFailed) return 'failed';
+    if (hasCanceled) return 'canceled';
     if (hasRunning) return 'running';
     if (allDone) return 'done';
     return 'pending';
@@ -540,14 +561,16 @@
       var open;
       if (manual === 'open') open = true;
       else if (manual === 'closed') open = false;
-      else open = (st === 'running' || st === 'failed' || st === 'pending');  /* auto-collapse all-done */
+      else open = (st === 'running' || st === 'failed' || st === 'canceled' || st === 'pending');  /* auto-collapse all-done */
 
       var sectionDot =
-        st === 'failed'  ? '<span class="inline-block w-2 h-2 rounded-full bg-red-400 shrink-0"></span>' :
-        st === 'running' ? '<span class="inline-block w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse"></span>' :
-        st === 'done'    ? '<span class="inline-block w-2 h-2 rounded-full bg-emerald-500/60 shrink-0"></span>' :
-                            '<span class="inline-block w-2 h-2 rounded-full bg-slate-700 shrink-0"></span>';
+        st === 'failed'   ? '<span class="inline-block w-2 h-2 rounded-full bg-red-400 shrink-0"></span>' :
+        st === 'canceled' ? '<span class="inline-block w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>' :
+        st === 'running'  ? '<span class="inline-block w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse"></span>' :
+        st === 'done'     ? '<span class="inline-block w-2 h-2 rounded-full bg-emerald-500/60 shrink-0"></span>' :
+                             '<span class="inline-block w-2 h-2 rounded-full bg-slate-700 shrink-0"></span>';
       var summaryClass = st === 'failed' ? 'text-red-300' :
+                         st === 'canceled' ? 'text-amber-300' :
                          st === 'running' ? 'text-white' :
                          st === 'done' ? 'text-slate-400' : 'text-slate-500';
 
@@ -791,6 +814,35 @@
     var networkErrors = 0;
     var logOffset = 0;
     var headerSwitched = false;
+    var cancelWired = false;
+
+    function wireCancelButton() {
+      if (cancelWired) return;
+      var cancelBtn = document.getElementById('grade-cancel-btn');
+      if (!cancelBtn) return;
+      cancelBtn.hidden = false;
+      cancelBtn.disabled = false;
+      cancelBtn.onclick = function () {
+        if (cancelBtn.disabled) return;
+        cancelBtn.disabled = true;
+        cancelBtn.textContent = 'Canceling…';
+        fetch('/api/grade/jobs/' + jobId + '/cancel', {
+          method: 'POST',
+          headers: { 'Cache-Control': 'no-cache' },
+        }).catch(function () {
+          /* Failure: re-enable so the user can retry. The next poll will
+             reveal the actual server state regardless. */
+          cancelBtn.disabled = false;
+          cancelBtn.textContent = 'Cancel';
+        });
+      };
+      cancelWired = true;
+    }
+
+    function hideCancelButton() {
+      var cancelBtn = document.getElementById('grade-cancel-btn');
+      if (cancelBtn) cancelBtn.hidden = true;
+    }
 
     function poll() {
       pollCount++;
@@ -799,6 +851,7 @@
         pollTimer = null;
         btn.disabled = false;
         if (btnSpan) btnSpan.textContent = 'Grade';
+        hideCancelButton();
         setError('Timed out waiting for result after 30 minutes.');
         return;
       }
@@ -813,6 +866,9 @@
           if (data.steps && data.steps.length) {
             renderSteps(data.steps);
           }
+          if (data.status === 'running') {
+            wireCancelButton();
+          }
           if (data.log_lines && data.log_lines.length) {
             appendTerminalLines(data.log_lines);
           }
@@ -824,17 +880,26 @@
             pollTimer = null;
             btn.disabled = false;
             if (btnSpan) btnSpan.textContent = 'Grade';
+            hideCancelButton();
             setDone(jobId, data);
           } else if (data.status === 'failed') {
             clearInterval(pollTimer);
             pollTimer = null;
             btn.disabled = false;
             if (btnSpan) btnSpan.textContent = 'Grade';
+            hideCancelButton();
             if (!data.steps || !data.steps.length) {
               setError(data.error || 'Unknown error', jobId);
             } else {
               appendInlineError(data.error || 'Unknown error', jobId);
             }
+          } else if (data.status === 'canceled') {
+            clearInterval(pollTimer);
+            pollTimer = null;
+            btn.disabled = false;
+            if (btnSpan) btnSpan.textContent = 'Grade';
+            hideCancelButton();
+            appendInlineError(data.error || 'Canceled by user', jobId);
           }
         })
         .catch(function (err) {

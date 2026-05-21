@@ -32,7 +32,6 @@ class StudentFilter:
 class TaskInstruction:
     task_type: str              # "count_marks" | "check_mc" | "check_answers"
     student_filter: StudentFilter = field(default_factory=StudentFilter)
-    dpi: int = 400
     folder_hint: str | None = None
     # Optional explicit exam folder path (from prompt); lower priority than CLI --folder
     folder_path: str | None = None

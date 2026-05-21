@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import dataclasses
 import datetime
 import threading
@@ -15,11 +16,12 @@ from typing import Any
 
 class JobStatus(StrEnum):
     """Valid values for JobRecord.status and JobRecord.ranking_status."""
-    PENDING = "pending"
-    RUNNING = "running"
-    DONE    = "done"
-    FAILED  = "failed"
-    SKIPPED = "skipped"
+    PENDING  = "pending"
+    RUNNING  = "running"
+    DONE     = "done"
+    FAILED   = "failed"
+    SKIPPED  = "skipped"
+    CANCELED = "canceled"
 
 
 @dataclass
@@ -58,10 +60,18 @@ class JobRecord:
     # waiting for the run to finish.
     artifact_dir: Path | None = None
     upload_folder: Path | None = None
+    # Grade-job subprocess handle. Server-only; never serialized into API responses
+    # (JobStore.get() zeroes it on the returned snapshot). Operations on this object
+    # (terminate/kill/wait) MUST run in the async event loop, not from sync mutators.
+    process: asyncio.subprocess.Process | None = field(default=None, repr=False, compare=False)
+    # Step number that emitted "running" but hasn't yet emitted "ok"/"error". On a
+    # canceled or signal-killed exit, this identifies the interrupted step so the
+    # resume endpoint can refuse skipping past it.
+    last_running_step: int | None = None
 
 
 class JobStore:
-    """Thread-safe UUID-keyed job registry (single-user local use)."""
+    """Thread-safe UUID-keyed job registry."""
 
     def __init__(self) -> None:
         self._lock = threading.Lock()
@@ -82,14 +92,18 @@ class JobStore:
         return rec
 
     def get(self, job_id: str) -> JobRecord | None:
-        """Return a snapshot of the job record (not the live mutable object)."""
+        """Return a snapshot of the job record (not the live mutable object).
+
+        ``process`` is zeroed on the snapshot — the live subprocess handle is
+        server-only; callers that need it should use ``get_process()``.
+        """
         with self._lock:
             j = self._jobs.get(job_id)
             if j is None:
                 return None
             # dataclasses.replace is shallow — copy log_lines so callers don't
             # walk a list being appended to from the worker thread.
-            return dataclasses.replace(j, log_lines=list(j.log_lines))
+            return dataclasses.replace(j, log_lines=list(j.log_lines), process=None)
 
     def set_status(self, job_id: str, status: JobStatus) -> None:
         with self._lock:
@@ -252,3 +266,59 @@ class JobStore:
                 j.answers_2up_pdf = answers_2up_pdf
                 j.ranking_pdf = ranking_pdf
                 j.overview = overview
+
+    def set_process(self, job_id: str, proc: asyncio.subprocess.Process) -> None:
+        """Store the grade-job subprocess handle so the cancel endpoint can reach it."""
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j:
+                j.process = proc
+
+    def get_process(self, job_id: str) -> asyncio.subprocess.Process | None:
+        with self._lock:
+            j = self._jobs.get(job_id)
+            return j.process if j else None
+
+    def record_running_step(self, job_id: str, num: int) -> None:
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j:
+                j.last_running_step = num
+
+    def clear_running_step(self, job_id: str) -> None:
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j:
+                j.last_running_step = None
+
+    def cancel(self, job_id: str, *, message: str = "Canceled by user") -> JobStatus:
+        """Mark a job CANCELED. Idempotent: if the job is already in a terminal
+        state (DONE / FAILED / CANCELED), no-op and return that state."""
+        with self._lock:
+            j = self._jobs.get(job_id)
+            if j is None:
+                return JobStatus.FAILED  # caller should have checked existence
+            if j.status in (JobStatus.DONE, JobStatus.FAILED, JobStatus.CANCELED):
+                return j.status
+            j.status = JobStatus.CANCELED
+            j.error = message
+            return JobStatus.CANCELED
+
+    def cancel_clamp_for_artifact(self, artifact_dir: Path) -> int | None:
+        """If any canceled job ran on *artifact_dir*, return the highest
+        ``last_running_step`` among them — the resume endpoint refuses any
+        ``from_step`` greater than this.
+
+        The interrupted step's outputs may be half-written; everything earlier
+        is intact, so resume from the interrupted step (re-running it) is safe
+        but skipping past it is not.
+        """
+        with self._lock:
+            candidates = [
+                j.last_running_step
+                for j in self._jobs.values()
+                if j.status == JobStatus.CANCELED
+                and j.artifact_dir == artifact_dir
+                and j.last_running_step is not None
+            ]
+        return max(candidates) if candidates else None

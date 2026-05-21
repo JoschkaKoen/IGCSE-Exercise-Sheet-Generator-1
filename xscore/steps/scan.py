@@ -18,6 +18,7 @@ from __future__ import annotations
 import json
 import time
 
+from xscore.config import PIPELINE_DEFAULT_DPI
 from xscore.preprocessing.coordinator import (
     deskew_phase,
     prepare_scans_phase,
@@ -58,7 +59,7 @@ def prepare_scans(ctx: _Ctx) -> None:
     ctx.scan_match = prepare_scans_phase(
         ctx.folder,
         ctx.artifact_dir,
-        ctx.instruction.dpi,
+        PIPELINE_DEFAULT_DPI,
         force_rebuild=ctx.force_clean_scan,
     )
     ok_line(f"Scans prepared  ·  {format_duration(time.perf_counter() - t0)}")
@@ -68,7 +69,7 @@ def deskew(ctx: _Ctx) -> None:
     assert ctx.folder is not None and ctx.artifact_dir is not None and ctx.instruction is not None
     t0 = time.perf_counter()
     ctx.cleaned_pdf = deskew_phase(
-        ctx.artifact_dir, ctx.instruction.dpi, input_pdf=ctx.scan_match,
+        ctx.artifact_dir, PIPELINE_DEFAULT_DPI, input_pdf=ctx.scan_match,
     )
     p = ctx.artifact_dir / DESKEW_DIR / "summary.json"
     p.parent.mkdir(parents=True, exist_ok=True)

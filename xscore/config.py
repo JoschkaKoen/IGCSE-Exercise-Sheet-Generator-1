@@ -30,7 +30,7 @@ How to run (from repo root, with venv activated and dependencies installed):
   Grade an exam folder from a natural-language prompt (uses Kimi only; KIMI_API_KEY):
     python3 XScore.py "check all multiple choice question answers"
     python3 XScore.py "..." --folder "path/to/exam_folder"
-    # Optional CLI (also inferable from prompt JSON): --dpi  --folder
+    # Optional CLI (also inferable from prompt JSON): --folder
     #   --force-clean-scan  --no-report
 
 Tunables below apply to extraction/, the other top-level packages, and XScore.py

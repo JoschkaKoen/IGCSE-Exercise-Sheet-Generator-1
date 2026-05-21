@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import time
 
-from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, MARKING_MODEL_DEFAULT
+from xscore.config import GEMINI_MAX_OUTPUT_TOKENS, MARKING_DPI, MARKING_MODEL_DEFAULT
 from xscore.marking.ai_mark import run_ai_marking
 from xscore.marking.blueprints import build_blueprints
 from xscore.marking.extract_answers import run_extract_student_answers
@@ -44,10 +44,10 @@ def extract_student_answers(ctx: _Ctx) -> None:
     from xscore.config import MARKING_JPEG_QUALITY  # noqa: PLC0415
     from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
     announce_ai_input(
-        kind="JPEG", dpi=ctx.instruction.dpi, quality=MARKING_JPEG_QUALITY,
+        kind="JPEG", dpi=MARKING_DPI, quality=MARKING_JPEG_QUALITY,
         note="re-encode; embedded JPEGs passed verbatim on fast path",
     )
-    ctx.extract_answers_api_calls = run_extract_student_answers(ctx, dpi=ctx.instruction.dpi)
+    ctx.extract_answers_api_calls = run_extract_student_answers(ctx, dpi=MARKING_DPI)
     n_calls = len(ctx.extract_answers_api_calls)
     n_failed = len(getattr(ctx, "extract_answers_failures", []))
     n_total = n_calls + n_failed
@@ -80,7 +80,7 @@ def ai_marking(ctx: _Ctx) -> None:
         )
     else:
         announce_ai_input(
-            kind="JPEG", dpi=ctx.instruction.dpi, quality=MARKING_JPEG_QUALITY,
+            kind="JPEG", dpi=MARKING_DPI, quality=MARKING_JPEG_QUALITY,
         )
     _gfx_dir = artifact_mark_scheme_graphics_dir(ctx.artifact_dir)
     if _gfx_dir.is_dir() and any(_gfx_dir.glob("*.png")):
@@ -89,7 +89,7 @@ def ai_marking(ctx: _Ctx) -> None:
             dpi=int(_os.environ.get("MARK_SCHEME_GRAPHICS_DPI", "300")),
         )
     t0 = time.perf_counter()
-    ctx.marking_api_calls = run_ai_marking(ctx, dpi=ctx.instruction.dpi)
+    ctx.marking_api_calls = run_ai_marking(ctx, dpi=MARKING_DPI)
     elapsed = time.perf_counter() - t0
     n_calls = len(ctx.marking_api_calls)
     n_failed = len(ctx.marking_failures)
