@@ -26,36 +26,40 @@ _SESSION_TITLE = {
 }
 
 # Descriptive IGCSE filenames (e.g. ``0580 Mathematics June 2023 Question Paper  21.pdf``).
-# Also handles Biology (0610) and Chemistry (0620) which share the same naming scheme.
+# Also handles Biology (0610), Chemistry (0620), and Physics (0625) which share the same
+# naming scheme. The 0-prefixed syllabus code distinguishes IGCSE from A-Level (9xxx).
 _MONTH_TO_SESSION = {"march": "m", "june": "s", "november": "w"}
 _MATH_COMPONENT_ORDER = {"qp": 0, "ms": 1, "ci": 2, "gt": 3, "er": 4, "_": 9}
-_DESCRIPTIVE_SUBJECTS = r"(?:mathematics|biology|chemistry)"
+_IGCSE_SYLLABUS = r"0\d{3}"   # 0478, 0580, 0610, 0620, 0625, …
+_ALEVEL_SYLLABUS = r"9\d{3}"  # 9618, 9700, 9701, 9702, …
+_DESCRIPTIVE_SUBJECTS = r"(?:mathematics|biology|chemistry|physics|computer\s+science)"
 _MATH_DESCRIPTIVE = re.compile(
-    rf"{_DESCRIPTIVE_SUBJECTS}\s+(march|june|november)\s+(\d{{4}})\s+(.+?)\s+(\d+)\s*$",
+    rf"{_IGCSE_SYLLABUS}\s+{_DESCRIPTIVE_SUBJECTS}\s+(march|june|november)\s+(\d{{4}})\s+(.+?)\s+(\d+)\s*$",
     re.IGNORECASE | re.DOTALL,
 )
 # ``… June 2024 Grade Thresholds`` / ``… November 2023 Examiner Report`` (no paper number).
 _MATH_GT_ER = re.compile(
-    rf"{_DESCRIPTIVE_SUBJECTS}\s+(march|june|november)\s+(\d{{4}})\s+(grade thresholds|examiner report)\s*$",
+    rf"{_IGCSE_SYLLABUS}\s+{_DESCRIPTIVE_SUBJECTS}\s+(march|june|november)\s+(\d{{4}})\s+(grade thresholds|examiner report)\s*$",
     re.IGNORECASE,
 )
 
-# A-Level CS (9618) descriptive filenames, e.g.:
+# A-Level descriptive filenames (9xxx syllabus codes), e.g.:
 #   ``9618 Computer Science June 2021 Question paper 11``
-#   ``9618 Computer Science June 2021 Mark Scheme 11``
-#   ``9618 Computer Science June 2021 Insert 21``
-#   ``9618 Computer Science June 2021 Grade Thresholds``
-#   ``9618 Computer Science 2021 Specimen Question Paper 1``
-_ALEVEL_CS_SESSION = re.compile(
-    r"Computer Science\s+(march|june|november)\s+(\d{4})\s+(.+?)\s+(\d+)\s*$",
+#   ``9700 Biology June 2021 Mark Scheme 11``
+#   ``9701 Chemistry June 2021 Confidential Instructions 31``
+#   ``9702 Physics June 2021 Grade Thresholds``
+#   ``9700 Biology 2022 Specimen Question Paper 1``
+_ALEVEL_DESCRIPTIVE_SUBJECTS = r"(?:Physics|Biology|Chemistry|Computer Science)"
+_ALEVEL_SESSION = re.compile(
+    rf"{_ALEVEL_SYLLABUS}\s+{_ALEVEL_DESCRIPTIVE_SUBJECTS}\s+(march|june|november)\s+(\d{{4}})\s+(.+?)\s+(\d+)\s*$",
     re.IGNORECASE | re.DOTALL,
 )
-_ALEVEL_CS_SESSION_GT_ER = re.compile(
-    r"Computer Science\s+(march|june|november)\s+(\d{4})\s+(grade thresholds|examiner report)\s*$",
+_ALEVEL_SESSION_GT_ER = re.compile(
+    rf"{_ALEVEL_SYLLABUS}\s+{_ALEVEL_DESCRIPTIVE_SUBJECTS}\s+(march|june|november)\s+(\d{{4}})\s+(grade thresholds|examiner report)\s*$",
     re.IGNORECASE,
 )
-_ALEVEL_CS_SPECIMEN = re.compile(
-    r"Computer Science\s+(\d{4})\s+Specimen\s+(.+?)\s+(\d+)\s*$",
+_ALEVEL_SPECIMEN = re.compile(
+    rf"{_ALEVEL_SYLLABUS}\s+{_ALEVEL_DESCRIPTIVE_SUBJECTS}\s+(\d{{4}})\s+Specimen\s+(.+?)\s+(\d+)\s*$",
     re.IGNORECASE | re.DOTALL,
 )
 
@@ -110,10 +114,10 @@ def _parse_math_descriptive_stem(stem: str) -> dict[str, str | int] | None:
     }
 
 
-def _parse_alevel_cs_stem(stem: str) -> dict[str, str | int] | None:
-    """Parse A-Level CS (9618) descriptive filename stems."""
-    # Session paper with paper number (QP / MS / Insert)
-    m = _ALEVEL_CS_SESSION.search(stem)
+def _parse_alevel_descriptive_stem(stem: str) -> dict[str, str | int] | None:
+    """Parse A-Level (9xxx) descriptive filename stems across CS, Physics, Biology, Chemistry."""
+    # Session paper with paper number (QP / MS / Insert / Confidential Instructions)
+    m = _ALEVEL_SESSION.search(stem)
     if m:
         month_w, year_s, comp_raw, paper_s = m.group(1), m.group(2), m.group(3), m.group(4)
         letter = _MONTH_TO_SESSION.get(month_w.lower())
@@ -126,14 +130,14 @@ def _parse_alevel_cs_stem(stem: str) -> dict[str, str | int] | None:
             kind = "qp"
         elif "mark scheme" in comp_norm:
             kind = "ms"
-        elif "insert" in comp_norm:
+        elif "confidential instructions" in comp_norm or "insert" in comp_norm:
             kind = "ci"
         else:
             kind = "_"
         session_code = f"{letter}{year_s[-2:]}"
         return {"letter": letter, "year": year, "paper": paper, "kind": kind, "session_code": session_code}
     # Session paper without number (Grade Thresholds / Examiner Report)
-    m2 = _ALEVEL_CS_SESSION_GT_ER.search(stem)
+    m2 = _ALEVEL_SESSION_GT_ER.search(stem)
     if m2:
         month_w, year_s, tail = m2.group(1), m2.group(2), m2.group(3).lower()
         letter = _MONTH_TO_SESSION.get(month_w.lower())
@@ -143,7 +147,7 @@ def _parse_alevel_cs_stem(stem: str) -> dict[str, str | int] | None:
         session_code = f"{letter}{year_s[-2:]}"
         return {"letter": letter, "year": int(year_s, 10), "paper": 0, "kind": kind, "session_code": session_code}
     # Specimen paper
-    m3 = _ALEVEL_CS_SPECIMEN.search(stem)
+    m3 = _ALEVEL_SPECIMEN.search(stem)
     if m3:
         year_s, comp_raw, paper_s = m3.group(1), m3.group(2), m3.group(3)
         comp_norm = re.sub(r"\s+", " ", comp_raw.strip().lower())
@@ -151,7 +155,7 @@ def _parse_alevel_cs_stem(stem: str) -> dict[str, str | int] | None:
             kind = "qp"
         elif "mark scheme" in comp_norm:
             kind = "ms"
-        elif "insert" in comp_norm:
+        elif "confidential instructions" in comp_norm or "insert" in comp_norm:
             kind = "ci"
         else:
             kind = "_"
@@ -174,7 +178,7 @@ def library_pdf_group_meta(filename: str) -> dict[str, str]:
             "session_heading": _SESSION_LABEL[str(math["letter"])],
             "session_title": _SESSION_TITLE[str(math["letter"])],
         }
-    alevel = _parse_alevel_cs_stem(stem)
+    alevel = _parse_alevel_descriptive_stem(stem)
     if alevel:
         letter = str(alevel["letter"])
         return {
@@ -232,7 +236,7 @@ def library_pdf_sort_key(filename: str) -> tuple:
             comp,
             stem,
         )
-    alevel = _parse_alevel_cs_stem(stem_raw)
+    alevel = _parse_alevel_descriptive_stem(stem_raw)
     if alevel:
         sess = _SESSION_ORDER.get(str(alevel["letter"]), 99)
         comp = _MATH_COMPONENT_ORDER.get(str(alevel["kind"]), 9)
@@ -274,7 +278,7 @@ def library_pdf_display_name(filename: str) -> str:
         if k == "er":
             return f"{sc} Examiner report"
         return filename
-    alevel = _parse_alevel_cs_stem(stem_raw)
+    alevel = _parse_alevel_descriptive_stem(stem_raw)
     if alevel:
         sc = str(alevel["session_code"])
         k = str(alevel["kind"])
@@ -311,7 +315,7 @@ def exam_label_from_filename(filename: str) -> str | None:
     math = _parse_math_descriptive_stem(stem_raw)
     if math and str(math["kind"]) == "qp":
         return f"{math['session_code']} {math['paper']}"
-    alevel = _parse_alevel_cs_stem(stem_raw)
+    alevel = _parse_alevel_descriptive_stem(stem_raw)
     if alevel and str(alevel["kind"]) in ("qp", "ms", "ci"):
         return f"{alevel['session_code']} {alevel['paper']}"
     for pattern in (
@@ -345,6 +349,9 @@ _SUBJECT_PREFIXES: dict[str, str] = {
     "mathematics": "Maths",
     "biology": "Biology",
     "chemistry": "Chemistry",
+    "a_level_physics": "A-Level Physics",
+    "a_level_biology": "A-Level Bio",
+    "a_level_chemistry": "A-Level Chem",
     "a_level_computer_science": "A-Level CS",
 }
 

@@ -99,7 +99,7 @@ end-to-end and diff outputs against a baseline run.
 
 ## Exam directories
 
-Convention is `exams/<subject_slug>/`. Current subjects: `physics`, `chemistry`, `biology`, `mathematics`, `computer_science`, `a_level_physics`, `a_level_computer_science`. The natural-language exam resolver looks here when the user names an exam in the prompt.
+Convention is `exams/<subject_slug>/`. Current subjects: `physics`, `chemistry`, `biology`, `mathematics`, `computer_science`, `a_level_physics`, `a_level_biology`, `a_level_chemistry`, `a_level_computer_science`. The natural-language exam resolver looks here when the user names an exam in the prompt.
 
 ## Python environment
 

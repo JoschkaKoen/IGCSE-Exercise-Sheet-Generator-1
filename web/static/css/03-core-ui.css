@@ -165,6 +165,27 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
   transition: all 0.2s ease;
 }
 
+.tab-active-sky {
+  background: linear-gradient(135deg, rgba(56,189,248,0.22), rgba(14,165,233,0.28));
+  color: rgb(186 230 253);
+  box-shadow: 0 0 0 1px rgba(56,189,248,0.28) inset;
+  transition: all 0.2s ease;
+}
+
+.tab-active-lime {
+  background: linear-gradient(135deg, rgba(163,230,53,0.22), rgba(132,204,22,0.28));
+  color: rgb(217 249 157);
+  box-shadow: 0 0 0 1px rgba(163,230,53,0.28) inset;
+  transition: all 0.2s ease;
+}
+
+.tab-active-orange {
+  background: linear-gradient(135deg, rgba(251,146,60,0.22), rgba(249,115,22,0.28));
+  color: rgb(254 215 170);
+  box-shadow: 0 0 0 1px rgba(251,146,60,0.28) inset;
+  transition: all 0.2s ease;
+}
+
 
 .tab-btn {
   touch-action: manipulation;

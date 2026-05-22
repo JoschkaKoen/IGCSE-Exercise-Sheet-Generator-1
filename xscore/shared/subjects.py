@@ -51,6 +51,24 @@ KNOWN_SUBJECTS: tuple[Subject, ...] = (
         needs_code_formatting=False,
         filename_patterns=(),
     ),
+    Subject(
+        name="A-Level Physics",
+        slug="a_level_physics",
+        needs_code_formatting=False,
+        filename_patterns=("9702",),
+    ),
+    Subject(
+        name="A-Level Biology",
+        slug="a_level_biology",
+        needs_code_formatting=False,
+        filename_patterns=("9700",),
+    ),
+    Subject(
+        name="A-Level Chemistry",
+        slug="a_level_chemistry",
+        needs_code_formatting=False,
+        filename_patterns=("9701",),
+    ),
 )
 
 

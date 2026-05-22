@@ -81,22 +81,21 @@ def _get_tight_y_end(page: fitz.Page, y_start: float, y_end: float) -> float:
         by0 = block["bbox"][1]
         if by0 < y_start - 5 or by0 > effective_end:
             continue
-        # Use the last *non-blank line* bottom rather than the block bbox bottom.
-        # Trailing whitespace-only lines inside a block inflate the bbox without
-        # containing any visible glyphs, causing over-estimation of content height.
+        # Use the bottom of the lowest *non-blank line* rather than the block
+        # bbox bottom. Trailing whitespace-only lines inside a block inflate
+        # the bbox without containing any visible glyphs.
+        # PyMuPDF stores `block["lines"]` in draw order, not y-order, so we
+        # must scan every line and take the max y1 — early-break would miss
+        # the bottommost line whenever it isn't the last in draw order.
         lines = block["lines"]
         if not lines:
             continue
-        # Walk lines in reverse; skip lines whose top edge is beyond
-        # effective_end (they belong to the next question's content in a
-        # shared block) and skip whitespace-only lines.
         last_line_y1 = 0.0
-        for line in reversed(lines):
+        for line in lines:
             if line["bbox"][1] > effective_end:
-                continue  # line is outside the valid scan range
+                continue
             if any(s["text"].strip() for s in line["spans"]):
-                last_line_y1 = min(line["bbox"][3], effective_end)
-                break
+                last_line_y1 = max(last_line_y1, min(line["bbox"][3], effective_end))
         if not last_line_y1:
             continue  # no visible content within range
         last_y = max(last_y, last_line_y1)
