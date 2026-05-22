@@ -7,6 +7,8 @@ import shutil
 import subprocess
 from pathlib import Path
 
+from .config import PDFJAM_NUP_SCALE
+
 # Source page dimensions (A4 portrait, 595 × 842 pt).
 _SRC_W, _SRC_H = 595.0, 842.0
 
@@ -84,7 +86,7 @@ def make_2up_landscape_pdf(
     try:
         subprocess.run(
             [pdfjam, "--nup", "2x1", "--landscape", "--paper", "a4paper",
-             "--frame", "false", "--scale", "1.0",
+             "--frame", "false", "--scale", str(PDFJAM_NUP_SCALE),
              "--outfile", str(out), str(inp)],
             check=True, capture_output=True, text=True,
         )
@@ -104,7 +106,8 @@ def make_2up_landscape_pdf(
     return out
 
 
-def _fix_nup_name_fields(pdf_path: Path, cols: int, rows: int) -> None:
+def _fix_nup_name_fields(pdf_path: Path, cols: int, rows: int,
+                         *, sub_scale: float = 1.0) -> None:
     """Remove duplicate name fields, restore the IGCSE line, and draw sub-page separators.
 
     In the 1-up source every page carries the name field.  After pdfjam tiles
@@ -115,6 +118,11 @@ def _fix_nup_name_fields(pdf_path: Path, cols: int, rows: int) -> None:
       • draws separator lines between sub-pages (vertical column boundaries and
         horizontal row boundaries) so no outer border is needed from pdfjam.
     Sub-page 1 (top-left, col=0 row=0) is left untouched.
+
+    ``sub_scale`` mirrors the ``--scale`` passed to pdfjam: when < 1.0, each
+    sub-page is shrunk and the whole cols×rows grid is centred on the page,
+    so the eraser/IGCSE-line geometry has to track that inset.  Default 1.0
+    reproduces the original edge-to-edge behaviour byte-for-byte.
     """
     try:
         import fitz  # PyMuPDF — available in the project venv
@@ -127,9 +135,16 @@ def _fix_nup_name_fields(pdf_path: Path, cols: int, rows: int) -> None:
         ph = pg.rect.height
         slot_w = pw / cols
         slot_h = ph / rows
-        sx = slot_w / _SRC_W
-        sy = slot_h / _SRC_H
-        lw = _NF_LINE_W * min(sx, sy)   # scale line width with the sub-page
+        # pdfjam fits each subpage uniformly to its slot (= page / nup), applies
+        # the user --scale, then packs the cols×rows grid centred on the page
+        # with no internal gaps.  Mirror that geometry here.
+        fit = min(slot_w / _SRC_W, slot_h / _SRC_H)
+        s = fit * sub_scale                    # source-pt → page-pt
+        sub_w = _SRC_W * s
+        sub_h = _SRC_H * s
+        grid_dx = (pw - cols * sub_w) / 2
+        grid_dy = (ph - rows * sub_h) / 2
+        lw = _NF_LINE_W * s                    # scale line width with the sub-page
 
         # Erase duplicate name fields and restore IGCSE lines first, then draw
         # separators last so they are always painted on top.
@@ -137,21 +152,21 @@ def _fix_nup_name_fields(pdf_path: Path, cols: int, rows: int) -> None:
             for col in range(cols):
                 if row == 0 and col == 0:
                     continue  # keep sub-page 1 intact
-                ox = col * slot_w
-                oy = row * slot_h
+                ox = grid_dx + col * sub_w
+                oy = grid_dy + row * sub_h
                 # 1. Erase the name-field area with white (no stroke so the border
                 #    doesn't bleed onto the separator line)
                 pg.draw_rect(
                     fitz.Rect(
-                        ox + _NF_X0 * sx, oy + _NF_Y0 * sy,
-                        ox + _NF_X1 * sx, oy + _NF_Y1 * sy,
+                        ox + _NF_X0 * s, oy + _NF_Y0 * s,
+                        ox + _NF_X1 * s, oy + _NF_Y1 * s,
                     ),
                     fill=(1, 1, 1), color=None, width=0,
                 )
                 # 2. Restore the IGCSE decorative line across the erased band
-                ly  = oy + _NF_LINE_Y  * sy
-                lx0 = ox + _NF_LINE_X0 * sx
-                lx1 = ox + _NF_X1      * sx
+                ly  = oy + _NF_LINE_Y  * s
+                lx0 = ox + _NF_LINE_X0 * s
+                lx1 = ox + _NF_X1      * s
                 pg.draw_line(
                     fitz.Point(lx0, ly), fitz.Point(lx1, ly),
                     color=(0, 0, 0), width=lw,
@@ -230,11 +245,13 @@ def run_exercise_sheet_pdfjam_variants(
     def _run_2up() -> None:
         _run(
             [pdfjam, "--nup", "2x1", "--landscape", "--paper", "a4paper",
-             "--frame", "false", "--scale", "1.0", "--outfile", str(out_2up), inp],
+             "--frame", "false", "--scale", str(PDFJAM_NUP_SCALE),
+             "--outfile", str(out_2up), inp],
             out_2up, "pdfjam 2-up landscape",
         )
         if out_2up.is_file():
-            _fix_nup_name_fields(out_2up, cols=2, rows=1)
+            _fix_nup_name_fields(out_2up, cols=2, rows=1,
+                                 sub_scale=PDFJAM_NUP_SCALE)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as ex:
         fut_4up = ex.submit(_run_4up)

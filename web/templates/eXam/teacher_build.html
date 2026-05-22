@@ -1,0 +1,89 @@
+{% extends "eXam/base.html" %}
+{% block title %}Build test · eXam{% endblock %}
+{% block header_right %}
+<div class="text-sm"><a href="/eXam/teacher/" class="underline">← Dashboard</a></div>
+{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-semibold mb-6">New practice test</h1>
+<form id="build-form" class="space-y-4 bg-white rounded shadow-sm border border-slate-200 p-6 max-w-2xl">
+  <div>
+    <label class="block text-sm font-medium mb-1">Natural-language description</label>
+    <textarea name="prompt" rows="4" required
+      class="w-full border border-slate-300 rounded px-3 py-2 text-sm"
+      placeholder="e.g. questions 1-10 of 0625 physics November 2025 paper 11"></textarea>
+    <p class="text-xs text-slate-500 mt-1">Same format as the eXercise sheet generator — name papers + question numbers.</p>
+  </div>
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label class="block text-sm font-medium mb-1">Title (optional)</label>
+      <input name="title" class="w-full border border-slate-300 rounded px-3 py-2 text-sm">
+    </div>
+    <div>
+      <label class="block text-sm font-medium mb-1">Class label (optional)</label>
+      <input name="class_label" class="w-full border border-slate-300 rounded px-3 py-2 text-sm">
+    </div>
+  </div>
+  <div class="flex items-center gap-4">
+    <label class="inline-flex items-center gap-2 text-sm"><input type="checkbox" name="randomize"> Randomize question order per student</label>
+    <label class="inline-flex items-center gap-2 text-sm"><input type="checkbox" name="no_helpers"> Skip helper pre-generation (fast)</label>
+  </div>
+  <button type="submit" class="bg-slate-900 text-white px-4 py-1.5 rounded text-sm font-medium hover:bg-slate-800">Build</button>
+  <p id="err" class="text-sm text-red-600 hidden"></p>
+</form>
+
+<div id="progress" class="hidden mt-6 max-w-2xl bg-white rounded shadow-sm border border-slate-200 p-6">
+  <div class="text-sm font-medium mb-2">Building…</div>
+  <div id="progress-line" class="text-sm text-slate-600">Queued.</div>
+</div>
+
+<script>
+const form = document.getElementById("build-form");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fd = new FormData(form);
+  const body = {
+    prompt: fd.get("prompt"),
+    title: fd.get("title") || null,
+    class_label: fd.get("class_label") || null,
+    randomize: !!fd.get("randomize"),
+    no_helpers: !!fd.get("no_helpers"),
+  };
+  const err = document.getElementById("err");
+  err.classList.add("hidden");
+  const res = await fetch("/eXam/teacher/build", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    err.textContent = data.detail || "Build failed";
+    err.classList.remove("hidden");
+    return;
+  }
+  const data = await res.json();
+  const testId = data.test_id;
+  document.getElementById("progress").classList.remove("hidden");
+  const line = document.getElementById("progress-line");
+  const tick = async () => {
+    const r = await fetch(`/eXam/teacher/builds/${testId}`);
+    if (!r.ok) { line.textContent = "Status unavailable."; return; }
+    const s = await r.json();
+    if (s.status === "ready") {
+      line.innerHTML = `✓ Ready. <a class="underline" href="/eXam/teacher/test/${testId}">Open</a>`;
+      return;
+    }
+    if (s.status === "failed") {
+      line.innerHTML = `✗ Failed. <pre class="text-xs whitespace-pre-wrap mt-2">${s.error || ""}</pre>`;
+      return;
+    }
+    const p = s.progress;
+    if (p) {
+      line.textContent = `[${p.step}] ${p.current}/${p.total}` + (p.qnum ? ` — ${p.qnum}` : "");
+    }
+    setTimeout(tick, 1000);
+  };
+  tick();
+});
+</script>
+{% endblock %}

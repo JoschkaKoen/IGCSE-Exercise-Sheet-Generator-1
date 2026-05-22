@@ -27,6 +27,8 @@ from .auth_gate import (
     parse_login_disabled,
     request_is_authenticated,
 )
+from .routes.eXam_student import router as eXam_student_router
+from .routes.eXam_teacher import router as eXam_teacher_router
 from .routes.grade_jobs import router as grade_jobs_router
 from .routes.nl_jobs import router as nl_jobs_router
 from .routes.site import router as site_router
@@ -114,3 +116,5 @@ async def site_access_gate(request: Request, call_next):
 app.include_router(site_router)
 app.include_router(nl_jobs_router)
 app.include_router(grade_jobs_router)
+app.include_router(eXam_student_router)
+app.include_router(eXam_teacher_router)

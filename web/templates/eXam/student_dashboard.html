@@ -1,0 +1,32 @@
+{% extends "eXam/base.html" %}
+{% block title %}Dashboard · eXam{% endblock %}
+{% block header_right %}
+<div class="text-sm text-slate-600">
+  {{ student.name }}{% if student.class_label %} · {{ student.class_label }}{% endif %}
+  · <button onclick="logout()" class="underline">Log out</button>
+</div>
+{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-semibold mb-6">Your tests</h1>
+{% if not tests %}
+<p class="text-slate-600">No tests available yet. Your teacher hasn't published anything for your class.</p>
+{% else %}
+<ul class="space-y-3">
+  {% for t in tests %}
+  <li class="bg-white rounded shadow-sm border border-slate-200 p-4 flex items-center justify-between">
+    <div>
+      <a href="/eXam/test/{{ t.id }}" class="text-lg font-medium text-slate-900 hover:underline">{{ t.title }}</a>
+      <div class="text-sm text-slate-500">{{ t.subject }}{% if t.class_label %} · {{ t.class_label }}{% endif %}</div>
+    </div>
+    <a href="/eXam/test/{{ t.id }}" class="bg-slate-900 text-white text-sm font-medium px-3 py-1.5 rounded hover:bg-slate-800">Open</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+<script>
+async function logout() {
+  await fetch("/eXam/api/logout", {method: "POST"});
+  window.location.href = "/eXam/login";
+}
+</script>
+{% endblock %}

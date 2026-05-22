@@ -1,0 +1,171 @@
+{% extends "eXam/base.html" %}
+{% block title %}Q{{ meta.number }} · {{ test.title }} · eXam{% endblock %}
+{% block header_right %}
+<div class="text-sm text-slate-600">
+  {{ student.name }} ·
+  <a href="/eXam/test/{{ test.id }}" class="underline">Overview</a> ·
+  Q{{ idx + 1 }}/{{ total }} ·
+  <span class="text-emerald-600">✓{{ counters.correct }}</span>
+  <span class="text-amber-600">retry{{ counters.retry }}</span>
+  <span class="text-slate-400">☐{{ counters.unanswered }}</span>
+</div>
+{% endblock %}
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+  <div class="lg:col-span-8">
+    <h2 class="text-lg font-medium mb-3">Question {{ meta.number }} · {{ meta.marks }} mark{% if meta.marks != 1 %}s{% endif %}</h2>
+    <iframe src="/eXam/pdf/{{ meta.question_id }}#toolbar=0&navpanes=0"
+            class="w-full border border-slate-300 rounded bg-white" style="height: 60vh;"></iframe>
+
+    <form id="answer-form" class="mt-4 space-y-3">
+      <label class="block text-sm font-medium">Your answer:</label>
+      {% set t = meta.question_type %}
+      {% if t == 'multiple_choice' %}
+        <div class="flex flex-wrap gap-3">
+          {% for opt in meta.options %}
+            <label class="inline-flex items-center gap-2 bg-white border border-slate-300 rounded px-3 py-1.5 cursor-pointer">
+              <input type="radio" name="submitted" value="{{ opt.letter }}" required>
+              <span class="font-mono">{{ opt.letter }}</span>
+              <span class="text-sm text-slate-600">{{ opt.text }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      {% elif t in ['short_answer', 'calculation'] or (t == 'long_answer' and test.subject in ['physics', 'a_level_physics']) %}
+        <input type="text" name="submitted" required
+          class="w-full border border-slate-300 rounded px-3 py-2 font-mono"
+          {% if test.subject in ['physics', 'a_level_physics'] and t != 'short_answer' %}
+            placeholder="Final answer (e.g. 9.81 m/s²)"
+          {% endif %}>
+      {% else %}
+        <textarea name="submitted" rows="6" required
+          class="w-full border border-slate-300 rounded px-3 py-2 font-mono text-sm"></textarea>
+      {% endif %}
+
+      <div class="flex items-center gap-2">
+        {% if prev_idx is not none %}
+          <a href="/eXam/test/{{ test.id }}?q={{ prev_idx }}"
+             class="px-3 py-1.5 rounded border border-slate-300 text-sm hover:bg-slate-100">← Prev</a>
+        {% endif %}
+        <button id="submit-btn" type="submit"
+                class="px-4 py-1.5 rounded bg-slate-900 text-white text-sm font-medium hover:bg-slate-800">
+          Submit
+        </button>
+        {% if next_idx is not none %}
+          <a href="/eXam/test/{{ test.id }}?q={{ next_idx }}"
+             class="px-3 py-1.5 rounded border border-slate-300 text-sm hover:bg-slate-100">Next →</a>
+        {% endif %}
+      </div>
+    </form>
+
+    <div id="feedback" class="mt-4 hidden bg-white border border-slate-300 rounded p-4 text-sm"></div>
+  </div>
+
+  <aside class="lg:col-span-4 space-y-4">
+    <div class="bg-white rounded shadow-sm border border-slate-200">
+      <div class="px-4 py-2 border-b border-slate-200 font-medium text-sm">Helpers</div>
+      <div class="p-2 space-y-1">
+        <button class="helper-btn w-full text-left px-3 py-1.5 rounded hover:bg-slate-100 text-sm"
+                data-kind="hint">💡 Hint</button>
+        <button class="helper-btn w-full text-left px-3 py-1.5 rounded hover:bg-slate-100 text-sm"
+                data-kind="kb">📚 Knowledge base</button>
+        <button class="helper-btn w-full text-left px-3 py-1.5 rounded hover:bg-slate-100 text-sm"
+                data-kind="example">🎯 Similar example</button>
+        <button class="helper-btn w-full text-left px-3 py-1.5 rounded text-sm
+                {% if solution_unlocked %}hover:bg-slate-100{% else %}text-slate-400 cursor-not-allowed{% endif %}"
+                data-kind="solution" {% if not solution_unlocked %}disabled title="Locked until you answer correctly"{% endif %}>
+          🔓 Step-by-step solution{% if not solution_unlocked %} (locked){% endif %}
+        </button>
+      </div>
+      <div id="helper-content" class="hidden border-t border-slate-200 p-3 text-sm prose prose-sm max-w-none"></div>
+    </div>
+
+    {% if latest %}
+    <div class="bg-white rounded shadow-sm border border-slate-200 p-4">
+      <div class="text-sm font-medium mb-1">Last attempt</div>
+      <div class="text-sm">
+        {{ "%.1f"|format(latest.assigned_marks) }} / {{ "%.0f"|format(latest.max_marks) }}
+        · attempts: {{ latest.attempt_count }}
+      </div>
+      <div class="text-xs text-slate-600 mt-1">{{ latest.submitted }}</div>
+      {% if latest.reasoning %}
+      <div class="text-xs text-slate-700 mt-2">{{ latest.reasoning }}</div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </aside>
+</div>
+
+<script>
+const TEST_ID = {{ test.id|tojson }};
+const QUESTION_ID = {{ meta.question_id|tojson }};
+let helpersUsed = {hint: false, solution: false, example: false, kb: false};
+
+document.querySelectorAll(".helper-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    if (btn.disabled) return;
+    const kind = btn.dataset.kind;
+    helpersUsed[kind] = true;
+    const target = document.getElementById("helper-content");
+    target.textContent = "Loading…";
+    target.classList.remove("hidden");
+    const res = await fetch("/eXam/api/helper", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({question_id: QUESTION_ID, kind}),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      target.textContent = data.detail || "Helper unavailable";
+      return;
+    }
+    const data = await res.json();
+    target.innerHTML = "";
+    const pre = document.createElement("div");
+    pre.style.whiteSpace = "pre-wrap";
+    pre.textContent = data.content;
+    target.appendChild(pre);
+    if (window.renderMathInElement) {
+      renderMathInElement(target, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});
+    }
+  });
+});
+
+document.getElementById("answer-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const submitted = fd.get("submitted");
+  const btn = document.getElementById("submit-btn");
+  btn.disabled = true;
+  btn.textContent = "Marking…";
+  const fb = document.getElementById("feedback");
+  fb.classList.add("hidden");
+  try {
+    const res = await fetch("/eXam/api/submit", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        test_id: TEST_ID,
+        question_id: QUESTION_ID,
+        submitted: String(submitted ?? ""),
+        ...helpersUsed,
+      }),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      fb.textContent = data.detail || "Submission failed";
+      fb.classList.remove("hidden");
+      return;
+    }
+    const data = await res.json();
+    fb.innerHTML = `<div class="font-medium">${data.assigned_marks} / ${data.max_marks} marks · attempt ${data.attempt_number}</div>` +
+                   (data.reasoning ? `<div class="mt-1 text-slate-700">${data.reasoning}</div>` : "");
+    fb.classList.remove("hidden");
+    // Reload to refresh status / counter / unlock state after a short pause.
+    setTimeout(() => window.location.reload(), 800);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Submit";
+  }
+});
+</script>
+{% endblock %}

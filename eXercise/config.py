@@ -79,6 +79,12 @@ OUTPUT_MARGIN_PT = 10
 # diagrams) and the extra space on the right is rarely needed.
 OUTPUT_MARGIN_RIGHT_PT = 4
 
+# Multiplier applied to each sub-page in pdfjam 2-up imposition.  Values < 1.0
+# inset content from slot edges so a 100%-scale print survives the printer's
+# unprintable margin (~3% per side on typical office printers).  0.97 matches
+# the empirical scale-to-fit value most printers pick for these sheets.
+PDFJAM_NUP_SCALE = 0.97
+
 # Centered **page header** string when ``exam_key`` is known (natural-language runs).
 PAGE_HEADER_BY_EXAM = {
     "physics": "IGCSE Physics",
