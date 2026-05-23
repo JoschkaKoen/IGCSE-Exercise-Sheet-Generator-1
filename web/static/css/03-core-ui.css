@@ -238,3 +238,89 @@ body:not(.page-entered) #grid-physics               { animation: hero-in 0.1s ea
 html.doc-background-paused #lib-hero h1.font-display {
   animation-play-state: paused;
 }
+
+/* ─── Helper drawer rendered markdown content ───────────────────────────── */
+/* Server renders cached <kind>.md to HTML; this block styles the result.
+   Use em (not rem) so headings/lists scale with the drawer's base font size
+   (practice page = text-base, test page = text-sm). */
+.ex-helper-body {
+  padding: 0.85rem 1rem;
+}
+.ex-helper-body > :first-child { margin-top: 0; }
+.ex-helper-body > :last-child  { margin-bottom: 0; }
+
+/* H1 included for backward-compat with cached "# Topic" helpers that pre-date
+   the prompt update; visually identical to H2. */
+.ex-helper-body h1,
+.ex-helper-body h2 {
+  font-family: 'Sora', 'Outfit', system-ui, sans-serif;
+  font-size: 1.05em;
+  font-weight: 600;
+  color: rgb(241, 245, 249);   /* slate-100 */
+  margin: 1em 0 0.4em;
+}
+.ex-helper-body h3 {
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(148, 163, 184);   /* slate-400 */
+  margin: 0.9em 0 0.3em;
+}
+.ex-helper-body p {
+  margin: 0.45rem 0;
+  line-height: 1.65;
+}
+.ex-helper-body ul,
+.ex-helper-body ol {
+  margin: 0.4rem 0;
+  padding-left: 1.25rem;
+}
+.ex-helper-body ul { list-style: disc; }
+.ex-helper-body ol { list-style: decimal; font-variant-numeric: tabular-nums; }
+.ex-helper-body li { margin: 0.18rem 0; line-height: 1.5; }
+.ex-helper-body strong {
+  color: rgb(248, 250, 252);   /* slate-50 — lift from body slate-200 */
+  font-weight: 600;
+}
+.ex-helper-body em {
+  color: rgb(226, 232, 240);   /* slate-200 */
+  font-style: italic;
+}
+.ex-helper-body code {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.05rem 0.3rem;
+  border-radius: 0.25rem;
+  color: rgb(165, 243, 252);   /* cyan-200 */
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+}
+.ex-helper-body pre {
+  background: rgba(2, 6, 23, 0.6);
+  border-radius: 0.5rem;
+  padding: 0.7rem 0.9rem;
+  overflow-x: auto;
+  margin: 0.6rem 0;
+}
+.ex-helper-body pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: 0.85em;
+}
+.ex-helper-body blockquote {
+  border-left: 2px solid rgba(34, 211, 238, 0.4);
+  padding-left: 0.7rem;
+  margin: 0.5rem 0;
+  color: rgb(203, 213, 225);   /* slate-300 */
+}
+.ex-helper-body hr {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0.9rem 0;
+}
+/* Display math (KaTeX renders inside this wrapper from dollarmath) */
+.ex-helper-body .math.block {
+  margin: 0.7rem 0;
+  overflow-x: auto;
+}

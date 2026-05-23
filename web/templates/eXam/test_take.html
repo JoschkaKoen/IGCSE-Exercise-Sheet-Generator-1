@@ -6,11 +6,19 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
 <style>
-  .ex-snippet { display: block; width: 100%; aspect-ratio: var(--pdf-aspect, 595/842); max-height: 80vh; background: #0c1322; border-radius: 0.75rem; }
+  .ex-snippet-scroll { max-height: 80vh; overflow-y: auto; border-radius: 0.75rem; }
+  .ex-snippet { display: block; width: 100%; aspect-ratio: var(--pdf-aspect, 595/842); background: #0c1322; border-radius: 0.75rem; }
   .ex-radio-chip { transition: border-color .15s, background .15s; }
   .ex-radio-chip:has(input:checked) { border-color: rgba(34,211,238,.6); background: rgba(34,211,238,.08); }
   .ex-helper-drawer { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
   .ex-helper-drawer.open { max-height: 60vh; overflow-y: auto; }
+  @keyframes ex-hint-flash {
+    0%   { background-color: rgba(34, 211, 238, 0); }
+    15%  { background-color: rgba(34, 211, 238, 0.18); }
+    100% { background-color: rgba(34, 211, 238, 0); }
+  }
+  .ex-hint-flash { animation: ex-hint-flash 1.4s ease-out 1; border-radius: 0.5rem; }
+  @media (prefers-reduced-motion: reduce) { .ex-hint-flash { animation: none; } }
 </style>
 {% endblock %}
 {% block content %}
@@ -34,9 +42,11 @@
 <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
   <section class="lg:col-span-8">
     <div class="glass-panel form-glow rounded-2xl p-3 sm:p-4">
-      <canvas id="ex-snippet" class="ex-snippet"
-              style="--pdf-aspect: 595/842;"
-              aria-label="{{ t('take.q_prefix') }} {{ meta.number }}"></canvas>
+      <div class="ex-snippet-scroll">
+        <canvas id="ex-snippet" class="ex-snippet"
+                style="--pdf-aspect: {{ meta.pdf_width_pt or 595 }} / {{ meta.pdf_height_pt or 842 }};"
+                aria-label="{{ t('take.q_prefix') }} {{ meta.number }}"></canvas>
+      </div>
     </div>
 
     <form id="answer-form" class="mt-4 space-y-3 glass-panel rounded-2xl p-4">
@@ -85,40 +95,44 @@
       <div class="px-1 pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">{{ t('take.helpers_heading') }}</div>
       <div class="space-y-1">
         <button data-kind="hint" class="ex-helper-btn flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-slate-200 hover:bg-white/[0.06]">
-          <svg class="h-4 w-4 shrink-0 text-amber-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg data-role="icon" class="h-4 w-4 shrink-0 text-amber-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                   d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
           </svg>
+          <span data-role="spinner" class="hidden h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-amber-300/25 border-t-amber-300" aria-hidden="true"></span>
           {{ t('take.helper.hint') }}
         </button>
         <button data-kind="kb" class="ex-helper-btn flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-slate-200 hover:bg-white/[0.06]">
-          <svg class="h-4 w-4 shrink-0 text-cyan-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg data-role="icon" class="h-4 w-4 shrink-0 text-cyan-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                   d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/>
           </svg>
+          <span data-role="spinner" class="hidden h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-cyan-300/25 border-t-cyan-300" aria-hidden="true"></span>
           {{ t('take.helper.kb') }}
         </button>
         <button data-kind="example" class="ex-helper-btn flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-slate-200 hover:bg-white/[0.06]">
-          <svg class="h-4 w-4 shrink-0 text-violet-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg data-role="icon" class="h-4 w-4 shrink-0 text-violet-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                   d="M8 7v8a2 2 0 0 0 2 2h6M8 7V5a2 2 0 0 1 2-2h4.586a1 1 0 0 1 .707.293l4.414 4.414a1 1 0 0 1 .293.707V15a2 2 0 0 1-2 2h-2M8 7H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2"/>
           </svg>
+          <span data-role="spinner" class="hidden h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-violet-300/25 border-t-violet-300" aria-hidden="true"></span>
           {{ t('take.helper.example') }}
         </button>
         <button data-kind="solution"
                 class="ex-helper-btn flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm {% if solution_unlocked %}text-slate-200 hover:bg-white/[0.06]{% else %}text-slate-400 cursor-not-allowed{% endif %}"
                 {% if not solution_unlocked %}disabled title="{{ t('take.helper.unlock_attempt') }}"{% endif %}>
           {% if solution_unlocked %}
-          <svg class="h-4 w-4 shrink-0 text-emerald-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg data-role="icon" class="h-4 w-4 shrink-0 text-emerald-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                   d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
           </svg>
           {% else %}
-          <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg data-role="icon" class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                   d="M12 15v2m-6 4h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm10-10V7a4 4 0 0 0-8 0v4h8z"/>
           </svg>
           {% endif %}
+          <span data-role="spinner" class="hidden h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-emerald-300/25 border-t-emerald-300" aria-hidden="true"></span>
           {{ t('take.helper.solution') }}{% if not solution_unlocked %} {{ t('take.helper.locked_suffix') }}{% endif %}
         </button>
       </div>
@@ -174,6 +188,36 @@ const PDF_URL = "/eXam/pdf/" + encodeURIComponent(QUESTION_ID);
 
 let helpersUsed = {hint:false, solution:false, example:false, kb:false};
 
+const _iconState = new WeakMap();
+function setBtnBusy(btn, busy) {
+  const spinner = btn.querySelector('[data-role="spinner"]');
+  const icons   = btn.querySelectorAll('[data-role="icon"]');
+  if (!spinner) return;
+  if (busy) {
+    const visible = [];
+    icons.forEach((el, i) => { if (!el.classList.contains("hidden")) visible.push(i); });
+    _iconState.set(btn, visible);
+    icons.forEach(el => el.classList.add("hidden"));
+    spinner.classList.remove("hidden");
+    btn.setAttribute("aria-busy", "true");
+  } else {
+    spinner.classList.add("hidden");
+    (_iconState.get(btn) || []).forEach(i => icons[i] && icons[i].classList.remove("hidden"));
+    btn.removeAttribute("aria-busy");
+  }
+}
+
+function maybeScrollDrawerIntoView(drawer) {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const behavior = reduce ? "auto" : "smooth";
+  setTimeout(() => {
+    const rect = drawer.getBoundingClientRect();
+    if (rect.bottom > window.innerHeight) {
+      drawer.scrollIntoView({ behavior, block: "end" });
+    }
+  }, 280);
+}
+
 document.querySelectorAll(".ex-helper-btn").forEach(btn => {
   btn.addEventListener("click", async () => {
     if (btn.disabled) return;
@@ -182,20 +226,34 @@ document.querySelectorAll(".ex-helper-btn").forEach(btn => {
     const drawer = document.getElementById("helper-drawer");
     drawer.classList.add("open");
     drawer.innerHTML = `<div class="p-3 text-slate-400">${window.i18n["take.loading"]}</div>`;
-    const res = await fetch("/eXam/api/helper", {
-      method: "POST", headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({question_id: QUESTION_ID, kind}),
-    });
-    if (!res.ok) {
-      const d = await res.json().catch(()=>({}));
-      drawer.innerHTML = `<div class="p-3 text-red-300">${d.detail || window.i18n["take.helper_unavailable"]}</div>`;
-      return;
+    const allBtns = document.querySelectorAll(".ex-helper-btn");
+    const priorDisabled = new Map();
+    allBtns.forEach(b => priorDisabled.set(b, b.disabled));
+    try {
+      setBtnBusy(btn, true);
+      allBtns.forEach(b => { b.disabled = true; });
+      const res = await fetch("/eXam/api/helper", {
+        method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({question_id: QUESTION_ID, kind}),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(()=>({}));
+        drawer.innerHTML = `<div class="p-3 text-red-300">${d.detail || window.i18n["take.helper_unavailable"]}</div>`;
+        return;
+      }
+      const d = await res.json();
+      const pre = document.createElement("div");
+      pre.className = "ex-helper-body";
+      pre.innerHTML = d.content;
+      drawer.innerHTML = ""; drawer.appendChild(pre);
+      if (window.renderMathInElement) renderMathInElement(drawer, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});
+      pre.classList.add("ex-hint-flash");
+      pre.addEventListener("animationend", () => pre.classList.remove("ex-hint-flash"), { once: true });
+      maybeScrollDrawerIntoView(drawer);
+    } finally {
+      setBtnBusy(btn, false);
+      allBtns.forEach(b => { b.disabled = priorDisabled.get(b); });
     }
-    const d = await res.json();
-    const pre = document.createElement("div");
-    pre.className = "p-3"; pre.style.whiteSpace = "pre-wrap"; pre.textContent = d.content;
-    drawer.innerHTML = ""; drawer.appendChild(pre);
-    if (window.renderMathInElement) renderMathInElement(drawer, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});
   });
 });
 

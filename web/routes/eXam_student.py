@@ -321,12 +321,13 @@ async def api_helper(request: Request):
     if not qid or kind not in {"hint", "solution", "example", "kb"}:
         raise HTTPException(status_code=400, detail="Bad helper request")
     from eXam.pregenerate import pregenerate_for_question, read_cached
+    from eXam.render_helper import render_helper_markdown
     cached = read_cached(qid, kind)
     if cached is not None:
-        return {"ok": True, "content": cached, "cache_hit": True}
+        return {"ok": True, "content": render_helper_markdown(cached), "cache_hit": True}
     subject = qid.split("::", 1)[0]
     try:
         content = pregenerate_for_question({"question_id": qid}, subject, kind)
     except Exception as e:  # noqa: BLE001
         raise HTTPException(status_code=503, detail=f"Helper generation failed: {e}")
-    return {"ok": True, "content": content, "cache_hit": False}
+    return {"ok": True, "content": render_helper_markdown(content), "cache_hit": False}

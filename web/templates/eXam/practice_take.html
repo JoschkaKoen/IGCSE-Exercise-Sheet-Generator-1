@@ -1,16 +1,24 @@
 {% extends "base.html" %}
-{% block title %}{{ t('take.title.practice').format(subject=subject_display) }}{% endblock %}
+{% block title %}{% if review_mode %}{{ t('review.page_title') }}{% else %}{{ t('take.title.practice').format(subject=subject_display) }}{% endif %}{% endblock %}
 {% block extra_head %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
 <style>
-  .ex-snippet { display: block; width: 100%; aspect-ratio: var(--pdf-aspect, 595/842); max-height: 80vh; background: #0c1322; border-radius: 0.75rem; }
+  .ex-snippet-scroll { max-height: 80vh; overflow-y: auto; border-radius: 0.75rem; }
+  .ex-snippet { display: block; width: 100%; aspect-ratio: var(--pdf-aspect, 595/842); background: #0c1322; border-radius: 0.75rem; }
   .ex-radio-chip { transition: border-color .15s, background .15s; }
   .ex-radio-chip:has(input:checked) { border-color: rgba(34,211,238,.6); background: rgba(34,211,238,.08); }
   .ex-helper-drawer { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
   .ex-helper-drawer.open { max-height: 60vh; overflow-y: auto; }
+  @keyframes ex-hint-flash {
+    0%   { background-color: rgba(34, 211, 238, 0); }
+    15%  { background-color: rgba(34, 211, 238, 0.18); }
+    100% { background-color: rgba(34, 211, 238, 0); }
+  }
+  .ex-hint-flash { animation: ex-hint-flash 1.4s ease-out 1; border-radius: 0.5rem; }
+  @media (prefers-reduced-motion: reduce) { .ex-hint-flash { animation: none; } }
   .ex-practice-row { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
   @media (min-width: 1024px) {
     .ex-practice-row {
@@ -26,9 +34,25 @@
 </style>
 {% endblock %}
 {% block content %}
+{% if review_mode and review_empty %}
+<div class="mx-auto max-w-2xl py-16 text-center">
+  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">{{ t('review.empty.title') }}</h1>
+  <p class="mt-3 text-sm text-slate-400">{{ t('review.empty.' ~ review_filter) }}</p>
+  <a href="/eXam/practice{% if review_subject %}/{{ review_subject }}{% endif %}"
+     class="mt-6 inline-flex items-center justify-center gap-2 rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 transition hover:bg-white/[0.08]">
+    {{ t('review.back_to_landing') }}
+  </a>
+</div>
+{% else %}
 <header class="mb-5 flex flex-wrap items-baseline justify-between gap-3">
   <div>
+    {% if review_mode %}
+    <p class="text-xs uppercase tracking-[0.18em] text-cyan-300">
+      {{ t('review.eyebrow.' ~ review_filter) }} · {{ subject_display }} · {{ t('review.position').format(idx=review_index + 1, total=review_total) }}
+    </p>
+    {% else %}
     <p class="text-xs uppercase tracking-[0.18em] text-slate-500">{{ t('take.subject_label').format(subject=subject_display) }}</p>
+    {% endif %}
     <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">
       {{ t('take.q_prefix') }} {{ meta.number }}
       <span class="ml-2 text-sm font-normal text-slate-400">· {{ (t('take.marks_one') if meta.marks == 1 else t('take.marks_many')).format(n=meta.marks) }}</span>
@@ -37,25 +61,125 @@
     <p class="mt-1 text-xs text-slate-500">{{ meta.paper_label }}</p>
     {% endif %}
   </div>
-  <div class="text-sm text-slate-400">
-    {{ t('take.session_label') }} <span class="text-cyan-300">{{ stats.correct }} / {{ stats.total }}</span> ·
-    <a href="/eXam/practice" class="underline hover:text-white">{{ t('take.pick_subject') }}</a>
+  <div class="flex flex-col items-end gap-2">
+    {% if review_mode %}
+    <a href="/eXam/practice{% if review_subject %}/{{ review_subject }}{% endif %}"
+       class="text-xs text-slate-500 transition hover:text-slate-300 focus:outline-none focus:text-slate-300">{{ t('review.back') }}</a>
+    {% endif %}
+    <div class="inline-flex items-center gap-3 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-xs shadow-inner shadow-black/20 backdrop-blur-sm">
+      {% if stats.viewed > 0 %}
+      <a href="/eXam/practice/review/viewed?subject={{ subject }}" class="inline-flex items-center gap-1.5 rounded-full transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
+        <svg class="h-3.5 w-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span class="font-semibold tabular-nums text-white">{{ stats.viewed }}</span>
+        <span class="text-slate-400">{{ t('practice.stat.viewed') }}</span>
+      </a>
+      {% else %}
+      <span class="inline-flex items-center gap-1.5 opacity-50" aria-disabled="true">
+        <svg class="h-3.5 w-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span class="font-semibold tabular-nums text-white">0</span>
+        <span class="text-slate-400">{{ t('practice.stat.viewed') }}</span>
+      </span>
+      {% endif %}
+      <span class="h-3 w-px bg-white/[0.10]" aria-hidden="true"></span>
+      {% if stats.attempted > 0 %}
+      <a href="/eXam/practice/review/attempted?subject={{ subject }}" class="inline-flex items-center gap-1.5 rounded-full transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
+        <svg class="h-3.5 w-3.5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/>
+        </svg>
+        <span class="font-semibold tabular-nums text-white">{{ stats.attempted }}</span>
+        <span class="text-slate-400">{{ t('practice.stat.attempted') }}</span>
+      </a>
+      {% else %}
+      <span class="inline-flex items-center gap-1.5 opacity-50" aria-disabled="true">
+        <svg class="h-3.5 w-3.5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/>
+        </svg>
+        <span class="font-semibold tabular-nums text-white">0</span>
+        <span class="text-slate-400">{{ t('practice.stat.attempted') }}</span>
+      </span>
+      {% endif %}
+      <span class="h-3 w-px bg-white/[0.10]" aria-hidden="true"></span>
+      {% if stats.correct > 0 %}
+      <a href="/eXam/practice/review/correct?subject={{ subject }}" class="inline-flex items-center gap-1.5 rounded-full transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
+        <svg class="h-3.5 w-3.5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span class="font-semibold tabular-nums text-white">{{ stats.correct }}</span>
+        <span class="text-slate-400">{{ t('practice.stat.correct') }}</span>
+      </a>
+      {% else %}
+      <span class="inline-flex items-center gap-1.5 opacity-50" aria-disabled="true">
+        <svg class="h-3.5 w-3.5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span class="font-semibold tabular-nums text-white">0</span>
+        <span class="text-slate-400">{{ t('practice.stat.correct') }}</span>
+      </span>
+      {% endif %}
+    </div>
   </div>
 </header>
+
+{% if review_mode %}
+<nav class="mb-4 flex items-center justify-between gap-2 text-sm">
+  {% if review_index > 0 %}
+    <a href="/eXam/practice/review/{{ review_filter }}/{{ review_index - 1 }}{% if review_subject %}?subject={{ review_subject }}{% endif %}"
+       class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-3 py-1.5 text-slate-300 transition hover:bg-white/[0.08]">{{ t('review.prev') }}</a>
+  {% else %}
+    <span class="rounded-xl border border-white/[0.05] bg-white/[0.02] px-3 py-1.5 text-slate-600 cursor-not-allowed" aria-disabled="true">{{ t('review.prev') }}</span>
+  {% endif %}
+  {% if review_index + 1 < review_total %}
+    <a href="/eXam/practice/review/{{ review_filter }}/{{ review_index + 1 }}{% if review_subject %}?subject={{ review_subject }}{% endif %}"
+       class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-3 py-1.5 text-slate-300 transition hover:bg-white/[0.08]">{{ t('review.next') }}</a>
+  {% else %}
+    <span class="rounded-xl border border-white/[0.05] bg-white/[0.02] px-3 py-1.5 text-slate-600 cursor-not-allowed" aria-disabled="true">{{ t('review.next') }}</span>
+  {% endif %}
+</nav>
+{% endif %}
 
 <div class="ex-practice-row">
   <section class="lg:order-2 lg:flex-1 lg:min-w-0">
     <div class="glass-panel form-glow rounded-2xl p-3 sm:p-4">
-      <canvas id="ex-snippet" class="ex-snippet"
-              style="--pdf-aspect: {{ meta.pdf_width_pt or 595 }} / {{ meta.pdf_height_pt or 842 }};"
-              aria-label="{{ t('take.q_prefix') }} {{ meta.number }}"></canvas>
+      <div class="ex-snippet-scroll">
+        <canvas id="ex-snippet" class="ex-snippet"
+                style="--pdf-aspect: {{ meta.pdf_width_pt or 595 }} / {{ meta.pdf_height_pt or 842 }};"
+                aria-label="{{ t('take.q_prefix') }} {{ meta.number }}"></canvas>
+      </div>
     </div>
+
+    {% if review_mode and review_past %}
+    {% set _past_correct = review_past.assigned_marks >= review_past.max_marks and review_past.max_marks > 0 %}
+    {% set _got = review_past.assigned_marks|int if review_past.assigned_marks == review_past.assigned_marks|int else review_past.assigned_marks %}
+    {% set _max = review_past.max_marks|int if review_past.max_marks == review_past.max_marks|int else review_past.max_marks %}
+    <div class="mt-4 glass-panel rounded-2xl p-4 text-sm">
+      <div class="mb-2 flex items-center gap-2">
+        <p class="text-xs uppercase tracking-[0.18em] text-slate-500">{{ t('review.past_answer') }}</p>
+        <span class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ring-1 {% if _past_correct %}bg-emerald-400/10 text-emerald-300 ring-emerald-400/20{% else %}bg-amber-400/10 text-amber-300 ring-amber-400/20{% endif %}">
+          {{ t('review.past_marks').format(got=_got, max=_max) }}
+        </span>
+      </div>
+      <p class="font-mono text-slate-100" style="white-space: pre-wrap;">{{ review_past.submitted }}</p>
+      {% if review_past.reasoning %}
+      <details class="mt-3">
+        <summary class="cursor-pointer text-xs uppercase tracking-[0.18em] text-slate-500 transition hover:text-slate-300">{{ t('review.past_feedback') }}</summary>
+        <p class="mt-2 text-slate-300" style="white-space: pre-wrap;">{{ review_past.reasoning }}</p>
+      </details>
+      {% endif %}
+    </div>
+    {% endif %}
 
     <div id="helper-drawer" class="ex-helper-drawer mt-4 rounded-2xl border border-white/[0.08] bg-slate-950/40 text-base text-slate-200"></div>
 
     <div id="feedback" class="mt-4 hidden glass-panel rounded-2xl p-4 text-sm"></div>
   </section>
 
+  {% if not review_readonly %}
   <aside class="lg:order-1 lg:w-52 lg:shrink-0">
     <form id="answer-form" class="space-y-3 glass-panel rounded-2xl p-4">
       {% set qt = meta.question_type %}
@@ -82,56 +206,63 @@
                 class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">
           {{ t('take.submit') }}
         </button>
+        {% if not review_mode %}
         <a href="/eXam/practice/{{ subject }}"
            class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-center text-sm text-slate-300 hover:bg-white/[0.08]">
           {{ t('take.skip') }}
         </a>
+        {% endif %}
       </div>
     </form>
   </aside>
+  {% endif %}
 
   <aside class="lg:order-3 lg:w-52 lg:shrink-0">
     <div class="glass-panel rounded-2xl p-2">
       <div class="space-y-1">
         <button data-kind="hint" class="ex-helper-btn group flex w-full items-center gap-2.5 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-2 text-sm text-slate-300 transition hover:border-white/[0.10] hover:bg-white/[0.05] hover:text-slate-100">
           <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white/[0.04] ring-1 ring-white/[0.06]">
-            <svg class="h-3.5 w-3.5 text-amber-200/70 transition group-hover:text-amber-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg data-role="icon" class="h-3.5 w-3.5 text-amber-200/70 transition group-hover:text-amber-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                     d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
             </svg>
+            <span data-role="spinner" class="hidden h-3.5 w-3.5 shrink-0 animate-spin rounded-full border-2 border-amber-300/25 border-t-amber-300" aria-hidden="true"></span>
           </span>
           {{ t('take.helper.hint') }}
         </button>
         <button data-kind="kb" class="ex-helper-btn group flex w-full items-center gap-2.5 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-2 text-sm text-slate-300 transition hover:border-white/[0.10] hover:bg-white/[0.05] hover:text-slate-100">
           <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white/[0.04] ring-1 ring-white/[0.06]">
-            <svg class="h-3.5 w-3.5 text-cyan-200/70 transition group-hover:text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg data-role="icon" class="h-3.5 w-3.5 text-cyan-200/70 transition group-hover:text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                     d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/>
             </svg>
+            <span data-role="spinner" class="hidden h-3.5 w-3.5 shrink-0 animate-spin rounded-full border-2 border-cyan-300/25 border-t-cyan-300" aria-hidden="true"></span>
           </span>
           {{ t('take.helper.kb') }}
         </button>
         <button data-kind="example" class="ex-helper-btn group flex w-full items-center gap-2.5 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-2 text-sm text-slate-300 transition hover:border-white/[0.10] hover:bg-white/[0.05] hover:text-slate-100">
           <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white/[0.04] ring-1 ring-white/[0.06]">
-            <svg class="h-3.5 w-3.5 text-violet-200/70 transition group-hover:text-violet-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg data-role="icon" class="h-3.5 w-3.5 text-violet-200/70 transition group-hover:text-violet-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                     d="M8 7v8a2 2 0 0 0 2 2h6M8 7V5a2 2 0 0 1 2-2h4.586a1 1 0 0 1 .707.293l4.414 4.414a1 1 0 0 1 .293.707V15a2 2 0 0 1-2 2h-2M8 7H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2"/>
             </svg>
+            <span data-role="spinner" class="hidden h-3.5 w-3.5 shrink-0 animate-spin rounded-full border-2 border-violet-300/25 border-t-violet-300" aria-hidden="true"></span>
           </span>
           {{ t('take.helper.example') }}
         </button>
         <button data-kind="solution" id="solution-btn"
-                class="ex-helper-btn group flex w-full items-center gap-2.5 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-2 text-sm text-slate-400 cursor-not-allowed transition"
-                disabled title="{{ t('take.helper.unlock_correct') }}">
-          <span id="solution-icon-chip" class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white/[0.04] ring-1 ring-white/[0.06] transition">
-            <svg id="solution-icon-locked" class="h-3.5 w-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                class="ex-helper-btn group flex w-full items-center gap-2.5 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-2 text-sm {% if review_readonly %}text-slate-300 hover:border-white/[0.10] hover:bg-white/[0.05] hover:text-slate-100{% else %}text-slate-400 cursor-not-allowed{% endif %} transition"
+                {% if not review_readonly %}disabled title="{{ t('take.helper.unlock_correct') }}"{% endif %}>
+          <span id="solution-icon-chip" class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md ring-1 transition {% if review_readonly %}bg-emerald-400/[0.06] ring-emerald-400/15{% else %}bg-white/[0.04] ring-white/[0.06]{% endif %}">
+            <svg id="solution-icon-locked" data-role="icon" class="{% if review_readonly %}hidden {% endif %}h-3.5 w-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                     d="M12 15v2m-6 4h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm10-10V7a4 4 0 0 0-8 0v4h8z"/>
             </svg>
-            <svg id="solution-icon-unlocked" class="hidden h-3.5 w-3.5 text-emerald-300/80 transition group-hover:text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg id="solution-icon-unlocked" data-role="icon" class="{% if not review_readonly %}hidden {% endif %}h-3.5 w-3.5 text-emerald-300/80 transition group-hover:text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                     d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
             </svg>
+            <span data-role="spinner" class="hidden h-3.5 w-3.5 shrink-0 animate-spin rounded-full border-2 border-emerald-300/25 border-t-emerald-300" aria-hidden="true"></span>
           </span>
           {{ t('take.helper.solution') }}
         </button>
@@ -144,6 +275,20 @@
 const QID = {{ meta.question_id|tojson }};
 const SUBJECT = {{ subject|tojson }};
 const PDF_URL = "/eXam/practice/pdf/" + encodeURIComponent(QID);
+const REVIEW_MODE = {{ (review_mode or false)|tojson }};
+const REVIEW_FILTER = {{ (review_filter or '')|tojson }};
+const REVIEW_INDEX = {{ (review_index or 0)|tojson }};
+const REVIEW_TOTAL = {{ (review_total or 0)|tojson }};
+const REVIEW_SUBJECT = {{ (review_subject or '')|tojson }};
+
+function reviewNextHref() {
+  if (!REVIEW_MODE) return "/eXam/practice/" + encodeURIComponent(SUBJECT);
+  const subjectQS = REVIEW_SUBJECT ? "?subject=" + encodeURIComponent(REVIEW_SUBJECT) : "";
+  if (REVIEW_INDEX + 1 < REVIEW_TOTAL) {
+    return "/eXam/practice/review/" + REVIEW_FILTER + "/" + (REVIEW_INDEX + 1) + subjectQS;
+  }
+  return REVIEW_SUBJECT ? "/eXam/practice/" + encodeURIComponent(REVIEW_SUBJECT) : "/eXam/practice";
+}
 
 (async function renderSnippet() {
   const canvas = document.getElementById("ex-snippet");
@@ -173,6 +318,36 @@ const PDF_URL = "/eXam/practice/pdf/" + encodeURIComponent(QID);
   });
 })();
 
+const _iconState = new WeakMap();
+function setBtnBusy(btn, busy) {
+  const spinner = btn.querySelector('[data-role="spinner"]');
+  const icons   = btn.querySelectorAll('[data-role="icon"]');
+  if (!spinner) return;
+  if (busy) {
+    const visible = [];
+    icons.forEach((el, i) => { if (!el.classList.contains("hidden")) visible.push(i); });
+    _iconState.set(btn, visible);
+    icons.forEach(el => el.classList.add("hidden"));
+    spinner.classList.remove("hidden");
+    btn.setAttribute("aria-busy", "true");
+  } else {
+    spinner.classList.add("hidden");
+    (_iconState.get(btn) || []).forEach(i => icons[i] && icons[i].classList.remove("hidden"));
+    btn.removeAttribute("aria-busy");
+  }
+}
+
+function maybeScrollDrawerIntoView(drawer) {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const behavior = reduce ? "auto" : "smooth";
+  setTimeout(() => {
+    const rect = drawer.getBoundingClientRect();
+    if (rect.bottom > window.innerHeight) {
+      drawer.scrollIntoView({ behavior, block: "end" });
+    }
+  }, 280);
+}
+
 document.querySelectorAll(".ex-helper-btn").forEach(btn => {
   btn.addEventListener("click", async () => {
     if (btn.disabled) return;
@@ -180,82 +355,98 @@ document.querySelectorAll(".ex-helper-btn").forEach(btn => {
     const drawer = document.getElementById("helper-drawer");
     drawer.classList.add("open");
     drawer.innerHTML = `<div class="p-3 text-slate-400">${window.i18n["take.loading"]}</div>`;
-    const res = await fetch("/eXam/practice/helper", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question_id: QID, kind }),
-    });
-    if (!res.ok) {
-      const d = await res.json().catch(() => ({}));
-      drawer.innerHTML = `<div class="p-3 text-red-300">${(d.detail || window.i18n["take.helper_unavailable"])}</div>`;
-      return;
-    }
-    const d = await res.json();
-    const pre = document.createElement("div");
-    pre.className = "p-3";
-    pre.style.whiteSpace = "pre-wrap";
-    pre.textContent = d.content;
-    drawer.innerHTML = "";
-    drawer.appendChild(pre);
-    if (window.renderMathInElement) {
-      renderMathInElement(drawer, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}] });
+    const allBtns = document.querySelectorAll(".ex-helper-btn");
+    const priorDisabled = new Map();
+    allBtns.forEach(b => priorDisabled.set(b, b.disabled));
+    try {
+      setBtnBusy(btn, true);
+      allBtns.forEach(b => { b.disabled = true; });
+      const res = await fetch("/eXam/practice/helper", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question_id: QID, kind }),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        drawer.innerHTML = `<div class="p-3 text-red-300">${(d.detail || window.i18n["take.helper_unavailable"])}</div>`;
+        return;
+      }
+      const d = await res.json();
+      const pre = document.createElement("div");
+      pre.className = "ex-helper-body";
+      pre.innerHTML = d.content;
+      drawer.innerHTML = "";
+      drawer.appendChild(pre);
+      if (window.renderMathInElement) {
+        renderMathInElement(drawer, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}] });
+      }
+      pre.classList.add("ex-hint-flash");
+      pre.addEventListener("animationend", () => pre.classList.remove("ex-hint-flash"), { once: true });
+      maybeScrollDrawerIntoView(drawer);
+    } finally {
+      setBtnBusy(btn, false);
+      allBtns.forEach(b => { b.disabled = priorDisabled.get(b); });
     }
   });
 });
 
 const form = document.getElementById("answer-form");
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const fd = new FormData(form);
-  const submitted = String(fd.get("submitted") || "");
-  const btn = document.getElementById("submit-btn");
-  btn.disabled = true;
-  const orig = btn.textContent;
-  btn.textContent = window.i18n["take.marking"];
-  const fb = document.getElementById("feedback");
-  fb.classList.add("hidden");
-  try {
-    const res = await fetch("/eXam/practice/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ subject: SUBJECT, question_id: QID, submitted }),
-    });
-    if (!res.ok) {
-      const d = await res.json().catch(() => ({}));
-      fb.innerHTML = `<div class="text-red-300">${d.detail || window.i18n["take.submission_failed"]}</div>`;
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const submitted = String(fd.get("submitted") || "");
+    const btn = document.getElementById("submit-btn");
+    btn.disabled = true;
+    const orig = btn.textContent;
+    btn.textContent = window.i18n["take.marking"];
+    const fb = document.getElementById("feedback");
+    fb.classList.add("hidden");
+    try {
+      const res = await fetch("/eXam/practice/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ subject: SUBJECT, question_id: QID, submitted }),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        fb.innerHTML = `<div class="text-red-300">${d.detail || window.i18n["take.submission_failed"]}</div>`;
+        fb.classList.remove("hidden");
+        return;
+      }
+      const d = await res.json();
+      const correct = d.assigned_marks >= d.max_marks && d.max_marks > 0;
+      const nextHref = reviewNextHref();
+      fb.innerHTML =
+        `<div class="font-medium ${correct ? 'text-emerald-300' : 'text-amber-300'}">` +
+          window.tfmt("take.marks_summary", { got: d.assigned_marks, max: d.max_marks }) +
+        `</div>` +
+        (d.reasoning ? `<div class="mt-1 text-slate-300">${d.reasoning}</div>` : "") +
+        `<div class="mt-3 flex gap-2">` +
+          `<a href="${nextHref}" class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white">${window.i18n["take.next_question"]}</a>` +
+        `</div>`;
       fb.classList.remove("hidden");
-      return;
+      if (correct) {
+        const solBtn = document.getElementById("solution-btn");
+        solBtn.disabled = false;
+        solBtn.title = "";
+        solBtn.classList.remove("cursor-not-allowed", "text-slate-400");
+        solBtn.classList.add(
+          "text-slate-300",
+          "hover:border-white/[0.10]", "hover:bg-white/[0.05]", "hover:text-slate-100"
+        );
+        const chip = document.getElementById("solution-icon-chip");
+        chip.classList.remove("bg-white/[0.04]", "ring-white/[0.06]");
+        chip.classList.add("bg-emerald-400/[0.06]", "ring-emerald-400/15");
+        document.getElementById("solution-icon-locked").classList.add("hidden");
+        document.getElementById("solution-icon-unlocked").classList.remove("hidden");
+      }
+    } finally {
+      btn.disabled = false;
+      btn.textContent = orig;
     }
-    const d = await res.json();
-    const correct = d.assigned_marks >= d.max_marks && d.max_marks > 0;
-    fb.innerHTML =
-      `<div class="font-medium ${correct ? 'text-emerald-300' : 'text-amber-300'}">` +
-        window.tfmt("take.marks_summary", { got: d.assigned_marks, max: d.max_marks }) +
-      `</div>` +
-      (d.reasoning ? `<div class="mt-1 text-slate-300">${d.reasoning}</div>` : "") +
-      `<div class="mt-3 flex gap-2">` +
-        `<a href="/eXam/practice/${SUBJECT}" class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white">${window.i18n["take.next_question"]}</a>` +
-      `</div>`;
-    fb.classList.remove("hidden");
-    if (correct) {
-      const solBtn = document.getElementById("solution-btn");
-      solBtn.disabled = false;
-      solBtn.title = "";
-      solBtn.classList.remove("cursor-not-allowed", "text-slate-400");
-      solBtn.classList.add(
-        "text-slate-300",
-        "hover:border-white/[0.10]", "hover:bg-white/[0.05]", "hover:text-slate-100"
-      );
-      const chip = document.getElementById("solution-icon-chip");
-      chip.classList.remove("bg-white/[0.04]", "ring-white/[0.06]");
-      chip.classList.add("bg-emerald-400/[0.06]", "ring-emerald-400/15");
-      document.getElementById("solution-icon-locked").classList.add("hidden");
-      document.getElementById("solution-icon-unlocked").classList.remove("hidden");
-    }
-  } finally {
-    btn.disabled = false;
-    btn.textContent = orig;
-  }
-});
+  });
+}
 </script>
+{% endif %}
 {% endblock %}

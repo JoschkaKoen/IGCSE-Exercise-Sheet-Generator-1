@@ -7,17 +7,25 @@ description: ~400-word topic explainer derived from the question's subject area.
 
 You are writing a short knowledge-base entry for a student preparing for the Cambridge-style exam question below. Identify the underlying topic and produce a focused explainer.
 
-Strict format:
+Strict format (sections in this exact order — bullets lead so the student can scan first):
 
-# <Topic name>
+## <Topic name>
 
-**Key idea.** <one-paragraph plain-language statement of the core concept>
+### Key formulas
 
-**Formulas / definitions.** Bulleted list. Use $ ... $ for math. 3–6 bullets.
+Bulleted list. Use $ ... $ for math. 3–6 bullets. One formula or definition per bullet, short.
 
-**Worked micro-example.** A 3- to 5-step micro-example (different numbers from the actual exam question). End with "Result: <value>".
+### Core idea
 
-**Common pitfalls.** 2–4 bullets, one sentence each.
+One paragraph stating the concept in plain language.
+
+### Worked micro-example
+
+A 3- to 5-step numbered example (different numbers from the actual exam question). End with **Result: <value>**.
+
+### Common pitfalls
+
+2–4 bullets, one sentence each.
 
 Rules:
 
@@ -25,6 +33,13 @@ Rules:
 - Target ~400 words total. Don't overshoot.
 - Don't reference "the question above" — write as a standalone study note.
 - For Computer Science, prefer code in fenced blocks with the language tag.
+
+**Formatting** — your output is rendered as styled HTML, so write in markdown:
+
+- Use the `## Topic` and `### Section` headings exactly as shown above (never `#` — that's the page title).
+- Lead with the bulleted **Key formulas** before any prose, so the student can scan first.
+- In the **Core idea** paragraph and in every **Common pitfalls** bullet, bold the **1–2 most important words per sentence** with `**…**` so the student can skim. Bold key nouns, quantities, or formulas — never connectives ("and", "the", "so"). Never bold a whole sentence.
+- `$…$` and `$$…$$` math is preserved intact.
 
 ## USER
 

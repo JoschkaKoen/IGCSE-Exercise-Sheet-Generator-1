@@ -13,10 +13,47 @@
   <p class="mt-3 text-sm leading-relaxed text-slate-400 sm:text-base">
     {{ t('practice.hero.subtitle') }}
   </p>
-  {% if stats.total > 0 %}
-  <p class="mt-4 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-500/[0.07] px-3 py-1 text-xs text-cyan-200">
-    {{ t('practice.session.counter').format(correct=stats.correct, total=stats.total) }}
-  </p>
+  {% if stats.viewed > 0 or stats.attempted > 0 %}
+  <div class="mt-4 inline-flex items-center gap-3 rounded-full border border-cyan-400/20 bg-cyan-500/[0.07] px-3 py-1 text-xs text-cyan-200">
+    {% if stats.viewed > 0 %}
+      <a href="/eXam/practice/review/viewed"
+         class="inline-flex items-center gap-1.5 rounded-full transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
+        <span class="font-semibold tabular-nums">{{ stats.viewed }}</span>
+        <span>{{ t('practice.stat.viewed') }}</span>
+      </a>
+    {% else %}
+      <span class="inline-flex items-center gap-1.5 opacity-50" aria-disabled="true">
+        <span class="font-semibold tabular-nums">0</span>
+        <span>{{ t('practice.stat.viewed') }}</span>
+      </span>
+    {% endif %}
+    <span class="h-3 w-px bg-cyan-200/30" aria-hidden="true"></span>
+    {% if stats.attempted > 0 %}
+      <a href="/eXam/practice/review/attempted"
+         class="inline-flex items-center gap-1.5 rounded-full transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
+        <span class="font-semibold tabular-nums">{{ stats.attempted }}</span>
+        <span>{{ t('practice.stat.attempted') }}</span>
+      </a>
+    {% else %}
+      <span class="inline-flex items-center gap-1.5 opacity-50" aria-disabled="true">
+        <span class="font-semibold tabular-nums">0</span>
+        <span>{{ t('practice.stat.attempted') }}</span>
+      </span>
+    {% endif %}
+    <span class="h-3 w-px bg-cyan-200/30" aria-hidden="true"></span>
+    {% if stats.correct > 0 %}
+      <a href="/eXam/practice/review/correct"
+         class="inline-flex items-center gap-1.5 rounded-full transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-400/40">
+        <span class="font-semibold tabular-nums">{{ stats.correct }}</span>
+        <span>{{ t('practice.stat.correct') }}</span>
+      </a>
+    {% else %}
+      <span class="inline-flex items-center gap-1.5 opacity-50" aria-disabled="true">
+        <span class="font-semibold tabular-nums">0</span>
+        <span>{{ t('practice.stat.correct') }}</span>
+      </span>
+    {% endif %}
+  </div>
   {% endif %}
 </header>
 

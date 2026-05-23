@@ -513,11 +513,12 @@ def layout_vector_strips_to_pdf(
     exercise sheets; leave off for mark schemes.
 
     *trim_to_content* (default ``False``) is for single-question snippet output
-    (the practice-page iframe).  When True, page numbers are skipped entirely
-    and the final page's cropbox is shrunk so its bottom sits one margin
-    below the last strip — no A4 whitespace tail.  The mediabox stays at A4;
-    viewers honour cropbox for display.  Earlier pages (rare multi-page
-    question) stay full A4.
+    (the practice-page canvas).  When True the page height is sized up-front to
+    fit every strip in one go, so the layout loop never paginates — the snippet
+    is always a single page whose height matches its content.  Page numbers are
+    skipped entirely; the cropbox is then shrunk so its bottom sits one margin
+    below the last strip (a no-op when the page height was sized exactly, and
+    the usual A4-whitespace-trim for short snippets that didn't grow the page).
     """
     hl = (header_label or "").strip() or None
 
@@ -530,7 +531,21 @@ def layout_vector_strips_to_pdf(
 
     has_header = bool(hl or current_paper_label)
     initial_y_pt = (_LABEL_TOP_PT + _LABEL_H + _LABEL_GAP_PT) if has_header else _MARGIN_PT
-    usable_h_pt = A4_HEIGHT_PT - _MARGIN_PT - initial_y_pt
+
+    if trim_to_content:
+        # Snippet mode: size the page to fit all strips so the layout loop
+        # never paginates and the viewer (a single <canvas>) gets the whole
+        # question on one page.  str (paper labels) never appear here.
+        content_h = 0.0
+        for s in strips:
+            if isinstance(s, (VectorStrip, McqStrip)):
+                content_h += s.display_h_pt
+            elif isinstance(s, GapStrip):
+                content_h += s.height_pt
+        page_h = max(A4_HEIGHT_PT, initial_y_pt + content_h + _MARGIN_PT)
+    else:
+        page_h = A4_HEIGHT_PT
+    usable_h_pt = page_h - _MARGIN_PT - initial_y_pt
 
     out_doc = fitz.open()
 
@@ -545,7 +560,7 @@ def layout_vector_strips_to_pdf(
         nonlocal page_first_paper_label, inline_label_above_exercise
         inline_label_above_exercise = False
         page_first_paper_label = current_paper_label
-        pg = out_doc.new_page(width=A4_WIDTH_PT, height=A4_HEIGHT_PT)
+        pg = out_doc.new_page(width=A4_WIDTH_PT, height=page_h)
         if has_header:
             _draw_header_line(pg, _header_text(hl or "", page_first_paper_label))
             if name_field:
@@ -620,11 +635,11 @@ def layout_vector_strips_to_pdf(
             elif paper_always_newpage:
                 current_page, y_cursor = new_page()
             else:
-                remaining = A4_HEIGHT_PT - _MARGIN_PT - y_cursor
+                remaining = page_h - _MARGIN_PT - y_cursor
                 # Look ahead: would the first following exercise also fit after the label?
                 next_h = _next_content_h(strip_idx)
                 fits = (next_h == 0 or
-                        y_cursor + _INLINE_LABEL_H + _INLINE_LABEL_GAP_PT + next_h <= A4_HEIGHT_PT - _MARGIN_PT)
+                        y_cursor + _INLINE_LABEL_H + _INLINE_LABEL_GAP_PT + next_h <= page_h - _MARGIN_PT)
                 if remaining < _INLINE_LABEL_H + 40 or not fits:
                     # Not enough room for the divider + the next exercise — new page.
                     current_page, y_cursor = new_page()
@@ -645,7 +660,7 @@ def layout_vector_strips_to_pdf(
         # --- MCQ text block ---
         if isinstance(item, McqStrip):
             sh = item.display_h_pt
-            if y_cursor + sh > A4_HEIGHT_PT - _MARGIN_PT:
+            if y_cursor + sh > page_h - _MARGIN_PT:
                 current_page, y_cursor = new_page()
             x_left = 50.0
             for i, (text, is_bold) in enumerate(item.lines):
@@ -689,7 +704,7 @@ def layout_vector_strips_to_pdf(
 
             scale_x = item.display_w_pt / clip.width if clip.width > 0 else 1.0
 
-            if y_cursor + sh > A4_HEIGHT_PT - _MARGIN_PT:
+            if y_cursor + sh > page_h - _MARGIN_PT:
                 if sh > usable_h_pt:
                     # Tall strip: chunk across pages.
                     # Always start on a fresh page so the first chunk gets
@@ -701,14 +716,14 @@ def layout_vector_strips_to_pdf(
                     src_remaining = clip.height
                     chunk_first = True
                     while src_remaining > 0:
-                        available_pt = A4_HEIGHT_PT - _MARGIN_PT - y_cursor
+                        available_pt = page_h - _MARGIN_PT - y_cursor
                         # Avoid orphan slivers: require at least 120 pt
                         # (~4 cm) of space before starting a chunk at the
                         # bottom of a page; otherwise push to a fresh page.
                         _MIN_CHUNK_PT = 120.0
                         if available_pt < _MIN_CHUNK_PT:
                             current_page, y_cursor = new_page()
-                            available_pt = A4_HEIGHT_PT - _MARGIN_PT - y_cursor
+                            available_pt = page_h - _MARGIN_PT - y_cursor
 
                         src_chunk_h = min(src_remaining, available_pt / scale_x)
                         # If the leftover after this chunk would be tiny
@@ -801,7 +816,9 @@ def layout_vector_strips_to_pdf(
             )
     else:
         # Snippet mode: shrink the final page so it ends one margin below the
-        # last strip, eliminating the A4 whitespace tail in the iframe viewer.
+        # last strip, eliminating the A4 whitespace tail in the viewer.
+        # When page_h was sized up-front to fit all content (tall snippet),
+        # the mediabox already matches the content height — skip the shrink.
         if len(out_doc) > 0:
             last = out_doc[-1]
             new_h = max(y_cursor + _MARGIN_PT, _MARGIN_PT + 1.0)
@@ -810,9 +827,10 @@ def layout_vector_strips_to_pdf(
             # Do NOT also call set_mediabox: it interprets its rect in
             # PDF-native coords (y-up from bottom), and the same rect would
             # silently re-aim the page at the empty bottom slice, hiding all
-            # content. Leaving the mediabox at full A4 is fine — viewers
-            # honour cropbox for display.
-            last.set_cropbox(fitz.Rect(0, 0, A4_WIDTH_PT, new_h))
+            # content. Leaving the mediabox at its built height is fine —
+            # viewers honour cropbox for display.
+            if new_h < last.mediabox.height:
+                last.set_cropbox(fitz.Rect(0, 0, A4_WIDTH_PT, new_h))
 
     print(f"  Assembling {len(out_doc)} output page(s)...")
     out_doc.save(output_path, deflate=True, garbage=2)

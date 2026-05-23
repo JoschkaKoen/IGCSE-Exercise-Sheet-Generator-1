@@ -45,11 +45,14 @@ async def take(request: Request, response: Response, subject: str):
     if subject not in {s["slug"] for s in open_mode.subject_grid()}:
         raise HTTPException(status_code=404, detail="Unknown subject")
     sid = open_mode.ensure_session(request, response)
+    seen = open_mode.session_seen_qids(sid, subject)
     try:
-        meta = open_mode.pick_random_question(subject)
+        meta = open_mode.pick_random_question(subject, exclude=seen)
     except RuntimeError as e:
         raise HTTPException(status_code=503, detail=str(e))
-    stats = open_mode.session_stats(sid)
+    open_mode.record_view(sid, meta["question_id"], subject)
+    stats = open_mode.session_stats(sid, subject=subject)
+    response.headers["Cache-Control"] = "no-store"
     return TEMPLATES.TemplateResponse(
         "eXam/practice_take.html",
         template_ctx(
@@ -59,6 +62,92 @@ async def take(request: Request, response: Response, subject: str):
                 (s["display"] for s in open_mode.subject_grid() if s["slug"] == subject),
                 subject,
             ),
+            meta=meta,
+            stats=stats,
+        ),
+        headers=dict(response.headers),
+    )
+
+
+_REVIEW_FILTERS = {"viewed", "attempted", "correct"}
+
+
+@router.get("/review/{filter_}", response_class=HTMLResponse)
+async def review_redirect(filter_: str, subject: str | None = None):
+    if filter_ not in _REVIEW_FILTERS:
+        raise HTTPException(status_code=404, detail="Unknown filter")
+    target = f"/eXam/practice/review/{filter_}/0"
+    if subject:
+        target += f"?subject={subject}"
+    return RedirectResponse(url=target, status_code=303)
+
+
+@router.get("/review/{filter_}/{index}", response_class=HTMLResponse)
+async def review(
+    request: Request,
+    response: Response,
+    filter_: str,
+    index: int,
+    subject: str | None = None,
+):
+    if filter_ not in _REVIEW_FILTERS:
+        raise HTTPException(status_code=404, detail="Unknown filter")
+    sid = open_mode.ensure_session(request, response)
+
+    subject_slugs = {s["slug"] for s in open_mode.subject_grid()}
+    if subject is not None and subject not in subject_slugs:
+        raise HTTPException(status_code=404, detail="Unknown subject")
+
+    qids = open_mode.session_filtered_qids(sid, filter_, subject=subject)
+    stats = open_mode.session_stats(sid, subject=subject)
+    total = len(qids)
+    response.headers["Cache-Control"] = "no-store"
+
+    if total == 0:
+        return TEMPLATES.TemplateResponse(
+            "eXam/practice_take.html",
+            template_ctx(
+                request,
+                review_mode=True,
+                review_filter=filter_,
+                review_subject=subject,
+                review_empty=True,
+                meta=None,
+                stats=stats,
+                subject="",
+                subject_display="",
+            ),
+            headers=dict(response.headers),
+        )
+
+    if index < 0 or index >= total:
+        raise HTTPException(status_code=404, detail="Index out of range")
+
+    qid, qid_subject = qids[index]
+    meta = open_mode.question_metadata(qid)
+    if not meta:
+        raise HTTPException(status_code=404, detail="Question metadata missing")
+
+    past = open_mode.last_attempt(sid, qid)
+    subject_display = next(
+        (s["display"] for s in open_mode.subject_grid() if s["slug"] == qid_subject),
+        qid_subject,
+    )
+
+    return TEMPLATES.TemplateResponse(
+        "eXam/practice_take.html",
+        template_ctx(
+            request,
+            review_mode=True,
+            review_filter=filter_,
+            review_subject=subject,
+            review_index=index,
+            review_total=total,
+            review_empty=False,
+            review_readonly=(filter_ == "correct"),
+            review_past=past,
+            subject=qid_subject,
+            subject_display=subject_display,
             meta=meta,
             stats=stats,
         ),
@@ -116,9 +205,10 @@ async def helper(body: HelperBody, request: Request):
     if body.kind not in {"hint", "solution", "example", "kb"}:
         raise HTTPException(status_code=400, detail="Bad helper kind")
     from eXam.pregenerate import pregenerate_for_question, read_cached
+    from eXam.render_helper import render_helper_markdown
     cached = read_cached(body.question_id, body.kind)
     if cached is not None:
-        return {"ok": True, "content": cached, "cache_hit": True}
+        return {"ok": True, "content": render_helper_markdown(cached), "cache_hit": True}
     subject = body.question_id.split("::", 1)[0]
     try:
         content = pregenerate_for_question(
@@ -126,4 +216,4 @@ async def helper(body: HelperBody, request: Request):
         )
     except Exception as e:  # noqa: BLE001
         raise HTTPException(status_code=503, detail=f"Helper generation failed: {e}")
-    return {"ok": True, "content": content, "cache_hit": False}
+    return {"ok": True, "content": render_helper_markdown(content), "cache_hit": False}

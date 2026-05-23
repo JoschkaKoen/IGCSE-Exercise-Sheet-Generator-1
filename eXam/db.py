@@ -88,6 +88,21 @@ CREATE TABLE IF NOT EXISTS open_attempts (
 CREATE INDEX IF NOT EXISTS open_attempts_by_session
   ON open_attempts (session_id, submitted_at DESC);
 
+-- Records every question shown to a session, distinct per (session, question).
+-- Drives both the "viewed" counter and the picker's exclude set so the same
+-- question is not served twice in one session until the pool is exhausted.
+CREATE TABLE IF NOT EXISTS open_views (
+  id INTEGER PRIMARY KEY,
+  session_id TEXT NOT NULL REFERENCES open_sessions(id) ON DELETE CASCADE,
+  question_id TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  viewed_at TEXT NOT NULL,
+  UNIQUE (session_id, question_id)
+);
+
+CREATE INDEX IF NOT EXISTS open_views_by_session
+  ON open_views (session_id, subject);
+
 -- AI cost log: one row per successful API call across build / marking / helpers.
 -- Populated by eXam/cost_tracker.py's DB sink (observer on the ai_client hook).
 CREATE TABLE IF NOT EXISTS ai_calls (

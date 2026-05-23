@@ -13,7 +13,7 @@ import re
 import uuid
 from functools import lru_cache
 from pathlib import Path
-from typing import Final
+from typing import Final, Iterable
 
 import yaml
 from fastapi import Request, Response
@@ -98,40 +98,78 @@ def _gradable_top_level(qs: list[dict]) -> list[dict]:
     return out
 
 
-def pick_random_question(subject: str, year: int = 2025, *, rng: random.Random | None = None) -> dict:
+@lru_cache(maxsize=64)
+def _paper_candidates(paper_path: Path, subject: str) -> tuple[int, ...]:
+    """Gradable qnums for *paper_path* whose snippet PDF exists on disk.
+    Cached: papers don't change at runtime (warming is an offline admin step)."""
+    bank = bank_dir_for(subject, paper_path)
+    yaml_path = bank / "exam_questions.yaml"
+    if not yaml_path.exists():
+        return ()
+    data = yaml.safe_load(yaml_path.read_text(encoding="utf-8")) or {}
+    out: list[int] = []
+    for q in _gradable_top_level(data.get("questions") or []):
+        qnum = int(q["number"])
+        if (bank / str(qnum) / "question.pdf").exists():
+            out.append(qnum)
+    return tuple(out)
+
+
+def pick_random_question(
+    subject: str,
+    year: int = 2025,
+    *,
+    rng: random.Random | None = None,
+    exclude: Iterable[str] = (),
+) -> dict:
     """Pick a random QP for *subject*+*year*, ensure it's bank-indexed, pick a
     random gradable question. Returns the dict shape ``question_metadata`` uses,
     plus ``paper_path`` and ``ms_path``.
+
+    ``exclude`` is a set of question_ids (``subject::paper_stem::qnum``) to
+    avoid — typically what the session has already been shown. If every paper's
+    candidates are excluded, falls back to allowing repeats (preferable to a 503).
     """
     rng = rng or random.Random()
+    exclude_set = set(exclude)
     papers = list(list_practice_papers(subject, year))
     if not papers:
         raise RuntimeError(f"No {year} papers for subject {subject!r}")
     # Prefer already-indexed papers (instant); fall back to lazy-indexing if none.
     indexed = [p for p in papers if (bank_dir_for(subject, p) / "exam_questions.yaml").exists()]
-    if indexed:
-        paper_path = rng.choice(indexed)
-    else:
+    if not indexed:
         paper_path = rng.choice(papers)
         ensure_paper_indexed(paper_path, pair_mark_scheme(paper_path), subject)
-    bank = bank_dir_for(subject, paper_path)
-    yaml_path = bank / "exam_questions.yaml"
-    data = yaml.safe_load(yaml_path.read_text(encoding="utf-8")) or {}
-    candidates = _gradable_top_level(data.get("questions") or [])
-    # Indexer may list more questions than it could render snippets for
-    # (position detection fails on unusual layouts) — only offer ones with
-    # an actual question.pdf on disk.
-    candidates = [
-        q for q in candidates
-        if (bank / str(int(q["number"])) / "question.pdf").exists()
-    ]
-    if not candidates:
-        raise RuntimeError(f"Indexed paper has no rendered questions: {paper_path.name}")
-    q = rng.choice(candidates)
-    qnum = int(q["number"])
+        indexed = [paper_path]
+
+    def _qid(paper: Path, qnum: int) -> str:
+        return f"{subject}::{paper.stem}::{qnum}"
+
+    # Shuffle papers so the per-paper distribution stays uniform; iterate until
+    # we find one with at least one un-excluded candidate.
+    order = list(indexed)
+    rng.shuffle(order)
+    paper_path: Path | None = None
+    qnum: int | None = None
+    for cand_paper in order:
+        cands = _paper_candidates(cand_paper, subject)
+        unseen = [n for n in cands if _qid(cand_paper, n) not in exclude_set]
+        if unseen:
+            paper_path = cand_paper
+            qnum = rng.choice(unseen)
+            break
+
+    if paper_path is None:
+        # Pool exhausted for this session — fall back to original behaviour.
+        paper_path = rng.choice(indexed)
+        cands = _paper_candidates(paper_path, subject)
+        if not cands:
+            raise RuntimeError(f"Indexed paper has no rendered questions: {paper_path.name}")
+        qnum = rng.choice(cands)
+
     # Safety net: snippet should exist (filter above), but ensure cache anyway.
     ensure_question_pdf(paper_path, qnum, subject=subject)
-    qid = f"{subject}::{paper_path.stem}::{qnum}"
+    qid = _qid(paper_path, qnum)
     meta = question_metadata(qid) or {}
     meta["paper_path"] = str(paper_path)
     meta["ms_path"] = str(pair_mark_scheme(paper_path) or "") or None
@@ -205,20 +243,163 @@ def record_attempt(session_id: str, qid: str, subject: str, submitted: str, verd
         )
 
 
-def session_stats(session_id: str) -> dict:
-    """Live count of attempts + correct (assigned == max, max > 0)."""
+def session_seen_qids(session_id: str, subject: str) -> set[str]:
+    """Distinct question IDs the user has already been shown for *subject*."""
+    if not session_id:
+        return set()
+    with connect() as conn:
+        rows = conn.execute(
+            "SELECT question_id FROM open_views WHERE session_id=? AND subject=?",
+            (session_id, subject),
+        ).fetchall()
+    return {r["question_id"] for r in rows}
+
+
+def record_view(session_id: str, qid: str, subject: str) -> None:
+    """Record that *qid* has been shown to *session_id*. Idempotent — repeat
+    shows of the same qid (after pool exhaustion) are silently ignored thanks
+    to the ``UNIQUE(session_id, question_id)`` constraint."""
+    if not session_id:
+        return
+    with connect() as conn:
+        conn.execute(
+            "INSERT OR IGNORE INTO open_views "
+            "(session_id, question_id, subject, viewed_at) VALUES (?, ?, ?, ?)",
+            (session_id, qid, subject, _now()),
+        )
+
+
+def session_stats(session_id: str, subject: str | None = None) -> dict:
+    """Counters for the session UI. When *subject* is given, scopes all three
+    counts to that subject (used on the take page so the header reflects "this
+    subject in this session"). When None, counts across the session (used on
+    the landing page for cross-subject totals).
+
+    Returns ``{"viewed": int, "attempted": int, "correct": int}``.
+    """
+    with connect() as conn:
+        if subject is None:
+            viewed_row = conn.execute(
+                "SELECT COUNT(*) AS n FROM open_views WHERE session_id=?",
+                (session_id,),
+            ).fetchone()
+            attempts_row = conn.execute(
+                """
+                SELECT
+                    COUNT(*) AS total,
+                    SUM(CASE WHEN assigned_marks >= max_marks AND max_marks > 0
+                             THEN 1 ELSE 0 END) AS correct
+                FROM open_attempts WHERE session_id=?
+                """,
+                (session_id,),
+            ).fetchone()
+        else:
+            viewed_row = conn.execute(
+                "SELECT COUNT(*) AS n FROM open_views WHERE session_id=? AND subject=?",
+                (session_id, subject),
+            ).fetchone()
+            attempts_row = conn.execute(
+                """
+                SELECT
+                    COUNT(*) AS total,
+                    SUM(CASE WHEN assigned_marks >= max_marks AND max_marks > 0
+                             THEN 1 ELSE 0 END) AS correct
+                FROM open_attempts WHERE session_id=? AND subject=?
+                """,
+                (session_id, subject),
+            ).fetchone()
+    return {
+        "viewed": int(viewed_row["n"] or 0),
+        "attempted": int(attempts_row["total"] or 0),
+        "correct": int(attempts_row["correct"] or 0),
+    }
+
+
+_REVIEW_FILTERS: Final[frozenset[str]] = frozenset({"viewed", "attempted", "correct"})
+
+
+def session_filtered_qids(
+    session_id: str,
+    filter_: str,
+    subject: str | None = None,
+) -> list[tuple[str, str]]:
+    """Ordered ``[(question_id, subject), …]`` for the review filter, oldest
+    first. Filter values: ``"viewed"``, ``"attempted"``, ``"correct"``.
+
+    - ``viewed``: every distinct question shown (``open_views``), by ``viewed_at``.
+    - ``attempted``: every distinct question with ≥1 attempt, by first attempt.
+    - ``correct``: every distinct question with ≥1 fully-correct attempt
+      (``assigned_marks >= max_marks AND max_marks > 0``), by first correct attempt.
+
+    Note: ``session_stats`` counts attempt *rows* for "attempted" / "correct",
+    while this query groups by ``question_id`` (DISTINCT). When a user
+    re-attempts the same question, the stat counter ticks up but this list
+    stays the same length — by design. The duplicate-attempts case is rare
+    because the picker excludes already-viewed qids until pool exhaustion.
+    """
+    if not session_id or filter_ not in _REVIEW_FILTERS:
+        return []
+    params: list = [session_id]
+    where_subject = ""
+    if subject is not None:
+        where_subject = " AND subject=?"
+        params.append(subject)
+    if filter_ == "viewed":
+        sql = (
+            "SELECT question_id, subject FROM open_views "
+            "WHERE session_id=?" + where_subject + " "
+            "ORDER BY viewed_at ASC, id ASC"
+        )
+    elif filter_ == "attempted":
+        sql = (
+            "SELECT question_id, subject, MIN(submitted_at) AS first_at "
+            "FROM open_attempts "
+            "WHERE session_id=?" + where_subject + " "
+            "GROUP BY question_id, subject "
+            "ORDER BY first_at ASC"
+        )
+    else:  # "correct"
+        sql = (
+            "SELECT question_id, subject, MIN(submitted_at) AS first_at "
+            "FROM open_attempts "
+            "WHERE session_id=?" + where_subject + " "
+            "AND assigned_marks >= max_marks AND max_marks > 0 "
+            "GROUP BY question_id, subject "
+            "ORDER BY first_at ASC"
+        )
+    with connect() as conn:
+        rows = conn.execute(sql, params).fetchall()
+    return [(r["question_id"], r["subject"]) for r in rows]
+
+
+def last_attempt(session_id: str, qid: str) -> dict | None:
+    """Most recent ``open_attempts`` row for ``(session, qid)`` or None.
+
+    Returns ``{submitted, assigned_marks, max_marks, reasoning, submitted_at}``
+    — the shape the review-page past-attempt panel needs.
+    """
+    if not session_id:
+        return None
     with connect() as conn:
         row = conn.execute(
             """
-            SELECT
-                COUNT(*) AS total,
-                SUM(CASE WHEN assigned_marks >= max_marks AND max_marks > 0
-                         THEN 1 ELSE 0 END) AS correct
-            FROM open_attempts WHERE session_id=?
+            SELECT submitted, assigned_marks, max_marks, reasoning, submitted_at
+            FROM open_attempts
+            WHERE session_id=? AND question_id=?
+            ORDER BY submitted_at DESC, id DESC
+            LIMIT 1
             """,
-            (session_id,),
+            (session_id, qid),
         ).fetchone()
-    return {"total": int(row["total"] or 0), "correct": int(row["correct"] or 0)}
+    if row is None:
+        return None
+    return {
+        "submitted": row["submitted"],
+        "assigned_marks": float(row["assigned_marks"] or 0),
+        "max_marks": float(row["max_marks"] or 0),
+        "reasoning": row["reasoning"] or "",
+        "submitted_at": row["submitted_at"],
+    }
 
 
 def subject_grid() -> list[dict]:
