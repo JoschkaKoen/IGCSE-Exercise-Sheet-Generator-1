@@ -196,7 +196,7 @@ export async function triggerDownloadAllPdfs() {
   if (!urls.length) return;
   for (let i = 0; i < urls.length; i++) {
     const res = await fetch(urls[i], { credentials: 'same-origin', cache: 'no-store' });
-    if (!res.ok) throw new Error('Could not download file (' + res.status + ').');
+    if (!res.ok) throw new Error(window.tfmt('downloads.err.failed', { status: res.status }));
     const blob = await res.blob();
     const name = parseFilenameFromContentDisposition(res.headers.get('Content-Disposition'));
     const u = URL.createObjectURL(blob);

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ subject_display }} · Practice — eXam{% endblock %}
+{% block title %}{{ t('take.title.practice').format(subject=subject_display) }}{% endblock %}
 {% block extra_head %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -16,34 +16,85 @@
 {% block content %}
 <header class="mb-5 flex flex-wrap items-baseline justify-between gap-3">
   <div>
-    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">{{ subject_display }} · Practice</p>
+    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">{{ t('take.subject_label').format(subject=subject_display) }}</p>
     <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">
-      Question {{ meta.number }}
-      <span class="ml-2 text-sm font-normal text-slate-400">· {{ meta.marks }} mark{% if meta.marks != 1 %}s{% endif %}</span>
+      {{ t('take.q_prefix') }} {{ meta.number }}
+      <span class="ml-2 text-sm font-normal text-slate-400">· {{ (t('take.marks_one') if meta.marks == 1 else t('take.marks_many')).format(n=meta.marks) }}</span>
     </h1>
     {% if meta.paper_label %}
     <p class="mt-1 text-xs text-slate-500">{{ meta.paper_label }}</p>
     {% endif %}
   </div>
   <div class="text-sm text-slate-400">
-    Session: <span class="text-cyan-300">{{ stats.correct }} / {{ stats.total }}</span> ·
-    <a href="/eXam/practice" class="underline hover:text-white">Pick another subject</a>
+    {{ t('take.session_label') }} <span class="text-cyan-300">{{ stats.correct }} / {{ stats.total }}</span> ·
+    <a href="/eXam/practice" class="underline hover:text-white">{{ t('take.pick_subject') }}</a>
   </div>
 </header>
 
 <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
-  <section class="lg:col-span-8">
+  <aside class="lg:col-span-3">
+    <div class="glass-panel rounded-2xl p-2">
+      <div class="space-y-1">
+        <button data-kind="hint" class="ex-helper-btn group flex w-full items-center gap-2.5 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-2 text-sm text-slate-300 transition hover:border-white/[0.10] hover:bg-white/[0.05] hover:text-slate-100">
+          <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white/[0.04] ring-1 ring-white/[0.06]">
+            <svg class="h-3.5 w-3.5 text-amber-200/70 transition group-hover:text-amber-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </span>
+          {{ t('take.helper.hint') }}
+        </button>
+        <button data-kind="kb" class="ex-helper-btn group flex w-full items-center gap-2.5 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-2 text-sm text-slate-300 transition hover:border-white/[0.10] hover:bg-white/[0.05] hover:text-slate-100">
+          <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white/[0.04] ring-1 ring-white/[0.06]">
+            <svg class="h-3.5 w-3.5 text-cyan-200/70 transition group-hover:text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                    d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/>
+            </svg>
+          </span>
+          {{ t('take.helper.kb') }}
+        </button>
+        <button data-kind="example" class="ex-helper-btn group flex w-full items-center gap-2.5 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-2 text-sm text-slate-300 transition hover:border-white/[0.10] hover:bg-white/[0.05] hover:text-slate-100">
+          <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white/[0.04] ring-1 ring-white/[0.06]">
+            <svg class="h-3.5 w-3.5 text-violet-200/70 transition group-hover:text-violet-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                    d="M8 7v8a2 2 0 0 0 2 2h6M8 7V5a2 2 0 0 1 2-2h4.586a1 1 0 0 1 .707.293l4.414 4.414a1 1 0 0 1 .293.707V15a2 2 0 0 1-2 2h-2M8 7H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2"/>
+            </svg>
+          </span>
+          {{ t('take.helper.example') }}
+        </button>
+        <button data-kind="solution" id="solution-btn"
+                class="ex-helper-btn group flex w-full items-center gap-2.5 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-2 text-sm text-slate-400 cursor-not-allowed transition"
+                disabled title="{{ t('take.helper.unlock_correct') }}">
+          <span id="solution-icon-chip" class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white/[0.04] ring-1 ring-white/[0.06] transition">
+            <svg id="solution-icon-locked" class="h-3.5 w-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                    d="M12 15v2m-6 4h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm10-10V7a4 4 0 0 0-8 0v4h8z"/>
+            </svg>
+            <svg id="solution-icon-unlocked" class="hidden h-3.5 w-3.5 text-emerald-300/80 transition group-hover:text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                    d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
+            </svg>
+          </span>
+          {{ t('take.helper.solution') }}
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <section class="lg:col-span-9">
     <div class="glass-panel form-glow rounded-2xl p-3 sm:p-4">
       <iframe src="/eXam/practice/pdf/{{ meta.question_id }}#toolbar=0&navpanes=0"
               class="ex-iframe"
               style="--pdf-aspect: {{ meta.pdf_width_pt or 595 }} / {{ meta.pdf_height_pt or 842 }};"
-              title="Question {{ meta.number }}"></iframe>
+              title="{{ t('take.q_prefix') }} {{ meta.number }}"></iframe>
     </div>
 
+    <div id="helper-drawer" class="ex-helper-drawer mt-4 rounded-2xl border border-white/[0.08] bg-slate-950/40 text-sm text-slate-200"></div>
+
     <form id="answer-form" class="mt-4 space-y-3 glass-panel rounded-2xl p-4">
-      <label class="block text-sm font-medium text-slate-200">Your answer</label>
-      {% set t = meta.question_type %}
-      {% if t == 'multiple_choice' %}
+      <label class="block text-sm font-medium text-slate-200">{{ t('take.answer_label') }}</label>
+      {% set qt = meta.question_type %}
+      {% if qt == 'multiple_choice' %}
         <div class="flex flex-wrap gap-2">
           {% for opt in meta.options %}
             <label class="ex-radio-chip inline-flex cursor-pointer items-center gap-2 rounded-xl border border-white/[0.12] bg-slate-950/60 px-3 py-2 text-sm">
@@ -52,9 +103,9 @@
             </label>
           {% endfor %}
         </div>
-      {% elif t in ['short_answer', 'calculation'] %}
+      {% elif qt in ['short_answer', 'calculation'] %}
         <input type="text" name="submitted" required
-               {% if t == 'calculation' %}placeholder="Final answer (with units if applicable)"{% endif %}
+               {% if qt == 'calculation' %}placeholder="{{ t('take.calc_placeholder') }}"{% endif %}
                class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 font-mono text-sm text-slate-100 placeholder:text-slate-500 shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
       {% else %}
         <textarea name="submitted" rows="6" required
@@ -64,84 +115,17 @@
       <div class="flex flex-wrap items-center gap-2 pt-1">
         <button id="submit-btn" type="submit"
                 class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">
-          Submit
+          {{ t('take.submit') }}
         </button>
         <a href="/eXam/practice/{{ subject }}"
            class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">
-          Skip · new question
+          {{ t('take.skip') }}
         </a>
       </div>
     </form>
 
     <div id="feedback" class="mt-4 hidden glass-panel rounded-2xl p-4 text-sm"></div>
   </section>
-
-  <aside class="lg:col-span-4 space-y-3">
-    <div class="glass-panel rounded-2xl p-3">
-      <div class="space-y-2">
-        <button data-kind="hint" class="ex-helper-btn group flex w-full items-center gap-3 rounded-xl border border-amber-400/15 bg-amber-400/[0.04] px-3 py-2.5 text-sm font-medium text-slate-200 transition hover:border-amber-400/40 hover:bg-amber-400/[0.09]">
-          <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-400/10 ring-1 ring-amber-400/25 transition group-hover:bg-amber-400/20 group-hover:ring-amber-400/40">
-            <svg class="h-4 w-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
-                    d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-            </svg>
-          </span>
-          <span class="flex-1 text-left">Hint</span>
-          <svg class="h-3.5 w-3.5 shrink-0 text-slate-500 transition group-hover:translate-x-0.5 group-hover:text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
-        </button>
-        <button data-kind="kb" class="ex-helper-btn group flex w-full items-center gap-3 rounded-xl border border-cyan-400/15 bg-cyan-400/[0.04] px-3 py-2.5 text-sm font-medium text-slate-200 transition hover:border-cyan-400/40 hover:bg-cyan-400/[0.09]">
-          <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-400/10 ring-1 ring-cyan-400/25 transition group-hover:bg-cyan-400/20 group-hover:ring-cyan-400/40">
-            <svg class="h-4 w-4 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
-                    d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/>
-            </svg>
-          </span>
-          <span class="flex-1 text-left">Knowledge base</span>
-          <svg class="h-3.5 w-3.5 shrink-0 text-slate-500 transition group-hover:translate-x-0.5 group-hover:text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
-        </button>
-        <button data-kind="example" class="ex-helper-btn group flex w-full items-center gap-3 rounded-xl border border-violet-400/15 bg-violet-400/[0.04] px-3 py-2.5 text-sm font-medium text-slate-200 transition hover:border-violet-400/40 hover:bg-violet-400/[0.09]">
-          <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-violet-400/10 ring-1 ring-violet-400/25 transition group-hover:bg-violet-400/20 group-hover:ring-violet-400/40">
-            <svg class="h-4 w-4 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
-                    d="M8 7v8a2 2 0 0 0 2 2h6M8 7V5a2 2 0 0 1 2-2h4.586a1 1 0 0 1 .707.293l4.414 4.414a1 1 0 0 1 .293.707V15a2 2 0 0 1-2 2h-2M8 7H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2"/>
-            </svg>
-          </span>
-          <span class="flex-1 text-left">Similar example</span>
-          <svg class="h-3.5 w-3.5 shrink-0 text-slate-500 transition group-hover:translate-x-0.5 group-hover:text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
-        </button>
-        <button data-kind="solution" id="solution-btn"
-                class="ex-helper-btn group flex w-full items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.02] px-3 py-2.5 text-sm font-medium text-slate-400 cursor-not-allowed transition"
-                disabled title="Unlocks after you answer correctly">
-          <span id="solution-icon-chip" class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.04] ring-1 ring-white/[0.08] transition">
-            <svg id="solution-icon-locked" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
-                    d="M12 15v2m-6 4h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm10-10V7a4 4 0 0 0-8 0v4h8z"/>
-            </svg>
-            <svg id="solution-icon-unlocked" class="hidden h-4 w-4 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
-                    d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
-            </svg>
-          </span>
-          <span class="flex-1 text-left">Step-by-step solution</span>
-          <svg id="solution-arrow" class="hidden h-3.5 w-3.5 shrink-0 text-slate-500 transition group-hover:translate-x-0.5 group-hover:text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-          </svg>
-        </button>
-      </div>
-      <div id="helper-drawer" class="ex-helper-drawer mt-2 rounded-xl border border-white/[0.08] bg-slate-950/40 text-sm text-slate-200"></div>
-    </div>
-
-    <div class="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 text-xs text-slate-500">
-      Drop in for a quick session: each "Skip" or "Submit" gives you a fresh random question.
-      No login. We don't save anything except an anonymous attempt count for your session.
-    </div>
-  </aside>
 </div>
 
 <script>
@@ -154,7 +138,7 @@ document.querySelectorAll(".ex-helper-btn").forEach(btn => {
     const kind = btn.dataset.kind;
     const drawer = document.getElementById("helper-drawer");
     drawer.classList.add("open");
-    drawer.innerHTML = '<div class="p-3 text-slate-400">Loading…</div>';
+    drawer.innerHTML = `<div class="p-3 text-slate-400">${window.i18n["take.loading"]}</div>`;
     const res = await fetch("/eXam/practice/helper", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -162,7 +146,7 @@ document.querySelectorAll(".ex-helper-btn").forEach(btn => {
     });
     if (!res.ok) {
       const d = await res.json().catch(() => ({}));
-      drawer.innerHTML = `<div class="p-3 text-red-300">${(d.detail || "Helper unavailable")}</div>`;
+      drawer.innerHTML = `<div class="p-3 text-red-300">${(d.detail || window.i18n["take.helper_unavailable"])}</div>`;
       return;
     }
     const d = await res.json();
@@ -186,7 +170,7 @@ form.addEventListener("submit", async (e) => {
   const btn = document.getElementById("submit-btn");
   btn.disabled = true;
   const orig = btn.textContent;
-  btn.textContent = "Marking…";
+  btn.textContent = window.i18n["take.marking"];
   const fb = document.getElementById("feedback");
   fb.classList.add("hidden");
   try {
@@ -197,7 +181,7 @@ form.addEventListener("submit", async (e) => {
     });
     if (!res.ok) {
       const d = await res.json().catch(() => ({}));
-      fb.innerHTML = `<div class="text-red-300">${d.detail || "Submission failed"}</div>`;
+      fb.innerHTML = `<div class="text-red-300">${d.detail || window.i18n["take.submission_failed"]}</div>`;
       fb.classList.remove("hidden");
       return;
     }
@@ -205,36 +189,28 @@ form.addEventListener("submit", async (e) => {
     const correct = d.assigned_marks >= d.max_marks && d.max_marks > 0;
     fb.innerHTML =
       `<div class="font-medium ${correct ? 'text-emerald-300' : 'text-amber-300'}">` +
-        `${d.assigned_marks} / ${d.max_marks} marks` +
+        window.tfmt("take.marks_summary", { got: d.assigned_marks, max: d.max_marks }) +
       `</div>` +
       (d.reasoning ? `<div class="mt-1 text-slate-300">${d.reasoning}</div>` : "") +
       `<div class="mt-3 flex gap-2">` +
-        `<a href="/eXam/practice/${SUBJECT}" class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white">Next question →</a>` +
-        `<a href="/eXam/practice" class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">Stop · subject list</a>` +
+        `<a href="/eXam/practice/${SUBJECT}" class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white">${window.i18n["take.next_question"]}</a>` +
+        `<a href="/eXam/practice" class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">${window.i18n["take.stop_to_list"]}</a>` +
       `</div>`;
     fb.classList.remove("hidden");
     if (correct) {
       const solBtn = document.getElementById("solution-btn");
       solBtn.disabled = false;
       solBtn.title = "";
-      solBtn.classList.remove(
-        "cursor-not-allowed", "text-slate-400",
-        "border-white/[0.07]", "bg-white/[0.02]"
-      );
+      solBtn.classList.remove("cursor-not-allowed", "text-slate-400");
       solBtn.classList.add(
-        "text-slate-200",
-        "border-emerald-400/20", "bg-emerald-400/[0.04]",
-        "hover:border-emerald-400/40", "hover:bg-emerald-400/[0.09]"
+        "text-slate-300",
+        "hover:border-white/[0.10]", "hover:bg-white/[0.05]", "hover:text-slate-100"
       );
       const chip = document.getElementById("solution-icon-chip");
-      chip.classList.remove("bg-white/[0.04]", "ring-white/[0.08]");
-      chip.classList.add(
-        "bg-emerald-400/10", "ring-emerald-400/25",
-        "group-hover:bg-emerald-400/20", "group-hover:ring-emerald-400/40"
-      );
+      chip.classList.remove("bg-white/[0.04]", "ring-white/[0.06]");
+      chip.classList.add("bg-emerald-400/[0.06]", "ring-emerald-400/15");
       document.getElementById("solution-icon-locked").classList.add("hidden");
       document.getElementById("solution-icon-unlocked").classList.remove("hidden");
-      document.getElementById("solution-arrow").classList.remove("hidden");
     }
   } finally {
     btn.disabled = false;

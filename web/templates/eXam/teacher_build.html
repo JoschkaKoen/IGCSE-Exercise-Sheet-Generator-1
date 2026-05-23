@@ -1,45 +1,45 @@
 {% extends "base.html" %}
-{% block title %}Build test · eXam{% endblock %}
+{% block title %}{{ t('title.teacher_build') }}{% endblock %}
 {% block content %}
 <header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
-  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">New practice test</h1>
-  <a href="/eXam/teacher/" class="text-sm text-cyan-300 underline hover:text-cyan-200">← Dashboard</a>
+  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">{{ t('teacher.build.title') }}</h1>
+  <a href="/eXam/teacher/" class="text-sm text-cyan-300 underline hover:text-cyan-200">{{ t('teacher.build.back') }}</a>
 </header>
 
 <form id="build-form" class="glass-panel form-glow max-w-2xl space-y-4 rounded-2xl p-6">
   <div>
-    <label class="mb-1 block text-sm font-medium text-slate-200">Natural-language description</label>
+    <label class="mb-1 block text-sm font-medium text-slate-200">{{ t('teacher.build.prompt_label') }}</label>
     <textarea name="prompt" rows="4" required
               class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 text-sm text-slate-100 placeholder:text-slate-500 shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
-              placeholder="e.g. questions 1-10 of 0625 physics November 2025 paper 11"></textarea>
-    <p class="mt-1 text-xs text-slate-500">Same format as the eXercise sheet generator — name papers + question numbers.</p>
+              placeholder="{{ t('teacher.build.prompt_placeholder') }}"></textarea>
+    <p class="mt-1 text-xs text-slate-500">{{ t('teacher.build.prompt_hint') }}</p>
   </div>
   <div class="grid grid-cols-2 gap-4">
     <div>
-      <label class="mb-1 block text-sm font-medium text-slate-200">Title (optional)</label>
+      <label class="mb-1 block text-sm font-medium text-slate-200">{{ t('teacher.build.title_field') }}</label>
       <input name="title"
              class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-2.5 text-sm text-slate-100 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
     </div>
     <div>
-      <label class="mb-1 block text-sm font-medium text-slate-200">Class label (optional)</label>
+      <label class="mb-1 block text-sm font-medium text-slate-200">{{ t('teacher.build.class_field') }}</label>
       <input name="class_label"
              class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-2.5 text-sm text-slate-100 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
     </div>
   </div>
   <div class="flex flex-wrap items-center gap-4 text-sm text-slate-200">
-    <label class="inline-flex items-center gap-2"><input type="checkbox" name="randomize" class="accent-cyan-400"> Randomize order per student</label>
-    <label class="inline-flex items-center gap-2"><input type="checkbox" name="no_helpers" class="accent-cyan-400"> Skip helper pre-generation (fast)</label>
+    <label class="inline-flex items-center gap-2"><input type="checkbox" name="randomize" class="accent-cyan-400"> {{ t('teacher.build.randomize') }}</label>
+    <label class="inline-flex items-center gap-2"><input type="checkbox" name="no_helpers" class="accent-cyan-400"> {{ t('teacher.build.no_helpers') }}</label>
   </div>
   <button type="submit"
           class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">
-    Build
+    {{ t('teacher.build.submit') }}
   </button>
   <p id="err" class="hidden text-sm text-red-300"></p>
 </form>
 
 <div id="progress" class="mt-6 hidden max-w-2xl glass-panel rounded-2xl p-6">
-  <div class="text-sm font-semibold text-slate-200">Building…</div>
-  <div id="progress-line" class="mt-1 text-sm text-slate-400">Queued.</div>
+  <div class="text-sm font-semibold text-slate-200">{{ t('teacher.build.progress_title') }}</div>
+  <div id="progress-line" class="mt-1 text-sm text-slate-400">{{ t('teacher.build.queued') }}</div>
 </div>
 
 <script>
@@ -62,7 +62,7 @@ form.addEventListener("submit", async (e) => {
   });
   if (!res.ok) {
     const data = await res.json().catch(()=>({}));
-    err.textContent = data.detail || "Build failed";
+    err.textContent = data.detail || window.i18n["teacher.build.err.fallback"];
     err.classList.remove("hidden");
     return;
   }
@@ -72,14 +72,14 @@ form.addEventListener("submit", async (e) => {
   const line = document.getElementById("progress-line");
   const tick = async () => {
     const r = await fetch(`/eXam/teacher/builds/${testId}`);
-    if (!r.ok) { line.textContent = "Status unavailable."; return; }
+    if (!r.ok) { line.textContent = window.i18n["teacher.build.status_unavailable"]; return; }
     const s = await r.json();
     if (s.status === "ready") {
-      line.innerHTML = `✓ Ready. <a class="text-cyan-300 underline hover:text-cyan-200" href="/eXam/teacher/test/${testId}">Open</a>`;
+      line.innerHTML = `${window.i18n["teacher.build.ready_pre"]} <a class="text-cyan-300 underline hover:text-cyan-200" href="/eXam/teacher/test/${testId}">${window.i18n["teacher.build.ready_link"]}</a>`;
       return;
     }
     if (s.status === "failed") {
-      line.innerHTML = `✗ Failed. <pre class="mt-2 whitespace-pre-wrap text-xs text-red-300">${s.error || ""}</pre>`;
+      line.innerHTML = `${window.i18n["teacher.build.failed"]} <pre class="mt-2 whitespace-pre-wrap text-xs text-red-300">${s.error || ""}</pre>`;
       return;
     }
     const p = s.progress;

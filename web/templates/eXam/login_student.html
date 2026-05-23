@@ -1,35 +1,35 @@
 {% extends "base.html" %}
-{% block title %}Student login · eXam{% endblock %}
+{% block title %}{{ t('title.student_login') }}{% endblock %}
 {% block content %}
 <div class="mx-auto max-w-md">
   <h1 class="mb-6 font-display text-2xl font-semibold text-white sm:text-3xl">
     <span class="bg-gradient-to-r from-cyan-300 via-blue-300 to-indigo-300 bg-clip-text text-transparent">
-      Class login
+      {{ t('student_login.title') }}
     </span>
   </h1>
   <form id="login-form" class="glass-panel form-glow space-y-4 rounded-2xl p-6">
     <div>
-      <label for="name" class="mb-1 block text-sm font-medium text-slate-200">Your name</label>
+      <label for="name" class="mb-1 block text-sm font-medium text-slate-200">{{ t('student_login.name_label') }}</label>
       <select id="name" name="name" required
               class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-2.5 text-sm text-slate-100 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
-        <option value="">— select —</option>
+        <option value="">{{ t('student_login.name_placeholder') }}</option>
         {% for n in names %}<option value="{{ n }}">{{ n }}</option>{% endfor %}
       </select>
     </div>
     <div>
-      <label for="pin" class="mb-1 block text-sm font-medium text-slate-200">PIN (4 digits)</label>
+      <label for="pin" class="mb-1 block text-sm font-medium text-slate-200">{{ t('student_login.pin_label') }}</label>
       <input id="pin" name="pin" type="text" required inputmode="numeric"
              pattern="[0-9]{4}" maxlength="4" autocomplete="off"
              class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-2.5 font-mono text-sm text-slate-100 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
     </div>
     <button type="submit"
             class="btn-space-primary inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">
-      Log in
+      {{ t('student_login.submit') }}
     </button>
     <p id="error" class="hidden text-sm text-red-300"></p>
   </form>
   <p class="mt-4 text-center text-xs text-slate-500">
-    Just want to practice? <a href="/eXam/practice" class="text-cyan-300 underline hover:text-cyan-200">Open mode</a> — no login.
+    {{ t('student_login.practice_prompt') }} <a href="/eXam/practice" class="text-cyan-300 underline hover:text-cyan-200">{{ t('student_login.practice_link') }}</a>{{ t('student_login.practice_tail') }}
   </p>
 </div>
 <script>
@@ -45,7 +45,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
   });
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
-    err.textContent = data.detail || "Login failed";
+    err.textContent = data.detail || window.i18n["student_login.err.fallback"];
     err.classList.remove("hidden");
     return;
   }

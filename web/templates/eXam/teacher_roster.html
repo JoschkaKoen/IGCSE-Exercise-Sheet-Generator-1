@@ -1,27 +1,27 @@
 {% extends "base.html" %}
-{% block title %}Roster · eXam{% endblock %}
+{% block title %}{{ t('title.teacher_roster') }}{% endblock %}
 {% block content %}
 <header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
-  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">Student roster</h1>
-  <a href="/eXam/teacher/" class="text-sm text-cyan-300 underline hover:text-cyan-200">← Dashboard</a>
+  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">{{ t('teacher.roster.title') }}</h1>
+  <a href="/eXam/teacher/" class="text-sm text-cyan-300 underline hover:text-cyan-200">{{ t('teacher.roster.back') }}</a>
 </header>
 
 <form id="roster-form" class="glass-panel max-w-2xl space-y-4 rounded-2xl p-6">
   <div>
-    <label class="mb-1 block text-sm font-medium text-slate-200">XLSX file</label>
+    <label class="mb-1 block text-sm font-medium text-slate-200">{{ t('teacher.roster.file_label') }}</label>
     <input type="file" name="file" accept=".xlsx" required
            class="block w-full text-sm text-slate-300 file:mr-3 file:rounded-lg file:border-0 file:bg-cyan-500/20 file:px-3 file:py-1.5 file:text-cyan-200 hover:file:bg-cyan-500/30">
-    <p class="mt-1 text-xs text-slate-500">Columns (row 1): required <code class="rounded bg-black/30 px-1 font-mono">name</code>, optional <code class="rounded bg-black/30 px-1 font-mono">class_label</code>.</p>
+    <p class="mt-1 text-xs text-slate-500">{{ t('teacher.roster.file_hint_pre') }} <code class="rounded bg-black/30 px-1 font-mono">name</code>{{ t('teacher.roster.file_hint_optional') }} <code class="rounded bg-black/30 px-1 font-mono">class_label</code>{{ t('teacher.roster.file_hint_dot') }}</p>
   </div>
   <label class="inline-flex items-center gap-2 text-sm text-slate-200">
     <input type="checkbox" name="regenerate_pins" class="accent-cyan-400">
-    Regenerate PINs for existing students
+    {{ t('teacher.roster.regen_label') }}
   </label>
-  <button type="submit" class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">Import</button>
+  <button type="submit" class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">{{ t('teacher.roster.submit') }}</button>
   <div id="result" class="hidden text-sm"></div>
 </form>
 
-<h2 class="mt-8 mb-3 font-display text-lg font-semibold text-white">Current students ({{ students|length }})</h2>
+<h2 class="mt-8 mb-3 font-display text-lg font-semibold text-white">{{ t('teacher.roster.current_heading').format(n=students|length) }}</h2>
 <ul class="glass-panel max-w-2xl divide-y divide-white/[0.04] rounded-2xl">
   {% for s in students %}
   <li class="flex items-center justify-between px-4 py-2 text-sm">
@@ -40,15 +40,15 @@ document.getElementById("roster-form").addEventListener("submit", async (e) => {
   out.classList.remove("hidden");
   if (!res.ok) {
     const data = await res.json().catch(()=>({}));
-    out.innerHTML = `<span class="text-red-300">${data.detail || "Failed"}</span>`;
+    out.innerHTML = `<span class="text-red-300">${data.detail || window.i18n["teacher.roster.err.failed"]}</span>`;
     return;
   }
   const data = await res.json();
   const s = data.summary;
-  let html = `<div class="text-emerald-300">Imported: ${s.inserted} new, ${s.updated} updated, ${s.untouched} untouched.</div>`;
+  let html = `<div class="text-emerald-300">${window.tfmt("teacher.roster.imported", {inserted: s.inserted, updated: s.updated, untouched: s.untouched})}</div>`;
   if (data.pin_pdf) {
     const name = data.pin_pdf.split("/").pop();
-    html += `<div class="mt-2"><a class="text-cyan-300 underline hover:text-cyan-200" href="/eXam/teacher/roster/pins.pdf?name=${encodeURIComponent(name)}">Download PINs PDF</a></div>`;
+    html += `<div class="mt-2"><a class="text-cyan-300 underline hover:text-cyan-200" href="/eXam/teacher/roster/pins.pdf?name=${encodeURIComponent(name)}">${window.i18n["teacher.roster.dl_pin_pdf"]}</a></div>`;
   }
   out.innerHTML = html;
   setTimeout(()=>window.location.reload(), 2200);

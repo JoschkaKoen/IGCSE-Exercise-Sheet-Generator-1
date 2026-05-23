@@ -2,7 +2,7 @@
   Adding a new PDF tab: see the checklist comment at the top of workspace_pdf_panels.html.
 -->
   <div id="pdf-tab-bar-wrap" class="pdf-tab-bar-wrap" hidden>
-    <button type="button" id="pdf-tab-back-btn" class="pdf-tab-back-btn" aria-label="Back to generator" title="Back to generator">
+    <button type="button" id="pdf-tab-back-btn" class="pdf-tab-back-btn" aria-label="{{ t('pdfbar.back_aria') if t else 'Back to generator' }}" title="{{ t('pdfbar.back_aria') if t else 'Back to generator' }}">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M10 3L5 8L10 13"/>
       </svg>
@@ -10,7 +10,7 @@
     <div class="ranking-tab-area">
       <button type="button" id="tab-btn-ranking" class="pdf-tab-ranking-btn"
               role="tab" aria-selected="false" aria-controls="tab-panel-ranking"
-              aria-label="Difficulty ranking" title="Difficulty ranking" disabled>
+              aria-label="{{ t('pdfbar.ranking_aria') if t else 'Difficulty ranking' }}" title="{{ t('pdfbar.ranking_aria') if t else 'Difficulty ranking' }}" disabled>
         <svg id="ranking-tab-icon-chart" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="hidden">
           <rect x="1" y="9" width="3" height="6" rx="0.6"/>
           <rect x="6" y="5" width="3" height="10" rx="0.6"/>
@@ -21,50 +21,50 @@
           <span class="gen-spinner-ring gen-spinner-ring--2"></span>
           <span class="gen-spinner-dot"></span>
         </span>
-        <span>Ranking</span>
+        <span>{{ t('workspace.dl.ranking') if t else 'Ranking' }}</span>
       </button>
       <span id="ranking-log" class="hidden min-w-0 truncate font-mono text-xs text-slate-400" style="max-width: 21rem;"></span>
     </div>
     <div class="pdf-tab-primary-clip">
-    <div id="pdf-tab-primary-track" class="pdf-tab-primary-track" role="tablist" aria-label="Preview document" data-side="sheet">
+    <div id="pdf-tab-primary-track" class="pdf-tab-primary-track" role="tablist" aria-label="{{ t('pdfbar.preview_doc') if t else 'Preview document' }}" data-side="sheet">
       <span id="pdf-tab-side-pill" class="pdf-tab-side-pill" aria-hidden="true"></span>
       <div class="pdf-tab-sheet-column" role="presentation">
-        <span class="pdf-tab-sheet-label">Exercise sheet</span>
+        <span class="pdf-tab-sheet-label">{{ t('pdfbar.sheet_label') if t else 'Exercise sheet' }}</span>
       </div>
       <div class="pdf-tab-layout-column" role="presentation">
         <div id="pdf-tab-layout-track" class="pdf-tab-layout-track pdf-tab-layout-track--embedded" role="presentation" data-layout="exercise">
           <span id="pdf-tab-layout-pill" class="pdf-tab-layout-pill" aria-hidden="true"></span>
           <button type="button" id="tab-btn-exercise" class="pdf-tab-layout-btn pdf-tab-layout-btn--sky" role="tab"
-                  aria-selected="true" aria-controls="tab-panel-exercise" tabindex="0" title="Single page">
+                  aria-selected="true" aria-controls="tab-panel-exercise" tabindex="0" title="{{ t('pdfbar.title.single') if t else 'Single page' }}">
             <span class="pdf-tab-layout-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="6" y="4" width="12" height="16" rx="1.5"/></svg>
             </span>
-            <span class="sr-only">Single page</span>
+            <span class="sr-only">{{ t('pdfbar.title.single') if t else 'Single page' }}</span>
           </button>
           <button type="button" id="tab-btn-two-up" class="pdf-tab-layout-btn pdf-tab-layout-btn--amber" role="tab"
-                  aria-selected="false" aria-controls="tab-panel-two-up" tabindex="-1" title="Two pages per sheet">
+                  aria-selected="false" aria-controls="tab-panel-two-up" tabindex="-1" title="{{ t('pdfbar.title.two_up') if t else 'Two pages per sheet' }}">
             <span class="pdf-tab-layout-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
                 <rect x="3" y="4" width="8" height="16" rx="1.25"/><rect x="13" y="4" width="8" height="16" rx="1.25"/>
               </svg>
             </span>
-            <span class="sr-only">Two pages per sheet</span>
+            <span class="sr-only">{{ t('pdfbar.title.two_up') if t else 'Two pages per sheet' }}</span>
           </button>
           <button type="button" id="tab-btn-four-up" class="pdf-tab-layout-btn pdf-tab-layout-btn--violet" role="tab"
-                  aria-selected="false" aria-controls="tab-panel-four-up" tabindex="-1" title="Four pages per sheet">
+                  aria-selected="false" aria-controls="tab-panel-four-up" tabindex="-1" title="{{ t('pdfbar.title.four_up') if t else 'Four pages per sheet' }}">
             <span class="pdf-tab-layout-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
                 <rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/>
                 <rect x="3" y="13" width="8" height="7" rx="1"/><rect x="13" y="13" width="8" height="7" rx="1"/>
               </svg>
             </span>
-            <span class="sr-only">Four pages per sheet</span>
+            <span class="sr-only">{{ t('pdfbar.title.four_up') if t else 'Four pages per sheet' }}</span>
           </button>
         </div>
       </div>
       <div class="pdf-tab-answers-column" role="presentation">
         <button type="button" id="tab-btn-answers" class="pdf-tab-primary-facet" role="tab"
-                aria-selected="false" aria-controls="tab-panel-answers" aria-label="Mark scheme" tabindex="-1">Mark scheme</button>
+                aria-selected="false" aria-controls="tab-panel-answers" aria-label="{{ t('pdfbar.mark_scheme') if t else 'Mark scheme' }}" tabindex="-1">{{ t('pdfbar.mark_scheme') if t else 'Mark scheme' }}</button>
       </div>
     </div>
     </div>

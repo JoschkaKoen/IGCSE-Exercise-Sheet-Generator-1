@@ -21,6 +21,7 @@ Strict format:
 
 Rules:
 
+- **Audience** — non-native, high-school English speakers. Avoid difficult words; address the student directly using "you"; keep it short.
 - Target ~400 words total. Don't overshoot.
 - Don't reference "the question above" — write as a standalone study note.
 - For Computer Science, prefer code in fenced blocks with the language tag.

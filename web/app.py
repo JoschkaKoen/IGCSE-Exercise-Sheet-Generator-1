@@ -111,7 +111,7 @@ async def site_access_gate(request: Request, call_next):
         request.state.ask_login_mode = parse_ask_login_mode(request)
 
     path = request.url.path
-    if path.startswith("/api/") and path not in ("/api/auth/login", "/api/grade/auth"):
+    if path.startswith("/api/") and path not in ("/api/auth/login", "/api/grade/auth", "/api/language"):
         if not login_disabled and not request.state.site_auth_ok:
             return JSONResponse(
                 status_code=401,

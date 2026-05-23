@@ -1,29 +1,29 @@
 {% extends "base.html" %}
-{% block title %}Your tests · eXam{% endblock %}
+{% block title %}{{ t('title.student_tests') }}{% endblock %}
 {% block content %}
 <header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
-  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">Your tests</h1>
+  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">{{ t('student.dash.title') }}</h1>
   <div class="text-sm text-slate-400">
     {{ student.name }}{% if student.class_label %} · <span class="text-slate-500">{{ student.class_label }}</span>{% endif %}
-    · <button onclick="logout()" class="text-cyan-300 underline hover:text-cyan-200">Log out</button>
+    · <button onclick="logout()" class="text-cyan-300 underline hover:text-cyan-200">{{ t('student.dash.logout') }}</button>
   </div>
 </header>
 
 {% if not tests %}
 <div class="rounded-2xl border border-dashed border-white/10 p-10 text-center text-sm text-slate-500">
-  No tests available yet — your teacher hasn't published anything for your class.
+  {{ t('student.dash.empty') }}
 </div>
 {% else %}
 <ul class="space-y-2">
-  {% for t in tests %}
+  {% for tst in tests %}
   <li>
-    <a href="/eXam/test/{{ t.id }}"
+    <a href="/eXam/test/{{ tst.id }}"
        class="lib-card group flex items-center justify-between gap-4 rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-4 hover:border-cyan-500/30">
       <div class="min-w-0">
-        <div class="truncate font-medium text-white">{{ t.title }}</div>
-        <div class="text-xs text-slate-500">{{ t.subject }}{% if t.class_label %} · {{ t.class_label }}{% endif %}</div>
+        <div class="truncate font-medium text-white">{{ tst.title }}</div>
+        <div class="text-xs text-slate-500">{{ tst.subject }}{% if tst.class_label %} · {{ tst.class_label }}{% endif %}</div>
       </div>
-      <span class="rounded-xl border border-white/[0.12] bg-white/[0.04] px-3 py-1.5 text-sm text-slate-300 group-hover:bg-white/[0.10] group-hover:text-white">Open →</span>
+      <span class="rounded-xl border border-white/[0.12] bg-white/[0.04] px-3 py-1.5 text-sm text-slate-300 group-hover:bg-white/[0.10] group-hover:text-white">{{ t('student.dash.open') }}</span>
     </a>
   </li>
   {% endfor %}

@@ -1,54 +1,57 @@
 {% extends "base.html" %}
-{% block title %}AI costs · Teacher · eXam{% endblock %}
+{% block title %}{{ t('title.teacher_costs') }}{% endblock %}
 {% block content %}
 <header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
   <div>
-    <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">AI costs</h1>
+    <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">{{ t('teacher.costs.title') }}</h1>
     <p class="text-sm text-slate-500">
-      Across every test build, marking call, and helper request.
+      {{ t('teacher.costs.subtitle') }}
     </p>
   </div>
-  <a href="/eXam/teacher/" class="text-sm text-cyan-300 underline hover:text-cyan-200">← Dashboard</a>
+  <a href="/eXam/teacher/" class="text-sm text-cyan-300 underline hover:text-cyan-200">{{ t('teacher.costs.back') }}</a>
 </header>
 
 <form method="get" action="/eXam/teacher/costs"
       class="glass-panel mb-6 flex flex-wrap items-end gap-3 rounded-2xl p-3 text-sm">
   <label class="flex flex-col">
-    <span class="mb-1 text-xs text-slate-500">Since (UTC ISO)</span>
+    <span class="mb-1 text-xs text-slate-500">{{ t('teacher.costs.since_label') }}</span>
     <input type="text" name="since" value="{{ since }}" placeholder="2026-01-01"
            class="rounded-lg border border-white/[0.10] bg-white/[0.04] px-2 py-1 text-slate-200" />
   </label>
   <label class="flex flex-col">
-    <span class="mb-1 text-xs text-slate-500">Until (UTC ISO, exclusive)</span>
+    <span class="mb-1 text-xs text-slate-500">{{ t('teacher.costs.until_label') }}</span>
     <input type="text" name="until" value="{{ until }}" placeholder="2026-06-01"
            class="rounded-lg border border-white/[0.10] bg-white/[0.04] px-2 py-1 text-slate-200" />
   </label>
   <button class="rounded-lg border border-white/[0.10] bg-white/[0.04] px-3 py-1 text-slate-200 hover:bg-white/[0.10]">
-    Filter
+    {{ t('teacher.costs.filter') }}
   </button>
-  {% if since or until %}<a href="/eXam/teacher/costs" class="text-xs text-cyan-300 underline hover:text-cyan-200">clear</a>{% endif %}
+  {% if since or until %}<a href="/eXam/teacher/costs" class="text-xs text-cyan-300 underline hover:text-cyan-200">{{ t('teacher.costs.clear') }}</a>{% endif %}
 </form>
 
 <section class="glass-panel mb-6 rounded-2xl p-4">
-  <h2 class="font-display text-base font-semibold text-white">Total</h2>
+  <h2 class="font-display text-base font-semibold text-white">{{ t('teacher.costs.total') }}</h2>
   <p class="mt-1 text-sm text-slate-400">
     ¥{{ '%.4f' % data.total_cost_rmb }} ·
-    {{ data.total_calls }} call{{ '' if data.total_calls == 1 else 's' }} ·
-    {{ '{:,}'.format(data.total_input_tokens) }} in / {{ '{:,}'.format(data.total_output_tokens) }} out tokens
+    {{ t('teacher.costs.tokens_summary').format(
+        calls=data.total_calls,
+        calls_word=(t('teacher.costs.calls_one') if data.total_calls == 1 else t('teacher.costs.calls_many')),
+        tin='{:,}'.format(data.total_input_tokens),
+        tout='{:,}'.format(data.total_output_tokens)) }}
   </p>
 </section>
 
 <section class="glass-panel mb-6 overflow-x-auto rounded-2xl">
   <table class="w-full text-sm">
-    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">By model</caption>
+    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">{{ t('teacher.costs.by_model') }}</caption>
     <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
       <tr>
-        <th class="px-4 py-2">Model</th>
-        <th class="px-4 py-2 text-right">Calls</th>
-        <th class="px-4 py-2 text-right">Input</th>
-        <th class="px-4 py-2 text-right">Output</th>
-        <th class="px-4 py-2 text-right">Thinking</th>
-        <th class="px-4 py-2 text-right">Cost</th>
+        <th class="px-4 py-2">{{ t('teacher.costs.col.model') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.calls') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.input') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.output') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.thinking') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.cost') }}</th>
       </tr>
     </thead>
     <tbody>
@@ -62,7 +65,7 @@
         <td class="px-4 py-2 text-right tabular-nums text-slate-300">¥{{ '%.4f' % r.total_cost_rmb }}</td>
       </tr>
       {% else %}
-      <tr><td colspan="6" class="px-4 py-6 text-center text-slate-500">No calls in this window.</td></tr>
+      <tr><td colspan="6" class="px-4 py-6 text-center text-slate-500">{{ t('teacher.costs.empty_window') }}</td></tr>
       {% endfor %}
     </tbody>
   </table>
@@ -70,14 +73,14 @@
 
 <section class="glass-panel mb-6 overflow-x-auto rounded-2xl">
   <table class="w-full text-sm">
-    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">By operation</caption>
+    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">{{ t('teacher.costs.by_operation') }}</caption>
     <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
       <tr>
-        <th class="px-4 py-2">Operation</th>
-        <th class="px-4 py-2 text-right">Calls</th>
-        <th class="px-4 py-2 text-right">Input</th>
-        <th class="px-4 py-2 text-right">Output</th>
-        <th class="px-4 py-2 text-right">Cost</th>
+        <th class="px-4 py-2">{{ t('teacher.costs.col.operation') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.calls') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.input') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.output') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.cost') }}</th>
       </tr>
     </thead>
     <tbody>
@@ -96,14 +99,14 @@
 
 <section class="glass-panel overflow-x-auto rounded-2xl">
   <table class="w-full text-sm">
-    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">By test</caption>
+    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">{{ t('teacher.costs.by_test') }}</caption>
     <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
       <tr>
-        <th class="px-4 py-2">Title</th>
-        <th class="px-4 py-2 text-right">Calls</th>
-        <th class="px-4 py-2 text-right">Input</th>
-        <th class="px-4 py-2 text-right">Output</th>
-        <th class="px-4 py-2 text-right">Cost</th>
+        <th class="px-4 py-2">{{ t('teacher.costs.col.title') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.calls') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.input') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.output') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('teacher.costs.col.cost') }}</th>
       </tr>
     </thead>
     <tbody>
@@ -111,7 +114,7 @@
       <tr class="border-b border-white/[0.04] last:border-b-0">
         <td class="px-4 py-2 text-white">
           {% if r.test_id %}<a class="hover:underline" href="/eXam/teacher/test/{{ r.test_id }}">{{ r.title or r.test_id }}</a>
-          {% else %}<span class="text-slate-500">(no test — open mode / on-demand helper)</span>{% endif %}
+          {% else %}<span class="text-slate-500">{{ t('teacher.costs.no_test_label') }}</span>{% endif %}
         </td>
         <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ r.calls }}</td>
         <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.input_tokens) }}</td>

@@ -1,52 +1,52 @@
 {% extends "base.html" %}
-{% block title %}Teacher · eXam{% endblock %}
+{% block title %}{{ t('title.teacher') }}{% endblock %}
 {% block content %}
 <header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
-  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">Teacher view</h1>
+  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">{{ t('teacher.dash.title') }}</h1>
   <div class="text-sm text-slate-400">
-    {{ students }} students ·
-    <a href="/eXam/teacher/build" class="text-cyan-300 underline hover:text-cyan-200">New test</a> ·
-    <a href="/eXam/teacher/roster" class="text-cyan-300 underline hover:text-cyan-200">Roster</a> ·
-    <a href="/eXam/teacher/costs" class="text-cyan-300 underline hover:text-cyan-200">AI costs</a>
+    {{ t('teacher.dash.students_count').format(n=students) }} ·
+    <a href="/eXam/teacher/build" class="text-cyan-300 underline hover:text-cyan-200">{{ t('teacher.dash.new_test') }}</a> ·
+    <a href="/eXam/teacher/roster" class="text-cyan-300 underline hover:text-cyan-200">{{ t('teacher.dash.roster') }}</a> ·
+    <a href="/eXam/teacher/costs" class="text-cyan-300 underline hover:text-cyan-200">{{ t('teacher.dash.ai_costs') }}</a>
   </div>
 </header>
 
 {% if not tests %}
 <div class="rounded-2xl border border-dashed border-white/10 p-10 text-center text-sm text-slate-500">
-  No tests yet. <a href="/eXam/teacher/build" class="text-cyan-300 underline hover:text-cyan-200">Create one</a>.
+  {{ t('teacher.dash.empty_lead') }} <a href="/eXam/teacher/build" class="text-cyan-300 underline hover:text-cyan-200">{{ t('teacher.dash.empty_create') }}</a>.
 </div>
 {% else %}
 <div class="overflow-x-auto glass-panel rounded-2xl">
 <table class="w-full text-sm">
   <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
     <tr>
-      <th class="px-4 py-3">Title</th>
-      <th class="px-4 py-3">Subject</th>
-      <th class="px-4 py-3">Class</th>
-      <th class="px-4 py-3">Status</th>
-      <th class="px-4 py-3 text-right">AI cost</th>
+      <th class="px-4 py-3">{{ t('teacher.dash.col.title') }}</th>
+      <th class="px-4 py-3">{{ t('teacher.dash.col.subject') }}</th>
+      <th class="px-4 py-3">{{ t('teacher.dash.col.class') }}</th>
+      <th class="px-4 py-3">{{ t('teacher.dash.col.status') }}</th>
+      <th class="px-4 py-3 text-right">{{ t('teacher.dash.col.ai_cost') }}</th>
       <th class="px-4 py-3"></th>
     </tr>
   </thead>
   <tbody>
-    {% for t in tests %}
+    {% for tst in tests %}
     <tr class="border-b border-white/[0.04] last:border-b-0 hover:bg-white/[0.02]">
       <td class="px-4 py-3 font-medium text-white">
-        <a href="/eXam/teacher/test/{{ t.id }}" class="hover:underline">{{ t.title }}</a>
+        <a href="/eXam/teacher/test/{{ tst.id }}" class="hover:underline">{{ tst.title }}</a>
       </td>
-      <td class="px-4 py-3 text-slate-400">{{ t.subject }}</td>
-      <td class="px-4 py-3 text-slate-400">{{ t.class_label or '—' }}</td>
+      <td class="px-4 py-3 text-slate-400">{{ tst.subject }}</td>
+      <td class="px-4 py-3 text-slate-400">{{ tst.class_label or '—' }}</td>
       <td class="px-4 py-3">
-        {% if t.status == 'ready' %}<span class="text-emerald-300">✓ ready</span>
-        {% elif t.status == 'building' %}<span class="text-amber-300">⏳ building</span>
-        {% else %}<span class="text-red-300">✗ failed</span>{% endif %}
+        {% if tst.status == 'ready' %}<span class="text-emerald-300">{{ t('teacher.dash.status.ready') }}</span>
+        {% elif tst.status == 'building' %}<span class="text-amber-300">{{ t('teacher.dash.status.building') }}</span>
+        {% else %}<span class="text-red-300">{{ t('teacher.dash.status.failed') }}</span>{% endif %}
       </td>
       <td class="px-4 py-3 text-right tabular-nums text-slate-300">
-        {% if t.total_cost_rmb and t.total_cost_rmb > 0 %}¥{{ '%.4f' % t.total_cost_rmb }}<span class="ml-1 text-xs text-slate-500">· {{ t.calls }} call{{ '' if t.calls == 1 else 's' }}</span>{% else %}<span class="text-slate-600">—</span>{% endif %}
+        {% if tst.total_cost_rmb and tst.total_cost_rmb > 0 %}¥{{ '%.4f' % tst.total_cost_rmb }}<span class="ml-1 text-xs text-slate-500">· {{ (t('teacher.dash.calls_one') if tst.calls == 1 else t('teacher.dash.calls_many')).format(n=tst.calls) }}</span>{% else %}<span class="text-slate-600">—</span>{% endif %}
       </td>
       <td class="px-4 py-3 text-right text-sm">
-        <a href="/eXam/teacher/test/{{ t.id }}" class="text-cyan-300 underline hover:text-cyan-200">Detail</a>
-        {% if t.status == 'ready' %} · <a href="/eXam/teacher/export/{{ t.id }}.xlsx" class="text-cyan-300 underline hover:text-cyan-200">XLSX</a>{% endif %}
+        <a href="/eXam/teacher/test/{{ tst.id }}" class="text-cyan-300 underline hover:text-cyan-200">{{ t('teacher.dash.detail') }}</a>
+        {% if tst.status == 'ready' %} · <a href="/eXam/teacher/export/{{ tst.id }}.xlsx" class="text-cyan-300 underline hover:text-cyan-200">{{ t('teacher.dash.xlsx') }}</a>{% endif %}
       </td>
     </tr>
     {% endfor %}

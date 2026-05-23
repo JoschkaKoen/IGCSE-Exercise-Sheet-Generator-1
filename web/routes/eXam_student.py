@@ -28,6 +28,7 @@ from eXam.runtime import (
 
 from ..analytics import track_request_event
 from ..analytics.salt import hash_id
+from ..template_ctx import template_ctx
 
 PACKAGE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
@@ -61,7 +62,7 @@ async def login_page(request: Request):
             )
         ]
     return TEMPLATES.TemplateResponse(
-        "eXam/login_student.html", {"request": request, "names": names}
+        "eXam/login_student.html", template_ctx(request, names=names)
     )
 
 
@@ -122,7 +123,7 @@ async def dashboard(request: Request):
         tests = [dict(r) for r in rows]
     return TEMPLATES.TemplateResponse(
         "eXam/student_dashboard.html",
-        {"request": request, "student": student, "tests": tests},
+        template_ctx(request, student=student, tests=tests),
     )
 
 
@@ -168,12 +169,12 @@ async def test_view(request: Request, test_id: str, q: int | None = None):
             )
         return TEMPLATES.TemplateResponse(
             "eXam/test_overview.html",
-            {
-                "request": request,
-                "student": student,
-                "test": dict(row),
-                "items": items,
-            },
+            template_ctx(
+                request,
+                student=student,
+                test=dict(row),
+                items=items,
+            ),
         )
     # Single-question take page.
     if q < 0 or q >= len(qids):
@@ -197,23 +198,23 @@ async def test_view(request: Request, test_id: str, q: int | None = None):
     )
     return TEMPLATES.TemplateResponse(
         "eXam/test_take.html",
-        {
-            "request": request,
-            "student": student,
-            "test": dict(row),
-            "meta": meta,
-            "latest": latest,
-            "idx": q,
-            "total": len(qids),
-            "prev_idx": q - 1 if q > 0 else None,
-            "next_idx": q + 1 if q < len(qids) - 1 else None,
-            "counters": {
+        template_ctx(
+            request,
+            student=student,
+            test=dict(row),
+            meta=meta,
+            latest=latest,
+            idx=q,
+            total=len(qids),
+            prev_idx=q - 1 if q > 0 else None,
+            next_idx=q + 1 if q < len(qids) - 1 else None,
+            counters={
                 "correct": correct_count,
                 "retry": retry_count,
                 "unanswered": unanswered,
             },
-            "solution_unlocked": solution_unlocked,
-        },
+            solution_unlocked=solution_unlocked,
+        ),
     )
 
 

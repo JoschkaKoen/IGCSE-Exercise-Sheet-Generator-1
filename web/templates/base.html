@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full space-root">
+<html lang="{{ html_lang | default('en') }}" class="h-full space-root">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,6 +14,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  {# Twemoji flag webfont — fixes the Windows gap where regional-indicator
+     emoji render as country-code letters instead of flag glyphs. #}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/country-flag-emoji-polyfill@0.1/dist/TwemojiCountryFlags.css" />
+  {# UI string table for any inline / module JS to look up by key. Populated
+     server-side from web/i18n.py via web/template_ctx.py. #}
+  <script>
+    window.i18n = {{ i18n_json | default('{}') | safe }};
+    window.tfmt = function (key, vars) {
+      var s = (window.i18n && window.i18n[key]) || key;
+      return String(s).replace(/\{(\w+)\}/g, function (_, k) {
+        return vars && k in vars ? vars[k] : '{' + k + '}';
+      });
+    };
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -115,6 +129,21 @@
   <script>
     setTimeout(function () { document.body.classList.add('page-entered'); }, 850);
   </script>
+  <script>
+    (function () {
+      var btn = document.getElementById('lang-toggle');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var target = btn.dataset.targetLang;
+        fetch('/api/language', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ lang: target }),
+        }).then(function () { window.location.reload(); });
+      });
+    })();
+  </script>
   <div class="z-content flex min-h-full flex-col"{% if needs_site_login | default(false) %} inert="" aria-hidden="true"{% endif %}>
 
     <header class="site-header sticky top-0 z-20">
@@ -123,17 +152,30 @@
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/80
                            focus-visible:ring-offset-2 focus-visible:ring-offset-space-void rounded-md">
           <span class="site-header-brand-stack">
-            <span class="site-header-brand-eyebrow">Cambridge IGCSE</span>
+            <span class="site-header-brand-eyebrow">{{ t('brand.eyebrow') if t else 'Cambridge IGCSE' }}</span>
             <span class="site-header-brand-titles">
               <span class="site-header-brand-title site-header-brand-title--default bg-gradient-to-r from-cyan-300 via-blue-300 to-blue-400 bg-clip-text text-transparent">
                 <span class="">IGCSE &amp; A-Level</span>
               </span>
               <span class="site-header-brand-title site-header-brand-title--preview bg-gradient-to-r from-cyan-200 via-sky-300 to-indigo-300 bg-clip-text text-transparent">
-                Sheet preview
+                {{ t('brand.sheet_preview') if t else 'Sheet preview' }}
               </span>
             </span>
           </span>
         </a>
+        {# Language toggle — flag shown is always the *destination* language
+           (UK in Chinese mode, CN in English mode). Sits to the immediate
+           right of the brand title. #}
+        <button type="button" id="lang-toggle"
+                class="site-header-lang-toggle ml-2 inline-flex h-7 w-9 shrink-0 items-center justify-center
+                       rounded-md border border-white/10 bg-white/[0.04] text-base leading-none transition
+                       hover:bg-white/10 focus:outline-none focus-visible:ring-2
+                       focus-visible:ring-cyan-400/60"
+                style="font-family: 'Twemoji Country Flags', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;"
+                aria-label="{{ t('lang.switch_aria') if t else 'Switch language' }}"
+                data-target-lang="{{ 'en' if lang == 'zh' else 'zh' }}">
+          {{ flag | default('🇨🇳') }}
+        </button>
         <div class="site-header-preview-col">
           {% block preview_col_start %}{% endblock %}
           <div class="site-header-middle">
@@ -146,25 +188,25 @@
                class="rounded-full px-4 py-1.5 text-sm font-medium transition
                       focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60
                       {{ 'nav-link-active' if path == '/' else 'text-slate-400 hover:bg-white/10 hover:text-white' }}">
-              Generate
+              {{ t('nav.generate') if t else 'Generate' }}
             </a>
             <a href="/library"
                class="rounded-full px-4 py-1.5 text-sm font-medium transition
                       focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60
                       {{ 'nav-link-active' if path == '/library' else 'text-slate-400 hover:bg-white/10 hover:text-white' }}">
-              Library
+              {{ t('nav.library') if t else 'Library' }}
             </a>
             <a href="/grade"
                class="rounded-full px-4 py-1.5 text-sm font-medium transition
                       focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60
                       {{ 'nav-link-active' if path == '/grade' else 'text-slate-400 hover:bg-white/10 hover:text-white' }}">
-              Grade
+              {{ t('nav.grade') if t else 'Grade' }}
             </a>
             <a href="/eXam/practice"
                class="rounded-full px-4 py-1.5 text-sm font-medium transition
                       focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60
                       {{ 'nav-link-active' if path.startswith('/eXam') else 'text-slate-400 hover:bg-white/10 hover:text-white' }}">
-              Practice
+              {{ t('nav.practice') if t else 'Practice' }}
             </a>
           </nav>
         </div>
@@ -176,7 +218,7 @@
     </main>
 
     <footer class="border-t border-white/[0.04] mx-auto w-full max-w-5xl px-4 py-6 text-center text-xs text-slate-500 sm:px-6">
-      Exercise sheet generator
+      {{ t('footer.tagline') if t else 'Exercise sheet generator' }}
     </footer>
 
   </div>
@@ -185,18 +227,18 @@
   <div class="site-auth-overlay" id="site-auth-overlay" role="dialog" aria-modal="true" aria-labelledby="site-auth-title">
     <div class="site-auth-panel gen-surface glass-panel form-glow rounded-2xl p-6 sm:p-7 shadow-2xl">
       <h2 id="site-auth-title" class="font-display text-lg font-semibold tracking-tight text-white sm:text-xl">
-        Sign in
+        {{ t('auth.dialog.title') if t else 'Sign in' }}
       </h2>
       <p class="mt-2 text-sm leading-relaxed text-slate-400">
-        Enter the access code to use this site.
+        {{ t('auth.dialog.prompt') if t else 'Enter the access code to use this site.' }}
       </p>
       {% if ask_login_mode | default(false) %}
       <p class="mt-2 rounded-lg border border-amber-500/25 bg-amber-500/10 px-3 py-2 text-xs text-amber-200/90">
-        Session login is on (<code class="rounded bg-black/30 px-1 py-0.5 font-mono text-[0.65rem]">ASK_LOGIN</code> or <code class="rounded bg-black/30 px-1 py-0.5 font-mono text-[0.65rem]">?ask_login=1</code>). The browser will not remember you after the session ends.
+        {{ t('auth.dialog.session_note') if t else 'Session login is on. The browser will not remember you after the session ends.' }}
       </p>
       {% endif %}
       <form id="site-auth-form" class="mt-5 flex flex-col gap-3" action="#" method="post" autocomplete="off">
-        <label for="site-auth-code" class="sr-only">Access code</label>
+        <label for="site-auth-code" class="sr-only">{{ t('auth.dialog.code_label') if t else 'Access code' }}</label>
         <input id="site-auth-code" name="code" type="text" inputmode="text" maxlength="64" required
                spellcheck="false" autocapitalize="characters" autocomplete="off"
                class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 text-sm tracking-wide text-slate-100 placeholder:text-slate-500
@@ -204,7 +246,7 @@
         <p id="site-auth-err" class="hidden text-sm text-red-300" role="alert"></p>
         <button type="submit" class="btn-space-primary inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white
                                        focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-space-deep">
-          Continue
+          {{ t('auth.dialog.submit') if t else 'Continue' }}
         </button>
       </form>
     </div>
@@ -230,11 +272,11 @@
         clearErr();
         var code = String(input.value || '').trim();
         if (!code) {
-          showErr('Enter the code.');
+          showErr(window.i18n['auth.err.empty']);
           return;
         }
         if (code.length > 64) {
-          showErr('Code is too long.');
+          showErr(window.i18n['auth.err.too_long']);
           return;
         }
         fetch('/api/auth/login', {
@@ -254,13 +296,13 @@
               return;
             }
             if (r.status === 429) {
-              showErr('Too many attempts. Wait a minute and try again.');
+              showErr(window.i18n['auth.err.rate_limit']);
               return;
             }
-            showErr('That code is not valid.');
+            showErr(window.i18n['auth.err.bad_code']);
           })
           .catch(function () {
-            showErr('Could not reach the server. Try again.');
+            showErr(window.i18n['auth.err.network']);
           });
       });
       setTimeout(function () {

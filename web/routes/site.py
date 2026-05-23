@@ -31,6 +31,7 @@ from ..grade_auth import (
     is_grade_unlocked,
 )
 from ..service import invalidate_library_cache, list_library_pdfs
+from ..template_ctx import template_ctx as _template_ctx
 
 PACKAGE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
@@ -50,6 +51,10 @@ class GradeAuthBody(BaseModel):
     code: str = Field(..., min_length=1, max_length=64)
 
 
+class LanguageBody(BaseModel):
+    lang: str = Field(..., min_length=2, max_length=5)
+
+
 def _validate_library_path(subject: str, filename: str) -> Path:
     if subject not in ALLOWED_SUBJECTS:
         raise HTTPException(status_code=404, detail="Unknown subject")
@@ -67,19 +72,6 @@ def _validate_library_path(subject: str, filename: str) -> Path:
     if not path.is_file():
         raise HTTPException(status_code=404, detail="File not found")
     return path
-
-
-def _template_ctx(request: Request, **extra: object) -> dict[str, object]:
-    login_disabled = getattr(request.state, "login_disabled", True)
-    auth_ok = getattr(request.state, "site_auth_ok", False)
-    ctx: dict[str, object] = {
-        "request": request,
-        "login_disabled": login_disabled,
-        "needs_site_login": (not login_disabled) and (not auth_ok),
-        "ask_login_mode": getattr(request.state, "ask_login_mode", False),
-    }
-    ctx.update(extra)
-    return ctx
 
 
 # ---------------------------------------------------------------------------
@@ -112,6 +104,22 @@ async def site_login(request: Request, body: SiteLoginBody) -> JSONResponse:
     )
     apply_auth_cookie(response, request, session_style=parse_ask_login_mode(request))
     return response
+
+
+@router.post("/api/language")
+async def set_language(request: Request, body: LanguageBody) -> JSONResponse:
+    """Persist the visitor's UI language as a year-long cookie."""
+    if body.lang not in ("en", "zh"):
+        raise HTTPException(status_code=400, detail="Unsupported language")
+    resp = JSONResponse({"ok": True})
+    resp.set_cookie(
+        "lang", body.lang,
+        max_age=60 * 60 * 24 * 365,
+        samesite="lax",
+        path="/",
+        secure=request.url.scheme == "https",
+    )
+    return resp
 
 
 @router.post("/api/grade/auth")

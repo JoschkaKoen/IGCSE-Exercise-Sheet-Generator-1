@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Site stats · Admin{% endblock %}
+{% block title %}{{ t('title.admin_stats') }}{% endblock %}
 {% block extra_head %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
 {% endblock %}
@@ -7,53 +7,53 @@
 
 <header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
   <div>
-    <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">Site stats</h1>
+    <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">{{ t('admin.stats.title') }}</h1>
     <p class="text-sm text-slate-500">
-      Page views, jobs, errors. AI cost detail lives at
-      <a href="/eXam/teacher/costs" class="text-cyan-300 underline hover:text-cyan-200">/eXam/teacher/costs</a>;
-      per-job xScore breakdowns are in <code class="rounded bg-black/30 px-1 py-0.5 font-mono text-[0.7rem]">output/xscore/&lt;job&gt;/34_ai_costs/cost.md</code>.
+      {{ t('admin.stats.subtitle_pre') }}
+      <a href="/eXam/teacher/costs" class="text-cyan-300 underline hover:text-cyan-200">{{ t('admin.stats.subtitle_link') }}</a>{{ t('admin.stats.subtitle_post') }}
+      <code class="rounded bg-black/30 px-1 py-0.5 font-mono text-[0.7rem]">{{ t('admin.stats.subtitle_path') }}</code>.
     </p>
   </div>
-  <a href="/grade" class="text-sm text-cyan-300 underline hover:text-cyan-200">← Grade</a>
+  <a href="/grade" class="text-sm text-cyan-300 underline hover:text-cyan-200">{{ t('admin.stats.back_grade') }}</a>
 </header>
 
 <form method="get" action="/admin/stats"
       class="glass-panel mb-6 flex flex-wrap items-end gap-3 rounded-2xl p-3 text-sm">
   <label class="flex flex-col">
-    <span class="mb-1 text-xs text-slate-500">Range (days)</span>
+    <span class="mb-1 text-xs text-slate-500">{{ t('admin.stats.range_label') }}</span>
     <select name="days"
             class="rounded-lg border border-white/[0.10] bg-white/[0.04] px-2 py-1 text-slate-200">
-      {% for opt, label in [("1","Today"),("7","7 days"),("30","30 days"),("90","90 days"),("all","All time")] %}
-      <option value="{{ opt }}" {% if days_label == opt %}selected{% endif %}>{{ label }}</option>
+      {% for opt, key in [("1","admin.stats.range.today"),("7","admin.stats.range.7"),("30","admin.stats.range.30"),("90","admin.stats.range.90"),("all","admin.stats.range.all")] %}
+      <option value="{{ opt }}" {% if days_label == opt %}selected{% endif %}>{{ t(key) }}</option>
       {% endfor %}
     </select>
   </label>
   <button class="rounded-lg border border-white/[0.10] bg-white/[0.04] px-3 py-1 text-slate-200 hover:bg-white/[0.10]">
-    Apply
+    {{ t('admin.stats.apply') }}
   </button>
 </form>
 
 <!-- Overview cards -->
 <section class="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
   <div class="glass-panel rounded-2xl p-4">
-    <div class="text-xs uppercase tracking-wider text-slate-500">Page views</div>
+    <div class="text-xs uppercase tracking-wider text-slate-500">{{ t('admin.stats.card.pageviews') }}</div>
     <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '{:,}'.format(totals.pageviews) }}</div>
     <div class="mt-1 text-xs text-slate-500">
       today {{ '{:,}'.format(pageviews_summary.today) }} · 7d {{ '{:,}'.format(pageviews_summary.last_7d) }} · 30d {{ '{:,}'.format(pageviews_summary.last_30d) }}
     </div>
   </div>
   <div class="glass-panel rounded-2xl p-4">
-    <div class="text-xs uppercase tracking-wider text-slate-500">Unique visitors</div>
+    <div class="text-xs uppercase tracking-wider text-slate-500">{{ t('admin.stats.card.visitors') }}</div>
     <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '{:,}'.format(totals.visitors) }}</div>
-    <div class="mt-1 text-xs text-slate-500">{{ '{:,}'.format(sessions_n) }} sessions all-time</div>
+    <div class="mt-1 text-xs text-slate-500">{{ t('admin.stats.sessions_all').format(n='{:,}'.format(sessions_n)) }}</div>
   </div>
   <div class="glass-panel rounded-2xl p-4">
-    <div class="text-xs uppercase tracking-wider text-slate-500">Jobs run</div>
+    <div class="text-xs uppercase tracking-wider text-slate-500">{{ t('admin.stats.card.jobs') }}</div>
     <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '{:,}'.format(totals.jobs) }}</div>
-    <div class="mt-1 text-xs text-slate-500">{{ '{:,}'.format(totals.submissions) }} exam submissions</div>
+    <div class="mt-1 text-xs text-slate-500">{{ t('admin.stats.submissions').format(n='{:,}'.format(totals.submissions)) }}</div>
   </div>
   <div class="glass-panel rounded-2xl p-4">
-    <div class="text-xs uppercase tracking-wider text-slate-500">AI spend ({{ cost_overview.days }}d)</div>
+    <div class="text-xs uppercase tracking-wider text-slate-500">{{ t('admin.stats.card.ai_spend').format(n=cost_overview.days) }}</div>
     <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">¥{{ '%.2f' % cost_overview.total_cost_rmb }}</div>
     <div class="mt-1 text-xs text-slate-500">
       xS ¥{{ '%.2f' % cost_overview.xscore.cost_rmb }} ·
@@ -62,16 +62,16 @@
     </div>
   </div>
   <div class="glass-panel rounded-2xl p-4">
-    <div class="text-xs uppercase tracking-wider text-slate-500">Error rate</div>
+    <div class="text-xs uppercase tracking-wider text-slate-500">{{ t('admin.stats.card.error_rate') }}</div>
     <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '%.2f' % (error_rate * 100) }}%</div>
-    <div class="mt-1 text-xs text-slate-500">{{ '{:,}'.format(totals.errors) }} errors / {{ '{:,}'.format(totals.pageviews) }} reqs</div>
+    <div class="mt-1 text-xs text-slate-500">{{ t('admin.stats.error_ratio').format(errors='{:,}'.format(totals.errors), reqs='{:,}'.format(totals.pageviews)) }}</div>
   </div>
 </section>
 
 <!-- Time series -->
 <section class="glass-panel mb-6 rounded-2xl p-4">
-  <h2 class="font-display text-base font-semibold text-white">Activity over time</h2>
-  <p class="text-xs text-slate-500">Daily counts. UTC day buckets.</p>
+  <h2 class="font-display text-base font-semibold text-white">{{ t('admin.stats.activity') }}</h2>
+  <p class="text-xs text-slate-500">{{ t('admin.stats.activity_sub') }}</p>
   <div class="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
     <div><canvas id="chart-pageviews" height="120"></canvas></div>
     <div><canvas id="chart-jobs" height="120"></canvas></div>
@@ -81,12 +81,12 @@
 <!-- Top routes -->
 <section class="glass-panel mb-6 overflow-x-auto rounded-2xl">
   <table class="w-full text-sm">
-    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">Top routes ({{ days_label }})</caption>
+    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">{{ t('admin.stats.routes_caption').format(label=days_label) }}</caption>
     <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
       <tr>
-        <th class="px-4 py-2">Route</th>
-        <th class="px-4 py-2 text-right">Hits</th>
-        <th class="px-4 py-2 text-right">Avg ms</th>
+        <th class="px-4 py-2">{{ t('admin.stats.col.route') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('admin.stats.col.hits') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('admin.stats.col.avg_ms') }}</th>
       </tr>
     </thead>
     <tbody>
@@ -97,7 +97,7 @@
         <td class="px-4 py-2 text-right tabular-nums text-slate-500">{{ '%.0f' % r.avg_ms }}</td>
       </tr>
       {% else %}
-      <tr><td colspan="3" class="px-4 py-6 text-center text-slate-500">No requests in this window.</td></tr>
+      <tr><td colspan="3" class="px-4 py-6 text-center text-slate-500">{{ t('admin.stats.no_requests') }}</td></tr>
       {% endfor %}
     </tbody>
   </table>
@@ -106,26 +106,26 @@
 <!-- Recent jobs -->
 <section class="glass-panel mb-6 overflow-x-auto rounded-2xl">
   <table class="w-full text-sm">
-    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">Recent jobs (last 50)</caption>
+    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">{{ t('admin.stats.recent_jobs') }}</caption>
     <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
       <tr>
-        <th class="px-4 py-2">When (UTC)</th>
-        <th class="px-4 py-2">Kind</th>
-        <th class="px-4 py-2">Status</th>
-        <th class="px-4 py-2">Subject / prompt</th>
-        <th class="px-4 py-2 text-right">Duration</th>
-        <th class="px-4 py-2 text-right">AI cost</th>
-        <th class="px-4 py-2 text-right">AI calls</th>
+        <th class="px-4 py-2">{{ t('admin.stats.col.when') }}</th>
+        <th class="px-4 py-2">{{ t('admin.stats.col.kind') }}</th>
+        <th class="px-4 py-2">{{ t('teacher.dash.col.status') }}</th>
+        <th class="px-4 py-2">{{ t('admin.stats.col.subject_prompt') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('admin.stats.col.duration') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('admin.stats.col.ai_cost') }}</th>
+        <th class="px-4 py-2 text-right">{{ t('admin.stats.col.ai_calls') }}</th>
       </tr>
     </thead>
     <tbody>
       {% for r in recent_jobs %}
       <tr class="border-b border-white/[0.04] last:border-b-0">
         <td class="px-4 py-2 font-mono text-[0.72rem] text-slate-400">{{ r.ts[:19].replace('T', ' ') }}</td>
-        <td class="px-4 py-2 text-slate-300">{{ 'grade' if r.kind == 'grade_job_finished' else 'NL' }}</td>
+        <td class="px-4 py-2 text-slate-300">{{ t('admin.stats.kind.grade') if r.kind == 'grade_job_finished' else t('admin.stats.kind.nl') }}</td>
         <td class="px-4 py-2">
-          {% if r.status == 'ok' %}<span class="text-emerald-300">ok</span>
-          {% elif r.status == 'error' %}<span class="text-red-300">error</span>
+          {% if r.status == 'ok' %}<span class="text-emerald-300">{{ t('admin.stats.status.ok') }}</span>
+          {% elif r.status == 'error' %}<span class="text-red-300">{{ t('admin.stats.status.error') }}</span>
           {% else %}<span class="text-slate-400">{{ r.status }}</span>{% endif %}
         </td>
         <td class="px-4 py-2 text-slate-400">{{ (r.props.exam or r.props.prompt or '—')[:80] }}</td>
@@ -134,7 +134,7 @@
         <td class="px-4 py-2 text-right tabular-nums text-slate-500">{{ r.props.ai_calls or 0 }}</td>
       </tr>
       {% else %}
-      <tr><td colspan="7" class="px-4 py-6 text-center text-slate-500">No jobs yet.</td></tr>
+      <tr><td colspan="7" class="px-4 py-6 text-center text-slate-500">{{ t('admin.stats.no_jobs') }}</td></tr>
       {% endfor %}
     </tbody>
   </table>
@@ -143,13 +143,13 @@
 <!-- Recent errors -->
 <section class="glass-panel overflow-x-auto rounded-2xl">
   <table class="w-full text-sm">
-    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">Recent errors (last 50)</caption>
+    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">{{ t('admin.stats.recent_errors') }}</caption>
     <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
       <tr>
-        <th class="px-4 py-2">When (UTC)</th>
-        <th class="px-4 py-2">Route</th>
-        <th class="px-4 py-2">Exception</th>
-        <th class="px-4 py-2">Message</th>
+        <th class="px-4 py-2">{{ t('admin.stats.col.when') }}</th>
+        <th class="px-4 py-2">{{ t('admin.stats.col.route') }}</th>
+        <th class="px-4 py-2">{{ t('admin.stats.col.exception') }}</th>
+        <th class="px-4 py-2">{{ t('admin.stats.col.message') }}</th>
       </tr>
     </thead>
     <tbody>
@@ -161,7 +161,7 @@
         <td class="px-4 py-2 text-slate-500">{{ r.props.message or '' }}</td>
       </tr>
       {% else %}
-      <tr><td colspan="4" class="px-4 py-6 text-center text-slate-500">No errors recorded.</td></tr>
+      <tr><td colspan="4" class="px-4 py-6 text-center text-slate-500">{{ t('admin.stats.no_errors') }}</td></tr>
       {% endfor %}
     </tbody>
   </table>

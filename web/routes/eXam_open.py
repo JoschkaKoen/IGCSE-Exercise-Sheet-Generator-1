@@ -19,6 +19,8 @@ from pydantic import BaseModel, Field
 from eXam import open_mode
 from eXam.runtime import pdf_path_for
 
+from ..template_ctx import template_ctx
+
 PACKAGE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
 
@@ -33,7 +35,7 @@ async def landing(request: Request, response: Response):
     subjects = open_mode.subject_grid()
     return TEMPLATES.TemplateResponse(
         "eXam/practice_landing.html",
-        {"request": request, "subjects": subjects, "stats": stats},
+        template_ctx(request, subjects=subjects, stats=stats),
         headers=dict(response.headers),
     )
 
@@ -50,16 +52,16 @@ async def take(request: Request, response: Response, subject: str):
     stats = open_mode.session_stats(sid)
     return TEMPLATES.TemplateResponse(
         "eXam/practice_take.html",
-        {
-            "request": request,
-            "subject": subject,
-            "subject_display": next(
+        template_ctx(
+            request,
+            subject=subject,
+            subject_display=next(
                 (s["display"] for s in open_mode.subject_grid() if s["slug"] == subject),
                 subject,
             ),
-            "meta": meta,
-            "stats": stats,
-        },
+            meta=meta,
+            stats=stats,
+        ),
         headers=dict(response.headers),
     )
 

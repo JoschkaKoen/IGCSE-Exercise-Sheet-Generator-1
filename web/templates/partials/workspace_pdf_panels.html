@@ -21,7 +21,7 @@
           <span class="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-cyan-400/25 border-t-cyan-400" aria-hidden="true"></span>
         </div>
         <div class="pdf-empty-state hidden" role="status">
-          <p>Not generated for this run.</p>
+          <p>{{ t('pdfpanel.empty.default') if t else 'Not generated for this run.' }}</p>
         </div>
         <div class="pdf-viewport-scroll hidden" tabindex="0">
           <div class="pdf-pages-stack"></div>
@@ -34,9 +34,9 @@
           <span class="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-cyan-400/25 border-t-cyan-400" aria-hidden="true"></span>
         </div>
         <div id="pdf-empty-exercise" class="pdf-empty-state hidden" role="status">
-          <p>Not generated for this run.</p>
+          <p>{{ t('pdfpanel.empty.default') if t else 'Not generated for this run.' }}</p>
         </div>
-        <div id="pdf-scroll-exercise" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="exercise" aria-label="Exercise sheet preview">
+        <div id="pdf-scroll-exercise" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="exercise" aria-label="{{ t('pdfpanel.aria.exercise') if t else 'Exercise sheet preview' }}">
           <div id="pdf-pages-exercise" class="pdf-pages-stack"></div>
         </div>
       </div>
@@ -45,9 +45,9 @@
           <span class="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-emerald-400/25 border-t-emerald-400" aria-hidden="true"></span>
         </div>
         <div id="pdf-empty-answers" class="pdf-empty-state hidden" role="status">
-          <p>Not generated for this run.</p>
+          <p>{{ t('pdfpanel.empty.default') if t else 'Not generated for this run.' }}</p>
         </div>
-        <div id="pdf-scroll-answers" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="answers" aria-label="Mark scheme preview">
+        <div id="pdf-scroll-answers" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="answers" aria-label="{{ t('pdfpanel.aria.answers') if t else 'Mark scheme preview' }}">
           <div id="pdf-pages-answers" class="pdf-pages-stack"></div>
         </div>
       </div>
@@ -56,9 +56,9 @@
           <span class="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-amber-400/25 border-t-amber-400" aria-hidden="true"></span>
         </div>
         <div id="pdf-empty-two-up" class="pdf-empty-state hidden" role="status">
-          <p>Not generated for this run.</p>
+          <p>{{ t('pdfpanel.empty.default') if t else 'Not generated for this run.' }}</p>
         </div>
-        <div id="pdf-scroll-two-up" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="two-up" aria-label="2-up sheet preview">
+        <div id="pdf-scroll-two-up" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="two-up" aria-label="{{ t('pdfpanel.aria.two_up') if t else '2-up sheet preview' }}">
           <div id="pdf-pages-two-up" class="pdf-pages-stack"></div>
         </div>
       </div>
@@ -67,9 +67,9 @@
           <span class="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-violet-400/25 border-t-violet-400" aria-hidden="true"></span>
         </div>
         <div id="pdf-empty-four-up" class="pdf-empty-state hidden" role="status">
-          <p>Not generated for this run.</p>
+          <p>{{ t('pdfpanel.empty.default') if t else 'Not generated for this run.' }}</p>
         </div>
-        <div id="pdf-scroll-four-up" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="four-up" aria-label="4-up sheet preview">
+        <div id="pdf-scroll-four-up" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="four-up" aria-label="{{ t('pdfpanel.aria.four_up') if t else '4-up sheet preview' }}">
           <div id="pdf-pages-four-up" class="pdf-pages-stack"></div>
         </div>
       </div>
@@ -78,9 +78,9 @@
           <span class="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-amber-400/25 border-t-amber-400" aria-hidden="true"></span>
         </div>
         <div id="pdf-empty-answers-two-up" class="pdf-empty-state hidden" role="status">
-          <p>Not generated for this run.</p>
+          <p>{{ t('pdfpanel.empty.default') if t else 'Not generated for this run.' }}</p>
         </div>
-        <div id="pdf-scroll-answers-two-up" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="answers-two-up" aria-label="Mark scheme 2-up preview">
+        <div id="pdf-scroll-answers-two-up" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="answers-two-up" aria-label="{{ t('pdfpanel.aria.ans_two_up') if t else 'Mark scheme 2-up preview' }}">
           <div id="pdf-pages-answers-two-up" class="pdf-pages-stack"></div>
         </div>
       </div>
@@ -89,9 +89,9 @@
           <span class="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-violet-400/25 border-t-violet-400" aria-hidden="true"></span>
         </div>
         <div id="pdf-empty-answers-four-up" class="pdf-empty-state hidden" role="status">
-          <p>Not generated for this run.</p>
+          <p>{{ t('pdfpanel.empty.default') if t else 'Not generated for this run.' }}</p>
         </div>
-        <div id="pdf-scroll-answers-four-up" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="answers-four-up" aria-label="Mark scheme 4-up preview">
+        <div id="pdf-scroll-answers-four-up" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="answers-four-up" aria-label="{{ t('pdfpanel.aria.ans_four_up') if t else 'Mark scheme 4-up preview' }}">
           <div id="pdf-pages-answers-four-up" class="pdf-pages-stack"></div>
         </div>
       </div>
@@ -100,9 +100,9 @@
           <span class="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-orange-400/25 border-t-orange-400" aria-hidden="true"></span>
         </div>
         <div id="pdf-empty-ranking" class="pdf-empty-state hidden" role="status">
-          <p>Ranking not generated for this run.</p>
+          <p>{{ t('pdfpanel.empty.ranking') if t else 'Ranking not generated for this run.' }}</p>
         </div>
-        <div id="pdf-scroll-ranking" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="ranking" aria-label="Difficulty ranking preview">
+        <div id="pdf-scroll-ranking" class="pdf-viewport-scroll hidden" tabindex="0" data-pdf-scroll="ranking" aria-label="{{ t('pdfpanel.aria.ranking') if t else 'Difficulty ranking preview' }}">
           <div id="pdf-pages-ranking" class="pdf-pages-stack"></div>
         </div>
       </div>

@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="/static/css/08-workspace-pdf-preview.css" />
   <link rel="stylesheet" href="/static/css/09-overview.css" />
 {% endblock %}
-{% block title %}Generate — eXercise{% endblock %}
+{% block title %}{{ t('title.generate') if t else 'Generate — eXercise' }}{% endblock %}
 
 {% block pdf_preview_tabs %}
 {% include "partials/pdf_tab_bar.html" %}

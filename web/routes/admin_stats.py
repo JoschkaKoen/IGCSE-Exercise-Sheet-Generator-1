@@ -21,6 +21,7 @@ from fastapi.templating import Jinja2Templates
 from ..analytics import store
 from ..analytics.cost_overview import total_ai_cost_rmb
 from ..grade_auth import is_grade_unlocked
+from ..template_ctx import template_ctx
 
 PACKAGE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
@@ -91,19 +92,19 @@ async def admin_stats(
     return TEMPLATES.TemplateResponse(
         request,
         "admin/stats.html",
-        {
-            "request": request,
-            "days": days_val,
-            "days_label": "all" if days_val is None else str(days_val),
-            "totals": totals,
-            "pageviews_summary": pageviews_summary,
-            "error_rate": err_rate,
-            "routes_top": routes_top,
-            "recent_jobs": jobs,
-            "recent_errors": errs,
-            "cost_overview": cost_overview,
-            "sessions_n": sessions_n,
-            "chart_payload_json": json.dumps(chart_payload),
-        },
+        template_ctx(
+            request,
+            days=days_val,
+            days_label="all" if days_val is None else str(days_val),
+            totals=totals,
+            pageviews_summary=pageviews_summary,
+            error_rate=err_rate,
+            routes_top=routes_top,
+            recent_jobs=jobs,
+            recent_errors=errs,
+            cost_overview=cost_overview,
+            sessions_n=sessions_n,
+            chart_payload_json=json.dumps(chart_payload),
+        ),
         headers={"Cache-Control": "no-store, no-cache"},
     )

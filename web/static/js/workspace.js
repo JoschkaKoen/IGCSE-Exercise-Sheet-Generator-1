@@ -77,7 +77,7 @@ function buildOverviewPanel(overview) {
     hasAny = true;
     const block = document.createElement('div');
     block.className = 'overview-paper-block';
-    const plabel = (paper.label && String(paper.label).trim()) ? paper.label : 'This sheet';
+    const plabel = (paper.label && String(paper.label).trim()) ? paper.label : window.i18n['workspace.paper.default_label'];
     const paperBtn = document.createElement('button');
     paperBtn.type = 'button';
     paperBtn.className = 'overview-paper-btn';
@@ -91,7 +91,7 @@ function buildOverviewPanel(overview) {
       qb.type = 'button';
       qb.className = 'overview-q-btn' + (ex.mcq ? ' overview-q-btn-mcq' : '');
       qb.textContent = String(ex.q);
-      qb.setAttribute('aria-label', 'Go to exercise ' + ex.q);
+      qb.setAttribute('aria-label', window.tfmt('workspace.aria.go_to_exercise', { q: ex.q }));
       qb.addEventListener('click', function () { scrollPreviewToExercise(ex); });
       row.appendChild(qb);
     });
@@ -195,7 +195,7 @@ function setSubmitPreviewMode(on) {
   if (!submitLabel) return;
   if (submitIconGen) submitIconGen.classList.toggle('hidden', on);
   if (submitIconUpd) submitIconUpd.classList.toggle('hidden', !on);
-  submitLabel.textContent = on ? 'Update' : 'Generate';
+  submitLabel.textContent = on ? window.i18n['workspace.submit.update'] : window.i18n['workspace.submit.generate_short'];
 }
 
 // ─── Preview mode transitions ─────────────────────────────────────────────────
@@ -219,7 +219,7 @@ function setTabAvailable(tabId, available) {
   if (btn) {
     btn.disabled = !available;
     btn.setAttribute('aria-disabled', available ? 'false' : 'true');
-    btn.title = available ? '' : 'Not generated for this run';
+    btn.title = available ? '' : window.i18n['workspace.tab.not_generated'];
   }
   if (available) { hideSpinner(tabId); hideEmpty(tabId); }
   else           { hideSpinner(tabId); showEmpty(tabId); }
@@ -314,9 +314,9 @@ function applyLogLine(data) {
   if (!jobLogLine) return;
   let line = (data.log_line != null && data.log_line !== '') ? String(data.log_line) : '';
   if (!line) {
-    if      (data.status === 'pending') line = 'Queued for processing\u2026';
-    else if (data.status === 'running') line = 'Starting\u2026';
-    else                                line = 'Working\u2026';
+    if      (data.status === 'pending') line = window.i18n['workspace.status.pending'];
+    else if (data.status === 'running') line = window.i18n['workspace.status.starting'];
+    else                                line = window.i18n['workspace.status.running'];
   }
   jobLogLine.textContent = line;
   jobLogLine.title = line;
@@ -328,7 +328,7 @@ async function fetchJobStatus(id) {
     cache: 'no-store',
     headers: { 'Accept': 'application/json' },
   });
-  if (!res.ok) throw new Error('Could not load job status.');
+  if (!res.ok) throw new Error(window.i18n['workspace.err.poll']);
   return res.json();
 }
 
@@ -355,11 +355,11 @@ async function pollJob(id, onTick) {
   for (let polls = 0; polls < MAX_POLLS; polls++) {
     const data = await fetchJobStatus(id);
     if (onTick) onTick(data);
-    if (data.status === 'failed') throw new Error(data.error || 'Generation failed.');
+    if (data.status === 'failed') throw new Error(data.error || window.i18n['workspace.err.failed']);
     if (data.status === 'done')   return data;
     await sleep(CONFIG.POLL_INTERVAL_MS);
   }
-  throw new Error('Timed out waiting for job to complete (20 min limit).');
+  throw new Error(window.i18n['workspace.err.timeout']);
 }
 
 // ─── Pinch-to-zoom (wheel on pdfPane) ────────────────────────────────────────
@@ -654,7 +654,7 @@ form.addEventListener('submit', async function (e) {
       throw new Error(msg || ('HTTP ' + res.status));
     }
     const id = body.id;
-    if (!id) throw new Error('No job id returned.');
+    if (!id) throw new Error(window.i18n['workspace.err.no_job_id']);
     state.currentJobId = id;
 
     applyLogLine(await fetchJobStatus(id));

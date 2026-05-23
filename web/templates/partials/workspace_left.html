@@ -13,16 +13,16 @@
         </svg>
       </div>
       <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-400/75">Cambridge</p>
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-400/75">{{ t('workspace.hero.eyebrow') }}</p>
         <h1 class="font-display mt-1 text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
-          Exercise Sheet<br class="hidden sm:block"> Generator
+          {{ t('workspace.hero.title_line1') }}<br class="hidden sm:block"> {{ t('workspace.hero.title_line2') }}
         </h1>
       </div>
     </div>
   </div>
 
   <p class="mx-auto mt-6 max-w-lg text-center text-[0.95rem] leading-relaxed text-slate-400">
-    Pick exercises from Cambridge past papers across IGCSE
+    {{ t('workspace.hero.subtitle') }}
     <span class="subject-badge subject-badge-cs">Computer Science</span>
     <span class="subject-badge subject-badge-physics">Physics</span>
     <span class="subject-badge subject-badge-chemistry">Chemistry</span>
@@ -32,7 +32,7 @@
     <span class="subject-badge subject-badge-a-level-biology">A-Level Biology</span>
     <span class="subject-badge subject-badge-a-level-chemistry">A-Level Chemistry</span>
     <span class="subject-badge subject-badge-a-level-cs">A-Level CS</span>
-    and get a combined exercise sheet — with mark scheme answers included separately.
+    {{ t('workspace.hero.subtitle_tail') }}
   </p>
   </div>
 
@@ -47,13 +47,13 @@
       rows="4"
       maxlength="12000"
       required
-      aria-label="Describe which exam papers and exercises to include"
+      aria-label="{{ t('workspace.prompt.aria') }}"
       class="w-full resize-y rounded-xl border border-white/[0.09] bg-slate-950/80
              px-3.5 py-3 text-[0.88rem] leading-relaxed text-slate-100 placeholder:text-slate-400/85
              shadow-inner shadow-black/30
              focus:border-cyan-500/35 focus:outline-none focus:ring-2 focus:ring-cyan-500/15
              transition-colors"
-      placeholder="e.g. Physics: Ex. 1–9 from w24 22 and Ex. 5–7 from s24 21"
+      placeholder="{{ t('workspace.prompt.placeholder') }}"
     ></textarea>
     <span id="prompt-char-counter"
           class="pointer-events-none absolute right-3 bottom-3 rounded-md bg-slate-950/85 backdrop-blur-sm
@@ -71,8 +71,8 @@
               style="background: linear-gradient(135deg, rgba(139,92,246,0.18) 0%, rgba(109,40,217,0.04) 100%);"
               data-prompt="Computer Science: Ex. 1, 3, 5, 6, 8 from w24 12 and Ex. 2, 3, 5, 6, 8, 10 from w24 22">
         <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-violet-300">Computer Science</span>
-        <span class="block text-[0.68rem] leading-snug text-violet-300/70">w24 papers 12 &amp; 22</span>
-        <span class="block text-[0.65rem] leading-snug text-violet-300/45">Multi-paper</span>
+        <span class="block text-[0.68rem] leading-snug text-violet-300/70">{{ t('workspace.quick_fill.papers_w24_12_22') }}</span>
+        <span class="block text-[0.65rem] leading-snug text-violet-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-cyan-500/20
@@ -80,8 +80,8 @@
               style="background: linear-gradient(135deg, rgba(6,182,212,0.18) 0%, rgba(8,145,178,0.04) 100%);"
               data-prompt="Physics: Ex. 1, 5, 9, 23, 29 from s23 22 and Ex. 3, 4, 6, 8, 10 from s23 41 and Ex. 2, 4 from s23 63">
         <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-cyan-300">Physics</span>
-        <span class="block text-[0.68rem] leading-snug text-cyan-300/70">s23 papers 22, 41 &amp; 63</span>
-        <span class="block text-[0.65rem] leading-snug text-cyan-300/45">Multi-paper</span>
+        <span class="block text-[0.68rem] leading-snug text-cyan-300/70">{{ t('workspace.quick_fill.papers_s23_22_41_63') }}</span>
+        <span class="block text-[0.65rem] leading-snug text-cyan-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-slate-400/20
@@ -89,8 +89,8 @@
               style="background: linear-gradient(135deg, rgba(148,163,184,0.16) 0%, rgba(71,85,105,0.04) 100%);"
               data-prompt="Chemistry: Ex. 1-5 from June 2024 paper 11 and Ex. 1-5 from June 2025 paper 11">
         <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-slate-200">Chemistry</span>
-        <span class="block text-[0.68rem] leading-snug text-slate-200/70">June 2024 &amp; 2025 paper 11</span>
-        <span class="block text-[0.65rem] leading-snug text-slate-200/45">Multi-paper</span>
+        <span class="block text-[0.68rem] leading-snug text-slate-200/70">{{ t('workspace.quick_fill.papers_jun_2024_2025_p11') }}</span>
+        <span class="block text-[0.65rem] leading-snug text-slate-200/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-sky-500/20
@@ -98,8 +98,8 @@
               style="background: linear-gradient(135deg, rgba(14,165,233,0.18) 0%, rgba(2,132,199,0.04) 100%);"
               data-prompt="Maths: Ex. 1, 3, 5 from June 2023 paper 21 and Ex. 2, 4 from June 2023 paper 41">
         <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-sky-300">Mathematics</span>
-        <span class="block text-[0.68rem] leading-snug text-sky-300/70">June 2023 papers 21 &amp; 41</span>
-        <span class="block text-[0.65rem] leading-snug text-sky-300/45">Multi-paper</span>
+        <span class="block text-[0.68rem] leading-snug text-sky-300/70">{{ t('workspace.quick_fill.papers_jun_2023_p21_41') }}</span>
+        <span class="block text-[0.65rem] leading-snug text-sky-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-emerald-500/20
@@ -107,8 +107,8 @@
               style="background: linear-gradient(135deg, rgba(16,185,129,0.18) 0%, rgba(5,150,105,0.04) 100%);"
               data-prompt="Biology: Ex. 1-5 from June 2021 paper 11 and Ex. 1-5 from June 2021 paper 21">
         <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-emerald-300">Biology</span>
-        <span class="block text-[0.68rem] leading-snug text-emerald-300/70">June 2021 papers 11 &amp; 21</span>
-        <span class="block text-[0.65rem] leading-snug text-emerald-300/45">Multi-paper</span>
+        <span class="block text-[0.68rem] leading-snug text-emerald-300/70">{{ t('workspace.quick_fill.papers_jun_2021_p11_21') }}</span>
+        <span class="block text-[0.65rem] leading-snug text-emerald-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-teal-400/20
@@ -116,8 +116,8 @@
               style="background: linear-gradient(135deg, rgba(45,212,191,0.18) 0%, rgba(20,184,166,0.04) 100%);"
               data-prompt="A-Level Physics: Ex. 1, 3, 5 from June 2023 paper 21 and Ex. 2, 4 from June 2023 paper 41">
         <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-teal-300">A-Level Physics</span>
-        <span class="block text-[0.68rem] leading-snug text-teal-300/70">June 2023 papers 21 &amp; 41</span>
-        <span class="block text-[0.65rem] leading-snug text-teal-300/45">Multi-paper</span>
+        <span class="block text-[0.68rem] leading-snug text-teal-300/70">{{ t('workspace.quick_fill.papers_jun_2023_p21_41') }}</span>
+        <span class="block text-[0.65rem] leading-snug text-teal-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-fuchsia-400/20
@@ -125,8 +125,8 @@
               style="background: linear-gradient(135deg, rgba(232,121,249,0.18) 0%, rgba(192,38,211,0.04) 100%);"
               data-prompt="A-Level Biology: Ex. 1-5 from June 2024 paper 11 and Ex. 1-5 from June 2024 paper 21">
         <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-fuchsia-300">A-Level Biology</span>
-        <span class="block text-[0.68rem] leading-snug text-fuchsia-300/70">June 2024 papers 11 &amp; 21</span>
-        <span class="block text-[0.65rem] leading-snug text-fuchsia-300/45">Multi-paper</span>
+        <span class="block text-[0.68rem] leading-snug text-fuchsia-300/70">{{ t('workspace.quick_fill.papers_jun_2024_p11_21') }}</span>
+        <span class="block text-[0.65rem] leading-snug text-fuchsia-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-amber-300/20
@@ -134,8 +134,8 @@
               style="background: linear-gradient(135deg, rgba(252,211,77,0.18) 0%, rgba(245,158,11,0.04) 100%);"
               data-prompt="A-Level Chemistry: Ex. 1, 3, 5 from June 2024 paper 12 and Ex. 2, 4 from June 2024 paper 22">
         <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-amber-200">A-Level Chemistry</span>
-        <span class="block text-[0.68rem] leading-snug text-amber-200/70">June 2024 papers 12 &amp; 22</span>
-        <span class="block text-[0.65rem] leading-snug text-amber-200/45">Multi-paper</span>
+        <span class="block text-[0.68rem] leading-snug text-amber-200/70">{{ t('workspace.quick_fill.papers_jun_2024_p12_22') }}</span>
+        <span class="block text-[0.65rem] leading-snug text-amber-200/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
       <button type="button"
               class="quick-fill flex min-h-[4.25rem] min-w-0 flex-1 flex-col justify-center gap-0.5 rounded-xl border border-indigo-500/20
@@ -143,8 +143,8 @@
               style="background: linear-gradient(135deg, rgba(99,102,241,0.18) 0%, rgba(79,70,229,0.04) 100%);"
               data-prompt="A-Level CS: Ex. 1, 3, 5 from June 2021 paper 11 and Ex. 2, 4, 6 from June 2021 paper 21">
         <span class="block text-[0.72rem] font-semibold uppercase tracking-wide text-indigo-300">A-Level CS</span>
-        <span class="block text-[0.68rem] leading-snug text-indigo-300/70">June 2021 papers 11 &amp; 21</span>
-        <span class="block text-[0.65rem] leading-snug text-indigo-300/45">Multi-paper</span>
+        <span class="block text-[0.68rem] leading-snug text-indigo-300/70">{{ t('workspace.quick_fill.papers_jun_2021_p11_21') }}</span>
+        <span class="block text-[0.65rem] leading-snug text-indigo-300/45">{{ t('workspace.quick_fill.multi_paper') }}</span>
       </button>
     </div>
     </div>
@@ -165,7 +165,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
         </svg>
-        <span id="submit-label">Generate sheet</span>
+        <span id="submit-label">{{ t('workspace.submit.generate') }}</span>
       </button>
       <!-- Inline status (shown while running, replaces button visually) -->
       <div id="run-indicator" class="run-status-inline hidden" role="status" aria-live="polite">
@@ -189,23 +189,23 @@
   <!-- Papers + exercise jump (preview only) -->
   <div id="overview-panel"
        class="gen-surface glass-panel overview-panel mt-5 hidden rounded-2xl p-4 sm:p-5"
-       aria-label="Jump to paper or exercise">
+       aria-label="{{ t('workspace.overview.aria') }}">
     <div id="overview-body" class="overview-body"></div>
   </div>
 
   <!-- Result panel -->
   <div id="result-panel"
        class="gen-surface glass-panel result-panel-reveal pointer-events-none mt-5 hidden translate-y-6 rounded-2xl p-5 opacity-0 sm:p-6"
-       aria-label="Generated files">
+       aria-label="{{ t('workspace.result.aria') }}">
 
     <div class="flex flex-col gap-2.5 result-download-inner">
       <a id="dl-all" href="#" class="dl-hero download-btn"
-         title="Saves each PDF separately. Your browser may ask to allow multiple downloads.">
+         title="{{ t('workspace.dl.title.all') }}">
         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
         </svg>
-        Download all
+        {{ t('workspace.dl.download_all') }}
       </a>
       <div class="dl-card dl-card--sheet">
         <span class="dl-card-label">
@@ -213,25 +213,25 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
           </svg>
-          Exercise sheet
+          {{ t('workspace.dl.exercise') }}
         </span>
         <div class="dl-card-actions">
-          <a id="dl-main" href="#" class="dl-icon-btn dl-icon-btn--sky download-btn" title="Download single-page exercise sheet">
+          <a id="dl-main" href="#" class="dl-icon-btn dl-icon-btn--sky download-btn" title="{{ t('workspace.dl.title.single') }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="6" y="4" width="12" height="16" rx="1.5"/></svg>
-            <span class="sr-only">Download single-page exercise sheet</span>
+            <span class="sr-only">{{ t('workspace.dl.title.single') }}</span>
           </a>
-          <a id="dl-two-up" href="#" class="dl-icon-btn dl-icon-btn--amber hidden download-btn" title="Download 2-up sheet">
+          <a id="dl-two-up" href="#" class="dl-icon-btn dl-icon-btn--amber hidden download-btn" title="{{ t('workspace.dl.title.two_up') }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
               <rect x="3" y="4" width="8" height="16" rx="1.25"/><rect x="13" y="4" width="8" height="16" rx="1.25"/>
             </svg>
-            <span class="sr-only">Download two pages per sheet</span>
+            <span class="sr-only">{{ t('workspace.dl.title.two_up') }}</span>
           </a>
-          <a id="dl-four-up" href="#" class="dl-icon-btn dl-icon-btn--violet hidden download-btn" title="Download 4-up sheet">
+          <a id="dl-four-up" href="#" class="dl-icon-btn dl-icon-btn--violet hidden download-btn" title="{{ t('workspace.dl.title.four_up') }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
               <rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/>
               <rect x="3" y="13" width="8" height="7" rx="1"/><rect x="13" y="13" width="8" height="7" rx="1"/>
             </svg>
-            <span class="sr-only">Download four pages per sheet</span>
+            <span class="sr-only">{{ t('workspace.dl.title.four_up') }}</span>
           </a>
         </div>
       </div>
@@ -241,29 +241,29 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
-          Mark scheme
+          {{ t('workspace.dl.mark_scheme') }}
         </span>
         <div class="dl-card-actions">
-          <a id="dl-answers-main" href="#" class="dl-icon-btn dl-icon-btn--emerald download-btn" title="Download single-page mark scheme">
+          <a id="dl-answers-main" href="#" class="dl-icon-btn dl-icon-btn--emerald download-btn" title="{{ t('workspace.dl.title.ans_single') }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="6" y="4" width="12" height="16" rx="1.5"/></svg>
-            <span class="sr-only">Download single-page mark scheme</span>
+            <span class="sr-only">{{ t('workspace.dl.title.ans_single') }}</span>
           </a>
-          <a id="dl-answers-two-up" href="#" class="dl-icon-btn dl-icon-btn--emerald hidden download-btn" title="Download 2-up mark scheme">
+          <a id="dl-answers-two-up" href="#" class="dl-icon-btn dl-icon-btn--emerald hidden download-btn" title="{{ t('workspace.dl.title.ans_two_up') }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
               <rect x="3" y="4" width="8" height="16" rx="1.25"/><rect x="13" y="4" width="8" height="16" rx="1.25"/>
             </svg>
-            <span class="sr-only">Download two pages per sheet mark scheme</span>
+            <span class="sr-only">{{ t('workspace.dl.title.ans_two_up') }}</span>
           </a>
-          <a id="dl-answers-four-up" href="#" class="dl-icon-btn dl-icon-btn--emerald hidden download-btn" title="Download 4-up mark scheme">
+          <a id="dl-answers-four-up" href="#" class="dl-icon-btn dl-icon-btn--emerald hidden download-btn" title="{{ t('workspace.dl.title.ans_four_up') }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
               <rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/>
               <rect x="3" y="13" width="8" height="7" rx="1"/><rect x="13" y="13" width="8" height="7" rx="1"/>
             </svg>
-            <span class="sr-only">Download four pages per sheet mark scheme</span>
+            <span class="sr-only">{{ t('workspace.dl.title.ans_four_up') }}</span>
           </a>
         </div>
       </div>
-      <a id="dl-ranking" href="#" class="dl-card dl-card--orange hidden download-btn" title="Download difficulty ranking">
+      <a id="dl-ranking" href="#" class="dl-card dl-card--orange hidden download-btn" title="{{ t('workspace.dl.title.ranking') }}">
         <span class="dl-card-label">
           <svg id="ranking-icon-chart" class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <rect x="3" y="14" width="4" height="7" rx="0.8" stroke-width="2"/>
@@ -275,16 +275,16 @@
             <span class="gen-spinner-ring gen-spinner-ring--2"></span>
             <span class="gen-spinner-dot"></span>
           </span>
-          Ranking
+          {{ t('workspace.dl.ranking') }}
         </span>
       </a>
-      <a id="dl-cost" href="#" class="dl-card dl-card--slate hidden download-btn" title="Download AI cost summary (Markdown)">
+      <a id="dl-cost" href="#" class="dl-card dl-card--slate hidden download-btn" title="{{ t('workspace.dl.title.ai_cost') }}">
         <span class="dl-card-label">
           <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8v8m0 0v2m0-12V4m9 8a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
-          AI cost
+          {{ t('workspace.dl.ai_cost') }}
         </span>
       </a>
     </div>
@@ -307,8 +307,8 @@
                 d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
         </svg>
       </div>
-      <h3 class="mt-3 text-sm font-semibold text-white">Natural language</h3>
-      <p class="mt-1 text-xs leading-relaxed text-slate-500">Describe what you need in plain English</p>
+      <h3 class="mt-3 text-sm font-semibold text-white">{{ t('workspace.feature.nl.title') }}</h3>
+      <p class="mt-1 text-xs leading-relaxed text-slate-500">{{ t('workspace.feature.nl.body') }}</p>
     </div>
     <div class="feature-card rounded-2xl p-5">
       <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-500/15 ring-1 ring-cyan-500/20">
@@ -317,8 +317,8 @@
                 d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
         </svg>
       </div>
-      <h3 class="mt-3 text-sm font-semibold text-white">Multiple papers</h3>
-      <p class="mt-1 text-xs leading-relaxed text-slate-500">Combine questions from different exams</p>
+      <h3 class="mt-3 text-sm font-semibold text-white">{{ t('workspace.feature.multi.title') }}</h3>
+      <p class="mt-1 text-xs leading-relaxed text-slate-500">{{ t('workspace.feature.multi.body') }}</p>
     </div>
     <div class="feature-card rounded-2xl p-5">
       <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/15 ring-1 ring-emerald-500/20">
@@ -327,8 +327,8 @@
                 d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
         </svg>
       </div>
-      <h3 class="mt-3 text-sm font-semibold text-white">Mark schemes</h3>
-      <p class="mt-1 text-xs leading-relaxed text-slate-500">Answers included as a separate PDF</p>
+      <h3 class="mt-3 text-sm font-semibold text-white">{{ t('workspace.feature.ms.title') }}</h3>
+      <p class="mt-1 text-xs leading-relaxed text-slate-500">{{ t('workspace.feature.ms.body') }}</p>
     </div>
   </div>
   </div>

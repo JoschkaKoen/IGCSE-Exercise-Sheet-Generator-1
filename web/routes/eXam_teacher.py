@@ -21,6 +21,7 @@ from eXam.roster import generate_pin_pdf, import_roster
 from eXam.results_export import export_test_xlsx
 from eXam.test_builder import build_test
 from ..grade_auth import is_grade_unlocked
+from ..template_ctx import template_ctx
 
 PACKAGE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
@@ -44,7 +45,7 @@ async def dashboard(request: Request):
         students = conn.execute("SELECT count(*) AS c FROM students").fetchone()["c"]
     return TEMPLATES.TemplateResponse(
         "eXam/teacher_dashboard.html",
-        {"request": request, "tests": tests, "students": students},
+        template_ctx(request, tests=tests, students=students),
     )
 
 
@@ -52,7 +53,7 @@ async def dashboard(request: Request):
 async def build_page(request: Request):
     _require_teacher(request)
     return TEMPLATES.TemplateResponse(
-        "eXam/teacher_build.html", {"request": request}
+        "eXam/teacher_build.html", template_ctx(request)
     )
 
 
@@ -111,7 +112,7 @@ async def roster_page(request: Request):
             )
         ]
     return TEMPLATES.TemplateResponse(
-        "eXam/teacher_roster.html", {"request": request, "students": students}
+        "eXam/teacher_roster.html", template_ctx(request, students=students)
     )
 
 
@@ -199,13 +200,13 @@ async def test_detail(test_id: str, request: Request):
         }
     return TEMPLATES.TemplateResponse(
         "eXam/teacher_test_detail.html",
-        {
-            "request": request,
-            "test": dict(test),
-            "qids": qids,
-            "rows": list(table.values()),
-            "cost": cost_for_test(test_id),
-        },
+        template_ctx(
+            request,
+            test=dict(test),
+            qids=qids,
+            rows=list(table.values()),
+            cost=cost_for_test(test_id),
+        ),
     )
 
 
@@ -246,7 +247,7 @@ async def costs_page(
     data = cost_breakdown(since=since, until=until)
     return TEMPLATES.TemplateResponse(
         "eXam/teacher_costs.html",
-        {"request": request, "data": data, "since": since or "", "until": until or ""},
+        template_ctx(request, data=data, since=since or "", until=until or ""),
     )
 
 

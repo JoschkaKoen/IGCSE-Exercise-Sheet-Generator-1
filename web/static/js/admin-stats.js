@@ -111,6 +111,6 @@
     new Chart(el.getContext('2d'), cfg);
   }
 
-  renderChart('chart-pageviews', 'Requests / day', '#22d3ee', reqs);
-  renderChart('chart-jobs', 'Jobs finished / day', '#a78bfa', jobs);
+  renderChart('chart-pageviews', window.i18n['admin.stats.chart.requests'], '#22d3ee', reqs);
+  renderChart('chart-jobs', window.i18n['admin.stats.chart.jobs'], '#a78bfa', jobs);
 })();

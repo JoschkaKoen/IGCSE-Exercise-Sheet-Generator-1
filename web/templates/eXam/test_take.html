@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Q{{ meta.number }} · {{ test.title }} · eXam{% endblock %}
+{% block title %}{{ t('take.title.test').format(n=meta.number, title=test.title) }}{% endblock %}
 {% block extra_head %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -18,15 +18,15 @@
   <div>
     <p class="text-xs uppercase tracking-[0.18em] text-slate-500">{{ test.title }}</p>
     <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">
-      Question {{ meta.number }}
-      <span class="ml-2 text-sm font-normal text-slate-400">· {{ meta.marks }} mark{% if meta.marks != 1 %}s{% endif %}</span>
+      {{ t('take.q_prefix') }} {{ meta.number }}
+      <span class="ml-2 text-sm font-normal text-slate-400">· {{ (t('take.marks_one') if meta.marks == 1 else t('take.marks_many')).format(n=meta.marks) }}</span>
     </h1>
   </div>
   <div class="text-sm text-slate-400">
-    {{ student.name }} · <a href="/eXam/test/{{ test.id }}" class="text-cyan-300 underline hover:text-cyan-200">Overview</a>
-    · Q{{ idx + 1 }}/{{ total }}
+    {{ student.name }} · <a href="/eXam/test/{{ test.id }}" class="text-cyan-300 underline hover:text-cyan-200">{{ t('take.overview_link') }}</a>
+    · {{ t('test_ov.q_prefix') }}{{ idx + 1 }}/{{ total }}
     · <span class="text-emerald-300">✓{{ counters.correct }}</span>
-    <span class="text-amber-300">retry{{ counters.retry }}</span>
+    <span class="text-amber-300">{{ counters.retry }}</span>
     <span class="text-slate-500">☐{{ counters.unanswered }}</span>
   </div>
 </header>
@@ -35,13 +35,13 @@
   <section class="lg:col-span-8">
     <div class="glass-panel form-glow rounded-2xl p-3 sm:p-4">
       <iframe src="/eXam/pdf/{{ meta.question_id }}#toolbar=0&navpanes=0"
-              class="ex-iframe" title="Question {{ meta.number }}"></iframe>
+              class="ex-iframe" title="{{ t('take.q_prefix') }} {{ meta.number }}"></iframe>
     </div>
 
     <form id="answer-form" class="mt-4 space-y-3 glass-panel rounded-2xl p-4">
-      <label class="block text-sm font-medium text-slate-200">Your answer</label>
-      {% set t = meta.question_type %}
-      {% if t == 'multiple_choice' %}
+      <label class="block text-sm font-medium text-slate-200">{{ t('take.answer_label') }}</label>
+      {% set qt = meta.question_type %}
+      {% if qt == 'multiple_choice' %}
         <div class="flex flex-wrap gap-2">
           {% for opt in meta.options %}
             <label class="ex-radio-chip inline-flex cursor-pointer items-center gap-2 rounded-xl border border-white/[0.12] bg-slate-950/60 px-3 py-2 text-sm">
@@ -51,9 +51,9 @@
             </label>
           {% endfor %}
         </div>
-      {% elif t in ['short_answer', 'calculation'] %}
+      {% elif qt in ['short_answer', 'calculation'] %}
         <input type="text" name="submitted" required
-               {% if t == 'calculation' %}placeholder="Final answer (with units if applicable)"{% endif %}
+               {% if qt == 'calculation' %}placeholder="{{ t('take.calc_placeholder') }}"{% endif %}
                class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 font-mono text-sm text-slate-100 placeholder:text-slate-500 shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
       {% else %}
         <textarea name="submitted" rows="6" required
@@ -63,15 +63,15 @@
       <div class="flex flex-wrap items-center gap-2 pt-1">
         {% if prev_idx is not none %}
         <a href="/eXam/test/{{ test.id }}?q={{ prev_idx }}"
-           class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">← Prev</a>
+           class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">{{ t('take.prev') }}</a>
         {% endif %}
         <button id="submit-btn" type="submit"
                 class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">
-          Submit
+          {{ t('take.submit') }}
         </button>
         {% if next_idx is not none %}
         <a href="/eXam/test/{{ test.id }}?q={{ next_idx }}"
-           class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">Next →</a>
+           class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">{{ t('take.next') }}</a>
         {% endif %}
       </div>
     </form>
@@ -81,32 +81,32 @@
 
   <aside class="lg:col-span-4 space-y-3">
     <div class="glass-panel rounded-2xl p-3">
-      <div class="px-1 pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Helpers</div>
+      <div class="px-1 pb-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">{{ t('take.helpers_heading') }}</div>
       <div class="space-y-1">
         <button data-kind="hint" class="ex-helper-btn flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-slate-200 hover:bg-white/[0.06]">
           <svg class="h-4 w-4 shrink-0 text-amber-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                   d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m3.343-5.657-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
           </svg>
-          Hint
+          {{ t('take.helper.hint') }}
         </button>
         <button data-kind="kb" class="ex-helper-btn flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-slate-200 hover:bg-white/[0.06]">
           <svg class="h-4 w-4 shrink-0 text-cyan-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                   d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/>
           </svg>
-          Knowledge base
+          {{ t('take.helper.kb') }}
         </button>
         <button data-kind="example" class="ex-helper-btn flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm text-slate-200 hover:bg-white/[0.06]">
           <svg class="h-4 w-4 shrink-0 text-violet-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                   d="M8 7v8a2 2 0 0 0 2 2h6M8 7V5a2 2 0 0 1 2-2h4.586a1 1 0 0 1 .707.293l4.414 4.414a1 1 0 0 1 .293.707V15a2 2 0 0 1-2 2h-2M8 7H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2"/>
           </svg>
-          Similar example
+          {{ t('take.helper.example') }}
         </button>
         <button data-kind="solution"
                 class="ex-helper-btn flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm {% if solution_unlocked %}text-slate-200 hover:bg-white/[0.06]{% else %}text-slate-400 cursor-not-allowed{% endif %}"
-                {% if not solution_unlocked %}disabled title="Unlocks after a correct attempt"{% endif %}>
+                {% if not solution_unlocked %}disabled title="{{ t('take.helper.unlock_attempt') }}"{% endif %}>
           {% if solution_unlocked %}
           <svg class="h-4 w-4 shrink-0 text-emerald-300/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
@@ -118,7 +118,7 @@
                   d="M12 15v2m-6 4h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2zm10-10V7a4 4 0 0 0-8 0v4h8z"/>
           </svg>
           {% endif %}
-          Step-by-step solution{% if not solution_unlocked %} (locked){% endif %}
+          {{ t('take.helper.solution') }}{% if not solution_unlocked %} {{ t('take.helper.locked_suffix') }}{% endif %}
         </button>
       </div>
       <div id="helper-drawer" class="ex-helper-drawer mt-2 rounded-xl border border-white/[0.08] bg-slate-950/40 text-sm text-slate-200"></div>
@@ -126,10 +126,10 @@
 
     {% if latest %}
     <div class="glass-panel rounded-2xl p-4">
-      <div class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Last attempt</div>
+      <div class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">{{ t('take.last_attempt') }}</div>
       <div class="mt-1 text-sm text-slate-200">
         {{ "%.1f"|format(latest.assigned_marks) }} / {{ "%.0f"|format(latest.max_marks) }}
-        · attempts: {{ latest.attempt_count }}
+        · {{ t('take.attempts_count').format(n=latest.attempt_count) }}
       </div>
       <div class="mt-1 text-xs text-slate-500">{{ latest.submitted }}</div>
       {% if latest.reasoning %}<div class="mt-2 text-xs text-slate-400">{{ latest.reasoning }}</div>{% endif %}
@@ -150,14 +150,14 @@ document.querySelectorAll(".ex-helper-btn").forEach(btn => {
     helpersUsed[kind] = true;
     const drawer = document.getElementById("helper-drawer");
     drawer.classList.add("open");
-    drawer.innerHTML = '<div class="p-3 text-slate-400">Loading…</div>';
+    drawer.innerHTML = `<div class="p-3 text-slate-400">${window.i18n["take.loading"]}</div>`;
     const res = await fetch("/eXam/api/helper", {
       method: "POST", headers: {"Content-Type": "application/json"},
       body: JSON.stringify({question_id: QUESTION_ID, kind}),
     });
     if (!res.ok) {
       const d = await res.json().catch(()=>({}));
-      drawer.innerHTML = `<div class="p-3 text-red-300">${d.detail || "Helper unavailable"}</div>`;
+      drawer.innerHTML = `<div class="p-3 text-red-300">${d.detail || window.i18n["take.helper_unavailable"]}</div>`;
       return;
     }
     const d = await res.json();
@@ -173,7 +173,7 @@ document.getElementById("answer-form").addEventListener("submit", async (e) => {
   const fd = new FormData(e.target);
   const submitted = String(fd.get("submitted") ?? "");
   const btn = document.getElementById("submit-btn");
-  btn.disabled = true; const orig = btn.textContent; btn.textContent = "Marking…";
+  btn.disabled = true; const orig = btn.textContent; btn.textContent = window.i18n["take.marking"];
   const fb = document.getElementById("feedback");
   fb.classList.add("hidden");
   try {
@@ -183,13 +183,13 @@ document.getElementById("answer-form").addEventListener("submit", async (e) => {
     });
     if (!res.ok) {
       const d = await res.json().catch(()=>({}));
-      fb.innerHTML = `<div class="text-red-300">${d.detail || "Submission failed"}</div>`;
+      fb.innerHTML = `<div class="text-red-300">${d.detail || window.i18n["take.submission_failed"]}</div>`;
       fb.classList.remove("hidden");
       return;
     }
     const d = await res.json();
     const correct = d.assigned_marks >= d.max_marks && d.max_marks > 0;
-    fb.innerHTML = `<div class="font-medium ${correct?'text-emerald-300':'text-amber-300'}">${d.assigned_marks} / ${d.max_marks} marks · attempt ${d.attempt_number}</div>` +
+    fb.innerHTML = `<div class="font-medium ${correct?'text-emerald-300':'text-amber-300'}">${window.tfmt("take.attempt_marks_summary", {got: d.assigned_marks, max: d.max_marks, n: d.attempt_number})}</div>` +
                    (d.reasoning ? `<div class="mt-1 text-slate-300">${d.reasoning}</div>` : "");
     fb.classList.remove("hidden");
     setTimeout(()=>window.location.reload(), 900);

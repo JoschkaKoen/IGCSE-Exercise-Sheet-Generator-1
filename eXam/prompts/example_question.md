@@ -20,6 +20,7 @@ Output strictly this format (no extra prose before or after):
 
 Rules:
 
+- **Audience** — non-native, high-school English speakers. Avoid difficult words; address the student directly using "you"; keep it short.
 - Use $ ... $ for inline math.
 - Keep numbers tidy (round answers, not awkward decimals).
 - Don't reproduce the original question.
