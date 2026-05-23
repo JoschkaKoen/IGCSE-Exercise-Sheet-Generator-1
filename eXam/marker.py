@@ -1,4 +1,4 @@
-"""eXam marker — three paths: MCQ deterministic, physics final-answer, free response.
+"""eXam marker — three paths: MCQ deterministic, numeric final-answer, free response.
 
 Text-only by default. The figure-aware multimodal path (Gemini + PDF snippet)
 activates when the question's ``images`` field is non-empty.
@@ -13,8 +13,6 @@ from pathlib import Path
 from eXam.bank import bank_dir_for
 from eXam.prompts.loader import load_prompt
 from eXam.runtime import mark_scheme_entry, parse_question_id, pdf_path_for, question_metadata
-
-PHYSICS_SUBJECTS = {"physics", "a_level_physics"}
 
 
 def _final_answer_cache_path(qid: str) -> Path:
@@ -147,13 +145,13 @@ def _extract_final_answer_spec(meta: dict, scheme_text: str) -> dict:
     if cache.exists():
         return json.loads(cache.read_text(encoding="utf-8"))
     _, system = load_prompt(
-        "mark_physics_final", section="system",
+        "mark_numeric_final", section="system",
         subject=meta["subject"],
         question_text=meta["text"],
         mark_scheme_text=scheme_text,
     )
     _, user = load_prompt(
-        "mark_physics_final", section="user",
+        "mark_numeric_final", section="user",
         subject=meta["subject"],
         question_text=meta["text"],
         mark_scheme_text=scheme_text,
@@ -165,7 +163,7 @@ def _extract_final_answer_spec(meta: dict, scheme_text: str) -> dict:
     return spec
 
 
-def _mark_physics_final(meta: dict, submitted: str) -> dict:
+def _mark_numeric_final(meta: dict, submitted: str) -> dict:
     scheme_entry = mark_scheme_entry(meta["question_id"]) or {}
     scheme_text = str(scheme_entry.get("mark_scheme_answer") or "")
     if not scheme_text.strip():
@@ -184,11 +182,10 @@ def _mark_physics_final(meta: dict, submitted: str) -> dict:
 
     value, unit = _parse_value_unit(submitted)
     if value is None:
-        return {
-            "assigned_marks": 0.0,
-            "max_marks": max_marks,
-            "reasoning": "Could not parse a numeric value from your answer.",
-        }
+        # Student submitted prose; the extractor may have hallucinated a number
+        # from mark counts or part labels. Don't hard-zero a reasonable sentence
+        # — defer to the AI free-response marker.
+        return _mark_free_response(meta, submitted)
     if target_value == 0:
         # Scheme is qualitative; defer to free response.
         return _mark_free_response(meta, submitted)
@@ -261,8 +258,20 @@ def _mark_free_response(meta: dict, submitted: str, *, fallback_reason: str = ""
     }
 
 
-def mark(student_id: int, question_id: str, submitted: str) -> dict:
-    """Top-level marking entry point. Returns {assigned_marks, max_marks, reasoning}."""
+def mark(
+    student_id: int,
+    question_id: str,
+    submitted: str,
+    *,
+    test_id: str | None = None,
+) -> dict:
+    """Top-level marking entry point. Returns {assigned_marks, max_marks, reasoning}.
+
+    *test_id* is optional — it's threaded through from web endpoints
+    (api_submit passes ``body.test_id``; open-mode passes ``None``) so AI calls
+    can be attributed in the ``ai_calls`` cost log. MCQ marking is purely
+    deterministic and never makes an AI call, so it skips the tracker.
+    """
     meta = question_metadata(question_id)
     if meta is None:
         return {
@@ -271,9 +280,13 @@ def mark(student_id: int, question_id: str, submitted: str) -> dict:
             "reasoning": "Question metadata missing.",
         }
     qtype = meta.get("question_type")
-    subject = meta.get("subject", "")
     if qtype == "multiple_choice":
         return _mark_mcq(meta, submitted)
-    if subject in PHYSICS_SUBJECTS and qtype in ("calculation", "long_answer"):
-        return _mark_physics_final(meta, submitted)
-    return _mark_free_response(meta, submitted)
+    is_numeric = qtype in ("calculation", "long_answer")
+    op = "mark_numeric" if is_numeric else "mark_free"
+    from eXam.cost_tracker import track
+
+    with track(op, test_id=test_id, student_id=student_id, question_id=question_id):
+        if is_numeric:
+            return _mark_numeric_final(meta, submitted)
+        return _mark_free_response(meta, submitted)

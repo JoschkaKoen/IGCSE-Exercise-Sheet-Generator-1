@@ -143,8 +143,20 @@ def _call_pdf_gemini(system: str, user: str, pdf_path) -> tuple[str, str]:
     return (response.text or "").strip(), model_name
 
 
-def pregenerate_for_question(rec: dict, subject: str, kind: str, *, force: bool = False) -> str:
-    """Generate (and cache to disk) one helper. Returns the content text."""
+def pregenerate_for_question(
+    rec: dict,
+    subject: str,
+    kind: str,
+    *,
+    force: bool = False,
+    test_id: str | None = None,
+) -> str:
+    """Generate (and cache to disk) one helper. Returns the content text.
+
+    *test_id* is optional context for the ai_calls log; pass it from
+    build-time callers and leave it ``None`` for on-demand `/api/helper`
+    requests that aren't tied to a single test.
+    """
     if kind not in KINDS:
         raise ValueError(f"unknown kind: {kind}")
     qid = rec["question_id"]
@@ -161,11 +173,14 @@ def pregenerate_for_question(rec: dict, subject: str, kind: str, *, force: bool 
     system, user = _build_prompt(kind, meta)
     pdf = pdf_path_for(qid) if meta.get("has_images") else None
 
+    from eXam.cost_tracker import track
+
     started = time.monotonic()
-    if pdf is not None and pdf.exists():
-        content, model_id = _call_pdf_gemini(system, user, pdf)
-    else:
-        content, model_id = _call_text_qwen(kind, system, user)
+    with track(f"pregen_{kind}", test_id=test_id, question_id=qid):
+        if pdf is not None and pdf.exists():
+            content, model_id = _call_pdf_gemini(system, user, pdf)
+        else:
+            content, model_id = _call_text_qwen(kind, system, user)
     elapsed = time.monotonic() - started
     print(f"[pregen] {kind} for {qid} ({model_id}, {elapsed:.1f}s) → {path}")
 
@@ -175,7 +190,11 @@ def pregenerate_for_question(rec: dict, subject: str, kind: str, *, force: bool 
 
 
 def pregenerate_for_test(test_id: str, *, force: bool = False) -> dict:
-    """Generate all four helpers for every question in the test. Best-effort."""
+    """Generate all four helpers for every question in the test. Best-effort.
+
+    Passes ``test_id`` to each :func:`pregenerate_for_question` call so the
+    resulting AI usage rows are attributed to this test in the cost log.
+    """
     import json as _json
     with connect() as conn:
         row = conn.execute(
@@ -192,7 +211,7 @@ def pregenerate_for_test(test_id: str, *, force: bool = False) -> dict:
         results.setdefault(qid, {})
         for kind in KINDS:
             try:
-                pregenerate_for_question(rec, subject, kind, force=force)
+                pregenerate_for_question(rec, subject, kind, force=force, test_id=test_id)
                 results[qid][kind] = "ok"
             except Exception as e:  # noqa: BLE001
                 failures.append((qid, kind, repr(e)))

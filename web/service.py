@@ -49,10 +49,13 @@ def run_nl_prompt(
 
     overview_holder: list[dict[str, Any]] = []
 
+    from eXercise.cost_recorder import collect_run_cost
+
     def full_pipeline() -> str:
         """NL resolution + PDF extraction — all under stdout capture when web UI is active."""
         emit("Resolving natural-language request…")
-        exam_root, data = resolve_natural_language(prompt, on_progress=on_progress)
+        with rec.phase("Resolve instruction"):
+            exam_root, data = resolve_natural_language(prompt, on_progress=on_progress)
         emit(f"Exam folder: {exam_root} ({data.get('exam', '')})")
         emit(f"Papers in this run: {len(data['extractions'])}")
         jobs = []
@@ -69,17 +72,21 @@ def run_nl_prompt(
         emit("Preparing output and extracting PDFs…")
         output_pdf = resolve_output_path_fresh(data["output_pdf"])
         output_str = str(output_pdf)
+        # run_extraction_jobs picks up the active recorder via current_recorder()
+        # and wraps its own phases ("QP extraction", "MS prep", "AI explanations",
+        # ...) plus writes ai_costs/cost.{json,md} at the end.
         overview = run_extraction_jobs(jobs, output_str, exam_key=data.get("exam"), run_ranking=False)
         overview_holder.clear()
         overview_holder.append(overview)
         return output_str
 
-    if on_progress:
-        from .process_log import run_with_last_log_line
+    with collect_run_cost() as rec:
+        if on_progress:
+            from .process_log import run_with_last_log_line
 
-        output_str = run_with_last_log_line(full_pipeline, on_progress)
-    else:
-        output_str = full_pipeline()
+            output_str = run_with_last_log_line(full_pipeline, on_progress)
+        else:
+            output_str = full_pipeline()
 
     out_path = Path(output_str)
     answers_path = out_path.parent / f"{out_path.stem}_answers{out_path.suffix}"

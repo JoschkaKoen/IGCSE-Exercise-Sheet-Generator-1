@@ -6,7 +6,8 @@
   <div class="text-sm text-slate-400">
     {{ students }} students ·
     <a href="/eXam/teacher/build" class="text-cyan-300 underline hover:text-cyan-200">New test</a> ·
-    <a href="/eXam/teacher/roster" class="text-cyan-300 underline hover:text-cyan-200">Roster</a>
+    <a href="/eXam/teacher/roster" class="text-cyan-300 underline hover:text-cyan-200">Roster</a> ·
+    <a href="/eXam/teacher/costs" class="text-cyan-300 underline hover:text-cyan-200">AI costs</a>
   </div>
 </header>
 
@@ -23,6 +24,7 @@
       <th class="px-4 py-3">Subject</th>
       <th class="px-4 py-3">Class</th>
       <th class="px-4 py-3">Status</th>
+      <th class="px-4 py-3 text-right">AI cost</th>
       <th class="px-4 py-3"></th>
     </tr>
   </thead>
@@ -38,6 +40,9 @@
         {% if t.status == 'ready' %}<span class="text-emerald-300">✓ ready</span>
         {% elif t.status == 'building' %}<span class="text-amber-300">⏳ building</span>
         {% else %}<span class="text-red-300">✗ failed</span>{% endif %}
+      </td>
+      <td class="px-4 py-3 text-right tabular-nums text-slate-300">
+        {% if t.total_cost_rmb and t.total_cost_rmb > 0 %}¥{{ '%.4f' % t.total_cost_rmb }}<span class="ml-1 text-xs text-slate-500">· {{ t.calls }} call{{ '' if t.calls == 1 else 's' }}</span>{% else %}<span class="text-slate-600">—</span>{% endif %}
       </td>
       <td class="px-4 py-3 text-right text-sm">
         <a href="/eXam/teacher/test/{{ t.id }}" class="text-cyan-300 underline hover:text-cyan-200">Detail</a>

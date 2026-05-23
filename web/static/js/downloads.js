@@ -17,6 +17,7 @@ const dlAnswersFourUp  = document.getElementById('dl-answers-four-up');
 const dlFourUp      = document.getElementById('dl-four-up');
 const dlTwoUp       = document.getElementById('dl-two-up');
 const dlAll         = document.getElementById('dl-all');
+const dlCost        = document.getElementById('dl-cost');
 const dlRanking          = document.getElementById('dl-ranking');
 const rankingIconChart   = document.getElementById('ranking-icon-chart');
 const rankingGenSpinner  = document.getElementById('ranking-gen-spinner');
@@ -55,6 +56,12 @@ export function applyDoneData(done) {
     dlTwoUp.href = done.two_up_url;
     dlTwoUp.classList.remove('hidden');
   } else { dlTwoUp.classList.add('hidden'); }
+  if (dlCost) {
+    if (done.cost_md_url) {
+      dlCost.href = done.cost_md_url;
+      dlCost.classList.remove('hidden');
+    } else { dlCost.classList.add('hidden'); }
+  }
   if (dlRanking) {
     if (done.ranking_url) {
       dlRanking.href = done.ranking_url;

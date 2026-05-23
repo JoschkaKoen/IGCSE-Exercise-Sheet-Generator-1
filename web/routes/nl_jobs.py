@@ -23,6 +23,8 @@ from eXercise.exceptions import ExtractionUserError
 from eXercise.natural_language import MAX_NATURAL_LANGUAGE_INSTRUCTION_CHARS
 
 from .._state import create_background_task, store
+from ..analytics import track_event, track_request_event
+from ..analytics.cost_overview import rollup_from_cost_json
 from ..jobs import JobRecord, JobStatus
 from ..process_log import run_with_last_log_line
 from ..service import run_nl_prompt_logged
@@ -67,7 +69,7 @@ def _start_ranking_thread(job_id: str, main_pdf: Path, ans_pdf: Path | None) -> 
     threading.Thread(target=_run, daemon=True).start()
 
 
-async def _run_job(job_id: str, prompt: str) -> None:
+async def _run_job(job_id: str, prompt: str, session_id: str | None = None) -> None:
     store.set_status(job_id, JobStatus.RUNNING)
     # Set before the worker thread starts so the first poll always sees real text (not empty).
     store.set_log_line(job_id, "Resolving natural-language request…")
@@ -75,18 +77,41 @@ async def _run_job(job_id: str, prompt: str) -> None:
     def on_line(line: str) -> None:
         store.set_log_line(job_id, line)
 
+    t_start = asyncio.get_event_loop().time()
+
+    def _finish(status: str, main_pdf: Path | None) -> None:
+        """Fire the `nl_job_finished` analytics event with cost rollup if available."""
+        duration_ms = int((asyncio.get_event_loop().time() - t_start) * 1000)
+        props: dict = {
+            "job_id": job_id,
+            "prompt": prompt[:100],  # truncate for storage / privacy
+        }
+        if main_pdf is not None:
+            cost_json = main_pdf.parent / "ai_costs" / "cost.json"
+            props.update(rollup_from_cost_json(cost_json))
+        track_event(
+            "nl_job_finished",
+            status=status,
+            session_id=session_id,
+            duration_ms=duration_ms,
+            properties=props,
+        )
+
     try:
         main_pdf, ans_pdf, up4, up2, a4, a2, _ranking_pdf, overview = await asyncio.to_thread(
             run_nl_prompt_logged, prompt, on_line
         )
         store.complete(job_id, main_pdf, ans_pdf, up4, up2, a4, a2, ranking_pdf=None, overview=overview)
+        _finish("ok", main_pdf)
         # Ranking is now on-demand: started only when the user clicks the ranking button.
 
     except ExtractionUserError as e:
         store.fail(job_id, str(e))
+        _finish("fail", None)
     except Exception as e:  # noqa: BLE001 — last-resort message for the UI
         logging.exception("NL job %s failed", job_id)
         store.fail(job_id, f"Unexpected error: {e}")
+        _finish("error", None)
 
 
 def _pdf_file_response(rec: JobRecord | None, field: str, inline: bool) -> FileResponse:
@@ -105,12 +130,17 @@ def _pdf_file_response(rec: JobRecord | None, field: str, inline: bool) -> FileR
 
 
 @router.post("/api/jobs")
-async def create_job(body: CreateJobBody) -> dict[str, str]:
+async def create_job(body: CreateJobBody, request: Request) -> dict[str, str]:
     prompt = body.prompt.strip()
     if not prompt:
         raise HTTPException(status_code=422, detail="prompt is required")
     job = store.create()
-    create_background_task(_run_job(job.id, prompt))
+    session_id = getattr(request.state, "session_id", None)
+    track_request_event(
+        request, "nl_job_started",
+        properties={"job_id": job.id, "prompt": prompt[:100]},
+    )
+    create_background_task(_run_job(job.id, prompt, session_id=session_id))
     return {"id": job.id}
 
 
@@ -170,6 +200,10 @@ async def job_status(
         out["ranking_status"] = rec.ranking_status
         out["ranking_log_line"] = rec.ranking_log_line
         out["download_all_url"] = f"{base}/api/jobs/{job_id}/download-all"
+        cost_json_path = rec.output_pdf.parent / "ai_costs" / "cost.json"
+        if cost_json_path.is_file():
+            out["cost_json_url"] = f"{base}/api/jobs/{job_id}/cost.json"
+            out["cost_md_url"] = f"{base}/api/jobs/{job_id}/cost.md"
         if rec.overview is not None:
             out["overview"] = rec.overview
     return JSONResponse(
@@ -232,9 +266,35 @@ async def download_job_ranking(job_id: str, inline: bool = Query(False)) -> File
     return _pdf_file_response(store.get(job_id), "ranking_pdf", inline)
 
 
+def _cost_file_response(job_id: str, name: str, media_type: str, inline: bool) -> FileResponse:
+    """Serve ``output/<stem>/ai_costs/<name>`` for a completed NL job, or 404."""
+    rec = store.get(job_id)
+    if rec is None or rec.status != JobStatus.DONE or rec.output_pdf is None:
+        raise HTTPException(status_code=404, detail="Not available")
+    p = rec.output_pdf.parent / "ai_costs" / name
+    if not p.is_file():
+        raise HTTPException(status_code=404, detail="Cost summary not available")
+    return FileResponse(
+        p,
+        filename=p.name,
+        media_type=media_type,
+        content_disposition_type="inline" if inline else "attachment",
+    )
+
+
+@router.get("/api/jobs/{job_id}/cost.json")
+async def download_job_cost_json(job_id: str, inline: bool = Query(False)) -> FileResponse:
+    return _cost_file_response(job_id, "cost.json", "application/json", inline)
+
+
+@router.get("/api/jobs/{job_id}/cost.md")
+async def download_job_cost_md(job_id: str, inline: bool = Query(False)) -> FileResponse:
+    return _cost_file_response(job_id, "cost.md", "text/markdown", inline)
+
+
 @router.get("/api/jobs/{job_id}/download-all")
 async def download_job_all_zip(job_id: str) -> Response:
-    """ZIP of exercise sheet plus mark scheme and n-up PDFs when present."""
+    """ZIP of exercise sheet plus mark scheme, n-up PDFs, and AI cost summary when present."""
     rec = store.get(job_id)
     if rec is None or rec.status != JobStatus.DONE or rec.output_pdf is None:
         raise HTTPException(status_code=404, detail="Not available")
@@ -253,6 +313,11 @@ async def download_job_all_zip(job_id: str) -> Response:
             zf.write(rec.answers_2up_pdf, arcname=rec.answers_2up_pdf.name)
         if rec.ranking_pdf is not None:
             zf.write(rec.ranking_pdf, arcname=rec.ranking_pdf.name)
+        cost_dir = rec.output_pdf.parent / "ai_costs"
+        for cost_file in ("cost.json", "cost.md"):
+            cp = cost_dir / cost_file
+            if cp.is_file():
+                zf.write(cp, arcname=f"ai_costs/{cost_file}")
     zip_name = f"{rec.output_pdf.stem}_all.zip"
     return Response(
         content=buf.getvalue(),

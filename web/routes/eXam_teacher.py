@@ -15,6 +15,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, Resp
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
+from eXam.cost_tracker import cost_breakdown, cost_for_test, costs_by_test
 from eXam.db import connect
 from eXam.roster import generate_pin_pdf, import_roster
 from eXam.results_export import export_test_xlsx
@@ -35,17 +36,11 @@ def _require_teacher(request: Request) -> None:
 @router.get("/", response_class=HTMLResponse)
 async def dashboard(request: Request):
     _require_teacher(request)
+    # costs_by_test() already pulls title/subject/class_label/status/created_at
+    # and joins ai_calls — gives the dashboard a single source of truth for
+    # both the test list and its cost column.
+    tests = costs_by_test()
     with connect() as conn:
-        tests = [
-            dict(r)
-            for r in conn.execute(
-                """
-                SELECT id, title, subject, class_label, status, created_at, ready_at
-                FROM tests
-                ORDER BY created_at DESC
-                """
-            )
-        ]
         students = conn.execute("SELECT count(*) AS c FROM students").fetchone()["c"]
     return TEMPLATES.TemplateResponse(
         "eXam/teacher_dashboard.html",
@@ -209,6 +204,7 @@ async def test_detail(test_id: str, request: Request):
             "test": dict(test),
             "qids": qids,
             "rows": list(table.values()),
+            "cost": cost_for_test(test_id),
         },
     )
 
@@ -233,6 +229,71 @@ async def regenerate_helper(body: RegenBody, request: Request):
     except Exception as e:  # noqa: BLE001
         raise HTTPException(status_code=503, detail=str(e))
     return {"ok": True, "content": content}
+
+
+@router.get("/costs", response_class=HTMLResponse)
+async def costs_page(
+    request: Request,
+    since: str | None = None,
+    until: str | None = None,
+):
+    """Global AI-cost view across all tests, optionally filtered to a date range.
+
+    ``since`` / ``until`` are ISO timestamps (``YYYY-MM-DD`` works because
+    SQLite compares strings lexicographically over our called_at format).
+    """
+    _require_teacher(request)
+    data = cost_breakdown(since=since, until=until)
+    return TEMPLATES.TemplateResponse(
+        "eXam/teacher_costs.html",
+        {"request": request, "data": data, "since": since or "", "until": until or ""},
+    )
+
+
+def _cost_file_for_test(test_id: str, name: str) -> Path:
+    from eXercise.config import PROJECT_ROOT
+
+    return PROJECT_ROOT / "output" / "eXam" / "builds" / test_id / name
+
+
+@router.get("/test/{test_id}/cost.json")
+async def test_cost_json(test_id: str, request: Request):
+    """Serve the per-build cost.json artifact if present.
+
+    Falls back to a fresh JSON computed from ``ai_calls`` rows for this
+    test — useful when the build pre-dated the per-build artifact writer.
+    """
+    _require_teacher(request)
+    p = _cost_file_for_test(test_id, "cost.json")
+    if p.is_file():
+        return Response(
+            p.read_bytes(),
+            media_type="application/json",
+            headers={"Content-Disposition": f'attachment; filename="cost_{test_id}.json"'},
+        )
+    import json as _json
+
+    return Response(
+        _json.dumps(cost_for_test(test_id), ensure_ascii=False, indent=2),
+        media_type="application/json",
+        headers={"Content-Disposition": f'attachment; filename="cost_{test_id}.json"'},
+    )
+
+
+@router.get("/test/{test_id}/cost.md")
+async def test_cost_md(test_id: str, request: Request):
+    _require_teacher(request)
+    p = _cost_file_for_test(test_id, "cost.md")
+    if p.is_file():
+        return Response(
+            p.read_bytes(),
+            media_type="text/markdown",
+            headers={"Content-Disposition": f'attachment; filename="cost_{test_id}.md"'},
+        )
+    raise HTTPException(
+        status_code=404,
+        detail="cost.md only exists for tests built after AI cost tracking landed.",
+    )
 
 
 @router.get("/export/{test_id}.xlsx")

@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% block title %}Site stats · Admin{% endblock %}
+{% block extra_head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+{% endblock %}
+{% block content %}
+
+<header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+  <div>
+    <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">Site stats</h1>
+    <p class="text-sm text-slate-500">
+      Page views, jobs, errors. AI cost detail lives at
+      <a href="/eXam/teacher/costs" class="text-cyan-300 underline hover:text-cyan-200">/eXam/teacher/costs</a>;
+      per-job xScore breakdowns are in <code class="rounded bg-black/30 px-1 py-0.5 font-mono text-[0.7rem]">output/xscore/&lt;job&gt;/34_ai_costs/cost.md</code>.
+    </p>
+  </div>
+  <a href="/grade" class="text-sm text-cyan-300 underline hover:text-cyan-200">← Grade</a>
+</header>
+
+<form method="get" action="/admin/stats"
+      class="glass-panel mb-6 flex flex-wrap items-end gap-3 rounded-2xl p-3 text-sm">
+  <label class="flex flex-col">
+    <span class="mb-1 text-xs text-slate-500">Range (days)</span>
+    <select name="days"
+            class="rounded-lg border border-white/[0.10] bg-white/[0.04] px-2 py-1 text-slate-200">
+      {% for opt, label in [("1","Today"),("7","7 days"),("30","30 days"),("90","90 days"),("all","All time")] %}
+      <option value="{{ opt }}" {% if days_label == opt %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <button class="rounded-lg border border-white/[0.10] bg-white/[0.04] px-3 py-1 text-slate-200 hover:bg-white/[0.10]">
+    Apply
+  </button>
+</form>
+
+<!-- Overview cards -->
+<section class="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+  <div class="glass-panel rounded-2xl p-4">
+    <div class="text-xs uppercase tracking-wider text-slate-500">Page views</div>
+    <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '{:,}'.format(totals.pageviews) }}</div>
+    <div class="mt-1 text-xs text-slate-500">
+      today {{ '{:,}'.format(pageviews_summary.today) }} · 7d {{ '{:,}'.format(pageviews_summary.last_7d) }} · 30d {{ '{:,}'.format(pageviews_summary.last_30d) }}
+    </div>
+  </div>
+  <div class="glass-panel rounded-2xl p-4">
+    <div class="text-xs uppercase tracking-wider text-slate-500">Unique visitors</div>
+    <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '{:,}'.format(totals.visitors) }}</div>
+    <div class="mt-1 text-xs text-slate-500">{{ '{:,}'.format(sessions_n) }} sessions all-time</div>
+  </div>
+  <div class="glass-panel rounded-2xl p-4">
+    <div class="text-xs uppercase tracking-wider text-slate-500">Jobs run</div>
+    <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '{:,}'.format(totals.jobs) }}</div>
+    <div class="mt-1 text-xs text-slate-500">{{ '{:,}'.format(totals.submissions) }} exam submissions</div>
+  </div>
+  <div class="glass-panel rounded-2xl p-4">
+    <div class="text-xs uppercase tracking-wider text-slate-500">AI spend ({{ cost_overview.days }}d)</div>
+    <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">¥{{ '%.2f' % cost_overview.total_cost_rmb }}</div>
+    <div class="mt-1 text-xs text-slate-500">
+      xS ¥{{ '%.2f' % cost_overview.xscore.cost_rmb }} ·
+      NL ¥{{ '%.2f' % cost_overview.nl.cost_rmb }} ·
+      eXam ¥{{ '%.2f' % cost_overview['eXam'].cost_rmb }}
+    </div>
+  </div>
+  <div class="glass-panel rounded-2xl p-4">
+    <div class="text-xs uppercase tracking-wider text-slate-500">Error rate</div>
+    <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '%.2f' % (error_rate * 100) }}%</div>
+    <div class="mt-1 text-xs text-slate-500">{{ '{:,}'.format(totals.errors) }} errors / {{ '{:,}'.format(totals.pageviews) }} reqs</div>
+  </div>
+</section>
+
+<!-- Time series -->
+<section class="glass-panel mb-6 rounded-2xl p-4">
+  <h2 class="font-display text-base font-semibold text-white">Activity over time</h2>
+  <p class="text-xs text-slate-500">Daily counts. UTC day buckets.</p>
+  <div class="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <div><canvas id="chart-pageviews" height="120"></canvas></div>
+    <div><canvas id="chart-jobs" height="120"></canvas></div>
+  </div>
+</section>
+
+<!-- Top routes -->
+<section class="glass-panel mb-6 overflow-x-auto rounded-2xl">
+  <table class="w-full text-sm">
+    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">Top routes ({{ days_label }})</caption>
+    <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+      <tr>
+        <th class="px-4 py-2">Route</th>
+        <th class="px-4 py-2 text-right">Hits</th>
+        <th class="px-4 py-2 text-right">Avg ms</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in routes_top %}
+      <tr class="border-b border-white/[0.04] last:border-b-0">
+        <td class="px-4 py-2 font-mono text-slate-300">{{ r.route }}</td>
+        <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.n) }}</td>
+        <td class="px-4 py-2 text-right tabular-nums text-slate-500">{{ '%.0f' % r.avg_ms }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="3" class="px-4 py-6 text-center text-slate-500">No requests in this window.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<!-- Recent jobs -->
+<section class="glass-panel mb-6 overflow-x-auto rounded-2xl">
+  <table class="w-full text-sm">
+    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">Recent jobs (last 50)</caption>
+    <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+      <tr>
+        <th class="px-4 py-2">When (UTC)</th>
+        <th class="px-4 py-2">Kind</th>
+        <th class="px-4 py-2">Status</th>
+        <th class="px-4 py-2">Subject / prompt</th>
+        <th class="px-4 py-2 text-right">Duration</th>
+        <th class="px-4 py-2 text-right">AI cost</th>
+        <th class="px-4 py-2 text-right">AI calls</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in recent_jobs %}
+      <tr class="border-b border-white/[0.04] last:border-b-0">
+        <td class="px-4 py-2 font-mono text-[0.72rem] text-slate-400">{{ r.ts[:19].replace('T', ' ') }}</td>
+        <td class="px-4 py-2 text-slate-300">{{ 'grade' if r.kind == 'grade_job_finished' else 'NL' }}</td>
+        <td class="px-4 py-2">
+          {% if r.status == 'ok' %}<span class="text-emerald-300">ok</span>
+          {% elif r.status == 'error' %}<span class="text-red-300">error</span>
+          {% else %}<span class="text-slate-400">{{ r.status }}</span>{% endif %}
+        </td>
+        <td class="px-4 py-2 text-slate-400">{{ (r.props.exam or r.props.prompt or '—')[:80] }}</td>
+        <td class="px-4 py-2 text-right tabular-nums text-slate-500">{{ '%.1fs' % ((r.duration_ms or 0) / 1000) }}</td>
+        <td class="px-4 py-2 text-right tabular-nums text-slate-300">¥{{ '%.4f' % (r.props.ai_cost_rmb or 0) }}</td>
+        <td class="px-4 py-2 text-right tabular-nums text-slate-500">{{ r.props.ai_calls or 0 }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7" class="px-4 py-6 text-center text-slate-500">No jobs yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<!-- Recent errors -->
+<section class="glass-panel overflow-x-auto rounded-2xl">
+  <table class="w-full text-sm">
+    <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">Recent errors (last 50)</caption>
+    <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+      <tr>
+        <th class="px-4 py-2">When (UTC)</th>
+        <th class="px-4 py-2">Route</th>
+        <th class="px-4 py-2">Exception</th>
+        <th class="px-4 py-2">Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in recent_errors %}
+      <tr class="border-b border-white/[0.04] last:border-b-0">
+        <td class="px-4 py-2 font-mono text-[0.72rem] text-slate-400">{{ r.ts[:19].replace('T', ' ') }}</td>
+        <td class="px-4 py-2 font-mono text-slate-300">{{ r.route or '—' }}</td>
+        <td class="px-4 py-2 text-slate-400">{{ r.props.exception_class or '—' }}</td>
+        <td class="px-4 py-2 text-slate-500">{{ r.props.message or '' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4" class="px-4 py-6 text-center text-slate-500">No errors recorded.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<script id="chart-payload" type="application/json">{{ chart_payload_json | safe }}</script>
+<script src="/static/js/admin-stats.js" defer></script>
+
+{% endblock %}

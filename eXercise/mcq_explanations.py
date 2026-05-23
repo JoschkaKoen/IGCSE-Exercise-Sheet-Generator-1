@@ -15,6 +15,7 @@ This module is an orchestration façade. The implementation is split across:
 
 from __future__ import annotations
 
+import contextvars
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
@@ -227,8 +228,12 @@ def batch_generate_mcq_explanations(
         cap = 4
     workers = min(len(papers), cap)
     results: list[dict[int, list[str]]] = [{} for _ in papers]
+    # Snapshot the parent context so workers inherit the AI-call observer stack
+    # (eXercise.ai_client._observer_stack). Without ctx.run the workers run in
+    # an empty context and CostRecorder receives no calls.
+    parent_ctx = contextvars.copy_context()
     with ThreadPoolExecutor(max_workers=workers) as pool:
-        future_to_idx = {pool.submit(_call_one, p): i for i, p in enumerate(papers)}
+        future_to_idx = {pool.submit(parent_ctx.run, _call_one, p): i for i, p in enumerate(papers)}
         for future in as_completed(future_to_idx):
             idx = future_to_idx[future]
             try:

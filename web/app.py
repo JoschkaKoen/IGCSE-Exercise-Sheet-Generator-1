@@ -22,11 +22,13 @@ from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 
+from .analytics import AnalyticsMiddleware, init_db as init_analytics_db
 from .auth_gate import (
     parse_ask_login_mode,
     parse_login_disabled,
     request_is_authenticated,
 )
+from .routes.admin_stats import router as admin_stats_router
 from .routes.eXam_open import router as eXam_open_router
 from .routes.eXam_student import router as eXam_student_router
 from .routes.eXam_teacher import router as eXam_teacher_router
@@ -41,6 +43,12 @@ STATIC_DIR = PACKAGE_DIR / "static"
 
 @asynccontextmanager
 async def _lifespan(app: FastAPI):
+    # Best-effort: a failure here must not block startup, so swallow + log.
+    try:
+        init_analytics_db()
+    except Exception:
+        import logging
+        logging.exception("analytics init_db() failed at startup")
     list_library_pdfs()  # pre-warm PDF index cache so the first page load is instant
     yield
 
@@ -114,6 +122,15 @@ async def site_access_gate(request: Request, call_next):
     return await call_next(request)
 
 
+# Analytics middleware is registered *after* the gate decorator so that it
+# ends up OUTERMOST in the runtime stack. Starlette's ``add_middleware``
+# does ``user_middleware.insert(0, ...)``; the resulting list is then
+# iterated in REVERSE inside ``build_middleware_stack`` — net effect: the
+# LAST registered middleware wraps everything else. Outermost = sees every
+# request, including the 401/403 responses the gate above issues.
+app.add_middleware(AnalyticsMiddleware)
+
+
 app.include_router(site_router)
 app.include_router(nl_jobs_router)
 app.include_router(grade_jobs_router)
@@ -123,3 +140,4 @@ app.include_router(eXam_teacher_router)
 # NOTE: if site login is ever enabled (DISABLE_LOGIN=false), whitelist
 # /eXam/practice/* in the /api/* gate above analogously to /api/auth/login.
 app.include_router(eXam_open_router)
+app.include_router(admin_stats_router)

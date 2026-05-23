@@ -59,6 +59,7 @@ KIMI_API_KEY      Required for kimi / moonshot models  (KIMI_BASE_URL optional)
 
 from __future__ import annotations
 
+import contextvars
 import os
 import threading
 import time
@@ -174,6 +175,53 @@ def reset_run_call_stats() -> None:
     """Clear all accumulated call stats. Call at pipeline start to isolate runs."""
     with _usage_lock:
         _run_call_stats.clear()
+
+
+# ---------------------------------------------------------------------------
+# Per-context observer hook
+# ---------------------------------------------------------------------------
+#
+# In-process callers (eXercise web jobs, eXam request handlers) cannot rely on
+# ``reset_run_usage()`` because the global accumulator is shared across all
+# threads running in the same process — two concurrent NL jobs would clobber
+# each other's totals. Instead they push an observer onto the contextvar stack
+# below; every successful AI call (non-streaming + streaming + Gemini native)
+# fans out to all observers active in the calling context.
+#
+# Contextvars (not threading.local) so the stack propagates into worker
+# threads when the parent uses ``copy_context().run`` — required for
+# eXercise/mcq_explanations.py's ThreadPoolExecutor batching.
+
+_observer_stack: contextvars.ContextVar[tuple] = contextvars.ContextVar(
+    "_observer_stack", default=()
+)
+
+
+def _current_observers() -> tuple:
+    return _observer_stack.get()
+
+
+def push_call_observer(fn) -> contextvars.Token:
+    """Push *fn* onto the observer stack; return a token to pass to :func:`pop_call_observer`."""
+    return _observer_stack.set(_observer_stack.get() + (fn,))
+
+
+def pop_call_observer(token: contextvars.Token) -> None:
+    _observer_stack.reset(token)
+
+
+def _fire_observers(
+    model: str, input_tokens: int, output_tokens: int, thinking_tokens: int, duration_s: float
+) -> None:
+    """Fan out a successful AI call to all observers active in this context.
+
+    Observer faults are swallowed so a broken sink never breaks the pipeline.
+    """
+    for obs in _current_observers():
+        try:
+            obs(model, input_tokens, output_tokens, thinking_tokens, duration_s)
+        except Exception:
+            pass
 
 
 @dataclass(frozen=True)
@@ -470,14 +518,14 @@ class _UsageTrackingStream:
                 yield chunk
         finally:
             if last_usage is not None and self._model and not self._recorded:
-                record_usage(
-                    self._model,
-                    getattr(last_usage, "prompt_tokens", 0) or 0,
-                    getattr(last_usage, "completion_tokens", 0) or 0,
-                    _extract_reasoning_tokens(last_usage),
-                )
+                in_t = getattr(last_usage, "prompt_tokens", 0) or 0
+                out_t = getattr(last_usage, "completion_tokens", 0) or 0
+                think_t = _extract_reasoning_tokens(last_usage)
+                record_usage(self._model, in_t, out_t, think_t)
+                dur = time.perf_counter() - self._t0 if self._t0 is not None else 0.0
                 if self._t0 is not None:
-                    record_call(self._model, time.perf_counter() - self._t0)
+                    record_call(self._model, dur)
+                _fire_observers(self._model, in_t, out_t, think_t, dur)
                 self._recorded = True
 
     def __enter__(self) -> "_UsageTrackingStream":
@@ -649,13 +697,13 @@ class _TrackedCompletions:
             return wrapped
         u = getattr(resp, "usage", None)
         if u:
-            record_usage(
-                self._model,
-                getattr(u, "prompt_tokens", 0) or 0,
-                getattr(u, "completion_tokens", 0) or 0,
-                _extract_reasoning_tokens(u),
-            )
-            record_call(self._model, time.perf_counter() - t0)
+            in_t = getattr(u, "prompt_tokens", 0) or 0
+            out_t = getattr(u, "completion_tokens", 0) or 0
+            think_t = _extract_reasoning_tokens(u)
+            record_usage(self._model, in_t, out_t, think_t)
+            dur = time.perf_counter() - t0
+            record_call(self._model, dur)
+            _fire_observers(self._model, in_t, out_t, think_t, dur)
         if cache_key_str is not None:
             from xscore.shared.response_cache import cache_put
             text = (resp.choices[0].message.content or "") if resp.choices else ""
@@ -790,13 +838,12 @@ class _TrackedGeminiModels:
             # OpenAI-compat semantic (and what Gemini actually bills).
             visible  = getattr(um, "candidates_token_count", 0) or 0
             thoughts = getattr(um, "thoughts_token_count",   0) or 0
-            record_usage(
-                str(model),
-                getattr(um, "prompt_token_count", 0) or 0,
-                visible + thoughts,
-                thoughts,
-            )
-            record_call(str(model), time.perf_counter() - t0)
+            in_t = getattr(um, "prompt_token_count", 0) or 0
+            out_t = visible + thoughts
+            record_usage(str(model), in_t, out_t, thoughts)
+            dur = time.perf_counter() - t0
+            record_call(str(model), dur)
+            _fire_observers(str(model), in_t, out_t, thoughts, dur)
         if cache_key_str is not None:
             from xscore.shared.response_cache import cache_put
             text, _thinking = split_gemini_response(resp)

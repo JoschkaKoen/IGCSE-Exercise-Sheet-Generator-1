@@ -26,6 +26,9 @@ from eXam.runtime import (
     question_order_for_student,
 )
 
+from ..analytics import track_request_event
+from ..analytics.salt import hash_id
+
 PACKAGE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
 
@@ -67,6 +70,10 @@ async def api_login(body: StudentLoginBody, request: Request, response: Response
     name = canonical_name(body.name)
     pin = body.pin.strip()
     if not pin.isdigit() or len(pin) != 4:
+        track_request_event(
+            request, "auth_attempt",
+            status="fail", properties={"gate": "eXam_student", "reason": "pin_format"},
+        )
         raise HTTPException(status_code=400, detail="PIN must be 4 digits")
     with connect() as conn:
         row = conn.execute(
@@ -74,7 +81,17 @@ async def api_login(body: StudentLoginBody, request: Request, response: Response
         ).fetchone()
     if row is None or not hmac.compare_digest(row["pin"], pin):
         # Same error message either way — don't leak which side was wrong.
+        # Event also omits which side failed, for the same reason.
+        track_request_event(
+            request, "auth_attempt",
+            status="fail", properties={"gate": "eXam_student"},
+        )
         raise HTTPException(status_code=401, detail="Name or PIN is incorrect")
+    track_request_event(
+        request, "auth_attempt",
+        status="ok",
+        properties={"gate": "eXam_student", "student_id_hash": hash_id(row["id"])},
+    )
     payload = JSONResponse({"ok": True, "redirect": "/eXam/"})
     eXam_auth.apply_cookie(payload, request, row["id"])
     return payload
@@ -233,7 +250,9 @@ async def api_submit(body: SubmitBody, request: Request):
     # Phase C stores submissions with zero marks; Phase E wires the marker in.
     try:
         from eXam.marker import mark as marker_mark
-        verdict = marker_mark(student["id"], body.question_id, body.submitted)
+        verdict = marker_mark(
+            student["id"], body.question_id, body.submitted, test_id=body.test_id,
+        )
     except ImportError:
         verdict = {"assigned_marks": 0.0, "max_marks": 0.0, "reasoning": ""}
     now = _dt.datetime.now(_dt.UTC).isoformat()
@@ -269,6 +288,18 @@ async def api_submit(body: SubmitBody, request: Request):
                 now,
             ),
         )
+    track_request_event(
+        request, "exam_submission",
+        status="ok",
+        properties={
+            "test_id": body.test_id,
+            "question_id": body.question_id,
+            "student_id_hash": hash_id(student["id"]),
+            "attempt_number": attempt_number,
+            "assigned_marks": float(verdict["assigned_marks"]),
+            "max_marks": float(verdict["max_marks"]),
+        },
+    )
     return {
         "ok": True,
         "attempt_number": attempt_number,

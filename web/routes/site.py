@@ -13,6 +13,7 @@ from pydantic import BaseModel, Field
 from eXercise.config import EXAM_ROOT_BY_KEY
 from xscore.shared.pipeline_steps import max_step_number
 
+from ..analytics import track_request_event
 from ..auth_gate import (
     EXPECTED_CODE,
     apply_auth_cookie,
@@ -96,7 +97,15 @@ async def site_login(request: Request, body: SiteLoginBody) -> JSONResponse:
     await enforce_login_rate_limit(client_ip)
     normalized = normalize_submitted_code(body.code)
     if normalized is None or not codes_equal(normalized, EXPECTED_CODE):
+        track_request_event(
+            request, "auth_attempt",
+            status="fail", properties={"gate": "site"},
+        )
         raise HTTPException(status_code=401, detail="Invalid code")
+    track_request_event(
+        request, "auth_attempt",
+        status="ok", properties={"gate": "site"},
+    )
     response = JSONResponse(
         {"ok": True},
         headers={"Cache-Control": "no-store, no-cache", "Pragma": "no-cache"},
@@ -112,7 +121,15 @@ async def grade_auth_login(request: Request, body: GradeAuthBody) -> JSONRespons
     client_ip = xff.split(",")[0].strip() if xff else (request.client.host if request.client else "")
     await enforce_grade_rate_limit(client_ip)
     if not grade_codes_equal(body.code, EXPECTED_GRADE_CODE):
+        track_request_event(
+            request, "auth_attempt",
+            status="fail", properties={"gate": "grade"},
+        )
         raise HTTPException(status_code=401, detail="Wrong code")
+    track_request_event(
+        request, "auth_attempt",
+        status="ok", properties={"gate": "grade"},
+    )
     response = JSONResponse(
         {"ok": True},
         headers={"Cache-Control": "no-store, no-cache", "Pragma": "no-cache"},

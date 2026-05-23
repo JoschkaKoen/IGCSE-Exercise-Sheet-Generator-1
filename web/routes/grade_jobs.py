@@ -19,10 +19,12 @@ import shutil
 import zipfile
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse, Response
 
 from .._state import create_background_task, store
+from ..analytics import track_event, track_request_event
+from ..analytics.cost_overview import rollup_from_cost_json
 from ..grade_auth import require_grade_unlock
 from ..grade_service import GradeFormOpts
 from ..grade_subprocess import cancel_process, run_grade_subprocess
@@ -77,11 +79,37 @@ async def _run_grade_job(
     job_id: str,
     folder: Path,
     opts: GradeFormOpts,
+    session_id: str | None = None,
 ) -> None:
     store.set_status(job_id, JobStatus.RUNNING)
     store.init_steps(job_id, _GRADE_STEPS)
     store.set_log_line(job_id, "Starting pipeline…")
     store.set_upload_folder(job_id, folder)
+    t_start = asyncio.get_event_loop().time()
+
+    def _finish(status: str, message: str | None = None) -> None:
+        """Fire the `grade_job_finished` analytics event, with cost rollup if cost.json exists."""
+        duration_ms = int((asyncio.get_event_loop().time() - t_start) * 1000)
+        rec = store.get(job_id)
+        artifact_dir = rec.artifact_dir if rec else None
+        props: dict = {"job_id": job_id, "upload_folder": str(folder.name)}
+        if artifact_dir is not None:
+            # ``output/xscore/<exam_stem>/<timestamp>/`` — exam_stem is the parent's name.
+            props["exam"] = artifact_dir.parent.name
+            try:
+                from xscore.shared.exam_paths import artifact_cost_json_path
+                props.update(rollup_from_cost_json(artifact_cost_json_path(artifact_dir)))
+            except Exception:
+                logging.debug("could not look up artifact_cost_json_path", exc_info=True)
+        if message:
+            props["message"] = message[:200]
+        track_event(
+            "grade_job_finished",
+            status=status,
+            session_id=session_id,
+            duration_ms=duration_ms,
+            properties=props,
+        )
 
     def on_line(raw: str) -> None:
         line = _strip_ansi(raw)
@@ -122,6 +150,19 @@ async def _run_grade_job(
     except Exception as e:  # noqa: BLE001
         logging.exception("Grade pipeline spawn failed for job %s", job_id)
         store.fail(job_id, f"Pipeline spawn error: {e}")
+        track_event(
+            "error",
+            session_id=session_id,
+            route="/api/grade/jobs",
+            status="error",
+            properties={
+                "context": "grade_subprocess_spawn",
+                "job_id": job_id,
+                "exception_class": type(e).__name__,
+                "message": str(e)[:200],
+            },
+        )
+        _finish("error", f"spawn error: {e}")
         return
 
     # Cancel inference: POSIX signal-killed → exit_code < 0; shell-style signal
@@ -131,6 +172,7 @@ async def _run_grade_job(
     current = store.get(job_id)
     if current is not None and current.status == JobStatus.CANCELED:
         # The cancel endpoint already marked it; nothing else to do.
+        _finish("canceled")
         return
 
     if exit_code == 0:
@@ -158,11 +200,13 @@ async def _run_grade_job(
             output_pdf=cleaned_pdf or folder,
             answers_pdf=class_report_pdf,
         )
+        _finish("ok")
     elif was_signal_killed:
         # Process was signaled but not via the /cancel endpoint (likely OS OOM
         # killer, external kill, etc.). Surface as canceled rather than failed
         # so the UI shows the right terminal state.
         store.cancel(job_id, message=f"Process terminated by signal (exit {exit_code})")
+        _finish("canceled", f"signal exit {exit_code}")
     else:
         rec = store.get(job_id)
         tail = "\n".join(rec.log_lines[-5:]) if rec and rec.log_lines else ""
@@ -170,6 +214,7 @@ async def _run_grade_job(
         if tail:
             msg += f"\n…\n{tail}"
         store.fail(job_id, msg)
+        _finish("fail", msg)
 
 
 # ---------------------------------------------------------------------------
@@ -277,6 +322,7 @@ def _make_unique_upload_folder() -> Path:
 
 @router.post("/api/grade/jobs")
 async def create_grade_job(
+    request: Request,
     exam_scans: list[UploadFile] = File(...),
     student_list: UploadFile = File(...),
     empty_exam: UploadFile = File(...),
@@ -352,7 +398,12 @@ async def create_grade_job(
     (folder / "answer_sheet.pdf").write_bytes(await _read_limited(answer_sheet, "answer_sheet"))
 
     job = store.create()
-    create_background_task(_run_grade_job(job.id, folder, opts))
+    session_id = getattr(request.state, "session_id", None)
+    track_request_event(
+        request, "grade_job_started",
+        properties={"job_id": job.id, "upload_folder": folder.name, "kind": "fresh"},
+    )
+    create_background_task(_run_grade_job(job.id, folder, opts, session_id=session_id))
     return {"id": job.id}
 
 
@@ -407,6 +458,7 @@ async def cancel_grade_job(
 
 @router.post("/api/grade/jobs/resume")
 async def resume_grade_job(
+    request: Request,
     artifact_dir: str = Form(...),
     from_step: int = Form(...),
     prompt: str | None = Form(None),
@@ -462,7 +514,17 @@ async def resume_grade_job(
     _validate_opts(opts)
 
     job = store.create()
-    create_background_task(_run_grade_job(job.id, upload_folder, opts))
+    session_id = getattr(request.state, "session_id", None)
+    track_request_event(
+        request, "grade_job_started",
+        properties={
+            "job_id": job.id,
+            "upload_folder": upload_folder.name,
+            "kind": "resume",
+            "from_step": from_step,
+        },
+    )
+    create_background_task(_run_grade_job(job.id, upload_folder, opts, session_id=session_id))
     return {"id": job.id}
 
 

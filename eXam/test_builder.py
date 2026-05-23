@@ -93,6 +93,8 @@ def _build_question_records(data: dict, exam_root: Path) -> list[dict]:
 
 def _enrich_papers(records: list[dict], subject: str, test_id: str) -> None:
     # Unique (paper, ms) pairs.
+    from eXam.cost_tracker import track
+
     seen: set[tuple[str, str | None]] = set()
     unique: list[tuple[str, str | None]] = []
     for r in records:
@@ -104,7 +106,10 @@ def _enrich_papers(records: list[dict], subject: str, test_id: str) -> None:
     for i, (paper, ms) in enumerate(unique, start=1):
         _set_progress(test_id, "enrich_paper", i, len(unique), qnum=Path(paper).stem)
         _log(f"enrich paper {i}/{len(unique)}: {Path(paper).name}")
-        ensure_paper_indexed(Path(paper), Path(ms) if ms else None, subject)
+        # xscore scaffold AI calls (detect/fill/scheme) made by ensure_paper_indexed
+        # land under this phase in the ai_calls log.
+        with track("build_enrich_paper", test_id=test_id):
+            ensure_paper_indexed(Path(paper), Path(ms) if ms else None, subject)
 
 
 def _pregenerate_helpers(records: list[dict], subject: str, test_id: str) -> None:
@@ -121,13 +126,20 @@ def _pregenerate_helpers(records: list[dict], subject: str, test_id: str) -> Non
             done += 1
             _set_progress(test_id, f"pregen_{kind}", done, total, qnum=rec["question_id"])
             try:
-                pregenerate_for_question(rec, subject, kind)
+                pregenerate_for_question(rec, subject, kind, test_id=test_id)
             except Exception as e:  # noqa: BLE001
                 _log(f"pregen {kind} failed for {rec['question_id']}: {e}")
 
 
 def run_build(test_id: str) -> None:
-    """Run the build for an already-created ``tests`` row. Updates status/progress."""
+    """Run the build for an already-created ``tests`` row. Updates status/progress.
+
+    Opens a CostRecorder for the whole build (via :func:`eXam.cost_tracker.track`)
+    so all AI calls from resolve_natural_language → ensure_paper_indexed →
+    pregenerate_for_question are tagged with this ``test_id`` in ``ai_calls``,
+    and an aggregate ``cost.json`` + ``cost.md`` lands in
+    ``output/eXam/builds/<test_id>/`` on success.
+    """
     with connect() as conn:
         row = conn.execute(
             "SELECT teacher_prompt, subject, question_ids FROM tests WHERE id=?",
@@ -139,27 +151,49 @@ def run_build(test_id: str) -> None:
     subject = row["subject"]
     question_ids = json.loads(row["question_ids"])
 
+    from eXam.cost_tracker import track
+    from eXercise.config import PROJECT_ROOT
+    from eXercise.cost_recorder import current_recorder
+    from eXercise.cost_report import write_cost_report
+
     try:
         load_project_env()
         # Re-resolve to obtain paper paths (needed for enrichment).
         from eXercise.natural_language import resolve_natural_language
 
-        _set_progress(test_id, "resolve_nl", 0, 1)
-        exam_root, data = resolve_natural_language(prompt)
-        records = _build_question_records(data, exam_root)
-        # Sanity check: question_ids written by build_test should match what
-        # the resolver returns now. If they don't, prefer the freshly-resolved
-        # set (rare drift case).
-        fresh_ids = [r["question_id"] for r in records]
-        if fresh_ids != question_ids:
-            with connect() as conn:
-                conn.execute(
-                    "UPDATE tests SET question_ids=? WHERE id=?",
-                    (json.dumps(fresh_ids), test_id),
-                )
+        with track("build", test_id=test_id) as build_rec:
+            _set_progress(test_id, "resolve_nl", 0, 1)
+            with track("build_resolve_nl", test_id=test_id):
+                exam_root, data = resolve_natural_language(prompt)
+            records = _build_question_records(data, exam_root)
+            # Sanity check: question_ids written by build_test should match what
+            # the resolver returns now. If they don't, prefer the freshly-resolved
+            # set (rare drift case).
+            fresh_ids = [r["question_id"] for r in records]
+            if fresh_ids != question_ids:
+                with connect() as conn:
+                    conn.execute(
+                        "UPDATE tests SET question_ids=? WHERE id=?",
+                        (json.dumps(fresh_ids), test_id),
+                    )
 
-        _enrich_papers(records, subject, test_id)
-        _pregenerate_helpers(records, subject, test_id)
+            _enrich_papers(records, subject, test_id)
+            _pregenerate_helpers(records, subject, test_id)
+
+            # Write per-build cost artifact while the recorder is still in scope.
+            rec = current_recorder()
+            if not rec.is_null:
+                build_dir = PROJECT_ROOT / "output" / "eXam" / "builds" / test_id
+                try:
+                    write_cost_report(
+                        build_dir,
+                        total_usage=rec.total_usage,
+                        per_phase_usage=rec.per_phase_usage,
+                        per_phase_calls=rec.per_phase_calls,
+                        phase_label="Operation",
+                    )
+                except Exception as e:  # noqa: BLE001 — artifact write must not fail the build
+                    _log(f"cost.json write failed: {e}")
 
         with connect() as conn:
             conn.execute(

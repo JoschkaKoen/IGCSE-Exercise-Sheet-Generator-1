@@ -87,6 +87,26 @@ CREATE TABLE IF NOT EXISTS open_attempts (
 
 CREATE INDEX IF NOT EXISTS open_attempts_by_session
   ON open_attempts (session_id, submitted_at DESC);
+
+-- AI cost log: one row per successful API call across build / marking / helpers.
+-- Populated by eXam/cost_tracker.py's DB sink (observer on the ai_client hook).
+CREATE TABLE IF NOT EXISTS ai_calls (
+  id INTEGER PRIMARY KEY,
+  called_at TEXT NOT NULL,
+  operation TEXT NOT NULL,
+  test_id TEXT,
+  student_id INTEGER,
+  question_id TEXT,
+  model TEXT NOT NULL,
+  input_tokens INTEGER NOT NULL,
+  output_tokens INTEGER NOT NULL,
+  thinking_tokens INTEGER NOT NULL DEFAULT 0,
+  duration_s REAL NOT NULL,
+  cost_rmb REAL
+);
+
+CREATE INDEX IF NOT EXISTS ai_calls_by_test ON ai_calls (test_id, called_at);
+CREATE INDEX IF NOT EXISTS ai_calls_by_op   ON ai_calls (operation, called_at);
 """
 
 _init_lock = threading.Lock()

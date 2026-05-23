@@ -51,9 +51,9 @@
             </label>
           {% endfor %}
         </div>
-      {% elif t in ['short_answer', 'calculation'] or (t == 'long_answer' and test.subject in ['physics', 'a_level_physics']) %}
+      {% elif t in ['short_answer', 'calculation'] %}
         <input type="text" name="submitted" required
-               {% if test.subject in ['physics', 'a_level_physics'] and t != 'short_answer' %}placeholder="Final answer (e.g. 9.81 m/s²)"{% endif %}
+               {% if t == 'calculation' %}placeholder="Final answer (with units if applicable)"{% endif %}
                class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 font-mono text-sm text-slate-100 placeholder:text-slate-500 shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
       {% else %}
         <textarea name="submitted" rows="6" required

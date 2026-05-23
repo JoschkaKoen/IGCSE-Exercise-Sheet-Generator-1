@@ -329,6 +329,8 @@ def run_extraction_jobs(
     if not jobs:
         raise ExtractionError("No extraction jobs.")
 
+    from .cost_recorder import current_recorder
+
     exercise_anchors: list[dict[str, Any]] = []
     answer_anchors: list[dict[str, Any]] | None = None
 
@@ -338,6 +340,7 @@ def run_extraction_jobs(
 
     qp_docs: list[fitz.Document] = []
     ms_docs: list[fitz.Document] = []
+    cr = current_recorder()  # CostRecorder if collect_run_cost() is active, else _NullRecorder
 
     def _rec(label: str, t: float) -> None:
         if step_timings is not None:
@@ -347,9 +350,10 @@ def run_extraction_jobs(
 
     try:
         _t = time.monotonic()
-        qp_docs, job_regions, all_strips, resolved_qs = _run_qp_extraction_phase(
-            jobs, cfg, use_paper_sublabels
-        )
+        with cr.phase("QP extraction"):
+            qp_docs, job_regions, all_strips, resolved_qs = _run_qp_extraction_phase(
+                jobs, cfg, use_paper_sublabels
+            )
         _rec("QP extraction", _t)
 
         if not all_strips:
@@ -357,16 +361,18 @@ def run_extraction_jobs(
 
         print(f"\nOutput: {output_pdf}")
         _t = time.monotonic()
-        exercise_anchors = layout_vector_strips_to_pdf(all_strips, output_pdf, page_header, name_field=True)
+        with cr.phase("QP layout"):
+            exercise_anchors = layout_vector_strips_to_pdf(all_strips, output_pdf, page_header, name_field=True)
         _rec("QP layout", _t)
 
         out_path = Path(output_pdf)
         answers_path = out_path.parent / f"{out_path.stem}_answers{out_path.suffix}"
 
         _t = time.monotonic()
-        ms_info, mcq_prepared, job_mcq_ms = _run_ms_prep_phase(
-            jobs, qp_docs, job_regions, resolved_qs, cfg, exam_key, out_path
-        )
+        with cr.phase("MS prep"):
+            ms_info, mcq_prepared, job_mcq_ms = _run_ms_prep_phase(
+                jobs, qp_docs, job_regions, resolved_qs, cfg, exam_key, out_path
+            )
         _rec("MS prep", _t)
         # Collect ms_docs from ms_info for cleanup in finally block
         for info in ms_info:
@@ -381,44 +387,59 @@ def run_extraction_jobs(
             print(f"\nGenerating AI explanations ({n_mcq} MCQ paper(s), 1 API call)…")
             paper_data_list = [mcq_prepared[i] for i in sorted_indices]
             _t = time.monotonic()
-            batch_results = batch_generate_mcq_explanations(paper_data_list, stream_thinking=False)
+            with cr.phase("AI explanations"):
+                batch_results = batch_generate_mcq_explanations(paper_data_list, stream_thinking=False)
             _rec("AI explanations", _t)
             for idx, expl in zip(sorted_indices, batch_results):
                 mcq_explanations_map[idx] = expl
 
         _t = time.monotonic()
-        all_ms_strips = _run_ms_strip_phase(
-            jobs, ms_info, mcq_prepared, mcq_explanations_map,
-            use_paper_sublabels, ms_docs, cfg,
-        )
+        with cr.phase("MS strips"):
+            all_ms_strips = _run_ms_strip_phase(
+                jobs, ms_info, mcq_prepared, mcq_explanations_map,
+                use_paper_sublabels, ms_docs, cfg,
+            )
         _rec("MS strips", _t)
 
         if all_ms_strips:
             _t = time.monotonic()
-            answer_anchors = layout_vector_strips_to_pdf(
-                all_ms_strips, str(answers_path), page_header,
-            )
+            with cr.phase("MS layout"):
+                answer_anchors = layout_vector_strips_to_pdf(
+                    all_ms_strips, str(answers_path), page_header,
+                )
             _rec("MS layout", _t)
             print(f"\n  Saved: {answers_path}")
 
         print("\nExercise sheet n-up variants (pdfjam)…")
         pdfjam_targets = [out_path] + ([answers_path] if all_ms_strips else [])
         _t = time.monotonic()
-        with ThreadPoolExecutor(max_workers=len(pdfjam_targets)) as ex:
-            list(ex.map(run_exercise_sheet_pdfjam_variants, pdfjam_targets))
+        with cr.phase("pdfjam"):
+            with ThreadPoolExecutor(max_workers=len(pdfjam_targets)) as ex:
+                list(ex.map(run_exercise_sheet_pdfjam_variants, pdfjam_targets))
         _rec("pdfjam", _t)
 
         if run_ranking:
             print("\nGenerating difficulty ranking…")
             _t = time.monotonic()
-            generate_difficulty_ranking(
-                exercise_pdf=out_path,
-                answer_pdf=answers_path if (all_ms_strips and answers_path.exists()) else None,
-                out_path=out_path.parent,
-                name=out_path.stem,
-                stream_thinking=False,
-            )
+            with cr.phase("Difficulty ranking"):
+                generate_difficulty_ranking(
+                    exercise_pdf=out_path,
+                    answer_pdf=answers_path if (all_ms_strips and answers_path.exists()) else None,
+                    out_path=out_path.parent,
+                    name=out_path.stem,
+                    stream_thinking=False,
+                )
             _rec("Difficulty ranking", _t)
+
+        if not cr.is_null:
+            from .cost_report import write_cost_report
+            write_cost_report(
+                out_path.parent / "ai_costs",
+                total_usage=cr.total_usage,
+                per_phase_usage=cr.per_phase_usage,
+                per_phase_calls=cr.per_phase_calls,
+                phase_label="Phase",
+            )
 
     finally:
         for d in qp_docs + ms_docs:
