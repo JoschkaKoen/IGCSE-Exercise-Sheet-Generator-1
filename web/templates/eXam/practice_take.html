@@ -11,6 +11,18 @@
   .ex-radio-chip:has(input:checked) { border-color: rgba(34,211,238,.6); background: rgba(34,211,238,.08); }
   .ex-helper-drawer { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
   .ex-helper-drawer.open { max-height: 60vh; overflow-y: auto; }
+  .ex-practice-row { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  @media (min-width: 1024px) {
+    .ex-practice-row {
+      --row-w: min(calc(100vw - 3rem), 1190px);
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      width: var(--row-w);
+      margin-left: calc((100% - var(--row-w)) / 2);
+      margin-right: calc((100% - var(--row-w)) / 2);
+    }
+  }
 </style>
 {% endblock %}
 {% block content %}
@@ -31,8 +43,54 @@
   </div>
 </header>
 
-<div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
-  <aside class="lg:col-span-3">
+<div class="ex-practice-row">
+  <section class="lg:order-2 lg:flex-1 lg:min-w-0">
+    <div class="glass-panel form-glow rounded-2xl p-3 sm:p-4">
+      <canvas id="ex-snippet" class="ex-snippet"
+              style="--pdf-aspect: {{ meta.pdf_width_pt or 595 }} / {{ meta.pdf_height_pt or 842 }};"
+              aria-label="{{ t('take.q_prefix') }} {{ meta.number }}"></canvas>
+    </div>
+
+    <div id="helper-drawer" class="ex-helper-drawer mt-4 rounded-2xl border border-white/[0.08] bg-slate-950/40 text-sm text-slate-200"></div>
+
+    <div id="feedback" class="mt-4 hidden glass-panel rounded-2xl p-4 text-sm"></div>
+  </section>
+
+  <aside class="lg:order-1 lg:w-52 lg:shrink-0">
+    <form id="answer-form" class="space-y-3 glass-panel rounded-2xl p-4">
+      {% set qt = meta.question_type %}
+      {% if qt == 'multiple_choice' %}
+        <div class="flex flex-col gap-2">
+          {% for opt in meta.options %}
+            <label class="ex-radio-chip flex cursor-pointer items-center gap-2 rounded-xl border border-white/[0.12] bg-slate-950/60 px-3 py-2 text-sm">
+              <input type="radio" name="submitted" value="{{ opt.letter }}" required class="accent-cyan-400">
+              <span class="font-mono text-cyan-200">{{ opt.letter }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      {% elif qt in ['short_answer', 'calculation'] %}
+        <input type="text" name="submitted" required
+               {% if qt == 'calculation' %}placeholder="{{ t('take.calc_placeholder') }}"{% endif %}
+               class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 font-mono text-sm text-slate-100 placeholder:text-slate-500 shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
+      {% else %}
+        <textarea name="submitted" rows="6" required
+                  class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 font-mono text-sm text-slate-100 placeholder:text-slate-500 shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"></textarea>
+      {% endif %}
+
+      <div class="flex flex-col gap-2 pt-1">
+        <button id="submit-btn" type="submit"
+                class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">
+          {{ t('take.submit') }}
+        </button>
+        <a href="/eXam/practice/{{ subject }}"
+           class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-center text-sm text-slate-300 hover:bg-white/[0.08]">
+          {{ t('take.skip') }}
+        </a>
+      </div>
+    </form>
+  </aside>
+
+  <aside class="lg:order-3 lg:w-52 lg:shrink-0">
     <div class="glass-panel rounded-2xl p-2">
       <div class="space-y-1">
         <button data-kind="hint" class="ex-helper-btn group flex w-full items-center gap-2.5 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-2 text-sm text-slate-300 transition hover:border-white/[0.10] hover:bg-white/[0.05] hover:text-slate-100">
@@ -80,50 +138,6 @@
       </div>
     </div>
   </aside>
-
-  <section class="lg:col-span-9">
-    <div class="glass-panel form-glow rounded-2xl p-3 sm:p-4">
-      <canvas id="ex-snippet" class="ex-snippet"
-              style="--pdf-aspect: {{ meta.pdf_width_pt or 595 }} / {{ meta.pdf_height_pt or 842 }};"
-              aria-label="{{ t('take.q_prefix') }} {{ meta.number }}"></canvas>
-    </div>
-
-    <form id="answer-form" class="mt-4 space-y-3 glass-panel rounded-2xl p-4">
-      {% set qt = meta.question_type %}
-      {% if qt == 'multiple_choice' %}
-        <div class="flex flex-wrap gap-2">
-          {% for opt in meta.options %}
-            <label class="ex-radio-chip inline-flex cursor-pointer items-center gap-2 rounded-xl border border-white/[0.12] bg-slate-950/60 px-3 py-2 text-sm">
-              <input type="radio" name="submitted" value="{{ opt.letter }}" required class="accent-cyan-400">
-              <span class="font-mono text-cyan-200">{{ opt.letter }}</span>
-            </label>
-          {% endfor %}
-        </div>
-      {% elif qt in ['short_answer', 'calculation'] %}
-        <input type="text" name="submitted" required
-               {% if qt == 'calculation' %}placeholder="{{ t('take.calc_placeholder') }}"{% endif %}
-               class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 font-mono text-sm text-slate-100 placeholder:text-slate-500 shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
-      {% else %}
-        <textarea name="submitted" rows="6" required
-                  class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 font-mono text-sm text-slate-100 placeholder:text-slate-500 shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"></textarea>
-      {% endif %}
-
-      <div class="flex flex-wrap items-center gap-2 pt-1">
-        <button id="submit-btn" type="submit"
-                class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">
-          {{ t('take.submit') }}
-        </button>
-        <a href="/eXam/practice/{{ subject }}"
-           class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">
-          {{ t('take.skip') }}
-        </a>
-      </div>
-    </form>
-
-    <div id="helper-drawer" class="ex-helper-drawer mt-4 rounded-2xl border border-white/[0.08] bg-slate-950/40 text-sm text-slate-200"></div>
-
-    <div id="feedback" class="mt-4 hidden glass-panel rounded-2xl p-4 text-sm"></div>
-  </section>
 </div>
 
 <script>

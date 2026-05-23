@@ -144,7 +144,7 @@
       });
     });
   </script>
-  <div class="z-content flex min-h-full flex-col"{% if needs_site_login | default(false) %} inert="" aria-hidden="true"{% endif %}>
+  <div class="z-content flex min-h-screen flex-col"{% if needs_site_login | default(false) %} inert="" aria-hidden="true"{% endif %}>
 
     <header class="site-header sticky top-0 z-20">
       <div class="site-header-inner mx-auto flex w-full max-w-5xl items-center px-4 py-3.5 sm:px-6">
@@ -217,8 +217,12 @@
       {% block content %}{% endblock %}
     </main>
 
-    <footer class="border-t border-white/[0.04] mx-auto w-full max-w-5xl px-4 py-6 text-center text-xs text-slate-500 sm:px-6">
-      {{ t('footer.tagline') if t else 'Exercise sheet generator' }}
+    <footer class="border-t border-white/[0.04] mx-auto w-full max-w-5xl px-4 py-6 flex items-center justify-center sm:px-6">
+      <span class="inline-flex items-center rounded-md bg-white/95 px-3 py-1.5 shadow-sm shadow-black/30">
+        <img src="/static/cambridge-logo.svg"
+             alt="{{ t('footer.tagline') if t else 'Exercise sheet generator' }}"
+             class="h-5 w-auto" />
+      </span>
     </footer>
 
   </div>
