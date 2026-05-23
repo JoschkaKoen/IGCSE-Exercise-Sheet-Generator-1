@@ -14,7 +14,7 @@ from pathlib import Path
 from fastapi import APIRouter, HTTPException, Request, Response
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from eXam import open_mode
 from eXam.runtime import pdf_path_for
@@ -170,7 +170,16 @@ async def serve_pdf(request: Request, question_id: str):
 class SubmitBody(BaseModel):
     subject: str
     question_id: str
-    submitted: str = Field(..., max_length=10000)
+    submitted: dict[str, str]
+
+    @field_validator("submitted")
+    @classmethod
+    def _cap_total_length(cls, v: dict[str, str]) -> dict[str, str]:
+        if sum(len(s) for s in v.values()) > 10_000:
+            raise ValueError("submitted exceeds 10 000 characters total")
+        if len(v) > 64:
+            raise ValueError("too many submitted leaves")
+        return v
 
 
 @router.post("/submit", response_class=JSONResponse)

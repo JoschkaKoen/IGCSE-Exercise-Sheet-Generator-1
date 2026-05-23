@@ -8,6 +8,7 @@ go through ``eXam/pregenerate.py`` (file cache, lazy generation).
 from __future__ import annotations
 
 import datetime as _dt
+import json
 import random
 import re
 import uuid
@@ -224,7 +225,36 @@ def current_session_id(request: Request) -> str | None:
     return raw if raw and _UUID_RE.match(raw) else None
 
 
-def record_attempt(session_id: str, qid: str, subject: str, submitted: str, verdict: dict) -> None:
+def _encode_submitted(submitted: dict[str, str] | str) -> str:
+    """Serialise *submitted* for the ``open_attempts.submitted`` TEXT column.
+
+    Per-leaf dicts are JSON-encoded; legacy strings pass through unchanged so
+    a future class-mode migration can land without touching this code.
+    """
+    if isinstance(submitted, str):
+        return submitted
+    return json.dumps(submitted, ensure_ascii=False)
+
+
+def _decode_submitted(text: str) -> dict[str, str] | str:
+    """Inverse of :func:`_encode_submitted`. Falls back to the raw string for
+    legacy rows written before per-leaf submission landed."""
+    try:
+        v = json.loads(text)
+    except (ValueError, TypeError):
+        return text
+    if isinstance(v, dict) and all(isinstance(k, str) for k in v):
+        return {k: str(val) for k, val in v.items()}
+    return text
+
+
+def record_attempt(
+    session_id: str,
+    qid: str,
+    subject: str,
+    submitted: dict[str, str] | str,
+    verdict: dict,
+) -> None:
     with connect() as conn:
         conn.execute(
             """
@@ -234,7 +264,7 @@ def record_attempt(session_id: str, qid: str, subject: str, submitted: str, verd
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
-                session_id, qid, subject, submitted,
+                session_id, qid, subject, _encode_submitted(submitted),
                 float(verdict.get("assigned_marks", 0) or 0),
                 float(verdict.get("max_marks", 0) or 0),
                 verdict.get("reasoning") or "",
@@ -394,7 +424,7 @@ def last_attempt(session_id: str, qid: str) -> dict | None:
     if row is None:
         return None
     return {
-        "submitted": row["submitted"],
+        "submitted": _decode_submitted(row["submitted"] or ""),
         "assigned_marks": float(row["assigned_marks"] or 0),
         "max_marks": float(row["max_marks"] or 0),
         "reasoning": row["reasoning"] or "",

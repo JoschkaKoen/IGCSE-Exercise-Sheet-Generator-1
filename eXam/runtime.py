@@ -63,14 +63,72 @@ def parse_question_id(question_id: str) -> tuple[str, str, str]:
     return parts[0], parts[1], parts[2]
 
 
+def _leaf_suffix(top_num: str, leaf_num: str) -> str:
+    """Render the part of *leaf_num* that comes after the top-level qnum, with
+    parentheses around each level: ``"1bii"`` → ``"(b)(ii)"``. Returns ``""``
+    when the leaf *is* the top level (no subpart).
+
+    Cambridge convention is ``<digits><letter>[roman]``; the regex constrains
+    the letter to a single char so ``i``/``ii``/``iii`` don't get swallowed
+    into the letter group.
+    """
+    if leaf_num == top_num:
+        return ""
+    tail = leaf_num[len(top_num):]
+    m = re.match(r"^([a-z])([ivx]+)?$", tail)
+    if not m:
+        return f"({tail})"
+    letter, roman = m.groups()
+    return f"({letter})" + (f"({roman})" if roman else "")
+
+
+def _collect_leaves(node: dict, top_num: str, has_images: bool) -> list[dict]:
+    """Walk the (sub)question tree and return one entry per leaf.
+
+    A leaf is a node with no non-empty ``subquestions`` list. The top-level
+    counts as its own leaf when it has no children (standalone MCQs etc.).
+    All leaves inherit ``has_images`` from the top-level question because the
+    snippet PDF renders the whole question in one image.
+    """
+    subs = node.get("subquestions") or []
+    if not subs:
+        num = str(node.get("number"))
+        return [
+            {
+                "number": num,
+                "number_suffix": _leaf_suffix(top_num, num),
+                "question_type": node.get("question_type"),
+                "marks": int(node.get("marks") or 0),
+                "text": node.get("text", ""),
+                "options": node.get("answer_options") or [],
+                "has_images": has_images,
+            }
+        ]
+    leaves: list[dict] = []
+    for child in subs:
+        if isinstance(child, dict):
+            leaves.extend(_collect_leaves(child, top_num, has_images))
+    return leaves
+
+
 def question_metadata(question_id: str) -> dict | None:
-    """Return ``{number, question_type, text, marks, options, has_images}`` or None."""
+    """Return question metadata including a flat ``leaves`` list, or None.
+
+    ``leaves`` always has at least one entry: standalone questions yield a
+    single-leaf list mirroring the top level; multi-part questions yield one
+    entry per terminal subexercise (e.g. ``1a``, ``1bi``, ``1bii``, ``1biii``
+    for a typical physics Q1). ``meta["marks"]`` is the sum of leaf marks —
+    the bank stores ``0`` on parent containers, which is structural noise.
+    """
     subject, paper_stem, qnum = parse_question_id(question_id)
     data = _load_paper_yaml(subject, paper_stem, "exam_questions.yaml")
     for q in data.get("questions", []):
         if isinstance(q, dict) and str(q.get("number")) == qnum:
             opts = q.get("answer_options") or []
             pdf_w, pdf_h = _snippet_page_size(question_id)
+            has_images = bool(q.get("images"))
+            leaves = _collect_leaves(q, qnum, has_images)
+            total_marks = sum(leaf["marks"] for leaf in leaves) or int(q.get("marks") or 1)
             return {
                 "question_id": question_id,
                 "subject": subject,
@@ -79,11 +137,12 @@ def question_metadata(question_id: str) -> dict | None:
                 "number": qnum,
                 "question_type": q.get("question_type"),
                 "text": q.get("text", ""),
-                "marks": q.get("marks", 1),
+                "marks": total_marks,
                 "options": opts,
-                "has_images": bool(q.get("images")),
+                "has_images": has_images,
                 "pdf_width_pt": pdf_w,
                 "pdf_height_pt": pdf_h,
+                "leaves": leaves,
             }
     return None
 

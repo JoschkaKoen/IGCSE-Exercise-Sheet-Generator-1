@@ -258,19 +258,127 @@ def _mark_free_response(meta: dict, submitted: str, *, fallback_reason: str = ""
     }
 
 
+def _mark_one_leaf_meta(top_meta: dict, leaf: dict) -> dict:
+    """Build a leaf-scoped meta dict for the existing private mark functions.
+
+    The synthetic ``question_id`` exists only so ``mark_scheme_entry`` picks
+    the right leaf row from ``mark_scheme.yaml`` — it's never persisted.
+    ``has_images`` carries the top-level value (the snippet PDF shows every
+    figure regardless of which leaf is being graded).
+    """
+    subject = top_meta["subject"]
+    paper_stem = top_meta["paper_stem"]
+    return {
+        **top_meta,
+        "question_id": f"{subject}::{paper_stem}::{leaf['number']}",
+        "number": leaf["number"],
+        "question_type": leaf["question_type"],
+        "marks": leaf["marks"],
+        "text": leaf["text"],
+        "options": leaf["options"],
+        "has_images": leaf["has_images"],
+    }
+
+
+def _mark_leaf_dispatch(
+    leaf_meta: dict,
+    answer: str,
+    *,
+    test_id: str | None,
+    student_id: int,
+) -> dict:
+    """Apply MCQ / numeric / free-response marking to one leaf."""
+    qtype = leaf_meta.get("question_type")
+    if qtype == "multiple_choice":
+        return _mark_mcq(leaf_meta, answer)
+    is_numeric = qtype in ("calculation", "long_answer")
+    op = "mark_numeric" if is_numeric else "mark_free"
+    from eXam.cost_tracker import track
+
+    with track(
+        op,
+        test_id=test_id,
+        student_id=student_id,
+        question_id=leaf_meta["question_id"],
+    ):
+        if is_numeric:
+            return _mark_numeric_final(leaf_meta, answer)
+        return _mark_free_response(leaf_meta, answer)
+
+
+def _mark_legacy_single_string(
+    meta: dict,
+    submitted: str,
+    *,
+    test_id: str | None,
+    student_id: int,
+) -> dict:
+    """Legacy path for callers that still send a single string for the whole
+    top-level question (class mode). Behavior is identical to the pre-leaf
+    implementation — kept until class mode is migrated."""
+    qtype = meta.get("question_type")
+    if qtype == "multiple_choice":
+        return _mark_mcq(meta, submitted)
+    is_numeric = qtype in ("calculation", "long_answer")
+    op = "mark_numeric" if is_numeric else "mark_free"
+    from eXam.cost_tracker import track
+
+    with track(op, test_id=test_id, student_id=student_id, question_id=meta["question_id"]):
+        if is_numeric:
+            return _mark_numeric_final(meta, submitted)
+        return _mark_free_response(meta, submitted)
+
+
+def _mark_per_leaf(
+    meta: dict,
+    submitted: dict[str, str],
+    *,
+    test_id: str | None,
+    student_id: int,
+) -> dict:
+    """Mark each leaf independently and aggregate the totals."""
+    leaves = meta.get("leaves") or []
+    per_leaf: list[tuple[dict, dict]] = []
+    for leaf in leaves:
+        answer = submitted.get(leaf["number"], "")
+        leaf_meta = _mark_one_leaf_meta(meta, leaf)
+        verdict = _mark_leaf_dispatch(
+            leaf_meta, answer, test_id=test_id, student_id=student_id,
+        )
+        per_leaf.append((leaf, verdict))
+    total_assigned = sum(float(v["assigned_marks"]) for _, v in per_leaf)
+    total_max = sum(float(v["max_marks"]) for _, v in per_leaf)
+    if len(per_leaf) == 1:
+        reasoning = per_leaf[0][1].get("reasoning", "")
+    else:
+        reasoning = "\n".join(
+            f"{leaf['number_suffix']} {v.get('reasoning', '')}".strip()
+            for leaf, v in per_leaf
+        )
+    return {
+        "assigned_marks": total_assigned,
+        "max_marks": total_max,
+        "reasoning": reasoning,
+    }
+
+
 def mark(
     student_id: int,
     question_id: str,
-    submitted: str,
+    submitted: dict[str, str] | str,
     *,
     test_id: str | None = None,
 ) -> dict:
     """Top-level marking entry point. Returns {assigned_marks, max_marks, reasoning}.
 
-    *test_id* is optional — it's threaded through from web endpoints
-    (api_submit passes ``body.test_id``; open-mode passes ``None``) so AI calls
-    can be attributed in the ``ai_calls`` cost log. MCQ marking is purely
-    deterministic and never makes an AI call, so it skips the tracker.
+    *submitted* accepts both shapes:
+    - ``dict[str, str]`` (current practice page) — keyed by leaf number;
+      marker iterates ``meta["leaves"]`` and grades each independently.
+    - ``str`` (legacy class mode) — single answer for the whole top-level
+      question; preserved verbatim until class mode is migrated.
+
+    *test_id* threads through to ``track()`` so AI calls land in the
+    ``ai_calls`` cost log. MCQ is deterministic and skips the tracker.
     """
     meta = question_metadata(question_id)
     if meta is None:
@@ -279,14 +387,10 @@ def mark(
             "max_marks": 0.0,
             "reasoning": "Question metadata missing.",
         }
-    qtype = meta.get("question_type")
-    if qtype == "multiple_choice":
-        return _mark_mcq(meta, submitted)
-    is_numeric = qtype in ("calculation", "long_answer")
-    op = "mark_numeric" if is_numeric else "mark_free"
-    from eXam.cost_tracker import track
-
-    with track(op, test_id=test_id, student_id=student_id, question_id=question_id):
-        if is_numeric:
-            return _mark_numeric_final(meta, submitted)
-        return _mark_free_response(meta, submitted)
+    if isinstance(submitted, str):
+        return _mark_legacy_single_string(
+            meta, submitted, test_id=test_id, student_id=student_id,
+        )
+    return _mark_per_leaf(
+        meta, submitted, test_id=test_id, student_id=student_id,
+    )
