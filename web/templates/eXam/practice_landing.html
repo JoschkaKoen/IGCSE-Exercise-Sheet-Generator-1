@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Practice — eXam{% endblock %}
+{# 06-landing.css holds the per-subject colour palette (.practice-card[data-subject=…]
+   and .subject-badge-*) — base.html doesn't load it, so pull it in here. #}
+{% block extra_head %}<link rel="stylesheet" href="/static/css/06-landing.css" />{% endblock %}
 {% block content %}
 <header class="mb-8 max-w-3xl">
   <h1 class="font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
@@ -22,15 +25,14 @@
 <section>
   <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
     {% for s in subjects %}
-      {% if s.indexed %}
+      {% if s.available %}
       <a href="/eXam/practice/{{ s.slug }}"
-         class="lib-card group flex items-center gap-3 rounded-2xl border border-white/[0.08]
+         data-subject="{{ s.slug }}"
+         class="practice-card lib-card flex items-center gap-3 rounded-2xl border border-white/[0.08]
                 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-4
-                shadow-black/20 backdrop-blur-sm
-                hover:border-cyan-500/30 hover:from-cyan-500/[0.08] hover:to-white/[0.02]
-                transition focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
-        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10">
-          <svg class="h-5 w-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                shadow-black/20 backdrop-blur-sm focus:outline-none">
+        <div class="practice-card-icon-bg flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
+          <svg class="practice-card-icon h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
           </svg>
@@ -39,7 +41,7 @@
           <div class="truncate text-sm font-semibold text-white">{{ s.display }}</div>
           <div class="text-xs text-slate-500">random 2025 questions</div>
         </div>
-        <svg class="h-4 w-4 text-slate-500 transition group-hover:translate-x-0.5 group-hover:text-cyan-300"
+        <svg class="practice-card-arrow h-4 w-4 text-slate-500"
              fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
@@ -55,10 +57,7 @@
         </div>
         <div class="min-w-0 flex-1">
           <div class="truncate text-sm font-semibold text-slate-300">{{ s.display }}</div>
-          <div class="text-xs text-slate-500">
-            no 2025 papers indexed yet —
-            <code class="rounded bg-black/30 px-1 py-0.5 font-mono text-[10px]">python -m eXam.warm_bank --subject {{ s.slug }}</code>
-          </div>
+          <div class="text-xs text-slate-500">no 2025 papers available yet</div>
         </div>
       </div>
       {% endif %}

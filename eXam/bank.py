@@ -68,6 +68,7 @@ def ensure_question_pdf(
         strips = collect_vector_strips(doc, regions, is_ms=False, cfg=cfg)
         layout_vector_strips_to_pdf(
             strips, str(out_path), header_label=None, name_field=False,
+            trim_to_content=True,
         )
     finally:
         doc.close()

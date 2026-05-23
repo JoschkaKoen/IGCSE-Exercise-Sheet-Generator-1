@@ -486,6 +486,7 @@ def layout_vector_strips_to_pdf(
     page_number_circle: bool = True,
     page_number_raise: float = 2 / 3,
     name_field: bool = False,
+    trim_to_content: bool = False,
 ) -> list[dict[str, Any]]:
     """Flow strips onto A4 pages and write a vector PDF.
 
@@ -510,6 +511,13 @@ def layout_vector_strips_to_pdf(
     *name_field* (default ``False``) draws a ``Name: [___]`` label and rounded
     write-in box in the top-left of every page's header band.  Enable for
     exercise sheets; leave off for mark schemes.
+
+    *trim_to_content* (default ``False``) is for single-question snippet output
+    (the practice-page iframe).  When True, page numbers are skipped entirely
+    and the final page's cropbox is shrunk so its bottom sits one margin
+    below the last strip — no A4 whitespace tail.  The mediabox stays at A4;
+    viewers honour cropbox for display.  Earlier pages (rare multi-page
+    question) stay full A4.
     """
     hl = (header_label or "").strip() or None
 
@@ -758,38 +766,53 @@ def layout_vector_strips_to_pdf(
                     current_page.draw_rect(mapped, fill=(1,1,1), color=(1,1,1))
             y_cursor += sh
 
-    # Add bold centred page numbers at the bottom of every page.
-    _pagenum_fs = _LABEL_FS
-    _pagenum_pad_x = 4.0   # horizontal clearance between text and circle edge
-    _pagenum_pad_y = 2.5   # vertical clearance above baseline / below cap-height
-    for pg in out_doc:
-        label = str(pg.number + 1)
-        w = fitz.get_text_length(label, fontname="hebo", fontsize=_pagenum_fs)
-        x = (A4_WIDTH_PT - w) / 2
-        baseline_y = A4_HEIGHT_PT - _MARGIN_PT
-        cap_h = _pagenum_fs * 0.7   # approximate cap-height
-        cx = A4_WIDTH_PT / 2
-        cy = baseline_y - cap_h / 2
-        rx = w / 2 + _pagenum_pad_x
-        ry = cap_h / 2 + _pagenum_pad_y
-        r = max(rx, ry)             # use a circle (equal radii)
-        offset = page_number_raise * r
-        cy -= offset
-        baseline_y -= offset
-        # Draw the thin circle *before* the text so the text sits on top.
-        if page_number_circle:
-            pg.draw_circle(
-                fitz.Point(cx, cy), r,
-                color=(0, 0, 0), fill=None, width=0.5,
+    if not trim_to_content:
+        # Add bold centred page numbers at the bottom of every page.
+        _pagenum_fs = _LABEL_FS
+        _pagenum_pad_x = 4.0   # horizontal clearance between text and circle edge
+        _pagenum_pad_y = 2.5   # vertical clearance above baseline / below cap-height
+        for pg in out_doc:
+            label = str(pg.number + 1)
+            w = fitz.get_text_length(label, fontname="hebo", fontsize=_pagenum_fs)
+            x = (A4_WIDTH_PT - w) / 2
+            baseline_y = A4_HEIGHT_PT - _MARGIN_PT
+            cap_h = _pagenum_fs * 0.7   # approximate cap-height
+            cx = A4_WIDTH_PT / 2
+            cy = baseline_y - cap_h / 2
+            rx = w / 2 + _pagenum_pad_x
+            ry = cap_h / 2 + _pagenum_pad_y
+            r = max(rx, ry)             # use a circle (equal radii)
+            offset = page_number_raise * r
+            cy -= offset
+            baseline_y -= offset
+            # Draw the thin circle *before* the text so the text sits on top.
+            if page_number_circle:
+                pg.draw_circle(
+                    fitz.Point(cx, cy), r,
+                    color=(0, 0, 0), fill=None, width=0.5,
+                )
+            pg.insert_text(
+                fitz.Point(x, baseline_y),
+                label,
+                fontsize=_pagenum_fs,
+                fontname="hebo",
+                color=(0, 0, 0),
+                render_mode=0,
             )
-        pg.insert_text(
-            fitz.Point(x, baseline_y),
-            label,
-            fontsize=_pagenum_fs,
-            fontname="hebo",
-            color=(0, 0, 0),
-            render_mode=0,
-        )
+    else:
+        # Snippet mode: shrink the final page so it ends one margin below the
+        # last strip, eliminating the A4 whitespace tail in the iframe viewer.
+        if len(out_doc) > 0:
+            last = out_doc[-1]
+            new_h = max(y_cursor + _MARGIN_PT, _MARGIN_PT + 1.0)
+            # set_cropbox uses PyMuPDF coords (y-down from top), so this
+            # picks the top slice — exactly where the strip content sits.
+            # Do NOT also call set_mediabox: it interprets its rect in
+            # PDF-native coords (y-up from bottom), and the same rect would
+            # silently re-aim the page at the empty bottom slice, hiding all
+            # content. Leaving the mediabox at full A4 is fine — viewers
+            # honour cropbox for display.
+            last.set_cropbox(fitz.Rect(0, 0, A4_WIDTH_PT, new_h))
 
     print(f"  Assembling {len(out_doc)} output page(s)...")
     out_doc.save(output_path, deflate=True, garbage=2)

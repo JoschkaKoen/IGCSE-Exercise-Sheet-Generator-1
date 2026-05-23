@@ -18,7 +18,7 @@ from typing import Final
 import yaml
 from fastapi import Request, Response
 
-from eXam.bank import BANK_ROOT, bank_dir_for, ensure_paper_indexed, ensure_question_pdf
+from eXam.bank import bank_dir_for, ensure_paper_indexed, ensure_question_pdf
 from eXam.db import connect
 from eXam.runtime import question_metadata
 from eXercise.config import EXAM_ROOT_BY_KEY
@@ -31,50 +31,53 @@ _COOKIE_TTL_S: Final[int] = 30 * 24 * 60 * 60  # 30 days
 
 @lru_cache(maxsize=64)
 def list_practice_papers(subject: str, year: int = 2025) -> tuple[Path, ...]:
-    """Return QPs (not mark schemes) under ``exams/<subject>/`` whose filename
-    contains *year*. Tuple so lru_cache stays hashable."""
+    """Return QPs (not mark schemes) under ``exams/<subject>/`` for *year*.
+    Tuple so lru_cache stays hashable.
+
+    Handles two filename conventions:
+    - Human-readable: ``0625 Physics June 2025 Question Paper 11.pdf``
+    - Cambridge code: ``0478_s25_qp_11.pdf`` (``s``/``w``/``m`` = May/Oct/March series)
+    """
     root = EXAM_ROOT_BY_KEY.get(subject)
     if root is None or not root.is_dir():
         return ()
     year_s = str(year)
+    code_re = re.compile(rf"_[smw]{year_s[-2:]}_")  # _s25_ / _w25_ / _m25_
     out: list[Path] = []
     for p in sorted(root.glob("*.pdf")):
-        if year_s not in p.name:
+        name = p.name
+        if year_s not in name and not code_re.search(name):
             continue
-        if "Mark Scheme" in p.name or "Examiner Report" in p.name or "Grade Threshold" in p.name:
+        # Must be a question paper (human-readable label or `_qp_` code).
+        if "Question Paper" not in name and "_qp_" not in name:
             continue
-        if "Question Paper" not in p.name:
-            # Some Cambridge papers (e.g. Confidential Instructions) don't carry
-            # a "Question Paper" label; skip them — they're not usable here.
+        if any(tag in name for tag in ("Mark Scheme", "Examiner Report", "Grade Threshold")):
             continue
         out.append(p)
     return tuple(out)
 
 
 def pair_mark_scheme(qp_path: Path) -> Path | None:
-    """Filename-substitution 'Question Paper' → 'Mark Scheme'."""
-    if "Question Paper" not in qp_path.name:
+    """Find the matching mark scheme for *qp_path*. Supports human-readable
+    (``Question Paper`` → ``Mark Scheme``) and Cambridge code (``_qp_`` →
+    ``_ms_``) filename schemes."""
+    name = qp_path.name
+    if "Question Paper" in name:
+        ms_name = name.replace("Question Paper", "Mark Scheme")
+    elif "_qp_" in name:
+        ms_name = name.replace("_qp_", "_ms_")
+    else:
         return None
-    ms_name = qp_path.name.replace("Question Paper", "Mark Scheme")
     ms = qp_path.with_name(ms_name)
     return ms if ms.exists() else None
 
 
-def is_subject_indexed(subject: str, year: int = 2025) -> bool:
-    """True if any 2025 paper for this subject already has a bank dir on disk
-    (used by the landing page to disable cards without forcing AI calls)."""
-    subject_bank = BANK_ROOT / subject
-    if not subject_bank.is_dir():
-        return False
-    year_s = str(year)
-    for paper_dir in subject_bank.iterdir():
-        if not paper_dir.is_dir():
-            continue
-        if year_s not in paper_dir.name:
-            continue
-        if (paper_dir / "exam_questions.yaml").exists():
-            return True
-    return False
+def subject_has_papers(subject: str, year: int = 2025) -> bool:
+    """True if *subject* has any *year* question papers on disk under ``exams/``.
+    Drives the landing page's enabled/disabled card state — un-warmed subjects
+    still show as available; their first click lazy-indexes a paper via
+    ``pick_random_question`` (slower first request, no AI cost up front)."""
+    return bool(list_practice_papers(subject, year))
 
 
 def _gradable_top_level(qs: list[dict]) -> list[dict]:
@@ -221,7 +224,7 @@ def subject_grid() -> list[dict]:
             {
                 "slug": slug,
                 "display": _NAMES.get(slug) or slug.replace("_", " ").title(),
-                "indexed": is_subject_indexed(slug),
+                "available": subject_has_papers(slug),
             }
         )
     return out
