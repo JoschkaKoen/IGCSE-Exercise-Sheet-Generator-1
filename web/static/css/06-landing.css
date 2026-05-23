@@ -108,52 +108,52 @@
   animation: quick-fill-rebound 0.40s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* violet — Computer Science */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(1) {
+/* violet — Computer Science + A-Level Computer Science */
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(1),
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(9) {
   box-shadow: 0 0 0 0.5px rgba(167, 139, 250, 0.12), 0 4px 18px -6px rgba(139, 92, 246, 0.28);
 }
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(1):hover {
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(1):hover,
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(9):hover {
   box-shadow: 0 0 0 0.5px rgba(167, 139, 250, 0.22), 0 12px 36px -6px rgba(139, 92, 246, 0.45);
 }
 
-/* cyan — Physics */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(2) {
+/* cyan — Physics + A-Level Physics */
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(2),
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(6) {
   box-shadow: 0 0 0 0.5px rgba(6, 182, 212, 0.12), 0 4px 18px -6px rgba(6, 182, 212, 0.25);
 }
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(2):hover {
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(2):hover,
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(6):hover {
   box-shadow: 0 0 0 0.5px rgba(6, 182, 212, 0.22), 0 12px 36px -6px rgba(34, 211, 238, 0.42);
 }
 
-/* slate — Chemistry */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3) {
+/* slate — Chemistry + A-Level Chemistry */
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3),
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(8) {
   box-shadow: 0 0 0 0.5px rgba(148, 163, 184, 0.10), 0 4px 18px -6px rgba(148, 163, 184, 0.18);
 }
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3):hover {
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(3):hover,
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(8):hover {
   box-shadow: 0 0 0 0.5px rgba(203, 213, 225, 0.20), 0 12px 36px -6px rgba(203, 213, 225, 0.32);
 }
 
-/* sky — Mathematics */
+/* blue — Mathematics */
 #generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(4) {
-  box-shadow: 0 0 0 0.5px rgba(14, 165, 233, 0.12), 0 4px 18px -6px rgba(14, 165, 233, 0.25);
+  box-shadow: 0 0 0 0.5px rgba(59, 130, 246, 0.12), 0 4px 18px -6px rgba(59, 130, 246, 0.25);
 }
 #generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(4):hover {
-  box-shadow: 0 0 0 0.5px rgba(14, 165, 233, 0.22), 0 12px 36px -6px rgba(14, 165, 233, 0.42);
+  box-shadow: 0 0 0 0.5px rgba(59, 130, 246, 0.22), 0 12px 36px -6px rgba(96, 165, 250, 0.42);
 }
 
-/* emerald — Biology */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(5) {
+/* emerald — Biology + A-Level Biology */
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(5),
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(7) {
   box-shadow: 0 0 0 0.5px rgba(16, 185, 129, 0.12), 0 4px 18px -6px rgba(16, 185, 129, 0.25);
 }
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(5):hover {
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(5):hover,
+#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(7):hover {
   box-shadow: 0 0 0 0.5px rgba(16, 185, 129, 0.22), 0 12px 36px -6px rgba(16, 185, 129, 0.42);
-}
-
-/* indigo — A-Level Computer Science */
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(6) {
-  box-shadow: 0 0 0 0.5px rgba(99, 102, 241, 0.12), 0 4px 18px -6px rgba(99, 102, 241, 0.25);
-}
-#generate-workspace:not(.preview-mode) #gen-form .quick-fill:nth-child(6):hover {
-  box-shadow: 0 0 0 0.5px rgba(99, 102, 241, 0.22), 0 12px 36px -6px rgba(99, 102, 241, 0.42);
 }
 
 #generate-workspace:not(.preview-mode) #submit-btn.btn-space-primary {
@@ -243,59 +243,39 @@
   line-height: 1.35;
 }
 
-.subject-badge-physics {
-  background: rgba(34,211,238,0.12);
-  border: 1px solid rgba(34,211,238,0.25);
+.subject-badge-physics,
+.subject-badge-a-level-physics {
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.25);
   color: rgb(165 243 253);
 }
 
-.subject-badge-cs {
-  background: rgba(167,139,250,0.12);
-  border: 1px solid rgba(167,139,250,0.25);
+.subject-badge-cs,
+.subject-badge-a-level-cs {
+  background: rgba(167, 139, 250, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.25);
   color: rgb(221 214 254);
 }
 
 .subject-badge-math,
 .subject-badge-mathematics {
-  background: rgba(14, 165, 233, 0.12);
-  border: 1px solid rgba(14, 165, 233, 0.25);
-  color: rgb(186 230 255);
+  background: rgba(96, 165, 250, 0.12);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+  color: rgb(191 219 254);
 }
 
-.subject-badge-biology {
+.subject-badge-biology,
+.subject-badge-a-level-biology {
   background: rgba(16, 185, 129, 0.12);
   border: 1px solid rgba(16, 185, 129, 0.25);
   color: rgb(110 231 183);
 }
 
-.subject-badge-chemistry {
-  background: rgba(148, 163, 184, 0.10);
-  border: 1px solid rgba(203, 213, 225, 0.22);
-  color: rgb(226 232 240);
-}
-
-.subject-badge-a-level-physics {
-  background: rgba(45, 212, 191, 0.12);
-  border: 1px solid rgba(45, 212, 191, 0.25);
-  color: rgb(153 246 228);
-}
-
-.subject-badge-a-level-biology {
-  background: rgba(232, 121, 249, 0.12);
-  border: 1px solid rgba(232, 121, 249, 0.25);
-  color: rgb(245 208 254);
-}
-
+.subject-badge-chemistry,
 .subject-badge-a-level-chemistry {
-  background: rgba(252, 211, 77, 0.12);
-  border: 1px solid rgba(252, 211, 77, 0.25);
-  color: rgb(253 230 138);
-}
-
-.subject-badge-a-level-cs {
-  background: rgba(99, 102, 241, 0.12);
-  border: 1px solid rgba(99, 102, 241, 0.25);
-  color: rgb(199 210 254);
+  background: rgba(203, 213, 225, 0.10);
+  border: 1px solid rgba(203, 213, 225, 0.25);
+  color: rgb(226 232 240);
 }
 
 /* ─── Hero icon float ────────────────────────────────────────────────────── */
@@ -397,15 +377,15 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
   cursor: default;
 }
 
-.subject-badge-cs:hover        { filter: brightness(1.18) drop-shadow(0 0 6px rgba(167, 139, 250, 0.45)); }
-.subject-badge-physics:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(34, 211, 238, 0.45)); }
-.subject-badge-chemistry:hover { filter: brightness(1.15) drop-shadow(0 0 5px rgba(203, 213, 225, 0.35)); }
-.subject-badge-mathematics:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(14, 165, 233, 0.45)); }
-.subject-badge-biology:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(16, 185, 129, 0.45)); }
-.subject-badge-a-level-physics:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(45, 212, 191, 0.45)); }
-.subject-badge-a-level-biology:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(232, 121, 249, 0.45)); }
-.subject-badge-a-level-chemistry:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(252, 211, 77, 0.45)); }
-.subject-badge-a-level-cs:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(99, 102, 241, 0.45)); }
+.subject-badge-cs:hover,
+.subject-badge-a-level-cs:hover        { filter: brightness(1.18) drop-shadow(0 0 6px rgba(167, 139, 250, 0.45)); }
+.subject-badge-physics:hover,
+.subject-badge-a-level-physics:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(34, 211, 238, 0.45)); }
+.subject-badge-chemistry:hover,
+.subject-badge-a-level-chemistry:hover { filter: brightness(1.15) drop-shadow(0 0 5px rgba(203, 213, 225, 0.35)); }
+.subject-badge-mathematics:hover       { filter: brightness(1.18) drop-shadow(0 0 6px rgba(96, 165, 250, 0.45)); }
+.subject-badge-biology:hover,
+.subject-badge-a-level-biology:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(16, 185, 129, 0.45)); }
 
 /* ─── Practice subject card ─────────────────────────────────────────────────
    Per-subject accent driven by a CSS variable so one rule set covers all cards.
@@ -415,15 +395,15 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
   --accent-rgb: 148, 163, 184;
   transition: border-color 0.15s ease, background-image 0.15s ease;
 }
-.practice-card[data-subject="physics"]                  { --accent-rgb:  34, 211, 238; }
-.practice-card[data-subject="computer_science"]         { --accent-rgb: 167, 139, 250; }
-.practice-card[data-subject="mathematics"]              { --accent-rgb:  14, 165, 233; }
-.practice-card[data-subject="biology"]                  { --accent-rgb:  16, 185, 129; }
-.practice-card[data-subject="chemistry"]                { --accent-rgb: 203, 213, 225; }
-.practice-card[data-subject="a_level_physics"]          { --accent-rgb:  45, 212, 191; }
-.practice-card[data-subject="a_level_biology"]          { --accent-rgb: 232, 121, 249; }
-.practice-card[data-subject="a_level_chemistry"]        { --accent-rgb: 252, 211,  77; }
-.practice-card[data-subject="a_level_computer_science"] { --accent-rgb:  99, 102, 241; }
+.practice-card[data-subject="physics"],
+.practice-card[data-subject="a_level_physics"]          { --accent-rgb:  34, 211, 238; }
+.practice-card[data-subject="computer_science"],
+.practice-card[data-subject="a_level_computer_science"] { --accent-rgb: 167, 139, 250; }
+.practice-card[data-subject="mathematics"]              { --accent-rgb:  96, 165, 250; }
+.practice-card[data-subject="biology"],
+.practice-card[data-subject="a_level_biology"]          { --accent-rgb:  16, 185, 129; }
+.practice-card[data-subject="chemistry"],
+.practice-card[data-subject="a_level_chemistry"]        { --accent-rgb: 203, 213, 225; }
 
 .practice-card-icon-bg { background-color: rgba(var(--accent-rgb), 0.12); }
 .practice-card-icon    { color: rgb(var(--accent-rgb)); }

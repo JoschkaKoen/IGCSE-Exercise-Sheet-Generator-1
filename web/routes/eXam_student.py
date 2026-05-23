@@ -62,7 +62,9 @@ async def login_page(request: Request):
             )
         ]
     return TEMPLATES.TemplateResponse(
-        "eXam/login_student.html", template_ctx(request, names=names)
+        request,
+        "eXam/login_student.html",
+        template_ctx(request, names=names),
     )
 
 
@@ -122,6 +124,7 @@ async def dashboard(request: Request):
         ).fetchall()
         tests = [dict(r) for r in rows]
     return TEMPLATES.TemplateResponse(
+        request,
         "eXam/student_dashboard.html",
         template_ctx(request, student=student, tests=tests),
     )
@@ -168,6 +171,7 @@ async def test_view(request: Request, test_id: str, q: int | None = None):
                 }
             )
         return TEMPLATES.TemplateResponse(
+            request,
             "eXam/test_overview.html",
             template_ctx(
                 request,
@@ -197,6 +201,7 @@ async def test_view(request: Request, test_id: str, q: int | None = None):
         latest["assigned_marks"] >= latest["max_marks"] and latest["max_marks"] > 0
     )
     return TEMPLATES.TemplateResponse(
+        request,
         "eXam/test_take.html",
         template_ctx(
             request,

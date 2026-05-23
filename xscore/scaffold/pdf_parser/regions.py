@@ -181,6 +181,39 @@ def find_question_positions(
                     positions.append((qid, page_idx, y0, cell, raw, num_span_x1))
 
     positions.sort(key=lambda x: (x[1], x[3].y0, x[3].x0, x[2]))
+
+    # Add continuation positions for pages that have no main question anchor of their
+    # own.  Cambridge questions routinely span page breaks (e.g. Q3(a/b) on page 6,
+    # Q3(c/d/e) on page 7).  Without this, iter_region_segments creates no segment on
+    # the continuation page so its content is dropped, and the eq_blank / lines /
+    # writing-area detector never runs there.
+    if positions:
+        pages_with = {p for _, p, _, _, _, _ in positions}
+        last_qid_by_page: dict[int, str] = {}
+        latest = positions[0][0]
+        for qid, page_idx, _, _, _, _ in positions:
+            latest = qid
+            last_qid_by_page[page_idx] = qid
+        running = positions[0][0]
+        carries: dict[int, str] = {}
+        first_page = min(p for _, p, _, _, _, _ in positions)
+        last_page = max(p for _, p, _, _, _, _ in positions)
+        for page_idx in range(first_page, last_page + 1):
+            if page_idx in last_qid_by_page:
+                running = last_qid_by_page[page_idx]
+            else:
+                carries[page_idx] = running
+
+        for page_idx, carried_qid in carries.items():
+            if page_idx >= len(doc):
+                continue
+            page = doc[page_idx]
+            for cell in page_layout_cells(page):
+                margin_top, _ = cell_margin_band(cell, cfg)
+                positions.append((carried_qid, page_idx, float(margin_top), cell, 0, float(cell.x0)))
+
+        positions.sort(key=lambda x: (x[1], x[3].y0, x[3].x0, x[2]))
+
     return positions
 
 

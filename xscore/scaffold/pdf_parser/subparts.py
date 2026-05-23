@@ -85,6 +85,37 @@ def _parse_margin_plus_letter_line(line_text: str, margin_digits: str) -> tuple[
     return None
 
 
+def _split_letter_roman_inline_lines(lines: list[ClipLine]) -> list[ClipLine]:
+    """Split lines like ``(b) (i) Light...`` into two: ``(b)`` then ``(i) Light...``.
+
+    Without this, the anchor scanner sees only the outer letter and the inner roman
+    anchor is buried in the letter's ``rest``, so subquestion splitting under the
+    letter doesn't happen (e.g. ``6(b)(i)`` would be missing from the parse tree).
+    """
+    pat = re.compile(r"^\s*\(?([a-z])\)\s*\(([ivxlcdm]+)\)\s*(.*)$", re.I)
+    out: list[ClipLine] = []
+    for ln in lines:
+        m = pat.match(ln.text)
+        if m:
+            mid_x = ln.x0 + (ln.x1 - ln.x0) * 0.15
+            out.append(
+                ClipLine(
+                    page=ln.page, x0=ln.x0, y0=ln.y0,
+                    x1=mid_x, y1=ln.y1, text=f"({m.group(1)})",
+                )
+            )
+            out.append(
+                ClipLine(
+                    page=ln.page, x0=mid_x, y0=ln.y0,
+                    x1=ln.x1, y1=ln.y1,
+                    text=f"({m.group(2)}) {m.group(3)}".strip(),
+                )
+            )
+        else:
+            out.append(ln)
+    return out
+
+
 def _merge_margin_digit_with_next_letter_line(
     lines: list[ClipLine], margin_digits: str
 ) -> list[ClipLine]:
@@ -237,6 +268,7 @@ def maybe_split_written_subquestions(
         return q
 
     lines = _merge_margin_digit_with_next_letter_line(lines, margin_digits)
+    lines = _split_letter_roman_inline_lines(lines)
 
     anchors: list[SubAnchor] = []
     for i, ln in enumerate(lines):
@@ -303,18 +335,24 @@ def maybe_split_written_subquestions(
 
     for ai, a in enumerate(anchors):
         seg_lines, seg_text = slice_lines(ai)
-        if not seg_text:
-            continue
-        page = seg_lines[0].page
-        bb = _bbox_union_lines(seg_lines, page) or q.bbox
+        # Empty-content anchors are kept (not skipped) so they can act as parents for
+        # nested roman subparts.  Example: "(b) (i) Light..." gets split into two
+        # lines so the inline "(i)" becomes its own anchor; the "(b)" line then has
+        # empty content but still needs to exist as the parent of (b)(i) and (b)(ii).
+        if seg_lines:
+            page = seg_lines[0].page
+            bb = _bbox_union_lines(seg_lines, page) or q.bbox
+        else:
+            page = a.page
+            bb = BBox(a.x0, a.y0, a.x1, a.y1, page)
         next_a = anchors[ai + 1] if ai + 1 < n else None
         bb = _extend_subpart_bbox_to_next_anchor(bb, next_a)
         bb = expand_bbox_to_subpage_width(doc, bb)
         sq = Question(
             number="",
-            question_type=infer_question_type(seg_text),
+            question_type=infer_question_type(seg_text) if seg_text else q.question_type,
             text=seg_text,
-            marks=infer_marks(seg_text),
+            marks=infer_marks(seg_text) if seg_text else 0,
             bbox=bb,
             images=[],
             writing_areas=[],

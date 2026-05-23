@@ -44,6 +44,7 @@ async def dashboard(request: Request):
     with connect() as conn:
         students = conn.execute("SELECT count(*) AS c FROM students").fetchone()["c"]
     return TEMPLATES.TemplateResponse(
+        request,
         "eXam/teacher_dashboard.html",
         template_ctx(request, tests=tests, students=students),
     )
@@ -53,7 +54,9 @@ async def dashboard(request: Request):
 async def build_page(request: Request):
     _require_teacher(request)
     return TEMPLATES.TemplateResponse(
-        "eXam/teacher_build.html", template_ctx(request)
+        request,
+        "eXam/teacher_build.html",
+        template_ctx(request),
     )
 
 
@@ -112,7 +115,9 @@ async def roster_page(request: Request):
             )
         ]
     return TEMPLATES.TemplateResponse(
-        "eXam/teacher_roster.html", template_ctx(request, students=students)
+        request,
+        "eXam/teacher_roster.html",
+        template_ctx(request, students=students),
     )
 
 
@@ -199,6 +204,7 @@ async def test_detail(test_id: str, request: Request):
             "attempts": r["attempts"],
         }
     return TEMPLATES.TemplateResponse(
+        request,
         "eXam/teacher_test_detail.html",
         template_ctx(
             request,
@@ -246,6 +252,7 @@ async def costs_page(
     _require_teacher(request)
     data = cost_breakdown(since=since, until=until)
     return TEMPLATES.TemplateResponse(
+        request,
         "eXam/teacher_costs.html",
         template_ctx(request, data=data, since=since or "", until=until or ""),
     )

@@ -63,5 +63,31 @@ class ParserConfig:
     equation_blank_nudge_top_pt: float = 5.0
     equation_blank_nudge_bottom_pt: float = 5.0
 
+    # Writing-area detection (unified per-leaf detector covering five kinds:
+    # equation_blank, short_line, lines, box, table_cell).
+    wa_h_rule_max_height_pt: float = 2.0
+    wa_h_rule_min_length_pt: float = 60.0
+    wa_v_rule_max_width_pt: float = 2.0
+    wa_v_rule_min_length_pt: float = 12.0
+    wa_rule_cluster_y_tol_pt: float = 1.5
+    wa_rule_cluster_x_tol_pt: float = 1.5
+    wa_dotted_text_min_run: int = 6
+    wa_dotted_text_baseline_tol_pt: float = 1.0
+    wa_short_line_min_length_pt: float = 110.0
+    # Chain blanks: ≥2 short rules on the same baseline (Cambridge ".. < .. < .." pattern).
+    wa_chain_blank_min_length_pt: float = 25.0
+    wa_chain_blank_baseline_tol_pt: float = 2.0
+    # Cap equation_blank bbox height (legacy detector pads to next structural anchor;
+    # for UI overlay we want a tight box around the writable line).
+    wa_equation_blank_max_height_pt: float = 18.0
+    wa_lines_min_count: int = 2
+    wa_lines_pitch_tol_frac: float = 0.20
+    wa_lines_min_column_coverage_frac: float = 0.45
+    wa_box_min_height_pt: float = 40.0
+    wa_box_min_column_coverage_frac: float = 0.40
+    wa_table_cell_min_side_pt: float = 12.0
+    wa_table_border_completeness_min: float = 0.70
+    wa_mark_indicator_proximity_pt: float = 36.0
+
 
 DEFAULT_PARSER_CONFIG = ParserConfig()

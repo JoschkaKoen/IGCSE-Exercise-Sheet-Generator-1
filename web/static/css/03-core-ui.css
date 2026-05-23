@@ -144,45 +144,17 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
   transition: all 0.2s ease;
 }
 
-.tab-active-teal {
-  background: linear-gradient(135deg, rgba(45,212,191,0.22), rgba(13,148,136,0.28));
-  color: rgb(204 251 241);
-  box-shadow: 0 0 0 1px rgba(45,212,191,0.28) inset;
+.tab-active-blue {
+  background: linear-gradient(135deg, rgba(96,165,250,0.22), rgba(59,130,246,0.28));
+  color: rgb(219 234 254);
+  box-shadow: 0 0 0 1px rgba(96,165,250,0.28) inset;
   transition: all 0.2s ease;
 }
 
-.tab-active-amber {
-  background: linear-gradient(135deg, rgba(251,191,36,0.22), rgba(245,158,11,0.28));
-  color: rgb(254 243 199);
-  box-shadow: 0 0 0 1px rgba(251,191,36,0.28) inset;
-  transition: all 0.2s ease;
-}
-
-.tab-active-indigo {
-  background: linear-gradient(135deg, rgba(129,140,248,0.22), rgba(99,102,241,0.28));
-  color: rgb(199 210 254);
-  box-shadow: 0 0 0 1px rgba(99,102,241,0.28) inset;
-  transition: all 0.2s ease;
-}
-
-.tab-active-sky {
-  background: linear-gradient(135deg, rgba(56,189,248,0.22), rgba(14,165,233,0.28));
-  color: rgb(186 230 253);
-  box-shadow: 0 0 0 1px rgba(56,189,248,0.28) inset;
-  transition: all 0.2s ease;
-}
-
-.tab-active-lime {
-  background: linear-gradient(135deg, rgba(163,230,53,0.22), rgba(132,204,22,0.28));
-  color: rgb(217 249 157);
-  box-shadow: 0 0 0 1px rgba(163,230,53,0.28) inset;
-  transition: all 0.2s ease;
-}
-
-.tab-active-orange {
-  background: linear-gradient(135deg, rgba(251,146,60,0.22), rgba(249,115,22,0.28));
-  color: rgb(254 215 170);
-  box-shadow: 0 0 0 1px rgba(251,146,60,0.28) inset;
+.tab-active-slate {
+  background: linear-gradient(135deg, rgba(203,213,225,0.18), rgba(148,163,184,0.24));
+  color: rgb(226 232 240);
+  box-shadow: 0 0 0 1px rgba(203,213,225,0.28) inset;
   transition: all 0.2s ease;
 }
 
@@ -220,7 +192,6 @@ body:not(.preview-mode-active) .site-header-nav a.nav-link-active {
 /* ─── Library page entrance animations ──────────────────────────────────── */
 body:not(.page-entered) #lib-hero > div:first-child { animation: hero-in 0.1s ease   0ms both; }
 body:not(.page-entered) #lib-hero > div:last-child  { animation: hero-in 0.1s ease  40ms both; }
-body:not(.page-entered) #lib-desc                   { animation: hero-in 0.1s ease 80ms both; }
 body:not(.page-entered) #lib-controls               { animation: hero-in 0.1s ease 100ms both; }
 body:not(.page-entered) #grid-physics               { animation: hero-in 0.1s ease 120ms both; }
 

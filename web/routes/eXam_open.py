@@ -34,6 +34,7 @@ async def landing(request: Request, response: Response):
     stats = open_mode.session_stats(sid)
     subjects = open_mode.subject_grid()
     return TEMPLATES.TemplateResponse(
+        request,
         "eXam/practice_landing.html",
         template_ctx(request, subjects=subjects, stats=stats),
         headers=dict(response.headers),
@@ -54,6 +55,7 @@ async def take(request: Request, response: Response, subject: str):
     stats = open_mode.session_stats(sid, subject=subject)
     response.headers["Cache-Control"] = "no-store"
     return TEMPLATES.TemplateResponse(
+        request,
         "eXam/practice_take.html",
         template_ctx(
             request,
@@ -105,6 +107,7 @@ async def review(
 
     if total == 0:
         return TEMPLATES.TemplateResponse(
+            request,
             "eXam/practice_take.html",
             template_ctx(
                 request,
@@ -135,6 +138,7 @@ async def review(
     )
 
     return TEMPLATES.TemplateResponse(
+        request,
         "eXam/practice_take.html",
         template_ctx(
             request,

@@ -36,7 +36,10 @@ def _page_looks_two_column_portrait(page: fitz.Page) -> bool:
         return False
     split = r.x0 + r.width * 0.42
     n = 0
-    pat = re.compile(r"^(\d{1,2})(\s+|\()")
+    # Require ``\d{1,2}`` followed by ``(letter)`` (e.g. ``2 (a)``) — purely numeric or
+    # number-with-unit patterns ("10 days", "30 years") in data tables would otherwise
+    # falsely flag the page as two-column.
+    pat = re.compile(r"^(\d{1,2})\s*\([a-zA-Z]\)")
     for block in page.get_text("dict")["blocks"]:
         if block["type"] != 0:
             continue

@@ -154,13 +154,23 @@ def infer_equation_blank_bboxes(
 
 
 def assign_answer_field_bboxes(doc: fitz.Document, cfg: ParserConfig, q: Question) -> None:
-    """Assign ``equation_blank_bboxes`` to *q* and all subquestions recursively.
+    """Assign ``writing_areas`` (five-kind taxonomy) and ``equation_blank_bboxes`` to
+    *q* and all subquestions recursively.
 
-    Multiple-choice leaves get an empty list (the exercise ``bbox`` covers the answer area).
+    Multiple-choice leaves and non-leaf nodes get empty lists.  ``equation_blank_bboxes``
+    is derived from the ``equation_blank``-kind entries in ``writing_areas`` so the
+    legacy field stays populated for ``draw_boxes_on_empty_exam`` continuity, with a
+    single source of truth.
     """
+    from xscore.scaffold.pdf_parser.writing_areas import detect_writing_areas
+
     if q.question_type == "multiple_choice" or q.subquestions:
+        q.writing_areas = []
         q.equation_blank_bboxes = []
     else:
-        q.equation_blank_bboxes = infer_equation_blank_bboxes(doc, cfg, q)
+        q.writing_areas = detect_writing_areas(doc, cfg, q)
+        q.equation_blank_bboxes = [
+            wa.bbox for wa in q.writing_areas if wa.kind == "equation_blank"
+        ]
     for sq in q.subquestions:
         assign_answer_field_bboxes(doc, cfg, sq)

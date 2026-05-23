@@ -61,7 +61,6 @@
   /* Library entrance: fade only, no translate */
   body:not(.page-entered) #lib-hero > div:first-child,
   body:not(.page-entered) #lib-hero > div:last-child,
-  body:not(.page-entered) #lib-desc,
   body:not(.page-entered) #lib-controls,
   body:not(.page-entered) #grid-physics {
     animation-name: hero-in-fade;

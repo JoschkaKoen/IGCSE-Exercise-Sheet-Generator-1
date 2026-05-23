@@ -35,26 +35,12 @@
         <article class="lib-card flex items-center gap-3 rounded-2xl border border-white/[0.08]
                         bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-3.5
                         shadow-black/20 backdrop-blur-sm
-                        {% if theme == 'cyan' %}hover:border-cyan-500/25
-                        {% elif theme == 'violet' %}hover:border-violet-500/25
-                        {% elif theme == 'teal' %}hover:border-teal-500/25
-                        {% elif theme == 'amber' %}hover:border-amber-500/25
-                        {% else %}hover:border-emerald-500/25{% endif %}"
+                        hover:border-{{ theme }}-500/25"
                  data-url="{{ row.download_url | e }}"
                  data-name="{{ row.name | e }}"
                  data-search="{{ (row.display_name ~ ' ' ~ row.name ~ ' ' ~ row.group_year ~ ' ' ~ row.group_session ~ ' ' ~ row.paper_kind) | lower | e }}">
-          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg
-                      {% if theme == 'cyan' %}bg-cyan-500/10
-                      {% elif theme == 'violet' %}bg-violet-500/10
-                      {% elif theme == 'teal' %}bg-teal-500/10
-                      {% elif theme == 'amber' %}bg-amber-500/10
-                      {% else %}bg-emerald-500/10{% endif %}">
-            <svg class="h-4 w-4
-                        {% if theme == 'cyan' %}text-cyan-400
-                        {% elif theme == 'violet' %}text-violet-400
-                        {% elif theme == 'teal' %}text-teal-400
-                        {% elif theme == 'amber' %}text-amber-400
-                        {% else %}text-emerald-400{% endif %}"
+          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-{{ theme }}-500/10">
+            <svg class="h-4 w-4 text-{{ theme }}-400"
                  fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -64,11 +50,7 @@
               title="{{ row.name | e }}">{{ row.display_name }}</h2>
           <a href="{{ row.download_url }}"
              class="shrink-0 rounded-xl p-2 transition
-                    {% if theme == 'cyan' %}text-cyan-400 hover:bg-cyan-500/15 hover:text-cyan-300 focus-visible:ring-cyan-400/50
-                    {% elif theme == 'violet' %}text-violet-400 hover:bg-violet-500/15 hover:text-violet-300 focus-visible:ring-violet-400/50
-                    {% elif theme == 'teal' %}text-teal-400 hover:bg-teal-500/15 hover:text-teal-300 focus-visible:ring-teal-400/50
-                    {% elif theme == 'amber' %}text-amber-400 hover:bg-amber-500/15 hover:text-amber-300 focus-visible:ring-amber-400/50
-                    {% else %}text-emerald-400 hover:bg-emerald-500/15 hover:text-emerald-300 focus-visible:ring-emerald-400/50{% endif %}
+                    text-{{ theme }}-400 hover:bg-{{ theme }}-500/15 hover:text-{{ theme }}-300 focus-visible:ring-{{ theme }}-400/50
                     focus:outline-none focus-visible:ring-2"
              aria-label="{{ t('library.download_aria').format(name=row.display_name) }} ({{ row.name | e }})">
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -112,10 +94,6 @@
       </div>
     </div>
 
-    <p id="lib-desc" class="mt-3 sm:mt-5 max-w-xl text-[0.95rem] leading-relaxed text-slate-400">
-      {{ t('library.hero.subtitle') }}
-    </p>
-
     <!-- Controls: tab row scrolls horizontally on narrow screens; buttons must not shrink (mobile tap targets). -->
     <div id="lib-controls" class="mt-6 sm:mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div class="min-w-0 w-full sm:w-auto lib-subject-tab-scroll">
@@ -144,7 +122,7 @@
                   data-subject="mathematics"
                   role="tab" aria-selected="false" aria-controls="grid-math">
             <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
+              <span class="h-2 w-2 shrink-0 rounded-full bg-blue-400"></span>
               Mathematics
             </span>
           </button>
@@ -153,7 +131,7 @@
                   data-subject="biology"
                   role="tab" aria-selected="false" aria-controls="grid-biology">
             <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-teal-400"></span>
+              <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
               Biology
             </span>
           </button>
@@ -162,7 +140,7 @@
                   data-subject="chemistry"
                   role="tab" aria-selected="false" aria-controls="grid-chemistry">
             <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
+              <span class="h-2 w-2 shrink-0 rounded-full bg-slate-400"></span>
               Chemistry
             </span>
           </button>
@@ -171,7 +149,7 @@
                   data-subject="a_level_physics"
                   role="tab" aria-selected="false" aria-controls="grid-a-level-physics">
             <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-sky-400"></span>
+              <span class="h-2 w-2 shrink-0 rounded-full bg-cyan-400"></span>
               A-Level Physics
             </span>
           </button>
@@ -180,7 +158,7 @@
                   data-subject="a_level_biology"
                   role="tab" aria-selected="false" aria-controls="grid-a-level-biology">
             <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-lime-400"></span>
+              <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
               A-Level Bio
             </span>
           </button>
@@ -189,7 +167,7 @@
                   data-subject="a_level_chemistry"
                   role="tab" aria-selected="false" aria-controls="grid-a-level-chemistry">
             <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-orange-400"></span>
+              <span class="h-2 w-2 shrink-0 rounded-full bg-slate-400"></span>
               A-Level Chem
             </span>
           </button>
@@ -198,7 +176,7 @@
                   data-subject="a_level_computer_science"
                   role="tab" aria-selected="false" aria-controls="grid-a-level-cs">
             <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-indigo-400"></span>
+              <span class="h-2 w-2 shrink-0 rounded-full bg-violet-400"></span>
               A-Level CS
             </span>
           </button>
@@ -277,13 +255,13 @@ import { getPdfState } from '/static/js/state.js';
 var tabs = [
   { id: 'tab-physics',           subject: 'physics',                  gridId: 'grid-physics',           activeClass: 'tab-active',         theme: 'cyan',    label: 'Physics'          },
   { id: 'tab-cs',                subject: 'computer_science',         gridId: 'grid-cs',                activeClass: 'tab-active-violet',  theme: 'violet',  label: 'Computer Science' },
-  { id: 'tab-math',              subject: 'mathematics',              gridId: 'grid-math',              activeClass: 'tab-active-emerald', theme: 'emerald', label: 'Mathematics'      },
-  { id: 'tab-biology',           subject: 'biology',                  gridId: 'grid-biology',           activeClass: 'tab-active-teal',    theme: 'teal',    label: 'Biology'          },
-  { id: 'tab-chemistry',         subject: 'chemistry',                gridId: 'grid-chemistry',         activeClass: 'tab-active-amber',   theme: 'amber',   label: 'Chemistry'        },
-  { id: 'tab-a-level-physics',   subject: 'a_level_physics',          gridId: 'grid-a-level-physics',   activeClass: 'tab-active-sky',     theme: 'sky',     label: 'A-Level Physics'  },
-  { id: 'tab-a-level-biology',   subject: 'a_level_biology',          gridId: 'grid-a-level-biology',   activeClass: 'tab-active-lime',    theme: 'lime',    label: 'A-Level Bio'      },
-  { id: 'tab-a-level-chemistry', subject: 'a_level_chemistry',        gridId: 'grid-a-level-chemistry', activeClass: 'tab-active-orange',  theme: 'orange',  label: 'A-Level Chem'     },
-  { id: 'tab-a-level-cs',        subject: 'a_level_computer_science', gridId: 'grid-a-level-cs',        activeClass: 'tab-active-indigo',  theme: 'indigo',  label: 'A-Level CS'       },
+  { id: 'tab-math',              subject: 'mathematics',              gridId: 'grid-math',              activeClass: 'tab-active-blue',    theme: 'blue',    label: 'Mathematics'      },
+  { id: 'tab-biology',           subject: 'biology',                  gridId: 'grid-biology',           activeClass: 'tab-active-emerald', theme: 'emerald', label: 'Biology'          },
+  { id: 'tab-chemistry',         subject: 'chemistry',                gridId: 'grid-chemistry',         activeClass: 'tab-active-slate',   theme: 'slate',   label: 'Chemistry'        },
+  { id: 'tab-a-level-physics',   subject: 'a_level_physics',          gridId: 'grid-a-level-physics',   activeClass: 'tab-active',         theme: 'cyan',    label: 'A-Level Physics'  },
+  { id: 'tab-a-level-biology',   subject: 'a_level_biology',          gridId: 'grid-a-level-biology',   activeClass: 'tab-active-emerald', theme: 'emerald', label: 'A-Level Bio'      },
+  { id: 'tab-a-level-chemistry', subject: 'a_level_chemistry',        gridId: 'grid-a-level-chemistry', activeClass: 'tab-active-slate',   theme: 'slate',   label: 'A-Level Chem'     },
+  { id: 'tab-a-level-cs',        subject: 'a_level_computer_science', gridId: 'grid-a-level-cs',        activeClass: 'tab-active-violet',  theme: 'violet',  label: 'A-Level CS'       },
 ];
 tabs.forEach(function (t) {
   t.el   = document.getElementById(t.id);

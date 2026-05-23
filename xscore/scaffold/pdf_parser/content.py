@@ -322,14 +322,41 @@ def default_mcq_leaf_marks(q: Question) -> None:
 
 
 def _mc_options_block_start_index(lines: list[str]) -> int | None:
-    """Index of line with ``A`` (alone) when ``B`` and ``C`` appear as letter lines below."""
+    """Index of line with ``A`` (alone) that starts a real MC options block.
+
+    Requires not just A, B, C as letters but also non-empty *body* text between
+    each consecutive pair of letters — without that, A/B/C/D back-to-back is
+    almost always a set of diagram labels (e.g. vertex letters on a triangle),
+    not multiple-choice options.
+    """
+    letter_re = re.compile(r"\s*([A-D])\s*", re.I)
+
+    def letter_of(ln: str) -> str | None:
+        m = re.fullmatch(letter_re, ln)
+        return m.group(1).upper() if m else None
+
+    n = len(lines)
     for i, ln in enumerate(lines):
-        if not re.fullmatch(r"\s*A\s*", ln, re.I):
+        if letter_of(ln) != "A":
             continue
-        tail = lines[i + 1 :]
-        has_b = any(re.fullmatch(r"\s*B\s*", x, re.I) for x in tail)
-        has_c = any(re.fullmatch(r"\s*C\s*", x, re.I) for x in tail)
-        if has_b and has_c:
+        seen = ["A"]
+        last_letter_idx = i
+        expect = "B"
+        for j in range(i + 1, n):
+            ll = letter_of(lines[j])
+            if ll == expect:
+                has_body = any(
+                    lines[k].strip() and letter_of(lines[k]) is None
+                    for k in range(last_letter_idx + 1, j)
+                )
+                if not has_body:
+                    break
+                seen.append(expect)
+                last_letter_idx = j
+                if expect == "D":
+                    break
+                expect = chr(ord(expect) + 1)
+        if len(seen) >= 3:
             return i
     return None
 
@@ -406,7 +433,10 @@ def ensure_multiple_choice_options_parsed(q: Question) -> None:
 
 def infer_question_type(text: str) -> str:
     tl = text.lower()
-    if "multiple choice" in tl or re.search(r"(?m)^\s*[A-Da-d]\s{1,4}\d", text):
+    # Use [ \t] (not \s) for the gap between letter and digit so the regex doesn't
+    # match across newlines.  Otherwise "D\n4 cm" (a diagram vertex label followed
+    # by a side length on the next line) falsely classifies the question as MCQ.
+    if "multiple choice" in tl or re.search(r"(?m)^[ \t]*[A-Da-d][ \t]{1,4}\d", text):
         return "multiple_choice"
     lines = text.splitlines()
     if _mc_options_block_start_index(lines) is not None:
