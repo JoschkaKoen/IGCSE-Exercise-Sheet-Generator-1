@@ -1,24 +1,30 @@
-{% extends "eXam/base.html" %}
-{% block title %}Dashboard · eXam{% endblock %}
-{% block header_right %}
-<div class="text-sm text-slate-600">
-  {{ student.name }}{% if student.class_label %} · {{ student.class_label }}{% endif %}
-  · <button onclick="logout()" class="underline">Log out</button>
-</div>
-{% endblock %}
+{% extends "base.html" %}
+{% block title %}Your tests · eXam{% endblock %}
 {% block content %}
-<h1 class="text-2xl font-semibold mb-6">Your tests</h1>
+<header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">Your tests</h1>
+  <div class="text-sm text-slate-400">
+    {{ student.name }}{% if student.class_label %} · <span class="text-slate-500">{{ student.class_label }}</span>{% endif %}
+    · <button onclick="logout()" class="text-cyan-300 underline hover:text-cyan-200">Log out</button>
+  </div>
+</header>
+
 {% if not tests %}
-<p class="text-slate-600">No tests available yet. Your teacher hasn't published anything for your class.</p>
+<div class="rounded-2xl border border-dashed border-white/10 p-10 text-center text-sm text-slate-500">
+  No tests available yet — your teacher hasn't published anything for your class.
+</div>
 {% else %}
-<ul class="space-y-3">
+<ul class="space-y-2">
   {% for t in tests %}
-  <li class="bg-white rounded shadow-sm border border-slate-200 p-4 flex items-center justify-between">
-    <div>
-      <a href="/eXam/test/{{ t.id }}" class="text-lg font-medium text-slate-900 hover:underline">{{ t.title }}</a>
-      <div class="text-sm text-slate-500">{{ t.subject }}{% if t.class_label %} · {{ t.class_label }}{% endif %}</div>
-    </div>
-    <a href="/eXam/test/{{ t.id }}" class="bg-slate-900 text-white text-sm font-medium px-3 py-1.5 rounded hover:bg-slate-800">Open</a>
+  <li>
+    <a href="/eXam/test/{{ t.id }}"
+       class="lib-card group flex items-center justify-between gap-4 rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-4 hover:border-cyan-500/30">
+      <div class="min-w-0">
+        <div class="truncate font-medium text-white">{{ t.title }}</div>
+        <div class="text-xs text-slate-500">{{ t.subject }}{% if t.class_label %} · {{ t.class_label }}{% endif %}</div>
+      </div>
+      <span class="rounded-xl border border-white/[0.12] bg-white/[0.04] px-3 py-1.5 text-sm text-slate-300 group-hover:bg-white/[0.10] group-hover:text-white">Open →</span>
+    </a>
   </li>
   {% endfor %}
 </ul>

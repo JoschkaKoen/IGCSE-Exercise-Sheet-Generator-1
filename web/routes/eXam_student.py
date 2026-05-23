@@ -288,29 +288,13 @@ async def api_helper(request: Request):
     kind = body.get("kind")
     if not qid or kind not in {"hint", "solution", "example", "kb"}:
         raise HTTPException(status_code=400, detail="Bad helper request")
-    with connect() as conn:
-        row = conn.execute(
-            "SELECT content FROM question_helpers WHERE question_id=? AND kind=?",
-            (qid, kind),
-        ).fetchone()
-        if row is not None:
-            return {"ok": True, "content": row["content"], "cache_hit": True}
-    # Cache miss: try lazy generation (Phase D adds this). Belt-and-braces.
-    try:
-        from eXam.pregenerate import pregenerate_for_question
-    except ImportError:
-        raise HTTPException(status_code=503, detail="Helper unavailable; ask teacher to pregenerate")
-    rec = {"question_id": qid}
+    from eXam.pregenerate import pregenerate_for_question, read_cached
+    cached = read_cached(qid, kind)
+    if cached is not None:
+        return {"ok": True, "content": cached, "cache_hit": True}
     subject = qid.split("::", 1)[0]
     try:
-        pregenerate_for_question(rec, subject, kind)
+        content = pregenerate_for_question({"question_id": qid}, subject, kind)
     except Exception as e:  # noqa: BLE001
         raise HTTPException(status_code=503, detail=f"Helper generation failed: {e}")
-    with connect() as conn:
-        row = conn.execute(
-            "SELECT content FROM question_helpers WHERE question_id=? AND kind=?",
-            (qid, kind),
-        ).fetchone()
-    if row is None:
-        raise HTTPException(status_code=503, detail="Helper generation failed")
-    return {"ok": True, "content": row["content"], "cache_hit": False}
+    return {"ok": True, "content": content, "cache_hit": False}

@@ -1,13 +1,19 @@
-{% extends "eXam/base.html" %}
+{% extends "base.html" %}
 {% block title %}{{ test.title }} · Teacher · eXam{% endblock %}
-{% block header_right %}<div class="text-sm"><a href="/eXam/teacher/" class="underline">← Dashboard</a></div>{% endblock %}
 {% block content %}
-<h1 class="text-2xl font-semibold mb-1">{{ test.title }}</h1>
-<p class="text-slate-500 text-sm mb-6">{{ test.subject }} · class {{ test.class_label or '—' }} · status: {{ test.status }} · <a href="/eXam/teacher/export/{{ test.id }}.xlsx" class="underline">Download XLSX</a></p>
+<header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+  <div>
+    <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">{{ test.title }}</h1>
+    <p class="text-sm text-slate-500">{{ test.subject }} · class {{ test.class_label or '—' }} · {{ test.status }}
+      · <a href="/eXam/teacher/export/{{ test.id }}.xlsx" class="text-cyan-300 underline hover:text-cyan-200">Download XLSX</a>
+    </p>
+  </div>
+  <a href="/eXam/teacher/" class="text-sm text-cyan-300 underline hover:text-cyan-200">← Dashboard</a>
+</header>
 
-<div class="overflow-x-auto">
-<table class="bg-white border border-slate-200 rounded text-sm">
-  <thead class="text-left text-slate-500 border-b border-slate-200">
+<div class="overflow-x-auto glass-panel rounded-2xl">
+<table class="w-full text-sm">
+  <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
     <tr>
       <th class="px-3 py-2">Student</th>
       <th class="px-3 py-2">Class</th>
@@ -19,17 +25,17 @@
     <tr><td colspan="{{ qids|length + 2 }}" class="px-3 py-6 text-center text-slate-500">No attempts yet.</td></tr>
     {% endif %}
     {% for r in rows %}
-    <tr class="border-b border-slate-100 last:border-b-0">
-      <td class="px-3 py-2 font-medium">{{ r.name }}</td>
-      <td class="px-3 py-2 text-slate-600">{{ r.class_label or '' }}</td>
+    <tr class="border-b border-white/[0.04] last:border-b-0 hover:bg-white/[0.02]">
+      <td class="px-3 py-2 font-medium text-white">{{ r.name }}</td>
+      <td class="px-3 py-2 text-slate-400">{{ r.class_label or '' }}</td>
       {% for qid in qids %}
         {% set cell = r.qs.get(qid) %}
-        <td class="px-3 py-2 font-mono">
+        <td class="px-3 py-2 font-mono text-xs">
           {% if cell %}
-            {% if cell.marks >= cell.max and cell.max > 0 %}<span class="text-emerald-700">{% else %}<span class="text-amber-700">{% endif %}
+            {% if cell.marks >= cell.max and cell.max > 0 %}<span class="text-emerald-300">{% else %}<span class="text-amber-300">{% endif %}
             {{ "%.1f"|format(cell.marks) }}/{{ "%.0f"|format(cell.max) }}{% if cell.attempts > 1 %} ×{{ cell.attempts }}{% endif %}
             </span>
-          {% else %}<span class="text-slate-300">—</span>{% endif %}
+          {% else %}<span class="text-slate-600">—</span>{% endif %}
         </td>
       {% endfor %}
     </tr>
@@ -38,15 +44,15 @@
 </table>
 </div>
 
-<h2 class="text-lg font-medium mt-8 mb-2">Helpers</h2>
-<p class="text-sm text-slate-600 mb-3">Regenerate a helper if its content is misleading or revealing.</p>
-<div class="space-y-2 max-w-3xl">
+<h2 class="mt-8 mb-2 font-display text-lg font-semibold text-white">Helpers</h2>
+<p class="mb-3 text-sm text-slate-500">Regenerate a helper if its content is misleading or revealing.</p>
+<div class="max-w-3xl space-y-2">
   {% for qid in qids %}
-  <div class="bg-white border border-slate-200 rounded p-3 flex items-center justify-between">
-    <span class="font-mono text-sm">{{ qid }}</span>
-    <span class="flex gap-2">
+  <div class="glass-panel flex items-center justify-between rounded-2xl p-3">
+    <span class="truncate font-mono text-xs text-slate-300">{{ qid }}</span>
+    <span class="flex flex-wrap gap-2">
       {% for k in ['hint', 'solution', 'example', 'kb'] %}
-      <button class="regen-btn px-2 py-1 border border-slate-300 rounded text-xs hover:bg-slate-100"
+      <button class="regen-btn rounded-lg border border-white/[0.10] bg-white/[0.04] px-2 py-1 text-xs text-slate-300 hover:bg-white/[0.10]"
               data-qid="{{ qid }}" data-kind="{{ k }}">↻ {{ k }}</button>
       {% endfor %}
     </span>
@@ -60,12 +66,11 @@ document.querySelectorAll(".regen-btn").forEach(btn => {
     const orig = btn.textContent;
     btn.disabled = true; btn.textContent = "…";
     const res = await fetch("/eXam/teacher/regenerate-helper", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
+      method:"POST", headers:{"Content-Type":"application/json"},
       body: JSON.stringify({question_id: btn.dataset.qid, kind: btn.dataset.kind}),
     });
     btn.textContent = res.ok ? "✓" : "✗";
-    setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 1500);
+    setTimeout(()=>{btn.textContent = orig; btn.disabled = false;}, 1400);
   });
 });
 </script>

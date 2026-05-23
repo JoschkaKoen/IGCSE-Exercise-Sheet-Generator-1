@@ -13,12 +13,33 @@ import datetime as _dt
 import os
 import time
 import traceback
+from pathlib import Path
 
+from eXam.bank import bank_dir_for
 from eXam.db import connect
 from eXam.prompts.loader import load_prompt
-from eXam.runtime import mark_scheme_entry, pdf_path_for, question_metadata
+from eXam.runtime import (
+    mark_scheme_entry,
+    parse_question_id,
+    pdf_path_for,
+    question_metadata,
+)
 
 KINDS = ("hint", "solution", "example", "kb")
+
+
+def helper_path(question_id: str, kind: str) -> Path:
+    """`<bank>/<subject>/<paper_stem>/<qnum>/helpers/<kind>.md`."""
+    subject, paper_stem, qnum = parse_question_id(question_id)
+    return bank_dir_for(subject, Path(paper_stem)) / qnum / "helpers" / f"{kind}.md"
+
+
+def read_cached(question_id: str, kind: str) -> str | None:
+    """Return cached helper content if the file exists, else None."""
+    p = helper_path(question_id, kind)
+    if not p.exists():
+        return None
+    return p.read_text(encoding="utf-8")
 
 _MODEL_ENV_BY_KIND = {
     "hint": "EXAM_HINT_MODEL",
@@ -123,18 +144,13 @@ def _call_pdf_gemini(system: str, user: str, pdf_path) -> tuple[str, str]:
 
 
 def pregenerate_for_question(rec: dict, subject: str, kind: str, *, force: bool = False) -> str:
-    """Generate (and cache) one helper. Returns the content text."""
+    """Generate (and cache to disk) one helper. Returns the content text."""
     if kind not in KINDS:
         raise ValueError(f"unknown kind: {kind}")
     qid = rec["question_id"]
-    if not force:
-        with connect() as conn:
-            row = conn.execute(
-                "SELECT content FROM question_helpers WHERE question_id=? AND kind=?",
-                (qid, kind),
-            ).fetchone()
-        if row is not None:
-            return row["content"]
+    path = helper_path(qid, kind)
+    if not force and path.exists():
+        return path.read_text(encoding="utf-8")
 
     meta = question_metadata(qid)
     if meta is None:
@@ -143,33 +159,18 @@ def pregenerate_for_question(rec: dict, subject: str, kind: str, *, force: bool 
     meta["subject"] = subject
 
     system, user = _build_prompt(kind, meta)
-
     pdf = pdf_path_for(qid) if meta.get("has_images") else None
 
     started = time.monotonic()
-    try:
-        if pdf is not None and pdf.exists():
-            content, model_id = _call_pdf_gemini(system, user, pdf)
-        else:
-            content, model_id = _call_text_qwen(kind, system, user)
-    except Exception:
-        # Re-raise — caller decides whether to soldier on with the next kind.
-        raise
+    if pdf is not None and pdf.exists():
+        content, model_id = _call_pdf_gemini(system, user, pdf)
+    else:
+        content, model_id = _call_text_qwen(kind, system, user)
     elapsed = time.monotonic() - started
-    print(f"[pregen] {kind} for {qid} ({model_id}, {elapsed:.1f}s)")
+    print(f"[pregen] {kind} for {qid} ({model_id}, {elapsed:.1f}s) → {path}")
 
-    with connect() as conn:
-        conn.execute(
-            """
-            INSERT INTO question_helpers (question_id, kind, content, generated_with, created_at)
-            VALUES (?, ?, ?, ?, ?)
-            ON CONFLICT (question_id, kind) DO UPDATE SET
-                content=excluded.content,
-                generated_with=excluded.generated_with,
-                created_at=excluded.created_at
-            """,
-            (qid, kind, content, model_id, _now()),
-        )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
     return content
 
 

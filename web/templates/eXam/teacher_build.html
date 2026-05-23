@@ -1,39 +1,45 @@
-{% extends "eXam/base.html" %}
+{% extends "base.html" %}
 {% block title %}Build test · eXam{% endblock %}
-{% block header_right %}
-<div class="text-sm"><a href="/eXam/teacher/" class="underline">← Dashboard</a></div>
-{% endblock %}
 {% block content %}
-<h1 class="text-2xl font-semibold mb-6">New practice test</h1>
-<form id="build-form" class="space-y-4 bg-white rounded shadow-sm border border-slate-200 p-6 max-w-2xl">
+<header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">New practice test</h1>
+  <a href="/eXam/teacher/" class="text-sm text-cyan-300 underline hover:text-cyan-200">← Dashboard</a>
+</header>
+
+<form id="build-form" class="glass-panel form-glow max-w-2xl space-y-4 rounded-2xl p-6">
   <div>
-    <label class="block text-sm font-medium mb-1">Natural-language description</label>
+    <label class="mb-1 block text-sm font-medium text-slate-200">Natural-language description</label>
     <textarea name="prompt" rows="4" required
-      class="w-full border border-slate-300 rounded px-3 py-2 text-sm"
-      placeholder="e.g. questions 1-10 of 0625 physics November 2025 paper 11"></textarea>
-    <p class="text-xs text-slate-500 mt-1">Same format as the eXercise sheet generator — name papers + question numbers.</p>
+              class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 text-sm text-slate-100 placeholder:text-slate-500 shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
+              placeholder="e.g. questions 1-10 of 0625 physics November 2025 paper 11"></textarea>
+    <p class="mt-1 text-xs text-slate-500">Same format as the eXercise sheet generator — name papers + question numbers.</p>
   </div>
   <div class="grid grid-cols-2 gap-4">
     <div>
-      <label class="block text-sm font-medium mb-1">Title (optional)</label>
-      <input name="title" class="w-full border border-slate-300 rounded px-3 py-2 text-sm">
+      <label class="mb-1 block text-sm font-medium text-slate-200">Title (optional)</label>
+      <input name="title"
+             class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-2.5 text-sm text-slate-100 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
     </div>
     <div>
-      <label class="block text-sm font-medium mb-1">Class label (optional)</label>
-      <input name="class_label" class="w-full border border-slate-300 rounded px-3 py-2 text-sm">
+      <label class="mb-1 block text-sm font-medium text-slate-200">Class label (optional)</label>
+      <input name="class_label"
+             class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-2.5 text-sm text-slate-100 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
     </div>
   </div>
-  <div class="flex items-center gap-4">
-    <label class="inline-flex items-center gap-2 text-sm"><input type="checkbox" name="randomize"> Randomize question order per student</label>
-    <label class="inline-flex items-center gap-2 text-sm"><input type="checkbox" name="no_helpers"> Skip helper pre-generation (fast)</label>
+  <div class="flex flex-wrap items-center gap-4 text-sm text-slate-200">
+    <label class="inline-flex items-center gap-2"><input type="checkbox" name="randomize" class="accent-cyan-400"> Randomize order per student</label>
+    <label class="inline-flex items-center gap-2"><input type="checkbox" name="no_helpers" class="accent-cyan-400"> Skip helper pre-generation (fast)</label>
   </div>
-  <button type="submit" class="bg-slate-900 text-white px-4 py-1.5 rounded text-sm font-medium hover:bg-slate-800">Build</button>
-  <p id="err" class="text-sm text-red-600 hidden"></p>
+  <button type="submit"
+          class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">
+    Build
+  </button>
+  <p id="err" class="hidden text-sm text-red-300"></p>
 </form>
 
-<div id="progress" class="hidden mt-6 max-w-2xl bg-white rounded shadow-sm border border-slate-200 p-6">
-  <div class="text-sm font-medium mb-2">Building…</div>
-  <div id="progress-line" class="text-sm text-slate-600">Queued.</div>
+<div id="progress" class="mt-6 hidden max-w-2xl glass-panel rounded-2xl p-6">
+  <div class="text-sm font-semibold text-slate-200">Building…</div>
+  <div id="progress-line" class="mt-1 text-sm text-slate-400">Queued.</div>
 </div>
 
 <script>
@@ -51,12 +57,11 @@ form.addEventListener("submit", async (e) => {
   const err = document.getElementById("err");
   err.classList.add("hidden");
   const res = await fetch("/eXam/teacher/build", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
+    method:"POST", headers:{"Content-Type":"application/json"},
     body: JSON.stringify(body),
   });
   if (!res.ok) {
-    const data = await res.json().catch(() => ({}));
+    const data = await res.json().catch(()=>({}));
     err.textContent = data.detail || "Build failed";
     err.classList.remove("hidden");
     return;
@@ -70,17 +75,15 @@ form.addEventListener("submit", async (e) => {
     if (!r.ok) { line.textContent = "Status unavailable."; return; }
     const s = await r.json();
     if (s.status === "ready") {
-      line.innerHTML = `✓ Ready. <a class="underline" href="/eXam/teacher/test/${testId}">Open</a>`;
+      line.innerHTML = `✓ Ready. <a class="text-cyan-300 underline hover:text-cyan-200" href="/eXam/teacher/test/${testId}">Open</a>`;
       return;
     }
     if (s.status === "failed") {
-      line.innerHTML = `✗ Failed. <pre class="text-xs whitespace-pre-wrap mt-2">${s.error || ""}</pre>`;
+      line.innerHTML = `✗ Failed. <pre class="mt-2 whitespace-pre-wrap text-xs text-red-300">${s.error || ""}</pre>`;
       return;
     }
     const p = s.progress;
-    if (p) {
-      line.textContent = `[${p.step}] ${p.current}/${p.total}` + (p.qnum ? ` — ${p.qnum}` : "");
-    }
+    if (p) line.textContent = `[${p.step}] ${p.current}/${p.total}` + (p.qnum ? ` — ${p.qnum}` : "");
     setTimeout(tick, 1000);
   };
   tick();

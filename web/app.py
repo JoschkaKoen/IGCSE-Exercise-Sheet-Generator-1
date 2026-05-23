@@ -27,6 +27,7 @@ from .auth_gate import (
     parse_login_disabled,
     request_is_authenticated,
 )
+from .routes.eXam_open import router as eXam_open_router
 from .routes.eXam_student import router as eXam_student_router
 from .routes.eXam_teacher import router as eXam_teacher_router
 from .routes.grade_jobs import router as grade_jobs_router
@@ -118,3 +119,7 @@ app.include_router(nl_jobs_router)
 app.include_router(grade_jobs_router)
 app.include_router(eXam_student_router)
 app.include_router(eXam_teacher_router)
+# Open-mode public-practice routes — anonymous, no login.
+# NOTE: if site login is ever enabled (DISABLE_LOGIN=false), whitelist
+# /eXam/practice/* in the /api/* gate above analogously to /api/auth/login.
+app.include_router(eXam_open_router)

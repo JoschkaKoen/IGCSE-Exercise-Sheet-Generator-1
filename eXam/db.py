@@ -61,14 +61,32 @@ CREATE TABLE IF NOT EXISTS attempts (
 CREATE INDEX IF NOT EXISTS attempts_latest
   ON attempts (student_id, test_id, question_id, attempt_number DESC);
 
-CREATE TABLE IF NOT EXISTS question_helpers (
-  question_id TEXT NOT NULL,
-  kind TEXT NOT NULL,
-  content TEXT NOT NULL,
-  generated_with TEXT NOT NULL,
+-- Helpers (hint / solution / example / kb) are cached on disk under
+-- output/eXam/bank/<subject>/<paper>/<qnum>/helpers/<kind>.md, not in SQLite.
+-- The legacy question_helpers table is intentionally not created here;
+-- any pre-existing copy on already-migrated DBs sits dormant and harmless.
+
+-- Open-mode (anonymous, public-website practice) — see eXam/open_mode.py.
+CREATE TABLE IF NOT EXISTS open_sessions (
+  id TEXT PRIMARY KEY,
   created_at TEXT NOT NULL,
-  PRIMARY KEY (question_id, kind)
+  last_seen_at TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS open_attempts (
+  id INTEGER PRIMARY KEY,
+  session_id TEXT NOT NULL REFERENCES open_sessions(id),
+  question_id TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  submitted TEXT NOT NULL,
+  assigned_marks REAL NOT NULL,
+  max_marks REAL NOT NULL,
+  reasoning TEXT,
+  submitted_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS open_attempts_by_session
+  ON open_attempts (session_id, submitted_at DESC);
 """
 
 _init_lock = threading.Lock()

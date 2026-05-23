@@ -1,32 +1,32 @@
-{% extends "eXam/base.html" %}
+{% extends "base.html" %}
 {% block title %}{{ test.title }} · eXam{% endblock %}
-{% block header_right %}
-<div class="text-sm text-slate-600">
-  {{ student.name }} · <a href="/eXam/" class="underline">Dashboard</a>
-</div>
-{% endblock %}
 {% block content %}
-<h1 class="text-2xl font-semibold mb-1">{{ test.title }}</h1>
-<p class="text-slate-500 text-sm mb-6">{{ test.subject }} · {{ items|length }} questions</p>
+<header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+  <div>
+    <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">{{ test.title }}</h1>
+    <p class="text-sm text-slate-500">{{ test.subject }} · {{ items|length }} questions</p>
+  </div>
+  <a href="/eXam/" class="text-sm text-cyan-300 underline hover:text-cyan-200">← All tests</a>
+</header>
 
 <ul class="space-y-2">
   {% for it in items %}
-  <li class="bg-white rounded border border-slate-200 px-4 py-3 flex items-center justify-between">
+  <li class="lib-card flex items-center justify-between gap-3 rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-3.5">
     <div class="flex items-center gap-4">
       <span class="font-mono text-sm text-slate-500 w-12">Q{{ it.number }}</span>
       {% if it.status == 'correct' %}
-        <span class="text-emerald-600 font-medium">✓ correct</span>
+        <span class="text-emerald-300 font-medium">✓ correct</span>
       {% elif it.status == 'retry' %}
-        <span class="text-amber-600 font-medium">retry × {{ it.attempts }}</span>
+        <span class="text-amber-300 font-medium">retry × {{ it.attempts }}</span>
       {% else %}
-        <span class="text-slate-400">unanswered</span>
+        <span class="text-slate-500">unanswered</span>
       {% endif %}
       {% if it.assigned_marks is not none %}
-        <span class="text-sm text-slate-500">{{ "%.1f"|format(it.assigned_marks) }}/{{ "%.0f"|format(it.max_marks) }}</span>
+        <span class="text-sm text-slate-400">{{ "%.1f"|format(it.assigned_marks) }}/{{ "%.0f"|format(it.max_marks) }}</span>
       {% endif %}
     </div>
     <a href="/eXam/test/{{ test.id }}?q={{ it.idx }}"
-       class="bg-slate-900 text-white text-sm font-medium px-3 py-1.5 rounded hover:bg-slate-800">
+       class="rounded-xl border border-white/[0.12] bg-white/[0.04] px-3 py-1.5 text-sm text-slate-200 hover:bg-white/[0.10] hover:text-white">
       {% if it.status == 'unanswered' %}Start{% else %}Open{% endif %}
     </a>
   </li>

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Q{{ meta.number }} · {{ test.title }} · eXam{% endblock %}
+{% block title %}{{ subject_display }} · Practice — eXam{% endblock %}
 {% block extra_head %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
 <style>
-  .ex-iframe { width:100%; height:60vh; min-height:380px; background:#0c1322; border-radius:.75rem; }
+  .ex-iframe { width: 100%; height: 62vh; min-height: 380px; background: #0c1322; border-radius: 0.75rem; }
   .ex-radio-chip { transition: border-color .15s, background .15s; }
   .ex-radio-chip:has(input:checked) { border-color: rgba(34,211,238,.6); background: rgba(34,211,238,.08); }
   .ex-helper-drawer { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
@@ -16,25 +16,22 @@
 {% block content %}
 <header class="mb-5 flex flex-wrap items-baseline justify-between gap-3">
   <div>
-    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">{{ test.title }}</p>
+    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">{{ subject_display }} · Practice</p>
     <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">
       Question {{ meta.number }}
       <span class="ml-2 text-sm font-normal text-slate-400">· {{ meta.marks }} mark{% if meta.marks != 1 %}s{% endif %}</span>
     </h1>
   </div>
   <div class="text-sm text-slate-400">
-    {{ student.name }} · <a href="/eXam/test/{{ test.id }}" class="text-cyan-300 underline hover:text-cyan-200">Overview</a>
-    · Q{{ idx + 1 }}/{{ total }}
-    · <span class="text-emerald-300">✓{{ counters.correct }}</span>
-    <span class="text-amber-300">retry{{ counters.retry }}</span>
-    <span class="text-slate-500">☐{{ counters.unanswered }}</span>
+    Session: <span class="text-cyan-300">{{ stats.correct }} / {{ stats.total }}</span> ·
+    <a href="/eXam/practice" class="underline hover:text-white">Pick another subject</a>
   </div>
 </header>
 
 <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
   <section class="lg:col-span-8">
     <div class="glass-panel form-glow rounded-2xl p-3 sm:p-4">
-      <iframe src="/eXam/pdf/{{ meta.question_id }}#toolbar=0&navpanes=0"
+      <iframe src="/eXam/practice/pdf/{{ meta.question_id }}#toolbar=0&navpanes=0"
               class="ex-iframe" title="Question {{ meta.number }}"></iframe>
     </div>
 
@@ -51,9 +48,9 @@
             </label>
           {% endfor %}
         </div>
-      {% elif t in ['short_answer', 'calculation'] or (t == 'long_answer' and test.subject in ['physics', 'a_level_physics']) %}
+      {% elif t in ['short_answer', 'calculation'] or (t == 'long_answer' and subject in ['physics', 'a_level_physics']) %}
         <input type="text" name="submitted" required
-               {% if test.subject in ['physics', 'a_level_physics'] and t != 'short_answer' %}placeholder="Final answer (e.g. 9.81 m/s²)"{% endif %}
+               {% if subject in ['physics', 'a_level_physics'] and t != 'short_answer' %}placeholder="Final answer (e.g. 9.81 m/s²)"{% endif %}
                class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 font-mono text-sm text-slate-100 placeholder:text-slate-500 shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20">
       {% else %}
         <textarea name="submitted" rows="6" required
@@ -61,18 +58,14 @@
       {% endif %}
 
       <div class="flex flex-wrap items-center gap-2 pt-1">
-        {% if prev_idx is not none %}
-        <a href="/eXam/test/{{ test.id }}?q={{ prev_idx }}"
-           class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">← Prev</a>
-        {% endif %}
         <button id="submit-btn" type="submit"
                 class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">
           Submit
         </button>
-        {% if next_idx is not none %}
-        <a href="/eXam/test/{{ test.id }}?q={{ next_idx }}"
-           class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">Next →</a>
-        {% endif %}
+        <a href="/eXam/practice/{{ subject }}"
+           class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">
+          Skip · new question
+        </a>
       </div>
     </form>
 
@@ -86,86 +79,100 @@
         <button data-kind="hint" class="ex-helper-btn w-full text-left rounded-xl px-3 py-2 text-sm text-slate-200 hover:bg-white/[0.06]">💡 Hint</button>
         <button data-kind="kb" class="ex-helper-btn w-full text-left rounded-xl px-3 py-2 text-sm text-slate-200 hover:bg-white/[0.06]">📚 Knowledge base</button>
         <button data-kind="example" class="ex-helper-btn w-full text-left rounded-xl px-3 py-2 text-sm text-slate-200 hover:bg-white/[0.06]">🎯 Similar example</button>
-        <button data-kind="solution"
-                class="ex-helper-btn w-full text-left rounded-xl px-3 py-2 text-sm {% if solution_unlocked %}text-slate-200 hover:bg-white/[0.06]{% else %}text-slate-400 cursor-not-allowed{% endif %}"
-                {% if not solution_unlocked %}disabled title="Unlocks after a correct attempt"{% endif %}>
-          {% if solution_unlocked %}🔓{% else %}🔒{% endif %} Step-by-step solution{% if not solution_unlocked %} (locked){% endif %}
-        </button>
+        <button data-kind="solution" id="solution-btn"
+                class="ex-helper-btn w-full text-left rounded-xl px-3 py-2 text-sm text-slate-400 cursor-not-allowed"
+                disabled title="Unlocks after you answer correctly">🔒 Step-by-step solution</button>
       </div>
       <div id="helper-drawer" class="ex-helper-drawer mt-2 rounded-xl border border-white/[0.08] bg-slate-950/40 text-sm text-slate-200"></div>
     </div>
 
-    {% if latest %}
-    <div class="glass-panel rounded-2xl p-4">
-      <div class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Last attempt</div>
-      <div class="mt-1 text-sm text-slate-200">
-        {{ "%.1f"|format(latest.assigned_marks) }} / {{ "%.0f"|format(latest.max_marks) }}
-        · attempts: {{ latest.attempt_count }}
-      </div>
-      <div class="mt-1 text-xs text-slate-500">{{ latest.submitted }}</div>
-      {% if latest.reasoning %}<div class="mt-2 text-xs text-slate-400">{{ latest.reasoning }}</div>{% endif %}
+    <div class="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 text-xs text-slate-500">
+      Drop in for a quick session: each "Skip" or "Submit" gives you a fresh random question.
+      No login. We don't save anything except an anonymous attempt count for your session.
     </div>
-    {% endif %}
   </aside>
 </div>
 
 <script>
-const TEST_ID = {{ test.id|tojson }};
-const QUESTION_ID = {{ meta.question_id|tojson }};
-let helpersUsed = {hint:false, solution:false, example:false, kb:false};
+const QID = {{ meta.question_id|tojson }};
+const SUBJECT = {{ subject|tojson }};
 
 document.querySelectorAll(".ex-helper-btn").forEach(btn => {
   btn.addEventListener("click", async () => {
     if (btn.disabled) return;
     const kind = btn.dataset.kind;
-    helpersUsed[kind] = true;
     const drawer = document.getElementById("helper-drawer");
     drawer.classList.add("open");
     drawer.innerHTML = '<div class="p-3 text-slate-400">Loading…</div>';
-    const res = await fetch("/eXam/api/helper", {
-      method: "POST", headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({question_id: QUESTION_ID, kind}),
+    const res = await fetch("/eXam/practice/helper", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question_id: QID, kind }),
     });
     if (!res.ok) {
-      const d = await res.json().catch(()=>({}));
-      drawer.innerHTML = `<div class="p-3 text-red-300">${d.detail || "Helper unavailable"}</div>`;
+      const d = await res.json().catch(() => ({}));
+      drawer.innerHTML = `<div class="p-3 text-red-300">${(d.detail || "Helper unavailable")}</div>`;
       return;
     }
     const d = await res.json();
     const pre = document.createElement("div");
-    pre.className = "p-3"; pre.style.whiteSpace = "pre-wrap"; pre.textContent = d.content;
-    drawer.innerHTML = ""; drawer.appendChild(pre);
-    if (window.renderMathInElement) renderMathInElement(drawer, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});
+    pre.className = "p-3";
+    pre.style.whiteSpace = "pre-wrap";
+    pre.textContent = d.content;
+    drawer.innerHTML = "";
+    drawer.appendChild(pre);
+    if (window.renderMathInElement) {
+      renderMathInElement(drawer, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}] });
+    }
   });
 });
 
-document.getElementById("answer-form").addEventListener("submit", async (e) => {
+const form = document.getElementById("answer-form");
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const fd = new FormData(e.target);
-  const submitted = String(fd.get("submitted") ?? "");
+  const fd = new FormData(form);
+  const submitted = String(fd.get("submitted") || "");
   const btn = document.getElementById("submit-btn");
-  btn.disabled = true; const orig = btn.textContent; btn.textContent = "Marking…";
+  btn.disabled = true;
+  const orig = btn.textContent;
+  btn.textContent = "Marking…";
   const fb = document.getElementById("feedback");
   fb.classList.add("hidden");
   try {
-    const res = await fetch("/eXam/api/submit", {
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({test_id:TEST_ID, question_id:QUESTION_ID, submitted, ...helpersUsed}),
+    const res = await fetch("/eXam/practice/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ subject: SUBJECT, question_id: QID, submitted }),
     });
     if (!res.ok) {
-      const d = await res.json().catch(()=>({}));
+      const d = await res.json().catch(() => ({}));
       fb.innerHTML = `<div class="text-red-300">${d.detail || "Submission failed"}</div>`;
       fb.classList.remove("hidden");
       return;
     }
     const d = await res.json();
     const correct = d.assigned_marks >= d.max_marks && d.max_marks > 0;
-    fb.innerHTML = `<div class="font-medium ${correct?'text-emerald-300':'text-amber-300'}">${d.assigned_marks} / ${d.max_marks} marks · attempt ${d.attempt_number}</div>` +
-                   (d.reasoning ? `<div class="mt-1 text-slate-300">${d.reasoning}</div>` : "");
+    fb.innerHTML =
+      `<div class="font-medium ${correct ? 'text-emerald-300' : 'text-amber-300'}">` +
+        `${d.assigned_marks} / ${d.max_marks} marks` +
+      `</div>` +
+      (d.reasoning ? `<div class="mt-1 text-slate-300">${d.reasoning}</div>` : "") +
+      `<div class="mt-3 flex gap-2">` +
+        `<a href="/eXam/practice/${SUBJECT}" class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2 text-sm font-semibold text-white">Next question →</a>` +
+        `<a href="/eXam/practice" class="rounded-xl border border-white/[0.10] bg-white/[0.04] px-4 py-2 text-sm text-slate-300 hover:bg-white/[0.08]">Stop · subject list</a>` +
+      `</div>`;
     fb.classList.remove("hidden");
-    setTimeout(()=>window.location.reload(), 900);
+    if (correct) {
+      const solBtn = document.getElementById("solution-btn");
+      solBtn.disabled = false;
+      solBtn.classList.remove("text-slate-400", "cursor-not-allowed");
+      solBtn.classList.add("text-slate-200", "hover:bg-white/[0.06]");
+      solBtn.textContent = "🔓 Step-by-step solution";
+      solBtn.title = "";
+    }
   } finally {
-    btn.disabled = false; btn.textContent = orig;
+    btn.disabled = false;
+    btn.textContent = orig;
   }
 });
 </script>

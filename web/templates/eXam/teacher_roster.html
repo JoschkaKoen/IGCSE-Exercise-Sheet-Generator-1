@@ -1,26 +1,31 @@
-{% extends "eXam/base.html" %}
+{% extends "base.html" %}
 {% block title %}Roster · eXam{% endblock %}
-{% block header_right %}<div class="text-sm"><a href="/eXam/teacher/" class="underline">← Dashboard</a></div>{% endblock %}
 {% block content %}
-<h1 class="text-2xl font-semibold mb-6">Student roster</h1>
+<header class="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+  <h1 class="font-display text-2xl font-semibold text-white sm:text-3xl">Student roster</h1>
+  <a href="/eXam/teacher/" class="text-sm text-cyan-300 underline hover:text-cyan-200">← Dashboard</a>
+</header>
 
-<form id="roster-form" class="bg-white rounded border border-slate-200 p-6 max-w-2xl space-y-4">
+<form id="roster-form" class="glass-panel max-w-2xl space-y-4 rounded-2xl p-6">
   <div>
-    <label class="block text-sm font-medium mb-1">XLSX file (columns: <code>name</code>, optional <code>class_label</code>)</label>
-    <input type="file" name="file" accept=".xlsx" required class="block text-sm">
+    <label class="mb-1 block text-sm font-medium text-slate-200">XLSX file</label>
+    <input type="file" name="file" accept=".xlsx" required
+           class="block w-full text-sm text-slate-300 file:mr-3 file:rounded-lg file:border-0 file:bg-cyan-500/20 file:px-3 file:py-1.5 file:text-cyan-200 hover:file:bg-cyan-500/30">
+    <p class="mt-1 text-xs text-slate-500">Columns (row 1): required <code class="rounded bg-black/30 px-1 font-mono">name</code>, optional <code class="rounded bg-black/30 px-1 font-mono">class_label</code>.</p>
   </div>
-  <label class="inline-flex items-center gap-2 text-sm">
-    <input type="checkbox" name="regenerate_pins"> Regenerate PINs for existing students
+  <label class="inline-flex items-center gap-2 text-sm text-slate-200">
+    <input type="checkbox" name="regenerate_pins" class="accent-cyan-400">
+    Regenerate PINs for existing students
   </label>
-  <button type="submit" class="bg-slate-900 text-white px-4 py-1.5 rounded text-sm font-medium hover:bg-slate-800">Import</button>
-  <div id="result" class="hidden text-sm mt-2"></div>
+  <button type="submit" class="btn-space-primary inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white">Import</button>
+  <div id="result" class="hidden text-sm"></div>
 </form>
 
-<h2 class="text-lg font-medium mt-8 mb-3">Current students ({{ students|length }})</h2>
-<ul class="bg-white rounded border border-slate-200 divide-y divide-slate-100 max-w-2xl">
+<h2 class="mt-8 mb-3 font-display text-lg font-semibold text-white">Current students ({{ students|length }})</h2>
+<ul class="glass-panel max-w-2xl divide-y divide-white/[0.04] rounded-2xl">
   {% for s in students %}
-  <li class="px-4 py-2 text-sm flex justify-between">
-    <span>{{ s.name }}</span>
+  <li class="flex items-center justify-between px-4 py-2 text-sm">
+    <span class="text-slate-200">{{ s.name }}</span>
     <span class="text-slate-500">{{ s.class_label or '' }}</span>
   </li>
   {% endfor %}
@@ -30,23 +35,23 @@
 document.getElementById("roster-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const fd = new FormData(e.target);
-  const res = await fetch("/eXam/teacher/roster/import", {method: "POST", body: fd});
+  const res = await fetch("/eXam/teacher/roster/import", {method:"POST", body:fd});
   const out = document.getElementById("result");
   out.classList.remove("hidden");
   if (!res.ok) {
-    const data = await res.json().catch(() => ({}));
-    out.innerHTML = `<span class="text-red-600">${data.detail || "Failed"}</span>`;
+    const data = await res.json().catch(()=>({}));
+    out.innerHTML = `<span class="text-red-300">${data.detail || "Failed"}</span>`;
     return;
   }
   const data = await res.json();
   const s = data.summary;
-  let html = `<div class="text-emerald-700">Imported: ${s.inserted} new, ${s.updated} updated, ${s.untouched} untouched.</div>`;
+  let html = `<div class="text-emerald-300">Imported: ${s.inserted} new, ${s.updated} updated, ${s.untouched} untouched.</div>`;
   if (data.pin_pdf) {
     const name = data.pin_pdf.split("/").pop();
-    html += `<div class="mt-2"><a class="underline" href="/eXam/teacher/roster/pins.pdf?name=${encodeURIComponent(name)}">Download PINs PDF</a></div>`;
+    html += `<div class="mt-2"><a class="text-cyan-300 underline hover:text-cyan-200" href="/eXam/teacher/roster/pins.pdf?name=${encodeURIComponent(name)}">Download PINs PDF</a></div>`;
   }
   out.innerHTML = html;
-  setTimeout(() => window.location.reload(), 2000);
+  setTimeout(()=>window.location.reload(), 2200);
 });
 </script>
 {% endblock %}
