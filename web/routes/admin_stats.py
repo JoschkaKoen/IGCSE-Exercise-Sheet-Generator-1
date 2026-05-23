@@ -19,7 +19,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from ..analytics import store
-from ..analytics.cost_overview import total_ai_cost_rmb
+from ..analytics.cost_overview import ai_spend_breakdown, total_ai_cost_rmb
 from ..grade_auth import is_grade_unlocked
 from ..template_ctx import template_ctx
 
@@ -65,10 +65,13 @@ async def admin_stats(
         kinds=("pageview", "api_call", "grade_job_finished", "nl_job_finished"),
     )
 
-    routes_top = store.top_routes(days=days_val, limit=15)
+    routes_top = store.top_routes(days=days_val, limit=20)
     jobs = store.recent_jobs(limit=50)
     errs = store.recent_errors(limit=50)
-    cost_overview = total_ai_cost_rmb(days=days_val if days_val is not None else 30)
+    # Headline overview card honours the same range as the rest of the page:
+    # passing days=None to the aggregator covers all time (no 30-day fallback).
+    cost_overview = total_ai_cost_rmb(days=days_val if days_val is not None else 36500)
+    spend_detail = ai_spend_breakdown(days=days_val)
     sessions_n = store.session_count()
 
     # Pre-parse properties_json for the recent-jobs / errors tables. Done
@@ -87,6 +90,7 @@ async def admin_stats(
     chart_payload = {
         "series": series,
         "days": days_val if days_val is not None else 90,
+        "cost_by_day": spend_detail["by_day"],
     }
 
     return TEMPLATES.TemplateResponse(
@@ -103,6 +107,7 @@ async def admin_stats(
             recent_jobs=jobs,
             recent_errors=errs,
             cost_overview=cost_overview,
+            spend_detail=spend_detail,
             sessions_n=sessions_n,
             chart_payload_json=json.dumps(chart_payload),
         ),

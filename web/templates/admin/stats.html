@@ -53,8 +53,10 @@
     <div class="mt-1 text-xs text-slate-500">{{ t('admin.stats.submissions').format(n='{:,}'.format(totals.submissions)) }}</div>
   </div>
   <div class="glass-panel rounded-2xl p-4">
-    <div class="text-xs uppercase tracking-wider text-slate-500">{{ t('admin.stats.card.ai_spend').format(n=cost_overview.days) }}</div>
-    <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">¥{{ '%.2f' % cost_overview.total_cost_rmb }}</div>
+    <div class="text-xs uppercase tracking-wider text-slate-500">
+      {% if days is none %}{{ t('admin.stats.card.ai_spend_all') }}{% else %}{{ t('admin.stats.card.ai_spend').format(n=days) }}{% endif %}
+    </div>
+    <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">¥{{ '%.2f' % spend_detail.total_cost_rmb }}</div>
     <div class="mt-1 text-xs text-slate-500">
       xS ¥{{ '%.2f' % cost_overview.xscore.cost_rmb }} ·
       NL ¥{{ '%.2f' % cost_overview.nl.cost_rmb }} ·
@@ -78,6 +80,144 @@
   </div>
 </section>
 
+<!-- AI spend detail -->
+<section class="glass-panel mb-6 rounded-2xl p-4">
+  <h2 class="font-display text-base font-semibold text-white">{{ t('admin.stats.spend.title') }}</h2>
+  <p class="text-xs text-slate-500">{{ t('admin.stats.spend.subtitle') }}</p>
+  <p class="mt-2 text-sm text-slate-300">
+    {{ t('admin.stats.spend.total_summary').format(
+        cost='%.4f' % spend_detail.total_cost_rmb,
+        calls='{:,}'.format(spend_detail.total_calls),
+        tin='{:,}'.format(spend_detail.total_input_tokens),
+        tout='{:,}'.format(spend_detail.total_output_tokens),
+        tthink='{:,}'.format(spend_detail.total_thinking_tokens)) }}
+  </p>
+  <div class="mt-3"><canvas id="chart-cost" height="120"></canvas></div>
+
+  <div class="mt-6 grid grid-cols-1 gap-4 xl:grid-cols-2">
+    <!-- By pipeline -->
+    <div class="overflow-x-auto rounded-xl border border-white/[0.05]">
+      <table class="w-full text-sm">
+        <caption class="px-4 pt-3 text-left font-display text-sm font-semibold text-white">{{ t('admin.stats.spend.by_pipeline') }}</caption>
+        <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+          <tr>
+            <th class="px-4 py-2">{{ t('admin.stats.spend.col.pipeline') }}</th>
+            <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.calls') }}</th>
+            <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.input') }}</th>
+            <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.output') }}</th>
+            <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.cost') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in spend_detail.by_pipeline %}
+          <tr class="border-b border-white/[0.04] last:border-b-0">
+            <td class="px-4 py-2 font-mono text-slate-300">{{ r.pipeline }}</td>
+            <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.calls) }}</td>
+            <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.input_tokens) }}</td>
+            <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.output_tokens) }}</td>
+            <td class="px-4 py-2 text-right tabular-nums text-slate-300">¥{{ '%.4f' % r.cost_rmb }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="px-4 py-6 text-center text-slate-500">{{ t('admin.stats.spend.empty') }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- By model -->
+    <div class="overflow-x-auto rounded-xl border border-white/[0.05]">
+      <table class="w-full text-sm">
+        <caption class="px-4 pt-3 text-left font-display text-sm font-semibold text-white">{{ t('admin.stats.spend.by_model') }}</caption>
+        <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+          <tr>
+            <th class="px-4 py-2">{{ t('admin.stats.spend.col.model') }}</th>
+            <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.calls') }}</th>
+            <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.input') }}</th>
+            <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.output') }}</th>
+            <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.cost') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in spend_detail.by_model %}
+          <tr class="border-b border-white/[0.04] last:border-b-0">
+            <td class="px-4 py-2 font-mono text-slate-300">
+              {{ r.model or '—' }}
+              {% if not r.has_pricing %}<span class="ml-1 rounded bg-amber-500/10 px-1 py-[1px] text-[0.6rem] font-semibold uppercase tracking-wider text-amber-300">{{ t('admin.stats.spend.no_pricing') }}</span>{% endif %}
+            </td>
+            <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.calls) }}</td>
+            <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.input_tokens) }}</td>
+            <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.output_tokens) }}</td>
+            <td class="px-4 py-2 text-right tabular-nums text-slate-300">¥{{ '%.4f' % r.cost_rmb }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="px-4 py-6 text-center text-slate-500">{{ t('admin.stats.spend.empty') }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- By pipeline × model (headline) -->
+  <div class="mt-4 overflow-x-auto rounded-xl border border-white/[0.05]">
+    <table class="w-full text-sm">
+      <caption class="px-4 pt-3 text-left font-display text-sm font-semibold text-white">{{ t('admin.stats.spend.by_pipeline_model') }}</caption>
+      <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+        <tr>
+          <th class="px-4 py-2">{{ t('admin.stats.spend.col.pipeline') }}</th>
+          <th class="px-4 py-2">{{ t('admin.stats.spend.col.model') }}</th>
+          <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.calls') }}</th>
+          <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.input') }}</th>
+          <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.output') }}</th>
+          <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.thinking') }}</th>
+          <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.cost') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in spend_detail.by_pipeline_model %}
+        <tr class="border-b border-white/[0.04] last:border-b-0">
+          <td class="px-4 py-2 font-mono text-slate-400">{{ r.pipeline }}</td>
+          <td class="px-4 py-2 font-mono text-slate-300">{{ r.model or '—' }}</td>
+          <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.calls) }}</td>
+          <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.input_tokens) }}</td>
+          <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.output_tokens) }}</td>
+          <td class="px-4 py-2 text-right tabular-nums text-slate-500">{{ '{:,}'.format(r.thinking_tokens) }}</td>
+          <td class="px-4 py-2 text-right tabular-nums text-slate-300">¥{{ '%.4f' % r.cost_rmb }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" class="px-4 py-6 text-center text-slate-500">{{ t('admin.stats.spend.empty') }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- By operation (collapsible) -->
+  <details class="mt-4 rounded-xl border border-white/[0.05]">
+    <summary class="cursor-pointer px-4 py-3 font-display text-sm font-semibold text-white">{{ t('admin.stats.spend.by_operation') }}</summary>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="border-b border-t border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+          <tr>
+            <th class="px-4 py-2">{{ t('admin.stats.spend.col.pipeline') }}</th>
+            <th class="px-4 py-2">{{ t('admin.stats.spend.col.operation') }}</th>
+            <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.calls') }}</th>
+            <th class="px-4 py-2 text-right">{{ t('admin.stats.spend.col.cost') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in spend_detail.by_operation %}
+          <tr class="border-b border-white/[0.04] last:border-b-0">
+            <td class="px-4 py-2 font-mono text-slate-400">{{ r.pipeline }}</td>
+            <td class="px-4 py-2 text-slate-300">{{ r.operation }}</td>
+            <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.calls) }}</td>
+            <td class="px-4 py-2 text-right tabular-nums text-slate-300">¥{{ '%.4f' % r.cost_rmb }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </details>
+</section>
+
 <!-- Top routes -->
 <section class="glass-panel mb-6 overflow-x-auto rounded-2xl">
   <table class="w-full text-sm">
@@ -85,6 +225,7 @@
     <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
       <tr>
         <th class="px-4 py-2">{{ t('admin.stats.col.route') }}</th>
+        <th class="px-4 py-2">{{ t('admin.stats.col.status') }}</th>
         <th class="px-4 py-2 text-right">{{ t('admin.stats.col.hits') }}</th>
         <th class="px-4 py-2 text-right">{{ t('admin.stats.col.avg_ms') }}</th>
       </tr>
@@ -92,12 +233,16 @@
     <tbody>
       {% for r in routes_top %}
       <tr class="border-b border-white/[0.04] last:border-b-0">
-        <td class="px-4 py-2 font-mono text-slate-300">{{ r.route }}</td>
+        <td class="px-4 py-2 font-mono text-slate-300">
+          {{ r.route }}
+          {% if r.is_probe %}<span class="ml-1 rounded bg-amber-500/10 px-1 py-[1px] text-[0.6rem] font-semibold uppercase tracking-wider text-amber-300">{{ t('admin.stats.bot_chip') }}</span>{% endif %}
+        </td>
+        <td class="px-4 py-2 font-mono tabular-nums text-slate-400">{{ r.status or '—' }}</td>
         <td class="px-4 py-2 text-right tabular-nums text-slate-400">{{ '{:,}'.format(r.n) }}</td>
         <td class="px-4 py-2 text-right tabular-nums text-slate-500">{{ '%.0f' % r.avg_ms }}</td>
       </tr>
       {% else %}
-      <tr><td colspan="3" class="px-4 py-6 text-center text-slate-500">{{ t('admin.stats.no_requests') }}</td></tr>
+      <tr><td colspan="4" class="px-4 py-6 text-center text-slate-500">{{ t('admin.stats.no_requests') }}</td></tr>
       {% endfor %}
     </tbody>
   </table>

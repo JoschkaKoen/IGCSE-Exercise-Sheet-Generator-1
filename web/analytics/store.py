@@ -17,6 +17,7 @@ from __future__ import annotations
 import datetime as _dt
 import logging
 import os
+import re
 import sqlite3
 import threading
 from collections.abc import Iterable
@@ -181,7 +182,8 @@ def totals_for_range(*, days: int | None) -> dict[str, int]:
     ).fetchone()[0]
     visitors = conn.execute(
         "SELECT COUNT(DISTINCT session_id) FROM events "
-        "WHERE session_id IS NOT NULL AND ts >= ?",
+        "WHERE kind IN ('pageview','api_call') "
+        "AND session_id IS NOT NULL AND ts >= ?",
         (since,),
     ).fetchone()[0]
     jobs = conn.execute(
@@ -243,27 +245,69 @@ def events_by_day(*, days: int | None, kinds: Iterable[str]) -> list[dict[str, A
     return [{"day": r["day"], "kind": r["kind"], "n": int(r["n"])} for r in rows]
 
 
+# Path patterns hit only by scanners — never legitimate app routes. Matched
+# case-insensitively. Kept here (not in SQL) so the list is easy to grow.
+_PROBE_PATH_RE = re.compile(
+    r"(?:\.(?:php|asp|aspx|cgi|git|sql|bak)(?:[/?]|$))"
+    r"|^/\.env"
+    r"|^/wp-"
+    r"|^/wordpress"
+    r"|^/\.well-known/"
+    r"|^/\.git"
+    r"|^/cgi-bin/"
+    r"|^/phpmyadmin"
+    r"|^/admin\.",
+    re.IGNORECASE,
+)
+
+
+def _is_probe(route: str, status: str | None) -> bool:
+    """True when a request is almost certainly a scanner probe, not real traffic.
+
+    Two signals: non-2xx/3xx status, or a path that matches a known-attacker
+    fingerprint. Either alone is enough — bots that get a 200 from a redirect
+    still match the path heuristic, and an app route that returned a 500
+    (real error, not a probe) is filtered out by the path check failing.
+    """
+    if status and status[:1] in ("4", "5"):
+        return True
+    return bool(_PROBE_PATH_RE.search(route or ""))
+
+
 def top_routes(*, days: int | None, limit: int = 20) -> list[dict[str, Any]]:
-    """Most-visited paths over the range, with count + avg duration_ms."""
+    """Most-visited (route, status) pairs over the range, with count + avg duration_ms.
+
+    Each row carries an ``is_probe`` flag so the dashboard can mark bot scans
+    without hiding them. Grouping by ``(route, status)`` means a route that
+    legitimately serves multiple statuses (e.g. ``/api/grade/auth`` returning
+    200/400/401) appears as separate rows — useful for spotting auth failures.
+    """
     conn = _get_conn()
     since = _since_iso(days)
     rows = conn.execute(
         """
         SELECT route,
+               status,
                COUNT(*) AS n,
                COALESCE(AVG(duration_ms), 0) AS avg_ms
         FROM events
         WHERE route IS NOT NULL
           AND kind IN ('pageview','api_call')
           AND ts >= ?
-        GROUP BY route
+        GROUP BY route, status
         ORDER BY n DESC
         LIMIT ?
         """,
         (since, limit),
     ).fetchall()
     return [
-        {"route": r["route"], "n": int(r["n"]), "avg_ms": float(r["avg_ms"] or 0.0)}
+        {
+            "route": r["route"],
+            "status": r["status"],
+            "n": int(r["n"]),
+            "avg_ms": float(r["avg_ms"] or 0.0),
+            "is_probe": _is_probe(r["route"], r["status"]),
+        }
         for r in rows
     ]
 

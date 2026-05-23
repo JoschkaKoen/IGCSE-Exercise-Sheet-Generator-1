@@ -63,8 +63,20 @@
     byKind.nl_job_finished || {},
   ]);
 
-  // Match the site theme: light strokes on dark background, no fill.
-  const lineOpts = (label, color) => ({
+  // Cost-by-day series: payload.cost_by_day is [{day, pipeline, cost_rmb}, ...].
+  // Pivot into {pipeline → {day → cost}} for the stacked area chart.
+  const costByPipeline = { xscore: {}, nl: {}, eXam: {} };
+  for (const row of (Array.isArray(payload.cost_by_day) ? payload.cost_by_day : [])) {
+    if (!row || !row.day || !row.pipeline) continue;
+    const bucket = costByPipeline[row.pipeline] || (costByPipeline[row.pipeline] = {});
+    bucket[row.day] = (bucket[row.day] || 0) + Number(row.cost_rmb || 0);
+  }
+
+  // Round to 4 decimals for display tooltips without floating-point noise.
+  const costFor = (kindMap) => axis.map((d) => Math.round((kindMap[d] || 0) * 10000) / 10000);
+
+  // Match the site theme: light strokes on dark background, no fill by default.
+  const lineOpts = (label, color, { stacked = false } = {}) => ({
     type: 'line',
     data: {
       labels: axis,
@@ -91,13 +103,15 @@
       },
       scales: {
         x: {
+          stacked: stacked,
           grid: { color: 'rgba(255,255,255,0.04)' },
           ticks: { color: '#64748b', maxTicksLimit: 8 },
         },
         y: {
+          stacked: stacked,
           beginAtZero: true,
           grid: { color: 'rgba(255,255,255,0.04)' },
-          ticks: { color: '#64748b', precision: 0 },
+          ticks: { color: '#64748b', precision: stacked ? 2 : 0 },
         },
       },
     },
@@ -111,6 +125,34 @@
     new Chart(el.getContext('2d'), cfg);
   }
 
+  function renderStackedCostChart(canvasId) {
+    const el = document.getElementById(canvasId);
+    if (!el || typeof Chart === 'undefined') return;
+    // Use the lineOpts factory to get axis + theme, then swap in 3 datasets.
+    const cfg = lineOpts(window.i18n['admin.stats.chart.cost'], '#22d3ee', { stacked: true });
+    cfg.data.datasets = [
+      makeCostDataset('xScore', '#22d3ee', costFor(costByPipeline.xscore || {})),
+      makeCostDataset('NL',     '#a78bfa', costFor(costByPipeline.nl || {})),
+      makeCostDataset('eXam',   '#34d399', costFor(costByPipeline.eXam || {})),
+    ];
+    new Chart(el.getContext('2d'), cfg);
+  }
+
+  function makeCostDataset(label, color, data) {
+    return {
+      label: label,
+      data: data,
+      borderColor: color,
+      backgroundColor: color + '55',
+      tension: 0.25,
+      fill: true,
+      pointRadius: 0,
+      pointHoverRadius: 4,
+      borderWidth: 2,
+    };
+  }
+
   renderChart('chart-pageviews', window.i18n['admin.stats.chart.requests'], '#22d3ee', reqs);
   renderChart('chart-jobs', window.i18n['admin.stats.chart.jobs'], '#a78bfa', jobs);
+  renderStackedCostChart('chart-cost');
 })();

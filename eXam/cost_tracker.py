@@ -251,3 +251,38 @@ def cost_breakdown(
         "by_operation": [dict(r) for r in by_operation],
         "by_test": [dict(r) for r in by_test],
     }
+
+
+def cost_by_day_model(
+    *, since: str | None = None, until: str | None = None
+) -> list[dict[str, Any]]:
+    """Per-(day, model) rollup. Used by the cross-pipeline admin dashboard.
+
+    ``day`` is the UTC date string ``YYYY-MM-DD`` taken from ``called_at``.
+    Returns one row per (day, model) with calls + token counts + cost. Sorted
+    ascending by day for direct charting.
+    """
+    where = []
+    params: list[Any] = []
+    if since:
+        where.append("called_at >= ?"); params.append(since)
+    if until:
+        where.append("called_at < ?"); params.append(until)
+    where_sql = (" WHERE " + " AND ".join(where)) if where else ""
+    with connect() as conn:
+        rows = conn.execute(
+            f"""
+            SELECT SUBSTR(called_at, 1, 10)         AS day,
+                   model,
+                   COUNT(*)                          AS calls,
+                   COALESCE(SUM(input_tokens),    0) AS input_tokens,
+                   COALESCE(SUM(output_tokens),   0) AS output_tokens,
+                   COALESCE(SUM(thinking_tokens), 0) AS thinking_tokens,
+                   COALESCE(SUM(cost_rmb),      0.0) AS cost_rmb
+            FROM ai_calls{where_sql}
+            GROUP BY day, model
+            ORDER BY day ASC, cost_rmb DESC
+            """,
+            tuple(params),
+        ).fetchall()
+    return [dict(r) for r in rows]
