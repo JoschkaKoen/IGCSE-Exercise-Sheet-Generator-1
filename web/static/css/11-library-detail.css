@@ -32,7 +32,7 @@
 }
 
 @media (max-width: 767px) {
-  #lib-sidebar { height: 12rem; }
+  #lib-sidebar { height: clamp(15rem, 40vh, 25rem); }
 }
 
 /* Back button */
@@ -231,7 +231,7 @@
 /* height: auto — override with explicit size matching #lib-detail-preview.   */
 @media (max-width: 767px) {
   #lib-detail-view {
-    grid-template-rows: 12rem min(70vh, 600px);
+    grid-template-rows: clamp(15rem, 40vh, 25rem) min(60vh, 600px);
     min-height: unset;
   }
 }

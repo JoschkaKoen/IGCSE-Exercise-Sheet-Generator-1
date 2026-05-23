@@ -1,0 +1,57 @@
+/* ─── Mobile-only overrides (phones ≤767px) ──────────────────────────────────
+ * Loaded last in base.html so it overrides earlier files.
+ * Breakpoints:
+ *   ≤479px — phone portrait only (nav collapse, card helper text)
+ *   ≤767px — phones incl. landscape (sticky table columns)
+ * Desktop is untouched.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+/* ─── Navigation: icon-only pills on phones ───────────────────────────────── */
+.nav-pill-icon { display: none; }
+
+@media (max-width: 479px) {
+  .site-header-nav { gap: 0.125rem; padding: 0.25rem; }
+  .site-header-nav a { padding: 0.75rem; }              /* 12px around 20px icon = 44×44 */
+  .nav-pill-label {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .nav-pill-icon { display: inline-block; }
+}
+
+@media (max-width: 359px) {
+  .site-header-brand-eyebrow { display: none !important; }
+}
+
+/* ─── Admin stats: sticky student/route column when table scrolls ────────── */
+@media (max-width: 767px) {
+  .admin-stats-table th:first-child,
+  .admin-stats-table td:first-child {
+    position: sticky;
+    left: 0;
+    background: rgba(8, 14, 30, 0.95);
+    z-index: 1;
+  }
+}
+
+/* ─── Teacher grade table: sticky student column when wide ───────────────── */
+@media (max-width: 767px) {
+  .ex-grade-table th:first-child,
+  .ex-grade-table td:first-child {
+    position: sticky;
+    left: 0;
+    background: rgba(8, 14, 30, 0.95);
+    z-index: 1;
+    box-shadow: 1px 0 0 rgba(255, 255, 255, 0.04);
+  }
+}
+
+/* ─── Admin overview cards: shrink the multi-segment helper line ─────────── */
+@media (max-width: 479px) {
+  .admin-card-helper {
+    font-size: 0.65rem;
+    line-height: 1.2;
+  }
+}

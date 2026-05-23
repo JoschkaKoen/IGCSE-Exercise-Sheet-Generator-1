@@ -73,11 +73,15 @@ def pair_mark_scheme(qp_path: Path) -> Path | None:
 
 
 def subject_has_papers(subject: str, year: int = 2025) -> bool:
-    """True if *subject* has any *year* question papers on disk under ``exams/``.
-    Drives the landing page's enabled/disabled card state — un-warmed subjects
-    still show as available; their first click lazy-indexes a paper via
-    ``pick_random_question`` (slower first request, no AI cost up front)."""
-    return bool(list_practice_papers(subject, year))
+    """True iff *subject* has at least one *year* paper already indexed into the
+    bank. Drives the landing page's enabled/disabled card state — only warmed
+    subjects are clickable. Lazy-indexing on click would take ~30s and block
+    the FastAPI event loop, so pre-warming is an offline admin step
+    (``python -m eXam.warm_bank --subject <slug>``)."""
+    return any(
+        (bank_dir_for(subject, p) / "exam_questions.yaml").exists()
+        for p in list_practice_papers(subject, year)
+    )
 
 
 def _gradable_top_level(qs: list[dict]) -> list[dict]:
@@ -114,11 +118,18 @@ def pick_random_question(subject: str, year: int = 2025, *, rng: random.Random |
     yaml_path = bank / "exam_questions.yaml"
     data = yaml.safe_load(yaml_path.read_text(encoding="utf-8")) or {}
     candidates = _gradable_top_level(data.get("questions") or [])
+    # Indexer may list more questions than it could render snippets for
+    # (position detection fails on unusual layouts) — only offer ones with
+    # an actual question.pdf on disk.
+    candidates = [
+        q for q in candidates
+        if (bank / str(int(q["number"])) / "question.pdf").exists()
+    ]
     if not candidates:
-        raise RuntimeError(f"Indexed paper has no gradable questions: {paper_path.name}")
+        raise RuntimeError(f"Indexed paper has no rendered questions: {paper_path.name}")
     q = rng.choice(candidates)
     qnum = int(q["number"])
-    # Make sure the per-question PDF snippet exists.
+    # Safety net: snippet should exist (filter above), but ensure cache anyway.
     ensure_question_pdf(paper_path, qnum, subject=subject)
     qid = f"{subject}::{paper_path.stem}::{qnum}"
     meta = question_metadata(qid) or {}

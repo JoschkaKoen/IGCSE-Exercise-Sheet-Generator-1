@@ -12,7 +12,7 @@
 <ul class="space-y-2">
   {% for it in items %}
   <li class="lib-card flex items-center justify-between gap-3 rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-3.5">
-    <div class="flex items-center gap-4">
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
       <span class="font-mono text-sm text-slate-500 w-12">{{ t('test_ov.q_prefix') }}{{ it.number }}</span>
       {% if it.status == 'correct' %}
         <span class="text-emerald-300 font-medium">{{ t('test_ov.status.correct') }}</span>

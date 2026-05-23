@@ -525,7 +525,6 @@ STRINGS: dict[str, dict[str, str]] = {
         "take.marks_summary":         "{got} / {max} marks",
         "take.attempt_marks_summary": "{got} / {max} marks · attempt {n}",
         "take.next_question":         "Next question →",
-        "take.stop_to_list":          "Stop · subject list",
 
         # ===== JS module strings =====
         "workspace.paper.default_label": "This sheet",
@@ -975,7 +974,6 @@ STRINGS: dict[str, dict[str, str]] = {
         "take.marks_summary":         "{got} / {max} 分",
         "take.attempt_marks_summary": "{got} / {max} 分 · 第 {n} 次尝试",
         "take.next_question":         "下一题 →",
-        "take.stop_to_list":          "结束 · 返回科目列表",
 
         # ===== JS module strings =====
         "workspace.paper.default_label": "本练习单",

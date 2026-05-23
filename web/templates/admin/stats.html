@@ -38,26 +38,26 @@
   <div class="glass-panel rounded-2xl p-4">
     <div class="text-xs uppercase tracking-wider text-slate-500">{{ t('admin.stats.card.pageviews') }}</div>
     <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '{:,}'.format(totals.pageviews) }}</div>
-    <div class="mt-1 text-xs text-slate-500">
+    <div class="admin-card-helper mt-1 text-xs text-slate-500">
       today {{ '{:,}'.format(pageviews_summary.today) }} · 7d {{ '{:,}'.format(pageviews_summary.last_7d) }} · 30d {{ '{:,}'.format(pageviews_summary.last_30d) }}
     </div>
   </div>
   <div class="glass-panel rounded-2xl p-4">
     <div class="text-xs uppercase tracking-wider text-slate-500">{{ t('admin.stats.card.visitors') }}</div>
     <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '{:,}'.format(totals.visitors) }}</div>
-    <div class="mt-1 text-xs text-slate-500">{{ t('admin.stats.sessions_all').format(n='{:,}'.format(sessions_n)) }}</div>
+    <div class="admin-card-helper mt-1 text-xs text-slate-500">{{ t('admin.stats.sessions_all').format(n='{:,}'.format(sessions_n)) }}</div>
   </div>
   <div class="glass-panel rounded-2xl p-4">
     <div class="text-xs uppercase tracking-wider text-slate-500">{{ t('admin.stats.card.jobs') }}</div>
     <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '{:,}'.format(totals.jobs) }}</div>
-    <div class="mt-1 text-xs text-slate-500">{{ t('admin.stats.submissions').format(n='{:,}'.format(totals.submissions)) }}</div>
+    <div class="admin-card-helper mt-1 text-xs text-slate-500">{{ t('admin.stats.submissions').format(n='{:,}'.format(totals.submissions)) }}</div>
   </div>
   <div class="glass-panel rounded-2xl p-4">
     <div class="text-xs uppercase tracking-wider text-slate-500">
       {% if days is none %}{{ t('admin.stats.card.ai_spend_all') }}{% else %}{{ t('admin.stats.card.ai_spend').format(n=days) }}{% endif %}
     </div>
     <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">¥{{ '%.2f' % spend_detail.total_cost_rmb }}</div>
-    <div class="mt-1 text-xs text-slate-500">
+    <div class="admin-card-helper mt-1 text-xs text-slate-500">
       xS ¥{{ '%.2f' % cost_overview.xscore.cost_rmb }} ·
       NL ¥{{ '%.2f' % cost_overview.nl.cost_rmb }} ·
       eXam ¥{{ '%.2f' % cost_overview['eXam'].cost_rmb }}
@@ -66,7 +66,7 @@
   <div class="glass-panel rounded-2xl p-4">
     <div class="text-xs uppercase tracking-wider text-slate-500">{{ t('admin.stats.card.error_rate') }}</div>
     <div class="mt-1 font-display text-2xl font-semibold text-white tabular-nums">{{ '%.2f' % (error_rate * 100) }}%</div>
-    <div class="mt-1 text-xs text-slate-500">{{ t('admin.stats.error_ratio').format(errors='{:,}'.format(totals.errors), reqs='{:,}'.format(totals.pageviews)) }}</div>
+    <div class="admin-card-helper mt-1 text-xs text-slate-500">{{ t('admin.stats.error_ratio').format(errors='{:,}'.format(totals.errors), reqs='{:,}'.format(totals.pageviews)) }}</div>
   </div>
 </section>
 
@@ -97,7 +97,7 @@
   <div class="mt-6 grid grid-cols-1 gap-4 xl:grid-cols-2">
     <!-- By pipeline -->
     <div class="overflow-x-auto rounded-xl border border-white/[0.05]">
-      <table class="w-full text-sm">
+      <table class="admin-stats-table w-full text-sm">
         <caption class="px-4 pt-3 text-left font-display text-sm font-semibold text-white">{{ t('admin.stats.spend.by_pipeline') }}</caption>
         <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
           <tr>
@@ -126,7 +126,7 @@
 
     <!-- By model -->
     <div class="overflow-x-auto rounded-xl border border-white/[0.05]">
-      <table class="w-full text-sm">
+      <table class="admin-stats-table w-full text-sm">
         <caption class="px-4 pt-3 text-left font-display text-sm font-semibold text-white">{{ t('admin.stats.spend.by_model') }}</caption>
         <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
           <tr>
@@ -159,7 +159,7 @@
 
   <!-- By pipeline × model (headline) -->
   <div class="mt-4 overflow-x-auto rounded-xl border border-white/[0.05]">
-    <table class="w-full text-sm">
+    <table class="admin-stats-table w-full text-sm">
       <caption class="px-4 pt-3 text-left font-display text-sm font-semibold text-white">{{ t('admin.stats.spend.by_pipeline_model') }}</caption>
       <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
         <tr>
@@ -194,7 +194,7 @@
   <details class="mt-4 rounded-xl border border-white/[0.05]">
     <summary class="cursor-pointer px-4 py-3 font-display text-sm font-semibold text-white">{{ t('admin.stats.spend.by_operation') }}</summary>
     <div class="overflow-x-auto">
-      <table class="w-full text-sm">
+      <table class="admin-stats-table w-full text-sm">
         <thead class="border-b border-t border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
           <tr>
             <th class="px-4 py-2">{{ t('admin.stats.spend.col.pipeline') }}</th>
@@ -220,7 +220,7 @@
 
 <!-- Top routes -->
 <section class="glass-panel mb-6 overflow-x-auto rounded-2xl">
-  <table class="w-full text-sm">
+  <table class="admin-stats-table w-full text-sm">
     <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">{{ t('admin.stats.routes_caption').format(label=days_label) }}</caption>
     <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
       <tr>
@@ -250,7 +250,7 @@
 
 <!-- Recent jobs -->
 <section class="glass-panel mb-6 overflow-x-auto rounded-2xl">
-  <table class="w-full text-sm">
+  <table class="admin-stats-table w-full text-sm">
     <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">{{ t('admin.stats.recent_jobs') }}</caption>
     <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
       <tr>
@@ -287,7 +287,7 @@
 
 <!-- Recent errors -->
 <section class="glass-panel overflow-x-auto rounded-2xl">
-  <table class="w-full text-sm">
+  <table class="admin-stats-table w-full text-sm">
     <caption class="px-4 pt-4 text-left font-display text-base font-semibold text-white">{{ t('admin.stats.recent_errors') }}</caption>
     <thead class="border-b border-white/[0.08] text-left text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
       <tr>
