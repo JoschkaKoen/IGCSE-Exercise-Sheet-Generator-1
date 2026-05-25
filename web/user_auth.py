@@ -151,7 +151,12 @@ def validate_username(raw: object) -> tuple[str | None, str | None]:
 
 
 def validate_password(raw: object) -> str | None:
-    """Return error key on failure, ``None`` on success."""
+    """Lenient — used on **login** so existing accounts with weak passwords
+    can still authenticate. Just checks the password is a reasonably-sized
+    string of printable bytes.
+
+    Returns an error key on failure, ``None`` on success.
+    """
     if not isinstance(raw, str):
         return "account.err.password_short"
     if "\x00" in raw:
@@ -160,6 +165,25 @@ def validate_password(raw: object) -> str | None:
         return "account.err.password_short"
     if len(raw) > _PASSWORD_MAX:
         return "account.err.password_long"
+    return None
+
+
+def validate_signup_password(raw: object) -> str | None:
+    """Stricter — used on **create**. Modern-mainstream rule set:
+    length ≥ 8, contains a letter (Unicode-aware), contains a digit.
+    Returns ``"account.err.password_weak"`` on any unmet requirement, or the
+    same length errors that :func:`validate_password` returns when the input
+    fails the basic shape check (so callers can rely on `validate_password`
+    being called first and only need to add this on top).
+    """
+    err = validate_password(raw)
+    if err is not None:
+        return err
+    assert isinstance(raw, str)  # narrowed by validate_password above
+    has_letter = any(ch.isalpha() for ch in raw)
+    has_digit = any(ch.isdigit() for ch in raw)
+    if not (has_letter and has_digit):
+        return "account.err.password_weak"
     return None
 
 

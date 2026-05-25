@@ -1,0 +1,188 @@
+subject_key: biology
+syllabus_pdf: 0610 Biology 2026-2028 Syllabus Document.pdf
+topics:
+- number: '1'
+  title: Characteristics and classification of living organisms
+  subtopics:
+  - number: '1.1'
+    title: Characteristics of living organisms
+  - number: '1.2'
+    title: Concept and uses of classification systems
+  - number: '1.3'
+    title: Features of organisms
+- number: '2'
+  title: Organisation of the organism
+  subtopics:
+  - number: '2.1'
+    title: Cell structure
+  - number: '2.2'
+    title: Size of specimens
+- number: '3'
+  title: Movement into and out of cells
+  subtopics:
+  - number: '3.1'
+    title: Diffusion
+  - number: '3.2'
+    title: Osmosis
+  - number: '3.3'
+    title: Active transport
+- number: '4'
+  title: Biological molecules
+  subtopics:
+  - number: '4.1'
+    title: Biological molecules
+- number: '5'
+  title: Enzymes
+  subtopics:
+  - number: '5.1'
+    title: Enzymes
+- number: '6'
+  title: Plant nutrition
+  subtopics:
+  - number: '6.1'
+    title: Photosynthesis
+  - number: '6.2'
+    title: Leaf structure
+- number: '7'
+  title: Human nutrition
+  subtopics:
+  - number: '7.1'
+    title: Diet
+  - number: '7.2'
+    title: Digestive system
+  - number: '7.3'
+    title: Physical digestion
+  - number: '7.4'
+    title: Chemical digestion
+  - number: '7.5'
+    title: Absorption
+- number: '8'
+  title: Transport in plants
+  subtopics:
+  - number: '8.1'
+    title: Xylem and phloem
+  - number: '8.2'
+    title: Water uptake
+  - number: '8.3'
+    title: Transpiration
+  - number: '8.4'
+    title: Translocation
+- number: '9'
+  title: Transport in animals
+  subtopics:
+  - number: '9.1'
+    title: Circulatory systems
+  - number: '9.2'
+    title: Heart
+  - number: '9.3'
+    title: Blood vessels
+  - number: '9.4'
+    title: Blood
+- number: '10'
+  title: Diseases and immunity
+  subtopics:
+  - number: '10.1'
+    title: Diseases and immunity
+- number: '11'
+  title: Gas exchange in humans
+  subtopics:
+  - number: '11.1'
+    title: Gas exchange in humans
+- number: '12'
+  title: Respiration
+  subtopics:
+  - number: '12.1'
+    title: Respiration
+  - number: '12.2'
+    title: Aerobic respiration
+  - number: '12.3'
+    title: Anaerobic respiration
+- number: '13'
+  title: Excretion in humans
+  subtopics:
+  - number: '13.1'
+    title: Excretion in humans
+- number: '14'
+  title: Coordination and response
+  subtopics:
+  - number: '14.1'
+    title: Coordination and response
+  - number: '14.2'
+    title: Sense organs
+  - number: '14.3'
+    title: Hormones
+  - number: '14.4'
+    title: Homeostasis
+  - number: '14.5'
+    title: Tropic responses
+- number: '15'
+  title: Drugs
+  subtopics:
+  - number: '15.1'
+    title: Drugs
+- number: '16'
+  title: Reproduction
+  subtopics:
+  - number: '16.1'
+    title: Asexual reproduction
+  - number: '16.2'
+    title: Sexual reproduction
+  - number: '16.3'
+    title: Sexual reproduction in plants
+  - number: '16.4'
+    title: Sexual reproduction in humans
+  - number: '16.5'
+    title: Sex hormones in humans
+  - number: '16.6'
+    title: Sexually transmitted infections
+- number: '17'
+  title: Inheritance
+  subtopics:
+  - number: '17.1'
+    title: Chromosomes, genes and proteins
+  - number: '17.2'
+    title: Mitosis
+  - number: '17.3'
+    title: Meiosis
+  - number: '17.4'
+    title: Monohybrid inheritance
+- number: '18'
+  title: Variation and selection
+  subtopics:
+  - number: '18.1'
+    title: Variation
+  - number: '18.2'
+    title: Adaptive features
+  - number: '18.3'
+    title: Selection
+- number: '19'
+  title: Organisms and their environment
+  subtopics:
+  - number: '19.1'
+    title: Energy flow
+  - number: '19.2'
+    title: Food chains and food webs
+  - number: '19.3'
+    title: Nutrient cycles
+  - number: '19.4'
+    title: Populations
+- number: '20'
+  title: Human influences on ecosystems
+  subtopics:
+  - number: '20.1'
+    title: Food supply
+  - number: '20.2'
+    title: Habitat destruction
+  - number: '20.3'
+    title: Pollution
+  - number: '20.4'
+    title: Conservation
+- number: '21'
+  title: Biotechnology and genetic modification
+  subtopics:
+  - number: '21.1'
+    title: Biotechnology and genetic modification
+  - number: '21.2'
+    title: Biotechnology
+  - number: '21.3'
+    title: Genetic modification

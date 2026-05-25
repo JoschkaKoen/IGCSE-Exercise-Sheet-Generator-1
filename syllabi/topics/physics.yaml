@@ -1,0 +1,69 @@
+subject_key: physics
+syllabus_pdf: 0625 Physics 2026-2028 Syllabus Document.pdf
+topics:
+- number: '1'
+  title: Motion, forces and energy
+  subtopics:
+  - number: '1.1'
+    title: Physical quantities and measurement techniques
+  - number: '1.2'
+    title: Motion
+  - number: '1.3'
+    title: Mass and weight
+  - number: '1.4'
+    title: Density
+  - number: '1.5'
+    title: Forces
+  - number: '1.6'
+    title: Momentum
+  - number: '1.7'
+    title: Energy, work and power
+  - number: '1.8'
+    title: Pressure
+- number: '2'
+  title: Thermal physics
+  subtopics:
+  - number: '2.1'
+    title: Kinetic particle model of matter
+  - number: '2.2'
+    title: Thermal properties and temperature
+  - number: '2.3'
+    title: Transfer of thermal energy
+- number: '3'
+  title: Waves
+  subtopics:
+  - number: '3.1'
+    title: General properties of waves
+  - number: '3.2'
+    title: Light
+  - number: '3.3'
+    title: Electromagnetic spectrum
+  - number: '3.4'
+    title: Sound
+- number: '4'
+  title: Electricity and magnetism
+  subtopics:
+  - number: '4.1'
+    title: Simple phenomena of magnetism
+  - number: '4.2'
+    title: Electrical quantities
+  - number: '4.3'
+    title: Electric circuits
+  - number: '4.4'
+    title: Electrical safety
+  - number: '4.5'
+    title: Electromagnetic effects
+- number: '5'
+  title: Nuclear physics
+  subtopics:
+  - number: '5.1'
+    title: The nuclear model of the atom
+  - number: '5.2'
+    title: Radioactivity
+- number: '6'
+  title: Space physics
+  subtopics:
+  - number: '6.1'
+    title: The Earth and the Solar System
+  - number: '6.2'
+    title: Stars and the Universe

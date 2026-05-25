@@ -295,11 +295,22 @@ def maybe_split_written_subquestions(
     if len(anchors) < 2:
         return q
 
-    # Reclassify ``(i)`` as a letter when it sits between ``(h)`` and ``(j)``
-    # in a flat letter sequence — Cambridge questions with ten parts a..j
-    # treat ``(i)`` as the 9th letter, not a sub-roman of ``(h)``.  Without
-    # this, "(h)..." and "(i)..." get collapsed into a (h)(i) parent-child
-    # pair and "(i)..." loses its writing area.
+    # Reclassify ``(i)`` as a letter when it follows ``(h)`` in a flat letter
+    # sequence — Cambridge questions with parts a..h..i treat ``(i)`` as the
+    # 9th letter, not a sub-roman of ``(h)``.  Without this, "(h)..." and
+    # "(i)..." collapse into a (h)(i) parent-child pair and "(i)..." loses
+    # its writing area.
+    #
+    # Trigger when EITHER:
+    #   - The sequence continues to ``(j)`` (e.g., a..j, like Specimen
+    #     Chemistry Paper 1 Q1).
+    #   - OR the question contains NO other roman anchors (which would
+    #     indicate the question genuinely uses roman subparts).  This
+    #     covers sequences that end at ``(i)``, like chemistry paper 33 Q1.
+    other_romans = [
+        b for b in anchors
+        if b.kind == "roman" and b.label != "i"
+    ]
     for k, a in enumerate(anchors):
         if a.kind != "roman" or a.label != "i":
             continue
@@ -313,7 +324,13 @@ def maybe_split_written_subquestions(
             if anchors[j].kind == "letter":
                 next_letter = anchors[j].label
                 break
-        if prev_letter == "h" and next_letter == "j":
+        if prev_letter != "h":
+            continue
+        if next_letter == "j":
+            a.kind = "letter"
+        elif not other_romans:
+            # Lone (i) at the end of a flat a..i sequence with no other romans
+            # is the 9th letter, not a roman.
             a.kind = "letter"
 
     n = len(anchors)

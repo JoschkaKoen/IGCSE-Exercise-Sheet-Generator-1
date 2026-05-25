@@ -1,0 +1,280 @@
+subject_key: mathematics
+syllabus_pdf: 0580 Mathematics 2025-2027 Syllabus Document.pdf
+topics:
+- number: '1'
+  title: Number
+  subtopics:
+  - number: C1.1
+    title: Types of number
+  - number: C1.2
+    title: Sets
+  - number: C1.3
+    title: Powers and roots
+  - number: C1.4
+    title: Fractions, decimals and percentages
+  - number: C1.5
+    title: Ordering
+  - number: C1.6
+    title: The four operations
+  - number: C1.7
+    title: Indices I
+  - number: C1.8
+    title: Standard form
+  - number: C1.9
+    title: Estimation
+  - number: C1.10
+    title: Limits of accuracy
+  - number: C1.11
+    title: Ratio and proportion
+  - number: C1.12
+    title: Rates
+  - number: C1.13
+    title: Percentages
+  - number: C1.14
+    title: Using a calculator
+  - number: C1.15
+    title: Time
+  - number: C1.16
+    title: Money
+  - number: E1.1
+    title: Types of number
+  - number: E1.2
+    title: Sets
+  - number: E1.3
+    title: Powers and roots
+  - number: E1.4
+    title: Fractions, decimals and percentages
+  - number: E1.5
+    title: Ordering
+  - number: E1.6
+    title: The four operations
+  - number: E1.7
+    title: Indices I
+  - number: E1.8
+    title: Standard form
+  - number: E1.9
+    title: Estimation
+  - number: E1.10
+    title: Limits of accuracy
+  - number: E1.11
+    title: Ratio and proportion
+  - number: E1.12
+    title: Rates
+  - number: E1.13
+    title: Percentages
+  - number: E1.14
+    title: Using a calculator
+  - number: E1.15
+    title: Time
+  - number: E1.16
+    title: Money
+  - number: E1.17
+    title: Exponential growth and decay
+  - number: E1.18
+    title: Surds
+- number: '2'
+  title: Algebra and graphs
+  subtopics:
+  - number: C2.1
+    title: Introduction to algebra
+  - number: C2.2
+    title: Algebraic manipulation
+  - number: C2.4
+    title: Indices II
+  - number: C2.5
+    title: Equations
+  - number: C2.6
+    title: Inequalities
+  - number: C2.7
+    title: Sequences
+  - number: C2.9
+    title: Graphs in practical situations
+  - number: C2.10
+    title: Graphs of functions
+  - number: C2.11
+    title: Sketching curves
+  - number: E2.1
+    title: Introduction to algebra
+  - number: E2.2
+    title: Algebraic manipulation
+  - number: E2.3
+    title: Algebraic fractions
+  - number: E2.4
+    title: Indices II
+  - number: E2.5
+    title: Equations
+  - number: E2.6
+    title: Inequalities
+  - number: E2.7
+    title: Sequences
+  - number: E2.8
+    title: Proportion
+  - number: E2.9
+    title: Graphs in practical situations
+  - number: E2.10
+    title: Graphs of functions
+  - number: E2.11
+    title: Sketching curves
+  - number: E2.12
+    title: Differentiation
+  - number: E2.13
+    title: Functions
+- number: '3'
+  title: Coordinate geometry
+  subtopics:
+  - number: C3.1
+    title: Coordinates
+  - number: C3.2
+    title: Drawing linear graphs
+  - number: C3.3
+    title: Gradient of linear graphs
+  - number: C3.5
+    title: Equations of linear graphs
+  - number: C3.6
+    title: Parallel lines
+  - number: E3.1
+    title: Coordinates
+  - number: E3.2
+    title: Drawing linear graphs
+  - number: E3.3
+    title: Gradient of linear graphs
+  - number: E3.4
+    title: Length and midpoint
+  - number: E3.5
+    title: Equations of linear graphs
+  - number: E3.6
+    title: Parallel lines
+  - number: E3.7
+    title: Perpendicular lines
+- number: '4'
+  title: Geometry
+  subtopics:
+  - number: C4.1
+    title: Geometrical terms
+  - number: C4.2
+    title: Geometrical constructions
+  - number: C4.3
+    title: Scale drawings
+  - number: C4.4
+    title: Similarity
+  - number: C4.5
+    title: Symmetry
+  - number: C4.6
+    title: Angles
+  - number: C4.7
+    title: Circle theorems
+  - number: E4.1
+    title: Geometrical terms
+  - number: E4.2
+    title: Geometrical constructions
+  - number: E4.3
+    title: Scale drawings
+  - number: E4.4
+    title: Similarity
+  - number: E4.5
+    title: Symmetry
+  - number: E4.6
+    title: Angles
+  - number: E4.7
+    title: Circle theorems I
+  - number: E4.8
+    title: Circle theorems II
+- number: '5'
+  title: Mensuration
+  subtopics:
+  - number: C5.1
+    title: Units of measure
+  - number: C5.2
+    title: Area and perimeter
+  - number: C5.3
+    title: Circles, arcs and sectors
+  - number: C5.4
+    title: Surface area and volume
+  - number: C5.5
+    title: Compound shapes and parts of shapes
+  - number: E5.1
+    title: Units of measure
+  - number: E5.2
+    title: Area and perimeter
+  - number: E5.3
+    title: Circles, arcs and sectors
+  - number: E5.4
+    title: Surface area and volume
+  - number: E5.5
+    title: Compound shapes and parts of shapes
+- number: '6'
+  title: Trigonometry
+  subtopics:
+  - number: C6.1
+    title: Pythagoras’ theorem
+  - number: C6.2
+    title: Right-angled triangles
+  - number: E6.1
+    title: Pythagoras’ theorem
+  - number: E6.2
+    title: Right-angled triangles
+  - number: E6.3
+    title: Exact trigonometric values
+  - number: E6.4
+    title: Trigonometric functions
+  - number: E6.5
+    title: Non-right-angled triangles
+  - number: E6.6
+    title: Pythagoras’ theorem and trigonometry in 3D
+- number: '7'
+  title: Transformations and vectors
+  subtopics:
+  - number: C7.1
+    title: Transformations
+  - number: E7.1
+    title: Transformations
+  - number: E7.2
+    title: Vectors in two dimensions
+  - number: E7.3
+    title: Magnitude of a vector
+  - number: E7.4
+    title: Vector geometry
+- number: '8'
+  title: Probability
+  subtopics:
+  - number: C8.1
+    title: Introduction to probability
+  - number: C8.2
+    title: Relative and expected frequencies
+  - number: C8.3
+    title: Probability of combined events
+  - number: E8.1
+    title: Introduction to probability
+  - number: E8.2
+    title: Relative and expected frequencies
+  - number: E8.3
+    title: Probability of combined events
+  - number: E8.4
+    title: Conditional probability
+- number: '9'
+  title: Statistics
+  subtopics:
+  - number: C9.1
+    title: Classifying statistical data
+  - number: C9.2
+    title: Interpreting statistical data
+  - number: C9.3
+    title: Averages and range
+  - number: C9.4
+    title: Statistical charts and diagrams
+  - number: C9.5
+    title: Scatter diagrams
+  - number: E9.1
+    title: Classifying statistical data
+  - number: E9.2
+    title: Interpreting statistical data
+  - number: E9.3
+    title: Averages and measures of spread
+  - number: E9.4
+    title: Statistical charts and diagrams
+  - number: E9.5
+    title: Scatter diagrams
+  - number: E9.6
+    title: Cumulative frequency diagrams
+  - number: E9.7
+    title: Histograms

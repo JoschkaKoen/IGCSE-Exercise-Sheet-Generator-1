@@ -118,4 +118,38 @@ def build_questions_from_segments(
     # last text line, then re-infer equation blanks on the updated bboxes.
     adjust_leaf_bboxes_after_previous_exercise(doc, cfg, questions)
 
+    _coerce_pure_mcq_papers(questions)
+
     return questions
+
+
+def _coerce_pure_mcq_papers(questions: list[Question]) -> None:
+    """Force-mark every top-level question as ``multiple_choice`` when the
+    paper is clearly pure-MCQ.
+
+    Cambridge IGCSE papers 1 and 2 (and A-level paper 1) are pure multiple-
+    choice — but the per-question text-pattern classifier occasionally misses
+    a question whose options are positional (e.g. labels A/B/C/D inside the
+    cells of a Periodic Table fragment, as in chemistry paper 12 Q22).  When
+    that happens, the affected question gets classified as ``short_answer``
+    and the writing-area detector runs over its diagram, producing a wave of
+    false-positive ``table_cell`` regions.
+
+    Paper-level coercion: if ≥ 75% of top-level questions are MCQ, mark the
+    rest as MCQ too and clear any writing areas the per-question detector
+    already attached.  The 75% threshold leaves mixed papers (rare in
+    Cambridge but possible in specimens) untouched.
+    """
+    if not questions:
+        return
+    mcq_count = sum(1 for q in questions if q.question_type == "multiple_choice")
+    if mcq_count / len(questions) < 0.75:
+        return
+    for q in questions:
+        if q.question_type == "multiple_choice":
+            continue
+        q.question_type = "multiple_choice"
+        q.writing_areas = []
+        # MCQ questions shouldn't have subquestions either; flatten so
+        # downstream consumers see a single MCQ leaf.
+        q.subquestions = []

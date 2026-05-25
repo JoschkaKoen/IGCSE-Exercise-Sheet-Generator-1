@@ -1,0 +1,148 @@
+subject_key: a_level_biology
+syllabus_pdf: 9700 Biology 2025-2027 Syllabus Document.pdf
+topics:
+- number: '1'
+  title: Cell structure
+  subtopics:
+  - number: '1.1'
+    title: The microscope in cell studies
+  - number: '1.2'
+    title: Cells as the basic units of living organisms
+- number: '2'
+  title: Biological molecules
+  subtopics:
+  - number: '2.1'
+    title: Testing for biological molecules
+  - number: '2.2'
+    title: Carbohydrates and lipids
+  - number: '2.3'
+    title: Proteins
+  - number: '2.4'
+    title: Water
+- number: '3'
+  title: Enzymes
+  subtopics:
+  - number: '3.1'
+    title: Mode of action of enzymes
+  - number: '3.2'
+    title: Factors that affect enzyme action
+- number: '4'
+  title: Cell membranes and transport
+  subtopics:
+  - number: '4.1'
+    title: Fluid mosaic membranes
+  - number: '4.2'
+    title: Movement into and out of cells
+- number: '5'
+  title: The mitotic cell cycle
+  subtopics:
+  - number: '5.1'
+    title: Replication and division of nuclei and cells
+  - number: '5.2'
+    title: Chromosome behaviour in mitosis
+- number: '6'
+  title: Nucleic acids and protein synthesis
+  subtopics:
+  - number: '6.1'
+    title: Structure of nucleic acids and replication of DNA
+  - number: '6.2'
+    title: Protein synthesis
+- number: '7'
+  title: Transport in plants
+  subtopics:
+  - number: '7.1'
+    title: Structure of transport tissues
+  - number: '7.2'
+    title: Transport mechanisms
+- number: '8'
+  title: Transport in mammals
+  subtopics:
+  - number: '8.1'
+    title: The circulatory system
+  - number: '8.2'
+    title: Transport of oxygen and carbon dioxide
+  - number: '8.3'
+    title: The heart
+- number: '9'
+  title: Gas exchange
+  subtopics:
+  - number: '9.1'
+    title: The gas exchange system
+- number: '10'
+  title: Infectious diseases
+  subtopics:
+  - number: '10.1'
+    title: Infectious diseases
+  - number: '10.2'
+    title: Antibiotics
+- number: '11'
+  title: Immunity
+  subtopics:
+  - number: '11.1'
+    title: The immune system
+  - number: '11.2'
+    title: Antibodies and vaccination
+- number: '12'
+  title: Energy and respiration
+  subtopics:
+  - number: '12.1'
+    title: Energy
+  - number: '12.2'
+    title: Respiration
+- number: '13'
+  title: Photosynthesis
+  subtopics:
+  - number: '13.1'
+    title: Photosynthesis as an energy transfer process
+  - number: '13.2'
+    title: Investigation of limiting factors
+- number: '14'
+  title: Homeostasis
+  subtopics:
+  - number: '14.1'
+    title: Homeostasis in mammals
+  - number: '14.2'
+    title: Homeostasis in plants
+- number: '15'
+  title: Control and coordination
+  subtopics:
+  - number: '15.1'
+    title: Control and coordination in mammals
+  - number: '15.2'
+    title: Control and coordination in plants
+- number: '16'
+  title: Inheritance
+  subtopics:
+  - number: '16.1'
+    title: Passage of information from parents to offspring
+  - number: '16.2'
+    title: The roles of genes in determining the phenotype
+  - number: '16.3'
+    title: Gene control
+- number: '17'
+  title: Selection and evolution
+  subtopics:
+  - number: '17.1'
+    title: Variation
+  - number: '17.2'
+    title: Natural and artificial selection
+  - number: '17.3'
+    title: Evolution
+- number: '18'
+  title: Classification, biodiversity and conservation
+  subtopics:
+  - number: '18.1'
+    title: Classification
+  - number: '18.2'
+    title: Biodiversity
+  - number: '18.3'
+    title: Conservation
+- number: '19'
+  title: Genetic technology
+  subtopics:
+  - number: '19.1'
+    title: Principles of genetic technology
+  - number: '19.2'
+    title: Genetic technology applied to medicine
+  - number: '19.3'
+    title: Genetically modified organisms in agriculture

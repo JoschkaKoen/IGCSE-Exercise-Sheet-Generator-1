@@ -98,10 +98,18 @@ STRINGS: dict[str, dict[str, str]] = {
         "brand.sheet_preview": "Sheet preview",
         "nav.generate":        "Generate",
         "nav.library":         "Library",
+        "nav.learn":           "Learn",
         "nav.grade":           "Grade",
         "nav.practice":        "Practice",
         "footer.tagline":      "Exercise sheet generator",
         "lang.switch_aria":    "Switch language",
+        # ===== Learn page =====
+        "title.learn_landing":      "Learn",
+        "learn.hero.title":         "Browse the syllabus",
+        "learn.hero.subtitle":      "Pick a subject to see its main topics and subtopics.",
+        "learn.card.cta":           "Topics",
+        "learn.empty.title":        "Topics not yet indexed",
+        "learn.coming_soon.title":  "Learning program coming soon",
 
         # ===== Auth dialog (site-wide) =====
         "auth.dialog.title":        "Sign in",
@@ -115,8 +123,8 @@ STRINGS: dict[str, dict[str, str]] = {
         "auth.err.rate_limit":      "Too many attempts. Wait a minute and try again.",
         "auth.err.network":         "Could not reach the server. Try again.",
 
-        # ===== User account (header Login button + modal + chip) =====
-        "account.login.button":         "Login",
+        # ===== User account (header Account button + modal + chip) =====
+        "account.button":               "Account",
         "account.menu.logout":          "Log out",
         "account.dialog.title":         "Log in or create account",
         "account.field.username":       "Username",
@@ -127,6 +135,13 @@ STRINGS: dict[str, dict[str, str]] = {
         "account.dialog.submit_create": "Create account",
         "account.hint.found":           "Welcome back, @{name}",
         "account.hint.new":             "New account ‘{name}’ will be created",
+        "account.role.legend":          "Sign up as",
+        "account.role.student":         "Student",
+        "account.role.teacher":         "Teacher",
+        "account.dialog.close":         "Close",
+        "account.password.req.length":  "At least 8 characters",
+        "account.password.req.letter":  "Contains a letter",
+        "account.password.req.digit":   "Contains a number",
         "account.toast.welcome_back":   "Welcome back, @{name}!",
         "account.toast.created":        "Account created — welcome, @{name}!",
         "account.err.username_short":   "Username is too short.",
@@ -135,6 +150,8 @@ STRINGS: dict[str, dict[str, str]] = {
         "account.err.password_long":    "Password is too long.",
         "account.err.bad_password":     "Wrong password for this account.",
         "account.err.taken":            "That username was just taken — try again.",
+        "account.err.role_invalid":     "Pick Student or Teacher.",
+        "account.err.password_weak":    "Password needs at least 8 characters with a letter and a number.",
         "account.err.rate_limit":       "Too many attempts. Wait a minute and try again.",
         "account.err.network":          "Could not reach the server. Try again.",
 
@@ -590,10 +607,18 @@ STRINGS: dict[str, dict[str, str]] = {
         "brand.sheet_preview": "练习单预览",
         "nav.generate":        "生成",
         "nav.library":         "题库",
+        "nav.learn":           "学习",
         "nav.grade":           "批改",
         "nav.practice":        "练习",
         "footer.tagline":      "习题单生成器",
         "lang.switch_aria":    "切换语言",
+        # ===== Learn page =====
+        "title.learn_landing":      "学习",
+        "learn.hero.title":         "浏览大纲",
+        "learn.hero.subtitle":      "选择一个学科查看主要内容和子内容。",
+        "learn.card.cta":           "目录",
+        "learn.empty.title":        "目录尚未生成",
+        "learn.coming_soon.title":  "学习程序即将推出",
 
         # ===== Auth dialog =====
         "auth.dialog.title":        "登录",
@@ -607,8 +632,8 @@ STRINGS: dict[str, dict[str, str]] = {
         "auth.err.rate_limit":      "尝试次数过多,请稍后再试。",
         "auth.err.network":         "无法连接到服务器,请重试。",
 
-        # ===== User account (header Login button + modal + chip) =====
-        "account.login.button":         "登录",
+        # ===== User account (header Account button + modal + chip) =====
+        "account.button":               "账号",
         "account.menu.logout":          "退出登录",
         "account.dialog.title":         "登录或创建账号",
         "account.field.username":       "用户名",
@@ -619,6 +644,13 @@ STRINGS: dict[str, dict[str, str]] = {
         "account.dialog.submit_create": "创建账号",
         "account.hint.found":           "欢迎回来,@{name}",
         "account.hint.new":             "将创建新账号 “{name}”",
+        "account.role.legend":          "注册为",
+        "account.role.student":         "学生",
+        "account.role.teacher":         "教师",
+        "account.dialog.close":         "关闭",
+        "account.password.req.length":  "至少 8 个字符",
+        "account.password.req.letter":  "包含字母",
+        "account.password.req.digit":   "包含数字",
         "account.toast.welcome_back":   "欢迎回来,@{name}!",
         "account.toast.created":        "已创建账号 —— 欢迎,@{name}!",
         "account.err.username_short":   "用户名太短。",
@@ -627,6 +659,8 @@ STRINGS: dict[str, dict[str, str]] = {
         "account.err.password_long":    "密码太长。",
         "account.err.bad_password":     "此账号密码错误。",
         "account.err.taken":            "该用户名刚被占用,请换一个。",
+        "account.err.role_invalid":     "请选择学生或教师。",
+        "account.err.password_weak":    "密码需至少 8 个字符,且含字母和数字。",
         "account.err.rate_limit":       "尝试次数过多,请稍后再试。",
         "account.err.network":          "无法连接到服务器,请重试。",
 

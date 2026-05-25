@@ -60,16 +60,55 @@ _GRAPH_GRID_X_PAD_PT = 2.0
 # bbox, the synthetic rule baseline sits this far below ``line_top``.
 _EQ_BLANK_SYNTHETIC_BASELINE_OFFSET_PT = 12.0
 
+# _emit_equation_blanks: ``line_top`` is the TOP of the text line, but the
+# detected h_rule sits at the BASELINE — typically ~6pt below for Cambridge
+# body text.  Shift the match anchor by this offset so the matching window
+# (``± wa_eq_blank_baseline_tol_pt``) actually covers the baseline.  Without
+# this, lines with slightly taller fonts (physics paper 6X ~9pt offset) miss
+# the match and the secondary equation-blank classifier re-emits a duplicate
+# region against the same rule.
+_EQ_BLANK_BASELINE_OFFSET_FROM_TOP_PT = 6.0
+
+
+_DIAGRAM_MIN_DIAGONAL_SEGMENTS = 2
+_DIAGRAM_DIAGONAL_MIN_DX_PT = 5.0
+_DIAGRAM_DIAGONAL_MIN_DY_PT = 5.0
+
+# Hatched / stippled fill: ≥ _STIPPLE_MIN_RULES parallel h_rules within a
+# vertical band of _STIPPLE_BAND_HEIGHT_PT pt with IDENTICAL x-ranges (within
+# _STIPPLE_X_TOL_PT pt at each edge).  Cambridge sometimes draws answer boxes
+# as a hatched fill (a_level_biology specimen Q1aii — ~70 horizontal stripes
+# spanning a 4-column block), producing dozens of false short_line / cluster
+# regions if left alone.  Real Cambridge answer-line stacks have ≥ 12pt
+# inter-line spacing AND start/end at different x-positions per line; stripes
+# are rigid copies, so the strict x-tolerance distinguishes them safely.
+_STIPPLE_MIN_RULES = 4
+_STIPPLE_BAND_HEIGHT_PT = 12.0
+# Cambridge sometimes interleaves stripes at alternating x-offsets ~2pt apart
+# (a_level_biology specimen Q1aii draws even/odd rows offset by 2pt), so the
+# tolerance must absorb that drift.  Real answer-line stacks vary their x
+# extent by far more (the "[n]" mark indicator shifts the right edge by
+# 30–50pt), so 3pt stays well below the discrimination threshold.
+_STIPPLE_X_TOL_PT = 3.0
+
 
 def _consume_rules_inside_diagrams(
     page: fitz.Page, clip: fitz.Rect, h_rules: list[_HRule]
 ) -> None:
-    """Consume h_rules that fall inside diagram shapes (drawings with Bézier curves).
+    """Consume h_rules that fall inside diagram shapes.
 
-    Cambridge answer-area dotted lines are never enclosed in such shapes, so this
-    filter excludes false positives from figure boxes (e.g. the bacterial-
-    reproduction rounded rectangles on biology paper 42 page 14, or organ
-    outlines in physiology diagrams).
+    Two kinds of drawings count as "figures":
+
+    1. **Bézier-curved drawings.** Bacterial-reproduction rounded rectangles
+       (biology paper 42 page 14), organ outlines in physiology diagrams,
+       speech-bubble outlines, etc.
+    2. **Drawings with ≥2 diagonal line segments.** Pyramids, prisms, cones,
+       and other 3D shapes drawn with straight perspective edges (mathematics
+       paper 32 Q2 pyramid).  Tables and answer-box rectangles are pure
+       axis-aligned and never trip this threshold.
+
+    Cambridge answer-area dotted lines are never enclosed in such shapes,
+    so consuming rules here is safe.
     """
     for d in page.get_drawings():
         dr = d.get("rect")
@@ -79,7 +118,19 @@ def _consume_rules_inside_diagrams(
             continue
         items = d.get("items") or []
         has_curves = any(it and it[0] == "c" for it in items)
-        if not has_curves:
+        n_diagonals = 0
+        for it in items:
+            if not it or it[0] != "l" or len(it) < 3:
+                continue
+            p0, p1 = it[1], it[2]
+            dx = abs(float(p0.x) - float(p1.x))
+            dy = abs(float(p0.y) - float(p1.y))
+            if dx > _DIAGRAM_DIAGONAL_MIN_DX_PT and dy > _DIAGRAM_DIAGONAL_MIN_DY_PT:
+                n_diagonals += 1
+                if n_diagonals >= _DIAGRAM_MIN_DIAGONAL_SEGMENTS:
+                    break
+        is_figure = has_curves or n_diagonals >= _DIAGRAM_MIN_DIAGONAL_SEGMENTS
+        if not is_figure:
             continue
         dw = max(dr.x1 - dr.x0, 1.0)
         for hr in h_rules:
@@ -89,6 +140,41 @@ def _consume_rules_inside_diagrams(
                 x_overlap = max(0.0, min(hr.x1, dr.x1) - max(hr.x0, dr.x0))
                 if x_overlap >= dw * _DIAGRAM_X_OVERLAP_FRAC:
                     hr.consumed = True
+
+
+def _consume_rules_in_stippled_fills(h_rules: list[_HRule]) -> None:
+    """Consume runs of parallel h_rules that form a hatched / stippled fill.
+
+    Cambridge occasionally renders an answer area as a hatched rectangle —
+    many parallel horizontal stripes every 2–4pt within a small vertical
+    band (a_level_biology specimen paper 3 Q1aii uses this for a 4-column
+    answer grid).  Each stripe becomes its own ``_HRule`` and downstream
+    classifiers pick the bottom few up as overlapping ``short_line`` /
+    ``similar_length_cluster`` regions.
+
+    Stripes are rigid copies of one rule (identical x-range, even spacing)
+    whereas a real Cambridge answer-line stack uses varying x-extents and
+    ≥ 12pt vertical spacing, so the strict x-tolerance + small band height
+    isolate stripes safely.
+    """
+    if len(h_rules) < _STIPPLE_MIN_RULES:
+        return
+    rules_sorted = sorted(h_rules, key=lambda r: r.y)
+    n = len(rules_sorted)
+    for i, anchor in enumerate(rules_sorted):
+        if anchor.consumed:
+            continue
+        cluster = [anchor]
+        for j in range(i + 1, n):
+            r = rules_sorted[j]
+            if r.y - anchor.y > _STIPPLE_BAND_HEIGHT_PT:
+                break
+            if (abs(r.x0 - anchor.x0) <= _STIPPLE_X_TOL_PT
+                    and abs(r.x1 - anchor.x1) <= _STIPPLE_X_TOL_PT):
+                cluster.append(r)
+        if len(cluster) >= _STIPPLE_MIN_RULES:
+            for r in cluster:
+                r.consumed = True
 
 
 def _consume_rules_in_graph_grid(
@@ -137,9 +223,10 @@ def _emit_equation_blanks(
         line_top = original_bb.y0 + (
             cfg.equation_blank_pad_above_pt - cfg.equation_blank_nudge_top_pt
         )
+        line_baseline = line_top + _EQ_BLANK_BASELINE_OFFSET_FROM_TOP_PT
         matching_rule: _HRule | None = None
         for r in h_rules:
-            if abs(r.y - line_top) <= cfg.wa_eq_blank_baseline_tol_pt:
+            if abs(r.y - line_baseline) <= cfg.wa_eq_blank_baseline_tol_pt:
                 if matching_rule is None or r.length > matching_rule.length:
                     matching_rule = r
                 if not r.consumed:
@@ -185,6 +272,7 @@ def _detect_in_region(
 
     text_lines = _text_lines_in(page, clip)
     _consume_rules_inside_diagrams(page, clip, h_rules)
+    _consume_rules_in_stippled_fills(h_rules)
     _consume_rules_in_graph_grid(h_rules, v_rules)
 
     # Classifier sequence — DO NOT REORDER.  Each pass mutates ``h_rules``'s

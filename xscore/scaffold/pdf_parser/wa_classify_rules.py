@@ -409,6 +409,18 @@ def _classify_inline_blank(
             prefix_alnum = "".join(c for c in prefix if c.isalnum() or c.isspace()).strip()
             if len(prefix_alnum) < _INLINE_BLANK_MIN_PREFIX_CHARS:
                 continue
+            # The prefix must read as English prose — at least
+            # ``wa_inline_blank_min_prefix_chars`` of it must be ASCII
+            # alphanumerics or spaces.  Without this gate, barcode-area
+            # text-runs (sequences of non-ASCII font-tricks like
+            # ``ĬÙĊ®Ġ´íÈõ``) match the threshold and produce tiny
+            # bottom-of-page false positives on every Cambridge math /
+            # physics / chemistry page that prints a QR code.
+            ascii_prefix = "".join(
+                c for c in prefix_alnum if c.isascii() and (c.isalnum() or c.isspace())
+            )
+            if len(ascii_prefix) < _INLINE_BLANK_MIN_PREFIX_CHARS:
+                continue
             out.append((bbox_for_short_line(r, page_no, cfg), "short_line"))
             r.consumed = True
             break

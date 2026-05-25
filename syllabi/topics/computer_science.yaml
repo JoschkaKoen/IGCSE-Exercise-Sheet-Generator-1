@@ -1,0 +1,116 @@
+subject_key: computer_science
+syllabus_pdf: 0478 Computer Science 2026-2028 Syllabus Document.pdf
+topics:
+- number: '1'
+  title: Data representation
+  subtopics:
+  - number: '1.1'
+    title: Number systems
+  - number: '1.2'
+    title: Text, sound and images
+  - number: '1.3'
+    title: Data storage and compression
+- number: '2'
+  title: Data transmission
+  subtopics:
+  - number: '2.1'
+    title: Types and methods of data transmission
+  - number: '2.2'
+    title: Methods of error detection
+  - number: '2.3'
+    title: Encryption
+- number: '3'
+  title: Hardware
+  subtopics:
+  - number: '3.1'
+    title: Computer architecture
+  - number: '3.2'
+    title: Input and output devices
+  - number: '3.3'
+    title: Data storage
+  - number: '3.4'
+    title: Network hardware
+- number: '4'
+  title: Software
+  subtopics:
+  - number: '4.1'
+    title: Types of software and interrupts
+  - number: '4.2'
+    title: Types of programming language, translators and integrated development environments
+      (IDEs)
+- number: '5'
+  title: The internet and its uses
+  subtopics:
+  - number: '5.1'
+    title: The internet and the world wide web
+  - number: '5.2'
+    title: Digital currency
+  - number: '5.3'
+    title: Cyber security
+- number: '6'
+  title: Automated and emerging technologies
+  subtopics:
+  - number: '6.1'
+    title: Automated systems
+  - number: '6.2'
+    title: Robotics
+  - number: '6.3'
+    title: Artificial intelligence
+- number: '7'
+  title: Algorithm design and problem-solving
+  subtopics:
+  - number: '7.1'
+    title: 'Understand the program development life cycle, limited to: analysis, design,
+      coding and testing'
+  - number: '7.2'
+    title: Understand that every computer system is made up of sub-systems, which
+      are made up of further sub-systems
+  - number: '7.3'
+    title: Explain the purpose of a given algorithm
+  - number: '7.4'
+    title: Understand standard methods of solution
+  - number: '7.5'
+    title: Understand the need for validation checks to be made on input data and
+      the different types of validation check
+  - number: '7.6'
+    title: Suggest and apply suitable test data
+  - number: '7.7'
+    title: Complete a trace table to document a dry-run of an algorithm
+  - number: '7.8'
+    title: Identify errors in given algorithms and suggest ways of correcting these
+      errors
+  - number: '7.9'
+    title: 'Write and amend algorithms for given problems or scenarios, using: pseudocode,
+      program code and flowcharts'
+- number: '8'
+  title: Programming
+  subtopics:
+  - number: '8.1'
+    title: Programming concepts
+  - number: '8.2'
+    title: Arrays
+  - number: '8.3'
+    title: File handling
+- number: '9'
+  title: Databases
+  subtopics:
+  - number: '9.1'
+    title: Define a single-table database from given data storage requirements
+  - number: '9.2'
+    title: Suggest suitable basic data types
+  - number: '9.3'
+    title: Understand the purpose of a primary key and identify a suitable primary
+      key for a given database table
+  - number: '9.4'
+    title: Read, understand and complete structured query language (SQL) scripts to
+      query data stored in a single database table
+- number: '10'
+  title: Boolean logic
+  subtopics:
+  - number: '10.1'
+    title: Identify and use the standard symbols for logic gates
+  - number: '10.2'
+    title: Define and understand the functions of logic gates
+  - number: '10.3'
+    title: 'Use logic gates to create given logic circuits from a: problem statement,
+      logic expression, truth table'

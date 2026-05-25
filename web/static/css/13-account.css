@@ -1,11 +1,19 @@
-/* ─── Account widget (header Login pill / chip / popover) ───────────────── */
+/* ─── Account widget (header Account pill / chip / popover) ─────────────── */
 /*
- * Logged-out: a cyan-glow pill that sits inside .site-header-nav as the 5th
- * pill, mirroring the shape of the nav links so it inherits responsive
- * behaviour automatically.
+ * Logged-out: a cyan-glow pill that sits in its own slot to the right of
+ * .site-header-nav (sibling, not child) — reads as a separate control.
  * Logged-in: a compact chip with a gradient avatar dot + @username, plus a
  * glass popover with a single Log out item.
  */
+
+/* Slot wraps the pill / chip — gives it a small left margin so it doesn't
+   kiss the nav bar. Flex display keeps it on the same baseline as the nav. */
+.site-header-account-slot {
+  margin-left: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
 
 .site-header-account-btn {
   position: relative;
@@ -143,8 +151,11 @@
   padding: 0;
   background: transparent;
   color: inherit;
-  max-width: 24rem;
+  /* Slight bump from 24rem so the password requirements row doesn't wrap on
+     narrower phones. */
+  max-width: 26rem;
   width: calc(100% - 2rem);
+  position: relative;
 }
 
 .account-dialog::backdrop {
@@ -159,15 +170,53 @@
   margin: auto;
 }
 
+/* Close (×) button anchored to the dialog's top-right corner so the user
+   has an explicit way out beyond ESC / backdrop click. */
+.account-dialog-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.5rem;
+  color: rgba(148, 163, 184, 0.85);
+  background: transparent;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.account-dialog-close:hover { background: rgba(255, 255, 255, 0.06); color: white; }
+.account-dialog-close:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.6);
+  outline-offset: 2px;
+}
+
+/* Per-field grouping: input + optional inline-hint or check-list.
+   Tighter vertical rhythm than the form's outer gap, so an input and its
+   feedback row read as one unit instead of two free-floating elements.
+   Labels are sr-only — placeholders carry the visible field-purpose hint. */
+.account-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
 
 /* ─── Live-check hint row (below username field in the modal) ───────────── */
 .account-hint-row {
-  min-height: 1.25rem;
   font-size: 0.8125rem;
   display: flex;
   align-items: center;
   gap: 0.375rem;
   padding-left: 0.125rem;
+}
+
+/* Collapse the row when JS hasn't populated it yet so there's no awkward
+   reserved vertical space above the role picker. */
+.account-hint-row:empty {
+  display: none;
 }
 
 .account-hint--found { color: rgb(103, 232, 249); }  /* cyan-300 */
@@ -181,6 +230,123 @@
   justify-content: center;
   font-weight: 700;
   font-size: 0.75rem;
+}
+
+
+/* ─── Role selector (segmented radio in the create-account dialog) ─────── */
+.account-role-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  /* Match the flex/gap structure of .account-field-group so legend → group
+     spacing is the same 0.375rem used elsewhere.
+     align-items: flex-start keeps the inline-flex .account-role-group from
+     being stretched to the dialog's full width (default flex-container
+     behaviour is align-items: stretch). */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+}
+
+.account-role-group {
+  position: relative;
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.account-role-group input[type="radio"] {
+  /* Visually hide but keep focusable for keyboard + screen readers. */
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+.account-role-group label {
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(203, 213, 225, 0.85);
+  cursor: pointer;
+  transition: background 0.14s ease, color 0.14s ease, box-shadow 0.14s ease;
+}
+
+.account-role-group label:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.account-role-group input[type="radio"]:checked + label {
+  background: linear-gradient(135deg, #67e8f9 0%, #818cf8 100%);
+  color: white;
+  box-shadow: 0 0 12px -2px rgba(34, 211, 238, 0.45);
+}
+
+.account-role-group input[type="radio"]:focus-visible + label {
+  outline: 2px solid rgba(34, 211, 238, 0.6);
+  outline-offset: 2px;
+}
+
+
+/* ─── Password strength checklist (create / neutral mode only) ──────────── */
+.account-password-checks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: rgba(148, 163, 184, 0.75);
+  padding-left: 0.125rem;
+}
+
+.account-password-checks li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.16s ease;
+}
+
+.account-check-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 0.625rem;
+  line-height: 1;
+  color: transparent;
+  flex-shrink: 0;
+  transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+/* Use a CSS-only checkmark glyph that appears once .met is set. */
+.account-check-icon::before {
+  content: "✓";
+  font-weight: 700;
+  color: inherit;
+}
+
+.account-password-checks li.met {
+  color: rgb(165, 243, 252);  /* cyan-200 */
+}
+
+.account-password-checks li.met .account-check-icon {
+  background: linear-gradient(135deg, #22d3ee 0%, #6366f1 100%);
+  border-color: rgba(34, 211, 238, 0.85);
+  color: white;
+  box-shadow: 0 0 8px -1px rgba(34, 211, 238, 0.45);
 }
 
 

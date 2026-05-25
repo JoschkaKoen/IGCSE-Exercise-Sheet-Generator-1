@@ -157,10 +157,10 @@ def _library_grouped_blocks(subject_key: str, names: list[str]) -> list[dict[str
 
 def _newest_syllabus_block(subject_key: str) -> dict[str, Any] | None:
     """Pinned top-of-list block holding the newest syllabus PDF for a subject."""
-    import re
     from urllib.parse import quote
 
     from eXercise.config import SYLLABI_DIR, SYLLABUS_CODE_BY_KEY
+    from web.syllabus_topics import parse_year_range
 
     code = SYLLABUS_CODE_BY_KEY.get(subject_key)
     if not code or not SYLLABI_DIR.is_dir():
@@ -170,10 +170,11 @@ def _newest_syllabus_block(subject_key: str) -> dict[str, Any] | None:
     pdfs = docs or list(SYLLABI_DIR.glob(f"{code} *Syllabus*.pdf"))
     if not pdfs:
         return None
+
     def end_year(p: Path) -> int:
-        # Match year tokens (20xx), not the leading Cambridge code (0xxx/9xxx).
-        m = re.search(r"(20\d{2})(?:-(20\d{2}))?", p.stem)
-        return int(m.group(2) or m.group(1)) if m else 0
+        r = parse_year_range(p)
+        return r[1] if r else 0
+
     newest = max(pdfs, key=end_year)
     return {
         "year": "_syllabus",

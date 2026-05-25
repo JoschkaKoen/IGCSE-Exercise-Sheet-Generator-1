@@ -34,6 +34,7 @@ from .routes.eXam_open import router as eXam_open_router
 from .routes.eXam_student import router as eXam_student_router
 from .routes.eXam_teacher import router as eXam_teacher_router
 from .routes.grade_jobs import router as grade_jobs_router
+from .routes.learn import router as learn_router
 from .routes.nl_jobs import router as nl_jobs_router
 from .routes.site import router as site_router
 from .service import list_library_pdfs
@@ -149,4 +150,5 @@ app.include_router(eXam_teacher_router)
 # NOTE: if site login is ever enabled (DISABLE_LOGIN=false), whitelist
 # /eXam/practice/* in the /api/* gate above analogously to /api/auth/login.
 app.include_router(eXam_open_router)
+app.include_router(learn_router)
 app.include_router(admin_stats_router)

@@ -1,0 +1,137 @@
+subject_key: chemistry
+syllabus_pdf: 0620 Chemistry 2026-2028 Syllabus Document.pdf
+topics:
+- number: '1'
+  title: States of matter
+  subtopics:
+  - number: '1.1'
+    title: Solids, liquids and gases
+  - number: '1.2'
+    title: Diffusion
+- number: '2'
+  title: Atoms, elements and compounds
+  subtopics:
+  - number: '2.1'
+    title: Elements, compounds and mixtures
+  - number: '2.2'
+    title: Atomic structure and the Periodic Table
+  - number: '2.3'
+    title: Isotopes
+  - number: '2.4'
+    title: Ions and ionic bonds
+  - number: '2.5'
+    title: Simple molecules and covalent bonds
+  - number: '2.6'
+    title: Giant covalent structures
+  - number: '2.7'
+    title: Metallic bonding
+- number: '3'
+  title: Stoichiometry
+  subtopics:
+  - number: '3.1'
+    title: Formulae
+  - number: '3.2'
+    title: Relative masses of atoms and molecules
+  - number: '3.3'
+    title: The mole and the Avogadro constant
+- number: '4'
+  title: Electrochemistry
+  subtopics:
+  - number: '4.1'
+    title: Electrolysis
+  - number: '4.2'
+    title: Hydrogen–oxygen fuel cells
+- number: '5'
+  title: Chemical energetics
+  subtopics:
+  - number: '5.1'
+    title: Exothermic and endothermic reactions
+- number: '6'
+  title: Chemical reactions
+  subtopics:
+  - number: '6.1'
+    title: Physical and chemical changes
+  - number: '6.2'
+    title: Rate of reaction
+  - number: '6.3'
+    title: Reversible reactions and equilibrium
+  - number: '6.4'
+    title: Redox
+- number: '7'
+  title: Acids, bases and salts
+  subtopics:
+  - number: '7.1'
+    title: The characteristic properties of acids and bases
+  - number: '7.2'
+    title: Oxides
+  - number: '7.3'
+    title: Preparation of salts
+- number: '8'
+  title: The Periodic Table
+  subtopics:
+  - number: '8.1'
+    title: Arrangement of elements
+  - number: '8.2'
+    title: Group I properties
+  - number: '8.3'
+    title: Group VII properties
+  - number: '8.4'
+    title: Transition elements
+  - number: '8.5'
+    title: Noble gases
+- number: '9'
+  title: Metals
+  subtopics:
+  - number: '9.1'
+    title: Properties of metals
+  - number: '9.2'
+    title: Uses of metals
+  - number: '9.3'
+    title: Alloys and their properties
+  - number: '9.4'
+    title: Reactivity series
+  - number: '9.5'
+    title: Corrosion of metals
+  - number: '9.6'
+    title: Extraction of metals
+- number: '10'
+  title: Chemistry of the environment
+  subtopics:
+  - number: '10.1'
+    title: Water
+  - number: '10.2'
+    title: Fertilisers
+  - number: '10.3'
+    title: Air quality and climate
+- number: '11'
+  title: Organic chemistry
+  subtopics:
+  - number: '11.1'
+    title: Formulae, functional groups and terminology
+  - number: '11.2'
+    title: Naming organic compounds
+  - number: '11.3'
+    title: Fuels
+  - number: '11.4'
+    title: Alkanes
+  - number: '11.5'
+    title: Alkenes
+  - number: '11.6'
+    title: Alcohols
+  - number: '11.7'
+    title: Carboxylic acids
+  - number: '11.8'
+    title: Polymers
+- number: '12'
+  title: Experimental techniques and chemical analysis
+  subtopics:
+  - number: '12.1'
+    title: Experimental design
+  - number: '12.2'
+    title: Acid–base titrations
+  - number: '12.3'
+    title: Chromatography
+  - number: '12.4'
+    title: Separation and purification
+  - number: '12.5'
+    title: Identification of ions and gases

@@ -247,3 +247,24 @@ body.preview-mode-active .site-header-inner:has(#pdf-tab-bar-wrap:not([hidden]))
   }
 }
 
+/* ─── Centered nav (non-preview, desktop) ──────────────────────────────── */
+/* Absolutely positions .site-header-nav at the horizontal center of
+   .site-header-inner. Scoped to non-preview pages + lg-and-up so that:
+     - preview mode keeps its existing grid (see lines ~134, ~178);
+     - <1024 px keeps the right-aligned flex layout (no room to centre
+       without brand / nav / account overlapping).
+   .site-header-inner is already position: relative (line 28). Overriding
+   .site-header-preview-col to position: static lets the absolutely-positioned
+   nav anchor to .site-header-inner instead of preview-col, so it centres on
+   the full header width — not just the right-hand column. */
+@media (min-width: 1024px) {
+  body:not(.preview-mode-active) .site-header-preview-col {
+    position: static;
+  }
+  body:not(.preview-mode-active) .site-header-nav {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

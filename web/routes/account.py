@@ -40,6 +40,7 @@ from ..user_auth import (
     apply_cookie,
     clear_cookie,
     validate_password,
+    validate_signup_password,
     validate_username,
 )
 
@@ -55,10 +56,17 @@ _NO_CACHE_HEADERS = {"Cache-Control": "no-store, no-cache", "Pragma": "no-cache"
 class _AuthBody(BaseModel):
     username: str = Field(..., min_length=1, max_length=128)
     password: str = Field(..., min_length=1, max_length=256)
+    # Optional role hint. Only consulted on the create path; ignored on login
+    # (DB row's stored role is authoritative). Allowed values are restricted
+    # to {"student", "teacher"} below — "admin" is bootstrap-only via env.
+    role: str | None = Field(default=None, max_length=32)
 
 
 class _CheckBody(BaseModel):
     username: str = Field(..., min_length=1, max_length=128)
+
+
+_ALLOWED_SIGNUP_ROLES: Final[frozenset[str]] = frozenset({"student", "teacher"})
 
 
 # ---------------------------------------------------------------------------
@@ -239,7 +247,17 @@ async def account_auth(request: Request, body: _AuthBody) -> JSONResponse:
         return response
 
     # Create path.
-    new_id = create(display, key, hash_password(body.password), role="student")
+    # Stricter password rules apply only at signup — existing weaker accounts
+    # can still log in via the looser validate_password() above.
+    err = validate_signup_password(body.password)
+    if err is not None:
+        raise HTTPException(status_code=400, detail=err)
+    role = "student"
+    if body.role is not None:
+        if body.role not in _ALLOWED_SIGNUP_ROLES:
+            raise HTTPException(status_code=400, detail="account.err.role_invalid")
+        role = body.role
+    new_id = create(display, key, hash_password(body.password), role=role)
     if new_id is None:
         # Rare UNIQUE race — another concurrent request created the row.
         raise HTTPException(status_code=409, detail="account.err.taken")
@@ -251,7 +269,7 @@ async def account_auth(request: Request, body: _AuthBody) -> JSONResponse:
     apply_cookie(response, request, new_id)
     track_request_event(
         request, "account_auth",
-        status="ok", properties={"created": True},
+        status="ok", properties={"created": True, "role": role},
     )
     return response
 

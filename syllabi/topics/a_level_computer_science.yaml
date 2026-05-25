@@ -1,0 +1,151 @@
+subject_key: a_level_computer_science
+syllabus_pdf: 9618 Computer Science 2026 Syllabus Document.pdf
+topics:
+- number: '1'
+  title: Information representation
+  subtopics:
+  - number: '1.1'
+    title: Data Representation
+  - number: '1.2'
+    title: Multimedia
+  - number: '1.3'
+    title: Compression
+- number: '2'
+  title: Communication
+  subtopics:
+  - number: '2.1'
+    title: Networks including the internet
+- number: '3'
+  title: Hardware
+  subtopics:
+  - number: '3.1'
+    title: Computers and their components
+  - number: '3.2'
+    title: Logic Gates and Logic Circuits
+- number: '4'
+  title: Processor Fundamentals
+  subtopics:
+  - number: '4.1'
+    title: Central Processing Unit (CPU) Architecture
+  - number: '4.2'
+    title: Assembly Language
+  - number: '4.3'
+    title: Bit manipulation
+- number: '5'
+  title: System Software
+  subtopics:
+  - number: '5.1'
+    title: Operating Systems
+  - number: '5.2'
+    title: Language Translators
+- number: '6'
+  title: Security, privacy and data integrity
+  subtopics:
+  - number: '6.1'
+    title: Data Security
+  - number: '6.2'
+    title: Data Integrity
+- number: '7'
+  title: Ethics and Ownership
+  subtopics:
+  - number: '7.1'
+    title: Ethics and Ownership
+- number: '8'
+  title: Databases
+  subtopics:
+  - number: '8.1'
+    title: Database Concepts
+  - number: '8.2'
+    title: Database Management Systems (DBMS)
+  - number: '8.3'
+    title: Data Definition Language (DDL) and Data Manipulation Language (DML)
+- number: '9'
+  title: Algorithm Design and Problem-solving
+  subtopics:
+  - number: '9.1'
+    title: Computational Thinking Skills
+  - number: '9.2'
+    title: Algorithms
+- number: '10'
+  title: Data Types and Structures
+  subtopics:
+  - number: '10.1'
+    title: Data Types and Records
+  - number: '10.2'
+    title: Arrays
+  - number: '10.3'
+    title: Files
+  - number: '10.4'
+    title: Introduction to Abstract Data Types (ADT)
+- number: '11'
+  title: Programming
+  subtopics:
+  - number: '11.1'
+    title: Programming Basics
+  - number: '11.2'
+    title: Constructs
+  - number: '11.3'
+    title: Structured Programming
+- number: '12'
+  title: Software Development
+  subtopics:
+  - number: '12.1'
+    title: Program Development Life cycle
+  - number: '12.2'
+    title: Program Design
+  - number: '12.3'
+    title: Program Testing and Maintenance
+- number: '13'
+  title: Data Representation
+  subtopics:
+  - number: '13.1'
+    title: User-defined data types
+  - number: '13.2'
+    title: File organisation and access
+  - number: '13.3'
+    title: Floating-point numbers, representation and manipulation
+- number: '14'
+  title: Communication and internet technologies
+  subtopics:
+  - number: '14.1'
+    title: Protocols
+  - number: '14.2'
+    title: Circuit switching, packet switching
+- number: '15'
+  title: Hardware and Virtual Machines
+  subtopics:
+  - number: '15.1'
+    title: Processors, Parallel Processing and Virtual Machines
+  - number: '15.2'
+    title: Boolean Algebra and Logic Circuits
+- number: '16'
+  title: System Software
+  subtopics:
+  - number: '16.1'
+    title: Purposes of an Operating System (OS)
+  - number: '16.2'
+    title: Translation Software
+- number: '17'
+  title: Security
+  subtopics:
+  - number: '17.1'
+    title: Encryption, Encryption Protocols and Digital Certificates
+- number: '18'
+  title: Artificial Intelligence (AI)
+  subtopics:
+  - number: '18.1'
+    title: Artificial Intelligence (AI)
+- number: '19'
+  title: Computational thinking and Problem-solving
+  subtopics:
+  - number: '19.1'
+    title: Algorithms
+  - number: '19.2'
+    title: Recursion
+- number: '20'
+  title: Further Programming
+  subtopics:
+  - number: '20.1'
+    title: Programming Paradigms
+  - number: '20.2'
+    title: File Processing and Exception Handling

@@ -1,0 +1,230 @@
+subject_key: a_level_physics
+syllabus_pdf: 9702 Physics 2025-2027 Syllabus Document.pdf
+topics:
+- number: '1'
+  title: Physical quantities and units
+  subtopics:
+  - number: '1.1'
+    title: Physical quantities
+  - number: '1.2'
+    title: SI units
+  - number: '1.3'
+    title: Errors and uncertainties
+  - number: '1.4'
+    title: Scalars and vectors
+- number: '2'
+  title: Kinematics
+  subtopics:
+  - number: '2.1'
+    title: Equations of motion
+- number: '3'
+  title: Dynamics
+  subtopics:
+  - number: '3.1'
+    title: Momentum and Newton’s laws of motion
+  - number: '3.2'
+    title: Non-uniform motion
+  - number: '3.3'
+    title: Linear momentum and its conservation
+- number: '4'
+  title: Forces, density and pressure
+  subtopics:
+  - number: '4.1'
+    title: Turning effects of forces
+  - number: '4.2'
+    title: Equilibrium of forces
+  - number: '4.3'
+    title: Density and pressure
+- number: '5'
+  title: Work, energy and power
+  subtopics:
+  - number: '5.1'
+    title: Energy conservation
+  - number: '5.2'
+    title: Gravitational potential energy and kinetic energy
+- number: '6'
+  title: Deformation of solids
+  subtopics:
+  - number: '6.1'
+    title: Stress and strain
+  - number: '6.2'
+    title: Elastic and plastic behaviour
+- number: '7'
+  title: Waves
+  subtopics:
+  - number: '7.1'
+    title: Progressive waves
+  - number: '7.2'
+    title: Transverse and longitudinal waves
+  - number: '7.3'
+    title: Doppler effect for sound waves
+  - number: '7.4'
+    title: Electromagnetic spectrum
+  - number: '7.5'
+    title: Polarisation
+- number: '8'
+  title: Superposition
+  subtopics:
+  - number: '8.1'
+    title: Stationary waves
+  - number: '8.2'
+    title: Diffraction
+  - number: '8.3'
+    title: Interference
+  - number: '8.4'
+    title: The diffraction grating
+- number: '9'
+  title: Electricity
+  subtopics:
+  - number: '9.1'
+    title: Electric current
+  - number: '9.2'
+    title: Potential difference and power
+  - number: '9.3'
+    title: Resistance and resistivity
+- number: '10'
+  title: D.C. circuits
+  subtopics:
+  - number: '10.1'
+    title: Practical circuits
+  - number: '10.2'
+    title: Kirchhoff’s laws
+  - number: '10.3'
+    title: Potential dividers
+- number: '11'
+  title: Particle physics
+  subtopics:
+  - number: '11.1'
+    title: Atoms, nuclei and radiation
+  - number: '11.2'
+    title: Fundamental particles
+- number: '12'
+  title: Motion in a circle
+  subtopics:
+  - number: '12.1'
+    title: Kinematics of uniform circular motion
+  - number: '12.2'
+    title: Centripetal acceleration
+- number: '13'
+  title: Gravitational fields
+  subtopics:
+  - number: '13.1'
+    title: Gravitational field
+  - number: '13.2'
+    title: Gravitational force between point masses
+  - number: '13.3'
+    title: Gravitational field of a point mass
+  - number: '13.4'
+    title: Gravitational potential
+- number: '14'
+  title: Temperature
+  subtopics:
+  - number: '14.1'
+    title: Thermal equilibrium
+  - number: '14.2'
+    title: Temperature scales
+  - number: '14.3'
+    title: Specific heat capacity and specific latent heat
+- number: '15'
+  title: Ideal gases
+  subtopics:
+  - number: '15.1'
+    title: The mole
+  - number: '15.2'
+    title: Equation of state
+  - number: '15.3'
+    title: Kinetic theory of gases
+- number: '16'
+  title: Thermodynamics
+  subtopics:
+  - number: '16.1'
+    title: Internal energy
+  - number: '16.2'
+    title: The first law of thermodynamics
+- number: '17'
+  title: Oscillations
+  subtopics:
+  - number: '17.1'
+    title: Simple harmonic oscillations
+  - number: '17.2'
+    title: Energy in simple harmonic motion
+  - number: '17.3'
+    title: Damped and forced oscillations, resonance
+- number: '18'
+  title: Electric fields
+  subtopics:
+  - number: '18.1'
+    title: Electric fields and field lines
+  - number: '18.2'
+    title: Uniform electric fields
+  - number: '18.3'
+    title: Electric force between point charges
+  - number: '18.4'
+    title: Electric field of a point charge
+  - number: '18.5'
+    title: Electric potential
+- number: '19'
+  title: Capacitance
+  subtopics:
+  - number: '19.1'
+    title: Capacitors and capacitance
+  - number: '19.2'
+    title: Energy stored in a capacitor
+  - number: '19.3'
+    title: Discharging a capacitor
+- number: '20'
+  title: Magnetic fields
+  subtopics:
+  - number: '20.1'
+    title: Concept of a magnetic field
+  - number: '20.2'
+    title: Force on a current-carrying conductor
+  - number: '20.3'
+    title: Force on a moving charge
+  - number: '20.4'
+    title: Magnetic fields due to currents
+  - number: '20.5'
+    title: Electromagnetic induction
+- number: '21'
+  title: Alternating currents
+  subtopics:
+  - number: '21.1'
+    title: Characteristics of alternating currents
+  - number: '21.2'
+    title: Rectification and smoothing
+- number: '22'
+  title: Quantum physics
+  subtopics:
+  - number: '22.1'
+    title: Energy and momentum of a photon
+  - number: '22.2'
+    title: Photoelectric effect
+  - number: '22.3'
+    title: Wave-particle duality
+  - number: '22.4'
+    title: Energy levels in atoms and line spectra
+- number: '23'
+  title: Nuclear physics
+  subtopics:
+  - number: '23.1'
+    title: Mass defect and nuclear binding energy
+  - number: '23.2'
+    title: Radioactive decay
+- number: '24'
+  title: Medical physics
+  subtopics:
+  - number: '24.1'
+    title: Production and use of ultrasound
+  - number: '24.2'
+    title: Production and use of X-rays
+  - number: '24.3'
+    title: PET scanning
+- number: '25'
+  title: Astronomy and cosmology
+  subtopics:
+  - number: '25.1'
+    title: Standard candles
+  - number: '25.2'
+    title: Stellar radii
+  - number: '25.3'
+    title: Hubble’s law and the Big Bang theory

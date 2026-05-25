@@ -98,6 +98,10 @@
     var hintRow = dialog.querySelector('[data-account-hint]');
     var passToggle = dialog.querySelector('[data-account-password-toggle]');
     var closeBtn = dialog.querySelector('[data-account-close]');
+    var roleSet = dialog.querySelector('[data-account-role]');
+    var roleStudentRadio = dialog.querySelector('#account-role-student');
+    var checksList = dialog.querySelector('[data-account-pw-checks]');
+    var checkItems = checksList ? checksList.querySelectorAll('[data-check]') : [];
 
     if (!form || !userIn || !passIn || !submit) return;
 
@@ -136,6 +140,20 @@
       } else {
         submit.textContent = t('account.dialog.submit_neutral');
       }
+      // Role radio + password requirements are visible by default (so a
+      // fresh visitor opening the modal sees them immediately). Both hide
+      // on the login path — returning users get a clean two-field form, and
+      // their (possibly pre-existing weak) password isn't held to the new
+      // signup rules.
+      if (roleSet) {
+        if (next === 'login') roleSet.setAttribute('hidden', '');
+        else roleSet.removeAttribute('hidden');
+      }
+      if (checksList) {
+        if (next === 'login') checksList.setAttribute('hidden', '');
+        else checksList.removeAttribute('hidden');
+      }
+      updateSubmitEnabled();
       // Hint row
       hintRow.innerHTML = '';
       hintRow.classList.remove('account-hint--found', 'account-hint--new');
@@ -154,8 +172,36 @@
       }
     }
 
+    // Mirror of the server-side rules in web/user_auth.validate_signup_password.
+    // Kept here as DOM-only checks so the UI reflects them instantly.
+    function passwordChecks(pw) {
+      return {
+        length: pw.length >= 8,
+        letter: /\p{L}/u.test(pw),
+        digit:  /\p{N}/u.test(pw),
+      };
+    }
+
+    function renderPasswordChecks() {
+      var pw = passIn.value;
+      var checks = passwordChecks(pw);
+      for (var i = 0; i < checkItems.length; i++) {
+        var item = checkItems[i];
+        var which = item.getAttribute('data-check');
+        if (checks[which]) item.classList.add('met');
+        else item.classList.remove('met');
+      }
+      return checks.length && checks.letter && checks.digit;
+    }
+
     function updateSubmitEnabled() {
-      submit.disabled = !(userIn.value.trim().length && passIn.value.length);
+      var basicsOk = userIn.value.trim().length && passIn.value.length;
+      // In login mode, any-length-non-empty password is accepted (the user's
+      // existing password may pre-date the strength rules). In create/neutral
+      // mode, require the live checks to all pass — matches the server-side
+      // signup validator.
+      var pwOk = (mode === 'login') ? true : renderPasswordChecks();
+      submit.disabled = !(basicsOk && pwOk);
     }
 
     function clearError() {
@@ -173,6 +219,7 @@
       passIn.value = '';
       passIn.type = 'password';
       if (passToggle) passToggle.setAttribute('aria-pressed', 'false');
+      if (roleStudentRadio) roleStudentRadio.checked = true;
       clearError();
       setMode('neutral', '');
       updateSubmitEnabled();
@@ -219,11 +266,22 @@
       submit.disabled = true;
       var name = userIn.value.trim();
       var pw = passIn.value;
+      var payload = { username: name, password: pw };
+      // Send the user's role selection whenever the role fieldset is visible
+      // (i.e. mode is 'neutral' or 'create'). On login mode the server
+      // ignores it anyway, but more importantly: if the user submits before
+      // the live-check has fired (mode still 'neutral'), the server may
+      // end up taking the create path — we don't want their Teacher
+      // selection silently dropped to the 'student' default.
+      if (mode !== 'login') {
+        var roleSel = dialog.querySelector('input[name=role]:checked');
+        if (roleSel && roleSel.value) payload.role = roleSel.value;
+      }
       fetch('/api/account/auth', {
         method: 'POST',
         credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ username: name, password: pw }),
+        body: JSON.stringify(payload),
       })
         .then(function (r) {
           return r.json().then(function (body) { return { ok: r.ok, status: r.status, body: body }; });

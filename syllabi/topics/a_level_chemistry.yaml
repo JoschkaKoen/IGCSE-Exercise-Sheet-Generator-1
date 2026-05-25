@@ -1,0 +1,300 @@
+subject_key: a_level_chemistry
+syllabus_pdf: 9701 Chemistry 2025-2027 Syllabus Document.pdf
+topics:
+- number: '1'
+  title: Atomic structure
+  subtopics:
+  - number: '1.1'
+    title: Particles in the atom and atomic radius
+  - number: '1.2'
+    title: Isotopes
+  - number: '1.3'
+    title: Electrons, energy levels and atomic orbitals
+  - number: '1.4'
+    title: Ionisation energy
+- number: '2'
+  title: Atoms, molecules and stoichiometry
+  subtopics:
+  - number: '2.1'
+    title: Relative masses of atoms and molecules
+  - number: '2.2'
+    title: The mole and the Avogadro constant
+  - number: '2.3'
+    title: Formulas
+  - number: '2.4'
+    title: Reacting masses and volumes (of solutions and gases)
+- number: '3'
+  title: Chemical bonding
+  subtopics:
+  - number: '3.1'
+    title: Electronegativity and bonding
+  - number: '3.2'
+    title: Ionic bonding
+  - number: '3.3'
+    title: Metallic bonding
+  - number: '3.4'
+    title: Covalent bonding and coordinate (dative covalent) bonding
+  - number: '3.5'
+    title: Shapes of molecules
+  - number: '3.6'
+    title: Intermolecular forces, electronegativity and bond properties
+  - number: '3.7'
+    title: Dot-and-cross diagrams
+- number: '4'
+  title: States of matter
+  subtopics:
+  - number: '4.1'
+    title: 'The gaseous state: ideal and real gases and pV = nRT'
+  - number: '4.2'
+    title: Bonding and structure
+- number: '5'
+  title: Chemical energetics
+  subtopics:
+  - number: '5.1'
+    title: Enthalpy change, ΔH
+  - number: '5.2'
+    title: Hess’s law
+- number: '6'
+  title: Electrochemistry
+  subtopics:
+  - number: '6.1'
+    title: 'Redox processes: electron transfer and changes in oxidation number (oxidation
+      state)'
+- number: '7'
+  title: Equilibria
+  subtopics:
+  - number: '7.1'
+    title: 'Chemical equilibria: reversible reactions, dynamic equilibrium'
+  - number: '7.2'
+    title: Brønsted–Lowry theory of acids and bases
+- number: '8'
+  title: Reaction kinetics
+  subtopics:
+  - number: '8.1'
+    title: Rate of reaction
+  - number: '8.2'
+    title: Effect of temperature on reaction rates and the concept of activation energy
+  - number: '8.3'
+    title: Homogeneous and heterogeneous catalysts
+- number: '9'
+  title: 'The Periodic Table: chemical periodicity'
+  subtopics:
+  - number: '9.1'
+    title: Periodicity of physical properties of the elements in Period 3
+  - number: '9.2'
+    title: Periodicity of chemical properties of the elements in Period 3
+  - number: '9.3'
+    title: Chemical periodicity of other elements
+- number: '10'
+  title: Group 2
+  subtopics:
+  - number: '10.1'
+    title: Similarities and trends in the properties of the Group 2 metals, magnesium
+      to barium, and their compounds
+- number: '11'
+  title: Group 17
+  subtopics:
+  - number: '11.1'
+    title: Physical properties of the Group 17 elements
+  - number: '11.2'
+    title: The chemical properties of the halogen elements and the hydrogen halides
+  - number: '11.3'
+    title: Some reactions of the halide ions
+  - number: '11.4'
+    title: The reactions of chlorine
+- number: '12'
+  title: Nitrogen and sulfur
+  subtopics:
+  - number: '12.1'
+    title: Nitrogen and sulfur
+- number: '13'
+  title: An introduction to AS Level organic chemistry
+  subtopics:
+  - number: '13.1'
+    title: Formulas, functional groups and the naming of organic compounds
+  - number: '13.2'
+    title: Characteristic organic reactions
+  - number: '13.3'
+    title: Shapes of organic molecules; σ and π bonds
+  - number: '13.4'
+    title: 'Isomerism: structural isomerism and stereoisomerism'
+- number: '14'
+  title: Hydrocarbons
+  subtopics:
+  - number: '14.1'
+    title: Alkanes
+  - number: '14.2'
+    title: Alkenes
+- number: '15'
+  title: Halogen compounds
+  subtopics:
+  - number: '15.1'
+    title: Halogenoalkanes
+- number: '16'
+  title: Hydroxy compounds
+  subtopics:
+  - number: '16.1'
+    title: Alcohols
+- number: '17'
+  title: Carbonyl compounds
+  subtopics:
+  - number: '17.1'
+    title: Aldehydes and ketones
+- number: '18'
+  title: Carboxylic acids and derivatives
+  subtopics:
+  - number: '18.1'
+    title: Carboxylic acids
+  - number: '18.2'
+    title: Esters
+- number: '19'
+  title: Nitrogen compounds
+  subtopics:
+  - number: '19.1'
+    title: Primary amines
+  - number: '19.2'
+    title: Nitriles and hydroxynitriles
+- number: '20'
+  title: Polymerisation
+  subtopics:
+  - number: '20.1'
+    title: Addition polymerisation
+- number: '21'
+  title: Organic synthesis
+  subtopics:
+  - number: '21.1'
+    title: Organic synthesis
+- number: '22'
+  title: Analytical techniques
+  subtopics:
+  - number: '22.1'
+    title: Infrared spectroscopy
+  - number: '22.2'
+    title: Mass spectrometry
+- number: '23'
+  title: Chemical energetics
+  subtopics:
+  - number: '23.1'
+    title: Lattice energy and Born-Haber cycles
+  - number: '23.2'
+    title: Enthalpies of solution and hydration
+  - number: '23.3'
+    title: Entropy change, ΔS
+  - number: '23.4'
+    title: Gibbs free energy change, ΔG
+- number: '24'
+  title: Electrochemistry
+  subtopics:
+  - number: '24.1'
+    title: Electrolysis
+  - number: '24.2'
+    title: Standard electrode potentials E⦵, standard cell potentials E⦵cell and the
+      Nernst equation
+- number: '25'
+  title: Equilibria
+  subtopics:
+  - number: '25.1'
+    title: Acids and bases
+  - number: '25.2'
+    title: Partition coefficients
+- number: '26'
+  title: Reaction kinetics
+  subtopics:
+  - number: '26.1'
+    title: Simple rate equations, orders of reaction and rate constants
+  - number: '26.2'
+    title: Homogeneous and heterogeneous catalysts
+- number: '27'
+  title: Group 2
+  subtopics:
+  - number: '27.1'
+    title: Similarities and trends in the properties of the Group 2 metals, magnesium
+      to barium, and their compounds
+- number: '28'
+  title: Chemistry of transition elements
+  subtopics:
+  - number: '28.1'
+    title: General physical and chemical properties of the first row of transition
+      elements, titanium to copper
+  - number: '28.2'
+    title: General characteristic chemical properties of the first set of transition
+      elements, titanium to copper
+  - number: '28.3'
+    title: Colour of complexes
+  - number: '28.4'
+    title: Stereoisomerism in transition element complexes
+  - number: '28.5'
+    title: Stability constants, Kstab
+- number: '29'
+  title: An introduction to A Level organic chemistry
+  subtopics:
+  - number: '29.1'
+    title: Formulas, functional groups and the naming of organic compounds
+  - number: '29.2'
+    title: Characteristic organic reactions
+  - number: '29.3'
+    title: Shapes of aromatic organic molecules; σ and π bonds
+  - number: '29.4'
+    title: 'Isomerism: optical'
+- number: '30'
+  title: Hydrocarbons
+  subtopics:
+  - number: '30.1'
+    title: Arenes
+- number: '31'
+  title: Halogen compounds
+  subtopics:
+  - number: '31.1'
+    title: Halogen compounds
+- number: '32'
+  title: Hydroxy compounds
+  subtopics:
+  - number: '32.1'
+    title: Alcohols
+  - number: '32.2'
+    title: Phenol
+- number: '33'
+  title: Carboxylic acids and derivatives
+  subtopics:
+  - number: '33.1'
+    title: Carboxylic acids
+  - number: '33.2'
+    title: Esters
+  - number: '33.3'
+    title: Acyl chlorides
+- number: '34'
+  title: Nitrogen compounds
+  subtopics:
+  - number: '34.1'
+    title: Primary and secondary amines
+  - number: '34.2'
+    title: Phenylamine and azo compounds
+  - number: '34.3'
+    title: Amides
+  - number: '34.4'
+    title: Amino acids
+- number: '35'
+  title: Polymerisation
+  subtopics:
+  - number: '35.1'
+    title: Condensation polymerisation
+  - number: '35.2'
+    title: Predicting the type of polymerisation
+  - number: '35.3'
+    title: Degradable polymers
+- number: '36'
+  title: Organic synthesis
+  subtopics:
+  - number: '36.1'
+    title: Organic synthesis
+- number: '37'
+  title: Analytical techniques
+  subtopics:
+  - number: '37.1'
+    title: Thin-layer chromatography
+  - number: '37.2'
+    title: Gas/liquid chromatography
+  - number: '37.3'
+    title: Carbon-13 NMR spectroscopy
+  - number: '37.4'
+    title: Proton (1H) NMR spectroscopy
