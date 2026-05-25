@@ -295,6 +295,27 @@ def maybe_split_written_subquestions(
     if len(anchors) < 2:
         return q
 
+    # Reclassify ``(i)`` as a letter when it sits between ``(h)`` and ``(j)``
+    # in a flat letter sequence — Cambridge questions with ten parts a..j
+    # treat ``(i)`` as the 9th letter, not a sub-roman of ``(h)``.  Without
+    # this, "(h)..." and "(i)..." get collapsed into a (h)(i) parent-child
+    # pair and "(i)..." loses its writing area.
+    for k, a in enumerate(anchors):
+        if a.kind != "roman" or a.label != "i":
+            continue
+        prev_letter = None
+        for j in range(k - 1, -1, -1):
+            if anchors[j].kind == "letter":
+                prev_letter = anchors[j].label
+                break
+        next_letter = None
+        for j in range(k + 1, len(anchors)):
+            if anchors[j].kind == "letter":
+                next_letter = anchors[j].label
+                break
+        if prev_letter == "h" and next_letter == "j":
+            a.kind = "letter"
+
     n = len(anchors)
 
     def slice_lines(ai: int) -> tuple[list[ClipLine], str]:
@@ -330,6 +351,38 @@ def maybe_split_written_subquestions(
             return bb
         return BBox(bb.x0, bb.y0, bb.x1, new_y1, bb.page)
 
+    def _continuation_bboxes_for_subpart(start_page: int, next_a: SubAnchor | None) -> list[BBox]:
+        """When a subpart spans page breaks, build per-page bboxes from
+        ``start_page + 1`` up to the page where *next_a* lives.  Each
+        continuation page's bbox covers from the page top down to either the
+        next anchor's top (if on this page) or the segment bottom.
+        """
+        if next_a is None:
+            target_page = max((pidx + 1 for pidx, *_ in segs), default=start_page)
+        else:
+            target_page = next_a.page
+        out: list[BBox] = []
+        for p in range(start_page + 1, target_page + 1):
+            page_seg_y1: float | None = None
+            cell_x0 = q.bbox.x0
+            cell_x1 = q.bbox.x1
+            cell_y0 = 0.0
+            for pidx, sy0, sy1, scell, _pr, _nx1, _st, _sb in segs:
+                if pidx + 1 == p:
+                    cell_x0 = float(scell.x0)
+                    cell_x1 = float(scell.x1)
+                    cell_y0 = float(scell.y0)
+                    page_seg_y1 = float(sy1)
+                    break
+            if page_seg_y1 is None:
+                continue
+            if next_a is not None and next_a.page == p:
+                page_seg_y1 = min(page_seg_y1, next_a.y0)
+            if page_seg_y1 - cell_y0 < 10:
+                continue
+            out.append(BBox(cell_x0, cell_y0, cell_x1, page_seg_y1, p))
+        return out
+
     anchor_nodes: dict[int, Question] = {}
     root_children: list[Question] = []
 
@@ -348,6 +401,8 @@ def maybe_split_written_subquestions(
         next_a = anchors[ai + 1] if ai + 1 < n else None
         bb = _extend_subpart_bbox_to_next_anchor(bb, next_a)
         bb = expand_bbox_to_subpage_width(doc, bb)
+        continuation = _continuation_bboxes_for_subpart(bb.page, next_a)
+        continuation = [expand_bbox_to_subpage_width(doc, cbb) for cbb in continuation]
         sq = Question(
             number="",
             question_type=infer_question_type(seg_text) if seg_text else q.question_type,
@@ -357,6 +412,7 @@ def maybe_split_written_subquestions(
             images=[],
             writing_areas=[],
             subquestions=[],
+            continuation_bboxes=continuation,
         )
         anchor_nodes[ai] = sq
 

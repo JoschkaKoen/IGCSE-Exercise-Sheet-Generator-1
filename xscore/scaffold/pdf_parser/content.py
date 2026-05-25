@@ -433,14 +433,36 @@ def ensure_multiple_choice_options_parsed(q: Question) -> None:
 
 def infer_question_type(text: str) -> str:
     tl = text.lower()
-    # Use [ \t] (not \s) for the gap between letter and digit so the regex doesn't
-    # match across newlines.  Otherwise "D\n4 cm" (a diagram vertex label followed
-    # by a side length on the next line) falsely classifies the question as MCQ.
-    if "multiple choice" in tl or re.search(r"(?m)^[ \t]*[A-Da-d][ \t]{1,4}\d", text):
+    if "multiple choice" in tl:
+        return "multiple_choice"
+    # Inline numeric MCQ block: "A 4 / B 8 / C 16 / D 32".  Require at least 3
+    # distinct letters matching the pattern so prose like "A 10 cm3 measuring
+    # cylinder was used..." (a single occurrence inside an experimental
+    # description) is not misclassified as MCQ — biology paper 62 Q1's
+    # multi-page written question was getting lost this way.
+    inline_matches = re.findall(r"(?m)^[ \t]*([A-Da-d])[ \t]{1,4}\d", text)
+    if len({c.upper() for c in inline_matches}) >= 3:
         return "multiple_choice"
     lines = text.splitlines()
-    if _mc_options_block_start_index(lines) is not None:
-        return "multiple_choice"
+    idx = _mc_options_block_start_index(lines)
+    if idx is not None:
+        # Real MCQ option blocks come at the END of the question (after the stem).
+        # A block followed by subpart anchors ``(i)`` / ``(a)`` / ``(b)`` is a data
+        # table that the student references from subquestions, not MCQ options.
+        # Cambridge data tables with row labels ``A``…``E`` also reach this point
+        # — exclude them by looking for ``Table N.N`` references, ``Complete the
+        # table`` prompts, or a 5th row labelled ``E`` (MCQ stops at D).
+        tail = "\n".join(lines[idx:])
+        if re.search(r"(?mi)^\s*\(([a-z]|[ivx]+)\)", tail):
+            pass
+        elif re.search(r"\bTable\s+\d+\.\d+\b", text, re.I):
+            pass
+        elif re.search(r"(?mi)\bComplete\s+(?:the\s+)?[Tt]able\b", text):
+            pass
+        elif re.search(r"(?m)^\s*E\s*$", tail):
+            pass
+        else:
+            return "multiple_choice"
     if "calculate" in tl or "show your working" in tl:
         return "calculation"
     if len(text) > 400:

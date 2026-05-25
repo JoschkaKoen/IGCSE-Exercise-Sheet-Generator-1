@@ -115,6 +115,11 @@ class Question:
     reasoning: str | None = None             # DEPRECATED — kept for transitional reads; populated alongside explanation
     answer_images: list[ExamImage] = field(default_factory=list)
     answer_options: list[McAnswerOption] = field(default_factory=list)  # MC only
+    # Continuation regions on later pages when the leaf's content spans page
+    # breaks (e.g. a "Discuss the evidence" question's text on page N and its
+    # answer lines on page N+1).  Each entry is a BBox on a different page;
+    # the writing-area detector iterates over these alongside ``bbox``.
+    continuation_bboxes: list[BBox] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         if self.page == 0 and self.bbox.page:

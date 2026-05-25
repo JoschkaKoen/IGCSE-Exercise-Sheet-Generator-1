@@ -177,7 +177,21 @@ def find_question_positions(
                     raw_occurrence[raw] += 1
                     occ = raw_occurrence[raw]
                     qid = format_main_question_id(raw, occ)
-                    num_span_x1 = float(first_span["bbox"][2])
+                    # When the question number and body share a single span
+                    # (math paper layout for Q16), ``first_span.bbox.x1`` is at
+                    # the end of the full sentence, not after the number.  Use
+                    # the digit prefix's character count to scale within the
+                    # span — width-weighted by character — so the clip's left
+                    # edge lands just past the number digits + space.
+                    span_text = first_span["text"]
+                    span_x0 = float(first_span["bbox"][0])
+                    span_x1 = float(first_span["bbox"][2])
+                    digit_prefix = re.match(r"\s*\d+\b\s*", span_text)
+                    if digit_prefix and len(span_text) > 0:
+                        prefix_chars = len(digit_prefix.group(0))
+                        num_span_x1 = span_x0 + (span_x1 - span_x0) * prefix_chars / len(span_text)
+                    else:
+                        num_span_x1 = span_x1
                     positions.append((qid, page_idx, y0, cell, raw, num_span_x1))
 
     positions.sort(key=lambda x: (x[1], x[3].y0, x[3].x0, x[2]))
@@ -197,10 +211,29 @@ def find_question_positions(
         running = positions[0][0]
         carries: dict[int, str] = {}
         first_page = min(p for _, p, _, _, _, _ in positions)
-        last_page = max(p for _, p, _, _, _, _ in positions)
-        for page_idx in range(first_page, last_page + 1):
+        last_anchor_page = max(p for _, p, _, _, _, _ in positions)
+        # Extend the carry past the last anchored page — Cambridge questions often
+        # continue onto pages with no main-number anchor of their own (e.g. Q6 on
+        # biology paper 42 spans pages 17-19 with the anchor only on page 17).
+        end_page = max(last_anchor_page, len(doc) - 1)
+        for page_idx in range(first_page, end_page + 1):
             if page_idx in last_qid_by_page:
                 running = last_qid_by_page[page_idx]
+            elif page_idx > last_anchor_page:
+                # Past the last anchor: skip truly blank pages so we don't drag
+                # carried content onto the standard final blank pages.
+                page = doc[page_idx]
+                blocks = page.get_text("dict")["blocks"]
+                text_blocks = [b for b in blocks if b.get("type") == 0]
+                non_trivial_lines = 0
+                for b in text_blocks:
+                    for line in b.get("lines", []):
+                        text = "".join(s["text"] for s in line.get("spans", [])).strip()
+                        if len(text) >= 4 and "BLANK PAGE" not in text and "UCLES" not in text:
+                            non_trivial_lines += 1
+                if non_trivial_lines < 3:
+                    continue
+                carries[page_idx] = running
             else:
                 carries[page_idx] = running
 
