@@ -22,20 +22,48 @@ Three pipelines for Cambridge-style IGCSE exam workflows. **eXercise** assembles
 
 ## Contents
 
-- [How exercise generation works](#how-exercise-generation-works)
-- [How grading works](#how-grading-works)
-- [How exam practice works](#how-exam-practice-works)
+- [What you get](#what-you-get)
+- **Pipelines**
+  - [eXercise pipeline — exercise sheet generation](#exercise-pipeline)
+    - [Natural language mode](#natural-language-mode-one-sentence)
+    - [Legacy mode](#legacy-mode-explicit-paths)
+  - [xScore pipeline — exam scan grading](#xscore-pipeline)
+    - [Per-step details (1–34)](#per-step-details-134)
+  - [eXam pipeline — on-screen practice with AI marking](#exam-pipeline)
+    - [Two modes](#two-modes)
+    - [Pipeline at a glance](#pipeline-at-a-glance)
+    - [Modules](#modules)
+    - [Data flow](#data-flow)
+    - [On-disk layout](#on-disk-layout)
+    - [Entry points](#entry-points)
+    - [Cost & caching notes](#cost--caching-notes)
 - [Requirements](#requirements)
+  - [Optional system tools](#optional-system-tools)
+  - [Grade page (optional)](#grade-page-optional)
 - [Quick setup](#quick-setup)
 - [Usage](#usage)
+  - [Natural language (CLI)](#natural-language-cli)
+  - [Legacy (explicit paths)](#legacy-explicit-paths)
+  - [Grading (CLI)](#grading-cli)
+  - [Web UI](#web-ui)
+  - [Programmatic](#programmatic)
 - [Configuration](#configuration)
+  - [Where settings live](#where-settings-live)
+  - [API keys (secrets → `.env`)](#api-keys-secrets--env)
+  - [Models, thinking, and token budgets (non-secrets → `default.env`)](#models-thinking-and-token-budgets-non-secrets--defaultenv)
+  - [Other LLM-related flags](#other-llm-related-flags)
+  - [Web app (login)](#web-app-login)
+  - [Hosting tip](#hosting-tip)
 - [Docker](#docker)
 - [Output](#output)
 - [Project layout](#project-layout)
+- [License](#license)
 
 ---
 
-## How exercise generation works
+## eXercise pipeline
+
+*Exercise sheet generation — describe the run in plain English, an LLM resolves it to PDF paths and question numbers, and the app extracts question regions as vector graphics, optionally attaches mark-scheme answers, generates MCQ explanations, and ranks by difficulty.*
 
 Overview (rendered on GitHub as a diagram):
 
@@ -104,7 +132,9 @@ flowchart TD
 
 ---
 
-## How grading works
+## xScore pipeline
+
+*Exam scan grading — cleans the scan, identifies students, parses the mark scheme, runs an AI vision model over each page, and emits per-student PDF reports plus a class summary. 34 sequential steps with parallelism inside individual phases.*
 
 All four input files are required:
 
@@ -482,9 +512,11 @@ Step 12 builds a closed page-type catalog from the *empty* exam paper. Step 13 t
 
 ---
 
-## How exam practice works
+## eXam pipeline
 
-The `eXam/` pipeline serves Cambridge past papers on-screen and marks answers as students submit them. It's a consumer of the other two pipelines — it reuses xScore's scaffold extraction to index a paper once and eXercise's vector-rendering primitives to crop each question into its own snippet PDF for the browser.
+*On-screen exam practice with AI marking — serves Cambridge past papers in the browser, marks each submission, and lazily generates hints / solutions / examples / KB topics per question.*
+
+The `eXam/` pipeline is a consumer of the other two — it reuses xScore's scaffold extraction to index a paper once and eXercise's vector-rendering primitives to crop each question into its own snippet PDF for the browser.
 
 ### Two modes
 
@@ -949,7 +981,7 @@ The three pipelines write to separate sub-folders under `output/`:
 | `xscore/preprocessing/` | Scan-cleaning library code: orientation, blank detection, rotation, deskew, cover detection. |
 | `xscore/extraction/` | Provider adapters and image helpers (Gemini, Kimi, JPEG/PNG renderers). |
 | `xscore/prompts/` | `.md` prompt templates loaded by `prompts/loader.py`. |
-| `eXam/` | On-screen practice pipeline: paper indexing (`bank.py`), question-PDF snippet rendering, AI marking (`marker.py`), helper pregeneration (`pregenerate.py`), SQLite store (`db.py`), open-mode (`open_mode.py`), teacher test builder (`test_builder.py`). See [How exam practice works](#how-exam-practice-works). |
+| `eXam/` | On-screen practice pipeline: paper indexing (`bank.py`), question-PDF snippet rendering, AI marking (`marker.py`), helper pregeneration (`pregenerate.py`), SQLite store (`db.py`), open-mode (`open_mode.py`), teacher test builder (`test_builder.py`). See [eXam pipeline](#exam-pipeline). |
 | `eXam/prompts/` | `.md` templates for marking + helper generation (hint, solution, example, KB topic). |
 | `web/app.py` | FastAPI routes and job store |
 | `web/grade_service.py` | Web-facing wrapper for the xScore pipeline (subset of the 36-step terminal pipeline) |
