@@ -13,6 +13,12 @@ import re
 
 from xscore.shared.models import BBox
 from xscore.scaffold.pdf_parser.config import ParserConfig
+from xscore.scaffold.pdf_parser.wa_geometry import (
+    bbox_for_equation_blank,
+    bbox_for_short_line,
+    verticals_crossing_at_y,
+    verticals_crossing_range,
+)
 from xscore.scaffold.pdf_parser.wa_signals import (
     _HRule,
     _MARK_BRACKET_RE,
@@ -21,13 +27,46 @@ from xscore.scaffold.pdf_parser.wa_signals import (
 )
 
 
+# File-local constants lifted from inline literals (Phase 1 refactor).
+# Calibration history lives in git; group here for discoverability.
+
+# _classify_multi_line:
+_MULTI_LINE_MAX_INITIAL_PITCH_PT = 40.0   # break if first pair pitch exceeds this
+_MULTI_LINE_LENGTH_TOL_ABS_PT = 40.0      # absolute length tolerance between adjacent rules
+_MULTI_LINE_LENGTH_TOL_FRAC = 0.30        # fractional length tolerance
+_MULTI_LINE_PAD_TOP_FRAC = 0.7            # bbox top padding = pitch * this
+_MULTI_LINE_PAD_BOT_FRAC = 0.3            # bbox bot padding = pitch * this
+
+# _classify_labeled_lines:
+_LABELED_LINE_BASELINE_TOL_PT = 6.0       # |ty_c - r.y| ≤ tol to bind label to rule
+_LABELED_LINE_MAX_GAP_PT = 28.0           # gap between consecutive rules in a labeled stack
+_LABELED_LINES_PAD_TOP_PT = 14.0          # multi-rule labeled bbox top padding
+_LABELED_LINES_PAD_BOT_PT = 4.0           # multi-rule labeled bbox bottom padding
+
+# _classify_secondary_equation_blank:
+_EQ_BLANK_EQ_POSITION_SLACK_PT = 4.0      # eq_x must be within (rule.x0 + slack)
+
+# _classify_short_line:
+_SHORT_LINE_MARK_ABOVE_PT = 8.0           # mark indicator within (-above_pt, +below_pt) of rule.y
+_SHORT_LINE_MARK_BELOW_PT = 18.0
+
+# _classify_similar_length_cluster:
+_SIMILAR_CLUSTER_LENGTH_TOL_FRAC = 1.25   # next-rule length ≤ first * this stays in cluster
+_SIMILAR_CLUSTER_MIN_SIZE = 3             # cluster must have ≥ this many rules
+
+# _classify_inline_blank:
+_INLINE_BLANK_MAX_LENGTH_FRAC = 0.6       # skip rules that span ≥ this fraction of cell_width
+_INLINE_BLANK_BASELINE_TOL_PT = 6.0       # baseline-match tolerance between text and rule
+_INLINE_BLANK_MIN_PREFIX_CHARS = 15       # alphanumeric prefix length before the dots
+
+
 def _classify_multi_line(
     h_rules: list[_HRule],
     v_rules: list[_VRule],
     cell_width: float,
     cfg: ParserConfig,
     page_no: int,
-) -> list[BBox]:
+) -> list[tuple[BBox, str]]:
     """Group ≥2 evenly-spaced unclaimed horizontal rules into multi-line writing areas.
 
     Bbox height encodes the writing space; the frontend derives ``<textarea rows>``
@@ -40,7 +79,7 @@ def _classify_multi_line(
     if len(free) < cfg.wa_lines_min_count:
         return []
 
-    out: list[BBox] = []
+    out: list[tuple[BBox, str]] = []
     used: set[int] = set()
     for i in range(len(free)):
         if i in used:
@@ -55,10 +94,12 @@ def _classify_multi_line(
             pitch = r.y - last.y
             if pitch <= 0:
                 continue
-            if abs(r.length - last.length) > max(40.0, last.length * 0.3):
+            if abs(r.length - last.length) > max(
+                _MULTI_LINE_LENGTH_TOL_ABS_PT, last.length * _MULTI_LINE_LENGTH_TOL_FRAC
+            ):
                 continue
             if first_pitch is None:
-                if pitch > 40.0:
+                if pitch > _MULTI_LINE_MAX_INITIAL_PITCH_PT:
                     break
                 first_pitch = pitch
                 stack.append(r)
@@ -84,10 +125,7 @@ def _classify_multi_line(
         y_hi = stack[-1].y
         x_lo = min(r.x0 for r in stack)
         x_hi = max(r.x1 for r in stack)
-        crossing_v = sum(
-            1 for v in v_rules
-            if v.y0 <= y_hi and v.y1 >= y_lo and x_lo < v.x < x_hi
-        )
+        crossing_v = verticals_crossing_range(v_rules, x_lo, x_hi, y_lo, y_hi)
         if crossing_v >= 2:
             continue
 
@@ -96,9 +134,9 @@ def _classify_multi_line(
         y0 = stack[0].y
         y1 = stack[-1].y
         pitch = (y1 - y0) / max(len(stack) - 1, 1)
-        y0_pad = y0 - pitch * 0.7
-        y1_pad = y1 + pitch * 0.3
-        out.append(BBox(x0, y0_pad, x1, y1_pad, page_no))
+        y0_pad = y0 - pitch * _MULTI_LINE_PAD_TOP_FRAC
+        y1_pad = y1 + pitch * _MULTI_LINE_PAD_BOT_FRAC
+        out.append((BBox(x0, y0_pad, x1, y1_pad, page_no), "lines"))
 
         for s in stack:
             s.consumed = True
@@ -168,7 +206,7 @@ def _classify_labeled_lines(
         lbl: str | None = None
         for tx0, ty0, tx1, ty1, t in text_lines:
             ty_c = (ty0 + ty1) * 0.5
-            if abs(ty_c - r.y) > 6:
+            if abs(ty_c - r.y) > _LABELED_LINE_BASELINE_TOL_PT:
                 continue
             if tx0 >= r.x0 - 2:
                 continue
@@ -192,7 +230,7 @@ def _classify_labeled_lines(
         while j < len(free):
             if rule_label[id(free[j])] is not None:
                 break
-            if free[j].y - group[-1].y > 28:
+            if free[j].y - group[-1].y > _LABELED_LINE_MAX_GAP_PT:
                 break
             group.append(free[j])
             j += 1
@@ -201,11 +239,10 @@ def _classify_labeled_lines(
         x1 = max(r.x1 for r in group)
         if len(group) == 1:
             r = group[0]
-            bb = BBox(r.x0, r.y - 12.0, r.x1, r.y + 4.0, page_no)
-            out.append((bb, "short_line"))
+            out.append((bbox_for_short_line(r, page_no, cfg), "short_line"))
         else:
-            y_top = group[0].y - 14.0
-            y_bot = group[-1].y + 4.0
+            y_top = group[0].y - _LABELED_LINES_PAD_TOP_PT
+            y_bot = group[-1].y + _LABELED_LINES_PAD_BOT_PT
             bb = BBox(x0, y_top, x1, y_bot, page_no)
             out.append((bb, "lines"))
         for r in group:
@@ -219,14 +256,14 @@ def _classify_secondary_equation_blank(
     text_lines: list[tuple[float, float, float, float, str]],
     cfg: ParserConfig,
     page_no: int,
-) -> list[BBox]:
+) -> list[tuple[BBox, str]]:
     """Find rules with an ``=`` text immediately to the left on the same baseline.
 
     Catches Cambridge stacked-answer patterns like ``t = ........`` /
     ``w = ........  [4]`` where the legacy detector only finds the line with the
     ``[n]`` suffix.
     """
-    out: list[BBox] = []
+    out: list[tuple[BBox, str]] = []
     for r in h_rules:
         if r.consumed:
             continue
@@ -234,7 +271,7 @@ def _classify_secondary_equation_blank(
             if "=" not in t:
                 continue
             ty_center = (ty0 + ty1) * 0.5
-            if abs(ty_center - r.y) > 8:
+            if abs(ty_center - r.y) > cfg.wa_eq_blank_baseline_tol_pt:
                 continue
             # The text line must start to the LEFT of the rule's start (label
             # comes before the answer-dots), but the line's right edge can
@@ -249,11 +286,9 @@ def _classify_secondary_equation_blank(
                 continue
             char_w = (tx1 - tx0) / max(len(t), 1)
             eq_x = tx0 + (eq_pos_in_text + 1) * char_w
-            if eq_x > r.x0 + 4:
+            if eq_x > r.x0 + _EQ_BLANK_EQ_POSITION_SLACK_PT:
                 continue
-            overlay_h = cfg.wa_equation_blank_max_height_pt
-            bb = BBox(r.x0, r.y - (overlay_h - 4.0), r.x1, r.y + 4.0, page_no)
-            out.append(bb)
+            out.append((bbox_for_equation_blank(r, page_no, cfg), "equation_blank"))
             r.consumed = True
             break
     return out
@@ -265,7 +300,7 @@ def _classify_short_line(
     text_lines: list[tuple[float, float, float, float, str]],
     cfg: ParserConfig,
     page_no: int,
-) -> list[BBox]:
+) -> list[tuple[BBox, str]]:
     """Single rule near a ``[n]`` mark indicator OR a chain of short rules on one baseline.
 
     - **Single**: one unclaimed horizontal rule ≥ ``wa_short_line_min_length_pt``
@@ -274,7 +309,7 @@ def _classify_short_line(
       ``wa_chain_blank_baseline_tol_pt``), e.g. Cambridge ``..... < ..... < .....``
       — each rule becomes its own slot.
     """
-    out: list[BBox] = []
+    out: list[tuple[BBox, str]] = []
     free = [r for r in h_rules if not r.consumed]
     groups: dict[int, list[_HRule]] = {}
     bucket = max(1, int(cfg.wa_chain_blank_baseline_tol_pt))
@@ -297,18 +332,17 @@ def _classify_short_line(
             chain_y = group[0].y
             chain_x0 = min(r.x0 for r in group)
             chain_x1 = max(r.x1 for r in group)
-            crossing_v = sum(
-                1 for v in v_rules
-                if v.y0 - 2 <= chain_y <= v.y1 + 2 and chain_x0 < v.x < chain_x1
+            crossing_v = verticals_crossing_at_y(
+                v_rules, chain_x0, chain_x1, chain_y,
+                y_pad=cfg.wa_chain_blank_baseline_tol_pt,
+                x_strict=True,
             )
             if crossing_v >= 2:
                 continue
             for r in group:
                 if r.length < cfg.wa_chain_blank_min_length_pt:
                     continue
-                y0 = r.y - 12.0
-                y1 = r.y + 4.0
-                out.append(BBox(r.x0, y0, r.x1, y1, page_no))
+                out.append((bbox_for_short_line(r, page_no, cfg), "short_line"))
                 r.consumed = True
             continue
         r = group[0]
@@ -323,7 +357,10 @@ def _classify_short_line(
         if not _find_mark_indicator_near(text_lines, r.y, r.x1, cfg):
             continue
         mark_close = any(
-            _MARK_BRACKET_RE.search(t) and -8.0 <= ((ty0 + ty1) * 0.5 - r.y) <= 18.0
+            _MARK_BRACKET_RE.search(t)
+            and -_SHORT_LINE_MARK_ABOVE_PT
+            <= ((ty0 + ty1) * 0.5 - r.y)
+            <= _SHORT_LINE_MARK_BELOW_PT
             for tx0, ty0, tx1, ty1, t in text_lines
         )
         min_len = (
@@ -333,9 +370,7 @@ def _classify_short_line(
         )
         if r.length < min_len:
             continue
-        y0 = r.y - 12.0
-        y1 = r.y + 4.0
-        out.append(BBox(r.x0, y0, r.x1, y1, page_no))
+        out.append((bbox_for_short_line(r, page_no, cfg), "short_line"))
         r.consumed = True
     return out
 
@@ -346,7 +381,7 @@ def _classify_inline_blank(
     cell_width: float,
     cfg: ParserConfig,
     page_no: int,
-) -> list[BBox]:
+) -> list[tuple[BBox, str]]:
     """Rules at the end of a text line preceded by prose → narrative fill-in-blank.
 
     Cambridge patterns: "Fill in the gaps" lines like ``The planets nearest the
@@ -354,15 +389,15 @@ def _classify_inline_blank(
     hydroxide  ............``.  Each rule is short (well under the column
     width) and preceded by a word-prefix on the same baseline.
     """
-    out: list[BBox] = []
+    out: list[tuple[BBox, str]] = []
     for r in h_rules:
         if r.consumed:
             continue
-        if r.length >= cell_width * 0.6:
+        if r.length >= cell_width * _INLINE_BLANK_MAX_LENGTH_FRAC:
             continue
         for tx0, ty0, tx1, ty1, t in text_lines:
             ty_c = (ty0 + ty1) * 0.5
-            if abs(ty_c - r.y) > 6:
+            if abs(ty_c - r.y) > _INLINE_BLANK_BASELINE_TOL_PT:
                 continue
             if tx0 >= r.x0 - 2:
                 continue
@@ -372,9 +407,9 @@ def _classify_inline_blank(
             # single decorative chars like ``\x07`` are stripped first so they
             # don't pad the count artificially.
             prefix_alnum = "".join(c for c in prefix if c.isalnum() or c.isspace()).strip()
-            if len(prefix_alnum) < 15:
+            if len(prefix_alnum) < _INLINE_BLANK_MIN_PREFIX_CHARS:
                 continue
-            out.append(BBox(r.x0, r.y - 12.0, r.x1, r.y + 4.0, page_no))
+            out.append((bbox_for_short_line(r, page_no, cfg), "short_line"))
             r.consumed = True
             break
     return out
@@ -385,7 +420,7 @@ def _classify_similar_length_cluster(
     v_rules: list[_VRule],
     cfg: ParserConfig,
     page_no: int,
-) -> list[BBox]:
+) -> list[tuple[BBox, str]]:
     """≥4 unclaimed short rules of similar length → each is an answer slot.
 
     Catches probability-tree, table-completion, and other diagram patterns where
@@ -396,17 +431,13 @@ def _classify_similar_length_cluster(
     indicates a grid structure (shading grid) rather than independent slots.
     """
     free = [r for r in h_rules if not r.consumed]
-    if len(free) < 3:
+    if len(free) < _SIMILAR_CLUSTER_MIN_SIZE:
         return []
     y_lo = min(r.y for r in free)
     y_hi = max(r.y for r in free)
     x_lo = min(r.x0 for r in free)
     x_hi = max(r.x1 for r in free)
-    crossing_v = sum(
-        1 for v in v_rules
-        if v.y0 <= y_hi and v.y1 >= y_lo and x_lo < v.x < x_hi
-    )
-    if crossing_v >= 2:
+    if verticals_crossing_range(v_rules, x_lo, x_hi, y_lo, y_hi) >= 2:
         return []
     sorted_rules = sorted(free, key=lambda r: r.length)
     best_cluster: list[_HRule] = []
@@ -415,7 +446,7 @@ def _classify_similar_length_cluster(
         cluster = [sorted_rules[i]]
         j = i + 1
         while j < len(sorted_rules):
-            if sorted_rules[j].length <= cluster[0].length * 1.25:
+            if sorted_rules[j].length <= cluster[0].length * _SIMILAR_CLUSTER_LENGTH_TOL_FRAC:
                 cluster.append(sorted_rules[j])
                 j += 1
             else:
@@ -424,12 +455,12 @@ def _classify_similar_length_cluster(
             best_cluster = cluster
         i = j if j > i else i + 1
 
-    if len(best_cluster) < 3:
+    if len(best_cluster) < _SIMILAR_CLUSTER_MIN_SIZE:
         return []
-    out: list[BBox] = []
+    out: list[tuple[BBox, str]] = []
     for r in best_cluster:
         if r.length < cfg.wa_chain_blank_min_length_pt:
             continue
-        out.append(BBox(r.x0, r.y - 12.0, r.x1, r.y + 4.0, page_no))
+        out.append((bbox_for_short_line(r, page_no, cfg), "short_line"))
         r.consumed = True
     return out

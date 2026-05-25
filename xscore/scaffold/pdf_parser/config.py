@@ -89,5 +89,16 @@ class ParserConfig:
     wa_table_border_completeness_min: float = 0.70
     wa_mark_indicator_proximity_pt: float = 36.0
 
+    # --- writing-area detector: literals lifted from inline use (calibrated 2025-05-25) ---
+    # Vertical padding around a horizontal rule when constructing the short_line /
+    # labeled-line / inline-blank / cluster overlay bbox.  Used at 6 sites in
+    # wa_classify_rules.py (all built via wa_geometry.bbox_for_short_line).
+    wa_bbox_pad_above_short_pt: float = 12.0
+    wa_bbox_pad_below_short_pt: float = 4.0
+    # Same-baseline tolerance for equation-blank detection.  Used by
+    # writing_areas._emit_equation_blanks (legacy text-pattern path) and
+    # wa_classify_rules._classify_secondary_equation_blank.
+    wa_eq_blank_baseline_tol_pt: float = 8.0
+
 
 DEFAULT_PARSER_CONFIG = ParserConfig()

@@ -27,6 +27,7 @@ from xscore.scaffold.pdf_parser.answer_fields import infer_equation_blank_bboxes
 from xscore.scaffold.pdf_parser.config import ParserConfig
 from xscore.scaffold.pdf_parser.layout import cell_for_point
 from xscore.scaffold.pdf_parser.regions import clip_horizontal_bounds
+from xscore.scaffold.pdf_parser.wa_geometry import bbox_for_equation_blank
 from xscore.scaffold.pdf_parser.wa_signals import (
     _HRule,
     _extract_text_dotted_rules,
@@ -45,6 +46,19 @@ from xscore.scaffold.pdf_parser.wa_classify_rules import (
     _classify_short_line,
     _classify_similar_length_cluster,
 )
+
+
+# Pre-pass consumers.  All values lifted from inline literals during the
+# Phase 1 refactor; calibration history lives in git.
+_DIAGRAM_Y_PAD_PT = 3.0
+_DIAGRAM_X_OVERLAP_FRAC = 0.5
+_GRAPH_GRID_MIN_CROSSINGS = 5
+_GRAPH_GRID_Y_PAD_PT = 2.0
+_GRAPH_GRID_X_PAD_PT = 2.0
+
+# _emit_equation_blanks: when no matching h_rule is found for a legacy eq_blank
+# bbox, the synthetic rule baseline sits this far below ``line_top``.
+_EQ_BLANK_SYNTHETIC_BASELINE_OFFSET_PT = 12.0
 
 
 def _consume_rules_inside_diagrams(
@@ -71,9 +85,9 @@ def _consume_rules_inside_diagrams(
         for hr in h_rules:
             if hr.consumed:
                 continue
-            if dr.y0 - 3 <= hr.y <= dr.y1 + 3:
+            if dr.y0 - _DIAGRAM_Y_PAD_PT <= hr.y <= dr.y1 + _DIAGRAM_Y_PAD_PT:
                 x_overlap = max(0.0, min(hr.x1, dr.x1) - max(hr.x0, dr.x0))
-                if x_overlap >= dw * 0.5:
+                if x_overlap >= dw * _DIAGRAM_X_OVERLAP_FRAC:
                     hr.consumed = True
 
 
@@ -88,16 +102,19 @@ def _consume_rules_in_graph_grid(
     would otherwise trigger ``_classify_labeled_lines`` and produce false yellow
     stripes across the graph.
     """
-    if len(v_rules) < 5:
+    if len(v_rules) < _GRAPH_GRID_MIN_CROSSINGS:
         return
     for hr in h_rules:
         if hr.consumed:
             continue
         crossing = sum(
             1 for v in v_rules
-            if v.y0 - 2 <= hr.y <= v.y1 + 2 and hr.x0 - 2 <= v.x <= hr.x1 + 2
+            if (
+                v.y0 - _GRAPH_GRID_Y_PAD_PT <= hr.y <= v.y1 + _GRAPH_GRID_Y_PAD_PT
+                and hr.x0 - _GRAPH_GRID_X_PAD_PT <= v.x <= hr.x1 + _GRAPH_GRID_X_PAD_PT
+            )
         )
-        if crossing >= 5:
+        if crossing >= _GRAPH_GRID_MIN_CROSSINGS:
             hr.consumed = True
 
 
@@ -106,40 +123,40 @@ def _emit_equation_blanks(
     cfg: ParserConfig,
     q: Question,
     h_rules: list[_HRule],
-) -> list[WritingArea]:
+) -> list[tuple[BBox, str]]:
     """Convert :func:`infer_equation_blank_bboxes` results to overlay bboxes.
 
     For each legacy eq-blank bbox, find the detected rule on the same baseline
     and use its precise x-extent (the legacy char-interpolation can be off by
     several points).  Emits ``equation_blank`` regions and marks consumed rules.
+    Return shape matches the ``_classify_*`` classifiers so the orchestrator's
+    loop is uniform.
     """
-    out: list[WritingArea] = []
+    out: list[tuple[BBox, str]] = []
     for original_bb in infer_equation_blank_bboxes(doc, cfg, q):
         line_top = original_bb.y0 + (
             cfg.equation_blank_pad_above_pt - cfg.equation_blank_nudge_top_pt
         )
         matching_rule: _HRule | None = None
         for r in h_rules:
-            if abs(r.y - line_top) <= 8.0:
+            if abs(r.y - line_top) <= cfg.wa_eq_blank_baseline_tol_pt:
                 if matching_rule is None or r.length > matching_rule.length:
                     matching_rule = r
                 if not r.consumed:
                     r.consumed = True
         if matching_rule is not None:
-            x0, x1 = matching_rule.x0, matching_rule.x1
-            rule_baseline = matching_rule.y
+            rule_for_bbox = matching_rule
         else:
-            x0, x1 = original_bb.x0, original_bb.x1
-            rule_baseline = line_top + 12.0
-        overlay_h = cfg.wa_equation_blank_max_height_pt
-        bb = BBox(
-            x0,
-            rule_baseline - (overlay_h - 4.0),
-            x1,
-            rule_baseline + 4.0,
-            original_bb.page,
-        )
-        out.append(WritingArea(bbox=bb, kind="equation_blank"))
+            # No matching detected rule on this baseline — synthesize one from
+            # the legacy text-pattern bbox so we can share bbox_for_equation_blank.
+            rule_for_bbox = _HRule(
+                y=line_top + _EQ_BLANK_SYNTHETIC_BASELINE_OFFSET_PT,
+                x0=original_bb.x0,
+                x1=original_bb.x1,
+                dotted=False,
+            )
+        bb = bbox_for_equation_blank(rule_for_bbox, original_bb.page, cfg)
+        out.append((bb, "equation_blank"))
     return out
 
 
@@ -170,42 +187,42 @@ def _detect_in_region(
     _consume_rules_inside_diagrams(page, clip, h_rules)
     _consume_rules_in_graph_grid(h_rules, v_rules)
 
-    out: list[WritingArea] = []
-
-    for bb in _classify_table_grid(h_rules, v_rules, rects, text_lines, cfg, region.page, page=page):
-        out.append(WritingArea(bbox=bb, kind="table_cell"))
-
-    # Legacy text-pattern eq_blank only runs once (on the primary region) — the
-    # ``infer_equation_blank_bboxes`` function operates on ``q.bbox`` directly so
-    # running it again per continuation page is redundant.
+    # Classifier sequence — DO NOT REORDER.  Each pass mutates ``h_rules``'s
+    # consumed flags so later passes don't re-detect claimed rules.  Critical
+    # constraints encoded by this ordering:
+    #  - ``table_grid`` first: its rule-consume strips reference-table borders
+    #    before downstream classifiers see them (biology Q3ai).
+    #  - ``similar_length_cluster`` before ``short_line``: chemistry Q3b's
+    #    four unit-suffix answer lines need the cluster pass to fire before
+    #    ``short_line`` claims the rule with the `[4]` indicator.
+    #  - Legacy text-pattern ``_emit_equation_blanks`` only runs on the primary
+    #    region; ``infer_equation_blank_bboxes`` operates on ``q.bbox`` and
+    #    re-running it per continuation page is redundant.
+    classifier_results: list[tuple[BBox, str]] = []
+    classifier_results.extend(
+        _classify_table_grid(h_rules, v_rules, rects, text_lines, cfg, region.page, page=page)
+    )
     if run_eq_blank_pattern:
-        out.extend(_emit_equation_blanks(doc, cfg, q, h_rules))
+        classifier_results.extend(_emit_equation_blanks(doc, cfg, q, h_rules))
+    classifier_results.extend(
+        _classify_secondary_equation_blank(h_rules, text_lines, cfg, region.page)
+    )
+    classifier_results.extend(_classify_labeled_lines(h_rules, text_lines, cfg, region.page))
+    classifier_results.extend(
+        _classify_box(rects, h_rules, text_lines, region, cell_width, cfg, region.page, page=page)
+    )
+    classifier_results.extend(_classify_multi_line(h_rules, v_rules, cell_width, cfg, region.page))
+    classifier_results.extend(
+        _classify_similar_length_cluster(h_rules, v_rules, cfg, region.page)
+    )
+    classifier_results.extend(
+        _classify_short_line(h_rules, v_rules, text_lines, cfg, region.page)
+    )
+    classifier_results.extend(
+        _classify_inline_blank(h_rules, text_lines, cell_width, cfg, region.page)
+    )
 
-    for bb in _classify_secondary_equation_blank(h_rules, text_lines, cfg, region.page):
-        out.append(WritingArea(bbox=bb, kind="equation_blank"))
-
-    for bb, kind in _classify_labeled_lines(h_rules, text_lines, cfg, region.page):
-        out.append(WritingArea(bbox=bb, kind=kind))
-
-    for bb in _classify_box(rects, h_rules, text_lines, region, cell_width, cfg, region.page, page=page):
-        out.append(WritingArea(bbox=bb, kind="box"))
-
-    for bb in _classify_multi_line(h_rules, v_rules, cell_width, cfg, region.page):
-        out.append(WritingArea(bbox=bb, kind="lines"))
-
-    # Similar-length cluster runs BEFORE short_line so multi-rule answer-slot
-    # patterns ("……… g" / "……… moles" / "……… moles" / "……… dm3" on the chemistry
-    # paper Q3b) get all four lines, not just the one with a ``[n]`` indicator.
-    for bb in _classify_similar_length_cluster(h_rules, v_rules, cfg, region.page):
-        out.append(WritingArea(bbox=bb, kind="short_line"))
-
-    for bb in _classify_short_line(h_rules, v_rules, text_lines, cfg, region.page):
-        out.append(WritingArea(bbox=bb, kind="short_line"))
-
-    for bb in _classify_inline_blank(h_rules, text_lines, cell_width, cfg, region.page):
-        out.append(WritingArea(bbox=bb, kind="short_line"))
-
-    return out
+    return [WritingArea(bbox=bb, kind=kind) for bb, kind in classifier_results]
 
 
 def detect_writing_areas(

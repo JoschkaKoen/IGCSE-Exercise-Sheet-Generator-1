@@ -13,7 +13,32 @@ import fitz
 
 from xscore.shared.models import BBox
 from xscore.scaffold.pdf_parser.config import ParserConfig
+from xscore.scaffold.pdf_parser.wa_geometry import border_coverage
 from xscore.scaffold.pdf_parser.wa_signals import _ClosedRect, _HRule, _VRule
+
+
+# File-local constants lifted from inline literals (Phase 1 refactor).
+# Calibration history lives in git; group here for discoverability.
+
+# _classify_table_grid:
+_TABLE_V_BOUNDS_X_PAD_PT = 2.0           # widening of v-rule x range before spanning-h match
+_TABLE_SPANNING_H_X_SLACK_PT = 5.0       # spanning-h x-slack vs v-rule bounds
+_TABLE_SPANNING_V_Y_SLACK_PT = 2.0       # spanning-v y-slack vs h-rule pair y
+_TABLE_SIDE_COVERAGE_MIN = 0.5           # per-side min in addition to avg coverage
+_TABLE_INTERIOR_INSET_PT = 2.0           # text/cell inset for has-text check
+_TABLE_INTERIOR_PATH_CAP = 4             # max interior drawings before rejecting as diagram
+_TABLE_INTERIOR_FULL_COVER_FRAC = 0.9    # drawings spanning ≥90% of cell are the cell border itself
+_UNIFORM_GRID_RATIO_MAX = 1.25           # w/h ratio cap for uniform-cell reject
+_UNIFORM_GRID_MAX_AVG_SIDE_PT = 60.0     # avg cell side cap for uniform-cell reject
+_TABLE_CONSUME_EXTENT_PAD_PT = 5.0       # pad around table extent when consuming rules
+
+# _classify_box:
+_BOX_BORDER_CONSUME_Y_TOL_PT = 3.0       # rejected-rect border consume y-tolerance
+_BOX_BORDER_CONSUME_OVERLAP_FRAC = 0.7   # required x-overlap to consume an adjacent h-rule
+_BOX_INTERIOR_INSET_PT = 2.0             # inset for has-text / interior-path checks
+_BOX_INTERIOR_PATH_CAP = 8               # interior path count → reject as figure
+_BOX_INTERIOR_FULL_COVER_FRAC = 0.9      # drawings ≥90% of rect are the rect itself
+_BOX_BORDER_MATCH_TOL_PT = 1.0           # match between rc rect and interior drawing's outer edge
 
 
 def _classify_table_grid(
@@ -24,7 +49,7 @@ def _classify_table_grid(
     cfg: ParserConfig,
     page_no: int,
     page: fitz.Page | None = None,
-) -> list[BBox]:
+) -> list[tuple[BBox, str]]:
     """Find empty cells inside vector-bordered tables.
 
     Cluster the rules into a grid: for every adjacent pair of horizontals × every
@@ -47,11 +72,12 @@ def _classify_table_grid(
     # are NOT row boundaries; if they participate in the adjacent-pair
     # pairing they break otherwise-valid cell rows into two failed cells.
     if v_rules:
-        x_lo = min(v.x for v in v_rules) - 2
-        x_hi = max(v.x for v in v_rules) + 2
+        x_lo = min(v.x for v in v_rules) - _TABLE_V_BOUNDS_X_PAD_PT
+        x_hi = max(v.x for v in v_rules) + _TABLE_V_BOUNDS_X_PAD_PT
         spanning_h = [
             r for r in h_rules
-            if r.x0 <= x_lo + 5 and r.x1 >= x_hi - 5
+            if r.x0 <= x_lo + _TABLE_SPANNING_H_X_SLACK_PT
+            and r.x1 >= x_hi - _TABLE_SPANNING_H_X_SLACK_PT
         ]
         hs = sorted(spanning_h, key=lambda r: r.y) if len(spanning_h) >= 2 else sorted(h_rules, key=lambda r: r.y)
     else:
@@ -72,7 +98,11 @@ def _classify_table_grid(
         # tables (e.g. Fig 3.1's left vertical paired with the sequence row's
         # internal divider, producing 0% coverage on the cell sides).
         spanning_v = sorted(
-            (v for v in v_rules if v.y0 <= y0 + 2 and v.y1 >= y1 - 2),
+            (
+                v for v in v_rules
+                if v.y0 <= y0 + _TABLE_SPANNING_V_Y_SLACK_PT
+                and v.y1 >= y1 - _TABLE_SPANNING_V_Y_SLACK_PT
+            ),
             key=lambda v: v.x,
         )
         if len(spanning_v) < 2:
@@ -82,10 +112,10 @@ def _classify_table_grid(
             x0, x1 = v_left.x, v_right.x
             if (x1 - x0) < cfg.wa_table_cell_min_side_pt:
                 continue
-            top_cov = max(0.0, min(h_top.x1, x1) - max(h_top.x0, x0)) / (x1 - x0)
-            bot_cov = max(0.0, min(h_bot.x1, x1) - max(h_bot.x0, x0)) / (x1 - x0)
-            left_cov = max(0.0, min(v_left.y1, y1) - max(v_left.y0, y0)) / (y1 - y0)
-            right_cov = max(0.0, min(v_right.y1, y1) - max(v_right.y0, y0)) / (y1 - y0)
+            top_cov = border_coverage(h_top.x0, h_top.x1, x0, x1)
+            bot_cov = border_coverage(h_bot.x0, h_bot.x1, x0, x1)
+            left_cov = border_coverage(v_left.y0, v_left.y1, y0, y1)
+            right_cov = border_coverage(v_right.y0, v_right.y1, y0, y1)
             avg_cov = (top_cov + bot_cov + left_cov + right_cov) / 4.0
             if avg_cov < cfg.wa_table_border_completeness_min:
                 continue
@@ -95,11 +125,11 @@ def _classify_table_grid(
             # h_rule) rather than a real table row.  Without this guard the
             # candidate's rules get consumed and the inner short rules are
             # lost to downstream classifiers (math paper Q26 ``t = ……``).
-            if min(top_cov, bot_cov, left_cov, right_cov) < 0.5:
+            if min(top_cov, bot_cov, left_cov, right_cov) < _TABLE_SIDE_COVERAGE_MIN:
                 continue
             candidate = (BBox(x0, y0, x1, y1, page_no), h_top, h_bot, v_left, v_right)
             all_candidates.append(candidate)
-            inset = 2.0
+            inset = _TABLE_INTERIOR_INSET_PT
             cell_text_rect = fitz.Rect(x0 + inset, y0 + inset, x1 - inset, y1 - inset)
             has_text = False
             for tx0, ty0, tx1, ty1, _t in text_lines:
@@ -131,13 +161,14 @@ def _classify_table_grid(
         max_y = max(c[0].y1 for c in table_cells)
         min_x = min(c[0].x0 for c in table_cells)
         max_x = max(c[0].x1 for c in table_cells)
+        pad = _TABLE_CONSUME_EXTENT_PAD_PT
         for r in h_rules:
-            if min_y - 5 <= r.y <= max_y + 5:
+            if min_y - pad <= r.y <= max_y + pad:
                 if not (r.x1 < min_x or r.x0 > max_x):
                     r.consumed = True
         for r in v_rules:
-            if r.y1 >= min_y - 5 and r.y0 <= max_y + 5:
-                if min_x - 5 <= r.x <= max_x + 5:
+            if r.y1 >= min_y - pad and r.y0 <= max_y + pad:
+                if min_x - pad <= r.x <= max_x + pad:
                     r.consumed = True
 
     # Always consume rules of *all* candidate cells (kept AND rejected) so
@@ -193,7 +224,11 @@ def _classify_table_grid(
         w_ratio = max(widths) / max(min(widths), 1.0)
         h_ratio = max(heights) / max(min(heights), 1.0)
         avg_side = (sum(widths) + sum(heights)) / (2 * len(cells))
-        if w_ratio < 1.25 and h_ratio < 1.25 and avg_side < 60:
+        if (
+            w_ratio < _UNIFORM_GRID_RATIO_MAX
+            and h_ratio < _UNIFORM_GRID_RATIO_MAX
+            and avg_side < _UNIFORM_GRID_MAX_AVG_SIDE_PT
+        ):
             shares_text_row = any(
                 id(c[1]) in text_rejected_h_ids or id(c[2]) in text_rejected_h_ids
                 for c in cells
@@ -204,9 +239,10 @@ def _classify_table_grid(
     # Interior-path filter.
     if page is not None:
         filtered: list[tuple[BBox, _HRule, _HRule, _VRule, _VRule]] = []
+        inset = _TABLE_INTERIOR_INSET_PT
         for c in cells:
             bb = c[0]
-            interior = fitz.Rect(bb.x0 + 2, bb.y0 + 2, bb.x1 - 2, bb.y1 - 2)
+            interior = fitz.Rect(bb.x0 + inset, bb.y0 + inset, bb.x1 - inset, bb.y1 - inset)
             path_count = 0
             for d in page.get_drawings():
                 dr = d.get("rect")
@@ -214,12 +250,15 @@ def _classify_table_grid(
                     continue
                 if dr.x1 < interior.x0 or dr.x0 > interior.x1 or dr.y1 < interior.y0 or dr.y0 > interior.y1:
                     continue
-                if dr.width > (bb.x1 - bb.x0) * 0.9 and dr.height > (bb.y1 - bb.y0) * 0.9:
+                if (
+                    dr.width > (bb.x1 - bb.x0) * _TABLE_INTERIOR_FULL_COVER_FRAC
+                    and dr.height > (bb.y1 - bb.y0) * _TABLE_INTERIOR_FULL_COVER_FRAC
+                ):
                     continue
                 path_count += 1
-                if path_count > 4:
+                if path_count > _TABLE_INTERIOR_PATH_CAP:
                     break
-            if path_count <= 4:
+            if path_count <= _TABLE_INTERIOR_PATH_CAP:
                 filtered.append(c)
         cells = filtered
         if not cells:
@@ -250,16 +289,17 @@ def _classify_table_grid(
     max_y = max(c[0].y1 for c in related)
     min_x = min(c[0].x0 for c in related)
     max_x = max(c[0].x1 for c in related)
+    pad = _TABLE_CONSUME_EXTENT_PAD_PT
     for r in h_rules:
-        if min_y - 5 <= r.y <= max_y + 5:
+        if min_y - pad <= r.y <= max_y + pad:
             if not (r.x1 < min_x or r.x0 > max_x):
                 r.consumed = True
     for r in v_rules:
-        if r.y1 >= min_y - 5 and r.y0 <= max_y + 5:
-            if min_x - 5 <= r.x <= max_x + 5:
+        if r.y1 >= min_y - pad and r.y0 <= max_y + pad:
+            if min_x - pad <= r.x <= max_x + pad:
                 r.consumed = True
 
-    return out_bboxes
+    return [(bb, "table_cell") for bb in out_bboxes]
 
 
 _BRACKET_RE = re.compile(r"\[\s*\d+\s*\]")
@@ -274,7 +314,7 @@ def _classify_box(
     cfg: ParserConfig,
     page_no: int,
     page: fitz.Page | None = None,
-) -> list[BBox]:
+) -> list[tuple[BBox, str]]:
     """Explicit closed rectangles, or a large empty band with no rules/text and a
     nearby ``[n]`` mark indicator (otherwise trailing whitespace at the end of a
     page would always look like an answer box).
@@ -282,8 +322,8 @@ def _classify_box(
     Also marks the borders of *rejected* figure rectangles as consumed so the
     chain / multi-line / cluster passes don't pick them up as short_line slots.
     """
-    out: list[BBox] = []
-    inset = 2.0
+    out: list[tuple[BBox, str]] = []
+    inset = _BOX_INTERIOR_INSET_PT
 
     rect_interior_paths: dict[int, int] = {}
     rect_overlaps_image: dict[int, bool] = {}
@@ -305,12 +345,19 @@ def _classify_box(
                     continue
                 if dr.x1 < cell.x0 or dr.x0 > cell.x1 or dr.y1 < cell.y0 or dr.y0 > cell.y1:
                     continue
-                if (abs(dr.x0 - rc.x0) < 1 and abs(dr.y0 - rc.y0) < 1 and
-                        abs(dr.x1 - rc.x1) < 1 and abs(dr.y1 - rc.y1) < 1):
+                if (
+                    abs(dr.x0 - rc.x0) < _BOX_BORDER_MATCH_TOL_PT
+                    and abs(dr.y0 - rc.y0) < _BOX_BORDER_MATCH_TOL_PT
+                    and abs(dr.x1 - rc.x1) < _BOX_BORDER_MATCH_TOL_PT
+                    and abs(dr.y1 - rc.y1) < _BOX_BORDER_MATCH_TOL_PT
+                ):
                     continue
-                if dr.width < (rc.x1 - rc.x0) * 0.9 or dr.height < (rc.y1 - rc.y0) * 0.9:
+                if (
+                    dr.width < (rc.x1 - rc.x0) * _BOX_INTERIOR_FULL_COVER_FRAC
+                    or dr.height < (rc.y1 - rc.y0) * _BOX_INTERIOR_FULL_COVER_FRAC
+                ):
                     count += 1
-                if count > 8:
+                if count > _BOX_INTERIOR_PATH_CAP:
                     break
             rect_interior_paths[id(rc)] = count
             overlaps_image = False
@@ -328,9 +375,9 @@ def _classify_box(
             if r.consumed:
                 continue
             for yedge in (ry0, ry1):
-                if abs(r.y - yedge) <= 3.0:
+                if abs(r.y - yedge) <= _BOX_BORDER_CONSUME_Y_TOL_PT:
                     overlap = max(0.0, min(r.x1, rx1) - max(r.x0, rx0))
-                    if overlap >= (rx1 - rx0) * 0.7:
+                    if overlap >= (rx1 - rx0) * _BOX_BORDER_CONSUME_OVERLAP_FRAC:
                         r.consumed = True
                         break
 
@@ -340,7 +387,7 @@ def _classify_box(
         h = rc.y1 - rc.y0
         w = rc.x1 - rc.x0
         is_figure = (
-            rect_interior_paths.get(id(rc), 0) > 8
+            rect_interior_paths.get(id(rc), 0) > _BOX_INTERIOR_PATH_CAP
             or rect_overlaps_image.get(id(rc), False)
         )
         cell_text_rect = fitz.Rect(rc.x0 + inset, rc.y0 + inset, rc.x1 - inset, rc.y1 - inset)
@@ -356,7 +403,7 @@ def _classify_box(
             continue
         if w / max(cell_width, 1.0) < cfg.wa_box_min_column_coverage_frac:
             continue
-        out.append(BBox(rc.x0, rc.y0, rc.x1, rc.y1, page_no))
+        out.append((BBox(rc.x0, rc.y0, rc.x1, rc.y1, page_no), "box"))
         rc.consumed = True
 
     return out
