@@ -1,0 +1,735 @@
+{
+  "paper": "a_level_chemistry_23",
+  "leaves": [
+    {
+      "q_number": "1ai",
+      "writing_areas": [
+        {
+          "kind": "table_cell",
+          "page": 2,
+          "x0": 280.6,
+          "y0": 188.6,
+          "x1": 353.3,
+          "y1": 209.3
+        },
+        {
+          "kind": "table_cell",
+          "page": 2,
+          "x0": 353.3,
+          "y0": 188.6,
+          "x1": 426.0,
+          "y1": 209.3
+        },
+        {
+          "kind": "table_cell",
+          "page": 2,
+          "x0": 426.0,
+          "y0": 188.6,
+          "x1": 498.7,
+          "y1": 209.3
+        },
+        {
+          "kind": "table_cell",
+          "page": 2,
+          "x0": 280.6,
+          "y0": 209.3,
+          "x1": 353.3,
+          "y1": 230.1
+        },
+        {
+          "kind": "table_cell",
+          "page": 2,
+          "x0": 353.3,
+          "y0": 209.3,
+          "x1": 426.0,
+          "y1": 230.1
+        },
+        {
+          "kind": "table_cell",
+          "page": 2,
+          "x0": 426.0,
+          "y0": 209.3,
+          "x1": 498.7,
+          "y1": 230.1
+        },
+        {
+          "kind": "table_cell",
+          "page": 2,
+          "x0": 353.3,
+          "y0": 230.1,
+          "x1": 426.0,
+          "y1": 250.8
+        }
+      ]
+    },
+    {
+      "q_number": "1aii",
+      "writing_areas": [
+        {
+          "kind": "short_line",
+          "page": 2,
+          "x0": 119.9,
+          "y0": 356.0,
+          "x1": 526.6,
+          "y1": 372.0
+        }
+      ]
+    },
+    {
+      "q_number": "1aiii",
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 2,
+          "x0": 119.9,
+          "y0": 479.8,
+          "x1": 545.0,
+          "y1": 635.8
+        }
+      ]
+    },
+    {
+      "q_number": "1bi",
+      "writing_areas": [
+        {
+          "kind": "short_line",
+          "page": 3,
+          "x0": 119.9,
+          "y0": 108.9,
+          "x1": 526.6,
+          "y1": 124.9
+        }
+      ]
+    },
+    {
+      "q_number": "1bii",
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 3,
+          "x0": 119.9,
+          "y0": 180.7,
+          "x1": 545.0,
+          "y1": 284.7
+        }
+      ]
+    },
+    {
+      "q_number": "1c",
+      "writing_areas": [
+        {
+          "kind": "table_cell",
+          "page": 3,
+          "x0": 315.2,
+          "y0": 409.6,
+          "x1": 499.5,
+          "y1": 443.3
+        },
+        {
+          "kind": "table_cell",
+          "page": 3,
+          "x0": 315.2,
+          "y0": 443.3,
+          "x1": 499.5,
+          "y1": 477.1
+        },
+        {
+          "kind": "table_cell",
+          "page": 3,
+          "x0": 315.2,
+          "y0": 477.1,
+          "x1": 499.5,
+          "y1": 510.8
+        }
+      ]
+    },
+    {
+      "q_number": "1di",
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 4,
+          "x0": 119.9,
+          "y0": 167.7,
+          "x1": 545.0,
+          "y1": 245.7
+        }
+      ]
+    },
+    {
+      "q_number": "1dii",
+      "writing_areas": [
+        {
+          "kind": "short_line",
+          "page": 4,
+          "x0": 284.9,
+          "y0": 277.9,
+          "x1": 544.7,
+          "y1": 293.9
+        },
+        {
+          "kind": "short_line",
+          "page": 4,
+          "x0": 161.7,
+          "y0": 279.3,
+          "x1": 262.6,
+          "y1": 295.3
+        }
+      ]
+    },
+    {
+      "q_number": "1diii",
+      "writing_areas": []
+    },
+    {
+      "q_number": "1ei",
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 5,
+          "x0": 119.9,
+          "y0": 277.2,
+          "x1": 545.0,
+          "y1": 355.2
+        }
+      ]
+    },
+    {
+      "q_number": "1eii",
+      "writing_areas": [
+        {
+          "kind": "equation_blank",
+          "page": 5,
+          "x0": 352.2,
+          "y0": 696.9,
+          "x1": 505.1,
+          "y1": 714.9
+        }
+      ]
+    },
+    {
+      "q_number": "2ai",
+      "writing_areas": [
+        {
+          "kind": "short_line",
+          "page": 6,
+          "x0": 119.9,
+          "y0": 337.6,
+          "x1": 526.6,
+          "y1": 353.6
+        }
+      ]
+    },
+    {
+      "q_number": "2aii",
+      "writing_areas": [
+        {
+          "kind": "short_line",
+          "page": 6,
+          "x0": 119.9,
+          "y0": 389.6,
+          "x1": 526.6,
+          "y1": 405.6
+        }
+      ]
+    },
+    {
+      "q_number": "2aiii",
+      "writing_areas": [
+        {
+          "kind": "short_line",
+          "page": 6,
+          "x0": 119.9,
+          "y0": 441.6,
+          "x1": 526.6,
+          "y1": 457.6
+        }
+      ]
+    },
+    {
+      "q_number": "2aiv",
+      "writing_areas": [
+        {
+          "kind": "short_line",
+          "page": 6,
+          "x0": 119.9,
+          "y0": 493.6,
+          "x1": 526.6,
+          "y1": 509.6
+        }
+      ]
+    },
+    {
+      "q_number": "2av",
+      "writing_areas": [
+        {
+          "kind": "short_line",
+          "page": 6,
+          "x0": 119.9,
+          "y0": 571.6,
+          "x1": 526.6,
+          "y1": 587.6
+        }
+      ]
+    },
+    {
+      "q_number": "2bi",
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 7,
+          "x0": 119.9,
+          "y0": 141.7,
+          "x1": 545.0,
+          "y1": 193.7
+        }
+      ]
+    },
+    {
+      "q_number": "2bii",
+      "writing_areas": [
+        {
+          "kind": "short_line",
+          "page": 7,
+          "x0": 184.1,
+          "y0": 253.4,
+          "x1": 526.6,
+          "y1": 269.4
+        }
+      ]
+    },
+    {
+      "q_number": "2c",
+      "writing_areas": [
+        {
+          "kind": "table_cell",
+          "page": 7,
+          "x0": 255.0,
+          "y0": 523.1,
+          "x1": 277.7,
+          "y1": 665.7
+        }
+      ]
+    },
+    {
+      "q_number": "3a",
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 8,
+          "x0": 95.4,
+          "y0": 102.7,
+          "x1": 544.9,
+          "y1": 154.7
+        }
+      ]
+    },
+    {
+      "q_number": "3b",
+      "writing_areas": []
+    },
+    {
+      "q_number": "3c",
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 8,
+          "x0": 95.4,
+          "y0": 574.1,
+          "x1": 544.9,
+          "y1": 626.1
+        }
+      ]
+    },
+    {
+      "q_number": "3di",
+      "writing_areas": [
+        {
+          "kind": "equation_blank",
+          "page": 9,
+          "x0": 352.2,
+          "y0": 301.4,
+          "x1": 526.5,
+          "y1": 319.4
+        }
+      ]
+    },
+    {
+      "q_number": "3dii",
+      "writing_areas": [
+        {
+          "kind": "equation_blank",
+          "page": 9,
+          "x0": 352.2,
+          "y0": 548.4,
+          "x1": 526.5,
+          "y1": 566.4
+        }
+      ]
+    },
+    {
+      "q_number": "3ei",
+      "writing_areas": [
+        {
+          "kind": "table_cell",
+          "page": 10,
+          "x0": 275.7,
+          "y0": 299.7,
+          "x1": 346.4,
+          "y1": 328.0
+        },
+        {
+          "kind": "table_cell",
+          "page": 10,
+          "x0": 346.4,
+          "y0": 299.7,
+          "x1": 417.1,
+          "y1": 328.0
+        },
+        {
+          "kind": "table_cell",
+          "page": 10,
+          "x0": 417.1,
+          "y0": 299.7,
+          "x1": 487.9,
+          "y1": 328.0
+        }
+      ]
+    },
+    {
+      "q_number": "3eii",
+      "writing_areas": [
+        {
+          "kind": "table_cell",
+          "page": 10,
+          "x0": 297.6,
+          "y0": 486.6,
+          "x1": 496.7,
+          "y1": 515.0
+        },
+        {
+          "kind": "table_cell",
+          "page": 10,
+          "x0": 297.6,
+          "y0": 515.0,
+          "x1": 496.7,
+          "y1": 543.3
+        },
+        {
+          "kind": "table_cell",
+          "page": 10,
+          "x0": 297.6,
+          "y0": 543.3,
+          "x1": 496.7,
+          "y1": 571.7
+        }
+      ]
+    },
+    {
+      "q_number": "3eiii",
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 10,
+          "x0": 119.9,
+          "y0": 636.9,
+          "x1": 545.0,
+          "y1": 688.9
+        }
+      ]
+    },
+    {
+      "q_number": "4ai",
+      "writing_areas": [
+        {
+          "kind": "short_line",
+          "page": 12,
+          "x0": 119.9,
+          "y0": 200.4,
+          "x1": 526.6,
+          "y1": 216.4
+        }
+      ]
+    },
+    {
+      "q_number": "4aii",
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 12,
+          "x0": 119.9,
+          "y0": 246.2,
+          "x1": 545.0,
+          "y1": 298.3
+        }
+      ]
+    },
+    {
+      "q_number": "4aiii",
+      "writing_areas": []
+    },
+    {
+      "q_number": "4aiv",
+      "writing_areas": [
+        {
+          "kind": "short_line",
+          "page": 12,
+          "x0": 119.9,
+          "y0": 486.4,
+          "x1": 526.6,
+          "y1": 502.4
+        }
+      ]
+    },
+    {
+      "q_number": "4av",
+      "writing_areas": []
+    },
+    {
+      "q_number": "4b",
+      "writing_areas": []
+    },
+    {
+      "q_number": "4ci",
+      "writing_areas": []
+    },
+    {
+      "q_number": "4cii",
+      "writing_areas": []
+    },
+    {
+      "q_number": "4ciii",
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 14,
+          "x0": 119.9,
+          "y0": 168.2,
+          "x1": 545.0,
+          "y1": 272.3
+        }
+      ]
+    },
+    {
+      "q_number": "4d",
+      "writing_areas": [
+        {
+          "kind": "table_cell",
+          "page": 15,
+          "x0": 77.3,
+          "y0": 128.9,
+          "x1": 287.4,
+          "y1": 157.3
+        },
+        {
+          "kind": "table_cell",
+          "page": 15,
+          "x0": 287.4,
+          "y0": 199.8,
+          "x1": 518.0,
+          "y1": 242.3
+        },
+        {
+          "kind": "table_cell",
+          "page": 15,
+          "x0": 287.4,
+          "y0": 242.3,
+          "x1": 518.0,
+          "y1": 284.8
+        },
+        {
+          "kind": "table_cell",
+          "page": 15,
+          "x0": 287.4,
+          "y0": 284.8,
+          "x1": 518.0,
+          "y1": 327.4
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 140.2,
+          "y0": 101.0,
+          "x1": 176.8,
+          "y1": 137.5
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 101.0,
+          "x1": 425.8,
+          "y1": 137.5
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 140.2,
+          "y0": 137.5,
+          "x1": 176.8,
+          "y1": 174.0
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 137.5,
+          "x1": 425.8,
+          "y1": 174.0
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 140.2,
+          "y0": 174.0,
+          "x1": 176.8,
+          "y1": 210.5
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 174.0,
+          "x1": 425.8,
+          "y1": 210.5
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 140.2,
+          "y0": 210.5,
+          "x1": 176.8,
+          "y1": 247.0
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 210.5,
+          "x1": 425.8,
+          "y1": 247.0
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 140.2,
+          "y0": 247.0,
+          "x1": 176.8,
+          "y1": 283.6
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 247.0,
+          "x1": 425.8,
+          "y1": 283.6
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 283.6,
+          "x1": 425.8,
+          "y1": 320.1
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 320.1,
+          "x1": 425.8,
+          "y1": 356.6
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 356.6,
+          "x1": 425.8,
+          "y1": 393.1
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 393.1,
+          "x1": 425.8,
+          "y1": 429.6
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 176.8,
+          "y0": 429.6,
+          "x1": 213.3,
+          "y1": 466.1
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 429.6,
+          "x1": 425.8,
+          "y1": 466.1
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 176.8,
+          "y0": 466.1,
+          "x1": 213.3,
+          "y1": 502.6
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 466.1,
+          "x1": 425.8,
+          "y1": 502.6
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 502.6,
+          "x1": 425.8,
+          "y1": 539.1
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 539.1,
+          "x1": 425.8,
+          "y1": 575.6
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 575.6,
+          "x1": 425.8,
+          "y1": 612.1
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 176.8,
+          "y0": 612.1,
+          "x1": 213.3,
+          "y1": 648.6
+        },
+        {
+          "kind": "table_cell",
+          "page": 20,
+          "x0": 395.8,
+          "y0": 612.1,
+          "x1": 425.8,
+          "y1": 648.6
+        }
+      ]
+    }
+  ]
+}

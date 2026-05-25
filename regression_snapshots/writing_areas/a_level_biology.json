@@ -16,40 +16,7 @@
     },
     {
       "q_number": "1aii",
-      "writing_areas": [
-        {
-          "kind": "short_line",
-          "page": 5,
-          "x0": 148.0,
-          "y0": 352.9,
-          "x1": 292.9,
-          "y1": 368.9
-        },
-        {
-          "kind": "short_line",
-          "page": 5,
-          "x0": 150.1,
-          "y0": 354.9,
-          "x1": 294.9,
-          "y1": 370.9
-        },
-        {
-          "kind": "short_line",
-          "page": 5,
-          "x0": 148.0,
-          "y0": 356.9,
-          "x1": 292.9,
-          "y1": 372.9
-        },
-        {
-          "kind": "short_line",
-          "page": 5,
-          "x0": 150.1,
-          "y0": 358.9,
-          "x1": 294.9,
-          "y1": 374.9
-        }
-      ]
+      "writing_areas": []
     },
     {
       "q_number": "1aiii",

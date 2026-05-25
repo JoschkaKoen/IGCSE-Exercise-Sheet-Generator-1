@@ -31,6 +31,15 @@ _TABLE_INTERIOR_FULL_COVER_FRAC = 0.9    # drawings spanning ≥90% of cell are 
 _UNIFORM_GRID_RATIO_MAX = 1.25           # w/h ratio cap for uniform-cell reject
 _UNIFORM_GRID_MAX_AVG_SIDE_PT = 60.0     # avg cell side cap for uniform-cell reject
 _TABLE_CONSUME_EXTENT_PAD_PT = 5.0       # pad around table extent when consuming rules
+# Page-chrome v_rule exclusion: v_rules whose y-extent covers ≥ this fraction
+# of the page height are page-margin decoration (the "DO NOT WRITE IN THIS
+# MARGIN" strip, the main answer-area outline), NOT table boundaries.  Without
+# this filter, x_lo/x_hi from ``min/max(v.x)`` stretches across the whole page,
+# spanning_h finds no qualifying h_rules, and the classifier falls back to
+# ALL h_rules — which lets dotted text-rules inside cells interleave with the
+# real row boundaries and break the adjacent-pair pairing
+# (a_level_biology_42 p24 Table 7.2).
+_TABLE_PAGE_CHROME_HEIGHT_FRAC = 0.7
 
 # _classify_box:
 _BOX_BORDER_CONSUME_Y_TOL_PT = 3.0       # rejected-rect border consume y-tolerance
@@ -71,17 +80,34 @@ def _classify_table_grid(
     # filler-glyph dotted line that marks an empty cell as an answer slot —
     # are NOT row boundaries; if they participate in the adjacent-pair
     # pairing they break otherwise-valid cell rows into two failed cells.
+    #
+    # Exclude page-chrome v_rules (margin decoration / full-page outlines)
+    # from the x-range calculation; otherwise no h_rule qualifies and the
+    # fallback path lets dotted text-rules break adjacent-pair pairing.
+    # The fallback ALSO filters dotted=True rules: with multiple tables on
+    # one page, no single x-range covers them all, but the dotted rules are
+    # the specific pathology to exclude.
     if v_rules:
-        x_lo = min(v.x for v in v_rules) - _TABLE_V_BOUNDS_X_PAD_PT
-        x_hi = max(v.x for v in v_rules) + _TABLE_V_BOUNDS_X_PAD_PT
+        if page is not None:
+            chrome_threshold = page.rect.height * _TABLE_PAGE_CHROME_HEIGHT_FRAC
+            table_v_rules = [v for v in v_rules if (v.y1 - v.y0) < chrome_threshold]
+            if not table_v_rules:
+                table_v_rules = v_rules
+        else:
+            table_v_rules = v_rules
+        x_lo = min(v.x for v in table_v_rules) - _TABLE_V_BOUNDS_X_PAD_PT
+        x_hi = max(v.x for v in table_v_rules) + _TABLE_V_BOUNDS_X_PAD_PT
         spanning_h = [
             r for r in h_rules
             if r.x0 <= x_lo + _TABLE_SPANNING_H_X_SLACK_PT
             and r.x1 >= x_hi - _TABLE_SPANNING_H_X_SLACK_PT
         ]
-        hs = sorted(spanning_h, key=lambda r: r.y) if len(spanning_h) >= 2 else sorted(h_rules, key=lambda r: r.y)
+        if len(spanning_h) >= 2:
+            hs = sorted(spanning_h, key=lambda r: r.y)
+        else:
+            hs = sorted([r for r in h_rules if not r.dotted], key=lambda r: r.y)
     else:
-        hs = sorted(h_rules, key=lambda r: r.y)
+        hs = sorted([r for r in h_rules if not r.dotted], key=lambda r: r.y)
 
     cells: list[tuple[BBox, _HRule, _HRule, _VRule, _VRule]] = []
     all_candidates: list[tuple[BBox, _HRule, _HRule, _VRule, _VRule]] = []
@@ -171,14 +197,22 @@ def _classify_table_grid(
                 if min_x - pad <= r.x <= max_x + pad:
                     r.consumed = True
 
-    # Always consume rules of *all* candidate cells (kept AND rejected) so
+    # Consume rules of *all* candidate cells (kept AND rejected) so
     # reference tables coexisting on the same leaf — e.g. Q3ai's Fig 3.1 (all
     # text) plus the sequence-row table (with empty cells) — both contribute
     # their rule geometry to the consumed set.  Without this, the
     # text-containing reference table's borders get picked up as fake
     # multi-line answer areas.
+    #
+    # Require ≥ 2 distinct row pairs OR at least one kept cell: a single
+    # row-pair × N v-pairs without any kept cell is a fake "page-chrome
+    # cell" (a_level_biology_42 p19 Q5 — when no real table rules survive
+    # the dotted-filter fallback, the page outline forms one giant
+    # candidate row that would otherwise consume all answer-line rules).
     if all_candidates:
-        _consume_table_extent(all_candidates)
+        distinct_row_pairs = {(id(c[1]), id(c[2])) for c in all_candidates}
+        if cells or len(distinct_row_pairs) >= 2:
+            _consume_table_extent(all_candidates)
 
     if not cells:
         return []
