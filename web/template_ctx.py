@@ -21,6 +21,7 @@ from .i18n import (
     html_lang_attr,
     translate,
 )
+from .user_auth import current_user_for_request
 
 
 def template_ctx(request: Request, **extra: Any) -> dict[str, Any]:
@@ -40,6 +41,10 @@ def template_ctx(request: Request, **extra: Any) -> dict[str, Any]:
         # it to window.i18n so any inline / module JS can look strings up by
         # key. ensure_ascii=False keeps Chinese readable in view-source.
         "i18n_json": json.dumps(STRINGS.get(lang, STRINGS["en"]), ensure_ascii=False),
+        # Per-render lookup of the logged-in user (None if no cookie / expired
+        # / row missing). Only runs on template-rendering routes — JSON /api/*
+        # endpoints don't go through here.
+        "current_user": current_user_for_request(request),
     }
     ctx.update(extra)
     return ctx

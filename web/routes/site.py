@@ -10,7 +10,7 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
-from eXercise.config import EXAM_ROOT_BY_KEY
+from eXercise.config import EXAM_ROOT_BY_KEY, SYLLABI_DIR
 from xscore.shared.pipeline_steps import max_step_number
 
 from ..analytics import track_request_event
@@ -64,6 +64,25 @@ def _validate_library_path(subject: str, filename: str) -> Path:
     if safe != filename:
         raise HTTPException(status_code=400, detail="Invalid filename")
     root = EXAM_ROOT_BY_KEY[subject].resolve()
+    path = (root / safe).resolve()
+    try:
+        path.relative_to(root)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail="Invalid path") from exc
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail="File not found")
+    return path
+
+
+def _validate_syllabus_path(subject: str, filename: str) -> Path:
+    if subject not in ALLOWED_SUBJECTS:
+        raise HTTPException(status_code=404, detail="Unknown subject")
+    if "/" in filename or "\\" in filename or filename.strip() != filename:
+        raise HTTPException(status_code=400, detail="Invalid filename")
+    safe = Path(filename).name
+    if safe != filename:
+        raise HTTPException(status_code=400, detail="Invalid filename")
+    root = SYLLABI_DIR.resolve()
     path = (root / safe).resolve()
     try:
         path.relative_to(root)
@@ -198,6 +217,12 @@ async def refresh_library_cache() -> dict[str, str]:
     """Invalidate the library PDF index cache so the next page load rescans the disk."""
     invalidate_library_cache()
     return {"status": "ok"}
+
+
+@router.get("/api/library/{subject}/syllabus/{filename}")
+async def library_syllabus_file(subject: str, filename: str) -> FileResponse:
+    path = _validate_syllabus_path(subject, filename)
+    return FileResponse(path, filename=path.name, media_type="application/pdf")
 
 
 @router.get("/api/library/{subject}/{filename}")

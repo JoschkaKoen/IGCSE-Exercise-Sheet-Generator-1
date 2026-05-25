@@ -28,6 +28,7 @@ from .auth_gate import (
     parse_login_disabled,
     request_is_authenticated,
 )
+from .routes.account import router as account_router
 from .routes.admin_stats import router as admin_stats_router
 from .routes.eXam_open import router as eXam_open_router
 from .routes.eXam_student import router as eXam_student_router
@@ -111,7 +112,14 @@ async def site_access_gate(request: Request, call_next):
         request.state.ask_login_mode = parse_ask_login_mode(request)
 
     path = request.url.path
-    if path.startswith("/api/") and path not in ("/api/auth/login", "/api/grade/auth", "/api/language"):
+    if path.startswith("/api/") and path not in (
+        "/api/auth/login",
+        "/api/grade/auth",
+        "/api/language",
+        "/api/account/auth",
+        "/api/account/check",
+        "/api/account/logout",
+    ):
         if not login_disabled and not request.state.site_auth_ok:
             return JSONResponse(
                 status_code=401,
@@ -132,6 +140,7 @@ app.add_middleware(AnalyticsMiddleware)
 
 
 app.include_router(site_router)
+app.include_router(account_router)
 app.include_router(nl_jobs_router)
 app.include_router(grade_jobs_router)
 app.include_router(eXam_student_router)

@@ -1,10 +1,18 @@
 /* ─── Library detail view (sidebar + PDF preview) ───────────────────────── */
 
+/* When the detail view is open, collapse #site-main's vertical padding so the
+   preview pane sits flush below the sticky header (its own height calc already
+   reserves bottom slack via var(--preview-sticky-top) + 2rem). */
+body:has(#lib-detail-view:not(.hidden)) #site-main {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 #lib-detail-view:not(.hidden) {
   display: grid;
   grid-template-columns: 17rem minmax(0, 1fr);
   gap: 1rem;
-  height: calc(100vh - var(--preview-sticky-top) - 2rem);
+  height: calc(100vh - var(--preview-sticky-top));
   align-items: start;
 }
 
@@ -13,7 +21,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: 12rem minmax(0, 1fr);
     height: auto;
-    min-height: calc(100vh - var(--preview-sticky-top) - 2rem);
+    min-height: calc(100vh - var(--preview-sticky-top));
   }
 }
 
@@ -22,7 +30,7 @@
 #lib-sidebar {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - var(--preview-sticky-top) - 2rem);
+  height: calc(100vh - var(--preview-sticky-top));
   min-height: 0;
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -191,7 +199,7 @@
   position: relative;          /* anchors pdf-loading-overlay & pdf-empty-state */
   display: flex;
   flex-direction: column;
-  height: calc(100vh - var(--preview-sticky-top) - 2rem);
+  height: calc(100vh - var(--preview-sticky-top));
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
@@ -211,10 +219,12 @@
 }
 
 /* Match the workspace preview-mode override: display:block allows the pages
-   stack to centre via margin:auto (flex align-items:stretch would left-align it). */
+   stack to centre via margin:auto (flex align-items:stretch would left-align it).
+   Padding is zeroed so the rendered page can fill the full container height. */
 #lib-detail-preview .pdf-viewport-scroll {
   display: block;
   overscroll-behavior: contain;
+  padding: 0;
   background: linear-gradient(180deg, rgba(8, 30, 52, 0.52) 0%, rgba(2, 8, 20, 0.5) 100%);
 }
 
@@ -234,12 +244,12 @@
   #lib-detail-view {
     grid-template-columns: 11rem minmax(0, 1fr);
     grid-template-rows: 1fr;
-    height: calc(100vh - var(--preview-sticky-top) - 2rem);
+    height: calc(100vh - var(--preview-sticky-top));
   }
   #lib-sidebar {
-    height: calc(100vh - var(--preview-sticky-top) - 2rem);
+    height: calc(100vh - var(--preview-sticky-top));
   }
   #lib-detail-preview {
-    height: calc(100vh - var(--preview-sticky-top) - 2rem);
+    height: calc(100vh - var(--preview-sticky-top));
   }
 }

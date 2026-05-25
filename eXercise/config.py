@@ -47,6 +47,21 @@ EXAM_ROOT_BY_KEY = {
     "a_level_computer_science": A_LEVEL_COMPUTER_SCIENCE_EXAM_DIR,
 }
 
+# Cambridge syllabus PDFs shipped under ``syllabi/``. Files are named
+# ``<code> <Subject> <years> Syllabus Document.pdf``.
+SYLLABI_DIR = PROJECT_ROOT / "syllabi"
+SYLLABUS_CODE_BY_KEY = {
+    "physics": "0625",
+    "computer_science": "0478",
+    "mathematics": "0580",
+    "biology": "0610",
+    "chemistry": "0620",
+    "a_level_physics": "9702",
+    "a_level_biology": "9700",
+    "a_level_chemistry": "9701",
+    "a_level_computer_science": "9618",
+}
+
 # ---------------------------------------------------------------------------
 # Rasterization
 # ---------------------------------------------------------------------------

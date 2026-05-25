@@ -1,0 +1,255 @@
+/* ─── Account widget (header Login pill / chip / popover) ───────────────── */
+/*
+ * Logged-out: a cyan-glow pill that sits inside .site-header-nav as the 5th
+ * pill, mirroring the shape of the nav links so it inherits responsive
+ * behaviour automatically.
+ * Logged-in: a compact chip with a gradient avatar dot + @username, plus a
+ * glass popover with a single Log out item.
+ */
+
+.site-header-account-btn {
+  position: relative;
+  background: linear-gradient(135deg,
+    rgba(34, 211, 238, 0.06) 0%,
+    rgba(99, 102, 241, 0.06) 100%);
+  /* Inset border via box-shadow keeps the pill on the same grid as the
+     surrounding nav links (which have no border). The shadow alpha is what
+     animates via @keyframes login-pulse below. */
+  box-shadow: inset 0 0 0 1px rgba(34, 211, 238, var(--login-ring, 0.40));
+  --login-ring: 0.40;
+  animation: login-pulse 3.5s ease-in-out infinite;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.site-header-account-btn:hover {
+  --login-ring: 0.85;
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  /* The pulse is paused on hover so the hover ring sits at full strength. */
+  animation-play-state: paused;
+  box-shadow:
+    inset 0 0 0 1px rgba(34, 211, 238, 0.85),
+    0 8px 24px -8px rgba(34, 211, 238, 0.45);
+}
+
+.site-header-account-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes login-pulse {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.40); }
+  50%      { box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.55); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header-account-btn { animation: none; }
+  .site-header-account-btn { box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.45); }
+}
+
+/* The user-icon SVG inherits the existing .nav-pill-icon sizing — no override
+   needed. The label inherits .nav-pill-label so it collapses to icon-only on
+   phones via the rule in 12-mobile.css. */
+
+
+/* ─── Logged-in chip + avatar dot ────────────────────────────────────────── */
+.site-header-account-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-header-account-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.375rem 0.875rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(226, 232, 240, 0.95);
+  transition: background 0.16s ease, border-color 0.16s ease;
+}
+
+.site-header-account-chip:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(34, 211, 238, 0.35);
+}
+
+.site-header-account-dot {
+  display: inline-block;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #67e8f9 0%, #818cf8 100%);
+  box-shadow: 0 0 6px rgba(34, 211, 238, 0.45);
+  flex-shrink: 0;
+}
+
+.site-header-account-name {
+  max-width: 9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* ─── Popover (anchored beneath chip) ───────────────────────────────────── */
+.site-header-account-popover {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 10rem;
+  padding: 0.375rem;
+  border-radius: 0.75rem;
+  z-index: 30;
+  /* glass-panel-like surface; not reusing the class so we control padding. */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(148deg,
+    rgba(15, 28, 52, 0.92) 0%,
+    rgba(10, 18, 38, 0.78) 100%);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 18px 36px -12px rgba(0, 0, 0, 0.6);
+  /* Hidden via [hidden] attribute by default; toggled by JS. */
+}
+
+.site-header-account-popover button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: rgba(226, 232, 240, 0.9);
+  background: transparent;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.site-header-account-popover button:hover {
+  background: rgba(34, 211, 238, 0.10);
+  color: white;
+}
+
+
+/* ─── Modal dialog ──────────────────────────────────────────────────────── */
+.account-dialog {
+  /* Native <dialog> resets — strip browser default border/padding so our
+     own glass-panel styles take over cleanly. */
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  max-width: 24rem;
+  width: calc(100% - 2rem);
+}
+
+.account-dialog::backdrop {
+  background: rgba(1, 4, 14, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.account-dialog[open] {
+  /* Center via dialog's default position; flex centering is also fine but
+     would double up with the user-agent stylesheet on some engines. */
+  margin: auto;
+}
+
+
+/* ─── Live-check hint row (below username field in the modal) ───────────── */
+.account-hint-row {
+  min-height: 1.25rem;
+  font-size: 0.8125rem;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding-left: 0.125rem;
+}
+
+.account-hint--found { color: rgb(103, 232, 249); }  /* cyan-300 */
+.account-hint--new   { color: rgb(165, 180, 252); }  /* indigo-300 */
+
+.account-hint-icon {
+  display: inline-flex;
+  width: 0.875rem;
+  height: 0.875rem;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+
+/* ─── Password eye toggle ───────────────────────────────────────────────── */
+.account-password-wrap {
+  position: relative;
+}
+
+.account-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.625rem;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.375rem;
+  color: rgba(148, 163, 184, 0.85);
+  background: transparent;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.account-password-toggle:hover { background: rgba(255, 255, 255, 0.06); color: white; }
+
+
+/* ─── Toast (post-reload flash) ─────────────────────────────────────────── */
+.account-toast {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 60;
+  min-width: 14rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(148deg,
+    rgba(15, 28, 52, 0.95) 0%,
+    rgba(10, 18, 38, 0.85) 100%);
+  border: 1px solid rgba(34, 211, 238, 0.30);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 18px 36px -12px rgba(0, 0, 0, 0.55),
+    0 0 24px -6px rgba(34, 211, 238, 0.25);
+  font-size: 0.875rem;
+  color: rgba(241, 245, 249, 0.95);
+  animation: account-toast-in 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes account-toast-in {
+  from { opacity: 0; transform: translateY(-0.5rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .account-toast { animation: none; }
+}
+
+
+/* ─── Mobile: collapse pill label, shrink chip ──────────────────────────── */
+@media (max-width: 479px) {
+  /* The nav-pill-label rule in 12-mobile.css hides the inner span. We tag
+     our pill with .nav-pill-label too so the same rule applies; no
+     additional declaration needed here for the pill. */
+  .site-header-account-chip {
+    padding: 0.375rem 0.5rem;
+  }
+  .site-header-account-name {
+    max-width: 6rem;
+  }
+}

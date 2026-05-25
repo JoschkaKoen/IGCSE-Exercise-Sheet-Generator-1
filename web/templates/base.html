@@ -55,6 +55,7 @@
   <link rel="stylesheet" href="/static/css/07-header-preview-chrome.css" />
   <link rel="stylesheet" href="/static/css/10-accessibility-motion.css" />
   <link rel="stylesheet" href="/static/css/12-mobile.css" />
+  <link rel="stylesheet" href="/static/css/13-account.css" />
   {% block extra_head %}{% endblock %}
 </head>
 <body class="min-h-full font-sans text-slate-200 antialiased space-bg{% if needs_site_login | default(false) %} site-auth-locked{% endif %}">
@@ -229,6 +230,34 @@
               </svg>
               <span class="nav-pill-label">{{ t('nav.practice') if t else 'Practice' }}</span>
             </a>
+            {# Account widget — Login pill when logged out, @username chip + popover when logged in. #}
+            {% if current_user %}
+              <span class="site-header-account-wrap">
+                <button type="button" class="site-header-account-chip"
+                        aria-haspopup="menu" aria-expanded="false"
+                        aria-label="@{{ current_user.username }}">
+                  <span class="site-header-account-dot" aria-hidden="true"></span>
+                  <span class="site-header-account-name nav-pill-label">@{{ current_user.username }}</span>
+                </button>
+                <div class="site-header-account-popover" role="menu" hidden>
+                  <button type="button" role="menuitem" data-account-logout>
+                    {{ t('account.menu.logout') if t else 'Log out' }}
+                  </button>
+                </div>
+              </span>
+            {% else %}
+              <button type="button" data-account-open
+                      aria-label="{{ t('account.login.button') if t else 'Login' }}"
+                      class="site-header-account-btn rounded-full px-4 py-1.5 text-sm font-medium text-white
+                             inline-flex items-center gap-1.5
+                             focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
+                <svg class="nav-pill-icon h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                        d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/>
+                </svg>
+                <span class="nav-pill-label">{{ t('account.login.button') if t else 'Login' }}</span>
+              </button>
+            {% endif %}
           </nav>
         </div>
       </div>
@@ -338,5 +367,47 @@
     })();
   </script>
   {% endif %}
+
+  {# Account modal — always rendered (JS calls .showModal() on demand). #}
+  <dialog id="account-dialog" class="account-dialog glass-panel form-glow rounded-2xl p-6 sm:p-7" aria-labelledby="account-dialog-title">
+    <form autocomplete="on" class="flex flex-col gap-3">
+      <h2 id="account-dialog-title" class="font-display text-lg font-semibold tracking-tight text-white sm:text-xl">
+        {{ t('account.dialog.title') if t else 'Log in or create account' }}
+      </h2>
+      <label for="account-username" class="sr-only">{{ t('account.field.username') if t else 'Username' }}</label>
+      <input id="account-username" name="username" type="text" required
+             autocomplete="username" autocapitalize="off" spellcheck="false"
+             maxlength="80"
+             placeholder="{{ t('account.field.username') if t else 'Username' }}"
+             class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 text-sm text-slate-100 placeholder:text-slate-500
+                    shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20" />
+      <div class="account-hint-row" data-account-hint aria-live="polite"></div>
+      <label for="account-password" class="sr-only">{{ t('account.field.password') if t else 'Password' }}</label>
+      <div class="account-password-wrap">
+        <input id="account-password" name="password" type="password" required
+               autocomplete="current-password" maxlength="128"
+               placeholder="{{ t('account.field.password') if t else 'Password' }}"
+               class="w-full rounded-xl border border-white/[0.12] bg-slate-950/90 px-3.5 py-3 pr-10 text-sm text-slate-100 placeholder:text-slate-500
+                      shadow-inner shadow-black/40 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/20" />
+        <button type="button" class="account-password-toggle" data-account-password-toggle
+                aria-label="{{ t('account.field.show_password') if t else 'Show password' }}" aria-pressed="false">
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                  d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                  d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+          </svg>
+        </button>
+      </div>
+      <p data-account-err class="text-sm text-red-300" role="alert" hidden></p>
+      <button type="submit" disabled
+              class="btn-space-primary inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white
+                     focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-space-deep">
+        {{ t('account.dialog.submit_neutral') if t else 'Continue' }}
+      </button>
+    </form>
+  </dialog>
+
+  <script src="/static/js/account.js" defer></script>
 </body>
 </html>

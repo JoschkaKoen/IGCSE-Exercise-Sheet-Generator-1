@@ -155,6 +155,50 @@ def _library_grouped_blocks(subject_key: str, names: list[str]) -> list[dict[str
     return blocks
 
 
+def _newest_syllabus_block(subject_key: str) -> dict[str, Any] | None:
+    """Pinned top-of-list block holding the newest syllabus PDF for a subject."""
+    import re
+    from urllib.parse import quote
+
+    from eXercise.config import SYLLABI_DIR, SYLLABUS_CODE_BY_KEY
+
+    code = SYLLABUS_CODE_BY_KEY.get(subject_key)
+    if not code or not SYLLABI_DIR.is_dir():
+        return None
+    # Prefer full Syllabus Documents; fall back to Updates when no Document exists.
+    docs = list(SYLLABI_DIR.glob(f"{code} *Syllabus Document.pdf"))
+    pdfs = docs or list(SYLLABI_DIR.glob(f"{code} *Syllabus*.pdf"))
+    if not pdfs:
+        return None
+    def end_year(p: Path) -> int:
+        # Match year tokens (20xx), not the leading Cambridge code (0xxx/9xxx).
+        m = re.search(r"(20\d{2})(?:-(20\d{2}))?", p.stem)
+        return int(m.group(2) or m.group(1)) if m else 0
+    newest = max(pdfs, key=end_year)
+    return {
+        "year": "_syllabus",
+        "sessions": [
+            {
+                "session": "_",
+                "session_heading": "",
+                "session_title": "",
+                "rows": [
+                    {
+                        "name": newest.name,
+                        "display_name": "Syllabus",
+                        "download_url": f"/api/library/{subject_key}/syllabus/{quote(newest.name, safe='')}",
+                        "group_year": "_syllabus",
+                        "group_session": "_",
+                        "paper_kind": "syllabus",
+                        "session_heading": "",
+                        "session_title": "",
+                    }
+                ],
+            }
+        ],
+    }
+
+
 def list_library_pdfs() -> dict[str, list[dict[str, Any]]]:
     """Scan bundled exam dirs; nested year → session → file rows for the library page."""
     global _LIBRARY_CACHE
@@ -167,10 +211,13 @@ def list_library_pdfs() -> dict[str, list[dict[str, Any]]]:
 
         out: dict[str, list[dict[str, Any]]] = {}
         for key, root in EXAM_ROOT_BY_KEY.items():
-            if not root.is_dir():
-                out[key] = []
-                continue
-            names = sorted((p.name for p in root.glob("*.pdf")), key=library_pdf_sort_key)
-            out[key] = _library_grouped_blocks(key, names)
+            blocks: list[dict[str, Any]] = []
+            syllabus = _newest_syllabus_block(key)
+            if syllabus is not None:
+                blocks.append(syllabus)
+            if root.is_dir():
+                names = sorted((p.name for p in root.glob("*.pdf")), key=library_pdf_sort_key)
+                blocks.extend(_library_grouped_blocks(key, names))
+            out[key] = blocks
         _LIBRARY_CACHE = out
         return out
