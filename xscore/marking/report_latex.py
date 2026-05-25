@@ -31,7 +31,7 @@ from xscore.marking.report_latex_cells import (
     _split_oversized_cell,
 )
 from xscore.marking.report_latex_text import _latex_escape
-from xscore.scaffold.scaffold_qtree import _norm_qnum
+from xscore.shared.qnum_utils import norm_qnum
 from xscore.shared.path_builders import (
     artifact_mark_scheme_graphics_dir,
     artifact_mark_scheme_graphics_yaml_path,
@@ -55,21 +55,21 @@ _ENV = jinja2.Environment(
 
 
 # Step detect_mark_scheme_graphics writes PNG filenames via `[^\w] -> _` (defensive against unsafe
-# chars in raw qnums) but uses `_norm_qnum` (parens stripped) for the
+# chars in raw qnums) but uses `norm_qnum` (parens stripped) for the
 # canonical question number everywhere else. The marking pipeline's
 # `q["number"]` is the canonical form (e.g. `"7a"` for a leaf `"7(a)"`), so
-# `_scheme_graphics_by_qnum` keys its dict by `_norm_qnum(raw)` for lookup
+# `_scheme_graphics_by_qnum` keys its dict by `norm_qnum(raw)` for lookup
 # parity and globs files using the original `[^\w]->_` transform.
 _QNUM_SAFE_RE = re.compile(r"[^\w]")
 
 
 def _scheme_graphics_safe_qnum(qnum: str) -> str:
     """Canonical key into the dict from ``_scheme_graphics_by_qnum``."""
-    return _norm_qnum(str(qnum))
+    return norm_qnum(str(qnum))
 
 
 def _scheme_graphics_by_qnum(artifact_dir: Path) -> dict[str, list[str]]:
-    """Map canonical qnum (e.g. ``"7(a)" -> "7a"`` via ``_norm_qnum``) ->
+    """Map canonical qnum (e.g. ``"7(a)" -> "7a"`` via ``norm_qnum``) ->
     list of PNG filenames detect_mark_scheme_graphics extracted for that question.
 
     Sources raw qnums from ``mark_scheme_graphics.yaml`` so dict keys match
@@ -92,7 +92,7 @@ def _scheme_graphics_by_qnum(artifact_dir: Path) -> dict[str, list[str]]:
         raw = str((q.get("number") or "")).strip()
         if not raw or not q.get("graphics"):
             continue
-        key = _norm_qnum(raw)
+        key = norm_qnum(raw)
         safe = _QNUM_SAFE_RE.sub("_", raw)
         for pf in sorted(graphics_dir.glob(f"*_{safe}_*.png")):
             out.setdefault(key, []).append(pf.name)

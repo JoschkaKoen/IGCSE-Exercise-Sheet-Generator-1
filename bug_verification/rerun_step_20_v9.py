@@ -19,7 +19,7 @@ from eXercise.env_load import load_project_env  # noqa: E402
 from xscore.scaffold.formats.base import ScaffoldFormat, _parse_yaml_scaffold_node  # noqa: E402
 from xscore.scaffold.scaffold_fill import extract_exam_questions  # noqa: E402
 from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown  # noqa: E402
-from xscore.scaffold.scaffold_prompts import _extract_questions_model_config  # noqa: E402
+from xscore.scaffold.scaffold_prompts import extract_questions_model_config  # noqa: E402
 
 load_project_env()
 
@@ -38,7 +38,7 @@ scaffold_nodes = [_parse_yaml_scaffold_node(q) for q in scaffold_doc["questions"
 raw_layout = {"rows": scaffold_doc.get("rows", 1), "cols": scaffold_doc.get("cols", 1)}
 
 fmt = ScaffoldFormat()
-fill_model, fill_thinking, fill_max_tokens = _extract_questions_model_config()
+fill_model, fill_thinking, fill_max_tokens = extract_questions_model_config()
 print(f"Model: {fill_model}, thinking={fill_thinking}, max_tokens={fill_max_tokens}")
 
 client = make_gemini_native_client()

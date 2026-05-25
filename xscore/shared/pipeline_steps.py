@@ -22,55 +22,11 @@ Usage:
 from __future__ import annotations
 
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import TYPE_CHECKING, Callable
-
-from xscore.shared.step_folders import (
-    AI_COSTS_DIR,
-    AI_MARKING_DIR,
-    ASSIGN_QUESTIONS_DIR,
-    BLUEPRINTS_DIR,
-    BUILD_REGISTER_DIR,
-    CLASS_REPORT_DIR,
-    CLASS_STATS_DIR,
-    COVER_EMPTY_DIR,
-    COVER_SCAN_DIR,
-    CREATE_REPORT_DIR,
-    CROSS_PAGE_CONTEXT_DIR,
-    CUT_EXAM_DIR,
-    DESKEW_DIR,
-    DETECT_SUBJECT_DIR,
-    EMPTY_EXAM_CLASSIFY_DIR,
-    EXTRACT_ANSWERS_DIR,
-    EXTRACT_QUESTION_NUMBERS_DIR,
-    EXTRACT_QUESTIONS_DIR,
-    GEOMETRY_DIR,
-    HANDWRITING_DIR,
-    LAYOUT_DIR,
-    PAGE_ORDER_DIR,
-    PARSE_INSTRUCTIONS_DIR,
-    PARSE_SCHEME_DIR,
-    PREPARE_SCANS_DIR,
-    REVIEW_QUEUE_DIR,
-    SCHEME_GRAPHICS_DIR,
-    STUDENT_LIST_DIR,
-    STUDENT_NAMES_DIR,
-    STUDENT_PDFS_DIR,
-    STUDENT_REPORTS_DIR,
-    TIMING_DIR,
-    TRANSCRIBE_SCHEME_GRAPHICS_DIR,
-)
 
 if TYPE_CHECKING:
     from xscore.shared.pipeline_ctx import _Ctx
-
-
-def _unmigrated(ctx: "_Ctx") -> None:  # pragma: no cover - placeholder
-    """Sentinel for steps still inlined in XScore.py. See module docstring."""
-    raise NotImplementedError(
-        "This step is still implemented inline in XScore.py. "
-        "Lift its body out and register the function here."
-    )
 
 
 @dataclass(frozen=True)
@@ -86,16 +42,18 @@ class Step:
         and as the ``step_name`` field in run-log entries.
     fn:
         Step body. Receives the ``_Ctx`` and mutates it in place; returns
-        nothing. Steps that are still inlined in XScore.py keep
-        ``fn=_unmigrated``.
+        nothing. ``None`` until :func:`wire_step_fns` runs at startup; calling
+        ``run_step`` on an unwired ``Step`` raises ``TypeError``.
     resumable:
         True iff a prior run's artifacts can be reused starting from this step.
         Currently the cross-page-context and AI-marking-onward steps qualify
         (see ``resumable=True`` annotations on STEPS entries below).
-    writes:
-        Globs (relative to ``ctx.artifact_dir``) the step writes — informational
-        only; used by the resume-artifact copier and (eventually) by the
-        run-log writer to record what the step produced.
+    _explicit_writes:
+        If set, overrides the auto-derived ``writes`` property. ``None`` (the
+        default) means "auto-derive a single ``(NN_name/*,)`` glob from
+        ``number`` + ``name``"; ``()`` declares a step that writes nothing
+        (today only ``locate_exam_folder``). Hidden behind the ``writes``
+        property — consumers read ``step.writes``, never this directly.
     title:
         User-facing display string passed to ``pipeline_step``. Falls back to
         a humanised version of ``name`` if empty.
@@ -125,13 +83,26 @@ class Step:
 
     number: int
     name: str
-    fn: Callable[["_Ctx"], None] = _unmigrated
+    fn: Callable[["_Ctx"], None] | None = None
     resumable: bool = False
-    writes: tuple[str, ...] = field(default_factory=tuple)
+    _explicit_writes: tuple[str, ...] | None = None
     title: str = ""
     section: str | None = None
     bootstrap: bool = False
     phase: str | None = None
+
+    @property
+    def writes(self) -> tuple[str, ...]:
+        """Globs (relative to ``ctx.artifact_dir``) the step writes.
+
+        Auto-derived from ``number`` and ``name`` as ``(f"{NN}_{name}/*",)``
+        when ``_explicit_writes is None`` (the common case — every step folder
+        in :mod:`xscore.shared.step_folders` follows that pattern). Set
+        ``_explicit_writes=()`` to declare a step that writes nothing.
+        """
+        if self._explicit_writes is not None:
+            return self._explicit_writes
+        return (f"{self.number:02d}_{self.name}/*",)
 
 
 # ---------------------------------------------------------------------------
@@ -140,149 +111,128 @@ class Step:
 #
 # Order matters — consumers iterate this list to determine pipeline ordering.
 # Numbering is contiguous 1..N; each ``Step.number`` matches the ``NN_`` prefix
-# on its artifact folder, and folder names are mechanically ``NN_<step.name>``
-# (defined in ``xscore/shared/step_folders.py`` and referenced from ``writes``
-# below). ``locate_exam_folder`` writes no artifacts of its own.
+# on its artifact folder. The folder name itself is auto-derived from
+# ``number`` + ``name`` by the ``Step.writes`` property; the constants in
+# :mod:`xscore.shared.step_folders` mirror the same pattern for path-builders
+# that need a named handle. ``locate_exam_folder`` writes no artifacts of its
+# own (``_explicit_writes=()``).
 
 STEPS: tuple[Step, ...] = (
-    Step(1,  "parse_grading_instructions", writes=(f"{PARSE_INSTRUCTIONS_DIR}/*",),
+    Step(1,  "parse_grading_instructions",
          title="Interpret prompt", section="Prompt, folder & roster", bootstrap=True),
-    Step(2,  "locate_exam_folder",
+    Step(2,  "locate_exam_folder", _explicit_writes=(),
          title="Select exam folder", bootstrap=True),
-    Step(3,  "read_student_list",          writes=(f"{STUDENT_LIST_DIR}/*",),
+    Step(3,  "read_student_list",
          title="Read student list"),
-    Step(4,  "prepare_scans",              writes=(f"{PREPARE_SCANS_DIR}/*",),
+    Step(4,  "prepare_scans",
          title="Orient and merge scans", section="Scan cleaning"),
-    Step(5,  "deskew",                     writes=(f"{DESKEW_DIR}/*",),
+    Step(5,  "deskew",
          title="Deskew scanned pages"),
     # Empty-exam analysis (no scan dependency) — pulled up so problems with
     # the empty exam PDF surface early.
-    Step(6,  "detect_exam_layout",         writes=(f"{LAYOUT_DIR}/*",),
+    Step(6,  "detect_exam_layout",
          title="Detect empty exam layout", section="Empty-exam analysis",
          phase="empty_exam"),
-    Step(7,  "cut_exam_pdf",               writes=(f"{CUT_EXAM_DIR}/*",),
+    Step(7,  "cut_exam_pdf",
          title="Cut empty exam",
          phase="empty_exam"),
     # Cover detection + scan geometry.
-    Step(8,  "cover_page_empty_exam",      writes=(f"{COVER_EMPTY_DIR}/*",),
+    Step(8,  "cover_page_empty_exam",
          title="Detect cover page in empty exam", section="Geometry & validation",
          phase="cover_geometry"),
-    Step(9,  "cover_page_scan_first",      writes=(f"{COVER_SCAN_DIR}/*",),
+    Step(9,  "cover_page_scan_first",
          title="Detect cover page in scanned exam",
          phase="cover_geometry"),
-    Step(10, "exam_geometry",              writes=(f"{GEOMETRY_DIR}/*",),
+    Step(10, "exam_geometry",
          title="Calculate number of scanned exam pages per student",
          phase="cover_geometry"),
     # Two-tier subject detection (filename heuristic → Gemini AI fallback on
     # cover + page 2 of the empty exam). Sets ctx.subject; gates the
     # CODE_FORMATTING prompt section in extract_exam_question_numbers,
     # extract_exam_questions, parse_mark_scheme, ai_marking, extract_student_answers.
-    Step(11, "detect_subject",             writes=(f"{DETECT_SUBJECT_DIR}/*",),
+    Step(11, "detect_subject",
          title="Detect exam subject (filename → AI fallback)",
          phase="cover_geometry"),
     # Empty-exam page classification (vision LLM, runs once per exam).
     # Builds the catalog used by student_handwriting_check's matcher and
     # detect_cross_page_context's continuation pass.
     Step(12, "classify_empty_exam_pages",
-         writes=(f"{EMPTY_EXAM_CLASSIFY_DIR}/*",),
          title="Classify empty-exam pages (cover/instruction/question/blank/writing-space)",
          phase="cover_geometry"),
     # Per-scan-page vision classification — drives student_names and page_order_check.
     Step(13, "student_handwriting_check",
-         writes=(f"{HANDWRITING_DIR}/*",),
          title="Match each scan page against empty exam (page type + page# + handwriting)",
          phase="cover_geometry"),
     # Cover-anchored student-name detection (consumes student_handwriting_check's covers).
     # Sets ctx.page_assignments — the runner kicks off background pre-rendering
     # immediately after this step (see kick_off_render_bg in pipeline/runner.py).
     Step(14, "student_names",
-         writes=(f"{STUDENT_NAMES_DIR}/*",),
          title="Detect student names",
          phase="cover_geometry"),
     # Heuristic page-order check (consumes student_handwriting_check's page numbers).
     Step(15, "page_order_check",
-         writes=(f"{PAGE_ORDER_DIR}/*",),
          title="Check page order",
          phase="cover_geometry"),
     # Pure data transform: combines handwriting + names into the marking-page
     # register v1. One primary call per non-cover scan page that has handwriting;
     # continuation/figure/parent extras are added by detect_cross_page_context.
     Step(16, "build_marking_register_v1",
-         writes=(f"{BUILD_REGISTER_DIR}/*",),
          title="Build marking page register",
          phase="cover_geometry"),
     # Empty-exam parse split: question numbers (cheap call) + per-question text (per-page parallel).
     Step(17, "extract_exam_question_numbers",
-         writes=(f"{EXTRACT_QUESTION_NUMBERS_DIR}/*",),
          title="Extract question numbers from empty exam",
          section="Exam & mark scheme parsing",
          phase="scaffold_phase_b"),
     Step(18, "extract_exam_questions",
-         writes=(f"{EXTRACT_QUESTIONS_DIR}/*",),
          title="Extract questions from empty exam",
          phase="scaffold_phase_b"),
     Step(19, "detect_cross_page_context",  resumable=True,
-         writes=(f"{CROSS_PAGE_CONTEXT_DIR}/*",),
          title="Detect cross-page context",
          phase="scaffold_phase_b"),
     Step(20, "detect_mark_scheme_graphics",
-         writes=(f"{SCHEME_GRAPHICS_DIR}/*",),
          title="Detect mark scheme graphics",
          phase="scaffold_phase_b"),
     Step(21, "assign_scheme_questions",
-         writes=(f"{ASSIGN_QUESTIONS_DIR}/*",),
          title="Assign questions to mark scheme pages",
          phase="scaffold_phase_b"),
     Step(22, "parse_mark_scheme",
-         writes=(f"{PARSE_SCHEME_DIR}/*",),
          title="Parse mark scheme",
          phase="scaffold_phase_b"),
     Step(23, "transcribe_scheme_graphics", resumable=True,
-         writes=(f"{TRANSCRIBE_SCHEME_GRAPHICS_DIR}/*",),
          title="Transcribe mark scheme graphics",
          phase="scaffold_phase_b"),
     Step(24, "create_report",
-         writes=(f"{CREATE_REPORT_DIR}/*",),
          title="Build grading scaffold",
          phase="scaffold_phase_b"),
     Step(25, "ai_marking_blueprints",      resumable=True,
-         writes=(f"{BLUEPRINTS_DIR}/*",),
          title="Build AI marking blueprints", section="AI marking",
          phase="marking_reports_summary"),
     Step(26, "extract_student_answers",    resumable=True,
-         writes=(f"{EXTRACT_ANSWERS_DIR}/*",),
          title="Extract student answers (transcribe-only pass)",
          phase="marking_reports_summary"),
     Step(27, "ai_marking",                 resumable=True,
-         writes=(f"{AI_MARKING_DIR}/*",),
          title="Run AI marking",
          phase="marking_reports_summary"),
     Step(28, "per_student_reports",        resumable=True,
-         writes=(f"{STUDENT_REPORTS_DIR}/*",),
          title="Fuse AI marking output to student reports", section="Reports & PDFs",
          phase="marking_reports_summary"),
     Step(29, "class_stats_curve",          resumable=True,
-         writes=(f"{CLASS_STATS_DIR}/*",),
          title="Compute class statistics + curve",
          phase="marking_reports_summary"),
     Step(30, "per_student_pdfs",           resumable=True,
-         writes=(f"{STUDENT_PDFS_DIR}/*",),
          title="Generate per-student reports (landscape + portrait + 2UP)",
          phase="marking_reports_summary"),
     Step(31, "class_report",               resumable=True,
-         writes=(f"{CLASS_REPORT_DIR}/*",),
          title="Generate class report",
          phase="marking_reports_summary"),
     Step(32, "review_queue",               resumable=True,
-         writes=(f"{REVIEW_QUEUE_DIR}/*",),
          title="Build review queue",
          phase="marking_reports_summary"),
     Step(33, "timing_summary",
-         writes=(f"{TIMING_DIR}/*",),
          title="Summarise step timings", section="Summary",
          phase="marking_reports_summary"),
     Step(34, "ai_costs",
-         writes=(f"{AI_COSTS_DIR}/*",),
          title="Summarise AI costs",
          phase="marking_reports_summary"),
 )
@@ -493,7 +443,7 @@ def run_step(ctx: "_Ctx", step: Step) -> None:
 # ---------------------------------------------------------------------------
 
 def wire_step_fns() -> None:
-    """Replace ``_unmigrated`` stubs with real step bodies.
+    """Install step bodies into each ``Step`` in ``STEPS``.
 
     Called once at startup by ``xscore.pipeline.runner.run_pipeline`` after
     ``load_dotenv`` has populated env vars. Idempotent — safe to call again.
@@ -502,8 +452,8 @@ def wire_step_fns() -> None:
     for ``STEPS[*].writes`` introspection (e.g. from ``resume.py``) does not
     pull in the entire pipeline at module-load time.
 
-    Phase modules that don't exist yet are silently skipped so the migration
-    can roll out one phase at a time without breaking the orchestrator.
+    A missing phase module or a missing step function in a phase module raises
+    immediately — every step in ``phase_specs`` must resolve.
     """
     global STEPS
     import importlib
@@ -565,10 +515,7 @@ def wire_step_fns() -> None:
     fns: dict[str, Callable[["_Ctx"], None]] = {}
     missing: list[str] = []
     for module_name, step_names in phase_specs:
-        try:
-            mod = importlib.import_module(module_name)
-        except ImportError:
-            continue   # phase not yet migrated — leave _unmigrated stubs in place
+        mod = importlib.import_module(module_name)
         for step_name in step_names:
             fn = getattr(mod, step_name, None)
             if fn is None:
@@ -583,6 +530,17 @@ def wire_step_fns() -> None:
         )
 
     STEPS = tuple(
-        replace(s, fn=fns[s.name]) if s.fn is _unmigrated and s.name in fns else s
+        replace(s, fn=fns[s.name]) if s.fn is None and s.name in fns else s
         for s in STEPS
     )
+
+    # Catch the inverse mistake: a Step is in STEPS but its name was forgotten
+    # in phase_specs above, so it never got wired. Raises here instead of
+    # leaving a None-fn Step that would TypeError inside run_step later.
+    unwired = [s.name for s in STEPS if s.fn is None]
+    if unwired:
+        raise RuntimeError(
+            "wire_step_fns: the following STEPS entries have no fn after "
+            "wiring (add them to phase_specs in this module): "
+            + ", ".join(unwired)
+        )

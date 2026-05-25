@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable
 
 if TYPE_CHECKING:
+    from xscore.scaffold.scaffold_phase_state import ScaffoldPhaseState
     from xscore.shared.models import ExamScaffold, PageAssignment, TaskInstruction
     from xscore.shared.subjects import Subject
 
@@ -77,12 +78,10 @@ class _Ctx:
     b64_future: "Future[dict[int, str]] | None" = None  # render_pages_b64 submitted by kick_off_render_bg
     scan_match: Path | None = None                      # set by prepare_scans (or scan_phases single-PDF
                                                         # branch), read by detect_blank_pages
-    scaffold_state: dict[str, Any] = field(default_factory=dict)
-    # transient store for shared locals across the scaffold-building steps.
-    # Holds keys like exam_pdf, answer_pdf, client, fmt, layout_result, layout_elapsed,
-    # layout_model, actual_exam_pdf, split_pdf_temp_path, n_split, raw_questions,
-    # raw_layout, graphics_by_qnum, questions_per_page, scheme_data. Cleared by
-    # scaffold_phase finally.
+    # Transient store for shared locals across the scaffold-building steps.
+    # Set by scaffold_setup; cleared (set to None) by scaffold_cleanup.
+    # See ``xscore.scaffold.scaffold_phase_state`` for the field list.
+    scaffold_state: "ScaffoldPhaseState | None" = None
     # --- Cross-step state for the report-pipeline tail (split out of compile_reports) ---
     # Set by per_student_reports, consumed by class_stats_curve, per_student_pdfs,
     # class_report, and review_queue.

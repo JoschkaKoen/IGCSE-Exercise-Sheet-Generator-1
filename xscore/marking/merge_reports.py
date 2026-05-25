@@ -154,7 +154,7 @@ def render_per_student_pdfs(ctx: Any) -> None:
     from xscore.marking.report_latex import (
         _build_question_index, _scheme_graphics_by_qnum,
     )
-    from xscore.scaffold.formats import load_exam_questions_artifact
+    from xscore.shared.exam_questions_io import load_exam_questions_artifact
     from xscore.shared.path_builders import (
         artifact_exam_questions_path, artifact_mark_scheme_graphics_dir,
     )

@@ -1,16 +1,11 @@
-"""Recursive walks over the raw_questions tree + question-number normalization.
+"""Recursive walks over the raw_questions tree.
 
-Pure stdlib — depends only on ``re``. Used by the scaffold helpers in
-steps 19, 20, 22, 23, and 24.
+Pure stdlib. Used by the scaffold helpers in steps 19, 20, 22, 23, and 24.
+Question-number normalisation has moved to :mod:`xscore.shared.qnum_utils`
+so the marking pipeline can use it without importing from scaffold internals.
 """
 
 from __future__ import annotations
-
-import re
-
-
-def _norm_qnum(s: str) -> str:
-    return re.sub(r"[()]", "", s)
 
 
 def _format_qnums_for_line(qnums: list[str], limit: int = 10) -> str:

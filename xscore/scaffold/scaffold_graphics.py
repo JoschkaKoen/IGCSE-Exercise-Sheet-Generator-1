@@ -16,7 +16,7 @@ from pathlib import Path
 from eXercise.ai_client import build_completion_kwargs, make_ai_client
 from eXercise.api_retry import retry_api_call
 from xscore.scaffold.scaffold_prompts import _USER_GRAPHICS
-from xscore.scaffold.scaffold_qtree import _norm_qnum
+from xscore.shared.qnum_utils import norm_qnum
 from xscore.scaffold.scaffold_scheme_pdf import (
     _rasterize_scheme_pages, split_mark_scheme_into_pages,
 )
@@ -200,7 +200,7 @@ def detect_scheme_graphics(
     # code expects the normalised form.
     for q in _graphics_merged.get("questions", []):
         if q.get("number") is not None:
-            q["number"] = _norm_qnum(q["number"])
+            q["number"] = norm_qnum(q["number"])
     _graphics_by_qnum = {
         q["number"]: q["graphics"]
         for q in _graphics_merged.get("questions", [])

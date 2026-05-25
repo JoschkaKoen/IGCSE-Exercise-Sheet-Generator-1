@@ -41,8 +41,8 @@ from xscore.scaffold.ai_scaffold_scheme import (
 )
 from xscore.scaffold.formats import get_scaffold_format
 from xscore.scaffold.scaffold_prompts import (  # noqa: F401  (re-exported)
-    _extract_question_numbers_model_config,
-    _extract_questions_model_config,
+    extract_question_numbers_model_config,
+    extract_questions_model_config,
     _layout_detect_model_config,
     _mark_scheme_model_config,
 )

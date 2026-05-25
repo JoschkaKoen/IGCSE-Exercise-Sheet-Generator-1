@@ -8,14 +8,10 @@ receiving these through individual ``_Ctx`` fields.
 touch ``scaffold_state`` — it only reads on-disk artifacts from earlier
 steps and ``ctx.empty_exam_has_cover``.
 
-``scaffold_phase`` is the orchestrator that:
-
-1. Looks up the exam/answer PDFs and Gemini client (skipping the whole phase
-   when no exam PDF is found).
-2. Calls ``run_step`` for each scaffold-building step so each gets
-   timing/error capture.
-3. In a ``finally``, deletes the temp split PDF created by ``cut_exam_pdf``
-   and consumed by the parse phase. Always runs, even on ``_EarlyExit``.
+Lifecycle: ``scaffold_setup`` initialises ``ctx.scaffold_state`` (and rehydrates
+it on resume); ``scaffold_cleanup`` clears it and removes the temp split PDF
+created by ``cut_exam_pdf``. The runner in ``xscore.pipeline.runner`` calls
+these around the ``empty_exam`` and ``scaffold_phase_b`` phases.
 """
 
 from __future__ import annotations
@@ -67,29 +63,29 @@ def detect_exam_layout(ctx: _Ctx) -> None:
         announce_ai_input(kind="JPEG", dpi=72, quality=75)
     state = ctx.scaffold_state
     layout_result, layout_elapsed, layout_model = detect_layout_phase(
-        state["client"], state["exam_pdf"], ctx.artifact_dir,
+        state.client, state.exam_pdf, ctx.artifact_dir,
     )
-    state["layout_result"] = layout_result
-    state["layout_elapsed"] = layout_elapsed
-    state["layout_model"] = layout_model
+    state.layout_result = layout_result
+    state.layout_elapsed = layout_elapsed
+    state.layout_model = layout_model
 
 
 def cut_exam_pdf(ctx: _Ctx) -> None:
     state = ctx.scaffold_state
     actual_exam_pdf, split_pdf_temp_path, _n_phys, n_split = cut_exam_pdf_phase(
-        state["exam_pdf"], state["layout_result"], ctx.artifact_dir,
-        layout_model=state["layout_model"], layout_elapsed=state["layout_elapsed"],
+        state.exam_pdf, state.layout_result, ctx.artifact_dir,
+        layout_model=state.layout_model, layout_elapsed=state.layout_elapsed,
     )
-    state["actual_exam_pdf"] = actual_exam_pdf
-    state["split_pdf_temp_path"] = split_pdf_temp_path
-    state["n_split"] = n_split
+    state.actual_exam_pdf = actual_exam_pdf
+    state.split_pdf_temp_path = split_pdf_temp_path
+    state.n_split = n_split
 
 
 def extract_exam_question_numbers(ctx: _Ctx) -> None:
     """extract_exam_question_numbers: extract question numbers from the empty exam (one cheap call).
 
     Writes ``17_extract_exam_question_numbers/exam_scaffold.{ext}`` and stores
-    the resulting nodes in ``ctx.scaffold_state['scaffold_nodes']`` for extract_exam_questions.
+    the resulting nodes in ``ctx.scaffold_state.scaffold_nodes`` for extract_exam_questions.
     """
     announce_step_model(
         model_env="EXTRACT_EXAM_QUESTION_NUMBERS_MODEL",
@@ -98,12 +94,12 @@ def extract_exam_question_numbers(ctx: _Ctx) -> None:
     state = ctx.scaffold_state
     from xscore.scaffold.scaffold_detect import extract_exam_question_numbers
     from xscore.scaffold.ai_scaffold import (
-        _extract_question_numbers_model_config, _print_detected_summary,
+        extract_question_numbers_model_config, _print_detected_summary,
     )
     from xscore.shared.exam_paths import artifact_exam_scaffold_path
     from xscore.shared.subjects import needs_code_formatting
-    fmt = state["fmt"]
-    detect_model, detect_thinking, detect_max_tokens = _extract_question_numbers_model_config()
+    fmt = state.fmt
+    detect_model, detect_thinking, detect_max_tokens = extract_question_numbers_model_config()
     from eXercise.ai_client import describe_pdf_input_mode  # noqa: PLC0415
     from xscore.shared.terminal_ui import announce_ai_input, info_line  # noqa: PLC0415
     _kind, _note = describe_pdf_input_mode(detect_model)
@@ -115,23 +111,23 @@ def extract_exam_question_numbers(ctx: _Ctx) -> None:
     info_line(f"Extract question numbers ({detect_model}) …")
     from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
     scaffold_nodes, raw_layout = extract_exam_question_numbers(
-        state["client"],
+        state.client,
         detect_model,
         detect_thinking,
         detect_max_tokens,
-        actual_exam_pdf=state["actual_exam_pdf"],
-        layout_result=state["layout_result"],
-        split_pdf_path=state["split_pdf_temp_path"],
-        n_split_pages=state["n_split"],
+        actual_exam_pdf=state.actual_exam_pdf,
+        layout_result=state.layout_result,
+        split_pdf_path=state.split_pdf_temp_path,
+        n_split_pages=state.n_split,
         artifact_dir=ctx.artifact_dir,
         fmt=fmt,
         is_cs=needs_code_formatting(ctx),
         should_cache=reuse_cache_enabled(ctx),
     )
-    if state["layout_result"] is not None:
+    if state.layout_result is not None:
         raw_layout = {
-            "rows": state["layout_result"].rows,
-            "cols": state["layout_result"].cols,
+            "rows": state.layout_result.rows,
+            "cols": state.layout_result.cols,
         }
     if ctx.artifact_dir is not None:
         try:
@@ -143,14 +139,14 @@ def extract_exam_question_numbers(ctx: _Ctx) -> None:
         except OSError as e:
             warn_line(f"Could not save exam_scaffold artifact: {e}")
     _print_detected_summary(scaffold_nodes)
-    state["scaffold_nodes"] = scaffold_nodes
-    state["raw_layout"] = raw_layout
+    state.scaffold_nodes = scaffold_nodes
+    state.raw_layout = raw_layout
 
 
 def extract_exam_questions(ctx: _Ctx) -> None:
     """extract_exam_questions: extract per-question text + options from the empty exam (per-page parallel).
 
-    Reads ``ctx.scaffold_state['scaffold_nodes']`` from extract_exam_question_numbers; writes
+    Reads ``ctx.scaffold_state.scaffold_nodes`` from extract_exam_question_numbers; writes
     ``18_extract_exam_questions/exam_questions.{ext}`` and stores
     ``raw_questions`` on ``scaffold_state`` for downstream steps.
     """
@@ -160,12 +156,12 @@ def extract_exam_questions(ctx: _Ctx) -> None:
     )
     state = ctx.scaffold_state
     from xscore.scaffold.scaffold_fill import extract_exam_questions
-    from xscore.scaffold.ai_scaffold import _extract_questions_model_config
+    from xscore.scaffold.ai_scaffold import extract_questions_model_config
     from xscore.scaffold.scaffold_markdown import write_raw_exam_markdown
     from xscore.shared.exam_paths import artifact_exam_questions_path
     from xscore.shared.subjects import needs_code_formatting
-    fmt = state["fmt"]
-    fill_model, fill_thinking, fill_max_tokens = _extract_questions_model_config()
+    fmt = state.fmt
+    fill_model, fill_thinking, fill_max_tokens = extract_questions_model_config()
     from eXercise.ai_client import describe_pdf_input_mode  # noqa: PLC0415
     from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
     _kind, _note = describe_pdf_input_mode(fill_model)
@@ -176,12 +172,12 @@ def extract_exam_questions(ctx: _Ctx) -> None:
     )
     from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
     raw_questions = extract_exam_questions(
-        state["client"],
+        state.client,
         fill_model,
         fill_thinking,
         fill_max_tokens,
-        actual_exam_pdf=state["actual_exam_pdf"],
-        scaffold_nodes=state["scaffold_nodes"],
+        actual_exam_pdf=state.actual_exam_pdf,
+        scaffold_nodes=state.scaffold_nodes,
         artifact_dir=ctx.artifact_dir,
         fmt=fmt,
         is_cs=needs_code_formatting(ctx),
@@ -192,13 +188,13 @@ def extract_exam_questions(ctx: _Ctx) -> None:
             p = artifact_exam_questions_path(ctx.artifact_dir, fmt=fmt.artifact_ext())
             p.parent.mkdir(parents=True, exist_ok=True)
             p.write_text(
-                fmt.serialize_exam(raw_questions, state["raw_layout"]),
+                fmt.serialize_exam(raw_questions, state.raw_layout),
                 encoding="utf-8",
             )
             write_raw_exam_markdown(ctx.artifact_dir, raw_questions)
         except OSError as e:
             warn_line(f"Could not save exam questions artifacts: {e}")
-    state["raw_questions"] = raw_questions
+    state.raw_questions = raw_questions
 
 
 def detect_cross_page_context(ctx: _Ctx) -> None:
@@ -227,7 +223,7 @@ def detect_cross_page_context(ctx: _Ctx) -> None:
         render_cross_page_step_summary,
         write_register,
     )
-    from xscore.scaffold.formats import load_exam_questions_artifact
+    from xscore.shared.exam_questions_io import load_exam_questions_artifact
     from xscore.shared.path_builders import (
         artifact_continuation_refs_json_path,
         artifact_cross_page_changes_md_path,
@@ -409,10 +405,10 @@ def detect_mark_scheme_graphics(ctx: _Ctx) -> None:
     state = ctx.scaffold_state
     t0 = time.perf_counter()
     graphics_by_qnum, graphics_questions = detect_scheme_graphics_phase(
-        state["answer_pdf"], state["raw_questions"], ctx.artifact_dir,
-        fmt=state["fmt"],
+        state.answer_pdf, state.raw_questions, ctx.artifact_dir,
+        fmt=state.fmt,
     )
-    state["graphics_by_qnum"] = graphics_by_qnum
+    state.graphics_by_qnum = graphics_by_qnum
     n = sum(len(q.get("graphics") or []) for q in (graphics_questions or []))
     ok_line(
         f"{n} graphic{'s' if n != 1 else ''} detected"
@@ -428,9 +424,9 @@ def assign_scheme_questions(ctx: _Ctx) -> None:
     )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
-    if state["answer_pdf"] is None:
+    if state.answer_pdf is None:
         ok_line("Skipped (no mark scheme PDF)")
-        state["questions_per_page"] = {}
+        state.questions_per_page = {}
         return
     from eXercise.ai_client import describe_pdf_input_mode, resolve_active_model  # noqa: PLC0415
     from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
@@ -444,14 +440,14 @@ def assign_scheme_questions(ctx: _Ctx) -> None:
     )
     from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
     mapping = assign_scheme_questions_phase(
-        state["client"], state["answer_pdf"], state["raw_questions"], ctx.artifact_dir,
+        state.client, state.answer_pdf, state.raw_questions, ctx.artifact_dir,
         should_cache=reuse_cache_enabled(ctx),
     )
-    state["questions_per_page"] = mapping
+    state.questions_per_page = mapping
     n_pages = len(mapping)
     n_qs = sum(len(v) for v in mapping.values())
     if n_pages:
-        n_parents = _count_parent_stems(state["raw_questions"])
+        n_parents = _count_parent_stems(state.raw_questions)
         suffix = (
             f"  ·  {n_parents} parent stem(s) with marks=0 not assigned"
             if n_parents else ""
@@ -490,7 +486,7 @@ def parse_mark_scheme(ctx: _Ctx) -> None:
     )
     state = ctx.scaffold_state
     t0 = time.perf_counter()
-    if state["answer_pdf"] is not None:
+    if state.answer_pdf is not None:
         from eXercise.ai_client import describe_pdf_input_mode, resolve_active_model  # noqa: PLC0415
         from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
         _scheme_model, _, _ = resolve_active_model(
@@ -504,13 +500,13 @@ def parse_mark_scheme(ctx: _Ctx) -> None:
     from xscore.shared.subjects import needs_code_formatting
     from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
     scheme_data = parse_mark_scheme_phase(
-        state["client"], state["answer_pdf"], state["raw_questions"],
-        state["graphics_by_qnum"], state.get("questions_per_page"),
-        ctx.artifact_dir, fmt=state["fmt"],
+        state.client, state.answer_pdf, state.raw_questions,
+        state.graphics_by_qnum, state.questions_per_page,
+        ctx.artifact_dir, fmt=state.fmt,
         is_cs=needs_code_formatting(ctx),
         should_cache=reuse_cache_enabled(ctx),
     )
-    state["scheme_data"] = scheme_data
+    state.scheme_data = scheme_data
     scheme_qs = scheme_data.get("questions", []) if isinstance(scheme_data, dict) else []
     ok_line(
         f"{len(scheme_qs)} answers in mark scheme"
@@ -530,7 +526,7 @@ def transcribe_scheme_graphics(ctx: _Ctx) -> None:
         announce_ai_input(kind="PNG", note="pre-rendered, detect_mark_scheme_graphics")
     state = ctx.scaffold_state
     t0 = time.perf_counter()
-    scheme_data = state.get("scheme_data")
+    scheme_data = state.scheme_data
     if scheme_data is None:
         from xscore.shared.exam_paths import artifact_mark_scheme_path
         import yaml as _yaml
@@ -542,7 +538,7 @@ def transcribe_scheme_graphics(ctx: _Ctx) -> None:
                 scheme_data = None
     from xscore.shared.response_cache import reuse_cache_enabled  # noqa: PLC0415
     new, total = transcribe_scheme_graphics_phase(
-        state.get("raw_questions") or [], scheme_data, ctx.artifact_dir,
+        state.raw_questions, scheme_data, ctx.artifact_dir,
         should_cache=reuse_cache_enabled(ctx),
     )
     if total == 0:
@@ -563,10 +559,10 @@ def create_report(ctx: _Ctx) -> None:
     state = ctx.scaffold_state
     t0 = time.perf_counter()
     questions, layout = merge_scaffold_phase(
-        state["raw_questions"], state["raw_layout"], state["scheme_data"],
+        state.raw_questions, state.raw_layout, state.scheme_data,
     )
     ctx.scaffold = finalize_scaffold(
-        ctx.folder, state["exam_pdf"], questions, layout,
+        ctx.folder, state.exam_pdf, questions, layout,
         students=ctx.students, artifact_dir=ctx.artifact_dir,
     )
     qs = ctx.scaffold.gradable_questions
@@ -580,8 +576,8 @@ def scaffold_setup(ctx: _Ctx) -> bool:
     """Initialize ``ctx.scaffold_state`` for the scaffold-related steps.
 
     Returns True on success (state populated), False when no exam PDF is found
-    (the empty-exam analysis and scaffold steps must be skipped). Idempotent — calling it twice is a
-    no-op once state["client"] is set.
+    (the empty-exam analysis and scaffold steps must be skipped). Idempotent —
+    calling it twice is a no-op once ``ctx.scaffold_state.client`` is set.
 
     When resuming (``ctx.from_step`` set), only short-circuits if the user is
     resuming into a step that doesn't need ``scaffold_state`` — i.e. anything
@@ -593,6 +589,7 @@ def scaffold_setup(ctx: _Ctx) -> bool:
     ``--from-step extract_exam_questions`` silently no-op'd the user's target step.
     """
     from eXercise.ai_client import make_gemini_native_client
+    from xscore.scaffold.scaffold_phase_state import ScaffoldPhaseState
     from xscore.shared.pipeline_steps import STEPS
 
     assert ctx.folder is not None and ctx.artifact_dir is not None
@@ -603,7 +600,7 @@ def scaffold_setup(ctx: _Ctx) -> bool:
         )
         if first_marking is not None and ctx.from_step >= first_marking:
             return False
-    if ctx.scaffold_state.get("client") is not None:
+    if ctx.scaffold_state is not None and ctx.scaffold_state.client is not None:
         return True   # already set up
 
     try:
@@ -622,36 +619,37 @@ def scaffold_setup(ctx: _Ctx) -> bool:
         )
         return False
 
-    ctx.scaffold_state.update({
-        "exam_pdf":   exam_pdf,
-        "answer_pdf": answer_pdf,
-        "client":     client,
-        "fmt":        get_scaffold_format(),
-        "phase_t0":   time.perf_counter(),
-    })
+    ctx.scaffold_state = ScaffoldPhaseState(
+        exam_pdf=exam_pdf,
+        answer_pdf=answer_pdf,
+        client=client,
+        fmt=get_scaffold_format(),
+        phase_t0=time.perf_counter(),
+    )
     _rehydrate_scaffold_state_on_resume(ctx)
     return True
 
 
 def _rehydrate_scaffold_state_on_resume(ctx: _Ctx) -> None:
-    """Populate ``scaffold_state`` keys that would normally be set by extract_exam_questions.
+    """Populate ``scaffold_state`` fields that would normally be set by extract_exam_questions.
 
     When the user resumes into ``scaffold_phase_b`` (currently only
     ``--from-step`` at or past ``detect_cross_page_context``),
     ``extract_exam_question_numbers``/``extract_exam_questions`` are skipped,
     so their on-disk artifacts must be loaded back into ``scaffold_state`` —
     otherwise ``detect_mark_scheme_graphics`` onwards crashes with
-    ``KeyError: 'raw_questions'``.
+    ``AttributeError: raw_questions``.
     """
     from xscore.shared.pipeline_steps import step_by_name
     if (ctx.from_step is None
             or ctx.from_step <= step_by_name("extract_exam_questions").number
-            or ctx.artifact_dir is None):
+            or ctx.artifact_dir is None
+            or ctx.scaffold_state is None):
         return
-    from xscore.scaffold.formats import load_exam_questions_artifact
+    from xscore.shared.exam_questions_io import load_exam_questions_artifact
     from xscore.shared.exam_paths import artifact_exam_questions_path
     state = ctx.scaffold_state
-    fmt = state["fmt"]
+    fmt = state.fmt
     questions_path = artifact_exam_questions_path(
         ctx.artifact_dir, fmt=fmt.artifact_ext(),
     )
@@ -662,8 +660,8 @@ def _rehydrate_scaffold_state_on_resume(ctx: _Ctx) -> None:
             "will be incomplete and steps 22+ may fail."
         )
         return
-    state["raw_questions"] = data.get("questions") or []
-    state["raw_layout"] = {
+    state.raw_questions = data.get("questions") or []
+    state.raw_layout = {
         "rows": int(data.get("rows", 1)),
         "cols": int(data.get("cols", 1)),
     }
@@ -676,30 +674,12 @@ def scaffold_cleanup(ctx: _Ctx) -> None:
     times. Used in the runner's finally so cleanup happens on ``_EarlyExit``
     or unexpected exception.
     """
-    sp: Path | None = ctx.scaffold_state.get("split_pdf_temp_path")
+    if ctx.scaffold_state is None:
+        return
+    sp: Path | None = ctx.scaffold_state.split_pdf_temp_path
     if sp is not None:
         try:
             sp.unlink()
         except OSError:
             pass
-    ctx.scaffold_state.clear()
-
-
-def scaffold_phase(ctx: _Ctx) -> None:
-    """LEGACY — old monolithic scaffold orchestrator.
-
-    Pre-refactor the runner called this once after geometry. The new pipeline
-    splits scaffold work into ``scaffold_setup`` + the ``empty_exam`` phase
-    (run before geometry) and the ``scaffold_phase_b`` phase (run after).
-    Kept as a fallback for callers (e.g. plans, scripts) that still call the
-    old name.
-    """
-    if not scaffold_setup(ctx):
-        return
-    try:
-        from xscore.shared.pipeline_steps import STEPS
-        for s in STEPS:
-            if s.phase in ("empty_exam", "scaffold_phase_b"):
-                run_step(ctx, s)
-    finally:
-        scaffold_cleanup(ctx)
+    ctx.scaffold_state = None

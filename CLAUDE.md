@@ -2,14 +2,15 @@ Codex will review your output once you are done.
 
 # Project guide
 
-This repo holds two Python pipelines plus a small FastAPI web UI that consumes both.
+This repo holds three Python pipelines plus a small FastAPI web UI that consumes all of them.
 
-## The two pipelines
+## The three pipelines
 
 - `eXercise/` — exercise sheet **generation**. Flat package, ~28 modules. Entry point: `python eXercise.py "<natural-language prompt>"`.
 - `xscore/` — exam scan **marking**. Structured package, 8 subpackages (`pipeline/`, `steps/`, `shared/`, `marking/`, `scaffold/`, `preprocessing/`, `extraction/`, `prompts/`). Entry point: `python XScore.py "grade <exam name>"`.
+- `eXam/` — on-screen exam **practice with AI marking**. Student/teacher runtime backed by SQLite, served via the web UI's `eXam_*` routes. Pre-indexes papers via `eXam.bank` (CLI: `python -m eXam.bank --paper … --ms … --subject …`).
 
-`eXercise/` *also* hosts shared infrastructure that `xscore/` depends on: `eXercise.ai_client`, `eXercise.prompt_logger`, `eXercise.env_load`, `eXercise.config`, `eXercise.fonts`, `eXercise.latex_utils`. Treat `eXercise/` as both a peer pipeline **and** a foundation library — don't move it.
+`eXercise/` *also* hosts shared infrastructure that `xscore/` and `eXam/` depend on: `eXercise.ai_client`, `eXercise.prompt_logger`, `eXercise.env_load`, `eXercise.config`, `eXercise.fonts`, `eXercise.latex_utils`. Treat `eXercise/` as both a peer pipeline **and** a foundation library — don't move it.
 
 ## Web UI
 
@@ -25,21 +26,36 @@ Web grade jobs upload to `output/xscore/grade_uploads/<job_id>/` (segregated fro
 
 ## xscore pipeline structure
 
-Steps are numbered 1–34 (contiguous). Each step writes its artifacts under `output/xscore/<exam_stem>/<timestamp>/<NN_step_name>/`. Folder names are mechanically `<NN>_<step.name>`; the constants live in `xscore/shared/step_folders.py` and the `Step.writes` tuples in `pipeline_steps.py` reference them so the two stay in lockstep.
+Steps are numbered 1–34 (contiguous). Each step writes its artifacts under `output/xscore/<exam_stem>/<timestamp>/<NN_step_name>/`. Folder names are mechanically `<NN>_<step.name>` — auto-derived by the `Step.writes` property from `step.number` + `step.name`. Set `_explicit_writes=()` on a `Step` for the rare case of a step that writes nothing (today only `locate_exam_folder`). The named constants in `xscore/shared/step_folders.py` mirror the same pattern and are imported by path-builder helpers.
 
-Step registry: `xscore/shared/pipeline_steps.py` holds a `Step` dataclass list — canonical ordering and naming. Step bodies live in one module per phase under `xscore/steps/`: `prelude`, `scan`, `geometry`, `scaffold`, `marking`, `reports`, `summary`. `wire_step_fns()` looks each one up by name at startup. All steps are migrated; there are no `_unmigrated` placeholders.
+Step registry: `xscore/shared/pipeline_steps.py` holds a `Step` dataclass list — canonical ordering and naming. Step bodies live in one module per phase under `xscore/steps/`: `prelude`, `scan`, `geometry`, `scaffold`, `marking`, `reports`, `summary`. `wire_step_fns()` looks each one up by name at startup; a missing function fails loud (no silent-skip).
 
 Resume mid-pipeline: `python XScore.py "grade <exam>" --resume-dir output/xscore/<exam>/<timestamp>` — re-uses already-completed step artifacts.
 
 Stop early / start late: `--stop-after <N>` and `--from-step <N>`.
 
+## Shared utilities (xscore.shared)
+
+Cross-subsystem helpers live in `xscore/shared/` so the marking pipeline doesn't reach into scaffold internals:
+
+- `xscore.shared.qnum_utils.norm_qnum` — strips `()` from question numbers (`"7(a)"` → `"7a"`); the canonical hashable key for question lookups, used by both scaffold and marking.
+- `xscore.shared.exam_questions_io.load_exam_questions_artifact` — loads `exam_questions.yaml` written by step 18; consumed by `xscore.steps.scaffold.detect_cross_page_context` (step 19) and `xscore.marking.merge_reports`.
+
+Each subsystem package (`xscore/scaffold/`, `xscore/marking/`, `xscore/preprocessing/`, `xscore/shared/`) declares its public API via `__all__` in `__init__.py` — leaks become reviewable.
+
 ## Marking & scaffold output formats
 
-AI structured-output steps (scaffold 17/18, scheme parsing 21/22, marking 25/26/27) emit YAML — block scalars preserve LaTeX without escaping and the diffs are reviewable. Format classes live in `xscore/marking/formats/base.py` (`MarkingFormat`) and `xscore/scaffold/formats/base.py` (`ScaffoldFormat`); call sites get an instance via `get_marking_format()` / `get_scaffold_format()`.
+AI structured-output steps (scaffold 17/18, scheme parsing 21/22, marking 25/26/27) emit YAML — block scalars preserve LaTeX without escaping and the diffs are reviewable. Format classes live in parallel-structured subpackages: `xscore/marking/formats/` (`MarkingFormat`) and `xscore/scaffold/formats/` (`ScaffoldFormat`). Each is split into `_yaml_io.py` (custom YAML dumper), `_parsers.py` (per-field parsers + error classes), `_prompt_builders.py` (blueprint builders), and `<name>_format.py` (the class itself). `base.py` is a re-export shim for historic call sites. Get an instance via `get_marking_format()` / `get_scaffold_format()`.
 
 ## Scaffold subsystem
 
 `xscore/scaffold/` is one of the largest subsystems (~24 modules) and covers steps 17–23: detecting exam structure, filling it from the empty paper, splitting the mark-scheme PDF per-question, transcribing scheme graphics, generating LaTeX templates, and caching the whole thing for resume. Resume hook: `scaffold_cache.py` (the cache key includes the empty-exam hash so re-running with the same paper short-circuits expensive AI calls).
+
+Transient state shared across the scaffold-building steps lives on `ctx.scaffold_state: ScaffoldPhaseState | None` (typed dataclass in `xscore/scaffold/scaffold_phase_state.py`). Set by `scaffold_setup`, cleared (set to `None`) by `scaffold_cleanup`. Attribute typos fail loud (`AttributeError`) instead of silently passing init and dying inside a step body.
+
+## eXam subsystem
+
+`eXam/` is the on-screen practice/marking runtime. All `xscore.*` imports are colocated in `eXam/xscore_adapter.py` (lazy: defers xscore's heavy deps until the pre-indexer runs). Consumers in `eXam/bank.py` call `load_scaffold_api()` once to get a namespace of the scaffold functions they need (`detect_layout_phase`, `cut_exam_pdf_phase`, `extract_exam_question_numbers`, etc.). Other eXam modules (`db.py`, `marker.py`, `runtime.py`, `auth.py`, `users.py`, `roster.py`, `test_builder.py`, `open_mode.py`, `cost_tracker.py`) have no xscore dependency.
 
 ## Prompts
 
@@ -87,15 +103,15 @@ Image sidecars are gated by the `SAVE_AI_IMAGES` env var (default off; set `SAVE
 
 Each `<task>_response.txt` is the concatenation of the model's thinking trace (as a leading `[thinking]…[/thinking]` block) and the structured response that follows it. Both are saved together for review convenience; downstream parsers operate on the post-`[/thinking]` body only. Don't conflate verbose thinking-trace prose with content actually emitted into structured fields when auditing output.
 
-## Test exam
+## Regression strategy
 
-`Space Physics Unit Test/` is the canonical regression input for the marking pipeline. After any structural change to `xscore/`, run:
+After any structural change to `xscore/`, run the marking pipeline end-to-end on a current exam (pick one from `exams/<subject_slug>/`) and diff outputs against a baseline run:
 
 ```
-python XScore.py "grade Space Physics Unit Test"
+python XScore.py "grade <current exam name>"
 ```
 
-end-to-end and diff outputs against a baseline run.
+For low-risk changes that can't shift output schema (file splits, import rewrites, internal reorganisation), static checks + a web smoke test are sufficient.
 
 ## Exam directories
 
@@ -108,7 +124,7 @@ The project uses a venv at `.venv/` in the repo root, which is a symlink to a sh
 Examples:
 
 ```
-.venv/bin/python XScore.py "grade Space Physics Unit Test"
+.venv/bin/python XScore.py "grade <current exam name>"
 .venv/bin/python -c "from xscore.prompts.loader import load_prompt; ..."
 ```
 
@@ -137,6 +153,7 @@ Keep source files between 150–500 lines. If a file exceeds 500 lines, refactor
 
 ## Don't
 
-- Don't move `eXercise/` into a `legacy/` folder — `xscore/` imports `ai_client`, `prompt_logger`, `env_load`, `config`, `fonts`, and `latex_utils` from it; the package is foundation infrastructure, not deprecated code.
-- Don't add `tests/` infrastructure unless asked — the `Space Physics Unit Test/` end-to-end run is the current regression strategy and a parallel test suite would create two sources of truth.
-- Don't commit anything in `output/`, `logs/`, or `Space Physics Unit Test/` — all gitignored, all contain student data or large artifacts.
+- Don't move `eXercise/` into a `legacy/` folder — `xscore/` and `eXam/` import `ai_client`, `prompt_logger`, `env_load`, `config`, `fonts`, and `latex_utils` from it; the package is foundation infrastructure, not deprecated code.
+- Don't add `tests/` infrastructure unless asked — the end-to-end run on a chosen exam is the current regression strategy and a parallel test suite would create two sources of truth.
+- Don't commit anything in `output/` or `logs/` — both gitignored, both contain student data or large artifacts.
+- Don't reach into `xscore.scaffold.<submodule>` from `xscore/marking/`, `xscore/preprocessing/`, the non-scaffold step modules, or `eXam/`. Use the public surface (or `eXam/xscore_adapter.py` for eXam). Cross-subsystem helpers live in `xscore.shared.*`.

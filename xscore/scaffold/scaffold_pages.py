@@ -31,7 +31,8 @@ from eXercise.qwen_input import (
 from eXercise.api_retry import retry_api_call
 from xscore.prompts.loader import load_prompt
 from xscore.scaffold.scaffold_api import _make_gen_config
-from xscore.scaffold.scaffold_qtree import _collect_qnums, _leaf_qnums, _norm_qnum
+from xscore.scaffold.scaffold_qtree import _collect_qnums, _leaf_qnums
+from xscore.shared.qnum_utils import norm_qnum
 from xscore.scaffold.scaffold_scheme_pdf import (
     _ensure_scheme_pages, _rasterize_scheme_pages,
 )
@@ -85,7 +86,7 @@ def assign_questions_to_pages(
     if not qnums:
         info_line("Skipped (no question numbers from extract_exam_question_numbers)")
         return {}
-    allowed_norm = {_norm_qnum(q): q for q in qnums}
+    allowed_norm = {norm_qnum(q): q for q in qnums}
 
     n_pages, page_paths, _tmp_dir = _ensure_scheme_pages(marking_scheme_pdf, artifact_dir)
 
@@ -222,7 +223,7 @@ def assign_questions_to_pages(
         result: list[str] = []
         _seen: set[str] = set()
         for q in fmt.parse_assign_response(raw):
-            canon = allowed_norm.get(_norm_qnum(q))
+            canon = allowed_norm.get(norm_qnum(q))
             if canon is not None and canon not in _seen:
                 _seen.add(canon)
                 result.append(canon)

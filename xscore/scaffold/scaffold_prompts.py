@@ -43,11 +43,19 @@ _LAYOUT_DETECT_JSON_SCHEMA: dict = _LayoutDetectSchema.model_json_schema()
 # Model config — read from xscore/config.py constants (defaults match default.env)
 # ---------------------------------------------------------------------------
 
-def _extract_question_numbers_model_config() -> tuple[str, int | None, int | None]:
+def extract_question_numbers_model_config() -> tuple[str, int | None, int | None]:
+    """Resolve the configured model spec for the extract-question-numbers AI call.
+
+    Public — also called by eXam's pre-indexer (see ``eXam/xscore_adapter.py``).
+    """
     return parse_model_spec(EXTRACT_EXAM_QUESTION_NUMBERS_MODEL)
 
 
-def _extract_questions_model_config() -> tuple[str, int | None, int | None]:
+def extract_questions_model_config() -> tuple[str, int | None, int | None]:
+    """Resolve the configured model spec for the extract-questions AI call.
+
+    Public — also called by eXam's pre-indexer (see ``eXam/xscore_adapter.py``).
+    """
     return parse_model_spec(EXTRACT_EXAM_QUESTIONS_MODEL)
 
 

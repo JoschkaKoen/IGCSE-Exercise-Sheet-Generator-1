@@ -25,8 +25,8 @@ src = open(
 assert "_rehydrate_scaffold_state_on_resume" in src, (
     "Rehydration helper missing from scaffold.py — fix regressed."
 )
-assert 'state["raw_questions"]' in src, "state['raw_questions'] write missing"
-assert 'state["raw_layout"]' in src, "state['raw_layout'] write missing"
+assert "state.raw_questions" in src, "state.raw_questions write missing"
+assert "state.raw_layout" in src, "state.raw_layout write missing"
 
 # Behavioural test on the helper itself: build a fake artifact_dir with a
 # realistic exam_questions.yaml and confirm rehydration populates state.
@@ -47,11 +47,14 @@ from xscore.scaffold.formats import get_scaffold_format
 from xscore.shared.exam_paths import artifact_exam_questions_path
 
 
+from xscore.scaffold.scaffold_phase_state import ScaffoldPhaseState
+
+
 class _FakeCtx:
     def __init__(self, artifact_dir: Path, from_step: int):
         self.artifact_dir = artifact_dir
         self.from_step = from_step
-        self.scaffold_state: dict = {"fmt": get_scaffold_format()}
+        self.scaffold_state = ScaffoldPhaseState(fmt=get_scaffold_format())
 
 
 with tempfile.TemporaryDirectory() as tmpdir:
@@ -76,28 +79,30 @@ with tempfile.TemporaryDirectory() as tmpdir:
     # Case 1: from_step=19 (detect_cross_page_context) → should rehydrate
     ctx = _FakeCtx(artifact_dir, from_step=19)
     _rehydrate_scaffold_state_on_resume(ctx)
-    assert "raw_questions" in ctx.scaffold_state, (
-        "raw_questions not populated after resume into detect_cross_page_context"
+    assert len(ctx.scaffold_state.raw_questions) == 2, (
+        f"Expected 2 questions, got {ctx.scaffold_state.raw_questions}"
     )
-    assert len(ctx.scaffold_state["raw_questions"]) == 2, (
-        f"Expected 2 questions, got {ctx.scaffold_state['raw_questions']}"
-    )
-    assert ctx.scaffold_state["raw_layout"] == {"rows": 1, "cols": 1}, (
-        f"Unexpected raw_layout: {ctx.scaffold_state['raw_layout']}"
+    assert ctx.scaffold_state.raw_layout == {"rows": 1, "cols": 1}, (
+        f"Unexpected raw_layout: {ctx.scaffold_state.raw_layout}"
     )
 
     # Case 2: from_step=18 (extract_exam_questions itself) → should NOT rehydrate
     ctx = _FakeCtx(artifact_dir, from_step=18)
     _rehydrate_scaffold_state_on_resume(ctx)
-    assert "raw_questions" not in ctx.scaffold_state, (
+    assert ctx.scaffold_state.raw_questions == [], (
         "rehydration ran for from_step=18 — should only fire for >18"
     )
 
     # Case 3: from_step=None (fresh run) → should NOT rehydrate
     ctx = _FakeCtx(artifact_dir, from_step=None)
     _rehydrate_scaffold_state_on_resume(ctx)
-    assert "raw_questions" not in ctx.scaffold_state, (
+    # Dataclass default is `[]`; rehydration would have populated it with the
+    # two YAML questions on disk. An empty list proves it didn't fire.
+    assert ctx.scaffold_state.raw_questions == [], (
         "rehydration ran for fresh run — should only fire when resuming"
+    )
+    assert ctx.scaffold_state.raw_layout is None, (
+        "rehydration ran for fresh run — raw_layout should still be None"
     )
 
 print("FIX VERIFIED: rehydration populates state for from_step>extract_exam_questions, not otherwise.")

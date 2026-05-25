@@ -27,8 +27,8 @@ from xscore.scaffold.scaffold_layout import (
 from xscore.scaffold.scaffold_prompts import (
     _SYSTEM_LAYOUT,
     _USER_LAYOUT,
-    _extract_question_numbers_model_config,
-    _extract_questions_model_config,
+    extract_question_numbers_model_config,
+    extract_questions_model_config,
     _layout_detect_model_config,
 )
 from xscore.scaffold.scaffold_qtree import _format_qnums_for_line
@@ -288,7 +288,7 @@ def parse_exam_pdf_full(
         fmt = get_scaffold_format()
 
     # --- Step extract_exam_question_numbers — extract question numbers (cheap; structure only) ---------
-    detect_model, detect_thinking, detect_max_tokens = _extract_question_numbers_model_config()
+    detect_model, detect_thinking, detect_max_tokens = extract_question_numbers_model_config()
     info_line(f"Extract question numbers ({detect_model}) …")
     scaffold_nodes, raw_layout = extract_exam_question_numbers(
         client,
@@ -321,7 +321,7 @@ def parse_exam_pdf_full(
     _print_detected_summary(scaffold_nodes)
 
     # --- Step extract_exam_questions — extract per-question text + options (per-page parallel) --
-    fill_model, fill_thinking, fill_max_tokens = _extract_questions_model_config()
+    fill_model, fill_thinking, fill_max_tokens = extract_questions_model_config()
     raw_questions = extract_exam_questions(
         client,
         fill_model,

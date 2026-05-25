@@ -151,7 +151,7 @@ def run_pipeline(
 
     wire_step_fns()
     # Import STEPS *after* wire_step_fns rebinds the module global so we walk
-    # the wired-up tuple (functions installed) rather than the _unmigrated stubs.
+    # the wired-up tuple (every Step.fn populated).
     from xscore.shared.pipeline_steps import STEPS
 
     reset_run_usage()

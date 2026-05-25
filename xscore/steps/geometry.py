@@ -229,7 +229,10 @@ def _detect_subject_via_ai(
     from xscore.shared.prompt_logger import attachment_part, save_prompt, save_response
     from xscore.shared.subjects import get_subject
 
-    src_pdf = ctx.scaffold_state.get("actual_exam_pdf") or exam_pdf
+    src_pdf = (
+        ctx.scaffold_state.actual_exam_pdf
+        if ctx.scaffold_state is not None else None
+    ) or exam_pdf
     if src_pdf is None:
         raise RuntimeError("No empty-exam PDF available for AI subject detection")
 
@@ -445,7 +448,7 @@ def classify_empty_exam_pages(ctx: _Ctx) -> None:
     from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
 
     assert ctx.artifact_dir is not None
-    assert ctx.scaffold_state is not None and "actual_exam_pdf" in ctx.scaffold_state, (
+    assert ctx.scaffold_state is not None and ctx.scaffold_state.actual_exam_pdf is not None, (
         "classify_empty_exam_pages needs the post-cut empty exam PDF (set by cut_exam_pdf cut_exam_pdf)"
     )
 
@@ -468,7 +471,8 @@ def classify_empty_exam_pages(ctx: _Ctx) -> None:
             note="rasterized fallback",
         )
 
-    empty_pdf = ctx.scaffold_state["actual_exam_pdf"]
+    assert ctx.scaffold_state is not None, "scaffold_setup must run before classify_empty_exam_pages"
+    empty_pdf = ctx.scaffold_state.actual_exam_pdf
     import fitz as _fitz  # noqa: PLC0415
     with _fitz.open(str(empty_pdf)) as _d:
         n_empty = _d.page_count
@@ -577,7 +581,7 @@ def student_handwriting_check(ctx: _Ctx) -> None:
     cover_offset = _cover_offset(cover_page_mode, bool(ctx.empty_exam_has_cover))
     t0 = time.perf_counter()
     empty_exam_pdf = (
-        ctx.scaffold_state.get("actual_exam_pdf")
+        ctx.scaffold_state.actual_exam_pdf
         if ctx.scaffold_state is not None else None
     )
     status, msg = check_student_handwriting(

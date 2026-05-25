@@ -106,21 +106,8 @@ def ensure_paper_indexed(
     from eXercise.ai_client import make_gemini_native_client
     from eXercise.env_load import load_project_env
     load_project_env()
-    from xscore.scaffold.ai_scaffold_exam import (
-        cut_exam_pdf_phase, detect_layout_phase,
-    )
-    from xscore.scaffold.ai_scaffold_scheme import (
-        assign_scheme_questions_phase,
-        detect_scheme_graphics_phase,
-        parse_mark_scheme_phase,
-    )
-    from xscore.scaffold.formats import get_scaffold_format
-    from xscore.scaffold.scaffold_detect import extract_exam_question_numbers
-    from xscore.scaffold.scaffold_fill import extract_exam_questions
-    from xscore.scaffold.scaffold_prompts import (
-        _extract_question_numbers_model_config,
-        _extract_questions_model_config,
-    )
+    from eXam.xscore_adapter import load_scaffold_api
+    xs = load_scaffold_api()
 
     client = make_gemini_native_client()
     if client is None:
@@ -128,20 +115,20 @@ def ensure_paper_indexed(
             "GEMINI_API_KEY (or GOOGLE_API_KEY) not set — required for xscore "
             "scaffold extraction. Set it in .env."
         )
-    fmt = get_scaffold_format()
+    fmt = xs.get_scaffold_format()
     is_cs = subject in CS_SUBJECTS
 
     # ── QP chain ─────────────────────────────────────────────────────────────
-    layout_result, layout_elapsed, layout_model = detect_layout_phase(
+    layout_result, layout_elapsed, layout_model = xs.detect_layout_phase(
         client, paper_path, out_dir,
     )
-    actual_pdf, split_temp, _n_phys, n_split = cut_exam_pdf_phase(
+    actual_pdf, split_temp, _n_phys, n_split = xs.cut_exam_pdf_phase(
         paper_path, layout_result, out_dir,
         layout_model=layout_model, layout_elapsed=layout_elapsed,
     )
     try:
-        detect_model, detect_thinking, detect_max = _extract_question_numbers_model_config()
-        scaffold_nodes, _raw_layout = extract_exam_question_numbers(
+        detect_model, detect_thinking, detect_max = xs.extract_question_numbers_model_config()
+        scaffold_nodes, _raw_layout = xs.extract_exam_question_numbers(
             client, detect_model, detect_thinking, detect_max,
             actual_exam_pdf=actual_pdf,
             layout_result=layout_result,
@@ -150,8 +137,8 @@ def ensure_paper_indexed(
             artifact_dir=out_dir,
             fmt=fmt, is_cs=is_cs, should_cache=False,
         )
-        fill_model, fill_thinking, fill_max = _extract_questions_model_config()
-        raw_questions = extract_exam_questions(
+        fill_model, fill_thinking, fill_max = xs.extract_questions_model_config()
+        raw_questions = xs.extract_exam_questions(
             client, fill_model, fill_thinking, fill_max,
             actual_exam_pdf=actual_pdf,
             scaffold_nodes=scaffold_nodes,
@@ -172,13 +159,13 @@ def ensure_paper_indexed(
 
     # ── MS chain ─────────────────────────────────────────────────────────────
     if ms_path is not None:
-        graphics_by_qnum, _ = detect_scheme_graphics_phase(
+        graphics_by_qnum, _ = xs.detect_scheme_graphics_phase(
             ms_path, raw_questions, out_dir, fmt=fmt,
         )
-        questions_per_page = assign_scheme_questions_phase(
+        questions_per_page = xs.assign_scheme_questions_phase(
             client, ms_path, raw_questions, out_dir,
         )
-        scheme_data = parse_mark_scheme_phase(
+        scheme_data = xs.parse_mark_scheme_phase(
             client, ms_path, raw_questions, graphics_by_qnum, questions_per_page,
             out_dir, fmt=fmt, is_cs=is_cs,
         )

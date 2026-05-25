@@ -37,8 +37,9 @@ from xscore.scaffold.scaffold_api import _finish_reason, _make_gen_config
 from xscore.scaffold.scaffold_pages import _group_pages_by_shared_question
 from xscore.scaffold.scaffold_pdf_split import combine_pdf_pages
 from xscore.scaffold.scaffold_qtree import (
-    _filter_questions_by_qnums, _leaf_qnums, _norm_qnum,
+    _filter_questions_by_qnums, _leaf_qnums,
 )
+from xscore.shared.qnum_utils import norm_qnum
 from xscore.scaffold.scaffold_scheme_pdf import (
     _ensure_scheme_pages, _rasterize_scheme_pages,
 )
@@ -372,7 +373,7 @@ def parse_mark_scheme_pages(
     # Attach graphics positions from detect_mark_scheme_graphics onto matching scheme entries.
     if graphics_by_qnum:
         for _q in result.get("questions", []):
-            _key = _norm_qnum(_q["number"])
+            _key = norm_qnum(_q["number"])
             if _key in graphics_by_qnum:
                 _q["graphics"] = graphics_by_qnum[_key]
 

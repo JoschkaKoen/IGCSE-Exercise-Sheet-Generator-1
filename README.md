@@ -635,6 +635,57 @@ flowchart TB
    - `pregenerate.generate_all_helpers()` warms hint/solution/example/kb per question.
 4. `status` flips to `ready`; the teacher polls `/api/teacher/build-status/<test_id>`.
 
+### How the open-mode picker works
+
+`open_mode.pick_random_question` is what runs when a visitor opens a practice subject. It returns one question for the page to render.
+
+**What it's given:** the subject, the year (2025), and the set of question IDs the visitor has already been shown in this session.
+
+**How it picks:**
+
+1. **List the papers.** It scans `exams/<subject>/` for that year's question papers, ignoring mark schemes, examiner reports, and grade thresholds. Two filename styles are handled — the human-readable "… June 2025 Question Paper 11.pdf" and the Cambridge code "0625_s25_qp_11.pdf".
+2. **Keep only warmed papers.** A paper counts as usable only if it's already been indexed by the offline warm step (its `exam_questions.yaml` is on disk). Indexing on demand takes minutes of AI work, so the picker refuses to do it inline — that's the job of `warm_bank`. The landing page also disables subjects that have no warmed papers, so this filter almost always leaves something. (If literally nothing is indexed, it falls back to indexing one paper synchronously, but the UI normally prevents reaching that branch.)
+3. **Shuffle the papers.** Then walk them in shuffled order. This is deliberate: shuffling papers (not questions) keeps exposure roughly even across papers, regardless of how many questions each one has.
+4. **Find a paper with an unseen question.** For each paper, take its list of gradable top-level questions (numbered 1, 2, 3 — not sub-parts, and only ones whose cropped snippet PDF actually exists on disk), drop the ones the session has already seen, and stop at the first paper that still has something left. Pick one of those remaining questions at random.
+5. **Pool-exhaustion fallback.** If the visitor has cleared every question in every paper, it gives up on uniqueness and picks any random question from any paper — better to repeat than to show an error.
+6. **Return the metadata.** It loads the question's metadata from the cached YAML and attaches the source paper path and matching mark-scheme path so the marker can find them later.
+
+**The core idea:** all the slow work (indexing papers, rendering question snippets, generating helpers) is done ahead of time by `warm_bank`. The picker itself is just a fast lookup over what's already on disk, with a "don't repeat questions this session" filter on top.
+
+### How warm_bank works
+
+`warm_bank` is a command-line utility that pre-indexes every question paper for a subject so the open-mode picker has something to serve. It's the slow, offline preparation step that the picker assumes has already been done.
+
+Given a subject slug (or `all`) and a year (default 2025), it:
+
+1. **Lists the papers** for that subject and year using the same scanner the picker uses (`list_practice_papers`).
+2. **Pairs each question paper with its mark scheme** (`pair_mark_scheme`). If no mark scheme exists for a paper, it skips that paper and counts it as a failure.
+3. **Indexes each paper** by calling `bank.ensure_paper_indexed`, which segments the paper, parses the mark scheme, writes `exam_questions.yaml` and `mark_scheme.yaml`, and renders per-question snippet PDFs into the bank directory. Under the hood it runs a small, fixed subset of xScore's scaffold steps:
+
+   | Step | Name | Purpose |
+   |---|---|---|
+   | 6 | `detect_exam_layout` | Detect QP page layout |
+   | 7 | `cut_exam_pdf` | Split the QP down to the pages of actual exam content |
+   | 17 | `extract_exam_question_numbers` | Detect question-number anchors |
+   | 18 | `extract_exam_questions` | Transcribe each question |
+   | 20 | `detect_mark_scheme_graphics` | Locate figures in the MS that need cropping |
+   | 21 | `assign_scheme_questions` | Map MS pages to question numbers |
+   | 22 | `parse_mark_scheme` | Transcribe MS marking points |
+
+   Per-question snippet PDFs are then rendered by eXercise's vector-strip layout (not an xScore step). All other xScore steps (1–5, 8–16, 19, 23–34) are skipped — they only matter for marking student scans, not for serving questions on screen. Idempotent: a `(paper_sha, ms_sha)` check at `paper_sha.txt` short-circuits re-runs unless the source PDFs change.
+4. **Logs progress** — per-paper timing and a final tally of how many were indexed vs skipped/failed. Exits nonzero if anything failed.
+
+**Important non-feature:** helper generation (`hint` / `solution` / `example` / `kb`) is deliberately *not* part of warming. In open mode those stay lazy — only generated the first time a visitor clicks the corresponding button. Warming covers indexing only.
+
+**Where it's called.** Nowhere from inside the codebase. It is purely a manual CLI tool, invoked by an admin:
+
+```
+.venv/bin/python -m eXam.warm_bank --year 2025 --subject physics
+.venv/bin/python -m eXam.warm_bank --year 2025 --subject all
+```
+
+No FastAPI route, no background job, no scheduler triggers it. The only references in the codebase are documentation (this README) and a docstring note in `open_mode.py` reminding readers that warming is an offline admin step. The expectation is that a human runs it once per subject after dropping new papers into `exams/<subject>/`, and from then on the open-mode landing card for that subject lights up and the picker has paper to serve.
+
 ### On-disk layout
 
 ```
