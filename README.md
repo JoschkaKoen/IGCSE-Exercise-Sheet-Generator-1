@@ -500,62 +500,62 @@ Both modes share the same on-disk **bank** of indexed papers and snippet PDFs â€
 ```mermaid
 flowchart TB
     subgraph User["Browser"]
-        S[Student / Visitor]
+        S["Student / Visitor"]
     end
 
     subgraph Web["FastAPI (web/app.py)"]
-        RS[/eXam_student.py/]
-        RT[/eXam_teacher.py/]
-        RO[/eXam_open.py/]
+        RS["eXam_student.py"]
+        RT["eXam_teacher.py"]
+        RO["eXam_open.py"]
     end
 
     subgraph eXam["eXam/ (this pipeline)"]
-        RT2[test_builder.py<br/>natural-lang â†’ papers]
-        BANK[bank.py<br/>ensure_paper_indexed<br/>ensure_question_pdf]
-        RT3[runtime.py<br/>load YAML, order qs]
-        MK[marker.py<br/>MCQ / numeric / free]
-        PG[pregenerate.py<br/>hint / solution / example / kb]
-        OM[open_mode.py<br/>public sessions]
-        DB[(eXam.db<br/>SQLite)]
+        RT2["test_builder.py<br/>natural-lang to papers"]
+        BANK["bank.py<br/>ensure_paper_indexed<br/>ensure_question_pdf"]
+        RT3["runtime.py<br/>load YAML, order qs"]
+        MK["marker.py<br/>MCQ / numeric / free"]
+        PG["pregenerate.py<br/>hint / solution / example / kb"]
+        OM["open_mode.py<br/>public sessions"]
+        DB[("eXam.db<br/>SQLite")]
     end
 
     subgraph Deps["Reused pipelines"]
-        XS[xscore.scaffold<br/>ai_scaffold_exam<br/>ai_scaffold_scheme]
-        EX[eXercise.rendering<br/>collect_vector_strips<br/>layout_vector_strips_to_pdf]
-        AI[eXercise.ai_client<br/>Gemini / Qwen]
+        XS["xscore.scaffold<br/>ai_scaffold_exam<br/>ai_scaffold_scheme"]
+        EX["eXercise.rendering<br/>collect_vector_strips<br/>layout_vector_strips_to_pdf"]
+        AI["eXercise.ai_client<br/>Gemini / Qwen"]
     end
 
     subgraph Disk["output/eXam/"]
-        F1[bank/&lt;subject&gt;/&lt;paper_stem&gt;/<br/>exam_questions.yaml<br/>mark_scheme.yaml<br/>&lt;qnum&gt;/question.pdf<br/>&lt;qnum&gt;/helpers/*.md]
+        F1["bank/SUBJECT/PAPER_STEM/<br/>exam_questions.yaml<br/>mark_scheme.yaml<br/>QNUM/question.pdf<br/>QNUM/helpers/*.md"]
     end
 
     subgraph Source["exams/"]
-        SRC[Cambridge PDFs<br/>per subject_slug/]
+        SRC["Cambridge PDFs<br/>per subject_slug"]
     end
 
     S --> RS
     S --> RO
-    RS -->|/api/submit| MK
-    RS -->|/pdf/{qid}| BANK
+    RS -- "POST /api/submit" --> MK
+    RS -- "GET /pdf/qid" --> BANK
     RT --> RT2
     RT2 --> BANK
     RT2 --> PG
     BANK --> XS
     BANK --> EX
-    XS -.reads.-> SRC
-    EX -.reads.-> SRC
-    BANK -->|writes| F1
+    XS -. reads .-> SRC
+    EX -. reads .-> SRC
+    BANK -- writes --> F1
     PG --> AI
-    PG -->|writes| F1
+    PG -- writes --> F1
     MK --> AI
-    RT3 -->|reads| F1
+    RT3 -- reads --> F1
     RS --> RT3
     RO --> OM
     OM --> RT3
-    MK -->|attempts| DB
-    OM -->|sessions| DB
-    RS -->|test+attempts| DB
-    RT -->|tests| DB
+    MK -- attempts --> DB
+    OM -- sessions --> DB
+    RS -- "tests + attempts" --> DB
+    RT -- tests --> DB
 ```
 
 ### Modules
