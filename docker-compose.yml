@@ -4,7 +4,7 @@ services:
     build: .
     restart: unless-stopped
     ports:
-      - "80:8000"
+      - "127.0.0.1:8000:8000"
     # default.env = committed defaults; .env = secrets (optional file; create when needed)
     env_file:
       - path: default.env
