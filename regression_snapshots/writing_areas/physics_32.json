@@ -65,28 +65,12 @@
       "q_number": "12a",
       "writing_areas": [
         {
-          "kind": "short_line",
+          "kind": "lines",
           "page": 18,
           "x0": 205.6,
-          "y0": 82.7,
+          "y0": 76.5,
           "x1": 389.0,
-          "y1": 98.7
-        },
-        {
-          "kind": "short_line",
-          "page": 18,
-          "x0": 205.6,
-          "y0": 108.7,
-          "x1": 389.0,
-          "y1": 124.7
-        },
-        {
-          "kind": "short_line",
-          "page": 18,
-          "x0": 205.6,
-          "y0": 134.7,
-          "x1": 389.0,
-          "y1": 150.7
+          "y1": 154.5
         }
       ]
     },
@@ -191,16 +175,7 @@
     },
     {
       "q_number": "2b",
-      "writing_areas": [
-        {
-          "kind": "short_line",
-          "page": 5,
-          "x0": 95.0,
-          "y0": 166.4,
-          "x1": 278.4,
-          "y1": 182.4
-        }
-      ]
+      "writing_areas": []
     },
     {
       "q_number": "2c",

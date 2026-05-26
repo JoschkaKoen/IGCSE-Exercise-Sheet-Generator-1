@@ -134,7 +134,7 @@ def extract_topics(pdf_path: Path) -> dict[str, Any]:
 
     raw_spec = (
         os.environ.get("SYLLABUS_EXTRACT_MODEL", "").strip()
-        or "gemini-3-flash-preview, off"
+        or "gemini-3.5-flash, off"
     )
     model_name, thinking_tokens, max_tokens = parse_model_spec(raw_spec)
     if not model_name.startswith("gemini"):

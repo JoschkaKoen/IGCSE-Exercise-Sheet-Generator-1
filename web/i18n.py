@@ -110,6 +110,7 @@ STRINGS: dict[str, dict[str, str]] = {
         "learn.card.cta":           "Topics",
         "learn.empty.title":        "Topics not yet indexed",
         "learn.coming_soon.title":  "Learning program coming soon",
+        "learn.content.cambridge_note": "Source: Cambridge International syllabus",
 
         # ===== Auth dialog (site-wide) =====
         "auth.dialog.title":        "Sign in",
@@ -619,6 +620,7 @@ STRINGS: dict[str, dict[str, str]] = {
         "learn.card.cta":           "目录",
         "learn.empty.title":        "目录尚未生成",
         "learn.coming_soon.title":  "学习程序即将推出",
+        "learn.content.cambridge_note": "来源:剑桥国际大纲",
 
         # ===== Auth dialog =====
         "auth.dialog.title":        "登录",

@@ -112,7 +112,7 @@ def _call_pdf_gemini(system: str, user: str, pdf_path: Path) -> str:
     client = make_gemini_native_client()
     if client is None:
         raise RuntimeError("GEMINI_API_KEY not set")
-    raw = os.environ.get("EXAM_PDF_MODEL", "gemini-3-flash-preview, 1024, 8192")
+    raw = os.environ.get("EXAM_PDF_MODEL", "gemini-3.5-flash, 1024, 8192")
     model_name, thinking, max_tokens = parse_model_spec(raw)
     cfg_kwargs = {"system_instruction": system, "max_output_tokens": max_tokens or 4096}
     if thinking is not None:

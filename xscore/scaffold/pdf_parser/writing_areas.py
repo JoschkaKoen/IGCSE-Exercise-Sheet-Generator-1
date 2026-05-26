@@ -177,6 +177,56 @@ def _consume_rules_in_stippled_fills(h_rules: list[_HRule]) -> None:
                 r.consumed = True
 
 
+_FRACTION_BAR_VERTICAL_TOL_PT = 18.0     # max y-gap from rule to numerator/denominator text
+_FRACTION_BAR_X_OVERLAP_FRAC = 0.5       # required x-overlap between text and rule
+
+
+def _consume_fraction_bars(
+    h_rules: list[_HRule],
+    text_lines: list[tuple[float, float, float, float, str]],
+) -> None:
+    """Consume horizontal rules that act as fraction bars in math notation.
+
+    A fraction bar is a horizontal rule with TEXT on both sides — a
+    numerator line directly above and a denominator line directly below.
+    Cambridge math / chemistry papers render the ratio  X / Y  as two
+    stacked text spans with a horizontal stroke between, and the stroke
+    would otherwise fire ``_classify_short_line`` or
+    ``_classify_secondary_equation_blank`` (a_level_chemistry_41 Q2a iv).
+    """
+    if not h_rules or not text_lines:
+        return
+    for r in h_rules:
+        if r.consumed:
+            continue
+        r_w = max(r.x1 - r.x0, 1.0)
+        has_above = False
+        has_below = False
+        for tx0, ty0, tx1, ty1, t in text_lines:
+            if not t.strip():
+                continue
+            # Skip filler-only lines (those are the answer-line dots
+            # themselves, not real numerator/denominator text).
+            non_filler = sum(
+                1 for c in t
+                if c not in ".·•_-… " and not c.isspace()
+            )
+            if non_filler < 3:
+                continue
+            ty_c = (ty0 + ty1) * 0.5
+            overlap = max(0.0, min(tx1, r.x1) - max(tx0, r.x0))
+            if overlap < r_w * _FRACTION_BAR_X_OVERLAP_FRAC:
+                continue
+            dy = ty_c - r.y
+            if -_FRACTION_BAR_VERTICAL_TOL_PT <= dy < -1.0:
+                has_above = True
+            elif 1.0 < dy <= _FRACTION_BAR_VERTICAL_TOL_PT:
+                has_below = True
+            if has_above and has_below:
+                r.consumed = True
+                break
+
+
 def _consume_rules_in_graph_grid(
     h_rules: list[_HRule], v_rules: list[_VRule]
 ) -> None:
@@ -224,13 +274,29 @@ def _emit_equation_blanks(
             cfg.equation_blank_pad_above_pt - cfg.equation_blank_nudge_top_pt
         )
         line_baseline = line_top + _EQ_BLANK_BASELINE_OFFSET_FROM_TOP_PT
-        matching_rule: _HRule | None = None
+        # Prefer the longest UNCONSUMED rule within the baseline tolerance.
+        # Pre-consumed rules (fraction bars, diagram interiors, stipple
+        # fills) are not answer slots — fall back to them only if there's
+        # no unconsumed candidate (in which case the equation-blank bbox
+        # is dropped entirely).
+        unconsumed_match: _HRule | None = None
+        consumed_match: _HRule | None = None
         for r in h_rules:
-            if abs(r.y - line_baseline) <= cfg.wa_eq_blank_baseline_tol_pt:
-                if matching_rule is None or r.length > matching_rule.length:
-                    matching_rule = r
-                if not r.consumed:
-                    r.consumed = True
+            if abs(r.y - line_baseline) > cfg.wa_eq_blank_baseline_tol_pt:
+                continue
+            if r.consumed:
+                if consumed_match is None or r.length > consumed_match.length:
+                    consumed_match = r
+            else:
+                if unconsumed_match is None or r.length > unconsumed_match.length:
+                    unconsumed_match = r
+                r.consumed = True
+        if unconsumed_match is None and consumed_match is not None:
+            # Only a pre-consumed rule matched — drop the bbox (the rule
+            # belongs to fraction notation / stipple / diagram, not an
+            # answer slot — a_level_chemistry_41 Q2a iv).
+            continue
+        matching_rule = unconsumed_match
         if matching_rule is not None:
             rule_for_bbox = matching_rule
         else:
@@ -247,6 +313,34 @@ def _emit_equation_blanks(
     return out
 
 
+# Markers MUST be specific enough to fire only on the actual back-matter
+# reference pages — NOT on a paper's cover page (which lists "The
+# Periodic Table is printed in the question paper") nor on question pages
+# that happen to share a section heading like "Qualitative analysis".
+# Each marker below is a phrase that only appears on the dedicated
+# reference sheet, never in instructional text.
+_REFERENCE_PAGE_MARKERS = (
+    "The Periodic Table of Elements",   # heading of the periodic-table page
+    "Reactions of cations",             # heading inside qualitative-analysis notes
+    "Reactions of anions",              # ditto
+    "molar gas constant",               # always inside "Important values" sheet
+)
+
+
+def _page_is_reference_data(page: fitz.Page) -> bool:
+    """Return True for chemistry / physics back-matter reference pages.
+
+    Cambridge appends a Periodic Table, qualitative-analysis lookup table,
+    and "Important values, constants and standards" sheet to every science
+    paper.  These pages contain dense vector tables that the answer-cell
+    detector mis-identifies as fillable answer slots when an earlier leaf's
+    continuation bbox happens to extend onto them.  Skip detection entirely
+    on pages whose text contains one of the canonical reference markers.
+    """
+    txt = page.get_text("text")
+    return any(marker in txt for marker in _REFERENCE_PAGE_MARKERS)
+
+
 def _detect_in_region(
     doc: fitz.Document,
     cfg: ParserConfig,
@@ -259,6 +353,8 @@ def _detect_in_region(
     if pi < 0 or pi >= len(doc):
         return []
     page = doc[pi]
+    if _page_is_reference_data(page):
+        return []
     cx = (region.x0 + region.x1) * 0.5
     cy = (region.y0 + region.y1) * 0.5
     cell = cell_for_point(page, cx, cy)
@@ -273,6 +369,7 @@ def _detect_in_region(
     text_lines = _text_lines_in(page, clip)
     _consume_rules_inside_diagrams(page, clip, h_rules)
     _consume_rules_in_stippled_fills(h_rules)
+    _consume_fraction_bars(h_rules, text_lines)
     _consume_rules_in_graph_grid(h_rules, v_rules)
 
     # Classifier sequence — DO NOT REORDER.  Each pass mutates ``h_rules``'s

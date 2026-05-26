@@ -428,3 +428,38 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
     grid-column: 1 / -1;
   }
 }
+
+/* ─── Learn subtopic content: markdown-rendered Core/Supplement table ──────── */
+.learn-content-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.learn-content-body thead th {
+  text-align: left;
+  font-weight: 600;
+  color: rgb(165, 243, 252);                       /* cyan-200 */
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+.learn-content-body tbody td {
+  vertical-align: top;
+  padding: 0.6rem 0.75rem;
+  color: rgb(203, 213, 225);                       /* slate-300 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.learn-content-body tbody tr:nth-child(odd) td {
+  background-color: rgba(255, 255, 255, 0.015);
+}
+.learn-content-body tbody tr:last-child td {
+  border-bottom: none;
+}
+.learn-content-body tbody td:first-child {
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+.learn-content-body .math.inline,
+.learn-content-body .math.block {
+  color: rgb(226, 232, 240);                       /* slate-200 */
+}

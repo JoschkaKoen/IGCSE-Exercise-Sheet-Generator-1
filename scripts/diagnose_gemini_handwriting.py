@@ -1,6 +1,6 @@
-"""Probe gemini-3-flash-preview on the step-14 handwriting prompt.
+"""Probe gemini-3.5-flash on the step-14 handwriting prompt.
 
-Why: in the cross-model handwriting comparison, gemini-3-flash-preview returned
+Why: in the cross-model handwriting comparison, gemini-3.5-flash returned
 all-inconclusive (parsed empty). The ``_call_handwriting`` Gemini path passes
 no ``thinking_config`` (so thoughts default ON) and caps
 ``max_output_tokens=192`` — a budget that may be entirely consumed by hidden
@@ -31,7 +31,7 @@ PDF = Path(
     "output/xscore/s23_12/2026-05-03_01-50-02/scanned_exam_merged_and_angles_adjusted.pdf"
 )
 PAGE = 36  # the page with the false-positive in the original run
-MODEL = "gemini-3-flash-preview"
+MODEL = "gemini-3.5-flash"
 
 
 def call(jpeg: bytes, prompt: str, *, max_tokens: int, thinking: int | None) -> None:

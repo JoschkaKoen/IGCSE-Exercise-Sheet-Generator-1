@@ -16,6 +16,16 @@
   </h1>
 </header>
 
+{% if content_html %}
+<section class="max-w-4xl">
+  <div class="learn-content-body rounded-2xl border border-white/[0.08]
+              bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-5 sm:p-7
+              shadow-black/20 backdrop-blur-sm">
+    {{ content_html | safe }}
+  </div>
+  <p class="mt-3 text-xs text-slate-500">{{ t('learn.content.cambridge_note') }}</p>
+</section>
+{% else %}
 <section class="max-w-2xl">
   <div class="rounded-2xl border border-white/[0.08]
               bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-8
@@ -29,4 +39,5 @@
     </div>
   </div>
 </section>
+{% endif %}
 {% endblock %}

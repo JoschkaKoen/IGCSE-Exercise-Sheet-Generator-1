@@ -31,6 +31,13 @@ _TABLE_INTERIOR_FULL_COVER_FRAC = 0.9    # drawings spanning ≥90% of cell are 
 _UNIFORM_GRID_RATIO_MAX = 1.25           # w/h ratio cap for uniform-cell reject
 _UNIFORM_GRID_MAX_AVG_SIDE_PT = 60.0     # avg cell side cap for uniform-cell reject
 _TABLE_CONSUME_EXTENT_PAD_PT = 5.0       # pad around table extent when consuming rules
+# Reject cells whose width:height (or height:width) ratio exceeds this.
+# Real Cambridge answer cells stay within ~4:1 (a wide thin header row is
+# typically 30pt × 110pt — ratio 3.7:1).  Cells beyond this are usually
+# narrow spacer columns between two large drawing boxes (a_level_chemistry_23
+# Q2c "+" column, a_level_chemistry_41 Q5cii Co isomer gap) or flowchart
+# arrow gutters, not real answer slots.
+_TABLE_CELL_MAX_ASPECT_RATIO = 5.0
 # Page-chrome v_rule exclusion: v_rules whose y-extent covers ≥ this fraction
 # of the page height are page-margin decoration (the "DO NOT WRITE IN THIS
 # MARGIN" strip, the main answer-area outline), NOT table boundaries.  Without
@@ -40,6 +47,60 @@ _TABLE_CONSUME_EXTENT_PAD_PT = 5.0       # pad around table extent when consumin
 # real row boundaries and break the adjacent-pair pairing
 # (a_level_biology_42 p24 Table 7.2).
 _TABLE_PAGE_CHROME_HEIGHT_FRAC = 0.7
+
+# Characters treated as filler glyphs when scanning empty-cell content.
+# A line consisting *only* of these (plus whitespace) is considered an
+# empty answer slot.  Em dash (U+2014) is intentionally absent — a solo
+# "—" in a qualitative-analysis table means "no value", which is real
+# content that should reject the cell from answer-slot detection.
+_TABLE_FILLER_CHARS = frozenset(".·•_-…")
+
+# X-mark detection: crossed-diagonal pair drawn inside a cell signals
+# "do not fill" (Cambridge marks pre-blocked cells this way).  Each
+# diagonal must span > _CELL_X_MARK_MIN_DELTA_PT in both x and y.
+_CELL_X_MARK_MIN_DIAGONALS = 2
+_CELL_X_MARK_MIN_DELTA_PT = 5.0
+
+
+def _cell_has_x_mark(page: fitz.Page, cell_rect: fitz.Rect) -> bool:
+    """Return True if the cell interior contains ≥ 2 diagonal line segments.
+
+    Cambridge papers pre-block "do not fill" cells by drawing a big X
+    inside them.  The two diagonals each have significant dx and dy
+    (axis-aligned lines never trigger), so this check is robust against
+    incidental short rules inside the cell.
+    """
+    n_diag = 0
+    for d in page.get_drawings():
+        dr = d.get("rect")
+        if dr is None:
+            continue
+        if (
+            dr.x1 < cell_rect.x0 or dr.x0 > cell_rect.x1
+            or dr.y1 < cell_rect.y0 or dr.y0 > cell_rect.y1
+        ):
+            continue
+        for it in d.get("items") or []:
+            if not it or it[0] != "l" or len(it) < 3:
+                continue
+            p0, p1 = it[1], it[2]
+            dx = abs(float(p0.x) - float(p1.x))
+            dy = abs(float(p0.y) - float(p1.y))
+            if dx > _CELL_X_MARK_MIN_DELTA_PT and dy > _CELL_X_MARK_MIN_DELTA_PT:
+                # Both endpoints inside the cell (otherwise it might be a
+                # diagonal that just clips through — e.g. a chemistry
+                # bond line crossing into the cell).
+                if (
+                    cell_rect.x0 <= float(p0.x) <= cell_rect.x1
+                    and cell_rect.y0 <= float(p0.y) <= cell_rect.y1
+                    and cell_rect.x0 <= float(p1.x) <= cell_rect.x1
+                    and cell_rect.y0 <= float(p1.y) <= cell_rect.y1
+                ):
+                    n_diag += 1
+                    if n_diag >= _CELL_X_MARK_MIN_DIAGONALS:
+                        return True
+    return False
+
 
 # _classify_box:
 _BOX_BORDER_CONSUME_Y_TOL_PT = 3.0       # rejected-rect border consume y-tolerance
@@ -138,6 +199,12 @@ def _classify_table_grid(
             x0, x1 = v_left.x, v_right.x
             if (x1 - x0) < cfg.wa_table_cell_min_side_pt:
                 continue
+            cell_w = x1 - x0
+            cell_h = y1 - y0
+            if cell_w > 0 and cell_h > 0:
+                aspect = max(cell_w / cell_h, cell_h / cell_w)
+                if aspect > _TABLE_CELL_MAX_ASPECT_RATIO:
+                    continue
             top_cov = border_coverage(h_top.x0, h_top.x1, x0, x1)
             bot_cov = border_coverage(h_bot.x0, h_bot.x1, x0, x1)
             left_cov = border_coverage(v_left.y0, v_left.y1, y0, y1)
@@ -164,12 +231,28 @@ def _classify_table_grid(
                 # Cambridge marks empty table cells with filler-glyph runs
                 # (e.g. ``..............`` in biology paper 62 Q1ai's C cell).
                 # Treat filler-only lines as "empty" so the cell is kept as an
-                # answer slot; only real prose / numbers count as "text".
-                stripped_alphanum = "".join(c for c in _t if c.isalnum())
-                if not stripped_alphanum:
+                # answer slot; characters NOT in the filler set (letters,
+                # digits, em/en dashes, slashes, math symbols, etc.) count
+                # as content — including a solo "—" which means "no value"
+                # in qualitative-analysis tables (a_level_chemistry specimen
+                # p10).
+                non_filler = sum(
+                    1 for c in _t
+                    if c not in _TABLE_FILLER_CHARS and not c.isspace()
+                )
+                if non_filler == 0:
                     continue
                 has_text = True
                 break
+            # X-mark cells (crossed diagonals) are pre-marked "do not fill"
+            # by the paper author — treat as content, not empty answer
+            # slots (a_level_chemistry specimen Q1a t=2 column, Q3b "Allow
+            # to cool" row FA 6 column).  Use the OUTER cell bbox (not the
+            # inset one) because the X strokes typically start right at
+            # the cell border.
+            if not has_text and page is not None:
+                outer_cell = fitz.Rect(x0, y0, x1, y1)
+                has_text = _cell_has_x_mark(page, outer_cell)
             if has_text:
                 text_rejected_h_ids.add(id(h_top))
                 text_rejected_pairs.add((id(h_top), id(h_bot)))
@@ -204,14 +287,21 @@ def _classify_table_grid(
     # text-containing reference table's borders get picked up as fake
     # multi-line answer areas.
     #
-    # Require ≥ 2 distinct row pairs OR at least one kept cell: a single
-    # row-pair × N v-pairs without any kept cell is a fake "page-chrome
-    # cell" (a_level_biology_42 p19 Q5 — when no real table rules survive
-    # the dotted-filter fallback, the page outline forms one giant
-    # candidate row that would otherwise consume all answer-line rules).
+    # Skip consume only when ALL candidates look like page-chrome — a single
+    # giant candidate cell covering ≥ 50% of the page area, with no kept
+    # answer cells (a_level_biology_42 p19 Q5).  Multiple smaller text-only
+    # candidates (a_level_chemistry_41 Q5cii two side-by-side Co isomer
+    # boxes) should still have their bordering rules consumed so the
+    # bottom edge doesn't fall through to short_line / multi_line.
     if all_candidates:
-        distinct_row_pairs = {(id(c[1]), id(c[2])) for c in all_candidates}
-        if cells or len(distinct_row_pairs) >= 2:
+        page_area = (
+            page.rect.width * page.rect.height if page is not None else 595 * 842
+        )
+        any_huge = any(
+            (c[0].x1 - c[0].x0) * (c[0].y1 - c[0].y0) > page_area * 0.5
+            for c in all_candidates
+        )
+        if cells or not any_huge:
             _consume_table_extent(all_candidates)
 
     if not cells:

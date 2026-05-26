@@ -16,7 +16,24 @@
     },
     {
       "q_number": "1aii",
-      "writing_areas": []
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 5,
+          "x0": 232.9,
+          "y0": 106.9,
+          "x1": 296.8,
+          "y1": 186.1
+        },
+        {
+          "kind": "lines",
+          "page": 5,
+          "x0": 204.4,
+          "y0": 363.9,
+          "x1": 268.4,
+          "y1": 443.1
+        }
+      ]
     },
     {
       "q_number": "1aiii",

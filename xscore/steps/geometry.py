@@ -177,7 +177,7 @@ def detect_subject(ctx: _Ctx) -> None:
         # filename match short-circuits before any AI traffic.
         announce_step_model(
             model_env="SUBJECT_DETECTION_MODEL",
-            default_model="gemini-3.1-flash-lite-preview",
+            default_model="gemini-3.1-flash-lite",
             default_max_tokens=256,
         )
         from xscore.shared.terminal_ui import announce_ai_input  # noqa: PLC0415
@@ -262,7 +262,7 @@ def _detect_subject_via_ai(
             doc_out.close()
 
         model_spec = os.environ.get(
-            "SUBJECT_DETECTION_MODEL", "gemini-3.1-flash-lite-preview, 0, 256",
+            "SUBJECT_DETECTION_MODEL", "gemini-3.1-flash-lite, 0, 256",
         )
         model, thinking_tokens, max_tokens = parse_model_spec(model_spec)
 
@@ -460,7 +460,7 @@ def classify_empty_exam_pages(ctx: _Ctx) -> None:
     model_id, thinking, max_tok = parse_model_spec(
         os.environ.get(
             "EMPTY_EXAM_PAGE_CLASSIFICATION_MODEL",
-            "gemini-3-flash-preview, 0, 256",
+            "gemini-3.5-flash, 0, 256",
         )
     )
     if model_id.startswith("gemini"):

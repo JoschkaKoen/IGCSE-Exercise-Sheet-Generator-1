@@ -36,12 +36,23 @@ _MULTI_LINE_LENGTH_TOL_ABS_PT = 40.0      # absolute length tolerance between ad
 _MULTI_LINE_LENGTH_TOL_FRAC = 0.30        # fractional length tolerance
 _MULTI_LINE_PAD_TOP_FRAC = 0.7            # bbox top padding = pitch * this
 _MULTI_LINE_PAD_BOT_FRAC = 0.3            # bbox bot padding = pitch * this
+# Looser column-coverage floor for stacks of ≥ 3 rules — that pattern is
+# unambiguous evidence of an answer area even when the slot is narrow
+# (figure-side answer slots like a_level_biology specimen p5).
+_MULTI_LINE_TIGHT_COVERAGE_MIN = 0.08
 
 # _classify_labeled_lines:
 _LABELED_LINE_BASELINE_TOL_PT = 6.0       # |ty_c - r.y| ≤ tol to bind label to rule
 _LABELED_LINE_MAX_GAP_PT = 28.0           # gap between consecutive rules in a labeled stack
 _LABELED_LINES_PAD_TOP_PT = 14.0          # multi-rule labeled bbox top padding
 _LABELED_LINES_PAD_BOT_PT = 4.0           # multi-rule labeled bbox bottom padding
+# Labeled-rule clustering: only consider a labeled rule as part of a real
+# stacked answer if there's another labeled rule within this y-gap.  Single
+# uppercase labels (A, B, P, Q, R) can fire on figure-callout leader lines
+# (a photo's "A" arrow into the image); requiring a near-neighbour rejects
+# solitary callouts while keeping legitimate stacks intact (Q1b's
+# adaptation→explanation gaps run ~52-78pt; callout-to-slot gaps run ≥200pt).
+_LABELED_LINES_CLUSTER_MAX_GAP_PT = 80.0
 
 # _classify_secondary_equation_blank:
 _EQ_BLANK_EQ_POSITION_SLACK_PT = 4.0      # eq_x must be within (rule.x0 + slack)
@@ -114,7 +125,17 @@ def _classify_multi_line(
             continue
 
         avg_len = sum(r.length for r in stack) / len(stack)
-        if avg_len / max(cell_width, 1.0) < cfg.wa_lines_min_column_coverage_frac:
+        # Column coverage check is meant to filter out spurious short-rule
+        # stacks (decorative dashes, etc.).  Relax the threshold when the
+        # stack has ≥ 3 rules at consistent pitch — that pattern is
+        # unambiguous evidence of a multi-line answer area, even when the
+        # rule is short because the slot sits beside a figure (a_level_biology
+        # specimen p5: 3-line dotted slots next to the sugar-test diagrams).
+        if len(stack) >= 3:
+            min_cov = _MULTI_LINE_TIGHT_COVERAGE_MIN
+        else:
+            min_cov = cfg.wa_lines_min_column_coverage_frac
+        if avg_len / max(cell_width, 1.0) < min_cov:
             continue
 
         # Reject when ≥ 2 verticals OVERLAP the stack's y-range AND fall INSIDE
@@ -147,9 +168,21 @@ def _classify_multi_line(
 
 _LABEL_RE = re.compile(
     r"^\s*("
-    r"\d+[.)]?"
+    r"[A-Z]"               # single uppercase letter (A, B, P, Q, R, X, Y, Z, …)
+    r"|\d+[.)]?"           # numeric labels (1, 1., 1))
     r"|statement"
     r"|explanation"
+    r"|adaptation"
+    r"|test(?:\s+\d+)?"
+    r"|step(?:\s+\d+)?"
+    r"|row"
+    r"|sensor(?:\s+\d+)?"
+    r"|sample(?:\s+\d+)?"
+    r"|benefit(?:\s+\d+)?"
+    r"|application"
+    r"|justification"
+    r"|circuit\s+switching"
+    r"|packet\s+switching"
     r"|reason(?:\s+\d+)?"
     r"|name(?:\s+of\s+\w+)?"
     r"|most\s+suitable\s+\w+(?:\s+\w+)?"
@@ -164,7 +197,20 @@ _LABEL_RE = re.compile(
     r"|definition"
     r"|equation"
     r"|formula"
-    r")\b",
+    r"|axis"
+    r"|factor"
+    r"|reagents?"
+    r"|primary\s+key"
+    r"|referential\s+integrity"
+    r"|entity"
+    r"|phishing(?:\s+\w+)?"
+    r"|spyware"
+    r"|type(?:\s+of\s+\w+)?"
+    r"|RISC"
+    r"|CISC"
+    r"|effect(?:\s+on\s+\w+(?:\s+\w+)*)?"
+    r"|cat[ai]on"          # cation / anion (close to one)
+    r")(?=\b|\s|$)",
     re.I,
 )
 
@@ -219,16 +265,40 @@ def _classify_labeled_lines(
     if len(distinct_labels) < 2:
         return []
 
+    # Filter out solitary labeled rules — a labeled rule is "valid" only if
+    # another labeled rule sits within _LABELED_LINES_CLUSTER_MAX_GAP_PT pt
+    # in y.  This rejects photo-callout labels that happen to align with
+    # unrelated answer-slot labels far down the page (a_level_biology_23
+    # Q1ai: "A" leader-line at y=150 vs A/B answer slots at y=402/428).
+    labeled_rules = [r for r in free if rule_label[id(r)] is not None]
+    valid_label_ids: set[int] = set()
+    for r in labeled_rules:
+        for other in labeled_rules:
+            if other is r:
+                continue
+            if abs(other.y - r.y) <= _LABELED_LINES_CLUSTER_MAX_GAP_PT:
+                valid_label_ids.add(id(r))
+                break
+
+    # Re-check distinct-labels constraint after filtering.
+    remaining_labels = {rule_label[id(r)] for r in labeled_rules if id(r) in valid_label_ids}
+    if len(remaining_labels) < 2:
+        return []
+
     out: list[tuple[BBox, str]] = []
     i = 0
     while i < len(free):
-        if rule_label[id(free[i])] is None:
+        # Treat solitary labeled rules as unlabeled (they don't start a group
+        # but can still be absorbed into a neighbouring group).
+        if rule_label[id(free[i])] is None or id(free[i]) not in valid_label_ids:
             i += 1
             continue
         group = [free[i]]
         j = i + 1
         while j < len(free):
-            if rule_label[id(free[j])] is not None:
+            # Only break on a VALID labeled rule — solitary callout labels
+            # were filtered out above and should not split a real group.
+            if id(free[j]) in valid_label_ids:
                 break
             if free[j].y - group[-1].y > _LABELED_LINE_MAX_GAP_PT:
                 break
@@ -354,7 +424,15 @@ def _classify_short_line(
         # biology paper 32).  Outside that window we keep the strict
         # ``wa_short_line_min_length_pt`` floor to avoid picking up
         # underlined-text decorations.
-        if not _find_mark_indicator_near(text_lines, r.y, r.x1, cfg):
+        # Dotted text rules ARE the answer-line dots themselves — give them
+        # a wider below-the-rule indicator window because Cambridge sometimes
+        # places the ``[n]`` indicator a line below an intervening figure
+        # caption (a_level_biology_23 Q5bi: RNA-sequence dots at y=511, [1]
+        # at y=550 — 39pt below, beyond the default 36pt proximity).
+        extra_below = 12.0 if r.dotted else 0.0
+        if not _find_mark_indicator_near(
+            text_lines, r.y, r.x1, cfg, extra_below_tol_pt=extra_below
+        ):
             continue
         mark_close = any(
             _MARK_BRACKET_RE.search(t)

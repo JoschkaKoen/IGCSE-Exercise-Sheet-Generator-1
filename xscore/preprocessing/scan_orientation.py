@@ -1,4 +1,4 @@
-"""Per-scan-file orientation detection via vision LLM (default gemini-3-flash-preview).
+"""Per-scan-file orientation detection via vision LLM (default gemini-3.5-flash).
 
 **Two-stage sampling**: ``SCAN_ORIENTATION_INITIAL_PAGES`` well-spread pages
 are queried first; ``SCAN_ORIENTATION_ESCALATION_PAGES`` more pages are

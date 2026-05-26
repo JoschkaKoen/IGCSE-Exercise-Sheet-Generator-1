@@ -124,7 +124,7 @@ def _call_pdf_gemini(system: str, user: str, pdf_path) -> tuple[str, str]:
         raise RuntimeError(
             "GEMINI_API_KEY (or GOOGLE_API_KEY) not set — required for EXAM_PDF_MODEL"
         )
-    raw = os.environ.get("EXAM_PDF_MODEL", "gemini-3-flash-preview, 1024, 8192")
+    raw = os.environ.get("EXAM_PDF_MODEL", "gemini-3.5-flash, 1024, 8192")
     model_name, thinking, max_tokens = parse_model_spec(raw)
     cfg_kwargs = {
         "system_instruction": system,

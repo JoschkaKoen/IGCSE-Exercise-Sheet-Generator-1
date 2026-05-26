@@ -59,16 +59,7 @@
     },
     {
       "q_number": "1biii",
-      "writing_areas": [
-        {
-          "kind": "short_line",
-          "page": 4,
-          "x0": 144.5,
-          "y0": 652.7,
-          "x1": 282.2,
-          "y1": 668.7
-        }
-      ]
+      "writing_areas": []
     },
     {
       "q_number": "1biv",
@@ -195,14 +186,6 @@
           "y0": 108.9,
           "x1": 358.0,
           "y1": 124.9
-        },
-        {
-          "kind": "equation_blank",
-          "page": 11,
-          "x0": 267.8,
-          "y0": 171.9,
-          "x1": 404.9,
-          "y1": 189.9
         },
         {
           "kind": "short_line",

@@ -298,7 +298,16 @@
     },
     {
       "q_number": "18b",
-      "writing_areas": []
+      "writing_areas": [
+        {
+          "kind": "lines",
+          "page": 13,
+          "x0": 114.1,
+          "y0": 388.3,
+          "x1": 472.0,
+          "y1": 394.6
+        }
+      ]
     },
     {
       "q_number": "18c",
@@ -613,32 +622,7 @@
     },
     {
       "q_number": "5a",
-      "writing_areas": [
-        {
-          "kind": "table_cell",
-          "page": 4,
-          "x0": 223.1,
-          "y0": 108.3,
-          "x1": 243.1,
-          "y1": 148.5
-        },
-        {
-          "kind": "table_cell",
-          "page": 4,
-          "x0": 243.1,
-          "y0": 108.3,
-          "x1": 352.2,
-          "y1": 148.5
-        },
-        {
-          "kind": "table_cell",
-          "page": 4,
-          "x0": 352.2,
-          "y0": 108.3,
-          "x1": 372.3,
-          "y1": 148.5
-        }
-      ]
+      "writing_areas": []
     },
     {
       "q_number": "5b",

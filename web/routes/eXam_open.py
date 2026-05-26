@@ -171,6 +171,25 @@ async def serve_pdf(request: Request, question_id: str):
     )
 
 
+@router.get("/regions/{question_id:path}")
+async def serve_regions(request: Request, question_id: str):
+    from eXam.regions import ensure_question_regions
+    try:
+        path = ensure_question_regions(question_id)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Snippet not found")
+    except Exception as e:  # noqa: BLE001 — never let detector failure 500 the page
+        return JSONResponse(
+            {"detector_version": 0, "regions": [], "error": str(e)},
+            status_code=200,
+        )
+    return FileResponse(
+        str(path),
+        media_type="application/json",
+        headers={"Cache-Control": "public, max-age=300"},
+    )
+
+
 class SubmitBody(BaseModel):
     subject: str
     question_id: str

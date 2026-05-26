@@ -138,20 +138,12 @@
       "q_number": "2aiv",
       "writing_areas": [
         {
-          "kind": "short_line",
-          "page": 4,
-          "x0": 205.1,
-          "y0": 366.5,
-          "x1": 396.7,
-          "y1": 382.5
-        },
-        {
           "kind": "equation_blank",
           "page": 4,
-          "x0": 231.5,
-          "y0": 480.8,
-          "x1": 423.1,
-          "y1": 498.8
+          "x0": 435.6,
+          "y0": 485.8,
+          "x1": 527.4,
+          "y1": 503.8
         }
       ]
     },
@@ -339,16 +331,7 @@
     },
     {
       "q_number": "5aii",
-      "writing_areas": [
-        {
-          "kind": "short_line",
-          "page": 9,
-          "x0": 208.1,
-          "y0": 386.5,
-          "x1": 387.2,
-          "y1": 402.5
-        }
-      ]
+      "writing_areas": []
     },
     {
       "q_number": "5bi",
@@ -441,16 +424,7 @@
     },
     {
       "q_number": "5cii",
-      "writing_areas": [
-        {
-          "kind": "table_cell",
-          "page": 10,
-          "x0": 284.9,
-          "y0": 395.6,
-          "x1": 310.4,
-          "y1": 594.0
-        }
-      ]
+      "writing_areas": []
     },
     {
       "q_number": "6a",
@@ -605,12 +579,20 @@
       "q_number": "7diii",
       "writing_areas": [
         {
-          "kind": "lines",
+          "kind": "short_line",
           "page": 13,
           "x0": 146.4,
-          "y0": 325.4,
+          "y0": 331.6,
           "x1": 544.8,
-          "y1": 377.4
+          "y1": 347.6
+        },
+        {
+          "kind": "short_line",
+          "page": 13,
+          "x0": 146.4,
+          "y0": 357.6,
+          "x1": 544.8,
+          "y1": 373.6
         }
       ]
     },
@@ -741,24 +723,7 @@
     },
     {
       "q_number": "9dii",
-      "writing_areas": [
-        {
-          "kind": "table_cell",
-          "page": 16,
-          "x0": 160.7,
-          "y0": 252.9,
-          "x1": 484.0,
-          "y1": 295.4
-        },
-        {
-          "kind": "table_cell",
-          "page": 16,
-          "x0": 160.7,
-          "y0": 295.4,
-          "x1": 484.0,
-          "y1": 337.9
-        }
-      ]
+      "writing_areas": []
     },
     {
       "q_number": "9ei",

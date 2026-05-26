@@ -199,9 +199,27 @@ def _cluster_horizontals(
     return out
 
 
+# Maximum gap (in pt) between consecutive vertical segments at the same x
+# before they're treated as separate _VRule objects.  Stacked flowchart
+# boxes have edges with ~16-30pt y-gaps between them; tables have v_rules
+# that pass through every row boundary without any gap.  3pt is generous
+# enough to absorb sub-pixel rendering jitter, strict enough to split
+# distinct lines.
+_VRULE_Y_MERGE_GAP_PT = 3.0
+
+
 def _cluster_verticals(
     segs: list[tuple[float, float, float, float]], x_tol: float
 ) -> list[_VRule]:
+    """Cluster vertical segments by x, then split each x-cluster at y-gaps.
+
+    Segments at the same x but separated by significant vertical gaps
+    represent *distinct* vertical lines, not one tall line.  Without the
+    y-gap split, stacked flowchart-box edges (each box has its own left/
+    right edge segment) merge into a fake tall vertical that spans through
+    other boxes' interiors and creates spurious table cells in arrow areas
+    (a_level_biology_42 Q6a).
+    """
     if not segs:
         return []
     segs = sorted(segs, key=lambda s: s[0])
@@ -214,10 +232,23 @@ def _cluster_verticals(
 
     out: list[_VRule] = []
     for cluster in clusters:
-        x = sum(s[0] for s in cluster) / len(cluster)
-        y0 = min(s[1] for s in cluster)
-        y1 = max(s[2] for s in cluster)
-        out.append(_VRule(x=x, y0=y0, y1=y1))
+        # Sort by y0 within the x-cluster, then chain into runs where each
+        # successive segment starts within _VRULE_Y_MERGE_GAP_PT of the
+        # previous one's end.  Each maximal run becomes a single _VRule.
+        cluster.sort(key=lambda s: s[1])
+        run_y0 = cluster[0][1]
+        run_y1 = cluster[0][2]
+        run_xs = [cluster[0][0]]
+        for s in cluster[1:]:
+            if s[1] - run_y1 <= _VRULE_Y_MERGE_GAP_PT:
+                run_y1 = max(run_y1, s[2])
+                run_xs.append(s[0])
+            else:
+                out.append(_VRule(x=sum(run_xs) / len(run_xs), y0=run_y0, y1=run_y1))
+                run_y0 = s[1]
+                run_y1 = s[2]
+                run_xs = [s[0]]
+        out.append(_VRule(x=sum(run_xs) / len(run_xs), y0=run_y0, y1=run_y1))
     return out
 
 
@@ -365,18 +396,43 @@ def _find_mark_indicator_near(
     y: float,
     x_end: float,
     cfg: ParserConfig,
+    *,
+    extra_below_tol_pt: float = 0.0,
 ) -> bool:
     """Return True if a ``[n]`` bracket appears on the same line or just below the rule at *y*.
 
     Used by the short_line pass to require evidence that the single rule is actually
     an answer slot (rather than a decorative underline).
+
+    ``extra_below_tol_pt`` extends the BELOW-the-rule search window only.
+    Used for text-dotted rules where the indicator can sit a line or two
+    below (a_level_biology_23 Q5bi: ``[1]`` is ~39pt below the dotted RNA
+    sequence line); kept tight ABOVE because rule-above-indicator is the
+    much more common false-positive pattern (page-margin frame above a
+    real answer line).
     """
+    above_tol = cfg.wa_mark_indicator_proximity_pt
+    below_tol = cfg.wa_mark_indicator_proximity_pt + extra_below_tol_pt
+    # x-proximity: when the indicator is on the same line as the rule, it
+    # should sit just past the rule's right edge (Cambridge always places
+    # ``[n]`` immediately after the answer dots).  Without this, a rule
+    # in the middle of the page (e.g. a figure's interior horizontal edge)
+    # falsely binds to an unrelated ``[n]`` near the right margin
+    # (mathematics paper 12 Q5(a) — bottom edge of the symmetry shape).
     for tx0, ty0, tx1, ty1, t in text_lines:
         if not _MARK_BRACKET_RE.search(t):
             continue
         ty_center = (ty0 + ty1) * 0.5
-        if abs(ty_center - y) <= cfg.wa_mark_indicator_proximity_pt:
-            return True
-        if 0 <= (ty_center - y) <= cfg.wa_mark_indicator_proximity_pt and tx1 >= x_end - 30:
+        dy = ty_center - y
+        # Require the indicator to start within 60pt of the rule's right
+        # edge.  Cambridge always places ``[n]`` immediately after the
+        # answer dots (typical gap < 20pt).  Without this, a rule in the
+        # middle of the page (a figure's interior horizontal edge) falsely
+        # binds to an unrelated ``[n]`` near the right margin
+        # (mathematics paper 12 Q5(a) — bottom edge of the symmetry shape).
+        x_gap = tx0 - x_end
+        if x_gap > 60.0:
+            continue
+        if -above_tol <= dy <= below_tol:
             return True
     return False

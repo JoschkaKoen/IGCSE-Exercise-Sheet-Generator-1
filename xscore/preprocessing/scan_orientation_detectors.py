@@ -230,7 +230,7 @@ def _make_openai_compat_caller(
     # The OpenAI-compat branch is only reached when the resolved model name
     # is non-Gemini, so the default here is just a Qwen fallback for the
     # rare path where both env vars are unset and a non-Gemini default is
-    # desired. The primary default (``gemini-3-flash-preview``) is set in
+    # desired. The primary default (``gemini-3.5-flash``) is set in
     # ``_detect_one``'s env-resolution above.
     result = make_ai_client(
         model_env="SCAN_ORIENTATION_MODEL",
@@ -677,7 +677,7 @@ def _detect_one_ai(
     raw_model_spec = (
         os.environ.get("SCAN_ORIENTATION_MODEL", "").strip()
         or os.environ.get("AI_DEFAULT_MODEL", "").strip()
-        or "gemini-3-flash-preview"
+        or "gemini-3.5-flash"
     )
     model, thinking_tokens, max_tokens = parse_model_spec(raw_model_spec)
     use_gemini = model.startswith("gemini")

@@ -11,7 +11,7 @@ Run:
 
 Optional env:
     HANDWRITING_DIAG_MODELS  comma-separated; default
-        "qwen3-vl-flash,qwen3.6-flash,qwen3-vl-plus,gemini-3-flash-preview"
+        "qwen3-vl-flash,qwen3.6-flash,qwen3-vl-plus,gemini-3.5-flash"
     HANDWRITING_DIAG_PAGES   comma-separated 1-based scan pages; default
         "2,8,12,14,24,26,36"
     HANDWRITING_DIAG_PDF     scan PDF; default scanned_exam_merged_and_angles_adjusted.pdf
@@ -53,7 +53,7 @@ EXPECTED: dict[int, bool] = {
 DEFAULT_PDF = Path(
     "output/xscore/s23_12/2026-05-03_01-50-02/scanned_exam_merged_and_angles_adjusted.pdf"
 )
-DEFAULT_MODELS = "qwen3-vl-flash,qwen3.6-flash,qwen3-vl-plus,gemini-3-flash-preview"
+DEFAULT_MODELS = "qwen3-vl-flash,qwen3.6-flash,qwen3-vl-plus,gemini-3.5-flash"
 DEFAULT_PAGES = "2,8,12,14,24,26,36"
 
 

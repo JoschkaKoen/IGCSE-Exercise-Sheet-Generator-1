@@ -5,12 +5,15 @@ Three endpoints under ``/learn/*``:
 
   - ``GET /learn``                       — subject grid landing page.
   - ``GET /learn/{subject}``             — accordion of main topics + subtopics.
-  - ``GET /learn/{subject}/{subtopic}``  — placeholder ("learning program coming
-    soon") for a chosen subtopic. The real learning UI slots in here later.
+  - ``GET /learn/{subject}/{subtopic}``  — renders the per-subtopic
+    learning-objectives table (from ``syllabi/content/<subject>/<subtopic>.md``)
+    when extracted; otherwise a "learning program coming soon" placeholder.
 
 The two-level topic tree comes from ``web.syllabus_topics.load_topics`` reading
-``syllabi/topics/<subject_key>.yaml`` — one file per subject, written by the
-``python -m web.syllabus_topics`` one-shot extractor.
+``syllabi/topics/<subject_key>.yaml`` (written by ``python -m web.syllabus_topics``).
+The per-subtopic markdown comes from ``web.syllabus_content.load_content``
+reading ``syllabi/content/<subject>/<subtopic>.md`` (written by
+``python -m web.syllabus_content``).
 """
 
 from __future__ import annotations
@@ -23,7 +26,9 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from eXam import open_mode
+from eXam.render_helper import render_helper_markdown
 
+from ..syllabus_content import load_content
 from ..syllabus_topics import load_topics
 from ..template_ctx import template_ctx
 
@@ -94,9 +99,11 @@ async def subtopic_page(request: Request, subject: str, subtopic: str):
             break
     if found_title is None:
         raise HTTPException(status_code=404, detail="Unknown subtopic")
+    content_md = load_content(subject, subtopic)
+    content_html = render_helper_markdown(content_md) if content_md else None
     return TEMPLATES.TemplateResponse(
         request,
-        "learn/coming_soon.html",
+        "learn/subtopic.html",
         template_ctx(
             request,
             subject=subject,
@@ -104,5 +111,6 @@ async def subtopic_page(request: Request, subject: str, subtopic: str):
             subtopic_number=subtopic,
             subtopic_title=found_title,
             parent_title=parent_title,
+            content_html=content_html,
         ),
     )

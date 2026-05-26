@@ -6,8 +6,25 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
 <style>
-  .ex-snippet-scroll { border-radius: 0.75rem; }
+  .ex-snippet-scroll { border-radius: 0.75rem; position: relative; }
   .ex-snippet { display: block; width: 100%; aspect-ratio: var(--pdf-aspect, 595/842); background: #0c1322; border-radius: 0.75rem; }
+  .ex-overlay-layer { position: absolute; inset: 0; pointer-events: none; }
+  .ex-overlay-input {
+    position: absolute; pointer-events: auto; box-sizing: border-box;
+    background: rgba(15, 23, 42, 0.30);
+    border: 1px solid rgba(34, 211, 238, 0.40);
+    color: rgb(241, 245, 249);
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 0.85rem; line-height: 1.2;
+    border-radius: 4px; padding: 0 4px; margin: 0;
+    outline: none;
+  }
+  .ex-overlay-input:focus {
+    border-color: rgba(34, 211, 238, 0.85);
+    background: rgba(15, 23, 42, 0.55);
+    box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.20);
+  }
+  textarea.ex-overlay-input { resize: none; }
   .ex-radio-chip { transition: border-color .15s, background .15s; }
   .ex-radio-chip:has(input:checked) { border-color: rgba(34,211,238,.6); background: rgba(34,211,238,.08); }
   .ex-helper-drawer { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
@@ -153,6 +170,7 @@
         <canvas id="ex-snippet" class="ex-snippet"
                 style="--pdf-aspect: {{ meta.pdf_width_pt or 595 }} / {{ meta.pdf_height_pt or 842 }};"
                 aria-label="{{ t('take.q_prefix') }} {{ meta.number }}"></canvas>
+        <div id="ex-overlay-layer" class="ex-overlay-layer" aria-hidden="false"></div>
       </div>
     </div>
 
@@ -329,11 +347,19 @@
 const QID = {{ meta.question_id|tojson }};
 const SUBJECT = {{ subject|tojson }};
 const PDF_URL = "/eXam/practice/pdf/" + encodeURIComponent(QID);
+const REGIONS_URL = "/eXam/practice/regions/" + encodeURIComponent(QID);
+const STANDALONE_MCQ = {{ _is_standalone_mcq|tojson }};
 const REVIEW_MODE = {{ (review_mode or false)|tojson }};
 const REVIEW_FILTER = {{ (review_filter or '')|tojson }};
 const REVIEW_INDEX = {{ (review_index or 0)|tojson }};
 const REVIEW_TOTAL = {{ (review_total or 0)|tojson }};
 const REVIEW_SUBJECT = {{ (review_subject or '')|tojson }};
+
+// Set by renderSnippet once the PDF loads. Used by positionOverlays to map
+// PDF-point bboxes from regions.json to canvas-relative CSS pixels.
+let _pdfWidthPt = {{ meta.pdf_width_pt or 595 }};
+let _pdfHeightPt = {{ meta.pdf_height_pt or 842 }};
+let _regionsPayload = null;
 
 function reviewNextHref() {
   if (!REVIEW_MODE) return "/eXam/practice/" + encodeURIComponent(SUBJECT);
@@ -344,6 +370,65 @@ function reviewNextHref() {
   return REVIEW_SUBJECT ? "/eXam/practice/" + encodeURIComponent(REVIEW_SUBJECT) : "/eXam/practice";
 }
 
+function buildOverlays(payload) {
+  const layer = document.getElementById("ex-overlay-layer");
+  if (!layer) return;
+  layer.innerHTML = "";
+  for (const r of (payload.regions || [])) {
+    const useTextarea = (r.kind === "lines" || r.kind === "box");
+    const el = document.createElement(useTextarea ? "textarea" : "input");
+    if (!useTextarea) el.type = "text";
+    el.name = r.field_id;
+    el.className = "ex-overlay-input";
+    el.setAttribute("aria-label", r.leaf_number);
+    el.dataset.x0 = r.x0;
+    el.dataset.y0 = r.y0;
+    el.dataset.x1 = r.x1;
+    el.dataset.y1 = r.y1;
+    if (useTextarea) {
+      el.rows = Math.max(1, Math.round((r.y1 - r.y0) / 16));
+    }
+    layer.appendChild(el);
+  }
+}
+
+function positionOverlays() {
+  const canvas = document.getElementById("ex-snippet");
+  const layer = document.getElementById("ex-overlay-layer");
+  if (!canvas || !layer || !_pdfWidthPt) return;
+  const scale = canvas.clientWidth / _pdfWidthPt;
+  for (const el of layer.children) {
+    const x0 = parseFloat(el.dataset.x0);
+    const y0 = parseFloat(el.dataset.y0);
+    const x1 = parseFloat(el.dataset.x1);
+    const y1 = parseFloat(el.dataset.y1);
+    el.style.left = (x0 * scale) + "px";
+    el.style.top = (y0 * scale) + "px";
+    el.style.width = ((x1 - x0) * scale) + "px";
+    el.style.height = ((y1 - y0) * scale) + "px";
+  }
+}
+
+function applyBottomFormDedupe(payload) {
+  // Hide+disable the bottom-form input for any leaf whose overlay regions
+  // are ALL confident. Uncertain leaves keep their bottom-form input as a
+  // safety net.
+  const byLeaf = {};
+  for (const r of (payload.regions || [])) {
+    (byLeaf[r.leaf_number] ||= []).push(r);
+  }
+  for (const [leaf, regs] of Object.entries(byLeaf)) {
+    if (!regs.every(r => r.assignment_confident)) continue;
+    const input = document.querySelector(
+      `#answer-form [name="${CSS.escape(leaf)}"]`
+    );
+    if (!input || input.closest("#ex-overlay-layer")) continue;
+    input.disabled = true;
+    const wrap = input.closest("div.space-y-1\\.5");
+    if (wrap) wrap.style.display = "none";
+  }
+}
+
 (async function renderSnippet() {
   const canvas = document.getElementById("ex-snippet");
   if (!canvas) return;
@@ -351,12 +436,15 @@ function reviewNextHref() {
   m.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.mjs";
   const doc = await m.getDocument({ url: PDF_URL, withCredentials: true }).promise;
   const page = await doc.getPage(1);
+  const v1 = page.getViewport({ scale: 1 });
+  _pdfWidthPt = v1.width;
+  _pdfHeightPt = v1.height;
+
   let raf = null;
   function paint() {
     const cssW = canvas.clientWidth;
     if (cssW <= 0) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const v1 = page.getViewport({ scale: 1 });
     const vp = page.getViewport({ scale: (cssW / v1.width) * dpr });
     canvas.width = Math.floor(vp.width);
     canvas.height = Math.floor(vp.height);
@@ -366,10 +454,29 @@ function reviewNextHref() {
     page.render({ canvasContext: ctx, viewport: vp });
   }
   paint();
-  window.addEventListener("resize", function () {
+  positionOverlays();
+
+  // ResizeObserver catches lg-breakpoint sidebar transitions and helper-drawer
+  // expansion that window.resize alone misses.
+  const ro = new ResizeObserver(() => {
     if (raf) cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(paint);
+    raf = requestAnimationFrame(() => { paint(); positionOverlays(); });
   });
+  ro.observe(canvas);
+
+  // Lazy-load and overlay answer regions. Skipped in review mode (past-answer
+  // surface is read-only) and for standalone MCQ (chip UI is in the sidebar).
+  if (!REVIEW_MODE && !STANDALONE_MCQ) {
+    try {
+      const resp = await fetch(REGIONS_URL);
+      if (resp.ok) {
+        _regionsPayload = await resp.json();
+        buildOverlays(_regionsPayload);
+        positionOverlays();
+        applyBottomFormDedupe(_regionsPayload);
+      }
+    } catch (e) { /* network/parse failure → bottom form stays as fallback */ }
+  }
 })();
 
 const _iconState = new WeakMap();
@@ -448,10 +555,31 @@ const form = document.getElementById("answer-form");
 if (form) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const fd = new FormData(form);
     const submitted = Object.fromEntries(
-      Array.from(fd.entries()).map(([k, v]) => [k, String(v ?? "")])
+      Array.from(new FormData(form).entries()).map(([k, v]) => [k, String(v ?? "")])
     );
+    // Merge overlay inputs (they're outside the form by design).
+    document.querySelectorAll('#ex-overlay-layer [name]').forEach(el => {
+      submitted[el.name] = String(el.value ?? "");
+    });
+    // Coalesce `leaf__N` keys into a single `leaf` value joined by newline.
+    // Regions are written to regions.json sorted by (page, y0, x0), so the
+    // numeric suffix N already encodes top-to-bottom on-page order.
+    const collapsed = {};
+    for (const [k, v] of Object.entries(submitted)) {
+      const m = k.match(/^(.+)__(\d+)$/);
+      if (m) {
+        (collapsed[m[1]] ||= []).push([parseInt(m[2], 10), v]);
+      } else {
+        collapsed[k] = v;
+      }
+    }
+    for (const [leaf, parts] of Object.entries(collapsed)) {
+      if (Array.isArray(parts)) {
+        parts.sort((a, b) => a[0] - b[0]);
+        collapsed[leaf] = parts.map(p => p[1]).join("\n");
+      }
+    }
     const btn = document.getElementById("submit-btn");
     btn.disabled = true;
     const orig = btn.textContent;
@@ -462,7 +590,7 @@ if (form) {
       const res = await fetch("/eXam/practice/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ subject: SUBJECT, question_id: QID, submitted }),
+        body: JSON.stringify({ subject: SUBJECT, question_id: QID, submitted: collapsed }),
       });
       if (!res.ok) {
         const d = await res.json().catch(() => ({}));

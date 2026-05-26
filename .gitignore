@@ -46,7 +46,7 @@ logs/
 # Generated test image outputs
 scripts/scheme_graphics_test/pymupdf/
 scripts/scheme_graphics_test/qwen3.6-plus/
-scripts/scheme_graphics_test/gemini-3-flash-preview/
+scripts/scheme_graphics_test/gemini-3.5-flash/
 
 # LaTeX dry-run artifacts from bug verification (.tex/.aux/.log/.pdf sidecars)
 bug_verification/*_marker_dryrun.*

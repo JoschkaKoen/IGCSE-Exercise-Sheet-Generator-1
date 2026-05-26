@@ -47,7 +47,7 @@ from typing import Any
 # Select which AI model to use for OCR/extraction.
 # Options (exact model names - edit this line to change model):
 #   - "gemini-3.1-pro-preview"  : Google Gemini 3.1 Pro (highest accuracy)
-#   - "gemini-3.0-flash"        : Google Gemini 3.0 Flash (faster, lower accuracy)
+#   - "gemini-3.5-flash"        : Google Gemini 3.5 Flash (faster, lower accuracy)
 #   - "kimi-k2.5"               : Moonshot Kimi K2.5 (OpenAI-compatible API)
 #   - "kimi-k2"                 : Moonshot Kimi K2 (alternative name)
 #
@@ -178,7 +178,7 @@ SCAN_ORIENTATION_ESCALATION_VOTES: int = int(os.getenv("SCAN_ORIENTATION_ESCALAT
 # prepare_scans: AI-fallback model — only used when SCAN_ORIENTATION_DETECTOR is
 # "ai" (or "auto" and Tesseract is unavailable). See
 # xscore/preprocessing/scan_orientation.py.
-SCAN_ORIENTATION_MODEL: str = os.getenv("SCAN_ORIENTATION_MODEL", "gemini-3-flash-preview")
+SCAN_ORIENTATION_MODEL: str = os.getenv("SCAN_ORIENTATION_MODEL", "gemini-3.5-flash")
 
 # Deprecation warnings for renamed knobs. Emitted once at module load.
 def _warn_deprecated_orientation_knob(old: str, new: str) -> None:
@@ -255,7 +255,7 @@ def apply_kimi_k2_extra(model: str, kwargs: dict[str, Any], *, thinking: bool = 
 
 _ai_default = os.getenv("AI_DEFAULT_MODEL", "gemini-2.5-flash")
 
-EXTRACT_EXAM_QUESTION_NUMBERS_MODEL: str = os.getenv("EXTRACT_EXAM_QUESTION_NUMBERS_MODEL") or "gemini-3-flash-preview, 2048, 8192"
+EXTRACT_EXAM_QUESTION_NUMBERS_MODEL: str = os.getenv("EXTRACT_EXAM_QUESTION_NUMBERS_MODEL") or "gemini-3.5-flash, 2048, 8192"
 EXTRACT_EXAM_QUESTIONS_MODEL: str = os.getenv("EXTRACT_EXAM_QUESTIONS_MODEL") or _ai_default
 READ_MARK_SCHEME_MODEL: str = os.getenv("READ_MARK_SCHEME_MODEL") or _ai_default
 DETECT_LAYOUT_MODEL: str = os.getenv("DETECT_LAYOUT_MODEL") or "gemini-2.5-flash, low"
