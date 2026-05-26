@@ -14,6 +14,11 @@ services:
     volumes:
       # Persist generated output and logs across container restarts / rebuilds.
       - output_data:/app/output
+      # Warmed eXam bank is tracked in git (see commit 1cdb67f). Bind-mount it
+      # on top of the output_data volume so the container always sees the
+      # current checkout — the named volume was seeded before these files were
+      # tracked and would otherwise hide them.
+      - ./output/eXam/bank:/app/output/eXam/bank:ro
       - log_data:/app/logs
       # Exam PDFs live on the host — bind-mount so they never enter the image.
       - ./exams:/app/exams:ro
