@@ -298,16 +298,7 @@
     },
     {
       "q_number": "18b",
-      "writing_areas": [
-        {
-          "kind": "lines",
-          "page": 13,
-          "x0": 114.1,
-          "y0": 388.3,
-          "x1": 472.0,
-          "y1": 394.6
-        }
-      ]
+      "writing_areas": []
     },
     {
       "q_number": "18c",

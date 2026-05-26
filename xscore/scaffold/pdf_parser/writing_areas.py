@@ -55,6 +55,12 @@ _DIAGRAM_X_OVERLAP_FRAC = 0.5
 _GRAPH_GRID_MIN_CROSSINGS = 5
 _GRAPH_GRID_Y_PAD_PT = 2.0
 _GRAPH_GRID_X_PAD_PT = 2.0
+# Graph-axis detection (minimal-vector graphs): a horizontal rule longer
+# than _GRAPH_AXIS_MIN_H_LENGTH_PT that crosses a vertical taller than
+# _GRAPH_AXIS_MIN_V_HEIGHT_PT (typical y-axis on a Cambridge plot grid
+# spans 200-400pt) is part of the graph's axis system, not an answer rule.
+_GRAPH_AXIS_MIN_V_HEIGHT_PT = 150.0
+_GRAPH_AXIS_MIN_H_LENGTH_PT = 200.0
 
 # _emit_equation_blanks: when no matching h_rule is found for a legacy eq_blank
 # bbox, the synthetic rule baseline sits this far below ``line_top``.
@@ -237,7 +243,26 @@ def _consume_rules_in_graph_grid(
     distance-time plot, chemistry titration plot) where the y-axis number labels
     would otherwise trigger ``_classify_labeled_lines`` and produce false yellow
     stripes across the graph.
+
+    Also handles the "minimal-vector graph" case where the gridlines are
+    rendered as a fine raster pattern (no vector segments) but the y-axis
+    is still drawn as a tall vertical: a long horizontal rule that crosses
+    a tall vertical (≥ _GRAPH_AXIS_MIN_V_HEIGHT_PT) AND lies in the
+    vertical's interior is a graph axis arrow (mathematics paper 12 Q18b
+    x-axis arrow).
     """
+    if v_rules:
+        for hr in h_rules:
+            if hr.consumed:
+                continue
+            for v in v_rules:
+                if v.y1 - v.y0 < _GRAPH_AXIS_MIN_V_HEIGHT_PT:
+                    continue
+                if not (v.y0 + 5.0 <= hr.y <= v.y1 - 5.0):
+                    continue
+                if hr.x0 < v.x < hr.x1 and hr.length >= _GRAPH_AXIS_MIN_H_LENGTH_PT:
+                    hr.consumed = True
+                    break
     if len(v_rules) < _GRAPH_GRID_MIN_CROSSINGS:
         return
     for hr in h_rules:

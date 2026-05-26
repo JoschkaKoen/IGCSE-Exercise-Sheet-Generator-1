@@ -11,20 +11,28 @@
   .ex-overlay-layer { position: absolute; inset: 0; pointer-events: none; }
   .ex-overlay-input {
     position: absolute; pointer-events: auto; box-sizing: border-box;
-    background: rgba(15, 23, 42, 0.30);
-    border: 1px solid rgba(34, 211, 238, 0.40);
-    color: rgb(241, 245, 249);
-    font-family: ui-monospace, SFMono-Regular, monospace;
-    font-size: 0.85rem; line-height: 1.2;
-    border-radius: 4px; padding: 0 4px; margin: 0;
+    background: rgba(248, 250, 252, 0.94);
+    border: 1.5px solid rgba(71, 85, 105, 0.55);
+    color: #0f172a;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", system-ui, "Helvetica Neue", Arial, sans-serif;
+    font-size: 1rem; line-height: 1.35; font-weight: 450;
+    letter-spacing: 0.005em;
+    border-radius: 6px; padding: 2px 8px; margin: 0;
     outline: none;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+    transition: border-color 0.12s ease, background-color 0.12s ease, box-shadow 0.12s ease;
+  }
+  .ex-overlay-input::placeholder { color: rgba(15, 23, 42, 0.40); }
+  .ex-overlay-input:hover {
+    border-color: rgba(8, 145, 178, 0.70);
+    background: rgba(255, 255, 255, 0.97);
   }
   .ex-overlay-input:focus {
-    border-color: rgba(34, 211, 238, 0.85);
-    background: rgba(15, 23, 42, 0.55);
-    box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.20);
+    border-color: rgb(8, 145, 178);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.25), 0 1px 2px rgba(15, 23, 42, 0.12);
   }
-  textarea.ex-overlay-input { resize: none; }
+  textarea.ex-overlay-input { resize: none; padding: 4px 8px; }
   .ex-radio-chip { transition: border-color .15s, background .15s; }
   .ex-radio-chip:has(input:checked) { border-color: rgba(34,211,238,.6); background: rgba(34,211,238,.08); }
   .ex-helper-drawer { max-height: 0; overflow: hidden; transition: max-height .25s ease; }
@@ -441,9 +449,23 @@ function applyBottomFormDedupe(payload) {
   _pdfHeightPt = v1.height;
 
   let raf = null;
+  let lastPaintedCssW = 0;
+  let inFlightRender = null;
   function paint() {
     const cssW = canvas.clientWidth;
     if (cssW <= 0) return;
+    // Skip if the visible size hasn't changed. ResizeObserver fires on
+    // observe() with the current size by spec; without this guard it
+    // re-enters paint() while the initial async render is still in flight,
+    // and canvas.width assignment mid-render leaves a white/partial canvas.
+    if (cssW === lastPaintedCssW) return;
+    lastPaintedCssW = cssW;
+    // Cancel any in-flight render so a legitimate resize doesn't race the
+    // previous draw to the same canvas.
+    if (inFlightRender) {
+      try { inFlightRender.cancel(); } catch (e) { /* ignore */ }
+      inFlightRender = null;
+    }
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const vp = page.getViewport({ scale: (cssW / v1.width) * dpr });
     canvas.width = Math.floor(vp.width);
@@ -451,13 +473,19 @@ function applyBottomFormDedupe(payload) {
     const ctx = canvas.getContext("2d", { alpha: false });
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    page.render({ canvasContext: ctx, viewport: vp });
+    const task = page.render({ canvasContext: ctx, viewport: vp });
+    inFlightRender = task;
+    task.promise
+      .then(() => { if (inFlightRender === task) inFlightRender = null; })
+      .catch(() => { if (inFlightRender === task) inFlightRender = null; });
   }
   paint();
   positionOverlays();
 
   // ResizeObserver catches lg-breakpoint sidebar transitions and helper-drawer
-  // expansion that window.resize alone misses.
+  // expansion that window.resize alone misses. paint() is a no-op when the
+  // size hasn't actually changed (see guard above), so the spec-mandated
+  // initial fire on observe() is safe.
   const ro = new ResizeObserver(() => {
     if (raf) cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => { paint(); positionOverlays(); });

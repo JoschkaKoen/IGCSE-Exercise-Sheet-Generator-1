@@ -32,6 +32,12 @@ from xscore.scaffold.pdf_parser.wa_signals import (
 
 # _classify_multi_line:
 _MULTI_LINE_MAX_INITIAL_PITCH_PT = 40.0   # break if first pair pitch exceeds this
+# Minimum pitch between adjacent rules in a `lines` stack.  Cambridge answer
+# lines are always ≥ 12pt apart (one body-text line height).  Rules with
+# tighter spacing (3-8pt) are decorative (graph axes with parallel arrow
+# lines — mathematics paper 12 Q18b x-axis, physics_51 page-margin border)
+# and must not be promoted to a multi-line answer area.
+_MULTI_LINE_MIN_INITIAL_PITCH_PT = 10.0
 _MULTI_LINE_LENGTH_TOL_ABS_PT = 40.0      # absolute length tolerance between adjacent rules
 _MULTI_LINE_LENGTH_TOL_FRAC = 0.30        # fractional length tolerance
 _MULTI_LINE_PAD_TOP_FRAC = 0.7            # bbox top padding = pitch * this
@@ -112,6 +118,11 @@ def _classify_multi_line(
             if first_pitch is None:
                 if pitch > _MULTI_LINE_MAX_INITIAL_PITCH_PT:
                     break
+                if pitch < _MULTI_LINE_MIN_INITIAL_PITCH_PT:
+                    # Too tight to be answer lines — graph axis / arrow lines
+                    # in a figure (mathematics paper 12 Q18b: x-axis + arrow
+                    # line at ~3pt pitch).  Stop grouping from this anchor.
+                    break
                 first_pitch = pitch
                 stack.append(r)
                 last = r
@@ -173,6 +184,16 @@ _LABEL_RE = re.compile(
     r"|statement"
     r"|explanation"
     r"|adaptation"
+    r"|improvement"
+    r"|prediction"
+    r"|procedure"
+    r"|safety"
+    r"|risk"
+    r"|evidence"
+    r"|example(?:\s+\d+)?"
+    r"|safety\s+precaution"
+    r"|change(?:\s+to\s+apparatus)?"
+    r"|effect\s+on\s+\w+(?:\s+\w+)*"
     r"|test(?:\s+\d+)?"
     r"|step(?:\s+\d+)?"
     r"|row"
@@ -205,6 +226,8 @@ _LABEL_RE = re.compile(
     r"|entity"
     r"|phishing(?:\s+\w+)?"
     r"|spyware"
+    r"|password(?:\d+|\s+to\s+test\s+rule\s+\d+)?"
+    r"|rule(?:\s+\d+)?"
     r"|type(?:\s+of\s+\w+)?"
     r"|RISC"
     r"|CISC"
