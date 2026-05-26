@@ -30,6 +30,7 @@ _TABLE_INTERIOR_PATH_CAP = 4             # max interior drawings before rejectin
 _TABLE_INTERIOR_FULL_COVER_FRAC = 0.9    # drawings spanning ≥90% of cell are the cell border itself
 _UNIFORM_GRID_RATIO_MAX = 1.25           # w/h ratio cap for uniform-cell reject
 _UNIFORM_GRID_MAX_AVG_SIDE_PT = 60.0     # avg cell side cap for uniform-cell reject
+_UNIFORM_GRID_LARGE_CELL_COUNT = 10      # uniform grid with ≥ this many cells is coordinate-grid, never answer table
 _TABLE_CONSUME_EXTENT_PAD_PT = 5.0       # pad around table extent when consuming rules
 # Reject cells whose width:height (or height:width) ratio exceeds this.
 # Real Cambridge answer cells stay within ~4:1 (a wide thin header row is
@@ -37,7 +38,7 @@ _TABLE_CONSUME_EXTENT_PAD_PT = 5.0       # pad around table extent when consumin
 # narrow spacer columns between two large drawing boxes (a_level_chemistry_23
 # Q2c "+" column, a_level_chemistry_41 Q5cii Co isomer gap) or flowchart
 # arrow gutters, not real answer slots.
-_TABLE_CELL_MAX_ASPECT_RATIO = 5.0
+_TABLE_CELL_MAX_ASPECT_RATIO = 12.0
 # Page-chrome v_rule exclusion: v_rules whose y-extent covers ≥ this fraction
 # of the page height are page-margin decoration (the "DO NOT WRITE IN THIS
 # MARGIN" strip, the main answer-area outline), NOT table boundaries.  Without
@@ -205,6 +206,18 @@ def _classify_table_grid(
                 aspect = max(cell_w / cell_h, cell_h / cell_w)
                 if aspect > _TABLE_CELL_MAX_ASPECT_RATIO:
                     continue
+            # Phantom-cell guard: when an h_rule is merged from segments
+            # with a gap (e.g. biology_32 Q3ai's "label rect | small answer
+            # square" row pair: segments at x=117.8-349.9 and x=372.2-394.6),
+            # the rule's overall x-range hides the gap and ``border_coverage``
+            # reports 1.0 for a phantom cell sitting INSIDE the gap.  The
+            # per-segment ``covers_continuously`` check refuses to count a
+            # cell unless both top and bottom rules actually have segments
+            # spanning the cell width.
+            if not h_top.covers_continuously(x0, x1):
+                continue
+            if not h_bot.covers_continuously(x0, x1):
+                continue
             top_cov = border_coverage(h_top.x0, h_top.x1, x0, x1)
             bot_cov = border_coverage(h_bot.x0, h_bot.x1, x0, x1)
             left_cov = border_coverage(v_left.y0, v_left.y1, y0, y1)
@@ -306,20 +319,42 @@ def _classify_table_grid(
 
     if not cells:
         return []
-    # Single kept cell is allowed only when it's part of a larger table — the
-    # row pair must also be present among text-rejected cells (other columns
-    # in the same row had prose).  Catches Cambridge tables where exactly one
-    # value cell is empty, e.g. biology paper 62 Q1ai's Table 1.1 beaker C
-    # row.  Without this exception we'd require ≥ 2 empty cells.
+
+    def _is_standalone_box(c: tuple) -> bool:
+        """A standalone box has all 4 sides at ≥ 0.9 border coverage.
+
+        Used as an exception to the row-mate / sibling requirements: a
+        rectangle drawn as 4 separate line segments (not a closed rect) is
+        a legitimate single-cell answer area even though ``_classify_box``
+        misses it.  Tree pseudo-cells fail this check — at least one of
+        their "borders" is a tree branch with < 0.5 coverage.
+        """
+        only_bb, only_top, only_bot, only_left, only_right = c
+        top_full = border_coverage(only_top.x0, only_top.x1, only_bb.x0, only_bb.x1)
+        bot_full = border_coverage(only_bot.x0, only_bot.x1, only_bb.x0, only_bb.x1)
+        left_full = border_coverage(only_left.y0, only_left.y1, only_bb.y0, only_bb.y1)
+        right_full = border_coverage(only_right.y0, only_right.y1, only_bb.y0, only_bb.y1)
+        return min(top_full, bot_full, left_full, right_full) >= 0.9
+
+    # Single kept cell is allowed when EITHER:
+    #  - it's part of a larger table (its row pair appears in text_rejected_pairs,
+    #    meaning a sibling cell in the same row had prose — biology paper 62 Q1ai
+    #    Table 1.1 beaker C row); OR
+    #  - it's a standalone box with all 4 sides at near-full coverage (a
+    #    rectangle drawn as 4 separate line segments rather than a closed rect,
+    #    so ``_classify_box`` doesn't see it — a_level_chemistry_41 Q5aii's
+    #    ``[Co(H2O)6]²⁺`` complex-ion drawing box).
     if len(cells) < 2:
         only = cells[0]
-        if (id(only[1]), id(only[2])) not in text_rejected_pairs:
+        if (id(only[1]), id(only[2])) not in text_rejected_pairs and not _is_standalone_box(only):
             return []
 
     # Row-mate requirement: a kept cell must either share its (h_top, h_bot) pair
     # with another kept cell (real table with multiple empty cells per row), OR
     # share that rule pair with a text-rejected cell (the row has prose cells in
-    # other columns).  Tree pseudo-cells share rules with nothing → drop.
+    # other columns), OR be a standalone box with all 4 sides at near-full
+    # coverage.  Tree pseudo-cells share rules with nothing AND fail the
+    # standalone-box check → drop.
     row_signature: dict[tuple[int, int], int] = {}
     for c in cells:
         _, h_top, h_bot, _, _ = c
@@ -329,12 +364,13 @@ def _classify_table_grid(
         c for c in cells
         if row_signature.get((id(c[1]), id(c[2])), 0) >= 2
         or (id(c[1]), id(c[2])) in text_rejected_pairs
+        or _is_standalone_box(c)
     ]
     if not cells:
         return []
     if len(cells) < 2:
         only = cells[0]
-        if (id(only[1]), id(only[2])) not in text_rejected_pairs:
+        if (id(only[1]), id(only[2])) not in text_rejected_pairs and not _is_standalone_box(only):
             return []
 
     # Uniform-cell grid reject (shading grids).  Real Cambridge answer tables
@@ -357,6 +393,14 @@ def _classify_table_grid(
                 id(c[1]) in text_rejected_h_ids or id(c[2]) in text_rejected_h_ids
                 for c in cells
             )
+            # Large uniform grids (>= _UNIFORM_GRID_LARGE_CELL_COUNT cells)
+            # are always coordinate / shading grids, never answer tables.
+            # Reject regardless of text-row sharing.  Without this floor, the
+            # math-paper coordinate-grid pattern (mathematics_43 Q1: 8×8 cm²
+            # plotting grid with triangle labels A/B/T in some cells) lets
+            # 61 cells through the text-row escape.
+            if len(cells) >= _UNIFORM_GRID_LARGE_CELL_COUNT:
+                return []
             if not shares_text_row:
                 return []
 
@@ -389,7 +433,7 @@ def _classify_table_grid(
             return []
         if len(cells) < 2:
             only = cells[0]
-            if (id(only[1]), id(only[2])) not in text_rejected_pairs:
+            if (id(only[1]), id(only[2])) not in text_rejected_pairs and not _is_standalone_box(only):
                 return []
 
     out_bboxes = [c[0] for c in cells]

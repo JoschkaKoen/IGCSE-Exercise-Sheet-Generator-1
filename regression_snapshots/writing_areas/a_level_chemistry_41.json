@@ -723,7 +723,24 @@
     },
     {
       "q_number": "9dii",
-      "writing_areas": []
+      "writing_areas": [
+        {
+          "kind": "table_cell",
+          "page": 16,
+          "x0": 160.7,
+          "y0": 252.9,
+          "x1": 484.0,
+          "y1": 295.4
+        },
+        {
+          "kind": "table_cell",
+          "page": 16,
+          "x0": 160.7,
+          "y0": 295.4,
+          "x1": 484.0,
+          "y1": 337.9
+        }
+      ]
     },
     {
       "q_number": "9ei",

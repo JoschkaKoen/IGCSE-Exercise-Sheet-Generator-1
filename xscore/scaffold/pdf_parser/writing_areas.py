@@ -97,6 +97,16 @@ _STIPPLE_BAND_HEIGHT_PT = 12.0
 # 30–50pt), so 3pt stays well below the discrimination threshold.
 _STIPPLE_X_TOL_PT = 3.0
 
+# Page-chrome clip: when a leaf's bbox extends to the page edges (scaffold
+# returned a full-page bbox because it couldn't bound the question, e.g.
+# physics_51 planning Q4), the writing-area detector must not classify the
+# header/footer chrome as answer rules.  Cambridge papers consistently put
+# the page barcode + "© UCLES" + page number band at y ≥ ~785 on a 841.9pt
+# A4 page, plus 4 small L-bracket markers at y ≈ 790-810.  The header at
+# the top (margin barcode, "DO NOT WRITE", page number) lives at y ≤ ~55.
+_PAGE_CHROME_TOP_PT = 55.0
+_PAGE_CHROME_BOTTOM_PT = 785.0
+
 
 def _consume_rules_inside_diagrams(
     page: fitz.Page, clip: fitz.Rect, h_rules: list[_HRule]
@@ -304,7 +314,7 @@ def _emit_equation_blanks(
         # fills) are not answer slots — fall back to them only if there's
         # no unconsumed candidate (in which case the equation-blank bbox
         # is dropped entirely).
-        unconsumed_match: _HRule | None = None
+        unconsumed_matches: list[_HRule] = []
         consumed_match: _HRule | None = None
         for r in h_rules:
             if abs(r.y - line_baseline) > cfg.wa_eq_blank_baseline_tol_pt:
@@ -313,15 +323,23 @@ def _emit_equation_blanks(
                 if consumed_match is None or r.length > consumed_match.length:
                     consumed_match = r
             else:
-                if unconsumed_match is None or r.length > unconsumed_match.length:
-                    unconsumed_match = r
+                unconsumed_matches.append(r)
                 r.consumed = True
-        if unconsumed_match is None and consumed_match is not None:
+        if not unconsumed_matches and consumed_match is not None:
             # Only a pre-consumed rule matched — drop the bbox (the rule
             # belongs to fraction notation / stipple / diagram, not an
             # answer slot — a_level_chemistry_41 Q2a iv).
             continue
-        matching_rule = unconsumed_match
+        # Emit one bbox per unconsumed sibling rule at the same baseline.
+        # This handles "x = …… or x = …… [n]" patterns where the line
+        # has multiple answer slots (mathematics_43 Q11b).
+        if unconsumed_matches:
+            for r in unconsumed_matches:
+                bb = bbox_for_equation_blank(r, original_bb.page, cfg)
+                out.append((bb, "equation_blank"))
+            continue
+        # Fallthrough only when no rule matched at all (synthesise from legacy bbox).
+        matching_rule = None
         if matching_rule is not None:
             rule_for_bbox = matching_rule
         else:
@@ -350,6 +368,65 @@ _REFERENCE_PAGE_MARKERS = (
     "Reactions of anions",              # ditto
     "molar gas constant",               # always inside "Important values" sheet
 )
+
+
+# Two v_rules belong to the same table if they're either close in x
+# (continuous columns of the same grid) OR share a y-overlap (different
+# vertical bands of the same table).  Otherwise they're in separate
+# tables.  60pt is calibrated against the a_level_chemistry_23 p10 case:
+# table 1 spans x=107.4-487.9, table 2 spans x=98.6-496.7, so all
+# v_rules share y=0 to y=... bands?  Actually they DON'T share y-bands
+# (table 1 at y=279-328, table 2 at y=458-571) so the y-overlap
+# branch doesn't trigger.  The x-gap branch does: max x-gap inside
+# table 1 is ~71pt, max x-gap between tables is the entire vertical
+# offset they don't share.  The rule cluster picks up that table 2's
+# x=98.6 is to the LEFT of table 1's x=107.4, so x-distance alone
+# doesn't separate them.  Y-overlap absence is what separates them.
+_V_RULE_CLUSTER_X_GAP_PT = 200.0
+
+
+def _cluster_v_rules_for_tables(v_rules: list) -> list[list]:
+    """Split v_rules into groups that likely belong to the same table.
+
+    Two v_rules are in the same cluster if they overlap in y (different
+    columns of the same table extend through the same y-band) OR are close
+    in x (adjacent columns of a wide multi-column table).  Otherwise the
+    next v_rule starts a new cluster.
+
+    Returns a list of v_rule sub-lists.  If v_rules is empty, returns a
+    single empty list so callers iterate exactly once (preserving the
+    no-vrules fallback in ``_classify_table_grid``).
+    """
+    if not v_rules:
+        return [[]]
+    # Group by y-overlap first using union-find on indices.
+    n = len(v_rules)
+    parent = list(range(n))
+    def find(x: int) -> int:
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    def union(a: int, b: int) -> None:
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[rb] = ra
+    for i in range(n):
+        for j in range(i + 1, n):
+            vi, vj = v_rules[i], v_rules[j]
+            if not (vi.y1 < vj.y0 - 0.5 or vj.y1 < vi.y0 - 0.5):
+                union(i, j)
+            elif abs(vi.x - vj.x) <= _V_RULE_CLUSTER_X_GAP_PT and abs(vi.y0 - vj.y0) < _V_RULE_CLUSTER_X_GAP_PT:
+                # Adjacent columns at similar y but separated by a small
+                # vertical gap (header row → body row) — still same table.
+                # Use a y-distance cap to avoid joining vertically distant
+                # tables sharing an x-coordinate.
+                if min(abs(vi.y1 - vj.y0), abs(vj.y1 - vi.y0)) < 50.0:
+                    union(i, j)
+    groups: dict[int, list] = {}
+    for i in range(n):
+        groups.setdefault(find(i), []).append(v_rules[i])
+    return list(groups.values())
 
 
 def _page_is_reference_data(page: fitz.Page) -> bool:
@@ -384,7 +461,21 @@ def _detect_in_region(
     cy = (region.y0 + region.y1) * 0.5
     cell = cell_for_point(page, cx, cy)
     h0, h1 = clip_horizontal_bounds(doc, pi, cfg, cell)
-    clip = fitz.Rect(h0, region.y0, h1, region.y1)
+    # Clip region y-bounds to exclude page chrome (header + footer barcode/
+    # bracket markers).  Cambridge's bottom-page L-bracket drawings and
+    # barcode-text spans are reliably above _PAGE_CHROME_BOTTOM_PT; when a
+    # leaf bbox extends past that (e.g. a full-page planning Q4 whose
+    # scaffolded bbox is (0,0,page_w,page_h)), the clipped y-range drops the
+    # chrome before classification.  Page heights vary slightly across PDFs
+    # but the chrome zones are absolute (anchored to page edges), not a
+    # fraction, so this is safe.
+    page_h = page.rect.height
+    chrome_bottom = max(_PAGE_CHROME_BOTTOM_PT, page_h - 60.0)
+    y0_clip = max(region.y0, _PAGE_CHROME_TOP_PT)
+    y1_clip = min(region.y1, chrome_bottom)
+    if y1_clip <= y0_clip:
+        return []
+    clip = fitz.Rect(h0, y0_clip, h1, y1_clip)
     cell_width = h1 - h0
 
     h_rules, v_rules, rects = _extract_vector_segments(page, clip, cfg)
@@ -409,9 +500,16 @@ def _detect_in_region(
     #    region; ``infer_equation_blank_bboxes`` operates on ``q.bbox`` and
     #    re-running it per continuation page is redundant.
     classifier_results: list[tuple[BBox, str]] = []
-    classifier_results.extend(
-        _classify_table_grid(h_rules, v_rules, rects, text_lines, cfg, region.page, page=page)
-    )
+    # Multi-table pages: when v_rules cluster into spatially-separate groups
+    # (different x-locality bands AND no y-overlap), the wider table's
+    # x-extent would shadow narrower tables inside ``_classify_table_grid``.
+    # Split the v_rules into x-locality clusters and call the classifier
+    # once per cluster so each table is processed independently.
+    v_clusters = _cluster_v_rules_for_tables(v_rules)
+    for vc in v_clusters:
+        classifier_results.extend(
+            _classify_table_grid(h_rules, vc, rects, text_lines, cfg, region.page, page=page)
+        )
     if run_eq_blank_pattern:
         classifier_results.extend(_emit_equation_blanks(doc, cfg, q, h_rules))
     classifier_results.extend(

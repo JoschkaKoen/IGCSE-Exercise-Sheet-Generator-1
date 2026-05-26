@@ -19,17 +19,45 @@ from xscore.scaffold.pdf_parser.config import ParserConfig
 
 @dataclass
 class _HRule:
-    """A horizontal rule segment in source-PDF coordinates."""
+    """A horizontal rule segment in source-PDF coordinates.
+
+    ``spans`` carries the ORIGINAL non-clustered segment x-ranges (sorted by
+    x0) so callers can ask "is x_lo..x_hi continuously covered?" even when
+    the rule was merged from segments with gaps between them (e.g. a
+    Cambridge table row where the label cell and the answer square are
+    drawn as two separate rectangles).
+    """
 
     y: float
     x0: float
     x1: float
     dotted: bool
     consumed: bool = False
+    spans: tuple[tuple[float, float], ...] = ()
 
     @property
     def length(self) -> float:
         return self.x1 - self.x0
+
+    def covers_continuously(self, x_lo: float, x_hi: float, *, slack: float = 1.0) -> bool:
+        """True iff the rule's segments cover the entire [x_lo, x_hi] range.
+
+        ``slack`` allows a small gap between adjacent segments before declaring
+        the range broken (Cambridge sometimes leaves a 1pt seam between
+        adjacent table-row segments — the joint shouldn't disqualify the row).
+        """
+        if not self.spans:
+            return self.x0 <= x_lo + slack and self.x1 >= x_hi - slack
+        cursor = x_lo
+        for sx0, sx1 in self.spans:
+            if sx1 <= cursor:
+                continue
+            if sx0 > cursor + slack:
+                return False
+            cursor = max(cursor, sx1)
+            if cursor >= x_hi - slack:
+                return True
+        return cursor >= x_hi - slack
 
 
 @dataclass
@@ -127,6 +155,18 @@ def _extract_vector_segments(
             w, h = x1 - x0, y1 - y0
             if w >= cfg.wa_table_cell_min_side_pt and h >= cfg.wa_table_cell_min_side_pt:
                 rects.append(_ClosedRect(x0=x0, y0=y0, x1=x1, y1=y1))
+            # Skip a tiny rect's edges from h/v segment harvesting — they're
+            # arrow-heads or shape fills, not rule lines.  A real Cambridge
+            # answer rule is drawn as a single line segment, never as a thin
+            # closed rectangle.  Without this, a "▶" arrowhead's top + bottom
+            # borders both register as ``_HRule``s, producing duplicate
+            # ``short_line`` detections (a_level_biology_42 Q3aii's two
+            # arrowheads on the DNA-direction diagram).
+            if w < cfg.wa_table_cell_min_side_pt or h < cfg.wa_table_cell_min_side_pt:
+                # 8pt is small enough that the rect can only be an arrow or
+                # decoration, not an answer cell.
+                if h < 8.0 or w < 8.0:
+                    continue
         items = d.get("items") or []
         for it in items:
             for sx0, sy0, sx1, sy1 in _segments_from_drawing(it):
@@ -192,10 +232,18 @@ def _cluster_horizontals(
         y = sum(s[0] for s in cluster) / len(cluster)
         x0 = min(s[1] for s in cluster)
         x1 = max(s[2] for s in cluster)
-        spans = [(s[1], s[2]) for s in cluster]
-        avg_span = (sum(s[1] - s[0] for s in spans) / len(spans)) if spans else 0.0
+        raw_spans = sorted((s[1], s[2]) for s in cluster)
+        # Coalesce overlapping/touching segments so spans list represents
+        # actual coverage intervals (no duplicates).
+        merged: list[tuple[float, float]] = []
+        for sx0, sx1 in raw_spans:
+            if merged and sx0 <= merged[-1][1] + 0.5:
+                merged[-1] = (merged[-1][0], max(merged[-1][1], sx1))
+            else:
+                merged.append((sx0, sx1))
+        avg_span = (sum(s[1] - s[0] for s in raw_spans) / len(raw_spans)) if raw_spans else 0.0
         dotted = len(cluster) >= 4 and avg_span < 6.0
-        out.append(_HRule(y=y, x0=x0, x1=x1, dotted=dotted))
+        out.append(_HRule(y=y, x0=x0, x1=x1, dotted=dotted, spans=tuple(merged)))
     return out
 
 

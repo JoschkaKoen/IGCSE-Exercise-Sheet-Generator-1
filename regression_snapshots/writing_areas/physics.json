@@ -202,6 +202,14 @@
       "q_number": "4ai",
       "writing_areas": [
         {
+          "kind": "table_cell",
+          "page": 8,
+          "x0": 204.0,
+          "y0": 124.2,
+          "x1": 326.4,
+          "y1": 200.0
+        },
+        {
           "kind": "equation_blank",
           "page": 8,
           "x0": 352.2,
