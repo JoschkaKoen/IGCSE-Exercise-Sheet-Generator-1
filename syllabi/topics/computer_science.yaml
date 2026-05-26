@@ -58,30 +58,7 @@ topics:
     title: Artificial intelligence
 - number: '7'
   title: Algorithm design and problem-solving
-  subtopics:
-  - number: '7.1'
-    title: 'Understand the program development life cycle, limited to: analysis, design,
-      coding and testing'
-  - number: '7.2'
-    title: Understand that every computer system is made up of sub-systems, which
-      are made up of further sub-systems
-  - number: '7.3'
-    title: Explain the purpose of a given algorithm
-  - number: '7.4'
-    title: Understand standard methods of solution
-  - number: '7.5'
-    title: Understand the need for validation checks to be made on input data and
-      the different types of validation check
-  - number: '7.6'
-    title: Suggest and apply suitable test data
-  - number: '7.7'
-    title: Complete a trace table to document a dry-run of an algorithm
-  - number: '7.8'
-    title: Identify errors in given algorithms and suggest ways of correcting these
-      errors
-  - number: '7.9'
-    title: 'Write and amend algorithms for given problems or scenarios, using: pseudocode,
-      program code and flowcharts'
+  subtopics: []
 - number: '8'
   title: Programming
   subtopics:
@@ -93,24 +70,7 @@ topics:
     title: File handling
 - number: '9'
   title: Databases
-  subtopics:
-  - number: '9.1'
-    title: Define a single-table database from given data storage requirements
-  - number: '9.2'
-    title: Suggest suitable basic data types
-  - number: '9.3'
-    title: Understand the purpose of a primary key and identify a suitable primary
-      key for a given database table
-  - number: '9.4'
-    title: Read, understand and complete structured query language (SQL) scripts to
-      query data stored in a single database table
+  subtopics: []
 - number: '10'
   title: Boolean logic
-  subtopics:
-  - number: '10.1'
-    title: Identify and use the standard symbols for logic gates
-  - number: '10.2'
-    title: Define and understand the functions of logic gates
-  - number: '10.3'
-    title: 'Use logic gates to create given logic circuits from a: problem statement,
-      logic expression, truth table'
+  subtopics: []

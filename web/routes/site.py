@@ -83,7 +83,11 @@ def _validate_syllabus_path(subject: str, filename: str) -> Path:
     if safe != filename:
         raise HTTPException(status_code=400, detail="Invalid filename")
     root = SYLLABI_DIR.resolve()
-    path = (root / safe).resolve()
+    # Recursive lookup: PDFs may live in syllabi/igcse/ or syllabi/a_level/.
+    found = next(root.glob(f"**/{safe}"), None)
+    if found is None:
+        raise HTTPException(status_code=404, detail="File not found")
+    path = found.resolve()
     try:
         path.relative_to(root)
     except ValueError as exc:

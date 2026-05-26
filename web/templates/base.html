@@ -11,12 +11,10 @@
   <script type="speculationrules">
     {"prerender": [{"source": "list", "urls": ["/library"]}]}
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/vendor/google-fonts/fonts.css" />
   {# Twemoji flag webfont — fixes the Windows gap where regional-indicator
      emoji render as country-code letters instead of flag glyphs. #}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/country-flag-emoji-polyfill@0.1/dist/TwemojiCountryFlags.css" />
+  <link rel="stylesheet" href="/static/vendor/twemoji-flags/TwemojiCountryFlags.css" />
   {# UI string table for any inline / module JS to look up by key. Populated
      server-side from web/i18n.py via web/template_ctx.py. #}
   <script>
@@ -28,7 +26,7 @@
       });
     };
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/static/vendor/tailwind/tailwind-play.js"></script>
   <script>
     tailwind.config = {
       theme: {

@@ -37,9 +37,10 @@ TEMPLATES = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
 
 router = APIRouter(prefix="/learn", tags=["learn"])
 
-# Subtopic numbers may carry a Core/Extended prefix (Math: ``C1.1``, ``E1.1``)
-# — mirror the normalizer regex in web/syllabus_topics.py.
-_SUBTOPIC_PATH_RE = re.compile(r"^[A-Z]*\d+\.\d+$")
+# Subtopic numbers may carry a Core/Extended prefix (Math: ``C1.1``, ``E1.1``).
+# Also accepts a plain topic number (``9``) for topics that have no N.M
+# subdivisions in the source (IGCSE Computer Science topics 7–10).
+_SUBTOPIC_PATH_RE = re.compile(r"^[A-Z]*\d+(?:\.\d+)?$")
 
 
 def _display_name(subject_key: str) -> str:
@@ -87,19 +88,34 @@ async def subtopic_page(request: Request, subject: str, subtopic: str):
         raise HTTPException(status_code=404, detail="Unknown subject")
     data = load_topics(subject)
     topics = (data or {}).get("topics") or []
+
     found_title: str | None = None
     parent_title: str | None = None
-    for t in topics:
-        for s in t.get("subtopics") or []:
-            if s.get("number") == subtopic:
-                found_title = s.get("title")
-                parent_title = t.get("title")
+    is_topic_only = "." not in subtopic
+    if is_topic_only:
+        # Topic-only URL (e.g. IGCSE CS /9): match a topic with empty subtopics.
+        for t in topics:
+            if t.get("number") == subtopic and not (t.get("subtopics") or []):
+                found_title = t.get("title")
                 break
-        if found_title is not None:
-            break
+    else:
+        for t in topics:
+            for s in t.get("subtopics") or []:
+                if s.get("number") == subtopic:
+                    found_title = s.get("title")
+                    parent_title = t.get("title")
+                    break
+            if found_title is not None:
+                break
     if found_title is None:
         raise HTTPException(status_code=404, detail="Unknown subtopic")
+
     content_md = load_content(subject, subtopic)
+    if content_md:
+        # The .md is self-describing on disk (starts with "# N.M Title")
+        # but the page header already shows the title — strip the leading
+        # H1 so the rendered page doesn't double-title.
+        content_md = re.sub(r"^# [^\n]*\n+", "", content_md, count=1)
     content_html = render_helper_markdown(content_md) if content_md else None
     return TEMPLATES.TemplateResponse(
         request,

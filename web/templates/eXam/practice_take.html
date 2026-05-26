@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block title %}{% if review_mode %}{{ t('review.page_title') }}{% else %}{{ t('take.title.practice').format(subject=subject_display) }}{% endif %}{% endblock %}
 {% block extra_head %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+<link rel="stylesheet" href="/static/vendor/katex/katex.min.css">
+<script defer src="/static/vendor/katex/katex.min.js"></script>
+<script defer src="/static/vendor/katex/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
 <style>
   .ex-snippet-scroll { border-radius: 0.75rem; position: relative; }
@@ -440,8 +440,8 @@ function applyBottomFormDedupe(payload) {
 (async function renderSnippet() {
   const canvas = document.getElementById("ex-snippet");
   if (!canvas) return;
-  const m = await import("https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.mjs");
-  m.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.mjs";
+  const m = await import("/static/vendor/pdfjs/pdf.mjs");
+  m.GlobalWorkerOptions.workerSrc = "/static/vendor/pdfjs/pdf.worker.mjs";
   const doc = await m.getDocument({ url: PDF_URL, withCredentials: true }).promise;
   const page = await doc.getPage(1);
   const v1 = page.getViewport({ scale: 1 });

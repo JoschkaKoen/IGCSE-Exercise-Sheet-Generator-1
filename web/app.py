@@ -74,6 +74,12 @@ class NoCacheStaticFiles(StaticFiles):
         await super().__call__(scope, receive, send_with_no_cache)
 
 
+VENDOR_DIR = STATIC_DIR / "vendor"
+if VENDOR_DIR.is_dir():
+    # Pinned external CDN assets — let the browser cache these (default
+    # StaticFiles emits ETag/Last-Modified). Mounted before /static so its
+    # prefix wins in Starlette's route-iteration order.
+    app.mount("/static/vendor", StaticFiles(directory=str(VENDOR_DIR)), name="static-vendor")
 if STATIC_DIR.is_dir():
     app.mount("/static", NoCacheStaticFiles(directory=str(STATIC_DIR)), name="static")
 

@@ -463,3 +463,31 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
 .learn-content-body .math.block {
   color: rgb(226, 232, 240);                       /* slate-200 */
 }
+/* H3 sub-section headers (IGCSE Physics 1.5.1, 1.5.2, …) between tables. */
+.learn-content-body h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(165, 243, 252);                       /* cyan-200 */
+}
+.learn-content-body h3:first-child {
+  margin-top: 0;
+}
+/* A-Level numbered list of learning outcomes. */
+.learn-content-body ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin: 0;
+  color: rgb(203, 213, 225);                       /* slate-300 */
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.learn-content-body ol > li {
+  margin: 0.25rem 0;
+  padding-left: 0.25rem;
+}
+.learn-content-body ol > li::marker {
+  color: rgb(148, 163, 184);                       /* slate-400 */
+  font-variant-numeric: tabular-nums;
+}

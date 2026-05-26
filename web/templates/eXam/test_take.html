@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block title %}{{ t('take.title.test').format(n=meta.number, title=test.title) }}{% endblock %}
 {% block extra_head %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+<link rel="stylesheet" href="/static/vendor/katex/katex.min.css">
+<script defer src="/static/vendor/katex/katex.min.js"></script>
+<script defer src="/static/vendor/katex/contrib/auto-render.min.js"
         onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
 <style>
   .ex-snippet-scroll { max-height: 80vh; overflow-y: auto; border-radius: 0.75rem; }
@@ -161,8 +161,8 @@ const PDF_URL = "/eXam/pdf/" + encodeURIComponent(QUESTION_ID);
 (async function renderSnippet() {
   const canvas = document.getElementById("ex-snippet");
   if (!canvas) return;
-  const m = await import("https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.mjs");
-  m.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.mjs";
+  const m = await import("/static/vendor/pdfjs/pdf.mjs");
+  m.GlobalWorkerOptions.workerSrc = "/static/vendor/pdfjs/pdf.worker.mjs";
   const doc = await m.getDocument({ url: PDF_URL, withCredentials: true }).promise;
   const page = await doc.getPage(1);
   let raf = null;

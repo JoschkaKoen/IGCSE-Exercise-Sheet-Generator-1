@@ -96,10 +96,34 @@ def _classify_multi_line(
     if len(free) < cfg.wa_lines_min_count:
         return []
 
+    # Pre-compute: for each rule, does it have a SIBLING rule at the same y
+    # baseline but different x (a horizontal-chain partner)?  Such rules are
+    # part of a row-of-pairs pattern (e.g. coordinate-answer pairs
+    # ``( x , y )``); they should be handled by the chain logic in
+    # ``_classify_short_line``, not grouped vertically into a ``lines``
+    # region.  (mathematics_43 Q9a: 3 ``( x , y )`` rows where multi_line
+    # was merging the 3 left coordinates into one tall ``lines`` region.)
+    chain_baseline_tol = cfg.wa_chain_blank_baseline_tol_pt
+    has_sibling = set()
+    for r in free:
+        for s in free:
+            if s is r:
+                continue
+            if abs(s.y - r.y) <= chain_baseline_tol:
+                # Sibling found at same baseline — must be horizontally
+                # separated (not overlapping)
+                if s.x1 < r.x0 - 2 or s.x0 > r.x1 + 2:
+                    has_sibling.add(id(r))
+                    break
+
     out: list[tuple[BBox, str]] = []
     used: set[int] = set()
     for i in range(len(free)):
         if i in used:
+            continue
+        # Skip rules that are part of a horizontal chain — let
+        # _classify_short_line's chain pass handle them.
+        if id(free[i]) in has_sibling:
             continue
         stack = [free[i]]
         last = free[i]
@@ -177,65 +201,58 @@ def _classify_multi_line(
     return out
 
 
-_LABEL_RE = re.compile(
-    r"^\s*("
-    r"[A-Z]"               # single uppercase letter (A, B, P, Q, R, X, Y, Z, …)
-    r"|\d+[.)]?"           # numeric labels (1, 1., 1))
-    r"|statement"
-    r"|explanation"
-    r"|adaptation"
-    r"|improvement"
-    r"|prediction"
-    r"|procedure"
-    r"|safety"
-    r"|risk"
-    r"|evidence"
-    r"|example(?:\s+\d+)?"
-    r"|safety\s+precaution"
-    r"|change(?:\s+to\s+apparatus)?"
-    r"|effect\s+on\s+\w+(?:\s+\w+)*"
-    r"|test(?:\s+\d+)?"
-    r"|step(?:\s+\d+)?"
-    r"|row"
-    r"|sensor(?:\s+\d+)?"
-    r"|sample(?:\s+\d+)?"
-    r"|benefit(?:\s+\d+)?"
-    r"|application"
-    r"|justification"
-    r"|circuit\s+switching"
-    r"|packet\s+switching"
-    r"|reason(?:\s+\d+)?"
-    r"|name(?:\s+of\s+\w+)?"
-    r"|most\s+suitable\s+\w+(?:\s+\w+)?"
-    r"|advantage"
-    r"|disadvantage"
-    r"|comparison"
-    r"|conclusion"
-    r"|observation"
-    r"|prediction"
-    r"|method"
-    r"|description"
-    r"|definition"
-    r"|equation"
-    r"|formula"
-    r"|axis"
-    r"|factor"
-    r"|reagents?"
-    r"|primary\s+key"
-    r"|referential\s+integrity"
-    r"|entity"
-    r"|phishing(?:\s+\w+)?"
-    r"|spyware"
-    r"|password(?:\d+|\s+to\s+test\s+rule\s+\d+)?"
-    r"|rule(?:\s+\d+)?"
-    r"|type(?:\s+of\s+\w+)?"
-    r"|RISC"
-    r"|CISC"
-    r"|effect(?:\s+on\s+\w+(?:\s+\w+)*)?"
-    r"|cat[ai]on"          # cation / anion (close to one)
-    r")(?=\b|\s|$)",
-    re.I,
-)
+# Maximum length of the prefix-label substring (after stripping trailing
+# filler dots).  Cambridge labels run from single-character ("A", "1") to
+# ~25-char phrases ("Password to test rule 4", "Most suitable measuring
+# cylinder").  Anything longer is question prose, not a label.
+_LABEL_MAX_CHARS = 30
+_LABEL_MAX_WORDS = 5
+
+
+def _label_prefix(t: str) -> str | None:
+    """Return the prefix-label text from a line of the form ``<label> ...... [n]``.
+
+    A label is any short identifier (≤ _LABEL_MAX_CHARS chars, ≤ _LABEL_MAX_WORDS
+    words) sitting at the start of a line before a run of filler glyphs.
+    Examples that match: "Reason:", "Password to test rule 1", "A", "B",
+    "ball Q", "Closest to the Sun", "improvement", "difficulty", "x_G", "F".
+
+    Rejects:
+    - Full sentences (ending in period)
+    - Lines containing a question mark (those are the question text itself)
+    - Pure-symbol prefixes (no alpha characters — e.g. "[4]" mark indicators)
+    - Empty prefixes (the whole line was filler)
+    """
+    # Strip trailing filler-glyph run and everything after it.  Cambridge uses
+    # ".", "·", "•", "_", and "-" as filler chars; ≥ 4 in a row signals the
+    # start of the answer-dots area.
+    stripped = re.sub(r"[.·•_\-]{4,}.*$", "", t).strip()
+    if not stripped:
+        return None
+    # Strip a trailing colon — labels like "Reason:" should normalise to
+    # "Reason" so two "Reason:" lines (different occurrences of the same
+    # label word) count as one distinct label.
+    stripped_no_colon = stripped.rstrip(":").rstrip()
+    if not stripped_no_colon:
+        return None
+    if len(stripped_no_colon) > _LABEL_MAX_CHARS:
+        return None
+    if "?" in stripped_no_colon:
+        return None
+    # Reject if the prefix looks like a full sentence (ends in period and is
+    # multi-word — exclude single-letter abbreviations like "A.").
+    if stripped_no_colon.endswith(".") and len(stripped_no_colon.split()) > 1:
+        return None
+    words = stripped_no_colon.split()
+    if not words or len(words) > _LABEL_MAX_WORDS:
+        return None
+    # Require at least one alphabetical character — reject pure numerics
+    # that aren't structured labels (e.g. "= 9.81" remnants).
+    if not any(c.isalpha() for c in stripped_no_colon):
+        # Allow pure-numeric IF it's a structured label like "1.", "2)", "3"
+        if not re.fullmatch(r"\d+[.)]?", stripped_no_colon):
+            return None
+    return stripped_no_colon
 
 
 def _classify_labeled_lines(
@@ -255,15 +272,7 @@ def _classify_labeled_lines(
     slot, ``"lines"`` for a slot of ≥ 2 rules.
     """
     def label_of_line(t: str) -> str | None:
-        stripped = re.sub(r"[.·•_\- ]{4,}.*$", "", t).strip()
-        if not stripped:
-            return None
-        if len(stripped) > 40 or "?" in stripped:
-            return None
-        m = _LABEL_RE.match(stripped)
-        if not m:
-            return None
-        return m.group(0).strip()
+        return _label_prefix(t)
 
     free = [r for r in h_rules if not r.consumed]
     if not free:

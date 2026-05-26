@@ -166,8 +166,9 @@ def _newest_syllabus_block(subject_key: str) -> dict[str, Any] | None:
     if not code or not SYLLABI_DIR.is_dir():
         return None
     # Prefer full Syllabus Documents; fall back to Updates when no Document exists.
-    docs = list(SYLLABI_DIR.glob(f"{code} *Syllabus Document.pdf"))
-    pdfs = docs or list(SYLLABI_DIR.glob(f"{code} *Syllabus*.pdf"))
+    # Recursive glob — PDFs may live in syllabi/igcse/ or syllabi/a_level/ subfolders.
+    docs = list(SYLLABI_DIR.glob(f"**/{code} *Syllabus Document.pdf"))
+    pdfs = docs or list(SYLLABI_DIR.glob(f"**/{code} *Syllabus*.pdf"))
     if not pdfs:
         return None
 

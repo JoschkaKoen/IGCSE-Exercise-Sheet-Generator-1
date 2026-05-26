@@ -22,6 +22,7 @@
   <ul class="flex flex-col gap-2">
     {% for topic in topics %}
     <li>
+      {% if topic.subtopics %}
       <details class="group rounded-2xl border border-white/[0.08]
                       bg-gradient-to-b from-white/[0.06] to-white/[0.02]
                       shadow-black/20 backdrop-blur-sm">
@@ -56,6 +57,24 @@
           {% endfor %}
         </ul>
       </details>
+      {% else %}
+      {# Topic without subtopics (IGCSE CS topics 7-10) — single clickable card. #}
+      <a href="/learn/{{ subject }}/{{ topic.number }}"
+         class="flex items-center gap-3 rounded-2xl border border-white/[0.08]
+                bg-gradient-to-b from-white/[0.06] to-white/[0.02] px-4 py-3
+                shadow-black/20 backdrop-blur-sm
+                text-white transition hover:border-white/20 hover:from-white/[0.09]
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
+        <span class="inline-flex h-7 min-w-[1.75rem] items-center justify-center
+                     rounded-md bg-white/[0.06] px-2 text-xs font-semibold
+                     tabular-nums text-cyan-200">{{ topic.number }}</span>
+        <span class="flex-1 truncate text-sm font-semibold sm:text-base">{{ topic.title }}</span>
+        <svg class="h-4 w-4 text-slate-500"
+             fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+      {% endif %}
     </li>
     {% endfor %}
   </ul>
