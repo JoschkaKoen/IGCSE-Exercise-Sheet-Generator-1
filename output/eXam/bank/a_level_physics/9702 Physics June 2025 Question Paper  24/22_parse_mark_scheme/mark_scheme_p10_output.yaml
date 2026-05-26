@@ -1,0 +1,32 @@
+questions:
+- number: 3d
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    (max) $E_{(P)} / 130 = \frac{1}{2} F_{(0)}x_{(0)}$
+    C1
+    $(F_0 =) 2 \times 130 / 0.37 = 700$ (N)
+    A1
+    \textbf{or} (max) $E_{(P)} / 130 = 1 / 2k x_{(0)}^2$
+    $(F_0 =) k x_{(0)}$
+    (C1)
+    $(F_0 =) 2 \times 130 \times 0.37 / (0.37)^2 = 700$ (N)
+    (A1)
+- number: 3ei
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    (weight) $= 5.5 \times 9.81$
+    C1
+    resultant force $= 700 - (5.5 \times 9.81)$
+    $= 650$ N
+    A1
+- number: 3eii
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $F = ma$
+    C1
+    $a = 650 / 5.5$ \textbf{or} $(700 / 5.5) - 9.81$
+    $a = 120 \text{ m s}^{-2}$
+    A1

@@ -1,0 +1,28 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "0580/12 Cambridge IGCSE – Mark Scheme February/March 2025 PUBLISHED".
+    *   The title is "MARK SCHEME NOTES".
+    *   The text explains general notes: "The following notes are intended to aid interpretation of mark schemes in general..."
+    *   There is a section "Types of mark" explaining M, A, and B marks.
+    *   There is a paragraph about method steps and dependent marks.
+    *   There is a section "Abbreviations" listing things like 'awrt', 'cao', 'dep', etc.
+    *   The footer says "Page 6 of 10".
+
+2.  **Evaluate for specific question criteria:**
+    *   I am looking for specific marking instructions like "Question 1: Answer = 5", or "2a: Method mark for...", etc.
+    *   The entire page consists of general guidance notes ("Mark Scheme Notes") and definitions of abbreviations.
+    *   There are no specific question numbers (like 1, 2a, 3) associated with specific marking criteria on this page. It is an introductory page for the whole mark scheme document.
+
+3.  **Conclusion:**
+    *   No specific question marking criteria are visible.
+    *   Therefore, the list of questions should be empty.
+
+4.  **Final Output Formulation:**
+    *   Return `questions: []`.
+[/thinking]
+
+```yaml
+questions: []
+```

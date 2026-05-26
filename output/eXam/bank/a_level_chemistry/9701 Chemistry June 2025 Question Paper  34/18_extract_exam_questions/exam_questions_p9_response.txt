@@ -1,0 +1,25 @@
+questions:
+  - number: "3biii"
+    type: short_answer
+    text: |
+      Make an aqueous solution of FB 9 by adding a 5 cm depth of distilled water to a spatula measure of FB 9 in a test-tube. Carry out the following tests on the aqueous solution of FB 9 and record your observations in Table 3.2.
+
+      Table 3.2
+
+      \begin{tabular}{|p{6cm}|p{6cm}|} \hline
+      \multicolumn{1}{|c|}{test} & \multicolumn{1}{|c|}{observations} \\ \hline
+      \textbf{Test 1} \newline To a 1 cm depth in a boiling tube, add aqueous sodium hydroxide, \newline then \hrulefill \newline warm. & \\ \hline
+      \textbf{Test 2} \newline To a 1 cm depth in a test-tube, add a few drops of dilute hydrochloric acid, \newline then add a few drops of aqueous chlorine. \newline \textbf{Empty and rinse the test-tube with water immediately after use.} & \\ \hline
+      \end{tabular}
+  - number: "3biv"
+    type: short_answer
+    text: |
+      Use your observations in \textbf{(b)(i)}, \textbf{(b)(ii)} and Table 3.2 to deduce the formulae of the cations and anions in FB 9. If you are unable to identify an ion, write ‘unknown’.
+
+      cations \underline{\hspace{1.5em}} and \underline{\hspace{1.5em}}
+
+      anions \underline{\hspace{1.5em}} and \underline{\hspace{1.5em}}
+  - number: "3bv"
+    type: short_answer
+    text: |
+      Write an ionic equation for the reaction in \textbf{(b)(ii)}. Include state symbols.

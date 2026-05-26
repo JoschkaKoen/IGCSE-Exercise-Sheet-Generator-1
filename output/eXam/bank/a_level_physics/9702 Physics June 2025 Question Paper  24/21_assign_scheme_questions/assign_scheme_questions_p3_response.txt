@@ -1,0 +1,33 @@
+[thinking]
+The user wants me to identify which question numbers have their marking criteria visible on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "Cambridge International AS & A Level – Mark Scheme PUBLISHED May/June 2025".
+    *   There is a section "GENERIC MARKING PRINCIPLE 5" and "GENERIC MARKING PRINCIPLE 6". These are general instructions, not specific to a question number like "1a" or "2b".
+    *   There is a section "Science-Specific Marking Principles".
+    *   This section lists numbered principles: 1, 2, 3, 4, 5.
+    *   Principle 1 talks about keywords.
+    *   Principle 2 talks about contradictory statements.
+    *   Principle 3 talks about spellings.
+    *   Principle 4 talks about error carried forward (ecf).
+    *   Principle 5 talks about 'List rule' guidance. It mentions "For questions that require n responses (e.g. State two reasons ...)". This is general guidance applicable to many questions, but it doesn't list specific marking criteria for a specific question like "Question 1a: Answer X gets 1 mark".
+    *   The footer says "Page 3 of 14".
+
+2.  **Evaluate against the task:**
+    *   The task asks for "question numbers' marking criteria".
+    *   The text on this page consists entirely of generic marking principles (Generic Marking Principles 5 & 6) and Science-Specific Marking Principles (1-5).
+    *   None of these sections contain specific marking criteria for a specific question (e.g., "1a", "2b"). They are general rules for examiners.
+    *   Therefore, no specific question numbers from the valid list ("1", "1a", etc.) have their *marking criteria* visible here. This looks like an introductory page or a set of general instructions before the actual question-specific markschemes start.
+
+3.  **Conclusion:**
+    *   The page contains general principles, not specific question criteria.
+    *   The output should be an empty list.
+
+Wait, let me double-check.
+- "GENERIC MARKING PRINCIPLE 5": General rule.
+- "GENERIC MARKING PRINCIPLE 6": General
+[/thinking]
+
+```yaml
+questions: []
+```

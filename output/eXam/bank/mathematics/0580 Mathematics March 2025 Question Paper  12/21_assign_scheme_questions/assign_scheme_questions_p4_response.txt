@@ -1,0 +1,25 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "0580/12 Cambridge IGCSE – Mark Scheme February/March 2025 PUBLISHED".
+    *   The title is "Annotations guidance for centres".
+    *   There is a table titled "Annotations" with columns "Annotation" and "Meaning".
+    *   The table lists symbols like `^`, `A0`, `A1`, `B0`, `C`, `X`, `FT`, `Highlighter`, `ISW`, `M0`, `MR`, `O` and their meanings (e.g., "More information required", "Accuracy mark awarded zero").
+    *   The footer says "Page 4 of 10".
+
+2.  **Evaluate content against criteria:**
+    *   Does this page contain marking criteria for specific questions (like "Question 1: Answer X, 1 mark")? No.
+    *   It contains general guidance on how examiners annotate scripts.
+    *   It does not list any specific question numbers or their answers/marks.
+
+3.  **Determine output:**
+    *   Since no specific question marking criteria are visible, the list should be empty.
+
+4.  **Final formatting:**
+    *   YAML format: `questions: []`
+[/thinking]
+
+```yaml
+questions: []
+```

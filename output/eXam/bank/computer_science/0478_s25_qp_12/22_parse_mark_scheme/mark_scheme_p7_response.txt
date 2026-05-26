@@ -1,0 +1,44 @@
+questions:
+- number: 2a
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    A
+  explanation: ''
+- number: 2bi
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    3
+- number: 2bii
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    2
+- number: 2ci
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    32 bits are used to represent each/a/one colour in the image // $2^{32}$ (approx. 4.3 billion) different colours can be used/are available for the image
+- number: 2cii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{Any two from:}
+    \begin{itemize}
+    \item The size of the image \textbf{file} increases.
+    \item ... as the number of bits used to represent/store a colour has increased
+    \end{itemize}
+- number: 2d
+  type: long_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{Any three from:}
+    \begin{itemize}
+    \item The size of the file is reduced without \textbf{permanently} removing any data.
+    \item A compression algorithm is used.
+    \item ... such as Run length encoding/RLE.
+    \item Repeating \textbf{pixels} are grouped/identified ... // \textbf{Patterns} are identified ...
+    \item ... and stored with the number of times they are repeated.
+    \item ... and indexed
+    \end{itemize}

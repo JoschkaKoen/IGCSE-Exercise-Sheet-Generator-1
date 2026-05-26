@@ -1,0 +1,6 @@
+questions:
+  - number: "14c"
+    type: short_answer
+    text: |
+      Complete the net of the prism on the $1\text{ cm}^2$ grid.
+      The base has been drawn for you.

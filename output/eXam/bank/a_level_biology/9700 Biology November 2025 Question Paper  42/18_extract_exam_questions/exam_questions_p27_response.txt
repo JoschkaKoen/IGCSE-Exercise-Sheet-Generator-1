@@ -1,0 +1,7 @@
+questions:
+  - number: "10c"
+    type: short_answer
+    text: |
+      Muscle contraction can be affected by a low blood glucose concentration.
+
+      Suggest how a low blood glucose concentration would affect the functioning of the sarcomere.

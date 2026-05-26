@@ -1,0 +1,17 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      A battery of electromotive force (e.m.f.) $6.0\text{ V}$ and negligible internal resistance is connected in series with a variable resistor and a uniform resistance wire XY, as shown in Fig. 6.1.
+
+      Wire XY has length $2.00\text{ m}$ and resistance $8.0\text{ }\Omega$. The resistance $R$ of the variable resistor is adjusted so that the potential difference across wire XY is $2.4\text{ V}$.
+  - number: "6a"
+    type: calculation
+    text: |
+      Determine $R$.
+
+      $R = \hrulefill \Omega$
+  - number: "6b"
+    type: short_answer
+    text: |
+      Explain why the potential difference $V$ between any two points on wire XY is proportional to the distance $L$ between those points.

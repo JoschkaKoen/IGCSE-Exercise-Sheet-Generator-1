@@ -1,0 +1,23 @@
+questions:
+  - number: "9"
+    type: short_answer
+    text: |
+      Fig. 9.1 shows an absorption spectrum for chlorophyll $a$ and the corresponding action spectrum for a species of plant.
+
+      wavelength of light /nm
+      absorption spectrum
+      action spectrum
+
+      Fig. 9.1
+  - number: "9a"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "9ai"
+    type: short_answer
+    text: |
+      Explain what is meant by an absorption spectrum and an action spectrum.
+  - number: "9aii"
+    type: short_answer
+    text: |
+      Suggest \textbf{and} explain why the curve shown in Fig. 9.1 for the absorption spectrum is different from the curve for the action spectrum for wavelengths of light between 450nm and 550nm.

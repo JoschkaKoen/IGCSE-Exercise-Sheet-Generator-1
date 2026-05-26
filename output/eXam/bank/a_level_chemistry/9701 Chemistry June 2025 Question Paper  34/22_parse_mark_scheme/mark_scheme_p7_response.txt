@@ -1,0 +1,36 @@
+questions:
+- number: 1a
+  type: short_answer
+  marks: 7
+  mark_scheme_answer: |
+    \textbf{I} All the following data recorded.
+    \begin{itemize}
+    \item two burette readings \textbf{AND} titre for the rough titration
+    \item initial and final readings for \textbf{two} (or more) accurate titrations
+    \end{itemize}
+    \textbf{II} Titre values recorded for accurate titrations, \textbf{AND} correct headings and units in the accurate titration table
+    \begin{itemize}
+    \item initial / start \textbf{AND} (burette) reading / volume
+    \item final / end \textbf{AND} (burette) reading / volume
+    \item titre \textbf{OR} volume used / added \textbf{OR} FB 2 used / added
+    \item unit: / cm$^{3}$ \textbf{OR} (cm$^{3}$) \textbf{OR} in cm$^{3}$ (for each heading) \textbf{OR} cm$^{3}$ unit given for each volume recorded.
+    \end{itemize}
+    \textbf{III} All accurate burette readings recorded to 0.05 cm$^{3}$.
+    \textbf{IV} The final accurate titre recorded must be within 0.10 cm$^{3}$ of any other accurate titre.
+
+    \textbf{Accuracy (Q) marks}
+    Round burette readings to the nearest 0.05 cm$^{3}$. Check and correct titre subtractions where necessary.
+    Select the best mean titre, using the following hierarchy:
+    \begin{itemize}
+    \item two (or more) accurate identical titres (ignoring any that are labelled ``rough''), \textit{then}
+    \item two (or more) accurate titres within 0.05 cm$^{3}$, \textit{then}
+    \item two (or more) accurate titres within 0.10 cm$^{3}$, \textit{etc.}
+    \end{itemize}
+    Calculate the Supervisor's mean titre to two decimal places.
+    Calculate the Candidate's mean titre to two decimal places.
+    Calculate the difference ($\delta$) between the Supervisor's and Candidate's mean titre.
+
+    Award accuracy Q marks as follows:
+    \textbf{V} award if $\delta \leq 0.50 \text{ cm}^{3}$
+    \textbf{VI} award if $\delta \leq 0.30 \text{ cm}^{3}$
+    \textbf{VII} award if $\delta \leq 0.20 \text{ cm}^{3}$

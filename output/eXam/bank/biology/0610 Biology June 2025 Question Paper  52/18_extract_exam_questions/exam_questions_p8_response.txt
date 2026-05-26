@@ -1,0 +1,54 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      The enzyme pectinase is used in the production of apple juice.
+
+      In an experiment, a student investigated the production of apple juice using five different concentrations of pectinase solution.
+
+      For each concentration, the student:
+      \begin{itemize}
+      \item put $100\text{ g}$ of crushed apple into a beaker
+      \item added $10\text{ cm}^3$ of the pectinase solution to the crushed apple
+      \item left the crushed apple and enzyme mixture for $30$ minutes at $40^\circ\text{C}$
+      \item filtered the apple juice from the mixture
+      \item measured the volume of apple juice produced.
+      \end{itemize}
+  - number: "2a"
+    type: short_answer
+    text: |
+      The temperature was maintained at $40^\circ\text{C}$.
+  - number: "2ai"
+    type: short_answer
+    text: |
+      Describe how the student could maintain the crushed apple and enzyme mixture at a constant temperature.
+  - number: "2aii"
+    type: short_answer
+    text: |
+      State two other variables that were kept constant in this investigation.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "2b"
+    type: short_answer
+    text: |
+      The results of this investigation are shown in Table 2.1.
+
+      \textbf{Table 2.1}
+
+      \begin{tabular}{|c|c|}
+      \hline
+      percentage concentration & volume of apple juice \\
+      of the pectinase solution & produced/ $\text{cm}^3$ \\
+      \hline
+      0.1 & 4 \\
+      \hline
+      0.2 & 6 \\
+      \hline
+      0.4 & 12 \\
+      \hline
+      0.8 & 22 \\
+      \hline
+      1.6 & 22 \\
+      \hline
+      \end{tabular}

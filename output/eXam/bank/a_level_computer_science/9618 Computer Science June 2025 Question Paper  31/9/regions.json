@@ -1,0 +1,97 @@
+{
+  "detector_version": 3,
+  "is_mcq": false,
+  "pdf_height_pt": 346.7755126953125,
+  "pdf_width_pt": 595.0,
+  "regions": [
+    {
+      "assignment_confident": true,
+      "field_id": "9a__0",
+      "kind": "short_line",
+      "leaf_number": "9a",
+      "page": 1,
+      "x0": 75.6085205078125,
+      "x1": 559.8276977539062,
+      "y0": 61.248958587646484,
+      "y1": 77.24895858764648
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "9a__1",
+      "kind": "short_line",
+      "leaf_number": "9a",
+      "page": 1,
+      "x0": 65.53096008300781,
+      "x1": 559.8323974609375,
+      "y0": 89.84817123413086,
+      "y1": 105.84817123413086
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "9a__2",
+      "kind": "short_line",
+      "leaf_number": "9a",
+      "page": 1,
+      "x0": 75.6085205078125,
+      "x1": 559.8276977539062,
+      "y0": 118.44734954833984,
+      "y1": 134.44734954833984
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "9a__3",
+      "kind": "short_line",
+      "leaf_number": "9a",
+      "page": 1,
+      "x0": 65.53096008300781,
+      "x1": 559.8323974609375,
+      "y0": 147.04654693603516,
+      "y1": 163.04654693603516
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "9b__0",
+      "kind": "short_line",
+      "leaf_number": "9b",
+      "page": 1,
+      "x0": 75.6085205078125,
+      "x1": 559.8276977539062,
+      "y0": 218.54454803466797,
+      "y1": 234.54454803466797
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "9b__1",
+      "kind": "short_line",
+      "leaf_number": "9b",
+      "page": 1,
+      "x0": 65.53096008300781,
+      "x1": 559.8323974609375,
+      "y0": 247.14373016357422,
+      "y1": 263.1437301635742
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "9b__2",
+      "kind": "short_line",
+      "leaf_number": "9b",
+      "page": 1,
+      "x0": 75.6085205078125,
+      "x1": 559.8276977539062,
+      "y0": 275.74293518066406,
+      "y1": 291.74293518066406
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "9b__3",
+      "kind": "short_line",
+      "leaf_number": "9b",
+      "page": 1,
+      "x0": 65.53096008300781,
+      "x1": 559.8323974609375,
+      "y0": 304.3421173095703,
+      "y1": 320.3421173095703
+    }
+  ],
+  "snippet_sha": "f16824f2331e320a"
+}

@@ -1,0 +1,32 @@
+questions:
+  - number: "3bii"
+    type: short_answer
+    text: |
+      Give \textbf{two} other functions commonly found in an IDE.
+
+      State the role of each function.
+
+      Function 1 \hrulefill
+      Role \hrulefill
+
+      Function 2 \hrulefill
+      Role \hrulefill
+  - number: "3c"
+    type: short_answer
+    text: |
+      The programmer wants to print a list of all her books on paper.
+  - number: "3ci"
+    type: short_answer
+    text: |
+      Identify a suitable type of printer that she could use to print this list.
+  - number: "3cii"
+    type: long_answer
+    text: |
+      The programmer needs to connect the printer to her computer. The printer is on the same desk as her computer.
+
+      Give a suitable method of data transmission that could be used to connect the computer to the printer.
+
+      Explain your choice.
+
+      Data transmission method \hrulefill
+      Explanation \hrulefill

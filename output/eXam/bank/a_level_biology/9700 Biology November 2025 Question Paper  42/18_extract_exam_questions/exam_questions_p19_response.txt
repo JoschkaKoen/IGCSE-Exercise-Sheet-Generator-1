@@ -1,0 +1,13 @@
+questions:
+  - number: "7aiv"
+    type: short_answer
+    text: |
+      When an insect has been trapped, the leaves have to remain closed for a number of days.
+
+      Suggest why this needs to happen.
+  - number: "7b"
+    type: short_answer
+    text: |
+      Action potentials are produced by the Venus fly trap during the closure of a leaf. Each action potential is also associated with a refractory period. This is similar to the action potential and refractory period observed in a mammalian neurone during nerve impulse transmission.
+
+      Explain the role played by the refractory period in the transmission of an impulse in a mammalian neurone.

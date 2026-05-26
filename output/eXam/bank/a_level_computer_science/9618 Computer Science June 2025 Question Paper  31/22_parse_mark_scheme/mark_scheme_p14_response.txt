@@ -1,0 +1,48 @@
+questions:
+- number: 11a
+  type: short_answer
+  marks: 5
+  mark_scheme_answer: |
+    \textbf{One mark per mark point}
+    \begin{itemize}
+    \item MP1 Two correct attributes (\texttt{PatientID : INTEGER} and \texttt{Doctor : STRING})
+    \item MP2 \texttt{SetTreatments(...)} and \texttt{SetMedications(...)} seen
+    \item MP3 ... and appropriate parameters, with string data types
+    \item MP4 \texttt{GetPatientID()} and \texttt{GetDoctor()} seen
+    \item MP5 \texttt{SetDateSeen(...)} and \texttt{GetDateSeen()} fully correct with appropriate parameter and correct data type in setter.
+    \end{itemize}
+    \begin{alltt}
+    Appointment
+    ---------------------------------------------------------
+    DateSeen                      : DATE
+    PatientID                     : INTEGER
+    Doctor                        : STRING
+    Treatments                    : STRING
+    Medications                   : STRING
+    ---------------------------------------------------------
+    SetDateSeen(NewDate : DATE)
+    SetPatientID(PatientNumber : INTEGER)
+    SetDoctor(DoctorID : STRING)
+    SetTreatments(NewTreatments : STRING)
+    SetMedications(NewMedications : STRING)
+    GetDateSeen()
+    GetPatientID()
+    GetDoctor()
+    GetTreatments()
+    GetMedications()
+    \end{alltt}
+- number: 11bi
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    Encapsulation
+- number: 11bii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{One mark for each mark point (Max 2)}
+    \begin{itemize}
+    \item MP1 Inheritance is where a derived class takes properties / behaviours attributes / methods
+    \item MP2 ... of a parent / super class / base class
+    \item MP3 The attributes / methods / properties taken from the parent / super class / base class can also be extended / copied / used / changed / overwritten / overridden in the subclass.
+    \end{itemize}

@@ -1,0 +1,17 @@
+questions:
+- number: 5ci
+  type: short_answer
+  marks: 6
+  mark_scheme_answer: |
+    \textbf{One mark for each correct part of the diagram.}
+    \newline
+    The diagram:
+    \begin{itemize}
+    \item Web browser identified as software used to \textbf{send} URL/requests or \textbf{receives} IP address/web page data
+    \item URL/domain sent to DNS
+    \item DNS \textbf{searches} for \textbf{matching} IP address
+    \item If not found sent to another DNS
+    \item IP address sent from DNS to patient's computer
+    \item Request sent from patient's computer to \textbf{web server} (for web page)
+    \item Web page/HTML data sent from web server to patient's computer
+    \end{itemize}

@@ -1,0 +1,40 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      You are going to investigate the effect of the concentration of salt solutions on osmosis in potato tissue.
+
+      \textbf{Read all the instructions but DO NOT DO THEM until you have drawn a table for your results in the space provided in 1(a)(ii).}
+
+      You should use the safety equipment provided while you are doing the practical work.
+
+      You are going to use three different concentrations of salt solution.
+
+      Step 1 Label three beakers \textbf{S1}, \textbf{S2} and \textbf{S3}.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Step 2 Use the volumes of $1.0 \text{ mol per dm}^3$ salt solution \textbf{S} and distilled water \textbf{W} shown in Table 1.1 to make the salt solutions in beakers \textbf{S1}, \textbf{S2} and \textbf{S3}.
+
+      Step 3 Put the potato cylinders onto a white tile and cut each potato cylinder into $3 \text{ mm}$ discs, as shown in Fig. 1.1.
+
+      You will need 30 discs of potato for this investigation and one extra potato disc for Question \textbf{1(b)}. Leave the extra potato disc on the white tile.
+
+      3 mm
+      Fig. 1.1
+  - number: "1ai"
+    type: short_answer
+    text: |
+      Decide the volumes of salt solution \textbf{S} and distilled water \textbf{W} you need to make $50 \text{ cm}^3$ of a $0.5 \text{ mol per dm}^3$ salt solution.
+
+      Complete Table 1.1 by writing in the volumes of \textbf{S} and \textbf{W} you will use to make the $0.5 \text{ mol per dm}^3$ salt solution.
+
+      \textbf{Table 1.1}
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      beaker & \begin{tabular}[c]{@{}c@{}}volume of\\ $1.0 \text{ mol per dm}^3$\\ salt solution \textbf{S}\\ $/ \text{cm}^3$\end{tabular} & \begin{tabular}[c]{@{}c@{}}volume of\\ distilled water \textbf{W}\\ $/ \text{cm}^3$\end{tabular} & \begin{tabular}[c]{@{}c@{}}final concentration of\\ salt solution\\ $/ \text{mol per dm}^3$\end{tabular} \\ \hline
+      \textbf{S1} & 50 & 0 & 1.0 \\ \hline
+      \textbf{S2} & \underline{\hspace{1.5em}} & \underline{\hspace{1.5em}} & 0.5 \\ \hline
+      \textbf{S3} & 0 & 50 & 0.0 \\ \hline
+      \end{tabular}

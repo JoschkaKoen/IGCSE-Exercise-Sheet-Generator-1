@@ -1,0 +1,22 @@
+questions:
+- number: 1ciii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{one difference from: ;}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    (potato / Fig. 1.3) & & (tomato / Fig. 1.4) \\ \hline
+    more veins & \textbf{OR} & fewer veins \\ \hline
+    veins more branched & \textbf{OR} & veins less branched \\ \hline
+    (outline / side / edge is) smooth / even / not lobed & \textbf{AND} & (outline / side / edge is) uneven / lobed / wavy / jagged / bumpy \\ \hline
+    single / undivided / not lobed , leaf & \textbf{AND} & divided leaf / leaflet / lobed (at bottom) \\ \hline
+    Symmetrical & \textbf{AND} & not symmetrical / irregular shape \\ \hline
+    \end{tabular}
+    \newline
+    \textbf{one similarity from: ;}
+    \begin{itemize}
+    \item (both have) veins / midrib
+    \item (both have) a (leaf) stalk / stem / petiole
+    \item (both have) a pointed tip
+    \end{itemize}

@@ -1,0 +1,26 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "Cambridge International AS & A Level – Mark Scheme PUBLISHED May/June 2025".
+    *   The title is "Generic Marking Principles".
+    *   The text describes general principles for marking (Principle 1, Principle 2, Principle 3, Principle 4).
+    *   It mentions "These general marking principles must be applied by all examiners when marking candidate answers."
+    *   It lists bullet points under each principle explaining how marks should be awarded (e.g., whole marks, positively, consistently).
+    *   There are no specific question numbers like "1", "2a", etc., associated with specific marking instructions or model answers. This is a generic introductory page for the mark scheme document.
+    *   The footer says "Page 2 of 15".
+
+2.  **Evaluate against the rules:**
+    *   "A question is 'visible' only if its marking criteria text (mark allocations, accept-this/reject-this guidance, model answer, etc.) is present on this page."
+    *   This page contains *generic* principles, not specific criteria for any specific question number (like Q1, Q2, etc.).
+    *   Therefore, no specific question numbers from the valid list are present as having their criteria on this page.
+
+3.  **Formulate the output:**
+    *   Since no specific question criteria are visible, the list should be empty.
+    *   Output format: `questions: []`
+
+[/thinking]
+
+```yaml
+questions: []
+```

@@ -1,0 +1,75 @@
+questions:
+  - number: "13"
+    type: multiple_choice
+    text: |
+      Three statements about energy changes in chemical reactions are listed.
+
+      1 In an endothermic reaction, the temperature of the surroundings increases.
+      2 In an exothermic reaction, thermal energy is taken in from the surroundings.
+      3 In the reaction pathway diagram for an exothermic reaction, the energy level of the products is lower than the energy level of the reactants.
+
+      Which statements are correct?
+    options:
+      - letter: A
+        text: |
+          1 and 2
+      - letter: B
+        text: |
+          1 only
+      - letter: C
+        text: |
+          2 and 3
+      - letter: D
+        text: |
+          3 only
+  - number: "14"
+    type: multiple_choice
+    text: |
+      When a small piece of a Group I metal is placed into a large beaker of cold water, a reaction occurs.
+
+      Four statements about this reaction are listed.
+
+      1 The metal melts.
+      2 Hydrogen is produced.
+      3 Steam is produced.
+      4 The pH of the solution increases.
+
+      Which statements about this reaction describe a physical change?
+    options:
+      - letter: A
+        text: |
+          1 and 3
+      - letter: B
+        text: |
+          1 and 4
+      - letter: C
+        text: |
+          2 and 3
+      - letter: D
+        text: |
+          2 and 4
+  - number: "15"
+    type: multiple_choice
+    text: |
+      The equation for the decomposition of hydrogen peroxide is shown.
+
+      $$2\text{H}_2\text{O}_2 \to 2\text{H}_2\text{O} + \text{O}_2$$
+
+      The reaction is exothermic.
+
+      When a small amount of a catalyst is added, the oxygen is produced more quickly.
+
+      Which statement about the catalyst is correct?
+    options:
+      - letter: A
+        text: |
+          The catalyst makes the reaction more exothermic.
+      - letter: B
+        text: |
+          The mass of catalyst is the same before and after the reaction.
+      - letter: C
+        text: |
+          The catalyst increases the final volume of oxygen produced.
+      - letter: D
+        text: |
+          All of the catalyst is used up in the reaction.

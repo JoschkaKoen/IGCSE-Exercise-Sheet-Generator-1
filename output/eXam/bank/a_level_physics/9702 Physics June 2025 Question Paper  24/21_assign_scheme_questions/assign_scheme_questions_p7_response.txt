@@ -1,0 +1,24 @@
+[thinking]
+The user wants me to identify which question numbers have their marking criteria visible on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "9702/24 Cambridge International AS & A Level – Mark Scheme May/June 2025".
+    *   There is a section titled "Abbreviations" with a table explaining symbols like `/`, `()`, and underline.
+    *   There is a section titled "Mark categories" with a table explaining B marks, M marks, C marks, and A marks.
+    *   The footer says "Page 7 of 14".
+
+2.  **Evaluate for question-specific content:**
+    *   I am looking for text that starts with a number like "1", "2a", etc., followed by specific marking instructions (e.g., "A1", "B1", or specific answer text).
+    *   The content on this page is purely introductory/guidance material. It explains *how* to mark (abbreviations and mark categories), not *what* the answers are for specific questions.
+    *   There are no question numbers listed in the main body of the text.
+    *   Therefore, no specific question marking criteria are present on this page.
+
+3.  **Formulate the output:**
+    *   Since no question criteria are visible, the list should be empty.
+    *   Output format: `questions: []`
+
+[/thinking]
+
+```yaml
+questions: []
+```

@@ -1,0 +1,1 @@
+Think about how changing the amount of enzyme might affect the speed of the reaction. What do you expect to happen to the juice volume as you add more pectinase?

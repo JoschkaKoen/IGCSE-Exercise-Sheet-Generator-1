@@ -1,0 +1,23 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      The evolution of antibiotic resistance in bacteria has occurred as a result of natural selection.
+  - number: "4a"
+    type: short_answer
+    text: |
+      Name \textbf{two} ways in which a bacterium can become resistant to an antibiotic.
+  - number: "4b"
+    type: short_answer
+    text: |
+      The World Health Organisation regularly analyses bacterial DNA sequence data.
+
+      Suggest \textbf{one} way in which this contributes to solving the problem of antibiotic resistance in bacteria.
+  - number: "4c"
+    type: short_answer
+    text: |
+      Some infectious bacterial diseases are treated with the antibiotic streptomycin.
+
+      If a person does \textbf{not} finish the prescribed course of streptomycin, bacteria are more likely to become resistant to the antibiotic.
+
+      Explain why a streptomycin-resistant strain of bacteria is more likely to develop as a result of natural selection when a person does \textbf{not} complete the prescribed course of antibiotics.

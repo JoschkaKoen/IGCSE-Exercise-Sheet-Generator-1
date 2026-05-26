@@ -1,0 +1,44 @@
+questions:
+- number: 9a
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{One mark for each mark point (Max 2)}
+    \begin{itemize}
+    \item MP1 Ensure security/privacy when using the internet
+    \item MP2 Data encryption
+    \item MP3 Identification / authentication of client and server
+    \end{itemize}
+- number: 9b
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{One mark for each mark point (Max 2)}
+    \begin{itemize}
+    \item MP1 When transmitting authentication data e.g. passwords, session cookies
+    \item MP2 When transmitting data that must be protected from modification on its way to or from a server e.g. user input, or results from the server
+    \item MP3 When transmitting data classified as non-public.
+    \end{itemize}
+- number: 10a
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{One mark for each mark point (Max 2)}
+    \begin{itemize}
+    \item MP1 A graph is used in AI to record relationships between entities
+    \item MP2 … using vertices / nodes and edges
+    \item MP3 for example, to represent places on a map and the distances between them, in order to find the shortest route.
+    \end{itemize}
+- number: 10b
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{One mark for each mark point (Max 4)}
+    \begin{itemize}
+    \item MP1 Artificial neural networks are designed to work in the same way as the human brain
+    \item MP2 ANNs provide the architecture and algorithms for learning from the data
+    \item MP3 They have a large number of connected processing units / nodes
+    \item MP4 … that are arranged in layers / interconnected and work together to process data
+    \item MP5 Deep learning models learn from data by adjusting the weights/biases of the connections between neurons
+    \item MP6 They use multiple hidden layers to extract complex features and to make predictions
+    \end{itemize}

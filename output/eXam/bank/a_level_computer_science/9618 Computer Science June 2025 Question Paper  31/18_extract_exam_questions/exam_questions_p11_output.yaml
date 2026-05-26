@@ -1,0 +1,13 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "10a"
+    type: short_answer
+    text: |
+      Describe the purpose of a graph when used in an Artificial Intelligence (AI) system.
+  - number: "10b"
+    type: long_answer
+    text: |
+      Explain the use of artificial neural networks in Deep Learning.

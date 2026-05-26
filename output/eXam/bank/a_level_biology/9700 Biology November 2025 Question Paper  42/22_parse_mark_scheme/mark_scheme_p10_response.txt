@@ -1,0 +1,24 @@
+questions:
+- number: 2b
+  type: long_answer
+  marks: 5
+  mark_scheme_answer: |
+    \textbf{any four from:}
+    \begin{enumerate}
+    \item mate / breed / cross, homozygous (parents) ;
+    \item dominant (parent) with recessive (parent) ;
+    \item to produce the F1, offspring / generation ;
+    \item (F1) offspring are heterozygotes ;
+    \item mate / breed / cross, F1 offspring / F1 generation / heterozygotes
+    \textbf{or}
+    self an F1 offspring (plant) ;
+    \item to produce the F2, offspring / generation ;
+    \end{enumerate}
+    \textbf{plus}
+    \begin{enumerate}
+    \setcounter{enumi}{6}
+    \item 25\% (F2) offspring are, homozygous dominant, / AA
+    \textbf{and} 50\% are, heterozygotes / Aa
+    \textbf{and} 25\% are, homozygous recessive / aa ;
+    \textbf{A} a ratio e.g. \begin{tabular}{cccc} AA & Aa & Aa & aa \\ 1 & : 2 & : & 1 \end{tabular}
+    \end{enumerate}

@@ -1,0 +1,88 @@
+questions:
+  - number: "13"
+    type: multiple_choice
+    text: |
+      A gas is stored in a container of constant volume.
+
+      The temperature of the gas is increased.
+
+      What happens to the particles of the gas?
+    options:
+      - letter: A
+        text: |
+          The distance between the particles increases.
+      - letter: B
+        text: |
+          The mass of the particles increases.
+      - letter: C
+        text: |
+          The number of particles increases.
+      - letter: D
+        text: |
+          The speed of the particles increases.
+  - number: "14"
+    type: multiple_choice
+    text: |
+      One end of a shiny metal rod is heated, and the other end quickly gets hot.
+
+      Which statement describes why the other end quickly gets hot?
+    options:
+      - letter: A
+        text: |
+          Metals are good thermal conductors.
+      - letter: B
+        text: |
+          Metals are poor thermal conductors.
+      - letter: C
+        text: |
+          Shiny surfaces are good emitters of infrared radiation.
+      - letter: D
+        text: |
+          Shiny surfaces are poor emitters of infrared radiation.
+  - number: "15"
+    type: multiple_choice
+    text: |
+      Vacuum flasks usually have silvered walls that help to keep the contents of the flask hot.
+
+      Why are the walls silvered?
+    options:
+      - letter: A
+        text: |
+          to absorb thermal energy from the air around the flask
+      - letter: B
+        text: |
+          to increase the rate of convection inside the flask
+      - letter: C
+        text: |
+          to reduce energy loss to the surroundings by conduction
+      - letter: D
+        text: |
+          to reflect thermal radiation back into the flask
+  - number: "16"
+    type: multiple_choice
+    text: |
+      The temperature of the air in the atmosphere around us increases.
+
+      Which row describes the change in the density of the air and which form of thermal energy transfer occurs as a result of this change?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & \begin{tabular}[c]{@{}c@{}}what happens to\\ the density of the air\end{tabular} & \begin{tabular}[c]{@{}c@{}}thermal energy\\ transfer that\\ occurs as a result\end{tabular} \\ \hline
+      \textbf{A} & decreases & conduction \\ \hline
+      \textbf{B} & decreases & convection \\ \hline
+      \textbf{C} & increases & conduction \\ \hline
+      \textbf{D} & increases & convection \\ \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          decreases, conduction
+      - letter: B
+        text: |
+          decreases, convection
+      - letter: C
+        text: |
+          increases, conduction
+      - letter: D
+        text: |
+          increases, convection

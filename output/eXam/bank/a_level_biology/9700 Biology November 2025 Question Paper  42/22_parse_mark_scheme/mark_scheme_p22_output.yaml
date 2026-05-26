@@ -1,0 +1,34 @@
+questions:
+- number: 9bii
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    3.525 to 3.675 ;
+    mg g$^{-1}$ h$^{-1}$ ;
+- number: 10a
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{any three from :}
+    \begin{enumerate}
+    \item myelin sheath / Schwann cells, acts as an insulator / prevents movement of ions ;
+    \item depolarisation / action potential, \textbf{only} occurs at the nodes ; I impulses
+    \item action potentials jump from node to node / saltatory conduction ; I impulses
+    \item long(er) local circuits ;
+    \item AVP ; e.g. wide axon diameter
+    \end{enumerate}
+- number: 10b
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{any four from :}
+    \begin{enumerate}
+    \item ACh binds to receptors on \underline{sarcolemma} ;
+    \item (ligand-gated) Na$^{+}$ channels open
+    \textbf{or}
+    Na$^{+}$ enters, muscle cell / sarcoplasm ;
+    \item \underline{sarcolemma} depolarised ;
+    \item depolarisation / action potential, spreads, to / down, T-tubules ;
+    \item \textbf{voltage-gated} Ca$^{2+}$ channels open ;
+    \item Ca$^{2+}$, diffuse / move, out of sarcoplasmic reticulum (and bind to troponin) ;
+    \end{enumerate}

@@ -1,0 +1,15 @@
+questions:
+  - number: "6"
+    type: short_answer
+    text: |
+      Phosphoinositide 3-kinase (PI3K) and protein kinase B (PKB) are enzymes involved in the regulation of blood glucose concentration.
+  - number: "6a"
+    type: long_answer
+    text: |
+      Fig. 6.1 shows a cell-signalling pathway involving insulin, PI3K and PKB in a muscle cell.
+
+      Fig. 6.1
+
+      Type 2 diabetes mellitus is a common disease. Some people with type 2 diabetes have a low concentration of PI3K in their muscle cells and cannot maintain their blood glucose concentration within normal limits.
+
+      With reference to Fig. 6.1, suggest why a low concentration of PI3K can lead to type 2 diabetes. [4]

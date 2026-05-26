@@ -1,0 +1,52 @@
+questions:
+- number: 2ai
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    thermostatic(ally controlled) water-bath / AVP ;
+- number: 2aii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{any two from:}
+    \begin{itemize}
+    \item mass of apple ;
+    \item volume of, pectinase / enzyme (solution) ;
+    \item time / left for 30 minutes ;
+    \end{itemize}
+- number: 2bi
+  type: short_answer
+  marks: 4
+  mark_scheme_answer: |
+    axes labelled with units ;
+    suitable linear scale and data occupies at least half the grid in both directions ;
+    all points plotted accurately $\pm$ half a small square ;
+    suitable line drawn ;
+- number: 2bii
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    any indication on graph at 0.5\% pectinase concentration / indication of correct value on the volume axis ;
+    correct value recorded from candidates graph ;
+- number: 2biii
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    increasing, concentration / pectinase , increases juice production and then stops increasing / AW ;
+- number: 2biv
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    more concentrations measured between 0.4\% and 1.6\% ;
+    \textbf{A} smaller intervals above \textbf{and} below, 0.8\% e.g. 0.7\% and 0.9\%
+    \textbf{A} smaller intervals around 0.8\%
+- number: 2bv
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textit{drawings of:}
+    funnel with filter paper ;
+    measuring cylinder ;
+
+    \textit{labelling:}
+    at least one item correctly labelled ;

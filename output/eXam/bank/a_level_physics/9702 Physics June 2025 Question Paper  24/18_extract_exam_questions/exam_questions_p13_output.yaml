@@ -1,0 +1,21 @@
+questions:
+  - number: "6c"
+    type: short_answer
+    text: |
+      A cell of e.m.f. $E$ and internal resistance $r$ is connected to the circuit, as shown in Fig. 6.2.
+
+      Resistance $R$ is unchanged.
+      The movable connection P is positioned on wire XY so that the galvanometer reading is zero.
+      Distance XP is $1.24 \text{ m}$.
+  - number: "6ci"
+    type: calculation
+    text: |
+      Calculate $E$.
+
+      $E = \hrulefill \text{ V}$
+  - number: "6cii"
+    type: short_answer
+    text: |
+      The value of $R$ is now decreased.
+
+      State and explain the change that must be made to the position of P on wire XY so that the galvanometer reads zero again.

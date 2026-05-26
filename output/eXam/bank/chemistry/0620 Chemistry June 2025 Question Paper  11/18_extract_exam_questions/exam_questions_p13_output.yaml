@@ -1,0 +1,69 @@
+questions:
+  - number: "38"
+    type: multiple_choice
+    text: |
+      A student measures $25.00 \text{ cm}^3$ of dilute hydrochloric acid accurately.
+
+      Which piece of apparatus is most suitable?
+    options:
+      - letter: A
+        text: |
+          beaker
+      - letter: B
+        text: |
+          measuring cylinder
+      - letter: C
+        text: |
+          burette
+      - letter: D
+        text: |
+          dropping pipette
+  - number: "39"
+    type: multiple_choice
+    text: |
+      Excess solid magnesium oxide is added to dilute nitric acid.
+
+      Which separation technique is used to remove the excess solid magnesium oxide after the reaction finishes?
+    options:
+      - letter: A
+        text: |
+          chromatography
+      - letter: B
+        text: |
+          crystallisation
+      - letter: C
+        text: |
+          distillation
+      - letter: D
+        text: |
+          filtration
+  - number: "40"
+    type: multiple_choice
+    text: |
+      Four different aqueous metal nitrates are tested separately with aqueous sodium hydroxide, with dilute sulfuric acid and with a flame test.
+
+      Which row shows the correct set of results for the named aqueous metal nitrate?
+
+      \begin{tabular}{|c|c|c|c|c|}
+      \hline
+       & aqueous metal nitrate & with aqueous sodium hydroxide & with dilute sulfuric acid & flame test \\
+      \hline
+      \textbf{A} & sodium nitrate & no visible change & white precipitate & yellow flame \\
+      \textbf{B} & copper(II) nitrate & blue precipitate & no visible change & blue-green flame \\
+      \textbf{C} & barium nitrate & white precipitate & no visible change & blue-green flame \\
+      \textbf{D} & calcium nitrate & no visible change & white precipitate & yellow flame \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D

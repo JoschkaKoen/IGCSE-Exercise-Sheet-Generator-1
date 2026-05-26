@@ -1,0 +1,12 @@
+  - number: "19"
+    type: short_answer
+    text: ""
+  - number: "19a"
+    type: short_answer
+    text: ""
+  - number: "19b"
+    type: short_answer
+    text: ""
+  - number: "20"
+    type: calculation
+    text: ""

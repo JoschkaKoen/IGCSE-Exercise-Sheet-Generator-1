@@ -1,0 +1,24 @@
+  - number: "1b"
+    type: calculation
+    text: ""
+  - number: "1c"
+    type: short_answer
+    text: ""
+  - number: "1ci"
+    type: short_answer
+    text: ""
+  - number: "1cii"
+    type: calculation
+    text: ""
+  - number: "1ciii"
+    type: calculation
+    text: ""
+  - number: "1civ"
+    type: calculation
+    text: ""
+  - number: "1cv"
+    type: calculation
+    text: ""
+  - number: "1d"
+    type: short_answer
+    text: ""

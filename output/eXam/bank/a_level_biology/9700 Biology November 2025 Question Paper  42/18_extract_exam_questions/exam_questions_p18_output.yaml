@@ -1,0 +1,29 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      The Venus fly trap, \textit{Dionaea muscipula}, is a plant that can capture insects. Each leaf of a Venus fly trap is modified to form 2 lobes.
+
+      Fig. 7.1 shows how the leaf of a Venus fly trap appears folded (closed) when an insect has been captured.
+
+      Fig. 7.1
+  - number: "7ai"
+    type: short_answer
+    text: |
+      Suggest a reason why the Venus fly trap needs to capture insects, even though it carries out photosynthesis.
+  - number: "7aii"
+    type: short_answer
+    text: |
+      The leaves are specialised to form 2 lobes. The lobes are red on the upper surface.
+
+      Suggest why the lobes are red.
+  - number: "7aiii"
+    type: short_answer
+    text: |
+      The lobes have sensory hairs. Touching 1 sensory hair will \textbf{not} cause a response by the leaf. At least 2 sensory hairs need to be touched within 20 seconds to cause a response in the leaves.
+
+      State the advantage to the plant of producing a response only when 2 sensory hairs are touched within 20 seconds.

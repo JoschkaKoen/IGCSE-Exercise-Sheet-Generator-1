@@ -1,0 +1,27 @@
+questions:
+  - number: "3aii"
+    type: short_answer
+    text: |
+      Use your observations in Table 3.1 to suggest a possible formula for each of FB 6, FB 7
+      and FB 8.
+
+      FB 6 \hrulefill
+      FB 7 \hrulefill
+      FB 8 \hrulefill
+  - number: "3b"
+    type: short_answer
+    text: |
+      FB 9 contains two anions and two cations, three of which are listed in the Qualitative analysis
+      notes.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      To a small spatula measure of FB 9 in a test-tube, add a 2cm depth of dilute nitric acid.
+      Record your observations.
+
+      Keep the resulting solution for the test in (b)(ii).
+  - number: "3bii"
+    type: short_answer
+    text: |
+      To the solution from (b)(i), add a few drops of aqueous silver nitrate. Then add excess
+      aqueous ammonia. Record your observations.

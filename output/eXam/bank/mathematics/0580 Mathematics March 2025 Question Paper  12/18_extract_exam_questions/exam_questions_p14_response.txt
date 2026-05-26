@@ -1,0 +1,25 @@
+questions:
+  - number: "19"
+    type: short_answer
+    text: |
+      $n$ is an odd number.
+  - number: "19a"
+    type: short_answer
+    text: |
+      Write down the values of $n$ that satisfy $7 < n \leq 15$.
+  - number: "19b"
+    type: short_answer
+    text: |
+      Pip thinks $-1 < x < 8$ is the inequality represented on the number line.
+
+      Complete the statement.
+
+      Pip’s inequality is not correct because \hrulefill
+  - number: "20"
+    type: calculation
+    text: |
+      The height, $h$ metres, of a building is $635\text{ m}$, correct to the nearest metre.
+
+      Complete this statement about the value of $h$.
+
+      \underline{\hspace{1.5em}} $\leq h <$ \underline{\hspace{1.5em}}

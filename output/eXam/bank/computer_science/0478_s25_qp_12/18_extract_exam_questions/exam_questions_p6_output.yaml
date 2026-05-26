@@ -1,0 +1,50 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      A programmer writes a program to store and sort all the data for the books in her home library.
+  - number: "3a"
+    type: short_answer
+    text: |
+      The programmer uses a high-level language to write the program.
+
+      One reason for writing the program using a high-level language is that it is easier to read and write.
+
+      Give \textbf{two} other reasons why the programmer chose to use a high-level language.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "3b"
+    type: short_answer
+    text: |
+      The programmer uses an integrated development environment (IDE) to write the program.
+
+      One function of the IDE is to provide a translator.
+  - number: "3bi"
+    type: short_answer
+    text: |
+      Complete the statements about translators.
+
+      Use the terms from the list. Some of the terms will \textbf{not} be used. You should only use a term once.
+
+      \begin{itemize}
+      \item all together
+      \item all
+      \item assembler
+      \item binary
+      \item error
+      \item executable file
+      \item executing
+      \item interrupt
+      \item line by line
+      \item partial code
+      \item some
+      \item translating
+      \item whole code
+      \end{itemize}
+
+      A compiler translates the \underline{\hspace{1.5em}} at once before \underline{\hspace{1.5em}} it. A compiler produces an error report that displays \underline{\hspace{1.5em}} errors.
+
+      An interpreter translates and executes the code \underline{\hspace{1.5em}}.
+
+      An interpreter stops execution when an \underline{\hspace{1.5em}} is found and continues once it is corrected.

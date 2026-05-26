@@ -1,0 +1,48 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a table with columns: "Question", "Answer", "Marks", "Partial Marks".
+    *   I need to scan the "Question" column and extract the numbers.
+    *   The valid list of question numbers is provided in the prompt. I must match what I see against this list.
+
+2.  **Scan the "Question" column:**
+    *   Row 1: `12(a)` -> Matches `12a` in the valid list.
+    *   Row 2: (part of 12(a) answer block, but let's look at the next distinct question number). Wait, looking closely at the first block.
+        *   `12(a)` has two rows of answers/marks. This is still question 12a.
+    *   Row 3: `12(b)` -> Matches `12b`.
+    *   Row 4: `13` -> Matches `13`.
+    *   Row 5: `14(a)` -> Matches `14a`.
+    *   Row 6: `14(b)` -> Matches `14b`.
+    *   Row 7: `14(c)` -> Matches `14c`.
+    *   Row 8: `15(a)` -> Matches `15a`.
+    *   Row 9: `15(b)` -> Matches `15b`. Note: There are sub-rows for marks under 15(b), but the question number is just 15(b).
+    *   Row 10: `16(a)` -> Matches `16a`.
+    *   Row 11: `16(b)` -> Matches `16b`.
+    *   Row 12: `17(a)` -> Matches `17a`.
+    *   Row 13: `17(b)` -> Matches `17b`.
+    *   Row 14: `18(a)` -> Matches `18a`.
+    *   Row 15: `18(b)` -> Matches `18b`.
+    *   Row 16: `18(c)` -> Matches `18c`.
+    *
+[/thinking]
+
+```yaml
+questions:
+  - "12a"
+  - "12b"
+  - "13"
+  - "14a"
+  - "14b"
+  - "14c"
+  - "15a"
+  - "15b"
+  - "16a"
+  - "16b"
+  - "17a"
+  - "17b"
+  - "18a"
+  - "18b"
+  - "18c"
+  - "18d"
+```

@@ -1,0 +1,26 @@
+questions:
+  - number: "5b"
+    type: short_answer
+    text: |
+      Gel electrophoresis is carried out on the 5 different DNA fragments produced as a result of PCR. Each DNA fragment is put into a loading well on the gel.
+
+      The final lane on the electrophoresis gel contains a DNA ladder of known lengths of DNA.
+
+      Fig. 5.2 shows the results of the gel electrophoresis.
+
+      \begin{tabular}{cccccc}
+      fragment & fragment & fragment & fragment & fragment & DNA \\
+      1 & 2 & 3 & 4 & 5 & ladder \\
+      \end{tabular}
+
+      Fig. 5.2
+  - number: "5bi"
+    type: short_answer
+    text: |
+      Suggest the role of the DNA ladder.
+  - number: "5bii"
+    type: short_answer
+    text: |
+      In the genetic test for MLD, PCR and gel electrophoresis are carried out before DNA sequencing.
+
+      Suggest \textbf{and} explain reasons why PCR and gel electrophoresis are carried out before DNA sequencing.

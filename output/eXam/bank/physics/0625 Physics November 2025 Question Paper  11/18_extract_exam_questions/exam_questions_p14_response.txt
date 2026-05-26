@@ -1,0 +1,35 @@
+questions:
+  - number: "39"
+    type: multiple_choice
+    text: |
+      Which statement about the Sun is correct?
+    options:
+      - letter: A
+        text: |
+          The Sun consists of mainly carbon and nitrogen.
+      - letter: B
+        text: |
+          The Sun is the largest planet in the Solar System.
+      - letter: C
+        text: |
+          The Sun is a medium-sized star.
+      - letter: D
+        text: |
+          The Sun radiates most of its energy in the gamma-ray region of the electromagnetic spectrum.
+  - number: "40"
+    type: multiple_choice
+    text: |
+      What is the name of the galaxy that contains the Sun?
+    options:
+      - letter: A
+        text: |
+          Andromeda
+      - letter: B
+        text: |
+          Milky Way
+      - letter: C
+        text: |
+          Red Shift
+      - letter: D
+        text: |
+          Universe

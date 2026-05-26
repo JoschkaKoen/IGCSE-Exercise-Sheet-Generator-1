@@ -1,0 +1,18 @@
+questions:
+- number: '26'
+  type: calculation
+  marks: 4
+  mark_scheme_answer: |
+    $[t =] 0.5$
+    $[w = -] 3$
+
+    M1 for correctly equating one set of coefficients
+    M1 for correct method to eliminate one variable
+    OR
+    M1 for making $t$ or $w$ the subject of one equation
+    M1 for substitution of $t$ or $w$ from their rearranged equation
+
+    A1 for $t = 0.5$
+    A1 for $w = -3$
+
+    If A0 scored SC1 for 2 values satisfying one of the original equations

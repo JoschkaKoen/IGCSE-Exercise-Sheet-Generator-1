@@ -1,0 +1,25 @@
+[thinking]
+The user wants me to identify which question numbers have their marking criteria visible on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "Cambridge International AS & A Level – Mark Scheme PUBLISHED May/June 2025".
+    *   The title is "Generic Marking Principles".
+    *   The text describes general principles for marking (Principle 1, Principle 2, Principle 3, Principle 4).
+    *   It mentions "These general marking principles must be applied by all examiners when marking candidate answers."
+    *   It lists specific rules like "Marks must be awarded in line with...", "Marks awarded are always whole marks", "Marks must be awarded positively", "Rules must be applied consistently".
+    *   There are no specific question numbers (like 1a, 2b, etc.) listed with specific marking instructions or model answers. This is a generic introductory page for the mark scheme document.
+
+2.  **Compare with the valid question numbers list:**
+    *   The list includes: "1", "1a", "1b", ..., "3bv".
+    *   None of these specific questions appear on this page. The page contains only generic instructions.
+
+3.  **Determine the output:**
+    *   Since no specific question criteria are visible, the list should be empty.
+
+4.  **Format the output:**
+    *   YAML format: `questions: []`
+[/thinking]
+
+```yaml
+questions: []
+```

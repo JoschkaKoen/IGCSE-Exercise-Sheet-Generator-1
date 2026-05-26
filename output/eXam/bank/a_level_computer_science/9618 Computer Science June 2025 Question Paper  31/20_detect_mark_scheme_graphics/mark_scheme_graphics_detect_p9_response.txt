@@ -1,0 +1,6 @@
+```yaml
+graphics:
+  - question_number: "4a"
+    bbox: [150, 300, 620, 810]
+    description: "binary tree structure"
+```

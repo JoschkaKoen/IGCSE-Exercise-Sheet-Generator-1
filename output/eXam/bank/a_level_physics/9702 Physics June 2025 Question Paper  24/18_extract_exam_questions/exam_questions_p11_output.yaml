@@ -1,0 +1,15 @@
+questions:
+  - number: "5bi"
+    type: calculation
+    text: |
+      Calculate the e.m.f. $E$ of the battery.
+
+      $E = \hrulefill \text{ V}$
+  - number: "5bii"
+    type: calculation
+    text: |
+      The filament wire of lamp B has a cross-sectional area of $1.4 \times 10^{-9} \text{ m}^2$. The number of free (conduction) electrons per unit volume in the metal of the filament wire is $3.4 \times 10^{28} \text{ m}^{-3}$.
+
+      Calculate the average drift speed of the free electrons in the filament wire of lamp B.
+
+      average drift speed = \hrulefill $\text{ ms}^{-1}$

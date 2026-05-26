@@ -1,0 +1,39 @@
+questions:
+  - number: "2bii"
+    type: calculation
+    text: |
+      Use the intersection on your graph in (b)(i) to determine the volume of FB 5 required to neutralise $10.0\text{ cm}^3$ of FB 4.
+
+      volume of FB 5 = \hrulefill $\text{cm}^3$ [1]
+  - number: "2c"
+    type: short_answer
+    text: |
+      Calculations
+  - number: "2ci"
+    type: calculation
+    text: |
+      Calculate the amount, in mol, of hydrochloric acid in the volume of FB 5 in (b)(ii).
+
+      (If you were unable to determine an answer to (b)(ii), use $5.10\text{ cm}^3$ as the volume of FB 5. This may \textbf{not} be the correct answer.)
+
+      amount of $\text{HCl}$ = \hrulefill mol
+
+      Deduce the amount, in mol, of sodium hydroxide in $10.0\text{ cm}^3$ of FB 4.
+
+      amount of $\text{NaOH}$ = \hrulefill mol
+      [1]
+  - number: "2cii"
+    type: calculation
+    text: |
+      Calculate the energy change, in J, when the amounts of reagents in (c)(i) neutralise each other. Show your working.
+
+      energy change = \hrulefill J [1]
+  - number: "2ciii"
+    type: calculation
+    text: |
+      Use your answer to (c)(ii) to calculate the enthalpy change, in $\text{kJ}\,\text{mol}^{-1}$, when one mole of FB 4 is neutralised by one mole of FB 5.
+
+      enthalpy change = \hrulefill \hrulefill $\text{kJ}\,\text{mol}^{-1}$ [1]
+      \hspace*{8.5em} sign \hspace*{3em} value
+
+      [Total: 12]

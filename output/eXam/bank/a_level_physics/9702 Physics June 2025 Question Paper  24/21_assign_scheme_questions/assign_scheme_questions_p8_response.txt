@@ -1,0 +1,40 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a mark scheme page for "Cambridge International AS & A Level – Mark Scheme".
+    *   It contains two main tables.
+    *   The first table has rows starting with "1(a)", "1(b)(i)", "1(b)(ii)", "1(b)(iii)".
+    *   The second table has rows starting with "2(a)", "2(b)", "2(c)", "2(d)".
+
+2.  **Map to valid question numbers:**
+    *   "1(a)" corresponds to "1a".
+    *   "1(b)(i)" corresponds to "1bi".
+    *   "1(b)(ii)" corresponds to "1bii".
+    *   "1(b)(iii)" corresponds to "1biii".
+    *   Wait, looking closely at the first column:
+        *   Row 1: "1(a)" -> This is part of Question 1. The prompt asks for specific formats like "1", "1a", etc. Let's look at the list of valid numbers provided: "1", "1a", "1b", "1bi", "1bii", "1biii".
+        *   The row label is "1(a)". This maps to "1a".
+        *   The row label is "1(b)(i)". This maps to "1bi".
+        *   The row label is "1(b)(ii)". This maps to "1bii".
+        *   The row label is "1(b)(iii)". This maps to "1biii".
+    *   Wait, let's re-examine the first column carefully.
+        *   First row: "1(a)". This is clearly sub-question 'a' of question 1. So "1a".
+        *   Second row block: "1(b)(i)". This is sub-sub-question 'i' of 'b' of question 1. So "1bi".
+        *   Third row block: "1(b)(ii)". This is "1bii".
+        *   Fourth row block: "1(b)(iii)". This is "1biii".
+    *   Wait, looking at the very first cell in the first table: "1(a)".
+    *
+[/thinking]
+
+```yaml
+questions:
+  - "1a"
+  - "1bi"
+  - "1bii"
+  - "1biii"
+  - "2a"
+  - "2b"
+  - "2c"
+  - "2d"
+```

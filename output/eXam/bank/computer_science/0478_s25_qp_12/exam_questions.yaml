@@ -1,0 +1,578 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A computer stores data temporarily in random access memory (RAM).
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'RAM is one example of primary storage.
+
+
+      Give \textbf{one} other example of primary storage.'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Give \textbf{one} reason why data is only stored temporarily in the RAM.
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The denary numbers 19 and 230 are converted to binary numbers to be stored
+      in the RAM.
+
+
+      Convert the \textbf{two} denary numbers to binary numbers.
+
+
+      19 \hrulefill
+
+      230 \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1d
+    question_type: calculation
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The hexadecimal numbers 35 and 8AD are converted to binary numbers to be
+      stored in the RAM.
+
+
+      Convert the \textbf{two} hexadecimal numbers to binary numbers.
+
+
+      35 \hrulefill
+
+      8AD \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1e
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: "The 8-bit binary numbers 01100101 and 01110000 are stored in RAM.\n\nThe\
+      \ binary numbers are added together.\n\nAdd the \\textbf{two} binary numbers\
+      \ using binary addition.\n\nGive your answer in binary. You must show all your\
+      \ working.\n\n\\begin{tabular}{ccccccccc}\n  & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 1\
+      \ \\\\\n+ & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 \\\\\n\\hline\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 1f
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'An overflow occurs when two other 8-bit binary numbers are added together.
+
+
+      Explain why the overflow error occurs.'
+    answer_options: []
+    subquestions: []
+  - number: 1g
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The negative denary number –22 is stored in RAM.
+
+
+      Negative denary numbers can be represented as binary using two’s complement.
+
+
+      Give the two’s complement 8-bit binary integer that would be stored for the
+      denary number –22.
+
+
+      You must show all your working.
+
+
+      Two’s complement 8-bit binary integer \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A student has an image file stored on their computer.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: multiple_choice
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The image file was taken by a digital camera.
+
+
+      Tick ($\checkmark$) \textbf{one} box to show whether a digital camera is an
+      example of an input, output, process or storage device.'
+    answer_options:
+    - letter: A
+      text: input
+    - letter: B
+      text: output
+    - letter: C
+      text: process
+    - letter: D
+      text: storage
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The size of the image file is 3072 bytes.
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: calculation
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give the size of the image file in kibibytes (KiB).
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State the number of nibbles in 1 byte.
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The image file has a colour depth of 32 bits.
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by a colour depth of 32 bits.
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: short_answer
+      page: 4
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The colour depth of the image file is changed to 64 bits.
+
+
+        Explain what effect this change has on the image file.'
+      answer_options: []
+      subquestions: []
+  - number: 2d
+    question_type: long_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'The student uses lossless compression to compress the image file.
+
+
+      Explain how the image file is compressed using lossless compression.'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A programmer writes a program to store and sort all the data for the books
+    in her home library.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The programmer uses a high-level language to write the program.
+
+
+      One reason for writing the program using a high-level language is that it is
+      easier to read and write.
+
+
+      Give \textbf{two} other reasons why the programmer chose to use a high-level
+      language.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The programmer uses an integrated development environment (IDE) to write
+      the program.
+
+
+      One function of the IDE is to provide a translator.'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 5
+      text: 'Complete the statements about translators.
+
+
+        Use the terms from the list. Some of the terms will \textbf{not} be used.
+        You should only use a term once.
+
+
+        \begin{itemize}
+
+        \item all together
+
+        \item all
+
+        \item assembler
+
+        \item binary
+
+        \item error
+
+        \item executable file
+
+        \item executing
+
+        \item interrupt
+
+        \item line by line
+
+        \item partial code
+
+        \item some
+
+        \item translating
+
+        \item whole code
+
+        \end{itemize}
+
+
+        A compiler translates the \underline{\hspace{1.5em}} at once before \underline{\hspace{1.5em}}
+        it. A compiler produces an error report that displays \underline{\hspace{1.5em}}
+        errors.
+
+
+        An interpreter translates and executes the code \underline{\hspace{1.5em}}.
+
+
+        An interpreter stops execution when an \underline{\hspace{1.5em}} is found
+        and continues once it is corrected.'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Give \textbf{two} other functions commonly found in an IDE.
+
+
+        State the role of each function.
+
+
+        Function 1 \hrulefill
+
+        Role \hrulefill
+
+
+        Function 2 \hrulefill
+
+        Role \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 3c
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The programmer wants to print a list of all her books on paper.
+    answer_options: []
+    subquestions:
+    - number: 3ci
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify a suitable type of printer that she could use to print this list.
+      answer_options: []
+      subquestions: []
+    - number: 3cii
+      question_type: long_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 6
+      text: 'The programmer needs to connect the printer to her computer. The printer
+        is on the same desk as her computer.
+
+
+        Give a suitable method of data transmission that could be used to connect
+        the computer to the printer.
+
+
+        Explain your choice.
+
+
+        Data transmission method \hrulefill
+
+        Explanation \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 3ciii
+      question_type: long_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'An even parity check is used to detect errors in the data after it has
+        been transmitted to the printer.
+
+
+        Describe how an even parity check detects an error.'
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An employee uses a computer that has a Von Neumann architecture to complete
+    many different tasks in their working day.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 6
+    text: 'The computer has a central processing unit (CPU).
+
+
+      Complete the table of components in the CPU and their descriptions.
+
+
+      \begin{tabular}{|p{5cm}|p{8cm}|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Component}} & \multicolumn{1}{c|}{\textbf{Description}}
+      \\ \hline
+
+      \hrulefill & It sends signals to all the components in the CPU to manage the
+      flow of data through the CPU. \\ \hline
+
+      \hrulefill & It carries out all the arithmetic and logic operations in the CPU.
+      \\ \hline
+
+      cache & \\ \hline
+
+      program counter (PC) & \\ \hline
+
+      \hrulefill & It controls the number of fetch–decode–execute (FDE) cycles that
+      are performed per second. \\ \hline
+
+      \hrulefill & It stores data immediately before it is transmitted to RAM and
+      immediately after it is received from RAM. \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The computer is an example of a general purpose computer and \textbf{not}
+      an embedded system.
+
+
+      Explain why the computer is \textbf{not} an embedded system.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A hospital has computers and technology that it uses when caring for its patients.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'One computer is an expert system that is used to help diagnose a patient''s
+      illness.
+
+
+      The doctor inputs the patient''s symptoms into an interface and a diagnosis
+      is output.
+
+
+      Describe how the expert system decides the diagnosis.'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: The hospital has a robot that is used to perform surgery. A doctor controls
+      the robot from a different location to perform surgery on a patient.
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'One feature of the robot is that it has electrical components.
+
+
+        Give \textbf{two} examples of the electrical components of a robot.
+
+
+        1. \hrulefill
+
+        2. \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: long_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: Explain the advantages of using the robot to perform surgery.
+      answer_options: []
+      subquestions: []
+    - number: 5biii
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain \textbf{one} disadvantage of using the robot to perform surgery.
+      answer_options: []
+      subquestions: []
+  - number: 5c
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Patients use a web page to log into their account to pay for the treatment
+      they have received in the hospital.
+    answer_options: []
+    subquestions:
+    - number: 5ci
+      question_type: short_answer
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 6
+      text: 'The patient enters the uniform resource locator (URL) for the web page
+        into their browser and the web page is requested and displayed.
+
+
+        Complete and annotate the diagram to show how the web page is requested for
+        the patient.
+
+
+        \begin{tabular}{|c|}
+
+        \hline
+
+        Patient''s \\
+
+        computer \\
+
+        www.cihospital.com \\
+
+        \hline
+
+        \end{tabular}
+
+
+        URL input into patient''s computer'
+      answer_options: []
+      subquestions: []
+    - number: 5cii
+      question_type: long_answer
+      page: 12
+      subpage_row: 1
+      subpage_col: 1
+      marks: 6
+      text: 'A patient is making a payment through a secure connection.
+
+
+        The secure connection is created using the secure socket layer (SSL) protocol.
+
+
+        Explain how a secure connection is created using the SSL protocol.'
+      answer_options: []
+      subquestions: []

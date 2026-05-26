@@ -1,0 +1,46 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      \textbf{Qualitative analysis}
+
+      For each test you should record all your observations in the spaces provided.
+
+      Examples of observations include:
+      \begin{itemize}
+      \item colour changes seen
+      \item the formation of any precipitate and its solubility (where appropriate) in an excess of the reagent added
+      \item the formation of any gas and its identification (where appropriate) by a suitable test.
+      \end{itemize}
+
+      You should record clearly at what stage in a test an observation is made.
+
+      Where no change is observed, you should write ‘no change’.
+
+      Where reagents are selected for use in a test, the name or correct formula of the element or compound must be given.
+
+      If any solution is warmed, a boiling tube must be used. If a solid is heated, a hard-glass test-tube must be used.
+
+      Rinse and reuse test-tubes and boiling tubes where possible.
+
+      No additional tests should be attempted.
+  - number: "3a"
+    type: short_answer
+    text: |
+      FB 6, FB 7 and FB 8 are aqueous solutions of different compounds that each contain at least one oxygen atom.
+  - number: "3ai"
+    type: short_answer
+    text: |
+      Carry out the following tests and record your observations in Table 3.1. Three of the tests have been done for you. Use a 1 cm depth of solution in a test-tube for each test.
+
+      \textbf{Table 3.1}
+
+      \begin{tabular}{|p{3cm}|c|c|c|} \hline
+      \multicolumn{1}{|c|}{\textit{test}} & \multicolumn{3}{c|}{\textit{observations}} \\ \cline{2-4}
+      & \textbf{FB 6} & \textbf{FB 7} & \textbf{FB 8} \\ \hline
+      \textbf{Test 1} \newline Add a small spatula measure of manganese(IV) oxide. & No change. & No change. & \\ \hline
+      \textbf{Test 2} \newline Add a 1 cm length of magnesium. & & & No change. \\ \hline
+      \textbf{Test 3} \newline Add a few drops of aqueous iron(II) sulfate. & & & \\ \hline
+      \end{tabular}
+
+      \hfill [4]

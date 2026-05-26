@@ -1,0 +1,961 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Rice, \textit{Oryza sativa}, is a crop plant that has adapted to grow in
+    flooded fields.
+
+
+    Fig. 1.1 outlines the effects on rice plants of growing in flooded fields.
+
+
+    Fig. 1.1'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'With reference to Fig. 1.1, name:
+
+
+      substance \textbf{A} \hrulefill
+
+      substance \textbf{B} \hrulefill
+
+      tissue \textbf{C} \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Describe how root cells respond to a high concentration of substance \textbf{B}.
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Gibberellin is involved in the growth of stems in rice plants.
+
+
+      Fig. 1.2 shows the effect of gibberellin concentration on the length of stems
+      in rice plants.'
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Describe the relationship shown in Fig. 1.2.
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'ABA in rice plant cells inhibits the action of gibberellin.
+
+
+        With reference to Fig. 1.1 and Fig. 1.2, explain the importance of ethylene
+        production for the growth of rice plants in flooded fields.'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Explain the terms gene, genotype and phenotype.
+
+
+      gene \hrulefill
+
+
+      genotype \hrulefill
+
+
+      phenotype \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'A monohybrid genetic cross can be carried out to produce an F1 and an F2
+      generation.
+
+
+      \begin{itemize}
+
+      \item Outline how a monohybrid genetic cross is carried out.
+
+      \item State the expected percentage of each of the different offspring \textbf{genotypes}
+      in the F2 generation.
+
+      \end{itemize}
+
+
+      Assume that the inheritance pattern is for autosomal dominant and recessive
+      alleles.'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The \textit{lac} operon is present in the genome of the bacterium \textit{Escherichia
+    coli}.
+
+
+    When glucose is \textbf{not} available, the presence of lactose in the extracellular
+    environment leads to the expression of the genes of the \textit{lac} operon. This
+    leads to an increase in the uptake and metabolism of lactose.
+
+
+    When glucose \textbf{and} lactose are available in the extracellular medium, lactose
+    is prevented from entering the bacterial cell.
+
+
+    Fig. 3.1 shows what happens when glucose enters a bacterial cell.
+
+
+    \begin{itemize}
+
+    \item Glucose enters the bacterial cell using a transport protein, \textbf{A}.
+
+    \item \textbf{B} is an enzyme found in the cytoplasm of the bacterial cell.
+
+    \item \textbf{B} catalyses the phosphorylation of glucose to produce glucose 6-phosphate.
+
+    \end{itemize}
+
+
+    \begin{tabular}{ll}
+
+    glucose & lactose \\
+
+    lactose permease & extracellular environment \\
+
+    cell surface membrane & cytoplasm \\
+
+    glucose 6-phosphate & \\
+
+    \end{tabular}
+
+
+    \begin{tabular}{|c|c|c|c|c|c|}
+
+    \hline
+
+    \textit{lacI} & P & O & \textit{lacZ} & \textit{lacY} & \textit{lacA} \\
+
+    \hline
+
+    \end{tabular}
+
+
+    repressor
+
+
+    Fig. 3.1'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 3ai
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: With reference to Fig. 3.1, suggest and explain how the presence of glucose
+        in the extracellular environment prevents lactose entering the bacterial cell.
+      answer_options: []
+      subquestions: []
+    - number: 3aii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Suggest the advantages for the bacterial cell in preventing the entry
+        of lactose when glucose is present in the extracellular environment.
+      answer_options: []
+      subquestions: []
+    - number: 3aiii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The glucose 6-phosphate in the cytoplasm of the bacterial cell is used
+        to produce fructose 1,6-bisphosphate.
+
+
+        Fructose 1,6-bisphosphate is used in glycolysis.
+
+
+        Outline the events that occur in glycolysis following the production of fructose
+        1,6-bisphosphate.'
+      answer_options: []
+      subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: '$E. coli$ is present in the gut (intestines) of young mammals.
+
+
+      The diet of young mammals contains lactose which is present in the milk they
+      consume.
+
+
+      Scientists carried out an experiment using $E. coli$ with a $lac$ operon ($lac^+
+      E. coli$) and $E. coli$ without a $lac$ operon ($lac^- E. coli$).
+
+
+      The experiment was carried out to determine whether the presence of a $lac$
+      operon gives $E. coli$ a selective advantage.
+
+
+      \begin{itemize}
+
+      \item Equal numbers of $lac^+ E. coli$ and $lac^- E. coli$ were given to 8 mice
+      to allow the bacteria to colonise the gut.
+
+      \item On day 0, 50\% of the $E. coli$ in the gut of each mouse were $lac^+ E.
+      coli$.
+
+      \item 4 mice were fed a standard diet that included lactose.
+
+      \item 4 mice were fed a standard diet without lactose.
+
+      \item The percentage of $lac^+ E. coli$ that were in the gut of each mouse was
+      determined every day for 6 days.
+
+      \end{itemize}
+
+
+      The results are shown in Fig. 3.2.'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: With reference to Fig. 3.2, describe the effect of the different diets
+        on the percentage of $E. coli$ that are $lac^+$.
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The scientists concluded that $lac^+ E. coli$ had a selective advantage
+        when colonising the gut, but only in the presence of lactose.
+
+
+        Suggest why the presence of lactose caused $lac^+ E. coli$ to have a selective
+        advantage.'
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The evolution of antibiotic resistance in bacteria has occurred as a result
+    of natural selection.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Name \textbf{two} ways in which a bacterium can become resistant to an antibiotic.
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'The World Health Organisation regularly analyses bacterial DNA sequence
+      data.
+
+
+      Suggest \textbf{one} way in which this contributes to solving the problem of
+      antibiotic resistance in bacteria.'
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Some infectious bacterial diseases are treated with the antibiotic streptomycin.
+
+
+      If a person does \textbf{not} finish the prescribed course of streptomycin,
+      bacteria are more likely to become resistant to the antibiotic.
+
+
+      Explain why a streptomycin-resistant strain of bacteria is more likely to develop
+      as a result of natural selection when a person does \textbf{not} complete the
+      prescribed course of antibiotics.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Metachromatic leukodystrophy (MLD) is a genetic disease that affects the
+    nervous system.
+
+
+    MLD is caused by mutations in the \textit{ARSA} gene located on chromosome 22.
+    The \textit{ARSA} gene, which is 3150 base pairs (bp) in length, includes 8 exons
+    and is shown in Fig. 5.1.
+
+
+    A genetic test using DNA sequencing is available to identify mutations associated
+    with MLD in the \textit{ARSA} gene. The sequencing method can only work if a DNA
+    fragment size is less than 1000 bp.
+
+
+    The test involves a number of different stages:
+
+    \begin{itemize}
+
+    \item Genomic DNA is extracted from a blood sample.
+
+    \item Polymerase chain reaction (PCR) using 5 pairs of primers selects 5 different
+    DNA fragments of the \textit{ARSA} gene.
+
+    \item Gel electrophoresis is carried out on the DNA fragments.
+
+    \item The DNA fragments are sequenced and analysed for mutations.
+
+    \end{itemize}
+
+
+    Table 5.1 shows the length of the DNA fragments and the exons present in each
+    DNA fragment.
+
+
+    Table 5.1
+
+
+    \begin{tabular}{|c|c|c|}
+
+    \hline
+
+    \textbf{fragment number} & \textbf{DNA fragment length / bp} & \textbf{exons in
+    DNA fragment} \\
+
+    \hline
+
+    1 & 405 & 1 \\
+
+    \hline
+
+    2 & 737 & 1-2 \\
+
+    \hline
+
+    3 & 706 & 2-4 \\
+
+    \hline
+
+    4 & 860 & 5-7 \\
+
+    \hline
+
+    5 & 916 & 7-8 \\
+
+    \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Genomic DNA and primers are added to the PCR machine.
+
+
+      Name \textbf{two} other substances that are added to the PCR machine, \textbf{and}
+      explain why each substance is added.'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Gel electrophoresis is carried out on the 5 different DNA fragments produced
+      as a result of PCR. Each DNA fragment is put into a loading well on the gel.
+
+
+      The final lane on the electrophoresis gel contains a DNA ladder of known lengths
+      of DNA.
+
+
+      Fig. 5.2 shows the results of the gel electrophoresis.
+
+
+      \begin{tabular}{cccccc}
+
+      fragment & fragment & fragment & fragment & fragment & DNA \\
+
+      1 & 2 & 3 & 4 & 5 & ladder \\
+
+      \end{tabular}
+
+
+      Fig. 5.2'
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Suggest the role of the DNA ladder.
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: short_answer
+      page: 14
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'In the genetic test for MLD, PCR and gel electrophoresis are carried
+        out before DNA sequencing.
+
+
+        Suggest \textbf{and} explain reasons why PCR and gel electrophoresis are carried
+        out before DNA sequencing.'
+      answer_options: []
+      subquestions: []
+  - number: 5c
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Calculate the number of copies of DNA that are obtained if PCR is run for
+      35 cycles.
+
+
+      Assume that there is only 1 copy of DNA at the start of PCR.
+
+
+      Give your answer in standard form to \textbf{two} significant figures.
+
+
+      number of copies \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5d
+    question_type: long_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'MLD is a rare autosomal recessive disease. It is estimated that there is
+      one case of MLD in every 40000 births worldwide. Children with MLD have a reduced
+      life expectancy.
+
+
+      \begin{itemize}
+
+      \item MLD is a degenerative disease that causes severe disability.
+
+      \item Before 2022, there was no known cure for MLD and the only treatment for
+      symptoms was to provide pain relief.
+
+      \end{itemize}
+
+
+      A new gene therapy treatment known as Libmeldy® became available in a number
+      of countries in 2022. The treatment must start before symptoms are present.
+      Although the treatment may provide a cure for MLD, a single dose is extremely
+      expensive.
+
+
+      Blood samples from newborn babies are screened for a number of rare genetic
+      diseases (neonatal screening) in most countries of the world, but none include
+      screening for MLD.
+
+
+      Discuss the social and ethical considerations of including screening for MLD
+      when carrying out neonatal screening in a country where gene therapy for MLD
+      is available.'
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Phosphoinositide 3-kinase (PI3K) and protein kinase B (PKB) are enzymes involved
+    in the regulation of blood glucose concentration.
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: long_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Fig. 6.1 shows a cell-signalling pathway involving insulin, PI3K and PKB
+      in a muscle cell.
+
+
+      Fig. 6.1
+
+
+      Type 2 diabetes mellitus is a common disease. Some people with type 2 diabetes
+      have a low concentration of PI3K in their muscle cells and cannot maintain their
+      blood glucose concentration within normal limits.
+
+
+      With reference to Fig. 6.1, suggest why a low concentration of PI3K can lead
+      to type 2 diabetes.'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: long_answer
+    page: 17
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: Describe how a biosensor can be used to measure blood glucose concentration.
+    answer_options: []
+    subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 18
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 18
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The Venus fly trap, \textit{Dionaea muscipula}, is a plant that can capture
+      insects. Each leaf of a Venus fly trap is modified to form 2 lobes.
+
+
+      Fig. 7.1 shows how the leaf of a Venus fly trap appears folded (closed) when
+      an insect has been captured.
+
+
+      Fig. 7.1'
+    answer_options: []
+    subquestions:
+    - number: 7ai
+      question_type: short_answer
+      page: 18
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Suggest a reason why the Venus fly trap needs to capture insects, even
+        though it carries out photosynthesis.
+      answer_options: []
+      subquestions: []
+    - number: 7aii
+      question_type: short_answer
+      page: 18
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The leaves are specialised to form 2 lobes. The lobes are red on the
+        upper surface.
+
+
+        Suggest why the lobes are red.'
+      answer_options: []
+      subquestions: []
+    - number: 7aiii
+      question_type: short_answer
+      page: 18
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The lobes have sensory hairs. Touching 1 sensory hair will \textbf{not}
+        cause a response by the leaf. At least 2 sensory hairs need to be touched
+        within 20 seconds to cause a response in the leaves.
+
+
+        State the advantage to the plant of producing a response only when 2 sensory
+        hairs are touched within 20 seconds.'
+      answer_options: []
+      subquestions: []
+    - number: 7aiv
+      question_type: short_answer
+      page: 19
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'When an insect has been trapped, the leaves have to remain closed for
+        a number of days.
+
+
+        Suggest why this needs to happen.'
+      answer_options: []
+      subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 19
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Action potentials are produced by the Venus fly trap during the closure
+      of a leaf. Each action potential is also associated with a refractory period.
+      This is similar to the action potential and refractory period observed in a
+      mammalian neurone during nerve impulse transmission.
+
+
+      Explain the role played by the refractory period in the transmission of an impulse
+      in a mammalian neurone.'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 20
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Palm oil is the most widely used vegetable oil. It is obtained from the African
+    oil palm, \textit{Elaeis guineensis}. Oil palms are the highest yielding vegetable
+    oil crop, needing only 10\% of the land area required by other crops to produce
+    the same quantity of oil.
+
+
+    On the island of Borneo, tropical rainforests are cut down and cleared to create
+    oil palm plantations. This has a large effect on biodiversity.
+
+
+    The Bornean orangutan, \textit{Pongo pygmaeus}, is only found on the island of
+    Borneo and is classified as critically endangered on the International Union for
+    Conservation of Nature (IUCN) Red List of Threatened Species™.
+
+
+    Fig. 8.1 shows Bornean orangutans.'
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: long_answer
+    page: 20
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Suggest ways in which the Bornean orangutan may be conserved.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: short_answer
+    page: 21
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Biodiversity can be assessed at different levels.
+
+
+      Outline the main levels at which biodiversity can be assessed.'
+    answer_options: []
+    subquestions: []
+  - number: 8c
+    question_type: short_answer
+    page: 22
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'The biodiversity of a habitat can be measured by calculating Simpson’s
+      index of diversity ($D$).
+
+
+      The formula for Simpson’s index of diversity ($D$) is:
+
+
+      $$D = 1 - \left( \sum \left( \frac{n}{N} \right)^2 \right)$$
+
+
+      Key to symbols:
+
+      $n$ = number of individuals of each type present in the sample
+
+      $N$ = the total number of all individuals of all types present in the sample
+
+
+      A survey of shrubs and trees in a temperate woodland was carried out. The results
+      are shown in Table 8.1.
+
+
+      \textbf{Table 8.1}
+
+
+      \begin{tabular}{|l|c|c|c|}
+
+      \hline
+
+      \textbf{common name} & $n$ & $\frac{n}{N}$ & $\left( \frac{n}{N} \right)^2$
+      \\ \hline
+
+      maple & 807 & 0.196 & 0.0384 \\ \hline
+
+      alder & 6 & 0.001 & 0.0000 \\ \hline
+
+      hazel & 1856 & 0.451 & \underline{\hspace{1.5em}} \\ \hline
+
+      hawthorn & 82 & 0.020 & 0.0004 \\ \hline
+
+      blackthorn & 40 & 0.010 & 0.0001 \\ \hline
+
+      willow & 101 & 0.025 & 0.0006 \\ \hline
+
+      birch & 78 & 0.019 & 0.0004 \\ \hline
+
+      wild rose & 84 & 0.020 & 0.0004 \\ \hline
+
+      oak & 1036 & 0.252 & 0.0635 \\ \hline
+
+      dogwood & 29 & 0.007 & 0.0000 \\ \hline
+
+      \multicolumn{1}{r|}{$N =$} & 4119 & Total = & \underline{\hspace{1.5em}} \\
+      \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions:
+    - number: 8ci
+      question_type: short_answer
+      page: 22
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Complete Table 8.1.
+      answer_options: []
+      subquestions: []
+    - number: 8cii
+      question_type: calculation
+      page: 22
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate the value for Simpson’s index of diversity ($D$).
+
+
+        $D =$ \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 8ciii
+      question_type: short_answer
+      page: 22
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Using your value for $D$, comment on the biodiversity of this temperate
+        woodland.
+      answer_options: []
+      subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 23
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Fig. 9.1 shows an absorption spectrum for chlorophyll $a$ and the corresponding
+    action spectrum for a species of plant.
+
+
+    wavelength of light /nm
+
+    absorption spectrum
+
+    action spectrum
+
+
+    Fig. 9.1'
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 23
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 9ai
+      question_type: short_answer
+      page: 23
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Explain what is meant by an absorption spectrum and an action spectrum.
+      answer_options: []
+      subquestions: []
+    - number: 9aii
+      question_type: short_answer
+      page: 23
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: Suggest \textbf{and} explain why the curve shown in Fig. 9.1 for the absorption
+        spectrum is different from the curve for the action spectrum for wavelengths
+        of light between 450nm and 550nm.
+      answer_options: []
+      subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 24
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Scientists investigated the effect of temperature on the rate of photosynthesis
+      \textbf{and} the rate of respiration of the trailing azalea, \textit{Kalmia
+      procumbens}, at a high light intensity.
+
+
+      Fig. 9.2 shows the results of this investigation.'
+    answer_options: []
+    subquestions:
+    - number: 9bi
+      question_type: long_answer
+      page: 24
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: With reference to Fig. 9.2, describe \textbf{and} explain the effect of
+        temperature on the rate of \textbf{photosynthesis} for \textit{K. procumbens}.
+      answer_options: []
+      subquestions: []
+    - number: 9bii
+      question_type: calculation
+      page: 25
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The rate of photosynthesis in this investigation was obtained by measuring
+        the uptake of carbon dioxide from the atmosphere. It did not \textbf{not}
+        take into account the use of carbon dioxide produced by respiration.
+
+
+        Using Fig. 9.2, calculate the rate of photosynthesis at $20^{\circ}\text{C}$
+        when the carbon dioxide produced by respiration is taken into account.
+
+
+        rate of photosynthesis \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 26
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Nerve impulses can be transmitted along a myelinated motor neurone to a neuromuscular
+    junction at fast speeds of up to $100\text{ m}\,\text{s}^{-1}$.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 26
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: Outline how a transmission speed of $100\text{ m}\,\text{s}^{-1}$ is achieved
+      by the neurone.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: long_answer
+    page: 26
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'When a nerve impulse reaches the neuromuscular junction, acetylcholine
+      is released and diffuses to the sarcolemma.
+
+
+      Describe how the release of acetylcholine can result in the binding of calcium
+      ions to troponin in the sarcomere.'
+    answer_options: []
+    subquestions: []
+  - number: 10c
+    question_type: short_answer
+    page: 27
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Muscle contraction can be affected by a low blood glucose concentration.
+
+
+      Suggest how a low blood glucose concentration would affect the functioning of
+      the sarcomere.'
+    answer_options: []
+    subquestions: []

@@ -1,0 +1,15 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      Palm oil is the most widely used vegetable oil. It is obtained from the African oil palm, \textit{Elaeis guineensis}. Oil palms are the highest yielding vegetable oil crop, needing only 10\% of the land area required by other crops to produce the same quantity of oil.
+
+      On the island of Borneo, tropical rainforests are cut down and cleared to create oil palm plantations. This has a large effect on biodiversity.
+
+      The Bornean orangutan, \textit{Pongo pygmaeus}, is only found on the island of Borneo and is classified as critically endangered on the International Union for Conservation of Nature (IUCN) Red List of Threatened Species™.
+
+      Fig. 8.1 shows Bornean orangutans.
+  - number: "8a"
+    type: long_answer
+    text: |
+      Suggest ways in which the Bornean orangutan may be conserved.

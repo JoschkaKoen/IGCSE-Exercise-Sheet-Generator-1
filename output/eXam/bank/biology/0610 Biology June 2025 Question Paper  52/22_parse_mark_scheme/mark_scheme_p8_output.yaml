@@ -1,0 +1,56 @@
+questions:
+- number: 1ai
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    25 and 25 (cm$^3$) ;
+- number: 1aii
+  type: short_answer
+  marks: 4
+  mark_scheme_answer: |
+    table drawn with a minimum of three columns and a header line ;
+    suitable headings with correct units for concentration and length ;
+    six lengths recorded ;
+    correct trend - change in S1 is greater than change in S3 ;
+- number: 1aiii
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    correct values calculated ;
+- number: 1aiv
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    \textbf{any one from:}
+    \begin{itemize}
+    \item the higher the concentration (of salt), the, more / faster, osmosis occurs ;
+    \item the higher the concentration (of salt) the more water, is lost / moves out ;
+    \item water move out of the, potato / disc(s), in salt solution(s) ;
+    \item water moves into the, potato / disc(s), when there is no salt / in pure water / in 0 mol dm$^3$ ;
+    \item the solute concentration of the potato (cell(s)) is between 0.5 mol dm$^3$ and 0 mol dm$^3$ ;
+    \end{itemize}
+    \textbf{Guidance:}
+    \textbf{A} potatoes have a higher water potential than the salt solution but a lower water potential than (pure/distilled) water
+- number: 1av
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    length (of discs) ;
+- number: 1avi
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    \textbf{any one from:}
+    \begin{itemize}
+    \item difficult to line up discs along ruler ;
+    \item difficult to mark / measure length due to curve on potato discs ;
+    \item idea of contamination of the measuring cylinder ;
+    \item AVP ;
+    \end{itemize}
+- number: 1b
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    final colour: blue-black
+    \textbf{and}
+    conclusion: starch present ;

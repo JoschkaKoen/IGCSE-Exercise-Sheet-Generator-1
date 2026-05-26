@@ -1,0 +1,92 @@
+questions:
+  - number: "30"
+    type: multiple_choice
+    text: |
+      Fertilisers are used to provide the three elements needed for improved plant growth.
+
+      Which two compounds would provide \textbf{all three} of these elements?
+    options:
+      - letter: A
+        text: |
+          ammonium nitrate and calcium phosphate
+      - letter: B
+        text: |
+          ammonium nitrate and potassium sulfate
+      - letter: C
+        text: |
+          potassium nitrate and calcium phosphate
+      - letter: D
+        text: |
+          potassium phosphate and potassium sulfate
+  - number: "31"
+    type: multiple_choice
+    text: |
+      Which substances can be used to detect the presence of water?
+
+      \begin{enumerate}
+      \item anhydrous cobalt(II) chloride
+      \item anhydrous copper(II) sulfate
+      \item litmus
+      \item methyl orange
+      \end{enumerate}
+    options:
+      - letter: A
+        text: |
+          1 and 2
+      - letter: B
+        text: |
+          1 and 3
+      - letter: C
+        text: |
+          2 and 4
+      - letter: D
+        text: |
+          3 and 4
+  - number: "32"
+    type: multiple_choice
+    text: |
+      What is produced by the incomplete combustion of methane?
+    options:
+      - letter: A
+        text: |
+          carbon monoxide
+      - letter: B
+        text: |
+          hydrogen
+      - letter: C
+        text: |
+          lead compounds
+      - letter: D
+        text: |
+          sulfur dioxide
+  - number: "33"
+    type: multiple_choice
+    text: |
+      Which row identifies compounds in the same homologous series?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & chemical properties & functional group \\
+      \hline
+      \textbf{A} & different & different \\
+      \hline
+      \textbf{B} & different & same \\
+      \hline
+      \textbf{C} & similar & different \\
+      \hline
+      \textbf{D} & similar & same \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          different chemical properties, different functional group
+      - letter: B
+        text: |
+          different chemical properties, same functional group
+      - letter: C
+        text: |
+          similar chemical properties, different functional group
+      - letter: D
+        text: |
+          similar chemical properties, same functional group

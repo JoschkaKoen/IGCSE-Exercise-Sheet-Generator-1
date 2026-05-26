@@ -1,0 +1,21 @@
+questions:
+  - number: "7a"
+    type: short_answer
+    text: |
+      State why each \textbf{passcode} is invalid for the given syntax diagrams.
+
+      \texttt{\#Jd7}
+
+      Reason \hrulefill
+
+      \texttt{C\%6A}
+
+      Reason \hrulefill
+  - number: "7b"
+    type: short_answer
+    text: |
+      Complete the Backus-Naur Form (BNF) for \texttt{<uppercase>} and \texttt{<passcode>}.
+
+      \texttt{<uppercase> ::= } \hrulefill
+
+      \texttt{<passcode> ::= } \hrulefill

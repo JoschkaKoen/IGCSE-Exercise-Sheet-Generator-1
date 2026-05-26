@@ -1,0 +1,18 @@
+  - number: "8"
+    type: short_answer
+    text: ""
+  - number: "8a"
+    type: short_answer
+    text: ""
+  - number: "8b"
+    type: long_answer
+    text: ""
+  - number: "9"
+    type: short_answer
+    text: ""
+  - number: "9a"
+    type: short_answer
+    text: ""
+  - number: "9b"
+    type: short_answer
+    text: ""

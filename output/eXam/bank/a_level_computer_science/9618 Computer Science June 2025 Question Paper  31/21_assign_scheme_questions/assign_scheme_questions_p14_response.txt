@@ -1,0 +1,34 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a mark scheme page for "Cambridge International AS & A Level – Mark Scheme".
+    *   It has columns: "Question", "Answer", "Marks".
+    *   I need to look at the "Question" column to find the question numbers.
+
+2.  **Scan the "Question" column:**
+    *   First row: "11(a)". This corresponds to question `11a`.
+    *   Second row (lower down): "11(b)(i)". This corresponds to question `11bi`.
+    *   Third row (bottom): "11(b)(ii)". This corresponds to question `11bii`.
+
+3.  **Map to valid question numbers list:**
+    *   "11(a)" -> "11a"
+    *   "11(b)(i)" -> "11bi"
+    *   "11(b)(ii)" -> "11bii"
+
+4.  **Format the output:**
+    *   Create a YAML list with these strings.
+    *   `questions: ["11a", "11bi", "11bii"]`
+
+5.  **Final Check:**
+    *   Are there any other questions? No.
+    *   Are the formats correct? Yes, no parentheses.
+    *   Is it valid YAML? Yes.
+[/thinking]
+
+```yaml
+questions:
+  - "11a"
+  - "11bi"
+  - "11bii"
+```

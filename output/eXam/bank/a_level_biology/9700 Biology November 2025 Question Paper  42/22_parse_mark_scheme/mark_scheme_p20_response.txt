@@ -1,0 +1,26 @@
+questions:
+- number: 8ciii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    (D) close(r) to 1 / higher than 0.5 ;
+    (so) high(er) (bio)diversity ;
+- number: 9ai
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{absorption spectrum}
+    absorption of \textbf{different} wavelengths (of light) by (named) pigment(s) ;
+    \textbf{action spectrum}
+    \textbf{rate} of photosynthesis at different wavelengths (of light) ;
+- number: 9aii
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{any three from :}
+    \begin{enumerate}
+    \item chlorophyll b / carotenoids / accessory pigments (are present) ;
+    \item (these other pigments) absorb light (energy), between 450 and 550 nm / of wavelengths that chlorophyll a does not absorb ;
+    \item energy passed on to, reaction centre / chlorophyll a / primary pigment ;
+    \item for, light-dependent reactions / photophosphorylation / photolysis (of water) / photoactivation ;
+    \end{enumerate}

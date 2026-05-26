@@ -1,0 +1,60 @@
+questions:
+  - number: "37"
+    type: multiple_choice
+    text: |
+      A teacher does an experiment to measure radiation passing through a lead sheet.
+
+      Three students suggest how the teacher can reduce the risk to her health.
+
+      student 1 Move the radioactive source with her bare hands.
+      student 2 Stay as close as possible to the radioactive source during the experiment.
+      student 3 Minimise the time of the experiment.
+
+      Which students are correct?
+    options:
+      - letter: A
+        text: |
+          1, 2 and 3
+      - letter: B
+        text: |
+          1 and 2 only
+      - letter: C
+        text: |
+          2 only
+      - letter: D
+        text: |
+          3 only
+  - number: "38"
+    type: multiple_choice
+    text: |
+      The diagram represents three objects, X, Y and Z, in space.
+
+      Object Y orbits object X.
+
+      Object Z orbits object Y.
+
+      Which types of object are X, Y and Z?
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & object X & object Y & object Z \\
+      \hline
+      \textbf{A} & planet & moon & star \\
+      \textbf{B} & planet & star & moon \\
+      \textbf{C} & star & planet & moon \\
+      \textbf{D} & star & moon & planet \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          planet, moon, star
+      - letter: B
+        text: |
+          planet, star, moon
+      - letter: C
+        text: |
+          star, planet, moon
+      - letter: D
+        text: |
+          star, moon, planet

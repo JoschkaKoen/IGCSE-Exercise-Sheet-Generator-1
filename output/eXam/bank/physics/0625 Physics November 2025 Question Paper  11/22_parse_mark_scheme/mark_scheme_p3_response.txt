@@ -1,0 +1,73 @@
+questions:
+- number: '29'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    D
+  explanation: ''
+- number: '30'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    C
+  explanation: ''
+- number: '31'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    A
+  explanation: ''
+- number: '32'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    B
+  explanation: ''
+- number: '33'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    B
+  explanation: ''
+- number: '34'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    C
+  explanation: ''
+- number: '35'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    B
+  explanation: ''
+- number: '36'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    A
+  explanation: ''
+- number: '37'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    D
+  explanation: ''
+- number: '38'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    C
+  explanation: ''
+- number: '39'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    C
+  explanation: ''
+- number: '40'
+  type: multiple_choice
+  marks: 1
+  correct_answer: |
+    B
+  explanation: ''

@@ -1,0 +1,36 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a table with columns "Question", "Answer", and "Marks".
+    *   I need to look at the "Question" column to find the question numbers.
+
+2.  **Scan the "Question" column:**
+    *   First row: `2(a)` -> This corresponds to `2a` in the allowed list.
+    *   Second main row: `2(b)(i)` -> This corresponds to `2bi` in the allowed list.
+    *   Third main row: `2(b)(ii)` -> This corresponds to `2bii` in the allowed list.
+    *   Fourth main row: `2(c)(i)` -> This corresponds to `2ci` in the allowed list.
+
+3.  **Map to allowed list:**
+    *   `2(a)` -> `2a`
+    *   `2(b)(i)` -> `2bi`
+    *   `2(b)(ii)` -> `2bii`
+    *   `2(c)(i)` -> `2ci`
+
+4.  **Format the output:**
+    *   Create a YAML list with these values.
+    *   `questions: ["2a", "2bi", "2bii", "2ci"]`
+
+5.  **Final check:**
+    *   Are there any other questions? No.
+    *   Are the formats correct? Yes, no parentheses.
+    *   Is it valid YAML? Yes.
+[/thinking]
+
+```yaml
+questions:
+  - "2a"
+  - "2bi"
+  - "2bii"
+  - "2ci"
+```

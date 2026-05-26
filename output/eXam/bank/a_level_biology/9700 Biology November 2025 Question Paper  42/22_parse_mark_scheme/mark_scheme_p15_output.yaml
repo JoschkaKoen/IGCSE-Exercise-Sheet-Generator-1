@@ -1,0 +1,38 @@
+questions:
+- number: 5a
+  type: short_answer
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{any four from:}
+    \newline
+    mark as pairs
+    \newline
+    \textbf{Name 1} dNTPs / DNA nucleotides ;
+    \newline
+    \textbf{Explanation 1} to, anneal / bind, to \textbf{complementary} bases ;
+    \newline
+    \textbf{Name 2} Taq polymerase ;
+    \newline
+    \textbf{Explanation 2} to make, phosphodiester bonds / the sugar phosphate backbone / double-stranded DNA / a complementary strand of DNA
+    \newline
+    \textbf{or}
+    \newline
+    ref. to functioning at higher temperature / does not denature at the higher temperature / is thermostable ;
+    \newline
+    \textbf{Name 3} buffer ;
+    \newline
+    \textbf{Explanation 3} to provide, optimum / suitable / constant, pH for, polymerase / DNA
+    \newline
+    \textbf{or}
+    \newline
+    prevents, denaturation of polymerase / damage to DNA ;
+- number: 5bi
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{any two from:}
+    \begin{enumerate}
+    \item (DNA ladder) compared to (other fragments) ;
+    \item ref. to (estimate) length of (DNA) fragment / to identify the fragment number ;
+    \item ref. to show electrophoresis worked correctly ;
+    \end{enumerate}

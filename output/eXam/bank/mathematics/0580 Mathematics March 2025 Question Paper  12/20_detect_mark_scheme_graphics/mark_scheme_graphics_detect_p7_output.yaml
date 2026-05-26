@@ -1,0 +1,6 @@
+```yaml
+graphics:
+  - question_number: "5b"
+    bbox: [170, 450, 360, 565]
+    description: "grid with shaded square"
+```

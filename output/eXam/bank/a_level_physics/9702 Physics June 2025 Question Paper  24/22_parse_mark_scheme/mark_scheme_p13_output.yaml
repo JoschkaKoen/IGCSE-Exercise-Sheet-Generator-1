@@ -1,0 +1,34 @@
+questions:
+- number: 6a
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $2.4 / 6.0 = 8 / (R + 8)$
+    $R = 12 \Omega$
+
+    \textbf{or}
+    $I = 2.4 / 8$
+    $= 0.30$
+    $R = (6 - 2.4) / 0.3$ or $R = (6 / 0.3) - 8$
+
+    $R = 12 \Omega$
+- number: 6b
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    $V = I (\rho L / A)$ or $V = IR$ and $R = (\rho L / A)$
+    $I, \rho, A$ are constant (so $V \propto L$)
+- number: 6ci
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $V_{XP} / V_{XY} = L_{XP} / L_{XY}$
+    $E / 2.4 = 1.24 / 2.00$
+
+    $E = 1.5 V$
+- number: 6cii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    p.d. across XY / wire increases / p.d. across XP increases
+    so P moved towards X / away from Y / to the left

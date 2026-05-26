@@ -1,0 +1,23 @@
+[thinking]
+The user wants me to identify the question numbers from a provided image of a Cambridge IGCSE mark scheme.
+
+1.  **Analyze the image:**
+    *   The header says "9701/34 Cambridge International AS & A Level – Mark Scheme May/June 2025".
+    *   There is a box containing text.
+    *   Inside the box, there are numbered sections: "6" and "7".
+    *   Section 6 is titled "Calculation specific guidance". It contains general rules about calculations (working, significant figures, standard form, units). This is general guidance, not specific marking criteria for a particular question like "1a" or "2b".
+    *   Section 7 is titled "Guidance for chemical equations". It contains general rules about coefficients and state symbols. Again, this is general guidance.
+
+2.  **Evaluate against the "Valid question numbers" list:**
+    *   The list includes: "1", "1a", "1b", ..., "3bv".
+    *   The numbers visible in the document are "6" and "7".
+    *   Wait, let's look closer at the prompt's instructions. "Your only task: identify which question numbers' marking criteria appear on this page."
+    *   The prompt provides a specific list of valid question numbers: "1", "1a", ... "3bv".
+    *   The numbers "6" and "7" in the document are section headers for *general guidance*, not specific questions from the exam paper (which seems to be paper 34, likely practicals or structured questions, but the valid list stops at 3bv).
+    *   Actually, looking at the valid list provided in the prompt: "1", "1a", "1b", "1c", "1ci", "1cii", "1ciii", "1civ", "1cv", "1d", "2", "2a", "2b", "2bi", "2bii", "2c", "2ci", "2cii", "2ciii", "3", "3a", "3ai", "3aii", "3b", "3bi", "3bii", "3biii", "3biv", "3bv".
+    *   The numbers "6" and "7" appearing on the
+[/thinking]
+
+```yaml
+questions: []
+```

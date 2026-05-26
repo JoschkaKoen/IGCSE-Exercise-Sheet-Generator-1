@@ -1,0 +1,13 @@
+questions:
+- number: 3aiii
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{any three from:}
+    \begin{enumerate}
+    \item splits into / forms, two, triose phosphate / TP (molecules) ;
+    \item (TP) oxidised / dehydrogenated, to pyruvate ;
+    \item ATP production ;
+    \item substrate-linked phosphorylation ;
+    \item production of reduced NAD ;
+    \end{enumerate}

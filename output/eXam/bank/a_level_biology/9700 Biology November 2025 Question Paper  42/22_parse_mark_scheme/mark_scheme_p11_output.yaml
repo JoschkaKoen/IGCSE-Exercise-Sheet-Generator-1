@@ -1,0 +1,30 @@
+questions:
+- number: 3ai
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{any three from:}
+    \begin{enumerate}
+    \item glucose diffuses into the cell (through, \textbf{A} / transport protein) ;
+    \item idea that the enzyme / \textbf{B}, loses phosphate group ;
+    \item (dephosphorylated) \textbf{B} binds to lactose permease ;
+    \item causes, shape change / allosteric change, to lactose permease ;
+    \item lactose permease cannot function (so lactose cannot enter) ;
+    \end{enumerate}
+- number: 3aii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{any two from:}
+    \begin{enumerate}
+    \item no / less, (protein) synthesis of, lactose permease / $\beta$-galactosidase / transacetylase
+    \textbf{or}
+    no / less, transcription / expression, of (named structural) genes (of lac operon) ;
+    \item no / less, ATP / energy, wasted ;
+    \item no / fewer, amino acids wasted ;
+    \item glucose is respired more easily / AW
+    \textbf{or}
+    fewer steps / less energy, required to break down glucose
+    \textbf{or}
+    lactose has to be broken down (to glucose and galactose) ;
+    \end{enumerate}

@@ -1,0 +1,17 @@
+questions:
+  - number: "1c"
+    type: short_answer
+    text: |
+      Gibberellin is involved in the growth of stems in rice plants.
+
+      Fig. 1.2 shows the effect of gibberellin concentration on the length of stems in rice plants.
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Describe the relationship shown in Fig. 1.2.
+  - number: "1cii"
+    type: short_answer
+    text: |
+      ABA in rice plant cells inhibits the action of gibberellin.
+
+      With reference to Fig. 1.1 and Fig. 1.2, explain the importance of ethylene production for the growth of rice plants in flooded fields.

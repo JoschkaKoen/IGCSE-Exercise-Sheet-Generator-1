@@ -1,0 +1,50 @@
+[thinking]
+The user wants me to identify the question numbers present on the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a table with columns "Question", "Answer", and "Marks".
+    *   It lists question numbers from 29 to 40.
+    *   The rows contain:
+        *   Question 29, Answer B, Marks 1
+        *   Question 30, Answer C, Marks 1
+        *   Question 31, Answer A, Marks 1
+        *   Question 32, Answer A, Marks 1
+        *   Question 33, Answer D, Marks 1
+        *   Question 34, Answer B, Marks 1
+        *   Question 35, Answer C, Marks 1
+        *   Question 36, Answer C, Marks 1
+        *   Question 37, Answer A, Marks 1
+        *   Question 38, Answer C, Marks 1
+        *   Question 39, Answer D, Marks 1
+        *   Question 40, Answer B, Marks 1
+
+2.  **Determine visibility:**
+    *   The prompt asks for "marking criteria". In a multiple-choice context (which this clearly is, given single letter answers like A, B, C, D), the "marking criteria" is simply the correct answer key.
+    *   Therefore, questions 29 through 40 are all visible.
+
+3.  **Format the output:**
+    *   I need to list these numbers as strings in a YAML list under the key `questions`.
+    *   The valid numbers are 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40.
+
+4.  **Final check:**
+    *   Are there any other questions? No.
+    *   Are the numbers within the valid list provided? Yes (29-40 are in the list).
+    *   Is the format correct? Yes.
+
+[/thinking]
+
+```yaml
+questions:
+  - "29"
+  - "30"
+  - "31"
+  - "32"
+  - "33"
+  - "34"
+  - "35"
+  - "36"
+  - "37"
+  - "38"
+  - "39"
+  - "40"
+```

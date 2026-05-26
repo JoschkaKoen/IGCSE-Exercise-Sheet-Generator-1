@@ -1,0 +1,1 @@
+You should **change the light intensity** to find the specific point where the indicator turns **red**.

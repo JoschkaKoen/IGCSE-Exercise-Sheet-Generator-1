@@ -1,0 +1,31 @@
+questions:
+- number: 3bii
+  type: short_answer
+  marks: 4
+  mark_scheme_answer: |
+    One mark for each correct function. One mark for each correct matching role description.
+
+    Examples:
+    \begin{itemize}
+    \item Code editor
+    \item Allows the programmer to write/change the program.
+    \item Run-time environment
+    \item Allows the user to run the code and see the output.
+    \item Error \textbf{diagnostics}
+    \item Features that can be used to find errors in the code
+    \item Auto-completion
+    \item A programmer starts to type a command word, and the IDE suggests \textbf{option} for completing it.
+    \item Auto-correction
+    \item If a programmer \textbf{misspells} a command word it is changed to the correct spelling
+    \item Prettyprint
+    \item The \textbf{command words/identifiers} are given different colours
+    \end{itemize}
+- number: 3ci
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    Any \textbf{one} from:
+    \begin{itemize}
+    \item Inkjet
+    \item Laser
+    \end{itemize}

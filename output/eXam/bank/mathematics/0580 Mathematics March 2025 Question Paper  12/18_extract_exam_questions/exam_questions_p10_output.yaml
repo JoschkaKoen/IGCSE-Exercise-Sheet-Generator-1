@@ -1,0 +1,20 @@
+questions:
+  - number: "15"
+    type: short_answer
+    text: |
+      The diagram shows a triangle $BCD$ and a straight line $ABC$.
+      $DB=DC=BC$.
+  - number: "15a"
+    type: short_answer
+    text: |
+      Write down the mathematical name for triangle $BCD$.
+  - number: "15b"
+    type: calculation
+    text: |
+      Work out the value of $y$.
+      Give two geometrical reasons for your answer.
+
+      $y = \hrulefill$ because
+
+      1. \hrulefill
+      2. \hrulefill

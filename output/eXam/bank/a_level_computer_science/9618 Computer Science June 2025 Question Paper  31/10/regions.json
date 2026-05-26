@@ -1,0 +1,31 @@
+{
+  "detector_version": 3,
+  "is_mcq": false,
+  "pdf_height_pt": 416.1815490722656,
+  "pdf_width_pt": 595.0,
+  "regions": [
+    {
+      "assignment_confident": true,
+      "field_id": "10a__0",
+      "kind": "lines",
+      "leaf_number": "10a",
+      "page": 1,
+      "x0": 65.54306030273438,
+      "x1": 559.844482421875,
+      "y0": 32.52532196044922,
+      "y1": 146.92229461669922
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "10b__0",
+      "kind": "lines",
+      "leaf_number": "10b",
+      "page": 1,
+      "x0": 65.54304504394531,
+      "x1": 559.844482421875,
+      "y0": 175.5214988708496,
+      "y1": 404.31519132341657
+    }
+  ],
+  "snippet_sha": "50f0e25b78b0e5c5"
+}

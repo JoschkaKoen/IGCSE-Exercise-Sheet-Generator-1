@@ -1,0 +1,604 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Iron is an element that is essential in the human diet. Some people need
+    to take iron supplement tablets to ensure an adequate intake of iron.
+
+
+    You will investigate the mass of iron in an iron supplement tablet by titrating
+    a solution with potassium manganate(VII).
+
+
+    $$\text{Fe}^{2+}(\text{aq}) \to \text{Fe}^{3+}(\text{aq}) + \text{e}^-$$
+
+    $$\text{MnO}_4^-(\text{aq}) + 8\text{H}^+(\text{aq}) + 5\text{e}^- \to \text{Mn}^{2+}(\text{aq})
+    + 4\text{H}_2\text{O}(\text{l})$$
+
+
+    \textbf{FB 1} is an aqueous solution of iron supplement tablets made by dissolving
+    14 tablets in $1.00\text{dm}^3$ of solution. The iron in each tablet is iron(II)
+    sulfate, $\text{FeSO}_4 \cdot 7\text{H}_2\text{O}$.
+
+    \textbf{FB 2} is $0.0100\text{mol}\,\text{dm}^{-3}$ acidified aqueous potassium
+    manganate(VII), $\text{KMnO}_4$.
+
+    \textbf{FB 3} is dilute sulfuric acid, $\text{H}_2\text{SO}_4$.'
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 7
+    text: '\textbf{Method}
+
+
+      \begin{itemize}
+
+      \item Fill a burette with \textbf{FB 2}.
+
+      \item Pipette $25.0\text{cm}^3$ of \textbf{FB 1} into a conical flask.
+
+      \item Use the $25\text{cm}^3$ measuring cylinder to add $10.0\text{cm}^3$ of
+      \textbf{FB 3} to the conical flask.
+
+      \item Perform a rough titration and record your burette readings in the space
+      below.
+
+      \end{itemize}
+
+
+      The rough titre is \underline{\hspace{1.5em}} $\text{cm}^3$.
+
+
+      \begin{itemize}
+
+      \item Carry out as many accurate titrations as you think necessary to obtain
+      consistent results.
+
+      \item Make sure any recorded results show the precision of your practical work.
+
+      \item Record, in a suitable form in the space below, all your burette readings
+      and the volume of \textbf{FB 2} added in each accurate titration.
+
+      \end{itemize}
+
+
+      \textbf{Rinse the burette with distilled water and leave to drain while you
+      continue Question 1.}
+
+
+      \textbf{Results}'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'From your accurate titration results, calculate a suitable mean value to
+      use in your calculations.
+
+      Show clearly how you obtain the mean value.
+
+
+      $25.0 \text{ cm}^3$ of \textbf{FB 1} required \hrulefill $\text{ cm}^3$ of \textbf{FB
+      2}.'
+    answer_options: []
+    subquestions: []
+  - number: 1c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Calculations
+    answer_options: []
+    subquestions:
+    - number: 1ci
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Give your answers to \textbf{(c)(ii)}, \textbf{(c)(iii)} and \textbf{(c)(iv)}
+        to an appropriate number of significant figures.
+      answer_options: []
+      subquestions: []
+    - number: 1cii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate the amount, in mol, of manganate(VII) ions in the volume of
+        \textbf{FB 2} in \textbf{(b)}.
+
+
+        amount of $\text{MnO}_4^-$ = \hrulefill mol'
+      answer_options: []
+      subquestions: []
+    - number: 1ciii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Use your answer to \textbf{(c)(ii)} and the equations at the start of
+        the question to calculate the concentration, in $\text{mol}\,\text{dm}^{-3}$,
+        of iron(II) ions in \textbf{FB 1}.
+
+
+        concentration of $\text{Fe}^{2+}$ = \hrulefill $\text{mol}\,\text{dm}^{-3}$'
+      answer_options: []
+      subquestions: []
+    - number: 1civ
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Use your answer to \textbf{(c)(iii)} to calculate the concentration,
+        in $\text{g}\,\text{dm}^{-3}$, of iron(II) ions in \textbf{FB 1}.
+
+
+        concentration of $\text{Fe}^{2+}$ = \hrulefill $\text{g}\,\text{dm}^{-3}$'
+      answer_options: []
+      subquestions: []
+    - number: 1cv
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'The manufacturer of the iron supplement tablets used to make \textbf{FB
+        1} claims that each tablet contains a minimum of $150 \text{ mg}$ of $\text{Fe}^{2+}$.
+
+
+        Use your answer to \textbf{(c)(iv)} and the information given about \textbf{FB
+        1} to determine whether this claim is correct. Show your working.'
+      answer_options: []
+      subquestions: []
+  - number: 1d
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'A student used all the \textbf{FB 3} and suggests that dilute hydrochloric
+      acid would be a suitable replacement.
+
+      Suggest whether the student is correct or not. Explain your answer.'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The reaction between an acid and an alkali is exothermic. You will carry
+    out a neutralisation experiment to determine the enthalpy change involved.
+
+
+    You will mix different volumes of an acid with a fixed volume of an alkali and
+    measure the temperature rises that occur.
+
+
+    FB 4 is aqueous sodium hydroxide, NaOH.
+
+    FB 5 is $2.00 \text{ mol dm}^{-3}$ hydrochloric acid, HCl.'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: '\textbf{Method}
+
+
+      \begin{itemize}
+
+      \item Use the thermometer to measure the initial temperature of FB 4. Record
+      this initial temperature in the space for results.
+
+      \item Support the cup in the $250 \text{ cm}^3$ beaker.
+
+      \item Fill one burette with FB 5. Label the burette FB 5.
+
+      \item Fill the other burette with distilled water.
+
+      \end{itemize}
+
+
+      Experiment 1
+
+
+      \begin{itemize}
+
+      \item Use the $10 \text{ cm}^3$ pipette to transfer $10.0 \text{ cm}^3$ of FB
+      4 into the cup.
+
+      \item Add $9.00 \text{ cm}^3$ of distilled water from the burette to the same
+      cup.
+
+      \item Add $1.00 \text{ cm}^3$ of FB 5 from the other burette to the same cup.
+
+      \item Stir the mixture and use the thermometer to measure the maximum temperature.
+      If necessary, tilt the cup so that the solution covers the bulb of the thermometer.
+
+      \item Record the maximum temperature in Table 2.1.
+
+      \item Empty, rinse and dry the cup ready for use in further experiments.
+
+      \end{itemize}
+
+
+      \textbf{Further experiments}
+
+
+      Repeat this method for Experiments 2–5, using $10.0 \text{ cm}^3$ of FB 4 and
+      the volumes of water and FB 5 shown in Table 2.1. In each case, measure and
+      record the maximum temperature.
+
+
+      Carry out \textbf{two} further experiments, Experiments 6 and 7, which will
+      enable you to determine more precisely the volume of FB 5 that gives the largest
+      maximum temperature. Record your measurements in Table 2.1.
+
+
+      \textbf{Results}
+
+
+      initial temperature of FB 4 = \hrulefill $^\circ\text{C}$
+
+
+      Table 2.1
+
+
+      \begin{tabular}{|c|c|c|c|}
+
+      \hline
+
+      experiment & volume of water / $\text{cm}^3$ & volume of FB 5 / $\text{cm}^3$
+      & maximum temperature / $^\circ\text{C}$ \\ \hline
+
+      1 & 9.00 & 1.00 & \\ \hline
+
+      2 & 7.00 & 3.00 & \\ \hline
+
+      3 & 5.00 & 5.00 & \\ \hline
+
+      4 & 3.00 & 7.00 & \\ \hline
+
+      5 & 1.00 & 9.00 & \\ \hline
+
+      6 & & & \\ \hline
+
+      7 & & & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 2bi
+      question_type: short_answer
+      page: 5
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Plot a graph of the maximum temperature ($y$-axis) against the volume
+        of FB 5 ($x$-axis) on the grid. The scale on the $y$-axis should be suitable
+        for temperature readings to be 2°C above the largest maximum temperature.
+
+
+        Label any points you consider to be anomalous.
+
+
+        Draw \textbf{two} lines of best fit, the first for the increase in maximum
+        temperature and the second for after the largest maximum temperature has been
+        reached. Extrapolate both lines so that they intersect.
+
+
+        \begin{tabular}{|c|c|c|c|c|c|c|} \hline I & & II & & III & & IV \\ \hline
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 2bii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Use the intersection on your graph in (b)(i) to determine the volume
+        of FB 5 required to neutralise $10.0\text{ cm}^3$ of FB 4.
+
+
+        volume of FB 5 = \hrulefill $\text{cm}^3$'
+      answer_options: []
+      subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: Calculations
+    answer_options: []
+    subquestions:
+    - number: 2ci
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate the amount, in mol, of hydrochloric acid in the volume of FB
+        5 in (b)(ii).
+
+
+        (If you were unable to determine an answer to (b)(ii), use $5.10\text{ cm}^3$
+        as the volume of FB 5. This may \textbf{not} be the correct answer.)
+
+
+        amount of $\text{HCl}$ = \hrulefill mol
+
+
+        Deduce the amount, in mol, of sodium hydroxide in $10.0\text{ cm}^3$ of FB
+        4.
+
+
+        amount of $\text{NaOH}$ = \hrulefill mol'
+      answer_options: []
+      subquestions: []
+    - number: 2cii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate the energy change, in J, when the amounts of reagents in (c)(i)
+        neutralise each other. Show your working.
+
+
+        energy change = \hrulefill J'
+      answer_options: []
+      subquestions: []
+    - number: 2ciii
+      question_type: calculation
+      page: 6
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Use your answer to (c)(ii) to calculate the enthalpy change, in $\text{kJ}\,\text{mol}^{-1}$,
+        when one mole of FB 4 is neutralised by one mole of FB 5.
+
+
+        enthalpy change = \hrulefill \hrulefill $\text{kJ}\,\text{mol}^{-1}$
+
+        \hspace*{8.5em} sign \hspace*{3em} value'
+      answer_options: []
+      subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: '\textbf{Qualitative analysis}
+
+
+    For each test you should record all your observations in the spaces provided.
+
+
+    Examples of observations include:
+
+    \begin{itemize}
+
+    \item colour changes seen
+
+    \item the formation of any precipitate and its solubility (where appropriate)
+    in an excess of the reagent added
+
+    \item the formation of any gas and its identification (where appropriate) by a
+    suitable test.
+
+    \end{itemize}
+
+
+    You should record clearly at what stage in a test an observation is made.
+
+
+    Where no change is observed, you should write ‘no change’.
+
+
+    Where reagents are selected for use in a test, the name or correct formula of
+    the element or compound must be given.
+
+
+    If any solution is warmed, a boiling tube must be used. If a solid is heated,
+    a hard-glass test-tube must be used.
+
+
+    Rinse and reuse test-tubes and boiling tubes where possible.
+
+
+    No additional tests should be attempted.'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: FB 6, FB 7 and FB 8 are aqueous solutions of different compounds that each
+      contain at least one oxygen atom.
+    answer_options: []
+    subquestions:
+    - number: 3ai
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 4
+      text: 'Carry out the following tests and record your observations in Table 3.1.
+        Three of the tests have been done for you. Use a 1 cm depth of solution in
+        a test-tube for each test.
+
+
+        \textbf{Table 3.1}
+
+
+        \begin{tabular}{|p{3cm}|c|c|c|} \hline
+
+        \multicolumn{1}{|c|}{\textit{test}} & \multicolumn{3}{c|}{\textit{observations}}
+        \\ \cline{2-4}
+
+        & \textbf{FB 6} & \textbf{FB 7} & \textbf{FB 8} \\ \hline
+
+        \textbf{Test 1} \newline Add a small spatula measure of manganese(IV) oxide.
+        & No change. & No change. & \\ \hline
+
+        \textbf{Test 2} \newline Add a 1 cm length of magnesium. & & & No change.
+        \\ \hline
+
+        \textbf{Test 3} \newline Add a few drops of aqueous iron(II) sulfate. & &
+        & \\ \hline
+
+        \end{tabular}
+
+
+        \hfill'
+      answer_options: []
+      subquestions: []
+    - number: 3aii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Use your observations in Table 3.1 to suggest a possible formula for
+        each of FB 6, FB 7
+
+        and FB 8.
+
+
+        FB 6 \hrulefill
+
+        FB 7 \hrulefill
+
+        FB 8 \hrulefill'
+      answer_options: []
+      subquestions: []
+  - number: 3b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'FB 9 contains two anions and two cations, three of which are listed in
+      the Qualitative analysis
+
+      notes.'
+    answer_options: []
+    subquestions:
+    - number: 3bi
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'To a small spatula measure of FB 9 in a test-tube, add a 2cm depth of
+        dilute nitric acid.
+
+        Record your observations.
+
+
+        Keep the resulting solution for the test in (b)(ii).'
+      answer_options: []
+      subquestions: []
+    - number: 3bii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'To the solution from (b)(i), add a few drops of aqueous silver nitrate.
+        Then add excess
+
+        aqueous ammonia. Record your observations.'
+      answer_options: []
+      subquestions: []
+    - number: 3biii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Make an aqueous solution of FB 9 by adding a 5 cm depth of distilled
+        water to a spatula measure of FB 9 in a test-tube. Carry out the following
+        tests on the aqueous solution of FB 9 and record your observations in Table
+        3.2.
+
+
+        Table 3.2
+
+
+        \begin{tabular}{|p{6cm}|p{6cm}|} \hline
+
+        \multicolumn{1}{|c|}{test} & \multicolumn{1}{|c|}{observations} \\ \hline
+
+        \textbf{Test 1} \newline To a 1 cm depth in a boiling tube, add aqueous sodium
+        hydroxide, \newline then \hrulefill \newline warm. & \\ \hline
+
+        \textbf{Test 2} \newline To a 1 cm depth in a test-tube, add a few drops of
+        dilute hydrochloric acid, \newline then add a few drops of aqueous chlorine.
+        \newline \textbf{Empty and rinse the test-tube with water immediately after
+        use.} & \\ \hline
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 3biv
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Use your observations in \textbf{(b)(i)}, \textbf{(b)(ii)} and Table
+        3.2 to deduce the formulae of the cations and anions in FB 9. If you are unable
+        to identify an ion, write ‘unknown’.
+
+
+        cations \underline{\hspace{1.5em}} and \underline{\hspace{1.5em}}
+
+
+        anions \underline{\hspace{1.5em}} and \underline{\hspace{1.5em}}'
+      answer_options: []
+      subquestions: []
+    - number: 3bv
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Write an ionic equation for the reaction in \textbf{(b)(ii)}. Include
+        state symbols.
+      answer_options: []
+      subquestions: []

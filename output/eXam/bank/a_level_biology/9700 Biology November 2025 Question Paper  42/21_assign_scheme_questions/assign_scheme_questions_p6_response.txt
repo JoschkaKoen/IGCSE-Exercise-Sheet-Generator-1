@@ -1,0 +1,24 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "9700/42 Cambridge International AS & A Level – Mark Scheme October/November 2025 PUBLISHED".
+    *   There is a table with columns "Annotation" and "Meaning".
+    *   The rows list abbreviations like BP, CON, ECF, GM, I, MAX, O, R, SEEN and their meanings (e.g., "blank page", "contradiction in response...").
+    *   The footer says "Page 6 of 23".
+    *   This page is clearly an introductory or legend page explaining the symbols used in the mark scheme. It does not contain specific marking criteria for any specific question (like "Question 1: Answer X gets 1 mark").
+
+2.  **Compare with the valid question list:**
+    *   The list includes questions 1 through 10 with various sub-parts.
+    *   None of these appear on the page. The page only contains general annotation keys.
+
+3.  **Determine the output:**
+    *   Since no specific question marking criteria are visible, the list should be empty.
+
+4.  **Format the output:**
+    *   YAML format: `questions: []`
+[/thinking]
+
+```yaml
+questions: []
+```

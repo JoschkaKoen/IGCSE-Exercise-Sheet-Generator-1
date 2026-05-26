@@ -1,0 +1,49 @@
+questions:
+- number: 1b
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    Correct calculation of the mean titre
+    \begin{itemize}
+    \item Candidate must take the average of two (or more) titres that are within a total spread of not more than 0.20 cm$^{3}$.
+    \item Working/explanation must be shown OR ticks must be put next to the two (or more) accurate readings selected.
+    \item The mean should be quoted to 2 d.p. and be rounded to nearest 0.01 cm$^{3}$ (e.g. 26.675 cm$^{3}$ must be rounded to 26.68 cm$^{3}$).
+    \end{itemize}
+- number: 1ci
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    Final answers for (c)(ii), (c)(iii) and (c)(iv) to 3 or 4 significant figures.
+- number: 1cii
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    Correctly calculates
+    amount of manganate(VII) = $0.01 \times \frac{\text{volume in (b)}}{1000} \text{ mol}$
+- number: 1ciii
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    Correctly uses
+    amount of Fe$^{2+}$ reacting with FB 2 = (c)(ii) $\times$ 5 mol
+    AND concentration of Fe$^{2+}$ = ((c)(ii) $\times$ 5) $\times$ 40 mol dm$^{-3}$
+- number: 1civ
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    Correctly uses
+    concentration of Fe$^{2+}$ = (c)(iii) $\times$ 55.8 g dm$^{-3}$
+- number: 1cv
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    Conclusion
+    yes / correct (because)
+    AND (c)(iv) $\times$ 1000 / 14 ($> 150$ claimed as present in tablet)
+- number: 1d
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    no because chloride (ions) are oxidised by manganate(VII) / KMnO$_{4}$.
+    OR no because hydrochloric acid is monoprotic AND might not produce enough H$^{+}$.
+    OR yes because hydrochloric acid is a strong acid.

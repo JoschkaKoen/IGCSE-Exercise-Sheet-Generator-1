@@ -1,0 +1,25 @@
+questions:
+- number: 3aii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: ''
+- number: 3bi
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: ''
+- number: 3bii
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: ''
+- number: 3biii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: ''
+- number: 3biv
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: ''
+- number: 3bv
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: ''

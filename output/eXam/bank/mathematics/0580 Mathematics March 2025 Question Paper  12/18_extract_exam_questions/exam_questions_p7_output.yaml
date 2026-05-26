@@ -1,0 +1,35 @@
+questions:
+  - number: "12"
+    type: short_answer
+    text: |
+      Kat has a method for finding the difference between two square numbers, $a^2 - b^2$.
+      Her method is
+      (the sum of $a$ and $b$) $\times$ (the difference between $a$ and $b$).
+
+      She shows her method for $17^2 - 13^2$.
+
+      \begin{tabular}{|l|}
+      \hline
+      $17^2 - 13^2$ \\
+      \\
+      $= (17 + 13) \times (17 - 13)$ \\
+      \\
+      $= 30 \times 4$ \\
+      \\
+      $= 120$ \\
+      \hline
+      \end{tabular}
+  - number: "12a"
+    type: calculation
+    text: |
+      Work out $29^2 - 21^2$ using Kat's method.
+  - number: "12b"
+    type: calculation
+    text: |
+      In this part, all lengths are in centimetres.
+
+      The diagram shows a prism.
+
+      Work out the volume of the prism.
+
+      \hrulefill $\text{cm}^3$

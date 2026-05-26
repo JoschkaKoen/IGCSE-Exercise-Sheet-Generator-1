@@ -1,0 +1,45 @@
+questions:
+- number: 3aii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{FB 6} $CH_{3}COOH$/ formula of any acid containing O
+    \textbf{FB 7} $NaOH$/ formula of any Group 1 hydroxide
+    \textbf{FB 8} $H_{2}O_{2}$
+- number: 3bi
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    Fizzing*
+    Forms colourless solution*
+    Attempts limewater test*
+    Gas gives white ppt with limewater *
+- number: 3bii
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    Cream/ off-white ppt
+    \textbf{AND}
+    Partially soluble/ insoluble in (aqueous) ammonia
+- number: 3biii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{M1 Test 1}
+    No change / no ppt
+    \textbf{AND} (on heating) gas / fizzing / ammonia turns litmus blue
+
+    \textbf{M2 Test 2}
+    Brown or yellow solution
+    \textbf{OR} turns brown or yellow
+- number: 3biv
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    cations: $NH_{4}^{+}$ and unknown
+    anions: $Br^{-}$ and $CO_{3}^{2-}$
+- number: 3bv
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    $Ag^{+}(aq) + Br^{-}(aq) \rightarrow AgBr(s)$

@@ -1,0 +1,21 @@
+questions:
+  - number: "3b"
+    type: short_answer
+    text: |
+      $E. coli$ is present in the gut (intestines) of young mammals.
+
+      The diet of young mammals contains lactose which is present in the milk they consume.
+
+      Scientists carried out an experiment using $E. coli$ with a $lac$ operon ($lac^+ E. coli$) and $E. coli$ without a $lac$ operon ($lac^- E. coli$).
+
+      The experiment was carried out to determine whether the presence of a $lac$ operon gives $E. coli$ a selective advantage.
+
+      \begin{itemize}
+      \item Equal numbers of $lac^+ E. coli$ and $lac^- E. coli$ were given to 8 mice to allow the bacteria to colonise the gut.
+      \item On day 0, 50\% of the $E. coli$ in the gut of each mouse were $lac^+ E. coli$.
+      \item 4 mice were fed a standard diet that included lactose.
+      \item 4 mice were fed a standard diet without lactose.
+      \item The percentage of $lac^+ E. coli$ that were in the gut of each mouse was determined every day for 6 days.
+      \end{itemize}
+
+      The results are shown in Fig. 3.2.

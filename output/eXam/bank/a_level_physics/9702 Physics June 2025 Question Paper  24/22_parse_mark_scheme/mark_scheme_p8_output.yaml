@@ -1,0 +1,53 @@
+questions:
+- number: 1a
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    force $\times$ perpendicular distance (of line of action of force to a point)
+    \newline
+    \textbf{or} product of force and perpendicular distance (to a point)
+- number: 1bi
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    in (rotational) equilibrium
+    \newline
+    sum / total of CW moments about a point = sum / total of ACW moments about the (same) point.
+- number: 1bii
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    component of weight $= 75 \times \cos 42^{\circ}$
+    $= 56$ N
+- number: 1biii
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $F \times 80$ \textbf{or} $56 \times 40$ \textbf{or} $F \times 0.8$ \textbf{or} $56 \times 0.4$
+    $F \times 80 = 56 \times 40$
+    \newline
+    $F = 28$ N
+- number: 2a
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    product of mass and velocity
+- number: 2b
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    change in momentum $= (-1.4) - (+2.8)$
+    $= (-) 4.2 \text{ kg m s}^{-1}$
+- number: 2c
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $F = \Delta p / (\Delta)t$ \textbf{or} $F = \text{gradient}$
+    $= 4.2 / 12$
+    \newline
+    $= 0.35$ N
+- number: 2d
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    constant / uniform (rate of) decrease (of speed to zero).

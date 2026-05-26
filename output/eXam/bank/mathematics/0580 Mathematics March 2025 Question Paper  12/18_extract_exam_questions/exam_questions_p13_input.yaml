@@ -1,0 +1,15 @@
+  - number: "18"
+    type: short_answer
+    text: ""
+  - number: "18a"
+    type: calculation
+    text: ""
+  - number: "18b"
+    type: short_answer
+    text: ""
+  - number: "18c"
+    type: short_answer
+    text: ""
+  - number: "18d"
+    type: calculation
+    text: ""

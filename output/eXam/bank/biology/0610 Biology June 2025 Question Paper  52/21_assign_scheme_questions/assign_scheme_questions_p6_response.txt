@@ -1,0 +1,23 @@
+[thinking]
+The user wants me to identify which question numbers have their marking criteria visible on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "0610/52 Cambridge IGCSE – Mark Scheme May/June 2025 PUBLISHED".
+    *   There is a table with columns "Annotation" and "Meaning".
+    *   The rows list various symbols (checkmark, chain links, squiggly lines, brackets, PAG, MR, green circle, MAX) and explain what they mean in the context of marking.
+    *   The footer says "Page 6 of 12".
+
+2.  **Evaluate content against the task:**
+    *   The task asks for "question numbers' marking criteria".
+    *   This page is an introductory or legend page explaining the symbols used in the mark scheme. It does not contain specific marking points for Question 1, 2, or 3. It explains *how* to read the marks, not *what* the marks are for specific questions.
+    *   Therefore, no specific question criteria (like "1a: answer is X") are present.
+
+3.  **Formulate the output:**
+    *   Since no question criteria are visible, the list should be empty.
+    *   Output format: `questions: []`
+
+[/thinking]
+
+```yaml
+questions: []
+```

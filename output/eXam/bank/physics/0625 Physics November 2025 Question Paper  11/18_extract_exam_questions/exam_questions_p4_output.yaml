@@ -1,0 +1,62 @@
+questions:
+  - number: "8"
+    type: multiple_choice
+    text: |
+      What needs to be known to calculate the work done by a force acting on an object?
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & \begin{tabular}[c]{@{}c@{}}the size of\\ the force\end{tabular} & \begin{tabular}[c]{@{}c@{}}the distance\\ the force moves\\ the object\end{tabular} & \begin{tabular}[c]{@{}c@{}}the time\\ for which the\\ force acts\end{tabular} \\ \hline
+      \textbf{A} & \checkmark & \checkmark & \checkmark \\ \hline
+      \textbf{B} & \checkmark & \checkmark & x \\ \hline
+      \textbf{C} & \checkmark & x & \checkmark \\ \hline
+      \textbf{D} & \checkmark & x & x \\ \hline
+      \end{tabular}
+
+      key
+      \checkmark = needed
+      x = not needed
+    options:
+      - letter: A
+        text: |
+          the size of the force: \checkmark, the distance the force moves the object: \checkmark, the time for which the force acts: \checkmark
+      - letter: B
+        text: |
+          the size of the force: \checkmark, the distance the force moves the object: \checkmark, the time for which the force acts: x
+      - letter: C
+        text: |
+          the size of the force: \checkmark, the distance the force moves the object: x, the time for which the force acts: \checkmark
+      - letter: D
+        text: |
+          the size of the force: \checkmark, the distance the force moves the object: x, the time for which the force acts: x
+  - number: "9"
+    type: multiple_choice
+    text: |
+      Different energy resources are used to produce electricity on a small island.
+
+      The chart shows the percentages of each energy resource used in 2000 and in 2024.
+
+      Which row correctly describes any changes in the percentage for 2024 compared with 2000?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & \multicolumn{2}{c|}{percentage of energy resource used} \\ \cline{2-3} 
+       & coal & renewable \\ \hline
+      \textbf{A} & decrease & no change \\ \hline
+      \textbf{B} & no change & increase \\ \hline
+      \textbf{C} & decrease & increase \\ \hline
+      \textbf{D} & no change & no change \\ \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          coal: decrease, renewable: no change
+      - letter: B
+        text: |
+          coal: no change, renewable: increase
+      - letter: C
+        text: |
+          coal: decrease, renewable: increase
+      - letter: D
+        text: |
+          coal: no change, renewable: no change

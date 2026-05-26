@@ -1,0 +1,24 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "9701/34 Cambridge International AS & A Level – Mark Scheme May/June 2025".
+    *   The title is "Annotations guidance for centres".
+    *   The text explains what annotations are (checkmarks, crosses, etc.) and how they are used by examiners.
+    *   There is a table titled "Annotations" listing symbols like a green check, red cross, 'BOD', 'CON', 'DP', 'ECF', 'I', 'NBOD', 'RE', 'REP' and their meanings.
+    *   The footer says "Page 5 of 12".
+
+2.  **Evaluate against the task:**
+    *   I need to find specific question numbers (like "1", "2a", "3bii") whose *marking criteria* are visible.
+    *   This page is an introductory guide explaining the *symbols* used in the mark scheme. It does not contain the actual questions or the specific marking points for any question (e.g., it doesn't say "For question 1a, accept X").
+    *   Therefore, no specific question numbers are present in terms of marking criteria.
+
+3.  **Formulate the output:**
+    *   Since no question criteria are visible, the list should be empty.
+    *   Output format: `questions: []`
+
+[/thinking]
+
+```yaml
+questions: []
+```

@@ -1,0 +1,26 @@
+[thinking]
+The user wants me to identify which question numbers have their marking criteria visible on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "0478/12 Cambridge IGCSE – Mark Scheme May/June 2025 PUBLISHED".
+    *   There is a table titled "Annotation" and "Meaning". It lists symbols like lambda, brackets, squiggly lines, highlighter, and "SEEN" with their meanings (Omission, Section not relevant, Section incorrect, Information copied from the text, Page or response seen by examiner).
+    *   Below the table, there is a section "Annotation guidance:".
+    *   It explains symbols: `/`, `//`, Underline, Max, `( )`.
+    *   There is a note: "Note: No marks are awarded for using brand names of software packages or hardware."
+    *   The footer says "Page 5 of 15".
+
+2.  **Evaluate content against the task:**
+    *   The task asks for "question numbers' marking criteria".
+    *   This page contains general instructions on how to annotate the script and what symbols mean. It does *not* contain specific marking points for any specific question (e.g., "1a", "2b").
+    *   It's an introductory or explanatory page for examiners.
+    *   Therefore, no specific question numbers (like "1", "1a", etc.) have their criteria listed here.
+
+3.  **Formulate the output:**
+    *   Since no question criteria are visible, the list should be empty.
+    *   Output format: `questions: []`
+
+[/thinking]
+
+```yaml
+questions: []
+```

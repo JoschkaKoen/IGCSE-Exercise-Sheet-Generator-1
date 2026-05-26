@@ -1,0 +1,2160 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which measuring instrument is used to determine the volume of water in a cup?
+  answer_options:
+  - letter: A
+    text: clock
+  - letter: B
+    text: measuring cylinder
+  - letter: C
+    text: ruler
+  - letter: D
+    text: thermometer
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagrams show distance–time graphs for four objects.
+
+
+    Which object is moving with increasing speed?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "A space station orbits above the Earth. There is an astronaut in the space\
+    \ station.\n\nIn the space station, the acceleration of free fall is $7.5 \\text{\
+    \ m/s}^2$.\n\nOn Earth, the acceleration of free fall is $9.8 \\text{ m/s}^2$.\n\
+    \nWhich row about the astronaut’s mass and weight in the space station is correct?\n\
+    \n\\begin{tabular}{|c|c|c|}\n\\hline\n & mass of astronaut & weight of astronaut\
+    \ \\\\\n\\hline\n\\textbf{A} & same as on the Earth & less than on the Earth \\\
+    \\\n\\textbf{B} & same as on the Earth & greater than on the Earth \\\\\n\\textbf{C}\
+    \ & lower than on the Earth & less than on the Earth \\\\\n\\textbf{D} & lower\
+    \ than on the Earth & greater than on the Earth \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A student is asked to predict whether a solid floats in a liquid.
+
+
+    Which information does the student require?'
+  answer_options:
+  - letter: A
+    text: the density of the liquid and the mass of the solid
+  - letter: B
+    text: the density of the solid and the density of the liquid
+  - letter: C
+    text: the density of the solid and the mass of the liquid
+  - letter: D
+    text: the mass of the solid and the mass of the liquid
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which property of an object \textbf{never} changes when a force acts on the
+    object?
+  answer_options:
+  - letter: A
+    text: mass
+  - letter: B
+    text: shape
+  - letter: C
+    text: size
+  - letter: D
+    text: speed
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A car is travelling along a straight horizontal road. The speed–time graph
+    is shown.
+
+
+    In which labelled part of the journey is the resultant force on the car zero?
+
+
+    speed
+
+    time
+
+    0
+
+    0
+
+    A
+
+    B
+
+    C
+
+    D'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which list contains only energy stores?
+  answer_options:
+  - letter: A
+    text: electrostatic, kinetic, light
+  - letter: B
+    text: electrostatic, kinetic, nuclear
+  - letter: C
+    text: electrostatic, light, nuclear
+  - letter: D
+    text: kinetic, light, nuclear
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "What needs to be known to calculate the work done by a force acting on an\
+    \ object?\n\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n & \\begin{tabular}[c]{@{}c@{}}the\
+    \ size of\\\\ the force\\end{tabular} & \\begin{tabular}[c]{@{}c@{}}the distance\\\
+    \\ the force moves\\\\ the object\\end{tabular} & \\begin{tabular}[c]{@{}c@{}}the\
+    \ time\\\\ for which the\\\\ force acts\\end{tabular} \\\\ \\hline\n\\textbf{A}\
+    \ & \\checkmark & \\checkmark & \\checkmark \\\\ \\hline\n\\textbf{B} & \\checkmark\
+    \ & \\checkmark & x \\\\ \\hline\n\\textbf{C} & \\checkmark & x & \\checkmark\
+    \ \\\\ \\hline\n\\textbf{D} & \\checkmark & x & x \\\\ \\hline\n\\end{tabular}\n\
+    \nkey\n\\checkmark = needed\nx = not needed"
+  answer_options:
+  - letter: A
+    text: 'the size of the force: \checkmark, the distance the force moves the object:
+      \checkmark, the time for which the force acts: \checkmark'
+  - letter: B
+    text: 'the size of the force: \checkmark, the distance the force moves the object:
+      \checkmark, the time for which the force acts: x'
+  - letter: C
+    text: 'the size of the force: \checkmark, the distance the force moves the object:
+      x, the time for which the force acts: \checkmark'
+  - letter: D
+    text: 'the size of the force: \checkmark, the distance the force moves the object:
+      x, the time for which the force acts: x'
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Different energy resources are used to produce electricity on a small island.\n\
+    \nThe chart shows the percentages of each energy resource used in 2000 and in\
+    \ 2024.\n\nWhich row correctly describes any changes in the percentage for 2024\
+    \ compared with 2000?\n\n\\begin{tabular}{|c|c|c|}\n\\hline\n & \\multicolumn{2}{c|}{percentage\
+    \ of energy resource used} \\\\ \\cline{2-3}\n & coal & renewable \\\\ \\hline\n\
+    \\textbf{A} & decrease & no change \\\\ \\hline\n\\textbf{B} & no change & increase\
+    \ \\\\ \\hline\n\\textbf{C} & decrease & increase \\\\ \\hline\n\\textbf{D} &\
+    \ no change & no change \\\\ \\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: 'coal: decrease, renewable: no change'
+  - letter: B
+    text: 'coal: no change, renewable: increase'
+  - letter: C
+    text: 'coal: decrease, renewable: increase'
+  - letter: D
+    text: 'coal: no change, renewable: no change'
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which situation is \textbf{not} explained by the equation $P = \frac{F}{A}$?
+  answer_options:
+  - letter: A
+    text: using a longer spanner than normal to undo a tight nut
+  - letter: B
+    text: hammering a nail into a piece of wood
+  - letter: C
+    text: tractors using wide tyres in a muddy field
+  - letter: D
+    text: a sharp kitchen knife cutting vegetables more easily than a blunt one
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A substance is heated. The substance changes state from a liquid to a gas.
+
+
+    When the gas is cooled, it first becomes a liquid and finally a solid.
+
+
+    What is the order of changes of state for this substance?'
+  answer_options:
+  - letter: A
+    text: condensation $\to$ melting $\to$ freezing
+  - letter: B
+    text: vaporisation $\to$ condensation $\to$ melting
+  - letter: C
+    text: vaporisation $\to$ condensation $\to$ freezing
+  - letter: D
+    text: melting $\to$ vaporisation $\to$ freezing
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A glass bottle containing warm air is sealed with a screw cap and then cooled
+    in cold water.
+
+
+    cap
+
+    cold water
+
+    air
+
+
+    The contraction of the glass bottle can be ignored.
+
+
+    What remains the same during the cooling?'
+  answer_options:
+  - letter: A
+    text: the air pressure inside the bottle
+  - letter: B
+    text: the energy of the air particles in the bottle
+  - letter: C
+    text: the force on the cap made by the air particles in the bottle
+  - letter: D
+    text: the volume of air in the bottle
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A gas is stored in a container of constant volume.
+
+
+    The temperature of the gas is increased.
+
+
+    What happens to the particles of the gas?'
+  answer_options:
+  - letter: A
+    text: The distance between the particles increases.
+  - letter: B
+    text: The mass of the particles increases.
+  - letter: C
+    text: The number of particles increases.
+  - letter: D
+    text: The speed of the particles increases.
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'One end of a shiny metal rod is heated, and the other end quickly gets hot.
+
+
+    Which statement describes why the other end quickly gets hot?'
+  answer_options:
+  - letter: A
+    text: Metals are good thermal conductors.
+  - letter: B
+    text: Metals are poor thermal conductors.
+  - letter: C
+    text: Shiny surfaces are good emitters of infrared radiation.
+  - letter: D
+    text: Shiny surfaces are poor emitters of infrared radiation.
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Vacuum flasks usually have silvered walls that help to keep the contents
+    of the flask hot.
+
+
+    Why are the walls silvered?'
+  answer_options:
+  - letter: A
+    text: to absorb thermal energy from the air around the flask
+  - letter: B
+    text: to increase the rate of convection inside the flask
+  - letter: C
+    text: to reduce energy loss to the surroundings by conduction
+  - letter: D
+    text: to reflect thermal radiation back into the flask
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "The temperature of the air in the atmosphere around us increases.\n\nWhich\
+    \ row describes the change in the density of the air and which form of thermal\
+    \ energy transfer occurs as a result of this change?\n\n\\begin{tabular}{|c|c|c|}\n\
+    \\hline\n & \\begin{tabular}[c]{@{}c@{}}what happens to\\\\ the density of the\
+    \ air\\end{tabular} & \\begin{tabular}[c]{@{}c@{}}thermal energy\\\\ transfer\
+    \ that\\\\ occurs as a result\\end{tabular} \\\\ \\hline\n\\textbf{A} & decreases\
+    \ & conduction \\\\ \\hline\n\\textbf{B} & decreases & convection \\\\ \\hline\n\
+    \\textbf{C} & increases & conduction \\\\ \\hline\n\\textbf{D} & increases & convection\
+    \ \\\\ \\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: decreases, conduction
+  - letter: B
+    text: decreases, convection
+  - letter: C
+    text: increases, conduction
+  - letter: D
+    text: increases, convection
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A student draws a diagram to show two different properties of a water wave.
+    The arrows show the wave directions.
+
+
+    shallow water
+
+    deep water
+
+
+    Which two wave properties does the diagram show?'
+  answer_options:
+  - letter: A
+    text: refraction and diffraction
+  - letter: B
+    text: reflection and dispersion
+  - letter: C
+    text: reflection and diffraction
+  - letter: D
+    text: reflection and refraction
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "A seismic wave consists of vibrations that are parallel to the direction\
+    \ of propagation.\n\nWhat is the type of wave and what is the name of the seismic\
+    \ wave?\n\n\\begin{tabular}{|c|c|c|}\n\\hline\n & type of wave & \\begin{tabular}[c]{@{}c@{}}name\
+    \ of\\\\ seismic wave\\end{tabular} \\\\ \\hline\n\\textbf{A} & longitudinal &\
+    \ P-wave \\\\ \\hline\n\\textbf{B} & longitudinal & S-wave \\\\ \\hline\n\\textbf{C}\
+    \ & transverse & P-wave \\\\ \\hline\n\\textbf{D} & transverse & S-wave \\\\ \\\
+    hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: longitudinal, P-wave
+  - letter: B
+    text: longitudinal, S-wave
+  - letter: C
+    text: transverse, P-wave
+  - letter: D
+    text: transverse, S-wave
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A person stands $1.0\text{ m}$ in front of a plane mirror. The mirror is
+    moved away from the person at a speed of $1.0\text{ m/s}$.
+
+
+    Which statement is correct?'
+  answer_options:
+  - letter: A
+    text: The image moves away from the person at a speed of $1.0\text{ m/s}$.
+  - letter: B
+    text: The image moves away from the person at a speed of $2.0\text{ m/s}$.
+  - letter: C
+    text: The image moves towards the person at a speed of $1.0\text{ m/s}$.
+  - letter: D
+    text: The image moves towards the person at a speed of $2.0\text{ m/s}$.
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A ray of light passes from air into a rectangular transparent block.
+
+
+    What is the angle of refraction?'
+  answer_options:
+  - letter: A
+    text: $25^\circ$
+  - letter: B
+    text: $40^\circ$
+  - letter: C
+    text: $50^\circ$
+  - letter: D
+    text: $65^\circ$
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows the formation of an image by a thin converging lens.
+
+
+    Which terms describe the image?'
+  answer_options:
+  - letter: A
+    text: diminished and upright
+  - letter: B
+    text: real and inverted
+  - letter: C
+    text: virtual and diminished
+  - letter: D
+    text: virtual and inverted
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Valuable objects are often marked with a special ink. In visible light, the
+    ink \textbf{cannot} be seen.
+
+
+    The ink can be seen when exposed to the right type of electromagnetic waves.
+
+
+    Which type of electromagnetic waves are used for this type of security marking?'
+  answer_options:
+  - letter: A
+    text: infrared
+  - letter: B
+    text: microwaves
+  - letter: C
+    text: ultraviolet
+  - letter: D
+    text: X-rays
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "A siren is emitting a sound. As time passes, the sound becomes louder and\
+    \ higher pitched.\n\nWhat is happening to the amplitude and to the frequency of\
+    \ the emitted sound wave?\n\n\\begin{tabular}{|c|c|c|}\n\\hline\n & amplitude\
+    \ & frequency \\\\\n\\hline\n\\textbf{A} & decreasing & decreasing \\\\\n\\textbf{B}\
+    \ & decreasing & increasing \\\\\n\\textbf{C} & increasing & decreasing \\\\\n\
+    \\textbf{D} & increasing & increasing \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: decreasing decreasing
+  - letter: B
+    text: decreasing increasing
+  - letter: C
+    text: increasing decreasing
+  - letter: D
+    text: increasing increasing
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A plotting compass is placed at position X near to a bar magnet. The diagram
+    shows the direction in which the compass points.
+
+
+    X
+
+
+    Y
+
+
+    Which diagram shows the direction in which the plotting compass placed at position
+    Y points?'
+  answer_options:
+  - letter: A
+    text: (upward arrow)
+  - letter: B
+    text: (downward arrow)
+  - letter: C
+    text: (rightward arrow)
+  - letter: D
+    text: (leftward arrow)
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A student rubs a plastic rod with a cloth.
+
+
+    Electrons move from the cloth to the rod.
+
+
+    Which statement about the rod is correct?'
+  answer_options:
+  - letter: A
+    text: It is negatively charged and is attracted by a negatively charged object.
+  - letter: B
+    text: It is negatively charged and is attracted by a positively charged object.
+  - letter: C
+    text: It is positively charged and is attracted by a negatively charged object.
+  - letter: D
+    text: It is positively charged and is attracted by a positively charged object.
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which expression is used to calculate electrical resistance?
+  answer_options:
+  - letter: A
+    text: charge $\div$ potential difference
+  - letter: B
+    text: current $\div$ potential difference
+  - letter: C
+    text: potential difference $\div$ charge
+  - letter: D
+    text: potential difference $\div$ current
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows part of an electric circuit. The reading on the voltmeter
+    is $16\text{ V}$. The current in the resistor is $8.0\text{ A}$.
+
+
+    One coulomb of charge flows from P to Q through the resistor.
+
+
+    How much energy is transferred in the resistor?'
+  answer_options:
+  - letter: A
+    text: $2.0\text{ J}$
+  - letter: B
+    text: $8.0\text{ J}$
+  - letter: C
+    text: $16\text{ J}$
+  - letter: D
+    text: $128\text{ J}$
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is the combined resistance of a $3.0\Omega$ resistor and a $6.0\Omega$
+    resistor connected in parallel?
+  answer_options:
+  - letter: A
+    text: $2.0\Omega$
+  - letter: B
+    text: $4.5\Omega$
+  - letter: C
+    text: $9.0\Omega$
+  - letter: D
+    text: $18\Omega$
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A $5.0\Omega$ resistor is connected in series with a $10\Omega$ resistor.
+
+
+    There is a constant current in the $5.0\Omega$ resistor.
+
+
+    Which statement about the two resistors is correct?'
+  answer_options:
+  - letter: A
+    text: The current is greater in the $5.0\Omega$ resistor.
+  - letter: B
+    text: The current is greater in the $10\Omega$ resistor.
+  - letter: C
+    text: The potential difference (p.d.) is greater across the $5.0\Omega$ resistor.
+  - letter: D
+    text: The potential difference (p.d.) is greater across the $10\Omega$ resistor.
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which statement explains where the switch for an electric lamp is connected?
+  answer_options:
+  - letter: A
+    text: The switch is in \textbf{either} the live wire \textbf{or} in the neutral
+      wire as both wires carry the current.
+  - letter: B
+    text: The switch is in the earth wire to prevent the fuse from blowing when the
+      lamp is in use.
+  - letter: C
+    text: The switch is in the live wire so that the lamp is disconnected from the
+      mains supply when the switch is off.
+  - letter: D
+    text: The switch is in the neutral wire to prevent current leakage when the lamp
+      is switched off.
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The diagram shows a magnet moving towards a coil of wire.
+
+
+    When the magnet moves towards the coil of wire, an electromotive force (e.m.f.)
+    is induced.
+
+
+    Students are asked for one change that will increase the magnitude of the induced
+    e.m.f.
+
+
+    Three changes are proposed.
+
+
+    1 Move the magnet more quickly.
+
+    2 Use a stronger magnet.
+
+    3 Increase the number of turns on the coil.
+
+
+    Which changes, on their own, will increase the magnitude of the induced e.m.f.?'
+  answer_options:
+  - letter: A
+    text: 1, 2 and 3
+  - letter: B
+    text: 1 and 2 only
+  - letter: C
+    text: 1 and 3 only
+  - letter: D
+    text: 2 and 3 only
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is used to identify the pattern and direction of the magnetic field due
+    to the current in a straight wire?
+  answer_options:
+  - letter: A
+    text: an ammeter
+  - letter: B
+    text: a compass
+  - letter: C
+    text: iron filings
+  - letter: D
+    text: a voltmeter
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which description of the structure of an atom is correct?
+  answer_options:
+  - letter: A
+    text: negatively charged electrons surrounding an uncharged nucleus
+  - letter: B
+    text: negatively charged electrons surrounding a positively charged nucleus
+  - letter: C
+    text: positively charged electrons surrounding an uncharged nucleus
+  - letter: D
+    text: positively charged electrons surrounding a negatively charged nucleus
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A radioactive source is placed $20\text{ mm}$ in front of a detector.
+
+
+    The count rate from the source is $2000\text{ counts / minute}$.
+
+
+    With a thin sheet of paper between the source and the detector, the count rate
+    is $2000\text{ counts / minute}$.
+
+
+    With a sheet of aluminium $5\text{ mm}$ thick between the source and the detector,
+    the count rate is $1200\text{ counts / minute}$.
+
+
+    Which radioactive emissions are coming from the source?'
+  answer_options:
+  - letter: A
+    text: alpha, beta and gamma
+  - letter: B
+    text: alpha only
+  - letter: C
+    text: beta and gamma only
+  - letter: D
+    text: beta only
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which type of radiation is measured using a detector connected to a counter?
+  answer_options:
+  - letter: A
+    text: visible light
+  - letter: B
+    text: ionising nuclear
+  - letter: C
+    text: microwave
+  - letter: D
+    text: thermal
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A sample of a radioactive isotope contains $100$ nuclei of the isotope.
+
+
+    The graph shows the number of nuclei of that isotope that remain in the sample
+    as time passes.
+
+
+    \begin{tabular}{r|c|c|c|c|c|c|c|c|c|}
+
+    100 & & & & & & & & & \\ \cline{2-10}
+
+    75 & & & & & & & & & \\ \cline{2-10}
+
+    50 & & & & & & & & & \\ \cline{2-10}
+
+    25 & & & & & & & & & \\ \cline{2-10}
+
+    0 & & & & & & & & & \\ \cline{2-10}
+
+    \multicolumn{1}{r}{} & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+
+    \end{tabular}
+
+    \newline
+
+    number of nuclei \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+    \quad \quad \quad \quad \quad \quad \quad \'
+  answer_options: []
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A teacher does an experiment to measure radiation passing through a lead
+    sheet.
+
+
+    Three students suggest how the teacher can reduce the risk to her health.
+
+
+    student 1 Move the radioactive source with her bare hands.
+
+    student 2 Stay as close as possible to the radioactive source during the experiment.
+
+    student 3 Minimise the time of the experiment.
+
+
+    Which students are correct?'
+  answer_options:
+  - letter: A
+    text: 1, 2 and 3
+  - letter: B
+    text: 1 and 2 only
+  - letter: C
+    text: 2 only
+  - letter: D
+    text: 3 only
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "The diagram represents three objects, X, Y and Z, in space.\n\nObject Y orbits\
+    \ object X.\n\nObject Z orbits object Y.\n\nWhich types of object are X, Y and\
+    \ Z?\n\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n & object X & object Y & object\
+    \ Z \\\\\n\\hline\n\\textbf{A} & planet & moon & star \\\\\n\\textbf{B} & planet\
+    \ & star & moon \\\\\n\\textbf{C} & star & planet & moon \\\\\n\\textbf{D} & star\
+    \ & moon & planet \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: planet, moon, star
+  - letter: B
+    text: planet, star, moon
+  - letter: C
+    text: star, planet, moon
+  - letter: D
+    text: star, moon, planet
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which statement about the Sun is correct?
+  answer_options:
+  - letter: A
+    text: The Sun consists of mainly carbon and nitrogen.
+  - letter: B
+    text: The Sun is the largest planet in the Solar System.
+  - letter: C
+    text: The Sun is a medium-sized star.
+  - letter: D
+    text: The Sun radiates most of its energy in the gamma-ray region of the electromagnetic
+      spectrum.
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is the name of the galaxy that contains the Sun?
+  answer_options:
+  - letter: A
+    text: Andromeda
+  - letter: B
+    text: Milky Way
+  - letter: C
+    text: Red Shift
+  - letter: D
+    text: Universe
+  subquestions: []

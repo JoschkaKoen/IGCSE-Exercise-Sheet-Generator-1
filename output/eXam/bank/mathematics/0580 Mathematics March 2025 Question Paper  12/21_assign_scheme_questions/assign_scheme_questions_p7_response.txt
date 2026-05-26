@@ -1,0 +1,40 @@
+[thinking]
+The user wants me to identify the question numbers from a Cambridge IGCSE mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a table with columns: "Question", "Answer", "Marks", "Partial Marks".
+    *   I need to read the "Question" column and map it to the provided list of valid question numbers.
+    *   The list of valid question numbers is: "1", "2", "2a", "2b", "2c", "3", "4", "4a", "4b", "4c", "5", "5a", "5b", "6", "7", "8", "9", "10", "10a", "10b", "11", "11a", "11b", "12", "12a", "12b", "13", "14", "14a", "14b", "14c", "15", "15a", "15b", "16", "16a", "16b", "17", "17a", "17b", "18", "18a", "18b", "18c", "18d", "19", "19a", "19b", "20", "21", "21a", "21b", "22", "23", "23a", "23b", "23c", "24", "25", "26".
+
+2.  **Scan the "Question" column row by row:**
+    *   Row 1: "1" -> Valid. Map to "1".
+    *   Row 2: "2(a)" -> Valid. Map to "2a".
+    *   Row 3: "2(b)" -> Valid. Map to "2b".
+    *   Row 4: "2(c)" -> Valid. Map to "2c".
+    *   Row 5: "3" -> Valid. Map to "3".
+    *   Row 6: "4(a)" -> Valid. Map to "4a".
+    *   Row 7: "4(b)" -> Valid. Map to "4b".
+    *   Row
+[/thinking]
+
+```yaml
+questions:
+  - "1"
+  - "2a"
+  - "2b"
+  - "2c"
+  - "3"
+  - "4a"
+  - "4b"
+  - "4c"
+  - "5a"
+  - "5b"
+  - "6"
+  - "7"
+  - "8"
+  - "9"
+  - "10a"
+  - "10b"
+  - "11a"
+  - "11b"
+```

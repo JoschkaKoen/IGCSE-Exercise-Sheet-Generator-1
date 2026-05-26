@@ -1,0 +1,61 @@
+questions:
+  - number: "23"
+    type: multiple_choice
+    text: |
+      An equation for the displacement reaction between aqueous halogen, $X_2$, and aqueous halide ions, $Y^-$, is shown.
+
+      $$X_2(\text{aq}) + 2Y^-(\text{aq}) \to 2X^-(\text{aq}) + Y_2(\text{aq})$$
+
+      Which row identifies $X_2$ and $Y^-$ and explains why the reaction takes place?
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & $X_2$ & $Y^-$ & explanation \\
+      \hline
+      \textbf{A} & chlorine & iodide & chlorine is less reactive than iodine \\
+      \textbf{B} & chlorine & iodide & chlorine is more reactive than iodine \\
+      \textbf{C} & iodine & chloride & chlorine is less reactive than iodine \\
+      \textbf{D} & iodine & chloride & chlorine is more reactive than iodine \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          chlorine, iodide, chlorine is less reactive than iodine
+      - letter: B
+        text: |
+          chlorine, iodide, chlorine is more reactive than iodine
+      - letter: C
+        text: |
+          iodine, chloride, chlorine is less reactive than iodine
+      - letter: D
+        text: |
+          iodine, chloride, chlorine is more reactive than iodine
+  - number: "24"
+    type: multiple_choice
+    text: |
+      Some information about an element is shown.
+
+      \begin{tabular}{|l|c|}
+      \hline
+      melting point / $^\circ\text{C}$ & 1555 \\
+      boiling point / $^\circ\text{C}$ & 2963 \\
+      colour of oxide & brown \\
+      use of element & as a catalyst \\
+      \hline
+      \end{tabular}
+
+      What is the position of this element in the Periodic Table?
+    options:
+      - letter: A
+        text: |
+          Group I
+      - letter: B
+        text: |
+          Group VII
+      - letter: C
+        text: |
+          Group VIII
+      - letter: D
+        text: |
+          transition elements

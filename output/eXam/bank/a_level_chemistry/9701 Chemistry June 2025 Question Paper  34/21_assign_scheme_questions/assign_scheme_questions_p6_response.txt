@@ -1,0 +1,26 @@
+[thinking]
+The user wants me to identify question numbers from a mark scheme page.
+1.  **Analyze the image:**
+    *   Header: "9701/34 Cambridge International AS & A Level – Mark Scheme May/June 2025 PUBLISHED"
+    *   Table content:
+        *   Row 1: "Annotation" | "Meaning"
+        *   Row 2: "[SEEN] or /" | "Blank page or part of script seen"
+        *   Row 3: "[SF]" | "Error in number of significant figures"
+        *   Row 4: "[TE]" | "Transcription error"
+    *   Footer: "© Cambridge University Press & Assessment 2025 Page 6 of 12"
+
+2.  **Evaluate against criteria:**
+    *   The page contains a legend for annotations (SEEN, SF, TE).
+    *   It does *not* contain specific marking criteria for any question (e.g., no "Question 1", no marks allocated, no model answers).
+    *   It is an introductory or explanatory page explaining symbols used in the rest of the document.
+
+3.  **Determine output:**
+    *   Since no specific question marking criteria are visible, the list should be empty.
+
+4.  **Format output:**
+    *   YAML format: `questions: []`
+[/thinking]
+
+```yaml
+questions: []
+```

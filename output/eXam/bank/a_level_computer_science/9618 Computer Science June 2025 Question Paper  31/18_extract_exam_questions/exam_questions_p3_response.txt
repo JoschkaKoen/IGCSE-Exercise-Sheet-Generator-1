@@ -1,0 +1,31 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      Numbers are stored in a computer using binary floating-point representation with:
+
+      \begin{itemize}
+      \item 10 bits for the mantissa
+      \item 6 bits for the exponent
+      \item two's complement form for both the mantissa and the exponent.
+      \end{itemize}
+  - number: "2a"
+    type: calculation
+    text: |
+      Write the normalised floating-point representation of the following binary number using this system.
+
+      0.00000011010111
+
+      \textbf{Mantissa} \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \quad \framebox{$\square\,\square\,\square\,\square\,\square\,\square$}
+  - number: "2b"
+    type: calculation
+    text: |
+      Calculate the normalised binary floating-point representation of $-25.3125$ in this system. Show your working.
+
+      \textbf{Mantissa} \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \textbf{Exponent}
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$} \quad \framebox{$\square\,\square\,\square\,\square\,\square\,\square$}
+
+      Working \hrulefill

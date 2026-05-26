@@ -1,0 +1,24 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A linked list of nodes is used to store an ordered list of integers. Each node consists of the data, a left pointer and a right pointer, for example:
+
+      \begin{tabular}{ccc}
+      Left pointer & Data & Right pointer \\
+      \framebox{$\square$} & \framebox{20} & \framebox{$\square$} \\
+      \end{tabular}
+  - number: "4a"
+    type: short_answer
+    text: |
+      The linked list will be organised as a binary tree.
+
+      $-1$ is used to represent a null pointer.
+
+      Complete the binary tree, including null pointers, to show how the data will be organised after the following integers have been added:
+
+      6, 15, 41, 66
+  - number: "4b"
+    type: short_answer
+    text: |
+      Describe what is meant by recursion.

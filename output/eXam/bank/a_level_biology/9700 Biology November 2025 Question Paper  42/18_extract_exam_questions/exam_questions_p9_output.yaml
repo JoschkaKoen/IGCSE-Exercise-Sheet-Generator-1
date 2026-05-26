@@ -1,0 +1,11 @@
+questions:
+  - number: "3bi"
+    type: short_answer
+    text: |
+      With reference to Fig. 3.2, describe the effect of the different diets on the percentage of $E. coli$ that are $lac^+$.
+  - number: "3bii"
+    type: short_answer
+    text: |
+      The scientists concluded that $lac^+ E. coli$ had a selective advantage when colonising the gut, but only in the presence of lactose.
+
+      Suggest why the presence of lactose caused $lac^+ E. coli$ to have a selective advantage.

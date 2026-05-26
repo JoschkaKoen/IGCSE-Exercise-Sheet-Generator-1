@@ -1,0 +1,9 @@
+questions:
+- number: 3a
+  type: long_answer
+  marks: 5
+  mark_scheme_answer: ''
+- number: 3b
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: ''

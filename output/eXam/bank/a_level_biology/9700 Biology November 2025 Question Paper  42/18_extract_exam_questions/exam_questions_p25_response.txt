@@ -1,0 +1,9 @@
+questions:
+  - number: "9bii"
+    type: calculation
+    text: |
+      The rate of photosynthesis in this investigation was obtained by measuring the uptake of carbon dioxide from the atmosphere. It did not \textbf{not} take into account the use of carbon dioxide produced by respiration.
+
+      Using Fig. 9.2, calculate the rate of photosynthesis at $20^{\circ}\text{C}$ when the carbon dioxide produced by respiration is taken into account.
+
+      rate of photosynthesis \hrulefill

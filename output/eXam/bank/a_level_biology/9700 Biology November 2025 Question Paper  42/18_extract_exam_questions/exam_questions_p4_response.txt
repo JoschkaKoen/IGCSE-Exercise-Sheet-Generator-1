@@ -1,0 +1,26 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2a"
+    type: short_answer
+    text: |
+      Explain the terms gene, genotype and phenotype.
+
+      gene \hrulefill
+
+      genotype \hrulefill
+
+      phenotype \hrulefill
+  - number: "2b"
+    type: long_answer
+    text: |
+      A monohybrid genetic cross can be carried out to produce an F1 and an F2 generation.
+
+      \begin{itemize}
+      \item Outline how a monohybrid genetic cross is carried out.
+      \item State the expected percentage of each of the different offspring \textbf{genotypes} in the F2 generation.
+      \end{itemize}
+
+      Assume that the inheritance pattern is for autosomal dominant and recessive alleles.

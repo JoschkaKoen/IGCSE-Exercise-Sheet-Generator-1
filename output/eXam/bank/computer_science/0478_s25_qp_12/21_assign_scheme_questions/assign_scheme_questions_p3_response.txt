@@ -1,0 +1,25 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "0478/12 Cambridge IGCSE – Mark Scheme May/June 2025 PUBLISHED".
+    *   There is a box containing text.
+    *   Inside the box, there are two sections:
+        *   "GENERIC MARKING PRINCIPLE 5:" followed by text about awarding marks using the full range.
+        *   "GENERIC MARKING PRINCIPLE 6:" followed by text about marks being based solely on requirements.
+    *   The footer says "Page 3 of 15".
+
+2.  **Evaluate content against criteria:**
+    *   The text consists entirely of "Generic Marking Principles". These are general instructions for examiners, not specific marking criteria for a particular question (like "Question 1a: Answer X gets 1 mark").
+    *   There are no specific question numbers (like "1", "2a", etc.) associated with specific marking points or answers on this page. It's an introductory or instructional page.
+
+3.  **Determine output:**
+    *   Since no specific question marking criteria are visible, the list should be empty.
+
+4.  **Final formatting:**
+    *   Return `questions: []`.
+[/thinking]
+
+```yaml
+questions: []
+```

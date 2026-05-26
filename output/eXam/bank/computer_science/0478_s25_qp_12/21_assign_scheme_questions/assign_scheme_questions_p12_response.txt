@@ -1,0 +1,35 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a page from a Cambridge IGCSE Mark Scheme (0478/12, May/June 2025).
+    *   It contains two main tables.
+    *   **Table 1:**
+        *   Row 1: Question "4(b)". Answer text starts with "Two from:". Marks "2".
+        *   This corresponds to question `4b` in the allowed list.
+    *   **Table 2:**
+        *   Row 1: Question "5(a)". Answer text starts with "Three from:". Marks "3".
+        *   This corresponds to question `5a` in the allowed list.
+        *   Row 2: Question "5(b)(i)". Answer text starts with "Any two from:". Marks "2".
+        *   This corresponds to question `5bi` in the allowed list.
+
+2.  **Map to allowed list:**
+    *   "4(b)" -> `4b`
+    *   "5(a)" -> `5a`
+    *   "5(b)(i)" -> `5bi`
+
+3.  **Construct the output:**
+    *   The list should be `["4b", "5a", "5bi"]`.
+
+4.  **Final check:**
+    *   Are there any other questions? No.
+    *   Are the formats correct? Yes, no parentheses.
+    *   Is it YAML? Yes.
+[/thinking]
+
+```yaml
+questions:
+  - "4b"
+  - "5a"
+  - "5bi"
+```

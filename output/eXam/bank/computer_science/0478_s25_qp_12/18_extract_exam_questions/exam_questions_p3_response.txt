@@ -1,0 +1,35 @@
+questions:
+  - number: "1e"
+    type: calculation
+    text: |
+      The 8-bit binary numbers 01100101 and 01110000 are stored in RAM.
+
+      The binary numbers are added together.
+
+      Add the \textbf{two} binary numbers using binary addition.
+
+      Give your answer in binary. You must show all your working.
+
+      \begin{tabular}{ccccccccc}
+        & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 1 \\
+      + & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 \\
+      \hline
+      \end{tabular}
+  - number: "1f"
+    type: short_answer
+    text: |
+      An overflow occurs when two other 8-bit binary numbers are added together.
+
+      Explain why the overflow error occurs.
+  - number: "1g"
+    type: calculation
+    text: |
+      The negative denary number –22 is stored in RAM.
+
+      Negative denary numbers can be represented as binary using two’s complement.
+
+      Give the two’s complement 8-bit binary integer that would be stored for the denary number –22.
+
+      You must show all your working.
+
+      Two’s complement 8-bit binary integer \hrulefill

@@ -1,0 +1,75 @@
+{
+  "detector_version": 3,
+  "is_mcq": false,
+  "pdf_height_pt": 1081.9510498046875,
+  "pdf_width_pt": 595.0,
+  "regions": [
+    {
+      "assignment_confident": false,
+      "field_id": "2a__0",
+      "kind": "short_line",
+      "leaf_number": "2a",
+      "page": 1,
+      "x0": 30.480619430541992,
+      "x1": 233.17469787597656,
+      "y0": -2.0,
+      "y1": 14.0
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "2a__1",
+      "kind": "lines",
+      "leaf_number": "2a",
+      "page": 1,
+      "x0": 65.53096008300781,
+      "x1": 559.826416015625,
+      "y0": 32.525330505371095,
+      "y1": 204.1207162475586
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "2b__0",
+      "kind": "lines",
+      "leaf_number": "2b",
+      "page": 1,
+      "x0": 65.52703857421875,
+      "x1": 559.8224487304688,
+      "y0": 332.77754364013674,
+      "y1": 618.7695175170899
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "2b__1",
+      "kind": "short_line",
+      "leaf_number": "2b",
+      "page": 1,
+      "x0": 2.595625400543213,
+      "x1": 573.1060180664062,
+      "y0": 611.0438232421875,
+      "y1": 627.0438232421875
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "2b__2",
+      "kind": "short_line",
+      "leaf_number": "2b",
+      "page": 1,
+      "x0": 30.480619430541992,
+      "x1": 233.17469787597656,
+      "y0": 637.2360229492188,
+      "y1": 653.2360229492188
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "2b__3",
+      "kind": "short_line",
+      "leaf_number": "2b",
+      "page": 1,
+      "x0": 30.480619430541992,
+      "x1": 233.17469787597656,
+      "y0": 643.9561157226562,
+      "y1": 659.9561157226562
+    }
+  ],
+  "snippet_sha": "06aa0c707e03422a"
+}

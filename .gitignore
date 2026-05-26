@@ -22,8 +22,13 @@ __pycache__/
 dist/
 build/
 
-# Generated output (optional: remove this line if you want to track sample PDFs)
-output/
+# Generated output — keep xscore/exercise runs ignored; track warmed eXam bank
+# (offline ``warm_bank`` output) so practice mode works on deploy without re-indexing.
+output/*
+!output/eXam/
+output/eXam/*
+!output/eXam/bank/
+!output/eXam/bank/**
 
 # Local test assets (scans, rosters)
 Space Physics Unit Test/

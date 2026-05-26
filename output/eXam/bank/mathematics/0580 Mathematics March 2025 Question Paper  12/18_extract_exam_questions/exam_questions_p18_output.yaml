@@ -1,0 +1,11 @@
+questions:
+  - number: "26"
+    type: calculation
+    text: |
+      Solve the simultaneous equations.
+
+      $$4t - 3w = 11$$
+      $$6t + 2w = -3$$
+
+      $t = \hrulefill$
+      $w = \hrulefill$

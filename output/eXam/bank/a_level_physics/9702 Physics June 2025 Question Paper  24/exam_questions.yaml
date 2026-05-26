@@ -1,0 +1,614 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define the moment of a force.
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A trapdoor has a hinge at end A, as shown in Fig. 1.1.
+
+
+      The trapdoor has length $80 \text{ cm}$ and weight $75 \text{ N}$. The mass
+      of the trapdoor is uniformly distributed along its length.
+
+
+      A force $F$ acts at right angles to the trapdoor at end B so that the trapdoor
+      is held in equilibrium at an angle of $42^{\circ}$ to the horizontal.'
+    answer_options: []
+    subquestions:
+    - number: 1bi
+      question_type: short_answer
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: State the principle of moments.
+      answer_options: []
+      subquestions: []
+    - number: 1bii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: 'Calculate the component of the weight that is perpendicular to the trapdoor.
+
+
+        component of weight = \hrulefill N'
+      answer_options: []
+      subquestions: []
+    - number: 1biii
+      question_type: calculation
+      page: 3
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the magnitude of the force $F$.
+
+
+        $F =$ \hrulefill N'
+      answer_options: []
+      subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: An object of constant mass moves in a straight line. The variation with time
+    $t$ of the momentum $p$ of the object is shown in Fig. 2.1.
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Define momentum.
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Calculate the change in momentum of the object from time $t = 0$ to $t
+      = 12\text{ s}$.
+
+
+      change in momentum = \hrulefill $\text{kg}\,\text{m}\,\text{s}^{-1}$'
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: calculation
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Calculate the magnitude of the resultant force acting on the object.
+
+
+      force = \hrulefill $\text{N}$'
+    answer_options: []
+    subquestions: []
+  - number: 2d
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Describe the variation of the speed of the object from time $t = 0$ to $t
+      = 8.0\text{ s}$.
+    answer_options: []
+    subquestions: []
+  - number: 2e
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: By reference to Fig. 2.1, explain why the resultant force acting on the
+      object during the first $8.0\text{ s}$ of its motion cannot be due to air resistance.
+    answer_options: []
+    subquestions: []
+  - number: 2f
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'At time $t = 0$ the displacement $d$ of the object is zero.
+
+
+      On Fig. 2.2, sketch the variation of $d$ with time $t$ from $t = 0$ to $t =
+      12\text{ s}$.
+
+
+      Numerical values of $d$ are not required.'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The lower end of a vertical spring is fixed to a horizontal surface, as shown
+    in Fig. 3.1.
+
+
+    The mass of the spring is negligible. A block of mass $5.5 \text{ kg}$ drops vertically
+    onto the spring and is brought to rest as the spring is compressed.'
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The block has kinetic energy $110 \text{ J}$ as it makes contact with the
+      spring.
+
+
+      Calculate the speed of the block as it makes contact with the spring.
+
+
+      speed = \hrulefill $\text{ms}^{-1}$'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The gravitational potential energy of the block decreases by $20 \text{
+      J}$ as the spring is compressed to its maximum compression $x_0$.
+
+
+      Show that $x_0$ is $0.37 \text{ m}$.'
+    answer_options: []
+    subquestions: []
+  - number: 3c
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Assume that, as the spring compresses, all of the energy lost by the block
+      is converted into the elastic potential energy of the spring.
+
+
+      Use the data from \textbf{(a)} and \textbf{(b)} to determine the maximum elastic
+      potential energy of the spring.
+
+
+      Show your working.
+
+
+      maximum elastic potential energy = \hrulefill $\text{J}$'
+    answer_options: []
+    subquestions: []
+  - number: 3d
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'The variation of the force $F$ acting on the spring with the compression
+      $x$ of the spring is shown in Fig. 3.2.
+
+
+      Use the information in (b) and your answer in (c) to show that the maximum force
+      $F_0$ exerted on the spring by the block is $700\text{ N}$.'
+    answer_options: []
+    subquestions: []
+  - number: 3e
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Use the information in (d) to determine, for the instant that the block
+      is first brought to rest by the spring, the magnitude of:'
+    answer_options: []
+    subquestions:
+    - number: 3ei
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'the resultant force acting on the block
+
+
+        resultant force = \hrulefill N'
+      answer_options: []
+      subquestions: []
+    - number: 3eii
+      question_type: calculation
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'the acceleration of the block.
+
+
+        acceleration = \hrulefill $\text{ms}^{-2}$'
+      answer_options: []
+      subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A source oscillates with frequency $f$ to produce a progressive wave of wavelength
+    $\lambda$. The source takes time $t$ to produce $n$ complete oscillations.
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 4ai
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State what is meant by a progressive wave.
+      answer_options: []
+      subquestions: []
+    - number: 4aii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'State expressions, in terms of some or all of $f$, $\lambda$ and $n$,
+        for:
+
+
+        \begin{itemize}
+
+        \item the distance moved by a wavefront in time $t$
+
+        \end{itemize}
+
+
+        distance = \hrulefill
+
+
+        \begin{itemize}
+
+        \item time $t$.
+
+        \end{itemize}
+
+
+        time $t$ = \hrulefill'
+      answer_options: []
+      subquestions: []
+    - number: 4aiii
+      question_type: short_answer
+      page: 8
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Use your answers in (ii) to determine an expression for the speed $v$
+        of the wave in terms of $f$ and $\lambda$.
+      answer_options: []
+      subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'Two identical microwave sources X and Y emit waves in phase. The sources
+      are separated by a distance of $30\text{ cm}$, as shown in Fig. 4.1.
+
+
+      Fig. 4.1 (not to scale)
+
+
+      The intensity of the microwaves is to be investigated at points P and Q.
+
+      Line PQ is parallel to line XY. Distance XP is equal to distance YP. Distance
+      YQ is $72\text{ cm}$ and angle XYQ is $90^{\circ}$.
+
+      The wavelength of the microwaves is $4.0\text{ cm}$.'
+    answer_options: []
+    subquestions:
+    - number: 4bi
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the frequency, in GHz, of the microwaves.
+
+
+        frequency = \hrulefill GHz'
+      answer_options: []
+      subquestions: []
+    - number: 4bii
+      question_type: calculation
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Show that the difference between the path lengths XQ and YQ is 6 cm.
+      answer_options: []
+      subquestions: []
+    - number: 4biii
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: State and explain what may be deduced about the intensity of the microwaves
+        at point Q.
+      answer_options: []
+      subquestions: []
+    - number: 4biv
+      question_type: short_answer
+      page: 9
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'A microwave detector is positioned at P and connected to a cathode-ray
+        oscilloscope (CRO). The controls of the CRO are adjusted so that a waveform
+        is shown on the screen.
+
+
+        Describe the changes to the amplitude of the waveform as the detector is moved
+        from P to Q.'
+      answer_options: []
+      subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: (a) (i) State and explain the effect, if any, on the resistance of a filament
+    wire in a lamp as the current in the wire decreases.
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: (i) State and explain the effect, if any, on the resistance of a filament
+      wire in a lamp as the current in the wire decreases.
+    answer_options: []
+    subquestions:
+    - number: 5ai
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: State and explain the effect, if any, on the resistance of a filament
+        wire in a lamp as the current in the wire decreases.
+      answer_options: []
+      subquestions: []
+    - number: 5aii
+      question_type: short_answer
+      page: 10
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: On Fig. 5.1, sketch the $I-V$ characteristic of a filament lamp.
+      answer_options: []
+      subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A battery of electromotive force (e.m.f.) $E$ and negligible internal resistance
+      is connected in parallel with two filament lamps A and B, as shown in Fig. 5.2.
+
+
+      The current in the battery is $3.3\text{ A}$ and the current in lamp A is $1.5\text{
+      A}$. The power dissipated in lamp A is $18\text{ W}$.'
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: calculation
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate the e.m.f. $E$ of the battery.
+
+
+        $E = \hrulefill \text{ V}$'
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: calculation
+      page: 11
+      subpage_row: 1
+      subpage_col: 1
+      marks: 3
+      text: 'The filament wire of lamp B has a cross-sectional area of $1.4 \times
+        10^{-9} \text{ m}^2$. The number of free (conduction) electrons per unit volume
+        in the metal of the filament wire is $3.4 \times 10^{28} \text{ m}^{-3}$.
+
+
+        Calculate the average drift speed of the free electrons in the filament wire
+        of lamp B.
+
+
+        average drift speed = \hrulefill $\text{ ms}^{-1}$'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A battery of electromotive force (e.m.f.) $6.0\text{ V}$ and negligible internal
+    resistance is connected in series with a variable resistor and a uniform resistance
+    wire XY, as shown in Fig. 6.1.
+
+
+    Wire XY has length $2.00\text{ m}$ and resistance $8.0\text{ }\Omega$. The resistance
+    $R$ of the variable resistor is adjusted so that the potential difference across
+    wire XY is $2.4\text{ V}$.'
+  answer_options: []
+  subquestions:
+  - number: 6a
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Determine $R$.
+
+
+      $R = \hrulefill \Omega$'
+    answer_options: []
+    subquestions: []
+  - number: 6b
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Explain why the potential difference $V$ between any two points on wire
+      XY is proportional to the distance $L$ between those points.
+    answer_options: []
+    subquestions: []
+  - number: 6c
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: 'A cell of e.m.f. $E$ and internal resistance $r$ is connected to the circuit,
+      as shown in Fig. 6.2.
+
+
+      Resistance $R$ is unchanged.
+
+      The movable connection P is positioned on wire XY so that the galvanometer reading
+      is zero.
+
+      Distance XP is $1.24 \text{ m}$.'
+    answer_options: []
+    subquestions:
+    - number: 6ci
+      question_type: calculation
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Calculate $E$.
+
+
+        $E = \hrulefill \text{ V}$'
+      answer_options: []
+      subquestions: []
+    - number: 6cii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'The value of $R$ is now decreased.
+
+
+        State and explain the change that must be made to the position of P on wire
+        XY so that the galvanometer reads zero again.'
+      answer_options: []
+      subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State the names of \textbf{two} different leptons.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'In the following list, underline all the particles that are hadrons.
+
+
+      \begin{itemize}
+
+      \item antineutrino
+
+      \item beta-plus
+
+      \item meson
+
+      \item neutron
+
+      \end{itemize}'
+    answer_options: []
+    subquestions: []
+  - number: 7c
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: By reference to quark composition, show that the charge of a proton is $+1.6
+      \times 10^{-19} \text{ C}$.
+    answer_options: []
+    subquestions: []

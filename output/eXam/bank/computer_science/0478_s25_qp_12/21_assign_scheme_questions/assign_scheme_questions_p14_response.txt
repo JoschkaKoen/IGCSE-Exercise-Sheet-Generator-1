@@ -1,0 +1,27 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a page from a Cambridge IGCSE Mark Scheme (0478/12, May/June 2025).
+    *   It has columns: "Question", "Answer", "Marks".
+    *   Under the "Question" column, I see "5(c)(i)".
+    *   The "Answer" column describes marking criteria for a diagram related to web browsing/DNS.
+    *   The "Marks" column shows "6".
+
+2.  **Map to valid question numbers:**
+    *   The visible question identifier is "5(c)(i)".
+    *   Looking at the allowed list: "1", "1a", ..., "5c", "5ci", "5cii".
+    *   The format in the image is "5(c)(i)". The instructions say "Do not add parentheses — output `3b`, not `3(b)`". So "5(c)(i)" corresponds to "5ci".
+    *   Let's check the list again. Yes, "5ci" is in the list.
+
+3.  **Check for other questions:**
+    *   Scanning the rest of the page... no other question numbers are visible in the "Question" column. The content is entirely focused on 5(c)(i).
+
+4.  **Final formatting:**
+    *   Return YAML with the list containing "5ci".
+[/thinking]
+
+```yaml
+questions:
+  - "5ci"
+```

@@ -1,0 +1,24 @@
+questions:
+  - number: "13"
+    type: calculation
+    text: |
+      Convert 8 litres into $\text{cm}^3$.
+
+      \hrulefill $\text{cm}^3$
+  - number: "14"
+    type: short_answer
+    text: |
+      The diagram shows a triangular prism.
+      $ABC$ is an isosceles triangle with $AC = BC$.
+      The perpendicular height of triangle $ABC$ is 4 cm.
+      $AB = 6 \text{ cm}$ and $BD = 6 \text{ cm}$.
+  - number: "14a"
+    type: short_answer
+    text: |
+      Complete this statement.
+
+      The prism has \underline{\hspace{1.5em}} faces and \underline{\hspace{1.5em}} edges.
+  - number: "14b"
+    type: calculation
+    text: |
+      Show that the length of $BC$ is 5 cm.

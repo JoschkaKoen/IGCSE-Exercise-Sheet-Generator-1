@@ -1,0 +1,739 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Write the number twenty thousand in figures.
+  answer_options: []
+  subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Write 0.07
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'as a percentage
+
+
+      \hrulefill %'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: as a fraction
+    answer_options: []
+    subquestions: []
+  - number: 2c
+    question_type: short_answer
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: in standard form.
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 2
+  text: Write down all the factors of 18.
+  answer_options: []
+  subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Find the value of
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: $10^3$
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: $\sqrt{27}$
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: $7^0$.
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: On the diagram, draw all the lines of symmetry.
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Shade one square so that the diagram has rotational symmetry of order 2.
+    answer_options: []
+    subquestions: []
+- number: '6'
+  question_type: calculation
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 2
+  text: Find the value of the reciprocal of 0.25 .
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 2
+  text: Work out $-6 \times -3 + 7 \times 2$.
+  answer_options: []
+  subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 2
+  text: 'Write these numbers in order, starting with the smallest.
+
+
+    \begin{itemize}
+
+    \item $34\%$
+
+    \item $\pi$
+
+    \item $\frac{1}{3}$
+
+    \item $3$
+
+    \item $\frac{3}{10}$
+
+    \end{itemize}
+
+
+    \underline{\hspace{1.5em}} $<$ \underline{\hspace{1.5em}} $<$ \underline{\hspace{1.5em}}
+    $<$ \underline{\hspace{1.5em}} $<$ \underline{\hspace{1.5em}}
+
+    \textit{smallest}'
+  answer_options: []
+  subquestions: []
+- number: '9'
+  question_type: calculation
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A film starts at 19 35.
+
+    The film lasts for 70 minutes.
+
+
+    Work out the time the film finishes.'
+  answer_options: []
+  subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A shape is drawn on a $1\text{ cm}^2$ grid.
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Find the area of the shape.
+
+
+      $\text{cm}^2$ \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: On the grid, shade 50% of the shape.
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: '$$19.5 \times 20.4 = 397.8$$
+
+
+    Work out.'
+  answer_options: []
+  subquestions:
+  - number: 11a
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: '$1.95 \times 2.04$
+
+
+      \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 11b
+    question_type: calculation
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: '$3978 \div 204$
+
+
+      \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '12'
+  question_type: short_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Kat has a method for finding the difference between two square numbers, $a^2
+    - b^2$.
+
+    Her method is
+
+    (the sum of $a$ and $b$) $\times$ (the difference between $a$ and $b$).
+
+
+    She shows her method for $17^2 - 13^2$.
+
+
+    \begin{tabular}{|l|}
+
+    \hline
+
+    $17^2 - 13^2$ \\
+
+    \\
+
+    $= (17 + 13) \times (17 - 13)$ \\
+
+    \\
+
+    $= 30 \times 4$ \\
+
+    \\
+
+    $= 120$ \\
+
+    \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 12a
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Work out $29^2 - 21^2$ using Kat's method.
+    answer_options: []
+    subquestions: []
+  - number: 12b
+    question_type: calculation
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'In this part, all lengths are in centimetres.
+
+
+      The diagram shows a prism.
+
+
+      Work out the volume of the prism.
+
+
+      \hrulefill $\text{cm}^3$'
+    answer_options: []
+    subquestions: []
+- number: '13'
+  question_type: calculation
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Convert 8 litres into $\text{cm}^3$.
+
+
+    \hrulefill $\text{cm}^3$'
+  answer_options: []
+  subquestions: []
+- number: '14'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The diagram shows a triangular prism.
+
+    $ABC$ is an isosceles triangle with $AC = BC$.
+
+    The perpendicular height of triangle $ABC$ is 4 cm.
+
+    $AB = 6 \text{ cm}$ and $BD = 6 \text{ cm}$.'
+  answer_options: []
+  subquestions:
+  - number: 14a
+    question_type: short_answer
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Complete this statement.
+
+
+      The prism has \underline{\hspace{1.5em}} faces and \underline{\hspace{1.5em}}
+      edges.'
+    answer_options: []
+    subquestions: []
+  - number: 14b
+    question_type: calculation
+    page: 8
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Show that the length of $BC$ is 5 cm.
+    answer_options: []
+    subquestions: []
+  - number: 14c
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: 'Complete the net of the prism on the $1\text{ cm}^2$ grid.
+
+      The base has been drawn for you.'
+    answer_options: []
+    subquestions: []
+- number: '15'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'The diagram shows a triangle $BCD$ and a straight line $ABC$.
+
+    $DB=DC=BC$.'
+  answer_options: []
+  subquestions:
+  - number: 15a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Write down the mathematical name for triangle $BCD$.
+    answer_options: []
+    subquestions: []
+  - number: 15b
+    question_type: calculation
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Work out the value of $y$.
+
+      Give two geometrical reasons for your answer.
+
+
+      $y = \hrulefill$ because
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '16'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Jill records the temperature and the number of people on a beach for each
+    of ten days.
+
+    The results are shown in the scatter diagram.
+
+
+    Number of people
+
+    Temperature'
+  answer_options: []
+  subquestions:
+  - number: 16a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: What type of correlation is shown in the scatter diagram?
+    answer_options: []
+    subquestions: []
+  - number: 16b
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: Describe the relationship between the temperature and the number of people
+      on the beach.
+    answer_options: []
+    subquestions: []
+- number: '17'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Line $L$ is shown on the grid.
+  answer_options: []
+  subquestions:
+  - number: 17a
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Find the equation of line $L$ in the form $y = mx + c$.
+
+
+      $y = \hrulefill$'
+    answer_options: []
+    subquestions: []
+  - number: 17b
+    question_type: calculation
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Line $L$ crosses the $x$-axis at $P$.
+
+
+      Find the coordinates of $P$.
+
+
+      $(\hrulefill , \hrulefill)$'
+    answer_options: []
+    subquestions: []
+- number: '18'
+  question_type: short_answer
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Complete the table of values for $y = \frac{12}{x}$.
+  answer_options: []
+  subquestions:
+  - number: 18a
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 3
+    text: '\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+
+      \hline
+
+      $x$ & $-6$ & $-4$ & $-3$ & $-2$ & $-1$ & & $1$ & $2$ & $3$ & $4$ & $6$ \\ \hline
+
+      $y$ & & $-3$ & & $-6$ & & & & $6$ & & $3$ & \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 18b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: On the grid, draw the graph of $y = \frac{12}{x}$ for $-6 \leq x \leq -1$
+      and $1 \leq x \leq 6$.
+    answer_options: []
+    subquestions: []
+  - number: 18c
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: On the grid, draw the line $y = -9$.
+    answer_options: []
+    subquestions: []
+  - number: 18d
+    question_type: calculation
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Use your graph to solve $\frac{12}{x} = -9$.
+
+
+      $x = \hrulefill$'
+    answer_options: []
+    subquestions: []
+- number: '19'
+  question_type: short_answer
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: $n$ is an odd number.
+  answer_options: []
+  subquestions:
+  - number: 19a
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Write down the values of $n$ that satisfy $7 < n \leq 15$.
+    answer_options: []
+    subquestions: []
+  - number: 19b
+    question_type: short_answer
+    page: 14
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'Pip thinks $-1 < x < 8$ is the inequality represented on the number line.
+
+
+      Complete the statement.
+
+
+      Pip’s inequality is not correct because \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '20'
+  question_type: calculation
+  page: 14
+  subpage_row: 1
+  subpage_col: 1
+  marks: 2
+  text: 'The height, $h$ metres, of a building is $635\text{ m}$, correct to the nearest
+    metre.
+
+
+    Complete this statement about the value of $h$.
+
+
+    \underline{\hspace{1.5em}} $\leq h <$ \underline{\hspace{1.5em}}'
+  answer_options: []
+  subquestions: []
+- number: '21'
+  question_type: short_answer
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: $$X = \frac{1}{3}w^2p$$
+  answer_options: []
+  subquestions:
+  - number: 21a
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Find the value of $X$ when $w = 5$ and $p = 6$.
+
+
+      $X = \hrulefill$'
+    answer_options: []
+    subquestions: []
+  - number: 21b
+    question_type: calculation
+    page: 15
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Make $p$ the subject of the formula.
+
+
+      $p = \hrulefill$'
+    answer_options: []
+    subquestions: []
+- number: '22'
+  question_type: calculation
+  page: 15
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: 'Work out $1 \frac{7}{15} - \frac{4}{5}$.
+
+
+    Give your answer as a fraction in its simplest form.'
+  answer_options: []
+  subquestions: []
+- number: '23'
+  question_type: short_answer
+  page: 16
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Mai buys two batteries.
+
+    The probability that a battery is faulty is $\frac{1}{10}$.'
+  answer_options: []
+  subquestions:
+  - number: 23a
+    question_type: short_answer
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: "Complete the tree diagram.\n\n\\begin{tabular}{ccc}\nFirst battery & &\
+      \ Second battery \\\\\n & & \\underline{\\hspace{1.5em}} Faulty \\\\\n & Faulty\
+      \ & \\\\\n$\\frac{1}{10}$ & & \\underline{\\hspace{1.5em}} Not faulty \\\\\n\
+      \ & & \\\\\n\\underline{\\hspace{1.5em}} & & \\underline{\\hspace{1.5em}} Faulty\
+      \ \\\\\n & Not faulty & \\\\\n & & \\underline{\\hspace{1.5em}} Not faulty \\\
+      \\\n\\end{tabular}"
+    answer_options: []
+    subquestions: []
+  - number: 23b
+    question_type: calculation
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Find the probability that Mai buys two faulty batteries.
+    answer_options: []
+    subquestions: []
+  - number: 23c
+    question_type: calculation
+    page: 16
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'A shop sells 3000 batteries in one month.
+
+
+      Work out the expected number of faulty batteries the shop sells.'
+    answer_options: []
+    subquestions: []
+- number: '24'
+  question_type: calculation
+  page: 17
+  subpage_row: 1
+  subpage_col: 1
+  marks: 3
+  text: 'A circle has radius $7\text{ cm}$.
+
+    A square has side $x\text{ cm}$.
+
+    The circumference of the circle is the same length as the perimeter of the square.
+
+
+    Find the value of $x$.
+
+    Give your answer in terms of $\pi$.
+
+
+    $x = \hrulefill$'
+  answer_options: []
+  subquestions: []
+- number: '25'
+  question_type: calculation
+  page: 17
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'NOT TO SCALE
+
+
+    Triangle $ABC$ is mathematically similar to triangle $PQR$.
+
+
+    Show that $QR = 14\text{ cm}$.'
+  answer_options: []
+  subquestions: []
+- number: '26'
+  question_type: calculation
+  page: 18
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: 'Solve the simultaneous equations.
+
+
+    $$4t - 3w = 11$$
+
+    $$6t + 2w = -3$$
+
+
+    $t = \hrulefill$
+
+    $w = \hrulefill$'
+  answer_options: []
+  subquestions: []

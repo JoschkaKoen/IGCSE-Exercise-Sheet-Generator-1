@@ -1,0 +1,10 @@
+questions:
+- number: 4a
+  type: short_answer
+  marks: 4
+  mark_scheme_answer: |
+    One mark per mark point
+    MP1 Any two nodes added correctly with correct data (6, 15, 41, 66) and arrows
+    MP2 Remaining two nodes added with correct data (6, 15, 41, 66) and all nodes with connecting arrows starting from pointer boxes
+    MP3 Correct null pointers (-1) added throughout
+    MP4 … with no entries in other pointer boxes and all nodes correctly positioned and connected

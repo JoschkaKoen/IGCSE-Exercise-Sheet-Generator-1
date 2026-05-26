@@ -1,0 +1,22 @@
+[thinking]
+The user wants me to identify the question numbers from a Cambridge IGCSE mark scheme page.
+
+1.  **Analyze the image:**
+    *   The header says "9702/24", "Cambridge International AS & A Level – Mark Scheme", "May/June 2025".
+    *   There is a box containing text.
+    *   Inside the box, there are numbered sections: "6" and "7".
+    *   Section 6 is titled "Calculation specific guidance". It contains general rules about calculations (working, significant figures, standard form, units). This is general guidance, not specific marking criteria for a particular sub-question like "6a" or "6b". Wait, let's look closer. It's under the number "6". Is it specific to question 6? No, it looks like general guidance for the whole paper or section, but it's placed under the number 6. Let's re-read the prompt. "Your only task: identify which question numbers' marking criteria appear on this page."
+    *   Section 7 is titled "Guidance for chemical equations". It talks about multiples/fractions of coefficients and state symbols. Again, this looks like general guidance.
+    *   However, looking at the layout, these are numbered items "6" and "7" within a box. Usually, in mark schemes, general guidance is at the start. But here, they are numbered 6 and 7.
+    *   Let's look at the "Valid question numbers" list provided: "1", "1a", ..., "6", "6a", ..., "7", "7a", "7b", "7c".
+    *   The text under "6" is "Calculation specific guidance". This is likely general guidance for the exam, but it is labeled with the number 6. Is it marking criteria for Question 6? No, it's general advice.
+    *   The text under "7" is "Guidance for chemical equations". This is also general advice.
+    *   Wait, let's look at the structure again. The box has rows.
+        *   Row 1: Number "6", Title "Calculation specific guidance". Text follows.
+        *   Row 2: Number "7", Title "Guidance for chemical equations". Text follows.
+    *   These look like general instructions/guid
+[/thinking]
+
+```yaml
+questions: []
+```

@@ -1,0 +1,19 @@
+questions:
+  - number: "17"
+    type: short_answer
+    text: |
+      Line $L$ is shown on the grid.
+  - number: "17a"
+    type: calculation
+    text: |
+      Find the equation of line $L$ in the form $y = mx + c$.
+
+      $y = \hrulefill$
+  - number: "17b"
+    type: calculation
+    text: |
+      Line $L$ crosses the $x$-axis at $P$.
+
+      Find the coordinates of $P$.
+
+      $(\hrulefill , \hrulefill)$

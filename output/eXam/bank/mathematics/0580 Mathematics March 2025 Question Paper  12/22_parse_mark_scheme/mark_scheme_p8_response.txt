@@ -1,0 +1,103 @@
+questions:
+- number: 12a
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $(29 + 21) \times (29 - 21)$
+    $= 50 \times 8$
+    M1
+    400
+    A1
+- number: 12b
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    12000
+    M1 for $(17^2 - 13^2) [\times 100]$ oe
+- number: '13'
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    8000
+- number: 14a
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    5 9
+    B1 for each
+- number: 14b
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $\sqrt{3^2 + 4^2}$ [=5]
+    M1 for $3^2 + 4^2$
+- number: 14c
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    correct net drawn
+    B2 for 3 correct extra faces drawn in correct places
+    or B1 for 1 correct extra face drawn in correct place
+- number: 15a
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    equilateral
+- number: 15b
+  type: calculation
+  marks: 4
+  mark_scheme_answer: |
+    120
+    B1 for $DBC = 60$
+    Angles in an equilateral triangle are equal
+    Angles on a straight line add to 180
+- number: 16a
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    positive
+- number: 16b
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    the higher the temperature the higher the number of people oe
+- number: 17a
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $[y =] \frac{1}{2}x + 3$ final answer
+    B1 for $\frac{1}{2}x + c$
+    or B1 for $mx + 3$ where $m \neq 0$
+- number: 17b
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $(-6, 0)$
+    B1 for $(-6, j)$ or $(k, 0)$
+    or M1 for $0 = \text{their } \frac{1}{2}x + 3$ or better
+- number: 18a
+  type: calculation
+  marks: 3
+  mark_scheme_answer: |
+    $-2$ $-4$ $-12$ $12$ $4$ $2$
+    B2 for 4 correct
+    or B1 for 1 correct
+- number: 18b
+  type: short_answer
+  marks: 4
+  mark_scheme_answer: |
+    Correct curve
+    B3FT for 9 points correctly plotted
+    or B2FT for 7 points correctly plotted
+    or B1FT for 5 points correctly plotted
+- number: 18c
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    $y = -9$ correctly drawn, ruled
+- number: 18d
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    $-1.4$ to $-1.2$
+    FT \textit{their} curve and $y = -9$

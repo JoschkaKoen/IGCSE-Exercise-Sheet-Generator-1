@@ -1,0 +1,32 @@
+[thinking]
+The user wants me to identify the question numbers present on the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The header says "9618/31 Cambridge International AS & A Level – Mark Scheme May/June 2025".
+    *   There is a table with columns "Question", "Answer", and "Marks".
+    *   In the "Question" column, I see the number "12".
+    *   The "Answer" column contains a block of pseudocode starting with `DECLARE Location : INTEGER` and ending with `OUTPUT "End of program"`. This is clearly the marking criteria/answer for Question 12.
+    *   The "Marks" column shows "5".
+
+2.  **Check against the valid list:**
+    *   The valid list includes "12".
+    *   Are there any other questions? No, just "12" is visible in the first column.
+
+3.  **Format the output:**
+    *   The request asks for YAML format.
+    *   The key is `questions`.
+    *   The value is a list of strings.
+    *   The string should be "12".
+
+4.  **Final verification:**
+    *   Does the page contain criteria for Q12? Yes.
+    *   Is "12" in the allowed list? Yes.
+    *   Are there other questions? No.
+
+    Result: `questions: ["12"]`
+[/thinking]
+
+```yaml
+questions:
+  - "12"
+```

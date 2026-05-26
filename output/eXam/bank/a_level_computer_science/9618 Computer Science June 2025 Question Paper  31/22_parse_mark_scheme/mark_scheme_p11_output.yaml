@@ -1,0 +1,37 @@
+questions:
+- number: 5bii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{One mark for each correct loop}
+
+    \begin{alltt}
+            AB
+    CD      00   01   11   10
+       00 |  1 |  0 |  0 |  1 |
+       01 |  0 |  1 |  1 |  0 |
+       11 |  0 |  1 |  1 |  0 |
+       10 |  0 |  0 |  0 |  0 |
+    \end{alltt}
+- number: 5biii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{One mark for each mark point}
+    \begin{itemize}
+    \item One correct Boolean term
+    \item Boolean terms and operator correct and no other terms present
+    \end{itemize}
+    $\mathbf{Z = B.D + \overline{B}.\overline{C}.\overline{D}}$ // $\mathbf{\overline{B}.\overline{C}.\overline{D} + B.D}$
+- number: '6'
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{One mark for each mark point (Max 4)}
+    \begin{itemize}
+    \item MP1 The interpreter translates the source code one line at a time
+    \item MP2 If the line is syntax error free it is executed
+    \item MP3 It is not stored in executable format
+    \item MP4 If an error is found, the program halts with an error message
+    \item MP5 Each line must be translated every time it is run, including lines running multiple times for example in loops
+    \end{itemize}

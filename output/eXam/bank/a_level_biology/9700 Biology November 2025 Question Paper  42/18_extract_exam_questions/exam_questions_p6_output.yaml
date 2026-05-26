@@ -1,0 +1,34 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      The \textit{lac} operon is present in the genome of the bacterium \textit{Escherichia coli}.
+
+      When glucose is \textbf{not} available, the presence of lactose in the extracellular environment leads to the expression of the genes of the \textit{lac} operon. This leads to an increase in the uptake and metabolism of lactose.
+
+      When glucose \textbf{and} lactose are available in the extracellular medium, lactose is prevented from entering the bacterial cell.
+
+      Fig. 3.1 shows what happens when glucose enters a bacterial cell.
+
+      \begin{itemize}
+      \item Glucose enters the bacterial cell using a transport protein, \textbf{A}.
+      \item \textbf{B} is an enzyme found in the cytoplasm of the bacterial cell.
+      \item \textbf{B} catalyses the phosphorylation of glucose to produce glucose 6-phosphate.
+      \end{itemize}
+
+      \begin{tabular}{ll}
+      glucose & lactose \\
+      lactose permease & extracellular environment \\
+      cell surface membrane & cytoplasm \\
+      glucose 6-phosphate & \\
+      \end{tabular}
+
+      \begin{tabular}{|c|c|c|c|c|c|}
+      \hline
+      \textit{lacI} & P & O & \textit{lacZ} & \textit{lacY} & \textit{lacA} \\
+      \hline
+      \end{tabular}
+
+      repressor
+
+      Fig. 3.1

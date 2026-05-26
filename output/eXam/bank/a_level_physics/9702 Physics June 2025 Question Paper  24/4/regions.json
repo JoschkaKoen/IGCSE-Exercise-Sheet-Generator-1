@@ -1,0 +1,86 @@
+{
+  "detector_version": 3,
+  "is_mcq": false,
+  "pdf_height_pt": 1451.5350341796875,
+  "pdf_width_pt": 595.0,
+  "regions": [
+    {
+      "assignment_confident": true,
+      "field_id": "4ai__0",
+      "kind": "lines",
+      "leaf_number": "4ai",
+      "page": 1,
+      "x0": 92.419677734375,
+      "x1": 559.9038696289062,
+      "y0": 75.42407112121582,
+      "y1": 132.6225498199463
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "4aii__0",
+      "kind": "equation_blank",
+      "leaf_number": "4aii",
+      "page": 1,
+      "x0": 347.8724365234375,
+      "x1": 559.75390625,
+      "y0": 210.10356903076172,
+      "y1": 228.10356903076172
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "4aii__1",
+      "kind": "equation_blank",
+      "leaf_number": "4aii",
+      "page": 1,
+      "x0": 347.87249755859375,
+      "x1": 559.7539672851562,
+      "y0": 267.2931365966797,
+      "y1": 285.2931365966797
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "4bi__0",
+      "kind": "short_line",
+      "leaf_number": "4bi",
+      "page": 1,
+      "x0": 2.595625400543213,
+      "x1": 573.1060180664062,
+      "y0": 827.321044921875,
+      "y1": 843.321044921875
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "4bi__1",
+      "kind": "equation_blank",
+      "leaf_number": "4bi",
+      "page": 1,
+      "x0": 347.8694763183594,
+      "x1": 512.6664428710938,
+      "y0": 859.4274291992188,
+      "y1": 877.4274291992188
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "4biii__0",
+      "kind": "lines",
+      "leaf_number": "4biii",
+      "page": 1,
+      "x0": 92.42431640625,
+      "x1": 559.9085083007812,
+      "y0": 1067.8778503417968,
+      "y1": 1210.873760986328
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "4biv__0",
+      "kind": "lines",
+      "leaf_number": "4biv",
+      "page": 1,
+      "x0": 92.42431640625,
+      "x1": 559.9085083007812,
+      "y0": 1296.6714152018228,
+      "y1": 1411.0682250976563
+    }
+  ],
+  "snippet_sha": "89cd5796330f1898"
+}

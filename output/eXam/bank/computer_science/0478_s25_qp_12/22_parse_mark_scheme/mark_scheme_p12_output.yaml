@@ -1,0 +1,37 @@
+questions:
+- number: 4b
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{Two from:}
+    \begin{itemize}
+    \item An embedded system is designed to perform a dedicated/limited/single function // computer can be used to perform many different functions.
+    \item An embedded system has \textbf{dedicated} hardware // computer has hardware that can be used by other devices.
+    \item An embedded system has software that is not easily updated/reprogrammed // software can easily be updated/reprogrammed on the computer.
+    \item An embedded system has a microprocessor // A computer has a CPU.
+    \item An embedded system can be part of/built into a larger device // A computer is normally standalone
+    \end{itemize}
+- number: 5a
+  type: long_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{Three from:}
+    \begin{itemize}
+    \item The \textbf{inference} engine is used …
+    \item … to \textbf{decide} which questions to ask the user …
+    \item … based on the \textbf{previous} data input.
+    \item Symptoms input are located in/compared to knowledge base.
+    \item … then applies the rule base to the knowledge base (to decide the diagnosis)
+    \end{itemize}
+- number: 5bi
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    Any \textbf{two} from:
+    \newline
+    Examples:
+    \begin{itemize}
+    \item Sensors
+    \item Microprocessors
+    \item Actuators
+    \end{itemize}

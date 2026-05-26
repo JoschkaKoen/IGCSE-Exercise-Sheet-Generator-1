@@ -1,0 +1,64 @@
+questions:
+  - number: "31"
+    type: multiple_choice
+    text: |
+      The diagram shows a magnet moving towards a coil of wire.
+
+      When the magnet moves towards the coil of wire, an electromotive force (e.m.f.) is induced.
+
+      Students are asked for one change that will increase the magnitude of the induced e.m.f.
+
+      Three changes are proposed.
+
+      1 Move the magnet more quickly.
+      2 Use a stronger magnet.
+      3 Increase the number of turns on the coil.
+
+      Which changes, on their own, will increase the magnitude of the induced e.m.f.?
+    options:
+      - letter: A
+        text: |
+          1, 2 and 3
+      - letter: B
+        text: |
+          1 and 2 only
+      - letter: C
+        text: |
+          1 and 3 only
+      - letter: D
+        text: |
+          2 and 3 only
+  - number: "32"
+    type: multiple_choice
+    text: |
+      What is used to identify the pattern and direction of the magnetic field due to the current in a straight wire?
+    options:
+      - letter: A
+        text: |
+          an ammeter
+      - letter: B
+        text: |
+          a compass
+      - letter: C
+        text: |
+          iron filings
+      - letter: D
+        text: |
+          a voltmeter
+  - number: "33"
+    type: multiple_choice
+    text: |
+      Which description of the structure of an atom is correct?
+    options:
+      - letter: A
+        text: |
+          negatively charged electrons surrounding an uncharged nucleus
+      - letter: B
+        text: |
+          negatively charged electrons surrounding a positively charged nucleus
+      - letter: C
+        text: |
+          positively charged electrons surrounding an uncharged nucleus
+      - letter: D
+        text: |
+          positively charged electrons surrounding a negatively charged nucleus

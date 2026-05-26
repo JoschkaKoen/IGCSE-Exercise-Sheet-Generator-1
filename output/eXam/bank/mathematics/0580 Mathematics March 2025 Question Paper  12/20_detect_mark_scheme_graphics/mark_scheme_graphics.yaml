@@ -1,0 +1,13 @@
+questions:
+- number: 5b
+  question_type: null
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: null
+  mark_scheme: []
+  graphics:
+  - page: 7
+    x0: 0.17
+    y0: 0.45
+    x1: 0.36
+    y1: 0.565

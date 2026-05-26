@@ -1,0 +1,26 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on this specific page.
+
+1.  **Analyze the page content:**
+    *   Header: "9618/31 Cambridge International AS & A Level – Mark Scheme May/June 2025 PUBLISHED"
+    *   Title: "Annotations guidance for centres"
+    *   Text body: Explains what annotations are (checkmarks, crosses, lambda, etc.) and why they are used. It says "The annotations listed below were available to examiners marking this component in this series."
+    *   Table: Lists various annotations (Checkmark, Cross, Lambda, brackets, squiggly line, Highlighter, TV, REP, NE) and their meanings.
+    *   Footer: "Page 4 of 15"
+
+2.  **Evaluate against the task:**
+    *   The task is to find "question numbers' marking criteria".
+    *   This page contains general guidance on how to mark (annotations), not specific marking criteria for a specific question like "Question 1a: Answer X gets 1 mark because...".
+    *   There are no specific question numbers (like 1, 2a, 3b) associated with specific marks or answers on this page. It's an introductory/guidance page for examiners.
+
+3.  **Conclusion:**
+    *   No specific question marking criteria are visible.
+    *   Therefore, the list of questions should be empty.
+
+4.  **Final Output Formulation:**
+    *   `questions: []`
+[/thinking]
+
+```yaml
+questions: []
+```

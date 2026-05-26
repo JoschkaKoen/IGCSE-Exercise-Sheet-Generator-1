@@ -1,0 +1,30 @@
+[thinking]
+The user wants me to identify which question numbers have their marking criteria on this specific page.
+
+1.  **Analyze the page content:**
+    *   Header: "9700/42 Cambridge International AS & A Level – Mark Scheme October/November 2025 PUBLISHED"
+    *   Section: "GENERIC MARKING PRINCIPLE 5" and "GENERIC MARKING PRINCIPLE 6". These are general instructions, not specific to a question number like "1a" or "3b".
+    *   Section: "Science-Specific Marking Principles". This lists principles numbered 1 through 5.
+        *   Principle 1: Discusses keywords.
+        *   Principle 2: Discusses contradictory statements.
+        *   Principle 3: Discusses spellings.
+        *   Principle 4: Discusses error carried forward (ecf).
+        *   Principle 5: 'List rule' guidance.
+    *   Footer: "Page 3 of 23".
+
+2.  **Evaluate against the task:**
+    *   The task asks for "question numbers' marking criteria".
+    *   The visible text contains "Generic Marking Principles" and "Science-Specific Marking Principles".
+    *   These are general rules applicable to the whole exam paper, not specific marking criteria for a specific question like "Question 1" or "Question 2a".
+    *   There are no specific question numbers (like 1, 1a, 2, etc.) associated with specific mark allocations or model answers on this page. The numbers 1-5 in the table refer to the *principles*, not the exam questions.
+    *   Therefore, no specific question criteria are visible. This is an introductory/instructional page for examiners.
+
+3.  **Formulate the output:**
+    *   Since no specific question criteria (e.g., "1", "2a") are present, the list should be empty.
+    *   Wait, let me double-check. The prompt says "A bare reference to question N from elsewhere does NOT count." and "A question is 'visible' only if its marking criteria text... is present on this page."
+    *   The text here is purely generic guidance. It doesn't say "For Question 1, accept X". It says "Examiners should consider the context...".
+[/thinking]
+
+```yaml
+questions: []
+```

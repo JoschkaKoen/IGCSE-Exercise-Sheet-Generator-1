@@ -1,0 +1,19 @@
+questions:
+- number: 1ci
+  type: short_answer
+  marks: 4
+  mark_scheme_answer: |
+    Outline is a single clear line with no shading ;
+    Size –at least half the available space used ;
+    Detail 1: midrib as a double line for at least half its length ;
+    Detail 2: four bumps across the base of the leaf (two on either side of the petiole and two bulges at the edges) ;
+- number: 1cii
+  type: calculation
+  marks: 3
+  mark_scheme_answer: |
+    PQ = $63 \pm 1$ (mm) ;
+    ($\times$) 1.6 ;;
+    MP1 correct measurement of line \textbf{PQ}
+    MP2 correct calculation of the actual size to any number of significant figures
+    MP3 correct rounding to three significant figures
+    \textbf{ecf} from previous step

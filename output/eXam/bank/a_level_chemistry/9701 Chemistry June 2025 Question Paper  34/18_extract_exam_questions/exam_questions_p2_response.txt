@@ -1,0 +1,37 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Iron is an element that is essential in the human diet. Some people need to take iron supplement tablets to ensure an adequate intake of iron.
+
+      You will investigate the mass of iron in an iron supplement tablet by titrating a solution with potassium manganate(VII).
+
+      $$\text{Fe}^{2+}(\text{aq}) \to \text{Fe}^{3+}(\text{aq}) + \text{e}^-$$
+      $$\text{MnO}_4^-(\text{aq}) + 8\text{H}^+(\text{aq}) + 5\text{e}^- \to \text{Mn}^{2+}(\text{aq}) + 4\text{H}_2\text{O}(\text{l})$$
+
+      \textbf{FB 1} is an aqueous solution of iron supplement tablets made by dissolving 14 tablets in $1.00\text{dm}^3$ of solution. The iron in each tablet is iron(II) sulfate, $\text{FeSO}_4 \cdot 7\text{H}_2\text{O}$.
+      \textbf{FB 2} is $0.0100\text{mol}\,\text{dm}^{-3}$ acidified aqueous potassium manganate(VII), $\text{KMnO}_4$.
+      \textbf{FB 3} is dilute sulfuric acid, $\text{H}_2\text{SO}_4$.
+  - number: "1a"
+    type: short_answer
+    text: |
+      \textbf{Method}
+
+      \begin{itemize}
+      \item Fill a burette with \textbf{FB 2}.
+      \item Pipette $25.0\text{cm}^3$ of \textbf{FB 1} into a conical flask.
+      \item Use the $25\text{cm}^3$ measuring cylinder to add $10.0\text{cm}^3$ of \textbf{FB 3} to the conical flask.
+      \item Perform a rough titration and record your burette readings in the space below.
+      \end{itemize}
+
+      The rough titre is \underline{\hspace{1.5em}} $\text{cm}^3$.
+
+      \begin{itemize}
+      \item Carry out as many accurate titrations as you think necessary to obtain consistent results.
+      \item Make sure any recorded results show the precision of your practical work.
+      \item Record, in a suitable form in the space below, all your burette readings and the volume of \textbf{FB 2} added in each accurate titration.
+      \end{itemize}
+
+      \textbf{Rinse the burette with distilled water and leave to drain while you continue Question 1.}
+
+      \textbf{Results}

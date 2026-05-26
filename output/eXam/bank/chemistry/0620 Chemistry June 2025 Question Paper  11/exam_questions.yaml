@@ -1,0 +1,989 @@
+questions:
+- number: '1'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which process happens when water vapour changes to rain?
+  answer_options:
+  - letter: A
+    text: boiling
+  - letter: B
+    text: condensing
+  - letter: C
+    text: evaporating
+  - letter: D
+    text: freezing
+  subquestions: []
+- number: '2'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "The diagrams show the arrangement of particles in three different states\
+    \ of matter.\n\nstate 1 \\quad state 2 \\quad state 3\n\nWhich row describes the\
+    \ change in energy of the particles and in particle motion for the given change\
+    \ in state?\n\n\\begin{tabular}{|c|c|c|c|}\n\\hline\n & change in state & energy\
+    \ of particles & particle motion \\\\\n\\hline\n\\textbf{A} & $1 \\to 2$ & decreases\
+    \ & decreases \\\\\n\\textbf{B} & $2 \\to 1$ & decreases & increases \\\\\n\\\
+    textbf{C} & $3 \\to 1$ & increases & increases \\\\\n\\textbf{D} & $1 \\to 3$\
+    \ & increases & decreases \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '3'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'An atom of element Q contains 19 electrons, 19 protons and 20 neutrons.
+
+
+    What is Q?'
+  answer_options:
+  - letter: A
+    text: calcium
+  - letter: B
+    text: potassium
+  - letter: C
+    text: strontium
+  - letter: D
+    text: yttrium
+  subquestions: []
+- number: '4'
+  question_type: multiple_choice
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which part of an atom has a relative mass of 1 and a relative charge of 0?
+  answer_options:
+  - letter: A
+    text: electron
+  - letter: B
+    text: neutron
+  - letter: C
+    text: nucleus
+  - letter: D
+    text: proton
+  subquestions: []
+- number: '5'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Which row identifies the number of electrons, neutrons and protons in a particle\
+    \ which is an isotope of $^{11}_{5}\\text{B}$?\n\n\\begin{tabular}{|c|c|c|c|}\n\
+    \\hline\n & electrons & neutrons & protons \\\\\n\\hline\n\\textbf{A} & 5 & 5\
+    \ & 5 \\\\\n\\textbf{B} & 5 & 6 & 5 \\\\\n\\textbf{C} & 6 & 5 & 6 \\\\\n\\textbf{D}\
+    \ & 6 & 6 & 6 \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '6'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Which statements about potassium iodide are correct?
+
+
+    1 It is formed from potassium anions and iodide cations.
+
+    2 It is a good electrical conductor when molten or in aqueous solution.
+
+    3 Potassium atoms share electrons with iodine atoms.'
+  answer_options:
+  - letter: A
+    text: 1 and 3
+  - letter: B
+    text: 1 only
+  - letter: C
+    text: 2 and 3
+  - letter: D
+    text: 2 only
+  subquestions: []
+- number: '7'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Which substances contain one or more shared pairs of electrons?
+
+
+    1 argon
+
+    2 methane
+
+    3 iron(III) oxide
+
+    4 chlorine'
+  answer_options:
+  - letter: A
+    text: 1 and 3
+  - letter: B
+    text: 1 and 4
+  - letter: C
+    text: 2 and 3
+  - letter: D
+    text: 2 and 4
+  subquestions: []
+- number: '8'
+  question_type: multiple_choice
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which substance has a giant covalent structure at room temperature and pressure?
+  answer_options:
+  - letter: A
+    text: ammonia
+  - letter: B
+    text: carbon dioxide
+  - letter: C
+    text: diamond
+  - letter: D
+    text: water
+  subquestions: []
+- number: '9'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Which row shows the correct formula for the named substance?\n\n\\begin{tabular}{|c|c|c|}\n\
+    \\hline\n & substance & formula \\\\\n\\hline\n\\textbf{A} & cobalt(II) chloride\
+    \ & $\\text{Cu}_2\\text{Cl}$ \\\\\n\\textbf{B} & sodium carbonate & $\\text{Na}_2\\\
+    text{CO}_3$ \\\\\n\\textbf{C} & xenon & $\\text{Xe}_2$ \\\\\n\\textbf{D} & ammonium\
+    \ sulfate & $\\text{NH}_4\\text{SO}_4$ \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: cobalt(II) chloride, $\text{Cu}_2\text{Cl}$
+  - letter: B
+    text: sodium carbonate, $\text{Na}_2\text{CO}_3$
+  - letter: C
+    text: xenon, $\text{Xe}_2$
+  - letter: D
+    text: ammonium sulfate, $\text{NH}_4\text{SO}_4$
+  subquestions: []
+- number: '10'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The equation shows the thermal decomposition of magnesium carbonate.
+
+    $$\text{MgCO}_3 \rightarrow \text{MgO} + \text{CO}_2$$
+
+    [$M_r$: $\text{MgCO}_3$, 84]
+
+
+    Which mass of magnesium oxide is formed when 21.0 g of magnesium carbonate is
+    completely decomposed?'
+  answer_options:
+  - letter: A
+    text: 1.9 g
+  - letter: B
+    text: 4.0 g
+  - letter: C
+    text: 10.0 g
+  - letter: D
+    text: 40.0 g
+  subquestions: []
+- number: '11'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Concentrated aqueous sodium chloride is electrolysed using inert electrodes.
+
+
+    What is the main product formed at the positive electrode (anode)?'
+  answer_options:
+  - letter: A
+    text: chlorine
+  - letter: B
+    text: hydrogen
+  - letter: C
+    text: oxygen
+  - letter: D
+    text: sodium
+  subquestions: []
+- number: '12'
+  question_type: multiple_choice
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A hydrogen–oxygen fuel cell uses 630 dm$^3$ of oxygen.
+
+
+    The oxygen for the reaction is extracted from clean, dry air.
+
+
+    What is the minimum volume of clean, dry air needed to provide this volume of
+    oxygen?'
+  answer_options:
+  - letter: A
+    text: 788 dm$^3$
+  - letter: B
+    text: 808 dm$^3$
+  - letter: C
+    text: 3000 dm$^3$
+  - letter: D
+    text: 3316 dm$^3$
+  subquestions: []
+- number: '13'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Three statements about energy changes in chemical reactions are listed.
+
+
+    1 In an endothermic reaction, the temperature of the surroundings increases.
+
+    2 In an exothermic reaction, thermal energy is taken in from the surroundings.
+
+    3 In the reaction pathway diagram for an exothermic reaction, the energy level
+    of the products is lower than the energy level of the reactants.
+
+
+    Which statements are correct?'
+  answer_options:
+  - letter: A
+    text: 1 and 2
+  - letter: B
+    text: 1 only
+  - letter: C
+    text: 2 and 3
+  - letter: D
+    text: 3 only
+  subquestions: []
+- number: '14'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'When a small piece of a Group I metal is placed into a large beaker of cold
+    water, a reaction occurs.
+
+
+    Four statements about this reaction are listed.
+
+
+    1 The metal melts.
+
+    2 Hydrogen is produced.
+
+    3 Steam is produced.
+
+    4 The pH of the solution increases.
+
+
+    Which statements about this reaction describe a physical change?'
+  answer_options:
+  - letter: A
+    text: 1 and 3
+  - letter: B
+    text: 1 and 4
+  - letter: C
+    text: 2 and 3
+  - letter: D
+    text: 2 and 4
+  subquestions: []
+- number: '15'
+  question_type: multiple_choice
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The equation for the decomposition of hydrogen peroxide is shown.
+
+
+    $$2\text{H}_2\text{O}_2 \to 2\text{H}_2\text{O} + \text{O}_2$$
+
+
+    The reaction is exothermic.
+
+
+    When a small amount of a catalyst is added, the oxygen is produced more quickly.
+
+
+    Which statement about the catalyst is correct?'
+  answer_options:
+  - letter: A
+    text: The catalyst makes the reaction more exothermic.
+  - letter: B
+    text: The mass of catalyst is the same before and after the reaction.
+  - letter: C
+    text: The catalyst increases the final volume of oxygen produced.
+  - letter: D
+    text: All of the catalyst is used up in the reaction.
+  subquestions: []
+- number: '16'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The equation for the reaction between copper(II) oxide and carbon is shown.
+
+
+    $$2\text{CuO} + \text{C} \to 2\text{Cu} + \text{CO}_2$$
+
+
+    Which statement about this reaction is correct?'
+  answer_options:
+  - letter: A
+    text: CuO is reduced.
+  - letter: B
+    text: $\text{CO}_2$ is oxidised.
+  - letter: C
+    text: Cu is oxidised.
+  - letter: D
+    text: C is reduced.
+  subquestions: []
+- number: '17'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Which row gives the colours observed when thymolphthalein and methyl orange\
+    \ are added separately to the named solution?\n\n\\begin{tabular}{|c|c|c|c|}\n\
+    \\hline\n & solution & \\begin{tabular}[c]{@{}c@{}}colour with\\\\ thymolphthalein\\\
+    end{tabular} & \\begin{tabular}[c]{@{}c@{}}colour with\\\\ methyl orange\\end{tabular}\
+    \ \\\\ \\hline\n\\textbf{A} & dilute HCl & colourless & yellow \\\\ \\hline\n\\\
+    textbf{B} & dilute HCl & blue & red \\\\ \\hline\n\\textbf{C} & aqueous NaOH &\
+    \ colourless & red \\\\ \\hline\n\\textbf{D} & aqueous NaOH & blue & yellow \\\
+    \\ \\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '18'
+  question_type: multiple_choice
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "A mixture of two substances, R and S, is heated gently.\n\nThe damp red litmus\
+    \ paper turns blue.\n\nWhat are R and S?\n\n\\begin{tabular}{|c|c|c|}\n\\hline\n\
+    \ & R & S \\\\ \\hline\n\\textbf{A} & a basic oxide & ammonium chloride \\\\ \\\
+    hline\n\\textbf{B} & a basic oxide & sodium nitrate \\\\ \\hline\n\\textbf{C}\
+    \ & an acidic oxide & ammonium chloride \\\\ \\hline\n\\textbf{D} & an acidic\
+    \ oxide & sodium nitrate \\\\ \\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '19'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which reactants are used to make the salt copper(II) sulfate?
+  answer_options:
+  - letter: A
+    text: dilute acid + alkali
+  - letter: B
+    text: dilute acid + metal carbonate
+  - letter: C
+    text: dilute acid + metal
+  - letter: D
+    text: dilute acid + non-metal oxide
+  subquestions: []
+- number: '20'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which statement about the Periodic Table is correct?
+  answer_options:
+  - letter: A
+    text: The elements are arranged in order of increasing relative atomic mass.
+  - letter: B
+    text: The reactivity of the elements in Group I and in Group VII increases as
+      the groups are descended.
+  - letter: C
+    text: Elements in the same period have similar chemical properties.
+  - letter: D
+    text: Elements in Group II form ions with a 2+ charge.
+  subquestions: []
+- number: '21'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Part of the Periodic Table is shown.
+
+
+    Which element shows the most metallic character?'
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '22'
+  question_type: multiple_choice
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'E is an element from Group I of the Periodic Table. Two properties of E are
+    listed.
+
+
+    \begin{itemize}
+
+    \item It has a higher melting point than caesium.
+
+    \item It has a lower density than sodium.
+
+    \end{itemize}
+
+
+    What is the identity of E?'
+  answer_options:
+  - letter: A
+    text: lithium
+  - letter: B
+    text: potassium
+  - letter: C
+    text: rubidium
+  - letter: D
+    text: francium
+  subquestions: []
+- number: '23'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "An equation for the displacement reaction between aqueous halogen, $X_2$,\
+    \ and aqueous halide ions, $Y^-$, is shown.\n\n$$X_2(\\text{aq}) + 2Y^-(\\text{aq})\
+    \ \\to 2X^-(\\text{aq}) + Y_2(\\text{aq})$$\n\nWhich row identifies $X_2$ and\
+    \ $Y^-$ and explains why the reaction takes place?\n\n\\begin{tabular}{|c|c|c|c|}\n\
+    \\hline\n & $X_2$ & $Y^-$ & explanation \\\\\n\\hline\n\\textbf{A} & chlorine\
+    \ & iodide & chlorine is less reactive than iodine \\\\\n\\textbf{B} & chlorine\
+    \ & iodide & chlorine is more reactive than iodine \\\\\n\\textbf{C} & iodine\
+    \ & chloride & chlorine is less reactive than iodine \\\\\n\\textbf{D} & iodine\
+    \ & chloride & chlorine is more reactive than iodine \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: chlorine, iodide, chlorine is less reactive than iodine
+  - letter: B
+    text: chlorine, iodide, chlorine is more reactive than iodine
+  - letter: C
+    text: iodine, chloride, chlorine is less reactive than iodine
+  - letter: D
+    text: iodine, chloride, chlorine is more reactive than iodine
+  subquestions: []
+- number: '24'
+  question_type: multiple_choice
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Some information about an element is shown.
+
+
+    \begin{tabular}{|l|c|}
+
+    \hline
+
+    melting point / $^\circ\text{C}$ & 1555 \\
+
+    boiling point / $^\circ\text{C}$ & 2963 \\
+
+    colour of oxide & brown \\
+
+    use of element & as a catalyst \\
+
+    \hline
+
+    \end{tabular}
+
+
+    What is the position of this element in the Periodic Table?'
+  answer_options:
+  - letter: A
+    text: Group I
+  - letter: B
+    text: Group VII
+  - letter: C
+    text: Group VIII
+  - letter: D
+    text: transition elements
+  subquestions: []
+- number: '25'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'The table shows the observations when four metals, Q, R, S and T, are added
+    separately to cold water and to dilute hydrochloric acid.
+
+
+    \begin{tabular}{|c|c|c|}
+
+    \hline
+
+    metal & \begin{tabular}[c]{@{}c@{}}observation with\\ cold water\end{tabular}
+    & \begin{tabular}[c]{@{}c@{}}observation with\\ dilute hydrochloric acid\end{tabular}
+    \\ \hline
+
+    Q & slow fizzing & fizzing \\
+
+    R & no reaction & fizzing \\
+
+    S & no reaction & no reaction \\
+
+    T & vigorous fizzing & vigorous fizzing \\ \hline
+
+    \end{tabular}
+
+
+    Which row gives the order of reactivity of the metals?
+
+
+    \begin{tabular}{ccccc}
+
+    & least & $\xrightarrow{\hspace{3cm}}$ & most & \\
+
+    & reactive & & reactive & \\
+
+    \end{tabular}'
+  answer_options:
+  - letter: A
+    text: S \quad Q \quad R \quad T
+  - letter: B
+    text: T \quad R \quad Q \quad S
+  - letter: C
+    text: S \quad R \quad Q \quad T
+  - letter: D
+    text: T \quad Q \quad R \quad S
+  subquestions: []
+- number: '26'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Magnesium is reacted separately with dilute sulfuric acid and with steam.
+
+
+    Which row correctly identifies if hydrogen is formed as a product in each reaction?
+
+
+    \begin{tabular}{|c|c|c|}
+
+    \hline
+
+    & \begin{tabular}[c]{@{}c@{}}reaction with\\ dilute sulfuric acid\end{tabular}
+    & \begin{tabular}[c]{@{}c@{}}reaction with\\ steam\end{tabular} \\ \hline
+
+    \textbf{A} & \checkmark & \checkmark \\
+
+    \textbf{B} & \checkmark & \textsf{x} \\
+
+    \textbf{C} & \textsf{x} & \checkmark \\
+
+    \textbf{D} & \textsf{x} & \textsf{x} \\ \hline
+
+    \end{tabular}
+
+
+    key
+
+
+    \checkmark = hydrogen is formed
+
+
+    \textsf{x} = hydrogen is \textbf{not} formed'
+  answer_options:
+  - letter: A
+    text: \checkmark \quad \checkmark
+  - letter: B
+    text: \checkmark \quad \textsf{x}
+  - letter: C
+    text: \textsf{x} \quad \checkmark
+  - letter: D
+    text: \textsf{x} \quad \textsf{x}
+  subquestions: []
+- number: '27'
+  question_type: multiple_choice
+  page: 9
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Which statements about aluminium are correct?
+
+
+    \begin{enumerate}
+
+    \item It is more reactive than calcium.
+
+    \item The main ore of aluminium is bauxite.
+
+    \item It can be extracted from its oxide using carbon.
+
+    \item Brass is an alloy of aluminium and copper.
+
+    \end{enumerate}'
+  answer_options:
+  - letter: A
+    text: 1 and 2
+  - letter: B
+    text: 1 and 3
+  - letter: C
+    text: 2 only
+  - letter: D
+    text: 3 and 4
+  subquestions: []
+- number: '28'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Steel is a mixture of iron and one or more other elements.\n\nThe table gives\
+    \ some information about three common types of steel.\n\n\\begin{tabular}{|c|c|c|c|}\n\
+    \\hline\n & type of steel & \\begin{tabular}[c]{@{}c@{}}elements\\\\ added to\
+    \ iron\\end{tabular} & properties \\\\ \\hline\n1 & high-carbon steel & carbon\
+    \ only & \\begin{tabular}[c]{@{}c@{}}strong, brittle\\\\ and corrodes\\end{tabular}\
+    \ \\\\ \\hline\n2 & low-carbon steel & carbon only & \\begin{tabular}[c]{@{}c@{}}soft,\
+    \ easily shaped\\\\ and corrodes slowly\\end{tabular} \\\\ \\hline\n3 & stainless\
+    \ steel & \\begin{tabular}[c]{@{}c@{}}carbon, chromium\\\\ and nickel\\end{tabular}\
+    \ & \\begin{tabular}[c]{@{}c@{}}hard and resistant\\\\ to corrosion\\end{tabular}\
+    \ \\\\ \\hline\n\\end{tabular}\n\nWhich rows identify a type of steel that is\
+    \ suitable to make cutlery?"
+  answer_options:
+  - letter: A
+    text: 1 and 2
+  - letter: B
+    text: 1 only
+  - letter: C
+    text: 2 and 3
+  - letter: D
+    text: 3 only
+  subquestions: []
+- number: '29'
+  question_type: multiple_choice
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "The diagram shows an experiment to investigate the corrosion of iron.\n\n\
+    What happens to the water level in tubes P and Q?\n\n\\begin{tabular}{|c|c|c|}\n\
+    \\hline\n & tube P & tube Q \\\\ \\hline\n\\textbf{A} & rises & falls \\\\ \\\
+    hline\n\\textbf{B} & no change & rises \\\\ \\hline\n\\textbf{C} & falls & rises\
+    \ \\\\ \\hline\n\\textbf{D} & no change & no change \\\\ \\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: rises \quad falls
+  - letter: B
+    text: no change \quad rises
+  - letter: C
+    text: falls \quad rises
+  - letter: D
+    text: no change \quad no change
+  subquestions: []
+- number: '30'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Fertilisers are used to provide the three elements needed for improved plant
+    growth.
+
+
+    Which two compounds would provide \textbf{all three} of these elements?'
+  answer_options:
+  - letter: A
+    text: ammonium nitrate and calcium phosphate
+  - letter: B
+    text: ammonium nitrate and potassium sulfate
+  - letter: C
+    text: potassium nitrate and calcium phosphate
+  - letter: D
+    text: potassium phosphate and potassium sulfate
+  subquestions: []
+- number: '31'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Which substances can be used to detect the presence of water?
+
+
+    \begin{enumerate}
+
+    \item anhydrous cobalt(II) chloride
+
+    \item anhydrous copper(II) sulfate
+
+    \item litmus
+
+    \item methyl orange
+
+    \end{enumerate}'
+  answer_options:
+  - letter: A
+    text: 1 and 2
+  - letter: B
+    text: 1 and 3
+  - letter: C
+    text: 2 and 4
+  - letter: D
+    text: 3 and 4
+  subquestions: []
+- number: '32'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: What is produced by the incomplete combustion of methane?
+  answer_options:
+  - letter: A
+    text: carbon monoxide
+  - letter: B
+    text: hydrogen
+  - letter: C
+    text: lead compounds
+  - letter: D
+    text: sulfur dioxide
+  subquestions: []
+- number: '33'
+  question_type: multiple_choice
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Which row identifies compounds in the same homologous series?\n\n\\begin{tabular}{|c|c|c|}\n\
+    \\hline\n & chemical properties & functional group \\\\\n\\hline\n\\textbf{A}\
+    \ & different & different \\\\\n\\hline\n\\textbf{B} & different & same \\\\\n\
+    \\hline\n\\textbf{C} & similar & different \\\\\n\\hline\n\\textbf{D} & similar\
+    \ & same \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: different chemical properties, different functional group
+  - letter: B
+    text: different chemical properties, same functional group
+  - letter: C
+    text: similar chemical properties, different functional group
+  - letter: D
+    text: similar chemical properties, same functional group
+  subquestions: []
+- number: '34'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "The molecular formula of compound Z is $\\text{C}_4\\text{H}_{10}$.\n\nWhich\
+    \ row identifies the substance that reacts with Z and describes the type of reaction\
+    \ that occurs?\n\n\\begin{tabular}{|c|c|c|}\n\\hline\n & substance & type of reaction\
+    \ \\\\\n\\hline\n\\textbf{A} & chlorine & addition \\\\\n\\textbf{B} & chlorine\
+    \ & substitution \\\\\n\\textbf{C} & steam & addition \\\\\n\\textbf{D} & steam\
+    \ & substitution \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []
+- number: '35'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: Which list shows the fractions obtained from the fractional distillation of
+    petroleum, in order of increasing boiling point?
+  answer_options:
+  - letter: A
+    text: bitumen $\to$ diesel oil $\to$ fuel oil $\to$ lubricating oil
+  - letter: B
+    text: diesel oil $\to$ gasoline $\to$ naphtha $\to$ kerosene
+  - letter: C
+    text: gasoline $\to$ naphtha $\to$ kerosene $\to$ diesel oil
+  - letter: D
+    text: kerosene $\to$ lubricating oil $\to$ naphtha $\to$ refinery gas
+  subquestions: []
+- number: '36'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Three statements about cracking of larger alkane molecules are listed.
+
+
+    1 Cracking produces petrol for cars.
+
+    2 Cracking only produces short-chain alkenes.
+
+    3 Cracking produces alkenes used to make polymers.
+
+
+    Which statements are correct?'
+  answer_options:
+  - letter: A
+    text: 1, 2 and 3
+  - letter: B
+    text: 1 and 2 only
+  - letter: C
+    text: 1 and 3 only
+  - letter: D
+    text: 2 and 3 only
+  subquestions: []
+- number: '37'
+  question_type: multiple_choice
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Some words used to describe organic compounds are listed.
+
+
+    1 hydrocarbon
+
+    2 monomer
+
+    3 saturated
+
+    4 unreactive
+
+
+    Which words describe ethene?'
+  answer_options:
+  - letter: A
+    text: 1 and 2
+  - letter: B
+    text: 1 and 3
+  - letter: C
+    text: 2 and 4
+  - letter: D
+    text: 3 and 4
+  subquestions: []
+- number: '38'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'A student measures $25.00 \text{ cm}^3$ of dilute hydrochloric acid accurately.
+
+
+    Which piece of apparatus is most suitable?'
+  answer_options:
+  - letter: A
+    text: beaker
+  - letter: B
+    text: measuring cylinder
+  - letter: C
+    text: burette
+  - letter: D
+    text: dropping pipette
+  subquestions: []
+- number: '39'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: 'Excess solid magnesium oxide is added to dilute nitric acid.
+
+
+    Which separation technique is used to remove the excess solid magnesium oxide
+    after the reaction finishes?'
+  answer_options:
+  - letter: A
+    text: chromatography
+  - letter: B
+    text: crystallisation
+  - letter: C
+    text: distillation
+  - letter: D
+    text: filtration
+  subquestions: []
+- number: '40'
+  question_type: multiple_choice
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 1
+  text: "Four different aqueous metal nitrates are tested separately with aqueous\
+    \ sodium hydroxide, with dilute sulfuric acid and with a flame test.\n\nWhich\
+    \ row shows the correct set of results for the named aqueous metal nitrate?\n\n\
+    \\begin{tabular}{|c|c|c|c|c|}\n\\hline\n & aqueous metal nitrate & with aqueous\
+    \ sodium hydroxide & with dilute sulfuric acid & flame test \\\\\n\\hline\n\\\
+    textbf{A} & sodium nitrate & no visible change & white precipitate & yellow flame\
+    \ \\\\\n\\textbf{B} & copper(II) nitrate & blue precipitate & no visible change\
+    \ & blue-green flame \\\\\n\\textbf{C} & barium nitrate & white precipitate &\
+    \ no visible change & blue-green flame \\\\\n\\textbf{D} & calcium nitrate & no\
+    \ visible change & white precipitate & yellow flame \\\\\n\\hline\n\\end{tabular}"
+  answer_options:
+  - letter: A
+    text: A
+  - letter: B
+    text: B
+  - letter: C
+    text: C
+  - letter: D
+    text: D
+  subquestions: []

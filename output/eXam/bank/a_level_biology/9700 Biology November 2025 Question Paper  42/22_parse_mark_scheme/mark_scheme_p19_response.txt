@@ -1,0 +1,39 @@
+questions:
+- number: 8a
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{any four from :}
+    \begin{enumerate}
+    \item (named) protected reserves ;
+    \item \textbf{limit} palm oil plantations / ref. to sustainable palm oil production ;
+    \item restoring lost habitat / reforestation / reduce deforestation ;
+    \item captive breeding programs ;
+    \item release into wild ;
+    \item ban, hunting / trade;
+    \item raise awareness / education ;
+    \item ref. to research ;
+    \end{enumerate}
+- number: 8b
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \begin{enumerate}
+    \item ecosystem / habitat (diversity) ;
+    \item species (diversity / richness) ;
+    \item genetic (diversity) ;
+    \end{enumerate}
+- number: 8ci
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    0.2034 ;
+    0.3072 ;
+    allow \textbf{ecf} for mp2 if both incorrect
+    allow \textbf{ecf} for mp2 if figure correct in both but not to 4dp
+- number: 8cii
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    0.6928 / 0.693 ;
+    allow \textbf{ecf} for 1 minus their answer to \textbf{8ci}

@@ -1,0 +1,25 @@
+questions:
+  - number: "5biii"
+    type: short_answer
+    text: |
+      Explain \textbf{one} disadvantage of using the robot to perform surgery.
+  - number: "5c"
+    type: short_answer
+    text: |
+      Patients use a web page to log into their account to pay for the treatment they have received in the hospital.
+  - number: "5ci"
+    type: short_answer
+    text: |
+      The patient enters the uniform resource locator (URL) for the web page into their browser and the web page is requested and displayed.
+
+      Complete and annotate the diagram to show how the web page is requested for the patient.
+
+      \begin{tabular}{|c|}
+      \hline
+      Patient's \\
+      computer \\
+      www.cihospital.com \\
+      \hline
+      \end{tabular}
+
+      URL input into patient's computer

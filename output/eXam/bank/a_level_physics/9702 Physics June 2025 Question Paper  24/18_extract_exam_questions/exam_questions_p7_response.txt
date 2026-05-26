@@ -1,0 +1,23 @@
+questions:
+  - number: "3d"
+    type: calculation
+    text: |
+      The variation of the force $F$ acting on the spring with the compression $x$ of the spring is shown in Fig. 3.2.
+
+      Use the information in (b) and your answer in (c) to show that the maximum force $F_0$ exerted on the spring by the block is $700\text{ N}$.
+  - number: "3e"
+    type: short_answer
+    text: |
+      Use the information in (d) to determine, for the instant that the block is first brought to rest by the spring, the magnitude of:
+  - number: "3ei"
+    type: calculation
+    text: |
+      the resultant force acting on the block
+
+      resultant force = \hrulefill N
+  - number: "3eii"
+    type: calculation
+    text: |
+      the acceleration of the block.
+
+      acceleration = \hrulefill $\text{ms}^{-2}$

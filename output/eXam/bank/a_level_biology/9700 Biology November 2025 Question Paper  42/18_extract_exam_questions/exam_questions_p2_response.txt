@@ -1,0 +1,21 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Rice, \textit{Oryza sativa}, is a crop plant that has adapted to grow in flooded fields.
+
+      Fig. 1.1 outlines the effects on rice plants of growing in flooded fields.
+
+      Fig. 1.1
+  - number: "1a"
+    type: short_answer
+    text: |
+      With reference to Fig. 1.1, name:
+
+      substance \textbf{A} \hrulefill
+      substance \textbf{B} \hrulefill
+      tissue \textbf{C} \hrulefill
+  - number: "1b"
+    type: short_answer
+    text: |
+      Describe how root cells respond to a high concentration of substance \textbf{B}.

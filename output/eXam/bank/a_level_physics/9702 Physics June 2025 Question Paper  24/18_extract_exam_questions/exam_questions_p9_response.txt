@@ -1,0 +1,21 @@
+questions:
+  - number: "4bi"
+    type: calculation
+    text: |
+      Calculate the frequency, in GHz, of the microwaves.
+
+      frequency = \hrulefill GHz
+  - number: "4bii"
+    type: calculation
+    text: |
+      Show that the difference between the path lengths XQ and YQ is 6 cm.
+  - number: "4biii"
+    type: short_answer
+    text: |
+      State and explain what may be deduced about the intensity of the microwaves at point Q.
+  - number: "4biv"
+    type: short_answer
+    text: |
+      A microwave detector is positioned at P and connected to a cathode-ray oscilloscope (CRO). The controls of the CRO are adjusted so that a waveform is shown on the screen.
+
+      Describe the changes to the amplitude of the waveform as the detector is moved from P to Q.

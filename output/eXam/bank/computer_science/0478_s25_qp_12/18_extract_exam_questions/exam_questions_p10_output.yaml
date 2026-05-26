@@ -1,0 +1,30 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      A hospital has computers and technology that it uses when caring for its patients.
+  - number: "5a"
+    type: long_answer
+    text: |
+      One computer is an expert system that is used to help diagnose a patient's illness.
+
+      The doctor inputs the patient's symptoms into an interface and a diagnosis is output.
+
+      Describe how the expert system decides the diagnosis.
+  - number: "5b"
+    type: short_answer
+    text: |
+      The hospital has a robot that is used to perform surgery. A doctor controls the robot from a different location to perform surgery on a patient.
+  - number: "5bi"
+    type: short_answer
+    text: |
+      One feature of the robot is that it has electrical components.
+
+      Give \textbf{two} examples of the electrical components of a robot.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "5bii"
+    type: long_answer
+    text: |
+      Explain the advantages of using the robot to perform surgery.

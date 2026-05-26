@@ -1,0 +1,23 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      (a) (i) State and explain the effect, if any, on the resistance of a filament wire in a lamp as the current in the wire decreases.
+  - number: "5a"
+    type: short_answer
+    text: |
+      (i) State and explain the effect, if any, on the resistance of a filament wire in a lamp as the current in the wire decreases.
+  - number: "5ai"
+    type: short_answer
+    text: |
+      State and explain the effect, if any, on the resistance of a filament wire in a lamp as the current in the wire decreases.
+  - number: "5aii"
+    type: short_answer
+    text: |
+      On Fig. 5.1, sketch the $I-V$ characteristic of a filament lamp.
+  - number: "5b"
+    type: short_answer
+    text: |
+      A battery of electromotive force (e.m.f.) $E$ and negligible internal resistance is connected in parallel with two filament lamps A and B, as shown in Fig. 5.2.
+
+      The current in the battery is $3.3\text{ A}$ and the current in lamp A is $1.5\text{ A}$. The power dissipated in lamp A is $18\text{ W}$.

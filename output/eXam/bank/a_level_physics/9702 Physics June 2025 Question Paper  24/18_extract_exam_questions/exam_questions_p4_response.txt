@@ -1,0 +1,21 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      An object of constant mass moves in a straight line. The variation with time $t$ of the momentum $p$ of the object is shown in Fig. 2.1.
+  - number: "2a"
+    type: short_answer
+    text: |
+      Define momentum.
+  - number: "2b"
+    type: calculation
+    text: |
+      Calculate the change in momentum of the object from time $t = 0$ to $t = 12\text{ s}$.
+
+      change in momentum = \hrulefill $\text{kg}\,\text{m}\,\text{s}^{-1}$
+  - number: "2c"
+    type: calculation
+    text: |
+      Calculate the magnitude of the resultant force acting on the object.
+
+      force = \hrulefill $\text{N}$

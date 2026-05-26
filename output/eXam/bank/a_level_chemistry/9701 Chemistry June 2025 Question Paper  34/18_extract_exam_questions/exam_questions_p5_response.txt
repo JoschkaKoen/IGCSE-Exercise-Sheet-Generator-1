@@ -1,0 +1,17 @@
+questions:
+  - number: "2b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "2bi"
+    type: short_answer
+    text: |
+      Plot a graph of the maximum temperature ($y$-axis) against the volume of FB 5 ($x$-axis) on the grid. The scale on the $y$-axis should be suitable for temperature readings to be 2°C above the largest maximum temperature.
+
+      Label any points you consider to be anomalous.
+
+      Draw \textbf{two} lines of best fit, the first for the increase in maximum temperature and the second for after the largest maximum temperature has been reached. Extrapolate both lines so that they intersect.
+
+      [4]
+
+      \begin{tabular}{|c|c|c|c|c|c|c|} \hline I & & II & & III & & IV \\ \hline \end{tabular}

@@ -1,0 +1,26 @@
+questions:
+- number: 1cii
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{any three from :}
+    \begin{enumerate}
+    \item ethylene causes break down of ABA, so gibberellin, active / stimulated / functional ;
+    \item plants grow tall(er) / stems increase in length / stem elongation / increase in internodal length ;
+    \item (so) leaves / flowers, held above the water ;
+    \item (so) photosynthesis can occur / increased access to light / AW
+    \textbf{or}
+    (so) gas exchange / reproduction, can occur ;
+    \end{enumerate}
+- number: 2a
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textit{gene}
+    a section of DNA / sequence of (DNA) bases, coding for a (specific) polypeptide ;
+
+    \textit{genotype}
+    all the alleles / alleles in an organism / (two) alleles of one gene ;
+
+    \textit{phenotype}
+    (observable) features / characteristics / traits / appearance, (of an organism) ;

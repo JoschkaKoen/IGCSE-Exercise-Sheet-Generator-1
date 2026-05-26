@@ -1,0 +1,38 @@
+questions:
+- number: 1a
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{A} oxygen ;
+    \textbf{B} ethanol ;
+    \textbf{C} aerenchyma ;
+- number: 1b
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    ref. to ethanol dehydrogenase (to break it down) ; \textbf{A} alcohol dehydrogenase
+- number: 1ci
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    as gibberellin concentration increases, the length of stem increases
+    \textbf{or}
+    positive correlation between concentration of gibberellin and length of stem ;
+
+    data quote – two concentrations and two lengths with units ;
+
+    \begin{tabular}{|c|c|}
+    \hline
+    conc gibberellin / au & length of stem / mm $\pm$ 0.5 mm \\
+    \hline
+    1 & 3 \\
+    \hline
+    2 & 19 \\
+    \hline
+    3 & 27 \\
+    \hline
+    4 & 45 \\
+    \hline
+    5 & 52 \\
+    \hline
+    \end{tabular}

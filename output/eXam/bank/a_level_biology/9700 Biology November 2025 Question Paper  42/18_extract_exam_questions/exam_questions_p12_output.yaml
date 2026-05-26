@@ -1,0 +1,37 @@
+questions:
+  - number: "5"
+    type: short_answer
+    text: |
+      Metachromatic leukodystrophy (MLD) is a genetic disease that affects the nervous system.
+
+      MLD is caused by mutations in the \textit{ARSA} gene located on chromosome 22. The \textit{ARSA} gene, which is 3150 base pairs (bp) in length, includes 8 exons and is shown in Fig. 5.1.
+
+      A genetic test using DNA sequencing is available to identify mutations associated with MLD in the \textit{ARSA} gene. The sequencing method can only work if a DNA fragment size is less than 1000 bp.
+
+      The test involves a number of different stages:
+      \begin{itemize}
+      \item Genomic DNA is extracted from a blood sample.
+      \item Polymerase chain reaction (PCR) using 5 pairs of primers selects 5 different DNA fragments of the \textit{ARSA} gene.
+      \item Gel electrophoresis is carried out on the DNA fragments.
+      \item The DNA fragments are sequenced and analysed for mutations.
+      \end{itemize}
+
+      Table 5.1 shows the length of the DNA fragments and the exons present in each DNA fragment.
+
+      Table 5.1
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{fragment number} & \textbf{DNA fragment length / bp} & \textbf{exons in DNA fragment} \\
+      \hline
+      1 & 405 & 1 \\
+      \hline
+      2 & 737 & 1-2 \\
+      \hline
+      3 & 706 & 2-4 \\
+      \hline
+      4 & 860 & 5-7 \\
+      \hline
+      5 & 916 & 7-8 \\
+      \hline
+      \end{tabular}

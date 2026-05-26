@@ -1,0 +1,36 @@
+questions:
+- number: 7ai
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    \textbf{any one from :}
+    \begin{itemize}
+    \item soil contains few (named mineral) ions ;
+    \item located in, shaded areas / areas of low light intensity ;
+    \end{itemize}
+- number: 7aii
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    to attract insects ;
+- number: 7aiii
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    energy / ATP, not wasted (responding to a non-edible object) ;
+- number: 7aiv
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    (time) for, digestion / enzyme action / absorption / assimilation ;
+- number: 7b
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{any three from :}
+    \begin{enumerate}
+    \item impulses / action potentials, are discrete events / AW ;
+    \item impulses / action potentials, are unidirectional ;
+    \item determines / limits, the frequency of, impulses / action potentials ;
+    \item AVP ; e.g. 200-300 action potentials per second
+    \end{enumerate}

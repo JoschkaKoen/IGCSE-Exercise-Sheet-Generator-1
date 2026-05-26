@@ -1,0 +1,35 @@
+questions:
+  - number: "8"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "8a"
+    type: short_answer
+    text: |
+      Describe what is meant by \textbf{multi-tasking} and how it benefits process management.
+  - number: "8b"
+    type: long_answer
+    text: |
+      Explain the function of the shortest remaining time scheduling routine \textbf{and} give a benefit of this routine.
+
+      Function \hrulefill
+
+      Benefit \hrulefill
+  - number: "9"
+    type: short_answer
+    text: |
+      Secure Socket Layer (SSL) and Transport Layer Security (TLS) are two protocols.
+  - number: "9a"
+    type: short_answer
+    text: |
+      State \textbf{two} functions of SSL/TLS.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "9b"
+    type: short_answer
+    text: |
+      Give \textbf{two} examples of situations where the use of SSL/TLS would be appropriate.
+
+      1. \hrulefill
+      2. \hrulefill

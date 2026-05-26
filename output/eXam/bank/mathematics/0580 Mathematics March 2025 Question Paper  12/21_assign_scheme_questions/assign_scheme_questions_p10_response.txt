@@ -1,0 +1,32 @@
+[thinking]
+The user wants me to identify the question numbers present on the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a single page from a Cambridge IGCSE Mark Scheme (0580/12, February/March 2025).
+    *   It contains a table with columns: "Question", "Answer", "Marks", "Partial Marks".
+    *   Looking at the "Question" column, I see the number "26".
+    *   The corresponding row contains the answer `[t=]0.5`, `[w]=-3`.
+    *   The marks column shows "4".
+    *   The partial marks column details marking points (M1, A1, SC1) related to solving simultaneous equations involving variables t and w.
+
+2.  **Compare with the valid list:**
+    *   The valid list includes "26".
+    *   The visible question is indeed "26".
+
+3.  **Format the output:**
+    *   The output must be YAML.
+    *   The key is `questions`.
+    *   The value is a list of strings.
+    *   The string should be "26".
+
+4.  **Final check:**
+    *   Are there any other questions? No, just row 26.
+    *   Is "26" in the allowed list? Yes.
+    *   Is the format correct? Yes.
+
+[/thinking]
+
+```yaml
+questions:
+  - "26"
+```

@@ -1,0 +1,20 @@
+{
+  "detector_version": 3,
+  "is_mcq": false,
+  "pdf_height_pt": 651.0225830078125,
+  "pdf_width_pt": 595.0,
+  "regions": [
+    {
+      "assignment_confident": true,
+      "field_id": "2b__0",
+      "kind": "lines",
+      "leaf_number": "2b",
+      "page": 1,
+      "x0": 65.53108215332031,
+      "x1": 559.83251953125,
+      "y0": 396.0620315551758,
+      "y1": 624.8555757795061
+    }
+  ],
+  "snippet_sha": "ce28d95af94ac043"
+}

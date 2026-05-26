@@ -1,0 +1,78 @@
+questions:
+  - number: "16"
+    type: multiple_choice
+    text: |
+      The equation for the reaction between copper(II) oxide and carbon is shown.
+
+      $$2\text{CuO} + \text{C} \to 2\text{Cu} + \text{CO}_2$$
+
+      Which statement about this reaction is correct?
+    options:
+      - letter: A
+        text: |
+          CuO is reduced.
+      - letter: B
+        text: |
+          $\text{CO}_2$ is oxidised.
+      - letter: C
+        text: |
+          Cu is oxidised.
+      - letter: D
+        text: |
+          C is reduced.
+  - number: "17"
+    type: multiple_choice
+    text: |
+      Which row gives the colours observed when thymolphthalein and methyl orange are added separately to the named solution?
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+       & solution & \begin{tabular}[c]{@{}c@{}}colour with\\ thymolphthalein\end{tabular} & \begin{tabular}[c]{@{}c@{}}colour with\\ methyl orange\end{tabular} \\ \hline
+      \textbf{A} & dilute HCl & colourless & yellow \\ \hline
+      \textbf{B} & dilute HCl & blue & red \\ \hline
+      \textbf{C} & aqueous NaOH & colourless & red \\ \hline
+      \textbf{D} & aqueous NaOH & blue & yellow \\ \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+  - number: "18"
+    type: multiple_choice
+    text: |
+      A mixture of two substances, R and S, is heated gently.
+
+      The damp red litmus paper turns blue.
+
+      What are R and S?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & R & S \\ \hline
+      \textbf{A} & a basic oxide & ammonium chloride \\ \hline
+      \textbf{B} & a basic oxide & sodium nitrate \\ \hline
+      \textbf{C} & an acidic oxide & ammonium chloride \\ \hline
+      \textbf{D} & an acidic oxide & sodium nitrate \\ \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D

@@ -1,0 +1,40 @@
+questions:
+- number: 5bii
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: |
+    Any \textbf{four} from:
+    \newline
+    Examples:
+    \begin{itemize}
+    \item a doctor doesn’t need to \textbf{travel} to the hospital to do the surgery.
+    \item … so it can be done by any specialist/doctor in the world.
+    \item … so it can be done immediately without needing to wait for travel time // reduces the waiting time for the patient.
+    \item … so the doctor may be better at the surgery as they won’t be tired from travel.
+    \item … so travel costs are saved.
+    \item Surgery with robots enhances precision/accuracy.
+    \item … so a smaller incision can be made.
+    \item … so the recovery time may be shorter.
+    \item … as the components used to enter the body can be much smaller than a human hand.
+    \item … so the surgery is safer/ more hygienic // by example e.g. can stop the doctor needing to be near an infectious patient.
+    \item The surgery may have a higher rate of success
+    \end{itemize}
+- number: 5biii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{Two} from (one for a point and one for the matching expansion):
+    \newline
+    Examples:
+    \begin{itemize}
+    \item The internet connection could be lost/delayed …
+    \item … so the surgery may not be able to continue.
+    \item The robot will be expensive to buy/maintain …
+    \item … this money could have been spent on other causes.
+    \item The robot could be hacked ….
+    \item … and endanger the patient’s life.
+    \item Data could be corrupted in transmission …
+    \item … changing the nature of the instruction for the robot.
+    \item The robot’s hardware could malfunction …
+    \item … so the surgery cannot continue
+    \end{itemize}

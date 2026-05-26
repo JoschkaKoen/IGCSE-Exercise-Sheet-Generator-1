@@ -1,0 +1,17 @@
+questions:
+  - number: "2d"
+    type: short_answer
+    text: |
+      Describe the variation of the speed of the object from time $t = 0$ to $t = 8.0\text{ s}$.
+  - number: "2e"
+    type: short_answer
+    text: |
+      By reference to Fig. 2.1, explain why the resultant force acting on the object during the first $8.0\text{ s}$ of its motion cannot be due to air resistance.
+  - number: "2f"
+    type: short_answer
+    text: |
+      At time $t = 0$ the displacement $d$ of the object is zero.
+
+      On Fig. 2.2, sketch the variation of $d$ with time $t$ from $t = 0$ to $t = 12\text{ s}$.
+
+      Numerical values of $d$ are not required.

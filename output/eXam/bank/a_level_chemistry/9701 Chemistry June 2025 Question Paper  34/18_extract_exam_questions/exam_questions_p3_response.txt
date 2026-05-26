@@ -1,0 +1,45 @@
+questions:
+  - number: "1b"
+    type: calculation
+    text: |
+      From your accurate titration results, calculate a suitable mean value to use in your calculations.
+      Show clearly how you obtain the mean value.
+
+      $25.0 \text{ cm}^3$ of \textbf{FB 1} required \hrulefill $\text{ cm}^3$ of \textbf{FB 2}. [1]
+  - number: "1c"
+    type: short_answer
+    text: |
+      Calculations
+  - number: "1ci"
+    type: short_answer
+    text: |
+      Give your answers to \textbf{(c)(ii)}, \textbf{(c)(iii)} and \textbf{(c)(iv)} to an appropriate number of significant figures. [1]
+  - number: "1cii"
+    type: calculation
+    text: |
+      Calculate the amount, in mol, of manganate(VII) ions in the volume of \textbf{FB 2} in \textbf{(b)}.
+
+      amount of $\text{MnO}_4^-$ = \hrulefill mol [1]
+  - number: "1ciii"
+    type: calculation
+    text: |
+      Use your answer to \textbf{(c)(ii)} and the equations at the start of the question to calculate the concentration, in $\text{mol}\,\text{dm}^{-3}$, of iron(II) ions in \textbf{FB 1}.
+
+      concentration of $\text{Fe}^{2+}$ = \hrulefill $\text{mol}\,\text{dm}^{-3}$ [1]
+  - number: "1civ"
+    type: calculation
+    text: |
+      Use your answer to \textbf{(c)(iii)} to calculate the concentration, in $\text{g}\,\text{dm}^{-3}$, of iron(II) ions in \textbf{FB 1}.
+
+      concentration of $\text{Fe}^{2+}$ = \hrulefill $\text{g}\,\text{dm}^{-3}$ [1]
+  - number: "1cv"
+    type: calculation
+    text: |
+      The manufacturer of the iron supplement tablets used to make \textbf{FB 1} claims that each tablet contains a minimum of $150 \text{ mg}$ of $\text{Fe}^{2+}$.
+
+      Use your answer to \textbf{(c)(iv)} and the information given about \textbf{FB 1} to determine whether this claim is correct. Show your working. [1]
+  - number: "1d"
+    type: short_answer
+    text: |
+      A student used all the \textbf{FB 3} and suggests that dilute hydrochloric acid would be a suitable replacement.
+      Suggest whether the student is correct or not. Explain your answer. [1]

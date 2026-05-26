@@ -1,0 +1,6 @@
+```yaml
+graphics:
+  - question_number: "5bii"
+    bbox: [160, 220, 460, 480]
+    description: "Karnaugh map"
+```

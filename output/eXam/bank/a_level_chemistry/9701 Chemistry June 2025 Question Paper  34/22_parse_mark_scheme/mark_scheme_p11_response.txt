@@ -1,0 +1,17 @@
+questions:
+- number: 3a
+  type: short_answer
+  marks: 0
+  mark_scheme_answer: |
+    FB 6 is $CH_3COOH(aq)$; FB 7 is $NaOH(aq)$; FB 8 is $H_2O_2(aq)$; FB 9 is $Na_2CO_3 + NH_4Br$.
+
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    & \multicolumn{3}{|c|}{observations} \\ \hline
+    test & FB 6 & FB 7 & FB 8 \\ \hline
+    Test 1 $MnO_2$ & No change & No change & Fizzing * \newline Heat released * \newline (Gas / oxygen) relights a glowing splint * \\ \hline
+    Test 2 $Mg$ & Fizzing * \newline Heat released (only award if not awarded for FB 8 test 1) \newline (Gas / hydrogen ignites with) a pop (sound) with a lit splint * & No change / no fizzing & No change \\ \hline
+    Test 3 $FeSO_4$ & No change * (award one * if both no changes highlighted correctly recorded) & Green ppt * \newline (ppt) turns brown (on standing) * & Either solution OR turns AND yellow / yellow-orange / orange-brown / yellow-brown / (light) brown * \newline Fizzing * \newline (Gas / oxygen) relights a glowing splint (only award if not awarded in FB 8 test 1 above) \\ \hline
+    \end{tabular}
+
+    2 * = 1 mark (round down)

@@ -1,0 +1,15 @@
+questions:
+- number: 10c
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{any three from :}
+    \begin{enumerate}
+    \item (decreased rate of respiration so), no / less, ATP produced ;
+    \item no / less, $Ca^{2+}$ pumped back into sarcoplasmic reticulum ;
+    \item no / less, release of myosin heads from actin / cross bridges broken
+    \textbf{or}
+    no / less, hydrolysis of ATP by myosin head / return of myosin head to original position ; AW
+    \item sarcomere, permanently contracted / cannot relax ; \textbf{A} paralysis
+    \item slower sarcomere contraction / less sarcomere shortening / weaker power stroke ;
+    \end{enumerate}

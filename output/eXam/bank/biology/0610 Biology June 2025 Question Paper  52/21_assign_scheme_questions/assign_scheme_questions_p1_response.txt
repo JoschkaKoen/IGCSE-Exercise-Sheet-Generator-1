@@ -1,0 +1,34 @@
+[thinking]
+The user wants me to identify which question numbers have their marking criteria visible on the provided page.
+
+1.  **Analyze the image:**
+    *   The image is a cover page for a Cambridge IGCSE Biology mark scheme (Paper 5 Practical Test, 0610/52, May/June 2025).
+    *   It contains:
+        *   Header: "Cambridge IGCSE", "BIOLOGY", "Paper 5 Practical Test", "MARK SCHEME", "Maximum Mark: 40".
+        *   A box saying "Published".
+        *   Text explaining the purpose of the mark scheme ("This mark scheme is published as an aid...").
+        *   Instructions to read with the question paper and Principal Examiner Report.
+        *   Statement about not entering into discussions.
+        *   Statement about publishing mark schemes for the May/June 2025 series.
+        *   Footer: "This document consists of 12 printed pages.", copyright info, "[Turn over]".
+
+2.  **Evaluate against the task:**
+    *   The task asks for "question numbers' marking criteria".
+    *   Looking at the text, there are no specific questions listed (like "1", "2a", etc.) nor any marking criteria associated with them.
+    *   This is purely the title page/introductory page of the document.
+
+3.  **Determine the output:**
+    *   Since no marking criteria for specific questions are visible, the list should be empty.
+    *   The correct YAML output is `questions: []`.
+
+4.  **Final check:**
+    *   Does the page contain "1"? No.
+    *   Does it contain "2a"? No.
+    *   It's just the cover sheet.
+
+    Therefore, the result is an empty list.
+[/thinking]
+
+```yaml
+questions: []
+```

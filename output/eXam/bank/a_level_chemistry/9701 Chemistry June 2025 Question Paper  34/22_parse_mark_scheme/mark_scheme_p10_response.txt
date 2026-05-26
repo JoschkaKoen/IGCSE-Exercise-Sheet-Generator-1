@@ -1,0 +1,17 @@
+questions:
+- number: 2cii
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    Correctly uses
+    Energy = $20 \times 4.18 \times \Delta T$ J
+    $\Delta T = \text{max } T - \text{initial } T \text{ of FB 4}$
+    \textbf{AND} answer to 2 – 4 sf
+- number: 2ciii
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    Correctly uses
+    Enthalpy change = ((c)(ii) / 1000) / (c)(i) kJ mol$^{-1}$
+    \textbf{AND} negative sign
+    \textbf{AND} answer to minimum 2 sf

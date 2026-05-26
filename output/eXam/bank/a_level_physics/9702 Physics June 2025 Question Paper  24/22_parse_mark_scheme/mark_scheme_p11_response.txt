@@ -1,0 +1,52 @@
+questions:
+- number: 4ai
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    (a wave that) transfers / propagates energy
+- number: 4aii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    distance = $n\lambda$
+    \newline
+    time $t = n / f$
+- number: 4aiii
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    ($v$ = distance / time)
+    ($v$) = $n\lambda / (n / f)$ so ($v$) = $f\lambda$
+- number: 4bi
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $f = 3 \times 10^8 / 4 \times 10^{-2}$
+    $= 7.5 \times 10^9$ (Hz)
+    $= 7.5 \times 10^9 / 10^9$ (GHz)
+    \newline
+    $= 7.5$ GHz
+- number: 4bii
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    (difference in path lengths, XQ – YQ) $= [72^2 + 30^2]^{\frac{1}{2}} - 72 = 6$ (cm)
+    \newline
+    Or calculate angle Q using tan and then cos to obtain XQ of 78
+    $\tan\theta = 30 / 72$ so $\theta = 22.6$
+    XQ $= 72 / \cos 22.6 = 78$ (cm)
+    path difference $78 - 72 = 6$ (cm)
+    \newline
+    Or calculate angle X using tan and then cos to obtain XQ of 78
+    $\tan\theta = 72 / 30$ so $\theta = 67.4$
+    XQ $= 72 / \sin 67.4 = 78$ (cm)
+    path difference $78 - 72 = 6$ (cm)
+- number: 4biii
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    path difference (= 6 cm / 4 cm) $\lambda = 1.5\lambda$
+    \newline
+    (so) phase difference (at Q) $= 540^{\circ}$ or $180^{\circ}$
+    \newline
+    (so) intensity is minimum

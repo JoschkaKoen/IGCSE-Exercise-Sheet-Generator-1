@@ -1,0 +1,15 @@
+  - number: "5b"
+    type: short_answer
+    text: ""
+  - number: "5bi"
+    type: short_answer
+    text: ""
+  - number: "5bii"
+    type: short_answer
+    text: ""
+  - number: "5biii"
+    type: short_answer
+    text: ""
+  - number: "6"
+    type: long_answer
+    text: ""

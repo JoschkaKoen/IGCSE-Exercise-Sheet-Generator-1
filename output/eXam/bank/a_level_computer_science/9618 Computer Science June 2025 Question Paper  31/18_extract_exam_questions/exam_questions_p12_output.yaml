@@ -1,0 +1,48 @@
+questions:
+  - number: "11"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "11a"
+    type: short_answer
+    text: |
+      A medical centre uses objects of the class \texttt{Appointment} to record treatments given and medication prescribed during each doctor's appointment. Some of the attributes required in the class are listed in the table.
+
+      \begin{tabular}{|l|l|l|}
+      \hline
+      \textbf{Attribute} & \textbf{Data type} & \textbf{Description} \\ \hline
+      \texttt{DateSeen} & \texttt{DATE} & date of treatment \\ \hline
+      \texttt{Treatments} & \texttt{STRING} & treatments given \\ \hline
+      \texttt{Medications} & \texttt{STRING} & medications prescribed \\ \hline
+      \end{tabular}
+
+      Patients are identified by a unique 8-digit number, beginning with the patient's year of birth, for example, 20108989.
+      Doctors are identified by their name, for example, A N Other.
+
+      Complete the class diagram for \texttt{Appointment}, to include:
+      \begin{itemize}
+      \item attribute and data type for the identification of the patient
+      \item attribute and data type for the identification of the doctor
+      \item methods to assign date seen, treatments given and medications prescribed
+      \item method to return the date seen and the attributes for the patient and the doctor.
+      \end{itemize}
+
+      \begin{tabular}{|l|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Appointment}} \\ \hline
+      \texttt{DateSeen : DATE} \\
+      \hrulefill : \hrulefill \\
+      \hrulefill : \hrulefill \\
+      \texttt{Treatments : STRING} \\
+      \texttt{Medications : STRING} \\ \hline
+      \\
+      \texttt{SetPatientID(PatientNumber : INTEGER)} \\
+      \texttt{SetDoctor(DoctorID : STRING)} \\
+      \\
+      \\
+      \\
+      \\
+      \\
+      \texttt{GetTreatments()} \\
+      \texttt{GetMedications()} \\ \hline
+      \end{tabular}

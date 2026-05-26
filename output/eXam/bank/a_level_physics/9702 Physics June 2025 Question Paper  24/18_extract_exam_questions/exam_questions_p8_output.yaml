@@ -1,0 +1,43 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      A source oscillates with frequency $f$ to produce a progressive wave of wavelength $\lambda$. The source takes time $t$ to produce $n$ complete oscillations.
+  - number: "4a"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "4ai"
+    type: short_answer
+    text: |
+      State what is meant by a progressive wave.
+  - number: "4aii"
+    type: short_answer
+    text: |
+      State expressions, in terms of some or all of $f$, $\lambda$ and $n$, for:
+
+      \begin{itemize}
+      \item the distance moved by a wavefront in time $t$
+      \end{itemize}
+
+      distance = \hrulefill
+
+      \begin{itemize}
+      \item time $t$.
+      \end{itemize}
+
+      time $t$ = \hrulefill
+  - number: "4aiii"
+    type: short_answer
+    text: |
+      Use your answers in (ii) to determine an expression for the speed $v$ of the wave in terms of $f$ and $\lambda$.
+  - number: "4b"
+    type: short_answer
+    text: |
+      Two identical microwave sources X and Y emit waves in phase. The sources are separated by a distance of $30\text{ cm}$, as shown in Fig. 4.1.
+
+      Fig. 4.1 (not to scale)
+
+      The intensity of the microwaves is to be investigated at points P and Q.
+      Line PQ is parallel to line XY. Distance XP is equal to distance YP. Distance YQ is $72\text{ cm}$ and angle XYQ is $90^{\circ}$.
+      The wavelength of the microwaves is $4.0\text{ cm}$.

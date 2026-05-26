@@ -1,0 +1,33 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "1a"
+    type: short_answer
+    text: |
+      Define the moment of a force.
+  - number: "1b"
+    type: short_answer
+    text: |
+      A trapdoor has a hinge at end A, as shown in Fig. 1.1.
+
+      The trapdoor has length $80 \text{ cm}$ and weight $75 \text{ N}$. The mass of the trapdoor is uniformly distributed along its length.
+
+      A force $F$ acts at right angles to the trapdoor at end B so that the trapdoor is held in equilibrium at an angle of $42^{\circ}$ to the horizontal.
+  - number: "1bi"
+    type: short_answer
+    text: |
+      State the principle of moments.
+  - number: "1bii"
+    type: calculation
+    text: |
+      Calculate the component of the weight that is perpendicular to the trapdoor.
+
+      component of weight = \hrulefill N
+  - number: "1biii"
+    type: calculation
+    text: |
+      Calculate the magnitude of the force $F$.
+
+      $F =$ \hrulefill N

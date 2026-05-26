@@ -1,0 +1,82 @@
+questions:
+  - number: "4"
+    type: multiple_choice
+    text: |
+      A student is asked to predict whether a solid floats in a liquid.
+
+      Which information does the student require?
+    options:
+      - letter: A
+        text: |
+          the density of the liquid and the mass of the solid
+      - letter: B
+        text: |
+          the density of the solid and the density of the liquid
+      - letter: C
+        text: |
+          the density of the solid and the mass of the liquid
+      - letter: D
+        text: |
+          the mass of the solid and the mass of the liquid
+  - number: "5"
+    type: multiple_choice
+    text: |
+      Which property of an object \textbf{never} changes when a force acts on the object?
+    options:
+      - letter: A
+        text: |
+          mass
+      - letter: B
+        text: |
+          shape
+      - letter: C
+        text: |
+          size
+      - letter: D
+        text: |
+          speed
+  - number: "6"
+    type: multiple_choice
+    text: |
+      A car is travelling along a straight horizontal road. The speed–time graph is shown.
+
+      In which labelled part of the journey is the resultant force on the car zero?
+
+      speed
+      time
+      0
+      0
+      A
+      B
+      C
+      D
+    options:
+      - letter: A
+        text: |
+          A
+      - letter: B
+        text: |
+          B
+      - letter: C
+        text: |
+          C
+      - letter: D
+        text: |
+          D
+  - number: "7"
+    type: multiple_choice
+    text: |
+      Which list contains only energy stores?
+    options:
+      - letter: A
+        text: |
+          electrostatic, kinetic, light
+      - letter: B
+        text: |
+          electrostatic, kinetic, nuclear
+      - letter: C
+        text: |
+          electrostatic, light, nuclear
+      - letter: D
+        text: |
+          kinetic, light, nuclear

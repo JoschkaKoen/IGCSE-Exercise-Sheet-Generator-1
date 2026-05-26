@@ -1,0 +1,64 @@
+questions:
+  - number: "10"
+    type: multiple_choice
+    text: |
+      Which situation is \textbf{not} explained by the equation $P = \frac{F}{A}$?
+    options:
+      - letter: A
+        text: |
+          using a longer spanner than normal to undo a tight nut
+      - letter: B
+        text: |
+          hammering a nail into a piece of wood
+      - letter: C
+        text: |
+          tractors using wide tyres in a muddy field
+      - letter: D
+        text: |
+          a sharp kitchen knife cutting vegetables more easily than a blunt one
+  - number: "11"
+    type: multiple_choice
+    text: |
+      A substance is heated. The substance changes state from a liquid to a gas.
+
+      When the gas is cooled, it first becomes a liquid and finally a solid.
+
+      What is the order of changes of state for this substance?
+    options:
+      - letter: A
+        text: |
+          condensation $\to$ melting $\to$ freezing
+      - letter: B
+        text: |
+          vaporisation $\to$ condensation $\to$ melting
+      - letter: C
+        text: |
+          vaporisation $\to$ condensation $\to$ freezing
+      - letter: D
+        text: |
+          melting $\to$ vaporisation $\to$ freezing
+  - number: "12"
+    type: multiple_choice
+    text: |
+      A glass bottle containing warm air is sealed with a screw cap and then cooled in cold water.
+
+      cap
+      cold water
+      air
+
+      The contraction of the glass bottle can be ignored.
+
+      What remains the same during the cooling?
+    options:
+      - letter: A
+        text: |
+          the air pressure inside the bottle
+      - letter: B
+        text: |
+          the energy of the air particles in the bottle
+      - letter: C
+        text: |
+          the force on the cap made by the air particles in the bottle
+      - letter: D
+        text: |
+          the volume of air in the bottle

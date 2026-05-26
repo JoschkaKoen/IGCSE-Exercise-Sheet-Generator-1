@@ -1,0 +1,86 @@
+{
+  "detector_version": 3,
+  "is_mcq": false,
+  "pdf_height_pt": 1634.9019775390625,
+  "pdf_width_pt": 595.0,
+  "regions": [
+    {
+      "assignment_confident": true,
+      "field_id": "3a__0",
+      "kind": "equation_blank",
+      "leaf_number": "3a",
+      "page": 1,
+      "x0": 347.85321044921875,
+      "x1": 509.2869567871094,
+      "y0": 436.1080017089844,
+      "y1": 454.1080017089844
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "3c__0",
+      "kind": "short_line",
+      "leaf_number": "3c",
+      "page": 1,
+      "x0": 2.595625400543213,
+      "x1": 573.1060180664062,
+      "y0": 778.353271484375,
+      "y1": 794.353271484375
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "3c__1",
+      "kind": "equation_blank",
+      "leaf_number": "3c",
+      "page": 1,
+      "x0": 347.8492126464844,
+      "x1": 529.462158203125,
+      "y0": 794.459716796875,
+      "y1": 812.459716796875
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "3c__2",
+      "kind": "short_line",
+      "leaf_number": "3c",
+      "page": 1,
+      "x0": 30.480619430541992,
+      "x1": 233.17469787597656,
+      "y0": 804.5454711914062,
+      "y1": 820.5454711914062
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "3d__0",
+      "kind": "short_line",
+      "leaf_number": "3d",
+      "page": 1,
+      "x0": 2.595625400543213,
+      "x1": 573.1060180664062,
+      "y0": 827.321044921875,
+      "y1": 843.321044921875
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "3ei__0",
+      "kind": "equation_blank",
+      "leaf_number": "3ei",
+      "page": 1,
+      "x0": 347.86639404296875,
+      "x1": 526.1161499023438,
+      "y0": 1427.9155883789062,
+      "y1": 1445.9155883789062
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "3eii__0",
+      "kind": "equation_blank",
+      "leaf_number": "3eii",
+      "page": 1,
+      "x0": 347.854248046875,
+      "x1": 509.2879943847656,
+      "y0": 1569.9789428710938,
+      "y1": 1587.9789428710938
+    }
+  ],
+  "snippet_sha": "36da09935a5f4123"
+}

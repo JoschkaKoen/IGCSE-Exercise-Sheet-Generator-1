@@ -1,0 +1,46 @@
+questions:
+- number: 7a
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{One mark for each correct answer}
+    \newline
+    \texttt{\#Jd7} – must begin with a member of the group uppercase // cannot begin with a symbol
+    \newline
+    \texttt{C\%6A} – the fourth character cannot be a member of the group uppercase // the fourth character must be either a symbol, digit or lowercase
+- number: 7b
+  type: short_answer
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{One mark per mark point}
+    \begin{alltt}
+    <uppercase> ::= A | C | E | G | J
+    <passcode> ::= <uppercase><code>
+    <code> ::= <lowercase>|<symbol>|<digit>
+    |<lowercase><code>|<symbol><code>|<digit><code>
+    \end{alltt}
+- number: 8a
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{One mark for each mark point}
+    \begin{itemize}
+    \item MP1 Running multiple processes concurrently
+    \item MP2 … which benefits process management by allowing more tasks to complete than would be the case if they had to run one task after another.
+    \end{itemize}
+- number: 8b
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{One mark for each mark point (Max 3)}
+    \begin{itemize}
+    \item MP1 The processes are queued as they arrive
+    \item MP2 Processes with the shortest burst time are executed first
+    \item MP3 It is a pre-emptive scheduling function // When a process with a shorter burst time arrives the existing process is replaced by the shorter process.
+    \item MP4 The scheduler will continue to choose shorter processes over longer processes if they continue to be added to the queue can cause starvation for longer jobs
+    \end{itemize}
+    \textbf{One mark for benefit (Max 1) e.g.}
+    \begin{itemize}
+    \item MP5 Processes with a short burst time are processed very quickly
+    \item MP6 Waiting time is minimised
+    \end{itemize}

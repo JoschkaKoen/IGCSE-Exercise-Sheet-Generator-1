@@ -1,0 +1,24 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "9702/24 Cambridge International AS & A Level – Mark Scheme May/June 2025".
+    *   The title is "Annotations guidance for centres".
+    *   The text explains what annotations are (shorthand for marking decisions).
+    *   There is a table titled "Annotations" listing symbols like `^`, `AE`, `BOD`, `CON`, `X`, `ECF`, `I`, `MO`, `POT`, `SEEN`, `SF` and their meanings.
+    *   The footer says "Page 5 of 14".
+
+2.  **Evaluate against the task:**
+    *   The task asks for "question numbers' marking criteria".
+    *   This page contains general guidance on how to use annotations. It does not contain specific marking criteria for any specific question (e.g., it doesn't say "Question 1: Answer is X, mark 1").
+    *   It lists the *meanings* of annotations used across the paper, but not the criteria for specific questions.
+    *   Therefore, no specific question numbers (like "1", "2a", etc.) have their marking criteria visible here. This is an introductory/guidance page.
+
+3.  **Formulate the output:**
+    *   Since no question criteria are present, I must return an empty list.
+    *   Format: `questions: []`
+[/thinking]
+
+```yaml
+questions: []
+```

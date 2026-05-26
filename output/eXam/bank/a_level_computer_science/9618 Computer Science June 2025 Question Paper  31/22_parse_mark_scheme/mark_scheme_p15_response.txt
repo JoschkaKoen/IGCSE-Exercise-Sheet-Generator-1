@@ -1,0 +1,39 @@
+questions:
+- number: '12'
+  type: short_answer
+  marks: 5
+  mark_scheme_answer: |
+    \textbf{One mark for each correctly completed line (Max 5)}
+    \begin{alltt}
+    DECLARE Location : INTEGER
+    DECLARE Item : STRING
+    DECLARE Continue : BOOLEAN
+    DECLARE Answer : CHAR
+    Continue <- TRUE
+    OPENFILE "StockList.dat" FOR RANDOM
+
+    WHILE Continue
+      OUTPUT "Enter a location between 1 and 500: "
+      INPUT Location
+      SEEK "StockList.dat", Location
+      GETRECORD "StockList.dat", Item
+
+      IF Item = "" THEN
+        THEN
+          OUTPUT "This record is missing"
+        ELSE
+          OUTPUT "The item in stock is ", Item
+      ENDIF
+
+      OUTPUT "Another location (Y or N)?"
+      INPUT Answer
+
+      IF Answer <> 'Y' THEN
+        THEN
+          Continue <- FALSE
+      ENDIF
+    ENDWHILE
+
+    CLOSEFILE "StockList.dat"
+    OUTPUT "End of program"
+    \end{alltt}

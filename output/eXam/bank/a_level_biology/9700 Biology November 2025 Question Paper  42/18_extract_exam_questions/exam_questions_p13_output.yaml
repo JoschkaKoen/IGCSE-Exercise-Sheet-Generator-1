@@ -1,0 +1,7 @@
+questions:
+  - number: "5a"
+    type: short_answer
+    text: |
+      Genomic DNA and primers are added to the PCR machine.
+
+      Name \textbf{two} other substances that are added to the PCR machine, \textbf{and} explain why each substance is added. [4]

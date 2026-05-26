@@ -1,0 +1,50 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      A student has an image file stored on their computer.
+  - number: "2a"
+    type: multiple_choice
+    text: |
+      The image file was taken by a digital camera.
+
+      Tick ($\checkmark$) \textbf{one} box to show whether a digital camera is an example of an input, output, process or storage device.
+    options:
+      - letter: A
+        text: |
+          input
+      - letter: B
+        text: |
+          output
+      - letter: C
+        text: |
+          process
+      - letter: D
+        text: |
+          storage
+  - number: "2b"
+    type: short_answer
+    text: |
+      The size of the image file is 3072 bytes.
+  - number: "2bi"
+    type: calculation
+    text: |
+      Give the size of the image file in kibibytes (KiB).
+  - number: "2bii"
+    type: short_answer
+    text: |
+      State the number of nibbles in 1 byte.
+  - number: "2c"
+    type: short_answer
+    text: |
+      The image file has a colour depth of 32 bits.
+  - number: "2ci"
+    type: short_answer
+    text: |
+      State what is meant by a colour depth of 32 bits.
+  - number: "2cii"
+    type: short_answer
+    text: |
+      The colour depth of the image file is changed to 64 bits.
+
+      Explain what effect this change has on the image file.

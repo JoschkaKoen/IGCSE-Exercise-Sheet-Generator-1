@@ -1,0 +1,30 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The image is a cover page for a Cambridge International AS & A Level Chemistry mark scheme.
+    *   It says "Paper 3 Advanced Practical Skills 2".
+    *   It has a "Published" box.
+    *   It has standard disclaimer text about the mark scheme being an aid, read in conjunction with the question paper, etc.
+    *   It mentions "This document consists of 12 printed pages."
+    *   There are no specific question numbers (like "1", "2a", etc.) followed by marking instructions or answers. It's purely administrative/header information.
+
+2.  **Compare with the list of valid question numbers:**
+    *   Valid numbers: "1", "1a", "1b", ..., "3bv".
+    *   Are any of these visible with their criteria? No. The page contains no marking criteria.
+
+3.  **Formulate the output:**
+    *   Since no question criteria are visible, I must return an empty list.
+    *   Format: YAML.
+
+4.  **Final check:**
+    *   Does the page contain "1"? No.
+    *   Does it contain "2a"? No.
+    *   It's just the title page.
+
+    Result: `questions: []`
+[/thinking]
+
+```yaml
+questions: []
+```

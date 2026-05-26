@@ -1,0 +1,53 @@
+questions:
+- number: 2a
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{One mark per mark point}
+    \newline
+    MP1 Correct mantissa
+    \newline
+    MP2 Correct exponent
+    \newline
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+    \multicolumn{10}{l}{\textbf{Mantissa}} \\
+    \hline
+    0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 0 \\
+    \hline
+    \end{tabular}
+    \quad
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \multicolumn{6}{l}{\textbf{Exponent}} \\
+    \hline
+    1 & 1 & 1 & 0 & 1 & 0 \\
+    \hline
+    \end{tabular}
+- number: 2b
+  type: calculation
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{One mark per mark point for working (Max 2)}
+    \begin{itemize}
+    \item number converted to binary e.g., positive binary version of $25.3125 = (0)11001.0101$
+    \item two's complement version bits flipped and 1 added $= 100110.1011$
+    \item $-32 + 4 + 2 + 0.5 + 0.125 + 0.0625$ // $-32 + 4 + 2 + 1/2 + 1/8 + 1/16$
+    \item movement of binary point seen (5 places)
+    \end{itemize}
+    \textbf{One mark per mark point}
+    \begin{itemize}
+    \item correct mantissa
+    \item correct exponent
+    \end{itemize}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+    \multicolumn{10}{l}{\textbf{Mantissa}} \\
+    \hline
+    1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 \\
+    \hline
+    \end{tabular}
+    \quad
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \multicolumn{6}{l}{\textbf{Exponent}} \\
+    \hline
+    0 & 0 & 0 & 1 & 0 & 1 \\
+    \hline
+    \end{tabular}

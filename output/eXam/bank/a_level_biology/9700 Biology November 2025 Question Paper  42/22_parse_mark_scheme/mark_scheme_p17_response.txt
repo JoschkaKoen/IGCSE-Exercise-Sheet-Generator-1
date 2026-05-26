@@ -1,0 +1,32 @@
+questions:
+- number: 6a
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{any four from :}
+    \begin{enumerate}
+    \item less / no, PKB, activated / stimulated ;
+    \item fewer / no, vesicles, move to / fuse with, cell surface membrane ;
+    \item fewer / no, GLUT4 (transport proteins) added to (cell surface) membrane
+    \textbf{or}
+    (cell surface) membrane, less / not, permeable to glucose ;
+    \item less / no, glucose taken up by facilitated diffusion (into muscle cells) ;
+    \item blood glucose concentration, (remains) high(er) / does not decrease ;
+    \end{enumerate}
+- number: 6b
+  type: long_answer
+  marks: 7
+  mark_scheme_answer: |
+    \textbf{any seven from :}
+    \begin{enumerate}
+    \item (biosensor has) glucose oxidase (immobilised on recognition layer) ;
+    \item blood sample added ;
+    \item glucose (in blood) passes through, partially / selectively, permeable membrane ;
+    \item glucose oxidase, oxidises glucose / converts glucose / catalyses glucose reaction ;
+    \item gluconic acid and hydrogen peroxide formed ;
+    \item reaction converted to a current (by transducer) ;
+    \item current is amplified ;
+    \item digital / numerical / quantitative, reading ;
+    \item size of current is proportional to glucose concentration ;
+    \item instant result / accurate ;
+    \end{enumerate}

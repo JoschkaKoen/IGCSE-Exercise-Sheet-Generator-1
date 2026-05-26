@@ -1,0 +1,41 @@
+questions:
+- number: 3bii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{any two from:}
+    \begin{enumerate}
+    \item lactose is the \textbf{selection pressure} ;
+    \item ($lac^+$), can metabolise / take up / AW, lactose (so survive)
+    \textbf{or}
+    $lac^-$, cannot metabolise / take up / AW, lactose (so die) ;
+    \item AVP ; e.g. ref. glucose has run out
+    \end{enumerate}
+- number: 4a
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \begin{enumerate}
+    \item mutation ;
+    \item horizontal transmission / conjugation / transformation / transduction ;
+    \end{enumerate}
+- number: 4b
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    idea of tracking, mutations / resistance genes / resistance alleles
+    \textbf{or}
+    identifies mechanisms of resistance
+    \textbf{or}
+    (informed) choice / production, of antibiotic ;
+- number: 4c
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{any three from:}
+    \begin{enumerate}
+    \item streptomycin is selection pressure ;
+    \item bacteria with, mutation / resistance, survive / reproduce / have a selective advantage ; \textbf{ora}
+    \item allele / gene, for resistance passed on ;
+    \item directional selection ;
+    \end{enumerate}

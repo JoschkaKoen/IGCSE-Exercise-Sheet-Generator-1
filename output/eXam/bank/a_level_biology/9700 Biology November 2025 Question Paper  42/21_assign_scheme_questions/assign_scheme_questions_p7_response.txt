@@ -1,0 +1,23 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "9700/42 Cambridge International AS & A Level – Mark Scheme October/November 2025".
+    *   The title is "Mark scheme abbreviations".
+    *   The content lists abbreviations like `;`, `/`, `A`, `R`, `I`, `()`, `AW`, `underline`, `max`, `ora`, `mp`, `ecf`, `AVP`.
+    *   The footer says "Page 7 of 23".
+    *   There are no specific question numbers (like "1", "2a", etc.) followed by marking points or answers. It is purely a legend/glossary for how to read the mark scheme.
+
+2.  **Evaluate against the rules:**
+    *   "A question is 'visible' only if its marking criteria text... is present on this page."
+    *   This page contains *no* marking criteria for any specific question. It just explains symbols.
+    *   Therefore, the list of questions should be empty.
+
+3.  **Formulate the output:**
+    *   `questions: []`
+
+[/thinking]
+
+```yaml
+questions: []
+```

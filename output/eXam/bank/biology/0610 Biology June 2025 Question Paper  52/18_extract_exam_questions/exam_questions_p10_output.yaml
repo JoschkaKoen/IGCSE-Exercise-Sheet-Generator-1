@@ -1,0 +1,11 @@
+questions:
+  - number: "2biv"
+    type: short_answer
+    text: |
+      Pectinase is used to produce apple juice commercially.
+
+      Suggest what extra data would be required to determine if a 0.8% pectinase solution is the optimum concentration for the production of apple juice.
+  - number: "2bv"
+    type: short_answer
+    text: |
+      Draw and label the apparatus the student could use to filter and measure the volume of apple juice produced.

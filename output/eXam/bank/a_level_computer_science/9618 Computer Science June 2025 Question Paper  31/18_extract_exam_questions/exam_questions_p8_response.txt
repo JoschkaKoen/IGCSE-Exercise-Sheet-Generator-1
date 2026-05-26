@@ -1,0 +1,54 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      Several syntax diagrams are shown.
+
+      \textbf{uppercase}
+      \begin{itemize}
+      \item A
+      \item C
+      \item E
+      \item G
+      \item J
+      \end{itemize}
+
+      \textbf{lowercase}
+      \begin{itemize}
+      \item b
+      \item d
+      \item f
+      \item h
+      \item k
+      \end{itemize}
+
+      \textbf{symbol}
+      \begin{itemize}
+      \item \$
+      \item @
+      \item \#
+      \item \&
+      \item \%
+      \end{itemize}
+
+      \textbf{digit}
+      \begin{itemize}
+      \item 0
+      \item 1
+      \item 2
+      \item 3
+      \item 4
+      \item 5
+      \item 6
+      \item 7
+      \item 8
+      \item 9
+      \end{itemize}
+
+      \textbf{passcode}
+      \begin{itemize}
+      \item uppercase
+      \item lowercase
+      \item symbol
+      \item digit
+      \end{itemize}

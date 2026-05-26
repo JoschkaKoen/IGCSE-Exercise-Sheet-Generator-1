@@ -1,0 +1,32 @@
+questions:
+  - number: "5b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "5bi"
+    type: short_answer
+    text: |
+      Complete the Karnaugh map (K-map) for the given truth table.
+
+      \begin{tabular}{cc|c|c|c|c|}
+      & \multicolumn{1}{c}{} & \multicolumn{4}{c}{\textbf{AB}} \\
+      & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\textbf{00}} & \multicolumn{1}{c}{\textbf{01}} & \multicolumn{1}{c}{\textbf{11}} & \multicolumn{1}{c}{\textbf{10}} \\ \cline{3-6}
+      \textbf{CD} & \textbf{00} & & & & \\ \cline{3-6}
+      & \textbf{01} & & & & \\ \cline{3-6}
+      & \textbf{11} & & & & \\ \cline{3-6}
+      & \textbf{10} & & & & \\ \cline{3-6}
+      \end{tabular}
+  - number: "5bii"
+    type: short_answer
+    text: |
+      Draw loop(s) around appropriate group(s) in the K-map to produce an optimal sum-of-products.
+  - number: "5biii"
+    type: short_answer
+    text: |
+      Write the Boolean logic expression from your answer to part (b)(ii) as the simplified sum-of-products.
+
+      \textbf{Z} = \hrulefill
+  - number: "6"
+    type: long_answer
+    text: |
+      Describe the process of executing a program using an interpreter.

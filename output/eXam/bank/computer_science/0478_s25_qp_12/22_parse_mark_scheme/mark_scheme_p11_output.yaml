@@ -1,0 +1,27 @@
+questions:
+- number: 3ciii
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: |
+    \begin{itemize}
+    \item A parity bit is added to each \textbf{byte}.
+    \item … to make the number of 1s/0s even // that will be 1 if the number of 1s/0s is odd // that will be 0 if the number of 1s/0s is even.
+    \item The number of 1s/0s in each byte is counted \textbf{after transmission}.
+    \item If any bytes have an odd number of 1s/0s an error is detected
+    \end{itemize}
+- number: 4a
+  type: short_answer
+  marks: 6
+  mark_scheme_answer: |
+    One mark for each correct component or description
+    \newline
+    \begin{tabular}{|c|l|}
+    \hline
+    \textbf{Component} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+    \textbf{Control unit // CU} & It sends signals to all the components in the CPU to manage the flow of data through the CPU. \\ \hline
+    \textbf{Arithmetic and logic unit // ALU} & It carries out all the arithmetic and logic operations in the CPU. \\ \hline
+    Cache & \textbf{It stores frequently used data/instructions} \\ \hline
+    Program counter (PC) & \textbf{It stores the address of the next instruction to be fetched} \\ \hline
+    \textbf{Clock} & It controls the number of fetch-decode-execute (FDE) cycles that are performed per second. \\ \hline
+    \textbf{Memory data register // MDR} & It stores data immediately before it is transmitted to RAM and immediately after it is received from RAM. \\ \hline
+    \end{tabular}

@@ -1,0 +1,733 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  page: 2
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: A programmer is writing a program to manage bookings for a small taxi company.
+    The programmer requires some user-defined data types.
+  answer_options: []
+  subquestions:
+  - number: 1a
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write a pseudocode statement to declare the enumerated data type, \texttt{Vehicle},
+      to hold the identity code of each of the company''s taxis:
+
+
+      M100, M230, T101, T102, T120, T150'
+    answer_options: []
+    subquestions: []
+  - number: 1b
+    question_type: short_answer
+    page: 2
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Write pseudocode statements to declare the composite data type, \texttt{Booking},
+      to hold data about taxi bookings. The data required includes:
+
+
+      \begin{itemize}
+
+      \item booking number (any combination of letters and numbers)
+
+      \item destination
+
+      \item client name
+
+      \item client telephone number
+
+      \item date of departure
+
+      \item address for pick-up
+
+      \item the identity code of the taxi used.
+
+      \end{itemize}
+
+
+      Use the most appropriate data type in each case, including the enumerated data
+      type from part (a).'
+    answer_options: []
+    subquestions: []
+- number: '2'
+  question_type: short_answer
+  page: 3
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Numbers are stored in a computer using binary floating-point representation
+    with:
+
+
+    \begin{itemize}
+
+    \item 10 bits for the mantissa
+
+    \item 6 bits for the exponent
+
+    \item two''s complement form for both the mantissa and the exponent.
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 2a
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write the normalised floating-point representation of the following binary
+      number using this system.
+
+
+      0.00000011010111
+
+
+      \textbf{Mantissa} \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+      \quad \quad \quad \textbf{Exponent}
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+      \quad \framebox{$\square\,\square\,\square\,\square\,\square\,\square$}'
+    answer_options: []
+    subquestions: []
+  - number: 2b
+    question_type: calculation
+    page: 3
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Calculate the normalised binary floating-point representation of $-25.3125$
+      in this system. Show your working.
+
+
+      \textbf{Mantissa} \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
+      \quad \quad \quad \textbf{Exponent}
+
+
+      \framebox{$\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square\,\square$}
+      \quad \framebox{$\square\,\square\,\square\,\square\,\square\,\square$}
+
+
+      Working \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '3'
+  question_type: short_answer
+  page: 4
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: The Application Layer and Transport Layer are two layers of the TCP/IP protocol
+    suite.
+  answer_options: []
+  subquestions:
+  - number: 3a
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'Describe the purpose of the Application Layer \textbf{and} the purpose
+      of the Transport Layer.
+
+
+      Purpose of Application Layer \hrulefill
+
+
+      Purpose of Transport Layer \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 3b
+    question_type: long_answer
+    page: 4
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Describe packet switching as a method of transmitting messages across the
+      internet.
+    answer_options: []
+    subquestions: []
+- number: '4'
+  question_type: short_answer
+  page: 5
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'A linked list of nodes is used to store an ordered list of integers. Each
+    node consists of the data, a left pointer and a right pointer, for example:
+
+
+    \begin{tabular}{ccc}
+
+    Left pointer & Data & Right pointer \\
+
+    \framebox{$\square$} & \framebox{20} & \framebox{$\square$} \\
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 4a
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'The linked list will be organised as a binary tree.
+
+
+      $-1$ is used to represent a null pointer.
+
+
+      Complete the binary tree, including null pointers, to show how the data will
+      be organised after the following integers have been added:
+
+
+      6, 15, 41, 66'
+    answer_options: []
+    subquestions: []
+  - number: 4b
+    question_type: short_answer
+    page: 5
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe what is meant by recursion.
+    answer_options: []
+    subquestions: []
+  - number: 4c
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 1
+    text: 'A binary tree is a suitable Abstract Data Type (ADT) that a designer can
+      implement using recursive algorithms.
+
+
+      Identify \textbf{one other} ADT that a designer can implement using recursive
+      algorithms.'
+    answer_options: []
+    subquestions: []
+- number: '5'
+  question_type: short_answer
+  page: 6
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'This truth table represents a logic circuit.
+
+
+    \begin{tabular}{|cccc|c|}
+
+    \hline
+
+    \multicolumn{4}{|c|}{\textbf{INPUT}} & \textbf{OUTPUT} \\ \hline
+
+    \textbf{A} & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{Z} \\ \hline
+
+    0 & 0 & 0 & 0 & 1 \\ \hline
+
+    0 & 0 & 0 & 1 & 0 \\ \hline
+
+    0 & 0 & 1 & 0 & 0 \\ \hline
+
+    0 & 0 & 1 & 1 & 0 \\ \hline
+
+    0 & 1 & 0 & 0 & 0 \\ \hline
+
+    0 & 1 & 0 & 1 & 1 \\ \hline
+
+    0 & 1 & 1 & 0 & 0 \\ \hline
+
+    0 & 1 & 1 & 1 & 1 \\ \hline
+
+    1 & 0 & 0 & 0 & 1 \\ \hline
+
+    1 & 0 & 0 & 1 & 0 \\ \hline
+
+    1 & 0 & 1 & 0 & 0 \\ \hline
+
+    1 & 0 & 1 & 1 & 0 \\ \hline
+
+    1 & 1 & 0 & 0 & 0 \\ \hline
+
+    1 & 1 & 0 & 1 & 1 \\ \hline
+
+    1 & 1 & 1 & 0 & 0 \\ \hline
+
+    1 & 1 & 1 & 1 & 1 \\ \hline
+
+    \end{tabular}'
+  answer_options: []
+  subquestions:
+  - number: 5a
+    question_type: short_answer
+    page: 6
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Write the Boolean logic expression that corresponds to the given truth
+      table as the sum-of-products.
+
+
+      \textbf{Z} = \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 5b
+    question_type: short_answer
+    page: 7
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 5bi
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Complete the Karnaugh map (K-map) for the given truth table.
+
+
+        \begin{tabular}{cc|c|c|c|c|}
+
+        & \multicolumn{1}{c}{} & \multicolumn{4}{c}{\textbf{AB}} \\
+
+        & \multicolumn{1}{c}{} & \multicolumn{1}{c}{\textbf{00}} & \multicolumn{1}{c}{\textbf{01}}
+        & \multicolumn{1}{c}{\textbf{11}} & \multicolumn{1}{c}{\textbf{10}} \\ \cline{3-6}
+
+        \textbf{CD} & \textbf{00} & & & & \\ \cline{3-6}
+
+        & \textbf{01} & & & & \\ \cline{3-6}
+
+        & \textbf{11} & & & & \\ \cline{3-6}
+
+        & \textbf{10} & & & & \\ \cline{3-6}
+
+        \end{tabular}'
+      answer_options: []
+      subquestions: []
+    - number: 5bii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Draw loop(s) around appropriate group(s) in the K-map to produce an optimal
+        sum-of-products.
+      answer_options: []
+      subquestions: []
+    - number: 5biii
+      question_type: short_answer
+      page: 7
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: 'Write the Boolean logic expression from your answer to part (b)(ii) as
+        the simplified sum-of-products.
+
+
+        \textbf{Z} = \hrulefill'
+      answer_options: []
+      subquestions: []
+- number: '6'
+  question_type: long_answer
+  page: 7
+  subpage_row: 1
+  subpage_col: 1
+  marks: 4
+  text: Describe the process of executing a program using an interpreter.
+  answer_options: []
+  subquestions: []
+- number: '7'
+  question_type: short_answer
+  page: 8
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: 'Several syntax diagrams are shown.
+
+
+    \textbf{uppercase}
+
+    \begin{itemize}
+
+    \item A
+
+    \item C
+
+    \item E
+
+    \item G
+
+    \item J
+
+    \end{itemize}
+
+
+    \textbf{lowercase}
+
+    \begin{itemize}
+
+    \item b
+
+    \item d
+
+    \item f
+
+    \item h
+
+    \item k
+
+    \end{itemize}
+
+
+    \textbf{symbol}
+
+    \begin{itemize}
+
+    \item \$
+
+    \item @
+
+    \item \#
+
+    \item \&
+
+    \item \%
+
+    \end{itemize}
+
+
+    \textbf{digit}
+
+    \begin{itemize}
+
+    \item 0
+
+    \item 1
+
+    \item 2
+
+    \item 3
+
+    \item 4
+
+    \item 5
+
+    \item 6
+
+    \item 7
+
+    \item 8
+
+    \item 9
+
+    \end{itemize}
+
+
+    \textbf{passcode}
+
+    \begin{itemize}
+
+    \item uppercase
+
+    \item lowercase
+
+    \item symbol
+
+    \item digit
+
+    \end{itemize}'
+  answer_options: []
+  subquestions:
+  - number: 7a
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State why each \textbf{passcode} is invalid for the given syntax diagrams.
+
+
+      \texttt{\#Jd7}
+
+
+      Reason \hrulefill
+
+
+      \texttt{C\%6A}
+
+
+      Reason \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 7b
+    question_type: short_answer
+    page: 9
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Complete the Backus-Naur Form (BNF) for \texttt{<uppercase>} and \texttt{<passcode>}.
+
+
+      \texttt{<uppercase> ::= } \hrulefill
+
+
+      \texttt{<passcode> ::= } \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '8'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 8a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe what is meant by \textbf{multi-tasking} and how it benefits process
+      management.
+    answer_options: []
+    subquestions: []
+  - number: 8b
+    question_type: long_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: 'Explain the function of the shortest remaining time scheduling routine
+      \textbf{and} give a benefit of this routine.
+
+
+      Function \hrulefill
+
+
+      Benefit \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '9'
+  question_type: short_answer
+  page: 10
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: Secure Socket Layer (SSL) and Transport Layer Security (TLS) are two protocols.
+  answer_options: []
+  subquestions:
+  - number: 9a
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'State \textbf{two} functions of SSL/TLS.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+  - number: 9b
+    question_type: short_answer
+    page: 10
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: 'Give \textbf{two} examples of situations where the use of SSL/TLS would
+      be appropriate.
+
+
+      1. \hrulefill
+
+      2. \hrulefill'
+    answer_options: []
+    subquestions: []
+- number: '10'
+  question_type: short_answer
+  page: 11
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 10a
+    question_type: short_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 2
+    text: Describe the purpose of a graph when used in an Artificial Intelligence
+      (AI) system.
+    answer_options: []
+    subquestions: []
+  - number: 10b
+    question_type: long_answer
+    page: 11
+    subpage_row: 1
+    subpage_col: 1
+    marks: 4
+    text: Explain the use of artificial neural networks in Deep Learning.
+    answer_options: []
+    subquestions: []
+- number: '11'
+  question_type: short_answer
+  page: 12
+  subpage_row: 1
+  subpage_col: 1
+  marks: 0
+  text: STUB ERROR
+  answer_options: []
+  subquestions:
+  - number: 11a
+    question_type: short_answer
+    page: 12
+    subpage_row: 1
+    subpage_col: 1
+    marks: 5
+    text: 'A medical centre uses objects of the class \texttt{Appointment} to record
+      treatments given and medication prescribed during each doctor''s appointment.
+      Some of the attributes required in the class are listed in the table.
+
+
+      \begin{tabular}{|l|l|l|}
+
+      \hline
+
+      \textbf{Attribute} & \textbf{Data type} & \textbf{Description} \\ \hline
+
+      \texttt{DateSeen} & \texttt{DATE} & date of treatment \\ \hline
+
+      \texttt{Treatments} & \texttt{STRING} & treatments given \\ \hline
+
+      \texttt{Medications} & \texttt{STRING} & medications prescribed \\ \hline
+
+      \end{tabular}
+
+
+      Patients are identified by a unique 8-digit number, beginning with the patient''s
+      year of birth, for example, 20108989.
+
+      Doctors are identified by their name, for example, A N Other.
+
+
+      Complete the class diagram for \texttt{Appointment}, to include:
+
+      \begin{itemize}
+
+      \item attribute and data type for the identification of the patient
+
+      \item attribute and data type for the identification of the doctor
+
+      \item methods to assign date seen, treatments given and medications prescribed
+
+      \item method to return the date seen and the attributes for the patient and
+      the doctor.
+
+      \end{itemize}
+
+
+      \begin{tabular}{|l|}
+
+      \hline
+
+      \multicolumn{1}{|c|}{\textbf{Appointment}} \\ \hline
+
+      \texttt{DateSeen : DATE} \\
+
+      \hrulefill : \hrulefill \\
+
+      \hrulefill : \hrulefill \\
+
+      \texttt{Treatments : STRING} \\
+
+      \texttt{Medications : STRING} \\ \hline
+
+      \\
+
+      \texttt{SetPatientID(PatientNumber : INTEGER)} \\
+
+      \texttt{SetDoctor(DoctorID : STRING)} \\
+
+      \\
+
+      \\
+
+      \\
+
+      \\
+
+      \\
+
+      \texttt{GetTreatments()} \\
+
+      \texttt{GetMedications()} \\ \hline
+
+      \end{tabular}'
+    answer_options: []
+    subquestions: []
+  - number: 11b
+    question_type: short_answer
+    page: 13
+    subpage_row: 1
+    subpage_col: 1
+    marks: 0
+    text: STUB ERROR
+    answer_options: []
+    subquestions:
+    - number: 11bi
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 1
+      text: Identify the object-oriented programming (OOP) feature whose function
+        includes restricting external access to the data.
+      answer_options: []
+      subquestions: []
+    - number: 11bii
+      question_type: short_answer
+      page: 13
+      subpage_row: 1
+      subpage_col: 1
+      marks: 2
+      text: Describe what is meant by the OOP feature \textbf{inheritance}.
+      answer_options: []
+      subquestions: []
+- number: '12'
+  question_type: short_answer
+  page: 13
+  subpage_row: 1
+  subpage_col: 1
+  marks: 5
+  text: "The pseudocode algorithm checks whether a location in a stock file \\texttt{StockList.dat}\
+    \ is empty or not. The location is given by the user. If the location is empty,\
+    \ a suitable message is displayed, otherwise the item stored at that location\
+    \ is displayed.\n\nComplete this file-handling pseudocode algorithm.\n\n\\begin{alltt}\n\
+    DECLARE Location : INTEGER\nDECLARE Item : STRING\nDECLARE Continue : BOOLEAN\n\
+    DECLARE Answer : CHAR\nContinue <- TRUE\n\nOPENFILE \\hrulefill\nWHILE Continue\n\
+    \  OUTPUT \"Enter a location between 1 and 500: \"\n  INPUT Location\n\n  \\hrulefill\n\
+    \n  GETRECORD \\hrulefill\n  IF Item = \"\" THEN\n    OUTPUT \"This record is\
+    \ missing.\"\n  ELSE\n    OUTPUT \"The item in stock is \", \\hrulefill\n  ENDIF\n\
+    \  OUTPUT \"Another location (Y or N)?\"\n  INPUT Answer\n  IF Answer <> 'Y' THEN\n\
+    \    Continue <- FALSE\n  ENDIF\nENDWHILE\n\n\\hrulefill\nOUTPUT \"End of program\"\
+    \n\\end{alltt}"
+  answer_options: []
+  subquestions: []

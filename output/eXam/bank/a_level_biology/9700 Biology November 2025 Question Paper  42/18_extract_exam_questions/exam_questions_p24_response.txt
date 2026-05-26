@@ -1,0 +1,11 @@
+questions:
+  - number: "9b"
+    type: short_answer
+    text: |
+      Scientists investigated the effect of temperature on the rate of photosynthesis \textbf{and} the rate of respiration of the trailing azalea, \textit{Kalmia procumbens}, at a high light intensity.
+
+      Fig. 9.2 shows the results of this investigation.
+  - number: "9bi"
+    type: long_answer
+    text: |
+      With reference to Fig. 9.2, describe \textbf{and} explain the effect of temperature on the rate of \textbf{photosynthesis} for \textit{K. procumbens}.

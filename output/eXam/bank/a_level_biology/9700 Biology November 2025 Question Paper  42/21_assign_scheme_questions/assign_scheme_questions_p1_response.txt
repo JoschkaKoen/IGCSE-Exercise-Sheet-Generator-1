@@ -1,0 +1,23 @@
+[thinking]
+The user wants me to identify which question numbers have their marking criteria visible on the provided page.
+
+1.  **Analyze the image:**
+    *   The image is a cover page for a Cambridge International AS & A Level Biology Mark Scheme (Paper 4, 9700/42, October/November 2025).
+    *   It contains general information: title, subject, paper code, date, maximum mark, a "Published" box, and standard disclaimers about how the mark scheme should be used.
+    *   It mentions "This document consists of 23 printed pages."
+    *   There are no specific question numbers or marking criteria (like "1", "1a", etc.) listed with marks or answers. It's purely administrative text.
+
+2.  **Compare with the valid list:**
+    *   The list includes questions 1 through 10 with various sub-parts.
+    *   None of these appear on the page as marking criteria.
+
+3.  **Determine the output:**
+    *   Since no question criteria are visible, the list should be empty.
+
+4.  **Format the output:**
+    *   YAML format: `questions: []`
+[/thinking]
+
+```yaml
+questions: []
+```

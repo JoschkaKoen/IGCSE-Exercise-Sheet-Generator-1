@@ -1,0 +1,29 @@
+questions:
+  - number: "1cii"
+    type: calculation
+    text: |
+      Line \textbf{PQ} represents the length of the leaf in Fig. 1.3.
+
+      Measure the length of line \textbf{PQ} in Fig. 1.3.
+
+      length of line \textbf{PQ} \hrulefill mm
+
+      The actual length of the leaf is 39mm.
+
+      Using your measurement and the formula, calculate the magnification of the leaf in Fig. 1.3.
+
+      $$\text{magnification} = \frac{\text{length of line \textbf{PQ} in Fig. 1.3}}{\text{actual length of the leaf}}$$
+
+      Give your answer to \textbf{two} significant figures.
+  - number: "1ciii"
+    type: short_answer
+    text: |
+      Fig. 1.4 shows a leaf from a tomato plant. The tomato leaf is narrower than the potato leaf shown in Fig. 1.3.
+
+      Compare the leaves shown in Fig. 1.3 and in Fig. 1.4.
+
+      Describe \textbf{one} visible difference, other than size, and \textbf{one} visible similarity.
+
+      difference \hrulefill
+
+      similarity \hrulefill

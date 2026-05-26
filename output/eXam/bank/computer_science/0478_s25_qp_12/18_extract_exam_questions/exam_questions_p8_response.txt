@@ -1,0 +1,7 @@
+questions:
+  - number: "3ciii"
+    type: long_answer
+    text: |
+      An even parity check is used to detect errors in the data after it has been transmitted to the printer.
+
+      Describe how an even parity check detects an error.

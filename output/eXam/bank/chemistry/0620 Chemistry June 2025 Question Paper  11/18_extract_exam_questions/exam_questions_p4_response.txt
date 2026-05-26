@@ -1,0 +1,90 @@
+questions:
+  - number: "9"
+    type: multiple_choice
+    text: |
+      Which row shows the correct formula for the named substance?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+       & substance & formula \\
+      \hline
+      \textbf{A} & cobalt(II) chloride & $\text{Cu}_2\text{Cl}$ \\
+      \textbf{B} & sodium carbonate & $\text{Na}_2\text{CO}_3$ \\
+      \textbf{C} & xenon & $\text{Xe}_2$ \\
+      \textbf{D} & ammonium sulfate & $\text{NH}_4\text{SO}_4$ \\
+      \hline
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          cobalt(II) chloride, $\text{Cu}_2\text{Cl}$
+      - letter: B
+        text: |
+          sodium carbonate, $\text{Na}_2\text{CO}_3$
+      - letter: C
+        text: |
+          xenon, $\text{Xe}_2$
+      - letter: D
+        text: |
+          ammonium sulfate, $\text{NH}_4\text{SO}_4$
+  - number: "10"
+    type: multiple_choice
+    text: |
+      The equation shows the thermal decomposition of magnesium carbonate.
+      $$\text{MgCO}_3 \rightarrow \text{MgO} + \text{CO}_2$$
+      [$M_r$: $\text{MgCO}_3$, 84]
+
+      Which mass of magnesium oxide is formed when 21.0 g of magnesium carbonate is completely decomposed?
+    options:
+      - letter: A
+        text: |
+          1.9 g
+      - letter: B
+        text: |
+          4.0 g
+      - letter: C
+        text: |
+          10.0 g
+      - letter: D
+        text: |
+          40.0 g
+  - number: "11"
+    type: multiple_choice
+    text: |
+      Concentrated aqueous sodium chloride is electrolysed using inert electrodes.
+
+      What is the main product formed at the positive electrode (anode)?
+    options:
+      - letter: A
+        text: |
+          chlorine
+      - letter: B
+        text: |
+          hydrogen
+      - letter: C
+        text: |
+          oxygen
+      - letter: D
+        text: |
+          sodium
+  - number: "12"
+    type: multiple_choice
+    text: |
+      A hydrogen–oxygen fuel cell uses 630 dm$^3$ of oxygen.
+
+      The oxygen for the reaction is extracted from clean, dry air.
+
+      What is the minimum volume of clean, dry air needed to provide this volume of oxygen?
+    options:
+      - letter: A
+        text: |
+          788 dm$^3$
+      - letter: B
+        text: |
+          808 dm$^3$
+      - letter: C
+        text: |
+          3000 dm$^3$
+      - letter: D
+        text: |
+          3316 dm$^3$

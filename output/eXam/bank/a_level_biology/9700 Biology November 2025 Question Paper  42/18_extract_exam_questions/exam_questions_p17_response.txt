@@ -1,0 +1,5 @@
+questions:
+  - number: "6b"
+    type: long_answer
+    text: |
+      Describe how a biosensor can be used to measure blood glucose concentration.

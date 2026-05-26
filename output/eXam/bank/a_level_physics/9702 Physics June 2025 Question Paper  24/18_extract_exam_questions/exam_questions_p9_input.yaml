@@ -1,0 +1,12 @@
+  - number: "4bi"
+    type: calculation
+    text: ""
+  - number: "4bii"
+    type: calculation
+    text: ""
+  - number: "4biii"
+    type: short_answer
+    text: ""
+  - number: "4biv"
+    type: short_answer
+    text: ""

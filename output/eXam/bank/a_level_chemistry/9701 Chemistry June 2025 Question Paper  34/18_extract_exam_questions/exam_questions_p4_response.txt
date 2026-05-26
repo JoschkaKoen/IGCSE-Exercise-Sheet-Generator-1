@@ -1,0 +1,56 @@
+questions:
+  - number: "2"
+    type: short_answer
+    text: |
+      The reaction between an acid and an alkali is exothermic. You will carry out a neutralisation experiment to determine the enthalpy change involved.
+
+      You will mix different volumes of an acid with a fixed volume of an alkali and measure the temperature rises that occur.
+
+      FB 4 is aqueous sodium hydroxide, NaOH.
+      FB 5 is $2.00 \text{ mol dm}^{-3}$ hydrochloric acid, HCl.
+  - number: "2a"
+    type: short_answer
+    text: |
+      \textbf{Method}
+
+      \begin{itemize}
+      \item Use the thermometer to measure the initial temperature of FB 4. Record this initial temperature in the space for results.
+      \item Support the cup in the $250 \text{ cm}^3$ beaker.
+      \item Fill one burette with FB 5. Label the burette FB 5.
+      \item Fill the other burette with distilled water.
+      \end{itemize}
+
+      Experiment 1
+
+      \begin{itemize}
+      \item Use the $10 \text{ cm}^3$ pipette to transfer $10.0 \text{ cm}^3$ of FB 4 into the cup.
+      \item Add $9.00 \text{ cm}^3$ of distilled water from the burette to the same cup.
+      \item Add $1.00 \text{ cm}^3$ of FB 5 from the other burette to the same cup.
+      \item Stir the mixture and use the thermometer to measure the maximum temperature. If necessary, tilt the cup so that the solution covers the bulb of the thermometer.
+      \item Record the maximum temperature in Table 2.1.
+      \item Empty, rinse and dry the cup ready for use in further experiments.
+      \end{itemize}
+
+      \textbf{Further experiments}
+
+      Repeat this method for Experiments 2–5, using $10.0 \text{ cm}^3$ of FB 4 and the volumes of water and FB 5 shown in Table 2.1. In each case, measure and record the maximum temperature.
+
+      Carry out \textbf{two} further experiments, Experiments 6 and 7, which will enable you to determine more precisely the volume of FB 5 that gives the largest maximum temperature. Record your measurements in Table 2.1.
+
+      \textbf{Results}
+
+      initial temperature of FB 4 = \hrulefill $^\circ\text{C}$
+
+      Table 2.1
+
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      experiment & volume of water / $\text{cm}^3$ & volume of FB 5 / $\text{cm}^3$ & maximum temperature / $^\circ\text{C}$ \\ \hline
+      1 & 9.00 & 1.00 & \\ \hline
+      2 & 7.00 & 3.00 & \\ \hline
+      3 & 5.00 & 5.00 & \\ \hline
+      4 & 3.00 & 7.00 & \\ \hline
+      5 & 1.00 & 9.00 & \\ \hline
+      6 & & & \\ \hline
+      7 & & & \\ \hline
+      \end{tabular}

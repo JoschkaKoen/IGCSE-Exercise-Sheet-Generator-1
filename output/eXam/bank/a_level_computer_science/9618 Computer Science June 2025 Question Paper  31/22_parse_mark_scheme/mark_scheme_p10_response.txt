@@ -1,0 +1,41 @@
+questions:
+- number: 4b
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{One mark per mark point}
+    \begin{itemize}
+    \item MP1 A technique used to solve problems using a function/procedure/subroutine that calls itself (general case)
+    \item MP2 … until the terminating condition / base case is achieved, when no further recursive calls are made
+    \end{itemize}
+- number: 4c
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    \textbf{One mark}
+    \begin{itemize}
+    \item Stack
+    \end{itemize}
+- number: 5a
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{Two marks for all six correct terms}
+    \textbf{One mark for any three correct terms}
+    \newline
+    $\mathbf{Z = \bar{A}.\bar{B}.\bar{C}.\bar{D} + \bar{A}.B.\bar{C}.\bar{D} + \bar{A}.B.C.D + A.\bar{B}.\bar{C}.\bar{D} + A.B.\bar{C}.D + A.B.C.D}$
+- number: 5bi
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{Two marks if no errors present}
+    \textbf{One mark if one error present}
+    \newline
+    \begin{alltt}
+              AB
+      CD      00   01   11   10
+          00   1    0    0    1
+          01   0    1    1    0
+          11   0    1    1    0
+          10   0    0    0    0
+    \end{alltt}

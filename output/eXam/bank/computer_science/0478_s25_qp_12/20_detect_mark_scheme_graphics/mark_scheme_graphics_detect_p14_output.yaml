@@ -1,0 +1,6 @@
+```yaml
+graphics:
+  - question_number: "5c(i)"
+    bbox: [150, 400, 580, 820]
+    description: "network flow diagram"
+```

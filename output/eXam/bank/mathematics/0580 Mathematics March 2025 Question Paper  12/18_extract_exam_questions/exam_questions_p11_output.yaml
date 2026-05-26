@@ -1,0 +1,17 @@
+questions:
+  - number: "16"
+    type: short_answer
+    text: |
+      Jill records the temperature and the number of people on a beach for each of ten days.
+      The results are shown in the scatter diagram.
+
+      Number of people
+      Temperature
+  - number: "16a"
+    type: short_answer
+    text: |
+      What type of correlation is shown in the scatter diagram?
+  - number: "16b"
+    type: short_answer
+    text: |
+      Describe the relationship between the temperature and the number of people on the beach.

@@ -1,0 +1,33 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      A shape is drawn on a $1\text{ cm}^2$ grid.
+  - number: "10a"
+    type: calculation
+    text: |
+      Find the area of the shape.
+
+      $\text{cm}^2$ \hrulefill
+  - number: "10b"
+    type: short_answer
+    text: |
+      On the grid, shade 50% of the shape.
+  - number: "11"
+    type: short_answer
+    text: |
+      $$19.5 \times 20.4 = 397.8$$
+
+      Work out.
+  - number: "11a"
+    type: calculation
+    text: |
+      $1.95 \times 2.04$
+
+      \hrulefill
+  - number: "11b"
+    type: calculation
+    text: |
+      $3978 \div 204$
+
+      \hrulefill

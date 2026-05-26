@@ -1,0 +1,42 @@
+questions:
+- number: 2a
+  type: short_answer
+  marks: 4
+  mark_scheme_answer: |
+    \begin{enumerate}
+    \item[\textbf{I}] Temperature for all 7 volumes recorded.
+    \item[\textbf{II}] All thermometer readings including initial temperature (if recorded) ending in .0 or .5
+    \item[\textbf{III}] Selects two additional volumes of FB 5 for experiments 6 and 7
+    \newline
+    \textbf{AND} total volume for each additional experiment = $10.00 \text{ cm}^3$
+    \newline
+    \textbf{AND} all four volumes recorded to 2 d.p. and ending in 0 or 5
+    \item[\textbf{IV}] Calculate the difference between the initial temperature of FB 4 and the temperature recorded in experiment 3 for both the supervisor and the candidate.
+    \newline
+    Mark awarded if difference between candidate temperature rise in experiment 3 and the supervisor temperature rise is less than or equal to $1.0 \text{ } ^{\circ}\text{C}$.
+    \end{enumerate}
+- number: 2bi
+  type: short_answer
+  marks: 4
+  mark_scheme_answer: |
+    \begin{enumerate}
+    \item[\textbf{I}] Unambiguous labelled axes with (maximum) temperature on the y-axis and volume of FB 5 on the x-axis \textbf{OR} correct units
+    \newline
+    \textbf{AND} suitable linear scales.
+    \item[\textbf{II}] Points plotted accurately.
+    \item[\textbf{III}] two lines of best fit drawn (straight line or smooth curve) that account for all the plotted points ignoring any points labelled anomalous
+    \item[\textbf{IV}] Both lines extrapolated to intersect.
+    \end{enumerate}
+- number: 2bii
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    Volume at intersection read correctly.
+- number: 2ci
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    Correctly calculates
+    amount HCl = $2.00 \times \text{volume from (b)(ii)} / 1000 \text{ mol}$
+    \textbf{AND} amount NaOH = amount HCl
+    \textbf{AND} both answers to 2 – 4 sf

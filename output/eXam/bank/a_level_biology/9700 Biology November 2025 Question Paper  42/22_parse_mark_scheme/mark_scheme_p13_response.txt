@@ -1,0 +1,33 @@
+questions:
+- number: 3bi
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{any two from:}
+    \newline
+    \textit{lactose diet}
+    \newline
+    1 increases (over six days) ;
+    \newline
+    \textit{no lactose diet}
+    \newline
+    2 \textbf{small} increase / increases \textbf{slightly} / \textbf{little} change / stays around 50\% (over six days) ;
+    \newline
+    3 comparative data quote – 2 percentages of either diet over time
+    \newline
+    \textbf{or}
+    \newline
+    percentage of each diet on one day ;
+    \newline
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{time / days} & \multicolumn{2}{c|}{\textbf{percentage lac$^{+} \pm 0.5$ mm}} \\ \hline
+    & lactose diet & no lactose diet \\ \hline
+    0 & 50 & 50 \\ \hline
+    1 & 65.5 & 54 \\ \hline
+    2 & 75.5 & 56.5 \\ \hline
+    3 & 83.5 & 60 \\ \hline
+    4 & 84 & 59 \\ \hline
+    5 & 85 & 57.5 \\ \hline
+    6 & 86 & 57 \\ \hline
+    \end{tabular}

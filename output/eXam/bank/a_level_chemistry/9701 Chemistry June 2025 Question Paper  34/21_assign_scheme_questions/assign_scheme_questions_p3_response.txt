@@ -1,0 +1,26 @@
+[thinking]
+The user wants me to identify which question numbers have their marking criteria visible on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "9701/34 Cambridge International AS & A Level – Mark Scheme May/June 2025 PUBLISHED".
+    *   There is a section titled "GENERIC MARKING PRINCIPLE 5" and "GENERIC MARKING PRINCIPLE 6". These are general instructions, not specific to a question number like "1a" or "2b".
+    *   There is a section titled "Science-Specific Marking Principles".
+    *   Under this section, there are numbered points 1 through 5.
+        *   Point 1: "Examiners should consider the context..." - This is a general principle about keywords.
+        *   Point 2: "The examiner should not choose between contradictory statements..." - General principle.
+        *   Point 3: "Although spellings do not have to be correct..." - General principle about spelling.
+        *   Point 4: "The error carried forward (ecf) principle..." - General principle.
+        *   Point 5: "'List rule' guidance" - General principle about how to mark list questions.
+
+2.  **Evaluate against the task:**
+    *   The task asks for "question numbers' marking criteria".
+    *   The text on this page consists entirely of "Generic Marking Principles" and "Science-Specific Marking Principles".
+    *   It does *not* contain specific marking criteria for Question 1, 2, 3, etc. (e.g., it doesn't say "1(a) [1 mark] answer: ...").
+    *   Therefore, no specific question numbers from the valid list ("1", "1a", ..., "3bv") have their criteria visible here. This looks like an introductory page (Page 3 of 12) explaining how to mark, before getting into the actual questions. Wait, usually generic principles are at the start. Let's look at the footer: "Page 3 of 12". This suggests it's early in the document.
+    *   The prompt states: "If no question's criteria appear on this page (cover page, blank page, instructions page), return: `questions: []`".
+    *   This page is clearly an instructions/pr
+[/thinking]
+
+```yaml
+questions: []
+```

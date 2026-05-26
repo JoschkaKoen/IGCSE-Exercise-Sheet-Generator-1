@@ -1,0 +1,21 @@
+questions:
+  - number: "3a"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "3ai"
+    type: short_answer
+    text: |
+      With reference to Fig. 3.1, suggest and explain how the presence of glucose in the extracellular environment prevents lactose entering the bacterial cell.
+  - number: "3aii"
+    type: short_answer
+    text: |
+      Suggest the advantages for the bacterial cell in preventing the entry of lactose when glucose is present in the extracellular environment.
+  - number: "3aiii"
+    type: short_answer
+    text: |
+      The glucose 6-phosphate in the cytoplasm of the bacterial cell is used to produce fructose 1,6-bisphosphate.
+
+      Fructose 1,6-bisphosphate is used in glycolysis.
+
+      Outline the events that occur in glycolysis following the production of fructose 1,6-bisphosphate.

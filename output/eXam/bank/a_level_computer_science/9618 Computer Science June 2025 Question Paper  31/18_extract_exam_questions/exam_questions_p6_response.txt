@@ -1,0 +1,39 @@
+questions:
+  - number: "4c"
+    type: short_answer
+    text: |
+      A binary tree is a suitable Abstract Data Type (ADT) that a designer can implement using recursive algorithms.
+
+      Identify \textbf{one other} ADT that a designer can implement using recursive algorithms.
+  - number: "5"
+    type: short_answer
+    text: |
+      This truth table represents a logic circuit.
+
+      \begin{tabular}{|cccc|c|}
+      \hline
+      \multicolumn{4}{|c|}{\textbf{INPUT}} & \textbf{OUTPUT} \\ \hline
+      \textbf{A} & \textbf{B} & \textbf{C} & \textbf{D} & \textbf{Z} \\ \hline
+      0 & 0 & 0 & 0 & 1 \\ \hline
+      0 & 0 & 0 & 1 & 0 \\ \hline
+      0 & 0 & 1 & 0 & 0 \\ \hline
+      0 & 0 & 1 & 1 & 0 \\ \hline
+      0 & 1 & 0 & 0 & 0 \\ \hline
+      0 & 1 & 0 & 1 & 1 \\ \hline
+      0 & 1 & 1 & 0 & 0 \\ \hline
+      0 & 1 & 1 & 1 & 1 \\ \hline
+      1 & 0 & 0 & 0 & 1 \\ \hline
+      1 & 0 & 0 & 1 & 0 \\ \hline
+      1 & 0 & 1 & 0 & 0 \\ \hline
+      1 & 0 & 1 & 1 & 0 \\ \hline
+      1 & 1 & 0 & 0 & 0 \\ \hline
+      1 & 1 & 0 & 1 & 1 \\ \hline
+      1 & 1 & 1 & 0 & 0 \\ \hline
+      1 & 1 & 1 & 1 & 1 \\ \hline
+      \end{tabular}
+  - number: "5a"
+    type: short_answer
+    text: |
+      Write the Boolean logic expression that corresponds to the given truth table as the sum-of-products.
+
+      \textbf{Z} = \hrulefill

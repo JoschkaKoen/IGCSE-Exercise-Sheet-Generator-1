@@ -1,0 +1,50 @@
+questions:
+  - number: "11b"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "11bi"
+    type: short_answer
+    text: |
+      Identify the object-oriented programming (OOP) feature whose function includes restricting external access to the data.
+  - number: "11bii"
+    type: short_answer
+    text: |
+      Describe what is meant by the OOP feature \textbf{inheritance}.
+  - number: "12"
+    type: short_answer
+    text: |
+      The pseudocode algorithm checks whether a location in a stock file \texttt{StockList.dat} is empty or not. The location is given by the user. If the location is empty, a suitable message is displayed, otherwise the item stored at that location is displayed.
+
+      Complete this file-handling pseudocode algorithm.
+
+      \begin{alltt}
+      DECLARE Location : INTEGER
+      DECLARE Item : STRING
+      DECLARE Continue : BOOLEAN
+      DECLARE Answer : CHAR
+      Continue <- TRUE
+
+      OPENFILE \hrulefill
+      WHILE Continue
+        OUTPUT "Enter a location between 1 and 500: "
+        INPUT Location
+
+        \hrulefill
+
+        GETRECORD \hrulefill
+        IF Item = "" THEN
+          OUTPUT "This record is missing."
+        ELSE
+          OUTPUT "The item in stock is ", \hrulefill
+        ENDIF
+        OUTPUT "Another location (Y or N)?"
+        INPUT Answer
+        IF Answer <> 'Y' THEN
+          Continue <- FALSE
+        ENDIF
+      ENDWHILE
+
+      \hrulefill
+      OUTPUT "End of program"
+      \end{alltt}

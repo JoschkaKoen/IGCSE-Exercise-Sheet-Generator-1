@@ -1,0 +1,46 @@
+questions:
+- number: 9bi
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{any four from :}
+    \begin{enumerate}
+    \item increase then decrease ;
+    \item optimum temperature at 29 $^\circ$C ;
+    \item data quote – two temperatures and two rates with units ;
+    \begin{tabular}{|c|c|}
+    \hline
+    temperature / $^\circ$C $\pm$0.5 & rate of photosynthesis / mg g$^{-1}$ h$^{-1}$ $\pm$0.05 \\
+    \hline
+    2.5 & 0.75 \\
+    \hline
+    5 & 1.1 \\
+    \hline
+    10 & 1.8 \\
+    \hline
+    20 & 2.95 \\
+    \hline
+    29 & 3.5 \\
+    \hline
+    30 & 3.45 \\
+    \hline
+    40 & 2.65 \\
+    \hline
+    45 & 1.5 \\
+    \hline
+    48 & 0.5 \\
+    \hline
+    \end{tabular}
+    \end{enumerate}
+    \textit{increase / before 29 $^\circ$C}
+    \begin{enumerate}
+    \setcounter{enumi}{3}
+    \item more kinetic energy for, enzyme (activity) / AW ;
+    \item temperature is the limiting factor ;
+    \end{enumerate}
+    \textit{decrease / after 29 $^\circ$C}
+    \begin{enumerate}
+    \setcounter{enumi}{5}
+    \item denaturation of, rubisco / enzymes / oxygen-evolving complex ;
+    \item AVP ; e.g. photorespiration limiting the rate at above 25 $^\circ$C
+    \end{enumerate}

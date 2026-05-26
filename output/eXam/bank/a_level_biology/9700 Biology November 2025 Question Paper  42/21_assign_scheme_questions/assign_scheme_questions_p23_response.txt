@@ -1,0 +1,25 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a table with columns "Question", "Answer", and "Marks".
+    *   Under the "Question" column, I see "10(c)".
+    *   The "Answer" column lists points 1 through 5 related to muscle contraction/relaxation (ATP, Ca2+, myosin heads, sarcomere).
+    *   The "Marks" column shows "3".
+
+2.  **Match with valid question numbers:**
+    *   The visible question number is "10(c)".
+    *   Looking at the list of valid question numbers provided: "1", "1a", ..., "10", "10a", "10b", "10c".
+    *   "10(c)" corresponds to "10c" in the list (removing parentheses as per instructions).
+
+3.  **Check for other questions:**
+    *   The rest of the page is blank white space. No other question numbers are visible.
+
+4.  **Format the output:**
+    *   The result should be a YAML list containing "10c".
+[/thinking]
+
+```yaml
+questions:
+  - "10c"
+```

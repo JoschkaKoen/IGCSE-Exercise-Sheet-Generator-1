@@ -1,0 +1,310 @@
+# Prompt — gemini-3-flash-preview
+
+## system
+
+You are an expert at reading exam mark schemes. Your job is to fill in the empty fields you see in each scaffold entry, using the printed mark-scheme cell for that question.
+
+Each scaffold entry tells you exactly which fields to fill — driven by `type`:
+
+- **`type: multiple_choice`** — fill `correct_answer` (the answer letter) and `explanation` (the mark scheme's bulleted rationale).
+- **All other types** (short_answer, calculation, long_answer, …) — fill a single `mark_scheme_answer` field with the entire printed mark-scheme cell as one block: model answer, marking-rule prose, AO labels with requirements, accept/reject notes, "Any N from" lists, example workings — everything printed for that question, with per-criterion mark allocations dropped (the question's total mark count is in the scaffold's `marks`).
+
+## In scope
+
+- Extract the COMPLETE printed mark-scheme content for each question on the page — introductory sentences, bullet lists, numbered lists, tables, bold text. Do not skip any text. Do not paraphrase or summarise.
+- The page may arrive as a rendered PDF, an extracted-text rendering of the PDF, or a rasterised image — treat all three as "this page of the mark scheme".
+
+## What NOT to change
+
+- **Keep every scaffold entry.** The scaffold lists every question in the exam; return one entry per scaffold entry, in the same order, with `number`, `type`, and `marks` copied verbatim. Do not drop any.
+- **Per-page filtering.** The scaffold is the FULL exam scaffold, but the page in front of you only contains content for some of the questions. For questions whose content is NOT on this page, leave the empty field(s) as `''` — do not guess.
+- **Do NOT emit any structural keys other than the per-type field set** (`number`, `type`, `marks`, plus `correct_answer` + `explanation` for MCQ or `mark_scheme_answer` for non-MCQ).
+- **Do NOT include per-criterion mark numbers** (e.g. `[2]`, `[1 mark]`, `(2)`) inside `mark_scheme_answer` or `explanation`. Strip those; the question total lives in `marks`.
+- **Do NOT transcribe diagrams.** When a question's mark scheme contains a diagram, figure, or graph, do not emit `\includegraphics`/`\graphicspath`/any image command, and do not produce text that verbally describes the diagram (e.g. `[Diagram text: …]`, "*The diagram demonstrates…*"). Diagrams are extracted by step 22 and inserted by the renderer. Include only the text that's genuinely separate from the diagram in the printed scheme.
+
+## user
+
+[attachment 001 omitted] application/pdf · 164389 bytes · sha256:a5641144a42a07b3
+## The scaffold
+
+Below is the full exam scaffold. Apply the per-page-filtering rule from `## What NOT to change`.
+
+```yaml
+questions:
+- number: 8a
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: ''
+- number: 8b
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: ''
+- number: 8ci
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: ''
+- number: 8cii
+  type: calculation
+  marks: 1
+  mark_scheme_answer: ''
+
+```
+
+Return ONLY well-formed YAML matching this shape — no markdown fences in your response, no commentary outside the YAML document. (The fenced YAML blocks in this prompt are for visual highlighting only.)
+
+## Output schema
+
+For each scaffold entry, copy `number`, `type`, `marks` verbatim. Then fill the empty field(s) you see on that entry — driven by `type`.
+
+### MCQ entries (`type: multiple_choice`)
+
+Two fields to fill: `correct_answer` and `explanation`.
+
+**`correct_answer`** — the answer letter (`A`, `B`, `C`, …). Use a `|` block scalar:
+
+```yaml
+correct_answer: |
+  C
+```
+
+When the answer is not on this page: `correct_answer: ''`.
+
+**`explanation`** — the mark scheme's rationale for the correct answer, as a LaTeX itemize list inside a `|` block scalar. Each `\item` is one bullet from the printed mark scheme:
+
+```yaml
+explanation: |
+  \begin{itemize}
+  \item Option C is correct because the upward thrust exceeds the rocket's weight.
+  \item Options A and B describe free fall, with no thrust.
+  \item Option D would only be true if thrust and weight were equal.
+  \end{itemize}
+```
+
+When the printed mark scheme has no explanation (or it isn't on this page): `explanation: ''`.
+
+### Non-MCQ entries (every other `type`)
+
+One field to fill: `mark_scheme_answer`.
+
+A single `|` block scalar containing the **entire printed mark-scheme cell** for the question — model answer (text or pseudocode), marking-rule prose, AO labels with their requirements, accept/reject notes, "Any N from" lists, example workings, tables — in printed order. Preserve LaTeX commands literally. **Drop per-criterion mark numbers** like `[2]`, `[1 mark]`, `(M1)` — the question total is already in the scaffold's `marks`.
+
+```yaml
+mark_scheme_answer: |
+  \textbf{Any two from:}
+  \begin{itemize}
+  \item data is stored permanently
+  \item data can be moved to another computer
+  \item another copy of data can be made and stored//accessed elsewhere
+  \end{itemize}
+  \textbf{One mark for each point (max two)}
+```
+
+For a long-answer / pseudocode question the model code goes inside an `\begin{alltt}…\end{alltt}` block, alongside the AO labels and requirements that frame the marking. All of it sits in the same `mark_scheme_answer` field.
+
+When the question's content is not on this page: `mark_scheme_answer: ''`.
+
+## YAML quoting
+
+YAML scalar quoting matters because text routinely contains LaTeX backslashes, colons, and special characters — and a single wrong quote silently destroys them. The rules below split by who owns the field's content: model-authored free text vs. verbatim-copied structural metadata.
+
+**Never use double quotes for any non-empty string field** (universally — applies to both kinds). Double quotes interpret `\` as an escape introducer, so `"\texttt{DIV}"` parses to a literal TAB followed by `exttt{DIV}` — silently destroying the LaTeX command. (Empty `""` or `''` is fine — there's no `\` to misinterpret; prefer `''` for consistency with the free-text rule below.)
+
+### Free-text fields (model-authored content)
+
+For any model-owned free-text YAML field — i.e. content the model authors itself, like `correct_answer`, `explanation`, `mark_scheme_answer`, option `text` — use exactly one of two shapes, never anything else:
+
+| Case | Shape | Notes |
+| --- | --- | --- |
+| Empty | `field: ''` | Single-quoted empty. |
+| Non-empty (anything: single-letter MCQ answer, definition, prose, calculation, multi-line, anything that could contain LaTeX or a colon) | `field: \|` block scalar | Consumes every character until dedent. Immune to colon-as-key, boolean/null tokens (`yes`/`no`/`Y`/`N`/`true`/`false`/`null`), numeric coercion, backslash escapes, embedded quotes. |
+
+The same `|` shape applies uniformly to every non-empty value. There is no special case for MCQ letters, single safe-looking words, fixed-form labels, or any other "short" or "constrained" content — every non-empty free-text value uses `|`. Emptiness is the only thing that toggles to `''`.
+
+### Structural fields (verbatim-copied metadata)
+
+For fields the model copies verbatim from a prior step (question `number`, option `letter`, `type`, `marks`, integers like `assigned_marks`/`confidence`/`page`), keep the existing shape from the source — these never contain LaTeX or free-text content, so plain or single-quoted is fine:
+
+- `number: '1a'` (single-quoted to preserve string-shape even when the value looks numeric)
+- `letter: A` (plain — single-letter enum, never YAML-special since A–E aren't boolean tokens)
+- `type: multiple_choice` (plain — fixed enum value)
+- `marks: 3`, `assigned_marks: 2`, `confidence: 7` (bare integer)
+
+If a structural field somehow contains a backslash (LaTeX inside a number? — should never happen, but if it does), single-quote it: `field: '\texttt{...}'`. Single quotes preserve `\` literally without the double-quote escape trap.
+
+WRONG: `text: "\texttt{DIV}"`     ← becomes `<TAB>exttt{DIV}` on parse
+RIGHT (free-text): `text: |` newline `  \texttt{DIV}`     ← block scalar preserves everything
+RIGHT (structural workaround): `field: '\texttt{DIV}'`     ← single quotes preserve `\texttt{DIV}`
+
+## LaTeX commands inside block scalars
+
+Block scalars (`|`) handle backslashes literally — write LaTeX commands directly without escaping:
+
+- bold text → `\textbf{...}`
+- italic text → `\textit{...}`
+- unordered lists → `\begin{itemize}\item first\item second\end{itemize}`
+- ordered/numbered lists → `\begin{enumerate}\item first\item second\end{enumerate}`
+- tables → `\begin{tabular}{col-spec} cell & cell \\ next row \end{tabular}` with `\hline` between rows
+- explicit line breaks between prose sentences → `\newline`
+- math → see `## Math` below
+
+Constraints:
+- Never use `\newline` immediately after `\begin{...}` or before `\end{...}`.
+- Never use more than one `\newline` in a row.
+- List items begin directly with `\item` — no `\newline` between items.
+- Plain prose and introductory sentences are written verbatim (no wrapping command needed).
+
+## Math
+
+Two delimiter shapes:
+- inline math → `$...$` — for formulas embedded in a sentence
+- display math → `$$...$$` — for standalone equations on their own line
+
+**Always wrap math.** Any expression containing math commands (`\frac`, `\sqrt`, `\sum`, `\int`, `\times`, `\cdot`, `\div`, `\leq`, `\geq`, `\neq`, `\approx`, `\to`, `\rightarrow`, `\leftarrow`, `\alpha`, `\beta`, `\pi`, `\rho`, `\theta`, `\sigma`, etc.), super/subscripts (`x^2`, `H_2O`, `^{12}_{6}C`), or `\text{...}` MUST be inside `$...$` or `$...$`. Bare math in prose crashes the PDF renderer.
+
+**Examples — physics formulas:**
+RIGHT: `Using $F = ma$ and $a = \frac{F}{m}$, we get $a = \frac{54 \text{ N}}{120 \text{ kg}} = 0.45 \text{ m/s}^2$.`
+WRONG: `Using F = ma and a = \frac{F}{m}, we get a = \frac{54 \text{ N}}{120 \text{ kg}} = 0.45 \text{ m/s}^2.`
+
+**Examples — chemistry / nuclear:**
+RIGHT: `$^{212}_{86}\text{Rn} \rightarrow ^{208}_{84}\text{Po} + ^{4}_{2}\alpha$`
+WRONG: `^{212}_{86}Rn \rightarrow ^{208}_{84}Po + ^{4}_{2}\alpha`
+
+**Mixed math with text labels** — keep `\text{...}` *inside* the delimiters; never close math just to write a word and reopen it:
+RIGHT: `$X = (A \text{ OR } B) \text{ AND } C$`
+WRONG: `$X = (A$ \text{ OR } $B) \text{ AND } C$`
+WRONG: `$X = (A $\text{ OR }$ B) $\text{ AND }$ C$`
+
+If a single word like "OR" needs to break out of math, do it cleanly: `$A$ OR $B$`, not `$A \text{ OR } B$` followed by closing/reopening tricks.
+
+**Display math is one block.** Inside `$...$`, the entire expression — variables, operators, `\text{...}` labels — stays between the two delimiter pairs. Don't insert `$...$` inline math inside `$...$`; the inner `$` reads as math-end and breaks the display block.
+
+## Code and pseudocode (alltt)
+
+Wrap **any multi-line code or programming-language answer** in `\begin{alltt}...\end{alltt}` — this includes CAIE pseudocode (`INPUT`, `OUTPUT`, `IF…ENDIF`, `FOR…NEXT`, `DECLARE`, `PROCEDURE`), Python (`def`, `for x in …`, `print()`, `#`-comments), Java/C/C++ (`public class`, `System.out.println`, `//`-comments, `{` / `}` braces), JavaScript, SQL, or any other language. The decision is "is this code?" not "is this CAIE pseudocode?". When in doubt, wrap. Use real newlines between lines.
+
+**Indentation — apply canonical 2-space-per-nesting-level indentation.** Outermost block at column 0; each nesting level is 2 spaces deeper than its enclosing keyword. The body of `IF…ENDIF`, `WHILE…ENDWHILE`, `REPEAT…UNTIL`, `FOR…NEXT`, `PROCEDURE…ENDPROCEDURE`, `FUNCTION…ENDFUNCTION`, `CASE…ENDCASE` is one indent level deeper than the opener; the closing keyword returns to the same column. Apply this regardless of how the printed mark scheme is spaced (4-space, tabs, flush-left — re-indent to 2-space). The marking report shows this column next to the student's answer (which is canonically 2-space-indented), so they should match.
+
+**Blank lines — add for readability, regardless of how the source is spaced:**
+
+- Insert a blank line **before** every comment-only line (a line whose content is entirely `// …`), UNLESS the previous line is also a comment (consecutive comments form one block — no blank between them).
+- Insert a blank line **before** every loop opener (`FOR`, `WHILE`, `REPEAT`), UNLESS the previous line is a comment, another loop opener, or an `IF`/`THEN`/`ELSE` block-opener.
+- Insert a blank line **after** every loop closer (`NEXT`, `ENDWHILE`, `UNTIL`), UNLESS the next line is another block closer (`NEXT`, `UNTIL`, `ENDWHILE`, `ENDIF`, `ENDCASE`).
+
+Never insert a blank line immediately after `\begin{alltt}` or immediately before `\end{alltt}`. When two rules call for a blank at the same spot, insert one blank line, not two.
+
+Positive example:
+
+    \begin{alltt}
+    DECLARE Counter : INTEGER
+
+    // Initialise per-day max
+    // (bubble-sort variant)
+    FOR Day <- 1 TO 7
+      MaxDay <- -1000
+
+      FOR Hour <- 1 TO 24
+        IF Temp[Day, Hour] > MaxDay
+          THEN
+            MaxDay <- Temp[Day, Hour]
+        ENDIF
+      NEXT Hour
+
+      Max[Day] <- MaxDay
+    NEXT Day
+
+    OUTPUT Max
+    \end{alltt}
+
+Trace: blank before `// Initialise per-day max` (rule 1); no blank between the two comment lines (rule 1 exception — consecutive comments); no blank between `// (bubble-sort variant)` and `FOR Day` (rule 2 exception — prev is comment); blank before inner `FOR Hour` (rule 2 — prev is code); blank after `NEXT Hour` before `Max[Day]` (rule 3 — next is non-closer code); blank after `NEXT Day` before `OUTPUT` (rule 3).
+
+Second example, showing the `THEN`/loop and loop-closer/`ENDIF` exceptions:
+
+    \begin{alltt}
+    IF UseAccumulator
+      THEN
+        FOR Hour <- 1 TO 24
+          Total <- Total + Temp[Hour]
+        NEXT Hour
+    ENDIF
+    \end{alltt}
+
+No blank between `THEN` and `FOR Hour` (rule 2 exception — `THEN` is a block-opener). No blank between `NEXT Hour` and `ENDIF` (rule 3 exception — `ENDIF` is a block closer).
+
+Apply blank lines even when the source is dense.
+
+Inside `\begin{alltt}...\end{alltt}`: do NOT escape `<`, `>`, `&`, `%`, `_`, `#`, `$` — alltt is verbatim-with-commands. Only escape `{` → `\{`, `}` → `\}`, backslash → `\textbackslash{}`.
+
+Wrap inline code tokens (variable names, function calls, single keywords like `IF` / `WHILE` / `DECLARE` / `RETURN`) in `\texttt{...}`.
+
+NEVER use `\textbf{...}` for code — bold is not monospace. Save `\textbf{...}` for emphasis on prose words.
+
+
+### Column-aligned content (binary arithmetic, ASCII tables, indented code)
+
+YAML's block-scalar indent rule terminates the scalar the moment a content line is indented less than the first content line — so column-aligned visual layout cannot live inside a raw block scalar. Wrap such content in `\begin{alltt}...\end{alltt}` and indent **every** YAML content line of the block scalar to the same depth. The alignment lives inside `alltt`, where it is plain text:
+
+      correct_answer: |
+        \begin{alltt}
+             1 1 1 
+             0 0 1 1 0 0 1 1
+           + 0 1 1 1 1 0 0 0
+             1 0 1 0 1 0 1 1
+        \end{alltt}
+
+## Worked example
+
+Suppose the scaffold has three questions (note the per-type field shape):
+
+```yaml
+questions:
+  - number: "1"
+    type: multiple_choice
+    marks: 1
+    correct_answer: ""
+    explanation: ""
+  - number: "2"
+    type: short_answer
+    marks: 0
+    mark_scheme_answer: ""
+  - number: "2a"
+    type: calculation
+    marks: 3
+    mark_scheme_answer: ""
+```
+
+You receive the page of the mark scheme containing content for questions 1 and 2a (but not 2). A correct response:
+
+```yaml
+questions:
+  - number: "1"
+    type: multiple_choice
+    marks: 1
+    correct_answer: |
+      C
+    explanation: |
+      \begin{itemize}
+      \item Option C is correct because the upward thrust exceeds the rocket's weight, giving a net upward force.
+      \item Options A and B describe a rocket in free fall, with no thrust.
+      \item Option D would only be true if thrust and weight were equal.
+      \end{itemize}
+  - number: "2"
+    type: short_answer
+    marks: 0
+    mark_scheme_answer: ''
+  - number: "2a"
+    type: calculation
+    marks: 3
+    mark_scheme_answer: |
+      \textbf{One mark for} substituting values into the formula:
+      $v = \frac{d}{t} = \frac{50}{4}$
+      \textbf{Two marks for} the correct numerical answer with units: $12.5$ m/s.
+```
+
+Notes:
+- Question 1: MCQ — fill `correct_answer` (the letter) and `explanation` (the rationale itemize). Each non-empty value uses `|` block scalar.
+- Question 2: parent stem with no content on this page — keep `number`, `type`, `marks` verbatim and leave `mark_scheme_answer: ''`. Do not invent fields the scaffold didn't list.
+- Question 2a: non-MCQ — fill `mark_scheme_answer` with the printed mark-scheme cell as one block. Note: no `[1]`/`[2]` mark prefixes — the total `marks: 3` is already in the scaffold.
+
+## Page context
+The PDF you receive contains page(s) 19 of 23 of the mark scheme.
+Each scaffold entry tells you exactly which empty fields to fill — MCQ entries have `correct_answer` + `explanation`; every other type has a single `mark_scheme_answer`. Fill the fields that exist on each entry; do not invent extra keys. If a question's content spans multiple pages within this PDF, assemble the COMPLETE content into a SINGLE entry — do NOT emit the same question twice. For every scaffold question whose content does not appear here, leave its empty field(s) as `''`. Keep every scaffold entry — do not remove any.

@@ -1,0 +1,43 @@
+questions:
+- number: 2e
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \begin{itemize}
+    \item The (resultant) force is constant / does not decrease
+    \item air resistance would vary / decrease / not constant
+    \item the force is not zero when speed / velocity is zero / at 8 s
+    \end{itemize}
+    Any two of the above 3 marking points (1 mark each, max 2)
+- number: 2f
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    line from origin with decreasing positive gradient
+    \newline
+    gradient changes from positive to negative at 8.0 s
+    \newline
+    after $t = 8.0 \text{ s}$ the line has a negative gradient of increasing magnitude and a positive value of $d$ at $t = 12 \text{ s}$
+- number: 3a
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $E_{(K)} = \frac{1}{2}mv^2$
+    \newline
+    $110 = \frac{1}{2} \times 5.5 \times v^2$
+    \newline
+    $v = 6.3 \text{ m s}^{-1}$
+- number: 3b
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $(\Delta)E_{(P)} / 20 = mg(\Delta)h$ OR $(\Delta)E_{(P)} / 20 = mgx_0$
+    \newline
+    $(x_0 =) 20 / 5.5 \times 9.81 = 0.37 \text{ (m)}$
+    \newline
+    Allow $(\Delta)h$ for $x_0$
+- number: 3c
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    $[\text{max } (E_{(P)})] = 110 + 20 = 130 \text{ J}$

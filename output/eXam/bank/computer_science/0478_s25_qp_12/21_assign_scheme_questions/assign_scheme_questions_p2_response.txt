@@ -1,0 +1,28 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "Cambridge IGCSE – Mark Scheme PUBLISHED Generic Marking Principles".
+    *   The text describes general principles for marking (Principle 1, Principle 2, Principle 3, Principle 4).
+    *   It mentions "These general marking principles must be applied by all examiners when marking candidate answers."
+    *   It lists generic rules like "Marks must be awarded in line with...", "Marks awarded are always whole marks", "Marks must be awarded positively", "Rules must be applied consistently".
+    *   There are no specific question numbers (like "1a", "2b", etc.) or specific content related to a particular exam question visible on this page. It is a general introductory page explaining how to mark.
+    *   The footer says "Page 2 of 15". This suggests it's likely an early page in the document, possibly page 1 was the title page or instructions.
+
+2.  **Compare with the list of valid question numbers:**
+    *   The list includes: "1", "1a", ..., "5cii".
+    *   None of these appear as headers or specific criteria sections on this page. The page contains "GENERIC MARKING PRINCIPLE 1", "GENERIC MARKING PRINCIPLE 2", etc., but these are not question numbers from the exam paper. They are meta-instructions for the examiner.
+
+3.  **Determine visibility:**
+    *   Are there any marking criteria for specific questions? No.
+    *   Is it a cover/instructions page? Yes, it's a "Generic Marking Principles" page.
+
+4.  **Formulate output:**
+    *   Since no specific question criteria are present, the list should be empty.
+    *   Output format: `questions: []`
+
+[/thinking]
+
+```yaml
+questions: []
+```

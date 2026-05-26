@@ -1,0 +1,33 @@
+questions:
+- number: 5bii
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: |
+    \textbf{any three from:}
+    \begin{enumerate}
+    \item (PCR) amplifies / makes many copies of, DNA (fragments) ;
+    \item (PCR) ref. to selecting fragments, small enough / less than 1000 bp / not more than 916 bp (for sequencing) ;
+    \item (electrophoresis) separate the (DNA) fragments ;
+    \item (electrophoresis) confirms / identifies, fragment lengths / fragment number / PCR worked correctly ;
+    \end{enumerate}
+- number: 5c
+  type: calculation
+  marks: 1
+  mark_scheme_answer: |
+    ($2^{35} =$) $3.4 \times 10^{10}$ ;
+- number: 5d
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{any four from:}
+    \begin{enumerate}
+    \item child may have disease when, neither parent has the disease / no family history ;
+    \item early, detection / treatment (for gene therapy to work) ;
+    \item improve, quality of life / life expectancy ;
+    \item ref. to informs family planning (for future pregnancies) ;
+    \item idea that it does not involve additional sampling ;
+    \item (screening is) expensive ;
+    \item treatment / gene therapy, expensive ;
+    \item test may not always be accurate ;
+    \item long-term effect of treatment, unknown / negative ;
+    \end{enumerate}

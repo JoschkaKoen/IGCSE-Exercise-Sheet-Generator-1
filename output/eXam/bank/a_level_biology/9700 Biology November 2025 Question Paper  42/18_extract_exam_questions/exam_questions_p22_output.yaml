@@ -1,0 +1,47 @@
+questions:
+  - number: "8c"
+    type: short_answer
+    text: |
+      The biodiversity of a habitat can be measured by calculating Simpson’s index of diversity ($D$).
+
+      The formula for Simpson’s index of diversity ($D$) is:
+
+      $$D = 1 - \left( \sum \left( \frac{n}{N} \right)^2 \right)$$
+
+      Key to symbols:
+      $n$ = number of individuals of each type present in the sample
+      $N$ = the total number of all individuals of all types present in the sample
+
+      A survey of shrubs and trees in a temperate woodland was carried out. The results are shown in Table 8.1.
+
+      \textbf{Table 8.1}
+
+      \begin{tabular}{|l|c|c|c|}
+      \hline
+      \textbf{common name} & $n$ & $\frac{n}{N}$ & $\left( \frac{n}{N} \right)^2$ \\ \hline
+      maple & 807 & 0.196 & 0.0384 \\ \hline
+      alder & 6 & 0.001 & 0.0000 \\ \hline
+      hazel & 1856 & 0.451 & \underline{\hspace{1.5em}} \\ \hline
+      hawthorn & 82 & 0.020 & 0.0004 \\ \hline
+      blackthorn & 40 & 0.010 & 0.0001 \\ \hline
+      willow & 101 & 0.025 & 0.0006 \\ \hline
+      birch & 78 & 0.019 & 0.0004 \\ \hline
+      wild rose & 84 & 0.020 & 0.0004 \\ \hline
+      oak & 1036 & 0.252 & 0.0635 \\ \hline
+      dogwood & 29 & 0.007 & 0.0000 \\ \hline
+      \multicolumn{1}{r|}{$N =$} & 4119 & Total = & \underline{\hspace{1.5em}} \\ \hline
+      \end{tabular}
+  - number: "8ci"
+    type: short_answer
+    text: |
+      Complete Table 8.1.
+  - number: "8cii"
+    type: calculation
+    text: |
+      Calculate the value for Simpson’s index of diversity ($D$).
+
+      $D =$ \hrulefill
+  - number: "8ciii"
+    type: short_answer
+    text: |
+      Using your value for $D$, comment on the biodiversity of this temperate woodland.

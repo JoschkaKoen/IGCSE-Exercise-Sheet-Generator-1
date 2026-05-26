@@ -1,0 +1,17 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      The Application Layer and Transport Layer are two layers of the TCP/IP protocol suite.
+  - number: "3a"
+    type: long_answer
+    text: |
+      Describe the purpose of the Application Layer \textbf{and} the purpose of the Transport Layer.
+
+      Purpose of Application Layer \hrulefill
+
+      Purpose of Transport Layer \hrulefill
+  - number: "3b"
+    type: long_answer
+    text: |
+      Describe packet switching as a method of transmitting messages across the internet.

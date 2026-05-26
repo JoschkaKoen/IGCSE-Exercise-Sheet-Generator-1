@@ -1,0 +1,12 @@
+  - number: "23"
+    type: short_answer
+    text: ""
+  - number: "23a"
+    type: short_answer
+    text: ""
+  - number: "23b"
+    type: calculation
+    text: ""
+  - number: "23c"
+    type: calculation
+    text: ""

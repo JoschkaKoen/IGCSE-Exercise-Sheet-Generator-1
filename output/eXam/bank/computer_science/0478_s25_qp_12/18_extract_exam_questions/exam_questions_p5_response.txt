@@ -1,0 +1,7 @@
+questions:
+  - number: "2d"
+    type: long_answer
+    text: |
+      The student uses lossless compression to compress the image file.
+
+      Explain how the image file is compressed using lossless compression.

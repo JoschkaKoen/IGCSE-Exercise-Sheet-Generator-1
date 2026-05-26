@@ -1,0 +1,16 @@
+questions:
+- number: 5cii
+  type: long_answer
+  marks: 6
+  mark_scheme_answer: |
+    Any \textbf{six} from:
+    \begin{itemize}
+    \item Encrypted connection established …
+    \item … using asymmetric encryption
+    \item … to make any data sent meaningless
+    \item The \textbf{web browser} asks the \textbf{web server} to identify itself.
+    \item … by sending its digital certificate.
+    \item The digital certificate is authenticated/validated by the \textbf{web browser}.
+    \item If the certificate is authenticated/valid, the connection is secure/the transaction can begin.
+    \item If the certificate is not authenticated/invalid, the connection is not secure/the transaction is cancelled/rejected/user is notified
+    \end{itemize}

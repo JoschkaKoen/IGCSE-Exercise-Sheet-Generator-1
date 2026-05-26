@@ -1,0 +1,119 @@
+{
+  "detector_version": 3,
+  "is_mcq": false,
+  "pdf_height_pt": 688.7335815429688,
+  "pdf_width_pt": 595.0,
+  "regions": [
+    {
+      "assignment_confident": true,
+      "field_id": "18a__0",
+      "kind": "table_cell",
+      "leaf_number": "18a",
+      "page": 1,
+      "x0": 297.2408142089844,
+      "x1": 312.85797119140625,
+      "y0": 39.84026160606971,
+      "y1": 64.61959402901786
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "18a__1",
+      "kind": "table_cell",
+      "leaf_number": "18a",
+      "page": 1,
+      "x0": 125.67186482747395,
+      "x1": 159.98565673828125,
+      "y0": 64.61959402901786,
+      "y1": 89.39901498647836
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "18a__2",
+      "kind": "table_cell",
+      "leaf_number": "18a",
+      "page": 1,
+      "x0": 194.29942321777344,
+      "x1": 228.61318969726562,
+      "y0": 64.61959402901786,
+      "y1": 89.39901498647836
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "18a__3",
+      "kind": "table_cell",
+      "leaf_number": "18a",
+      "page": 1,
+      "x0": 262.92694091796875,
+      "x1": 297.2408142089844,
+      "y0": 64.61959402901786,
+      "y1": 89.39901498647836
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "18a__4",
+      "kind": "table_cell",
+      "leaf_number": "18a",
+      "page": 1,
+      "x0": 297.2408142089844,
+      "x1": 312.85797119140625,
+      "y0": 64.61959402901786,
+      "y1": 89.39901498647836
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "18a__5",
+      "kind": "table_cell",
+      "leaf_number": "18a",
+      "page": 1,
+      "x0": 312.85797119140625,
+      "x1": 347.171630859375,
+      "y0": 64.61959402901786,
+      "y1": 89.39901498647836
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "18a__6",
+      "kind": "table_cell",
+      "leaf_number": "18a",
+      "page": 1,
+      "x0": 381.4853820800781,
+      "x1": 415.79913330078125,
+      "y0": 64.61959402901786,
+      "y1": 89.39901498647836
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "18a__7",
+      "kind": "table_cell",
+      "leaf_number": "18a",
+      "page": 1,
+      "x0": 450.1128845214844,
+      "x1": 484.4266357421875,
+      "y0": 64.61959402901786,
+      "y1": 89.39901498647836
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "18b__0",
+      "kind": "lines",
+      "leaf_number": "18b",
+      "page": 1,
+      "x0": 85.97044372558594,
+      "x1": 479.5865478515625,
+      "y0": 360.42462674654445,
+      "y1": 367.35166625976564
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "18d__0",
+      "kind": "equation_blank",
+      "leaf_number": "18d",
+      "page": 1,
+      "x0": 385.0606689453125,
+      "x1": 536.8330688476562,
+      "y0": 654.0113525390625,
+      "y1": 672.0113525390625
+    }
+  ],
+  "snippet_sha": "10c3a63b9ab3ca13"
+}

@@ -1,0 +1,26 @@
+questions:
+  - number: "5c"
+    type: calculation
+    text: |
+      Calculate the number of copies of DNA that are obtained if PCR is run for 35 cycles.
+
+      Assume that there is only 1 copy of DNA at the start of PCR.
+
+      Give your answer in standard form to \textbf{two} significant figures.
+
+      number of copies \hrulefill
+  - number: "5d"
+    type: long_answer
+    text: |
+      MLD is a rare autosomal recessive disease. It is estimated that there is one case of MLD in every 40000 births worldwide. Children with MLD have a reduced life expectancy.
+
+      \begin{itemize}
+      \item MLD is a degenerative disease that causes severe disability.
+      \item Before 2022, there was no known cure for MLD and the only treatment for symptoms was to provide pain relief.
+      \end{itemize}
+
+      A new gene therapy treatment known as Libmeldy® became available in a number of countries in 2022. The treatment must start before symptoms are present. Although the treatment may provide a cure for MLD, a single dose is extremely expensive.
+
+      Blood samples from newborn babies are screened for a number of rare genetic diseases (neonatal screening) in most countries of the world, but none include screening for MLD.
+
+      Discuss the social and ethical considerations of including screening for MLD when carrying out neonatal screening in a country where gene therapy for MLD is available.

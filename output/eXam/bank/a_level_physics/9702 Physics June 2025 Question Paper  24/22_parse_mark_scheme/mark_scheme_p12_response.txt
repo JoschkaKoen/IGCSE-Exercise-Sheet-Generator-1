@@ -1,0 +1,35 @@
+questions:
+- number: 4biv
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    amplitude changes from maximum (at P) to minimum (at Q)
+    amplitude changes from maximum (at P) to minimum to maximum to minimum (at Q)
+- number: 5ai
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    temperature decreases, resistance decreases
+- number: 5aii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    line from origin with decreasing gradient drawn in first quadrant
+    or line from origin with decreasing gradient drawn in third quadrant
+    line drawn in the third or first quadrant of similar composition (straight line from origin followed by correct curve) and similar size as compared by eye to the first line
+- number: 5bi
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    $E = P / I$
+    $= 18 / 1.5$
+    $= 12 \text{ V}$
+- number: 5bii
+  type: calculation
+  marks: 3
+  mark_scheme_answer: |
+    $I = 3.3 - 1.5$
+    $= 1.8$
+    $I = Anvq$
+    $1.8 = 1.4 \times 10^{-9} \times 3.4 \times 10^{28} \times v \times 1.6 \times 10^{-19}$
+    $v = 0.24 \text{ m s}^{-1}$

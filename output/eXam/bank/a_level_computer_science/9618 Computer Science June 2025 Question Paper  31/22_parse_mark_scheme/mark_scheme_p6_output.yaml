@@ -1,0 +1,33 @@
+questions:
+- number: 1a
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    One mark per mark point
+    MP1 \texttt{TYPE Vehicle =}
+    MP2 \texttt{(M100, M230, T101, T102, T120, T150)}
+
+    Example answer:
+    \texttt{TYPE Vehicle = (M100, M230, T101, T102, T120, T150)}
+- number: 1b
+  type: short_answer
+  marks: 4
+  mark_scheme_answer: |
+    One mark per mark point
+    MP1 \texttt{TYPE Booking} and \texttt{ENDTYPE} correct
+    MP2 \texttt{Declare} used correctly for every field in the response
+    MP3 Any four fields correct
+    MP4 Remaining fields correct
+
+    Example answer:
+    \begin{alltt}
+    TYPE Booking
+      DECLARE BookingNumber : STRING
+      DECLARE Destination : STRING
+      DECLARE ClientName : STRING
+      DECLARE ClientTelephone : STRING
+      DECLARE DateOfDeparture : DATE
+      DECLARE PickupAddress : STRING
+      DECLARE TaxiUsed : Vehicle
+    ENDTYPE
+    \end{alltt}

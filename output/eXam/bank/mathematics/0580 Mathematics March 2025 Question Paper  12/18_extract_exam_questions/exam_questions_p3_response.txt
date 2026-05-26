@@ -1,0 +1,43 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      Write the number twenty thousand in figures.
+  - number: "2"
+    type: short_answer
+    text: |
+      Write 0.07
+  - number: "2a"
+    type: calculation
+    text: |
+      as a percentage
+
+      \hrulefill %
+  - number: "2b"
+    type: short_answer
+    text: |
+      as a fraction
+  - number: "2c"
+    type: short_answer
+    text: |
+      in standard form.
+  - number: "3"
+    type: short_answer
+    text: |
+      Write down all the factors of 18.
+  - number: "4"
+    type: short_answer
+    text: |
+      Find the value of
+  - number: "4a"
+    type: calculation
+    text: |
+      $10^3$
+  - number: "4b"
+    type: calculation
+    text: |
+      $\sqrt[3]{27}$
+  - number: "4c"
+    type: calculation
+    text: |
+      $7^0$.

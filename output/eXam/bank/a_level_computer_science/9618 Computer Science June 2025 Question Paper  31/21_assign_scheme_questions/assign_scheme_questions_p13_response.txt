@@ -1,0 +1,26 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a mark scheme page for "Cambridge International AS & A Level".
+    *   It has two main tables.
+    *   The first table lists questions `9(a)` and `9(b)`.
+    *   The second table lists questions `10(a)` and `10(b)`.
+
+2.  **Map to valid question numbers:**
+    *   `9(a)` corresponds to `9a` in the allowed list.
+    *   `9(b)` corresponds to `9b` in the allowed list.
+    *   `10(a)` corresponds to `10a` in the allowed list.
+    *   `10(b)` corresponds to `10b` in the allowed list.
+
+3.  **Construct the YAML output:**
+    *   The list should contain: "9a", "9b", "10a", "10b".
+[/thinking]
+
+```yaml
+questions:
+  - "9a"
+  - "9b"
+  - "10a"
+  - "10b"
+```

@@ -1,0 +1,28 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "0610/52 Cambridge IGCSE – Mark Scheme PUBLISHED May/June 2025".
+    *   There is a large table titled "Mark Scheme Abbreviations:".
+    *   The table lists abbreviations like ";", "/", "R", "A", "I", "ecf", "AVP", "ora", "AW", "underline", "( )", "max", "MP" and their meanings.
+    *   The footer says "© Cambridge University Press & Assessment 2025 Page 7 of 12".
+
+2.  **Evaluate for question content:**
+    *   I am looking for specific marking criteria for questions like "1", "1a", "2b", etc.
+    *   The entire visible content is a legend or key explaining symbols used in the mark scheme (e.g., what "R" means, what "ecf" means).
+    *   There are no actual marks allocated to specific questions (e.g., "1(a) ... [1]").
+    *   There are no model answers listed.
+    *   This is an introductory page explaining how to read the rest of the document.
+
+3.  **Determine visibility:**
+    *   Since there are no specific question markings (like "1", "2a", etc.) with associated criteria, the list of visible questions is empty.
+
+4.  **Format output:**
+    *   The request asks for YAML format.
+    *   If no questions are visible, return `questions: []`.
+
+[/thinking]
+
+```yaml
+questions: []
+```

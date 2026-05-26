@@ -1,0 +1,47 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a table with columns "Question", "Answer", and "Marks".
+    *   I need to look at the "Question" column to find the question numbers.
+
+2.  **Extract Question Numbers:**
+    *   Row 1: The question number is `2(c)(ii)`.
+        *   Looking at the valid list: "2c", "2ci", "2cii", "2ciii".
+        *   The text in the image is `2(c)(ii)`. This corresponds to `2cii` in the valid list format (removing parentheses). Wait, let's look closer. The valid list has "2cii". The image has `2(c)(ii)`. This matches.
+    *   Row 2: The question number is `2(c)(iii)`.
+        *   Looking at the valid list: "2ciii".
+        *   The text in the image is `2(c)(iii)`. This matches `2ciii`.
+
+3.  **Map to Valid List:**
+    *   `2(c)(ii)` -> `2cii`
+    *   `2(c)(iii)` -> `2ciii`
+
+4.  **Format Output:**
+    *   Create a YAML list.
+    *   Include "2cii" and "2ciii".
+
+5.  **Final Check:**
+    *   Are there any other questions? No.
+    *   Are the formats correct? Yes, removing parentheses as instructed ("Do not add parentheses — output `3b`, not `3(b)`"). So `2(c)(ii)` becomes `2cii`.
+
+    Let's re-verify the mapping.
+    Image: `2(c)(ii)`
+    Valid list item: `2cii`
+    Image: `2(c)(iii)`
+    Valid list item: `2ciii`
+
+    The output should be:
+    ```yaml
+    questions:
+      - "2cii"
+      - "2ciii"
+    ```
+
+[/thinking]
+
+```yaml
+questions:
+  - "2cii"
+  - "2ciii"
+```

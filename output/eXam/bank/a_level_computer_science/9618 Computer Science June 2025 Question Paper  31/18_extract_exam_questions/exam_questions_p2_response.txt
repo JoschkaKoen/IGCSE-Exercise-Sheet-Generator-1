@@ -1,0 +1,27 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A programmer is writing a program to manage bookings for a small taxi company. The programmer requires some user-defined data types.
+  - number: "1a"
+    type: short_answer
+    text: |
+      Write a pseudocode statement to declare the enumerated data type, \texttt{Vehicle}, to hold the identity code of each of the company's taxis:
+
+      M100, M230, T101, T102, T120, T150
+  - number: "1b"
+    type: short_answer
+    text: |
+      Write pseudocode statements to declare the composite data type, \texttt{Booking}, to hold data about taxi bookings. The data required includes:
+
+      \begin{itemize}
+      \item booking number (any combination of letters and numbers)
+      \item destination
+      \item client name
+      \item client telephone number
+      \item date of departure
+      \item address for pick-up
+      \item the identity code of the taxi used.
+      \end{itemize}
+
+      Use the most appropriate data type in each case, including the enumerated data type from part (a).

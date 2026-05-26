@@ -1,0 +1,28 @@
+questions:
+  - number: "4"
+    type: short_answer
+    text: |
+      An employee uses a computer that has a Von Neumann architecture to complete many different tasks in their working day.
+  - number: "4a"
+    type: short_answer
+    text: |
+      The computer has a central processing unit (CPU).
+
+      Complete the table of components in the CPU and their descriptions.
+
+      \begin{tabular}{|p{5cm}|p{8cm}|}
+      \hline
+      \multicolumn{1}{|c|}{\textbf{Component}} & \multicolumn{1}{c|}{\textbf{Description}} \\ \hline
+      \hrulefill & It sends signals to all the components in the CPU to manage the flow of data through the CPU. \\ \hline
+      \hrulefill & It carries out all the arithmetic and logic operations in the CPU. \\ \hline
+      cache & \\ \hline
+      program counter (PC) & \\ \hline
+      \hrulefill & It controls the number of fetch–decode–execute (FDE) cycles that are performed per second. \\ \hline
+      \hrulefill & It stores data immediately before it is transmitted to RAM and immediately after it is received from RAM. \\ \hline
+      \end{tabular}
+  - number: "4b"
+    type: short_answer
+    text: |
+      The computer is an example of a general purpose computer and \textbf{not} an embedded system.
+
+      Explain why the computer is \textbf{not} an embedded system.

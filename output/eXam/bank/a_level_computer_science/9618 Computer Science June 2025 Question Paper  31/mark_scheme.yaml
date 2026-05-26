@@ -1,0 +1,600 @@
+questions:
+- number: 1a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per mark point
+
+    MP1 \texttt{TYPE Vehicle =}
+
+    MP2 \texttt{(M100, M230, T101, T102, T120, T150)}
+
+
+    Example answer:
+
+    \texttt{TYPE Vehicle = (M100, M230, T101, T102, T120, T150)}'
+  mark_scheme: []
+  graphics: []
+- number: 1b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: "One mark per mark point\nMP1 \\texttt{TYPE Booking} and \\\
+    texttt{ENDTYPE} correct\nMP2 \\texttt{Declare} used correctly for every field\
+    \ in the response\nMP3 Any four fields correct\nMP4 Remaining fields correct\n\
+    \nExample answer:\n\\begin{alltt}\nTYPE Booking\n  DECLARE BookingNumber : STRING\n\
+    \  DECLARE Destination : STRING\n  DECLARE ClientName : STRING\n  DECLARE ClientTelephone\
+    \ : STRING\n  DECLARE DateOfDeparture : DATE\n  DECLARE PickupAddress : STRING\n\
+    \  DECLARE TaxiUsed : Vehicle\nENDTYPE\n\\end{alltt}"
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark per mark point}
+
+    \newline
+
+    MP1 Correct mantissa
+
+    \newline
+
+    MP2 Correct exponent
+
+    \newline
+
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+
+    \multicolumn{10}{l}{\textbf{Mantissa}} \\
+
+    \hline
+
+    0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 0 \\
+
+    \hline
+
+    \end{tabular}
+
+    \quad
+
+    \begin{tabular}{|c|c|c|c|c|c|}
+
+    \multicolumn{6}{l}{\textbf{Exponent}} \\
+
+    \hline
+
+    1 & 1 & 1 & 0 & 1 & 0 \\
+
+    \hline
+
+    \end{tabular}'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark per mark point for working (Max 2)}
+
+    \begin{itemize}
+
+    \item number converted to binary e.g., positive binary version of $25.3125 = (0)11001.0101$
+
+    \item two''s complement version bits flipped and 1 added $= 100110.1011$
+
+    \item $-32 + 4 + 2 + 0.5 + 0.125 + 0.0625$ // $-32 + 4 + 2 + 1/2 + 1/8 + 1/16$
+
+    \item movement of binary point seen (5 places)
+
+    \end{itemize}
+
+    \textbf{One mark per mark point}
+
+    \begin{itemize}
+
+    \item correct mantissa
+
+    \item correct exponent
+
+    \end{itemize}
+
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+
+    \multicolumn{10}{l}{\textbf{Mantissa}} \\
+
+    \hline
+
+    1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 \\
+
+    \hline
+
+    \end{tabular}
+
+    \quad
+
+    \begin{tabular}{|c|c|c|c|c|c|}
+
+    \multicolumn{6}{l}{\textbf{Exponent}} \\
+
+    \hline
+
+    0 & 0 & 0 & 1 & 0 & 1 \\
+
+    \hline
+
+    \end{tabular}'
+  mark_scheme: []
+  graphics: []
+- number: 3a
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark per mark point (Max 5)}
+
+
+    \textbf{One mark per mark point for purpose of Application Layer (Max 3)}
+
+    \begin{itemize}
+
+    \item MP1 To provide services / interface with the user // access to applications,
+    for example login, file transfer, network file access, email, etc
+
+    \item MP2 To provide mechanisms for securing communication e.g. encryption/authentication
+
+    \item MP3 To define/provide protocols used to allow the exchange of data/communication
+    // to contain programs that exchange data
+
+    \item MP4 Error detection and recovery mechanisms to handle application specific
+    errors
+
+    \end{itemize}
+
+    \textbf{One mark per mark point for purpose of Transport Layer (Max 3)}
+
+    \begin{itemize}
+
+    \item MP5 To provide logical communication between applications running on different
+    hosts // To ensure that data is delivered to the correct application process on
+    the destination machine
+
+    \item MP6 To ensure error-free, end-to-end delivery of data between a source and
+    a destination, in sequence // to provide error recovery techniques such as error
+    detection codes and automatic repeat request
+
+    \item MP7 To break data into segments when sent and to reconstruct when received
+    // To reassemble segments at destination
+
+    \item MP8 To regulate network connections // to provide flow control mechanisms
+    to prevent data loss.
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: 3b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark per mark point (Max 4)}
+
+    \begin{itemize}
+
+    \item MP1 Data are broken into equal sized packets
+
+    \item MP2 Data packets have headers containing information such as the IP addresses
+    of the sender and receiver
+
+    \item MP3 Each packet of data is sent independently to the destination // Packets
+    don''t necessarily follow the same route
+
+    \item MP4 Each packet is sent via the most optimum path available
+
+    \item MP5 Packets don''t necessarily arrive in the order they were sent // Packets
+    are reconstructed at the destination in the correct order
+
+    \item MP6 Missing / damaged packets are re-sent
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 'One mark per mark point
+
+    MP1 Any two nodes added correctly with correct data (6, 15, 41, 66) and arrows
+
+    MP2 Remaining two nodes added with correct data (6, 15, 41, 66) and all nodes
+    with connecting arrows starting from pointer boxes
+
+    MP3 Correct null pointers (-1) added throughout
+
+    MP4 … with no entries in other pointer boxes and all nodes correctly positioned
+    and connected'
+  mark_scheme: []
+  graphics:
+  - page: 9
+    x0: 0.15
+    y0: 0.3
+    x1: 0.62
+    y1: 0.81
+- number: 4b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark per mark point}
+
+    \begin{itemize}
+
+    \item MP1 A technique used to solve problems using a function/procedure/subroutine
+    that calls itself (general case)
+
+    \item MP2 … until the terminating condition / base case is achieved, when no further
+    recursive calls are made
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark}
+
+    \begin{itemize}
+
+    \item Stack
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{Two marks for all six correct terms}
+
+    \textbf{One mark for any three correct terms}
+
+    \newline
+
+    $\mathbf{Z = \bar{A}.\bar{B}.\bar{C}.\bar{D} + \bar{A}.B.\bar{C}.\bar{D} + \bar{A}.B.C.D
+    + A.\bar{B}.\bar{C}.\bar{D} + A.B.\bar{C}.D + A.B.C.D}$'
+  mark_scheme: []
+  graphics: []
+- number: 5bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: "\\textbf{Two marks if no errors present}\n\\textbf{One mark\
+    \ if one error present}\n\\newline\n\\begin{alltt}\n          AB\n  CD      00\
+    \   01   11   10\n      00   1    0    0    1\n      01   0    1    1    0\n \
+    \     11   0    1    1    0\n      10   0    0    0    0\n\\end{alltt}"
+  mark_scheme: []
+  graphics: []
+- number: 5bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: "\\textbf{One mark for each correct loop}\n\n\\begin{alltt}\n\
+    \        AB\nCD      00   01   11   10\n   00 |  1 |  0 |  0 |  1 |\n   01 | \
+    \ 0 |  1 |  1 |  0 |\n   11 |  0 |  1 |  1 |  0 |\n   10 |  0 |  0 |  0 |  0 |\n\
+    \\end{alltt}"
+  mark_scheme: []
+  graphics:
+  - page: 11
+    x0: 0.16
+    y0: 0.22
+    x1: 0.46
+    y1: 0.48
+- number: 5biii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark for each mark point}
+
+    \begin{itemize}
+
+    \item One correct Boolean term
+
+    \item Boolean terms and operator correct and no other terms present
+
+    \end{itemize}
+
+    $\mathbf{Z = B.D + \overline{B}.\overline{C}.\overline{D}}$ // $\mathbf{\overline{B}.\overline{C}.\overline{D}
+    + B.D}$'
+  mark_scheme: []
+  graphics: []
+- number: '6'
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark for each mark point (Max 4)}
+
+    \begin{itemize}
+
+    \item MP1 The interpreter translates the source code one line at a time
+
+    \item MP2 If the line is syntax error free it is executed
+
+    \item MP3 It is not stored in executable format
+
+    \item MP4 If an error is found, the program halts with an error message
+
+    \item MP5 Each line must be translated every time it is run, including lines running
+    multiple times for example in loops
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: 7a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark for each correct answer}
+
+    \newline
+
+    \texttt{\#Jd7} – must begin with a member of the group uppercase // cannot begin
+    with a symbol
+
+    \newline
+
+    \texttt{C\%6A} – the fourth character cannot be a member of the group uppercase
+    // the fourth character must be either a symbol, digit or lowercase'
+  mark_scheme: []
+  graphics: []
+- number: 7b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark per mark point}
+
+    \begin{alltt}
+
+    <uppercase> ::= A | C | E | G | J
+
+    <passcode> ::= <uppercase><code>
+
+    <code> ::= <lowercase>|<symbol>|<digit>
+
+    |<lowercase><code>|<symbol><code>|<digit><code>
+
+    \end{alltt}'
+  mark_scheme: []
+  graphics: []
+- number: 8a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark for each mark point}
+
+    \begin{itemize}
+
+    \item MP1 Running multiple processes concurrently
+
+    \item MP2 … which benefits process management by allowing more tasks to complete
+    than would be the case if they had to run one task after another.
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: 8b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark for each mark point (Max 3)}
+
+    \begin{itemize}
+
+    \item MP1 The processes are queued as they arrive
+
+    \item MP2 Processes with the shortest burst time are executed first
+
+    \item MP3 It is a pre-emptive scheduling function // When a process with a shorter
+    burst time arrives the existing process is replaced by the shorter process.
+
+    \item MP4 The scheduler will continue to choose shorter processes over longer
+    processes if they continue to be added to the queue can cause starvation for longer
+    jobs
+
+    \end{itemize}
+
+    \textbf{One mark for benefit (Max 1) e.g.}
+
+    \begin{itemize}
+
+    \item MP5 Processes with a short burst time are processed very quickly
+
+    \item MP6 Waiting time is minimised
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: 9a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark for each mark point (Max 2)}
+
+    \begin{itemize}
+
+    \item MP1 Ensure security/privacy when using the internet
+
+    \item MP2 Data encryption
+
+    \item MP3 Identification / authentication of client and server
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: 9b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark for each mark point (Max 2)}
+
+    \begin{itemize}
+
+    \item MP1 When transmitting authentication data e.g. passwords, session cookies
+
+    \item MP2 When transmitting data that must be protected from modification on its
+    way to or from a server e.g. user input, or results from the server
+
+    \item MP3 When transmitting data classified as non-public.
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark for each mark point (Max 2)}
+
+    \begin{itemize}
+
+    \item MP1 A graph is used in AI to record relationships between entities
+
+    \item MP2 … using vertices / nodes and edges
+
+    \item MP3 for example, to represent places on a map and the distances between
+    them, in order to find the shortest route.
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: long_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark for each mark point (Max 4)}
+
+    \begin{itemize}
+
+    \item MP1 Artificial neural networks are designed to work in the same way as the
+    human brain
+
+    \item MP2 ANNs provide the architecture and algorithms for learning from the data
+
+    \item MP3 They have a large number of connected processing units / nodes
+
+    \item MP4 … that are arranged in layers / interconnected and work together to
+    process data
+
+    \item MP5 Deep learning models learn from data by adjusting the weights/biases
+    of the connections between neurons
+
+    \item MP6 They use multiple hidden layers to extract complex features and to make
+    predictions
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: 11a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark per mark point}
+
+    \begin{itemize}
+
+    \item MP1 Two correct attributes (\texttt{PatientID : INTEGER} and \texttt{Doctor
+    : STRING})
+
+    \item MP2 \texttt{SetTreatments(...)} and \texttt{SetMedications(...)} seen
+
+    \item MP3 ... and appropriate parameters, with string data types
+
+    \item MP4 \texttt{GetPatientID()} and \texttt{GetDoctor()} seen
+
+    \item MP5 \texttt{SetDateSeen(...)} and \texttt{GetDateSeen()} fully correct with
+    appropriate parameter and correct data type in setter.
+
+    \end{itemize}
+
+    \begin{alltt}
+
+    Appointment
+
+    ---------------------------------------------------------
+
+    DateSeen                      : DATE
+
+    PatientID                     : INTEGER
+
+    Doctor                        : STRING
+
+    Treatments                    : STRING
+
+    Medications                   : STRING
+
+    ---------------------------------------------------------
+
+    SetDateSeen(NewDate : DATE)
+
+    SetPatientID(PatientNumber : INTEGER)
+
+    SetDoctor(DoctorID : STRING)
+
+    SetTreatments(NewTreatments : STRING)
+
+    SetMedications(NewMedications : STRING)
+
+    GetDateSeen()
+
+    GetPatientID()
+
+    GetDoctor()
+
+    GetTreatments()
+
+    GetMedications()
+
+    \end{alltt}'
+  mark_scheme: []
+  graphics: []
+- number: 11bi
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: Encapsulation
+  mark_scheme: []
+  graphics: []
+- number: 11bii
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '\textbf{One mark for each mark point (Max 2)}
+
+    \begin{itemize}
+
+    \item MP1 Inheritance is where a derived class takes properties / behaviours attributes
+    / methods
+
+    \item MP2 ... of a parent / super class / base class
+
+    \item MP3 The attributes / methods / properties taken from the parent / super
+    class / base class can also be extended / copied / used / changed / overwritten
+    / overridden in the subclass.
+
+    \end{itemize}'
+  mark_scheme: []
+  graphics: []
+- number: '12'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: "\\textbf{One mark for each correctly completed line (Max 5)}\n\
+    \\begin{alltt}\nDECLARE Location : INTEGER\nDECLARE Item : STRING\nDECLARE Continue\
+    \ : BOOLEAN\nDECLARE Answer : CHAR\nContinue <- TRUE\nOPENFILE \"StockList.dat\"\
+    \ FOR RANDOM\n\nWHILE Continue\n  OUTPUT \"Enter a location between 1 and 500:\
+    \ \"\n  INPUT Location\n  SEEK \"StockList.dat\", Location\n  GETRECORD \"StockList.dat\"\
+    , Item\n\n  IF Item = \"\" THEN\n    THEN\n      OUTPUT \"This record is missing\"\
+    \n    ELSE\n      OUTPUT \"The item in stock is \", Item\n  ENDIF\n\n  OUTPUT\
+    \ \"Another location (Y or N)?\"\n  INPUT Answer\n\n  IF Answer <> 'Y' THEN\n\
+    \    THEN\n      Continue <- FALSE\n  ENDIF\nENDWHILE\n\nCLOSEFILE \"StockList.dat\"\
+    \nOUTPUT \"End of program\"\n\\end{alltt}"
+  mark_scheme: []
+  graphics: []

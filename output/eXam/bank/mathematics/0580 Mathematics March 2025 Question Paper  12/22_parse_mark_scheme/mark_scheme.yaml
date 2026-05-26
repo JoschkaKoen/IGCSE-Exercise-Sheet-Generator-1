@@ -1,0 +1,414 @@
+questions:
+- number: '1'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 20 000
+  mark_scheme: []
+  graphics: []
+- number: 2a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '7'
+  mark_scheme: []
+  graphics: []
+- number: 2b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $\frac{7}{100}$
+  mark_scheme: []
+  graphics: []
+- number: 2c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $7 \times 10^{-2}$
+  mark_scheme: []
+  graphics: []
+- number: '3'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    1 2 3 6 9 18
+    B1 for 4 correct and no extras
+    or for 6 correct and one incorrect
+  mark_scheme: []
+  graphics: []
+- number: 4a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1000'
+  mark_scheme: []
+  graphics: []
+- number: 4b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3'
+  mark_scheme: []
+  graphics: []
+- number: 4c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '1'
+  mark_scheme: []
+  graphics: []
+- number: 5a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    2 correct lines of symmetry drawn
+    B1 for one line correct and no extras
+    or for 2 lines correct and one extra
+  mark_scheme: []
+  graphics: []
+- number: 5b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 1 square correctly shaded
+  mark_scheme: []
+  graphics:
+  - page: 7
+    x0: 0.17
+    y0: 0.45
+    x1: 0.36
+    y1: 0.565
+- number: '6'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    4
+    M1 for $\frac{1}{0.25}$ oe
+  mark_scheme: []
+  graphics: []
+- number: '7'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    32
+    B1 for 18 or 14
+  mark_scheme: []
+  graphics: []
+- number: '8'
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $\frac{3}{10}$ $\frac{1}{3}$ 34\% 3 $\pi$
+    B1 for 4 in the correct order
+    or M1 for decimal equivalents to compare numbers 0.34, 3.1.., 0.33, [3], 0.3
+  mark_scheme: []
+  graphics: []
+- number: '9'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '2045'
+  mark_scheme: []
+  graphics: []
+- number: 10a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '20'
+  mark_scheme: []
+  graphics: []
+- number: 10b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: 10 squares shaded
+  mark_scheme: []
+  graphics: []
+- number: 11a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '3.978'
+  mark_scheme: []
+  graphics: []
+- number: 11b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '19.5'
+  mark_scheme: []
+  graphics: []
+- number: 12a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $(29 + 21) \times (29 - 21)$
+    $= 50 \times 8$
+    M1
+    400
+    A1
+  mark_scheme: []
+  graphics: []
+- number: 12b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    12000
+    M1 for $(17^2 - 13^2) [\times 100]$ oe
+  mark_scheme: []
+  graphics: []
+- number: '13'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '8000'
+  mark_scheme: []
+  graphics: []
+- number: 14a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    5 9
+    B1 for each
+  mark_scheme: []
+  graphics: []
+- number: 14b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $\sqrt{3^2 + 4^2}$ [=5]
+    M1 for $3^2 + 4^2$
+  mark_scheme: []
+  graphics: []
+- number: 14c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    correct net drawn
+    B2 for 3 correct extra faces drawn in correct places
+    or B1 for 1 correct extra face drawn in correct place
+  mark_scheme: []
+  graphics: []
+- number: 15a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: equilateral
+  mark_scheme: []
+  graphics: []
+- number: 15b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    120
+    B1 for $DBC = 60$
+    Angles in an equilateral triangle are equal
+    Angles on a straight line add to 180
+  mark_scheme: []
+  graphics: []
+- number: 16a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: positive
+  mark_scheme: []
+  graphics: []
+- number: 16b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: the higher the temperature the higher the number of people oe
+  mark_scheme: []
+  graphics: []
+- number: 17a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $[y =] \frac{1}{2}x + 3$ final answer
+    B1 for $\frac{1}{2}x + c$
+    or B1 for $mx + 3$ where $m \neq 0$
+  mark_scheme: []
+  graphics: []
+- number: 17b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $(-6, 0)$
+    B1 for $(-6, j)$ or $(k, 0)$
+    or M1 for $0 = \text{their } \frac{1}{2}x + 3$ or better
+  mark_scheme: []
+  graphics: []
+- number: 18a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $-2$ $-4$ $-12$ $12$ $4$ $2$
+    B2 for 4 correct
+    or B1 for 1 correct
+  mark_scheme: []
+  graphics: []
+- number: 18b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    Correct curve
+    B3FT for 9 points correctly plotted
+    or B2FT for 7 points correctly plotted
+    or B1FT for 5 points correctly plotted
+  mark_scheme: []
+  graphics: []
+- number: 18c
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: $y = -9$ correctly drawn, ruled
+  mark_scheme: []
+  graphics: []
+- number: 18d
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $-1.4$ to $-1.2$
+    FT \textit{their} curve and $y = -9$
+  mark_scheme: []
+  graphics: []
+- number: 19a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    9 11 13 15 final answer
+    B1 for 3 correct and no errors
+    or for 4 correct and one extra
+  mark_scheme: []
+  graphics: []
+- number: 19b
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    Pip needed to use two $\leqslant$ signs oe
+  mark_scheme: []
+  graphics: []
+- number: '20'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    634.5 635.5
+    B1 for each
+    If 0 scored SC1 for both correct but answers reversed
+  mark_scheme: []
+  graphics: []
+- number: 21a
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    50
+    M1 for $\frac{1}{3} \times 5^2 \times 6$ or better
+  mark_scheme: []
+  graphics: []
+- number: 21b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $p = \frac{3X}{w^2}$ or $p = 3Xw^{-2}$ final answer
+    M1 for $3X = w^2 p$ or $\frac{X}{w^2} = \frac{1}{3}p$ or $Xw^{-2} = \frac{1}{3}p$
+  mark_scheme: []
+  graphics: []
+- number: '22'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $\frac{2}{3}$ cao
+    B2 for final answer $\frac{10}{15}$ or equivalent fraction
+    OR
+    B1 for $\frac{22}{15}$ or $\frac{7}{15} + \frac{1}{5}$
+    M1 for $\frac{3 \times 4}{3 \times 5}$ oe or $\frac{3 \times 1}{3 \times 5}$ oe
+  mark_scheme: []
+  graphics: []
+- number: 23a
+  question_type: short_answer
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $\frac{9}{10} \quad \frac{1}{10} \quad \frac{9}{10} \quad \frac{1}{10} \quad \frac{9}{10}$
+    B1 for $\frac{1}{10}$ and $\frac{1}{10}$ in correct places in 2nd battery
+    or $\frac{9}{10}$ correctly placed for the first battery
+  mark_scheme: []
+  graphics: []
+- number: 23b
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $\frac{1}{100}$ oe
+    M1 for $\frac{1}{10} \times \text{their } \frac{1}{10}$
+  mark_scheme: []
+  graphics: []
+- number: 23c
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: '300'
+  mark_scheme: []
+  graphics: []
+- number: '24'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $\frac{7\pi}{2}$ or $3.5\pi$
+    M2 for $2\pi \times 7 = 4x$ oe
+    or M1 for $2\pi \times 7$ or $14\pi$ or $4x$
+  mark_scheme: []
+  graphics: []
+- number: '25'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $\frac{10}{5} \times 7 [= 14]$ oe
+  mark_scheme: []
+  graphics: []
+- number: '26'
+  question_type: calculation
+  correct_answer: null
+  explanation: null
+  mark_scheme_answer: |-
+    $[t =] 0.5$
+    $[w = -] 3$
+
+    M1 for correctly equating one set of coefficients
+    M1 for correct method to eliminate one variable
+    OR
+    M1 for making $t$ or $w$ the subject of one equation
+    M1 for substitution of $t$ or $w$ from their rearranged equation
+
+    A1 for $t = 0.5$
+    A1 for $w = -3$
+
+    If A0 scored SC1 for 2 values satisfying one of the original equations
+  mark_scheme: []
+  graphics: []

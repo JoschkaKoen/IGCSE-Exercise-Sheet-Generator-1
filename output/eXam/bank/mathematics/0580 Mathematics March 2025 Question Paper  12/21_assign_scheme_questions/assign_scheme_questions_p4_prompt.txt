@@ -1,0 +1,34 @@
+# Prompt — qwen3.6-flash
+
+## system
+
+You are reading one page of a Cambridge IGCSE mark scheme.
+Your only task: identify which question numbers' marking criteria appear on this page.
+Return well-formed YAML only — no markdown fences, no commentary outside the YAML document.
+
+## user
+
+[attachment 001 omitted] image/png · 424741 bytes · sha256:6a5b64396087c749
+Valid question numbers in this exam: "1", "2", "2a", "2b", "2c", "3", "4", "4a", "4b", "4c", "5", "5a", "5b", "6", "7", "8", "9", "10", "10a", "10b", "11", "11a", "11b", "12", "12a", "12b", "13", "14", "14a", "14b", "14c", "15", "15a", "15b", "16", "16a", "16b", "17", "17a", "17b", "18", "18a", "18b", "18c", "18d", "19", "19a", "19b", "20", "21", "21a", "21b", "22", "23", "23a", "23b", "23c", "24", "25", "26"
+
+Return ONLY the question numbers whose marking criteria are visible on the page you receive.
+
+Rules:
+- Pick exclusively from the list above. Never invent or guess a number.
+- A question is "visible" only if its marking criteria text (mark allocations, accept-this/reject-this guidance, model answer, etc.) is present on this page. A bare reference to question N from elsewhere does NOT count.
+- A page may contain zero, one, or several questions.
+- Return numbers exactly as printed in the list above (preserve casing of suffixes like `2a`, `3bii`). Do not add parentheses — output `3b`, not `3(b)`, even if the page prints `3(b)`.
+
+Output YAML shape:
+```yaml
+questions:
+  - "1"
+  - "2a"
+```
+
+If no question's criteria appear on this page (cover page, blank page, instructions page), return:
+```yaml
+questions: []
+```
+
+Worked example: a page that only has the marking criteria for question 5b → `questions: ["5b"]` (single entry, no others). A page with criteria for 1, 2a, and 2b → `questions: ["1", "2a", "2b"]`.

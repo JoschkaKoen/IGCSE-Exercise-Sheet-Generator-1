@@ -1,0 +1,92 @@
+questions:
+  - number: "25"
+    type: multiple_choice
+    text: |
+      The table shows the observations when four metals, Q, R, S and T, are added separately to cold water and to dilute hydrochloric acid.
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      metal & \begin{tabular}[c]{@{}c@{}}observation with\\ cold water\end{tabular} & \begin{tabular}[c]{@{}c@{}}observation with\\ dilute hydrochloric acid\end{tabular} \\ \hline
+      Q & slow fizzing & fizzing \\
+      R & no reaction & fizzing \\
+      S & no reaction & no reaction \\
+      T & vigorous fizzing & vigorous fizzing \\ \hline
+      \end{tabular}
+
+      Which row gives the order of reactivity of the metals?
+
+      \begin{tabular}{ccccc}
+      & least & $\xrightarrow{\hspace{3cm}}$ & most & \\
+      & reactive & & reactive & \\
+      \end{tabular}
+    options:
+      - letter: A
+        text: |
+          S \quad Q \quad R \quad T
+      - letter: B
+        text: |
+          T \quad R \quad Q \quad S
+      - letter: C
+        text: |
+          S \quad R \quad Q \quad T
+      - letter: D
+        text: |
+          T \quad Q \quad R \quad S
+  - number: "26"
+    type: multiple_choice
+    text: |
+      Magnesium is reacted separately with dilute sulfuric acid and with steam.
+
+      Which row correctly identifies if hydrogen is formed as a product in each reaction?
+
+      \begin{tabular}{|c|c|c|}
+      \hline
+      & \begin{tabular}[c]{@{}c@{}}reaction with\\ dilute sulfuric acid\end{tabular} & \begin{tabular}[c]{@{}c@{}}reaction with\\ steam\end{tabular} \\ \hline
+      \textbf{A} & \checkmark & \checkmark \\
+      \textbf{B} & \checkmark & \textsf{x} \\
+      \textbf{C} & \textsf{x} & \checkmark \\
+      \textbf{D} & \textsf{x} & \textsf{x} \\ \hline
+      \end{tabular}
+
+      key
+
+      \checkmark = hydrogen is formed
+
+      \textsf{x} = hydrogen is \textbf{not} formed
+    options:
+      - letter: A
+        text: |
+          \checkmark \quad \checkmark
+      - letter: B
+        text: |
+          \checkmark \quad \textsf{x}
+      - letter: C
+        text: |
+          \textsf{x} \quad \checkmark
+      - letter: D
+        text: |
+          \textsf{x} \quad \textsf{x}
+  - number: "27"
+    type: multiple_choice
+    text: |
+      Which statements about aluminium are correct?
+
+      \begin{enumerate}
+      \item It is more reactive than calcium.
+      \item The main ore of aluminium is bauxite.
+      \item It can be extracted from its oxide using carbon.
+      \item Brass is an alloy of aluminium and copper.
+      \end{enumerate}
+    options:
+      - letter: A
+        text: |
+          1 and 2
+      - letter: B
+        text: |
+          1 and 3
+      - letter: C
+        text: |
+          2 only
+      - letter: D
+        text: |
+          3 and 4

@@ -1,0 +1,24 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "0580/12 Cambridge IGCSE – Mark Scheme February/March 2025 PUBLISHED".
+    *   The title is "Generic Marking Principles".
+    *   The text describes general rules for examiners (e.g., "Marks must be awarded in line with...", "Marks awarded are always whole marks", etc.).
+    *   There are six principles listed: GENERIC MARKING PRINCIPLE 1 through 6.
+    *   There are no specific question numbers (like "Question 1", "Q2a", etc.) or specific marking instructions for a particular math problem visible on this page. It is a generic introductory page explaining how to mark.
+
+2.  **Compare with the valid question list:**
+    *   The list contains specific questions like "1", "2", "2a", etc.
+    *   None of these appear as headers or content for marking criteria on this specific page. This page is purely about "Generic Marking Principles".
+
+3.  **Determine the output:**
+    *   Since no specific question marking criteria are present, the list should be empty.
+
+4.  **Final formatting:**
+    *   Return `questions: []`.
+[/thinking]
+
+```yaml
+questions: []
+```

@@ -1,0 +1,17 @@
+questions:
+- number: 6a
+  type: calculation
+  marks: 2
+  mark_scheme_answer: ''
+- number: 6b
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: ''
+- number: 6ci
+  type: calculation
+  marks: 2
+  mark_scheme_answer: ''
+- number: 6cii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: ''

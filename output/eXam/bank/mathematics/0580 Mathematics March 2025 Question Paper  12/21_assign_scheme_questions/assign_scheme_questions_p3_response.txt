@@ -1,0 +1,23 @@
+[thinking]
+The user wants me to identify which question numbers have their marking criteria on this specific page.
+
+1.  **Analyze the image:**
+    *   The header says "0580/12 Cambridge IGCSE – Mark Scheme February/March 2025 PUBLISHED".
+    *   There is a large box titled "Mathematics-Specific Marking Principles".
+    *   Inside the box, there are numbered points 1 through 6. These are general principles (e.g., "Unless a particular method has been specified...", "Unless specified in the question..."). They are not specific to any question number like "Question 1" or "Question 5a".
+    *   The footer says "Page 3 of 10".
+    *   There are no specific question numbers (like 1, 2, 3...) associated with marking criteria text. The text is purely instructional for markers.
+
+2.  **Evaluate against the rules:**
+    *   "A question is 'visible' only if its marking criteria text (mark allocations, accept-this/reject-this guidance, model answer, etc.) is present on this page."
+    *   This page contains general principles, not specific question criteria.
+    *   Therefore, no question numbers from the provided list are visible as having marking criteria here.
+
+3.  **Formulate the output:**
+    *   Since no specific question criteria are present, the list should be empty.
+    *   Output: `questions: []`
+[/thinking]
+
+```yaml
+questions: []
+```

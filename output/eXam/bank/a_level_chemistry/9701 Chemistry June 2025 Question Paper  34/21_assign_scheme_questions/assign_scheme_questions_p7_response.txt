@@ -1,0 +1,33 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The header says "Cambridge International AS & A Level – Mark Scheme".
+    *   There is a table with columns "Question", "Answer", and "Marks".
+    *   Under the "Question" column, I see "1(a)".
+    *   The content under "Answer" corresponds to this question number. It lists criteria labeled I, II, III, IV, and then "Accuracy (Q) marks" with V, VI, VII.
+    *   The text describes burette readings, titrations, accuracy marks, etc. This is clearly marking criteria for Question 1(a).
+
+2.  **Map to valid question numbers:**
+    *   The visible question number is "1(a)".
+    *   Looking at the allowed list: "1", "1a", "1b", "1c", "1ci", "1cii", "1ciii", "1civ", "1cv", "1d", ...
+    *   "1(a)" maps to "1a" in the allowed list format (removing parentheses). Wait, let's look closer at the allowed list.
+    *   The allowed list has "1a". The image shows "1(a)". This is a match.
+    *   Are there other questions?
+        *   The section "Accuracy (Q) marks" seems to be part of the marking instructions for 1(a), specifically regarding how to award marks based on the difference between supervisor and candidate mean titres. It doesn't introduce a new question number like "1(b)". It's still under the umbrella of the practical task described in 1(a).
+        *   The Roman numerals I, II, III, IV are sub-points of 1(a).
+        *   The letters V, VI, VII are also sub-points related to accuracy marks for 1(a).
+
+3.  **Final Selection:**
+    *   Only "1a" is present.
+
+4.  **Formatting:**
+    *   YAML format.
+    *   `questions: ["1a"]`
+
+[/thinking]
+
+```yaml
+questions:
+  - "1a"
+```

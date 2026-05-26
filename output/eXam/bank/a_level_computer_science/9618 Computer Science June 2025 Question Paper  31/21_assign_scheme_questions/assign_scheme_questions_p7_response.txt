@@ -1,0 +1,27 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a table with columns "Question", "Answer", and "Marks".
+    *   I see rows corresponding to specific questions.
+    *   Row 1: Question column says "2(a)". The Answer column has details about mantissa and exponent. This corresponds to question "2a".
+    *   Row 2: Question column says "2(b)". The Answer column has details about binary conversion, two's complement, etc. This corresponds to question "2b".
+
+2.  **Map to valid question numbers:**
+    *   "2(a)" maps to "2a" in the allowed list.
+    *   "2(b)" maps to "2b" in the allowed list.
+
+3.  **Construct the output:**
+    *   The list should contain "2a" and "2b".
+    *   Format as YAML.
+
+4.  **Final check:**
+    *   Are there any other questions? No.
+    *   Are the formats correct? Yes, "2a" and "2b" are in the allowed list.
+[/thinking]
+
+```yaml
+questions:
+  - "2a"
+  - "2b"
+```

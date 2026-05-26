@@ -1,0 +1,40 @@
+questions:
+- number: 3cii
+  type: long_answer
+  marks: 6
+  mark_scheme_answer: |
+    \textbf{One mark from:}
+    \begin{itemize}
+    \item Serial
+    \item Parallel
+    \end{itemize}
+    \textbf{One mark from:}
+    \begin{itemize}
+    \item Half-duplex
+    \item Full-duplex
+    \item Simplex
+    \end{itemize}
+    \textbf{Any four from (for descriptions matching transmission types given):}
+    \newline
+    \textbf{serial}
+    \begin{itemize}
+    \item Serial would send bits in order // serial uses only one wire.
+    \item ... so won't be skewed // less likely to have errors
+    \item Serial transmission speed would be adequate.
+    \end{itemize}
+    \textbf{parallel}
+    \begin{itemize}
+    \item Parallel would transmit data faster.
+    \item ... as multiple bits are sent at the \textbf{same time} // ... as multiple wires are used.
+    \item For parallel, chance of \textbf{skewing/errors} would be low as \textbf{short distance} transmission only required.
+    \end{itemize}
+    \textbf{half/full duplex}
+    \begin{itemize}
+    \item To allow data to be sent in both directions
+    \item ... so any interrupts/notifications for errors can be sent back to the computer.
+    \end{itemize}
+    \textbf{simplex}
+    \begin{itemize}
+    \item Data \textbf{only} needs to be sent one direction // Data transmission doesn't need to be two-way.
+    \item ... as the printer may not need to send errors back to the computer
+    \end{itemize}

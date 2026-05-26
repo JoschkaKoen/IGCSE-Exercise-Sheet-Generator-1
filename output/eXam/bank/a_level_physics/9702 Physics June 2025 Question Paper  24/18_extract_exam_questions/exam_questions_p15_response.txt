@@ -1,0 +1,27 @@
+questions:
+  - number: "7"
+    type: short_answer
+    text: |
+      STUB ERROR
+  - number: "7a"
+    type: short_answer
+    text: |
+      State the names of \textbf{two} different leptons.
+
+      1. \hrulefill
+      2. \hrulefill
+  - number: "7b"
+    type: short_answer
+    text: |
+      In the following list, underline all the particles that are hadrons.
+
+      \begin{itemize}
+      \item antineutrino
+      \item beta-plus
+      \item meson
+      \item neutron
+      \end{itemize}
+  - number: "7c"
+    type: calculation
+    text: |
+      By reference to quark composition, show that the charge of a proton is $+1.6 \times 10^{-19} \text{ C}$.

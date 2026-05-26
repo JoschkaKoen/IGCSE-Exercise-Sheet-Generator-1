@@ -1,0 +1,26 @@
+questions:
+- number: 3a
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    \textbf{Any two from:}
+    \begin{itemize}
+    \item It is easier to debug.
+    \item Less likely to make errors.
+    \item The program is machine independent/portable
+    \end{itemize}
+- number: 3bi
+  type: short_answer
+  marks: 5
+  mark_scheme_answer: |
+    \textbf{One mark for each correct term in the correct place.}
+    \begin{itemize}
+    \item whole code
+    \item executing
+    \item all
+    \item line by line
+    \item error
+    \end{itemize}
+    A compiler translates the \textbf{whole code} at once before \textbf{executing} it. A compiler produces an error report that displays \textbf{all} errors.
+    \newline
+    An interpreter translates and executes the code \textbf{line by line}. An interpreter stops execution when an \textbf{error} is found and continues once it is corrected.

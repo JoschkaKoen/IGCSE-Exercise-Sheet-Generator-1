@@ -1,0 +1,19 @@
+[thinking]
+The user wants me to identify the question numbers from a Cambridge IGCSE mark scheme page.
+
+1.  **Analyze the image:**
+    *   The header says "9700/42", "Cambridge International AS & A Level – Mark Scheme", "October/November 2025".
+    *   There is a box containing text.
+    *   Inside the box, there are numbered sections: "6" and "7".
+    *   Section 6 is titled "Calculation specific guidance". It contains general rules about calculations (significant figures, standard form, units). This looks like general guidance for the whole paper or specific calculation questions, but it's labeled as item 6 in the mark scheme structure. Wait, looking closely at the prompt's list of valid question numbers: "6", "6a", "6b" are valid. The text under "6" is "Calculation specific guidance". This is likely a general instruction section often found at the start of a mark scheme, not a specific question answer key. However, the prompt asks for "question numbers' marking criteria". Let's look at section 7.
+    *   Section 7 is titled "Guidance for chemical equations". It talks about multiples/fractions of coefficients and state symbols. Again, this looks like general guidance.
+    *   Let's re-read the prompt carefully: "identify which question numbers' marking criteria appear on this page."
+    *   The text is clearly labeled "6 Calculation specific guidance" and "7 Guidance for chemical equations". These are headings within the mark scheme document itself, likely part of the introductory notes or general instructions before the specific question answers.
+    *   However, let's look at the "Valid question numbers" list provided: "1", "1a", ..., "6", "6a", "6b", "7", "7a", ...
+    *   The text under "6" and "7" describes *how* to mark calculations and equations generally. It doesn't give the answer to Question 6 or Question 7. For example, Question 6 usually has parts like 6a, 6b. Here, "6" is just a heading for a block of text.
+    *   Is it possible that "6" and "7" refer to the question numbers? In many mark schemes, there are general notes at the beginning. But sometimes, specific questions have these
+[/thinking]
+
+```yaml
+questions: []
+```

@@ -1,0 +1,31 @@
+questions:
+  - number: "23"
+    type: short_answer
+    text: |
+      Mai buys two batteries.
+      The probability that a battery is faulty is $\frac{1}{10}$.
+  - number: "23a"
+    type: short_answer
+    text: |
+      Complete the tree diagram.
+
+      \begin{tabular}{ccc}
+      First battery & & Second battery \\
+       & & \underline{\hspace{1.5em}} Faulty \\
+       & Faulty & \\
+      $\frac{1}{10}$ & & \underline{\hspace{1.5em}} Not faulty \\
+       & & \\
+      \underline{\hspace{1.5em}} & & \underline{\hspace{1.5em}} Faulty \\
+       & Not faulty & \\
+       & & \underline{\hspace{1.5em}} Not faulty \\
+      \end{tabular}
+  - number: "23b"
+    type: calculation
+    text: |
+      Find the probability that Mai buys two faulty batteries.
+  - number: "23c"
+    type: calculation
+    text: |
+      A shop sells 3000 batteries in one month.
+
+      Work out the expected number of faulty batteries the shop sells.

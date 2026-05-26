@@ -1,0 +1,9 @@
+questions:
+  - number: "5cii"
+    type: long_answer
+    text: |
+      A patient is making a payment through a secure connection.
+
+      The secure connection is created using the secure socket layer (SSL) protocol.
+
+      Explain how a secure connection is created using the SSL protocol.

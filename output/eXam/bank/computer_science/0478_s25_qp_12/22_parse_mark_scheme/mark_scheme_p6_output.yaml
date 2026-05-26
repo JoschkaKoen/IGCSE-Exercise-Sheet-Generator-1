@@ -1,0 +1,65 @@
+questions:
+- number: 1a
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    Any one from:
+    \begin{itemize}
+    \item ROM
+    \item Cache
+    \end{itemize}
+- number: 1b
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: |
+    Any one from:
+    \begin{itemize}
+    \item It is volatile storage // Data is lost when the power is turned off.
+    \item It needs to be \textbf{regularly} replaced by other data // The data \textbf{regularly} changes // Data needs to be \textbf{constantly} updated
+    \end{itemize}
+- number: 1c
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    \begin{itemize}
+    \item 10011
+    \item 11100110
+    \end{itemize}
+- number: 1d
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    \begin{itemize}
+    \item 0011 0101
+    \item 1000 1010 1101
+    \end{itemize}
+- number: 1e
+  type: calculation
+  marks: 3
+  mark_scheme_answer: |
+    One mark for each correct nibble (MAX 2)
+    One mark for a correct method of working e.g. showing carries.
+    \begin{alltt}
+       1 1
+       0 1 1 0 0 1 0 1
+     + 0 1 1 1 0 0 0 0
+       ---------------
+       1 1 0 1 0 1 0 1
+    \end{alltt}
+- number: 1f
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: |
+    Any two from:
+    \begin{itemize}
+    \item The \textbf{result} is greater than 255 // The \textbf{result} is too large.
+    \item Cannot be stored in \textbf{8 bits} // Cannot be stored in the number of bits available for the \textbf{register}
+    \end{itemize}
+- number: 1g
+  type: calculation
+  marks: 2
+  mark_scheme_answer: |
+    One mark for a correct working method e.g. flip and add
+    One mark for correct answer
+    \newline
+    11101010

@@ -1,0 +1,26 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "9702/24", "Cambridge International AS & A Level – Mark Scheme", "May/June 2025".
+    *   There is a table with columns "Annotation" and "Meaning".
+    *   The rows in the table are:
+        *   `TE` | Transcription error
+        *   (Green checkmark) | Correct point or mark awarded
+        *   `XP` | Incorrect physics
+    *   The footer says "Page 6 of 14".
+    *   This page appears to be an introductory or legend page explaining the symbols used in the mark scheme. It does not contain specific marking criteria for any specific question (like "Question 1: ..."). It just defines general annotations.
+
+2.  **Evaluate against the rules:**
+    *   "A question is 'visible' only if its marking criteria text (mark allocations, accept-this/reject-this guidance, model answer, etc.) is present on this page."
+    *   This page contains definitions of annotations, not specific question criteria.
+    *   Therefore, no question numbers are visible.
+
+3.  **Formulate the output:**
+    *   Since no questions are visible, I must return an empty list.
+    *   Format: `questions: []`
+[/thinking]
+
+```yaml
+questions: []
+```

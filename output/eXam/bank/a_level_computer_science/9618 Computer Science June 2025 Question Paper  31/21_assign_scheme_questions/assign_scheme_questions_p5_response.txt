@@ -1,0 +1,24 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The header says "9618/31 Cambridge International AS & A Level – Mark Scheme May/June 2025 PUBLISHED".
+    *   There is a table with columns "Annotation" and "Meaning".
+    *   The rows list annotations like BOD, NAQ, SEEN, FT, I and their meanings (Benefit of Doubt, Not Answered Question, etc.).
+    *   The footer says "Page 5 of 15".
+    *   This page is clearly an introductory or legend page explaining the symbols used in the mark scheme. It does not contain specific marking criteria for any specific question (like "Question 1: Answer X"). It just defines terms like "BOD" or "FT".
+
+2.  **Evaluate against the rules:**
+    *   "A question is 'visible' only if its marking criteria text (mark allocations, accept-this/reject-this guidance, model answer, etc.) is present on this page."
+    *   This page contains definitions of annotations, not specific question answers.
+    *   Therefore, no specific question numbers are visible in terms of marking criteria.
+
+3.  **Formulate the output:**
+    *   Since no question criteria are present, the list should be empty.
+    *   Output format: `questions: []`
+
+[/thinking]
+
+```yaml
+questions: []
+```

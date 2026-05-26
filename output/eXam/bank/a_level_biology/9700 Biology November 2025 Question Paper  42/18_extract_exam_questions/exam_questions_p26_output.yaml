@@ -1,0 +1,15 @@
+questions:
+  - number: "10"
+    type: short_answer
+    text: |
+      Nerve impulses can be transmitted along a myelinated motor neurone to a neuromuscular junction at fast speeds of up to $100\text{ m}\,\text{s}^{-1}$.
+  - number: "10a"
+    type: short_answer
+    text: |
+      Outline how a transmission speed of $100\text{ m}\,\text{s}^{-1}$ is achieved by the neurone.
+  - number: "10b"
+    type: long_answer
+    text: |
+      When a nerve impulse reaches the neuromuscular junction, acetylcholine is released and diffuses to the sarcolemma.
+
+      Describe how the release of acetylcholine can result in the binding of calcium ions to troponin in the sarcomere.

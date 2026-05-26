@@ -1,0 +1,37 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a mark scheme page for "Cambridge International AS & A Level".
+    *   It contains two main tables.
+    *   **Table 1:**
+        *   Row 1: Question `3(b)(ii)`. Answer text starts with "any two from...". Marks: 2.
+        *   This corresponds to question number `3bii` based on the allowed list.
+    *   **Table 2:**
+        *   Row 1: Question `4(a)`. Answer text starts with "1 mutation ;". Marks: 2.
+        *   This corresponds to question number `4a`.
+        *   Row 2: Question `4(b)`. Answer text starts with "idea of tracking...". Marks: 1.
+        *   This corresponds to question number `4b`.
+        *   Row 3: Question `4(c)`. Answer text starts with "any three from...". Marks: 3.
+        *   This corresponds to question number `4c`.
+
+2.  **Map to allowed list:**
+    *   `3(b)(ii)` -> `3bii`
+    *   `4(a)` -> `4a`
+    *   `4(b)` -> `4b`
+    *   `4(c)` -> `4c`
+
+3.  **Construct the output:**
+    *   List: `["3bii", "4a", "4b", "4c"]`
+
+4.  **Final formatting:**
+    *   YAML format as requested.
+[/thinking]
+
+```yaml
+questions:
+  - "3bii"
+  - "4a"
+  - "4b"
+  - "4c"
+```

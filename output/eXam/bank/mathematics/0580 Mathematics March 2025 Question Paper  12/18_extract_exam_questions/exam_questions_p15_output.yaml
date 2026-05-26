@@ -1,0 +1,23 @@
+questions:
+  - number: "21"
+    type: short_answer
+    text: |
+      $$X = \frac{1}{3}w^2p$$
+  - number: "21a"
+    type: calculation
+    text: |
+      Find the value of $X$ when $w = 5$ and $p = 6$.
+
+      $X = \hrulefill$
+  - number: "21b"
+    type: calculation
+    text: |
+      Make $p$ the subject of the formula.
+
+      $p = \hrulefill$
+  - number: "22"
+    type: calculation
+    text: |
+      Work out $1 \frac{7}{15} - \frac{4}{5}$.
+
+      Give your answer as a fraction in its simplest form.

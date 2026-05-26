@@ -1,0 +1,27 @@
+[thinking]
+The user wants me to identify which question numbers have their marking criteria on this specific page.
+
+1.  **Analyze the page content:**
+    *   Header: "0610/52 Cambridge IGCSE – Mark Scheme May/June 2025 PUBLISHED"
+    *   Section: "GENERIC MARKING PRINCIPLE 5" and "GENERIC MARKING PRINCIPLE 6". These are general instructions, not specific to a question number like "1a" or "2b".
+    *   Section: "Science-Specific Marking Principles". This lists principles numbered 1 through 5.
+        *   Principle 1: Discusses keywords.
+        *   Principle 2: Discusses contradictory statements.
+        *   Principle 3: Discusses spellings.
+        *   Principle 4: Discusses error carried forward (ecf).
+        *   Principle 5: 'List rule' guidance. This is a general rule for questions requiring 'n' responses. It mentions "State two reasons..." as an example but doesn't link it to a specific question number like "1a".
+
+2.  **Evaluate against the "Valid question numbers" list:**
+    *   The list contains: "1", "1a", "1ai", ..., "3".
+    *   The page contains generic marking principles (Principles 5, 6) and Science-Specific Marking Principles (1-5).
+    *   None of these sections correspond to specific exam questions like "Question 1", "Question 2a", etc. They are meta-instructions for examiners.
+    *   Therefore, no specific question marking criteria (like mark allocations for a specific part) are visible here. This looks like the introductory page of the mark scheme.
+
+3.  **Conclusion:** No specific question numbers from the provided list have their marking criteria on this page.
+
+4.  **Final Output Formulation:** Return an empty list.
+[/thinking]
+
+```yaml
+questions: []
+```

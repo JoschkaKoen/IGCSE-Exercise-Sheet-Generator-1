@@ -1,0 +1,25 @@
+questions:
+- number: 4ai
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: ''
+- number: 4aii
+  type: short_answer
+  marks: 2
+  mark_scheme_answer: ''
+- number: 4aiii
+  type: short_answer
+  marks: 1
+  mark_scheme_answer: ''
+- number: 4bi
+  type: calculation
+  marks: 2
+  mark_scheme_answer: ''
+- number: 4bii
+  type: calculation
+  marks: 1
+  mark_scheme_answer: ''
+- number: 4biii
+  type: short_answer
+  marks: 3
+  mark_scheme_answer: ''

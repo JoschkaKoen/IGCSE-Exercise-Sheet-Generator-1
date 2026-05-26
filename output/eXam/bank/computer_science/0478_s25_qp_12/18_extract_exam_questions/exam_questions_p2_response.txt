@@ -1,0 +1,33 @@
+questions:
+  - number: "1"
+    type: short_answer
+    text: |
+      A computer stores data temporarily in random access memory (RAM).
+  - number: "1a"
+    type: short_answer
+    text: |
+      RAM is one example of primary storage.
+
+      Give \textbf{one} other example of primary storage.
+  - number: "1b"
+    type: short_answer
+    text: |
+      Give \textbf{one} reason why data is only stored temporarily in the RAM.
+  - number: "1c"
+    type: calculation
+    text: |
+      The denary numbers 19 and 230 are converted to binary numbers to be stored in the RAM.
+
+      Convert the \textbf{two} denary numbers to binary numbers.
+
+      19 \hrulefill
+      230 \hrulefill
+  - number: "1d"
+    type: calculation
+    text: |
+      The hexadecimal numbers 35 and 8AD are converted to binary numbers to be stored in the RAM.
+
+      Convert the \textbf{two} hexadecimal numbers to binary numbers.
+
+      35 \hrulefill
+      8AD \hrulefill

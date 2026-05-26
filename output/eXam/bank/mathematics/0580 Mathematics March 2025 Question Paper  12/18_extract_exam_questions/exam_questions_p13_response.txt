@@ -1,0 +1,27 @@
+questions:
+  - number: "18"
+    type: short_answer
+    text: |
+      Complete the table of values for $y = \frac{12}{x}$.
+  - number: "18a"
+    type: calculation
+    text: |
+      \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+      \hline
+      $x$ & $-6$ & $-4$ & $-3$ & $-2$ & $-1$ & & $1$ & $2$ & $3$ & $4$ & $6$ \\ \hline
+      $y$ & & $-3$ & & $-6$ & & & & $6$ & & $3$ & \\ \hline
+      \end{tabular}
+  - number: "18b"
+    type: short_answer
+    text: |
+      On the grid, draw the graph of $y = \frac{12}{x}$ for $-6 \leq x \leq -1$ and $1 \leq x \leq 6$.
+  - number: "18c"
+    type: short_answer
+    text: |
+      On the grid, draw the line $y = -9$.
+  - number: "18d"
+    type: calculation
+    text: |
+      Use your graph to solve $\frac{12}{x} = -9$.
+
+      $x = \hrulefill$

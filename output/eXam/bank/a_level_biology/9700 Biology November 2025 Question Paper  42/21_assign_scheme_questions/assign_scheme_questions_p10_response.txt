@@ -1,0 +1,30 @@
+[thinking]
+The user wants me to identify the question numbers from the provided mark scheme page.
+
+1.  **Analyze the image:**
+    *   The image is a table with columns "Question", "Answer", and "Marks".
+    *   In the "Question" column, I see "2(b)".
+    *   The "Answer" column lists points 1 through 7 under "any four from:" and then a "plus" section for point 7.
+    *   This content clearly corresponds to the marking criteria for question 2(b).
+
+2.  **Map to valid question numbers:**
+    *   The visible question number is "2(b)".
+    *   Looking at the allowed list: "1", "1a", "1b", "1c", "1ci", "1cii", "2", "2a", "2b", ...
+    *   The format in the image is "2(b)", but the instructions say "Do not add parentheses — output `3b`, not `3(b)`". So "2(b)" maps to "2b".
+    *   Is "2b" in the allowed list? Yes.
+
+3.  **Check for other questions:**
+    *   The rest of the page is just the continuation of the answer for 2(b). There are no other question numbers like "3" or "4" visible in the "Question" column.
+    *   The text inside the answer column refers to F1, F2 generations, homozygous, etc., which are part of the answer for 2(b), not separate questions.
+
+4.  **Final Selection:**
+    *   Only "2b" is present.
+
+5.  **Format Output:**
+    *   YAML format: `questions: ["2b"]`
+[/thinking]
+
+```yaml
+questions:
+  - "2b"
+```

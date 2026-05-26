@@ -1,0 +1,20 @@
+questions:
+  - number: "24"
+    type: calculation
+    text: |
+      A circle has radius $7\text{ cm}$.
+      A square has side $x\text{ cm}$.
+      The circumference of the circle is the same length as the perimeter of the square.
+
+      Find the value of $x$.
+      Give your answer in terms of $\pi$.
+
+      $x = \hrulefill$
+  - number: "25"
+    type: calculation
+    text: |
+      NOT TO SCALE
+
+      Triangle $ABC$ is mathematically similar to triangle $PQR$.
+
+      Show that $QR = 14\text{ cm}$.

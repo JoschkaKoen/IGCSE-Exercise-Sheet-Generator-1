@@ -1,0 +1,30 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The image is a cover page for a Cambridge International AS & A Level Physics mark scheme (Paper 2, 9702/24, May/June 2025).
+    *   It contains general information: title, subject, paper number, date, maximum mark, a "Published" box, and standard disclaimers about how the mark scheme should be used.
+    *   It mentions "This document consists of 14 printed pages."
+    *   There are no specific question numbers or marking criteria visible on this page. It's just the front matter.
+
+2.  **Compare with the list of valid question numbers:**
+    *   The list includes questions 1 through 7 with various sub-parts.
+    *   None of these appear on the current page.
+
+3.  **Formulate the output:**
+    *   Since no question criteria are visible, I must return an empty list.
+    *   Format: YAML.
+
+4.  **Final check:**
+    *   Does the page contain "1"? No.
+    *   Does it contain "2a"? No.
+    *   ...
+    *   Does it contain any marking criteria? No.
+
+    Therefore, the result is an empty list.
+
+[/thinking]
+
+```yaml
+questions: []
+```

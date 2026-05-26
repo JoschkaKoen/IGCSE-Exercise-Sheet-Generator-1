@@ -1,0 +1,33 @@
+questions:
+  - number: "3"
+    type: short_answer
+    text: |
+      The lower end of a vertical spring is fixed to a horizontal surface, as shown in Fig. 3.1.
+
+      The mass of the spring is negligible. A block of mass $5.5 \text{ kg}$ drops vertically onto the spring and is brought to rest as the spring is compressed.
+  - number: "3a"
+    type: calculation
+    text: |
+      The block has kinetic energy $110 \text{ J}$ as it makes contact with the spring.
+
+      Calculate the speed of the block as it makes contact with the spring.
+
+      speed = \hrulefill $\text{ms}^{-1}$ [2]
+  - number: "3b"
+    type: calculation
+    text: |
+      The gravitational potential energy of the block decreases by $20 \text{ J}$ as the spring is compressed to its maximum compression $x_0$.
+
+      Show that $x_0$ is $0.37 \text{ m}$.
+
+      [2]
+  - number: "3c"
+    type: calculation
+    text: |
+      Assume that, as the spring compresses, all of the energy lost by the block is converted into the elastic potential energy of the spring.
+
+      Use the data from \textbf{(a)} and \textbf{(b)} to determine the maximum elastic potential energy of the spring.
+
+      Show your working.
+
+      maximum elastic potential energy = \hrulefill $\text{J}$ [1]

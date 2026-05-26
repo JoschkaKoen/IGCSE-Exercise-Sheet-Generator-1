@@ -1,0 +1,34 @@
+questions:
+- number: 3a
+  type: long_answer
+  marks: 5
+  mark_scheme_answer: |
+    \textbf{One mark per mark point (Max 5)}
+
+    \textbf{One mark per mark point for purpose of Application Layer (Max 3)}
+    \begin{itemize}
+    \item MP1 To provide services / interface with the user // access to applications, for example login, file transfer, network file access, email, etc
+    \item MP2 To provide mechanisms for securing communication e.g. encryption/authentication
+    \item MP3 To define/provide protocols used to allow the exchange of data/communication // to contain programs that exchange data
+    \item MP4 Error detection and recovery mechanisms to handle application specific errors
+    \end{itemize}
+    \textbf{One mark per mark point for purpose of Transport Layer (Max 3)}
+    \begin{itemize}
+    \item MP5 To provide logical communication between applications running on different hosts // To ensure that data is delivered to the correct application process on the destination machine
+    \item MP6 To ensure error-free, end-to-end delivery of data between a source and a destination, in sequence // to provide error recovery techniques such as error detection codes and automatic repeat request
+    \item MP7 To break data into segments when sent and to reconstruct when received // To reassemble segments at destination
+    \item MP8 To regulate network connections // to provide flow control mechanisms to prevent data loss.
+    \end{itemize}
+- number: 3b
+  type: long_answer
+  marks: 4
+  mark_scheme_answer: |
+    \textbf{One mark per mark point (Max 4)}
+    \begin{itemize}
+    \item MP1 Data are broken into equal sized packets
+    \item MP2 Data packets have headers containing information such as the IP addresses of the sender and receiver
+    \item MP3 Each packet of data is sent independently to the destination // Packets don't necessarily follow the same route
+    \item MP4 Each packet is sent via the most optimum path available
+    \item MP5 Packets don't necessarily arrive in the order they were sent // Packets are reconstructed at the destination in the correct order
+    \item MP6 Missing / damaged packets are re-sent
+    \end{itemize}

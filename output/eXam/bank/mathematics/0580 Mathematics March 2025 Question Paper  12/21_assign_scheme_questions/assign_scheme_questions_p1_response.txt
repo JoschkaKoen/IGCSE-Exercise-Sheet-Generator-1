@@ -1,0 +1,29 @@
+[thinking]
+The user wants me to identify which question numbers have marking criteria on the provided page.
+
+1.  **Analyze the image:**
+    *   The image is a cover page for a Cambridge IGCSE Mathematics mark scheme.
+    *   It has the title "Cambridge IGCSE™ MATHEMATICS Paper 1 (Core) MARK SCHEME Maximum Mark: 80".
+    *   It has a box saying "Published".
+    *   It has some standard text about the purpose of the mark scheme ("This mark scheme is published as an aid...").
+    *   It mentions "Mark schemes should be read in conjunction with the question paper...".
+    *   It says "Cambridge International will not enter into discussions...".
+    *   It mentions publishing mark schemes for the February/March 2025 series.
+    *   At the bottom, it says "This document consists of 10 printed pages." and "[Turn over]".
+
+2.  **Scan for question numbers:**
+    *   I am looking for specific marking criteria like "Q1: A1", "Q2a: B1", etc.
+    *   There are no question numbers listed in the body of the text.
+    *   The text is purely introductory/administrative.
+
+3.  **Determine visibility:**
+    *   No marking criteria for any question (1 through 26) are visible on this page. It is just the front cover.
+
+4.  **Formulate output:**
+    *   Since no questions are visible, the list should be empty.
+    *   Output format: `questions: []`
+[/thinking]
+
+```yaml
+questions: []
+```
