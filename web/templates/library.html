@@ -102,128 +102,144 @@
       </div>
     </div>
 
-    <!-- Controls: tab row scrolls horizontally on narrow screens; buttons must not shrink (mobile tap targets). -->
-    <div id="lib-controls" class="mt-6 sm:mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <div class="min-w-0 w-full sm:w-auto lib-subject-tab-scroll">
-        <div class="flex w-max max-w-none rounded-2xl border border-white/[0.09] bg-white/[0.04] p-1 backdrop-blur-sm"
-             role="tablist" aria-label="{{ t('library.subject_aria') }}">
-          <button type="button" id="tab-physics"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-active"
-                  data-subject="igcse_physics"
-                  role="tab" aria-selected="true" aria-controls="grid-physics">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-cyan-400"></span>
-              Physics
-            </span>
-          </button>
-          <button type="button" id="tab-cs"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="igcse_computer_science"
-                  role="tab" aria-selected="false" aria-controls="grid-cs">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-violet-400"></span>
-              Computer Science
-            </span>
-          </button>
-          <button type="button" id="tab-math"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="igcse_mathematics"
-                  role="tab" aria-selected="false" aria-controls="grid-math">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-blue-400"></span>
-              Mathematics
-            </span>
-          </button>
-          <button type="button" id="tab-biology"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="igcse_biology"
-                  role="tab" aria-selected="false" aria-controls="grid-biology">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
-              Biology
-            </span>
-          </button>
-          <button type="button" id="tab-chemistry"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="igcse_chemistry"
-                  role="tab" aria-selected="false" aria-controls="grid-chemistry">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-slate-400"></span>
-              Chemistry
-            </span>
-          </button>
-          <button type="button" id="tab-business"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="igcse_business_studies"
-                  role="tab" aria-selected="false" aria-controls="grid-business">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
-              Business Studies
-            </span>
-          </button>
-          <button type="button" id="tab-economics"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="igcse_economics"
-                  role="tab" aria-selected="false" aria-controls="grid-economics">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-rose-400"></span>
-              Economics
-            </span>
-          </button>
-          <button type="button" id="tab-a-level-physics"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="a_level_physics"
-                  role="tab" aria-selected="false" aria-controls="grid-a-level-physics">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-cyan-400"></span>
-              A-Level Physics
-            </span>
-          </button>
-          <button type="button" id="tab-a-level-biology"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="a_level_biology"
-                  role="tab" aria-selected="false" aria-controls="grid-a-level-biology">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
-              A-Level Bio
-            </span>
-          </button>
-          <button type="button" id="tab-a-level-chemistry"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="a_level_chemistry"
-                  role="tab" aria-selected="false" aria-controls="grid-a-level-chemistry">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-slate-400"></span>
-              A-Level Chem
-            </span>
-          </button>
-          <button type="button" id="tab-a-level-cs"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="a_level_computer_science"
-                  role="tab" aria-selected="false" aria-controls="grid-a-level-cs">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-violet-400"></span>
-              A-Level CS
-            </span>
-          </button>
-          <button type="button" id="tab-a-level-business"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="a_level_business"
-                  role="tab" aria-selected="false" aria-controls="grid-a-level-business">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
-              A-Level Business
-            </span>
-          </button>
-          <button type="button" id="tab-a-level-economics"
-                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="a_level_economics"
-                  role="tab" aria-selected="false" aria-controls="grid-a-level-economics">
-            <span class="flex items-center gap-2 whitespace-nowrap">
-              <span class="h-2 w-2 shrink-0 rounded-full bg-rose-400"></span>
-              A-Level Economics
-            </span>
-          </button>
+    <!-- Controls: subject picker is two stacked rows (IGCSE / A-Level); each row
+         scrolls horizontally inside its own container when content overflows. -->
+    <div id="lib-controls" class="mt-6 sm:mt-10 flex flex-col gap-4">
+      <div class="min-w-0 w-full">
+        <div class="flex flex-col gap-1.5 rounded-2xl border border-white/[0.09] bg-white/[0.04] p-1.5 backdrop-blur-sm">
+          <div class="flex items-center gap-2 sm:gap-3">
+            <span class="lib-subject-tab-row-label">{{ t('library.level.igcse') }}</span>
+            <div class="lib-subject-tab-scroll min-w-0 flex-1">
+              <div class="flex w-max gap-1"
+                   role="tablist" aria-label="{{ t('library.subject_aria.igcse') }}">
+              <button type="button" id="tab-physics"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-active"
+                        data-subject="igcse_physics"
+                        role="tab" aria-selected="true" aria-controls="grid-physics">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-cyan-400"></span>
+                    Physics
+                  </span>
+                </button>
+                <button type="button" id="tab-cs"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="igcse_computer_science"
+                        role="tab" aria-selected="false" aria-controls="grid-cs">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-violet-400"></span>
+                    Computer Science
+                  </span>
+                </button>
+                <button type="button" id="tab-math"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="igcse_mathematics"
+                        role="tab" aria-selected="false" aria-controls="grid-math">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-blue-400"></span>
+                    Mathematics
+                  </span>
+                </button>
+                <button type="button" id="tab-biology"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="igcse_biology"
+                        role="tab" aria-selected="false" aria-controls="grid-biology">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
+                    Biology
+                  </span>
+                </button>
+                <button type="button" id="tab-chemistry"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="igcse_chemistry"
+                        role="tab" aria-selected="false" aria-controls="grid-chemistry">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-slate-400"></span>
+                    Chemistry
+                  </span>
+                </button>
+                <button type="button" id="tab-business"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="igcse_business_studies"
+                        role="tab" aria-selected="false" aria-controls="grid-business">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
+                    Business Studies
+                  </span>
+                </button>
+                <button type="button" id="tab-economics"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="igcse_economics"
+                        role="tab" aria-selected="false" aria-controls="grid-economics">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-rose-400"></span>
+                    Economics
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 sm:gap-3">
+            <span class="lib-subject-tab-row-label">{{ t('library.level.a_level') }}</span>
+            <div class="lib-subject-tab-scroll min-w-0 flex-1">
+              <div class="flex w-max gap-1"
+                   role="tablist" aria-label="{{ t('library.subject_aria.a_level') }}">
+                <button type="button" id="tab-a-level-physics"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="a_level_physics"
+                        role="tab" aria-selected="false" aria-controls="grid-a-level-physics">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-cyan-400"></span>
+                    Physics
+                  </span>
+                </button>
+                <button type="button" id="tab-a-level-biology"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="a_level_biology"
+                        role="tab" aria-selected="false" aria-controls="grid-a-level-biology">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
+                    Biology
+                  </span>
+                </button>
+                <button type="button" id="tab-a-level-chemistry"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="a_level_chemistry"
+                        role="tab" aria-selected="false" aria-controls="grid-a-level-chemistry">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-slate-400"></span>
+                    Chemistry
+                  </span>
+                </button>
+                <button type="button" id="tab-a-level-cs"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="a_level_computer_science"
+                        role="tab" aria-selected="false" aria-controls="grid-a-level-cs">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-violet-400"></span>
+                    Computer Science
+                  </span>
+                </button>
+                <button type="button" id="tab-a-level-business"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="a_level_business"
+                        role="tab" aria-selected="false" aria-controls="grid-a-level-business">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
+                    Business
+                  </span>
+                </button>
+                <button type="button" id="tab-a-level-economics"
+                        class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                        data-subject="a_level_economics"
+                        role="tab" aria-selected="false" aria-controls="grid-a-level-economics">
+                  <span class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-rose-400"></span>
+                    Economics
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <label class="flex flex-1 items-center gap-3 rounded-2xl border border-white/[0.09]
@@ -306,14 +322,14 @@ var tabs = [
   { id: 'tab-math',              subject: 'igcse_mathematics',        gridId: 'grid-math',              activeClass: 'tab-active-blue',    theme: 'blue',    label: 'Mathematics'      },
   { id: 'tab-biology',           subject: 'igcse_biology',            gridId: 'grid-biology',           activeClass: 'tab-active-emerald', theme: 'emerald', label: 'Biology'          },
   { id: 'tab-chemistry',         subject: 'igcse_chemistry',          gridId: 'grid-chemistry',         activeClass: 'tab-active-slate',   theme: 'slate',   label: 'Chemistry'        },
-  { id: 'tab-a-level-physics',   subject: 'a_level_physics',          gridId: 'grid-a-level-physics',   activeClass: 'tab-active',         theme: 'cyan',    label: 'A-Level Physics'  },
-  { id: 'tab-a-level-biology',   subject: 'a_level_biology',          gridId: 'grid-a-level-biology',   activeClass: 'tab-active-emerald', theme: 'emerald', label: 'A-Level Bio'      },
-  { id: 'tab-a-level-chemistry', subject: 'a_level_chemistry',        gridId: 'grid-a-level-chemistry', activeClass: 'tab-active-slate',   theme: 'slate',   label: 'A-Level Chem'     },
-  { id: 'tab-a-level-cs',        subject: 'a_level_computer_science', gridId: 'grid-a-level-cs',        activeClass: 'tab-active-violet',  theme: 'violet',  label: 'A-Level CS'       },
+  { id: 'tab-a-level-physics',   subject: 'a_level_physics',          gridId: 'grid-a-level-physics',   activeClass: 'tab-active',         theme: 'cyan',    label: 'Physics'          },
+  { id: 'tab-a-level-biology',   subject: 'a_level_biology',          gridId: 'grid-a-level-biology',   activeClass: 'tab-active-emerald', theme: 'emerald', label: 'Biology'          },
+  { id: 'tab-a-level-chemistry', subject: 'a_level_chemistry',        gridId: 'grid-a-level-chemistry', activeClass: 'tab-active-slate',   theme: 'slate',   label: 'Chemistry'        },
+  { id: 'tab-a-level-cs',        subject: 'a_level_computer_science', gridId: 'grid-a-level-cs',        activeClass: 'tab-active-violet',  theme: 'violet',  label: 'Computer Science' },
   { id: 'tab-business',          subject: 'igcse_business_studies',   gridId: 'grid-business',          activeClass: 'tab-active-amber',   theme: 'amber',   label: 'Business Studies' },
   { id: 'tab-economics',         subject: 'igcse_economics',          gridId: 'grid-economics',         activeClass: 'tab-active-rose',    theme: 'rose',    label: 'Economics'        },
-  { id: 'tab-a-level-business',  subject: 'a_level_business',         gridId: 'grid-a-level-business',  activeClass: 'tab-active-amber',   theme: 'amber',   label: 'A-Level Business' },
-  { id: 'tab-a-level-economics', subject: 'a_level_economics',        gridId: 'grid-a-level-economics', activeClass: 'tab-active-rose',    theme: 'rose',    label: 'A-Level Economics'},
+  { id: 'tab-a-level-business',  subject: 'a_level_business',         gridId: 'grid-a-level-business',  activeClass: 'tab-active-amber',   theme: 'amber',   label: 'Business'         },
+  { id: 'tab-a-level-economics', subject: 'a_level_economics',        gridId: 'grid-a-level-economics', activeClass: 'tab-active-rose',    theme: 'rose',    label: 'Economics'        },
 ];
 tabs.forEach(function (t) {
   t.el   = document.getElementById(t.id);

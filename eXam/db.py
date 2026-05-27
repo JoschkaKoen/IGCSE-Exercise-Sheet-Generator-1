@@ -170,6 +170,26 @@ _MIGRATIONS: list[str] = [
     CREATE INDEX IF NOT EXISTS open_views_by_user    ON open_views (user_id, subject);
     CREATE INDEX IF NOT EXISTS open_attempts_by_user ON open_attempts (user_id, submitted_at DESC);
     """,
+    # 1 → 2: per-user job ledger for the dashboard.
+    # NL exercise-sheet generation and xScore grading were in-memory only (24 h
+    # TTL) with no user attribution. This table persists one row per submitted
+    # job so the dashboard can list "your past jobs", surface download links,
+    # and roll up AI cost (read from the existing cost.json on completion).
+    """
+    CREATE TABLE IF NOT EXISTS jobs (
+      id              TEXT PRIMARY KEY,
+      user_id         INTEGER NOT NULL REFERENCES users(id),
+      kind            TEXT NOT NULL,
+      title           TEXT NOT NULL,
+      status          TEXT NOT NULL,
+      error           TEXT,
+      created_at      TEXT NOT NULL,
+      completed_at    TEXT,
+      artifact_dir    TEXT,
+      total_cost_rmb  REAL
+    );
+    CREATE INDEX IF NOT EXISTS jobs_by_user ON jobs (user_id, created_at DESC);
+    """,
 ]
 
 

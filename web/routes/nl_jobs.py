@@ -23,11 +23,13 @@ from eXercise.exceptions import ExtractionUserError
 from eXercise.natural_language import MAX_NATURAL_LANGUAGE_INSTRUCTION_CHARS
 
 from .._state import create_background_task, store
+from .. import jobs_db
 from ..analytics import track_event, track_request_event
 from ..analytics.cost_overview import rollup_from_cost_json
 from ..jobs import JobRecord, JobStatus
 from ..process_log import run_with_last_log_line
 from ..service import run_nl_prompt_logged
+from ..user_auth import current_user_id
 
 router = APIRouter()
 
@@ -71,6 +73,10 @@ def _start_ranking_thread(job_id: str, main_pdf: Path, ans_pdf: Path | None) -> 
 
 async def _run_job(job_id: str, prompt: str, session_id: str | None = None) -> None:
     store.set_status(job_id, JobStatus.RUNNING)
+    rec0 = store.get(job_id)
+    persist = bool(rec0 and rec0.user_id is not None)
+    if persist:
+        jobs_db.mark_running(job_id)
     # Set before the worker thread starts so the first poll always sees real text (not empty).
     store.set_log_line(job_id, "Resolving natural-language request…")
 
@@ -102,15 +108,27 @@ async def _run_job(job_id: str, prompt: str, session_id: str | None = None) -> N
             run_nl_prompt_logged, prompt, on_line
         )
         store.complete(job_id, main_pdf, ans_pdf, up4, up2, a4, a2, ranking_pdf=None, overview=overview)
+        if persist:
+            cost_json = main_pdf.parent / "ai_costs" / "cost.json"
+            rollup = rollup_from_cost_json(cost_json)
+            jobs_db.mark_done(
+                job_id,
+                artifact_dir=main_pdf.parent,
+                total_cost_rmb=float(rollup.get("ai_cost_rmb") or 0.0),
+            )
         _finish("ok", main_pdf)
         # Ranking is now on-demand: started only when the user clicks the ranking button.
 
     except ExtractionUserError as e:
         store.fail(job_id, str(e))
+        if persist:
+            jobs_db.mark_failed(job_id, error=str(e))
         _finish("fail", None)
     except Exception as e:  # noqa: BLE001 — last-resort message for the UI
         logging.exception("NL job %s failed", job_id)
         store.fail(job_id, f"Unexpected error: {e}")
+        if persist:
+            jobs_db.mark_failed(job_id, error=f"Unexpected error: {e}")
         _finish("error", None)
 
 
@@ -134,7 +152,10 @@ async def create_job(body: CreateJobBody, request: Request) -> dict[str, str]:
     prompt = body.prompt.strip()
     if not prompt:
         raise HTTPException(status_code=422, detail="prompt is required")
-    job = store.create()
+    user_id = current_user_id(request)
+    job = store.create(user_id=user_id, kind="nl")
+    if user_id is not None:
+        jobs_db.insert(job_id=job.id, user_id=user_id, kind="nl", title=prompt[:80])
     session_id = getattr(request.state, "session_id", None)
     track_request_event(
         request, "nl_job_started",

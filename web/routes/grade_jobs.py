@@ -23,12 +23,14 @@ from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, Reques
 from fastapi.responses import FileResponse, JSONResponse, Response
 
 from .._state import create_background_task, store
+from .. import jobs_db
 from ..analytics import track_event, track_request_event
 from ..analytics.cost_overview import rollup_from_cost_json
 from ..grade_auth import require_grade_unlock
 from ..grade_service import GradeFormOpts
 from ..grade_subprocess import cancel_process, run_grade_subprocess
 from ..jobs import JobStatus
+from ..user_auth import current_user_id
 
 router = APIRouter()
 
@@ -82,6 +84,10 @@ async def _run_grade_job(
     session_id: str | None = None,
 ) -> None:
     store.set_status(job_id, JobStatus.RUNNING)
+    rec0 = store.get(job_id)
+    persist = bool(rec0 and rec0.user_id is not None)
+    if persist:
+        jobs_db.mark_running(job_id)
     store.init_steps(job_id, _GRADE_STEPS)
     store.set_log_line(job_id, "Starting pipeline…")
     store.set_upload_folder(job_id, folder)
@@ -134,7 +140,14 @@ async def _run_grade_job(
             store.clear_running_step(job_id)
         ad = evt.get("artifact_dir")
         if ad:
-            store.set_artifact_dir(job_id, Path(ad))
+            ad_path = Path(ad)
+            store.set_artifact_dir(job_id, ad_path)
+            if persist:
+                # parent.name is the exam stem (xScore writes artifacts at
+                # output/xscore/<exam_stem>/<timestamp>/), which is a much more
+                # useful dashboard title than the upload folder timestamp.
+                exam_stem = ad_path.parent.name
+                jobs_db.set_artifact_dir(job_id, ad_path, title=exam_stem)
 
     def register_proc(p) -> None:
         store.set_process(job_id, p)
@@ -150,6 +163,8 @@ async def _run_grade_job(
     except Exception as e:  # noqa: BLE001
         logging.exception("Grade pipeline spawn failed for job %s", job_id)
         store.fail(job_id, f"Pipeline spawn error: {e}")
+        if persist:
+            jobs_db.mark_failed(job_id, error=f"Pipeline spawn error: {e}")
         track_event(
             "error",
             session_id=session_id,
@@ -172,6 +187,8 @@ async def _run_grade_job(
     current = store.get(job_id)
     if current is not None and current.status == JobStatus.CANCELED:
         # The cancel endpoint already marked it; nothing else to do.
+        if persist:
+            jobs_db.mark_failed(job_id, error="Canceled by user")
         _finish("canceled")
         return
 
@@ -200,12 +217,29 @@ async def _run_grade_job(
             output_pdf=cleaned_pdf or folder,
             answers_pdf=class_report_pdf,
         )
+        if persist:
+            cost_rmb: float | None = None
+            if artifact_dir is not None:
+                try:
+                    from xscore.shared.exam_paths import artifact_cost_json_path
+                    rollup = rollup_from_cost_json(artifact_cost_json_path(artifact_dir))
+                    cost_rmb = float(rollup.get("ai_cost_rmb") or 0.0)
+                except Exception:
+                    logging.debug("grade cost rollup failed", exc_info=True)
+            jobs_db.mark_done(
+                job_id,
+                artifact_dir=artifact_dir,
+                total_cost_rmb=cost_rmb,
+            )
         _finish("ok")
     elif was_signal_killed:
         # Process was signaled but not via the /cancel endpoint (likely OS OOM
         # killer, external kill, etc.). Surface as canceled rather than failed
         # so the UI shows the right terminal state.
-        store.cancel(job_id, message=f"Process terminated by signal (exit {exit_code})")
+        msg = f"Process terminated by signal (exit {exit_code})"
+        store.cancel(job_id, message=msg)
+        if persist:
+            jobs_db.mark_failed(job_id, error=msg)
         _finish("canceled", f"signal exit {exit_code}")
     else:
         rec = store.get(job_id)
@@ -214,6 +248,8 @@ async def _run_grade_job(
         if tail:
             msg += f"\n…\n{tail}"
         store.fail(job_id, msg)
+        if persist:
+            jobs_db.mark_failed(job_id, error=msg)
         _finish("fail", msg)
 
 
@@ -397,7 +433,12 @@ async def create_grade_job(
     (folder / "empty_exam.pdf").write_bytes(await _read_limited(empty_exam, "empty_exam"))
     (folder / "answer_sheet.pdf").write_bytes(await _read_limited(answer_sheet, "answer_sheet"))
 
-    job = store.create()
+    user_id = current_user_id(request)
+    job = store.create(user_id=user_id, kind="grade")
+    if user_id is not None:
+        # Title is the upload-folder timestamp initially; gets upgraded to the
+        # exam stem once xScore emits artifact_dir in on_event.
+        jobs_db.insert(job_id=job.id, user_id=user_id, kind="grade", title=folder.name)
     session_id = getattr(request.state, "session_id", None)
     track_request_event(
         request, "grade_job_started",

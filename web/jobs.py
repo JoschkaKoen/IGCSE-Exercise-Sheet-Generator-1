@@ -40,6 +40,12 @@ class JobRecord:
 
     id: str
     status: JobStatus
+    # User who created this job (None for anonymous flows). When set, the
+    # dashboard's "My jobs" tables can list it; the in-memory store remains the
+    # source of truth for live status/log_lines while a `jobs` SQLite row
+    # (web/jobs_db.py) persists across the 24 h TTL eviction.
+    user_id: int | None = None
+    kind: str = "nl"  # 'nl' | 'grade'
     error: str | None = None
     output_pdf: Path | None = None
     answers_pdf: Path | None = None
@@ -79,9 +85,9 @@ class JobStore:
 
     _JOB_TTL = datetime.timedelta(hours=24)
 
-    def create(self) -> JobRecord:
+    def create(self, *, user_id: int | None = None, kind: str = "nl") -> JobRecord:
         jid = str(uuid.uuid4())
-        rec = JobRecord(id=jid, status=JobStatus.PENDING)
+        rec = JobRecord(id=jid, status=JobStatus.PENDING, user_id=user_id, kind=kind)
         with self._lock:
             # Evict jobs older than 24 h on each create to avoid unbounded growth.
             cutoff = datetime.datetime.now() - self._JOB_TTL

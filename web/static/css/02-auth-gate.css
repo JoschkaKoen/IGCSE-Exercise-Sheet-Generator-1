@@ -64,13 +64,13 @@ body.site-auth-locked {
   }
 }
 
-/* Subject tabs: scroll horizontally on phones; avoid clipped or shrunk tap targets */
+/* Subject-picker rows: single-line; scroll horizontally when pills overflow. */
 .lib-subject-tab-scroll {
   overflow-x: auto;
   overflow-y: hidden;            /* explicit; avoids spec-forced overflow-y: auto */
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
-  scrollbar-width: none;         /* hide scrollbar — touch users swipe to scroll */
+  scrollbar-width: none;         /* hide scrollbar on phones (touch users swipe) */
 }
 .lib-subject-tab-scroll::-webkit-scrollbar {
   display: none;
@@ -78,11 +78,21 @@ body.site-auth-locked {
 
 @media (min-width: 640px) {
   .lib-subject-tab-scroll {
-    overflow: visible;
-    scrollbar-width: auto;
+    scrollbar-width: thin;       /* slim scrollbar on desktop — mouse-affordance hint */
   }
   .lib-subject-tab-scroll::-webkit-scrollbar {
     display: unset;
+    height: 6px;
   }
+}
+
+.lib-subject-tab-row-label {
+  flex-shrink: 0;
+  padding-left: 0.5rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(100 116 139);       /* slate-500, matches year-rail labels */
 }
 
