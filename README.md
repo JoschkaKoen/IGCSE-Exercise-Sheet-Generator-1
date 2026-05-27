@@ -680,7 +680,7 @@ Given a subject slug (or `all`) and a year (default 2025), it:
 **Where it's called.** Nowhere from inside the codebase. It is purely a manual CLI tool, invoked by an admin:
 
 ```
-.venv/bin/python -m eXam.warm_bank --year 2025 --subject physics
+.venv/bin/python -m eXam.warm_bank --year 2025 --subject igcse_physics
 .venv/bin/python -m eXam.warm_bank --year 2025 --subject all
 ```
 
@@ -722,7 +722,7 @@ Source PDFs live in `exams/<subject_slug>/` and are addressed by sha256 (so rena
 
 ```bash
 # Index every 2025 paper for one subject (slow, runs xScore scaffold per paper)
-.venv/bin/python -m eXam.warm_bank --subject physics --year 2025
+.venv/bin/python -m eXam.warm_bank --subject igcse_physics --year 2025
 
 # Drop cached helpers (keep snippet PDFs and YAMLs)
 .venv/bin/python -m eXam.flush_cache --helpers
@@ -749,7 +749,7 @@ Source PDFs live in `exams/<subject_slug>/` and are addressed by sha256 (so rena
 |---|---|
 | **Python** | 3.10+ (3.12+ recommended) |
 | **Python deps** | `pip install -r requirements.txt` |
-| **Exam PDFs** | Under `exams/physics/`, `exams/computer_science/`, `exams/mathematics/` (see [`exams/README.md`](exams/README.md)). Paths are configurable in `eXercise/config.py`. |
+| **Exam PDFs** | Under `exams/igcse/<subject>_<code>/` and `exams/a_level/<subject>_<code>/` (see [`exams/README.md`](exams/README.md)). Paths are configurable in `eXercise/config.py`. |
 | **LLM** | For natural-language mode and MCQ explanations: an API key for at least one provider below (see [Configuration](#configuration)). |
 
 ### Optional system tools
@@ -854,7 +854,7 @@ from eXercise import run_extraction_jobs
 run_extraction_jobs(
     [{"input_pdf": "...", "questions": [1, 2], "mark_scheme_pdf": "..."}],
     "sheet.pdf",
-    exam_key="physics",  # or "computer_science", "mathematics", or None
+    exam_key="igcse_physics",  # or any other key from EXAM_ROOT_BY_KEY, or None
 )
 ```
 
@@ -932,7 +932,7 @@ Legacy `, off` / `, low` / `, high` strings still parse for back-compat (mapped 
 | `DETECT_LAYOUT_MODEL` | xScore step 6 — detect printing layout (1×1, 2-up, 4-up) of the empty exam |
 | `EMPTY_EXAM_COVER_MODEL` | xScore step 8 — informational text-based cover-page check on the empty exam |
 | `COVER_PAGE_DETECTION_MODEL` | xScore step 9 — cover-page check on scan page 1 (drives `cover_page_mode`) |
-| `AVAILABLE_SUBJECTS` | xScore step 11 — comma-separated list of subjects the detector may choose from (e.g. `Computer Science,Physics`). Names must match `KNOWN_SUBJECTS` in `xscore/shared/subjects.py`. |
+| `AVAILABLE_SUBJECTS` | xScore step 11 — comma-separated list of subjects the detector may choose from (e.g. `IGCSE Computer Science,IGCSE Physics`). Names must match `KNOWN_SUBJECTS` in `xscore/shared/subjects.py`. |
 | `SUBJECT_DETECTION_MODEL` | xScore step 11 — Gemini model used when the filename heuristic doesn't match. Native PDF input on first 2 pages; structured-output enum constrained to `AVAILABLE_SUBJECTS`. |
 | `EMPTY_EXAM_PAGE_CLASSIFICATION_MODEL` | xScore step 12 — per-empty-exam-page vision LLM. Returns `page_type` (cover/instruction/question/blank/writing-space) + printed page number for every page of the empty exam. Builds the catalog steps 15 and 21 use. Defaults to `gemini-3.5-flash` (native PDF per-page slice); other providers fall back to rasterized JPEG. |
 | `HANDWRITING_CHECK_MODEL` | xScore step 13 — per-scan-page vision LLM. Matches each scan page against step 12's catalog (`page_type`, `matched_page_number`) and detects `has_handwriting` in the same call. Drives steps 16, 17, 18, and 21. |

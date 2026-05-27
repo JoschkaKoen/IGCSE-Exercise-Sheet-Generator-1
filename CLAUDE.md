@@ -115,7 +115,7 @@ For low-risk changes that can't shift output schema (file splits, import rewrite
 
 ## Exam directories
 
-Convention is `exams/<subject_slug>/`. Current subjects: `physics`, `chemistry`, `biology`, `mathematics`, `computer_science`, `a_level_physics`, `a_level_biology`, `a_level_chemistry`, `a_level_computer_science`. The natural-language exam resolver looks here when the user names an exam in the prompt.
+Convention is `exams/<level>/<subject>_<syllabus_code>/`, with `<level>` ∈ {`igcse`, `a_level`}. Code slugs (in `EXAM_ROOT_BY_KEY`) are `<level>_<subject>`: `igcse_physics`, `igcse_chemistry`, `igcse_biology`, `igcse_mathematics`, `igcse_computer_science`, `igcse_business_studies`, `igcse_economics`, `a_level_physics`, `a_level_biology`, `a_level_chemistry`, `a_level_computer_science`, `a_level_business`, `a_level_economics`. The natural-language exam resolver looks here when the user names an exam in the prompt.
 
 ## Python environment
 

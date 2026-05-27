@@ -8,7 +8,7 @@
 
 {% macro library_subject(subject_key, grid_id, theme) %}
 {% set blocks = library[subject_key] %}
-<div id="{{ grid_id }}" class="lib-subject-root mt-8 flex flex-col gap-6 {% if subject_key != 'physics' %}hidden{% endif %}">
+<div id="{{ grid_id }}" class="lib-subject-root mt-8 flex flex-col gap-6 {% if subject_key != 'igcse_physics' %}hidden{% endif %}">
   {% if blocks|length == 0 %}
   <p class="rounded-2xl border border-dashed border-white/10 py-16 text-center text-sm text-slate-500">{{ t('library.empty.folder') }}</p>
   {% else %}
@@ -109,7 +109,7 @@
              role="tablist" aria-label="{{ t('library.subject_aria') }}">
           <button type="button" id="tab-physics"
                   class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-active"
-                  data-subject="physics"
+                  data-subject="igcse_physics"
                   role="tab" aria-selected="true" aria-controls="grid-physics">
             <span class="flex items-center gap-2 whitespace-nowrap">
               <span class="h-2 w-2 shrink-0 rounded-full bg-cyan-400"></span>
@@ -118,7 +118,7 @@
           </button>
           <button type="button" id="tab-cs"
                   class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="computer_science"
+                  data-subject="igcse_computer_science"
                   role="tab" aria-selected="false" aria-controls="grid-cs">
             <span class="flex items-center gap-2 whitespace-nowrap">
               <span class="h-2 w-2 shrink-0 rounded-full bg-violet-400"></span>
@@ -127,7 +127,7 @@
           </button>
           <button type="button" id="tab-math"
                   class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="mathematics"
+                  data-subject="igcse_mathematics"
                   role="tab" aria-selected="false" aria-controls="grid-math">
             <span class="flex items-center gap-2 whitespace-nowrap">
               <span class="h-2 w-2 shrink-0 rounded-full bg-blue-400"></span>
@@ -136,7 +136,7 @@
           </button>
           <button type="button" id="tab-biology"
                   class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="biology"
+                  data-subject="igcse_biology"
                   role="tab" aria-selected="false" aria-controls="grid-biology">
             <span class="flex items-center gap-2 whitespace-nowrap">
               <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-400"></span>
@@ -145,7 +145,7 @@
           </button>
           <button type="button" id="tab-chemistry"
                   class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
-                  data-subject="chemistry"
+                  data-subject="igcse_chemistry"
                   role="tab" aria-selected="false" aria-controls="grid-chemistry">
             <span class="flex items-center gap-2 whitespace-nowrap">
               <span class="h-2 w-2 shrink-0 rounded-full bg-slate-400"></span>
@@ -205,7 +205,7 @@
       </label>
     </div>
 
-    {{ library_subject('physics', 'grid-physics', 'cyan') }}
+    {{ library_subject('igcse_physics', 'grid-physics', 'cyan') }}
 
     <!-- Stub containers for deferred subjects — JS populates on first tab click -->
     <div id="grid-cs"                class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
@@ -261,11 +261,11 @@ import { getPdfState } from '/static/js/state.js';
 
 // ── Subject tab definitions ────────────────────────────────────────────────
 var tabs = [
-  { id: 'tab-physics',           subject: 'physics',                  gridId: 'grid-physics',           activeClass: 'tab-active',         theme: 'cyan',    label: 'Physics'          },
-  { id: 'tab-cs',                subject: 'computer_science',         gridId: 'grid-cs',                activeClass: 'tab-active-violet',  theme: 'violet',  label: 'Computer Science' },
-  { id: 'tab-math',              subject: 'mathematics',              gridId: 'grid-math',              activeClass: 'tab-active-blue',    theme: 'blue',    label: 'Mathematics'      },
-  { id: 'tab-biology',           subject: 'biology',                  gridId: 'grid-biology',           activeClass: 'tab-active-emerald', theme: 'emerald', label: 'Biology'          },
-  { id: 'tab-chemistry',         subject: 'chemistry',                gridId: 'grid-chemistry',         activeClass: 'tab-active-slate',   theme: 'slate',   label: 'Chemistry'        },
+  { id: 'tab-physics',           subject: 'igcse_physics',            gridId: 'grid-physics',           activeClass: 'tab-active',         theme: 'cyan',    label: 'Physics'          },
+  { id: 'tab-cs',                subject: 'igcse_computer_science',   gridId: 'grid-cs',                activeClass: 'tab-active-violet',  theme: 'violet',  label: 'Computer Science' },
+  { id: 'tab-math',              subject: 'igcse_mathematics',        gridId: 'grid-math',              activeClass: 'tab-active-blue',    theme: 'blue',    label: 'Mathematics'      },
+  { id: 'tab-biology',           subject: 'igcse_biology',            gridId: 'grid-biology',           activeClass: 'tab-active-emerald', theme: 'emerald', label: 'Biology'          },
+  { id: 'tab-chemistry',         subject: 'igcse_chemistry',          gridId: 'grid-chemistry',         activeClass: 'tab-active-slate',   theme: 'slate',   label: 'Chemistry'        },
   { id: 'tab-a-level-physics',   subject: 'a_level_physics',          gridId: 'grid-a-level-physics',   activeClass: 'tab-active',         theme: 'cyan',    label: 'A-Level Physics'  },
   { id: 'tab-a-level-biology',   subject: 'a_level_biology',          gridId: 'grid-a-level-biology',   activeClass: 'tab-active-emerald', theme: 'emerald', label: 'A-Level Bio'      },
   { id: 'tab-a-level-chemistry', subject: 'a_level_chemistry',        gridId: 'grid-a-level-chemistry', activeClass: 'tab-active-slate',   theme: 'slate',   label: 'A-Level Chem'     },
@@ -276,7 +276,7 @@ tabs.forEach(function (t) {
   t.grid = document.getElementById(t.gridId);
 });
 var search = document.getElementById('lib-search');
-var activeSubject = 'physics';
+var activeSubject = 'igcse_physics';
 
 function haystackMatches(hay, q) {
   if (!q.length) return true;
@@ -344,7 +344,7 @@ function filterCards() {
 
 // ── Deferred subject grid builder ─────────────────────────────────────────
 var _rawData = JSON.parse(document.getElementById('lib-raw-data').textContent);
-var _builtSubjects = new Set(['physics']);
+var _builtSubjects = new Set(['igcse_physics']);
 
 function _esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');

@@ -243,35 +243,34 @@
   line-height: 1.35;
 }
 
-.subject-badge-physics,
+.subject-badge-igcse-physics,
 .subject-badge-a-level-physics {
   background: rgba(34, 211, 238, 0.12);
   border: 1px solid rgba(34, 211, 238, 0.25);
   color: rgb(165 243 253);
 }
 
-.subject-badge-cs,
-.subject-badge-a-level-cs {
+.subject-badge-igcse-computer-science,
+.subject-badge-a-level-computer-science {
   background: rgba(167, 139, 250, 0.12);
   border: 1px solid rgba(167, 139, 250, 0.25);
   color: rgb(221 214 254);
 }
 
-.subject-badge-math,
-.subject-badge-mathematics {
+.subject-badge-igcse-mathematics {
   background: rgba(96, 165, 250, 0.12);
   border: 1px solid rgba(96, 165, 250, 0.25);
   color: rgb(191 219 254);
 }
 
-.subject-badge-biology,
+.subject-badge-igcse-biology,
 .subject-badge-a-level-biology {
   background: rgba(16, 185, 129, 0.12);
   border: 1px solid rgba(16, 185, 129, 0.25);
   color: rgb(110 231 183);
 }
 
-.subject-badge-chemistry,
+.subject-badge-igcse-chemistry,
 .subject-badge-a-level-chemistry {
   background: rgba(203, 213, 225, 0.10);
   border: 1px solid rgba(203, 213, 225, 0.25);
@@ -377,15 +376,15 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
   cursor: default;
 }
 
-.subject-badge-cs:hover,
-.subject-badge-a-level-cs:hover        { filter: brightness(1.18) drop-shadow(0 0 6px rgba(167, 139, 250, 0.45)); }
-.subject-badge-physics:hover,
-.subject-badge-a-level-physics:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(34, 211, 238, 0.45)); }
-.subject-badge-chemistry:hover,
-.subject-badge-a-level-chemistry:hover { filter: brightness(1.15) drop-shadow(0 0 5px rgba(203, 213, 225, 0.35)); }
-.subject-badge-mathematics:hover       { filter: brightness(1.18) drop-shadow(0 0 6px rgba(96, 165, 250, 0.45)); }
-.subject-badge-biology:hover,
-.subject-badge-a-level-biology:hover   { filter: brightness(1.18) drop-shadow(0 0 6px rgba(16, 185, 129, 0.45)); }
+.subject-badge-igcse-computer-science:hover,
+.subject-badge-a-level-computer-science:hover { filter: brightness(1.18) drop-shadow(0 0 6px rgba(167, 139, 250, 0.45)); }
+.subject-badge-igcse-physics:hover,
+.subject-badge-a-level-physics:hover          { filter: brightness(1.18) drop-shadow(0 0 6px rgba(34, 211, 238, 0.45)); }
+.subject-badge-igcse-chemistry:hover,
+.subject-badge-a-level-chemistry:hover        { filter: brightness(1.15) drop-shadow(0 0 5px rgba(203, 213, 225, 0.35)); }
+.subject-badge-igcse-mathematics:hover        { filter: brightness(1.18) drop-shadow(0 0 6px rgba(96, 165, 250, 0.45)); }
+.subject-badge-igcse-biology:hover,
+.subject-badge-a-level-biology:hover          { filter: brightness(1.18) drop-shadow(0 0 6px rgba(16, 185, 129, 0.45)); }
 
 /* ─── Practice subject card ─────────────────────────────────────────────────
    Per-subject accent driven by a CSS variable so one rule set covers all cards.
@@ -395,14 +394,14 @@ body:not(.page-entered) #generate-workspace:not(.preview-mode)
   --accent-rgb: 148, 163, 184;
   transition: border-color 0.15s ease, background-image 0.15s ease;
 }
-.practice-card[data-subject="physics"],
+.practice-card[data-subject="igcse_physics"],
 .practice-card[data-subject="a_level_physics"]          { --accent-rgb:  34, 211, 238; }
-.practice-card[data-subject="computer_science"],
+.practice-card[data-subject="igcse_computer_science"],
 .practice-card[data-subject="a_level_computer_science"] { --accent-rgb: 167, 139, 250; }
-.practice-card[data-subject="mathematics"]              { --accent-rgb:  96, 165, 250; }
-.practice-card[data-subject="biology"],
+.practice-card[data-subject="igcse_mathematics"]        { --accent-rgb:  96, 165, 250; }
+.practice-card[data-subject="igcse_biology"],
 .practice-card[data-subject="a_level_biology"]          { --accent-rgb:  16, 185, 129; }
-.practice-card[data-subject="chemistry"],
+.practice-card[data-subject="igcse_chemistry"],
 .practice-card[data-subject="a_level_chemistry"]        { --accent-rgb: 203, 213, 225; }
 
 .practice-card-icon-bg { background-color: rgba(var(--accent-rgb), 0.12); }

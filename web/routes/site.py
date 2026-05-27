@@ -200,10 +200,10 @@ async def grade_page(request: Request) -> HTMLResponse:
 @router.get("/library", response_class=HTMLResponse)
 async def library_page(request: Request) -> HTMLResponse:
     data = list_library_pdfs()
-    # "physics" is excluded from library_json because it uses a different
+    # "igcse_physics" is excluded from library_json because it uses a different
     # folder layout (per-topic sub-folders) that the library template cannot
     # render yet.  data (the full dict) is still passed for server-side use.
-    library_json = {k: v for k, v in data.items() if k != "physics"}
+    library_json = {k: v for k, v in data.items() if k != "igcse_physics"}
     return TEMPLATES.TemplateResponse(
         request,
         "library.html",

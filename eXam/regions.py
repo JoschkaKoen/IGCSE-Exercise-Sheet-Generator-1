@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
-DETECTOR_VERSION = 3
+DETECTOR_VERSION = 4
 
 # Capture-group variants of the structural-label patterns in
 # xscore.scaffold.pdf_parser.answer_fields._RE_STRUCTURAL_NEXT. Used to extract

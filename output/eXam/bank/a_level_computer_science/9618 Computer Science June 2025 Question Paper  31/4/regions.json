@@ -1,9 +1,31 @@
 {
-  "detector_version": 3,
+  "detector_version": 4,
   "is_mcq": false,
   "pdf_height_pt": 924.2449951171875,
   "pdf_width_pt": 595.0,
   "regions": [
+    {
+      "assignment_confident": true,
+      "field_id": "4a__0",
+      "kind": "table_cell",
+      "leaf_number": "4a",
+      "page": 1,
+      "x0": 234.6729736328125,
+      "x1": 267.21995544433594,
+      "y0": 72.7901611328125,
+      "y1": 104.4974365234375
+    },
+    {
+      "assignment_confident": true,
+      "field_id": "4a__1",
+      "kind": "table_cell",
+      "leaf_number": "4a",
+      "page": 1,
+      "x0": 299.7668762207031,
+      "x1": 332.3132019042969,
+      "y0": 72.7901611328125,
+      "y1": 104.4974365234375
+    },
     {
       "assignment_confident": true,
       "field_id": "4b__0",
@@ -12,41 +34,8 @@
       "page": 1,
       "x0": 65.53097534179688,
       "x1": 559.8323974609375,
-      "y0": 707.4330139160156,
-      "y1": 786.6252136230469
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "4b__1",
-      "kind": "lines",
-      "leaf_number": "4b",
-      "page": 1,
-      "x0": 2.595747470855713,
-      "x1": 573.1061401367188,
-      "y0": 779.2571044921875,
-      "y1": 810.9597412109375
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "4c__0",
-      "kind": "short_line",
-      "leaf_number": "4c",
-      "page": 1,
-      "x0": 2.595625400543213,
-      "x1": 573.1060180664062,
-      "y0": 827.3211669921875,
-      "y1": 843.3211669921875
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "4c__1",
-      "kind": "short_line",
-      "leaf_number": "4c",
-      "page": 1,
-      "x0": 65.53109741210938,
-      "x1": 539.6535034179688,
-      "y0": 891.7999267578125,
-      "y1": 907.7999267578125
+      "y0": 707.1761250813802,
+      "y1": 814.2336608886719
     }
   ],
   "snippet_sha": "8d9e24ff29470d17"

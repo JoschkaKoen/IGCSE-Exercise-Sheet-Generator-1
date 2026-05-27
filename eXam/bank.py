@@ -29,7 +29,7 @@ from eXercise.rendering import collect_vector_strips, layout_vector_strips_to_pd
 
 BANK_ROOT = PROJECT_ROOT / "output" / "eXam" / "bank"
 
-CS_SUBJECTS = {"computer_science", "a_level_computer_science"}
+CS_SUBJECTS = {"igcse_computer_science", "a_level_computer_science"}
 
 
 def _file_sha(path: Path) -> str:
@@ -211,7 +211,7 @@ def _cli() -> int:
     p.add_argument(
         "--subject",
         required=True,
-        help="subject slug, e.g. physics, a_level_computer_science",
+        help="subject slug, e.g. igcse_physics, a_level_computer_science",
     )
     p.add_argument(
         "--question",

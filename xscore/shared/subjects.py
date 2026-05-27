@@ -40,16 +40,28 @@ class Subject:
 
 KNOWN_SUBJECTS: tuple[Subject, ...] = (
     Subject(
-        name="Computer Science",
-        slug="computer_science",
+        name="IGCSE Computer Science",
+        slug="igcse_computer_science",
         needs_code_formatting=True,
         filename_patterns=("0478",),
     ),
     Subject(
-        name="Physics",
-        slug="physics",
+        name="IGCSE Physics",
+        slug="igcse_physics",
         needs_code_formatting=False,
-        filename_patterns=(),
+        filename_patterns=("0625",),
+    ),
+    Subject(
+        name="IGCSE Business Studies",
+        slug="igcse_business_studies",
+        needs_code_formatting=False,
+        filename_patterns=("0450",),
+    ),
+    Subject(
+        name="IGCSE Economics",
+        slug="igcse_economics",
+        needs_code_formatting=False,
+        filename_patterns=("0455",),
     ),
     Subject(
         name="A-Level Physics",
@@ -69,6 +81,18 @@ KNOWN_SUBJECTS: tuple[Subject, ...] = (
         needs_code_formatting=False,
         filename_patterns=("9701",),
     ),
+    Subject(
+        name="A-Level Business",
+        slug="a_level_business",
+        needs_code_formatting=False,
+        filename_patterns=("9609",),
+    ),
+    Subject(
+        name="A-Level Economics",
+        slug="a_level_economics",
+        needs_code_formatting=False,
+        filename_patterns=("9708",),
+    ),
 )
 
 
@@ -86,11 +110,11 @@ def get_subject(name: str) -> Subject:
 def available_subjects_from_env() -> tuple[Subject, ...]:
     """Read ``AVAILABLE_SUBJECTS`` env var → tuple of :class:`Subject`.
 
-    Falls back to ``('Computer Science', 'Physics')`` when unset. Unknown
-    names raise :class:`KeyError` so a typo in ``default.env`` fails loudly
-    at startup, not at detection time.
+    Falls back to ``('IGCSE Computer Science', 'IGCSE Physics')`` when unset.
+    Unknown names raise :class:`KeyError` so a typo in ``default.env`` fails
+    loudly at startup, not at detection time.
     """
-    raw = os.environ.get("AVAILABLE_SUBJECTS", "Computer Science,Physics")
+    raw = os.environ.get("AVAILABLE_SUBJECTS", "IGCSE Computer Science,IGCSE Physics")
     names = [s.strip() for s in raw.split(",") if s.strip()]
     return tuple(get_subject(n) for n in names)
 

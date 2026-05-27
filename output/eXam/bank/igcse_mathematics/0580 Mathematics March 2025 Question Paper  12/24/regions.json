@@ -1,0 +1,20 @@
+{
+  "detector_version": 4,
+  "is_mcq": false,
+  "pdf_height_pt": 249.66888427734375,
+  "pdf_width_pt": 595.0,
+  "regions": [
+    {
+      "assignment_confident": true,
+      "field_id": "24__0",
+      "kind": "equation_blank",
+      "leaf_number": "24",
+      "page": 1,
+      "x0": 385.0633239746094,
+      "x1": 536.8357543945312,
+      "y0": 214.94866943359375,
+      "y1": 232.94866943359375
+    }
+  ],
+  "snippet_sha": "10487638524734fa"
+}

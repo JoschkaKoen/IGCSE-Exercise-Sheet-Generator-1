@@ -23,43 +23,56 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 # subfolders like ``output/run_YYYYMMDD_HHMMSS/`` for bare output filenames.
 OUTPUT_DIR = PROJECT_ROOT / "output" / "exercise"
 
-# Bundled question papers (Cambridge-style PDFs) shipped with this repo under ``exams/``.
-PHYSICS_EXAM_DIR = PROJECT_ROOT / "exams" / "physics"
-COMPUTER_SCIENCE_EXAM_DIR = PROJECT_ROOT / "exams" / "computer_science"
-MATHEMATICS_EXAM_DIR = PROJECT_ROOT / "exams" / "mathematics"
-BIOLOGY_EXAM_DIR = PROJECT_ROOT / "exams" / "biology"
-CHEMISTRY_EXAM_DIR = PROJECT_ROOT / "exams" / "chemistry"
-A_LEVEL_COMPUTER_SCIENCE_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level_computer_science"
-A_LEVEL_PHYSICS_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level_physics"
-A_LEVEL_BIOLOGY_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level_biology"
-A_LEVEL_CHEMISTRY_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level_chemistry"
+# Bundled question papers (Cambridge-style PDFs) shipped with this repo under
+# ``exams/<level>/<subject>_<syllabus_code>/``.
+IGCSE_PHYSICS_EXAM_DIR = PROJECT_ROOT / "exams" / "igcse" / "physics_0625"
+IGCSE_COMPUTER_SCIENCE_EXAM_DIR = PROJECT_ROOT / "exams" / "igcse" / "computer_science_0478"
+IGCSE_MATHEMATICS_EXAM_DIR = PROJECT_ROOT / "exams" / "igcse" / "mathematics_0580"
+IGCSE_BIOLOGY_EXAM_DIR = PROJECT_ROOT / "exams" / "igcse" / "biology_0610"
+IGCSE_CHEMISTRY_EXAM_DIR = PROJECT_ROOT / "exams" / "igcse" / "chemistry_0620"
+IGCSE_BUSINESS_STUDIES_EXAM_DIR = PROJECT_ROOT / "exams" / "igcse" / "business_studies_0450"
+IGCSE_ECONOMICS_EXAM_DIR = PROJECT_ROOT / "exams" / "igcse" / "economics_0455"
+A_LEVEL_COMPUTER_SCIENCE_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "computer_science_9618"
+A_LEVEL_PHYSICS_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "physics_9702"
+A_LEVEL_BIOLOGY_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "biology_9700"
+A_LEVEL_CHEMISTRY_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "chemistry_9701"
+A_LEVEL_BUSINESS_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "business_9609"
+A_LEVEL_ECONOMICS_EXAM_DIR = PROJECT_ROOT / "exams" / "a_level" / "economics_9708"
 
 # Maps NL/JSON subject keys to the folders above.
 EXAM_ROOT_BY_KEY = {
-    "physics": PHYSICS_EXAM_DIR,
-    "computer_science": COMPUTER_SCIENCE_EXAM_DIR,
-    "mathematics": MATHEMATICS_EXAM_DIR,
-    "biology": BIOLOGY_EXAM_DIR,
-    "chemistry": CHEMISTRY_EXAM_DIR,
+    "igcse_physics": IGCSE_PHYSICS_EXAM_DIR,
+    "igcse_computer_science": IGCSE_COMPUTER_SCIENCE_EXAM_DIR,
+    "igcse_mathematics": IGCSE_MATHEMATICS_EXAM_DIR,
+    "igcse_biology": IGCSE_BIOLOGY_EXAM_DIR,
+    "igcse_chemistry": IGCSE_CHEMISTRY_EXAM_DIR,
+    "igcse_business_studies": IGCSE_BUSINESS_STUDIES_EXAM_DIR,
+    "igcse_economics": IGCSE_ECONOMICS_EXAM_DIR,
     "a_level_physics": A_LEVEL_PHYSICS_EXAM_DIR,
     "a_level_biology": A_LEVEL_BIOLOGY_EXAM_DIR,
     "a_level_chemistry": A_LEVEL_CHEMISTRY_EXAM_DIR,
     "a_level_computer_science": A_LEVEL_COMPUTER_SCIENCE_EXAM_DIR,
+    "a_level_business": A_LEVEL_BUSINESS_EXAM_DIR,
+    "a_level_economics": A_LEVEL_ECONOMICS_EXAM_DIR,
 }
 
 # Cambridge syllabus PDFs shipped under ``syllabi/``. Files are named
 # ``<code> <Subject> <years> Syllabus Document.pdf``.
 SYLLABI_DIR = PROJECT_ROOT / "syllabi"
 SYLLABUS_CODE_BY_KEY = {
-    "physics": "0625",
-    "computer_science": "0478",
-    "mathematics": "0580",
-    "biology": "0610",
-    "chemistry": "0620",
+    "igcse_physics": "0625",
+    "igcse_computer_science": "0478",
+    "igcse_mathematics": "0580",
+    "igcse_biology": "0610",
+    "igcse_chemistry": "0620",
+    "igcse_business_studies": "0450",
+    "igcse_economics": "0455",
     "a_level_physics": "9702",
     "a_level_biology": "9700",
     "a_level_chemistry": "9701",
     "a_level_computer_science": "9618",
+    "a_level_business": "9609",
+    "a_level_economics": "9708",
 }
 
 # ---------------------------------------------------------------------------
@@ -102,15 +115,19 @@ PDFJAM_NUP_SCALE = 0.97
 
 # Centered **page header** string when ``exam_key`` is known (natural-language runs).
 PAGE_HEADER_BY_EXAM = {
-    "physics": "IGCSE Physics",
-    "computer_science": "IGCSE Computer Science",
-    "mathematics": "IGCSE Mathematics",
-    "biology": "IGCSE Biology",
-    "chemistry": "IGCSE Chemistry",
+    "igcse_physics": "IGCSE Physics",
+    "igcse_computer_science": "IGCSE Computer Science",
+    "igcse_mathematics": "IGCSE Mathematics",
+    "igcse_biology": "IGCSE Biology",
+    "igcse_chemistry": "IGCSE Chemistry",
+    "igcse_business_studies": "IGCSE Business Studies",
+    "igcse_economics": "IGCSE Economics",
     "a_level_physics": "A-Level Physics",
     "a_level_biology": "A-Level Biology",
     "a_level_chemistry": "A-Level Chemistry",
     "a_level_computer_science": "A-Level Computer Science",
+    "a_level_business": "A-Level Business",
+    "a_level_economics": "A-Level Economics",
 }
 
 # ---------------------------------------------------------------------------
@@ -221,10 +238,11 @@ class SubjectConfig:
 DEFAULT_SUBJECT_CONFIG = SubjectConfig()
 
 # Per-subject overrides.  Subjects without an entry here get DEFAULT_SUBJECT_CONFIG
-# via get_subject_config (mathematics, biology, chemistry, a_level_computer_science).
+# via get_subject_config (igcse_mathematics, igcse_biology, igcse_chemistry,
+# a_level_computer_science, and the business/economics subjects).
 SUBJECT_CONFIG: dict[str, SubjectConfig] = {
-    "physics": SubjectConfig(ms_answer_portrait_margin_pt=25.0),
-    "computer_science": SubjectConfig(
+    "igcse_physics": SubjectConfig(ms_answer_portrait_margin_pt=25.0),
+    "igcse_computer_science": SubjectConfig(
         ms_answer_landscape_margin_pt=0.0,
     ),
 }

@@ -107,6 +107,26 @@ _STIPPLE_X_TOL_PT = 3.0
 _PAGE_CHROME_TOP_PT = 55.0
 _PAGE_CHROME_BOTTOM_PT = 785.0
 
+# L-bracket consumer: Cambridge prints small L-shaped corner markers at the
+# 4 corners of every original A4 page.  Snippet PDFs stitch multiple
+# original pages into one tall page (e.g. a_level_biology_42 Q8 is 1835pt
+# ≈ 2.18× A4), so internal page-boundary L-brackets appear in the middle
+# of the snippet — outside the outer-edge chrome clip above.  The two
+# horizontal arms at the same y get merged by _extract_vector_segments
+# into a single wide _HRule whose ``spans`` field preserves the two short
+# segments separated by a page-spanning gap.  That wide rule then passes
+# _classify_multi_line's length-tolerance check and gets grouped with the
+# real answer-line dotted rules just above/below, producing a spurious
+# duplicate "lines" region overlapping the bottom of the real one.  This
+# pre-pass recognises the 2-span signature and marks the merged H-rule
+# plus its matching V-rule descenders (at x ≈ 1.04 and x ≈ 574.66, each
+# ~22pt long) as consumed before any classifier sees them.
+_LBRACKET_ARM_MAX_LEN_PT = 30.0       # each L-bracket arm is ~22pt; allow slack
+_LBRACKET_GAP_MIN_FRAC = 0.5          # gap between left/right arms is ~88% of page width
+_LBRACKET_EDGE_TOL_PT = 10.0          # descenders sit at x ≈ 1.04 and x ≈ 574.66
+_LBRACKET_DESCENDER_MAX_LEN_PT = 30.0 # each descender is ~22pt long
+_LBRACKET_BASELINE_TOL_PT = 1.0       # H/V tie point matches within rounding
+
 
 def _consume_rules_inside_diagrams(
     page: fitz.Page, clip: fitz.Rect, h_rules: list[_HRule]
@@ -287,6 +307,60 @@ def _consume_rules_in_graph_grid(
         )
         if crossing >= _GRAPH_GRID_MIN_CROSSINGS:
             hr.consumed = True
+
+
+def _consume_lbracket_markers(
+    h_rules: list[_HRule], v_rules: list, page_w: float
+) -> None:
+    """Consume Cambridge's page-corner L-bracket marker rules.
+
+    Snippet PDFs stitch multiple original A4 pages vertically; the L-brackets
+    at every internal page boundary leak past the outer-edge chrome clip and
+    feed the rule classifiers, creating duplicate "lines" regions that overlap
+    the real answer area (a_level_biology_42 Q8 8a/8b, Q1 1b; igcse_biology_52
+    Q2 2biii/2biv).
+
+    Signature: ``_extract_vector_segments`` merges the two horizontal arms of
+    an L-bracket pair (same y, opposite page edges) into a single ``_HRule``
+    whose ``spans`` field preserves the two short segments and the
+    page-spanning gap between them.  That signature — exactly two short spans
+    with a gap ≥ half the page width — does not occur in any legitimate
+    Cambridge answer rule (continuous rules have a single span; table seams
+    are sub-pt; dashed rules have many short segments with tiny gaps).
+    Empirically matched 87 rules across 143 cached snippets, all with the
+    expected ~22pt arm length and edge anchoring.
+
+    Also consumes the short vertical descenders (at x ≈ 1.04 and x ≈ 574.66,
+    each ~22pt long) whose endpoints align with a matched H-rule's y so they
+    don't feed v_rule clustering or ``verticals_crossing_range`` checks.
+    """
+    bracket_ys: list[float] = []
+    for r in h_rules:
+        if r.consumed or len(r.spans) != 2:
+            continue
+        (l0, l1), (r0, r1) = r.spans
+        if (l1 - l0) > _LBRACKET_ARM_MAX_LEN_PT:
+            continue
+        if (r1 - r0) > _LBRACKET_ARM_MAX_LEN_PT:
+            continue
+        if (r0 - l1) < page_w * _LBRACKET_GAP_MIN_FRAC:
+            continue
+        r.consumed = True
+        bracket_ys.append(r.y)
+
+    if not bracket_ys:
+        return
+
+    for v in v_rules:
+        if v.consumed or v.length > _LBRACKET_DESCENDER_MAX_LEN_PT:
+            continue
+        if v.x > _LBRACKET_EDGE_TOL_PT and v.x < page_w - _LBRACKET_EDGE_TOL_PT:
+            continue
+        for by in bracket_ys:
+            if (abs(v.y0 - by) <= _LBRACKET_BASELINE_TOL_PT
+                    or abs(v.y1 - by) <= _LBRACKET_BASELINE_TOL_PT):
+                v.consumed = True
+                break
 
 
 def _emit_equation_blanks(
@@ -481,6 +555,7 @@ def _detect_in_region(
     h_rules, v_rules, rects = _extract_vector_segments(page, clip, cfg)
     h_rules.extend(_extract_text_dotted_rules(page, clip, cfg))
     h_rules.sort(key=lambda r: r.y)
+    _consume_lbracket_markers(h_rules, v_rules, page.rect.width)
 
     text_lines = _text_lines_in(page, clip)
     _consume_rules_inside_diagrams(page, clip, h_rules)

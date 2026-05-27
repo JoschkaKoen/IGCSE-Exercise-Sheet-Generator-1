@@ -32,7 +32,7 @@ _MONTH_TO_SESSION = {"march": "m", "june": "s", "november": "w"}
 _MATH_COMPONENT_ORDER = {"qp": 0, "ms": 1, "ci": 2, "gt": 3, "er": 4, "_": 9}
 _IGCSE_SYLLABUS = r"0\d{3}"   # 0478, 0580, 0610, 0620, 0625, …
 _ALEVEL_SYLLABUS = r"9\d{3}"  # 9618, 9700, 9701, 9702, …
-_DESCRIPTIVE_SUBJECTS = r"(?:mathematics|biology|chemistry|physics|computer\s+science)"
+_DESCRIPTIVE_SUBJECTS = r"(?:mathematics|biology|chemistry|physics|computer\s+science|business(?:\s+studies)?|economics)"
 _MATH_DESCRIPTIVE = re.compile(
     rf"{_IGCSE_SYLLABUS}\s+{_DESCRIPTIVE_SUBJECTS}\s+(march|june|november)\s+(\d{{4}})\s+(.+?)\s+(\d+)\s*$",
     re.IGNORECASE | re.DOTALL,
@@ -49,7 +49,7 @@ _MATH_GT_ER = re.compile(
 #   ``9701 Chemistry June 2021 Confidential Instructions 31``
 #   ``9702 Physics June 2021 Grade Thresholds``
 #   ``9700 Biology 2022 Specimen Question Paper 1``
-_ALEVEL_DESCRIPTIVE_SUBJECTS = r"(?:Physics|Biology|Chemistry|Computer Science)"
+_ALEVEL_DESCRIPTIVE_SUBJECTS = r"(?:Physics|Biology|Chemistry|Computer Science|Business|Economics)"
 _ALEVEL_SESSION = re.compile(
     rf"{_ALEVEL_SYLLABUS}\s+{_ALEVEL_DESCRIPTIVE_SUBJECTS}\s+(march|june|november)\s+(\d{{4}})\s+(.+?)\s+(\d+)\s*$",
     re.IGNORECASE | re.DOTALL,
@@ -344,15 +344,19 @@ def paper_label_from_qp_path(qp_path: str) -> str:
 
 
 _SUBJECT_PREFIXES: dict[str, str] = {
-    "physics": "Physics",
-    "computer_science": "CS",
-    "mathematics": "Maths",
-    "biology": "Biology",
-    "chemistry": "Chemistry",
+    "igcse_physics": "Physics",
+    "igcse_computer_science": "CS",
+    "igcse_mathematics": "Maths",
+    "igcse_biology": "Biology",
+    "igcse_chemistry": "Chemistry",
+    "igcse_business_studies": "Business Studies",
+    "igcse_economics": "Economics",
     "a_level_physics": "A-Level Physics",
     "a_level_biology": "A-Level Bio",
     "a_level_chemistry": "A-Level Chem",
     "a_level_computer_science": "A-Level CS",
+    "a_level_business": "A-Level Business",
+    "a_level_economics": "A-Level Economics",
 }
 
 

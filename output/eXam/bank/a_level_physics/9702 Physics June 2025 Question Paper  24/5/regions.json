@@ -1,5 +1,5 @@
 {
-  "detector_version": 3,
+  "detector_version": 4,
   "is_mcq": false,
   "pdf_height_pt": 1252.40380859375,
   "pdf_width_pt": 595.0,
@@ -25,17 +25,6 @@
       "x1": 529.482421875,
       "y0": 903.4100952148438,
       "y1": 921.4100952148438
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "5bii__0",
-      "kind": "equation_blank",
-      "leaf_number": "5bii",
-      "page": 1,
-      "x0": 347.8704528808594,
-      "x1": 509.3042297363281,
-      "y0": 1188.4507446289062,
-      "y1": 1206.4507446289062
     }
   ],
   "snippet_sha": "742c2cb091c0376b"

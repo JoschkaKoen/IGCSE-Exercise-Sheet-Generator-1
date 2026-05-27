@@ -1,5 +1,5 @@
 {
-  "detector_version": 3,
+  "detector_version": 4,
   "is_mcq": false,
   "pdf_height_pt": 2593.720947265625,
   "pdf_width_pt": 595.0,
@@ -76,8 +76,8 @@
       "kind": "table_cell",
       "leaf_number": "2a",
       "page": 1,
-      "x0": 474.945068359375,
-      "x1": 537.2958984375,
+      "x0": 560.6774291992188,
+      "x1": 584.0589599609375,
       "y0": 722.2286580403646,
       "y1": 745.2468668619791
     },
@@ -87,10 +87,10 @@
       "kind": "table_cell",
       "leaf_number": "2a",
       "page": 1,
-      "x0": 560.6774291992188,
-      "x1": 584.0589599609375,
-      "y0": 722.2286580403646,
-      "y1": 745.2468668619791
+      "x0": 175.66090393066406,
+      "x1": 275.4222106933594,
+      "y0": 745.2468668619791,
+      "y1": 768.2650349934896
     },
     {
       "assignment_confident": true,
@@ -98,8 +98,8 @@
       "kind": "table_cell",
       "leaf_number": "2a",
       "page": 1,
-      "x0": 175.66090393066406,
-      "x1": 275.4222106933594,
+      "x0": 275.4222106933594,
+      "x1": 375.18365478515625,
       "y0": 745.2468668619791,
       "y1": 768.2650349934896
     },
@@ -109,17 +109,6 @@
       "kind": "table_cell",
       "leaf_number": "2a",
       "page": 1,
-      "x0": 275.4222106933594,
-      "x1": 375.18365478515625,
-      "y0": 745.2468668619791,
-      "y1": 768.2650349934896
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "2a__10",
-      "kind": "table_cell",
-      "leaf_number": "2a",
-      "page": 1,
       "x0": 375.18365478515625,
       "x1": 474.945068359375,
       "y0": 745.2468668619791,
@@ -127,18 +116,7 @@
     },
     {
       "assignment_confident": true,
-      "field_id": "2a__11",
-      "kind": "table_cell",
-      "leaf_number": "2a",
-      "page": 1,
-      "x0": 474.945068359375,
-      "x1": 537.2958984375,
-      "y0": 745.2468668619791,
-      "y1": 768.2650349934896
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "2a__12",
+      "field_id": "2a__10",
       "kind": "table_cell",
       "leaf_number": "2a",
       "page": 1,
@@ -149,7 +127,7 @@
     },
     {
       "assignment_confident": true,
-      "field_id": "2a__13",
+      "field_id": "2a__11",
       "kind": "table_cell",
       "leaf_number": "2a",
       "page": 1,
@@ -160,7 +138,7 @@
     },
     {
       "assignment_confident": true,
-      "field_id": "2a__14",
+      "field_id": "2a__12",
       "kind": "table_cell",
       "leaf_number": "2a",
       "page": 1,
@@ -171,7 +149,7 @@
     },
     {
       "assignment_confident": true,
-      "field_id": "2a__15",
+      "field_id": "2a__13",
       "kind": "table_cell",
       "leaf_number": "2a",
       "page": 1,
@@ -182,18 +160,7 @@
     },
     {
       "assignment_confident": true,
-      "field_id": "2a__16",
-      "kind": "table_cell",
-      "leaf_number": "2a",
-      "page": 1,
-      "x0": 474.945068359375,
-      "x1": 537.2958984375,
-      "y0": 768.2650349934896,
-      "y1": 791.0507202148438
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "2a__17",
+      "field_id": "2a__14",
       "kind": "table_cell",
       "leaf_number": "2a",
       "page": 1,
@@ -204,62 +171,7 @@
     },
     {
       "assignment_confident": true,
-      "field_id": "2bi__0",
-      "kind": "table_cell",
-      "leaf_number": "2bi",
-      "page": 1,
-      "x0": 420.2229919433594,
-      "x1": 443.6046142578125,
-      "y0": 1590.0511474609375,
-      "y1": 1611.8447265625
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "2bi__1",
-      "kind": "table_cell",
-      "leaf_number": "2bi",
-      "page": 1,
-      "x0": 466.98614501953125,
-      "x1": 490.36767578125,
-      "y0": 1590.0511474609375,
-      "y1": 1611.8447265625
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "2bi__2",
-      "kind": "table_cell",
-      "leaf_number": "2bi",
-      "page": 1,
-      "x0": 513.7493286132812,
-      "x1": 537.1309814453125,
-      "y0": 1590.0511474609375,
-      "y1": 1611.8447265625
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "2bi__3",
-      "kind": "table_cell",
-      "leaf_number": "2bi",
-      "page": 1,
-      "x0": 560.512451171875,
-      "x1": 574.6649169921875,
-      "y0": 1590.0511474609375,
-      "y1": 1611.8447265625
-    },
-    {
-      "assignment_confident": true,
       "field_id": "2bii__0",
-      "kind": "short_line",
-      "leaf_number": "2bii",
-      "page": 1,
-      "x0": 2.595625400543213,
-      "x1": 573.1060180664062,
-      "y0": 1635.6776123046875,
-      "y1": 1651.6776123046875
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "2bii__1",
       "kind": "equation_blank",
       "leaf_number": "2bii",
       "page": 1,
@@ -311,17 +223,6 @@
       "x1": 496.5376281738281,
       "y0": 2160.3966064453125,
       "y1": 2178.3966064453125
-    },
-    {
-      "assignment_confident": true,
-      "field_id": "2ciii__1",
-      "kind": "short_line",
-      "leaf_number": "2ciii",
-      "page": 1,
-      "x0": 2.595625400543213,
-      "x1": 573.1060180664062,
-      "y0": 2190.455078125,
-      "y1": 2206.455078125
     }
   ],
   "snippet_sha": "d74502f19b66a8ce"

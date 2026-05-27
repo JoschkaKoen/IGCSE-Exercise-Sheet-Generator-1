@@ -47,10 +47,10 @@ EXTRACTION_ERRORS_LOG = PROJECT_ROOT / "output" / "learn" / "extraction_errors.l
 
 # IGCSE phys/chem/bio: only paper 2x/4x/6x (extended theory + alt-to-practical).
 # A-level + IGCSE math/CS: all variants.
-_IGCSE_VARIANT_FILTER_SUBJECTS = {"physics", "chemistry", "biology"}
+_IGCSE_VARIANT_FILTER_SUBJECTS = {"igcse_physics", "igcse_chemistry", "igcse_biology"}
 _ALLOWED_VARIANT_FAMILIES = {2, 4, 6}
 
-CS_SUBJECTS = {"computer_science", "a_level_computer_science"}
+CS_SUBJECTS = {"igcse_computer_science", "a_level_computer_science"}
 
 # Long-form: "<code> <Subject words> <Month> <Year> Question [Pp]aper  <NN>.pdf"
 # - Internal whitespace may be single or double space.
