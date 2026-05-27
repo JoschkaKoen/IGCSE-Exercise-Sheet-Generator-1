@@ -45,6 +45,9 @@ logs/
 # Office/LibreOffice lock files
 ~$*
 
+# Deploy serialisation (flock target in scripts/pull-and-deploy.sh)
+.deploy.lock
+
 # pytest cache
 .pytest_cache/
 

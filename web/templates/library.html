@@ -152,6 +152,24 @@
               Chemistry
             </span>
           </button>
+          <button type="button" id="tab-business"
+                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                  data-subject="igcse_business_studies"
+                  role="tab" aria-selected="false" aria-controls="grid-business">
+            <span class="flex items-center gap-2 whitespace-nowrap">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
+              Business Studies
+            </span>
+          </button>
+          <button type="button" id="tab-economics"
+                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                  data-subject="igcse_economics"
+                  role="tab" aria-selected="false" aria-controls="grid-economics">
+            <span class="flex items-center gap-2 whitespace-nowrap">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-rose-400"></span>
+              Economics
+            </span>
+          </button>
           <button type="button" id="tab-a-level-physics"
                   class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
                   data-subject="a_level_physics"
@@ -188,6 +206,24 @@
               A-Level CS
             </span>
           </button>
+          <button type="button" id="tab-a-level-business"
+                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                  data-subject="a_level_business"
+                  role="tab" aria-selected="false" aria-controls="grid-a-level-business">
+            <span class="flex items-center gap-2 whitespace-nowrap">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-amber-400"></span>
+              A-Level Business
+            </span>
+          </button>
+          <button type="button" id="tab-a-level-economics"
+                  class="tab-btn shrink-0 rounded-xl px-5 py-2.5 text-sm font-medium tab-inactive"
+                  data-subject="a_level_economics"
+                  role="tab" aria-selected="false" aria-controls="grid-a-level-economics">
+            <span class="flex items-center gap-2 whitespace-nowrap">
+              <span class="h-2 w-2 shrink-0 rounded-full bg-rose-400"></span>
+              A-Level Economics
+            </span>
+          </button>
         </div>
       </div>
       <label class="flex flex-1 items-center gap-3 rounded-2xl border border-white/[0.09]
@@ -216,6 +252,10 @@
     <div id="grid-a-level-biology"   class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
     <div id="grid-a-level-chemistry" class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
     <div id="grid-a-level-cs"        class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+    <div id="grid-business"          class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+    <div id="grid-economics"         class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+    <div id="grid-a-level-business"  class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
+    <div id="grid-a-level-economics" class="lib-subject-root mt-8 flex flex-col gap-6 hidden"></div>
 
     <script type="application/json" id="lib-raw-data">{{ library_json | tojson }}</script>
 
@@ -270,6 +310,10 @@ var tabs = [
   { id: 'tab-a-level-biology',   subject: 'a_level_biology',          gridId: 'grid-a-level-biology',   activeClass: 'tab-active-emerald', theme: 'emerald', label: 'A-Level Bio'      },
   { id: 'tab-a-level-chemistry', subject: 'a_level_chemistry',        gridId: 'grid-a-level-chemistry', activeClass: 'tab-active-slate',   theme: 'slate',   label: 'A-Level Chem'     },
   { id: 'tab-a-level-cs',        subject: 'a_level_computer_science', gridId: 'grid-a-level-cs',        activeClass: 'tab-active-violet',  theme: 'violet',  label: 'A-Level CS'       },
+  { id: 'tab-business',          subject: 'igcse_business_studies',   gridId: 'grid-business',          activeClass: 'tab-active-amber',   theme: 'amber',   label: 'Business Studies' },
+  { id: 'tab-economics',         subject: 'igcse_economics',          gridId: 'grid-economics',         activeClass: 'tab-active-rose',    theme: 'rose',    label: 'Economics'        },
+  { id: 'tab-a-level-business',  subject: 'a_level_business',         gridId: 'grid-a-level-business',  activeClass: 'tab-active-amber',   theme: 'amber',   label: 'A-Level Business' },
+  { id: 'tab-a-level-economics', subject: 'a_level_economics',        gridId: 'grid-a-level-economics', activeClass: 'tab-active-rose',    theme: 'rose',    label: 'A-Level Economics'},
 ];
 tabs.forEach(function (t) {
   t.el   = document.getElementById(t.id);

@@ -11,8 +11,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 #   pdfjam / pdftk : 2-up / 4-up variants (via pdftk-java in texlive-extra-utils)
 #   poppler-utils  : pdfinfo / pdfimages / pdftotext used by scan pipeline
 #   tesseract-ocr  : OCR fallback used by some preprocessing steps
-#   mhchem (chemistry notation) is not a standalone apt package in this Debian
-#   release; download the single .sty file directly from CTAN.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     texlive-extra-utils \
     texlive-latex-extra \
@@ -20,13 +18,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     texlive-xetex \
     poppler-utils \
     tesseract-ocr \
-    wget \
- && rm -rf /var/lib/apt/lists/* \
- && mkdir -p /usr/share/texmf/tex/latex/mhchem \
- && wget -q -O /usr/share/texmf/tex/latex/mhchem/mhchem.sty \
-      "https://mirrors.ctan.org/macros/latex/contrib/mhchem/mhchem.sty" \
- && mktexlsr \
- && apt-get purge -y --auto-remove wget
+ && rm -rf /var/lib/apt/lists/*
+
+# mhchem (chemistry notation) is not a standalone apt package in this Debian
+# release; vendor the single .sty file under vendor/ (see vendor/mhchem.sty).
+RUN mkdir -p /usr/share/texmf/tex/latex/mhchem
+COPY vendor/mhchem.sty /usr/share/texmf/tex/latex/mhchem/mhchem.sty
+RUN mktexlsr
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

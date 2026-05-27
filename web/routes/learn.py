@@ -90,7 +90,6 @@ async def subtopic_page(request: Request, subject: str, subtopic: str):
     topics = (data or {}).get("topics") or []
 
     found_title: str | None = None
-    parent_title: str | None = None
     is_topic_only = "." not in subtopic
     if is_topic_only:
         # Topic-only URL (e.g. IGCSE CS /9): match a topic with empty subtopics.
@@ -103,7 +102,6 @@ async def subtopic_page(request: Request, subject: str, subtopic: str):
             for s in t.get("subtopics") or []:
                 if s.get("number") == subtopic:
                     found_title = s.get("title")
-                    parent_title = t.get("title")
                     break
             if found_title is not None:
                 break
@@ -126,7 +124,6 @@ async def subtopic_page(request: Request, subject: str, subtopic: str):
             subject_display=_display_name(subject),
             subtopic_number=subtopic,
             subtopic_title=found_title,
-            parent_title=parent_title,
             content_html=content_html,
         ),
     )

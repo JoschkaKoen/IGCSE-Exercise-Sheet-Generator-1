@@ -24,6 +24,8 @@ Then open [http://127.0.0.1:8001](http://127.0.0.1:8001) (port 8000 often clashe
 
 Web grade jobs upload to `output/xscore/grade_uploads/<job_id>/` (segregated from CLI runs, which use `output/xscore/<exam>/<timestamp>/`). See `web/routes/grade_jobs.py` and `web/grade_service.py`.
 
+The **Learn page** (`web/routes/learn.py`) surfaces syllabus-content lookups powered by `web/syllabus_content.py`, `web/syllabus_topics.py`, and `web/exam_questions.py`. The last reuses the scaffold chain through `eXam.xscore_adapter.load_scaffold_api()` to extract structured question YAML from empty exam papers (same flow as `eXam/bank.py`, minus the mark-scheme branch and the per-question snippet renderer).
+
 ## xscore pipeline structure
 
 Steps are numbered 1–34 (contiguous). Each step writes its artifacts under `output/xscore/<exam_stem>/<timestamp>/<NN_step_name>/`. Folder names are mechanically `<NN>_<step.name>` — auto-derived by the `Step.writes` property from `step.number` + `step.name`. Set `_explicit_writes=()` on a `Step` for the rare case of a step that writes nothing (today only `locate_exam_folder`). The named constants in `xscore/shared/step_folders.py` mirror the same pattern and are imported by path-builder helpers.
@@ -55,7 +57,9 @@ Transient state shared across the scaffold-building steps lives on `ctx.scaffold
 
 ## eXam subsystem
 
-`eXam/` is the on-screen practice/marking runtime. All `xscore.*` imports are colocated in `eXam/xscore_adapter.py` (lazy: defers xscore's heavy deps until the pre-indexer runs). Consumers in `eXam/bank.py` call `load_scaffold_api()` once to get a namespace of the scaffold functions they need (`detect_layout_phase`, `cut_exam_pdf_phase`, `extract_exam_question_numbers`, etc.). Other eXam modules (`db.py`, `marker.py`, `runtime.py`, `auth.py`, `users.py`, `roster.py`, `test_builder.py`, `open_mode.py`, `cost_tracker.py`) have no xscore dependency.
+`eXam/` is the on-screen practice/marking runtime. All `xscore.*` imports are colocated in `eXam/xscore_adapter.py` (lazy: defers xscore's heavy deps until the pre-indexer runs). Consumers in `eXam/bank.py` call `load_scaffold_api()` once to get a `SimpleNamespace` of ten scaffold/format symbols: `detect_layout_phase`, `cut_exam_pdf_phase`, `assign_scheme_questions_phase`, `detect_scheme_graphics_phase`, `parse_mark_scheme_phase`, `get_scaffold_format`, `extract_exam_question_numbers`, `extract_exam_questions`, `extract_question_numbers_model_config`, `extract_questions_model_config`. Other eXam modules (`db.py`, `marker.py`, `runtime.py`, `auth.py`, `users.py`, `roster.py`, `test_builder.py`, `cost_tracker.py`, `pregenerate.py`, `render_helper.py`, `results_export.py`, `open_mode.py`, `flush_cache.py`, `warm_bank.py`) have no xscore dependency.
+
+**Open-mode + warmed bank.** `eXam/open_mode.py` serves anonymous practice (random question per subject, no login) via the FastAPI `eXam_open` routes. It depends on a pre-indexed bank: `python -m eXam.warm_bank --year <YYYY> --subject <slug>` indexes every QP up front — each paper costs several xscore-scaffold AI calls but is then cached forever under `output/eXam/bank/` (tracked in git as the deploy-time bank). Helper drawers (hint / solution / example / kb) are generated lazily by `eXam/pregenerate.py` and cached per-question; `eXam/flush_cache.py` clears them when the snippet format changes. `eXam/render_helper.py` is the markdown→HTML pipeline that preserves `$…$` so in-browser KaTeX still renders.
 
 ## Prompts
 
@@ -73,7 +77,7 @@ API keys go in `.env` (gitignored); `default.env` has only model selections and 
 
 ## AI client
 
-`make_ai_client(*, model_env, legacy_model_env, default_model, deterministic=True)` (keyword-only) in `eXercise/ai_client.py` returns `(client, model, provider, thinking_tokens, max_tokens) | None`. `None` means the required API key is missing. Both budgets are `None` when the env string didn't specify them — callers should fall back to their own defaults.
+`make_ai_client(*, model_env, legacy_model_env, default_model, deterministic=True, should_cache=False)` (keyword-only) in `eXercise/ai_client.py` returns `(client, model, provider, thinking_tokens, max_tokens) | None`. `None` means the required API key is missing. Both budgets are `None` when the env string didn't specify them — callers should fall back to their own defaults. `should_cache=True` routes every `chat.completions.create` through the response cache (and also gates `kimi_pdf_text`'s file-extract caching); resolve via `reuse_cache_enabled(ctx)` at the call site rather than hard-coding.
 
 `parse_model_spec("qwen3.6-plus, 0, 4096")` → `("qwen3.6-plus", 0, 4096)`. Provider is auto-detected from the model name (see Native PDF section).
 
@@ -105,7 +109,7 @@ Each `<task>_response.txt` is the concatenation of the model's thinking trace (a
 
 ## Regression strategy
 
-After any structural change to `xscore/`, run the marking pipeline end-to-end on a current exam (pick one from `exams/<subject_slug>/`) and diff outputs against a baseline run:
+After any structural change to `xscore/`, run the marking pipeline end-to-end on a current exam (pick one from `exams/<level>/<subject>_<syllabus_code>/`) and diff outputs against a baseline run:
 
 ```
 python XScore.py "grade <current exam name>"
@@ -143,9 +147,18 @@ Beyond pip, the pipelines need:
 
 ## Diagnostic scripts
 
+Provider debugging:
 - `scripts/diagnose_qwen_json_schema.py` — probe Qwen's JSON schema acceptance.
 - `scripts/diagnose_qwen_pdf_upload.py`, `scripts/diagnose_kimi_pdf_upload.py` — debug provider PDF-upload paths in isolation.
+- `scripts/diagnose_gemini_handwriting.py`, `scripts/diagnose_handwriting_models.py` — compare vision models on handwritten student answers.
+
+Writing-area detector:
+- `scripts/calibrate_writing_areas.py`, `scripts/diag_writing_areas.py` — calibrate and inspect the WA detector against reference papers.
+- `scripts/verify_writing_areas_snapshot.py` — regression net for the WA detector (see commits `8e72f5b`, `6bf77b1`).
+
+Other:
 - `scripts/count_bare_keywords.py` — prompt audit helper.
+- `scripts/vendor_fetch.py` — (re)download Tailwind, Google Fonts, and Twemoji CSS+fonts into `web/static/vendor/` so the web app loads them locally rather than via CDN. Run once, commit the result.
 
 ## File size
 
