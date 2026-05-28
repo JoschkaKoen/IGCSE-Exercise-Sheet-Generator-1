@@ -28,8 +28,8 @@ function _markScrollActive() {
 
 export function ensurePdfJs() {
   if (pdfjsPromise) return pdfjsPromise;
-  pdfjsPromise = import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.mjs').then(function (m) {
-    m.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.mjs';
+  pdfjsPromise = import('/static/vendor/pdfjs/pdf.mjs').then(function (m) {
+    m.GlobalWorkerOptions.workerSrc = '/static/vendor/pdfjs/pdf.worker.mjs';
     return m;
   });
   return pdfjsPromise;
