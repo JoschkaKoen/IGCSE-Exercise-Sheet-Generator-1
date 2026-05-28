@@ -1,0 +1,83 @@
+topic_number: '16'
+topic_title: System Software
+subject_key: a_level_computer_science
+covered_question_ids:
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: '6'
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 7a
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 7b
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 8a
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 8b
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 5a
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 5b
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: '8'
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 9a
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 9b
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 9c
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 9d
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 6a
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 6b
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: '8'
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 9a
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 9b
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 9c
+- paper: 9618 Computer Science November 2024 Question paper  12
+  qnum: 3c
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 8a
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 8b
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 10a
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 10bi
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 10bii
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 4a
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 4b
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 8a
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 8b
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 8c
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 5b
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 8a
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 8b
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 8c
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: 5a
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: 5b
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: 7a
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: 7b
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: 7c
+generated_at: '2026-05-28T10:37:11Z'
+author: claude
+prompt_version: v1

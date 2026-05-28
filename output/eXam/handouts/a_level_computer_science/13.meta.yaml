@@ -1,0 +1,193 @@
+topic_number: '13'
+topic_title: Data Representation
+subject_key: a_level_computer_science
+covered_question_ids:
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 1a
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 1b
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 2a
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 2b
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 11a
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: '12'
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 1bi
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 1bii
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 2a
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 2b
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 12a
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: '13'
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 1a
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 1b
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 2a
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 2b
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: '11'
+- paper: 9618 Computer Science June 2025 Question Paper  41
+  qnum: 3ai
+- paper: 9618 Computer Science June 2025 Question Paper  41
+  qnum: 3aii
+- paper: 9618 Computer Science June 2025 Question Paper  41
+  qnum: 3aiii
+- paper: 9618 Computer Science June 2025 Question Paper  41
+  qnum: 3b
+- paper: 9618 Computer Science June 2025 Question Paper  41
+  qnum: 3ci
+- paper: 9618 Computer Science June 2025 Question Paper  41
+  qnum: 3cii
+- paper: 9618 Computer Science June 2025 Question Paper  41
+  qnum: 3ei
+- paper: 9618 Computer Science June 2025 Question Paper  42
+  qnum: 2a
+- paper: 9618 Computer Science June 2025 Question Paper  42
+  qnum: 2bi
+- paper: 9618 Computer Science June 2025 Question Paper  42
+  qnum: 2bii
+- paper: 9618 Computer Science June 2025 Question Paper  42
+  qnum: 2c
+- paper: 9618 Computer Science June 2025 Question Paper  42
+  qnum: 2d
+- paper: 9618 Computer Science June 2025 Question Paper  42
+  qnum: 2e
+- paper: 9618 Computer Science June 2025 Question Paper  42
+  qnum: 2fi
+- paper: 9618 Computer Science June 2025 Question Paper  42
+  qnum: 2fii
+- paper: 9618 Computer Science June 2025 Question Paper  42
+  qnum: 2fiii
+- paper: 9618 Computer Science June 2025 Question Paper  42
+  qnum: 3ai
+- paper: 9618 Computer Science June 2025 Question Paper  43
+  qnum: 3ai
+- paper: 9618 Computer Science June 2025 Question Paper  43
+  qnum: 3aii
+- paper: 9618 Computer Science June 2025 Question Paper  43
+  qnum: 3aiii
+- paper: 9618 Computer Science June 2025 Question Paper  43
+  qnum: 3bi
+- paper: 9618 Computer Science June 2025 Question Paper  43
+  qnum: 3bii
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 1a
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 1b
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 5a
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 5b
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 6a
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 6b
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 9a
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 9b
+- paper: 9618 Computer Science November 2024 Question paper  41
+  qnum: 2ai
+- paper: 9618 Computer Science November 2024 Question paper  41
+  qnum: 2aii
+- paper: 9618 Computer Science November 2024 Question paper  41
+  qnum: 2bi
+- paper: 9618 Computer Science November 2024 Question paper  41
+  qnum: 2ci
+- paper: 9618 Computer Science November 2024 Question paper  41
+  qnum: 2cii
+- paper: 9618 Computer Science November 2025 Question Paper  21
+  qnum: 8c
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 1ai
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 1bi
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 1bii
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 2a
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 2b
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 1bi
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 1bii
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 2a
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 2b
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: 1ai
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: 1aii
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: 1b
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: 2a
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: 2b
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 2ai
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 2aii
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 2b
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 2ci
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 2cii
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 2di
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 3a
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 3b
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 3c
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 3d
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 3f
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 3gi
+- paper: 9618 Computer Science November 2025 Question Paper  41
+  qnum: 3gii
+- paper: 9618 Computer Science November 2025 Question Paper  42
+  qnum: 1ai
+- paper: 9618 Computer Science November 2025 Question Paper  42
+  qnum: 1aiii
+- paper: 9618 Computer Science November 2025 Question Paper  42
+  qnum: 1b
+- paper: 9618 Computer Science November 2025 Question Paper  42
+  qnum: 1cii
+- paper: 9618 Computer Science November 2025 Question Paper  42
+  qnum: 3a
+- paper: 9618 Computer Science November 2025 Question Paper  43
+  qnum: 1ai
+- paper: 9618 Computer Science November 2025 Question Paper  43
+  qnum: 1aii
+- paper: 9618 Computer Science November 2025 Question Paper  43
+  qnum: 1aiii
+- paper: 9618 Computer Science November 2025 Question Paper  43
+  qnum: 1bi
+- paper: 9618 Computer Science November 2025 Question Paper  43
+  qnum: 1bii
+- paper: 9618 Computer Science November 2025 Question Paper  43
+  qnum: 1biii
+- paper: 9618 Computer Science November 2025 Question Paper  43
+  qnum: 1biv
+- paper: 9618 Computer Science November 2025 Question Paper  43
+  qnum: 1di
+generated_at: '2026-05-28T10:32:41Z'
+author: claude
+prompt_version: v1

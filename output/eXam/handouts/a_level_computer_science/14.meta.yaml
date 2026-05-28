@@ -1,0 +1,45 @@
+topic_number: '14'
+topic_title: Communication and internet technologies
+subject_key: a_level_computer_science
+covered_question_ids:
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 3a
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 3b
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 3a
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 3b
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: '4'
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 4a
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 4b
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 3a
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: 3b
+- paper: 9618 Computer Science November 2024 Question paper  31
+  qnum: '4'
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 3a
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 3b
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 3c
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 3a
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 3b
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 4a
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 4b
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: '3'
+- paper: 9618 Computer Science November 2025 Question Paper  33
+  qnum: '4'
+generated_at: '2026-05-28T10:34:33Z'
+author: claude
+prompt_version: v1

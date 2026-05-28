@@ -272,5 +272,16 @@ def save_md(path: Path, content: str) -> None:
     os.replace(tmp, path)
 
 
+def load_handout_md(subject_key: str, topic_number: str) -> str | None:
+    """Read the topic handout markdown from disk, or None when the file is absent / unreadable."""
+    path = md_path(subject_key, topic_number)
+    if not path.is_file():
+        return None
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+
+
 def now_iso() -> str:
     return _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")

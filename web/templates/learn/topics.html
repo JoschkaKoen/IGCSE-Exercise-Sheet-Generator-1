@@ -30,6 +30,18 @@
 {{ coming_soon() }}
 {% endif %}
 {% endmacro %}
+{% macro handout_block(html) %}
+{% if html %}
+<div class="border-t border-white/[0.06] px-4 py-3">
+  <div class="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-cyan-300/80">
+    {{ t('learn.handout.title') }}
+  </div>
+  <div class="learn-content-body rounded-xl border border-white/[0.06] bg-space-void p-4 sm:p-5">
+    {{ html | safe }}
+  </div>
+</div>
+{% endif %}
+{% endmacro %}
 {% block content %}
 <header class="mb-8 max-w-3xl">
   <a href="/learn"
@@ -90,6 +102,7 @@
           </li>
           {% endfor %}
         </ul>
+        {{ handout_block(topic.handout_html) }}
       </details>
       {% else %}
       {# Topic without subtopics (IGCSE CS topics 7-10) — single inline-expandable card. #}
@@ -111,6 +124,7 @@
         <div class="border-t border-white/[0.06] px-4 py-3">
           {{ content_body(topic.content_html) }}
         </div>
+        {{ handout_block(topic.handout_html) }}
       </details>
       {% endif %}
     </li>

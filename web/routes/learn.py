@@ -29,6 +29,7 @@ from eXam import open_mode
 from eXam.render_helper import render_helper_markdown
 
 from .. import extracted_questions
+from ..handouts_collect import load_handout_md
 from ..syllabus_content import load_content
 from ..syllabus_topics import load_topics
 from ..template_ctx import template_ctx
@@ -138,6 +139,9 @@ async def topics_page(request: Request, subject: str):
                 sub["content_html"] = _render_subtopic(subject, sub["number"])
         else:
             topic["content_html"] = _render_subtopic(subject, str(topic.get("number") or ""))
+        topic_num = str(topic.get("number") or "")
+        md = load_handout_md(subject, topic_num) if topic_num else None
+        topic["handout_html"] = render_helper_markdown(md) if md else None
     return TEMPLATES.TemplateResponse(
         request,
         "learn/topics.html",

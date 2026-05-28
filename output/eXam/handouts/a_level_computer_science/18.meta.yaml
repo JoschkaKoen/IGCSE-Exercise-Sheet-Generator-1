@@ -1,0 +1,33 @@
+topic_number: '18'
+topic_title: Artificial Intelligence (AI)
+subject_key: a_level_computer_science
+covered_question_ids:
+- paper: 9618 Computer Science June 2025 Question Paper  11
+  qnum: 4a
+- paper: 9618 Computer Science June 2025 Question Paper  12
+  qnum: 3a
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 10a
+- paper: 9618 Computer Science June 2025 Question Paper  31
+  qnum: 10b
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 6a
+- paper: 9618 Computer Science June 2025 Question Paper  32
+  qnum: 6b
+- paper: 9618 Computer Science June 2025 Question Paper  33
+  qnum: 10c
+- paper: 9618 Computer Science November 2024 Question paper  11
+  qnum: '6'
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 7a
+- paper: 9618 Computer Science November 2025 Question Paper  31
+  qnum: 7b
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 9ai
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 9aii
+- paper: 9618 Computer Science November 2025 Question Paper  32
+  qnum: 9b
+generated_at: '2026-05-28T10:39:07Z'
+author: claude
+prompt_version: v1
